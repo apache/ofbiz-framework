@@ -1826,6 +1826,27 @@ under the License.
             <key-map field-name="workEffortId"/>
         </relation>
     </entity>
+    <entity entity-name="RespondingParty"
+            package-name="org.ofbiz.order.request"
+            title="Responding Party Entity">
+      <field name="respondingPartySeqId" type="id-ne"></field>
+      <field name="custRequestId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="contactMechId" type="id"></field>
+      <field name="dateSent" type="date-time"></field>
+      <prim-key field="respondingPartySeqId"/>
+      <prim-key field="custRequestId"/>
+      <prim-key field="partyId"/>
+      <relation type="one" fk-name="RESP_PTY_CSREQ" rel-entity-name="CustRequest">
+        <key-map field-name="custRequestId"/>
+      </relation>
+      <relation type="one" fk-name="RESP_PTY_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="RESP_PTY_CMECH" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.order.requirement -->
@@ -2034,27 +2055,6 @@ under the License.
       </relation>
       <relation type="many" rel-entity-name="Requirement">
         <key-map field-name="requirementTypeId"/>
-      </relation>
-    </entity>
-    <entity entity-name="RespondingParty"
-            package-name="org.ofbiz.order.requirement"
-            title="Responding Party Entity">
-      <field name="respondingPartySeqId" type="id-ne"></field>
-      <field name="custRequestId" type="id-ne"></field>
-      <field name="partyId" type="id-ne"></field>
-      <field name="contactMechId" type="id"></field>
-      <field name="dateSent" type="date-time"></field>
-      <prim-key field="respondingPartySeqId"/>
-      <prim-key field="custRequestId"/>
-      <prim-key field="partyId"/>
-      <relation type="one" fk-name="RESP_PTY_CSREQ" rel-entity-name="CustRequest">
-        <key-map field-name="custRequestId"/>
-      </relation>
-      <relation type="one" fk-name="RESP_PTY_PARTY" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="RESP_PTY_CMECH" rel-entity-name="ContactMech">
-        <key-map field-name="contactMechId"/>
       </relation>
     </entity>
     <entity entity-name="WorkReqFulfType"
