@@ -49,6 +49,7 @@ under the License.
 
     <target name="clean" depends="clean-lib">
         <delete dir="${build.dir}"/>
+        <delete file="../../ofbiz.jar"/>
     </target>
 
     <target name="clean-lib" depends="init">
@@ -117,6 +118,10 @@ under the License.
     
     <target name="jar" depends="classes">
         <jar jarfile="${build.dir}/lib/ofbiz.jar" basedir="${build.dir}/classes/start" manifest="${src.dir}/start/org/ofbiz/base/start/Start.mf"/>
+        <!-- copy the ofbiz.jar file -->
+        <copy todir="${basedir}/../..">
+            <fileset dir="${build.dir}/lib" includes="ofbiz.jar"/>
+        </copy>
         <jar jarfile="${build.dir}/lib/ofbiz-base.jar" basedir="${build.dir}/classes/base"/>         
     </target>    
     

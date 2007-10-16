@@ -115,7 +115,6 @@ under the License.
         <subant target="clean">
             <filelist refid="framework-builds"/>
         </subant>
-        <delete file="ofbiz.jar"/>
         <echo message="[clean] ========== Done Cleaning Framework =========="/>
     </target>
 
@@ -133,11 +132,6 @@ under the License.
         <subant inheritall="false">
             <filelist refid="framework-builds"/>
         </subant>
-
-        <!-- copy the ofbiz.jar file -->
-        <copy todir="${basedir}/..">
-            <fileset dir="base/build/lib" includes="ofbiz.jar"/>
-        </copy>
         
         <echo message="[build] ========== Done Building Framework (Compile) =========="/>
     </target>
