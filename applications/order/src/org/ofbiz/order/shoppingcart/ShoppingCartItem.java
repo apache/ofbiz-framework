@@ -293,6 +293,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             if (product != null && purchaseProductCategoryId != null) {
                 if (!CategoryWorker.isProductInCategory(delegator, product.getString("productId"), purchaseProductCategoryId)) {
                     // a Purchase allow productCategoryId was found, but the product is not in the category, axe it...
+                    Debug.logWarning("Product [" + productId + "] is not in the purchase allow category [" + purchaseProductCategoryId + "] and cannot be purchased", module);
                     product = null;
                 }
             }
