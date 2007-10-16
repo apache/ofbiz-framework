@@ -205,9 +205,12 @@ public class BOMNode {
         }
         try {
             double percScrapFactor = node.getDouble("scrapFactor").doubleValue();
-            if (percScrapFactor >= 0 && percScrapFactor < 100) {
+
+            // A negative scrap factor is a salvage factor 
+            if (percScrapFactor > -100 && percScrapFactor < 100) {
                 percScrapFactor = 1 + percScrapFactor / 100;
             } else {
+                Debug.logWarning("A scrap factor of [" + percScrapFactor + "] was ignored", module);
                 percScrapFactor = 1;
             }
             oneChildNode.setScrapFactor(percScrapFactor);
