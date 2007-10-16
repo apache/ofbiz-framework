@@ -711,7 +711,7 @@ public class GenericDAO {
         // GROUP BY clause for view-entity
         if (modelEntity instanceof ModelViewEntity) {
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
-            String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false);
+            String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(selectFields), ", ", "", false);
 
             if (UtilValidate.isNotEmpty(groupByString)) {
                 sqlBuffer.append(" GROUP BY ");
