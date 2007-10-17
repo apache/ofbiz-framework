@@ -94,6 +94,7 @@ under the License.
             <actions>
                 <!-- The default (global) stylesheet is added to the list of stylesheets to the first position -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
+                <set field="layoutSettings.rtlStyleSheets[+0]" value="/images/mainrtl.css" global="true"/>
                 <!-- The default (global) java scripts -->
                 <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/> -->
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
@@ -188,6 +189,7 @@ under the License.
             <actions>
                 <!-- The default (global) stylesheet -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
+                <set field="layoutSettings.rtlStyleSheets[+0]" value="/images/mainrtl.css" global="true"/>
                 <!-- The default (global) java scripts -->
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
