@@ -132,7 +132,7 @@ public class UtilName {
                 if (!"".equals(str)) {
                     str = str + ", ";
                 }
-                str = str + index[0];
+                str = str + index[i];
             }
         }
 
