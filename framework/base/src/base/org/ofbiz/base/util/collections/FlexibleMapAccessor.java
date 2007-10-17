@@ -250,6 +250,7 @@ public class FlexibleMapAccessor implements Serializable {
     }
     
     public boolean equals(Object that) {
+        if (!(that instanceof FlexibleMapAccessor)) return false;
         FlexibleMapAccessor thatAcsr = (FlexibleMapAccessor) that;
         if (this.original == null) {
             if (thatAcsr.original == null) {
