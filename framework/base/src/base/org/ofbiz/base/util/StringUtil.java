@@ -41,6 +41,10 @@ public class StringUtil {
     
     public static final String module = StringUtil.class.getName();
 
+    public static String internString(String value) {
+        return value != null ? value.intern() : null;
+    }
+
     /** 
      * Replaces all occurances of oldString in mainString with newString
      * @param mainString The original string
