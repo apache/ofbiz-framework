@@ -31,12 +31,12 @@ import org.w3c.dom.Element;
  * Contains resource information and provides for loading data
  *
  */
-public class MainResourceHandler implements ResourceHandler {
+public final class MainResourceHandler implements ResourceHandler {
 
     public static final String module = MainResourceHandler.class.getName();
-    protected String xmlFilename;
-    protected String loaderName;
-    protected String location;
+    protected final String xmlFilename;
+    protected final String loaderName;
+    protected final String location;
 
     public MainResourceHandler(String xmlFilename, Element element) {
         this.xmlFilename = xmlFilename;

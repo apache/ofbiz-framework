@@ -77,13 +77,13 @@ public class JNDIConfigUtil {
         return (JNDIConfigUtil.JndiServerInfo) jndiServerInfos.get(name);
     }
 
-    public static class JndiServerInfo {
-        public String name;
-        public String contextProviderUrl;
-        public String initialContextFactory;
-        public String urlPkgPrefixes;
-        public String securityPrincipal;
-        public String securityCredentials;
+    public static final class JndiServerInfo {
+        public final String name;
+        public final String contextProviderUrl;
+        public final String initialContextFactory;
+        public final String urlPkgPrefixes;
+        public final String securityPrincipal;
+        public final String securityCredentials;
 
         public JndiServerInfo(Element element) {
             this.name = element.getAttribute("name");
