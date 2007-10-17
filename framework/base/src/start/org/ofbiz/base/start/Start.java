@@ -152,14 +152,9 @@ public class Start implements Runnable {
             this.serverThread = new Thread(this, this.toString());
             this.serverThread.setDaemon(false);
             System.out.println("Admin socket configured on - " + config.adminAddress + ":" + config.adminPort);
+            this.serverThread.start();
         } else {
             System.out.println("Admin socket not configured; set to port 0");
-        }
-    }
-
-    private void startListenerThread() {
-        if (serverSocket != null && serverThread != null) {
-            this.serverThread.start();
         }
     }
 
@@ -307,9 +302,6 @@ public class Start implements Runnable {
     }
 
     private void startServer() {
-        // start the listener thread
-        startListenerThread();
-
         // start the startup loaders
         startStartLoaders();
     }
