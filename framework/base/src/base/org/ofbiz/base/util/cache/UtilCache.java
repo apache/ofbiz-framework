@@ -664,7 +664,7 @@ public class UtilCache implements Serializable {
     
     /** Checks for a non-expired key in a specific cache */
     public static boolean validKey(String cacheName, Object key) {
-        UtilCache cache = (UtilCache) utilCacheTable.get(cacheName);
+        UtilCache cache = findCache(cacheName);
         if (cache != null) {
             if (cache.containsKey(key))
                 return true;
@@ -687,10 +687,14 @@ public class UtilCache implements Serializable {
     }
 
     public static void clearCache(String cacheName) {
+        UtilCache cache = findCache(cacheName);
+        if (cache == null) return;
+        cache.clear();
+    }
+
+    public static UtilCache findCache(String cacheName) {
         synchronized (UtilCache.utilCacheTable) {
-            UtilCache cache = (UtilCache) UtilCache.utilCacheTable.get(cacheName);
-            if (cache == null) return;
-            cache.clear();
+            return (UtilCache) UtilCache.utilCacheTable.get(cacheName);
         }
     }
 }
