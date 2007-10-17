@@ -83,15 +83,15 @@ public class CacheLineTable implements Serializable {
         this.setLru(maxInMemory);
     }
 
-    public synchronized Object put(Object key, Object value) {
+    public synchronized CacheLine put(Object key, CacheLine value) {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to put with null key, using NullObject" + this.cacheName, module);
             key = ObjectType.NULL;
         }
-        Object oldValue = memoryTable.put(key, value);
+        CacheLine oldValue = (CacheLine) memoryTable.put(key, value);
         if (fileTable != null) {
             try {
-                if (oldValue == null) oldValue = fileTable.get(key);
+                if (oldValue == null) oldValue = (CacheLine) fileTable.get(key);
                 fileTable.put(key, value);                
                 CacheLineTable.jdbmMgr.commit();
             } catch (IOException e) {
@@ -101,16 +101,16 @@ public class CacheLineTable implements Serializable {
         return oldValue;
     }
 
-    public Object get(Object key) {
+    public CacheLine get(Object key) {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to get with null key, using NullObject" + this.cacheName, module);
             key = ObjectType.NULL;
         }
-        Object value = memoryTable.get(key);
+        CacheLine value = (CacheLine) memoryTable.get(key);
         if (value == null) {
             if (fileTable != null) {
                 try {
-                    value = fileTable.get(key);
+                    value = (CacheLine) fileTable.get(key);
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
@@ -119,12 +119,12 @@ public class CacheLineTable implements Serializable {
         return value;
     }
 
-    public synchronized Object remove(Object key) {
+    public synchronized CacheLine remove(Object key) {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to remove with null key, using NullObject" + this.cacheName, module);
             key = ObjectType.NULL;
         }
-        Object value = this.get(key);
+        CacheLine value = this.get(key);
         if (fileTable != null) {
             try {
                 fileTable.remove(key);

@@ -297,7 +297,7 @@ public class UtilCache implements Serializable {
         } else {
             newCacheLine = useSoftReference ? new SoftRefCacheLine(value, expireTime) : new HardRefCacheLine(value, expireTime);
         }
-        oldCacheLine = (CacheLine) cacheLineTable.put(key, newCacheLine);
+        oldCacheLine = cacheLineTable.put(key, newCacheLine);
 
         if (oldCacheLine == null) {
             noteAddition(key, value);
@@ -328,7 +328,7 @@ public class UtilCache implements Serializable {
             if (Debug.verboseOn()) Debug.logVerbose("In UtilCache tried to get with null key, using NullObject for cache " + this.getName(), module);
             key = ObjectType.NULL;
         }
-        CacheLine line = (CacheLine) cacheLineTable.get(key);
+        CacheLine line = cacheLineTable.get(key);
         return line;
     }
     
@@ -390,7 +390,7 @@ public class UtilCache implements Serializable {
             if (Debug.verboseOn()) Debug.logVerbose("In UtilCache tried to remove with null key, using NullObject for cache " + this.getName(), module);
             key = ObjectType.NULL;
         }
-        CacheLine line = (CacheLine) cacheLineTable.remove(key);
+        CacheLine line = cacheLineTable.remove(key);
         if (line != null) {
             noteRemoval(key, line.getValue());
             if (countRemove) this.removeHitCount++;
@@ -534,7 +534,7 @@ public class UtilCache implements Serializable {
             Iterator keys = cacheLineTable.keySet().iterator();
             while (keys.hasNext()) {
                 Object key = keys.next();
-                CacheLine line = (CacheLine) cacheLineTable.get(key);
+                CacheLine line = cacheLineTable.get(key);
                 if (useSoftReference) {
                     if (line instanceof SoftRefCacheLine) continue;
                     cacheLineTable.put(key, new SoftRefCacheLine(line.getValue(), line.loadTime, line.expireTime));
