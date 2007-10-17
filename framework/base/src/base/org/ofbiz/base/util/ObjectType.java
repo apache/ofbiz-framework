@@ -518,7 +518,7 @@ public class ObjectType {
                     }
                     Number tempNum = nf.parse(str);
 
-                    return new Double(tempNum.doubleValue());
+                    return Double.valueOf(tempNum.doubleValue());
                 } catch (ParseException e) {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
@@ -533,7 +533,7 @@ public class ObjectType {
                     }
                     Number tempNum = nf.parse(str);
 
-                    return new Float(tempNum.floatValue());
+                    return Float.valueOf(tempNum.floatValue());
                 } catch (ParseException e) {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
@@ -549,7 +549,7 @@ public class ObjectType {
                     nf.setMaximumFractionDigits(0);
                     Number tempNum = nf.parse(str);
 
-                    return new Long(tempNum.longValue());
+                    return Long.valueOf(tempNum.longValue());
                 } catch (ParseException e) {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
@@ -565,7 +565,7 @@ public class ObjectType {
                     nf.setMaximumFractionDigits(0);
                     Number tempNum = nf.parse(str);
 
-                    return new Integer(tempNum.intValue());
+                    return Integer.valueOf(tempNum.intValue());
                 } catch (ParseException e) {
                     throw new GeneralException("Could not convert " + str + " to " + type + ": ", e);
                 }
@@ -652,11 +652,11 @@ public class ObjectType {
             } else if ("Double".equals(type) || "java.lang.Double".equals(type)) {
                 return obj;
             } else if ("Float".equals(type) || "java.lang.Float".equals(type)) {
-                return new Float(dbl.floatValue());
+                return Float.valueOf(dbl.floatValue());
             } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
-                return new Long(Math.round(dbl.doubleValue()));
+                return Long.valueOf(Math.round(dbl.doubleValue()));
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
-                return new Integer((int) Math.round(dbl.doubleValue()));
+                return Integer.valueOf((int) Math.round(dbl.doubleValue()));
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
                 List tempList = FastList.newInstance();
                 tempList.add(dbl);
@@ -683,13 +683,13 @@ public class ObjectType {
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return new BigDecimal(flt.doubleValue());
             } else if ("Double".equals(type)) {
-                return new Double(flt.doubleValue());
+                return Double.valueOf(flt.doubleValue());
             } else if ("Float".equals(type)) {
                 return obj;
             } else if ("Long".equals(type)) {
-                return new Long(Math.round(flt.doubleValue()));
+                return Long.valueOf(Math.round(flt.doubleValue()));
             } else if ("Integer".equals(type)) {
-                return new Integer((int) Math.round(flt.doubleValue()));
+                return Integer.valueOf((int) Math.round(flt.doubleValue()));
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
                 List tempList = FastList.newInstance();
                 tempList.add(flt);
@@ -716,13 +716,13 @@ public class ObjectType {
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return BigDecimal.valueOf(lng.longValue());
             } else if ("Double".equals(type) || "java.lang.Double".equals(type)) {
-                return new Double(lng.doubleValue());
+                return Double.valueOf(lng.doubleValue());
             } else if ("Float".equals(type) || "java.lang.Float".equals(type)) {
-                return new Float(lng.floatValue());
+                return Float.valueOf(lng.floatValue());
             } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
                 return obj;
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
-                return new Integer(lng.intValue());
+                return Integer.valueOf(lng.intValue());
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
                 List tempList = FastList.newInstance();
                 tempList.add(lng);
@@ -748,11 +748,11 @@ public class ObjectType {
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return BigDecimal.valueOf(intgr.longValue());
             } else if ("Double".equals(type) || "java.lang.Double".equals(type)) {
-                return new Double(intgr.doubleValue());
+                return Double.valueOf(intgr.doubleValue());
             } else if ("Float".equals(type) || "java.lang.Float".equals(type)) {
-                return new Float(intgr.floatValue());
+                return Float.valueOf(intgr.floatValue());
             } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
-                return new Long(intgr.longValue());
+                return Long.valueOf(intgr.longValue());
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 return obj;
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
@@ -780,13 +780,13 @@ public class ObjectType {
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return obj;
             } else if ("Double".equals(type) || "java.lang.Double".equals(type)) {
-                return new Double(bigDec.doubleValue());
+                return Double.valueOf(bigDec.doubleValue());
             } else if ("Float".equals(type) || "java.lang.Float".equals(type)) {
-                return new Float(bigDec.floatValue());
+                return Float.valueOf(bigDec.floatValue());
             } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
-                return new Long(bigDec.longValue());
+                return Long.valueOf(bigDec.longValue());
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
-                return new Integer(bigDec.intValue());
+                return Integer.valueOf(bigDec.intValue());
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
                 List tempList = FastList.newInstance();
                 tempList.add(bigDec);
@@ -893,9 +893,9 @@ public class ObjectType {
                 return bol.toString();
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 if (bol.booleanValue()) {
-                    return new Integer(1);
+                    return Integer.valueOf(1);
                 } else {
-                    return new Integer(0);
+                    return Integer.valueOf(0);
                 }
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
                 List tempList = FastList.newInstance();
