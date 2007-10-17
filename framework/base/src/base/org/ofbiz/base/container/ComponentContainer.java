@@ -101,12 +101,20 @@ public class ComponentContainer implements Container {
         // get the components to load
         List components = ComponentLoaderConfig.getRootComponents(loaderConfig);
 
+        String parentPath;
+        try {
+            parentPath = new File(System.getProperty("ofbiz.home")).getCanonicalFile().toString().replaceAll("\\\\", "/");
+        } catch (MalformedURLException e) {
+            throw new ComponentException(e.getMessage(), e);
+        } catch (IOException e) {
+            throw new ComponentException(e.getMessage(), e);
+        }
         // load each component
         if (components != null) {
             Iterator ci = components.iterator();
             while (ci.hasNext()) {
                 ComponentLoaderConfig.ComponentDef def = (ComponentLoaderConfig.ComponentDef) ci.next();
-                this.loadComponentFromConfig(def);
+                this.loadComponentFromConfig(parentPath, def);
             }
         }
 
@@ -120,11 +128,17 @@ public class ComponentContainer implements Container {
         Debug.logInfo("All components loaded", module);
     }
 
-    private void loadComponentFromConfig(ComponentLoaderConfig.ComponentDef def) {
+    private void loadComponentFromConfig(String parentPath, ComponentLoaderConfig.ComponentDef def) {
+        String location;
+        if (def.location.startsWith("/")) {
+            location = def.location;
+        } else {
+            location = parentPath + "/" + def.location;
+        }
         if (def.type == ComponentLoaderConfig.SINGLE_COMPONENT) {
             ComponentConfig config = null;
             try {
-                config = ComponentConfig.getComponentConfig(def.name, def.location);
+                config = ComponentConfig.getComponentConfig(def.name, location);
                 if (UtilValidate.isEmpty(def.name)) {
                     def.name = config.getGlobalName();
                 }
@@ -137,7 +151,7 @@ public class ComponentContainer implements Container {
                 this.loadComponent(config);
             }
         } else if (def.type == ComponentLoaderConfig.COMPONENT_DIRECTORY) {
-            this.loadComponentDirectory(def.location);
+            this.loadComponentDirectory(location);
         }
     }
 
@@ -157,7 +171,7 @@ public class ComponentContainer implements Container {
                         Iterator i = componentsToLoad.iterator();
                         while (i.hasNext()) {
                             ComponentLoaderConfig.ComponentDef def = (ComponentLoaderConfig.ComponentDef) i.next();
-                            this.loadComponentFromConfig(def);
+                            this.loadComponentFromConfig(parentPath.toString(), def);
                         }
                     }
                 } catch (MalformedURLException e) {
