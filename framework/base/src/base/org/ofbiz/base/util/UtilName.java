@@ -126,17 +126,17 @@ public class UtilName {
     }
 
     protected String indexString(int[] index) {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         if (index != null) {
             for (int i = 0; i < index.length; i++) {
-                if (!"".equals(str)) {
-                    str = str + ", ";
+                if (str.length() != 0) {
+                    str.append(", ");
                 }
-                str = str + index[i];
+                str.append(index[i]);
             }
         }
 
-        return str;
+        return str.toString();
     }
 
     protected int[] getFieldIndex(int field) {
@@ -252,15 +252,15 @@ public class UtilName {
     }
 
     public static void main(String[] args) throws Exception {
-        String name = "";
+        StringBuilder name = new StringBuilder();
         for (int i = 0; i < args.length; i++) {
-            if (!"".equals(name)) {
-                name = name + " ";
+            if (name.length() != 0) {
+                name.append(" ");
             }
-            name = name + args[i];
+            name.append(args[i]);
         }
 
-        Map nameMap = parseName(name, true);
+        Map nameMap = parseName(name.toString(), true);
         Iterator i = nameMap.keySet().iterator();
         while (i.hasNext()) {
             String f = (String) i.next();
