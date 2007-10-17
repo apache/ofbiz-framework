@@ -74,7 +74,7 @@ public class UtilHttp {
      * Create a combined map from servlet context, session, attributes and parameters
      * @return The resulting Map
      */
-    public static Map getCombinedMap(HttpServletRequest request) {
+    public static Map<String, Object> getCombinedMap(HttpServletRequest request) {
         return getCombinedMap(request, null);
     }
 
@@ -83,8 +83,8 @@ public class UtilHttp {
      * -- this method will only use the skip names for session and servlet context attributes
      * @return The resulting Map
      */
-    public static Map getCombinedMap(HttpServletRequest request, Set namesToSkip) {
-        FastMap combinedMap = FastMap.newInstance();
+    public static Map<String, Object> getCombinedMap(HttpServletRequest request, Set<String> namesToSkip) {
+        FastMap<String, Object> combinedMap = FastMap.newInstance();
         combinedMap.putAll(getServletContextMap(request, namesToSkip)); // bottom level application attributes
         combinedMap.putAll(getSessionMap(request, namesToSkip));        // session overrides application
         combinedMap.putAll(getParameterMap(request));                   // parameters override session
@@ -97,7 +97,7 @@ public class UtilHttp {
      * Create a map from a HttpServletRequest (parameters) object
      * @return The resulting Map
      */
-    public static Map getParameterMap(HttpServletRequest request) {
+    public static Map<String, Object> getParameterMap(HttpServletRequest request) {
         return getParameterMap(request, null);
     }
 
@@ -105,8 +105,8 @@ public class UtilHttp {
      * Create a map from a HttpServletRequest (parameters) object
      * @return The resulting Map
      */
-    public static Map getParameterMap(HttpServletRequest request, Set<String> namesToSkip) {
-        Map paramMap = FastMap.newInstance();
+    public static Map<String, Object> getParameterMap(HttpServletRequest request, Set<String> namesToSkip) {
+        Map<String, Object> paramMap = FastMap.newInstance();
 
         // add all the actual HTTP request parameters
         Enumeration e = request.getParameterNames();
@@ -146,9 +146,9 @@ public class UtilHttp {
                     String value = element.substring(element.indexOf('=') + 1);
                     Object curValue = paramMap.get(name);
                     if (curValue != null) {
-                        List paramList = null;
+                        List<String> paramList = null;
                         if (curValue instanceof List) {
-                            paramList = (List) curValue;
+                            paramList = UtilGenerics.checkList(curValue);
                             paramList.add(value);
                         } else {
                             String paramString = (String) curValue;
@@ -166,7 +166,7 @@ public class UtilHttp {
 
         if (paramMap.size() == 0) {
             // nothing found in the parameters; maybe we read the stream instead
-            Map multiPartMap = (Map) request.getAttribute("multiPartMap");
+            Map<String, Object> multiPartMap = UtilGenerics.checkMap(request.getAttribute("multiPartMap"));
             if (multiPartMap != null && multiPartMap.size() > 0) {
                 paramMap.putAll(multiPartMap);
             }
@@ -184,7 +184,7 @@ public class UtilHttp {
      * Create a map from a HttpRequest (attributes) object
      * @return The resulting Map
      */
-    public static Map getAttributeMap(HttpServletRequest request) {
+    public static Map<String, Object> getAttributeMap(HttpServletRequest request) {
         return getAttributeMap(request, null);
     }
 
@@ -192,8 +192,8 @@ public class UtilHttp {
      * Create a map from a HttpRequest (attributes) object
      * @return The resulting Map
      */
-    public static Map getAttributeMap(HttpServletRequest request, Set<String> namesToSkip) {
-        Map attributeMap = FastMap.newInstance();
+    public static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<String> namesToSkip) {
+        Map<String, Object> attributeMap = FastMap.newInstance();
 
         // look at all request attributes
         Enumeration requestAttrNames = request.getAttributeNames();
@@ -218,7 +218,7 @@ public class UtilHttp {
      * Create a map from a HttpSession object
      * @return The resulting Map
      */
-    public static Map getSessionMap(HttpServletRequest request) {
+    public static Map<String, Object> getSessionMap(HttpServletRequest request) {
         return getSessionMap(request, null);
     }
 
@@ -226,8 +226,8 @@ public class UtilHttp {
      * Create a map from a HttpSession object
      * @return The resulting Map
      */
-    public static Map getSessionMap(HttpServletRequest request, Set<String> namesToSkip) {
-        Map sessionMap = FastMap.newInstance();
+    public static Map<String, Object> getSessionMap(HttpServletRequest request, Set<String> namesToSkip) {
+        Map<String, Object> sessionMap = FastMap.newInstance();
         HttpSession session = request.getSession();
 
         // look at all the session attributes
@@ -253,7 +253,7 @@ public class UtilHttp {
      * Create a map from a ServletContext object
      * @return The resulting Map
      */
-    public static Map getServletContextMap(HttpServletRequest request) {
+    public static Map<String, Object> getServletContextMap(HttpServletRequest request) {
         return getServletContextMap(request, null);
     }
 
@@ -261,8 +261,8 @@ public class UtilHttp {
      * Create a map from a ServletContext object
      * @return The resulting Map
      */
-    public static Map getServletContextMap(HttpServletRequest request, Set<String> namesToSkip) {
-        Map servletCtxMap = FastMap.newInstance();
+    public static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<String> namesToSkip) {
+        Map<String, Object> servletCtxMap = FastMap.newInstance();
 
         // look at all servlet context attributes
         ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
@@ -284,12 +284,12 @@ public class UtilHttp {
         return servletCtxMap;
     }
 
-    public static Map makeParamMapWithPrefix(HttpServletRequest request, String prefix, String suffix) {
+    public static Map<String, Object> makeParamMapWithPrefix(HttpServletRequest request, String prefix, String suffix) {
         return makeParamMapWithPrefix(request, null, prefix, suffix);
     }
 
-    public static Map makeParamMapWithPrefix(HttpServletRequest request, Map additionalFields, String prefix, String suffix) {
-        Map paramMap = new HashMap();
+    public static Map<String, Object> makeParamMapWithPrefix(HttpServletRequest request, Map<String, Object> additionalFields, String prefix, String suffix) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
         Enumeration parameterNames = request.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String parameterName = (String) parameterNames.nextElement();
@@ -308,14 +308,13 @@ public class UtilHttp {
             }
         }
         if (additionalFields != null) {
-            Iterator i = additionalFields.keySet().iterator();
-            while (i.hasNext()) {
-                String fieldName = (String) i.next();
+            for (Map.Entry<String, Object> entry: additionalFields.entrySet()) {
+                String fieldName = entry.getKey();
                 if (fieldName.startsWith(prefix)) {
                     if (suffix != null && suffix.length() > 0) {
                         if (fieldName.endsWith(suffix)) {
                             String key = fieldName.substring(prefix.length(), fieldName.length() - (suffix.length() - 1));
-                            Object value = additionalFields.get(fieldName);
+                            Object value = entry.getValue();
                             paramMap.put(key, value);
 
                             // check for image upload data
@@ -341,7 +340,7 @@ public class UtilHttp {
                         }
                     } else {
                         String key = fieldName.substring(prefix.length());
-                        Object value = additionalFields.get(fieldName);
+                        Object value = entry.getValue();
                         paramMap.put(key, value);
 
                         // check for image upload data
@@ -371,12 +370,12 @@ public class UtilHttp {
         return paramMap;
     }
 
-    public static List makeParamListWithSuffix(HttpServletRequest request, String suffix, String prefix) {
+    public static List<Object> makeParamListWithSuffix(HttpServletRequest request, String suffix, String prefix) {
         return makeParamListWithSuffix(request, null, suffix, prefix);
     }
 
-    public static List makeParamListWithSuffix(HttpServletRequest request, Map additionalFields, String suffix, String prefix) {
-        List paramList = new ArrayList();
+    public static List<Object> makeParamListWithSuffix(HttpServletRequest request, Map<String, Object> additionalFields, String suffix, String prefix) {
+        List<Object> paramList = new ArrayList<Object>();
         Enumeration parameterNames = request.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String parameterName = (String) parameterNames.nextElement();
@@ -393,18 +392,15 @@ public class UtilHttp {
             }
         }
         if (additionalFields != null) {
-            Iterator i = additionalFields.keySet().iterator();
-            while (i.hasNext()) {
-                String fieldName = (String) i.next();
+            for (Map.Entry<String, Object> entry: additionalFields.entrySet()) {
+                String fieldName = entry.getKey();
                 if (fieldName.endsWith(suffix)) {
                     if (prefix != null && prefix.length() > 0) {
                         if (fieldName.startsWith(prefix)) {
-                            Object value = additionalFields.get(fieldName);
-                            paramList.add(value);
+                            paramList.add(entry.getValue());
                         }
                     } else {
-                        Object value = additionalFields.get(fieldName);
-                        paramList.add(value);
+                        paramList.add(entry.getValue());
                     }
                 }
             }
@@ -629,18 +625,16 @@ public class UtilHttp {
     }
 
     /** URL Encodes a Map of arguements */
-    public static String urlEncodeArgs(Map args) {
+    public static String urlEncodeArgs(Map<String, Object> args) {
     	return urlEncodeArgs(args, true);
     }
 
     /** URL Encodes a Map of arguements */
-    public static String urlEncodeArgs(Map args, boolean useExpandedEntites) {
+    public static String urlEncodeArgs(Map<String, Object> args, boolean useExpandedEntites) {
         StringBuilder buf = new StringBuilder();
         if (args != null) {
-            Iterator i = args.entrySet().iterator();
-            while (i.hasNext()) {
-                Map.Entry entry = (Map.Entry) i.next();
-                String name = (String) entry.getKey();
+            for (Map.Entry<String, Object> entry: args.entrySet()) {
+                String name = entry.getKey();
                 Object value = entry.getValue();
                 String valueStr = null;
                 if (name != null && value != null) {
@@ -866,7 +860,7 @@ public class UtilHttp {
     }
 
     public static String stripViewParamsFromQueryString(String queryString) {
-        Set paramNames = new HashSet();
+        Set<String> paramNames = new HashSet<String>();
         paramNames.add("VIEW_INDEX");
         paramNames.add("VIEW_SIZE");
         paramNames.add("viewIndex");
@@ -874,7 +868,7 @@ public class UtilHttp {
         return stripNamedParamsFromQueryString(queryString, paramNames);
     }
     
-    public static String stripNamedParamsFromQueryString(String queryString, Collection paramNames) {
+    public static String stripNamedParamsFromQueryString(String queryString, Collection<String> paramNames) {
         String retStr = null;
         if (UtilValidate.isNotEmpty(queryString)) {
             StringTokenizer queryTokens = new StringTokenizer(queryString, "&");
@@ -908,14 +902,11 @@ public class UtilHttp {
      * There is an additionaly key "row" for each Map that holds the 
      * index of the row.
      */
-    public static Collection parseMultiFormData(Map parameters) {
-        FastMap rows = new FastMap(); // stores the rows keyed by row number
+    public static Collection<Map<String, Object>> parseMultiFormData(Map<String, Object> parameters) {
+        FastMap<Integer, Map<String, Object>> rows = FastMap.newInstance(); // stores the rows keyed by row number
 
         // first loop through all the keys and create a hashmap for each ${ROW_SUBMIT_PREFIX}${N} = Y
-        Iterator keys = parameters.keySet().iterator();
-        while (keys.hasNext()) {
-            String key = (String) keys.next();
-
+        for (String key: parameters.keySet()) {
             // skip everything that is not ${ROW_SUBMIT_PREFIX}N
             if (key == null || key.length() <= ROW_SUBMIT_PREFIX_LENGTH) continue;
             if (key.indexOf(MULTI_ROW_DELIMITER) <= 0) continue;
@@ -924,16 +915,13 @@ public class UtilHttp {
 
             // decode the value of N and create a new map for it
             Integer n = Integer.decode(key.substring(ROW_SUBMIT_PREFIX_LENGTH, key.length()));
-            Map m = new FastMap();
+            Map<String, Object> m = FastMap.newInstance();
             m.put("row", n); // special "row" = N tuple
             rows.put(n, m); // key it to N
         }
 
         // next put all parameters with matching N in the right map
-        keys = parameters.keySet().iterator();
-        while (keys.hasNext()) {
-            String key = (String) keys.next();
-
+        for (String key: parameters.keySet()) {
             // skip keys without DELIMITER and skip ROW_SUBMIT_PREFIX
             if (key == null) continue;
             int index = key.indexOf(MULTI_ROW_DELIMITER);
@@ -942,7 +930,7 @@ public class UtilHttp {
 
             // get the map with index N
             Integer n = Integer.decode(key.substring(index + MULTI_ROW_DELIMITER_LENGTH, key.length())); // N from ${param}${DELIMITER}${N}
-            Map map = (Map) rows.get(n);
+            Map<String, Object> map = rows.get(n);
             if (map == null) continue;
 
             // get the key without the <DELIMITER>N suffix and store it and its value
@@ -957,12 +945,9 @@ public class UtilHttp {
      * Returns a new map containing all the parameters from the input map except for the
      * multi form parameters (usually named according to the ${param}_o_N notation).
      */
-    public static Map removeMultiFormParameters(Map parameters) {
-        FastMap filteredParameters = new FastMap();
-        Iterator keys = parameters.keySet().iterator();
-        while (keys.hasNext()) {
-            String key = (String) keys.next();
-
+    public static <V> Map<String, V> removeMultiFormParameters(Map<String, V> parameters) {
+        FastMap<String, V> filteredParameters = new FastMap<String, V>();
+        for (String key: parameters.keySet()) {
             if (key != null && (key.indexOf(MULTI_ROW_DELIMITER) != -1 || key.indexOf("_useRowSubmit") != -1 || key.indexOf("_rowCount") != -1)) {
                 continue;
             }
@@ -1010,7 +995,7 @@ public class UtilHttp {
         if (compositeType == null || compositeType.length() == 0) return null;
 
         // collect the composite fields into a map
-        Map data = FastMap.newInstance();
+        Map<String, String> data = FastMap.newInstance();
         for (Enumeration names = request.getParameterNames(); names.hasMoreElements(); ) {
             String name = (String) names.nextElement();
             if (!name.startsWith(prefix + COMPOSITE_DELIMITER)) continue;
@@ -1019,7 +1004,7 @@ public class UtilHttp {
             String suffix = name.substring(name.indexOf(COMPOSITE_DELIMITER) + COMPOSITE_DELIMITER_LENGTH);
 
             // and the value of this parameter
-            Object value = request.getParameter(name);
+            String value = request.getParameter(name);
 
             // key = suffix, value = parameter data
             data.put(suffix, value);                
@@ -1028,10 +1013,10 @@ public class UtilHttp {
 
         // handle recomposition of data into the compositeType
         if ("Timestamp".equals(compositeType)) {
-            String date = (String) data.get("date");
-            String hour = (String) data.get("hour");
-            String minutes = (String) data.get("minutes");
-            String ampm = (String) data.get("ampm");
+            String date = data.get("date");
+            String hour = data.get("hour");
+            String minutes = data.get("minutes");
+            String ampm = data.get("ampm");
             if (date == null || date.length() < 10) return null;
             if (hour == null || hour.length() == 0) return null;
             if (minutes == null || minutes.length() == 0) return null;
@@ -1084,12 +1069,10 @@ public class UtilHttp {
             }
         }else{
             String initialUserAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
-            List spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
+            List<String> spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
             if (UtilValidate.isNotEmpty(spiderList)) {
-                Iterator spiderListIter = spiderList.iterator();
-                while (spiderListIter.hasNext()) {
-                    String spiderNameElement = (String) spiderListIter.next();
-                    Pattern p = Pattern.compile("^.*" + spiderNameElement + ".*$", Pattern.CASE_INSENSITIVE);
+                for (String spiderNameElement: spiderList) {
+                    Pattern p = Pattern.compile("^.*" + spiderNameElement + ".*$", Pattern.CASE_INSENSITIVE); 
                     Matcher m = p.matcher(initialUserAgent);
                     if (m.find()){
                         request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");

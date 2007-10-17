@@ -33,38 +33,43 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 
 
 /**
  * Map Stack
  * 
  */
-public class MapStack implements Map, Reusable, LocalizedMap {
+public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Object> {
 
     public static final String module = MapStack.class.getName();
 
-    protected static final ObjectFactory mapStackFactory = new ObjectFactory() {
-        protected Object create() {
+    protected static final ObjectFactory<MapStack<?>> mapStackFactory = new ObjectFactory<MapStack<?>>() {
+        protected MapStack<?> create() {
             return new MapStack();
         }
     };
-    
-    public static MapStack create() {
-        MapStack newValue = (MapStack) mapStackFactory.object();
+
+    protected static final <K> MapStack<K> getMapStack() {
+        return (MapStack<K>) UtilGenerics.<K, Object>checkMap(mapStackFactory.object());
+    }
+
+    public static <K> MapStack<K> create() {
+        MapStack<K> newValue = MapStack.getMapStack();
         // initialize with a single entry
         newValue.push();
         return newValue;
     }
 
-    public static MapStack create(Map baseMap) {
-        MapStack newValue = (MapStack) mapStackFactory.object();
+    public static <K> MapStack<K> create(Map<K, Object> baseMap) {
+        MapStack<K> newValue = MapStack.getMapStack();
         newValue.stackList.add(0, baseMap);
         return newValue;
     }
 
     /** Does a shallow copy of the internal stack of the passed MapStack; enables simultaneous stacks that share common parent Maps */
-    public static MapStack create(MapStack source) {
-        MapStack newValue = (MapStack) mapStackFactory.object();
+    public static <K> MapStack<K> create(MapStack<K> source) {
+        MapStack<K> newValue = MapStack.getMapStack();
         newValue.stackList.addAll(source.stackList);
         return newValue;
     }
@@ -73,7 +78,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
         super();
     }
     
-    protected List stackList = FastList.newInstance();
+    protected List<Map<K, Object>> stackList = FastList.newInstance();
     
     public void reset() {
         stackList = FastList.newInstance();
@@ -81,11 +86,12 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     
     /** Puts a new Map on the top of the stack */
     public void push() {
-        this.stackList.add(0, FastMap.newInstance());
+        Map<K, Object> newMap = FastMap.newInstance();
+        this.stackList.add(0,newMap);
     }
     
     /** Puts an existing Map on the top of the stack (top meaning will override lower layers on the stack) */
-    public void push(Map existingMap) {
+    public void push(Map<K, Object> existingMap) {
         if (existingMap == null) {
             throw new IllegalArgumentException("Error: cannot push null existing Map onto a MapStack");
         }
@@ -93,7 +99,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     }
     
     /** Puts an existing Map on the BOTTOM of the stack (bottom meaning will be overriden by lower layers on the stack, ie everything else already there) */
-    public void addToBottom(Map existingMap) {
+    public void addToBottom(Map<K, Object> existingMap) {
         if (existingMap == null) {
             throw new IllegalArgumentException("Error: cannot add null existing Map to bottom of a MapStack");
         }
@@ -101,10 +107,10 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     }
     
     /** Remove and returns the Map from the top of the stack; if there is only one Map on the stack it returns null and does not remove it */
-    public Map pop() {
+    public Map<K, Object> pop() {
         // always leave at least one Map in the List, ie never pop off the last Map
         if (this.stackList.size() > 1) {
-            return (Map) stackList.remove(0);
+            return stackList.remove(0);
         } else {
             return null;
         }
@@ -116,8 +122,8 @@ public class MapStack implements Map, Reusable, LocalizedMap {
      * situation where a parent and child context are operating simultaneously 
      * using two different MapStack objects, but sharing the Maps in common  
      */
-    public MapStack standAloneStack() {
-        MapStack standAlone = MapStack.create(this);
+    public MapStack<K> standAloneStack() {
+        MapStack<K> standAlone = MapStack.create(this);
         return standAlone;
     }
 
@@ -127,8 +133,8 @@ public class MapStack implements Map, Reusable, LocalizedMap {
      * situation where a parent and child context are operating simultaneously 
      * using two different MapStack objects, but sharing the Maps in common  
      */
-    public MapStack standAloneChildStack() {
-        MapStack standAloneChild = MapStack.create(this);
+    public MapStack<K> standAloneChildStack() {
+        MapStack<K> standAloneChild = MapStack.create(this);
         standAloneChild.push();
         return standAloneChild;
     }
@@ -139,7 +145,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     public int size() {
         // a little bit tricky; to represent the apparent size we need to aggregate all keys and get a count of unique keys
         // this is a bit of a slow way, but gets the best number possible
-        Set keys = this.keySet();
+        Set<K> keys = this.keySet();
         return keys.size();
     }
 
@@ -148,9 +154,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
      */
     public boolean isEmpty() {
         // walk the stackList and if any is not empty, return false; otherwise return true
-        Iterator stackIter = this.stackList.iterator();
-        while (stackIter.hasNext()) {
-            Map curMap = (Map) stackIter.next();
+        for (Map<K, Object> curMap: this.stackList) {
             if (!curMap.isEmpty()) {
                 return false;
             }
@@ -163,9 +167,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
      */
     public boolean containsKey(Object key) {
         // walk the stackList and for the first place it is found return true; otherwise refurn false
-        Iterator stackIter = this.stackList.iterator();
-        while (stackIter.hasNext()) {
-            Map curMap = (Map) stackIter.next();
+        for (Map<K, Object> curMap: this.stackList) {
             if (curMap.containsKey(key)) {
                 return true;
             }
@@ -178,13 +180,9 @@ public class MapStack implements Map, Reusable, LocalizedMap {
      */
     public boolean containsValue(Object value) {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, consider it an option, otherwise ignore
-        Set resultKeySet = FastSet.newInstance();
-        Iterator stackIter = this.stackList.iterator();
-        while (stackIter.hasNext()) {
-            Map curMap = (Map) stackIter.next();
-            Iterator curEntrySetIter = curMap.entrySet().iterator();
-            while (curEntrySetIter.hasNext()) {
-                Map.Entry curEntry = (Map.Entry) curEntrySetIter.next();
+        Set<K> resultKeySet = FastSet.newInstance();
+        for (Map<K, Object> curMap: this.stackList) {
+            for (Map.Entry<K, Object> curEntry: curMap.entrySet()) {
                 if (!resultKeySet.contains(curEntry.getKey())) {
                     resultKeySet.add(curEntry.getKey());
                     if (value == null) {
@@ -211,9 +209,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
         }
         
         // walk the stackList and for the first place it is found return true; otherwise refurn false
-        Iterator stackIter = this.stackList.iterator();
-        while (stackIter.hasNext()) {
-            Map curMap = (Map) stackIter.next();
+        for (Map<K, Object> curMap: this.stackList) {
             // only return if the curMap contains the key, rather than checking for null; this allows a null at a lower level to override a value at a higher level
             if (curMap.containsKey(key)) {
                 return curMap.get(key);
@@ -231,9 +227,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
         }
         
         // walk the stackList and for the first place it is found return true; otherwise refurn false
-        Iterator stackIter = this.stackList.iterator();
-        while (stackIter.hasNext()) {
-            Map curMap = (Map) stackIter.next();
+        for (Map<K, Object> curMap: this.stackList) {
             // only return if the curMap contains the key, rather than checking for null; this allows a null at a lower level to override a value at a higher level
             if (curMap.containsKey(name)) {
                 if (curMap instanceof LocalizedMap) {
@@ -250,7 +244,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     /* (non-Javadoc)
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
-    public Object put(Object key, Object value) {
+    public Object put(K key, Object value) {
         if ("context".equals(key)) {
             if (value == null || this != value) {
                 Debug.logWarning("WARNING: Putting a value in a MapStack with key [context] that is not this MapStack, will be hidden by the current MapStack self-reference: " + value, module);
@@ -258,7 +252,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
         }
             
         // all write operations are local: only put in the Map on the top of the stack
-        Map currentMap = (Map) this.stackList.get(0);
+        Map<K, Object> currentMap = this.stackList.get(0);
         return currentMap.put(key, value);
     }
 
@@ -267,16 +261,16 @@ public class MapStack implements Map, Reusable, LocalizedMap {
      */
     public Object remove(Object key) {
         // all write operations are local: only remove from the Map on the top of the stack
-        Map currentMap = (Map) this.stackList.get(0);
+        Map<K, Object> currentMap = this.stackList.get(0);
         return currentMap.remove(key);
     }
 
     /* (non-Javadoc)
      * @see java.util.Map#putAll(java.util.Map)
      */
-    public void putAll(Map arg0) {
+    public void putAll(Map<? extends K, ? extends Object> arg0) {
         // all write operations are local: only put in the Map on the top of the stack
-        Map currentMap = (Map) this.stackList.get(0);
+        Map<K, Object> currentMap = this.stackList.get(0);
         currentMap.putAll(arg0);
     }
 
@@ -292,12 +286,10 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     /* (non-Javadoc)
      * @see java.util.Map#keySet()
      */
-    public Set keySet() {
+    public Set<K> keySet() {
         // walk the stackList and aggregate all keys
-        Set resultSet = FastSet.newInstance();
-        Iterator stackIter = this.stackList.iterator();
-        while (stackIter.hasNext()) {
-            Map curMap = (Map) stackIter.next();
+        Set<K> resultSet = FastSet.newInstance();
+        for (Map<K, Object> curMap: this.stackList) {
             resultSet.addAll(curMap.keySet());
         }
         return Collections.unmodifiableSet(resultSet);
@@ -306,16 +298,12 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     /* (non-Javadoc)
      * @see java.util.Map#values()
      */
-    public Collection values() {
+    public Collection<Object> values() {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
-        Set resultKeySet = FastSet.newInstance();
-        List resultValues = FastList.newInstance();
-        Iterator stackIter = this.stackList.iterator();
-        while (stackIter.hasNext()) {
-            Map curMap = (Map) stackIter.next();
-            Iterator curEntrySetIter = curMap.entrySet().iterator();
-            while (curEntrySetIter.hasNext()) {
-                Map.Entry curEntry = (Map.Entry) curEntrySetIter.next();
+        Set<K> resultKeySet = FastSet.newInstance();
+        List<Object> resultValues = FastList.newInstance();
+        for (Map<K, Object> curMap: this.stackList) {
+            for (Map.Entry<K, Object> curEntry: curMap.entrySet()) {
                 if (!resultKeySet.contains(curEntry.getKey())) {
                     resultKeySet.add(curEntry.getKey());
                     resultValues.add(curEntry.getValue());
@@ -328,16 +316,12 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     /* (non-Javadoc)
      * @see java.util.Map#entrySet()
      */
-    public Set entrySet() {
+    public Set<Map.Entry<K, Object>> entrySet() {
         // walk the stackList and the entries for each Map and if nothing is in for the current key, put it in
-        Set resultKeySet = FastSet.newInstance();
-        Set resultEntrySet = FastSet.newInstance();
-        Iterator stackIter = this.stackList.iterator();
-        while (stackIter.hasNext()) {
-            Map curMap = (Map) stackIter.next();
-            Iterator curEntrySetIter = curMap.entrySet().iterator();
-            while (curEntrySetIter.hasNext()) {
-                Map.Entry curEntry = (Map.Entry) curEntrySetIter.next();
+        Set<K> resultKeySet = FastSet.newInstance();
+        Set<Map.Entry<K, Object>> resultEntrySet = FastSet.newInstance();
+        for (Map<K, Object> curMap: this.stackList) {
+            for (Map.Entry<K, Object> curEntry: curMap.entrySet()) {
                 if (!resultKeySet.contains(curEntry.getKey())) {
                     resultKeySet.add(curEntry.getKey());
                     resultEntrySet.add(curEntry);
@@ -350,13 +334,9 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     public String toString() {
         StringBuilder fullMapString = new StringBuilder();
         int curLevel = 0;
-        Iterator stackIter = this.stackList.iterator();
-        while (stackIter.hasNext()) {
-            Map curMap = (Map) stackIter.next();
+        for (Map<K, Object> curMap: this.stackList) {
             fullMapString.append("============================== Start stack level " + curLevel + "\n");
-            Iterator curEntrySetIter = curMap.entrySet().iterator();
-            while (curEntrySetIter.hasNext()) {
-                Map.Entry curEntry = (Map.Entry) curEntrySetIter.next();
+            for (Map.Entry<K, Object> curEntry: curMap.entrySet()) {
                 
                 fullMapString.append("==>[");
                 fullMapString.append(curEntry.getKey());

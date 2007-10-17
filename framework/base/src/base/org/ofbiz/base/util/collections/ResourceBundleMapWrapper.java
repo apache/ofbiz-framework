@@ -34,9 +34,9 @@ import org.ofbiz.base.util.UtilProperties;
  * Generic ResourceBundle Map Wrapper, given ResourceBundle allows it to be used as a Map
  *
  */
-public class ResourceBundleMapWrapper implements Map, Serializable {
+public class ResourceBundleMapWrapper implements Map<String, Object>, Serializable {
     
-    protected MapStack rbmwStack;
+    protected MapStack<String> rbmwStack;
     protected ResourceBundle initialResourceBundle;
 
     protected ResourceBundleMapWrapper() {
@@ -100,7 +100,7 @@ public class ResourceBundleMapWrapper implements Map, Serializable {
     public boolean containsValue(Object arg0) {
         return this.rbmwStack.containsValue(arg0);
     }
-    public Set entrySet() {
+    public Set<Map.Entry<String, Object>> entrySet() {
         return this.rbmwStack.entrySet();
     }
     public Object get(Object arg0) {
@@ -113,13 +113,13 @@ public class ResourceBundleMapWrapper implements Map, Serializable {
     public boolean isEmpty() {
         return this.rbmwStack.isEmpty();
     }
-    public Set keySet() {
+    public Set<String> keySet() {
         return this.keySet();
     }
-    public Object put(Object key, Object value) {
+    public Object put(String key, Object value) {
         return this.rbmwStack.put(key, value);
     }
-    public void putAll(Map arg0) {
+    public void putAll(Map<? extends String, ? extends Object> arg0) {
         this.rbmwStack.putAll(arg0);
     }
     public Object remove(Object arg0) {
@@ -128,25 +128,25 @@ public class ResourceBundleMapWrapper implements Map, Serializable {
     public int size() {
         return this.rbmwStack.size();
     }
-    public Collection values() {
+    public Collection<Object> values() {
         return this.rbmwStack.values();
     }
     
-    public static class InternalRbmWrapper implements Map, Serializable {
+    public static class InternalRbmWrapper implements Map<String, Object>, Serializable {
         protected ResourceBundle resourceBundle;
-        protected Map topLevelMap;
+        protected Map<String, Object> topLevelMap;
         
         public InternalRbmWrapper(ResourceBundle resourceBundle) {
             if (resourceBundle == null) {
                 throw new IllegalArgumentException("Cannot create InternalRbmWrapper with a null ResourceBundle.");
             }
             this.resourceBundle = resourceBundle;
-            topLevelMap = new HashMap();
+            topLevelMap = new HashMap<String, Object>();
             // NOTE: this does NOT return all keys, ie keys from parent ResourceBundles, so we keep the resourceBundle object to look at when the main Map doesn't have a certain value 
             if (resourceBundle != null) {
-                Enumeration keyNum = resourceBundle.getKeys();
+                Enumeration<String> keyNum = resourceBundle.getKeys();
                 while (keyNum.hasMoreElements()) {
-                    String key = (String) keyNum.nextElement();
+                    String key = keyNum.nextElement();
                     //resourceBundleMap.put(key, bundle.getObject(key));
                     Object value = resourceBundle.getObject(key);
                     topLevelMap.put(key, value);
@@ -229,7 +229,7 @@ public class ResourceBundleMapWrapper implements Map, Serializable {
         /* (non-Javadoc)
          * @see java.util.Map#put(java.lang.Object, java.lang.Object)
          */
-        public Object put(Object arg0, Object arg1) {
+        public Object put(String arg0, Object arg1) {
             throw new RuntimeException("Not implemented/allowed for ResourceBundleMapWrapper");
         }
     
@@ -257,21 +257,21 @@ public class ResourceBundleMapWrapper implements Map, Serializable {
         /* (non-Javadoc)
          * @see java.util.Map#keySet()
          */
-        public Set keySet() {
+        public Set<String> keySet() {
             return this.topLevelMap.keySet();
         }
     
         /* (non-Javadoc)
          * @see java.util.Map#values()
          */
-        public Collection values() {
+        public Collection<Object> values() {
             return this.topLevelMap.values();
         }
     
         /* (non-Javadoc)
          * @see java.util.Map#entrySet()
          */
-        public Set entrySet() {
+        public Set<Map.Entry<String, Object>> entrySet() {
             return this.topLevelMap.entrySet();
         }
         
