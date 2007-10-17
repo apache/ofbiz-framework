@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -32,7 +33,6 @@ import java.util.Set;
 
 import javolution.util.FastMap;
 
-import org.apache.commons.collections.set.ListOrderedSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -1622,7 +1622,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Returns a Set of the item's features */
     public Set getFeatureSet() {
-        Set featureSet = new ListOrderedSet();
+        Set featureSet = new LinkedHashSet();
         GenericValue product = this.getProduct();
         if (product != null) {
             List featureAppls = null;

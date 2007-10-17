@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * @deprecated
  * OrderedMap - HashMap backed by a linked list.
  *
  */

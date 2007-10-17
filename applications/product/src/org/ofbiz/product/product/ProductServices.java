@@ -22,7 +22,6 @@ import java.sql.Timestamp;
 import java.util.*;
 
 import org.apache.commons.collections.map.LinkedMap;
-import org.apache.commons.collections.set.ListOrderedSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -141,7 +140,7 @@ public class ProductServices {
         String productId = (String) context.get("productId");
         Locale locale = (Locale) context.get("locale");
         String errMsg=null;
-        Set featureSet = new ListOrderedSet();
+        Set featureSet = new LinkedHashSet();
 
         try {
             Map fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE");

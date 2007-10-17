@@ -133,7 +133,7 @@ if (invoice != null) {
     context.put("payments", paymentAppls);
     
     orderItemBillings = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("invoiceId", invoiceId), UtilMisc.toList("orderId"));
-    orders = new OrderedSet();
+    orders = new LinkedHashSet();
     oibIter = orderItemBillings.iterator();
     while (oibIter.hasNext()) {
         orderIb = oibIter.next();

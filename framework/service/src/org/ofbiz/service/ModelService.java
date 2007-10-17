@@ -45,12 +45,10 @@ import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.collections.OrderedSet;
 import org.ofbiz.service.group.GroupModel;
 import org.ofbiz.service.group.GroupServiceModel;
 import org.ofbiz.service.group.ServiceGroupReader;
 
-import org.apache.commons.collections.set.ListOrderedSet;
 import org.w3c.dom.Document;
 
 /**
@@ -144,10 +142,10 @@ public class ModelService extends AbstractMap implements Serializable {
     public int semaphoreSleep;
     
     /** Set of services this service implements */
-    public Set implServices = new ListOrderedSet();
+    public Set implServices = new LinkedHashSet();
 
     /** Set of override parameters */
-    public Set overrideParameters = new ListOrderedSet();
+    public Set overrideParameters = new LinkedHashSet();
 
     /** List of permission groups for service invocation */
     public List permissionGroups = FastList.newInstance();
@@ -305,7 +303,7 @@ public class ModelService extends AbstractMap implements Serializable {
     }
 
     public Set getAllParamNames() {
-        Set nameList = new OrderedSet();
+        Set nameList = new LinkedHashSet();
         Iterator i = this.contextParamList.iterator();
 
         while (i.hasNext()) {
@@ -316,7 +314,7 @@ public class ModelService extends AbstractMap implements Serializable {
     }
 
     public Set getInParamNames() {
-        Set nameList = new OrderedSet();
+        Set nameList = new LinkedHashSet();
         Iterator i = this.contextParamList.iterator();
 
         while (i.hasNext()) {
@@ -344,7 +342,7 @@ public class ModelService extends AbstractMap implements Serializable {
     }
 
     public Set getOutParamNames() {
-        Set nameList = new OrderedSet();
+        Set nameList = new LinkedHashSet();
         Iterator i = this.contextParamList.iterator();
 
         while (i.hasNext()) {

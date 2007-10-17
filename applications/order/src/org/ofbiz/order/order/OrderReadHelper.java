@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -34,7 +35,6 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.commons.collections.set.ListOrderedSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
@@ -765,7 +765,7 @@ public class OrderReadHelper {
     }
 
     public Set getItemFeatureSet(GenericValue item) {
-        Set featureSet = new ListOrderedSet();
+        Set featureSet = new LinkedHashSet();
         List featureAppls = null;
         if (item.get("productId") != null) {
             try {

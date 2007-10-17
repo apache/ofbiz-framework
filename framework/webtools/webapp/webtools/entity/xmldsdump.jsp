@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 --%>
 
-<%@ page import="java.util.*, java.io.*, java.net.*, org.ofbiz.base.util.collections.OrderedSet" %>
+<%@ page import="java.util.*, java.io.*, java.net.*" %>
 <%@ page import="org.w3c.dom.*" %>
 <%@ page import="org.ofbiz.security.*, org.ofbiz.entity.*, org.ofbiz.base.util.*, org.ofbiz.webapp.pseudotag.*" %>
 <%@ page import="org.ofbiz.entity.model.*, org.ofbiz.entity.util.*, org.ofbiz.entity.transaction.*, org.ofbiz.entity.condition.*" %>
@@ -54,7 +54,7 @@ under the License.
   
   String preConfiguredSetName = request.getParameter("preConfiguredSetName");
   if ("Product1".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("DataResource");
     passedEntityNames.add("Facility");
     passedEntityNames.add("ProdCatalog");
@@ -65,7 +65,7 @@ under the License.
     passedEntityNames.add("ProductPriceRule");
     passedEntityNames.add("ProductPromo");
   } else if ("Product2".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("Content");
     passedEntityNames.add("ElectronicText");
     passedEntityNames.add("FacilityLocation");
@@ -87,7 +87,7 @@ under the License.
     passedEntityNames.add("ProductPromoProduct");
     passedEntityNames.add("ProductPromoRule");
   } else if ("Product3".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("ProdCatalogInvFacility");
     passedEntityNames.add("ProductContent");
     passedEntityNames.add("ProductFacilityLocation");
@@ -100,12 +100,12 @@ under the License.
     passedEntityNames.add("ProductPromoCodeParty");
     passedEntityNames.add("ProductPromoCond");
   } else if ("Product4".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("InventoryItem");
     passedEntityNames.add("ProductFeatureCatGrpAppl");
     passedEntityNames.add("ProductFeatureGroupAppl");
   } else if ("CatalogExport".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("ProdCatalogCategoryType");
     passedEntityNames.add("ProdCatalog");
     passedEntityNames.add("ProductCategoryType");
