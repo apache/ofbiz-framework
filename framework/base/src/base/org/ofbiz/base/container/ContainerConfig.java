@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,6 @@ import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 
-import org.apache.commons.collections.map.LinkedMap;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -44,7 +44,7 @@ public class ContainerConfig {
     
     public static final String module = ContainerConfig.class.getName();
     
-    protected static Map containers = new LinkedMap();
+    protected static Map containers = new LinkedHashMap();
     
     public static Container getContainer(String containerName, String configFile) throws ContainerException {
         Container container = (Container) containers.get(containerName);
@@ -191,7 +191,7 @@ public class ContainerConfig {
             this.name = element.getAttribute("name");
             this.className = element.getAttribute("class");
             
-            properties = new LinkedMap();
+            properties = new LinkedHashMap();
             Iterator elementIter = UtilXml.childElementList(element, "property").iterator();
             while (elementIter.hasNext()) {
                 Element curElement = (Element) elementIter.next();
@@ -231,7 +231,7 @@ public class ContainerConfig {
                     this.value = UtilXml.childElementValue(element, "property-value");                    
                 }
 
-                properties = new LinkedMap();
+                properties = new LinkedHashMap();
                 Iterator elementIter = UtilXml.childElementList(element, "property").iterator();
                 while (elementIter.hasNext()) {
                     Element curElement = (Element) elementIter.next();
