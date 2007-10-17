@@ -18,20 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.base.util.cache;
 
-public final class HardRefCacheLine extends CacheLine {
-    public final Object value;
+public final class HardRefCacheLine<V> extends CacheLine<V> {
+    public final V value;
 
-    public HardRefCacheLine(Object value, long expireTime) {
+    public HardRefCacheLine(V value, long expireTime) {
         super(expireTime);
         this.value = value;
     }
 
-    public HardRefCacheLine(Object value, long loadTime, long expireTime) {
+    public HardRefCacheLine(V value, long loadTime, long expireTime) {
         super(loadTime, expireTime);
         this.value = value;
     }
 
-    public Object getValue() {
+    public V getValue() {
         return value;
     }
 

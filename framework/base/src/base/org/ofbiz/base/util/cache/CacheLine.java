@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 import org.ofbiz.base.util.UtilObject;
 
-public abstract class CacheLine implements Serializable {
+public abstract class CacheLine<V> implements Serializable {
     public long loadTime;
     public final long expireTime;
 
@@ -35,7 +35,7 @@ public abstract class CacheLine implements Serializable {
         this.loadTime = loadTime;
     }
 
-    public abstract Object getValue();
+    public abstract V getValue();
     public abstract boolean isInvalid();
 
     public long getExpireTime() {

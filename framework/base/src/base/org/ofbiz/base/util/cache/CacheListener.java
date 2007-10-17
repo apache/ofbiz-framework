@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.base.util.cache;
 
-public interface CacheListener {
+public interface CacheListener<K, V> {
 
-    public void noteKeyRemoval(UtilCache cache, Object key, Object oldValue);
+    public void noteKeyRemoval(UtilCache<K, V> cache, K key, V oldValue);
 
-    public void noteKeyAddition(UtilCache cache, Object key, Object newValue);
+    public void noteKeyAddition(UtilCache<K, V> cache, K key, V newValue);
 
-    public void noteKeyUpdate(UtilCache cache, Object key, Object newValue, Object oldValue);
+    public void noteKeyUpdate(UtilCache<K, V> cache, K key, V newValue, V oldValue);
 }

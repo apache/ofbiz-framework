@@ -46,21 +46,21 @@ import org.ofbiz.base.util.UtilValidate;
  * </ul>
  *
  */
-public class UtilCache implements Serializable {
+public class UtilCache<K, V> implements Serializable {
 
     public static final String module = UtilCache.class.getName();
     
     /** A static Map to keep track of all of the UtilCache instances. */
-    public static Map utilCacheTable = new WeakHashMap();
+    public static Map<String, UtilCache<?, ?>> utilCacheTable = new WeakHashMap<String, UtilCache<?, ?>>();
 
     /** An index number appended to utilCacheTable names when there are conflicts. */
-    protected static Map defaultIndices = FastMap.newInstance();
+    protected static Map<String, Integer> defaultIndices = FastMap.newInstance();
 
     /** The name of the UtilCache instance, is also the key for the instance in utilCacheTable. */
     protected String name = null;
 
     /** A hashtable containing a CacheLine object with a value and a loadTime for each element. */
-    public CacheLineTable cacheLineTable = null;
+    public CacheLineTable<K, V> cacheLineTable = null;
 
     /** A count of the number of cache hits */
     protected long hitCount = 0;
@@ -96,7 +96,7 @@ public class UtilCache implements Serializable {
     private String fileStore = "runtime/data/utilcache";
 
     /** The set of listeners to receive notifcations when items are modidfied(either delibrately or because they were expired). */
-    protected Set listeners = FastSet.newInstance();
+    protected Set<CacheListener<K, V>> listeners = FastSet.newInstance();
     
     /** Constructor which specifies the cacheName as well as the maxSize, expireTime and useSoftReference.
      * The passed maxSize, expireTime and useSoftReference will be overridden by values from cache.properties if found.
@@ -183,7 +183,7 @@ public class UtilCache implements Serializable {
     }
 
     protected String getNextDefaultIndex(String cacheName) {
-        Integer curInd = (Integer) UtilCache.defaultIndices.get(cacheName);
+        Integer curInd = UtilCache.defaultIndices.get(cacheName);
 
         if (curInd == null) {
             UtilCache.defaultIndices.put(cacheName, 1);
@@ -196,9 +196,9 @@ public class UtilCache implements Serializable {
 
     public static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
         String value = null;
-        for (int i = 0; i < propNames.length && value == null; i++ ) {
+        for (String propName: propNames) {
             try {
-                value = res.getString(propNames[i] + '.' + parameter);
+                value = res.getString(propName + '.' + parameter);
             } catch (MissingResourceException e) {}
         }
         // don't need this, just return null
@@ -268,14 +268,14 @@ public class UtilCache implements Serializable {
 
         int maxMemSize = this.maxInMemory;
         if (maxMemSize == 0) maxMemSize = maxSize;
-        this.cacheLineTable = new CacheLineTable(this.fileStore, this.name, this.useFileSystemStore, maxMemSize);
+        this.cacheLineTable = new CacheLineTable<K, V>(this.fileStore, this.name, this.useFileSystemStore, maxMemSize);
     }
 
     /** Puts or loads the passed element into the cache
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @param value The value of the element
      */
-    public synchronized Object put(Object key, Object value) {
+    public V put(K key, V value) {
         return put(key, value, expireTime);
     }
 
@@ -284,13 +284,13 @@ public class UtilCache implements Serializable {
      * @param value The value of the element
      * @param expireTime how long to keep this key in the cache
      */
-    public synchronized Object put(Object key, Object value, long expireTime) {
-        CacheLine oldCacheLine;
-        CacheLine newCacheLine;
+    public V put(K key, V value, long expireTime) {
+        CacheLine<V> oldCacheLine;
+        CacheLine<V> newCacheLine;
         if (expireTime > 0) {
-            newCacheLine = useSoftReference ? new SoftRefCacheLine(value, System.currentTimeMillis(), expireTime) : new HardRefCacheLine(value, System.currentTimeMillis(), expireTime);
+            newCacheLine = useSoftReference ? new SoftRefCacheLine<V>(value, System.currentTimeMillis(), expireTime) : new HardRefCacheLine<V>(value, System.currentTimeMillis(), expireTime);
         } else {
-            newCacheLine = useSoftReference ? new SoftRefCacheLine(value, expireTime) : new HardRefCacheLine(value, expireTime);
+            newCacheLine = useSoftReference ? new SoftRefCacheLine<V>(value, expireTime) : new HardRefCacheLine<V>(value, expireTime);
         }
         oldCacheLine = cacheLineTable.put(key, newCacheLine);
 
@@ -309,8 +309,8 @@ public class UtilCache implements Serializable {
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @return The value of the element specified by the key
      */
-    public Object get(Object key) {
-        CacheLine line = getInternal(key, true);
+    public V get(Object key) {
+        CacheLine<V> line = getInternal(key, true);
         if (line == null) {
             return null;
         } else {
@@ -318,13 +318,13 @@ public class UtilCache implements Serializable {
         }
     }
 
-    protected CacheLine getInternalNoCheck(Object key) {
-        CacheLine line = cacheLineTable.get(key);
+    protected CacheLine<V> getInternalNoCheck(Object key) {
+        CacheLine<V> line = cacheLineTable.get(key);
         return line;
     }
     
-    protected CacheLine getInternal(Object key, boolean countGet) {
-        CacheLine line = getInternalNoCheck(key);
+    protected CacheLine<V> getInternal(Object key, boolean countGet) {
+        CacheLine<V> line = getInternalNoCheck(key);
         if (line == null) {
             if (countGet) missCountNotFound++;
         } else if (line.isInvalid()) {
@@ -343,15 +343,13 @@ public class UtilCache implements Serializable {
         return line;
     }
 
-    public List values() {
+    public List<V> values() {
         if (cacheLineTable == null) {
             return null;
         }
         
-        List valuesList = FastList.newInstance();
-        Iterator i = cacheLineTable.keySet().iterator();
-        while (i.hasNext()) {
-            Object key = i.next();
+        List<V> valuesList = FastList.newInstance();
+        for (K key: cacheLineTable.keySet()) {
             valuesList.add(this.get(key));
         }
 
@@ -360,9 +358,8 @@ public class UtilCache implements Serializable {
 
     public long getSizeInBytes() {
         long totalSize = 0;
-        Iterator i = cacheLineTable.values().iterator();
-        while (i.hasNext()) {
-            totalSize += ((CacheLine) i.next()).getSizeInBytes();
+        for (CacheLine<V> line: cacheLineTable.values()) {
+            totalSize += line.getSizeInBytes();
         }
         return totalSize;
     }
@@ -371,15 +368,15 @@ public class UtilCache implements Serializable {
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @return The value of the removed element specified by the key
      */
-    public synchronized Object remove(Object key) {
+    public V remove(Object key) {
         return this.removeInternal(key, true);
     }
     
     /** This is used for internal remove calls because we only want to count external calls */
-    protected synchronized Object removeInternal(Object key, boolean countRemove) {        
-        CacheLine line = cacheLineTable.remove(key);
+    protected synchronized V removeInternal(Object key, boolean countRemove) {        
+        CacheLine<V> line = cacheLineTable.remove(key);
         if (line != null) {
-            noteRemoval(key, line.getValue());
+            noteRemoval((K) key, line.getValue());
             if (countRemove) this.removeHitCount++;
             return line.getValue();
         } else {
@@ -390,10 +387,8 @@ public class UtilCache implements Serializable {
 
     /** Removes all elements from this cache */
     public synchronized void clear() {
-        Iterator it = cacheLineTable.keySet().iterator();
-        while (it.hasNext()) {
-            Object key = it.next();
-            CacheLine line = getInternalNoCheck(key);
+        for (K key: cacheLineTable.keySet()) {
+            CacheLine<V> line = getInternalNoCheck(key);
             noteRemoval(key, line == null ? null : line.getValue());
         }
         cacheLineTable.clear();
@@ -402,10 +397,8 @@ public class UtilCache implements Serializable {
 
     /** Removes all elements from this cache */
     public static void clearAllCaches() {
-        Iterator entries = utilCacheTable.entrySet().iterator();
-        while (entries.hasNext()) {
-            Map.Entry entry = (Map.Entry) entries.next();
-            UtilCache utilCache = (UtilCache) entry.getValue();
+        for (Map.Entry<String, UtilCache<?, ?>> entry: utilCacheTable.entrySet()) {
+            UtilCache<?, ?> utilCache = entry.getValue();
             utilCache.clear();
         }
     }
@@ -495,9 +488,7 @@ public class UtilCache implements Serializable {
         // if expire time was <= 0 and is now greater, fill expire table now
         if (this.expireTime <= 0 && expireTime > 0) {
             long currentTime = System.currentTimeMillis();
-            Iterator values = cacheLineTable.values().iterator();
-            while (values.hasNext()) {
-                CacheLine line = (CacheLine) values.next();
+            for (CacheLine<V> line: cacheLineTable.values()) {
                 line.loadTime = currentTime;
             }
         } else if (this.expireTime <= 0 && expireTime > 0) {
@@ -518,16 +509,14 @@ public class UtilCache implements Serializable {
     public void setUseSoftReference(boolean useSoftReference) {
         if (this.useSoftReference != useSoftReference) {
             this.useSoftReference = useSoftReference;
-            Iterator keys = cacheLineTable.keySet().iterator();
-            while (keys.hasNext()) {
-                Object key = keys.next();
-                CacheLine line = cacheLineTable.get(key);
+            for (K key: cacheLineTable.keySet()) {
+                CacheLine<V> line = cacheLineTable.get(key);
                 if (useSoftReference) {
                     if (line instanceof SoftRefCacheLine) continue;
-                    cacheLineTable.put(key, new SoftRefCacheLine(line.getValue(), line.loadTime, line.expireTime));
+                    cacheLineTable.put(key, new SoftRefCacheLine<V>(line.getValue(), line.loadTime, line.expireTime));
                 } else {
                     if (line instanceof HardRefCacheLine) continue;
-                    cacheLineTable.put(key, new HardRefCacheLine(line.getValue(), line.loadTime, line.expireTime));
+                    cacheLineTable.put(key, new HardRefCacheLine<V>(line.getValue(), line.loadTime, line.expireTime));
                 }
             }
         }
@@ -555,7 +544,7 @@ public class UtilCache implements Serializable {
      * @return True is the cache contains an element corresponding to the specified key, otherwise false
      */
     public boolean containsKey(Object key) {
-        CacheLine line = getInternal(key, false);
+        CacheLine<V> line = getInternal(key, false);
         if (line != null) {
             return true;
         } else {
@@ -568,11 +557,11 @@ public class UtilCache implements Serializable {
      * and calling a remove while iterating through the set will not cause a concurrent modification exception.
      * This behavior is necessary for now for the persisted cache feature. 
      */
-    public Set getCacheLineKeys() {
+    public Set<? extends K> getCacheLineKeys() {
         return cacheLineTable.keySet();
     }
 
-    public Collection getCacheLineValues() {
+    public Collection<? extends CacheLine<V>> getCacheLineValues() {
         return cacheLineTable.values();
     }
 
@@ -585,16 +574,14 @@ public class UtilCache implements Serializable {
      * @return True is the element corresponding to the specified key has expired, otherwise false
      */
     public boolean hasExpired(Object key) {
-        CacheLine line = getInternalNoCheck(key);
+        CacheLine<V> line = getInternalNoCheck(key);
         if (line == null) return false;
         return line.hasExpired();
     }
 
     /** Clears all expired cache entries; also clear any cache entries where the SoftReference in the CacheLine object has been cleared by the gc */
     public void clearExpired() {
-        Iterator keys = cacheLineTable.keySet().iterator();
-        while (keys.hasNext()) {
-            Object key = keys.next();
+        for (K key: cacheLineTable.keySet()) {
             if (hasExpired(key)) {
                 removeInternal(key, false);
             }
@@ -602,47 +589,41 @@ public class UtilCache implements Serializable {
     }
 
     /** Send a key addition event to all registered listeners */
-    protected void noteAddition(Object key, Object newValue) {
+    protected void noteAddition(K key, V newValue) {
         synchronized (listeners) {
-            Iterator it = listeners.iterator();
-            while (it.hasNext()) {
-                CacheListener listener = (CacheListener) it.next();
+            for (CacheListener<K, V> listener: listeners) {
                 listener.noteKeyAddition(this, key, newValue);
             }
         }
     }
 
     /** Send a key removal event to all registered listeners */
-    protected void noteRemoval(Object key, Object oldValue) {
+    protected void noteRemoval(K key, V oldValue) {
         synchronized (listeners) {
-            Iterator it = listeners.iterator();
-            while (it.hasNext()) {
-                CacheListener listener = (CacheListener) it.next();
+            for (CacheListener<K, V> listener: listeners) {
                 listener.noteKeyRemoval(this, key, oldValue);
             }
         }
     }
 
     /** Send a key update event to all registered listeners */
-    protected void noteUpdate(Object key, Object newValue, Object oldValue) {
+    protected void noteUpdate(K key, V newValue, V oldValue) {
         synchronized (listeners) {
-            Iterator it = listeners.iterator();
-            while (it.hasNext()) {
-                CacheListener listener = (CacheListener) it.next();
+            for (CacheListener<K, V> listener: listeners) {
                 listener.noteKeyUpdate(this, key, newValue, oldValue);
             }
         }
     }
 
     /** Adds an event listener for key removals */
-    public void addListener(CacheListener listener) {
+    public void addListener(CacheListener<K, V> listener) {
         synchronized (listeners) {
             listeners.add(listener);
         }
     }
     
     /** Removes an event listener for key removals */
-    public void removeListener(CacheListener listener) {
+    public void removeListener(CacheListener<K, V> listener) {
         synchronized (listeners) {
             listeners.remove(listener);
         }
@@ -650,17 +631,15 @@ public class UtilCache implements Serializable {
     
     /** Clears all expired cache entries from all caches */
     public static void clearExpiredFromAllCaches() {
-        Iterator entries = utilCacheTable.entrySet().iterator();
-        while (entries.hasNext()) {
-            Map.Entry entry = (Map.Entry) entries.next();
-            UtilCache utilCache = (UtilCache) entry.getValue();
+        for (Map.Entry<String, UtilCache<?, ?>> entry: utilCacheTable.entrySet()) {
+            UtilCache<?, ?> utilCache = entry.getValue();
             utilCache.clearExpired();
         }
     }
     
     /** Checks for a non-expired key in a specific cache */
     public static boolean validKey(String cacheName, Object key) {
-        UtilCache cache = findCache(cacheName);
+        UtilCache<?, ?> cache = findCache(cacheName);
         if (cache != null) {
             if (cache.containsKey(key))
                 return true;
@@ -670,12 +649,10 @@ public class UtilCache implements Serializable {
     
     public static void clearCachesThatStartWith(String startsWith) {
         synchronized (utilCacheTable) {
-            Iterator it = utilCacheTable.entrySet().iterator();
-            while (it.hasNext()) {    
-                Map.Entry entry = (Map.Entry) it.next();    
-                String name = (String) entry.getKey();    
+            for (Map.Entry<String, UtilCache<?, ?>> entry: utilCacheTable.entrySet()) {
+                String name = entry.getKey();    
                 if (name.startsWith(startsWith)) {    
-                    UtilCache cache = (UtilCache) entry.getValue();    
+                    UtilCache<?, ?> cache = entry.getValue();    
                     cache.clear();    
                 }
             }
@@ -683,14 +660,14 @@ public class UtilCache implements Serializable {
     }
 
     public static void clearCache(String cacheName) {
-        UtilCache cache = findCache(cacheName);
+        UtilCache<?, ?> cache = findCache(cacheName);
         if (cache == null) return;
         cache.clear();
     }
 
-    public static UtilCache findCache(String cacheName) {
+    public static <K, V> UtilCache<K, V> findCache(String cacheName) {
         synchronized (UtilCache.utilCacheTable) {
-            return (UtilCache) UtilCache.utilCacheTable.get(cacheName);
+            return (UtilCache<K, V>) UtilCache.utilCacheTable.get(cacheName);
         }
     }
 }
