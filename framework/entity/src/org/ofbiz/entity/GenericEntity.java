@@ -167,6 +167,24 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         }
     }
 
+    /** Creates new GenericEntity from existing Map */
+    protected void init(ModelEntity modelEntity, Object singlePkValue) {
+        if (modelEntity == null) {
+            throw new IllegalArgumentException("Cannont create a GenericEntity with a null modelEntity parameter");
+        }
+        if (modelEntity.getPksSize() != 1) {
+            throw new IllegalArgumentException("Cannot create a GenericEntity with more than one primary key field");
+        }
+        this.modelEntity = modelEntity;
+        this.entityName = modelEntity.getEntityName();
+        set(modelEntity.getOnlyPk().getName(), singlePkValue);
+        
+        // check some things
+        if (this.entityName == null) {
+            throw new IllegalArgumentException("Cannont create a GenericEntity with a null entityName in the modelEntity parameter");
+        }
+    }
+
     /** Copy Constructor: Creates new GenericEntity from existing GenericEntity */
     protected void init(GenericEntity value) {
         if (value.modelEntity == null) {

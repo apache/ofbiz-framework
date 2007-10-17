@@ -52,6 +52,13 @@ public class GenericPK extends GenericEntity {
         return newPK;
     }
 
+    /** Creates new GenericPK from existing Map */
+    public static GenericPK create(ModelEntity modelEntity, Object singlePkValue) {
+        GenericPK newPK = (GenericPK) genericPKFactory.object();
+        newPK.init(modelEntity, singlePkValue);
+        return newPK;
+    }
+
     /** Creates new GenericPK from existing GenericPK */
     public static GenericPK create(GenericPK value) {
         GenericPK newPK = (GenericPK) genericPKFactory.object();

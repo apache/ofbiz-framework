@@ -69,11 +69,17 @@ public interface DelegatorInterface {
 
     GenericValue makeValue(String entityName, Map fields);
 
+    GenericValue makeValueSingle(String entityName, Object singlePkValue);
+
     GenericValue makeValidValue(String entityName, Map fields);
 
     GenericPK makePK(String entityName, Map fields);
 
+    GenericPK makePKSingle(String entityName, Object singlePkValue);
+
     GenericValue create(String entityName, Map fields) throws GenericEntityException;
+
+    GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException;
 
     GenericValue create(GenericValue value) throws GenericEntityException;
 
@@ -93,7 +99,11 @@ public interface DelegatorInterface {
 
     GenericValue findByPrimaryKey(String entityName, Map fields) throws GenericEntityException;
 
+    GenericValue findByPrimaryKeySingle(String entityName, Object singlePkValue) throws GenericEntityException;
+
     GenericValue findByPrimaryKeyCache(String entityName, Map fields) throws GenericEntityException;
+
+    GenericValue findByPrimaryKeyCacheSingle(String entityName, Object singlePkValue) throws GenericEntityException;
 
     GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set keys) throws GenericEntityException;
 

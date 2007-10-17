@@ -79,6 +79,13 @@ public class GenericValue extends GenericEntity implements Reusable {
         return newValue;
     }
 
+    /** Creates new GenericValue from existing Map */
+    public static GenericValue create(ModelEntity modelEntity, Object singlePkValue) {
+        GenericValue newValue = (GenericValue) genericValueFactory.object();
+        newValue.init(modelEntity, singlePkValue);
+        return newValue;
+    }
+
     /** Creates new GenericValue from existing GenericValue */
     public static GenericValue create(GenericValue value) {
         GenericValue newValue = (GenericValue) genericValueFactory.object();
