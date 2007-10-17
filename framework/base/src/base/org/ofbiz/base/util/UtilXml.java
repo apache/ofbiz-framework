@@ -80,10 +80,8 @@ public class UtilXml {
         }
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        List elementList = UtilXml.childElementList(fragment);
-        Iterator elementIter = elementList.iterator();
-        while (elementIter.hasNext()) {
-            Element element = (Element) elementIter.next();
+        List<? extends Element> elementList = UtilXml.childElementList(fragment);
+        for (Element element: elementList) {
             writeXmlDocument(bos, element);
         }
         String outString = bos.toString("UTF-8");
@@ -223,8 +221,8 @@ public class UtilXml {
         factory.setValidating(validate);
         factory.setNamespaceAware(true);
 
-        factory.setAttribute("http://xml.org/sax/features/validation", Boolean.TRUE);
-        factory.setAttribute("http://apache.org/xml/features/validation/schema", Boolean.TRUE);
+        factory.setAttribute("http://xml.org/sax/features/validation", true);
+        factory.setAttribute("http://apache.org/xml/features/validation/schema", true);
         
         // with a SchemaUrl, a URL object
         //factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
@@ -303,10 +301,10 @@ public class UtilXml {
     }
 
     /** Return a List of Element objects that are children of the given element */
-    public static List childElementList(Element element) {
+    public static List<? extends Element> childElementList(Element element) {
         if (element == null) return null;
 
-        List elements = FastList.newInstance();
+        List<Element> elements = FastList.newInstance();
         Node node = element.getFirstChild();
 
         if (node != null) {
@@ -323,10 +321,10 @@ public class UtilXml {
     /** Return a List of Element objects that have the given name and are
      * immediate children of the given element; if name is null, all child
      * elements will be included. */
-    public static List childElementList(Element element, String childElementName) {
+    public static List<? extends Element> childElementList(Element element, String childElementName) {
         if (element == null) return null;
 
-        List elements = FastList.newInstance();
+        List<Element> elements = FastList.newInstance();
         Node node = element.getFirstChild();
 
         if (node != null) {
@@ -345,10 +343,10 @@ public class UtilXml {
     /** Return a List of Element objects that have the given name and are
      * immediate children of the given element; if name is null, all child
      * elements will be included. */
-    public static List childElementList(Element element, Set childElementNames) {
+    public static List<? extends Element> childElementList(Element element, Set<String> childElementNames) {
         if (element == null) return null;
 
-        List elements = FastList.newInstance();
+        List<Element> elements = FastList.newInstance();
         if (childElementNames == null) return elements;
         Node node = element.getFirstChild();
 
@@ -363,10 +361,17 @@ public class UtilXml {
         return elements;
     }
 
+    /** Return a List of Element objects that have the given name and are
+     * immediate children of the given element; if name is null, all child
+     * elements will be included. */
+    public static List<? extends Element> childElementList(Element element, String... childElementNames) {
+        return childElementList(element, UtilMisc.toSetArray(childElementNames));
+    }
+
     /** Return a List of Element objects that are children of the given DocumentFragment */
-    public static List childElementList(DocumentFragment fragment) {
+    public static List<? extends Element> childElementList(DocumentFragment fragment) {
         if (fragment == null) return null;
-        List elements = FastList.newInstance();
+        List<Element> elements = FastList.newInstance();
         Node node = fragment.getFirstChild();
         if (node != null) {
             do {
@@ -381,7 +386,7 @@ public class UtilXml {
 
     /** Return the first child Element
      * returns the first element. */
-    public static Element firstChildElement(Element element, Set childElementNames) {
+    public static Element firstChildElement(Element element, Set<String> childElementNames) {
         if (element == null) return null;
         // get the first element with the given name
         Node node = element.getFirstChild();
@@ -396,6 +401,12 @@ public class UtilXml {
             } while ((node = node.getNextSibling()) != null);
         }
         return null;
+    }
+
+    /** Return the first child Element
+     * returns the first element. */
+    public static Element firstChildElement(Element element, String... childElementNames) {
+        return firstChildElement(element, UtilMisc.toSetArray(childElementNames));
     }
 
     /** Return the first child Element
