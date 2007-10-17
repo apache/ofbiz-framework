@@ -67,7 +67,7 @@ public class EntityCache extends AbstractCache {
         Iterator it = entityCache.getCacheLineValues().iterator();
         while (it.hasNext()) {
             CacheLine line = (CacheLine) it.next();
-            if (entityCache.hasExpired(line)) continue;
+            if (line.hasExpired()) continue;
             GenericEntity entity = (GenericEntity) line.getValue();
             if (entity == null) continue;
             if (condition.entityMatches(entity)) it.remove();
