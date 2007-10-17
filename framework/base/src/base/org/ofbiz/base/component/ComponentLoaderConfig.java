@@ -47,9 +47,9 @@ public class ComponentLoaderConfig {
     public static final int SINGLE_COMPONENT = 0;
     public static final int COMPONENT_DIRECTORY = 1;
     
-    protected static List componentsToLoad = null;
+    protected static List<ComponentDef> componentsToLoad = null;
     
-    public static List getRootComponents(String configFile) throws ComponentException {
+    public static List<ComponentDef> getRootComponents(String configFile) throws ComponentException {
         if (componentsToLoad == null) {
             synchronized (ComponentLoaderConfig.class) {
                 if (componentsToLoad ==  null) {
@@ -64,12 +64,12 @@ public class ComponentLoaderConfig {
         return componentsToLoad;
     }
 
-    public static List getComponentsFromConfig(URL configUrl) throws ComponentException {
+    public static List<ComponentDef> getComponentsFromConfig(URL configUrl) throws ComponentException {
         if (configUrl == null) {
             throw new ComponentException("Component config file does not exist: " + configUrl);
         }
 
-        List componentsFromConfig = null;
+        List<ComponentDef> componentsFromConfig = null;
         Document document = null;
         try {
             document = UtilXml.readXmlDocument(configUrl, true);
@@ -82,12 +82,10 @@ public class ComponentLoaderConfig {
         }
 
         Element root = document.getDocumentElement();
-        List toLoad = UtilXml.childElementList(root);
+        List<? extends Element> toLoad = UtilXml.childElementList(root);
         if (toLoad != null && toLoad.size() > 0) {
-            componentsFromConfig = new LinkedList();
-            Iterator i = toLoad.iterator();
-            while (i.hasNext()) {
-                Element element = (Element) i.next();
+            componentsFromConfig = new LinkedList<ComponentDef>();
+            for (Element element: toLoad) {
                 componentsFromConfig.add(new ComponentDef(element));
             }
         }
