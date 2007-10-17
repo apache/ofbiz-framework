@@ -2008,7 +2008,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append("<li class=\"").append(modelForm.getPaginateFirstStyle());
         if (viewIndex > 0) {
             buffer.append("\"><a href=\"");
-            linkText = prepLinkText + 0 + anchor + "\"";
+            linkText = prepLinkText + 0 + anchor;
             // - make the link
             buffer.append(rh.makeLink(this.request, this.response, linkText)).append("\">").append(modelForm.getPaginateFirstLabel(context)).append("</a>");
         } else {
@@ -2020,7 +2020,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append("<li class=\"").append(modelForm.getPaginatePreviousStyle());
         if (viewIndex > 0) {
             buffer.append("\"><a href=\"");
-            linkText = prepLinkText + (viewIndex - 1) + anchor + "\"";
+            linkText = prepLinkText + (viewIndex - 1) + anchor;
             // - make the link
             buffer.append(rh.makeLink(this.request, this.response, linkText)).append("\">").append(modelForm.getPaginatePreviousLabel(context)).append("</a>");
         } else {
@@ -2064,7 +2064,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append("<li class=\"").append(modelForm.getPaginateNextStyle());
         if (highIndex < listSize) {
             buffer.append("\"><a href=\"");
-            linkText = prepLinkText + (viewIndex + 1) + anchor + "\"";
+            linkText = prepLinkText + (viewIndex + 1) + anchor;
             // - make the link
             buffer.append(rh.makeLink(this.request, this.response, linkText)).append("\">").append(modelForm.getPaginateNextLabel(context)).append("</a>");
         } else {
@@ -2076,7 +2076,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append("<li class=\"").append(modelForm.getPaginateLastStyle());
         if (highIndex < listSize) {
             buffer.append("\"><a href=\"");
-            linkText = prepLinkText + (page - 1) + anchor + "\"";
+            linkText = prepLinkText + (page - 1) + anchor;
             // - make the link
             buffer.append(rh.makeLink(this.request, this.response, linkText)).append("\">").append(modelForm.getPaginateLastLabel(context)).append("</a>");
         } else {
