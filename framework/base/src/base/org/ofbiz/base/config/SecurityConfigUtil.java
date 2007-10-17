@@ -20,6 +20,7 @@ package org.ofbiz.base.config;
 
 import java.util.*;
 import org.w3c.dom.*;
+import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
 
 /**
@@ -39,7 +40,7 @@ public class SecurityConfigUtil {
     /** The security config filename */
     public static final String SECURITY_CONFIG_XML_FILENAME = "security.xml";
 
-    protected static Map securityInfos = new HashMap();
+    protected static Map securityInfos = FastMap.newInstance();
 
     /**
      * Returns the XmlRootElement for the security config

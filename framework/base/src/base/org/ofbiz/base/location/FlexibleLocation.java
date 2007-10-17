@@ -20,8 +20,9 @@ package org.ofbiz.base.location;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilProperties;
 
@@ -32,9 +33,9 @@ import org.ofbiz.base.util.UtilProperties;
 
 public class FlexibleLocation {
     
-    protected static Map locationResolvers = new HashMap();
+    protected static Map locationResolvers = FastMap.newInstance();
     
-    protected static Map defaultResolvers = new HashMap();
+    protected static Map defaultResolvers = FastMap.newInstance();
     
     protected static String standardUrlResolverName = StandardUrlLocationResolver.class.getName();
     protected static String classpathResolverName = ClasspathLocationResolver.class.getName();
