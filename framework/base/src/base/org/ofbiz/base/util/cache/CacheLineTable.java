@@ -126,7 +126,7 @@ public class CacheLineTable<K, V> implements Serializable {
             if (key == null) {
                 value = isNullSet ? nullValue : null;
             } else {
-                value = (CacheLine) memoryTable.get(key);
+                value = memoryTable.get(key);
             }
         }
         if (value == null) {
