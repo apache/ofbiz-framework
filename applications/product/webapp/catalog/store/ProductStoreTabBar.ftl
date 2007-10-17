@@ -34,5 +34,7 @@ under the License.
       <a href="<@ofbizUrl>EditProductStoreSurveys?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreSurveys?default(unselectedClassName)}">${uiLabelMap.CommonSurveys}</a>
       <a href="<@ofbizUrl>editProductStoreKeywordOvrd?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreKeywordOvrd?default(unselectedClassName)}">${uiLabelMap.ProductOverride}</a>
       <a href="<@ofbizUrl>ViewProductStoreSegments?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.ViewProductStoreSegments?default(unselectedClassName)}">${uiLabelMap.ProductSegments}</a>
+      <a href="<@ofbizUrl>EditProductStoreVendorPayments?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreVendorPayments?default(unselectedClassName)}">${uiLabelMap.ProductVendorPayments}</a>
+      <a href="<@ofbizUrl>EditProductStoreVendorShipments?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreVendorShipments?default(unselectedClassName)}">${uiLabelMap.ProductVendorShipments}</a>
     </div>
-  </#if>  
+  </#if>

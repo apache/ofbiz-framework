@@ -438,4 +438,62 @@ under the License.
             </widgets>
        </section>
     </screen>
+
+    <screen name="EditProductStoreVendorPayments">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductStoreVendorPayments"/>
+                <set field="headerItem" value="store"/>
+                <set field="tabButtonItem" value="EditProductStoreVendorPayments"/>
+                <set field="labelTitleProperty" value="ProductStoreVendorPayments"/>
+             
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                
+                <entity-condition entity-name="ProductStoreVendorPayment" list-name="productStoreVendorPaymentList">
+                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="widget-container">
+                            <include-form name="ListProductStoreVendorPayments" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        </container>
+                        <container style="widget-container">
+                            <include-form name="EditProductStoreVendorPayment" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditProductStoreVendorShipments">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductStoreVendorShipments"/>
+                <set field="headerItem" value="store"/>
+                <set field="tabButtonItem" value="EditProductStoreVendorShipments"/>
+                <set field="labelTitleProperty" value="ProductStoreVendorShipments"/>
+
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+
+                <entity-condition entity-name="ProductStoreVendorShipment" list-name="productStoreVendorShipmentList">
+                    <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="widget-container">
+                            <include-form name="ListProductStoreVendorShipments" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        </container>
+                        <container style="widget-container">
+                            <include-form name="EditProductStoreVendorShipment" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
