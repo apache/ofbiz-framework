@@ -347,7 +347,7 @@ public class UtilCache implements Serializable {
             removeInternal(key, false);
             if (countGet) missCountSoftRef++;
             line = null;
-        } else if (this.hasExpired(line)) {
+        } else if (line.hasExpired()) {
             // note that print.info in debug.properties cannot be checked through UtilProperties here, it would cause infinite recursion...
             // if (Debug.infoOn()) Debug.logInfo("Element has expired with key " + key, module);
             removeInternal(key, false);
@@ -599,27 +599,8 @@ public class UtilCache implements Serializable {
      */
     public boolean hasExpired(Object key) {
         CacheLine line = getInternalNoCheck(key);
-        return hasExpired(line);
-    }
-
-    protected boolean hasExpired(CacheLine line) {
         if (line == null) return false;
-
-        // check this BEFORE checking to see if expireTime <= 0, ie if time expiration is enabled
-        // check to see if we are using softReference first, slight performance increase
-        if (line.softReferenceCleared()) return true;
-        
-        // check if expireTime <= 0, ie if time expiration is not enabled
-        if (line.expireTime <= 0) return false;
-
-        // check if the time was saved for this; if the time was not saved, but expire time is > 0, then we don't know when it was saved so expire it to be safe
-        if (line.loadTime <= 0) return true;
-        
-        if ((line.loadTime + line.expireTime) < System.currentTimeMillis()) {
-            return true;
-        } else {
-            return false;
-        }
+        return line.hasExpired();
     }
 
     /** Clears all expired cache entries; also clear any cache entries where the SoftReference in the CacheLine object has been cleared by the gc */

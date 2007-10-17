@@ -87,5 +87,19 @@ public class CacheLine implements Serializable {
     public long getSizeInBytes() {
         return UtilObject.getByteCount(this);
     }
+
+    public boolean hasExpired() {
+        // check this BEFORE checking to see if expireTime <= 0, ie if time expiration is enabled
+        // check to see if we are using softReference first, slight performance increase
+        if (softReferenceCleared()) return true;
+
+        // check if expireTime <= 0, ie if time expiration is not enabled
+        if (expireTime <= 0) return false;
+
+        // check if the time was saved for this; if the time was not saved, but expire time is > 0, then we don't know when it was saved so expire it to be safe
+        if (loadTime <= 0) return true;
+
+        return (loadTime + expireTime) < System.currentTimeMillis();
+    }
 }
 
