@@ -70,9 +70,7 @@ public class Start implements Runnable {
         // parse the startup arguments
         if (args.length > 1) {
             this.loaderArgs = new String[args.length - 1];
-            for (int i = 1; i < args.length; i++) {
-                this.loaderArgs[i - 1] = args[i];
-            }
+            System.arraycopy(args, 1, this.loaderArgs, 0, this.loaderArgs.length);
         }
 
         if (fullInit) {
