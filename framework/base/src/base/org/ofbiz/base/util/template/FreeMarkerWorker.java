@@ -73,10 +73,11 @@ public class FreeMarkerWorker {
     public static final String module = FreeMarkerWorker.class.getName();
     
     // use soft references for this so that things from Content records don't kill all of our memory, or maybe not for performance reasons... hmmm, leave to config file...
-    public static UtilCache cachedTemplates = new UtilCache("template.ftl.general", 0, 0, false);
+    public static UtilCache<String, Template> cachedTemplates = new UtilCache<String, Template>("template.ftl.general", 0, 0, false);
     private static Configuration defaultOfbizConfig = null;
 
-    public static Map ftlTransforms = FastMap.newInstance();
+    // TemplateModel
+    public static Map<String, Object> ftlTransforms = FastMap.newInstance();
     
     public static final String FRAMEWORK_TRANSFORMS = "frameworkTransforms";
     public static final String APPLICATION_TRANSFORMS = "applicationTransforms";
@@ -129,7 +130,7 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplateAtLocation(String templateLocation, Map context, Writer outWriter) throws MalformedURLException, TemplateException, IOException {
+    public static void renderTemplateAtLocation(String templateLocation, Map<String, Object> context, Writer outWriter) throws MalformedURLException, TemplateException, IOException {
         renderTemplate(templateLocation, context, outWriter);
     }
     
@@ -140,7 +141,7 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplate(String templateLocation, String templateString, Map context, Writer outWriter) throws TemplateException, IOException {
+    public static void renderTemplate(String templateLocation, String templateString, Map<String, Object> context, Writer outWriter) throws TemplateException, IOException {
         if (UtilValidate.isEmpty(templateString)) {
             renderTemplate(templateLocation, context, outWriter);
         } else {
@@ -155,16 +156,16 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplate(String templateLocation, Map context, Writer outWriter) throws TemplateException, IOException {
+    public static void renderTemplate(String templateLocation, Map<String, Object> context, Writer outWriter) throws TemplateException, IOException {
         Template template = getTemplate(templateLocation);
         renderTemplate(template, context, outWriter);
     }
  
-    public static void renderTemplateFromString(String templateString, String templateLocation, Map context, Writer outWriter) throws TemplateException, IOException {
-        Template template = (Template) cachedTemplates.get(templateLocation);
+    public static void renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Writer outWriter) throws TemplateException, IOException {
+        Template template = cachedTemplates.get(templateLocation);
         if (template == null) {
             synchronized (cachedTemplates) {
-                template = (Template) cachedTemplates.get(templateLocation);
+                template = cachedTemplates.get(templateLocation);
                 if (template == null) {
                     Reader templateReader = new StringReader(templateString);
                     template = new Template(templateLocation, templateReader, getDefaultOfbizConfig());
@@ -183,7 +184,7 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplate(Template template, Map context, Writer outWriter) throws TemplateException, IOException {
+    public static void renderTemplate(Template template, Map<String, Object> context, Writer outWriter) throws TemplateException, IOException {
         addAllOfbizTransforms(context);
         // make sure there is no "null" string in there as FreeMarker will try to use it
         context.remove("null");
@@ -195,7 +196,7 @@ public class FreeMarkerWorker {
         env.process();
     }
     
-    public static void addAllOfbizTransforms(Map context) {
+    public static void addAllOfbizTransforms(Map<String, Object> context) {
         BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
         TemplateHashModel staticModels = wrapper.getStaticModels();
         if (context == null) {
@@ -210,7 +211,7 @@ public class FreeMarkerWorker {
      * @param env An Environment instance
      * @param context The context Map containing the user settings
      */
-    public static void applyUserSettings(Environment env, Map context) throws TemplateException {
+    public static void applyUserSettings(Environment env, Map<String, Object> context) throws TemplateException {
         Locale locale = (Locale) context.get("locale");
         if (locale == null) {
             locale = Locale.getDefault();
@@ -296,12 +297,12 @@ public class FreeMarkerWorker {
         return template;
     }
     
-    public static String getArg(Map args, String key, Environment env) {
-        Map templateContext = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+    public static String getArg(Map<String, ? extends Object> args, String key, Environment env) {
+        Map<String, ? extends Object> templateContext = UtilGenerics.checkMap(FreeMarkerWorker.getWrappedObject("context", env));
         return getArg(args, key, templateContext);
     }
 
-    public static String getArg(Map args, String key, Map templateContext) {
+    public static String getArg(Map<String, ? extends Object> args, String key, Map<String, ? extends Object> templateContext) {
         //SimpleScalar s = null;
         Object o = null;
         String returnVal = null;
@@ -319,7 +320,7 @@ public class FreeMarkerWorker {
         return returnVal;
     }
 
-    public static Object getArgObject(Map args, String key, Map templateContext) {
+    public static Object getArgObject(Map<String, ? extends Object> args, String key, Map<String, ? extends Object> templateContext) {
         //SimpleScalar s = null;
         Object o = null;
         Object returnVal = null;
@@ -431,8 +432,8 @@ public class FreeMarkerWorker {
         return returnObj;
     }
 
-    public static void checkForLoop(String path, Map ctx) throws IOException {
-        List templateList = (List)ctx.get("templateList");
+    public static void checkForLoop(String path, Map<String, Object> ctx) throws IOException {
+        List<String> templateList = UtilGenerics.checkList(ctx.get("templateList"));
         if (templateList == null) {
             templateList = FastList.newInstance();
         } else {
@@ -444,18 +445,16 @@ public class FreeMarkerWorker {
         ctx.put("templateList", templateList);
     }
 
-    public static Map createEnvironmentMap(Environment env) {
-        Map templateRoot = FastMap.newInstance();
-        Set varNames = null;
+    public static Map<String, Object> createEnvironmentMap(Environment env) {
+        Map<String, Object> templateRoot = FastMap.newInstance();
+        Set<String> varNames = null;
         try {
-            varNames = env.getKnownVariableNames();
+            varNames = UtilGenerics.checkSet(env.getKnownVariableNames());
         } catch (TemplateModelException e1) {
             Debug.logError(e1, "Error getting FreeMarker variable names, will not put pass current context on to sub-content", module);
         }
         if (varNames != null) {
-            Iterator varNameIter = varNames.iterator();
-            while (varNameIter.hasNext()) {
-                String varName = (String) varNameIter.next();
+            for (String varName: varNames) {
                 //freemarker.ext.beans.StringModel varObj = (freemarker.ext.beans.StringModel ) varNameIter.next();
                 //Object varObj =  varNameIter.next();
                 //String varName = varObj.toString();
@@ -465,26 +464,24 @@ public class FreeMarkerWorker {
         return templateRoot;
     }
     
-    public static void saveContextValues(Map context, String [] saveKeyNames, Map saveMap ) {
-        //Map saveMap = FastMap.newInstance();
-        for (int i=0; i<saveKeyNames.length; i++) {
-            String key = saveKeyNames[i];
+    public static void saveContextValues(Map<String, Object> context, String [] saveKeyNames, Map<String, Object> saveMap ) {
+        //Map saveMap = new HashMap();
+        for (String key: saveKeyNames) {
             Object o = context.get(key);
             if (o instanceof Map)
-                o = UtilMisc.makeMapWritable((Map)o);
+                o = UtilMisc.makeMapWritable(UtilGenerics.checkMap(o));
             else if (o instanceof List)
                 o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
             saveMap.put(key, o);
         }
     }
 
-    public static Map saveValues(Map context, String [] saveKeyNames) {
-        Map saveMap = FastMap.newInstance();
-        for (int i=0; i<saveKeyNames.length; i++) {
-            String key = saveKeyNames[i];
+    public static Map<String, Object> saveValues(Map<String, Object> context, String [] saveKeyNames) {
+        Map<String, Object> saveMap = FastMap.newInstance();
+        for (String key: saveKeyNames) {
             Object o = context.get(key);
             if (o instanceof Map)
-                o = UtilMisc.makeMapWritable((Map)o);
+                o = UtilMisc.makeMapWritable(UtilGenerics.checkMap(o));
             else if (o instanceof List)
                 o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
             saveMap.put(key, o);
@@ -493,19 +490,17 @@ public class FreeMarkerWorker {
     }
 
 
-    public static void reloadValues(Map context, Map saveValues, Environment env ) {
-        Set keySet = saveValues.keySet();
-        Iterator it = keySet.iterator();
-        while (it.hasNext()) {
-            String key = (String)it.next();
-            Object o = saveValues.get(key);
+    public static void reloadValues(Map<String, Object> context, Map<String, Object> saveValues, Environment env ) {
+        for (Map.Entry<String, Object> entry: saveValues.entrySet()) {
+            String key = entry.getKey();
+            Object o = entry.getValue();
             if (o instanceof Map) {
-                Map map = FastMap.newInstance();
-                map.putAll((Map)o);
+                Map<Object, Object> map = FastMap.newInstance();
+                map.putAll(UtilGenerics.checkMap(o));
                 context.put(key, map);
             } else if (o instanceof List) {
-                List list = FastList.newInstance();
-                list.addAll((List)o);
+                List<Object> list = FastList.newInstance();
+                list.addAll(UtilGenerics.checkList(o));
                 context.put(key, list);
             } else {
                 context.put(key, o);
@@ -514,19 +509,16 @@ public class FreeMarkerWorker {
         }
     }
 
-    public static void removeValues(Map context, String [] removeKeyNames ) {
-        for (int i=0; i<removeKeyNames.length; i++) {
-            String key = removeKeyNames[i];
+    public static void removeValues(Map<String, ?> context, String... removeKeyNames ) {
+        for (String key: removeKeyNames) {
             context.remove(key);
         }
     }
 
-    public static void overrideWithArgs(Map ctx, Map args) {
-        Set keySet = args.keySet();
-        Iterator it = keySet.iterator();
-        while (it.hasNext()) {
-            String key = (String)it.next();
-            Object obj = args.get(key);
+    public static void overrideWithArgs(Map<String, Object> ctx, Map<String, Object> args) {
+        for (Map.Entry<String, Object> entry: args.entrySet()) {
+            String key = entry.getKey();
+            Object obj = entry.getValue();
             //if (Debug.infoOn()) Debug.logInfo("in overrideWithArgs, key(3):" + key + " obj:" + obj + " class:" + obj.getClass().getName() , module);
             if (obj != null) {
                 if (obj == TemplateModel.NOTHING) {
@@ -543,22 +535,19 @@ public class FreeMarkerWorker {
         }
     }
 
-    public static void convertContext(Map ctx) {
-        Set keySet = ctx.keySet();
-        Iterator it = keySet.iterator();
-        while (it.hasNext()) {
-            String key = (String)it.next();
-            Object obj = ctx.get(key);
+    public static void convertContext(Map<String, Object> ctx) {
+        for (Map.Entry<String, Object> entry: ctx.entrySet()) {
+            Object obj = entry.getValue();
             if (obj != null) {
                 Object unwrappedObj = unwrap(obj);
                 if (unwrappedObj != null) {
-                    ctx.put(key, unwrappedObj);
+                    entry.setValue(unwrappedObj);
                 }
             }
         }
     }
 
-    public static void getSiteParameters(HttpServletRequest request, Map ctx) {
+    public static void getSiteParameters(HttpServletRequest request, Map<String, Object> ctx) {
         if (request == null) {
             return;
         }
