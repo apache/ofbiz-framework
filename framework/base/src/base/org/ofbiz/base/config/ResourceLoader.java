@@ -177,7 +177,7 @@ public abstract class ResourceLoader {
      * @return
      */
     public String fullLocation(String location) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 
         if (envName != null && envName.length() > 0) {
             String propValue = System.getProperty(envName);

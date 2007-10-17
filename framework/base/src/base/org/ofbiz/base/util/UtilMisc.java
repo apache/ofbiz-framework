@@ -164,7 +164,7 @@ public class UtilMisc {
     }
 
     public static String printMap(Map theMap) {
-        StringBuffer theBuf = new StringBuffer();
+        StringBuilder theBuf = new StringBuilder();
         Iterator entryIter = theMap.entrySet().iterator();
         while (entryIter.hasNext()) {
             Map.Entry entry = (Map.Entry) entryIter.next();
@@ -744,7 +744,7 @@ public class UtilMisc {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.toString();
             } else {
-                StringBuffer outString = new StringBuffer("{");
+                StringBuilder outString = new StringBuilder("{");
                 for (int i = 0; i < names.length; i++) {
                     if (i > 0) outString.append(',');
                     outString.append('{');

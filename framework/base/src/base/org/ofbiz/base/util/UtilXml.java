@@ -492,7 +492,7 @@ public class UtilXml {
 
         if (textNode == null) return null;
 
-        StringBuffer valueBuffer = new StringBuffer();
+        StringBuilder valueBuffer = new StringBuilder();
         do {
             if (textNode.getNodeType() == Node.CDATA_SECTION_NODE || textNode.getNodeType() == Node.TEXT_NODE) {
                 valueBuffer.append(textNode.getNodeValue());

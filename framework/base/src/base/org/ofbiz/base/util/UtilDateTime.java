@@ -118,7 +118,7 @@ public class UtilDateTime {
 
         Map uiDateTimeMap = UtilProperties.getResourceBundleMap("DateTimeLabels", locale);
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = parts.size() - 1; i >= 0 && count > 0; i--) {
             if (sb.length() > 0) sb.append(", ");
             Double D = (Double) parts.get(i);

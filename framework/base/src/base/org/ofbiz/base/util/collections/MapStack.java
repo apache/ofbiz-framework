@@ -348,7 +348,7 @@ public class MapStack implements Map, Reusable, LocalizedMap {
     }
     
     public String toString() {
-        StringBuffer fullMapString = new StringBuffer();
+        StringBuilder fullMapString = new StringBuilder();
         int curLevel = 0;
         Iterator stackIter = this.stackList.iterator();
         while (stackIter.hasNext()) {

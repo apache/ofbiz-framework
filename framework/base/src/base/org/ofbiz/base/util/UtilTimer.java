@@ -175,7 +175,7 @@ public class UtilTimer {
     public String timerString(int level, String message) {
         // String retString =  "[[" + message + ": seconds since start: " + secondsSinceStart() + ",since last(" + lastMessage + "):" + secondsSinceLast() + "]]";
 
-        StringBuffer retStringBuf = new StringBuffer();
+        StringBuilder retStringBuf = new StringBuilder();
 
         for (int i = 0; i < level; i++) {
             retStringBuf.append("| ");
