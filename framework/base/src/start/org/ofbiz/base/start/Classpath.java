@@ -45,16 +45,7 @@ public class Classpath {
 
     public boolean addComponent(String component) {
         if ((component != null) && (component.length() > 0)) {
-            try {
-                File f = new File(component);
-                if (f.exists()) {
-                    File key = f.getCanonicalFile();
-                    if (!_elements.contains(key)) {
-                        _elements.add(key);
-                        return true;
-                    }
-                }
-            } catch (IOException e) {}
+            return addComponent(new File(component));
         }
         return false;
     }
