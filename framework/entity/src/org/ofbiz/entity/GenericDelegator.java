@@ -444,6 +444,17 @@ public class GenericDelegator implements DelegatorInterface {
         return value;
     }
 
+    /** Creates a Entity in the form of a GenericValue without persisting it */
+    public GenericValue makeValueSingle(String entityName, Object singlePkValue) {
+        ModelEntity entity = this.getModelEntity(entityName);
+        if (entity == null) {
+            throw new IllegalArgumentException("[GenericDelegator.makeValue] could not find entity for entityName: " + entityName);
+        }
+        GenericValue value = GenericValue.create(entity, singlePkValue);
+        value.setDelegator(this);
+        return value;
+    }
+
     /** Creates a Entity in the form of a GenericValue without persisting it; only valid fields will be pulled from the fields Map */
     public GenericValue makeValidValue(String entityName, Map fields) {
         ModelEntity entity = this.getModelEntity(entityName);
@@ -464,6 +475,18 @@ public class GenericDelegator implements DelegatorInterface {
             throw new IllegalArgumentException("[GenericDelegator.makePK] could not find entity for entityName: " + entityName);
         }
         GenericPK pk = GenericPK.create(entity, fields);
+
+        pk.setDelegator(this);
+        return pk;
+    }
+
+    /** Creates a Primary Key in the form of a GenericPK without persisting it */
+    public GenericPK makePKSingle(String entityName, Object singlePkValue) {
+        ModelEntity entity = this.getModelEntity(entityName);
+        if (entity == null) {
+            throw new IllegalArgumentException("[GenericDelegator.makePK] could not find entity for entityName: " + entityName);
+        }
+        GenericPK pk = GenericPK.create(entity, singlePkValue);
 
         pk.setDelegator(this);
         return pk;
@@ -499,6 +522,19 @@ public class GenericDelegator implements DelegatorInterface {
         }
         ModelEntity entity = this.getModelReader().getModelEntity(entityName);
         GenericValue genericValue = GenericValue.create(entity, fields);
+
+        return this.create(genericValue, true);
+    }
+
+    /** Creates a Entity in the form of a GenericValue and write it to the database
+     *@return GenericValue instance containing the new instance
+     */
+    public GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException {
+        if (entityName == null || singlePkValue == null) {
+            return null;
+        }
+        ModelEntity entity = this.getModelReader().getModelEntity(entityName);
+        GenericValue genericValue = GenericValue.create(entity, singlePkValue);
 
         return this.create(genericValue, true);
     }
@@ -1353,6 +1389,15 @@ public class GenericDelegator implements DelegatorInterface {
         return findByPrimaryKey(makePK(entityName, fields));
     }
 
+    /** Find a Generic Entity by its Primary Key
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param singlePkValue
+     *@return The GenericValue corresponding to the primaryKey
+     */
+    public GenericValue findByPrimaryKeySingle(String entityName, Object singlePkValue) throws GenericEntityException {
+        return findByPrimaryKey(makePKSingle(entityName, singlePkValue));
+    }
+
     /** Find a CACHED Generic Entity by its Primary Key
      *@param entityName The Name of the Entity as defined in the entity XML file
      *@param fields The fields of the named entity to query by with their corresponging values
@@ -1360,6 +1405,15 @@ public class GenericDelegator implements DelegatorInterface {
      */
     public GenericValue findByPrimaryKeyCache(String entityName, Map fields) throws GenericEntityException {
         return findByPrimaryKeyCache(makePK(entityName, fields));
+    }
+
+    /** Find a CACHED Generic Entity by its Primary Key
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param singlePkValue
+     *@return The GenericValue corresponding to the primaryKey
+     */
+    public GenericValue findByPrimaryKeyCacheSingle(String entityName, Object singlePkValue) throws GenericEntityException {
+        return findByPrimaryKeyCache(makePKSingle(entityName, singlePkValue));
     }
 
     /** Find a Generic Entity by its Primary Key and only returns the values requested by the passed keys (names)
@@ -1892,6 +1946,10 @@ public class GenericDelegator implements DelegatorInterface {
         eli.setDelegator(this);
         //TODO: add decrypt fields
         return eli;
+    }
+
+    public long findCountByAnd(String entityName) throws GenericEntityException {
+        return findCountByAnd(entityName, (Map<String, Object>) null);
     }
 
     public long findCountByAnd(String entityName, Map fields) throws GenericEntityException {
