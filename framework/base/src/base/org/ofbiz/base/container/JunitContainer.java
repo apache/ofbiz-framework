@@ -44,7 +44,7 @@ public class JunitContainer implements Container {
         ContainerConfig.Container jc = ContainerConfig.getContainer("junit-container", configFile);
 
         // get the tests to run
-        Iterator ti = jc.properties.values().iterator();
+        Iterator<ContainerConfig.Container.Property> ti = jc.properties.values().iterator();
         if (ti == null) {
             Debug.log("No tests to load", module);
             return true;
@@ -53,7 +53,7 @@ public class JunitContainer implements Container {
         // load the tests into the suite
         TestSuite suite = new TestSuite();
         while (ti.hasNext()) {
-            ContainerConfig.Container.Property prop = (ContainerConfig.Container.Property) ti.next();
+            ContainerConfig.Container.Property prop = ti.next();
             Class clz = null;
             try {
                 clz = ObjectType.loadClass(prop.value);

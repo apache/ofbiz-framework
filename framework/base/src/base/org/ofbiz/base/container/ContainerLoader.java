@@ -40,7 +40,7 @@ public class ContainerLoader implements StartupLoader {
     public static final String CONTAINER_CONFIG = "ofbiz-containers.xml";
     private static boolean loaded = false;
 
-    protected List loadedContainers = new LinkedList();
+    protected List<Container> loadedContainers = new LinkedList<Container>();
     protected String configFile = null;
 
     /**
@@ -53,7 +53,7 @@ public class ContainerLoader implements StartupLoader {
         // get the master container configuration file
         this.configFile = config.containerConfig;
         
-        Collection containers = null;
+        Collection<ContainerConfig.Container> containers = null;
         try {
             containers = ContainerConfig.getContainers(configFile);
         } catch (ContainerException e) {            
@@ -61,9 +61,7 @@ public class ContainerLoader implements StartupLoader {
         }
 
         if (containers != null) {
-            Iterator i = containers.iterator();
-            while (i.hasNext()) {
-                ContainerConfig.Container containerCfg = (ContainerConfig.Container) i.next();                
+            for (ContainerConfig.Container containerCfg: containers) {
                 loadedContainers.add(loadContainer(containerCfg, args));
             }
         }
@@ -76,8 +74,7 @@ public class ContainerLoader implements StartupLoader {
         Debug.logInfo("[Startup] Starting containers...", module);
 
         // start each container object
-        for (int i = 0; i < loadedContainers.size(); i++) {
-            Container container = (Container) loadedContainers.get(i);
+        for (Container container: loadedContainers) {
             try {
                 container.start();
             } catch (ContainerException e) {
@@ -98,7 +95,7 @@ public class ContainerLoader implements StartupLoader {
         
         // shutting down in reverse order
         for (int i = loadedContainers.size(); i > 0; i--) {
-            Container container = (Container) loadedContainers.get(i-1);
+            Container container = loadedContainers.get(i-1);
             try {
                 container.stop();
             } catch (ContainerException e) {
@@ -119,14 +116,14 @@ public class ContainerLoader implements StartupLoader {
         StringWriter writer = new StringWriter();
         PrintWriter out = new PrintWriter(writer);
         out.println("Thread dump:");
-        for (int i = 0; i < threadArr.length; i++) {
-            if (threadArr[i] != null) {
-                ThreadGroup g = threadArr[i].getThreadGroup();
-                out.println("Thread: " + threadArr[i].getName() + " [" + threadArr[i].getId() + "] @ " + (g != null ? g.getName() : "[none]") + " : " + threadArr[i].getPriority() + " [" + threadArr[i].getState().name() + "]");
-                out.println("--- Alive: " + threadArr[i].isAlive() + " Daemon: " + threadArr[i].isDaemon());
-                StackTraceElement[] stacks = threadArr[i].getStackTrace();
-                for (int x = 0; x < stacks.length; x++) {
-                    out.println("### " + stacks[x].toString());
+        for (Thread t: threadArr) {
+            if (t != null) {
+                ThreadGroup g = t.getThreadGroup();
+                out.println("Thread: " + t.getName() + " [" + t.getId() + "] @ " + (g != null ? g.getName() : "[none]") + " : " + t.getPriority() + " [" + t.getState().name() + "]");
+                out.println("--- Alive: " + t.isAlive() + " Daemon: " + t.isDaemon());
+                StackTraceElement[] stacks = t.getStackTrace();
+                for (StackTraceElement stack: t.getStackTrace()) {
+                    out.println("### " + stack.toString());
                 }
             }
         }
