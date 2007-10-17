@@ -35,7 +35,7 @@ import java.util.StringTokenizer;
  */
 public class Classpath {
 
-    private List _elements = new ArrayList();
+    private List<File> _elements = new ArrayList<File>();
 
     public Classpath() {}
 
@@ -93,12 +93,12 @@ public class Classpath {
         StringBuilder cp = new StringBuilder(1024);
         int cnt = _elements.size();
         if (cnt >= 1) {
-            cp.append(((File) (_elements.get(0))).getPath());
-            appendPath(cp, ((File) (_elements.get(0))).getPath());
+            cp.append(_elements.get(0).getPath());
+            appendPath(cp, _elements.get(0).getPath());
         }
         for (int i = 1; i < cnt; i++) {
             cp.append(File.pathSeparatorChar);
-            appendPath(cp, ((File) (_elements.get(i))).getPath());
+            appendPath(cp, _elements.get(i).getPath());
         }
         return cp.toString();
     }
@@ -108,7 +108,7 @@ public class Classpath {
         URL[] urls = new URL[cnt];
         for (int i = 0; i < cnt; i++) {
             try {
-                urls[i] = ((File) (_elements.get(i))).toURI().toURL();
+                urls[i] = _elements.get(i).toURI().toURL();
             } catch (MalformedURLException e) {
                 // note: this is printing right to the console because at this point we don't have the rest of the system up, not even the logging stuff
                 System.out.println("Error adding classpath entry: " + e.toString());
@@ -131,7 +131,7 @@ public class Classpath {
         return new URLClassLoader(urls, parent);
     }
 
-    public List getElements() {
+    public List<File> getElements() {
         return _elements;
     }
 }
