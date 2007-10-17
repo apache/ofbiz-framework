@@ -21,6 +21,8 @@ package org.ofbiz.base.config;
 import java.util.*;
 import org.w3c.dom.*;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.*;
 
 /**
@@ -31,7 +33,7 @@ public class JNDIConfigUtil {
     
     public static final String module = JNDIConfigUtil.class.getName();
     public static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
-    protected static Map jndiServerInfos = new HashMap();
+    protected static Map jndiServerInfos = FastMap.newInstance();
 
     protected static Element getXmlRootElement() throws GenericConfigException {
         try {

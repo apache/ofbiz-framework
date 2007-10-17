@@ -41,7 +41,7 @@ public class ObjectType {
 
     public static final Object NULL = new NullObject();
     
-    protected static Map classCache = new FastMap();
+    protected static Map classCache = FastMap.newInstance();
 
     public static final String LANG_PACKAGE = "java.lang."; // We will test both the raw value and this + raw value
     public static final String SQL_PACKAGE = "java.sql.";   // We will test both the raw value and this + raw value
