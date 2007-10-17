@@ -108,30 +108,30 @@ public class UtilDateTime {
     }
 
     public static String formatInterval(double interval, int count, Locale locale) {
-        ArrayList parts = new ArrayList(timevals.length);
-        for (int i = 0; i < timevals.length; i++) {
-            int value = Integer.parseInt(timevals[i][0]);
+        ArrayList<Double> parts = new ArrayList<Double>(timevals.length);
+        for (String[] timeval: timevals) {
+            int value = Integer.valueOf(timeval[0]);
             double remainder = interval % value;
             interval = interval / value;
-            parts.add(new Double(remainder));
+            parts.add(remainder);
         }
 
-        Map uiDateTimeMap = UtilProperties.getResourceBundleMap("DateTimeLabels", locale);
+        Map<String, Object> uiDateTimeMap = UtilProperties.getResourceBundleMap("DateTimeLabels", locale);
 
         StringBuilder sb = new StringBuilder();
         for (int i = parts.size() - 1; i >= 0 && count > 0; i--) {
             if (sb.length() > 0) sb.append(", ");
-            Double D = (Double) parts.get(i);
+            Double D = parts.get(i);
             double d = D.doubleValue();
             if (d < 1) continue;
             count--;
             sb.append(count == 0 ? df.format(d) : Integer.toString(D.intValue()));
             sb.append(' ');
-            String label;
+            Object label;
             if (D.intValue() == 1) {
-                label = (String) uiDateTimeMap.get(timevals[i][1] + ".singular");
+                label = uiDateTimeMap.get(timevals[i][1] + ".singular");
             } else {
-                label = (String) uiDateTimeMap.get(timevals[i][1] + ".plural");
+                label = uiDateTimeMap.get(timevals[i][1] + ".plural");
             }
             sb.append(label);
         }
@@ -883,11 +883,11 @@ public class UtilDateTime {
      * @param locale
      * @return List of day name Strings
      */
-    public static List getDayNames(Locale locale) {
+    public static List<String> getDayNames(Locale locale) {
         Calendar tempCal = Calendar.getInstance(locale);
         tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", locale);
-        List resultList = new ArrayList();
+        List<String> resultList = new ArrayList<String>();
         for (int i = 0; i < 7; i++) {
             resultList.add(dateFormat.format(tempCal.getTime()));
             tempCal.roll(Calendar.DAY_OF_WEEK, 1);
@@ -981,24 +981,24 @@ public class UtilDateTime {
         return dateFormat.format(stamp);
     }
 
-    protected static List availableTimeZoneList = null;
+    protected static List<TimeZone> availableTimeZoneList = null;
     /** Returns a List of available TimeZone objects.
      * @see java.util.TimeZone
      */
-    public static List availableTimeZones() {
+    public static List<TimeZone> availableTimeZones() {
         if (availableTimeZoneList == null) {
             synchronized(UtilDateTime.class) {
                 if (availableTimeZoneList == null) {
-                    availableTimeZoneList = new LinkedList();
-                    List idList = null;
+                    availableTimeZoneList = new LinkedList<TimeZone>();
+                    List<String> idList = null;
                     String tzString = UtilProperties.getPropertyValue("general", "timeZones.available");
                     if (tzString != null && tzString.length() > 0) {
                         idList = StringUtil.split(tzString, ",");
                     } else {
                         idList = Arrays.asList(TimeZone.getAvailableIDs());
                     }
-                    for (Iterator i = idList.iterator(); i.hasNext();) {
-                        TimeZone curTz = TimeZone.getTimeZone((String)i.next());
+                    for (String id: idList) {
+                        TimeZone curTz = TimeZone.getTimeZone(id);
                         availableTimeZoneList.add(curTz);
                     }
                 }

@@ -38,7 +38,7 @@ public class MultiTrustManager implements X509TrustManager {
 
     public static final String module = MultiTrustManager.class.getName();
 
-    protected List keystores;
+    protected List<KeyStore> keystores;
 
     public MultiTrustManager(KeyStore ks) {
         this();
@@ -72,29 +72,27 @@ public class MultiTrustManager implements X509TrustManager {
     }
 
     public X509Certificate[] getAcceptedIssuers() {
-        List certs = FastList.newInstance();
-        Iterator i = keystores.iterator();
-        while (i.hasNext()) {
-            KeyStore k = (KeyStore) i.next();
+        List<X509Certificate> issuers = FastList.newInstance();
+        for (KeyStore store: keystores) {
             try {
-                Enumeration e = k.aliases();
+                Enumeration<String> e = store.aliases();
                 while (e.hasMoreElements()) {
-                    String alias = (String) e.nextElement();
-                    Certificate[] cert = k.getCertificateChain(alias);
-                    if (cert != null) {
-                        for (int x = 0; x < cert.length; x++) {
-                            if (cert[x] instanceof X509Certificate) {
+                    String alias = e.nextElement();
+                    Certificate[] chain = store.getCertificateChain(alias);
+                    if (chain != null) {
+                        for (Certificate cert: chain) {
+                            if (cert instanceof X509Certificate) {
                                 if (Debug.verboseOn())
-                                    Debug.log("Read certificate (chain) : " + ((X509Certificate) cert[x]).getSubjectX500Principal().getName(), module);
-                                certs.add(cert[x]);
+                                    Debug.log("Read certificate (chain) : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                                issuers.add((X509Certificate) cert);
                             }
                         }
                     } else {
-                        Certificate c = k.getCertificate(alias);
-                        if (c != null && c instanceof X509Certificate) {
+                        Certificate cert = store.getCertificate(alias);
+                        if (cert != null && cert instanceof X509Certificate) {
                             if (Debug.verboseOn())
-                                Debug.log("Read certificate : " + ((X509Certificate) c).getSubjectX500Principal().getName(), module);
-                            certs.add(c);
+                                Debug.log("Read certificate : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                            issuers.add((X509Certificate) cert);
                         }
                     }
                 }
@@ -103,20 +101,20 @@ public class MultiTrustManager implements X509TrustManager {
             }
         }
 
-        return (X509Certificate[]) certs.toArray(new X509Certificate[certs.size()]);
+        return issuers.toArray(new X509Certificate[issuers.size()]);
     }
 
     protected boolean isTrusted(X509Certificate[] cert) {
         if (cert != null) {
-            X509Certificate[] certs = this.getAcceptedIssuers();
-            if (certs != null) {
-                for (int i = 0; i < certs.length; i++) {
-                    for (int x = 0; x < cert.length; x++) {
+            X509Certificate[] issuers = this.getAcceptedIssuers();
+            if (issuers != null) {
+                for (X509Certificate issuer: issuers) {
+                    for (X509Certificate c: cert) {
                         if (Debug.verboseOn())
-                            Debug.log("--- Checking cert: " + certs[i].getSubjectX500Principal() + " vs " + cert[x].getSubjectX500Principal(), module);
-                        if (certs[i].equals(cert[x])) {
+                            Debug.log("--- Checking cert: " + issuer.getSubjectX500Principal() + " vs " + c.getSubjectX500Principal(), module);
+                        if (issuer.equals(c)) {
                             if (Debug.verboseOn())
-                                Debug.log("--- Found trusted cert: " + certs[i].getSerialNumber().toString(16) + " : " + certs[i].getSubjectX500Principal(), module);
+                                Debug.log("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : " + issuer.getSubjectX500Principal(), module);
                             return true;
                         }
                     }

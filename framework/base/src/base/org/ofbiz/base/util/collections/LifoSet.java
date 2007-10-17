@@ -28,10 +28,10 @@ import java.util.EmptyStackException;
  * LifoSet - Set interface wrapper around a LinkedList
  *
  */
-public class LifoSet extends AbstractSet implements Serializable {
+public class LifoSet<V> extends AbstractSet<V> implements Serializable {
 
     // This set's back LinkedList
-    private LinkedList backedList = new LinkedList();
+    private LinkedList<V> backedList = new LinkedList<V>();
     private int maxCapacity = 10;
 
     /**
@@ -70,7 +70,7 @@ public class LifoSet extends AbstractSet implements Serializable {
     /**
      * @see java.util.Collection#add(java.lang.Object)
      */
-    public boolean add(Object obj) {
+    public boolean add(V obj) {
         int index = backedList.indexOf(obj);
 
         if (index == -1) {
@@ -87,7 +87,7 @@ public class LifoSet extends AbstractSet implements Serializable {
     /**
      * @see java.util.Collection#iterator()         
      */  
-    public Iterator iterator() {
+    public Iterator<V> iterator() {
         return backedList.iterator();
     }
 
@@ -110,7 +110,7 @@ public class LifoSet extends AbstractSet implements Serializable {
      *
      * @param item The item to be pushed onto this stack
      */
-    public void push(Object item) {
+    public void push(V item) {
         this.add(item);
     }
 
@@ -120,7 +120,7 @@ public class LifoSet extends AbstractSet implements Serializable {
      * @return The object at the top of this stack
      * @throws EmptyStackException If this stack is empty
      */
-    public Object pop() throws EmptyStackException {
+    public V pop() throws EmptyStackException {
         if (this.size() > 0) {
             return backedList.removeFirst();
         }
@@ -133,7 +133,7 @@ public class LifoSet extends AbstractSet implements Serializable {
      * @return The object at the top of this stack
      * @throws EmptyStackException If this stack is empty
      */
-    public Object peek() throws EmptyStackException {
+    public V peek() throws EmptyStackException {
         if (this.size() > 0) {
             return backedList.getFirst();
         }

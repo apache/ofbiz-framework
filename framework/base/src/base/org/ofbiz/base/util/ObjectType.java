@@ -41,7 +41,7 @@ public class ObjectType {
 
     public static final Object NULL = new NullObject();
     
-    protected static Map classCache = FastMap.newInstance();
+    protected static Map<String, Class<?>> classCache = FastMap.newInstance();
 
     public static final String LANG_PACKAGE = "java.lang."; // We will test both the raw value and this + raw value
     public static final String SQL_PACKAGE = "java.sql.";   // We will test both the raw value and this + raw value
@@ -52,9 +52,9 @@ public class ObjectType {
      * @return The requested class
      * @throws ClassNotFoundException
      */
-    public static Class loadClass(String className) throws ClassNotFoundException {
+    public static Class<?> loadClass(String className) throws ClassNotFoundException {
         // small block to speed things up by putting using preloaded classes for common objects, this turns out to help quite a bit...
-        Class theClass = (Class) CachedClassLoader.globalClassNameClassMap.get(className);
+        Class<?> theClass = CachedClassLoader.globalClassNameClassMap.get(className);
 
         if (theClass != null) return theClass;
 
@@ -68,9 +68,9 @@ public class ObjectType {
      * @return The requested class
      * @throws ClassNotFoundException
      */
-    public static Class loadClass(String className, ClassLoader loader) throws ClassNotFoundException {
+    public static Class<?> loadClass(String className, ClassLoader loader) throws ClassNotFoundException {
         // small block to speed things up by putting using preloaded classes for common objects, this turns out to help quite a bit...
-        Class theClass = (Class) CachedClassLoader.globalClassNameClassMap.get(className);
+        Class<?> theClass = CachedClassLoader.globalClassNameClassMap.get(className);
 
         if (theClass != null) return theClass;
 
@@ -79,10 +79,10 @@ public class ObjectType {
         try {
             theClass = loader.loadClass(className);
         } catch (Exception e) {
-            theClass = (Class) classCache.get(className);
+            theClass = classCache.get(className);
             if (theClass == null) {
                 synchronized (ObjectType.class) {
-                    theClass = (Class) classCache.get(className);
+                    theClass = classCache.get(className);
                     if (theClass == null) {
                         theClass = Class.forName(className);
                         if (theClass != null) {
@@ -107,7 +107,7 @@ public class ObjectType {
      */
     public static Object getInstance(String className) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException {
-        Class c = loadClass(className);
+        Class<?> c = loadClass(className);
         Object o = c.newInstance();
 
         if (Debug.verboseOn()) Debug.logVerbose("Instantiated object: " + o.toString(), module);
@@ -121,8 +121,8 @@ public class ObjectType {
      * @return boolean indicating whether interfaceName is an interface of the obj
      * @throws ClassNotFoundException
      */
-    public static boolean interfaceOf(Class objectClass, String interfaceName) throws ClassNotFoundException {
-        Class interfaceClass = loadClass(interfaceName);
+    public static boolean interfaceOf(Class<?> objectClass, String interfaceName) throws ClassNotFoundException {
+        Class<?> interfaceClass = loadClass(interfaceName);
 
         return interfaceOf(objectClass, interfaceClass);
     }
@@ -133,8 +133,8 @@ public class ObjectType {
      * @param interfaceObject to test against
      * @return boolean indicating whether interfaceObject is an interface of the obj
      */
-    public static boolean interfaceOf(Class objectClass, Object interfaceObject) {
-        Class interfaceClass = interfaceObject.getClass();
+    public static boolean interfaceOf(Class<?> objectClass, Object interfaceObject) {
+        Class<?> interfaceClass = interfaceObject.getClass();
 
         return interfaceOf(objectClass, interfaceClass);
     }
@@ -150,11 +150,11 @@ public class ObjectType {
      */
     public static Object getInstance(String className, Object[] parameters) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Class[] sig = new Class[parameters.length];
+        Class<?>[] sig = new Class<?>[parameters.length];
         for (int i = 0; i < sig.length; i++) {
             sig[i] = parameters[i].getClass();
         }
-        Class c = loadClass(className);
+        Class<?> c = loadClass(className);
         Constructor con = c.getConstructor(sig);
         Object o = con.newInstance(parameters);
 
@@ -170,7 +170,7 @@ public class ObjectType {
      * @throws ClassNotFoundException
      */
     public static boolean interfaceOf(Object obj, String interfaceName) throws ClassNotFoundException {
-        Class interfaceClass = loadClass(interfaceName);
+        Class<?> interfaceClass = loadClass(interfaceName);
 
         return interfaceOf(obj, interfaceClass);
     }
@@ -182,7 +182,7 @@ public class ObjectType {
      * @return boolean indicating whether interfaceObject is an interface of the obj
      */
     public static boolean interfaceOf(Object obj, Object interfaceObject) {
-        Class interfaceClass = interfaceObject.getClass();
+        Class<?> interfaceClass = interfaceObject.getClass();
 
         return interfaceOf(obj, interfaceClass);
     }
@@ -193,8 +193,8 @@ public class ObjectType {
      * @param interfaceClass Class to test against
      * @return boolean indicating whether interfaceClass is an interface of the obj
      */
-    public static boolean interfaceOf(Object obj, Class interfaceClass) {
-        Class objectClass = obj.getClass();
+    public static boolean interfaceOf(Object obj, Class<?> interfaceClass) {
+        Class<?> objectClass = obj.getClass();
 
         return interfaceOf(objectClass, interfaceClass);
     }
@@ -205,12 +205,12 @@ public class ObjectType {
      * @param interfaceClass Class to test against
      * @return boolean indicating whether interfaceClass is an interface of the obj
      */
-    public static boolean interfaceOf(Class objectClass, Class interfaceClass) {
+    public static boolean interfaceOf(Class<?> objectClass, Class<?> interfaceClass) {
         while (objectClass != null) {
-            Class[] ifaces = objectClass.getInterfaces();
+            Class<?>[] ifaces = objectClass.getInterfaces();
 
-            for (int i = 0; i < ifaces.length; i++) {
-                if (ifaces[i] == interfaceClass) return true;
+            for (Class<?> iface: ifaces) {
+                if (iface == interfaceClass) return true;
             }
             objectClass = objectClass.getSuperclass();
         }
@@ -224,8 +224,8 @@ public class ObjectType {
      * @return
      * @throws ClassNotFoundException
      */
-    public static boolean isOrSubOf(Class objectClass, String parentName) throws ClassNotFoundException {
-        Class parentClass = loadClass(parentName);
+    public static boolean isOrSubOf(Class<?> objectClass, String parentName) throws ClassNotFoundException {
+        Class<?> parentClass = loadClass(parentName);
 
         return isOrSubOf(objectClass, parentClass);
     }
@@ -236,8 +236,8 @@ public class ObjectType {
      * @param parentObject Object to test against
      * @return
      */
-    public static boolean isOrSubOf(Class objectClass, Object parentObject) {
-        Class parentClass = parentObject.getClass();
+    public static boolean isOrSubOf(Class<?> objectClass, Object parentObject) {
+        Class<?> parentClass = parentObject.getClass();
 
         return isOrSubOf(objectClass, parentClass);
     }
@@ -250,7 +250,7 @@ public class ObjectType {
      * @throws ClassNotFoundException
      */
     public static boolean isOrSubOf(Object obj, String parentName) throws ClassNotFoundException {
-        Class parentClass = loadClass(parentName);
+        Class<?> parentClass = loadClass(parentName);
 
         return isOrSubOf(obj, parentClass);
     }
@@ -262,7 +262,7 @@ public class ObjectType {
      * @return
      */
     public static boolean isOrSubOf(Object obj, Object parentObject) {
-        Class parentClass = parentObject.getClass();
+        Class<?> parentClass = parentObject.getClass();
 
         return isOrSubOf(obj, parentClass);
     }
@@ -273,8 +273,8 @@ public class ObjectType {
      * @param parentClass Class to test against
      * @return
      */
-    public static boolean isOrSubOf(Object obj, Class parentClass) {
-        Class objectClass = obj.getClass();
+    public static boolean isOrSubOf(Object obj, Class<?> parentClass) {
+        Class<?> objectClass = obj.getClass();
 
         return isOrSubOf(objectClass, parentClass);
     }
@@ -285,7 +285,7 @@ public class ObjectType {
      * @param parentClass Class to test against
      * @return
      */
-    public static boolean isOrSubOf(Class objectClass, Class parentClass) {
+    public static boolean isOrSubOf(Class<?> objectClass, Class<?> parentClass) {
         //Debug.logInfo("Checking isOrSubOf for [" + objectClass.getName() + "] and [" + objectClass.getName() + "]", module);
         while (objectClass != null) {
             if (objectClass == parentClass) return true;
@@ -300,8 +300,8 @@ public class ObjectType {
      * @param typeObject Object to test against
      * @return
      */
-    public static boolean instanceOf(Class objectClass, Object typeObject) {
-        Class typeClass = typeObject.getClass();
+    public static boolean instanceOf(Class<?> objectClass, Object typeObject) {
+        Class<?> typeClass = typeObject.getClass();
 
         return instanceOf(objectClass, typeClass);
     }
@@ -312,7 +312,7 @@ public class ObjectType {
      * @param typeName name to test against
      * @return
      */
-    public static boolean instanceOf(Class objectClass, String typeName) {
+    public static boolean instanceOf(Class<?> objectClass, String typeName) {
         return instanceOf(objectClass, typeName, null);
     }
 
@@ -323,7 +323,7 @@ public class ObjectType {
      * @return
      */
     public static boolean instanceOf(Object obj, Object typeObject) {
-        Class typeClass = typeObject.getClass();
+        Class<?> typeClass = typeObject.getClass();
 
         return instanceOf(obj, typeClass);
     }
@@ -345,8 +345,8 @@ public class ObjectType {
      * @param loader
      * @return
      */
-    public static boolean instanceOf(Class objectClass, String typeName, ClassLoader loader) {
-        Class infoClass = loadInfoClass(typeName, loader);
+    public static boolean instanceOf(Class<?> objectClass, String typeName, ClassLoader loader) {
+        Class<?> infoClass = loadInfoClass(typeName, loader);
 
         if (infoClass == null)
             throw new IllegalArgumentException("Illegal type found in info map (could not load class for specified type)");
@@ -362,7 +362,7 @@ public class ObjectType {
      * @return
      */
     public static boolean instanceOf(Object obj, String typeName, ClassLoader loader) {
-        Class infoClass = loadInfoClass(typeName, loader);
+        Class<?> infoClass = loadInfoClass(typeName, loader);
 
         if (infoClass == null) {
             throw new IllegalArgumentException("Illegal type found in info map (could not load class for specified type)");
@@ -371,7 +371,7 @@ public class ObjectType {
         return instanceOf(obj, infoClass);
     }
 
-    public static Class loadInfoClass(String typeName, ClassLoader loader) {
+    public static Class<?> loadInfoClass(String typeName, ClassLoader loader) {
         //Class infoClass = null;
         try {
             return ObjectType.loadClass(typeName, loader);
@@ -405,9 +405,9 @@ public class ObjectType {
      * @param typeClass Class to test against
      * @return
      */
-    public static boolean instanceOf(Object obj, Class typeClass) {
+    public static boolean instanceOf(Object obj, Class<?> typeClass) {
         if (obj == null) return true;
-        Class objectClass = obj.getClass();
+        Class<?> objectClass = obj.getClass();
         return instanceOf(objectClass, typeClass);
     }
 
@@ -417,7 +417,7 @@ public class ObjectType {
      * @param typeClass Class to test against
      * @return
      */
-    public static boolean instanceOf(Class objectClass, Class typeClass) {
+    public static boolean instanceOf(Class<?> objectClass, Class<?> typeClass) {
         if (typeClass.isInterface()) {
             return interfaceOf(objectClass, typeClass);
         } else {
@@ -460,7 +460,7 @@ public class ObjectType {
         String fromType = null;
 
         if ((type.equals("List") || type.equals("java.util.List")) && obj.getClass().isArray()) {
-            List newObj = FastList.newInstance();
+            List<Object> newObj = FastList.newInstance();
             int len = Array.getLength(obj);
             for (int i = 0; i < len; i++) {
                 newObj.add(Array.get(obj, i));
@@ -591,7 +591,7 @@ public class ObjectType {
                 if (str.startsWith("[") && str.endsWith("]")) {
                     return StringUtil.toList(str);
                 } else {
-                    List tempList = FastList.newInstance();
+                    List<String> tempList = FastList.newInstance();
                     tempList.add(str);
                     return tempList;
                 }
@@ -599,7 +599,7 @@ public class ObjectType {
                 if (str.startsWith("[") && str.endsWith("]")) {
                     return StringUtil.toSet(str);
                 } else {
-                    Set tempSet = FastSet.newInstance();
+                    Set<String> tempSet = FastSet.newInstance();
                     tempSet.add(str);
                     return tempSet;
                 }
@@ -627,11 +627,11 @@ public class ObjectType {
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 return Integer.valueOf((int) Math.round(dbl.doubleValue()));
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<Double> tempList = FastList.newInstance();
                 tempList.add(dbl);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<Double> tempSet = FastSet.newInstance();
                 tempSet.add(dbl);
                 return tempSet;
             } else {
@@ -655,11 +655,11 @@ public class ObjectType {
             } else if ("Integer".equals(type)) {
                 return Integer.valueOf((int) Math.round(flt.doubleValue()));
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<Float> tempList = FastList.newInstance();
                 tempList.add(flt);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<Float> tempSet = FastSet.newInstance();
                 tempSet.add(flt);
                 return tempSet;
             } else {
@@ -683,11 +683,11 @@ public class ObjectType {
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 return Integer.valueOf(lng.intValue());
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<Long> tempList = FastList.newInstance();
                 tempList.add(lng);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<Long> tempSet = FastSet.newInstance();
                 tempSet.add(lng);
                 return tempSet;
             } else {
@@ -710,11 +710,11 @@ public class ObjectType {
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 return obj;
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<Integer> tempList = FastList.newInstance();
                 tempList.add(intgr);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<Integer> tempSet = FastSet.newInstance();
                 tempSet.add(intgr);
                 return tempSet;
             } else {
@@ -737,11 +737,11 @@ public class ObjectType {
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 return Integer.valueOf(bigDec.intValue());
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<BigDecimal> tempList = FastList.newInstance();
                 tempList.add(bigDec);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<BigDecimal> tempSet = FastSet.newInstance();
                 tempSet.add(bigDec);
                 return tempSet;
             } else {
@@ -765,11 +765,11 @@ public class ObjectType {
             } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
                 return new java.sql.Timestamp(dte.getTime());
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<java.sql.Date> tempList = FastList.newInstance();
                 tempList.add(dte);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<java.sql.Date> tempSet = FastSet.newInstance();
                 tempSet.add(dte);
                 return tempSet;
             } else {
@@ -794,11 +794,11 @@ public class ObjectType {
             } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
                 return new java.sql.Timestamp(tme.getTime());
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<java.sql.Time> tempList = FastList.newInstance();
                 tempList.add(tme);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<java.sql.Time> tempSet = FastSet.newInstance();
                 tempSet.add(tme);
                 return tempSet;
             } else {
@@ -823,11 +823,11 @@ public class ObjectType {
             } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
                 return obj;
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<java.sql.Timestamp> tempList = FastList.newInstance();
                 tempList.add(tme);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<java.sql.Timestamp> tempSet = FastSet.newInstance();
                 tempSet.add(tme);
                 return tempSet;
             } else {
@@ -847,11 +847,11 @@ public class ObjectType {
                     return Integer.valueOf(0);
                 }
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<Boolean> tempList = FastList.newInstance();
                 tempList.add(bol);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<Boolean> tempSet = FastSet.newInstance();
                 tempSet.add(bol);
                 return tempSet;
             } else { 
@@ -886,11 +886,11 @@ public class ObjectType {
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return obj.toString();   
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
+                List<Object> tempList = FastList.newInstance();
                 tempList.add(obj);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
+                Set<Object> tempSet = FastSet.newInstance();
                 tempSet.add(obj);
                 return tempSet;
             } else {
@@ -904,12 +904,12 @@ public class ObjectType {
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return map.toString();
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
-                List tempList = FastList.newInstance();
-                tempList.add(obj);
+                List<Map> tempList = FastList.newInstance();
+                tempList.add(map);
                 return tempList;
             } else if ("Set".equals(type) || "java.util.Set".equals(type)) {
-                Set tempSet = FastSet.newInstance();
-                tempSet.add(obj);
+                Set<Map> tempSet = FastSet.newInstance();
+                tempSet.add(map);
                 return tempSet;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");            
@@ -945,14 +945,14 @@ public class ObjectType {
     }
 
     public static Boolean doRealCompare(Object value1, Object value2, String operator, String type, String format,
-        List messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
+        List<Object> messages, Locale locale, ClassLoader loader, boolean value2InlineConstant) {
         boolean verboseOn = Debug.verboseOn();
 
         if (verboseOn) Debug.logVerbose("Comparing value1: \"" + value1 + "\" " + operator + " value2:\"" + value2 + "\"", module);
 
         try {
             if (!"PlainString".equals(type)) {
-                Class clz = ObjectType.loadClass(type, loader);
+                Class<?> clz = ObjectType.loadClass(type, loader);
                 type = clz.getName();
             }
         } catch (ClassNotFoundException e) {
