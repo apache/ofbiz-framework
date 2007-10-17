@@ -58,6 +58,7 @@ under the License.
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
         <response name="success" type="view" value="main"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="logout">
@@ -91,6 +92,9 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
+    <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
+    <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange"/>
+
     <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
     <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
 </site-conf>
