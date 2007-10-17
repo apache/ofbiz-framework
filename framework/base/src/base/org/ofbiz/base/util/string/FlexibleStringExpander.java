@@ -51,7 +51,7 @@ public class FlexibleStringExpander implements Serializable {
     public static final String module = FlexibleStringExpander.class.getName();
     
     protected String original;
-    protected List stringElements = new LinkedList();
+    protected List<StringElement> stringElements = new LinkedList<StringElement>();
     protected static boolean localizeCurrency = false;
     protected static String currencyCode = null;
     
@@ -83,7 +83,7 @@ public class FlexibleStringExpander implements Serializable {
      * @param context A context Map containing the variable values
      * @return The original String expanded by replacing varaible place holders.
      */    
-    public String expandString(Map context) {
+    public String expandString(Map<String, ? extends Object> context) {
         return this.expandString(context, null);
     }
     
@@ -97,12 +97,10 @@ public class FlexibleStringExpander implements Serializable {
      * @param locale the current set locale
      * @return The original String expanded by replacing varaible place holders.
      */    
-    public String expandString(Map context, Locale locale) {
+    public String expandString(Map<String, ? extends Object> context, Locale locale) {
         StringBuilder expanded = new StringBuilder();
         
-        Iterator stringElementIter = stringElements.iterator();
-        while (stringElementIter.hasNext()) {
-            StringElement element = (StringElement) stringElementIter.next();
+        for (StringElement element: stringElements) {
             element.appendElement(expanded, context, locale);
         }
         
@@ -125,7 +123,7 @@ public class FlexibleStringExpander implements Serializable {
      * @param context A context Map containing the variable values
      * @return The original String expanded by replacing varaible place holders.
      */
-    public static String expandString(String original, Map context) {
+    public static String expandString(String original, Map<String, ? extends Object> context) {
         return expandString(original, context, null);
     }
     
@@ -144,7 +142,7 @@ public class FlexibleStringExpander implements Serializable {
      * @param context A context Map containing the variable values
      * @return The original String expanded by replacing varaible place holders.
      */
-    public static String expandString(String original, Map context, Locale locale) {
+    public static String expandString(String original, Map<String, ? extends Object> context, Locale locale) {
         return expandString(original, context, null, locale);
     }
     
@@ -163,7 +161,7 @@ public class FlexibleStringExpander implements Serializable {
      * @param context A context Map containing the variable values
      * @return The original String expanded by replacing varaible place holders.
      */
-    public static String expandString(String original, Map context, TimeZone timeZone, Locale locale) {
+    public static String expandString(String original, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
         // if null or less than 3 return original; 3 chars because that is the minimum necessary for a ${}
         if (original == null || original.length() < 3) {
             return original;
@@ -256,7 +254,7 @@ public class FlexibleStringExpander implements Serializable {
     }
 
     public static interface StringElement extends Serializable {
-        public void appendElement(StringBuilder buffer, Map context, Locale locale);
+        public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale);
     }
     
     public static class ConstantElement implements StringElement {
@@ -266,7 +264,7 @@ public class FlexibleStringExpander implements Serializable {
             this.value = value;
         }
         
-        public void appendElement(StringBuilder buffer, Map context, Locale locale) {
+        public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale) {
             buffer.append(this.value); 
         }
     }
@@ -278,9 +276,9 @@ public class FlexibleStringExpander implements Serializable {
             this.scriptlet = scriptlet;
         }
         
-        public void appendElement(StringBuilder buffer, Map context, Locale locale) {
+        public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale) {
             try {
-                Object scriptResult = BshUtil.eval(scriptlet, context);
+                Object scriptResult = BshUtil.eval(scriptlet, UtilMisc.makeMapWritable(context));
                 if (scriptResult != null) {
                     buffer.append(scriptResult.toString());
                 } else {
@@ -298,7 +296,7 @@ public class FlexibleStringExpander implements Serializable {
             this.fma = new FlexibleMapAccessor(valueName);
         }
         
-        public void appendElement(StringBuilder buffer, Map context, Locale locale) {
+        public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale) {
             Object retVal = fma.get(context, locale);
             if (retVal != null) {
                 buffer.append(retVal.toString()); 
@@ -316,9 +314,9 @@ public class FlexibleStringExpander implements Serializable {
     }
     
     public static class PreParseHandler implements ParseElementHandler {
-        protected List stringElements;
+        protected List<StringElement> stringElements;
         
-        public PreParseHandler(List stringElements) {
+        public PreParseHandler(List<StringElement> stringElements) {
             this.stringElements = stringElements;
         }
         
@@ -341,11 +339,11 @@ public class FlexibleStringExpander implements Serializable {
     
     public static class OnTheFlyHandler implements ParseElementHandler {
         protected StringBuilder targetBuffer;
-        protected Map context;
+        protected Map<String, ? extends Object> context;
         protected Locale locale;
         protected TimeZone timeZone;
         
-        public OnTheFlyHandler(StringBuilder targetBuffer, Map context, TimeZone timeZone, Locale locale) {
+        public OnTheFlyHandler(StringBuilder targetBuffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             this.targetBuffer = targetBuffer;
             this.context = context;
             this.timeZone = timeZone;
@@ -403,7 +401,7 @@ public class FlexibleStringExpander implements Serializable {
             //run the scriplet and append the result
             String scriptlet = original.substring(start, end);
             try {
-                Object scriptResult = BshUtil.eval(scriptlet, context);
+                Object scriptResult = BshUtil.eval(scriptlet, UtilMisc.makeMapWritable(context));
                 if (scriptResult != null) {
                     targetBuffer.append(scriptResult.toString());
                 } else {

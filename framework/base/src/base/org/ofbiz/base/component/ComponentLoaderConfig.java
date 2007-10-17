@@ -27,6 +27,7 @@ import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -102,11 +103,11 @@ public class ComponentLoaderConfig {
             Properties systemProps = System.getProperties();
             if ("load-component".equals(element.getNodeName())) {
                 name = element.getAttribute("component-name");
-                location = FlexibleStringExpander.expandString(element.getAttribute("component-location"), systemProps);
+                location = FlexibleStringExpander.expandString(element.getAttribute("component-location"), UtilGenerics.<String, Object>checkMap(systemProps));
                 type = SINGLE_COMPONENT;
             } else if ("load-components".equals(element.getNodeName())) {
                 name = null;
-                location = FlexibleStringExpander.expandString(element.getAttribute("parent-directory"), systemProps);
+                location = FlexibleStringExpander.expandString(element.getAttribute("parent-directory"), UtilGenerics.<String, Object>checkMap(systemProps));
                 type = COMPONENT_DIRECTORY;
             }
         }                
