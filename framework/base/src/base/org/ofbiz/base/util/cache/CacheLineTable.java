@@ -31,9 +31,9 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.commons.collections.map.LRUMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.collections.LRUMap;
 
 
 public class CacheLineTable implements Serializable {
@@ -240,12 +240,7 @@ public class CacheLineTable implements Serializable {
     }
 
     public synchronized Object getKeyFromMemory(int index) {
-        Iterator i = null;
-        if (memoryTable instanceof LRUMap) {
-            i = ((LRUMap) memoryTable).orderedMapIterator();
-        } else {
-            i = memoryTable.keySet().iterator();
-        }
+        Iterator i = memoryTable.keySet().iterator();
 
         int currentIdx = 0;
         while (i.hasNext()) {
