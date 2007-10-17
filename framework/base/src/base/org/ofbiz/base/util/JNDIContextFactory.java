@@ -93,9 +93,7 @@ public class JNDIContextFactory {
      * @param jndiServerName
      */
     public static void clearInitialContext(String jndiServerName) {
-        InitialContext ic = (InitialContext) contexts.get(jndiServerName);
-        if (ic != null) 
-            contexts.remove(jndiServerName);
+        contexts.remove(jndiServerName);
     }
 
 }
