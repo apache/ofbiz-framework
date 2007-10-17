@@ -27,7 +27,7 @@ under the License.
                 <set field="headerItem" value="jobs"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for WEBTOOLS, _VIEW permission -->
@@ -77,6 +77,7 @@ under the License.
                 <set field="tabButtonItem" value="JobList"/>
                 <entity-condition entity-name="JobSandbox" list-name="jobs">
                     <order-by field-name="-runTime"/>
+                    <!--<limit-range start="0" size="100"/>-->
                 </entity-condition>
             </actions>
             <widgets>
@@ -169,7 +170,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/service/setServiceParameter.ftl"/></html>
@@ -188,7 +189,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/serviceResult.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/service/serviceResult.ftl"/></html>

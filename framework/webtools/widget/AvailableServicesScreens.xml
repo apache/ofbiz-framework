@@ -28,7 +28,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/availableservices.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>

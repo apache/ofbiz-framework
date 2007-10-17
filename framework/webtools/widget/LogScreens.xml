@@ -27,7 +27,7 @@ under the License.
         <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/LogConfiguration.bsh"/>
       </actions>
       <widgets>
-        <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+        <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
           <decorator-section name="body">
               <container style="boxoutside">
                 <container style="boxtop">
@@ -70,7 +70,7 @@ under the License.
         <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/LogView.bsh"/>
       </actions>
       <widgets>
-        <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+        <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
           <decorator-section name="body">
             <container>
                 <label style="head1">${uiLabelMap.WebtoolsViewLog}</label>
