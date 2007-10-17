@@ -46,6 +46,8 @@ public class Start implements Runnable {
     private ClassLoader classloader = null;
     private ServerSocket serverSocket = null;
     private Thread serverThread = null;
+    private boolean serverStarted = false;
+    private boolean serverStopping = false;
     private boolean serverRunning = true;
     private List loaders = null;
     private Config config = null;
@@ -134,12 +136,18 @@ public class Start implements Runnable {
                 return "FAIL";
             } else {
                 if (command.equals(Start.SHUTDOWN_COMMAND)) {
-                    System.out.println("Shutdown initiated from: " + client.getInetAddress().getHostAddress() + ":" + client.getPort());
-                    serverRunning = false;
+                    if (serverStopping) return "IN-PROGRESS";
+                    Thread t = new Thread() {
+                        public void run() {
+                            shutdownServer();
+                        }
+                    };
+                    t.start();
+                    return "OK";
                 } else if (command.equals(Start.STATUS_COMMAND)) {
-                    return serverRunning ? "Running" : "Stopped";
+                    return serverStopping ? "Stopping" : serverStarted ? "Running" : "Starting";
                 }
-                return "OK";
+                return "FAIL";
             }
         } else {
             return "FAIL";
@@ -261,6 +269,7 @@ public class Start implements Runnable {
                 System.exit(99);
             }
         }
+        serverStarted = true;
     }
 
     private void setShutdownHook() {
@@ -287,6 +296,8 @@ public class Start implements Runnable {
     }
 
     private void shutdownServer() {
+        if (serverStopping) return;
+        serverStopping = true;
         if (loaders != null && loaders.size() > 0) {
             Iterator i = loaders.iterator();
             while (i.hasNext()) {
