@@ -20,11 +20,11 @@
 
 <component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
-    <load-component component-location="${ofbiz.home}/specialpurpose/pos"/>
-    <load-component component-location="${ofbiz.home}/specialpurpose/hhfacility"/>
-    <load-component component-location="${ofbiz.home}/specialpurpose/assetmaint"/>
-    <load-component component-location="${ofbiz.home}/specialpurpose/cmssite"/>
-    <load-component component-location="${ofbiz.home}/specialpurpose/projectmgr"/>
-    <load-component component-location="${ofbiz.home}/specialpurpose/oagis"/>
-    <load-component component-location="${ofbiz.home}/specialpurpose/bi"/>
+    <load-component component-location="pos"/>
+    <load-component component-location="hhfacility"/>
+    <load-component component-location="assetmaint"/>
+    <load-component component-location="cmssite"/>
+    <load-component component-location="projectmgr"/>
+    <load-component component-location="oagis"/>
+    <load-component component-location="bi"/>
 </component-loader>

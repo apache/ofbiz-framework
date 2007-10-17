@@ -20,15 +20,15 @@ under the License.
 
 <component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
-    <load-component component-location="${ofbiz.home}/applications/party"/>
-    <load-component component-location="${ofbiz.home}/applications/securityext"/>
-    <load-component component-location="${ofbiz.home}/applications/content"/>
-    <load-component component-location="${ofbiz.home}/applications/workeffort"/>
-    <load-component component-location="${ofbiz.home}/applications/humanres"/>
-    <load-component component-location="${ofbiz.home}/applications/product"/>
-    <load-component component-location="${ofbiz.home}/applications/manufacturing"/>
-    <load-component component-location="${ofbiz.home}/applications/accounting"/>
-    <load-component component-location="${ofbiz.home}/applications/order"/>
-    <load-component component-location="${ofbiz.home}/applications/marketing"/>
-    <load-component component-location="${ofbiz.home}/applications/ecommerce"/>
+    <load-component component-location="party"/>
+    <load-component component-location="securityext"/>
+    <load-component component-location="content"/>
+    <load-component component-location="workeffort"/>
+    <load-component component-location="humanres"/>
+    <load-component component-location="product"/>
+    <load-component component-location="manufacturing"/>
+    <load-component component-location="accounting"/>
+    <load-component component-location="order"/>
+    <load-component component-location="marketing"/>
+    <load-component component-location="ecommerce"/>
 </component-loader>
