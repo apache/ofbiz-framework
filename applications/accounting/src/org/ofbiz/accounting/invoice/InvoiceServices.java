@@ -2307,7 +2307,7 @@ public class InvoiceServices {
                     // added (paymentApplicationId == null)
                     if (amountApplied.compareTo(paymentApplyAvailable) > 0) {
                         errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentLessRequested",
-                                UtilMisc.toMap("paymentId",paymentId, 
+                                UtilMisc.<String, Object>toMap("paymentId",paymentId, 
                                             "paymentApplyAvailable",paymentApplyAvailable,
                                             "amountApplied",amountApplied,"isoCode",payment.getString("currencyUomId")),locale));
                     }
@@ -2352,7 +2352,7 @@ public class InvoiceServices {
                     // added (paymentApplicationId == null)
                     if (amountApplied.compareTo(toPaymentApplyAvailable) > 0) {
                             errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentLessRequested",
-                                    UtilMisc.toMap("paymentId",toPaymentId, 
+                                    UtilMisc.<String, Object>toMap("paymentId",toPaymentId, 
                                                 "paymentApplyAvailable",toPaymentApplyAvailable,
                                                 "amountApplied",amountApplied,"isoCode",payment.getString("currencyUomId")),locale));
                     }
@@ -2451,7 +2451,7 @@ public class InvoiceServices {
                     // added (paymentApplicationId == null)
                     else if (amountApplied.compareTo(invoiceApplyAvailable) > 0) {
                         errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceLessRequested",
-                                UtilMisc.toMap("invoiceId",invoiceId, 
+                                UtilMisc.<String, Object>toMap("invoiceId",invoiceId, 
                                             "invoiceApplyAvailable",invoiceApplyAvailable,
                                             "amountApplied",amountApplied,"isoCode",invoice.getString("currencyUomId")),locale));
                     }
@@ -2497,7 +2497,7 @@ public class InvoiceServices {
                         errorMessageList.add("Invoice(" + invoiceId + ") item(" + invoiceItemSeqId + ") has  " + invoiceItemApplyAvailable + " to apply but " + amountApplied + " is requested\n");
                         String uomId = invoice.getString("currencyUomId");
                         errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceItemLessRequested",
-                                UtilMisc.toMap("invoiceId",invoiceId, "invoiceItemSeqId", invoiceItemSeqId,
+                                UtilMisc.<String, Object>toMap("invoiceId",invoiceId, "invoiceItemSeqId", invoiceItemSeqId,
                                             "invoiceItemApplyAvailable",invoiceItemApplyAvailable,
                                             "amountApplied",amountApplied,"isoCode",uomId),locale));
                     }
@@ -2558,7 +2558,7 @@ public class InvoiceServices {
                 // application record is changed
                 newPaymentApplyAvailable = paymentApplyAvailable.add(paymentApplication.getBigDecimal("amountApplied")).subtract(amountApplied).setScale(decimals, rounding);
                 if (newPaymentApplyAvailable.compareTo(ZERO) < 0) {
-                    errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentNotEnough", UtilMisc.toMap("paymentId",paymentId,"paymentApplyAvailable",paymentApplyAvailable.add(paymentApplication.getBigDecimal("amountApplied")),"amountApplied",amountApplied),locale));
+                    errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentNotEnough", UtilMisc.<String, Object>toMap("paymentId",paymentId,"paymentApplyAvailable",paymentApplyAvailable.add(paymentApplication.getBigDecimal("amountApplied")),"amountApplied",amountApplied),locale));
                 }
 
                 if (invoiceId != null) { 
@@ -2570,33 +2570,33 @@ public class InvoiceServices {
                         if (invoiceItemSeqId == null && paymentApplication.get("invoiceItemSeqId") == null) {
                             newInvoiceApplyAvailable = invoiceApplyAvailable.add(paymentApplication.getBigDecimal("amountApplied")).subtract(amountApplied).setScale(decimals, rounding);
                             if (invoiceApplyAvailable.compareTo(ZERO) < 0) {
-                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceNotEnough",UtilMisc.toMap("tooMuch",newInvoiceApplyAvailable.negate(),"invoiceId",invoiceId),locale));
+                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceNotEnough",UtilMisc.<String, Object>toMap("tooMuch",newInvoiceApplyAvailable.negate(),"invoiceId",invoiceId),locale));
                             }
                         } else if (invoiceItemSeqId == null && paymentApplication.get("invoiceItemSeqId") != null) {
                             // check if the item number changed from a real Item number to a null value
                             newInvoiceApplyAvailable = invoiceApplyAvailable.add(paymentApplication.getBigDecimal("amountApplied")).subtract(amountApplied).setScale(decimals, rounding);
                             if (invoiceApplyAvailable.compareTo(ZERO) < 0) {
-                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceNotEnough",UtilMisc.toMap("tooMuch",newInvoiceApplyAvailable.negate(),"invoiceId",invoiceId),locale));
+                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceNotEnough",UtilMisc.<String, Object>toMap("tooMuch",newInvoiceApplyAvailable.negate(),"invoiceId",invoiceId),locale));
                             }
                         } else if (invoiceItemSeqId != null && paymentApplication.get("invoiceItemSeqId") == null) {
                             // check if the item number changed from a null value to
                             // a real Item number
                             newInvoiceItemApplyAvailable = invoiceItemApplyAvailable.subtract(amountApplied).setScale(decimals, rounding);
                             if (newInvoiceItemApplyAvailable.compareTo(ZERO) < 0) {
-                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingItemInvoiceNotEnough",UtilMisc.toMap("tooMuch",newInvoiceItemApplyAvailable.negate(),"invoiceId",invoiceId,"invoiceItemSeqId",invoiceItemSeqId),locale));
+                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingItemInvoiceNotEnough",UtilMisc.<String, Object>toMap("tooMuch",newInvoiceItemApplyAvailable.negate(),"invoiceId",invoiceId,"invoiceItemSeqId",invoiceItemSeqId),locale));
                             }
                         } else if (invoiceItemSeqId.equals(paymentApplication.getString("invoiceItemSeqId"))) {
                             // check if the real item numbers the same
                             // item number the same numeric value
                             newInvoiceItemApplyAvailable = invoiceItemApplyAvailable.add(paymentApplication.getBigDecimal("amountApplied")).subtract(amountApplied).setScale(decimals, rounding);
                             if (newInvoiceItemApplyAvailable.compareTo(ZERO) < 0) {
-                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingItemInvoiceNotEnough",UtilMisc.toMap("tooMuch",newInvoiceItemApplyAvailable.negate(),"invoiceId",invoiceId,"invoiceItemSeqId",invoiceItemSeqId),locale));
+                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingItemInvoiceNotEnough",UtilMisc.<String, Object>toMap("tooMuch",newInvoiceItemApplyAvailable.negate(),"invoiceId",invoiceId,"invoiceItemSeqId",invoiceItemSeqId),locale));
                             }
                         } else {
                             // item number changed only check new item
                             newInvoiceItemApplyAvailable = invoiceItemApplyAvailable.add(amountApplied).setScale(decimals, rounding);
                             if (newInvoiceItemApplyAvailable.compareTo(ZERO) < 0) {
-                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingItemInvoiceNotEnough",UtilMisc.toMap("tooMuch",newInvoiceItemApplyAvailable.negate(),"invoiceId",invoiceId,"invoiceItemSeqId",invoiceItemSeqId),locale));
+                                errorMessageList.add(UtilProperties.getMessage(resource, "AccountingItemInvoiceNotEnough",UtilMisc.<String, Object>toMap("tooMuch",newInvoiceItemApplyAvailable.negate(),"invoiceId",invoiceId,"invoiceItemSeqId",invoiceItemSeqId),locale));
                             }
                         }
 
@@ -2615,7 +2615,7 @@ public class InvoiceServices {
                         // check the invoice
                         newInvoiceApplyAvailable = invoiceApplyAvailable.add(paymentApplication.getBigDecimal("amountApplied").subtract(amountApplied)).setScale(decimals, rounding);
                         if (newInvoiceApplyAvailable.compareTo(ZERO) < 0) {
-                            errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceNotEnough",UtilMisc.toMap("tooMuch",invoiceApplyAvailable.add(paymentApplication.getBigDecimal("amountApplied")).subtract(amountApplied),"invoiceId",invoiceId),locale));
+                            errorMessageList.add(UtilProperties.getMessage(resource, "AccountingInvoiceNotEnough",UtilMisc.<String, Object>toMap("tooMuch",invoiceApplyAvailable.add(paymentApplication.getBigDecimal("amountApplied")).subtract(amountApplied),"invoiceId",invoiceId),locale));
                         }
                     }
                 }
@@ -2625,14 +2625,14 @@ public class InvoiceServices {
                 if (toPaymentId != null && toPaymentId.equals(paymentApplication.getString("toPaymentId"))) {
                     newToPaymentApplyAvailable = toPaymentApplyAvailable.subtract(paymentApplication.getBigDecimal("amountApplied")).add(amountApplied).setScale(decimals, rounding);
                     if (newToPaymentApplyAvailable.compareTo(ZERO) < 0) {
-                        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentNotEnough", UtilMisc.toMap("paymentId",toPaymentId,"paymentApplyAvailable",newToPaymentApplyAvailable,"amountApplied",amountApplied),locale));
+                        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentNotEnough", UtilMisc.<String, Object>toMap("paymentId",toPaymentId,"paymentApplyAvailable",newToPaymentApplyAvailable,"amountApplied",amountApplied),locale));
                     }
                 } else if (toPaymentId != null) {
                     // billing account entered number has changed so we have to
                     // check the new billing account number.
                     newToPaymentApplyAvailable = toPaymentApplyAvailable.add(amountApplied).setScale(decimals, rounding);
                     if (newToPaymentApplyAvailable.compareTo(ZERO) < 0) {
-                        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentNotEnough", UtilMisc.toMap("paymentId",toPaymentId,"paymentApplyAvailable",newToPaymentApplyAvailable,"amountApplied",amountApplied),locale));
+                        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentNotEnough", UtilMisc.<String, Object>toMap("paymentId",toPaymentId,"paymentApplyAvailable",newToPaymentApplyAvailable,"amountApplied",amountApplied),locale));
                     }
 
                 }
@@ -2678,7 +2678,7 @@ public class InvoiceServices {
         if (amountApplied.signum() == 0) {
             errorMessageList.add(UtilProperties.getMessage(resource, "AccountingNoAmount",locale));
         } else {
-            successMessage = UtilProperties.getMessage(resource, "AccountingApplicationSuccess",UtilMisc.toMap("amountApplied",amountApplied,"paymentId",paymentId,"isoCode", payment.getString("currencyUomId"),"toMessage",toMessage),locale);
+            successMessage = UtilProperties.getMessage(resource, "AccountingApplicationSuccess",UtilMisc.<String, Object>toMap("amountApplied",amountApplied,"paymentId",paymentId,"isoCode", payment.getString("currencyUomId"),"toMessage",toMessage),locale);
         }
         
         // report error messages if any

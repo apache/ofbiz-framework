@@ -50,17 +50,17 @@ public class UtilProperties implements java.io.Serializable {
      *  corresponding to each properties file keyed by a String for the resource location.
      * This will be used for both non-locale and locale keyed FexibleProperties instances.
      */
-    protected static UtilCache resourceCache = new UtilCache("properties.UtilPropertiesResourceCache");
+    protected static UtilCache<String, FlexibleProperties> resourceCache = new UtilCache<String, FlexibleProperties>("properties.UtilPropertiesResourceCache");
 
     /** An instance of the generic cache for storing the FlexibleProperties
      *  corresponding to each properties file keyed by a URL object
      */
-    protected static UtilCache urlCache = new UtilCache("properties.UtilPropertiesUrlCache");
+    protected static UtilCache<String, FlexibleProperties> urlCache = new UtilCache<String, FlexibleProperties>("properties.UtilPropertiesUrlCache");
 
     /** An instance of the generic cache for storing the ResourceBundle
      *  corresponding to each properties file keyed by a String for the resource location and the locale
      */
-    protected static UtilCache bundleLocaleCache = new UtilCache("properties.UtilPropertiesBundleLocaleCache");
+    protected static UtilCache<String, ResourceBundleMapWrapper.InternalRbmWrapper> bundleLocaleCache = new UtilCache<String, ResourceBundleMapWrapper.InternalRbmWrapper>("properties.UtilPropertiesBundleLocaleCache");
 
 
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
@@ -123,7 +123,7 @@ public class UtilProperties implements java.io.Serializable {
     public static String getPropertyValue(String resource, String name) {
         if (resource == null || resource.length() <= 0) return "";
         if (name == null || name.length() <= 0) return "";
-        FlexibleProperties properties = (FlexibleProperties) resourceCache.get(resource);
+        FlexibleProperties properties = resourceCache.get(resource);
 
         if (properties == null) {
             try {
@@ -158,7 +158,7 @@ public class UtilProperties implements java.io.Serializable {
     public static Properties getProperties(String resource) {
         if (resource == null || resource.length() <= 0)
             return null;
-        Properties properties = (FlexibleProperties) resourceCache.get(resource);
+        FlexibleProperties properties = resourceCache.get(resource);
 
         if (properties == null) {
             try {
@@ -186,12 +186,12 @@ public class UtilProperties implements java.io.Serializable {
     public static Properties getProperties(URL url) {
         if (url == null)
             return null;
-        Properties properties = (FlexibleProperties) resourceCache.get(url);
+        FlexibleProperties properties = resourceCache.get(url.toString());
 
         if (properties == null) {
             try {
                 properties = FlexibleProperties.makeFlexibleProperties(url);
-                resourceCache.put(url, properties);
+                resourceCache.put(url.toString(), properties);
             } catch (MissingResourceException e) {
                 Debug.log(e.getMessage(), module);
             }
@@ -266,12 +266,12 @@ public class UtilProperties implements java.io.Serializable {
     public static String getPropertyValue(URL url, String name) {
         if (url == null) return "";
         if (name == null || name.length() <= 0) return "";
-        FlexibleProperties properties = (FlexibleProperties) urlCache.get(url);
+        FlexibleProperties properties = urlCache.get(url.toString());
 
         if (properties == null) {
             try {
                 properties = FlexibleProperties.makeFlexibleProperties(url);
-                urlCache.put(url, properties);
+                urlCache.put(url.toString(), properties);
             } catch (MissingResourceException e) {
                 Debug.log(e.getMessage(), module);
             }
@@ -303,12 +303,12 @@ public class UtilProperties implements java.io.Serializable {
         if (url == null) return "";
         if (name == null || name.length() <= 0) return "";
 
-        FlexibleProperties properties = (FlexibleProperties) urlCache.get(url);
+        FlexibleProperties properties = urlCache.get(url.toString());
 
         if (properties == null) {
             try {
                 properties = FlexibleProperties.makeFlexibleProperties(url);
-                urlCache.put(url, properties);
+                urlCache.put(url.toString(), properties);
             } catch (MissingResourceException e) {
                 Debug.log(e.getMessage(), module);
             }
@@ -414,7 +414,7 @@ public class UtilProperties implements java.io.Serializable {
         if (resource == null || resource.length() <= 0) return "";
         if (name == null || name.length() <= 0) return "";
 
-        Map bundle = getResourceBundleMap(resource, locale);
+        Map<String, Object> bundle = getResourceBundleMap(resource, locale);
 
         if (bundle == null) return "";
 
@@ -481,7 +481,7 @@ public class UtilProperties implements java.io.Serializable {
      * @param context A Map of Objects to insert into the message place holders using the ${} syntax of the FlexibleStringExpander
      * @return The value of the property in the properties file
      */
-    public static String getMessage(String resource, String name, Map context, Locale locale) {
+    public static String getMessage(String resource, String name, Map<String, ? extends Object> context, Locale locale) {
         String value = getMessage(resource, name, locale);
 
         if (value == null || value.length() == 0) {
@@ -517,7 +517,7 @@ public class UtilProperties implements java.io.Serializable {
      * @param locale The locale that the given resource will correspond to
      * @return Map containing all entries in The ResourceBundle
      */
-    public static Map getResourceBundleMap(String resource, Locale locale) {
+    public static Map<String, Object> getResourceBundleMap(String resource, Locale locale) {
         if (locale == null) {
             throw new IllegalArgumentException("Locale cannot be null");
         }
@@ -528,10 +528,10 @@ public class UtilProperties implements java.io.Serializable {
 
     public static ResourceBundleMapWrapper.InternalRbmWrapper getInternalRbmWrapper(String resource, Locale locale) {
         String resourceCacheKey = resource + "_" + locale.toString();
-        ResourceBundleMapWrapper.InternalRbmWrapper bundleMap = (ResourceBundleMapWrapper.InternalRbmWrapper) bundleLocaleCache.get(resourceCacheKey);
+        ResourceBundleMapWrapper.InternalRbmWrapper bundleMap = bundleLocaleCache.get(resourceCacheKey);
         if (bundleMap == null) {
             synchronized (UtilProperties.class) {
-                bundleMap = (ResourceBundleMapWrapper.InternalRbmWrapper) bundleLocaleCache.get(resourceCacheKey);
+                bundleMap = bundleLocaleCache.get(resourceCacheKey);
                 if (bundleMap == null) {
                     ResourceBundle bundle = getBaseResourceBundle(resource, locale);
                     if (bundle == null) {
@@ -547,7 +547,7 @@ public class UtilProperties implements java.io.Serializable {
         return bundleMap;
     }
 
-    protected static Set resourceNotFoundMessagesShown = FastSet.newInstance();
+    protected static Set<String> resourceNotFoundMessagesShown = FastSet.newInstance();
     protected static ResourceBundle getBaseResourceBundle(String resource, Locale locale) {
         if (resource == null || resource.length() <= 0) return null;
         if (locale == null) locale = Locale.getDefault();
@@ -619,13 +619,13 @@ public class UtilProperties implements java.io.Serializable {
 
         String localeString = locale.toString();
         String resourceLocale = resource + "_" + localeString;
-        Properties properties = (FlexibleProperties) resourceCache.get(resourceLocale);
+        FlexibleProperties properties = resourceCache.get(resourceLocale);
 
         if (properties == null) {
             try {
                 URL url = UtilURL.fromResource(resourceLocale);
                 if (url == null) {
-                    properties = getProperties(resource);
+                    properties = (FlexibleProperties) getProperties(resource);
                 } else {
                     properties = FlexibleProperties.makeFlexibleProperties(url);
                 }
