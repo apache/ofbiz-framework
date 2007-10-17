@@ -496,12 +496,7 @@ public class ObjectType {
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = null;
-                    if (locale == null) {
-                        nf = NumberFormat.getNumberInstance();
-                    } else {
-                        nf = NumberFormat.getNumberInstance(locale);
-                    }
+                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                     Number tempNum = nf.parse(str);
                     return new BigDecimal(tempNum.toString());
                 } catch (ParseException e) {
@@ -510,12 +505,7 @@ public class ObjectType {
             } else if ("Double".equals(type) || "java.lang.Double".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = null;
-                    if (locale == null) {
-                        nf = NumberFormat.getNumberInstance();
-                    } else {
-                        nf = NumberFormat.getNumberInstance(locale);
-                    }
+                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                     Number tempNum = nf.parse(str);
 
                     return Double.valueOf(tempNum.doubleValue());
@@ -525,12 +515,7 @@ public class ObjectType {
             } else if ("Float".equals(type) || "java.lang.Float".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = null;
-                    if (locale == null) {
-                        nf = NumberFormat.getNumberInstance();
-                    } else {
-                        nf = NumberFormat.getNumberInstance(locale);
-                    }
+                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                     Number tempNum = nf.parse(str);
 
                     return Float.valueOf(tempNum.floatValue());
@@ -540,12 +525,7 @@ public class ObjectType {
             } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = null;
-                    if (locale == null) {
-                        nf = NumberFormat.getNumberInstance();
-                    } else {
-                        nf = NumberFormat.getNumberInstance(locale);
-                    }
+                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                     nf.setMaximumFractionDigits(0);
                     Number tempNum = nf.parse(str);
 
@@ -556,12 +536,7 @@ public class ObjectType {
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = null;
-                    if (locale == null) {
-                        nf = NumberFormat.getNumberInstance();
-                    } else {
-                        nf = NumberFormat.getNumberInstance(locale);
-                    }
+                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                     nf.setMaximumFractionDigits(0);
                     Number tempNum = nf.parse(str);
 
@@ -639,13 +614,7 @@ public class ObjectType {
             Double dbl = (Double) obj;
 
             if ("String".equals(type) || "java.lang.String".equals(type)) {
-                NumberFormat nf = null;
-
-                if (locale == null) {
-                    nf = NumberFormat.getNumberInstance();
-                } else {
-                    nf = NumberFormat.getNumberInstance(locale);
-                }
+                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                 return nf.format(dbl.doubleValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return new BigDecimal(dbl.doubleValue());
@@ -673,12 +642,7 @@ public class ObjectType {
             Float flt = (Float) obj;
 
             if ("String".equals(type)) {
-                NumberFormat nf = null;
-
-                if (locale == null)
-                    nf = NumberFormat.getNumberInstance();
-                else
-                    nf = NumberFormat.getNumberInstance(locale);
+                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                 return nf.format(flt.doubleValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return new BigDecimal(flt.doubleValue());
@@ -706,12 +670,7 @@ public class ObjectType {
             Long lng = (Long) obj;
 
             if ("String".equals(type) || "java.lang.String".equals(type)) {
-                NumberFormat nf = null;
-                if (locale == null) {
-                    nf = NumberFormat.getNumberInstance();
-                } else {
-                    nf = NumberFormat.getNumberInstance(locale);
-                }
+                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                 return nf.format(lng.longValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return BigDecimal.valueOf(lng.longValue());
@@ -738,12 +697,7 @@ public class ObjectType {
             fromType = "Integer";
             Integer intgr = (Integer) obj;
             if ("String".equals(type) || "java.lang.String".equals(type)) {
-                NumberFormat nf = null;
-                if (locale == null) {
-                    nf = NumberFormat.getNumberInstance();
-                } else {
-                    nf = NumberFormat.getNumberInstance(locale);
-                }
+                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                 return nf.format(intgr.longValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return BigDecimal.valueOf(intgr.longValue());
@@ -770,12 +724,7 @@ public class ObjectType {
             fromType = "BigDecimal";
             BigDecimal bigDec = (BigDecimal) obj;
             if ("String".equals(type) || "java.lang.String".equals(type)) {
-                NumberFormat nf = null;
-                if (locale == null) {
-                    nf = NumberFormat.getNumberInstance();
-                } else {
-                    nf = NumberFormat.getNumberInstance(locale);
-                }
+                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
                 return nf.format(bigDec.doubleValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return obj;
