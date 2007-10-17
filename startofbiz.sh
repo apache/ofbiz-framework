@@ -41,13 +41,12 @@ VMARGS="$MEMIF $DEBUG $RMIIF $ADMIN $LANGUAGE"
 
 # location of java executable
 if [ -f "$JAVA_HOME/bin/java" ]; then
-  JAVA=$JAVA_HOME/bin/java
+  JAVA="$JAVA_HOME/bin/java"
 else
   JAVA=java
 fi
 
 # start ofbiz
 #$JAVA $VMARGS -jar ofbiz.jar $* >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
-$JAVA $VMARGS -jar ofbiz.jar $*
-exit 0
+exec "$JAVA" $VMARGS -jar ofbiz.jar "$@"
 
