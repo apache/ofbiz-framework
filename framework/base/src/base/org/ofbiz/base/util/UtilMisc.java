@@ -354,6 +354,17 @@ public class UtilMisc {
         }
     }
 
+    public static Set toSetArray(Object[] data) {
+        if (data == null) {
+            return null;
+        }
+        Set set = FastSet.newInstance();
+        for (int i = 0; i < data.length; i++) {
+            set.add(data[i]);
+        }
+        return set;
+    }
+
     /**
      * Create a list from passed objX parameters
      * @return The resulting List
