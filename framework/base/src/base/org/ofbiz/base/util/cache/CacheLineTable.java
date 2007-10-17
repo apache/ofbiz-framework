@@ -252,6 +252,7 @@ public class CacheLineTable implements Serializable {
             if (currentIdx == index) {
                 return key;
             }
+            currentIdx++;
         }
         return null;
     }
