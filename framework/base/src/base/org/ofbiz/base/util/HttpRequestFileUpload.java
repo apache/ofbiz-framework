@@ -24,12 +24,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.Map;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
+import javolution.util.FastMap;
 
 /**
  * HttpRequestFileUpload - Receive a file upload through an HttpServletRequest
@@ -46,7 +46,7 @@ public class HttpRequestFileUpload {
     private String filename;
     private String contentType;
     private String overrideFilename = null;
-    private Dictionary fields;
+    private Map fields;
 
     public String getOverrideFilename() {
         return overrideFilename;
@@ -140,7 +140,7 @@ public class HttpRequestFileUpload {
         String boundary = new String(line, 0, boundaryLength); // -2 discards the newline character
 
         System.out.println("boundary=[" + boundary + "] length is " + boundaryLength);
-        fields = new Hashtable();
+        fields = FastMap.newInstance();
 
         while (requestLength > 0/* i != -1*/) {
             String newLine = "";
