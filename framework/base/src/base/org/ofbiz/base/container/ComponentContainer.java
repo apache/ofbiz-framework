@@ -99,7 +99,7 @@ public class ComponentContainer implements Container {
         }
 
         // get the components to load
-        List components = ComponentLoaderConfig.getRootComponents(loaderConfig);
+        List<ComponentLoaderConfig.ComponentDef> components = ComponentLoaderConfig.getRootComponents(loaderConfig);
 
         String parentPath;
         try {
@@ -111,9 +111,7 @@ public class ComponentContainer implements Container {
         }
         // load each component
         if (components != null) {
-            Iterator ci = components.iterator();
-            while (ci.hasNext()) {
-                ComponentLoaderConfig.ComponentDef def = (ComponentLoaderConfig.ComponentDef) ci.next();
+            for (ComponentLoaderConfig.ComponentDef def: components) {
                 this.loadComponentFromConfig(parentPath, def);
             }
         }
@@ -166,11 +164,9 @@ public class ComponentContainer implements Container {
                 URL configUrl = null;
                 try {
                     configUrl = componentLoadConfig.toURI().toURL();
-                    List componentsToLoad = ComponentLoaderConfig.getComponentsFromConfig(configUrl);
+                    List<ComponentLoaderConfig.ComponentDef> componentsToLoad = ComponentLoaderConfig.getComponentsFromConfig(configUrl);
                     if (componentsToLoad != null) {
-                        Iterator i = componentsToLoad.iterator();
-                        while (i.hasNext()) {
-                            ComponentLoaderConfig.ComponentDef def = (ComponentLoaderConfig.ComponentDef) i.next();
+                        for (ComponentLoaderConfig.ComponentDef def: componentsToLoad) {
                             this.loadComponentFromConfig(parentPath.toString(), def);
                         }
                     }
@@ -180,11 +176,10 @@ public class ComponentContainer implements Container {
                     Debug.logError(e, "Unable to load components from URL: " + configUrl.toExternalForm(), module);
                 }
             } else {
-                String subs[] = parentPath.list();
-                for (int i = 0; i < subs.length; i++) {
+                for (String sub: parentPath.list()) {
                     try {
-                        File componentPath = new File(parentPath.getCanonicalPath() + "/" + subs[i]);
-                        if (componentPath.isDirectory() && !subs[i].equals("CVS")) {
+                        File componentPath = new File(parentPath.getCanonicalPath() + "/" + sub);
+                        if (componentPath.isDirectory() && !sub.equals("CVS")) {
                             // make sure we have a component configuraton file
                             String componentLocation = componentPath.getCanonicalPath();
                             File configFile = new File(componentLocation + "/ofbiz-component.xml");
@@ -219,7 +214,7 @@ public class ComponentContainer implements Container {
         }
 
         Debug.logInfo("Loading component : [" + config.getComponentName() + "]", module);
-        List classpathInfos = config.getClasspathInfos();
+        List<ComponentConfig.ClasspathInfo> classpathInfos = config.getClasspathInfos();
         String configRoot = config.getRootLocation();
         configRoot = configRoot.replace('\\', '/');
         // set the root to have a trailing slash
@@ -227,9 +222,7 @@ public class ComponentContainer implements Container {
             configRoot = configRoot + "/";
         }
         if (classpathInfos != null) {
-            Iterator cpi = classpathInfos.iterator();
-            while (cpi.hasNext()) {
-                ComponentConfig.ClasspathInfo cp = (ComponentConfig.ClasspathInfo) cpi.next();
+            for (ComponentConfig.ClasspathInfo cp: classpathInfos) {
                 String location = cp.location.replace('\\', '/');
                 // set the location to not have a leading slash
                 if (location.startsWith("/")) {
@@ -248,10 +241,10 @@ public class ComponentContainer implements Container {
                         if (path.isDirectory()) {
                             // load all .jar and .zip files in this directory
                             File files[] = path.listFiles();
-                            for (int i = 0; i < files.length; i++) {
-                                String file = files[i].getName();
-                                if (file.endsWith(".jar") || file.endsWith(".zip")) {
-                                    classPath.addComponent(files[i]);
+                            for (File file: path.listFiles()) {
+                                String fileName = file.getName();
+                                if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
+                                    classPath.addComponent(file);
                                 }
                             }
                         } else {

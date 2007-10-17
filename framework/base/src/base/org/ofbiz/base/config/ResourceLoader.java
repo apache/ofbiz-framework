@@ -35,7 +35,7 @@ import org.w3c.dom.Element;
 public abstract class ResourceLoader {
     
     public static final String module = ResourceLoader.class.getName();
-    protected static UtilCache loaderCache = new UtilCache("resource.ResourceLoaders", 0, 0);
+    protected static UtilCache<String, Object> loaderCache = new UtilCache<String, Object>("resource.ResourceLoaders", 0, 0);
 
     protected String name;
     protected String prefix;

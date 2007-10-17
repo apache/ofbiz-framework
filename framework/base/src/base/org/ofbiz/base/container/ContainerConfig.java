@@ -44,13 +44,13 @@ public class ContainerConfig {
     
     public static final String module = ContainerConfig.class.getName();
     
-    protected static Map containers = new LinkedHashMap();
+    protected static Map<String, Container> containers = new LinkedHashMap<String, Container>();
     
     public static Container getContainer(String containerName, String configFile) throws ContainerException {
-        Container container = (Container) containers.get(containerName);
+        Container container = containers.get(containerName);
         if (container == null) {            
             synchronized (ContainerConfig.class) {
-                container = (Container) containers.get(containerName);
+                container = containers.get(containerName);
                 if (container == null) {
                     if (configFile == null) {
                         throw new ContainerException("Container config file cannot be null");
@@ -66,7 +66,7 @@ public class ContainerConfig {
         return container;
     }
     
-    public static Collection getContainers(String configFile) throws ContainerException {
+    public static Collection<Container> getContainers(String configFile) throws ContainerException {
         if (containers.size() == 0) {
             synchronized (ContainerConfig.class) {                
                 if (containers.size() == 0) {
@@ -174,9 +174,7 @@ public class ContainerConfig {
         Element root = containerDocument.getDocumentElement();        
           
         // containers
-        Iterator elementIter = UtilXml.childElementList(root, "container").iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(root, "container")) {
             Container container = new Container(curElement);
             containers.put(container.name, container);    
         }                          
@@ -185,32 +183,27 @@ public class ContainerConfig {
     public static class Container {
         public String name;
         public String className;
-        public Map properties;
+        public Map<String, Property> properties;
         
         public Container(Element element) {
             this.name = element.getAttribute("name");
             this.className = element.getAttribute("class");
             
-            properties = new LinkedHashMap();
-            Iterator elementIter = UtilXml.childElementList(element, "property").iterator();
-            while (elementIter.hasNext()) {
-                Element curElement = (Element) elementIter.next();
+            properties = new LinkedHashMap<String, Property>();
+            for (Element curElement: UtilXml.childElementList(element, "property")) {
                 Property property = new Property(curElement);
                 properties.put(property.name, property);
             }                       
         }
         
         public Property getProperty(String name) {
-            return (Property) properties.get(name);
+            return properties.get(name);
         }
 
-        public List getPropertiesWithValue(String value) {
-            List props = new LinkedList();
+        public List<Property> getPropertiesWithValue(String value) {
+            List<Property> props = new LinkedList<Property>();
             if (properties != null && properties.size() > 0) {
-                Iterator i = properties.entrySet().iterator();
-                while (i.hasNext()) {
-                    Map.Entry e = (Map.Entry) i.next();
-                    Property p = (Property) e.getValue();
+                for (Property p: properties.values()) {
                     if (p != null && value.equals(p.value)) {
                         props.add(p);
                     }
@@ -222,7 +215,7 @@ public class ContainerConfig {
         public static class Property {
             public String name;
             public String value;
-            public Map properties;
+            public Map<String, Property> properties;
             
             public Property(Element element) {
                 this.name = element.getAttribute("name");
@@ -231,26 +224,21 @@ public class ContainerConfig {
                     this.value = UtilXml.childElementValue(element, "property-value");                    
                 }
 
-                properties = new LinkedHashMap();
-                Iterator elementIter = UtilXml.childElementList(element, "property").iterator();
-                while (elementIter.hasNext()) {
-                    Element curElement = (Element) elementIter.next();
+                properties = new LinkedHashMap<String, Property>();
+                for (Element curElement: UtilXml.childElementList(element, "property")) {
                     Property property = new Property(curElement);
                     properties.put(property.name, property);                    
                 }                    
             }
             
             public Property getProperty(String name) {
-                return (Property) properties.get(name);
+                return properties.get(name);
             }
 
-            public List getPropertiesWithValue(String value) {
-                List props = new LinkedList();
+            public List<Property> getPropertiesWithValue(String value) {
+                List<Property> props = new LinkedList<Property>();
                 if (properties != null && properties.size() > 0) {
-                    Iterator i = properties.entrySet().iterator();
-                    while (i.hasNext()) {
-                        Map.Entry e = (Map.Entry) i.next();
-                        Property p = (Property) e.getValue();
+                    for (Property p: properties.values()) {
                         if (p != null && value.equals(p.value)) {
                             props.add(p);
                         }

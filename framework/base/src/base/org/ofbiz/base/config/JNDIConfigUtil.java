@@ -33,7 +33,7 @@ public class JNDIConfigUtil {
     
     public static final String module = JNDIConfigUtil.class.getName();
     public static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
-    protected static Map jndiServerInfos = FastMap.newInstance();
+    protected static Map<String, JndiServerInfo> jndiServerInfos = FastMap.newInstance();
 
     protected static Element getXmlRootElement() throws GenericConfigException {
         try {
@@ -59,14 +59,8 @@ public class JNDIConfigUtil {
         }
     }
     public static void initialize(Element rootElement) throws GenericConfigException {
-        List childElements = null;
-        Iterator elementIter = null;
-
         // jndi-server - jndiServerInfos
-        childElements = UtilXml.childElementList(rootElement, "jndi-server");
-        elementIter = childElements.iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(rootElement, "jndi-server")) {
             JNDIConfigUtil.JndiServerInfo jndiServerInfo = new JNDIConfigUtil.JndiServerInfo(curElement);
 
             JNDIConfigUtil.jndiServerInfos.put(jndiServerInfo.name, jndiServerInfo);
@@ -74,7 +68,7 @@ public class JNDIConfigUtil {
     }
 
     public static JNDIConfigUtil.JndiServerInfo getJndiServerInfo(String name) {
-        return (JNDIConfigUtil.JndiServerInfo) jndiServerInfos.get(name);
+        return jndiServerInfos.get(name);
     }
 
     public static final class JndiServerInfo {
