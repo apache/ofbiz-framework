@@ -50,7 +50,7 @@ public class UtilMisc {
      * @param col The collection to be turned in to an iterator
      * @return The resulting Iterator
      */
-    public static Iterator toIterator(Collection col) {
+    public static <T> Iterator<T> toIterator(Collection<T> col) {
         if (col == null)
             return null;
         else
@@ -61,8 +61,8 @@ public class UtilMisc {
      * Create a map from passed nameX, valueX parameters
      * @return The resulting Map
      */
-    public static Map toMap(String name1, Object value1) {
-        return new UtilMisc.SimpleMap(name1, value1);
+    public static <V, V1 extends V> Map<String, V> toMap(String name1, V1 value1) {
+        return new UtilMisc.SimpleMap<V>(name1, value1);
 
         /* Map fields = FastMap.newInstance();
          fields.put(name1, value1);
@@ -73,8 +73,8 @@ public class UtilMisc {
      * Create a map from passed nameX, valueX parameters
      * @return The resulting Map
      */
-    public static Map toMap(String name1, Object value1, String name2, Object value2) {
-        return new UtilMisc.SimpleMap(name1, value1, name2, value2);
+    public static <V, V1 extends V, V2 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2) {
+        return new UtilMisc.SimpleMap<V>(name1, value1, name2, value2);
 
         /* Map fields = FastMap.newInstance();
          fields.put(name1, value1);
@@ -86,8 +86,8 @@ public class UtilMisc {
      * Create a map from passed nameX, valueX parameters
      * @return The resulting Map
      */
-    public static Map toMap(String name1, Object value1, String name2, Object value2, String name3, Object value3) {
-        return new UtilMisc.SimpleMap(name1, value1, name2, value2, name3, value3);
+    public static <V, V1 extends V, V2 extends V, V3 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2, String name3, V3 value3) {
+        return new UtilMisc.SimpleMap<V>(name1, value1, name2, value2, name3, value3);
 
         /* Map fields = FastMap.newInstance();
          fields.put(name1, value1);
@@ -100,9 +100,8 @@ public class UtilMisc {
      * Create a map from passed nameX, valueX parameters
      * @return The resulting Map
      */
-    public static Map toMap(String name1, Object value1, String name2, Object value2, String name3,
-        Object value3, String name4, Object value4) {
-        return new UtilMisc.SimpleMap(name1, value1, name2, value2, name3, value3, name4, value4);
+    public static <V, V1 extends V, V2 extends V, V3 extends V, V4 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2, String name3, V3 value3, String name4, V4 value4) {
+        return new UtilMisc.SimpleMap<V>(name1, value1, name2, value2, name3, value3, name4, value4);
 
         /* Map fields = FastMap.newInstance();
          fields.put(name1, value1);
@@ -116,9 +115,8 @@ public class UtilMisc {
      * Create a map from passed nameX, valueX parameters
      * @return The resulting Map
      */
-    public static Map toMap(String name1, Object value1, String name2, Object value2, String name3, Object value3,
-        String name4, Object value4, String name5, Object value5) {
-        Map fields = FastMap.newInstance();
+    public static <V, V1 extends V, V2 extends V, V3 extends V, V4 extends V, V5 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2, String name3, V3 value3, String name4, V4 value4, String name5, V5 value5) {
+        Map<String, V> fields = FastMap.newInstance();
 
         fields.put(name1, value1);
         fields.put(name2, value2);
@@ -132,9 +130,8 @@ public class UtilMisc {
      * Create a map from passed nameX, valueX parameters
      * @return The resulting Map
      */
-    public static Map toMap(String name1, Object value1, String name2, Object value2, String name3, Object value3,
-        String name4, Object value4, String name5, Object value5, String name6, Object value6) {
-        Map fields = FastMap.newInstance();
+    public static <V, V1 extends V, V2 extends V, V3 extends V, V4 extends V, V5 extends V, V6 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2, String name3, V3 value3, String name4, V4 value4, String name5, V5 value5, String name6, V6 value6) {
+        Map<String, V> fields = FastMap.newInstance();
 
         fields.put(name1, value1);
         fields.put(name2, value2);
@@ -149,25 +146,23 @@ public class UtilMisc {
      * Create a map from passed nameX, valueX parameters
      * @return The resulting Map
      */
-    public static Map toMap(Object[] data) {
+    public static <K, V> Map<K, V> toMap(Object... data) {
         if (data == null) {
             return null;
         }
         if (data.length % 2 == 1) {
             throw new IllegalArgumentException("You must pass an even sized array to the toMap method");
         }
-        Map map = FastMap.newInstance();
+        Map<K, V> map = FastMap.newInstance();
         for (int i = 0; i < data.length; ) {
-            map.put(data[i++], data[i++]);
+            map.put((K) data[i++], (V) data[i++]);
         }
         return map;
     }
 
-    public static String printMap(Map theMap) {
+    public static <K, V> String printMap(Map<? extends K, ? extends V> theMap) {
         StringBuilder theBuf = new StringBuilder();
-        Iterator entryIter = theMap.entrySet().iterator();
-        while (entryIter.hasNext()) {
-            Map.Entry entry = (Map.Entry) entryIter.next();
+        for (Map.Entry<? extends K, ? extends V> entry: theMap.entrySet()) {
             theBuf.append(entry.getKey());
             theBuf.append(" --> ");
             theBuf.append(entry.getValue());
@@ -176,20 +171,20 @@ public class UtilMisc {
         return theBuf.toString();
     }
     
-    public static List makeListWritable(Collection col) {
-        List result = FastList.newInstance();
+    public static <T> List<T> makeListWritable(Collection<? extends T> col) {
+        List<T> result = FastList.newInstance();
         if (col != null) result.addAll(col);
         return result;
     }
 
-    public static Map makeMapWritable(Map map) {
-        Map result = FastMap.newInstance();
+    public static <K, V> Map<K, V> makeMapWritable(Map<K, ? extends V> map) {
+        Map<K, V> result = FastMap.newInstance();
         if (map != null) result.putAll(map);
         return result;
     }
 
-    public static Set makeSetWritable(Collection col) {
-        Set result = FastSet.newInstance();
+    public static <T> Set<T> makeSetWritable(Collection<? extends T> col) {
+        Set<T> result = FastSet.newInstance();
         if (col != null) result.addAll(col);
         return result;
     }
@@ -200,10 +195,10 @@ public class UtilMisc {
      * @param sortKeys List of Map keys to sort by.
      * @return a new List of sorted Maps.
      */
-    public static List sortMaps(List listOfMaps, List sortKeys) {
+    public static List<Map<Object, Object>> sortMaps(List<Map<Object, Object>> listOfMaps, List<? extends String> sortKeys) {
         if (listOfMaps == null || sortKeys == null)
             return null;
-        List toSort = FastList.newInstance();
+        List<Map<Object, Object>> toSort = FastList.newInstance();
         toSort.addAll(listOfMaps);
         try {
             MapComparator mc = new MapComparator(sortKeys);
@@ -218,8 +213,8 @@ public class UtilMisc {
     /**
      * Assuming outerMap not null; if null will throw a NullPointerException 
      */
-    public static Map getMapFromMap(Map outerMap, Object key) {
-        Map innerMap = (Map) outerMap.get(key);
+    public static <K, IK, V> Map<IK, V> getMapFromMap(Map<K, Map<IK, V>> outerMap, K key) {
+        Map<IK, V> innerMap = outerMap.get(key);
         if (innerMap == null) {
             innerMap = FastMap.newInstance();
             outerMap.put(key, innerMap);
@@ -230,8 +225,8 @@ public class UtilMisc {
     /**
      * Assuming outerMap not null; if null will throw a NullPointerException 
      */
-    public static List getListFromMap(Map outerMap, Object key) {
-        List innerList = (List) outerMap.get(key);
+    public static <K, V> List<V> getListFromMap(Map<K, List<V>> outerMap, K key) {
+        List<V> innerList = outerMap.get(key);
         if (innerList == null) {
             innerList = FastList.newInstance();
             outerMap.put(key, innerList);
@@ -242,7 +237,7 @@ public class UtilMisc {
     /**
      * Assuming theMap not null; if null will throw a NullPointerException 
      */
-    public static void addToBigDecimalInMap(Map theMap, Object mapKey, BigDecimal addNumber) {
+    public static <K> void addToBigDecimalInMap(Map<K, Object> theMap, K mapKey, BigDecimal addNumber) {
         if (addNumber == null || ZERO_BD.equals(addNumber)) {
             return;
         }
@@ -264,7 +259,7 @@ public class UtilMisc {
         theMap.put(mapKey, currentNumber);
     }
 
-    public static Object removeFirst(List lst) {
+    public static <T> T removeFirst(List<T> lst) {
         return lst.remove(0);
     }
     
@@ -272,8 +267,8 @@ public class UtilMisc {
      * Create a Set from passed objX parameters
      * @return The resulting Set
      */
-    public static Set toSet(Object obj1) {
-        Set theSet = FastSet.newInstance();
+    public static <T> Set<T> toSet(T obj1) {
+        Set<T> theSet = FastSet.newInstance();
         theSet.add(obj1);
         return theSet;
     }
@@ -282,8 +277,8 @@ public class UtilMisc {
      * Create a Set from passed objX parameters
      * @return The resulting Set
      */
-    public static Set toSet(Object obj1, Object obj2) {
-        Set theSet = FastSet.newInstance();
+    public static <T> Set<T> toSet(T obj1, T obj2) {
+        Set<T> theSet = FastSet.newInstance();
         theSet.add(obj1);
         theSet.add(obj2);
         return theSet;
@@ -293,8 +288,8 @@ public class UtilMisc {
      * Create a Set from passed objX parameters
      * @return The resulting Set
      */
-    public static Set toSet(Object obj1, Object obj2, Object obj3) {
-        Set theSet = FastSet.newInstance();
+    public static <T> Set<T> toSet(T obj1, T obj2, T obj3) {
+        Set<T> theSet = FastSet.newInstance();
         theSet.add(obj1);
         theSet.add(obj2);
         theSet.add(obj3);
@@ -305,8 +300,8 @@ public class UtilMisc {
      * Create a Set from passed objX parameters
      * @return The resulting Set
      */
-    public static Set toSet(Object obj1, Object obj2, Object obj3, Object obj4) {
-        Set theSet = FastSet.newInstance();
+    public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4) {
+        Set<T> theSet = FastSet.newInstance();
         theSet.add(obj1);
         theSet.add(obj2);
         theSet.add(obj3);
@@ -318,8 +313,8 @@ public class UtilMisc {
      * Create a Set from passed objX parameters
      * @return The resulting Set
      */
-    public static Set toSet(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5) {
-        Set theSet = FastSet.newInstance();
+    public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4, T obj5) {
+        Set<T> theSet = FastSet.newInstance();
         theSet.add(obj1);
         theSet.add(obj2);
         theSet.add(obj3);
@@ -332,8 +327,8 @@ public class UtilMisc {
      * Create a Set from passed objX parameters
      * @return The resulting Set
      */
-    public static Set toSet(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6) {
-        Set theSet = FastSet.newInstance();
+    public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4, T obj5, T obj6) {
+        Set<T> theSet = FastSet.newInstance();
         theSet.add(obj1);
         theSet.add(obj2);
         theSet.add(obj3);
@@ -343,24 +338,24 @@ public class UtilMisc {
         return theSet;
     }
 
-    public static Set toSet(Collection collection) {
+    public static <T> Set<T> toSet(Collection<T> collection) {
         if (collection == null) return null;
         if (collection instanceof Set) {
-            return (Set) collection;
+            return (Set<T>) collection;
         } else {
-            Set theSet = FastSet.newInstance();
+            Set<T> theSet = FastSet.newInstance();
             theSet.addAll(collection);
             return theSet;
         }
     }
 
-    public static Set toSetArray(Object[] data) {
+    public static <T> Set<T> toSetArray(T[] data) {
         if (data == null) {
             return null;
         }
-        Set set = FastSet.newInstance();
-        for (int i = 0; i < data.length; i++) {
-            set.add(data[i]);
+        Set<T> set = FastSet.newInstance();
+        for (T value: data) {
+            set.add(value);
         }
         return set;
     }
@@ -369,8 +364,9 @@ public class UtilMisc {
      * Create a list from passed objX parameters
      * @return The resulting List
      */
-    public static List toList(Object obj1) {
-        List list = FastList.newInstance();
+    public static <T> List<T> toList(T obj1) {
+        List<T> list = FastList.newInstance();
+
         list.add(obj1);
         return list;
     }
@@ -379,8 +375,9 @@ public class UtilMisc {
      * Create a list from passed objX parameters
      * @return The resulting List
      */
-    public static List toList(Object obj1, Object obj2) {
-        List list = FastList.newInstance();
+    public static <T> List<T> toList(T obj1, T obj2) {
+        List<T> list = FastList.newInstance();
+
         list.add(obj1);
         list.add(obj2);
         return list;
@@ -390,8 +387,9 @@ public class UtilMisc {
      * Create a list from passed objX parameters
      * @return The resulting List
      */
-    public static List toList(Object obj1, Object obj2, Object obj3) {
-        List list = FastList.newInstance();
+    public static <T> List<T> toList(T obj1, T obj2, T obj3) {
+        List<T> list = FastList.newInstance();
+
         list.add(obj1);
         list.add(obj2);
         list.add(obj3);
@@ -402,8 +400,9 @@ public class UtilMisc {
      * Create a list from passed objX parameters
      * @return The resulting List
      */
-    public static List toList(Object obj1, Object obj2, Object obj3, Object obj4) {
-        List list = FastList.newInstance();
+    public static <T> List<T> toList(T obj1, T obj2, T obj3, T obj4) {
+        List<T> list = FastList.newInstance();
+
         list.add(obj1);
         list.add(obj2);
         list.add(obj3);
@@ -415,8 +414,9 @@ public class UtilMisc {
      * Create a list from passed objX parameters
      * @return The resulting List
      */
-    public static List toList(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5) {
-        List list = FastList.newInstance();
+    public static <T> List<T> toList(T obj1, T obj2, T obj3, T obj4, T obj5) {
+        List<T> list = FastList.newInstance();
+
         list.add(obj1);
         list.add(obj2);
         list.add(obj3);
@@ -429,8 +429,9 @@ public class UtilMisc {
      * Create a list from passed objX parameters
      * @return The resulting List
      */
-    public static List toList(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6) {
-        List list = FastList.newInstance();
+    public static <T> List<T> toList(T obj1, T obj2, T obj3, T obj4, T obj5, T obj6) {
+        List<T> list = FastList.newInstance();
+
         list.add(obj1);
         list.add(obj2);
         list.add(obj3);
@@ -440,30 +441,30 @@ public class UtilMisc {
         return list;
     }
 
-    public static List toList(Collection collection) {
+    public static <T> List<T> toList(Collection<T> collection) {
         if (collection == null) return null;
         if (collection instanceof List) {
-            return (List) collection;
+            return (List<T>) collection;
         } else {
-            List list = FastList.newInstance();
+            List<T> list = FastList.newInstance();
             list.addAll(collection);
             return list;
         }
     }
 
-    public static List toListArray(Object[] data) {
+    public static <T> List<T> toListArray(T[] data) {
         if (data == null) {
             return null;
         }
-        List list = new ArrayList(data.length);
-        for (int i = 0; i < data.length; i++) {
-            list.add(data[i]);
+        List<T> list = FastList.newInstance();
+        for (T value: data) {
+            list.add(value);
         }
         return list;
     }
     
-    public static void addToListInMap(Object element, Map theMap, Object listKey) {
-        List theList = (List) theMap.get(listKey);
+    public static <K, V> void addToListInMap(V element, Map<K, Object> theMap, K listKey) {
+        List<V> theList = UtilGenerics.checkList(theMap.get(listKey));
         if (theList == null) {
             theList = FastList.newInstance();
             theMap.put(listKey, theList);
@@ -473,6 +474,7 @@ public class UtilMisc {
     
     public static long toLong(Object value) {
         if (value != null) {
+            // FIXME: Handle java.lang.Number?
             if (value instanceof Long) {
                 return ((Long) value).longValue();
             } else if (value instanceof String) {
@@ -489,6 +491,7 @@ public class UtilMisc {
      */
     public static double toDouble(Object value) {
         if (value != null) {
+            // FIXME: Handle java.lang.Number?
             if (value instanceof Double) {
                 return ((Double) value).doubleValue();
             } else if (value instanceof String) {
@@ -504,10 +507,10 @@ public class UtilMisc {
      * @param key
      * @param value
      */
-    public static void addToDoubleInMap(Map theMap, Object key, Double value) {
+    public static <K> void addToDoubleInMap(Map<K, Object> theMap, K key, Double value) {
         Double curValue = (Double) theMap.get(key);
         if (curValue != null) {
-            theMap.put(key, new Double(curValue.doubleValue() + value.doubleValue()));
+            theMap.put(key, curValue + value);
         } else {
             theMap.put(key, value);
         }
@@ -558,13 +561,13 @@ public class UtilMisc {
         return Locale.getDefault();
     }
 
-    public static List availableLocaleList = null;
+    public static List<Locale> availableLocaleList = null;
     /** Returns a List of available locales sorted by display name */
-    public static List availableLocales() {
+    public static List<Locale> availableLocales() {
         if (availableLocaleList == null) {
             synchronized(UtilMisc.class) {
                 if (availableLocaleList == null) {
-                    TreeMap localeMap = new TreeMap();
+                    TreeMap<String, Locale> localeMap = new TreeMap<String, Locale>();
                     String localesString = UtilProperties.getPropertyValue("general", "locales.available");
                     if (localesString != null && localesString.length() > 0) { // check if available locales need to be limited according general.properties file
                         int end = -1;
@@ -584,7 +587,7 @@ public class UtilMisc {
                             localeMap.put(locales[i].getDisplayName(), locales[i]);
                         }
                     }
-                    availableLocaleList = new LinkedList(localeMap.values());
+                    availableLocaleList = new LinkedList<Locale>(localeMap.values());
                 }
             }
         }
@@ -592,8 +595,8 @@ public class UtilMisc {
     }
 
     /** This is meant to be very quick to create and use for small sized maps, perfect for how we usually use UtilMisc.toMap */
-    protected static class SimpleMap implements Map, java.io.Serializable {
-        protected Map realMapIfNeeded = null;
+    protected static class SimpleMap<V> implements Map<String, V>, java.io.Serializable {
+        protected Map<String, V> realMapIfNeeded = null;
 
         String[] names;
         Object[] values;
@@ -646,7 +649,7 @@ public class UtilMisc {
         protected void makeRealMap() {
             realMapIfNeeded = FastMap.newInstance();
             for (int i = 0; i < names.length; i++) {
-                realMapIfNeeded.put(names[i], values[i]);
+                realMapIfNeeded.put(names[i], (V) values[i]);
             }
             this.names = null;
             this.values = null;
@@ -666,9 +669,9 @@ public class UtilMisc {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.containsKey(obj);
             } else {
-                for (int i = 0; i < names.length; i++) {
-                    if (obj == null && names[i] == null) return true;
-                    if (names[i] != null && names[i].equals(obj)) return true;
+                for (String name: names) {
+                    if (obj == null && name == null) return true;
+                    if (name != null && name.equals(obj)) return true;
                 }
                 return false;
             }
@@ -678,15 +681,15 @@ public class UtilMisc {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.containsValue(obj);
             } else {
-                for (int i = 0; i < names.length; i++) {
-                    if (obj == null && values[i] == null) return true;
-                    if (values[i] != null && values[i].equals(obj)) return true;
+                for (Object value: values) {
+                    if (obj == null && value == null) return true;
+                    if (value != null && value.equals(obj)) return true;
                 }
                 return false;
             }
         }
 
-        public java.util.Set entrySet() {
+        public java.util.Set<Map.Entry<String, V>> entrySet() {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.entrySet();
             } else {
@@ -695,13 +698,13 @@ public class UtilMisc {
             }
         }
 
-        public Object get(Object obj) {
+        public V get(Object obj) {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.get(obj);
             } else {
                 for (int i = 0; i < names.length; i++) {
-                    if (obj == null && names[i] == null) return values[i];
-                    if (names[i] != null && names[i].equals(obj)) return values[i];
+                    if (obj == null && names[i] == null) return (V) values[i];
+                    if (names[i] != null && names[i].equals(obj)) return (V) values[i];
                 }
                 return null;
             }
@@ -716,7 +719,7 @@ public class UtilMisc {
             }
         }
 
-        public java.util.Set keySet() {
+        public java.util.Set<String> keySet() {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.keySet();
             } else {
@@ -725,7 +728,7 @@ public class UtilMisc {
             }
         }
 
-        public Object put(Object obj, Object obj1) {
+        public V put(String obj, V obj1) {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.put(obj, obj1);
             } else {
@@ -734,7 +737,7 @@ public class UtilMisc {
             }
         }
 
-        public void putAll(java.util.Map map) {
+        public void putAll(java.util.Map<? extends String, ? extends V> map) {
             if (realMapIfNeeded != null) {
                 realMapIfNeeded.putAll(map);
             } else {
@@ -743,7 +746,7 @@ public class UtilMisc {
             }
         }
 
-        public Object remove(Object obj) {
+        public V remove(Object obj) {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.remove(obj);
             } else {
@@ -760,7 +763,7 @@ public class UtilMisc {
             }
         }
 
-        public java.util.Collection values() {
+        public java.util.Collection<V> values() {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.values();
             } else {
