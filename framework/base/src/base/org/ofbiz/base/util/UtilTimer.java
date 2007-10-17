@@ -19,7 +19,8 @@
 package org.ofbiz.base.util;
 
 import java.util.Map;
-import java.util.HashMap;
+
+import javolution.util.FastMap;
 
 /**
  * Timer  handling utility
@@ -31,7 +32,7 @@ import java.util.HashMap;
 public class UtilTimer {
     
     public static final String module = UtilTimer.class.getName();
-    protected static Map staticTimers = new HashMap();
+    protected static Map staticTimers = FastMap.newInstance();
 
     protected String timerName = null;
     protected String lastMessage = null;
