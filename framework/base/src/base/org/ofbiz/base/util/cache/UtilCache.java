@@ -187,11 +187,11 @@ public class UtilCache implements Serializable {
         Integer curInd = (Integer) UtilCache.defaultIndices.get(cacheName);
 
         if (curInd == null) {
-            UtilCache.defaultIndices.put(cacheName, new Integer(1));
+            UtilCache.defaultIndices.put(cacheName, 1);
             return "";
         } else {
-            UtilCache.defaultIndices.put(cacheName, new Integer(curInd.intValue() + 1));
-            return Integer.toString(curInd.intValue() + 1);
+            UtilCache.defaultIndices.put(cacheName, curInd + 1);
+            return Integer.toString(curInd + 1);
         }
     }
 
