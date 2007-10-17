@@ -51,7 +51,7 @@ public class EntityDataLoadContainer implements Container {
     protected String configFile = null;
     protected String readers = null;
     protected String directory = null;
-    protected String file = null;
+    protected ArrayList files = new ArrayList();
     protected String component = null;
     protected boolean useDummyFks = false;
     protected boolean maintainTxs = false;
@@ -124,7 +124,7 @@ public class EntityDataLoadContainer implements Container {
                 } else if ("group".equalsIgnoreCase(argumentName)) {
                     this.overrideGroup = argumentVal;
                 } else if ("file".equalsIgnoreCase(argumentName)) {
-                    this.file = argumentVal;
+                    this.files.addAll(StringUtil.split(argumentVal, ","));
                 } else if ("dir".equalsIgnoreCase(argumentName)) {
                     this.directory = argumentVal;
                 } else if ("createfks".equalsIgnoreCase(argumentName)) {
@@ -148,7 +148,7 @@ public class EntityDataLoadContainer implements Container {
                 }                
     
                 // special case
-                if (this.readers == null && (this.file != null || this.directory != null)) {
+                if (this.readers == null && (!this.files.isEmpty() || this.directory != null)) {
                     this.readers = "none";
                 }
             }
@@ -214,9 +214,10 @@ public class EntityDataLoadContainer implements Container {
             urlList = new ArrayList();
         }
 
-        // add in the defined extra file
-        if (this.file != null) {
-            URL fileUrl = UtilURL.fromResource(this.file);
+        // add in the defined extra files
+        Iterator it = this.files.iterator();
+        while (it.hasNext()) {
+            URL fileUrl = UtilURL.fromResource((String) it.next());
             if (fileUrl != null) {
                 urlList.add(fileUrl);
             }
