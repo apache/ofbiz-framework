@@ -33,7 +33,6 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 
 /**
@@ -286,10 +285,6 @@ public class UtilCache implements Serializable {
      * @param expireTime how long to keep this key in the cache
      */
     public synchronized Object put(Object key, Object value, long expireTime) {
-        if (key == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("In UtilCache tried to put with null key, using NullObject for cache " + this.getName(), module);
-            key = ObjectType.NULL;
-        }
         CacheLine oldCacheLine;
         CacheLine newCacheLine;
         if (expireTime > 0) {
@@ -324,10 +319,6 @@ public class UtilCache implements Serializable {
     }
 
     protected CacheLine getInternalNoCheck(Object key) {
-        if (key == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("In UtilCache tried to get with null key, using NullObject for cache " + this.getName(), module);
-            key = ObjectType.NULL;
-        }
         CacheLine line = cacheLineTable.get(key);
         return line;
     }
@@ -386,10 +377,6 @@ public class UtilCache implements Serializable {
     
     /** This is used for internal remove calls because we only want to count external calls */
     protected synchronized Object removeInternal(Object key, boolean countRemove) {        
-        if (key == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("In UtilCache tried to remove with null key, using NullObject for cache " + this.getName(), module);
-            key = ObjectType.NULL;
-        }
         CacheLine line = cacheLineTable.remove(key);
         if (line != null) {
             noteRemoval(key, line.getValue());

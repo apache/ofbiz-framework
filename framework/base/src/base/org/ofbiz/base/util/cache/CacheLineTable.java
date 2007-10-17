@@ -46,6 +46,8 @@ public class CacheLineTable implements Serializable {
     protected String fileStore = null;
     protected String cacheName = null;
     protected int maxInMemory = 0;
+    protected boolean isNullSet = false;
+    protected CacheLine nullValue = null;
 
     public CacheLineTable(String fileStore, String cacheName, boolean useFileSystemStore, int maxInMemory) {
         this.fileStore = fileStore;
@@ -84,15 +86,23 @@ public class CacheLineTable implements Serializable {
     }
 
     public synchronized CacheLine put(Object key, CacheLine value) {
+        CacheLine oldValue;
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to put with null key, using NullObject" + this.cacheName, module);
-            key = ObjectType.NULL;
+            if (memoryTable instanceof LRUMap) {
+                oldValue = (CacheLine) memoryTable.put(key, value);
+            } else {
+                oldValue = isNullSet ? nullValue : null;
+                isNullSet = true;
+                nullValue = value;
+            }
+        } else {
+            oldValue = (CacheLine) memoryTable.put(key, value);
         }
-        CacheLine oldValue = (CacheLine) memoryTable.put(key, value);
         if (fileTable != null) {
             try {
                 if (oldValue == null) oldValue = (CacheLine) fileTable.get(key);
-                fileTable.put(key, value);                
+                fileTable.put(key != null ? key : ObjectType.NULL, value);                
                 CacheLineTable.jdbmMgr.commit();
             } catch (IOException e) {
                 Debug.logError(e, module);
@@ -104,13 +114,25 @@ public class CacheLineTable implements Serializable {
     public CacheLine get(Object key) {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to get with null key, using NullObject" + this.cacheName, module);
-            key = ObjectType.NULL;
         }
-        CacheLine value = (CacheLine) memoryTable.get(key);
+        return getNoCheck(key);
+    }
+
+    protected CacheLine getNoCheck(Object key) {
+        CacheLine value;
+        if (memoryTable instanceof LRUMap) {
+            value = (CacheLine) memoryTable.get(key);
+        } else {
+            if (key == null) {
+                value = isNullSet ? nullValue : null;
+            } else {
+                value = memoryTable.get(key);
+            }
+        }
         if (value == null) {
             if (fileTable != null) {
                 try {
-                    value = (CacheLine) fileTable.get(key);
+                    value = (CacheLine) fileTable.get(key != null ? key : ObjectType.NULL);
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
@@ -122,17 +144,25 @@ public class CacheLineTable implements Serializable {
     public synchronized CacheLine remove(Object key) {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to remove with null key, using NullObject" + this.cacheName, module);
-            key = ObjectType.NULL;
         }
-        CacheLine value = this.get(key);
+        CacheLine value = this.getNoCheck(key);
         if (fileTable != null) {
             try {
-                fileTable.remove(key);
+                fileTable.remove(key != null ? key : ObjectType.NULL);
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
         }
-        memoryTable.remove(key);
+        if (key == null) {
+            if (memoryTable instanceof LRUMap) {
+                memoryTable.remove(key);
+            } else {
+                isNullSet = false;
+                nullValue = null;
+            }
+        } else {
+            memoryTable.remove(key);
+        }
         return value;
     }
 
@@ -151,6 +181,7 @@ public class CacheLineTable implements Serializable {
                 Debug.logError(e, module);
             }
         } else {
+            if (isNullSet) values.add(nullValue);
             values.addAll(memoryTable.values());
         }
 
@@ -181,10 +212,7 @@ public class CacheLineTable implements Serializable {
             }
         } else {
             keys.addAll(memoryTable.keySet());
-            if (keys.contains(ObjectType.NULL)) {
-                keys.remove(ObjectType.NULL);
-                keys.add(null);
-            }
+            if (isNullSet) keys.add(null);
         }
 
         return Collections.unmodifiableSet(keys);
@@ -208,13 +236,19 @@ public class CacheLineTable implements Serializable {
             }
         }
         memoryTable.clear();
+        isNullSet = false;
+        nullValue = null;
     }
 
     public int size() {
         if (fileTable != null) {
             return this.keySet().size();
         } else {
-            return memoryTable.size();
+            if (isNullSet) {
+                return memoryTable.size() + 1;
+            } else {
+                return memoryTable.size();
+            }
         }
     }
 
@@ -230,6 +264,11 @@ public class CacheLineTable implements Serializable {
 
         if (newSize > 0) {
             this.memoryTable = new LRUMap(newSize);
+            if (isNullSet) {
+                this.memoryTable.put(null, nullValue);
+                isNullSet = false;
+                nullValue = null;
+            }
         } else {
             this.memoryTable = FastMap.newInstance();
         }
@@ -243,6 +282,12 @@ public class CacheLineTable implements Serializable {
         Iterator i = memoryTable.keySet().iterator();
 
         int currentIdx = 0;
+        if (isNullSet) {
+            if (currentIdx == index) {
+                return null;
+            }
+            currentIdx++;
+        }
         while (i.hasNext()) {
             Object key = i.next();
             if (currentIdx == index) {
