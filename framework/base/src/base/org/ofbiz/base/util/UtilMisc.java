@@ -176,6 +176,24 @@ public class UtilMisc {
         return theBuf.toString();
     }
     
+    public static List makeListWritable(Collection col) {
+        List result = FastList.newInstance();
+        if (col != null) result.addAll(col);
+        return result;
+    }
+
+    public static Map makeMapWritable(Map map) {
+        Map result = FastMap.newInstance();
+        if (map != null) result.putAll(map);
+        return result;
+    }
+
+    public static Set makeSetWritable(Collection col) {
+        Set result = FastSet.newInstance();
+        if (col != null) result.addAll(col);
+        return result;
+    }
+
     /**
      * Sort a List of Maps by specified consistent keys.
      * @param listOfMaps List of Map objects to sort.
