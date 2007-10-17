@@ -34,17 +34,17 @@ public class CachedClassLoader extends URLClassLoader {
     
     private String contextName;
 
-    public static Map globalClassNameClassMap = new HashMap();
-    public static HashSet globalBadClassNameSet = new HashSet();
+    public static Map<String, Class<?>> globalClassNameClassMap = new HashMap<String, Class<?>>();
+    public static HashSet<String> globalBadClassNameSet = new HashSet<String>();
 
-    public Map localClassNameClassMap = new HashMap();
-    public HashSet localBadClassNameSet = new HashSet();
+    public Map<String, Class<?>> localClassNameClassMap = new HashMap<String, Class<?>>();
+    public HashSet<String> localBadClassNameSet = new HashSet<String>();
 
-    public static Map globalResourceMap = new HashMap();
-    public static HashSet globalBadResourceNameSet = new HashSet();
+    public static Map<String, URL> globalResourceMap = new HashMap<String, URL>();
+    public static HashSet<String> globalBadResourceNameSet = new HashSet<String>();
 
-    public Map localResourceMap = new HashMap();
-    public HashSet localBadResourceNameSet = new HashSet();
+    public Map<String, URL> localResourceMap = new HashMap<String, URL>();
+    public HashSet<String> localBadResourceNameSet = new HashSet<String>();
 
     static {
         // setup some commonly used classes...
@@ -150,16 +150,16 @@ public class CachedClassLoader extends URLClassLoader {
         return "org.ofbiz.base.util.CachedClassLoader(" + contextName + ") / " + getParent().toString();
     }
     
-    public Class loadClass(String name) throws ClassNotFoundException {
+    public Class<?> loadClass(String name) throws ClassNotFoundException {
         return loadClass(name, false);
     }
     
-    protected Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
+    protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
         //check glocal common classes, ie for all instances
-        Class theClass = (Class) globalClassNameClassMap.get(name);
+        Class<?> theClass = globalClassNameClassMap.get(name);
         
         //check local classes, ie for this instance
-        if (theClass == null) theClass = (Class) localClassNameClassMap.get(name);
+        if (theClass == null) theClass = localClassNameClassMap.get(name);
 
         //make sure it is not a known bad class name
         if (theClass == null) {
@@ -173,7 +173,7 @@ public class CachedClassLoader extends URLClassLoader {
             if (Debug.verboseOn()) Debug.logVerbose("Cached loader cache miss for class name: [" + name + "]", module);
             
             synchronized (this) {
-                theClass = (Class) localClassNameClassMap.get(name);
+                theClass = localClassNameClassMap.get(name);
                 if (theClass == null) {
                     try {
                         theClass = super.loadClass(name, resolve);
@@ -200,10 +200,10 @@ public class CachedClassLoader extends URLClassLoader {
     
     public URL getResource(String name) {
         //check glocal common resources, ie for all instances
-        URL theResource = (URL) globalResourceMap.get(name);
+        URL theResource = globalResourceMap.get(name);
         
         //check local resources, ie for this instance
-        if (theResource == null) theResource = (URL) localResourceMap.get(name);
+        if (theResource == null) theResource = localResourceMap.get(name);
 
         //make sure it is not a known bad resource name
         if (theResource == null) {
@@ -218,7 +218,7 @@ public class CachedClassLoader extends URLClassLoader {
             //Debug.logInfo("Cached loader cache miss for resource name: [" + name + "]", module);
             
             synchronized (this) {
-                theResource = (URL) localResourceMap.get(name);
+                theResource = localResourceMap.get(name);
                 if (theResource == null) {
                     theResource = super.getResource(name);
                     if (theResource == null) {

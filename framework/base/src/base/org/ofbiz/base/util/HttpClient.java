@@ -55,8 +55,8 @@ public class HttpClient {
     private String basicAuthUsername = null;
     private String basicAuthPassword = null;
 
-    private Map parameters = null;
-    private Map headers = null;
+    private Map<String, Object> parameters = null;
+    private Map<String, String> headers = null;
     
     private URL requestUrl = null;
     private URLConnection con = null;
@@ -75,26 +75,26 @@ public class HttpClient {
     }
 
     /** Creates a new HttpClient object. */
-    public HttpClient(String url, Map parameters) {
+    public HttpClient(String url, Map<String, Object> parameters) {
         this.url = url;
         this.parameters = parameters;      
     }
 
     /** Creates a new HttpClient object. */
-    public HttpClient(URL url, Map parameters) {
+    public HttpClient(URL url, Map<String, Object> parameters) {
         this.url = url.toExternalForm();
         this.parameters = parameters;
     }
 
     /** Creates a new HttpClient object. */
-    public HttpClient(String url, Map parameters, Map headers) {
+    public HttpClient(String url, Map<String, Object> parameters, Map<String, String> headers) {
         this.url = url;
         this.parameters = parameters;
         this.headers = headers;
     }
 
     /** Creates a new HttpClient object. */
-    public HttpClient(URL url, Map parameters, Map headers) {
+    public HttpClient(URL url, Map<String, Object> parameters, Map<String, String> headers) {
         this.url = url.toExternalForm();
         this.parameters = parameters;
         this.headers = headers;
@@ -136,36 +136,36 @@ public class HttpClient {
     }
 
     /** Set the parameters for this request. */
-    public void setParameters(Map parameters) {
+    public void setParameters(Map<String, Object> parameters) {
         this.parameters = parameters;
     }
 
     /** Set an individual parameter for this request. */
     public void setParameter(String name, String value) {
         if (parameters == null)
-            parameters = new HashMap();
+            parameters = new HashMap<String, Object>();
         parameters.put(name, value);
     }
 
     /** Set the headers for this request. */
-    public void setHeaders(Map headers) {
+    public void setHeaders(Map<String, String> headers) {
         this.headers = headers;
     }
 
     /** Set an individual header for this request. */
     public void setHeader(String name, String value) {
         if (headers == null)
-            headers = new HashMap();
+            headers = new HashMap<String, String>();
         headers.put(name, value);
     }
 
     /** Return a Map of headers. */
-    public Map getHeaders() {
+    public Map<String, String> getHeaders() {
         return headers;
     }
 
     /** Return a Map of parameters. */
-    public Map getParameters() {
+    public Map<String, Object> getParameters() {
         return parameters;
     }
 
@@ -452,12 +452,9 @@ public class HttpClient {
             }
             
             if (headers != null && headers.size() > 0) {
-                Set headerSet = headers.keySet();
-                Iterator i = headerSet.iterator();
-
-                while (i.hasNext()) {
-                    String headerName = (String) i.next();
-                    String headerValue = (String) headers.get(headerName);
+                for (Map.Entry<String, String> entry: headers.entrySet()) {
+                    String headerName = entry.getKey();
+                    String headerValue = entry.getValue();
                     con.setRequestProperty(headerName, headerValue);
                     if (Debug.verboseOn() || debug) Debug.log("Header - " + headerName + ": " + headerValue, module);
                 }

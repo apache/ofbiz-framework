@@ -34,18 +34,18 @@ import org.ofbiz.base.util.cache.UtilCache;
 public class JNDIContextFactory {
     
     public static final String module = JNDIContextFactory.class.getName();
-    static UtilCache contexts = new UtilCache("entity.JNDIContexts", 0, 0);
+    static UtilCache<String, InitialContext> contexts = new UtilCache<String, InitialContext>("entity.JNDIContexts", 0, 0);
 
     /** 
      * Return the initial context according to the entityengine.xml parameters that correspond to the given prefix
      * @return the JNDI initial context
      */
     public static InitialContext getInitialContext(String jndiServerName) throws GenericConfigException {
-        InitialContext ic = (InitialContext) contexts.get(jndiServerName);
+        InitialContext ic = contexts.get(jndiServerName);
 
         if (ic == null) {
             synchronized (JNDIContextFactory.class) {
-                ic = (InitialContext) contexts.get(jndiServerName);
+                ic = contexts.get(jndiServerName);
 
                 if (ic == null) {
                     JNDIConfigUtil.JndiServerInfo jndiServerInfo = JNDIConfigUtil.getJndiServerInfo(jndiServerName);
@@ -58,7 +58,7 @@ public class JNDIContextFactory {
                         if (UtilValidate.isEmpty(jndiServerInfo.contextProviderUrl)) {
                             ic = new InitialContext();
                         } else {
-                            Hashtable h = new Hashtable();
+                            Hashtable<String, Object> h = new Hashtable<String, Object>();
 
                             h.put(Context.INITIAL_CONTEXT_FACTORY, jndiServerInfo.initialContextFactory);
                             h.put(Context.PROVIDER_URL, jndiServerInfo.contextProviderUrl);
