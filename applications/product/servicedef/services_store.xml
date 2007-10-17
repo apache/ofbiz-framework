@@ -258,4 +258,25 @@ under the License.
         <description>Remove ProductStoreFinActSetting</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!--ProductStoreVendorPayment Services -->
+    <service name="createProductStoreVendorPayment" engine="simple" default-entity-name="ProductStoreVendorPayment"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreVendorPayment" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteProductStoreVendorPayment" engine="simple" default-entity-name="ProductStoreVendorPayment"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStoreVendorPayment" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!--ProductStoreVendorShipment Services -->
+    <service name="createProductStoreVendorShipment" engine="simple" default-entity-name="ProductStoreVendorShipment"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreVendorShipment" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteProductStoreVendorShipment" engine="simple" default-entity-name="ProductStoreVendorShipment"
+            location="org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStoreVendorShipment" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>

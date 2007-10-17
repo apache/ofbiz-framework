@@ -201,6 +201,24 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
+    <!-- ProductStore Vendor Payment Services --> 
+    <simple-method method-name="createProductStoreVendorPayment" short-description="Create a ProductStoreVendorPayment">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreVendorPayment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ProductStoreVendorPayment" value-name="newEntity"/>
+        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deleteProductStoreVendorPayment" short-description="Remove the ProductStoreVendorPayment">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreVendorPayment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <make-value entity-name="ProductStoreVendorPayment" value-name="lookedUpValue"/>
+        <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
     <!-- ProductStore Carrier Shipment Services -->
     <simple-method method-name="createProductStoreShipMeth" short-description="Create Product Store Carrier Shipment Method">
         <check-permission permission="CATALOG" action="_CREATE">
@@ -646,5 +664,22 @@ under the License.
         </else>
         </if-compare>
     </simple-method>
+
+    <!-- ProductStore Vendor Shipment Services --> 
+    <simple-method method-name="createProductStoreVendorShipment" short-description="Create a ProductStoreVendorShipment">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreVendorShipment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+        <make-value entity-name="ProductStoreVendorShipment" value-name="newEntity"/>
+        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deleteProductStoreVendorShipment" short-description="Remove the ProductStoreVendorShipment">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreVendorShipment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+        <make-value entity-name="ProductStoreVendorShipment" value-name="lookedUpValue"/>
+        <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
 </simple-methods>
 

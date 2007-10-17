@@ -2178,6 +2178,42 @@ under the License.
         <response name="error" type="view" value="EditProductStoreFinAccountSettings"/>
     </request-map>
 
+    <!-- ================ ProductStore Vendor Payment Requests =========== -->
+    <request-map uri="EditProductStoreVendorPayments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductStoreVendorPayments"/>
+    </request-map>
+    <request-map uri="createProductStoreVendorPayment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProductStoreVendorPayment"/>
+        <response name="success" type="view" value="EditProductStoreVendorPayments"/>
+        <response name="error" type="view" value="EditProductStoreVendorPayments"/>
+    </request-map>
+    <request-map uri="deleteProductStoreVendorPayment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteProductStoreVendorPayment"/>
+        <response name="success" type="view" value="EditProductStoreVendorPayments"/>
+        <response name="error" type="view" value="EditProductStoreVendorPayments"/>
+    </request-map>
+
+    <!-- ================ ProductStore Vendor Shipment Requests =========== -->
+    <request-map uri="EditProductStoreVendorShipments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductStoreVendorShipments"/>
+    </request-map>
+    <request-map uri="createProductStoreVendorShipment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProductStoreVendorShipment"/>
+        <response name="success" type="view" value="EditProductStoreVendorShipments"/>
+        <response name="error" type="view" value="EditProductStoreVendorShipments"/>
+    </request-map>
+    <request-map uri="deleteProductStoreVendorShipment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteProductStoreVendorShipment"/>
+        <response name="success" type="view" value="EditProductStoreVendorShipments"/>
+        <response name="error" type="view" value="EditProductStoreVendorShipments"/>
+    </request-map>
+
     <!-- ================ Keyword Thesaurus Requests ================= -->
     <request-map uri="editKeywordThesaurus">
         <security https="true" auth="true"/>
@@ -2563,7 +2599,9 @@ under the License.
     <view-map name="EditProductStoreKeywordOvrd" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreKeywordOvrd"/>
     <view-map name="ViewProductStoreSegments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ViewProductStoreSegments"/>
     <view-map name="EditProductStoreFinAccountSettings" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFinAccountSettings"/>    
-
+    <view-map name="EditProductStoreVendorPayments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorPayments"/>
+    <view-map name="EditProductStoreVendorShipments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorShipments"/>
+    
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
 
     <view-map name="pendingReviews" type="screen" page="component://product/widget/catalog/ReviewScreens.xml#pendingReviews"/>

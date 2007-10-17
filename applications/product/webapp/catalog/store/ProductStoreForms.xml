@@ -723,4 +723,52 @@
         </field>
         <field name="priceUnitPrice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><display/></field>
     </form>
+    <form name="ListProductStoreVendorPayments" type="list" list-name="productStoreVendorPaymentList" target="deleteProductStoreVendorPayment" paginate-target="EditProductStoreVendorPayments">
+        <field name="productStoreId"><hidden/></field>
+        <field name="vendorPartyId"><display/></field>
+        <field name="paymentMethodTypeId">
+            <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId" description="${description}"/>
+        </field>
+        <field name="creditCardEnumId">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditProductStoreVendorPayment" type="single" target="createProductStoreVendorPayment">
+        <field name="productStoreId"><hidden/></field>
+        <field name="vendorPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="paymentMethodTypeId">
+            <drop-down current="selected" allow-empty="false">
+                <entity-options entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="creditCardEnumId">
+            <drop-down current="selected" allow-empty="false">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${enumCode} - ${description}">
+                    <entity-constraint name="enumTypeId" operator="equals" value="CREDIT_CARD_TYPE"/>
+                </entity-options> 
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListProductStoreVendorShipments" type="list" list-name="productStoreVendorShipmentList" target="deleteProductStoreVendorShipment" paginate-target="EditProductStoreVendorShipments">
+        <field name="productStoreId"><hidden/></field>
+        <field name="carrierPartyId"><display/></field>
+        <field name="vendorPartyId"><display/></field>
+        <field name="shipmentMethodTypeId">
+            <display-entity entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId" description="${description}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditProductStoreVendorShipment" type="single" target="createProductStoreVendorShipment">
+        <field name="productStoreId"><hidden/></field>
+        <field name="carrierPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="vendorPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="shipmentMethodTypeId">
+            <drop-down current="selected" allow-empty="false">
+                <entity-options entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>
