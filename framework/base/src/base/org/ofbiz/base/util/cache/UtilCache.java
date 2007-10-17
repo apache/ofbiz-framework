@@ -291,11 +291,13 @@ public class UtilCache implements Serializable {
             key = ObjectType.NULL;
         }
         CacheLine oldCacheLine;
+        CacheLine newCacheLine;
         if (expireTime > 0) {
-            oldCacheLine = (CacheLine) cacheLineTable.put(key, new CacheLine(value, useSoftReference, System.currentTimeMillis(), expireTime));
+            newCacheLine = useSoftReference ? new SoftRefCacheLine(value, System.currentTimeMillis(), expireTime) : new HardRefCacheLine(value, System.currentTimeMillis(), expireTime);
         } else {
-            oldCacheLine = (CacheLine) cacheLineTable.put(key, new CacheLine(value, useSoftReference, expireTime));
+            newCacheLine = useSoftReference ? new SoftRefCacheLine(value, expireTime) : new HardRefCacheLine(value, expireTime);
         }
+        oldCacheLine = (CacheLine) cacheLineTable.put(key, newCacheLine);
 
         if (oldCacheLine == null) {
             noteAddition(key, value);
@@ -334,7 +336,7 @@ public class UtilCache implements Serializable {
         CacheLine line = getInternalNoCheck(key);
         if (line == null) {
             if (countGet) missCountNotFound++;
-        } else if (line.softReferenceCleared()) {
+        } else if (line.isInvalid()) {
             removeInternal(key, false);
             if (countGet) missCountSoftRef++;
             line = null;
@@ -529,10 +531,17 @@ public class UtilCache implements Serializable {
     public void setUseSoftReference(boolean useSoftReference) {
         if (this.useSoftReference != useSoftReference) {
             this.useSoftReference = useSoftReference;
-            Iterator values = cacheLineTable.values().iterator();
-            while (values.hasNext()) {
-                CacheLine line = (CacheLine) values.next();
-                line.setUseSoftReference(useSoftReference);
+            Iterator keys = cacheLineTable.keySet().iterator();
+            while (keys.hasNext()) {
+                Object key = keys.next();
+                CacheLine line = (CacheLine) cacheLineTable.get(key);
+                if (useSoftReference) {
+                    if (line instanceof SoftRefCacheLine) continue;
+                    cacheLineTable.put(key, new SoftRefCacheLine(line.getValue(), line.loadTime, line.expireTime));
+                } else {
+                    if (line instanceof HardRefCacheLine) continue;
+                    cacheLineTable.put(key, new HardRefCacheLine(line.getValue(), line.loadTime, line.expireTime));
+                }
             }
         }
     }

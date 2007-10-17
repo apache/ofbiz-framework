@@ -22,63 +22,21 @@ import java.io.Serializable;
 
 import org.ofbiz.base.util.UtilObject;
 
-public class CacheLine implements Serializable {
+public abstract class CacheLine implements Serializable {
+    public long loadTime;
+    public final long expireTime;
 
-    public static final String module = CacheLine.class.getName();
-
-    public Object valueRef = null;
-    public long loadTime = 0;
-    public long expireTime = 0;
-    public boolean useSoftReference = false;
-
-    public CacheLine(Object value, boolean useSoftReference, long expireTime) {
-        if (useSoftReference) {
-            this.valueRef = new CacheSoftReference(value);
-        } else {
-            this.valueRef = value;
-        }
-        this.useSoftReference = useSoftReference;
-        this.expireTime = expireTime;
+    protected CacheLine(long expireTime) {
+        this(0, expireTime);
     }
 
-    public CacheLine(Object value, boolean useSoftReference, long loadTime, long expireTime) {
-        this(value, useSoftReference, expireTime);
+    protected CacheLine(long loadTime, long expireTime) {
+        this.expireTime = expireTime;
         this.loadTime = loadTime;
     }
 
-    public Object getValue() {
-        if (valueRef == null) return null;
-        if (useSoftReference) {
-            return ((CacheSoftReference) valueRef).get();
-        } else {
-            return valueRef;
-        }
-    }
-    
-    public boolean softReferenceCleared() {
-        if (!this.useSoftReference || valueRef == null) {
-            return false;
-        } else {
-            if (((CacheSoftReference) valueRef).get() == null) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    public void setUseSoftReference(boolean useSoftReference) {
-        if (this.useSoftReference != useSoftReference) {
-            synchronized (this) {
-                this.useSoftReference = useSoftReference;
-                if (useSoftReference) {
-                    this.valueRef = new CacheSoftReference(this.valueRef);
-                } else {
-                    this.valueRef = ((CacheSoftReference) this.valueRef).get();
-                }
-            }
-        }
-    }
+    public abstract Object getValue();
+    public abstract boolean isInvalid();
 
     public long getExpireTime() {
         return this.expireTime;
@@ -91,7 +49,7 @@ public class CacheLine implements Serializable {
     public boolean hasExpired() {
         // check this BEFORE checking to see if expireTime <= 0, ie if time expiration is enabled
         // check to see if we are using softReference first, slight performance increase
-        if (softReferenceCleared()) return true;
+        if (isInvalid()) return true;
 
         // check if expireTime <= 0, ie if time expiration is not enabled
         if (expireTime <= 0) return false;
