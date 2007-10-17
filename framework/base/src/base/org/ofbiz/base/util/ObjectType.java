@@ -478,13 +478,7 @@ public class ObjectType {
             
             if ("Boolean".equals(type) || "java.lang.Boolean".equals(type)) {
                 str = StringUtil.removeSpaces(str);
-                Boolean value = null;
-                if (str.equalsIgnoreCase("TRUE")) {
-                    value = Boolean.TRUE;
-                } else {
-                    value = Boolean.FALSE;
-                }
-                return value;
+                return str.equalsIgnoreCase("TRUE") ? Boolean.TRUE : Boolean.FALSE;
             } else if ("Locale".equals(type) || "java.util.Locale".equals(type)) {
                 Locale loc = UtilMisc.parseLocale(str);
                 if (loc != null) {
@@ -1049,11 +1043,7 @@ public class ObjectType {
         // have converted value 2, now before converting value 1 see if it is a Collection and we are doing a contains comparison
         if ("contains".equals(operator) && value1 instanceof Collection) {
             Collection col1 = (Collection) value1;
-            if (col1.contains(convertedValue2)) {
-                return Boolean.TRUE;
-            } else {
-                return Boolean.FALSE;
-            }
+            return col1.contains(convertedValue2) ? Boolean.TRUE : Boolean.FALSE;
         }
 
         Object convertedValue1 = null;
@@ -1068,17 +1058,9 @@ public class ObjectType {
         // handle null values...
         if (convertedValue1 == null || convertedValue2 == null) {
             if ("equals".equals(operator)) {
-                if (convertedValue1 == null && convertedValue2 == null) {
-                    return Boolean.TRUE;
-                } else {
-                    return Boolean.FALSE;
-                }
+                return convertedValue1 == null && convertedValue2 == null ? Boolean.TRUE : Boolean.FALSE;
             } else if ("not-equals".equals(operator)) {
-                if (convertedValue1 == null && convertedValue2 == null) {
-                    return Boolean.FALSE;
-                } else {
-                    return Boolean.TRUE;
-                }
+                return convertedValue1 == null && convertedValue2 == null ? Boolean.FALSE : Boolean.TRUE;
             } else if ("is-not-empty".equals(operator) || "is-empty".equals(operator)) {
                 // do nothing, handled later...
             } else {
@@ -1098,11 +1080,7 @@ public class ObjectType {
                 String str1 = (String) convertedValue1;
                 String str2 = (String) convertedValue2;
 
-                if (str1.indexOf(str2) < 0) {
-                    return Boolean.FALSE;
-                } else {
-                    return Boolean.TRUE;
-                }
+                return str1.indexOf(str2) < 0 ? Boolean.FALSE : Boolean.TRUE;
             } else {
                 messages.add("Error in XML file: cannot do a contains compare between a String and a non-String type");
                 return null;
@@ -1135,17 +1113,9 @@ public class ObjectType {
 
             if (str1.length() == 0 || str2.length() == 0) {
                 if ("equals".equals(operator)) {
-                    if (str1.length() == 0 && str2.length() == 0) {
-                        return Boolean.TRUE;
-                    } else {
-                        return Boolean.FALSE;
-                    }
+                    return str1.length() == 0 && str2.length() == 0 ? Boolean.TRUE : Boolean.FALSE;
                 } else if ("not-equals".equals(operator)) {
-                    if (str1.length() == 0 && str2.length() == 0) {
-                        return Boolean.FALSE;
-                    } else {
-                        return Boolean.TRUE;
-                    }
+                    return str1.length() == 0 && str2.length() == 0 ? Boolean.FALSE : Boolean.TRUE;
                 } else {
                     messages.add("ERROR: Could not do a compare between strings with one empty string for the operator " + operator);
                     return null;
