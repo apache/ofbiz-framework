@@ -220,10 +220,7 @@ public class UtilCache implements Serializable {
             try {
                 String value = getPropertyParam(res, propNames, "maxSize");
                 if (UtilValidate.isNotEmpty(value)) {
-                    Integer intValue = new Integer(value);
-                    if (intValue != null) {
-                        this.maxSize = intValue.intValue();
-                    }
+                    this.maxSize = Integer.parseInt(value);
                 }
             } catch (Exception e) {
                 Debug.logWarning(e, "Error getting maxSize value from cache.properties file for propNames: " + propNames, module);
@@ -231,10 +228,7 @@ public class UtilCache implements Serializable {
             try {
                 String value = getPropertyParam(res, propNames, "maxInMemory");
                 if (UtilValidate.isNotEmpty(value)) {
-                    Integer intValue = new Integer(value);
-                    if (intValue != null) {
-                        this.maxInMemory = intValue.intValue();
-                    }
+                    this.maxInMemory = Integer.parseInt(value);
                 }
             } catch (Exception e) {
                 Debug.logWarning(e, "Error getting maxInMemory value from cache.properties file for propNames: " + propNames, module);
@@ -242,10 +236,7 @@ public class UtilCache implements Serializable {
             try {
                 String value = getPropertyParam(res, propNames, "expireTime");
                 if (UtilValidate.isNotEmpty(value)) {
-                    Long longValue = new Long(value);
-                    if (longValue != null) {
-                        this.expireTime = longValue.longValue();
-                    }
+                    this.expireTime = Long.parseLong(value);
                 }
             } catch (Exception e) {
                 Debug.logWarning(e, "Error getting expireTime value from cache.properties file for propNames: " + propNames, module);
