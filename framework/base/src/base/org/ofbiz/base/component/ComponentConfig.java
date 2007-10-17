@@ -50,8 +50,8 @@ public class ComponentConfig {
     public static final String OFBIZ_COMPONENT_XML_FILENAME = "ofbiz-component.xml";
 
     // this is not a UtilCache because reloading may cause problems
-    protected static Map componentConfigs = FastMap.newInstance();
-    protected static Map serverWebApps = FastMap.newInstance();
+    protected static Map<String, ComponentConfig> componentConfigs = FastMap.newInstance();
+    protected static Map<String, List<WebappInfo>> serverWebApps = FastMap.newInstance();
 
     public static ComponentConfig getComponentConfig(String globalName) throws ComponentException {
         // TODO: we need to look up the rootLocation from the container config, or this will blow up
@@ -61,13 +61,13 @@ public class ComponentConfig {
     public static ComponentConfig getComponentConfig(String globalName, String rootLocation) throws ComponentException {
         ComponentConfig componentConfig = null;
         if (UtilValidate.isNotEmpty(globalName)) {
-            componentConfig = (ComponentConfig) componentConfigs.get(globalName);
+            componentConfig = componentConfigs.get(globalName);
         }
         if (componentConfig == null) {
             if (rootLocation != null) {
                 synchronized (ComponentConfig.class) {
                     if (UtilValidate.isNotEmpty(globalName)) {
-                        componentConfig = (ComponentConfig) componentConfigs.get(globalName);
+                        componentConfig = componentConfigs.get(globalName);
                     }
                     if (componentConfig == null) {
                         componentConfig = new ComponentConfig(globalName, rootLocation);
@@ -86,8 +86,8 @@ public class ComponentConfig {
         return componentConfig;
     }
 
-    public static Collection getAllComponents() {
-        Collection values = componentConfigs.values();
+    public static Collection<ComponentConfig> getAllComponents() {
+        Collection<ComponentConfig> values = componentConfigs.values();
         if (values != null) {
             return values;
         } else {
@@ -96,15 +96,13 @@ public class ComponentConfig {
         }
     }
 
-    public static List getAllClasspathInfos() {
+    public static List<ClasspathInfo> getAllClasspathInfos() {
         return getAllClasspathInfos(null);
     }
 
-    public static List getAllClasspathInfos(String componentName) {
-        List classpaths = FastList.newInstance();
-        Iterator i = getAllComponents().iterator();
-        while (i.hasNext()) {
-            ComponentConfig cc = (ComponentConfig) i.next();
+    public static List<ClasspathInfo> getAllClasspathInfos(String componentName) {
+        List<ClasspathInfo> classpaths = FastList.newInstance();
+        for (ComponentConfig cc: getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 classpaths.addAll(cc.getClasspathInfos());
             }
@@ -112,23 +110,19 @@ public class ComponentConfig {
         return classpaths;
     }
 
-    public static List getAllEntityResourceInfos(String type) {
+    public static List<EntityResourceInfo> getAllEntityResourceInfos(String type) {
         return getAllEntityResourceInfos(type, null);
     }
 
-    public static List getAllEntityResourceInfos(String type, String componentName) {
-        List entityInfos = FastList.newInstance();
-        Iterator i = getAllComponents().iterator();
-        while (i.hasNext()) {
-            ComponentConfig cc = (ComponentConfig) i.next();
+    public static List<EntityResourceInfo> getAllEntityResourceInfos(String type, String componentName) {
+        List<EntityResourceInfo> entityInfos = FastList.newInstance();
+        for (ComponentConfig cc: getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
-                List ccEntityInfoList = cc.getEntityResourceInfos();
+                List<EntityResourceInfo> ccEntityInfoList = cc.getEntityResourceInfos();
                 if (UtilValidate.isEmpty(type)) {
                     entityInfos.addAll(ccEntityInfoList);
                 } else {
-                    Iterator ccEntityInfoIter = ccEntityInfoList.iterator();
-                    while (ccEntityInfoIter.hasNext()) {
-                        EntityResourceInfo entityResourceInfo = (EntityResourceInfo) ccEntityInfoIter.next();
+                    for (EntityResourceInfo entityResourceInfo: ccEntityInfoList) {
                         if (type.equals(entityResourceInfo.type)) {
                             entityInfos.add(entityResourceInfo);
                         }
@@ -139,23 +133,19 @@ public class ComponentConfig {
         return entityInfos;
     }
 
-    public static List getAllServiceResourceInfos(String type) {
+    public static List<ServiceResourceInfo> getAllServiceResourceInfos(String type) {
         return getAllServiceResourceInfos(type, null);
     }
 
-    public static List getAllServiceResourceInfos(String type, String componentName) {
-        List serviceInfos = FastList.newInstance();
-        Iterator i = getAllComponents().iterator();
-        while (i.hasNext()) {
-            ComponentConfig cc = (ComponentConfig) i.next();
+    public static List<ServiceResourceInfo> getAllServiceResourceInfos(String type, String componentName) {
+        List<ServiceResourceInfo> serviceInfos = FastList.newInstance();
+        for (ComponentConfig cc: getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
-                List ccServiceInfoList = cc.getServiceResourceInfos();
+                List<ServiceResourceInfo> ccServiceInfoList = cc.getServiceResourceInfos();
                 if (UtilValidate.isEmpty(type)) {
                     serviceInfos.addAll(ccServiceInfoList);
                 } else {
-                    Iterator ccServiceInfoIter = ccServiceInfoList.iterator();
-                    while (ccServiceInfoIter.hasNext()) {
-                        ServiceResourceInfo serviceResourceInfo = (ServiceResourceInfo) ccServiceInfoIter.next();
+                    for (ServiceResourceInfo serviceResourceInfo: ccServiceInfoList) {
                         if (type.equals(serviceResourceInfo.type)) {
                             serviceInfos.add(serviceResourceInfo);
                         }
@@ -166,15 +156,13 @@ public class ComponentConfig {
         return serviceInfos;
     }
 
-    public static List getAllTestSuiteInfos() {
+    public static List<TestSuiteInfo> getAllTestSuiteInfos() {
         return getAllTestSuiteInfos(null);
     }
 
-    public static List getAllTestSuiteInfos(String componentName) {
-        List testSuiteInfos = FastList.newInstance();
-        Iterator i = getAllComponents().iterator();
-        while (i.hasNext()) {
-            ComponentConfig cc = (ComponentConfig) i.next();
+    public static List<TestSuiteInfo> getAllTestSuiteInfos(String componentName) {
+        List<TestSuiteInfo> testSuiteInfos = FastList.newInstance();
+        for (ComponentConfig cc: getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 testSuiteInfos.addAll(cc.getTestSuiteInfos());
             }
@@ -182,15 +170,13 @@ public class ComponentConfig {
         return testSuiteInfos;
     }
 
-    public static List getAllKeystoreInfos() {
+    public static List<KeystoreInfo> getAllKeystoreInfos() {
         return getAllKeystoreInfos(null);
     }
 
-    public static List getAllKeystoreInfos(String componentName) {
-        List keystoreInfos = FastList.newInstance();
-        Iterator i = getAllComponents().iterator();
-        while (i.hasNext()) {
-            ComponentConfig cc = (ComponentConfig) i.next();
+    public static List<KeystoreInfo> getAllKeystoreInfos(String componentName) {
+        List<KeystoreInfo> keystoreInfos = FastList.newInstance();
+        for (ComponentConfig cc: getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 keystoreInfos.addAll(cc.getKeystoreInfos());
             }
@@ -199,13 +185,9 @@ public class ComponentConfig {
     }
 
     public static KeystoreInfo getKeystoreInfo(String componentName, String keystoreName) {
-        Iterator i = getAllComponents().iterator();
-        while (i.hasNext()) {
-            ComponentConfig cc = (ComponentConfig) i.next();
+        for (ComponentConfig cc: getAllComponents()) {
             if (componentName != null && componentName.equals(cc.getComponentName())) {
-                Iterator ki = cc.getKeystoreInfos().iterator();
-                while (ki.hasNext()) {
-                    KeystoreInfo ks = (KeystoreInfo) ki.next();
+                for (KeystoreInfo ks: cc.getKeystoreInfos()) {
                     if (keystoreName != null && keystoreName.equals(ks.getName())) {
                         return ks;
                     }
@@ -216,15 +198,13 @@ public class ComponentConfig {
         return null;
     }
 
-    public static List getAllWebappResourceInfos() {
+    public static List<WebappInfo> getAllWebappResourceInfos() {
         return getAllWebappResourceInfos(null);
     }
 
-    public static List getAllWebappResourceInfos(String componentName) {
-        List webappInfos = FastList.newInstance();
-        Iterator i = getAllComponents().iterator();
-        while (i.hasNext()) {
-            ComponentConfig cc = (ComponentConfig) i.next();
+    public static List<WebappInfo> getAllWebappResourceInfos(String componentName) {
+        List<WebappInfo> webappInfos = FastList.newInstance();
+        for (ComponentConfig cc: getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 webappInfos.addAll(cc.getWebappInfos());
             }
@@ -276,32 +256,28 @@ public class ComponentConfig {
         return ComponentConfig.getAppBarWebInfos(serverName, null);
     }
 
-    public static List getAppBarWebInfos(String serverName,  Comparator comp) {
-        List webInfos = (List) serverWebApps.get(serverName);
+    public static List<WebappInfo> getAppBarWebInfos(String serverName,  Comparator<? super String> comp) {
+        List<WebappInfo> webInfos = serverWebApps.get(serverName);
         if (webInfos == null) {
             synchronized (ComponentConfig.class) {
                 if (webInfos == null) {
-                    Map tm = null;
-                    Iterator i = getAllComponents().iterator();
+                    Map<String, WebappInfo> tm = null;
 
                     // use a TreeMap to sort the components alpha by title
                     if (comp != null) {
-                        tm = new TreeMap(comp);
+                        tm = new TreeMap<String, WebappInfo>(comp);
                     } else {
-                        tm = new TreeMap();
+                        tm = new TreeMap<String, WebappInfo>();
                     }
 
-                    while (i.hasNext()) {
-                        ComponentConfig cc = (ComponentConfig) i.next();
-                        Iterator wi = cc.getWebappInfos().iterator();
-                        while (wi.hasNext()) {
-                            ComponentConfig.WebappInfo wInfo = (ComponentConfig.WebappInfo) wi.next();
+                    for (ComponentConfig cc: getAllComponents()) {
+                        for (WebappInfo wInfo: cc.getWebappInfos()) {
                             if (serverName.equals(wInfo.server) && wInfo.appBarDisplay) {
                                 tm.put(wInfo.title, wInfo);
                             }
                         }
                     }
-                    List webInfoList = FastList.newInstance();
+                    List<WebappInfo> webInfoList = FastList.newInstance();
                     webInfoList.addAll(tm.values());
                     serverWebApps.put(serverName, webInfoList);
                     return webInfoList;
@@ -317,12 +293,8 @@ public class ComponentConfig {
             return info;
         }
 
-        Iterator i = getAllComponents().iterator();
-        while (i.hasNext() && info == null) {
-            ComponentConfig cc = (ComponentConfig) i.next();
-            Iterator wi = cc.getWebappInfos().iterator();
-            while (wi.hasNext()) {
-                ComponentConfig.WebappInfo wInfo = (ComponentConfig.WebappInfo) wi.next();
+        for (ComponentConfig cc: getAllComponents()) {
+            for (WebappInfo wInfo: cc.getWebappInfos()) {
                 if (serverName.equals(wInfo.server) && contextRoot.equals(wInfo.getContextRoot())) {
                     info = wInfo;
                 }
@@ -337,13 +309,13 @@ public class ComponentConfig {
     protected String componentName = null;
     protected boolean enabled = true;
 
-    protected Map resourceLoaderInfos = FastMap.newInstance();
-    protected List classpathInfos = FastList.newInstance();
-    protected List entityResourceInfos = FastList.newInstance();
-    protected List serviceResourceInfos = FastList.newInstance();
-    protected List testSuiteInfos = FastList.newInstance();
-    protected List keystoreInfos = FastList.newInstance();
-    protected List webappInfos = FastList.newInstance();
+    protected Map<String, ResourceLoaderInfo> resourceLoaderInfos = FastMap.newInstance();
+    protected List<ClasspathInfo> classpathInfos = FastList.newInstance();
+    protected List<EntityResourceInfo> entityResourceInfos = FastList.newInstance();
+    protected List<ServiceResourceInfo> serviceResourceInfos = FastList.newInstance();
+    protected List<TestSuiteInfo> testSuiteInfos = FastList.newInstance();
+    protected List<KeystoreInfo> keystoreInfos = FastList.newInstance();
+    protected List<WebappInfo> webappInfos = FastList.newInstance();
 
     protected ComponentConfig() {}
 
@@ -385,60 +357,45 @@ public class ComponentConfig {
         if (UtilValidate.isEmpty(this.globalName)) {
             this.globalName = this.componentName;
         }
-        Iterator elementIter = null;
 
         // resource-loader - resourceLoaderInfos
-        elementIter = UtilXml.childElementList(ofbizComponentElement, "resource-loader").iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(ofbizComponentElement, "resource-loader")) {
             ResourceLoaderInfo resourceLoaderInfo = new ResourceLoaderInfo(curElement);
             this.resourceLoaderInfos.put(resourceLoaderInfo.name, resourceLoaderInfo);
         }
 
         // classpath - classpathInfos
-        elementIter = UtilXml.childElementList(ofbizComponentElement, "classpath").iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(ofbizComponentElement, "classpath")) {
             ClasspathInfo classpathInfo = new ClasspathInfo(this, curElement);
             this.classpathInfos.add(classpathInfo);
         }
 
         // entity-resource - entityResourceInfos
-        elementIter = UtilXml.childElementList(ofbizComponentElement, "entity-resource").iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(ofbizComponentElement, "entity-resource")) {
             EntityResourceInfo entityResourceInfo = new EntityResourceInfo(this, curElement);
             this.entityResourceInfos.add(entityResourceInfo);
         }
 
         // service-resource - serviceResourceInfos
-        elementIter = UtilXml.childElementList(ofbizComponentElement, "service-resource").iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(ofbizComponentElement, "service-resource")) {
             ServiceResourceInfo serviceResourceInfo = new ServiceResourceInfo(this, curElement);
             this.serviceResourceInfos.add(serviceResourceInfo);
         }
 
         // test-suite - serviceResourceInfos
-        elementIter = UtilXml.childElementList(ofbizComponentElement, "test-suite").iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(ofbizComponentElement, "test-suite")) {
             TestSuiteInfo testSuiteInfo = new TestSuiteInfo(this, curElement);
             this.testSuiteInfos.add(testSuiteInfo);
         }
 
         // keystore - (cert/trust store infos)
-        elementIter = UtilXml.childElementList(ofbizComponentElement, "keystore").iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(ofbizComponentElement, "keystore")) {
             KeystoreInfo keystoreInfo = new KeystoreInfo(this, curElement);
             this.keystoreInfos.add(keystoreInfo);
         }
 
         // webapp - webappInfos
-        elementIter = UtilXml.childElementList(ofbizComponentElement, "webapp").iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(ofbizComponentElement, "webapp")) {
             WebappInfo webappInfo = new WebappInfo(this, curElement);
             this.webappInfos.add(webappInfo);
         }
@@ -450,7 +407,7 @@ public class ComponentConfig {
         return isFileResourceLoader(resourceInfo.loader);
     }
     public boolean isFileResourceLoader(String resourceLoaderName) throws ComponentException {
-        ResourceLoaderInfo resourceLoaderInfo = (ResourceLoaderInfo) resourceLoaderInfos.get(resourceLoaderName);
+        ResourceLoaderInfo resourceLoaderInfo = resourceLoaderInfos.get(resourceLoaderName);
         if (resourceLoaderInfo == null) {
             throw new ComponentException("Could not find resource-loader named: " + resourceLoaderName);
         }
@@ -467,7 +424,7 @@ public class ComponentConfig {
     }
 
     public URL getURL(String resourceLoaderName, String location) throws ComponentException {
-        ResourceLoaderInfo resourceLoaderInfo = (ResourceLoaderInfo) resourceLoaderInfos.get(resourceLoaderName);
+        ResourceLoaderInfo resourceLoaderInfo = resourceLoaderInfos.get(resourceLoaderName);
         if (resourceLoaderInfo == null) {
             throw new ComponentException("Could not find resource-loader named: " + resourceLoaderName);
         }
@@ -504,12 +461,12 @@ public class ComponentConfig {
     }
 
     public String getFullLocation(String resourceLoaderName, String location) throws ComponentException {
-        ResourceLoaderInfo resourceLoaderInfo = (ResourceLoaderInfo) resourceLoaderInfos.get(resourceLoaderName);
+        ResourceLoaderInfo resourceLoaderInfo = resourceLoaderInfos.get(resourceLoaderName);
         if (resourceLoaderInfo == null) {
             throw new ComponentException("Could not find resource-loader named: " + resourceLoaderName);
         }
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 
         // pre-pend component root location if this is a type component resource-loader
         if ("component".equals(resourceLoaderInfo.type)) {
@@ -532,7 +489,7 @@ public class ComponentConfig {
         return buf.toString();
     }
 
-    public List getClasspathInfos() {
+    public List<ClasspathInfo> getClasspathInfos() {
         return this.classpathInfos;
     }
 
@@ -540,7 +497,7 @@ public class ComponentConfig {
         return this.componentName;
     }
 
-    public List getEntityResourceInfos() {
+    public List<EntityResourceInfo> getEntityResourceInfos() {
         return this.entityResourceInfos;
     }
 
@@ -548,7 +505,7 @@ public class ComponentConfig {
         return this.globalName;
     }
 
-    public Map getResourceLoaderInfos() {
+    public Map<String, ResourceLoaderInfo> getResourceLoaderInfos() {
         return this.resourceLoaderInfos;
     }
 
@@ -556,19 +513,19 @@ public class ComponentConfig {
         return this.rootLocation;
     }
 
-    public List getServiceResourceInfos() {
+    public List<ServiceResourceInfo> getServiceResourceInfos() {
         return this.serviceResourceInfos;
     }
 
-    public List getTestSuiteInfos() {
+    public List<TestSuiteInfo> getTestSuiteInfos() {
         return this.testSuiteInfos;
     }
 
-    public List getKeystoreInfos() {
+    public List<KeystoreInfo> getKeystoreInfos() {
         return this.keystoreInfos;
     }
     
-    public List getWebappInfos() {
+    public List<WebappInfo> getWebappInfos() {
         return this.webappInfos;
     }
 
@@ -699,8 +656,8 @@ public class ComponentConfig {
 
     public static class WebappInfo {
         public ComponentConfig componentConfig;
-        public List virtualHosts;
-        public Map initParameters;
+        public List<String> virtualHosts;
+        public Map<String, String> initParameters;
         public String name;
         public String title;
         public String server;
@@ -759,21 +716,17 @@ public class ComponentConfig {
             }
 
             // load the virtual hosts
-            List virtHostList = UtilXml.childElementList(element, "virtual-host");
+            List<? extends Element> virtHostList = UtilXml.childElementList(element, "virtual-host");
             if (virtHostList != null && virtHostList.size() > 0) {
-                Iterator elementIter = virtHostList.iterator();
-                while (elementIter.hasNext()) {
-                    Element e = (Element) elementIter.next();
+                for (Element e: virtHostList) {
                     virtualHosts.add(e.getAttribute("host-name"));
                 }
             }
 
             // load the init parameters
-            List initParamList = UtilXml.childElementList(element, "init-param");
+            List<? extends Element> initParamList = UtilXml.childElementList(element, "init-param");
             if (initParamList != null && initParamList.size() > 0) {
-                Iterator elementIter = initParamList.iterator();
-                while (elementIter.hasNext()) {
-                    Element e = (Element) elementIter.next();
+                for (Element e: virtHostList) {
                     this.initParameters.put(e.getAttribute("name"), e.getAttribute("value"));
                 }
             }
@@ -802,11 +755,11 @@ public class ComponentConfig {
             return title;
         }
 
-        public List getVirtualHosts() {
+        public List<String> getVirtualHosts() {
         	return virtualHosts;
         }
 
-        public Map getInitParameters() {
+        public Map<String, String> getInitParameters() {
             return initParameters;
         }
     }

@@ -193,10 +193,10 @@ public class FlexibleProperties extends Properties implements Serializable {
         return interpolate(value, props, truncateIfMissing, null);
     }
 
-    public static String interpolate(String value, Properties props, boolean truncateIfMissing, ArrayList beenThere) {
+    public static String interpolate(String value, Properties props, boolean truncateIfMissing, ArrayList<String> beenThere) {
         if (props == null || value == null) return value;
         if (beenThere == null) {
-            beenThere = new ArrayList();
+            beenThere = new ArrayList<String>();
             // Debug.log("[FlexibleProperties.interpolate] starting interpolate: value=[" + value + "]");
         } else {// Debug.log("[FlexibleProperties.interpolate] starting sub-interpolate: beenThere=[" + beenThere + "], value=[" + value + "]");
         }
@@ -224,7 +224,7 @@ public class FlexibleProperties extends Properties implements Serializable {
                     // Debug.log("[FlexibleProperties.interpolate] recursing on key: keyToExpand=[" + keyToExpand + "]");
 
                     // save current beenThere and restore after so the later interpolates don't get messed up
-                    ArrayList tempBeenThere = new ArrayList(beenThere);
+                    ArrayList<String> tempBeenThere = new ArrayList<String>(beenThere);
 
                     beenThere.add(keyToExpand);
                     keyToExpand = interpolate(keyToExpand, props, truncateIfMissing, beenThere);
@@ -259,7 +259,7 @@ public class FlexibleProperties extends Properties implements Serializable {
                         if (expandValue.indexOf("${") > -1) {
                             // Debug.log("[FlexibleProperties] recursing on value: expandValue=[" + expandValue + "]");
                             // save current beenThere and restore after so the later interpolates don't get messed up
-                            ArrayList tempBeenThere = new ArrayList(beenThere);
+                            ArrayList<String> tempBeenThere = new ArrayList<String>(beenThere);
 
                             beenThere.add(keyToExpand);
                             expandValue = interpolate(expandValue, props, truncateIfMissing, beenThere);
@@ -297,14 +297,12 @@ public class FlexibleProperties extends Properties implements Serializable {
 
     public String toString() {
         StringBuilder retVal = new StringBuilder();
-        Set keySet = keySet();
-        Iterator keys = keySet.iterator();
+        Set<Object> keySet = keySet();
+        for (Object key: keySet) {
+            String keyS = key.toString();
+            String value = getProperty(keyS);
 
-        while (keys.hasNext()) {
-            String key = keys.next().toString();
-            String value = getProperty(key);
-
-            retVal.append(key);
+            retVal.append(keyS);
             retVal.append("=");
             retVal.append(value);
             retVal.append("\n");

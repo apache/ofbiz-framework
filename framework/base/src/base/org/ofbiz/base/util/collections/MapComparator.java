@@ -29,17 +29,17 @@ import org.ofbiz.base.util.Debug;
  * MapComparator.java
  * 
  */
-public class MapComparator implements Comparator {
+public class MapComparator implements Comparator<Map<Object, Object>> {
     
     public static final String module = MapComparator.class.getName();
     
-    private List keys;
+    private List<? extends Object> keys;
 
     /**
      * Method MapComparator.
      * @param keys List of Map keys to sort on
      */
-    public MapComparator(List keys) {
+    public MapComparator(List<? extends Object> keys) {
         this.keys = keys;
     }
 
@@ -53,22 +53,13 @@ public class MapComparator implements Comparator {
     /**
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
-    public int compare(Object obj1, Object obj2) {
-        Map map1, map2;
-        try {
-            map1 = (Map) obj1;
-            map2 = (Map) obj2;
-        } catch (ClassCastException e) {
-            throw new IllegalArgumentException("Objects not from the Map interface");
-        }
+    public int compare(Map<Object, Object> map1, Map<Object, Object> map2) {
 
         if (keys == null || keys.size() < 1) {
             throw new IllegalArgumentException("No sort fields defined");
         }
 
-        Iterator i = keys.iterator();
-        while (i.hasNext()) {
-            Object key = i.next();
+        for (Object key: keys) {
             // if false will be descending, ie reverse order
             boolean ascending = true;
 
@@ -81,8 +72,8 @@ public class MapComparator implements Comparator {
                 
                 //Debug.logInfo("Doing compare with a FlexibleMapAccessor [" + fmaKey.getOriginalName() + "] ascending [" + ascending + "]", module);
                 
-                o1 = fmaKey.get(map1);
-                o2 = fmaKey.get(map2);
+                o1 = fmaKey.get((Map) map1);
+                o2 = fmaKey.get((Map) map2);
             } else {
                 if (key instanceof String) {
                     String keyStr = (String) key;

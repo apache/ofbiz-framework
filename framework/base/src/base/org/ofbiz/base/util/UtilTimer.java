@@ -32,7 +32,7 @@ import javolution.util.FastMap;
 public class UtilTimer {
     
     public static final String module = UtilTimer.class.getName();
-    protected static Map staticTimers = FastMap.newInstance();
+    protected static Map<String, UtilTimer> staticTimers = FastMap.newInstance();
 
     protected String timerName = null;
     protected String lastMessage = null;
@@ -220,10 +220,10 @@ public class UtilTimer {
     }
 
     public static UtilTimer getTimer(String timerName, boolean log) {
-        UtilTimer timer = (UtilTimer) staticTimers.get(timerName);
+        UtilTimer timer = staticTimers.get(timerName);
         if (timer == null) {
             synchronized(UtilTimer.class) {
-                timer = (UtilTimer) staticTimers.get(timerName);
+                timer = staticTimers.get(timerName);
                 if (timer == null) {
                     timer = new UtilTimer(timerName, false);
                     timer.setLog(log);
