@@ -50,18 +50,15 @@ public class UtilName {
 
         // check the name for empty elements
         String[] splitStr = name.split(" ");
-        List goodElements = new ArrayList();
-        for (int i = 0; i < splitStr.length; i++) {
-            if (splitStr[i] != null && splitStr[i].length() > 0 && !splitStr[i].matches("\\W+")) {
-                goodElements.add(splitStr[i]);
+        List<String> goodElements = new ArrayList<String>();
+        for (String item: splitStr) {
+            if (item != null && item.length() > 0 && !item.matches("\\W+")) {
+                goodElements.add(item);
             }
         }
 
         // fill in the name array
-        this.name = new String[goodElements.size()];
-        for (int i = 0; i < this.name.length; i++) {
-            this.name[i] = (String) goodElements.get(i);
-        }
+        this.name = goodElements.toArray(new String[goodElements.size()]);
     }
 
     public UtilName(String name) {
@@ -103,11 +100,11 @@ public class UtilName {
                 return name[index[0]];
             } else {
                 StringBuilder nameBuf = new StringBuilder();
-                for (int i = 0; i < index.length; i++) {
+                for (int i: index) {
                     if (nameBuf.length() > 0) {
                         nameBuf.append(" ");
                     }
-                    nameBuf.append(name[index[i]]);
+                    nameBuf.append(name[i]);
                 }
                 return nameBuf.toString();
             }
@@ -115,8 +112,8 @@ public class UtilName {
         return null;
     }
 
-    public Map getNameMap() {
-        Map nameMap = new HashMap();
+    public Map<String, String> getNameMap() {
+        Map<String, String> nameMap = new HashMap<String, String>();
         nameMap.put("personalTitle", this.getPrefix());
         nameMap.put("firstName", this.getFirstName());
         nameMap.put("middleName", this.getMiddleName());
@@ -128,11 +125,11 @@ public class UtilName {
     protected String indexString(int[] index) {
         StringBuilder str = new StringBuilder();
         if (index != null) {
-            for (int i = 0; i < index.length; i++) {
+            for (int i: index) {
                 if (str.length() != 0) {
                     str.append(", ");
                 }
-                str.append(index[i]);
+                str.append(i);
             }
         }
 
@@ -235,36 +232,34 @@ public class UtilName {
     }
 
     protected boolean checkValue(String field, String[] values) {
-        for (int i = 0; i < values.length; i++) {
-            if (values[i].equals(field)) {
+        for (String value: values) {
+            if (value.equals(field)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static Map parseName(String name, boolean middleIsInitial) {
+    public static Map<String, String> parseName(String name, boolean middleIsInitial) {
         return (new UtilName(name, middleIsInitial)).getNameMap();
     }
 
-    public static Map parseName(String name) {
+    public static Map<String, String> parseName(String name) {
         return parseName(name, false);
     }
 
     public static void main(String[] args) throws Exception {
         StringBuilder name = new StringBuilder();
-        for (int i = 0; i < args.length; i++) {
+        for (String arg: args) {
             if (name.length() != 0) {
                 name.append(" ");
             }
-            name.append(args[i]);
+            name.append(arg);
         }
 
-        Map nameMap = parseName(name.toString(), true);
-        Iterator i = nameMap.keySet().iterator();
-        while (i.hasNext()) {
-            String f = (String) i.next();
-            System.out.println(f + " - " + nameMap.get(f));
+        Map<String, String> nameMap = parseName(name.toString(), true);
+        for (Map.Entry<String, String> entry: nameMap.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
         }
     }
 }

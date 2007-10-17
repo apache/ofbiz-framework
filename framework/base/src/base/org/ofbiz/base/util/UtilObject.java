@@ -162,7 +162,7 @@ public class UtilObject {
         }
     }
 
-    public static int compareToHelper(Comparable o1, Object o2) {
+    public static <T> int compareToHelper(Comparable<T> o1, T o2) {
         if (o1 == o2) {
             // handles same-reference, or null
             return 0;

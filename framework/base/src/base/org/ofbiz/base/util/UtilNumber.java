@@ -153,9 +153,9 @@ public class UtilNumber {
         + "    100: <00<;\n";
 
     // hash map to store ICU4J rule sets keyed to Locale
-    public static HashMap rbnfRuleSets;
+    public static HashMap<Locale, String> rbnfRuleSets;
     static {
-        rbnfRuleSets = new HashMap();
+        rbnfRuleSets = new HashMap<Locale, String>();
         rbnfRuleSets.put(Locale.US, ruleSet_en_US);
     }
     

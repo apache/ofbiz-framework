@@ -33,9 +33,9 @@ import org.ofbiz.base.util.UtilProperties;
 
 public class FlexibleLocation {
     
-    protected static Map locationResolvers = FastMap.newInstance();
+    protected static Map<String, LocationResolver> locationResolvers = FastMap.newInstance();
     
-    protected static Map defaultResolvers = FastMap.newInstance();
+    protected static Map<String, String> defaultResolvers = FastMap.newInstance();
     
     protected static String standardUrlResolverName = StandardUrlLocationResolver.class.getName();
     protected static String classpathResolverName = ClasspathLocationResolver.class.getName();
@@ -78,15 +78,15 @@ public class FlexibleLocation {
         }
         String locationType = getLocationType(location);
         
-        LocationResolver resolver = (LocationResolver) locationResolvers.get(locationType);
+        LocationResolver resolver = locationResolvers.get(locationType);
         if (resolver == null) {
             synchronized (FlexibleLocation.class) {
-                resolver = (LocationResolver) locationResolvers.get(locationType);
+                resolver = locationResolvers.get(locationType);
                 if (resolver == null) {
                     String locationResolverName = UtilProperties.getPropertyValue("locationresolvers", locationType);
                     if (locationResolverName == null || locationResolverName.length() == 0) {
                         // try one of the defaults
-                        locationResolverName = (String) defaultResolvers.get(locationType);
+                        locationResolverName = defaultResolvers.get(locationType);
                     }
 
                     if (locationResolverName == null || locationResolverName.length() == 0) {
