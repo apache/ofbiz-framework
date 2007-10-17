@@ -26,9 +26,7 @@ import java.io.StringReader;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -40,10 +38,13 @@ import java.util.TimeZone;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -75,7 +76,7 @@ public class FreeMarkerWorker {
     public static UtilCache cachedTemplates = new UtilCache("template.ftl.general", 0, 0, false);
     private static Configuration defaultOfbizConfig = null;
 
-    public static Map ftlTransforms = new HashMap();
+    public static Map ftlTransforms = FastMap.newInstance();
     
     public static final String FRAMEWORK_TRANSFORMS = "frameworkTransforms";
     public static final String APPLICATION_TRANSFORMS = "applicationTransforms";
@@ -433,7 +434,7 @@ public class FreeMarkerWorker {
     public static void checkForLoop(String path, Map ctx) throws IOException {
         List templateList = (List)ctx.get("templateList");
         if (templateList == null) {
-            templateList = new ArrayList();
+            templateList = FastList.newInstance();
         } else {
             if (templateList.contains(path)) {
                 throw new IOException(path + " has already been visited.");
@@ -444,7 +445,7 @@ public class FreeMarkerWorker {
     }
 
     public static Map createEnvironmentMap(Environment env) {
-        Map templateRoot = new HashMap();
+        Map templateRoot = FastMap.newInstance();
         Set varNames = null;
         try {
             varNames = env.getKnownVariableNames();
@@ -465,27 +466,27 @@ public class FreeMarkerWorker {
     }
     
     public static void saveContextValues(Map context, String [] saveKeyNames, Map saveMap ) {
-        //Map saveMap = new HashMap();
+        //Map saveMap = FastMap.newInstance();
         for (int i=0; i<saveKeyNames.length; i++) {
             String key = saveKeyNames[i];
             Object o = context.get(key);
             if (o instanceof Map)
-                o = new HashMap((Map)o);
+                o = UtilMisc.makeMapWritable((Map)o);
             else if (o instanceof List)
-                o = new ArrayList((List)o);
+                o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
             saveMap.put(key, o);
         }
     }
 
     public static Map saveValues(Map context, String [] saveKeyNames) {
-        Map saveMap = new HashMap();
+        Map saveMap = FastMap.newInstance();
         for (int i=0; i<saveKeyNames.length; i++) {
             String key = saveKeyNames[i];
             Object o = context.get(key);
             if (o instanceof Map)
-                o = new HashMap((Map)o);
+                o = UtilMisc.makeMapWritable((Map)o);
             else if (o instanceof List)
-                o = new ArrayList((List)o);
+                o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
             saveMap.put(key, o);
         }
         return saveMap;
@@ -499,11 +500,11 @@ public class FreeMarkerWorker {
             String key = (String)it.next();
             Object o = saveValues.get(key);
             if (o instanceof Map) {
-                Map map = new HashMap();
+                Map map = FastMap.newInstance();
                 map.putAll((Map)o);
                 context.put(key, map);
             } else if (o instanceof List) {
-                List list = new ArrayList();
+                List list = FastList.newInstance();
                 list.addAll((List)o);
                 context.put(key, list);
             } else {
