@@ -360,10 +360,7 @@ public class Start implements Runnable {
 
         // read the reply
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        String response = null;
-        if (reader.ready()) {
-            response = reader.readLine();
-        }
+        String response = reader.readLine();
 
         reader.close();
 
