@@ -20,9 +20,9 @@ under the License.
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <!-- The request handlers and requests that are common to all OFBiz components
+    <!-- The controller elements that are common to all OFBiz components
          can be found in the following xml file. A component can override the
-         requests found in the common-controller.xml file. -->
+         elements found in the common-controller.xml file. -->
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
 
     <description>Example Component Site Configuration File</description>
@@ -148,8 +148,6 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://example/widget/example/CommonScreens.xml#main"/>
-    <view-map name="login" type="screen" page="component://example/widget/example/CommonScreens.xml#login"/>
-    <view-map name="requirePasswordChange" type="screen" page="component://example/widget/example/CommonScreens.xml#requirePasswordChange"/>
 
     <view-map name="FindExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#FindExample"/>
     <view-map name="EditExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExample"/>
