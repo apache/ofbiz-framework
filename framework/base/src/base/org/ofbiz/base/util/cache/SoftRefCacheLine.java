@@ -18,20 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.base.util.cache;
 
-public final class SoftRefCacheLine extends CacheLine {
-    public final CacheSoftReference ref;
+public final class SoftRefCacheLine<V> extends CacheLine<V> {
+    public final CacheSoftReference<V> ref;
 
-    public SoftRefCacheLine(Object value, long expireTime) {
+    public SoftRefCacheLine(V value, long expireTime) {
         super(expireTime);
-        this.ref = new CacheSoftReference(value);
+        this.ref = new CacheSoftReference<V>(value);
     }
 
-    public SoftRefCacheLine(Object value, long loadTime, long expireTime) {
+    public SoftRefCacheLine(V value, long loadTime, long expireTime) {
         super(loadTime, expireTime);
-        this.ref = new CacheSoftReference(value);
+        this.ref = new CacheSoftReference<V>(value);
     }
 
-    public Object getValue() {
+    public V getValue() {
         return ref.get();
     }
 

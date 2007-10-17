@@ -24,15 +24,15 @@ import java.io.Serializable;
 
 import org.ofbiz.base.util.Debug;
 
-public class CacheSoftReference extends SoftReference implements Serializable {
+public class CacheSoftReference<V> extends SoftReference<V> implements Serializable {
 
     public static final String module = CacheSoftReference.class.getName();
 
-    public CacheSoftReference(Object o) {
+    public CacheSoftReference(V o) {
         super(o);
     }
 
-    public CacheSoftReference(Object o, ReferenceQueue referenceQueue) {
+    public CacheSoftReference(V o, ReferenceQueue<? super V> referenceQueue) {
         super(o, referenceQueue);
     }
 

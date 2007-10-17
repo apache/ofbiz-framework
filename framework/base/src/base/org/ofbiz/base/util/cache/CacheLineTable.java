@@ -36,18 +36,18 @@ import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.collections.LRUMap;
 
 
-public class CacheLineTable implements Serializable {
+public class CacheLineTable<K, V> implements Serializable {
 
     public static final String module = CacheLineTable.class.getName();
     protected static transient jdbm.RecordManager jdbmMgr = null;
 
     protected transient jdbm.htree.HTree fileTable = null;
-    protected Map memoryTable = null;
+    protected Map<K, CacheLine<V>> memoryTable = null;
     protected String fileStore = null;
     protected String cacheName = null;
     protected int maxInMemory = 0;
     protected boolean isNullSet = false;
-    protected CacheLine nullValue = null;
+    protected CacheLine<V> nullValue = null;
 
     public CacheLineTable(String fileStore, String cacheName, boolean useFileSystemStore, int maxInMemory) {
         this.fileStore = fileStore;
@@ -85,23 +85,23 @@ public class CacheLineTable implements Serializable {
         this.setLru(maxInMemory);
     }
 
-    public synchronized CacheLine put(Object key, CacheLine value) {
-        CacheLine oldValue;
+    public synchronized CacheLine<V> put(K key, CacheLine<V> value) {
+        CacheLine<V> oldValue;
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to put with null key, using NullObject" + this.cacheName, module);
             if (memoryTable instanceof LRUMap) {
-                oldValue = (CacheLine) memoryTable.put(key, value);
+                oldValue = memoryTable.put(key, value);
             } else {
                 oldValue = isNullSet ? nullValue : null;
                 isNullSet = true;
                 nullValue = value;
             }
         } else {
-            oldValue = (CacheLine) memoryTable.put(key, value);
+            oldValue = memoryTable.put(key, value);
         }
         if (fileTable != null) {
             try {
-                if (oldValue == null) oldValue = (CacheLine) fileTable.get(key);
+                if (oldValue == null) oldValue = (CacheLine<V>) fileTable.get(key);
                 fileTable.put(key != null ? key : ObjectType.NULL, value);                
                 CacheLineTable.jdbmMgr.commit();
             } catch (IOException e) {
@@ -111,17 +111,17 @@ public class CacheLineTable implements Serializable {
         return oldValue;
     }
 
-    public CacheLine get(Object key) {
+    public CacheLine<V> get(Object key) {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to get with null key, using NullObject" + this.cacheName, module);
         }
         return getNoCheck(key);
     }
 
-    protected CacheLine getNoCheck(Object key) {
-        CacheLine value;
+    protected CacheLine<V> getNoCheck(Object key) {
+        CacheLine<V> value;
         if (memoryTable instanceof LRUMap) {
-            value = (CacheLine) memoryTable.get(key);
+            value = memoryTable.get(key);
         } else {
             if (key == null) {
                 value = isNullSet ? nullValue : null;
@@ -132,7 +132,7 @@ public class CacheLineTable implements Serializable {
         if (value == null) {
             if (fileTable != null) {
                 try {
-                    value = (CacheLine) fileTable.get(key != null ? key : ObjectType.NULL);
+                    value = (CacheLine<V>) fileTable.get(key != null ? key : ObjectType.NULL);
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
@@ -141,11 +141,11 @@ public class CacheLineTable implements Serializable {
         return value;
     }
 
-    public synchronized CacheLine remove(Object key) {
+    public synchronized CacheLine<V> remove(Object key) {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to remove with null key, using NullObject" + this.cacheName, module);
         }
-        CacheLine value = this.getNoCheck(key);
+        CacheLine<V> value = this.getNoCheck(key);
         if (fileTable != null) {
             try {
                 fileTable.remove(key != null ? key : ObjectType.NULL);
@@ -166,15 +166,15 @@ public class CacheLineTable implements Serializable {
         return value;
     }
 
-    public synchronized Collection values() {
-        List values = FastList.newInstance();
+    public synchronized Collection<? extends CacheLine<V>> values() {
+        List<CacheLine<V>> values = FastList.newInstance();
 
         if (fileTable != null) {
             try {
                 jdbm.helper.FastIterator iter = fileTable.values();
                 Object value = iter.next();
                 while (value != null) {
-                    values.add(value);
+                    values.add((CacheLine<V>) value);
                     value = iter.next();
                 }
             } catch (IOException e) {
@@ -192,9 +192,9 @@ public class CacheLineTable implements Serializable {
      * 
      * @return An unmodifiable Set for the keys for this cache; to remove while iterating call the remove method on this class.
      */
-    public synchronized Set keySet() {
+    public synchronized Set<? extends K> keySet() {
         // note that this must be a HashSet and not a FastSet in order to have a null value
-        Set keys = new HashSet();
+        Set<K> keys = new HashSet<K>();
 
         if (fileTable != null) {
             try {
@@ -204,7 +204,7 @@ public class CacheLineTable implements Serializable {
                     if (key instanceof ObjectType.NullObject) {
                         keys.add(null);
                     } else {
-                        keys.add(key);
+                        keys.add((K) key);
                     }
                 }
             } catch (IOException e) {
@@ -255,7 +255,7 @@ public class CacheLineTable implements Serializable {
     public synchronized void setLru(int newSize) {
         this.maxInMemory = newSize;
 
-        Map oldmap = null;
+        Map<K, CacheLine<V>> oldmap = null;
         if (this.memoryTable != null) {
             // using linked map to preserve the order when using LRU (FastMap is a linked map)
             oldmap = FastMap.newInstance();
@@ -263,7 +263,7 @@ public class CacheLineTable implements Serializable {
         }
 
         if (newSize > 0) {
-            this.memoryTable = new LRUMap(newSize);
+            this.memoryTable = new LRUMap<K, CacheLine<V>>(newSize);
             if (isNullSet) {
                 this.memoryTable.put(null, nullValue);
                 isNullSet = false;
@@ -278,9 +278,7 @@ public class CacheLineTable implements Serializable {
         }
     }
 
-    public synchronized Object getKeyFromMemory(int index) {
-        Iterator i = memoryTable.keySet().iterator();
-
+    public synchronized K getKeyFromMemory(int index) {
         int currentIdx = 0;
         if (isNullSet) {
             if (currentIdx == index) {
@@ -288,8 +286,7 @@ public class CacheLineTable implements Serializable {
             }
             currentIdx++;
         }
-        while (i.hasNext()) {
-            Object key = i.next();
+        for (K key: memoryTable.keySet()) {
             if (currentIdx == index) {
                 return key;
             }
