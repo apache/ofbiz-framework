@@ -37,7 +37,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntitySQLProcessor.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntitySQLProcessor.ftl"/></html>
@@ -62,7 +62,7 @@ under the License.
                 <set field="results" from-field="parameters.results"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityExportAll.ftl"/></html>
@@ -88,7 +88,7 @@ under the License.
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportDir.ftl"/></html>
@@ -114,7 +114,7 @@ under the License.
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityImport.ftl"/></html>
@@ -140,7 +140,7 @@ under the License.
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportReaders.ftl"/></html>
@@ -163,7 +163,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityMaint.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/EntityMaint.ftl"/></html>
@@ -187,7 +187,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.WebtoolsFindValues}: ${entityName}"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/FindGeneric.ftl"/></html>
@@ -211,7 +211,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.WebtoolsViewValue}: ${entityName}"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/ViewGeneric.ftl"/></html>
@@ -235,7 +235,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.WebtoolsRelations}: ${entityName}"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/ViewRelations.ftl"/></html>
@@ -337,7 +337,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/CheckDb.bsh"/>                            
             </actions>
             <widgets>  
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/CheckDb.ftl"/></html>
@@ -358,7 +358,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityPerformanceTest.bsh"/>                            
             </actions>
             <widgets>  
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/performance/EntityPerformanceTest.ftl"/></html>
@@ -377,7 +377,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/xmldsdump.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/xmldsdump.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -393,7 +393,7 @@ under the License.
                 <set field="title" value="Minerva Connection Objects"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html>

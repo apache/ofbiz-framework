@@ -20,7 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="CommonWebtoolsDecorator">
+    <screen name="main-decorator">
         <section>
             <actions>
                 <!-- base/top/specific map first, then more common map added for shared labels --> 
@@ -55,35 +55,9 @@ under the License.
                 <set field="headerItem" value="main"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/main.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="login">
-        <section>
-            <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://common/webcommon/login.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requirePasswordChange">
-        <section>
-            <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://common/webcommon/changePassword.ftl"/></html>
-                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -110,7 +84,7 @@ under the License.
                 <set field="titleProperty" value="WebtoolsCertsX509"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/cert/viewbrowsercerts.ftl"/></html>

@@ -27,7 +27,7 @@ under the License.
                 <set field="titleProperty" value="WebtoolsViewComponents"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/component/viewComponents.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -44,7 +44,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/period/EditCustomTimePeriod.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/period/EditCustomTimePeriod.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -61,7 +61,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/datafile/viewdatafile.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/datafile/viewdatafile.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -78,7 +78,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/readxpdl.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/workflow/readxpdl.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -95,7 +95,7 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/workflowMonitor.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://webtools/webapp/webtools/workflow/workflowMonitor.ftl"/></html></platform-specific>
                     </decorator-section>

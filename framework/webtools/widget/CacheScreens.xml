@@ -28,7 +28,7 @@ under the License.
         <script location="component://webtools/webapp/webtools/WEB-INF/actions/cache/findUtilCache.bsh"/>
       </actions>
       <widgets>
-        <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+        <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
           <decorator-section name="body">
             <section>
               <!-- do check for UTIL_CACHE, _VIEW permission -->
@@ -59,7 +59,7 @@ under the License.
         <script location="component://webtools/webapp/webtools/WEB-INF/actions/cache/findUtilCacheElements.bsh"/>
       </actions>
       <widgets>
-        <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+        <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
           <decorator-section name="body">
             <section>
               <!-- do check for UTIL_CACHE, _VIEW permission -->
@@ -90,7 +90,7 @@ under the License.
         <script location="component://webtools/webapp/webtools/WEB-INF/actions/cache/editUtilCache.bsh"/>
       </actions>
       <widgets>
-        <decorator-screen name="CommonWebtoolsDecorator" location="${parameters.mainDecoratorLocation}">
+        <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
           <decorator-section name="body">
             <section>
               <!-- do check for UTIL_CACHE, _EDIT permission -->
