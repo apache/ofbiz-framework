@@ -88,16 +88,17 @@ public class CacheLineTable implements Serializable {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to put with null key, using NullObject" + this.cacheName, module);
             key = ObjectType.NULL;
         }
-        memoryTable.put(key, value);
+        Object oldValue = memoryTable.put(key, value);
         if (fileTable != null) {
             try {
+                if (oldValue == null) oldValue = fileTable.get(key);
                 fileTable.put(key, value);                
                 CacheLineTable.jdbmMgr.commit();
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
         }
-        return value;
+        return oldValue;
     }
 
     public Object get(Object key) {
