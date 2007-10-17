@@ -285,6 +285,9 @@ public class InventoryServices {
         try {
             inventoryTransfer = delegator.findByPrimaryKey("InventoryTransfer",
                     UtilMisc.toMap("inventoryTransferId", inventoryTransferId));
+            if (UtilValidate.isEmpty(inventoryTransfer)) {
+                return ServiceUtil.returnError("Inventory transfer [" + inventoryTransferId + "] not found");
+            }
             inventoryItem = inventoryTransfer.getRelatedOne("InventoryItem");
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Inventory Item/Transfer lookup problem [" + e.getMessage() + "]");
@@ -321,7 +324,17 @@ public class InventoryServices {
                 return ServiceUtil.returnError("Inventory item store problem in cancel inventory transfer: [" + e.getMessage() + "]");
             }
         }
-                                
+
+        // set the inventory transfer record to complete
+        inventoryTransfer.set("statusId", "IXF_CANCELLED");
+
+        // store the entities
+        try {
+            inventoryTransfer.store();
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Inventory store problem [" + e.getMessage() + "]");
+        }
+
         return ServiceUtil.returnSuccess();
     }
 
