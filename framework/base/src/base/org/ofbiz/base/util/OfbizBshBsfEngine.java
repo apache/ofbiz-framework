@@ -61,7 +61,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
     protected Interpreter interpreter;
     protected boolean installedApplyMethod;
     
-    public static UtilCache parsedScripts = new UtilCache("script.BshBsfParsedCache", 0, 0, false);
+    public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = new UtilCache<String, Interpreter.ParsedScript>("script.BshBsfParsedCache", 0, 0, false);
     
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);
@@ -171,10 +171,10 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
             Interpreter.ParsedScript script = null;
             
             if (source != null && source.length() > 0) {
-                script = (Interpreter.ParsedScript) parsedScripts.get(source);
+                script = parsedScripts.get(source);
                 if (script == null) {
                     synchronized (OfbizBshBsfEngine.class) {
-                        script = (Interpreter.ParsedScript) parsedScripts.get(source);
+                        script = parsedScripts.get(source);
                         if (script == null) {
                             script = interpreter.parseScript(source, new StringReader((String) expr));
                             Debug.logVerbose("Caching BSH script at: " + source, module);

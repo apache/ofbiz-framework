@@ -104,22 +104,22 @@ public class KeyStoreUtil {
         return (X509Certificate) cf.generateCertificate(bais);
     }
 
-    public static Map getCertX500Map(java.security.cert.X509Certificate cert) {
+    public static Map<String, String> getCertX500Map(java.security.cert.X509Certificate cert) {
         return getX500Map(cert.getSubjectX500Principal());
     }
 
-    public static Map getCertX500Map(javax.security.cert.X509Certificate cert) {
+    public static Map<String, String> getCertX500Map(javax.security.cert.X509Certificate cert) {
         return getX500Map(cert.getSubjectDN());
     }
 
-    public static Map getX500Map(Principal x500) {
-        Map x500Map = FastMap.newInstance();
+    public static Map<String, String> getX500Map(Principal x500) {
+        Map<String, String> x500Map = FastMap.newInstance();
         
         String name = x500.getName().replaceAll("\\\\,", "&com;");
         String[] x500Opts = name.split("\\,");
-        for (int x = 0; x < x500Opts.length; x++) {
-            if (x500Opts[x].indexOf("=") > -1) {
-                String[] nv = x500Opts[x].split("\\=", 2);                
+        for (String opt: x500Opts) {
+            if (opt.indexOf("=") > -1) {
+                String[] nv = opt.split("\\=", 2);                
                 x500Map.put(nv[0].replaceAll("&com;", ","), nv[1].replaceAll("&com;", ","));
             }
         }

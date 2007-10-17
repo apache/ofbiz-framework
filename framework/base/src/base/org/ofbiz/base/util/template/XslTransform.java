@@ -19,8 +19,6 @@
 package org.ofbiz.base.util.template;
 
 import java.util.Map;
-import java.util.Set;
-import java.util.Iterator;
 import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -59,16 +57,16 @@ import javax.xml.transform.stream.StreamSource;
 public final class XslTransform {
 
     public static final String module = XslTransform.class.getName();
-    public static UtilCache xslTemplatesCache = new UtilCache("XsltTemplates", 0, 0);
+    public static UtilCache<String, Templates> xslTemplatesCache = new UtilCache<String, Templates>("XsltTemplates", 0, 0);
 
-    public static Document transform(Map context, Map params) 
+    public static Document transform(Map<String, Object> context, Map<String, Object> params) 
         throws GeneralException, IOException, TransformerConfigurationException, TransformerException {
         Document outputDocument = null;
         TransformerFactory tFactory = TransformerFactory.newInstance();
         Templates translet = null;
         String templateName = (String)context.get("templateName");
         if (UtilValidate.isNotEmpty(templateName)) {
-            translet = (Templates) xslTemplatesCache.get(templateName);
+            translet = xslTemplatesCache.get(templateName);
         }
 
         if (translet == null ) {
@@ -84,10 +82,7 @@ public final class XslTransform {
         if (translet != null ) {
             Transformer transformer = translet.newTransformer();
         	if (params != null) {
-               Set entrySet = params.entrySet(); 
-               Iterator iter = entrySet.iterator();
-               while (iter.hasNext()) {
-               	    Map.Entry entry = (Map.Entry)iter.next(); 
+                for (Map.Entry<String, Object> entry: params.entrySet()) {
                	    String key = (String)entry.getKey();
                     Object val = entry.getValue();
                     transformer.setParameter(key, val);

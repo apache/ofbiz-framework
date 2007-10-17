@@ -29,7 +29,7 @@ import java.util.List;
 public class GeneralException extends Exception {
 
     Throwable nested = null;
-    List messages = null;
+    List<String> messages = null;
 
     /**
      * Creates new <code>GeneralException</code> without detail message.
@@ -70,7 +70,7 @@ public class GeneralException extends Exception {
      * @param msg the detail message.
      * @param messages error message list.
      */
-    public GeneralException(String msg, List messages) {
+    public GeneralException(String msg, List<String> messages) {
         super(msg);        
         this.messages = messages;
     }
@@ -81,7 +81,7 @@ public class GeneralException extends Exception {
      * @param messages error message list.
      * @param nested the nexted exception
      */
-    public GeneralException(String msg, List messages, Throwable nested) {
+    public GeneralException(String msg, List<String> messages, Throwable nested) {
         super(msg);
         this.nested = nested;
         this.messages = messages;
@@ -92,13 +92,13 @@ public class GeneralException extends Exception {
      * @param messages error message list.
      * @param nested the nested exception.
      */
-    public GeneralException(List messages, Throwable nested) {
+    public GeneralException(List<String> messages, Throwable nested) {
         super();
         this.nested = nested;
         this.messages = messages;
     }
 
-    public GeneralException(List messages) {
+    public GeneralException(List<String> messages) {
         super();
         this.messages = messages;
     }
@@ -116,7 +116,7 @@ public class GeneralException extends Exception {
         }
     }
 
-    public List getMessageList() {
+    public List<String> getMessageList() {
         return this.messages;
     }
 

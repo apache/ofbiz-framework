@@ -82,14 +82,14 @@ public class StringUtil {
      * @param delim the delimiter character(s) to use. (null value will join with no delimiter)
      * @return a String of all values in the list seperated by the delimiter
      */
-    public static String join(List list, String delim) {
+    public static String join(List<String> list, String delim) {
         if (list == null || list.size() < 1)
             return null;
         StringBuilder buf = new StringBuilder();
-        Iterator i = list.iterator();
+        Iterator<String> i = list.iterator();
 
         while (i.hasNext()) {
-            buf.append((String) i.next());
+            buf.append(i.next());
             if (i.hasNext())
                 buf.append(delim);
         }
@@ -102,8 +102,8 @@ public class StringUtil {
      * @param delim the delimiter character(s) to join on (null will split on whitespace)
      * @return a list of Strings
      */
-    public static List split(String str, String delim) {
-        List splitList = null;
+    public static List<String> split(String str, String delim) {
+        List<String> splitList = null;
         StringTokenizer st = null;
 
         if (str == null)
@@ -127,15 +127,11 @@ public class StringUtil {
      * Encloses each of a List of Strings in quotes.
      * @param list List of String(s) to quote.
      */
-    public static List quoteStrList(List list) {
-        List tmpList = list;
+    public static List<String> quoteStrList(List<String> list) {
+        List<String> tmpList = list;
 
         list = FastList.newInstance();
-        Iterator i = tmpList.iterator();
-
-        while (i.hasNext()) {
-            String str = (String) i.next();
-
+        for (String str: tmpList) {
             str = "'" + str + "''";
             list.add(str);
         }
@@ -148,21 +144,19 @@ public class StringUtil {
      * @param trim Trim whitespace off fields
      * @return a Map of name/value pairs
      */
-    public static Map strToMap(String str, boolean trim) {
+    public static Map<String, String> strToMap(String str, boolean trim) {
         if (str == null) return null;
-        Map decodedMap = FastMap.newInstance();
-        List elements = split(str, "|");
-        Iterator i = elements.iterator();
+        Map<String, String> decodedMap = FastMap.newInstance();
+        List<String> elements = split(str, "|");
 
-        while (i.hasNext()) {
-            String s = (String) i.next();
-            List e = split(s, "=");
+        for (String s: elements) {
+            List<String> e = split(s, "=");
 
             if (e.size() != 2) {
                 continue;
             }
-            String name = (String) e.get(0);
-            String value = (String) e.get(1);
+            String name = e.get(0);
+            String value = e.get(1);
             if (trim) {
                 if (name != null) {
                     name = name.trim();
@@ -186,7 +180,7 @@ public class StringUtil {
      * @param str The string to decode and format
      * @return a Map of name/value pairs
      */
-    public static Map strToMap(String str) {
+    public static Map<String, String> strToMap(String str) {
         return strToMap(str, false);
     }
 
@@ -195,16 +189,14 @@ public class StringUtil {
      * @param map The Map of name/value pairs
      * @return String The encoded String
      */
-    public static String mapToStr(Map map) {
+    public static String mapToStr(Map<? extends Object, ? extends Object> map) {
         if (map == null) return null;
         StringBuilder buf = new StringBuilder();
-        Set keySet = map.keySet();
-        Iterator i = keySet.iterator();
         boolean first = true;
 
-        while (i.hasNext()) {
-            Object key = i.next();
-            Object value = map.get(key);
+        for (Map.Entry<? extends Object, ? extends Object> entry: map.entrySet()) {
+            Object key = entry.getKey();
+            Object value = entry.getValue();
 
             if (!(key instanceof String) || !(value instanceof String))
                 continue;
@@ -239,13 +231,13 @@ public class StringUtil {
      * @param s String value of a Map ({n1=v1, n2=v2})
      * @return new Map
      */
-    public static Map toMap(String s) {
-        Map newMap = FastMap.newInstance();
+    public static Map<String, String> toMap(String s) {
+        Map<String, String> newMap = FastMap.newInstance();
         if (s.startsWith("{") && s.endsWith("}")) {
             s = s.substring(1, s.length() - 1);
-            String[] entry = s.split("\\,\\s");
-            for (int i = 0; i < entry.length; i++) {
-                String[] nv = entry[i].split("\\=");
+            String[] entries = s.split("\\,\\s");
+            for (String entry: entries) {
+                String[] nv = entry.split("\\=");
                 newMap.put(nv[0], nv[1]);
             }
         } else {
@@ -261,13 +253,13 @@ public class StringUtil {
      * @param s String value of a Map ({n1=v1, n2=v2})
      * @return new List
      */
-    public static List toList(String s) {
-        List newList = FastList.newInstance();
+    public static List<String> toList(String s) {
+        List<String> newList = FastList.newInstance();
         if (s.startsWith("[") && s.endsWith("]")) {
             s = s.substring(1, s.length() - 1);
-            String[] entry = s.split("\\,\\s");
-            for (int i = 0; i < entry.length; i++) {
-                newList.add(entry[i]);
+            String[] entries = s.split("\\,\\s");
+            for (String entry: entries) {
+                newList.add(entry);
             }
         } else {
             throw new IllegalArgumentException("String is not from List.toString()");
@@ -282,13 +274,13 @@ public class StringUtil {
      * @param s String value of a Map ({n1=v1, n2=v2})
      * @return new List
      */
-    public static Set toSet(String s) {
-        Set newSet = FastSet.newInstance();
+    public static Set<String> toSet(String s) {
+        Set<String> newSet = FastSet.newInstance();
         if (s.startsWith("[") && s.endsWith("]")) {
             s = s.substring(1, s.length() - 1);
-            String[] entry = s.split("\\,\\s");
-            for (int i = 0; i < entry.length; i++) {
-                newSet.add(entry[i]);
+            String[] entries = s.split("\\,\\s");
+            for (String entry: entries) {
+                newSet.add(entry);
             }
         } else {
             throw new IllegalArgumentException("String is not from Set.toString()");
@@ -304,11 +296,11 @@ public class StringUtil {
      * @return Map of combined lists
      * @throws IllegalArgumentException When either List is null or the sizes do not equal
      */
-    public static Map createMap(List keys, List values) {
+    public static <K, V> Map<K, V> createMap(List<K> keys, List<V> values) {
         if (keys == null || values == null || keys.size() != values.size()) {
             throw new IllegalArgumentException("Keys and Values cannot be null and must be the same size");
         }
-        Map newMap = FastMap.newInstance();
+        Map<K, V> newMap = FastMap.newInstance();
         for (int i = 0; i < keys.size(); i++) {
             newMap.put(keys.get(i), values.get(i));
         }
@@ -337,9 +329,9 @@ public class StringUtil {
 
     public static String toHexString(byte[] bytes) {
         StringBuilder buf = new StringBuilder(bytes.length * 2);
-        for (int i = 0; i < bytes.length; i++) {
-            buf.append(hexChar[(bytes[i] & 0xf0) >>> 4]);
-            buf.append(hexChar[bytes[i] & 0x0f]);
+        for (byte b: bytes) {
+            buf.append(hexChar[(b & 0xf0) >>> 4]);
+            buf.append(hexChar[b & 0x0f]);
         }
         return buf.toString();
 

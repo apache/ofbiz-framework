@@ -60,7 +60,7 @@ public final class Debug {
     public static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal", "print.notify"};
     public static final Level[] levelObjs = {Level.INFO, Level.DEBUG, Level.DEBUG, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL, NotifyLevel.NOTIFY};
 
-    protected static Map levelStringMap = new HashMap();
+    protected static Map<String, Integer> levelStringMap = new HashMap<String, Integer>();
     
     protected static PrintStream printStream = System.out;
     protected static PrintWriter printWriter = new PrintWriter(printStream);
@@ -130,7 +130,7 @@ public final class Debug {
     /** Gets an Integer representing the level number from a String representing the level name; will return null if not found */
     public static Integer getLevelFromString(String levelName) {
         if (levelName == null) return null;
-        return (Integer) levelStringMap.get(levelName.toLowerCase());
+        return levelStringMap.get(levelName.toLowerCase());
     }
     
     /** Gets an int representing the level number from a String representing the level name; if level not found defaults to Debug.INFO */

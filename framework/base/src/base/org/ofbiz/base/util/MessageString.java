@@ -44,30 +44,28 @@ public class MessageString implements Serializable {
     protected String propertyName;
     protected boolean isError = true;
     
-    public static List getMessagesForField(String fieldName, boolean convertToStrings, List messageStringList) {
+    public static List<Object> getMessagesForField(String fieldName, boolean convertToStrings, List<Object> messageStringList) {
         if (fieldName == null) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
-        Set fieldSet = new TreeSet();
+        Set<String> fieldSet = new TreeSet<String>();
         fieldSet.add(fieldName);
         return getMessagesForField(fieldSet, convertToStrings, messageStringList);
     }
-    public static List getMessagesForField(String fieldName1, String fieldName2, String fieldName3, String fieldName4, boolean convertToStrings, List messageStringList) {
-        Set fieldSet = new TreeSet();
+    public static List<Object> getMessagesForField(String fieldName1, String fieldName2, String fieldName3, String fieldName4, boolean convertToStrings, List<Object> messageStringList) {
+        Set<String> fieldSet = new TreeSet<String>();
         if (fieldName1 != null && fieldName1.length() > 0) fieldSet.add(fieldName1);
         if (fieldName2 != null && fieldName2.length() > 0) fieldSet.add(fieldName2);
         if (fieldName3 != null && fieldName3.length() > 0) fieldSet.add(fieldName3);
         if (fieldName4 != null && fieldName4.length() > 0) fieldSet.add(fieldName4);
         return getMessagesForField(fieldSet, convertToStrings, messageStringList);
     }
-    public static List getMessagesForField(Set fieldNameSet, boolean convertToStrings, List messageStringList) {
+    public static List<Object> getMessagesForField(Set<String> fieldNameSet, boolean convertToStrings, List<Object> messageStringList) {
         if (messageStringList == null || fieldNameSet == null || fieldNameSet.size() == 0) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
-        List outList = new ArrayList(messageStringList.size());
-        Iterator messageStringIter = messageStringList.iterator();
-        while (messageStringIter.hasNext()) {
-            Object messageStringCur = messageStringIter.next();
+        List<Object> outList = new ArrayList<Object>(messageStringList.size());
+        for (Object messageStringCur: messageStringList) {
             if (messageStringCur instanceof MessageString) {
                 MessageString messageString = (MessageString) messageStringCur;
                 if (messageString.isForField(fieldNameSet)) {
@@ -144,7 +142,7 @@ public class MessageString implements Serializable {
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
     }
-    public boolean isForField(Set fieldNameSet) {
+    public boolean isForField(Set<String> fieldNameSet) {
         if (fieldNameSet == null) {
             return true;
         }

@@ -46,8 +46,8 @@ public final class BshUtil {
 
     public static final String module = BshUtil.class.getName();
 
-    protected static Map masterClassManagers = new HashMap();
-    public static UtilCache parsedScripts = new UtilCache("script.BshLocationParsedCache", 0, 0, false);
+    protected static Map<ClassLoader, BshClassManager> masterClassManagers = new HashMap<ClassLoader, BshClassManager>();
+    public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = new UtilCache<String, Interpreter.ParsedScript>("script.BshLocationParsedCache", 0, 0, false);
     
     /**
      * Evaluate a BSH condition or expression
@@ -56,7 +56,7 @@ public final class BshUtil {
      * @return Object The result of the evaluation 
      * @throws EvalError
      */
-    public static final Object eval(String expression, Map context) throws EvalError {
+    public static final Object eval(String expression, Map<String, Object> context) throws EvalError {
         Object o = null;
         if (expression == null || expression.equals("")) {
             Debug.logError("BSH Evaluation error. Empty expression", module);
@@ -78,8 +78,8 @@ public final class BshUtil {
             // read back the context info
             NameSpace ns = bsh.getNameSpace();
             String[] varNames = ns.getVariableNames();
-            for (int x = 0; x < varNames.length; x++) {
-                context.put(varNames[x], bsh.get(varNames[x]));
+            for (String varName: varNames) {
+                context.put(varName, bsh.get(varName));
             }
         } catch (EvalError e) {
             Debug.logError(e, "BSH Evaluation error.", module);
@@ -88,16 +88,12 @@ public final class BshUtil {
         return o;
     }
     
-    public static Interpreter makeInterpreter(Map context) throws EvalError {
+    public static Interpreter makeInterpreter(Map<String, ? extends Object> context) throws EvalError {
         Interpreter bsh = getMasterInterpreter(null);
         // Set the context for the condition
         if (context != null) {
-            Set keySet = context.keySet();
-            Iterator i = keySet.iterator();
-            while (i.hasNext()) {
-                Object key = i.next();
-                Object value = context.get(key);
-                bsh.set((String) key, value);
+            for (Map.Entry<String, ? extends Object> entry: context.entrySet()) {
+                bsh.set(entry.getKey(), entry.getValue());
             }
             
             // include the context itself in for easier access in the scripts
@@ -113,10 +109,10 @@ public final class BshUtil {
         }
 
         //find the "master" BshClassManager for this classpath
-        BshClassManager master = (BshClassManager) BshUtil.masterClassManagers.get(classLoader);
+        BshClassManager master = BshUtil.masterClassManagers.get(classLoader);
         if (master == null) {
             synchronized (OfbizBshBsfEngine.class) {
-                master = (BshClassManager) BshUtil.masterClassManagers.get(classLoader);
+                master = BshUtil.masterClassManagers.get(classLoader);
                 if (master == null) {
                     master = BshClassManager.createClassManager();
                     master.setClassLoader(classLoader);
@@ -136,15 +132,15 @@ public final class BshUtil {
         }
     }
     
-    public static Object runBshAtLocation(String location, Map context) throws GeneralException {
+    public static Object runBshAtLocation(String location, Map<String, ? extends Object> context) throws GeneralException {
         try {
             Interpreter interpreter = makeInterpreter(context);
             
             Interpreter.ParsedScript script = null;
-            script = (Interpreter.ParsedScript) parsedScripts.get(location);
+            script = parsedScripts.get(location);
             if (script == null) {
                 synchronized (OfbizBshBsfEngine.class) {
-                    script = (Interpreter.ParsedScript) parsedScripts.get(location);
+                    script = parsedScripts.get(location);
                     if (script == null) {
                         URL scriptUrl = FlexibleLocation.resolveLocation(location);
                         if (scriptUrl == null) {

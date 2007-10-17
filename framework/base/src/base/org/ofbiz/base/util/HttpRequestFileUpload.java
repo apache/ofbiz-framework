@@ -46,7 +46,7 @@ public class HttpRequestFileUpload {
     private String filename;
     private String contentType;
     private String overrideFilename = null;
-    private Map fields;
+    private Map<String, String> fields;
 
     public String getOverrideFilename() {
         return overrideFilename;
@@ -75,7 +75,7 @@ public class HttpRequestFileUpload {
     public String getFieldValue(String fieldName) {
         if (fields == null || fieldName == null)
             return null;
-        return (String) fields.get(fieldName);
+        return fields.get(fieldName);
     }
 
     private void setFilename(String s) {
