@@ -154,7 +154,7 @@ public class KeyStoreUtil {
 
     public static String certToString(Certificate cert) throws CertificateEncodingException {
         byte[] certBuf = cert.getEncoded();
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append("-----BEGIN CERTIFICATE-----\n");
         buf.append(new String(Base64.encodeBase64Chunked(certBuf)));
         buf.append("\n-----END CERTIFICATE-----\n");

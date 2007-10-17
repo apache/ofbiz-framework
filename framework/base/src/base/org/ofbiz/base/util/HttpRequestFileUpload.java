@@ -240,7 +240,7 @@ public class HttpRequestFileUpload {
                     i = waitingReadLine(in, line, 0, BUFFER_SIZE, requestLength);
                     requestLength -= i;
                     newLine = new String(line, 0, i);
-                    StringBuffer fieldValue = new StringBuffer(BUFFER_SIZE);
+                    StringBuilder fieldValue = new StringBuilder(BUFFER_SIZE);
 
                     while (requestLength > 0/* i != -1*/ && !newLine.startsWith(boundary)) {
                         // The last line of the field

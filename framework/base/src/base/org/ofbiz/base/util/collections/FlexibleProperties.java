@@ -296,7 +296,7 @@ public class FlexibleProperties extends Properties implements Serializable {
     }
 
     public String toString() {
-        StringBuffer retVal = new StringBuffer();
+        StringBuilder retVal = new StringBuilder();
         Set keySet = keySet();
         Iterator keys = keySet.iterator();
 

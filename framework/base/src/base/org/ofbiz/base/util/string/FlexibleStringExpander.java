@@ -98,7 +98,7 @@ public class FlexibleStringExpander implements Serializable {
      * @return The original String expanded by replacing varaible place holders.
      */    
     public String expandString(Map context, Locale locale) {
-        StringBuffer expanded = new StringBuffer();
+        StringBuilder expanded = new StringBuilder();
         
         Iterator stringElementIter = stringElements.iterator();
         while (stringElementIter.hasNext()) {
@@ -196,7 +196,7 @@ public class FlexibleStringExpander implements Serializable {
             }
         }
 
-        StringBuffer expanded = new StringBuffer();
+        StringBuilder expanded = new StringBuilder();
         // TODO: for performance to save object build up and tear down times we should use Javolution to make OnTheFlyHandler reusable and use a factory methods instead of constructor
         ParseElementHandler handler = new OnTheFlyHandler(expanded, context, timeZone, locale);
         parseString(original, handler);
@@ -256,7 +256,7 @@ public class FlexibleStringExpander implements Serializable {
     }
 
     public static interface StringElement extends Serializable {
-        public void appendElement(StringBuffer buffer, Map context, Locale locale);
+        public void appendElement(StringBuilder buffer, Map context, Locale locale);
     }
     
     public static class ConstantElement implements StringElement {
@@ -266,7 +266,7 @@ public class FlexibleStringExpander implements Serializable {
             this.value = value;
         }
         
-        public void appendElement(StringBuffer buffer, Map context, Locale locale) {
+        public void appendElement(StringBuilder buffer, Map context, Locale locale) {
             buffer.append(this.value); 
         }
     }
@@ -278,7 +278,7 @@ public class FlexibleStringExpander implements Serializable {
             this.scriptlet = scriptlet;
         }
         
-        public void appendElement(StringBuffer buffer, Map context, Locale locale) {
+        public void appendElement(StringBuilder buffer, Map context, Locale locale) {
             try {
                 Object scriptResult = BshUtil.eval(scriptlet, context);
                 if (scriptResult != null) {
@@ -298,7 +298,7 @@ public class FlexibleStringExpander implements Serializable {
             this.fma = new FlexibleMapAccessor(valueName);
         }
         
-        public void appendElement(StringBuffer buffer, Map context, Locale locale) {
+        public void appendElement(StringBuilder buffer, Map context, Locale locale) {
             Object retVal = fma.get(context, locale);
             if (retVal != null) {
                 buffer.append(retVal.toString()); 
@@ -340,12 +340,12 @@ public class FlexibleStringExpander implements Serializable {
     }
     
     public static class OnTheFlyHandler implements ParseElementHandler {
-        protected StringBuffer targetBuffer;
+        protected StringBuilder targetBuffer;
         protected Map context;
         protected Locale locale;
         protected TimeZone timeZone;
         
-        public OnTheFlyHandler(StringBuffer targetBuffer, Map context, TimeZone timeZone, Locale locale) {
+        public OnTheFlyHandler(StringBuilder targetBuffer, Map context, TimeZone timeZone, Locale locale) {
             this.targetBuffer = targetBuffer;
             this.context = context;
             this.timeZone = timeZone;

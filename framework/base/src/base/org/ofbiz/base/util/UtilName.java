@@ -102,7 +102,7 @@ public class UtilName {
             if (index.length == 1) {
                 return name[index[0]];
             } else {
-                StringBuffer nameBuf = new StringBuffer();
+                StringBuilder nameBuf = new StringBuilder();
                 for (int i = 0; i < index.length; i++) {
                     if (nameBuf.length() > 0) {
                         nameBuf.append(" ");

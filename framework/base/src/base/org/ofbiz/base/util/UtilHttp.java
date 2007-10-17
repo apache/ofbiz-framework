@@ -635,7 +635,7 @@ public class UtilHttp {
 
     /** URL Encodes a Map of arguements */
     public static String urlEncodeArgs(Map args, boolean useExpandedEntites) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         if (args != null) {
             Iterator i = args.entrySet().iterator();
             while (i.hasNext()) {
@@ -677,7 +677,7 @@ public class UtilHttp {
     }
 
     public static String encodeAmpersands(String htmlString) {
-        StringBuffer htmlBuffer = new StringBuffer(htmlString);
+        StringBuilder htmlBuffer = new StringBuilder(htmlString);
         int ampLoc = -1;
         while ((ampLoc = htmlBuffer.indexOf("&", ampLoc + 1)) != -1) {
             //NOTE: this should work fine, but if it doesn't could try making sure all characters between & and ; are letters, that would qualify as an entity
@@ -878,7 +878,7 @@ public class UtilHttp {
         String retStr = null;
         if (UtilValidate.isNotEmpty(queryString)) {
             StringTokenizer queryTokens = new StringTokenizer(queryString, "&");
-            StringBuffer cleanQuery = new StringBuffer();
+            StringBuilder cleanQuery = new StringBuilder();
             while (queryTokens.hasMoreTokens()) {
                 String token = queryTokens.nextToken();
                 if (token.startsWith("amp;")) {

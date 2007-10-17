@@ -67,7 +67,7 @@ public class StringUtil {
 
         if (i < 0) return mainString;
 
-        StringBuffer mainSb = new StringBuffer(mainString);
+        StringBuilder mainSb = new StringBuilder(mainString);
 
         while (i >= 0) {
             mainSb.replace(i, i + oldString.length(), newString);
@@ -85,7 +85,7 @@ public class StringUtil {
     public static String join(List list, String delim) {
         if (list == null || list.size() < 1)
             return null;
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         Iterator i = list.iterator();
 
         while (i.hasNext()) {
@@ -197,7 +197,7 @@ public class StringUtil {
      */
     public static String mapToStr(Map map) {
         if (map == null) return null;
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         Set keySet = map.keySet();
         Iterator i = keySet.iterator();
         boolean first = true;
@@ -319,7 +319,7 @@ public class StringUtil {
     public static String cleanUpPathPrefix(String prefix) {
         if (prefix == null || prefix.length() == 0) return "";
 
-        StringBuffer cppBuff = new StringBuffer(prefix.replace('\\', '/'));
+        StringBuilder cppBuff = new StringBuilder(prefix.replace('\\', '/'));
 
         if (cppBuff.charAt(0) != '/') {
             cppBuff.insert(0, '/');
@@ -336,7 +336,7 @@ public class StringUtil {
     }
 
     public static String toHexString(byte[] bytes) {
-        StringBuffer buf = new StringBuffer(bytes.length * 2);
+        StringBuilder buf = new StringBuilder(bytes.length * 2);
         for (int i = 0; i < bytes.length; i++) {
             buf.append(hexChar[(bytes[i] & 0xf0) >>> 4]);
             buf.append(hexChar[bytes[i] & 0x0f]);
@@ -346,7 +346,7 @@ public class StringUtil {
     }
 
     public static String cleanHexString(String str) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) != 32 && str.charAt(i) != ':') {
                 buf.append(str.charAt(i));
@@ -431,7 +431,7 @@ public class StringUtil {
     }
     
     public static String padNumberString(String numberString, int targetMinLength) {
-        StringBuffer outStrBfr = new StringBuffer(numberString); 
+        StringBuilder outStrBfr = new StringBuilder(numberString); 
         while (targetMinLength > outStrBfr.length()) {
             outStrBfr.insert(0, '0');
         }
