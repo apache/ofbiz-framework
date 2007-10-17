@@ -469,6 +469,10 @@ public class UtilProperties implements java.io.Serializable {
         }
     }
 
+    public static String getMessageList(String resource, String name, Locale locale, Object... arguments) {
+        return getMessage(resource, name, arguments, locale);
+    }
+
     /** Returns the value of the specified property name from the specified resource/properties file corresponding
      * to the given locale and replacing argument place holders with the given arguments using the FlexibleStringExpander class
      * @param resource The name of the resource - can be a file, class, or URL
@@ -488,6 +492,10 @@ public class UtilProperties implements java.io.Serializable {
             }
             return value;
         }
+    }
+
+    public static String getMessageMap(String resource, String name, Locale locale, Object... context) {
+        return getMessage(resource, name, UtilGenerics.toMap(String.class, context), locale);
     }
 
     /** Returns the specified resource/properties file as a ResourceBundle
