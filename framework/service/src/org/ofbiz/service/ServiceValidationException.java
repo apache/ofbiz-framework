@@ -130,15 +130,15 @@ public class ServiceValidationException extends GenericServiceException {
     public String getMessage() {
         String msg = super.getMessage();
         if (this.messages != null && this.messages.size() > 0) {
+            StringBuilder sb = new StringBuilder();
             if (msg != null) {
-                msg += "\n";
-            } else {
-                msg = "";
+                sb.append('\n');
             }
             Iterator i = this.messages.iterator();
             while (i.hasNext()) {
-                msg += i.next();
+                sb.append(i.next());
             }
+            msg = sb.toString();
         }
         return msg;
     }
