@@ -65,10 +65,10 @@ public class SSLUtil {
         }
 
         if (mgrs != null) {
-            for (int i = 0; i < mgrs.length; i++) {
-                if (mgrs[i] instanceof X509TrustManager) {
+            for (TrustManager mgr: mgrs) {
+                if (mgr instanceof X509TrustManager) {
                     try {
-                        ((X509TrustManager) mgrs[i]).checkClientTrusted(chain, authType);
+                        ((X509TrustManager) mgr).checkClientTrusted(chain, authType);
                         return true;
                     } catch (CertificateException e) {
                         // do nothing; just loop
@@ -80,15 +80,12 @@ public class SSLUtil {
     }
 
     public static KeyManager[] getKeyManagers(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
-        Iterator i = ComponentConfig.getAllKeystoreInfos().iterator();
-        List keyMgrs = FastList.newInstance();
-        
-        while (i.hasNext()) {
-            ComponentConfig.KeystoreInfo ksi = (ComponentConfig.KeystoreInfo) i.next();
+        List<KeyManager> keyMgrs = FastList.newInstance();
+        for (ComponentConfig.KeystoreInfo ksi: ComponentConfig.getAllKeystoreInfos()) {
             if (ksi.isCertStore()) {
                 KeyStore ks = ksi.getKeyStore();
                 if (ks != null) {
-                    List newKeyManagers = Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias));
+                    List<KeyManager> newKeyManagers = Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias));
                     keyMgrs.addAll(newKeyManagers);
                     if (Debug.verboseOn()) Debug.logVerbose("Loaded another cert store, adding [" + (newKeyManagers == null ? "0" : newKeyManagers.size()) + "] KeyManagers for alias [" + alias + "] and keystore: " + ksi.createResourceHandler().getFullLocation(), module);
                 } else {
@@ -97,7 +94,7 @@ public class SSLUtil {
             }
         }
 
-        return (KeyManager[]) keyMgrs.toArray(new KeyManager[keyMgrs.size()]);
+        return keyMgrs.toArray(new KeyManager[keyMgrs.size()]);
     }
 
     public static KeyManager[] getKeyManagers() throws IOException, GeneralSecurityException, GenericConfigException {
@@ -111,9 +108,7 @@ public class SSLUtil {
             Debug.logWarning("System truststore not found!", module);
         }
         
-        Iterator i = ComponentConfig.getAllKeystoreInfos().iterator();
-        while (i.hasNext()) {
-            ComponentConfig.KeystoreInfo ksi = (ComponentConfig.KeystoreInfo) i.next();
+        for (ComponentConfig.KeystoreInfo ksi: ComponentConfig.getAllKeystoreInfos()) {
             if (ksi.isTrustStore()) {
                 KeyStore ks = ksi.getKeyStore();
                 if (ks != null) {
@@ -211,15 +206,15 @@ public class SSLUtil {
                             Debug.logWarning(e.getMessage(), module);
                             return false;
                         }
-                        for (int i = 0; i < peerCerts.length; i++) {
-                            Principal x500s = peerCerts[i].getSubjectDN();
+                        for (javax.security.cert.X509Certificate peerCert: peerCerts) {
+                            Principal x500s = peerCert.getSubjectDN();
                             Map subjectMap = KeyStoreUtil.getX500Map(x500s);                            
 
                             if (Debug.infoOn())
-                                Debug.logInfo(peerCerts[i].getSerialNumber().toString(16) + " :: " + subjectMap.get("CN"), module);
+                                Debug.logInfo(peerCert.getSerialNumber().toString(16) + " :: " + subjectMap.get("CN"), module);
                             
                             try {
-                                peerCerts[i].checkValidity();
+                                peerCert.checkValidity();
                             } catch (Exception e) {
                                 // certificate not valid
                                 Debug.logWarning("Certificate is not valid!", module);
@@ -272,18 +267,18 @@ public class SSLUtil {
 
     static class TrustAnyManager implements X509TrustManager {
 
-        public void checkClientTrusted(X509Certificate[] cert, String string) throws CertificateException {
+        public void checkClientTrusted(X509Certificate[] certs, String string) throws CertificateException {
             Debug.logImportant("Trusting (un-trusted) client certificate chain:", module);
-            for (int i = 0; i < cert.length; i++) {
-                Debug.logImportant("---- " + cert[i].getSubjectX500Principal().getName() + " valid: " + cert[i].getNotAfter(), module);
+            for (X509Certificate cert: certs) {
+                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), module);
 
             }
         }
 
-        public void checkServerTrusted(X509Certificate[] cert, String string) throws CertificateException {
+        public void checkServerTrusted(X509Certificate[] certs, String string) throws CertificateException {
             Debug.logImportant("Trusting (un-trusted) server certificate chain:", module);
-            for (int i = 0; i < cert.length; i++) {
-                Debug.logImportant("---- " + cert[i].getSubjectX500Principal().getName() + " valid: " + cert[i].getNotAfter(), module);
+            for (X509Certificate cert: certs) {
+                Debug.logImportant("---- " + cert.getSubjectX500Principal().getName() + " valid: " + cert.getNotAfter(), module);
             }
         }
 
