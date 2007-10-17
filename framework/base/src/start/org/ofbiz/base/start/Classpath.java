@@ -77,7 +77,7 @@ public class Classpath {
     }
 
     
-    private void appendPath(StringBuffer cp, String path) {
+    private void appendPath(StringBuilder cp, String path) {
         if(path.indexOf(' ') >= 0) {
             cp.append('\"');
             cp.append(path);
@@ -90,7 +90,7 @@ public class Classpath {
     
     
     public String toString() {
-        StringBuffer cp = new StringBuffer(1024);
+        StringBuilder cp = new StringBuilder(1024);
         int cnt = _elements.size();
         if (cnt >= 1) {
             cp.append(((File) (_elements.get(0))).getPath());
