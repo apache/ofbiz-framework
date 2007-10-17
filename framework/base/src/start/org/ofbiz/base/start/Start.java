@@ -49,7 +49,7 @@ public class Start implements Runnable {
     private boolean serverStarted = false;
     private boolean serverStopping = false;
     private boolean serverRunning = true;
-    private List loaders = null;
+    private List<StartupLoader> loaders = null;
     private Config config = null;
     private String[] loaderArgs = null;
 
@@ -61,7 +61,7 @@ public class Start implements Runnable {
         String firstArg = args.length > 0 ? args[0] : "";
         String cfgFile = Start.getConfigFileName(firstArg);
 
-        this.loaders = new ArrayList();
+        this.loaders = new ArrayList<StartupLoader>();
         this.config = new Config();
 
         // read the default properties first
@@ -168,12 +168,13 @@ public class Start implements Runnable {
         File libDir = new File(path);
         if (libDir.exists()) {
             File files[] = libDir.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                String fileName = files[i].getName();
-                if (files[i].isDirectory() && !"CVS".equals(fileName) && recurse) {
-                    loadLibs(files[i].getCanonicalPath(), recurse);
+            for (File file: files) {
+                String fileName = file.getName();
+                // FIXME: filter out other files?
+                if (file.isDirectory() && !"CVS".equals(fileName) && recurse) {
+                    loadLibs(file.getCanonicalPath(), recurse);
                 } else if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
-                    classPath.addComponent(files[i]);
+                    classPath.addComponent(file);
                 }
             }
         }
@@ -240,9 +241,7 @@ public class Start implements Runnable {
 
     private void initStartLoaders() {
         // initialize the loaders
-        Iterator li = config.loaders.iterator();
-        while (li.hasNext()) {
-            String loaderClassName = (String) li.next();
+        for (String loaderClassName: config.loaders) {
             try {
                 Class loaderClass = classloader.loadClass(loaderClassName);
                 StartupLoader loader = (StartupLoader) loaderClass.newInstance();
@@ -257,9 +256,7 @@ public class Start implements Runnable {
 
     private void startStartLoaders() {
         // start the loaders
-        Iterator i = loaders.iterator();
-        while (i.hasNext()) {
-            StartupLoader loader = (StartupLoader) i.next();
+        for (StartupLoader loader: loaders) {
             try {
                 loader.start();
             } catch (StartupException e) {
@@ -297,9 +294,7 @@ public class Start implements Runnable {
         if (serverStopping) return;
         serverStopping = true;
         if (loaders != null && loaders.size() > 0) {
-            Iterator i = loaders.iterator();
-            while (i.hasNext()) {
-                StartupLoader loader = (StartupLoader) i.next();
+            for (StartupLoader loader: loaders) {
                 try {
                     loader.unload();
                 } catch (Exception e) {
@@ -439,7 +434,7 @@ public class Start implements Runnable {
         public String baseDtd;
         public String baseConfig;
         public String logDir;
-        public List loaders;
+        public List<String> loaders;
         public String awtHeadless;
         public String splashLogo;
         public boolean shutdownAfterLoad = false;
@@ -648,7 +643,7 @@ public class Start implements Runnable {
             System.setProperty("org.mortbay.jetty.servlet.AbstractSessionManager.24SessionDestroyed", "true");
 
             // loader classes
-            loaders = new ArrayList();
+            loaders = new ArrayList<String>();
             int currentPosition = 1;
             while (true) {
                 String loaderClass = props.getProperty("ofbiz.start.loader" + currentPosition);
