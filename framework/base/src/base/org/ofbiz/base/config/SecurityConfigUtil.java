@@ -105,9 +105,9 @@ public class SecurityConfigUtil {
     /**
      * <code>SecurityInfo</code>
      */
-    public static class SecurityInfo {
-        public String name;
-        public String className;
+    public static final class SecurityInfo {
+        public final String name;
+        public final String className;
 
         /**
          * Creates a SecurityInfo for a given element
