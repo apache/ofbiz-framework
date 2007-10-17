@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @deprecated
  * OrderedSet - Set interface wrapper around a LinkedList
  *
  */

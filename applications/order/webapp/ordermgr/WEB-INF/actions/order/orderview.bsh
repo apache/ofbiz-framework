@@ -158,7 +158,7 @@ if (orderHeader != null) {
     context.put("itemIssuancesPerItem", itemIssuancesPerItem);
 
     // get a list of all invoices
-    allInvoices = new OrderedSet();
+    allInvoices = new LinkedHashSet();
     orderBilling = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", orderId), UtilMisc.toList("invoiceId"));
     obIter = orderBilling.iterator();
     while (obIter.hasNext()) {

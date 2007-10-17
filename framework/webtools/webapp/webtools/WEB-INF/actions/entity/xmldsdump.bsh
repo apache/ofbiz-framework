@@ -20,7 +20,6 @@
 import java.util.*;
 import java.io.*;
 import java.net.*;
-import org.ofbiz.base.util.collections.OrderedSet;
 import org.w3c.dom.*;
 import org.ofbiz.security.*;
 import org.ofbiz.entity.*;
@@ -58,7 +57,7 @@ if (entityName != null && entityName.length > 0) {
   
 String preConfiguredSetName = request.getParameter("preConfiguredSetName");
 if ("Product1".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("DataResource");
     passedEntityNames.add("Facility");
     passedEntityNames.add("ProdCatalog");
@@ -69,7 +68,7 @@ if ("Product1".equals(preConfiguredSetName)) {
     passedEntityNames.add("ProductPriceRule");
     passedEntityNames.add("ProductPromo");
 } else if ("Product2".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("Content");
     passedEntityNames.add("ElectronicText");
     passedEntityNames.add("FacilityLocation");
@@ -91,7 +90,7 @@ if ("Product1".equals(preConfiguredSetName)) {
     passedEntityNames.add("ProductPromoProduct");
     passedEntityNames.add("ProductPromoRule");
 } else if ("Product3".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("ProdCatalogInvFacility");
     passedEntityNames.add("ProductContent");
     passedEntityNames.add("ProductFacilityLocation");
@@ -104,12 +103,12 @@ if ("Product1".equals(preConfiguredSetName)) {
     passedEntityNames.add("ProductPromoCodeParty");
     passedEntityNames.add("ProductPromoCond");
 } else if ("Product4".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("InventoryItem");
     passedEntityNames.add("ProductFeatureCatGrpAppl");
     passedEntityNames.add("ProductFeatureGroupAppl");
 } else if ("CatalogExport".equals(preConfiguredSetName)) {
-    passedEntityNames = new OrderedSet();
+    passedEntityNames = new LinkedHashSet();
     passedEntityNames.add("ProdCatalogCategoryType");
     passedEntityNames.add("ProdCatalog");
     passedEntityNames.add("ProductCategoryType");
