@@ -798,7 +798,7 @@ public class ShoppingCartHelper {
             try {
                 this.cart.removeCartItem(itemIndex, dispatcher);
             } catch (CartItemModifyException e) {
-                result = ServiceUtil.returnError(new Vector());
+                result = ServiceUtil.returnError(new ArrayList());
                 errorMsgs.add(e.getMessage());
             }
         }
