@@ -246,6 +246,17 @@ under the License.
                             <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                             <link target="InventoryItemTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemTotals}" style="buttontext"/>
                             <link target="InventoryItemGrandTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemGrandTotals}" style="buttontext"/>
+                            <section>
+                                <actions>
+                                    <set field="genericLinkName" value="Export"/>
+                                    <set field="genericLinkText" value="${uiLabelMap.ProductInventoryItemTotalsExport}"/>
+                                    <set field="genericLinkTarget" value="InventoryItemTotalsExport.csv?action=Y"/>
+                                    <set field="genericLinkStyle" value="buttontext"/>
+                                </actions>
+                                <widgets>
+                                    <include-screen name="genericLink" location="component://common/widget/CommonScreens.xml"/>
+                                </widgets>
+                            </section>
                         </container>
 
                         <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
@@ -412,6 +423,32 @@ under the License.
                         <include-form name="ListInventoryItemGrandTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="InventoryItemTotalsExport">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10000"/>
+                
+                <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.bsh"/>
+            </actions>
+            <widgets>
+                <container>
+                    <label style="head2" text="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                </container>
+                <include-form name="InventoryItemTotalsExport" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                <container>
+                    <label style="head2" text="${uiLabelMap.ProductInventoryItemGrandTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                </container>
+                <include-form name="InventoryItemGrandTotalsExport" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
             </widgets>
         </section>
     </screen>
