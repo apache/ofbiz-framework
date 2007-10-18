@@ -71,10 +71,10 @@ public class ModelRelation extends ModelChild {
     public ModelRelation(ModelEntity mainEntity, Element relationElement) {
         this.mainEntity = mainEntity;
 
-        this.type = UtilXml.checkEmpty(relationElement.getAttribute("type"));
-        this.title = UtilXml.checkEmpty(relationElement.getAttribute("title"));
-        this.relEntityName = UtilXml.checkEmpty(relationElement.getAttribute("rel-entity-name"));
-        this.fkName = UtilXml.checkEmpty(relationElement.getAttribute("fk-name"));
+        this.type = UtilXml.checkEmpty(relationElement.getAttribute("type")).intern();
+        this.title = UtilXml.checkEmpty(relationElement.getAttribute("title")).intern();
+        this.relEntityName = UtilXml.checkEmpty(relationElement.getAttribute("rel-entity-name")).intern();
+        this.fkName = UtilXml.checkEmpty(relationElement.getAttribute("fk-name")).intern();
 
         NodeList keyMapList = relationElement.getElementsByTagName("key-map");
         for (int i = 0; i < keyMapList.getLength(); i++) {

@@ -50,9 +50,9 @@ public class ModelKeyMap implements java.io.Serializable {
 
     /** XML Constructor */
     public ModelKeyMap(Element keyMapElement) {
-        this.fieldName = UtilXml.checkEmpty(keyMapElement.getAttribute("field-name"));
+        this.fieldName = UtilXml.checkEmpty(keyMapElement.getAttribute("field-name")).intern();
         // if no relFieldName is specified, use the fieldName; this is convenient for when they are named the same, which is often the case
-        this.relFieldName = UtilXml.checkEmpty(keyMapElement.getAttribute("rel-field-name"), this.fieldName);
+        this.relFieldName = UtilXml.checkEmpty(keyMapElement.getAttribute("rel-field-name"), this.fieldName).intern();
     }
 
     /** name of the field in this entity */

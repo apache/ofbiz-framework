@@ -50,10 +50,10 @@ public class ModelFieldType implements Serializable {
 
     /** XML Constructor */
     public ModelFieldType(Element fieldTypeElement) {
-        this.type = UtilXml.checkEmpty(fieldTypeElement.getAttribute("type"));
-        this.javaType = UtilXml.checkEmpty(fieldTypeElement.getAttribute("java-type"));
-        this.sqlType = UtilXml.checkEmpty(fieldTypeElement.getAttribute("sql-type"));
-        this.sqlTypeAlias = UtilXml.checkEmpty(fieldTypeElement.getAttribute("sql-type-alias"));
+        this.type = UtilXml.checkEmpty(fieldTypeElement.getAttribute("type")).intern();
+        this.javaType = UtilXml.checkEmpty(fieldTypeElement.getAttribute("java-type")).intern();
+        this.sqlType = UtilXml.checkEmpty(fieldTypeElement.getAttribute("sql-type")).intern();
+        this.sqlTypeAlias = UtilXml.checkEmpty(fieldTypeElement.getAttribute("sql-type-alias")).intern();
 
         NodeList validateList = fieldTypeElement.getElementsByTagName("validate");
         for (int i = 0; i < validateList.getLength(); i++) {
@@ -61,7 +61,7 @@ public class ModelFieldType implements Serializable {
             String methodName = element.getAttribute("method");
             String className = element.getAttribute("class");
             if (methodName != null) {
-                this.validators.add(new ModelFieldValidator(className, methodName));
+                this.validators.add(new ModelFieldValidator(className.intern(), methodName.intern()));
             }            
         }
     }

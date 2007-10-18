@@ -255,12 +255,12 @@ public class ModelServiceReader implements Serializable {
     protected ModelService createModelService(Element serviceElement) {
         ModelService service = new ModelService();
 
-        service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name"));
-        service.engineName = UtilXml.checkEmpty(serviceElement.getAttribute("engine"));
-        service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location"));
-        service.invoke = UtilXml.checkEmpty(serviceElement.getAttribute("invoke"));
-        service.semaphore = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore"));
-        service.defaultEntityName = UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name"));
+        service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name")).intern();
+        service.engineName = UtilXml.checkEmpty(serviceElement.getAttribute("engine")).intern();
+        service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location")).intern();
+        service.invoke = UtilXml.checkEmpty(serviceElement.getAttribute("invoke")).intern();  
+        service.semaphore = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore")).intern();
+        service.defaultEntityName = UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name")).intern();
         service.fromLoader = isFromURL ? readerURL.toExternalForm() : handler.getLoaderName();        
 
         // these default to true; if anything but true, make false
@@ -421,8 +421,8 @@ public class ModelServiceReader implements Serializable {
         while (si.hasNext()) {
             Element element = (Element) si.next();
             ModelPermission perm = new ModelPermission();
-            perm.nameOrRole = element.getAttribute("permission");
-            perm.action = element.getAttribute("action");
+            perm.nameOrRole = element.getAttribute("permission").intern();
+            perm.action = element.getAttribute("action").intern();
             if (perm.action != null && perm.action.length() > 0) {
                 perm.permissionType = ModelPermission.ENTITY_PERMISSION;
             } else {
@@ -438,7 +438,7 @@ public class ModelServiceReader implements Serializable {
             Element element = (Element) ri.next();
             ModelPermission perm = new ModelPermission();
             perm.permissionType = ModelPermission.ROLE_MEMBER;
-            perm.nameOrRole = element.getAttribute("role-type");
+            perm.nameOrRole = element.getAttribute("role-type").intern();
             perm.serviceModel = service;
             group.permissions.add(perm);
         }
@@ -461,7 +461,7 @@ public class ModelServiceReader implements Serializable {
                 
         while (implIter.hasNext()) {
             Element implement = (Element) implIter.next();
-            String serviceName = UtilXml.checkEmpty(implement.getAttribute("service"));
+            String serviceName = UtilXml.checkEmpty(implement.getAttribute("service")).intern();
             boolean optional = UtilXml.checkBoolean(implement.getAttribute("optional"), false);
             if (serviceName.length() > 0)
                 service.implServices.add(new ModelServiceIface(serviceName, optional));
@@ -521,7 +521,7 @@ public class ModelServiceReader implements Serializable {
                             param.fieldName = field.getName();
                             param.name = field.getName();
                             param.type = fieldType.getJavaType();
-                            param.mode = UtilXml.checkEmpty(autoElement.getAttribute("mode"));
+                            param.mode = UtilXml.checkEmpty(autoElement.getAttribute("mode")).intern();
                             param.optional = "true".equalsIgnoreCase(autoElement.getAttribute("optional")); // default to true
                             param.formDisplay = !"false".equalsIgnoreCase(autoElement.getAttribute("form-display")); // default to false                        
                             modelParamMap.put(field.getName(), param);
@@ -564,14 +564,14 @@ public class ModelServiceReader implements Serializable {
             Element attribute = (Element) paramIter.next();
             ModelParam param = new ModelParam();
 
-            param.name = UtilXml.checkEmpty(attribute.getAttribute("name"));
-            param.type = UtilXml.checkEmpty(attribute.getAttribute("type"));
-            param.mode = UtilXml.checkEmpty(attribute.getAttribute("mode"));
-            param.entityName = UtilXml.checkEmpty(attribute.getAttribute("entity-name"));
-            param.fieldName = UtilXml.checkEmpty(attribute.getAttribute("field-name"));
-            param.stringMapPrefix = UtilXml.checkEmpty(attribute.getAttribute("string-map-prefix"));
-            param.stringListSuffix = UtilXml.checkEmpty(attribute.getAttribute("string-list-suffix"));
-            param.formLabel = attribute.hasAttribute("form-label")?attribute.getAttribute("form-label"):null;
+            param.name = UtilXml.checkEmpty(attribute.getAttribute("name")).intern();
+            param.type = UtilXml.checkEmpty(attribute.getAttribute("type")).intern();
+            param.mode = UtilXml.checkEmpty(attribute.getAttribute("mode")).intern();
+            param.entityName = UtilXml.checkEmpty(attribute.getAttribute("entity-name")).intern();
+            param.fieldName = UtilXml.checkEmpty(attribute.getAttribute("field-name")).intern();
+            param.stringMapPrefix = UtilXml.checkEmpty(attribute.getAttribute("string-map-prefix")).intern();
+            param.stringListSuffix = UtilXml.checkEmpty(attribute.getAttribute("string-list-suffix")).intern();
+            param.formLabel = attribute.hasAttribute("form-label")?attribute.getAttribute("form-label").intern():null;
             param.optional = "true".equalsIgnoreCase(attribute.getAttribute("optional")); // default to true
             param.formDisplay = !"false".equalsIgnoreCase(attribute.getAttribute("form-display")); // default to false
 
@@ -579,7 +579,7 @@ public class ModelServiceReader implements Serializable {
             String defValue = attribute.getAttribute("default-value");
             if (UtilValidate.isNotEmpty(defValue)) {
                 Debug.logInfo("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
-                param.setDefaultValue(defValue);
+                param.setDefaultValue(defValue.intern());
             }
             
             // set the entity name to the default if not specified
@@ -690,19 +690,19 @@ public class ModelServiceReader implements Serializable {
             if (param != null) {                                                        
                 // set only modified values
                 if (attribute.getAttribute("type") != null && attribute.getAttribute("type").length() > 0) {                
-                    param.type = UtilXml.checkEmpty(attribute.getAttribute("type"));
+                    param.type = UtilXml.checkEmpty(attribute.getAttribute("type")).intern();
                 }
                 if (attribute.getAttribute("mode") != null && attribute.getAttribute("mode").length() > 0) {                            
-                    param.mode = UtilXml.checkEmpty(attribute.getAttribute("mode"));
+                    param.mode = UtilXml.checkEmpty(attribute.getAttribute("mode")).intern();
                 }
                 if (attribute.getAttribute("entity-name") != null && attribute.getAttribute("entity-name").length() > 0) {
-                   param.entityName = UtilXml.checkEmpty(attribute.getAttribute("entity-name"));
+                   param.entityName = UtilXml.checkEmpty(attribute.getAttribute("entity-name")).intern();
                 }
                 if (attribute.getAttribute("field-name") != null && attribute.getAttribute("field-name").length() > 0) {
-                    param.fieldName = UtilXml.checkEmpty(attribute.getAttribute("field-name"));
+                    param.fieldName = UtilXml.checkEmpty(attribute.getAttribute("field-name")).intern();
                 }
                 if (attribute.getAttribute("form-label") != null && attribute.getAttribute("form-label").length() > 0) {                
-                    param.formLabel = UtilXml.checkEmpty(attribute.getAttribute("form-label"));
+                    param.formLabel = UtilXml.checkEmpty(attribute.getAttribute("form-label")).intern();
                 }
                 if (attribute.getAttribute("optional") != null && attribute.getAttribute("optional").length() > 0) {                            
                     param.optional = "true".equalsIgnoreCase(attribute.getAttribute("optional")); // default to true
@@ -739,18 +739,18 @@ public class ModelServiceReader implements Serializable {
 
             Iterator i = validateElements.iterator();
             Element validate = (Element) i.next();
-            String methodName = validate.getAttribute("method");
-            String className = validate.getAttribute("class");
+            String methodName = validate.getAttribute("method").intern();
+            String className = validate.getAttribute("class").intern();
 
             Element fail = UtilXml.firstChildElement(validate, "fail-message");
             if (fail != null) {
-                String message = fail.getAttribute("message");
+                String message = fail.getAttribute("message").intern();
                 param.addValidator(className, methodName, message);
             } else {
                 fail = UtilXml.firstChildElement(validate, "fail-property");
                 if (fail != null) {
-                    String resource = fail.getAttribute("resource");
-                    String property = fail.getAttribute("property");
+                    String resource = fail.getAttribute("resource").intern();
+                    String property = fail.getAttribute("property").intern();
                     param.addValidator(className, methodName, resource, property);
                 }
             }

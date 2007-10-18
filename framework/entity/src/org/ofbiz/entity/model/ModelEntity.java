@@ -189,7 +189,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         Iterator pkElementIter = pkElementList.iterator();
         while (pkElementIter.hasNext()) {
             Element pkElement = (Element) pkElementIter.next();
-            ModelField field = reader.findModelField(this, pkElement.getAttribute("field"));
+            ModelField field = reader.findModelField(this, pkElement.getAttribute("field").intern());
             if (field != null) {
                 this.pks.add(field);
                 field.isPk = true;
@@ -231,11 +231,11 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     protected void populateBasicInfo(Element entityElement) {
-        this.entityName = UtilXml.checkEmpty(entityElement.getAttribute("entity-name"));
-        this.tableName = UtilXml.checkEmpty(entityElement.getAttribute("table-name"), ModelUtil.javaNameToDbName(this.entityName));
-        this.packageName = UtilXml.checkEmpty(entityElement.getAttribute("package-name"));
-        this.defaultResourceName = UtilXml.checkEmpty(entityElement.getAttribute("default-resource-name"));
-        this.dependentOn = UtilXml.checkEmpty(entityElement.getAttribute("dependent-on"));
+        this.entityName = UtilXml.checkEmpty(entityElement.getAttribute("entity-name")).intern();
+        this.tableName = UtilXml.checkEmpty(entityElement.getAttribute("table-name"), ModelUtil.javaNameToDbName(this.entityName)).intern();
+        this.packageName = UtilXml.checkEmpty(entityElement.getAttribute("package-name")).intern();
+        this.defaultResourceName = UtilXml.checkEmpty(entityElement.getAttribute("default-resource-name")).intern();
+        this.dependentOn = UtilXml.checkEmpty(entityElement.getAttribute("dependent-on")).intern();
         this.doLock = UtilXml.checkBoolean(entityElement.getAttribute("enable-lock"), false);
         this.noAutoStamp = UtilXml.checkBoolean(entityElement.getAttribute("no-auto-stamp"), false);
         this.neverCache = UtilXml.checkBoolean(entityElement.getAttribute("never-cache"), false);

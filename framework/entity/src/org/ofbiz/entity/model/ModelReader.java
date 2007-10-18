@@ -190,7 +190,7 @@ public class ModelReader implements Serializable {
                                 if ((isEntity || isViewEntity) && curChild.getNodeType() == Node.ELEMENT_NODE) {
                                     i++;
                                     Element curEntityElement = (Element) curChild;
-                                    String entityName = UtilXml.checkEmpty(curEntityElement.getAttribute("entity-name"));
+                                    String entityName = UtilXml.checkEmpty(curEntityElement.getAttribute("entity-name")).intern();
 
                                     // add entityName to appropriate resourceHandlerEntities collection
                                     Collection resourceHandlerEntityNames = (Collection) resourceHandlerEntities.get(entityResourceHandler);
