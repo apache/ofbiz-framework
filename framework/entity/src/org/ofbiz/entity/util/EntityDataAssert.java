@@ -40,7 +40,7 @@ public class EntityDataAssert {
 
     public static final String module = EntityDataAssert.class.getName();
 
-    public static int assertData(URL dataUrl, GenericDelegator delegator, List errorMessages) throws GenericEntityException, SAXException, ParserConfigurationException, IOException {
+    public static int assertData(URL dataUrl, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException, SAXException, ParserConfigurationException, IOException {
         int rowsChecked = 0;
 
         if (dataUrl == null) {
@@ -71,7 +71,7 @@ public class EntityDataAssert {
         return rowsChecked;
     }
     
-    public static void checkValueList(List valueList, GenericDelegator delegator, List errorMessages) throws GenericEntityException {
+    public static void checkValueList(List valueList, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
         if (valueList == null) return;
         
         Iterator valueIter = valueList.iterator();
@@ -81,7 +81,7 @@ public class EntityDataAssert {
         }
     }
     
-    public static void checkSingleValue(GenericValue checkValue, GenericDelegator delegator, List errorMessages) throws GenericEntityException {
+    public static void checkSingleValue(GenericValue checkValue, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
         if (checkValue == null) {
             errorMessages.add("Got a value to check was null");
             return;
@@ -98,10 +98,7 @@ public class EntityDataAssert {
             }
 
             ModelEntity modelEntity = checkValue.getModelEntity();
-            List nonpkFieldNameList = modelEntity.getNoPkFieldNames();
-            Iterator nonpkFieldNameIter = nonpkFieldNameList.iterator();
-            while (nonpkFieldNameIter.hasNext()) {
-                String nonpkFieldName = (String) nonpkFieldNameIter.next();
+            for (String nonpkFieldName: modelEntity.getNoPkFieldNames()) {
                 // skip the fields the entity engine maintains
                 if (ModelEntity.CREATE_STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.CREATE_STAMP_TX_FIELD.equals(nonpkFieldName) ||
                         ModelEntity.STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.STAMP_TX_FIELD.equals(nonpkFieldName)) {

@@ -37,6 +37,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.EntityDataReaderInfo;
@@ -56,10 +57,7 @@ public class EntityDataLoader {
         StringBuilder pathBuffer = new StringBuilder();
         if (helperName != null && helperName.length() > 0) {
             DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
-            List sqlLoadPathElements = datasourceInfo.sqlLoadPaths;
-            Iterator slpIter = sqlLoadPathElements.iterator();
-            while (slpIter.hasNext()) {
-                Element sqlLoadPathElement = (Element) slpIter.next();
+            for (Element sqlLoadPathElement: datasourceInfo.sqlLoadPaths) {
                 String prependEnv = sqlLoadPathElement.getAttribute("prepend-env");
                 pathBuffer.append(pathBuffer.length() == 0 ? "" : ";");
                 if (prependEnv != null && prependEnv.length() > 0) {
@@ -72,29 +70,27 @@ public class EntityDataLoader {
         return pathBuffer.toString();
     }
 
-    public static List getUrlList(String helperName) {
+    public static List<URL> getUrlList(String helperName) {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
         return getUrlList(helperName, null, datasourceInfo.readDatas);
     }
 
-    public static List getUrlList(String helperName, String componentName) {
+    public static List<URL> getUrlList(String helperName, String componentName) {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
         return getUrlList(helperName, componentName, datasourceInfo.readDatas);
     }
 
-    public static List getUrlList(String helperName, List readerNames) {
+    public static List<URL> getUrlList(String helperName, List readerNames) {
         return getUrlList(helperName, null, readerNames);
     }
 
-    public static List getUrlList(String helperName, String componentName, List readerNames) {
+    public static List<URL> getUrlList(String helperName, String componentName, List readerNames) {
         String paths = getPathsString(helperName);
-        List urlList = new LinkedList();
+        List<URL> urlList = new LinkedList<URL>();
         
         // first get files from resources
         if (readerNames != null) {
-            Iterator readDataIter = readerNames.iterator();
-            while (readDataIter.hasNext()) {
-                Object readerInfo = readDataIter.next();
+            for (Object readerInfo: readerNames) {
                 String readerName = null;
                 if (readerInfo instanceof String) {
                     readerName = (String) readerInfo;
@@ -108,10 +104,7 @@ public class EntityDataLoader {
                 EntityDataReaderInfo entityDataReaderInfo = EntityConfigUtil.getEntityDataReaderInfo(readerName);
                 
                 if (entityDataReaderInfo != null) {
-                    List resourceElements = entityDataReaderInfo.resourceElements;
-                    Iterator resIter = resourceElements.iterator();
-                    while (resIter.hasNext()) {
-                        Element resourceElement = (Element) resIter.next();
+                    for (Element resourceElement: entityDataReaderInfo.resourceElements) {
                         ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement);
                         try {
                             urlList.add(handler.getURL());
@@ -122,10 +115,7 @@ public class EntityDataLoader {
                     }
         
                     // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
-                    List componentResourceInfos = ComponentConfig.getAllEntityResourceInfos("data", componentName);
-                    Iterator componentResourceInfoIter = componentResourceInfos.iterator();
-                    while (componentResourceInfoIter.hasNext()) {
-                        ComponentConfig.EntityResourceInfo componentResourceInfo = (ComponentConfig.EntityResourceInfo) componentResourceInfoIter.next();
+                    for (ComponentConfig.EntityResourceInfo componentResourceInfo: ComponentConfig.getAllEntityResourceInfos("data", componentName)) {
                         if (readerName.equals(componentResourceInfo.readerName)) {
                             ResourceHandler handler = componentResourceInfo.createResourceHandler();
                             try {
@@ -154,16 +144,14 @@ public class EntityDataLoader {
                 File loadDir = new File(path);
                 if (loadDir.exists() && loadDir.isDirectory()) {
                     File[] files = loadDir.listFiles();
-                    List tempFileList = new LinkedList();
-                    for (int i = 0; i < files.length; i++) {
-                        if (files[i].getName().toLowerCase().endsWith(".xml")) {
-                            tempFileList.add(files[i]);
+                    List<File> tempFileList = new LinkedList<File>();
+                    for (File file: files) {
+                        if (file.getName().toLowerCase().endsWith(".xml")) {
+                            tempFileList.add(file);
                         }
                     }
                     Collections.sort(tempFileList);
-                    Iterator tempFileIter = tempFileList.iterator();
-                    while (tempFileIter.hasNext()) {
-                        File dataFile = (File) tempFileIter.next();
+                    for (File dataFile: tempFileList) {
                         if (dataFile.exists()) {
                             URL url = null;
                             try {
@@ -185,15 +173,15 @@ public class EntityDataLoader {
         return urlList;
     }
 
-    public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List errorMessages) throws GenericEntityException {
+    public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
         return loadData(dataUrl, helperName, delegator, errorMessages, -1);
     }
 
-    public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List errorMessages, int txTimeout) throws GenericEntityException {
+    public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List<Object> errorMessages, int txTimeout) throws GenericEntityException {
         return loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, false, false, false);
     }
 
-    public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List errorMessages, int txTimeout, boolean dummyFks, boolean maintainTxs, boolean tryInsert) throws GenericEntityException {
+    public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks, boolean maintainTxs, boolean tryInsert) throws GenericEntityException {
         int rowsChanged = 0;
         
         if (dataUrl == null) {
@@ -230,13 +218,11 @@ public class EntityDataLoader {
         return rowsChanged;
     }
 
-    public static int generateData(GenericDelegator delegator, List errorMessages) throws GenericEntityException {
+    public static int generateData(GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
         int rowsChanged = 0;
         ModelReader reader = delegator.getModelReader();
-        Collection entityCol = reader.getEntityNames();
-        Iterator classNamesIterator = entityCol.iterator();
-        while (classNamesIterator != null && classNamesIterator.hasNext()) {
-            ModelEntity entity = reader.getModelEntity((String) classNamesIterator.next());
+        for (String entityName: reader.getEntityNames()) {
+            ModelEntity entity = reader.getModelEntity(entityName);
             String baseName = entity.getPlainTableName();
             if (entity instanceof ModelViewEntity) {
                 baseName = ModelUtil.javaNameToDbName(entity.getEntityName());
@@ -244,31 +230,30 @@ public class EntityDataLoader {
 
             if (baseName != null) {
                 try {
-                    List toBeStored = new LinkedList();
+                    List<GenericValue> toBeStored = new LinkedList<GenericValue>();
                     toBeStored.add(
                         delegator.makeValue(
                             "SecurityPermission",
-                            UtilMisc.toMap(
                                 "permissionId",
                                 baseName + "_ADMIN",
                                 "description",
-                                "Permission to Administer a " + entity.getEntityName() + " entity.")));
-                    toBeStored.add(delegator.makeValue("SecurityGroupPermission", UtilMisc.toMap("groupId", "FULLADMIN", "permissionId", baseName + "_ADMIN")));
+                                "Permission to Administer a " + entity.getEntityName() + " entity."));
+                    toBeStored.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FULLADMIN", "permissionId", baseName + "_ADMIN"));
                     rowsChanged += delegator.storeAll(toBeStored);
                 } catch (GenericEntityException e) {
                     errorMessages.add("[install.generateData] ERROR: Failed Security Generation for entity \"" + baseName + "\"");
                 }
 
                 /*
-                toStore.add(delegator.makeValue("SecurityPermission", UtilMisc.toMap("permissionId", baseName + "_VIEW", "description", "Permission to View a " + entity.getEntityName() + " entity.")));
-                toStore.add(delegator.makeValue("SecurityPermission", UtilMisc.toMap("permissionId", baseName + "_CREATE", "description", "Permission to Create a " + entity.getEntityName() + " entity.")));
-                toStore.add(delegator.makeValue("SecurityPermission", UtilMisc.toMap("permissionId", baseName + "_UPDATE", "description", "Permission to Update a " + entity.getEntityName() + " entity.")));
-                toStore.add(delegator.makeValue("SecurityPermission", UtilMisc.toMap("permissionId", baseName + "_DELETE", "description", "Permission to Delete a " + entity.getEntityName() + " entity.")));
+                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_VIEW", "description", "Permission to View a " + entity.getEntityName() + " entity."));
+                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_CREATE", "description", "Permission to Create a " + entity.getEntityName() + " entity."));
+                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_UPDATE", "description", "Permission to Update a " + entity.getEntityName() + " entity."));
+                toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_DELETE", "description", "Permission to Delete a " + entity.getEntityName() + " entity."));
                 
-                toStore.add(delegator.makeValue("SecurityGroupPermission", UtilMisc.toMap("groupId", "FLEXADMIN", "permissionId", baseName + "_VIEW")));
-                toStore.add(delegator.makeValue("SecurityGroupPermission", UtilMisc.toMap("groupId", "FLEXADMIN", "permissionId", baseName + "_CREATE")));
-                toStore.add(delegator.makeValue("SecurityGroupPermission", UtilMisc.toMap("groupId", "FLEXADMIN", "permissionId", baseName + "_UPDATE")));
-                toStore.add(delegator.makeValue("SecurityGroupPermission", UtilMisc.toMap("groupId", "FLEXADMIN", "permissionId", baseName + "_DELETE")));
+                toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_VIEW"));
+                toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_CREATE"));
+                toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_UPDATE"));
+                toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_DELETE"));
                 */
             }
         }
