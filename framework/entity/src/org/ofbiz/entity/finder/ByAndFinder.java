@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.entity.finder;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -36,7 +38,7 @@ public class ByAndFinder extends ListFinder {
     
     public static final String module = ByAndFinder.class.getName();         
     
-    protected Map fieldMap;
+    protected Map<FlexibleMapAccessor, Object> fieldMap;
 
     public ByAndFinder(Element element) {
         super(element, "and");
@@ -45,9 +47,9 @@ public class ByAndFinder extends ListFinder {
         this.fieldMap = EntityFinderUtil.makeFieldMap(element);
     }
 
-    protected EntityCondition getWhereEntityCondition(Map context, ModelEntity modelEntity, GenericDelegator delegator) {
+    protected EntityCondition getWhereEntityCondition(Map<String, Object> context, ModelEntity modelEntity, GenericDelegator delegator) {
         // create the by and map
-        Map entityContext = new HashMap();
+        Map<String, Object> entityContext = FastMap.newInstance();
         EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, entityContext);
         // then convert the types...
         modelEntity.convertFieldMapInPlace(entityContext, delegator);

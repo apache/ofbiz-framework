@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.entity.finder;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -68,8 +67,8 @@ public abstract class ListFinder extends Finder {
     protected FlexibleMapAccessor listAcsr;
     protected FlexibleStringExpander resultSetTypeExdr;
     
-    protected List selectFieldExpanderList;
-    protected List orderByExpanderList;
+    protected List<FlexibleStringExpander> selectFieldExpanderList;
+    protected List<FlexibleStringExpander> orderByExpanderList;
     protected OutputHandler outputHandler;
 
     protected ListFinder(Element element, String label) {
@@ -86,12 +85,10 @@ public abstract class ListFinder extends Finder {
         selectFieldExpanderList = EntityFinderUtil.makeSelectFieldExpanderList(element);
         
         // process order-by
-        List orderByElementList = UtilXml.childElementList(element, "order-by");
+        List<? extends Element> orderByElementList = UtilXml.childElementList(element, "order-by");
         if (orderByElementList.size() > 0) {
             orderByExpanderList = FastList.newInstance();
-            Iterator orderByElementIter = orderByElementList.iterator();
-            while (orderByElementIter.hasNext()) {
-                Element orderByElement = (Element) orderByElementIter.next();
+            for (Element orderByElement: orderByElementList) {
                 orderByExpanderList.add(new FlexibleStringExpander(orderByElement.getAttribute("field-name")));
             }
         }
@@ -115,7 +112,7 @@ public abstract class ListFinder extends Finder {
         }
     }
 
-    public void runFind(Map context, GenericDelegator delegator) throws GeneralException {
+    public void runFind(Map<String, Object> context, GenericDelegator delegator) throws GeneralException {
         String entityName = this.entityNameExdr.expandString(context);
         String useCacheStr = this.useCacheStrExdr.expandString(context);
         String filterByDateStr = this.filterByDateStrExdr.expandString(context);
@@ -156,7 +153,7 @@ public abstract class ListFinder extends Finder {
         
         
         // get the list of fieldsToSelect from selectFieldExpanderList
-        Set fieldsToSelect = EntityFinderUtil.makeFieldsToSelect(selectFieldExpanderList, context);
+        Set<String> fieldsToSelect = EntityFinderUtil.makeFieldsToSelect(selectFieldExpanderList, context);
 
         //if fieldsToSelect != null and useCacheBool is true, throw an error
         if (fieldsToSelect != null && useCache) {
@@ -164,21 +161,21 @@ public abstract class ListFinder extends Finder {
         }
 
         // get the list of orderByFields from orderByExpanderList
-        List orderByFields = EntityFinderUtil.makeOrderByFieldList(this.orderByExpanderList, context);
+        List<String> orderByFields = EntityFinderUtil.makeOrderByFieldList(this.orderByExpanderList, context);
         
         try {
             // if filterByDate, do a date filter on the results based on the now-timestamp
             if (filterByDate) {
                 EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
                 if (whereEntityCondition != null) {
-                    whereEntityCondition = new EntityConditionList(UtilMisc.toList(whereEntityCondition, filterByDateCondition), EntityJoinOperator.AND);
+                    whereEntityCondition = new EntityConditionList<EntityCondition>(UtilMisc.toList(whereEntityCondition, filterByDateCondition), EntityJoinOperator.AND);
                 } else {
                     whereEntityCondition = filterByDateCondition;
                 }
             }
             
             if (useCache) {
-                List results = delegator.findByConditionCache(entityName, whereEntityCondition, fieldsToSelect, orderByFields);
+                List<GenericValue> results = delegator.findByConditionCache(entityName, whereEntityCondition, fieldsToSelect, orderByFields);
                 this.outputHandler.handleOutput(results, context, listAcsr);
             } else {
                 boolean useTransaction = true;
@@ -222,11 +219,11 @@ public abstract class ListFinder extends Finder {
         }
     }
 
-    protected EntityCondition getWhereEntityCondition(Map context, ModelEntity modelEntity, GenericDelegator delegator) {
+    protected EntityCondition getWhereEntityCondition(Map<String, Object> context, ModelEntity modelEntity, GenericDelegator delegator) {
         return null;
     }
 
-    protected EntityCondition getHavingEntityCondition(Map context, ModelEntity modelEntity, GenericDelegator delegator) {
+    protected EntityCondition getHavingEntityCondition(Map<String, Object> context, ModelEntity modelEntity, GenericDelegator delegator) {
         return null;
     }
 }
