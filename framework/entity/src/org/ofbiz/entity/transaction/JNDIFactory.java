@@ -21,7 +21,6 @@ package org.ofbiz.entity.transaction;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.naming.InitialContext;
@@ -31,6 +30,8 @@ import javax.sql.XAConnection;
 import javax.sql.XADataSource;
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
@@ -54,7 +55,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
     static UserTransaction userTransaction = null;
 
     // protected static UtilCache dsCache = new UtilCache("entity.JndiDataSources", 0, 0);
-    protected static Map dsCache = new HashMap();
+    protected static Map<String, DataSource> dsCache = FastMap.newInstance();
 
     public TransactionManager getTransactionManager() {
         if (transactionManager == null) {
@@ -156,7 +157,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
     
     public static Connection getJndiConnection(String jndiName, String jndiServerName) throws SQLException, GenericEntityException {
         // if (Debug.verboseOn()) Debug.logVerbose("Trying JNDI name " + jndiName, module);
-        Object ds;
+        DataSource ds;
 
         ds = dsCache.get(jndiName);
         if (ds != null) {
@@ -165,9 +166,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
 
                 return TransactionUtil.enlistConnection(xads.getXAConnection());
             } else {
-                DataSource nds = (DataSource) ds;
-
-                return nds.getConnection();
+                return ds.getConnection();
             }
         }
 
@@ -180,9 +179,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
 
                     return TransactionUtil.enlistConnection(xads.getXAConnection());
                 } else {
-                    DataSource nds = (DataSource) ds;
-
-                    return nds.getConnection();
+                    return ds.getConnection();
                 }
             }
 
@@ -191,7 +188,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
                 InitialContext ic = JNDIContextFactory.getInitialContext(jndiServerName);
 
                 if (ic != null) {
-                    ds = ic.lookup(jndiName);
+                    ds = (DataSource) ic.lookup(jndiName);
                 } else {
                     Debug.logWarning("Initial Context returned was NULL for server name " + jndiServerName, module);
                 }
@@ -209,9 +206,8 @@ public class JNDIFactory implements TransactionFactoryInterface {
                         con = TransactionUtil.enlistConnection(xac);
                     } else {
                         if (Debug.infoOn()) Debug.logInfo("Got DataSource for name " + jndiName, module);
-                        DataSource nds = (DataSource) ds;
 
-                        con = nds.getConnection();
+                        con = ds.getConnection();
                     }
 
                     /* NOTE: This code causes problems because settting the transaction isolation level after a transaction has started is a no-no

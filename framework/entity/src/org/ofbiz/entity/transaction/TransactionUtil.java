@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +31,12 @@ import javax.sql.XAConnection;
 import javax.transaction.*;
 import javax.transaction.xa.XAException;
 import javax.transaction.xa.XAResource;
+import javax.transaction.xa.Xid;
 
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 
 /**
@@ -43,7 +46,7 @@ import org.ofbiz.base.util.UtilValidate;
 public class TransactionUtil implements Status {
     // Debug module name
     public static final String module = TransactionUtil.class.getName();
-    public static Map debugResMap = new HashMap();
+    public static Map<Xid, DebugXaResource> debugResMap = new HashMap<Xid, DebugXaResource>();
     public static boolean debugResources = true;
 
     /** Begins a transaction in the current thread IF transactions are available; only
@@ -455,10 +458,7 @@ public class TransactionUtil implements Status {
     public static void logRunningTx() {
         if (debugResources) {
             if (debugResMap != null && debugResMap.size() > 0) {
-                Iterator i = debugResMap.keySet().iterator();
-                while (i.hasNext()) {
-                    Object o = i.next();
-                    DebugXaResource dxa = (DebugXaResource) debugResMap.get(o);
+                for (DebugXaResource dxa: debugResMap.values()) {
                     dxa.log();
                 }
             }
@@ -489,7 +489,7 @@ public class TransactionUtil implements Status {
 
     // =======================================
     // =======================================
-    private static ThreadLocal suspendedTxStack = new ThreadLocal();
+    private static ThreadLocal<List<Transaction>> suspendedTxStack = new ThreadLocal<List<Transaction>>();
 
     /** BE VERY CARFUL WHERE YOU CALL THIS!! */
     public static int cleanSuspendedTransactions() throws GenericTransactionException {
@@ -505,7 +505,7 @@ public class TransactionUtil implements Status {
         return num;
     }
     public static boolean suspendedTransactionsHeld() {
-        List tl = (List) suspendedTxStack.get();
+        List<Transaction> tl = suspendedTxStack.get();
         if (tl != null && tl.size() > 0) {
             return true;
         } else {
@@ -513,9 +513,9 @@ public class TransactionUtil implements Status {
         }
     }
     protected static void pushSuspendedTransaction(Transaction t) {
-        List tl = (List) suspendedTxStack.get();
+        List<Transaction> tl = suspendedTxStack.get();
         if (tl == null) {
-            tl = new LinkedList();
+            tl = new LinkedList<Transaction>();
             suspendedTxStack.set(tl);
         }
         tl.add(0, t);
@@ -523,17 +523,17 @@ public class TransactionUtil implements Status {
         pushTransactionStartStamp(t);
     }
     protected static Transaction popSuspendedTransaction() {
-        List tl = (List) suspendedTxStack.get();
+        List<Transaction> tl = suspendedTxStack.get();
         if (tl != null && tl.size() > 0) {
             // restore the transaction start stamp
             popTransactionStartStamp();
-            return (Transaction) tl.remove(0);
+            return tl.remove(0);
         } else {
             return null;
         }
     }
     protected static void removeSuspendedTransaction(Transaction t) {
-        List tl = (List) suspendedTxStack.get();
+        List<Transaction> tl = suspendedTxStack.get();
         if (tl != null && tl.size() > 0) {
             tl.remove(t);
             popTransactionStartStamp(t);
@@ -542,21 +542,21 @@ public class TransactionUtil implements Status {
 
     // =======================================
     // =======================================
-    private static ThreadLocal transactionBeginStack = new ThreadLocal();
-    private static ThreadLocal transactionBeginStackSave = new ThreadLocal();
+    private static ThreadLocal<Exception> transactionBeginStack = new ThreadLocal<Exception>();
+    private static ThreadLocal<List<Exception>> transactionBeginStackSave = new ThreadLocal<List<Exception>>();
 
     private static void pushTransactionBeginStackSave(Exception e) {
-        List el = (List) transactionBeginStackSave.get();
+        List<Exception> el = transactionBeginStackSave.get();
         if (el == null) {
-            el = new LinkedList();
+            el = new LinkedList<Exception>();
             transactionBeginStackSave.set(el);
         }
         el.add(0, e);
     }
     private static Exception popTransactionBeginStackSave() {
-        List el = (List) transactionBeginStackSave.get();
+        List<Exception> el = transactionBeginStackSave.get();
         if (el != null && el.size() > 0) {
-            return (Exception) el.remove(0);
+            return el.remove(0);
         } else {
             return null;
         }
@@ -568,7 +568,7 @@ public class TransactionUtil implements Status {
     }
     private static void setTransactionBeginStack(Exception newExc) {
         if (transactionBeginStack.get() != null) {
-            Exception e = (Exception) transactionBeginStack.get();
+            Exception e = transactionBeginStack.get();
             Debug.logWarning(e, "WARNING: In setTransactionBeginStack a stack placeholder was already in place, here is where the transaction began: ", module);
             Exception e2 = new Exception("Current Stack Trace");
             Debug.logWarning(e2, "WARNING: In setTransactionBeginStack a stack placeholder was already in place, here is the current location: ", module);
@@ -576,7 +576,7 @@ public class TransactionUtil implements Status {
         transactionBeginStack.set(newExc);
     }
     private static Exception clearTransactionBeginStack() {
-        Exception e = (Exception) transactionBeginStack.get();
+        Exception e = transactionBeginStack.get();
         if (e == null) {
             Exception e2 = new Exception("Current Stack Trace");
             Debug.logWarning(e2, "WARNING: In clearTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
@@ -587,7 +587,7 @@ public class TransactionUtil implements Status {
         }
     }
     public static Exception getTransactionBeginStack() {
-        Exception e = (Exception) transactionBeginStack.get();
+        Exception e = transactionBeginStack.get();
         if (e == null) {
             Exception e2 = new Exception("Current Stack Trace");
             Debug.logWarning(e2, "WARNING: In getTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
@@ -610,21 +610,21 @@ public class TransactionUtil implements Status {
         public boolean isEmpty() { return (UtilValidate.isEmpty(this.getCauseMessage()) && this.getCauseThrowable() == null); }
     }
     
-    private static ThreadLocal setRollbackOnlyCause = new ThreadLocal();
-    private static ThreadLocal setRollbackOnlyCauseSave = new ThreadLocal();
+    private static ThreadLocal<RollbackOnlyCause> setRollbackOnlyCause = new ThreadLocal<RollbackOnlyCause>();
+    private static ThreadLocal<List<RollbackOnlyCause>> setRollbackOnlyCauseSave = new ThreadLocal<List<RollbackOnlyCause>>();
 
     private static void pushSetRollbackOnlyCauseSave(RollbackOnlyCause e) {
-        List el = (List) setRollbackOnlyCauseSave.get();
+        List<RollbackOnlyCause> el = setRollbackOnlyCauseSave.get();
         if (el == null) {
-            el = new LinkedList();
+            el = new LinkedList<RollbackOnlyCause>();
             setRollbackOnlyCauseSave.set(el);
         }
         el.add(0, e);
     }
     private static RollbackOnlyCause popSetRollbackOnlyCauseSave() {
-        List el = (List) setRollbackOnlyCauseSave.get();
+        List<RollbackOnlyCause> el = setRollbackOnlyCauseSave.get();
         if (el != null && el.size() > 0) {
-            return (RollbackOnlyCause) el.remove(0);
+            return el.remove(0);
         } else {
             return null;
         }
@@ -636,7 +636,7 @@ public class TransactionUtil implements Status {
     }
     private static void setSetRollbackOnlyCause(RollbackOnlyCause newRoc) {
         if (setRollbackOnlyCause.get() != null) {
-            RollbackOnlyCause roc = (RollbackOnlyCause) setRollbackOnlyCause.get();
+            RollbackOnlyCause roc = setRollbackOnlyCause.get();
             roc.logError("WARNING: In setSetRollbackOnlyCause a stack placeholder was already in place, here is the original rollbackOnly cause: ");
             Exception e2 = new Exception("Current Stack Trace");
             Debug.logWarning(e2, "WARNING: In setSetRollbackOnlyCause a stack placeholder was already in place, here is the current location: ", module);
@@ -644,7 +644,7 @@ public class TransactionUtil implements Status {
         setRollbackOnlyCause.set(newRoc);
     }
     private static RollbackOnlyCause clearSetRollbackOnlyCause() {
-        RollbackOnlyCause roc = (RollbackOnlyCause) setRollbackOnlyCause.get();
+        RollbackOnlyCause roc = setRollbackOnlyCause.get();
         if (roc == null) {
             /* this is an obnoxious message, leaving out for now; could be added manually if a problem with this is suspected
             if (Debug.verboseOn()) {
@@ -663,7 +663,7 @@ public class TransactionUtil implements Status {
             Exception e = new Exception("Current Stack Trace");
             Debug.logWarning(e, "WARNING: In getSetRollbackOnlyCause no stack placeholder was in place, here is the current location: ", module);
         }
-        return (RollbackOnlyCause) setRollbackOnlyCause.get();
+        return setRollbackOnlyCause.get();
     }
 
     // =======================================
@@ -672,9 +672,9 @@ public class TransactionUtil implements Status {
     /**
      * Maintain the suspended transactions together with their timestamps
      */
-    private static ThreadLocal suspendedTxStartStamps = new ThreadLocal() {
-        public Object initialValue() {
-            return new ListOrderedMap();
+    private static ThreadLocal<Map<Transaction, Timestamp>> suspendedTxStartStamps = new ThreadLocal<Map<Transaction, Timestamp>>() {
+        public Map<Transaction, Timestamp> initialValue() {
+            return UtilGenerics.checkMap(new ListOrderedMap());
         }
     };
     
@@ -683,8 +683,8 @@ public class TransactionUtil implements Status {
     * @param t transaction just suspended
     */
     private static void pushTransactionStartStamp(Transaction t) {
-        Map map = (Map) suspendedTxStartStamps.get();
-        Timestamp stamp = (Timestamp) transactionStartStamp.get();
+        Map<Transaction, Timestamp> map = suspendedTxStartStamps.get();
+        Timestamp stamp = transactionStartStamp.get();
         if (stamp != null) {
             map.put(t, stamp);
         } else {
@@ -697,7 +697,7 @@ public class TransactionUtil implements Status {
     * Method called when the suspended stack gets cleaned by {@link #cleanSuspendedTransactions()}.
     */
     private static void clearTransactionStartStampStack() {
-        ((Map) suspendedTxStartStamps.get()).clear();
+        suspendedTxStartStamps.get().clear();
     }
 
     /**
@@ -706,9 +706,9 @@ public class TransactionUtil implements Status {
     * @param t transaction just resumed
     */
     private static void popTransactionStartStamp(Transaction t) {
-        Map map = (Map) suspendedTxStartStamps.get();
+        Map<Transaction, Timestamp> map = suspendedTxStartStamps.get();
         if (map.size() > 0) {
-            Timestamp stamp = (Timestamp) map.remove(t);
+            Timestamp stamp = map.remove(t);
             if (stamp != null) {
                 transactionStartStamp.set(stamp);
             } else {
@@ -724,18 +724,18 @@ public class TransactionUtil implements Status {
     private static void popTransactionStartStamp() {
         ListOrderedMap map = (ListOrderedMap) suspendedTxStartStamps.get();
         if (map.size() > 0) {
-            transactionStartStamp.set(map.remove(map.lastKey()));
+            transactionStartStamp.set((Timestamp) map.remove(map.lastKey()));
         } else {
             Debug.logError("Error in transaction handling - no saved start stamp found - using NOW.", module);
             transactionStartStamp.set(UtilDateTime.nowTimestamp());
         }
     }
 
-    private static ThreadLocal transactionStartStamp = new ThreadLocal();
-    private static ThreadLocal transactionLastNowStamp = new ThreadLocal();
+    private static ThreadLocal<Timestamp> transactionStartStamp = new ThreadLocal<Timestamp>();
+    private static ThreadLocal<Timestamp> transactionLastNowStamp = new ThreadLocal<Timestamp>();
 
     public static Timestamp getTransactionStartStamp() {
-        Timestamp curStamp = (Timestamp) transactionStartStamp.get();
+        Timestamp curStamp = transactionStartStamp.get();
         if (curStamp == null) {
             curStamp = UtilDateTime.nowTimestamp();
             transactionStartStamp.set(curStamp);
@@ -751,7 +751,7 @@ public class TransactionUtil implements Status {
     }
 
     public static Timestamp getTransactionUniqueNowStamp() {
-        Timestamp lastNowStamp = (Timestamp) transactionLastNowStamp.get();
+        Timestamp lastNowStamp = transactionLastNowStamp.get();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         // check for an overlap with the lastNowStamp, or if the lastNowStamp is in the future because of incrementing to make each stamp unique
