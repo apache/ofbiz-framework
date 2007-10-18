@@ -391,7 +391,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
                 // if this is a Boolean check to see if we should convert from an indicator or just leave as is
                 try {
                     int fieldType = SqlJdbcUtil.getType(type.getJavaType());
-                    if (fieldType != 9) {
+                    if (fieldType != 10) {
                         value = ((Boolean) value).booleanValue() ? "Y" : "N";
                     }
                 } catch (GenericNotImplementedException e) {
@@ -490,12 +490,12 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
                 set(name, isNullString ? null : Double.valueOf(value));
                 break;
 
-            case 9:
-                set(name, isNullString ? null : Boolean.valueOf(value));
+            case 9: // BigDecimal
+                set(name, isNullString ? null : new BigDecimal(value));
                 break;
 
-            case 10: // BigDecimal
-                set(name, isNullString ? null : new BigDecimal(value));
+            case 10:
+                set(name, isNullString ? null : Boolean.valueOf(value));
                 break;
 
             case 11: // Object

@@ -258,7 +258,7 @@ public class MemoryHelper implements GenericHelper {
                         }
                         break;
 
-                    case 9:
+                    case 10:
                         if (!(o instanceof Boolean)) {
                             return false;
                         }
