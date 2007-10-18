@@ -28,6 +28,7 @@ under the License.
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
 
     <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
+    <handler name="screentext" type="view" class="org.ofbiz.widget.screen.ScreenTextViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -1092,6 +1093,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="InventoryItemGrandTotals"/>
     </request-map>
+    <request-map uri="InventoryItemTotalsExport.csv">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="InventoryItemTotalsExport"/>
+    </request-map>
 
     <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeaderAndShipInfo"/></request-map>
@@ -1175,6 +1180,7 @@ under the License.
     <view-map name="InventoryReports" type="screen" page="component://product/widget/facility/ReportScreens.xml#InventoryReports"/>
     <view-map name="InventoryItemTotals" type="screen" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemTotals"/>
     <view-map name="InventoryItemGrandTotals" type="screen" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemGrandTotals"/>
+    <view-map name="InventoryItemTotalsExport" type="screentext" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemTotalsExport" content-type="text/csv" encoding="none"/>
 
     <view-map name="LookupOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeaderAndShipInfo"/>
     <view-map name="LookupPurchaseOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupPurchaseOrderHeaderAndShipInfo"/>
