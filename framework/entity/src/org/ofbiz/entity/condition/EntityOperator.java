@@ -225,7 +225,12 @@ public abstract class EntityOperator extends EntityConditionBase {
     public abstract EntityCondition freeze(Object lhs, Object rhs);
     public abstract void visit(EntityConditionVisitor visitor, Object lhs, Object rhs);
 
-    public static final Object WILDCARD = new Object() {
+    public static final Comparable WILDCARD = new Comparable() {
+        public int compareTo(Object obj) {
+            if (obj != WILDCARD) throw new ClassCastException();
+            return 0;
+        }
+
         public String toString() {
             return "(WILDCARD)";
         }

@@ -1379,11 +1379,15 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         }
     }
     
-    public static class NullField implements NULL {
+    public static class NullField implements NULL, Comparable {
         protected NullField() { }
     
         public String toString() {
             return "[null-field]";
+        }
+
+        public int compareTo(Object other) {
+            return this != other ? -1 : 0;
         }
     }
 }
