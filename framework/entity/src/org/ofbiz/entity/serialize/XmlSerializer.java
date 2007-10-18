@@ -64,7 +64,7 @@ import org.xml.sax.SAXException;
 public class XmlSerializer {
     public static final String module = XmlSerializer.class.getName();
 
-    private static WeakReference simpleDateFormatter;
+    private static WeakReference<DateFormat> simpleDateFormatter;
 
     public static String serialize(Object object) throws SerializeException, FileNotFoundException, IOException {
         Document document = UtilXml.makeEmptyXmlDocument("ofbiz-ser");
@@ -299,22 +299,22 @@ public class XmlSerializer {
             }
         } else if (tagName.startsWith("col-")) {
             // - Collections -
-            Collection value = null;
+            Collection<Object> value = null;
 
             if ("col-ArrayList".equals(tagName)) {
-                value = new ArrayList();
+                value = new ArrayList<Object>();
             } else if ("col-LinkedList".equals(tagName)) {
-                value = new LinkedList();
+                value = new LinkedList<Object>();
             } else if ("col-Stack".equals(tagName)) {
-                value = new Stack();
+                value = new Stack<Object>();
             } else if ("col-Vector".equals(tagName)) {
-                value = new Vector();
+                value = new Vector<Object>();
             } else if ("col-TreeSet".equals(tagName)) {
-                value = new TreeSet();
+                value = new TreeSet<Object>();
             } else if ("col-HashSet".equals(tagName)) {
-                value = new HashSet();
+                value = new HashSet<Object>();
             } else if ("col-Collection".equals(tagName)) {
-                value = new LinkedList();
+                value = new LinkedList<Object>();
             }
 
             if (value == null) {
@@ -332,20 +332,20 @@ public class XmlSerializer {
             }
         } else if (tagName.startsWith("map-")) {
             // - Maps -
-            Map value = null;
+            Map<Object, Object> value = null;
 
             if ("map-HashMap".equals(tagName)) {
-                value = new HashMap();
+                value = new HashMap<Object, Object>();
             } else if ("map-Properties".equals(tagName)) {
                 value = new Properties();
             } else if ("map-Hashtable".equals(tagName)) {
-                value = new Hashtable();
+                value = new Hashtable<Object, Object>();
             } else if ("map-WeakHashMap".equals(tagName)) {
-                value = new WeakHashMap();
+                value = new WeakHashMap<Object, Object>();
             } else if ("map-TreeMap".equals(tagName)) {
-                value = new TreeMap();
+                value = new TreeMap<Object, Object>();
             } else if ("map-Map".equals(tagName)) {
-                value = new HashMap();
+                value = new HashMap<Object, Object>();
             }
 
             if (value == null) {
@@ -431,11 +431,11 @@ public class XmlSerializer {
         DateFormat formatter = null;
 
         if (simpleDateFormatter != null) {
-            formatter = (DateFormat) simpleDateFormatter.get();
+            formatter = simpleDateFormatter.get();
         }
         if (formatter == null) {
             formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-            simpleDateFormatter = new WeakReference(formatter);
+            simpleDateFormatter = new WeakReference<DateFormat>(formatter);
         }
         return formatter;
     }
