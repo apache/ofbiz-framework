@@ -73,8 +73,6 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
             Debug.logError("ERROR: Null Service Context.", module);
         }
 
-        Class[] paramTypes = new Class[] {DispatchContext.class, Map.class};
-        Object[] params = new Object[] {dctx, context};
         Object result = null;
 
         // check the package and method names
@@ -93,8 +91,8 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
 
         try {
             Class c = cl.loadClass(this.getLocation(modelService));
-            Method m = c.getMethod(modelService.invoke, paramTypes);
-            result = m.invoke(null, params);
+            Method m = c.getMethod(modelService.invoke, DispatchContext.class, Map.class);
+            result = m.invoke(null, dctx, context);
         } catch (ClassNotFoundException cnfe) {
             throw new GenericServiceException("Cannot find service location", cnfe);
         } catch (NoSuchMethodException nsme) {

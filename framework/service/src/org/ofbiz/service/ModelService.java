@@ -621,18 +621,16 @@ public class ModelService extends AbstractMap implements Serializable {
         }
 
         boolean foundObjectParam = true;
-        Class[] stringParam = new Class[] { String.class };
-        Class[] objectParam = new Class[] { Object.class };
 
         Method validatorMethod = null;
         try {
             // try object type first
-            validatorMethod = validatorClass.getMethod(vali.getMethodName(), objectParam);
+            validatorMethod = validatorClass.getMethod(vali.getMethodName(), Object.class);
         } catch (NoSuchMethodException e) {
             foundObjectParam = false;
             // next try string type
             try {
-                validatorMethod = validatorClass.getMethod(vali.getMethodName(), stringParam);
+                validatorMethod = validatorClass.getMethod(vali.getMethodName(), String.class);
             } catch (NoSuchMethodException e2) {
                 Debug.logWarning(e2, module);
             }
@@ -642,7 +640,7 @@ public class ModelService extends AbstractMap implements Serializable {
             throw new GeneralException("Unable to find validation method [" + vali.getMethodName() + "] in class [" + vali.getClassName() + "]");
         }
 
-        Object[] params;
+        Object param;
         if (!foundObjectParam) {
             // convert to string
             String converted;
@@ -651,16 +649,16 @@ public class ModelService extends AbstractMap implements Serializable {
             } catch (GeneralException e) {
                 throw new GeneralException("Unable to convert parameter to String");
             }
-            params = new Object[] { converted };
+            param = converted;
         } else {
             // use plain object
-            params = new Object[] { testValue };
+            param = testValue;
         }
 
         // run the validator
         Boolean resultBool;
         try {
-            resultBool = (Boolean) validatorMethod.invoke(null, params);
+            resultBool = (Boolean) validatorMethod.invoke(null, param);
         } catch (ClassCastException e) {
             throw new GeneralException("Validation method [" + vali.getMethodName() + "] in class [" + vali.getClassName() + "] did not return expected Boolean");
         } catch (Exception e) {
