@@ -18,10 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.entity.cache;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -101,7 +102,7 @@ public abstract class AbstractEntityConditionCache extends AbstractCache {
         Object conditionKey = getConditionKey(condition);
         Map conditionCache = (Map) utilCache.get(conditionKey);
         if (conditionCache == null) {
-            conditionCache = new HashMap();
+            conditionCache = FastMap.newInstance();
             utilCache.put(conditionKey, conditionCache);
         }
         return conditionCache;
