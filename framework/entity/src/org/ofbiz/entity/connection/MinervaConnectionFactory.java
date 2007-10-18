@@ -20,10 +20,11 @@ package org.ofbiz.entity.connection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
@@ -38,7 +39,7 @@ import org.w3c.dom.Element;
 public class MinervaConnectionFactory implements ConnectionFactoryInterface {
         
     public static final String module = MinervaConnectionFactory.class.getName();
-    protected static Map dsCache = new HashMap();
+    protected static Map dsCache = FastMap.newInstance();
 
     public Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
         XAPoolDataSource pds = (XAPoolDataSource) dsCache.get(helperName);        
