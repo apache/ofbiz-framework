@@ -74,18 +74,18 @@ public class EntityTestSuite extends TestCase {
     public void testMakeValue() throws Exception {
         try {
             // This method call directly stores a new value into the entity engine
-            delegator.create("TestingType", UtilMisc.toMap("testingTypeId", "TEST-1", "description", "Testing Type #1"));
+            delegator.create("TestingType", "testingTypeId", "TEST-1", "description", "Testing Type #1");
 
             // This sequence creates the GenericValue entities first, puts them in a List, then calls the delegator to store them all
-            List newValues = new LinkedList();
+            List<GenericValue> newValues = new LinkedList<GenericValue>();
 
-            newValues.add(delegator.makeValue("TestingType", UtilMisc.toMap("testingTypeId", "TEST-2", "description", "Testing Type #2")));
-            newValues.add(delegator.makeValue("TestingType", UtilMisc.toMap("testingTypeId", "TEST-3", "description", "Testing Type #3")));
-            newValues.add(delegator.makeValue("TestingType", UtilMisc.toMap("testingTypeId", "TEST-4", "description", "Testing Type #4")));
+            newValues.add(delegator.makeValue("TestingType", "testingTypeId", "TEST-2", "description", "Testing Type #2"));
+            newValues.add(delegator.makeValue("TestingType", "testingTypeId", "TEST-3", "description", "Testing Type #3"));
+            newValues.add(delegator.makeValue("TestingType", "testingTypeId", "TEST-4", "description", "Testing Type #4"));
             delegator.storeAll(newValues);
 
             // finds a List of newly created values.  the second parameter specifies the fields to order results by.
-            List newlyCreatedValues = delegator.findAll("TestingType", UtilMisc.toList("testingTypeId"));
+            List<GenericValue> newlyCreatedValues = delegator.findAll("TestingType", UtilMisc.toList("testingTypeId"));
             TestCase.assertEquals("4 TestingTypes found", 4, newlyCreatedValues.size());
         } catch (GenericEntityException ex) {
             TestCase.fail(ex.getMessage());
@@ -99,7 +99,7 @@ public class EntityTestSuite extends TestCase {
         try {
 
             // retrieve a sample GenericValue, make sure it's correct
-            GenericValue testValue = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "TEST-1"));
+            GenericValue testValue = delegator.findByPrimaryKey("TestingType", "testingTypeId", "TEST-1");
             TestCase.assertEquals("Retrieved value has the correct description", testValue.getString("description"), "Testing Type #1");
 
             // now update and store it
@@ -107,7 +107,7 @@ public class EntityTestSuite extends TestCase {
             testValue.store();
 
             // now retrieve it again and make sure that the updated value is correct
-            testValue = delegator.findByPrimaryKey("TestingType", UtilMisc.toMap("testingTypeId", "TEST-1"));
+            testValue = delegator.findByPrimaryKey("TestingType", "testingTypeId", "TEST-1");
             TestCase.assertEquals("Retrieved value has the correct description", testValue.getString("description"), "New Testing Type #1");
 
         } catch (GenericEntityException ex) {
@@ -130,19 +130,18 @@ public class EntityTestSuite extends TestCase {
 
         // create the root
         GenericValue root = delegator.create("TestingNode",
-                UtilMisc.toMap(
                         "testingNodeId", delegator.getNextSeqId("testingNodeId"),
                         "primaryParentNodeId", GenericEntity.NULL_FIELD,
-                        "description", "root")
+                        "description", "root"
                 );
         int level1;
         for(level1 = 0; level1 < _level1max; level1++) {
             String nextSeqId = delegator.getNextSeqId("testingNodeId");
             GenericValue v =
                 delegator.create("TestingNode",
-                    UtilMisc.toMap("testingNodeId", nextSeqId,
-                                    "primaryParentNodeId", (String)root.get("testingNodeId"),
-                                    "description", "node-level #1")
+                    "testingNodeId", nextSeqId,
+                                    "primaryParentNodeId", root.get("testingNodeId"),
+                                    "description", "node-level #1"
                                 );
         }
 
@@ -162,19 +161,15 @@ public class EntityTestSuite extends TestCase {
     public void testAddMembersToTree() throws Exception {
         // get the level1 nodes
         EntityCondition isLevel1 = new EntityExpr("primaryParentNodeId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD);
-        List nodeLevel1 = delegator.findByCondition("TestingNode", isLevel1, null, null);
+        List<GenericValue> nodeLevel1 = delegator.findByCondition("TestingNode", isLevel1, null, null);
 
-        List newValues = new LinkedList();
+        List<GenericValue> newValues = new LinkedList<GenericValue>();
         Timestamp now = UtilDateTime.nowTimestamp();
 
-        Iterator nodeIterator = nodeLevel1.iterator();
-        while(nodeIterator.hasNext()) {
-            GenericValue node = (GenericValue)nodeIterator.next();
+        for (GenericValue node: nodeLevel1) {
             GenericValue testing = delegator.makeValue("Testing",
-                    UtilMisc.toMap(
                             "testingId", delegator.getNextSeqId("testing"),
                             "testingTypeId", "TEST-1"
-                            )
                     );
             testing.put("testingName", "leaf-#" + node.getString("testingNodeId"));
             testing.put("description", "level1 leaf");
@@ -184,10 +179,8 @@ public class EntityTestSuite extends TestCase {
 
             newValues.add(testing);
             GenericValue member = delegator.makeValue("TestingNodeMember",
-                    UtilMisc.toMap(
                             "testingNodeId", node.get("testingNodeId"),
                             "testingId", testing.get("testingId")
-                            )
                     );
 
             member.put("fromDate", now);
@@ -204,20 +197,16 @@ public class EntityTestSuite extends TestCase {
      */
     public void testCountViews() throws Exception {
         EntityCondition isNodeWithMember = new EntityExpr("testingId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD);
-        List nodeWithMembers = delegator.findByCondition("TestingNodeAndMember", isNodeWithMember, null, null);
+        List<GenericValue> nodeWithMembers = delegator.findByCondition("TestingNodeAndMember", isNodeWithMember, null, null);
 
-        Iterator it;
-        it = nodeWithMembers.iterator();
-
-        while(it.hasNext()) {
-            GenericValue v = (GenericValue)it.next();
-            Map fields = v.getAllFields();
+        for (GenericValue v: nodeWithMembers) {
+            Map<String, Object> fields = v.getAllFields();
             Debug.logInfo("--------------------------", module);
             //      For values of a map
-            for(Iterator it1 = fields.keySet().iterator(); it1.hasNext(); ) {
-                Object field = it1.next();
-                Object value = fields.get(field);
-                Debug.logInfo(field.toString() + " = " + ((value == null) ? "[null]" : value.toString()), module);
+            for (Map.Entry<String, Object> entry: fields.entrySet()) {
+                String field = entry.getKey();
+                Object value = entry.getValue();
+                Debug.logInfo(field.toString() + " = " + ((value == null) ? "[null]" : value), module);
             }
         }
         long testingcount = delegator.findCountByCondition("Testing", null, null);
@@ -228,16 +217,16 @@ public class EntityTestSuite extends TestCase {
      * Tests findByCondition and a find by distinct
      */
     public void testFindDistinct() throws Exception {
-        List exprList = UtilMisc.toList(
+        List<EntityExpr> exprList = UtilMisc.toList(
                 new EntityExpr("testingSize", EntityOperator.EQUALS, new Long(10)),
                 new EntityExpr("comments", EntityOperator.EQUALS, "No-comments")
                 );
-        EntityConditionList condition = new EntityConditionList(exprList, EntityOperator.AND);
+        EntityConditionList<EntityExpr> condition = new EntityConditionList<EntityExpr>(exprList, EntityOperator.AND);
 
         EntityFindOptions findOptions = new EntityFindOptions();
         findOptions.setDistinct(true);
 
-        List testingSize10 = delegator.findByCondition("Testing", condition, null, UtilMisc.toList("testingSize", "comments"), null, findOptions);
+        List<GenericValue> testingSize10 = delegator.findByCondition("Testing", condition, null, UtilMisc.toList("testingSize", "comments"), null, findOptions);
         Debug.logInfo("testingSize10 is " + testingSize10.size(), module);
 
         TestCase.assertEquals("There should only be 1 result found by findDistinct()", testingSize10.size(), 1);
@@ -248,12 +237,10 @@ public class EntityTestSuite extends TestCase {
      */
     public void testNotLike() throws Exception {
         EntityCondition cond  = new EntityExpr("description", EntityOperator.NOT_LIKE, "root%");
-        List nodes = delegator.findByCondition("TestingNode", cond, null, null);
+        List<GenericValue> nodes = delegator.findByCondition("TestingNode", cond, null, null);
         TestCase.assertTrue("Found nodes", nodes != null);
 
-        Iterator i = nodes.iterator();
-        while (i.hasNext()) {
-            GenericValue product = (GenericValue) i.next();
+        for (GenericValue product: nodes) {
             String nodeId = product.getString("description");
             Debug.logInfo("Testing name - " + nodeId, module);
             TestCase.assertTrue("No nodes starting w/ root", !nodeId.startsWith("root"));
@@ -265,7 +252,7 @@ public class EntityTestSuite extends TestCase {
      */
     public void testForeignKeyCreate() throws Exception {
         try {
-            delegator.create("Testing", UtilMisc.toMap("testingId", delegator.getNextSeqId("Testing"), "testingTypeId", "NO-SUCH-KEY"));
+            delegator.create("Testing", "testingId", delegator.getNextSeqId("Testing"), "testingTypeId", "NO-SUCH-KEY");
         } catch(GenericEntityException e) {
             Debug.logInfo(e.toString(), module);
             return;
@@ -294,13 +281,12 @@ public class EntityTestSuite extends TestCase {
             //
             // Find the testing entities tru the node member and build a list of them
             //
-            List values = delegator.findAll("TestingNodeMember");
+            List<GenericValue> values = delegator.findAll("TestingNodeMember");
             Iterator i = values.iterator();
 
-            ArrayList testings = new ArrayList();
+            ArrayList<GenericValue> testings = new ArrayList<GenericValue>();
 
-            while(i.hasNext()) {
-                GenericValue nodeMember = (GenericValue)i.next();
+            for (GenericValue nodeMember: values) {
                 testings.add(nodeMember.getRelatedOne("Testing"));
             }
             // and remove the nodeMember afterwards
@@ -319,11 +305,11 @@ public class EntityTestSuite extends TestCase {
     public void testStoreByCondition() throws Exception {
         // change the description of all the level1 nodes
         EntityCondition isLevel1 = new EntityExpr("description", EntityOperator.EQUALS, "node-level #1");
-        Map fieldsToSet = UtilMisc.toMap("description", "node-level #1 (updated)");
+        Map<String, String> fieldsToSet = UtilMisc.toMap("description", "node-level #1 (updated)");
         int n = 0;
         try {
             delegator.storeByCondition("TestingNode", fieldsToSet, isLevel1);
-            List updatedNodes = delegator.findByAnd("TestingNode", fieldsToSet);
+            List<GenericValue> updatedNodes = delegator.findByAnd("TestingNode", fieldsToSet);
             n = updatedNodes.size();
         } catch (GenericEntityException e) {
             TestCase.fail("testStoreByCondition threw an exception");
@@ -360,18 +346,17 @@ public class EntityTestSuite extends TestCase {
         // delete them their primary key
         //
         EntityCondition isRoot = new EntityExpr("primaryParentNodeId", EntityOperator.EQUALS, GenericEntity.NULL_FIELD);
-        List rootValues = delegator.findByCondition("TestingNode", isRoot, UtilMisc.toList("testingNodeId"), null);
+        List<GenericValue> rootValues = delegator.findByCondition("TestingNode", isRoot, UtilMisc.toList("testingNodeId"), null);
 
-        Iterator it = rootValues.iterator();
-        while(it.hasNext()) {
-            GenericPK pk = ((GenericValue)it.next()).getPrimaryKey();
+        for (GenericValue value: rootValues) {
+            GenericPK pk = value.getPrimaryKey();
             int del = delegator.removeByPrimaryKey(pk);
             TestCase.assertEquals("Removing Root by primary key", del, 1);
         }
 
         // no more TestingNode should be in the data base anymore.
 
-        List testingNodes = delegator.findAll("TestingNode");
+        List<GenericValue> testingNodes = delegator.findAll("TestingNode");
         TestCase.assertEquals("No more TestingNode after removing the roots", testingNodes.size(), 0);
     }
 
@@ -379,7 +364,7 @@ public class EntityTestSuite extends TestCase {
      * Tests the .removeAll method only.
      */
     public void testRemoveType() throws Exception {
-        List values = delegator.findAll("TestingType");
+        List<GenericValue> values = delegator.findAll("TestingType");
         delegator.removeAll(values);
 
         // now make sure there are no more of these
@@ -392,18 +377,18 @@ public class EntityTestSuite extends TestCase {
      */
     public void testCreateManyAndStoreAtOnce() throws Exception {
         try {
-            List newValues = new LinkedList();
+            List<GenericValue> newValues = new LinkedList<GenericValue>();
             for (int i = 0; i < TEST_COUNT; i++) {
-                newValues.add(delegator.makeValue("Testing", UtilMisc.toMap("testingId", getTestId("T1-", i))));
+                newValues.add(delegator.makeValue("Testing", "testingId", getTestId("T1-", i)));
             }
             delegator.storeAll(newValues);
-            List newlyCreatedValues = delegator.findAll("Testing", UtilMisc.toList("testingId"));
+            List<GenericValue> newlyCreatedValues = delegator.findAll("Testing", UtilMisc.toList("testingId"));
             TestCase.assertEquals("Test to create " + TEST_COUNT + " and store all at once", TEST_COUNT, newlyCreatedValues.size());
         } catch (GenericEntityException e) {
             assertTrue("GenericEntityException:" + e.toString(), false);
             return;
         } finally {
-            List newlyCreatedValues = delegator.findAll("Testing", UtilMisc.toList("testingId"));
+            List<GenericValue> newlyCreatedValues = delegator.findAll("Testing", UtilMisc.toList("testingId"));
             delegator.removeAll(newlyCreatedValues); 
         }
     }
@@ -414,9 +399,9 @@ public class EntityTestSuite extends TestCase {
     public void testCreateManyAndStoreOneAtATime() throws Exception {
         try {
             for (int i = 0; i < TEST_COUNT; i++){
-                delegator.create(delegator.makeValue("Testing", UtilMisc.toMap("testingId", getTestId("T2-", i))));
+                delegator.create(delegator.makeValue("Testing", "testingId", getTestId("T2-", i)));
             }
-            List newlyCreatedValues = delegator.findAll("Testing", UtilMisc.toList("testingId"));
+            List<GenericValue> newlyCreatedValues = delegator.findAll("Testing", UtilMisc.toList("testingId"));
             TestCase.assertEquals("Test to create " + TEST_COUNT + " and store one at a time: ", TEST_COUNT, newlyCreatedValues.size());
         } catch (GenericEntityException e){
             assertTrue("GenericEntityException:" + e.toString(), false);
@@ -433,10 +418,10 @@ public class EntityTestSuite extends TestCase {
             assertTrue("Test if EntityListIterator was created: ", iterator != null);
 
             int i = 0;
-            GenericValue item = (GenericValue) iterator.next();
+            GenericValue item = iterator.next();
             while (item != null) {
                 assertTrue("Testing if iterated data matches test data (row " + i + "): ", item.getString("testingId").equals(getTestId("T2-", i)));
-                item = (GenericValue) iterator.next();
+                item = iterator.next();
                 i++;
             }
             assertTrue("Test if EntitlyListIterator iterates exactly " + TEST_COUNT + " times: " , i == TEST_COUNT);
@@ -445,7 +430,7 @@ public class EntityTestSuite extends TestCase {
             assertTrue("GenericEntityException:" + e.toString(), false);
             return;
         } finally {
-            List entitiesToRemove = delegator.findByCondition("Testing", new EntityExpr("testingId", EntityOperator.LIKE, "T2-%"), null, null);
+            List<GenericValue> entitiesToRemove = delegator.findByCondition("Testing", new EntityExpr("testingId", EntityOperator.LIKE, "T2-%"), null, null);
             delegator.removeAll(entitiesToRemove);
         }
     }
@@ -455,11 +440,11 @@ public class EntityTestSuite extends TestCase {
      */
     public void testTransactionUtilRollback() throws Exception {
         try {
-            GenericValue testValue = delegator.makeValue("Testing", UtilMisc.toMap("testingId", "rollback-test"));
+            GenericValue testValue = delegator.makeValue("Testing", "testingId", "rollback-test");
             boolean transBegin = TransactionUtil.begin();
             delegator.create(testValue);
             TransactionUtil.rollback(transBegin, null, null);
-            GenericValue testValueOut = delegator.findByPrimaryKey("Testing", UtilMisc.toMap("testingId", "rollback-test"));
+            GenericValue testValueOut = delegator.findByPrimaryKey("Testing", "testingId", "rollback-test");
             assertEquals("Test that transaction rollback removes value: ", testValueOut, null);
         } catch (GenericEntityException e) {
             assertTrue("GenericEntityException:" + e.toString(), false);
@@ -472,7 +457,7 @@ public class EntityTestSuite extends TestCase {
      */
     public void testTransactionUtilMoreThanTimeout() throws Exception {
         try {
-            GenericValue testValue = delegator.makeValue("Testing", UtilMisc.toMap("testingId", "timeout-test"));
+            GenericValue testValue = delegator.makeValue("Testing", "testingId", "timeout-test");
             boolean transBegin = TransactionUtil.begin(10); // timeout set to 10 seconds
             delegator.create(testValue);
             Thread.sleep(20*1000);
@@ -484,7 +469,7 @@ public class EntityTestSuite extends TestCase {
             assertTrue("Other GenericEntityException encountered:" + e.toString(), false);
             return;
         } finally {
-            delegator.removeByAnd("Testing", UtilMisc.toMap("testingId", "timeout-test"));
+            delegator.removeByAnd("Testing", "testingId", "timeout-test");
         }
     }
     
@@ -493,7 +478,7 @@ public class EntityTestSuite extends TestCase {
      */
     public void testTransactionUtilLessThanTimeout() throws Exception {
         try {
-            GenericValue testValue = delegator.makeValue("Testing", UtilMisc.toMap("testingId", "timeout-test"));
+            GenericValue testValue = delegator.makeValue("Testing", "testingId", "timeout-test");
             boolean transBegin = TransactionUtil.begin();
             TransactionUtil.setTransactionTimeout(20); // now set timeout to 20 seconds
             delegator.create(testValue);
@@ -506,7 +491,7 @@ public class EntityTestSuite extends TestCase {
             assertTrue("Other GenericEntityException encountered:" + e.toString(), false);
             return;
         } finally {
-            delegator.removeByAnd("Testing", UtilMisc.toMap("testingId", "timeout-test"));
+            delegator.removeByAnd("Testing", "testingId", "timeout-test");
         }
     }
 
@@ -515,12 +500,12 @@ public class EntityTestSuite extends TestCase {
    */
   public void testSetNullBlob() throws Exception {
       try {
-          delegator.create("TestBlob", UtilMisc.toMap("testBlobId", "null-blob"));
+          delegator.create("TestBlob", "testBlobId", "null-blob");
       } catch (GenericEntityException ex) {
           assertTrue("GenericEntityException:" + ex.toString(), false);
           return;
       } finally {
-          List allTestBlobs = delegator.findAll("TestBlob");
+          List<GenericValue> allTestBlobs = delegator.findAll("TestBlob");
           delegator.removeAll(allTestBlobs);
       }
   }
@@ -532,7 +517,7 @@ public class EntityTestSuite extends TestCase {
       try {
           byte[] b = new byte[1];
           b[0] = (byte)0x01;
-          GenericValue testingBlob = delegator.makeValue("TestBlob", UtilMisc.toMap("testBlobId", "byte-blob"));
+          GenericValue testingBlob = delegator.makeValue("TestBlob", "testBlobId", "byte-blob");
           testingBlob.setBytes("testBlobField", b);
           testingBlob.create();
           
@@ -541,7 +526,7 @@ public class EntityTestSuite extends TestCase {
         TestCase.fail(ex.getMessage());
       } finally {
           // Remove all our newly inserted values.
-        List values = delegator.findAll("TestBlob");
+        List<GenericValue> values = delegator.findAll("TestBlob");
         delegator.removeAll(values);
       }
   }

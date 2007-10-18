@@ -27,16 +27,16 @@ import javolution.util.FastMap;
 public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
     public static final String module = DBCPConnectionFactory.class.getName();
-    protected static Map dsCache = FastMap.newInstance();
+    protected static Map<String, ManagedDataSource> dsCache = FastMap.newInstance();
 
     public Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
-        ManagedDataSource mds = (ManagedDataSource) dsCache.get(helperName);
+        ManagedDataSource mds = dsCache.get(helperName);
         if (mds != null) {
             return TransactionFactory.getCursorConnection(helperName, mds.getConnection());
         }
 
         synchronized (DBCPConnectionFactory.class) {
-            mds = (ManagedDataSource) dsCache.get(helperName);
+            mds = dsCache.get(helperName);
             if (mds != null) {
                 return TransactionFactory.getCursorConnection(helperName, mds.getConnection());
             }

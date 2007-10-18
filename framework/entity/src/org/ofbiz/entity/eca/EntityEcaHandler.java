@@ -25,7 +25,7 @@ import org.ofbiz.entity.*;
  * EntityEcaHandler interface
  *
  */
-public interface EntityEcaHandler {
+public interface EntityEcaHandler<T> {
     
     public static final String EV_VALIDATE = "validate";
     public static final String EV_RUN = "run";
@@ -42,7 +42,7 @@ public interface EntityEcaHandler {
 
     public void setDelegator(GenericDelegator delegator);
 
-    public Map getEntityEventMap(String entityName);
+    public Map<String, List<T>> getEntityEventMap(String entityName);
 
-    public void evalRules(String currentOperation, Map eventMap, String event, GenericEntity value, boolean isError) throws GenericEntityException;
+    public void evalRules(String currentOperation, Map<String, List<T>> eventMap, String event, GenericEntity value, boolean isError) throws GenericEntityException;
 }
