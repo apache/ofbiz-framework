@@ -45,7 +45,7 @@ public class ModelField extends ModelChild {
     protected boolean isAutoCreatedInternal = false;
     
     /** validators to be called when an update is done */
-    protected List validators = new ArrayList();
+    protected List<String> validators = new ArrayList<String>();
 
     /** The description for documentation purposes */
     protected String description = "";
@@ -152,7 +152,7 @@ public class ModelField extends ModelChild {
     
     /** validators to be called when an update is done */
     public String getValidator(int index) {
-        return (String) this.validators.get(index);
+        return this.validators.get(index);
     }
 
     public int getValidatorsSize() {
@@ -164,7 +164,7 @@ public class ModelField extends ModelChild {
     }
 
     public String removeValidator(int index) {
-        return (String) this.validators.remove(index);
+        return this.validators.remove(index);
     }
 
     /** The description for documentation purposes */
@@ -201,10 +201,10 @@ public class ModelField extends ModelChild {
             root.setAttribute("encrypt", "true");
         }
 
-        Iterator valIter = this.validators.iterator();
+        Iterator<String> valIter = this.validators.iterator();
         if (valIter != null) {
             while (valIter.hasNext()) {
-                String validator = (String) valIter.next();
+                String validator = valIter.next();
                 Element val = document.createElement("validate");
                 val.setAttribute("name", validator);
                 root.appendChild(val);

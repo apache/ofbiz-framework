@@ -52,19 +52,19 @@ public class DynamicViewEntity {
     protected String title = "";
 
     /** Contains member-entity alias name definitions: key is alias, value is ModelMemberEntity */
-    protected Map memberModelMemberEntities = new HashMap();
+    protected Map<String, ModelMemberEntity> memberModelMemberEntities = new HashMap<String, ModelMemberEntity>();
     
     /** List of alias-alls which act as a shortcut for easily pulling over member entity fields */
-    protected List aliasAlls = new ArrayList();
+    protected List<ModelAliasAll> aliasAlls = new ArrayList<ModelAliasAll>();
 
     /** List of aliases with information in addition to what is in the standard field list */
-    protected List aliases = new ArrayList();
+    protected List<ModelAlias> aliases = new ArrayList<ModelAlias>();
 
     /** List of view links to define how entities are connected (or "joined") */
-    protected List viewLinks = new ArrayList();
+    protected List<ModelViewLink> viewLinks = new ArrayList<ModelViewLink>();
     
     /** relations defining relationships between this entity and other entities */
-    protected List relations = new ArrayList();
+    protected List<ModelRelation> relations = new ArrayList<ModelRelation>();
     
     public DynamicViewEntity() {
     }
@@ -80,7 +80,7 @@ public class DynamicViewEntity {
             return null;
         }
         
-        ModelMemberEntity modelMemberEntity = (ModelMemberEntity) ((Map.Entry) this.memberModelMemberEntities.entrySet().iterator().next()).getValue();
+        ModelMemberEntity modelMemberEntity = this.memberModelMemberEntities.entrySet().iterator().next().getValue();
         return modelMemberEntity.getEntityName();
     }
     
@@ -153,7 +153,7 @@ public class DynamicViewEntity {
         this.memberModelMemberEntities.put(entityAlias, modelMemberEntity);
     }
     
-    public Iterator getModelMemberEntitiesEntryIter() {
+    public Iterator<Map.Entry<String, ModelMemberEntity>> getModelMemberEntitiesEntryIter() {
         return this.memberModelMemberEntities.entrySet().iterator();
     }
     
@@ -162,7 +162,7 @@ public class DynamicViewEntity {
         this.aliasAlls.add(aliasAll);
     }
     
-    public void addAllAliasAllsToList(List addList) {
+    public void addAllAliasAllsToList(List<ModelAliasAll> addList) {
         addList.addAll(this.aliasAlls);
     }
     
@@ -190,25 +190,25 @@ public class DynamicViewEntity {
         this.aliases.add(alias);
     }
     
-    public void addAllAliasesToList(List addList) {
+    public void addAllAliasesToList(List<ModelAlias> addList) {
         addList.addAll(this.aliases);
     }
     
-    public void addViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, List modelKeyMaps) {
+    public void addViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, List<ModelKeyMap> modelKeyMaps) {
         ModelViewLink modelViewLink = new ModelViewLink(entityAlias, relEntityAlias, relOptional, modelKeyMaps);
         this.viewLinks.add(modelViewLink);
     }
     
-    public void addAllViewLinksToList(List addList) {
+    public void addAllViewLinksToList(List<ModelViewLink> addList) {
         addList.addAll(this.viewLinks);
     }
     
-    public void addRelation(String type, String title, String relEntityName, List modelKeyMaps) {
+    public void addRelation(String type, String title, String relEntityName, List<ModelKeyMap> modelKeyMaps) {
         ModelRelation relation = new ModelRelation(type, title, relEntityName, null, modelKeyMaps);
         this.relations.add(relation);
     }
     
-    public void addAllRelationsToList(List addList) {
+    public void addAllRelationsToList(List<ModelRelation> addList) {
         addList.addAll(this.relations);
     }
 }

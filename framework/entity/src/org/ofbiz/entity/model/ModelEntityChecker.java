@@ -39,22 +39,20 @@ public class ModelEntityChecker {
 
     public static final String module = ModelEntityChecker.class.getName();
 
-    public static void checkEntities(GenericDelegator delegator, List warningList) throws GenericEntityException {
+    public static void checkEntities(GenericDelegator delegator, List<String> warningList) throws GenericEntityException {
         ModelReader reader = delegator.getModelReader();
 
-        TreeSet reservedWords = new TreeSet();
+        TreeSet<String> reservedWords = new TreeSet<String>();
         initReservedWords(reservedWords);
 
-        Map packages = FastMap.newInstance();
-        TreeSet packageNames = new TreeSet();
-        TreeSet tableNames = new TreeSet();
+        Map<String, TreeSet<String>> packages = FastMap.newInstance();
+        TreeSet<String> packageNames = new TreeSet<String>();
+        TreeSet<String> tableNames = new TreeSet<String>();
 
         //put the entityNames TreeSets in a HashMap by packageName
-        Collection ec = reader.getEntityNames();
-        TreeSet entityNames = new TreeSet(ec);
-        Iterator ecIter = ec.iterator();
-        while (ecIter.hasNext()) {
-            String eName = (String) ecIter.next();
+        Collection<String> ec = reader.getEntityNames();
+        TreeSet<String> entityNames = new TreeSet<String>(ec);
+        for (String eName: ec) {
             ModelEntity ent = reader.getModelEntity(eName);
 
             //make sure the table name is in the list of all table names, if
@@ -62,9 +60,9 @@ public class ModelEntityChecker {
             if (UtilValidate.isNotEmpty(ent.getPlainTableName()))
                     tableNames.add(ent.getPlainTableName());
 
-            TreeSet entities = (TreeSet) packages.get(ent.getPackageName());
+            TreeSet<String> entities = packages.get(ent.getPackageName());
             if (entities == null) {
-                entities = new TreeSet();
+                entities = new TreeSet<String>();
                 packages.put(ent.getPackageName(), entities);
                 packageNames.add(ent.getPackageName());
             }
@@ -73,16 +71,12 @@ public class ModelEntityChecker {
         //int numberOfEntities = ec.size();
         int numberShowed = 0;
 
-        TreeSet fkNames = new TreeSet();
-        TreeSet indexNames = new TreeSet();
+        TreeSet<String> fkNames = new TreeSet<String>();
+        TreeSet<String> indexNames = new TreeSet<String>();
 
-        Iterator piter = packageNames.iterator();
-        while (piter.hasNext()) {
-            String pName = (String) piter.next();
-            TreeSet entities = (TreeSet) packages.get(pName);
-            Iterator i = entities.iterator();
-            while (i.hasNext()) {
-                String entityName = (String) i.next();
+        for (String pName: packageNames) {
+            TreeSet<String> entities = packages.get(pName);
+            for (String entityName: entities) {
                 String helperName = delegator.getEntityHelperName(entityName);
                 String groupName = delegator.getEntityGroupName(entityName);
                 ModelEntity entity = reader.getModelEntity(entityName);
@@ -99,10 +93,10 @@ public class ModelEntityChecker {
                 if (entity.getPlainTableName() != null && reservedWords.contains(entity.getPlainTableName().toUpperCase())) {
                         warningList.add("[TableNameRW] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName() + " is a reserved word.");
                 }
-                TreeSet ufields = new TreeSet();
-                Iterator fieldIter = entity.getFieldsIterator();
+                TreeSet<String> ufields = new TreeSet<String>();
+                Iterator<ModelField> fieldIter = entity.getFieldsIterator();
                 while (fieldIter.hasNext()) {
-                    ModelField field = (ModelField) fieldIter.next();
+                    ModelField field = fieldIter.next();
                     ModelFieldType type = delegator.getEntityFieldType(entity,field.getType());
 
                     if (ufields.contains(field.getName())) {
@@ -129,9 +123,9 @@ public class ModelEntityChecker {
                     }
                 }
                 if (entity.getRelationsSize() > 0) {
-                    Iterator indexIter = entity.getIndexesIterator();
+                    Iterator<ModelIndex> indexIter = entity.getIndexesIterator();
                     while (indexIter.hasNext()) {
-                        ModelIndex index = (ModelIndex) indexIter.next();
+                        ModelIndex index = indexIter.next();
 
                         if (indexNames.contains(index.getName())) {
                             warningList.add("[IndexDuplicateName] Index on entity "
@@ -162,7 +156,7 @@ public class ModelEntityChecker {
                         }
                     }
 
-                    TreeSet relations = new TreeSet();
+                    TreeSet<String> relations = new TreeSet<String>();
                     for (int r = 0; r < entity.getRelationsSize(); r++) {
                         ModelRelation relation = entity.getRelation(r);
 
@@ -220,9 +214,9 @@ public class ModelEntityChecker {
                                                         + " does not match the number of keymaps (" + relation.getKeyMapsSize()
                                                         + ") for relation of type one \"" + relation.getTitle() + relation.getRelEntityName()
                                                         + "\" of entity " + entity.getEntityName() + ".");
-                                Iterator pksIter = relatedEntity.getPksIterator();
+                                Iterator<ModelField> pksIter = relatedEntity.getPksIterator();
                                 while (pksIter.hasNext()) {
-                                    ModelField pk = (ModelField) pksIter.next();
+                                    ModelField pk = pksIter.next();
                                     if (relation.findKeyMapByRelated(pk.getName()) == null) {
                                         warningList.add("[RelationOneRelatedPrimaryKeyMissing] The primary key \"" + pk.getName()
                                                         + "\" of related entity " + relation.getRelEntityName()
@@ -500,7 +494,7 @@ public class ModelEntityChecker {
 
             "ZEROFILL", "ZONE" };
 
-    public static void initReservedWords(TreeSet reservedWords) {
+    public static void initReservedWords(TreeSet<String> reservedWords) {
         //create extensive list of reserved words
         int asize = rwArray.length;
         Debug.log("[initReservedWords] array length=" + asize);

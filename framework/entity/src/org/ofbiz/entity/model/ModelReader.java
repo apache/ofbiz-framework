@@ -55,9 +55,9 @@ import org.w3c.dom.Node;
 public class ModelReader implements Serializable {
 
     public static final String module = ModelReader.class.getName();
-    public static UtilCache readers = new UtilCache("entity.ModelReader", 0, 0);
+    public static UtilCache<String, ModelReader> readers = new UtilCache<String, ModelReader>("entity.ModelReader", 0, 0);
 
-    protected Map entityCache = null;
+    protected Map<String, ModelEntity> entityCache = null;
 
     protected int numEntities = 0;
     protected int numViewEntities = 0;
@@ -68,13 +68,13 @@ public class ModelReader implements Serializable {
     protected String modelName;
 
     /** collection of filenames for entity definitions */
-    protected Collection entityResourceHandlers;
+    protected Collection<ResourceHandler> entityResourceHandlers;
 
     /** contains a collection of entity names for each ResourceHandler, populated as they are loaded */
-    protected Map resourceHandlerEntities;
+    protected Map<ResourceHandler, Collection<String>> resourceHandlerEntities;
 
     /** for each entity contains a map to the ResourceHandler that the entity came from */
-    protected Map entityResourceHandlerMap;
+    protected Map<String, ResourceHandler> entityResourceHandlerMap;
 
     public static ModelReader getModelReader(String delegatorName) throws GenericEntityException {
         DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorName);
@@ -84,12 +84,12 @@ public class ModelReader implements Serializable {
         }
 
         String tempModelName = delegatorInfo.entityModelReader;
-        ModelReader reader = (ModelReader) readers.get(tempModelName);
+        ModelReader reader = readers.get(tempModelName);
 
         if (reader == null) { // don't want to block here
             synchronized (ModelReader.class) {
                 // must check if null again as one of the blocked threads can still enter
-                reader = (ModelReader) readers.get(tempModelName);
+                reader = readers.get(tempModelName);
                 if (reader == null) {
                     reader = new ModelReader(tempModelName);
                     // preload caches...
@@ -114,26 +114,72 @@ public class ModelReader implements Serializable {
         }
 
         // get all of the main resource model stuff, ie specified in the entityengine.xml file
-        List resourceElements = entityModelReaderInfo.resourceElements;
-        Iterator resIter = resourceElements.iterator();
-        while (resIter.hasNext()) {
-            Element resourceElement = (Element) resIter.next();
+        for (Element resourceElement: entityModelReaderInfo.resourceElements) {
             ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement);
             entityResourceHandlers.add(handler);
         }
         
         // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
-        List componentResourceInfos = ComponentConfig.getAllEntityResourceInfos("model");
-        Iterator componentResourceInfoIter = componentResourceInfos.iterator();
-        while (componentResourceInfoIter.hasNext()) {
-            ComponentConfig.EntityResourceInfo componentResourceInfo = (ComponentConfig.EntityResourceInfo) componentResourceInfoIter.next();
+        for (ComponentConfig.EntityResourceInfo componentResourceInfo: ComponentConfig.getAllEntityResourceInfos("model")) {
             if (modelName.equals(componentResourceInfo.readerName)) {
                 entityResourceHandlers.add(componentResourceInfo.createResourceHandler());
             }
         }
     }
 
-    public Map getEntityCache() throws GenericEntityException {
+    private ModelEntity buildEntity(ResourceHandler entityResourceHandler, Element curEntityElement, int i, ModelInfo def) throws GenericEntityException {
+        boolean isEntity = "entity".equals(curEntityElement.getNodeName());
+        String entityName = UtilXml.checkEmpty(curEntityElement.getAttribute("entity-name")).intern();
+
+        // add entityName to appropriate resourceHandlerEntities collection
+        Collection<String> resourceHandlerEntityNames = resourceHandlerEntities.get(entityResourceHandler);
+
+        if (resourceHandlerEntityNames == null) {
+            resourceHandlerEntityNames = FastList.newInstance();
+            resourceHandlerEntities.put(entityResourceHandler, resourceHandlerEntityNames);
+        }
+        resourceHandlerEntityNames.add(entityName);
+
+        // check to see if entity with same name has already been read
+        if (entityCache.containsKey(entityName)) {
+            Debug.logWarning("WARNING: Entity " + entityName +
+                " is defined more than once, most recent will over-write " +
+                "previous definition(s)", module);
+            Debug.logWarning("WARNING: Entity " + entityName + " was found in " +
+                entityResourceHandler + ", but was already defined in " +
+                entityResourceHandlerMap.get(entityName).toString(), module);
+        }
+
+        // add entityName, entityFileName pair to entityResourceHandlerMap map
+        entityResourceHandlerMap.put(entityName, entityResourceHandler);
+
+        // utilTimer.timerString("  After entityEntityName -- " + i + " --");
+        // ModelEntity entity = createModelEntity(curEntity, utilTimer);
+
+        ModelEntity modelEntity = null;
+        if (isEntity) {
+            modelEntity = createModelEntity(curEntityElement, null, def);
+        } else {
+            modelEntity = createModelViewEntity(curEntityElement, null, def);
+        }
+
+        // utilTimer.timerString("  After createModelEntity -- " + i + " --");
+        if (modelEntity != null) {
+            entityCache.put(entityName, modelEntity);
+            // utilTimer.timerString("  After entityCache.put -- " + i + " --");
+            if (isEntity) {
+                if (Debug.verboseOn()) Debug.logVerbose("-- [Entity]: #" + i + ": " + entityName, module);
+            } else {
+                if (Debug.verboseOn()) Debug.logVerbose("-- [ViewEntity]: #" + i + ": " + entityName, module);
+            }
+        } else {
+            Debug.logWarning("-- -- ENTITYGEN ERROR:getModelEntity: Could not create " +
+                "entity for entityName: " + entityName, module);
+        }
+        return modelEntity;
+    }
+
+    public Map<String, ModelEntity> getEntityCache() throws GenericEntityException {
         if (entityCache == null) { // don't want to block here
             synchronized (ModelReader.class) {
                 // must check if null again as one of the blocked threads can still enter
@@ -145,14 +191,12 @@ public class ModelReader implements Serializable {
                     numAutoRelations = 0;
 
                     entityCache = FastMap.newInstance();
-                    List tempViewEntityList = FastList.newInstance();
-                    List tempExtendEntityElementList = FastList.newInstance();
+                    List<ModelViewEntity> tempViewEntityList = FastList.newInstance();
+                    List<Element> tempExtendEntityElementList = FastList.newInstance();
 
                     UtilTimer utilTimer = new UtilTimer();
                     
-                    Iterator rhIter = entityResourceHandlers.iterator();
-                    while (rhIter.hasNext()) {
-                        ResourceHandler entityResourceHandler = (ResourceHandler) rhIter.next();
+                    for (ResourceHandler entityResourceHandler: entityResourceHandlers) {
 
                         // utilTimer.timerString("Before getDocument in file " + entityFileName);
                         Document document = null;
@@ -189,59 +233,11 @@ public class ModelReader implements Serializable {
 
                                 if ((isEntity || isViewEntity) && curChild.getNodeType() == Node.ELEMENT_NODE) {
                                     i++;
-                                    Element curEntityElement = (Element) curChild;
-                                    String entityName = UtilXml.checkEmpty(curEntityElement.getAttribute("entity-name")).intern();
-
-                                    // add entityName to appropriate resourceHandlerEntities collection
-                                    Collection resourceHandlerEntityNames = (Collection) resourceHandlerEntities.get(entityResourceHandler);
-
-                                    if (resourceHandlerEntityNames == null) {
-                                        resourceHandlerEntityNames = FastList.newInstance();
-                                        resourceHandlerEntities.put(entityResourceHandler, resourceHandlerEntityNames);
-                                    }
-                                    resourceHandlerEntityNames.add(entityName);
-
-                                    // check to see if entity with same name has already been read
-                                    if (entityCache.containsKey(entityName)) {
-                                        Debug.logWarning("WARNING: Entity " + entityName +
-                                            " is defined more than once, most recent will over-write " +
-                                            "previous definition(s)", module);
-                                        Debug.logWarning("WARNING: Entity " + entityName + " was found in " +
-                                            entityResourceHandler + ", but was already defined in " +
-                                            entityResourceHandlerMap.get(entityName).toString(), module);
-                                    }
-
-                                    // add entityName, entityFileName pair to entityResourceHandlerMap map
-                                    entityResourceHandlerMap.put(entityName, entityResourceHandler);
-
-                                    // utilTimer.timerString("  After entityEntityName -- " + i + " --");
-                                    // ModelEntity entity = createModelEntity(curEntity, utilTimer);
-
-                                    ModelEntity modelEntity = null;
-                                    if (isEntity) {
-                                        modelEntity = createModelEntity(curEntityElement, null, def);
-                                    } else {
-                                        modelEntity = createModelViewEntity(curEntityElement, null, def);
-                                        // put the view entity in a list to get ready for the second pass to populate fields...
-                                        tempViewEntityList.add(modelEntity);
-                                    }
-
-                                    // utilTimer.timerString("  After createModelEntity -- " + i + " --");
-                                    if (modelEntity != null) {
-                                        entityCache.put(entityName, modelEntity);
-                                        // utilTimer.timerString("  After entityCache.put -- " + i + " --");
-                                        if (isEntity) {
-                                            if (Debug.verboseOn()) Debug.logVerbose("-- [Entity]: #" + i + ": " + entityName, module);
-                                        } else {
-                                            if (Debug.verboseOn()) Debug.logVerbose("-- [ViewEntity]: #" + i + ": " + entityName, module);
-                                        }
-                                    } else {
-                                        Debug.logWarning("-- -- ENTITYGEN ERROR:getModelEntity: Could not create " +
-                                            "entity for entityName: " + entityName, module);
-                                    }
-
+                                    ModelEntity modelEntity = buildEntity(entityResourceHandler, (Element) curChild, i, def);
+                                    // put the view entity in a list to get ready for the second pass to populate fields...
+                                    if (isViewEntity) tempViewEntityList.add((ModelViewEntity) modelEntity);
                                 } else if (isExtendEntity && curChild.getNodeType() == Node.ELEMENT_NODE) {
-                                    tempExtendEntityElementList.add(curChild);
+                                    tempExtendEntityElementList.add((Element) curChild);
                                 }
                             } while ((curChild = curChild.getNextSibling()) != null);
                         } else {
@@ -251,9 +247,7 @@ public class ModelReader implements Serializable {
                     }
                     
                     // all entity elements in, now go through extend-entity elements and add their stuff
-                    Iterator tempExtendEntityElementIter = tempExtendEntityElementList.iterator();
-                    while (tempExtendEntityElementIter.hasNext()) {
-                        Element extendEntityElement = (Element) tempExtendEntityElementIter.next();
+                    for (Element extendEntityElement: tempExtendEntityElementList) {
                         String entityName = UtilXml.checkEmpty(extendEntityElement.getAttribute("entity-name"));
                         ModelEntity modelEntity = (ModelEntity) entityCache.get(entityName);
                         if (modelEntity == null) throw new GenericEntityConfException("Entity to extend does not exist: " + entityName);
@@ -262,15 +256,10 @@ public class ModelReader implements Serializable {
 
                     // do a pass on all of the view entities now that all of the entities have
                     // loaded and populate the fields
-                    Iterator tempViewEntityIter = tempViewEntityList.iterator();
-                    while (tempViewEntityIter.hasNext()) {
-                        ModelViewEntity curViewEntity = (ModelViewEntity) tempViewEntityIter.next();
+                    for (ModelViewEntity curViewEntity: tempViewEntityList) {
                         
                         curViewEntity.populateFields(this);
-                        List memberEntities = curViewEntity.getAllModelMemberEntities();
-                        Iterator memberEntityIter = memberEntities.iterator();
-                        while (memberEntityIter.hasNext()) {
-                            ModelViewEntity.ModelMemberEntity mve = (ModelViewEntity.ModelMemberEntity) memberEntityIter.next();
+                        for (ModelViewEntity.ModelMemberEntity mve: curViewEntity.getAllModelMemberEntities()) {
                             
                             ModelEntity me = (ModelEntity) entityCache.get(mve.getEntityName());
                             if (me == null) throw new GenericEntityConfException("View " + curViewEntity.getEntityName() + " references non-existant entity: " + mve.getEntityName());
@@ -279,10 +268,8 @@ public class ModelReader implements Serializable {
                     }
                     
                     // auto-create relationships
-                    TreeSet orderedMessages = new TreeSet();
-                    Iterator entityNamesIter = new TreeSet(this.getEntityNames()).iterator();
-                    while (entityNamesIter.hasNext()) {
-                        String curEntityName = (String) entityNamesIter.next();
+                    TreeSet<String> orderedMessages = new TreeSet<String>();
+                    for (String curEntityName: new TreeSet<String>(this.getEntityNames())) {
                         ModelEntity curModelEntity = this.getModelEntity(curEntityName);
                         if (curModelEntity instanceof ModelViewEntity) {
                             // for view-entities auto-create relationships for all member-entity relationships that have all corresponding fields in the view-entity
@@ -291,11 +278,11 @@ public class ModelReader implements Serializable {
                             // for entities auto-create many relationships for all type one relationships
                             
                             // just in case we add a new relation to the same entity, keep in a separate list and add them at the end
-                            List newSameEntityRelations = FastList.newInstance();
+                            List<ModelRelation> newSameEntityRelations = FastList.newInstance();
                             
-                            Iterator relationsIter = curModelEntity.getRelationsIterator();
+                            Iterator<ModelRelation> relationsIter = curModelEntity.getRelationsIterator();
                             while (relationsIter.hasNext()) {
-                                ModelRelation modelRelation = (ModelRelation) relationsIter.next();
+                                ModelRelation modelRelation = relationsIter.next();
                                 if (("one".equals(modelRelation.getType()) || "one-nofk".equals(modelRelation.getType())) && !modelRelation.isAutoRelation()) {
                                     ModelEntity relatedEnt = null;
                                     try {
@@ -316,7 +303,7 @@ public class ModelReader implements Serializable {
                                         newRel.setRelEntityName(curModelEntity.getEntityName());
                                         newRel.setTitle(targetTitle);
                                         newRel.setAutoRelation(true);
-                                        Set curEntityKeyFields = FastSet.newInstance();
+                                        Set<String> curEntityKeyFields = FastSet.newInstance();
                                         for (int kmn = 0; kmn < modelRelation.getKeyMapsSize(); kmn++) {
                                             ModelKeyMap curkm = modelRelation.getKeyMap(kmn);
                                             ModelKeyMap newkm = new ModelKeyMap();
@@ -331,10 +318,10 @@ public class ModelReader implements Serializable {
                                             newRel.setType("one-nofk");
                                             
                                             // to keep it clean, remove any additional keys that aren't part of the PK
-                                            List curPkFieldNames = curModelEntity.getPkFieldNames();
-                                            Iterator nrkmIter = newRel.getKeyMapsIterator();
+                                            List<String> curPkFieldNames = curModelEntity.getPkFieldNames();
+                                            Iterator<ModelKeyMap> nrkmIter = newRel.getKeyMapsIterator();
                                             while (nrkmIter.hasNext()) {
-                                                ModelKeyMap nrkm = (ModelKeyMap) nrkmIter.next();
+                                                ModelKeyMap nrkm =nrkmIter.next();
                                                 String checkField = nrkm.getRelFieldName();
                                                 if (!curPkFieldNames.contains(checkField)) {
                                                     nrkmIter.remove();
@@ -378,18 +365,15 @@ public class ModelReader implements Serializable {
                             }
                             
                             if (newSameEntityRelations.size() > 0) {
-                                Iterator newRelsIter = newSameEntityRelations.iterator();
-                                while (newRelsIter.hasNext()) {
-                                    ModelRelation newRel = (ModelRelation) newRelsIter.next();
+                                for (ModelRelation newRel: newSameEntityRelations) {
                                     curModelEntity.addRelation(newRel);
                                 }
                             }
                         }
                     }
                     
-                    Iterator omIter = orderedMessages.iterator();
-                    while (omIter.hasNext()) {
-                        Debug.logInfo((String) omIter.next(), module);
+                    for (String message: orderedMessages) {
+                        Debug.logInfo(message, module);
                     }
 
                     Debug.log("FINISHED LOADING ENTITIES - ALL FILES; #Entities=" + numEntities + " #ViewEntities=" +
@@ -406,12 +390,12 @@ public class ModelReader implements Serializable {
      */
     public void rebuildResourceHandlerEntities() {
         resourceHandlerEntities = FastMap.newInstance();
-        Iterator entityResourceIter = entityResourceHandlerMap.entrySet().iterator();
+        Iterator<Map.Entry<String, ResourceHandler>> entityResourceIter = entityResourceHandlerMap.entrySet().iterator();
 
         while (entityResourceIter.hasNext()) {
-            Map.Entry entry = (Map.Entry) entityResourceIter.next();
+            Map.Entry<String, ResourceHandler> entry = entityResourceIter.next();
             // add entityName to appropriate resourceHandlerEntities collection
-            Collection resourceHandlerEntityNames = (Collection) resourceHandlerEntities.get(entry.getValue());
+            Collection<String> resourceHandlerEntityNames = resourceHandlerEntities.get(entry.getValue());
 
             if (resourceHandlerEntityNames == null) {
                 resourceHandlerEntityNames = FastList.newInstance();
@@ -421,14 +405,14 @@ public class ModelReader implements Serializable {
         }
     }
 
-    public Iterator getResourceHandlerEntitiesKeyIterator() {
+    public Iterator<ResourceHandler> getResourceHandlerEntitiesKeyIterator() {
         if (resourceHandlerEntities == null) return null;
         return resourceHandlerEntities.keySet().iterator();
     }
 
-    public Collection getResourceHandlerEntities(ResourceHandler resourceHandler) {
+    public Collection<String> getResourceHandlerEntities(ResourceHandler resourceHandler) {
         if (resourceHandlerEntities == null) return null;
-        return (Collection) resourceHandlerEntities.get(resourceHandler);
+        return resourceHandlerEntities.get(resourceHandler);
     }
 
     public void addEntityToResourceHandler(String entityName, String loaderName, String location) {
@@ -436,7 +420,7 @@ public class ModelReader implements Serializable {
     }
 
     public ResourceHandler getEntityResourceHandler(String entityName) {
-        return (ResourceHandler) entityResourceHandlerMap.get(entityName);
+        return entityResourceHandlerMap.get(entityName);
     }
 
     /** Gets an Entity object based on a definition from the specified XML Entity descriptor file.
@@ -447,11 +431,11 @@ public class ModelReader implements Serializable {
         if (entityName == null) {
             throw new IllegalArgumentException("Tried to find entity definition for a null entityName");
         }
-        Map ec = getEntityCache();
+        Map<String, ModelEntity> ec = getEntityCache();
         if (ec == null) {
             throw new GenericEntityConfException("ERROR: Unable to load Entity Cache");
         }
-        ModelEntity modelEntity = (ModelEntity) ec.get(entityName);
+        ModelEntity modelEntity = ec.get(entityName);
         if (modelEntity == null) {
             throw new GenericModelException("Could not find definition for entity name " + entityName);
         }
@@ -459,7 +443,7 @@ public class ModelReader implements Serializable {
     }
 
     public ModelEntity getModelEntityNoCheck(String entityName) {
-        Map ec = null;
+        Map<String, ModelEntity> ec = null;
         try {
             ec = getEntityCache();
         } catch (GenericEntityException e) {
@@ -468,15 +452,15 @@ public class ModelReader implements Serializable {
         if (ec == null) {
             return null;
         }
-        ModelEntity modelEntity = (ModelEntity) ec.get(entityName);
+        ModelEntity modelEntity = ec.get(entityName);
         return modelEntity;
     }
 
     /** Creates a Iterator with the entityName of each Entity defined in the specified XML Entity Descriptor file.
      * @return A Iterator of entityName Strings
      */
-    public Iterator getEntityNamesIterator() throws GenericEntityException {
-        Collection collection = getEntityNames();
+    public Iterator<String> getEntityNamesIterator() throws GenericEntityException {
+        Collection<String> collection = getEntityNames();
         if (collection != null) {
             return collection.iterator();
         } else {
@@ -487,8 +471,8 @@ public class ModelReader implements Serializable {
     /** Creates a Collection with the entityName of each Entity defined in the specified XML Entity Descriptor file.
      * @return A Collection of entityName Strings
      */
-    public Collection getEntityNames() throws GenericEntityException {
-        Map ec = getEntityCache();
+    public Collection<String> getEntityNames() throws GenericEntityException {
+        Map<String, ModelEntity> ec = getEntityCache();
         if (ec == null) {
             throw new GenericEntityConfException("ERROR: Unable to load Entity Cache");
         }
@@ -516,8 +500,7 @@ public class ModelReader implements Serializable {
     }
 
     public ModelField findModelField(ModelEntity entity, String fieldName) {
-        for (int i = 0; i < entity.fields.size(); i++) {
-            ModelField field = (ModelField) entity.fields.get(i);
+        for (ModelField field: entity.fields) {
             if (field.name.compareTo(fieldName) == 0) {
                 return field;
             }

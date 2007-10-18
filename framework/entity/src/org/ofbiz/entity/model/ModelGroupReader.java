@@ -52,13 +52,13 @@ import org.w3c.dom.Node;
 public class ModelGroupReader implements Serializable {
 
     public static final String module = ModelGroupReader.class.getName();
-    public static UtilCache readers = new UtilCache("entity.ModelGroupReader", 0, 0);
+    public static UtilCache<String, ModelGroupReader> readers = new UtilCache<String, ModelGroupReader>("entity.ModelGroupReader", 0, 0);
 
-    private Map groupCache = null;
-    private Set groupNames = null;
+    private Map<String, String> groupCache = null;
+    private Set<String> groupNames = null;
 
     public String modelName;
-    public List entityGroupResourceHandlers = new LinkedList();
+    public List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<ResourceHandler>();
 
     public static ModelGroupReader getModelGroupReader(String delegatorName) throws GenericEntityConfException {
         DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorName);
@@ -68,12 +68,12 @@ public class ModelGroupReader implements Serializable {
         }
 
         String tempModelName = delegatorInfo.entityGroupReader;
-        ModelGroupReader reader = (ModelGroupReader) readers.get(tempModelName);
+        ModelGroupReader reader = readers.get(tempModelName);
 
         if (reader == null) { // don't want to block here
             synchronized (ModelGroupReader.class) {
                 // must check if null again as one of the blocked threads can still enter
-                reader = (ModelGroupReader) readers.get(tempModelName);
+                reader = readers.get(tempModelName);
                 if (reader == null) {
                     reader = new ModelGroupReader(tempModelName);
                     readers.put(tempModelName, reader);
@@ -90,17 +90,12 @@ public class ModelGroupReader implements Serializable {
         if (entityGroupReaderInfo == null) {
             throw new GenericEntityConfException("Cound not find an entity-group-reader with the name " + modelName);
         }
-        Iterator resourceElementIter = entityGroupReaderInfo.resourceElements.iterator();
-        while (resourceElementIter.hasNext()) {
-            Element resourceElement = (Element) resourceElementIter.next();
+        for (Element resourceElement: entityGroupReaderInfo.resourceElements) {
             this.entityGroupResourceHandlers.add(new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement));
         }
 
         // get all of the component resource group stuff, ie specified in each ofbiz-component.xml file
-        List componentResourceInfos = ComponentConfig.getAllEntityResourceInfos("group");
-        Iterator componentResourceInfoIter = componentResourceInfos.iterator();
-        while (componentResourceInfoIter.hasNext()) {
-            ComponentConfig.EntityResourceInfo componentResourceInfo = (ComponentConfig.EntityResourceInfo) componentResourceInfoIter.next();
+        for (ComponentConfig.EntityResourceInfo componentResourceInfo: ComponentConfig.getAllEntityResourceInfos("group")) {
             if (modelName.equals(componentResourceInfo.readerName)) {
                 this.entityGroupResourceHandlers.add(componentResourceInfo.createResourceHandler());
             }
@@ -110,23 +105,21 @@ public class ModelGroupReader implements Serializable {
         getGroupCache();
     }
 
-    public Map getGroupCache() {
+    public Map<String, String> getGroupCache() {
         if (this.groupCache == null) // don't want to block here
         {
             synchronized (ModelGroupReader.class) {
                 // must check if null again as one of the blocked threads can still enter
                 if (this.groupCache == null) {
                     // now it's safe
-                    this.groupCache = new HashMap();
-                    this.groupNames = new TreeSet();
+                    this.groupCache = new HashMap<String, String>();
+                    this.groupNames = new TreeSet<String>();
 
                     UtilTimer utilTimer = new UtilTimer();
                     // utilTimer.timerString("[ModelGroupReader.getGroupCache] Before getDocument");
 
                     int i = 0;
-                    Iterator entityGroupResourceHandlerIter = this.entityGroupResourceHandlers.iterator();
-                    while (entityGroupResourceHandlerIter.hasNext()) {
-                        ResourceHandler entityGroupResourceHandler = (ResourceHandler) entityGroupResourceHandlerIter.next();
+                    for (ResourceHandler entityGroupResourceHandler: this.entityGroupResourceHandlers) {
                         Document document = null;
 
                         try {
@@ -178,10 +171,10 @@ public class ModelGroupReader implements Serializable {
      * @return A group name
      */
     public String getEntityGroupName(String entityName) {
-        Map gc = getGroupCache();
+        Map<String, String> gc = getGroupCache();
 
         if (gc != null)
-            return (String) gc.get(entityName);
+            return gc.get(entityName);
         else
             return null;
     }
@@ -189,28 +182,23 @@ public class ModelGroupReader implements Serializable {
     /** Creates a Collection with all of the groupNames defined in the specified XML Entity Group Descriptor file.
      * @return A Collection of groupNames Strings
      */
-    public Collection getGroupNames() {
+    public Collection<String> getGroupNames() {
         getGroupCache();
         if (this.groupNames == null) return null;
-        return new ArrayList(this.groupNames);
+        return new ArrayList<String>(this.groupNames);
     }
 
     /** Creates a Collection with names of all of the entities for a given group
      * @param groupName
      * @return A Collection of entityName Strings
      */
-    public Collection getEntityNamesByGroup(String groupName) {
-        Map gc = getGroupCache();
-        Collection enames = new LinkedList();
+    public Collection<String> getEntityNamesByGroup(String groupName) {
+        Map<String, String> gc = getGroupCache();
+        Collection<String> enames = new LinkedList<String>();
 
         if (groupName == null || groupName.length() <= 0) return enames;
         if (gc == null || gc.size() < 0) return enames;
-        Set gcEntries = gc.entrySet();
-        Iterator gcIter = gcEntries.iterator();
-
-        while (gcIter.hasNext()) {
-            Map.Entry entry = (Map.Entry) gcIter.next();
-
+        for (Map.Entry<String, String> entry: gc.entrySet()) {
             if (groupName.equals(entry.getValue())) enames.add(entry.getKey());
         }
         return enames;

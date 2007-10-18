@@ -43,7 +43,7 @@ public class ModelFieldType implements Serializable {
     protected String sqlTypeAlias = null;
 
     /** validators to be called when an update is done */
-    protected List validators = new ArrayList();
+    protected List<ModelFieldValidator> validators = new ArrayList<ModelFieldValidator>();
 
     /** Default Constructor */
     public ModelFieldType() {}
@@ -87,7 +87,7 @@ public class ModelFieldType implements Serializable {
     }
 
     /** validators to be called when an update is done */
-    public List getValidators() {
+    public List<ModelFieldValidator> getValidators() {
         return this.validators;
     }
 

@@ -42,7 +42,7 @@ public class ModelRelation extends ModelChild {
     protected String fkName;
 
     /** keyMaps defining how to lookup the relatedTable using columns from this table */
-    protected List keyMaps = new ArrayList();
+    protected List<ModelKeyMap> keyMaps = new ArrayList<ModelKeyMap>();
 
     /** the main entity of this relation */
     protected ModelEntity mainEntity = null;
@@ -58,7 +58,7 @@ public class ModelRelation extends ModelChild {
     }
 
     /** Default Constructor */
-    public ModelRelation(String type, String title, String relEntityName, String fkName, List keyMaps) {
+    public ModelRelation(String type, String title, String relEntityName, String fkName, List<ModelKeyMap> keyMaps) {
         this.title = title;
         if (title == null) title = "";
         this.type = type;
@@ -144,7 +144,7 @@ public class ModelRelation extends ModelChild {
     }
 
     /** keyMaps defining how to lookup the relatedTable using columns from this table */
-    public Iterator getKeyMapsIterator() {
+    public Iterator<ModelKeyMap> getKeyMapsIterator() {
         return this.keyMaps.iterator();
     }
 
@@ -153,7 +153,7 @@ public class ModelRelation extends ModelChild {
     }
 
     public ModelKeyMap getKeyMap(int index) {
-        return (ModelKeyMap) this.keyMaps.get(index);
+        return this.keyMaps.get(index);
     }
 
     public void addKeyMap(ModelKeyMap keyMap) {
@@ -161,14 +161,12 @@ public class ModelRelation extends ModelChild {
     }
 
     public ModelKeyMap removeKeyMap(int index) {
-        return (ModelKeyMap) this.keyMaps.remove(index);
+        return this.keyMaps.remove(index);
     }
 
     /** Find a KeyMap with the specified fieldName */
     public ModelKeyMap findKeyMap(String fieldName) {
-        for (int i = 0; i < keyMaps.size(); i++) {
-            ModelKeyMap keyMap = (ModelKeyMap) keyMaps.get(i);
-
+        for (ModelKeyMap keyMap: keyMaps) {
             if (keyMap.fieldName.equals(fieldName)) return keyMap;
         }
         return null;
@@ -176,9 +174,7 @@ public class ModelRelation extends ModelChild {
 
     /** Find a KeyMap with the specified relFieldName */
     public ModelKeyMap findKeyMapByRelated(String relFieldName) {
-        for (int i = 0; i < keyMaps.size(); i++) {
-            ModelKeyMap keyMap = (ModelKeyMap) keyMaps.get(i);
-
+        for (ModelKeyMap keyMap: keyMaps) {
             if (keyMap.relFieldName.equals(relFieldName))
                 return keyMap;
         }
@@ -195,9 +191,9 @@ public class ModelRelation extends ModelChild {
         int i = 0;
 
         for (; i < keyMaps.size() - 1; i++) {
-            returnString = returnString + ((ModelKeyMap) keyMaps.get(i)).fieldName + separator;
+            returnString = returnString + keyMaps.get(i).fieldName + separator;
         }
-        returnString = returnString + ((ModelKeyMap) keyMaps.get(i)).fieldName + afterLast;
+        returnString = returnString + keyMaps.get(i).fieldName + afterLast;
         return returnString;
     }
 
@@ -208,7 +204,7 @@ public class ModelRelation extends ModelChild {
         StringBuilder returnString = new StringBuilder( keyMaps.size() * 10 );
         int i=0;
         while (true) {
-            ModelKeyMap kmap = (ModelKeyMap) keyMaps.get(i);
+            ModelKeyMap kmap = keyMaps.get(i);
             returnString.append( ModelUtil.upperFirstChar( kmap.fieldName));
 
             i++;
@@ -230,7 +226,7 @@ public class ModelRelation extends ModelChild {
         StringBuilder returnString = new StringBuilder( keyMaps.size() * 10 );
         int i=0;
         while (true) {
-            ModelKeyMap kmap = (ModelKeyMap) keyMaps.get(i);
+            ModelKeyMap kmap = keyMaps.get(i);
             returnString.append( ModelUtil.upperFirstChar( kmap.relFieldName ));
 
             i++;
@@ -257,6 +253,7 @@ public class ModelRelation extends ModelChild {
         this.isAutoRelation = isAutoRelation;
     }
     
+    // FIXME: CCE
     public boolean equals(Object other) {
         ModelRelation otherRel = (ModelRelation) other;
         
@@ -264,8 +261,8 @@ public class ModelRelation extends ModelChild {
         if (!otherRel.title.equals(this.title)) return false;
         if (!otherRel.relEntityName.equals(this.relEntityName)) return false;
         
-        Set thisKeyNames = new HashSet(this.keyMaps);
-        Set otherKeyNames = new HashSet(otherRel.keyMaps);
+        Set<ModelKeyMap> thisKeyNames = new HashSet<ModelKeyMap>(this.keyMaps);
+        Set<ModelKeyMap> otherKeyNames = new HashSet<ModelKeyMap>(otherRel.keyMaps);
         if (!thisKeyNames.containsAll(otherKeyNames)) return false;
         if (!otherKeyNames.containsAll(thisKeyNames)) return false;
         
@@ -284,9 +281,9 @@ public class ModelRelation extends ModelChild {
             root.setAttribute("fk-name", this.getFkName());
         }
 
-        Iterator kmIter = this.getKeyMapsIterator();
+        Iterator<ModelKeyMap> kmIter = this.getKeyMapsIterator();
         while (kmIter != null && kmIter.hasNext()) {
-            ModelKeyMap km = (ModelKeyMap) kmIter.next();
+            ModelKeyMap km = kmIter.next();
             root.appendChild(km.toXmlElement(document));
         }
 

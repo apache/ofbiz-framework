@@ -36,7 +36,7 @@ public class ModelIndex extends ModelChild {
     protected boolean unique;
 
     /** list of the field names included in this index */
-    protected List fieldNames = new ArrayList();
+    protected List<String> fieldNames = new ArrayList<String>();
 
     /** Default Constructor */
     public ModelIndex() {
@@ -97,7 +97,7 @@ public class ModelIndex extends ModelChild {
         setModelEntity(mainEntity);
     }
 
-    public Iterator getIndexFieldsIterator() {
+    public Iterator<String> getIndexFieldsIterator() {
         return this.fieldNames.iterator();
     }
 
@@ -106,7 +106,7 @@ public class ModelIndex extends ModelChild {
     }
 
     public String getIndexField(int index) {
-        return (String) this.fieldNames.get(index);
+        return this.fieldNames.get(index);
     }
 
     public void addIndexField(String fieldName) {
@@ -114,7 +114,7 @@ public class ModelIndex extends ModelChild {
     }
 
     public String removeIndexField(int index) {
-        return (String) this.fieldNames.remove(index);
+        return this.fieldNames.remove(index);
     }
 
     public Element toXmlElement(Document document) {
@@ -124,9 +124,7 @@ public class ModelIndex extends ModelChild {
             root.setAttribute("unique", "true");
         }
 
-        Iterator fnIter = this.fieldNames.iterator();
-        while (fnIter != null && fnIter.hasNext()) {
-            String fieldName = (String) fnIter.next();
+        for (String fieldName: this.fieldNames) {
             Element fn = document.createElement("index-field");
             fn.setAttribute("name", fieldName);
             root.appendChild(fn);
