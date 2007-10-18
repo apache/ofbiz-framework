@@ -471,7 +471,7 @@ public class ContactMechWorker {
         target.put("tryEntity", new Boolean(tryEntity));
 
         try {
-            Collection contactMechTypes = delegator.findAllCache("ContactMechType", null);
+            Collection contactMechTypes = delegator.findAllCache("ContactMechType");
 
             if (contactMechTypes != null) {
                 target.put("contactMechTypes", contactMechTypes);
@@ -638,7 +638,7 @@ public class ContactMechWorker {
         target.put("tryEntity", new Boolean(tryEntity));
 
         try {
-            Collection contactMechTypes = delegator.findAllCache("ContactMechType", null);
+            Collection contactMechTypes = delegator.findAllCache("ContactMechType");
 
             if (contactMechTypes != null) {
                 target.put("contactMechTypes", contactMechTypes);
