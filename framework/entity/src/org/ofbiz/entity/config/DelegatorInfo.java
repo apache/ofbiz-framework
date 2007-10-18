@@ -42,7 +42,7 @@ public class DelegatorInfo extends NamedInfo {
     public String distributedCacheClearClassName;
     public String distributedCacheClearUserLoginId;
     public String sequencedIdPrefix;
-    public Map groupMap = new HashMap();
+    public Map<String, String> groupMap = new HashMap<String, String>();
 
     public DelegatorInfo(Element element) {
         super(element);
@@ -64,11 +64,7 @@ public class DelegatorInfo extends NamedInfo {
 
         this.sequencedIdPrefix = element.getAttribute("sequenced-id-prefix");
         
-        List groupMapList = UtilXml.childElementList(element, "group-map");
-        Iterator groupMapIter = groupMapList.iterator();
-
-        while (groupMapIter.hasNext()) {
-            Element groupMapElement = (Element) groupMapIter.next();
+        for (Element groupMapElement: UtilXml.childElementList(element, "group-map")) {
             groupMap.put(groupMapElement.getAttribute("group-name"), groupMapElement.getAttribute("datasource-name"));
         }
     }

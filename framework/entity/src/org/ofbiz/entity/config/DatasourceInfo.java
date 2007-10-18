@@ -35,8 +35,8 @@ public class DatasourceInfo {
     public String name;
     public String helperClass;
     public String fieldTypeName;
-    public List sqlLoadPaths = new LinkedList();
-    public List readDatas = new LinkedList();
+    public List<? extends Element> sqlLoadPaths;
+    public List<? extends Element> readDatas;
     public Element datasourceElement;
     
     public static final int TYPE_JNDI_JDBC = 1;        
