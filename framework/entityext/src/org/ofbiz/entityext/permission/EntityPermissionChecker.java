@@ -1079,7 +1079,7 @@ public class EntityPermissionChecker {
         public String dumpAsText() {
              List fieldNames = UtilMisc.toList("roleFieldName",  "auxiliaryFieldName",  "statusFieldName");
              Map widths = UtilMisc.toMap("roleFieldName", new Integer(24), "auxiliaryFieldName", new Integer(24), "statusFieldName", new Integer(24));
-             StringBuffer buf = new StringBuffer();
+             StringBuilder buf = new StringBuilder();
              Integer wid = null;
              
              buf.append("Dump for ");
@@ -1219,7 +1219,7 @@ public class EntityPermissionChecker {
         }
         
         public String dumpAsText() {
-             StringBuffer buf = new StringBuffer();
+             StringBuilder buf = new StringBuilder();
              buf.append("AUXILIARY: ");
              if (entityList != null) {
                 for (int i=0; i < entityList.size(); i++) {
@@ -1345,7 +1345,7 @@ public class EntityPermissionChecker {
         }
         
         public String dumpAsText() {
-             StringBuffer buf = new StringBuffer();
+             StringBuilder buf = new StringBuilder();
              buf.append("ROLES: ");
              if (roleIdList != null) {
                 for (int i=0; i < roleIdList.size(); i++) {

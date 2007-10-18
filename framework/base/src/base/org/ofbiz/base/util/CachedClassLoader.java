@@ -127,7 +127,7 @@ public class CachedClassLoader extends URLClassLoader {
         this.contextName = contextName;
         if (Debug.verboseOn()) {
             Package[] paks = this.getPackages();
-            StringBuffer pakList = new StringBuffer();
+            StringBuilder pakList = new StringBuilder();
             for (int i = 0; i < paks.length; i++) {
                 pakList.append(paks[i].getName());
                 if (i < (paks.length - 1)) {

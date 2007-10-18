@@ -37,7 +37,7 @@ import freemarker.template.TemplateTransformModel;
 public class OfbizContentTransform implements TemplateTransformModel {
         
         public Writer getWriter(final Writer out, Map args) {              
-            final StringBuffer buf = new StringBuffer();
+            final StringBuilder buf = new StringBuilder();
             return new Writer(out) {
                 public void write(char cbuf[], int off, int len) {
                     buf.append(cbuf, off, len);

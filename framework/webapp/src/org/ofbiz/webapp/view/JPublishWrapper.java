@@ -96,7 +96,7 @@ public class JPublishWrapper {
         File webClassPath = new File(webInfPath, "classes");
 
         // add WEB-INF/classes to the classpath
-        StringBuffer classPath = new StringBuffer();
+        StringBuilder classPath = new StringBuilder();
         classPath.append(System.getProperty("java.class.path"));
 
         if (webClassPath.exists()) {

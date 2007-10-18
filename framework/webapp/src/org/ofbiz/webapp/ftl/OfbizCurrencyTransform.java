@@ -118,7 +118,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
     }
     
     public Writer getWriter(final Writer out, Map args) {
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
 
         final Double amount = OfbizCurrencyTransform.getAmount(args, "amount");
         final String isoCode = OfbizCurrencyTransform.getArg(args, "isoCode");

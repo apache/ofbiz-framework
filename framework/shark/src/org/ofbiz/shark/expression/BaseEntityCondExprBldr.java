@@ -68,7 +68,7 @@ public abstract class BaseEntityCondExprBldr implements ExpressionBuilder, Seria
     }
 
     public String toExpression() {
-        StringBuffer ret = new StringBuffer();
+        StringBuilder ret = new StringBuilder();
         if (!this.isComplete()) {
             ret.append("/*FORCE*/\n");
         }

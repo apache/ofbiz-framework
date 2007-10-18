@@ -153,7 +153,7 @@ public class KeywordSearchUtil {
             }
 
             if (forSearch) {
-                StringBuffer strSb = new StringBuffer();
+                StringBuilder strSb = new StringBuilder();
                 if (anyPrefix) strSb.append('%');
                 strSb.append(token);
                 if (anySuffix) strSb.append('%');
@@ -187,7 +187,7 @@ public class KeywordSearchUtil {
             
             if (forSearch) {
                 // remove %_*? from separators if is for a search
-                StringBuffer sb = new StringBuffer(separators);
+                StringBuilder sb = new StringBuilder(separators);
                 if (sb.indexOf("%") >= 0) sb.deleteCharAt(sb.indexOf("%"));
                 if (sb.indexOf("_") >= 0) sb.deleteCharAt(sb.indexOf("_"));
                 if (sb.indexOf("*") >= 0) sb.deleteCharAt(sb.indexOf("*"));

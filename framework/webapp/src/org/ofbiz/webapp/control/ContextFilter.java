@@ -197,7 +197,7 @@ public class ContextFilter implements Filter {
                 requestInfo = requestInfo.substring(0, requestInfo.lastIndexOf("/")) + "/*";
             }
 
-            StringBuffer contextUriBuffer = new StringBuffer();
+            StringBuilder contextUriBuffer = new StringBuilder();
             if (httpRequest.getContextPath() != null) {
                 contextUriBuffer.append(httpRequest.getContextPath());
             }

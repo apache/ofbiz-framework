@@ -39,7 +39,7 @@ public class OFBizHomeLocationResolver implements LocationResolver {
             throw new MalformedURLException(errMsg);
         }
 
-        StringBuffer baseLocation = new StringBuffer(FlexibleLocation.stripLocationType(location));
+        StringBuilder baseLocation = new StringBuilder(FlexibleLocation.stripLocationType(location));
         
         // if there is not a forward slash between the two, add it
         if (baseLocation.charAt(0) != '/' && propValue.charAt(propValue.length() - 1) != '/') {

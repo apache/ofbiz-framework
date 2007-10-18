@@ -127,7 +127,7 @@ public class RequestHandler implements Serializable {
 
             // Check if we SHOULD be secure and are not. If we are posting let it pass to not lose data. (too late now anyway)
             if (!request.isSecure() && requestManager.requiresHttps(requestUri) && !request.getMethod().equalsIgnoreCase("POST")) {
-                StringBuffer urlBuf = new StringBuffer();
+                StringBuilder urlBuf = new StringBuilder();
                 urlBuf.append(request.getPathInfo());
                 if (request.getQueryString() != null) {
                     urlBuf.append("?").append(request.getQueryString());
@@ -463,7 +463,7 @@ public class RequestHandler implements Serializable {
 
     public String makeQueryString(HttpServletRequest request) {
         Map paramMap = UtilHttp.getParameterMap(request);
-        StringBuffer queryString = new StringBuffer();
+        StringBuilder queryString = new StringBuilder();
         if (paramMap != null && paramMap.size() > 0) {
             queryString.append("?");
             Iterator i = paramMap.keySet().iterator();
@@ -677,7 +677,7 @@ public class RequestHandler implements Serializable {
         String httpServer = UtilProperties.getPropertyValue("url.properties", "force.http.host");
         boolean useHttps = UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y");
 
-        StringBuffer newURL = new StringBuffer();
+        StringBuilder newURL = new StringBuilder();
 
         if (secure && useHttps) {
             String server = httpsServer;
@@ -765,7 +765,7 @@ public class RequestHandler implements Serializable {
         String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
 
         String requestUri = RequestHandler.getRequestUri(url);
-        StringBuffer newURL = new StringBuffer();
+        StringBuilder newURL = new StringBuilder();
 
         boolean didFullSecure = false;
         boolean didFullStandard = false;

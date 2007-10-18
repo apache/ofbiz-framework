@@ -266,7 +266,7 @@ public class XpdlReader {
                 }
             }
             if (message.length() > 0) {
-                StringBuffer lines = new StringBuffer();
+                StringBuilder lines = new StringBuilder();
 
                 for (int i = 0; i < message.length(); i++) {
                     lines.append("-");
@@ -821,7 +821,7 @@ public class XpdlReader {
 
     protected String readActualParameters(List actualParameters) {
         if (actualParameters == null || actualParameters.size() == 0) return null;
-        StringBuffer actualParametersBuf = new StringBuffer();
+        StringBuilder actualParametersBuf = new StringBuilder();
         Iterator actualParametersIter = actualParameters.iterator();
 
         while (actualParametersIter.hasNext()) {

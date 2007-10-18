@@ -62,7 +62,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         String report = request.getParameter("echo");
         if (report != null) {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             try {
                 // read the inputstream buffer
                 String line;
