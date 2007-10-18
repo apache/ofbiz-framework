@@ -50,7 +50,7 @@ public abstract class AbstractCursorHandler implements InvocationHandler {
         return fetchSize;
     }
 
-    protected Object invoke(Object obj, Object proxy, Method method, Object[] args) throws Throwable {
+    protected Object invoke(Object obj, Object proxy, Method method, Object... args) throws Throwable {
         if ("toString".equals(method.getName())) {
             String str = obj.toString();
             return getClass().getName() + "{" + str + "}";
@@ -58,11 +58,11 @@ public abstract class AbstractCursorHandler implements InvocationHandler {
         return method.invoke(obj, args);
     }
 
-    protected static Object newHandler(InvocationHandler handler, Class implClass) throws IllegalAccessException, IllegalArgumentException, InstantiationException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    protected static <T> T newHandler(InvocationHandler handler, Class<T> implClass) throws IllegalAccessException, IllegalArgumentException, InstantiationException, InvocationTargetException, NoSuchMethodException, SecurityException {
         ClassLoader loader = implClass.getClassLoader();
         if (loader == null) loader = ClassLoader.getSystemClassLoader();
-        Class proxyClass = Proxy.getProxyClass(loader, new Class[]{implClass});
-        Constructor constructor = proxyClass.getConstructor(new Class[]{InvocationHandler.class});
-        return constructor.newInstance(new Object[]{handler});
+        Class<?> proxyClass = Proxy.getProxyClass(loader, implClass);
+        Constructor<?> constructor = proxyClass.getConstructor(InvocationHandler.class);
+        return implClass.cast(constructor.newInstance(handler));
     }
 }

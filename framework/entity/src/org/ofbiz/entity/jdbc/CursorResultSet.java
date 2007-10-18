@@ -61,6 +61,6 @@ public class CursorResultSet extends AbstractCursorHandler {
     }
 
     public static ResultSet newCursorResultSet(Statement stmt, String cursorName, int fetchSize) throws SQLException, Exception {
-        return (ResultSet) newHandler(new CursorResultSet(stmt, cursorName, fetchSize), ResultSet.class);
+        return newHandler(new CursorResultSet(stmt, cursorName, fetchSize), ResultSet.class);
     }
 }

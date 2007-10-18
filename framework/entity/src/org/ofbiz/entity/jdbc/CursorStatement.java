@@ -87,10 +87,10 @@ public class CursorStatement extends AbstractCursorHandler {
     }
 
     public static Statement newCursorStatement(Statement stmt, String cursorName, int fetchSize) throws Exception {
-        return (Statement) newHandler(new CursorStatement(stmt, cursorName, fetchSize), Statement.class);
+        return newHandler(new CursorStatement(stmt, cursorName, fetchSize), Statement.class);
     }
 
     public static PreparedStatement newCursorPreparedStatement(PreparedStatement pstmt, String cursorName, int fetchSize) throws Exception {
-        return (PreparedStatement) newHandler(new CursorStatement(pstmt, cursorName, fetchSize), PreparedStatement.class);
+        return newHandler(new CursorStatement(pstmt, cursorName, fetchSize), PreparedStatement.class);
     }
 }
