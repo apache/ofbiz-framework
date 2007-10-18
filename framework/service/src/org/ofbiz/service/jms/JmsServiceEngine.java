@@ -19,7 +19,6 @@
 package org.ofbiz.service.jms;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +43,8 @@ import javax.jms.XAQueueSession;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.transaction.xa.XAResource;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
@@ -318,7 +319,7 @@ public class JmsServiceEngine extends AbstractEngine {
         Element serviceElement = getServiceElement(modelService);
         List serverList = serverList(serviceElement);
 
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         Iterator i = serverList.iterator();
 
         while (i.hasNext()) {

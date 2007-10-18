@@ -21,7 +21,6 @@ package org.ofbiz.service.engine;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +28,8 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ParameterMode;
 import javax.xml.rpc.ServiceException;
+
+import javolution.util.FastMap;
 
 import org.apache.axis.Message;
 import org.apache.axis.client.Call;
@@ -71,7 +72,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         if (result == null)
             throw new GenericServiceException("Service did not return expected result");
         if (!(result instanceof Map)) {
-            Map newResult = new HashMap();
+            Map newResult = FastMap.newInstance();
             
             newResult.put("result", result);
             return newResult;
@@ -159,7 +160,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
     }
         
     private Map getResponseParams(Message respMessage) {
-        Map mRet = new HashMap();
+        Map mRet = FastMap.newInstance();
         try {
             SOAPEnvelope resEnv = respMessage.getSOAPEnvelope();
             List bodies = resEnv.getBodyElements();

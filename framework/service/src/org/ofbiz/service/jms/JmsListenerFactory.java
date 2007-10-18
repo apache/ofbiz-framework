@@ -19,16 +19,18 @@
 package org.ofbiz.service.jms;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -43,8 +45,8 @@ public class JmsListenerFactory implements Runnable {
     public static final String TOPIC_LISTENER_CLASS = "org.ofbiz.service.jms.JmsTopicListener";
     public static final String QUEUE_LISTENER_CLASS = "org.ofbiz.service.jms.JmsQueueListener";
 
-    protected static Map listeners = new HashMap();
-    protected static Map servers = new HashMap();
+    protected static Map listeners = FastMap.newInstance();
+    protected static Map servers = FastMap.newInstance();
 
     protected ServiceDispatcher dispatcher;
     protected boolean firstPass = true;
@@ -226,7 +228,7 @@ public class JmsListenerFactory implements Runnable {
      * @return Map of JMS Listeners
      */
     public Map getJMSListeners() {
-        return new HashMap(listeners);
+        return UtilMisc.makeMapWritable(listeners);
     }
 
 }

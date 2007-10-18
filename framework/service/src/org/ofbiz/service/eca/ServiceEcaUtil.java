@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.service.eca;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -103,7 +102,7 @@ public class ServiceEcaUtil {
             List rules = null;
 
             if (eventMap == null) {
-                eventMap = new HashMap();
+                eventMap = FastMap.newInstance();
                 rules = new LinkedList();
                 ecaCache.put(serviceName, eventMap);
                 eventMap.put(eventName, rules);
@@ -146,7 +145,7 @@ public class ServiceEcaUtil {
     }
 
     public static void evalRules(String serviceName, Map eventMap, String event, DispatchContext dctx, Map context, Map result, boolean isError, boolean isFailure) throws GenericServiceException {
-        // if the eventMap is passed we save a HashMap lookup, but if not that's okay we'll just look it up now
+        // if the eventMap is passed we save a Map lookup, but if not that's okay we'll just look it up now
         if (eventMap == null) eventMap = getServiceEventMap(serviceName);
         if (eventMap == null || eventMap.size() == 0) {
             return;

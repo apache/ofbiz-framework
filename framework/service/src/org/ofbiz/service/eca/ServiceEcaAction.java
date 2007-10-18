@@ -21,6 +21,8 @@ package org.ofbiz.service.eca;
 import java.util.*;
 import javax.transaction.xa.XAException;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -117,7 +119,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         if (resultMapName != null && resultMapName.length() > 0) {
             Map resultMap = (Map) context.get(resultMapName);
             if (resultMap == null) {
-                resultMap = new HashMap();
+                resultMap = FastMap.newInstance();
             }
             resultMap.putAll(dctx.getModelService(this.serviceName).makeValid(actionResult, ModelService.OUT_PARAM, false, null));
             context.put(resultMapName, resultMap);

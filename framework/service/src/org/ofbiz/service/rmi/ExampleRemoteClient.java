@@ -23,7 +23,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.net.MalformedURLException;
 import java.util.Map;
-import java.util.HashMap;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.service.rmi.RemoteDispatcher;
 import org.ofbiz.service.GenericServiceException;
@@ -61,7 +62,7 @@ public class ExampleRemoteClient {
     }
 
     public Map runTestService() throws RemoteException, GenericServiceException {
-        Map context = new HashMap();
+        Map context = FastMap.newInstance();
         context.put("message", "Remote Service Test");
         return rd.runSync("testScv", context);
     }

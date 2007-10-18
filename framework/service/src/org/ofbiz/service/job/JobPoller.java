@@ -20,6 +20,8 @@ package org.ofbiz.service.job;
 
 import java.util.*;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.base.util.Debug;
 
@@ -121,7 +123,7 @@ public class JobPoller implements Runnable {
         Iterator i = this.pool.iterator();
         while (i.hasNext()) {
             JobInvoker invoker = (JobInvoker) i.next();
-            Map stateMap = new HashMap();
+            Map stateMap = FastMap.newInstance();
             stateMap.put("threadName", invoker.getName());
             stateMap.put("jobName", invoker.getJobName());
             stateMap.put("serviceName", invoker.getServiceName());
