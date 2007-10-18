@@ -39,16 +39,16 @@ import org.w3c.dom.Element;
 public class MinervaConnectionFactory implements ConnectionFactoryInterface {
         
     public static final String module = MinervaConnectionFactory.class.getName();
-    protected static Map dsCache = FastMap.newInstance();
+    protected static Map<String, XAPoolDataSource> dsCache = FastMap.newInstance();
 
     public Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
-        XAPoolDataSource pds = (XAPoolDataSource) dsCache.get(helperName);        
+        XAPoolDataSource pds = dsCache.get(helperName);        
         if (pds != null) {                                  
             return TransactionFactory.getCursorConnection(helperName, pds.getConnection());
         }
         
         synchronized (MinervaConnectionFactory.class) {
-            pds = (XAPoolDataSource) dsCache.get(helperName);
+            pds = dsCache.get(helperName);
             if (pds != null) {                           
                 return pds.getConnection();
             } else {
@@ -115,18 +115,15 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
     }
     
     public void closeAll() {
-        Set cacheKeys = dsCache.keySet();
-        Iterator i = cacheKeys.iterator();
-        while (i.hasNext()) {
-            String helperName = (String) i.next();
-            XAPoolDataSource pds = (XAPoolDataSource) dsCache.remove(helperName);
+        for (String helperName: dsCache.keySet()) {
+            XAPoolDataSource pds = dsCache.remove(helperName);
             pds.close();   
         }                                                                             
     }
 
     // static methods for webtools
     public static Set getPooledData(String helperName) throws GenericEntityException {
-        XAPoolDataSource pds = (XAPoolDataSource) dsCache.get(helperName);
+        XAPoolDataSource pds = dsCache.get(helperName);
         if (pds == null) {
             throw new GenericEntityException("No pool found for helper name [" + helperName + "]");
         }
@@ -134,7 +131,7 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
     }
 
     public static String getPoolName(String helperName) throws GenericEntityException {
-        XAPoolDataSource pds = (XAPoolDataSource) dsCache.get(helperName);
+        XAPoolDataSource pds = dsCache.get(helperName);
         if (pds == null) {
             throw new GenericEntityException("No pool found for helper name [" + helperName + "]");
         }
