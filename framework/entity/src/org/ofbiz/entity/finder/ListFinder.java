@@ -136,7 +136,7 @@ public abstract class ListFinder extends Finder {
             delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
 
-        EntityCondition whereEntityCondition = getHavingEntityCondition(context, modelEntity, delegator);
+        EntityCondition whereEntityCondition = getWhereEntityCondition(context, modelEntity, delegator);
         EntityCondition havingEntityCondition = getHavingEntityCondition(context, modelEntity, delegator);
         if (useCache) {
             // if useCache == true && outputHandler instanceof UseIterator, throw exception; not a valid combination
