@@ -59,7 +59,7 @@ public class EntityFieldValue extends EntityConditionValue {
         return getField(modelEntity, fieldName);
     }
 
-    public void addSqlValue(StringBuilder sql, Map tableAliases, ModelEntity modelEntity, List entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
         sql.append(getColName(tableAliases, modelEntity, fieldName, includeTableNamePrefix, datasourceInfo));
     }
 
@@ -70,7 +70,7 @@ public class EntityFieldValue extends EntityConditionValue {
         }
     }
 
-    public Object getValue(GenericDelegator delegator, Map map) {
+    public Object getValue(GenericDelegator delegator, Map<String, ? extends Object> map) {
         if (map == null) {
             return null;
         }

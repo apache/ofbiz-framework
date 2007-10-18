@@ -44,14 +44,14 @@ import org.ofbiz.entity.model.ModelEntity;
 public abstract class EntityCondition extends EntityConditionBase {
 
     public String toString() {
-        return makeWhereString(null, FastList.newInstance(), null);
+        return makeWhereString(null, FastList.<EntityConditionParam>newInstance(), null);
     }
 
     public void accept(EntityConditionVisitor visitor) {
         throw new IllegalArgumentException(getClass().getName() + ".accept not implemented");
     }
 
-    abstract public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo);
+    abstract public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo);
 
     abstract public void checkCondition(ModelEntity modelEntity) throws GenericModelException;
 
@@ -59,15 +59,15 @@ public abstract class EntityCondition extends EntityConditionBase {
         return mapMatches(entity.getDelegator(), entity);
     }    
 
-    public Object eval(GenericEntity entity) {
+    public Boolean eval(GenericEntity entity) {
         return eval(entity.getDelegator(), entity);
     }
 
-    public Object eval(GenericDelegator delegator, Map map) {
+    public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map) {
         return mapMatches(delegator, map) ? Boolean.TRUE : Boolean.FALSE;
     }
 
-    abstract public boolean mapMatches(GenericDelegator delegator, Map map);
+    abstract public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map);
 
     abstract public EntityCondition freeze();
 

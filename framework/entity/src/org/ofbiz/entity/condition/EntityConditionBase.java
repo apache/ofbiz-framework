@@ -46,6 +46,10 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
  */
 public abstract class EntityConditionBase implements Serializable {
 
+    public static final List emptyList = Collections.unmodifiableList(FastList.newInstance());
+    public static final Map _emptyMap = Collections.unmodifiableMap(FastMap.newInstance());
+    public static final Map<String, String> emptyAliases = Collections.unmodifiableMap(FastMap.<String, String>newInstance());
+
     protected ModelField getField(ModelEntity modelEntity, String fieldName) {
         ModelField modelField = null;
         if (modelEntity != null) {
@@ -54,7 +58,7 @@ public abstract class EntityConditionBase implements Serializable {
         return modelField;
     }
 
-    protected String getColName(Map tableAliases, ModelEntity modelEntity, String fieldName, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
+    protected String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, String fieldName, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
         if (modelEntity == null) return fieldName;
         return getColName(tableAliases, modelEntity, getField(modelEntity, fieldName), fieldName, includeTableNamePrefix, datasourceInfo);
     }
@@ -69,7 +73,7 @@ public abstract class EntityConditionBase implements Serializable {
         return colName;
     }
 
-    protected String getColName(Map tableAliases, ModelEntity modelEntity, ModelField modelField, String fieldName, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
+    protected String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, ModelField modelField, String fieldName, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
         if (modelEntity == null || modelField == null) return fieldName;
 
         // if this is a view entity and we are configured to alias the views, use the alias here instead of the composite (ie table.column) field name 
@@ -85,14 +89,14 @@ public abstract class EntityConditionBase implements Serializable {
         if (includeTableNamePrefix && datasourceInfo != null) {
             String tableName = modelEntity.getTableName(datasourceInfo);
             if (tableAliases.containsKey(tableName)) {
-                tableName = (String) tableAliases.get(tableName);
+                tableName = tableAliases.get(tableName);
             }
             colName = tableName + "." + colName;
         }
         return colName;
     }
 
-    protected void addValue(StringBuilder buffer, ModelField field, Object value, List params) {
+    protected void addValue(StringBuilder buffer, ModelField field, Object value, List<EntityConditionParam> params) {
         SqlJdbcUtil.addValue(buffer, params == null ? null : field, value, params);
     }
 

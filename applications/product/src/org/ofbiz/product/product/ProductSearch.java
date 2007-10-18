@@ -42,6 +42,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityConditionParam;
 import org.ofbiz.entity.condition.EntityConditionSubSelect;
 import org.ofbiz.entity.condition.EntityConditionValue;
 import org.ofbiz.entity.condition.EntityExpr;
@@ -649,7 +650,7 @@ public class ProductSearch {
             
             this.entityConditionList.add(topCond);
             
-            Debug.logInfo("topCond=" + topCond.makeWhereString(null, FastList.newInstance(), EntityConfigUtil.getDatasourceInfo(delegator.getEntityHelperName("Product"))), module);
+            Debug.logInfo("topCond=" + topCond.makeWhereString(null, FastList.<EntityConditionParam>newInstance(), EntityConfigUtil.getDatasourceInfo(delegator.getEntityHelperName("Product"))), module);
         }
         
         public EntityListIterator doQuery(GenericDelegator delegator) {

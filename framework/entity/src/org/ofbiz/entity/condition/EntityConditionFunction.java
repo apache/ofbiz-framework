@@ -37,7 +37,7 @@ public abstract class EntityConditionFunction extends EntityCondition {
 
     public static class NOT extends EntityConditionFunction {
         public NOT(EntityCondition nested) { super(ID_NOT, "NOT", nested); }
-        public boolean mapMatches(GenericDelegator delegator, Map map) {
+        public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
             return !condition.mapMatches(delegator, map);
         }
         public EntityCondition freeze() {
@@ -85,7 +85,7 @@ public abstract class EntityConditionFunction extends EntityCondition {
         return idInt ^ condition.hashCode();
     }
 
-    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
+    public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         StringBuilder sb = new StringBuilder();
         sb.append(codeString).append('(');
         sb.append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));

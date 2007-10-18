@@ -128,8 +128,8 @@ public class OrderByItem implements Comparator<GenericEntity> {
     }
 
     public int compare(GenericEntity obj1, GenericEntity obj2) {
-        Object value1 = value.getValue(obj1);
-        Object value2 = value.getValue(obj2);
+        Comparable value1 = (Comparable) value.getValue(obj1);
+        Comparable value2 = (Comparable) value.getValue(obj2);
 
         int result;
         // null is defined as the largest possible value
@@ -138,7 +138,7 @@ public class OrderByItem implements Comparator<GenericEntity> {
         } else if (value2 == null) {
             result = value1 == null ? 0 : -1;
         } else {
-            result = ((Comparable) value1).compareTo(value2);
+            result = value1.compareTo(value2);
         }
         // if (Debug.infoOn()) Debug.logInfo("[OrderByComparator.compareAsc] Result is " + result + " for [" + value + "] and [" + value2 + "]", module);
         return descending ? -result : result;

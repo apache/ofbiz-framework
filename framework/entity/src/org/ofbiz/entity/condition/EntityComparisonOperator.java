@@ -41,7 +41,7 @@ import org.ofbiz.entity.model.ModelField;
 /**
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  */
-public class EntityComparisonOperator extends EntityOperator {
+public class EntityComparisonOperator extends EntityOperator<Boolean> {
     
     public static final String module = EntityComparisonOperator.class.getName();
 
@@ -83,7 +83,7 @@ public class EntityComparisonOperator extends EntityOperator {
         visitor.accept(rhs);
     }
 
-    public void addSqlValue(StringBuilder sql, ModelEntity entity, List entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         //Debug.logInfo("EntityComparisonOperator.addSqlValue field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
         
         // if this is an IN operator and the rhs Object isEmpty, add "FALSE" instead of the normal SQL
@@ -112,12 +112,12 @@ public class EntityComparisonOperator extends EntityOperator {
         makeRHSWhereString(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
-    protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuilder sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+    protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
         sql.append(' ').append(getCode()).append(' ');
         makeRHSWhereStringValue(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
-    protected void makeRHSWhereStringValue(ModelEntity entity, List entityConditionParams, StringBuilder sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+    protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
         if (rhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) rhs;
             ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);
@@ -130,11 +130,11 @@ public class EntityComparisonOperator extends EntityOperator {
         throw new UnsupportedOperationException(codeString);
     }
 
-    public Object eval(GenericDelegator delegator, Map map, Object lhs, Object rhs) {
+    public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         return mapMatches(delegator, map, lhs, rhs) ? Boolean.TRUE : Boolean.FALSE;
     }
 
-    public boolean mapMatches(GenericDelegator delegator, Map map, Object lhs, Object rhs) {
+    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         Object leftValue;
         if (lhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) lhs;
@@ -173,7 +173,7 @@ public class EntityComparisonOperator extends EntityOperator {
         super(id, code);
     }
 
-    public static final boolean compareEqual(Object lhs, Object rhs) {
+    public static final boolean compareEqual(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -184,7 +184,7 @@ public class EntityComparisonOperator extends EntityOperator {
         return true;
     }
 
-    public static final boolean compareNotEqual(Object lhs, Object rhs) {
+    public static final boolean compareNotEqual(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs == null) {
                 return false;
@@ -195,45 +195,45 @@ public class EntityComparisonOperator extends EntityOperator {
         return true;
     }
 
-    public static final boolean compareGreaterThan(Object lhs, Object rhs) {
+    public static final boolean compareGreaterThan(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
             }
-        } else if (((Comparable) lhs).compareTo(rhs) <= 0) {
+        } else if (lhs.compareTo(rhs) <= 0) {
             return false;
         }
         return true;
     }
 
-    public static final boolean compareGreaterThanEqualTo(Object lhs, Object rhs) {
+    public static final boolean compareGreaterThanEqualTo(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
             }
-        } else if (((Comparable) lhs).compareTo(rhs) < 0) {
+        } else if (lhs.compareTo(rhs) < 0) {
             return false;
         }
         return true;
     }
 
-    public static final boolean compareLessThan(Object lhs, Object rhs) {
+    public static final boolean compareLessThan(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
             }
-        } else if (((Comparable) lhs).compareTo(rhs) >= 0) {
+        } else if (lhs.compareTo(rhs) >= 0) {
             return false;
         }
         return true;
     }
 
-    public static final boolean compareLessThanEqualTo(Object lhs, Object rhs) {
+    public static final boolean compareLessThanEqualTo(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
             }
-        } else if (((Comparable) lhs).compareTo(rhs) > 0) {
+        } else if (lhs.compareTo(rhs) > 0) {
             return false;
         }
         return true;

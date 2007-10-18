@@ -32,20 +32,20 @@ import org.ofbiz.entity.model.ModelEntity;
  * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
  *
  */
-public abstract class EntityConditionListBase extends EntityCondition {
+public abstract class EntityConditionListBase<T extends EntityCondition> extends EntityCondition {
     public static final String module = EntityConditionListBase.class.getName();
 
-    protected List conditionList;
+    protected List<T> conditionList;
     protected EntityJoinOperator operator;
 
     protected EntityConditionListBase() {}
 
-    public EntityConditionListBase(EntityJoinOperator operator, EntityCondition... conditionList) {
+    public EntityConditionListBase(EntityJoinOperator operator, T... conditionList) {
         this.conditionList = Arrays.asList(conditionList);
         this.operator = operator;
     }
 
-    public EntityConditionListBase(List conditionList, EntityJoinOperator operator) {
+    public EntityConditionListBase(List<T> conditionList, EntityJoinOperator operator) {
         this.conditionList = conditionList;
         this.operator = operator;
     }
@@ -54,15 +54,15 @@ public abstract class EntityConditionListBase extends EntityCondition {
         return this.operator;
     }
 
-    public EntityCondition getCondition(int index) {
-        return (EntityCondition) this.conditionList.get(index);
+    public T getCondition(int index) {
+        return this.conditionList.get(index);
     }
     
     protected int getConditionListSize() {
         return this.conditionList.size();
     }
     
-    protected Iterator getConditionIterator() {
+    protected Iterator<T> getConditionIterator() {
         return this.conditionList.iterator();
     }
     
@@ -70,7 +70,7 @@ public abstract class EntityConditionListBase extends EntityCondition {
         visitor.acceptEntityJoinOperator(operator, conditionList);
     }
 
-    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
+    public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
         StringBuilder sql = new StringBuilder();
         operator.addSqlValue(sql, modelEntity, entityConditionParams, conditionList, datasourceInfo);
@@ -82,7 +82,7 @@ public abstract class EntityConditionListBase extends EntityCondition {
         operator.validateSql(modelEntity, conditionList);
     }
 
-    public boolean mapMatches(GenericDelegator delegator, Map map) {
+    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
         return operator.mapMatches(delegator, map, conditionList);
     }
 
@@ -91,9 +91,7 @@ public abstract class EntityConditionListBase extends EntityCondition {
     }
 
     public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator) {
-        Iterator conditionIter = this.conditionList.iterator();
-        while (conditionIter.hasNext()) {
-            EntityCondition cond = (EntityCondition) conditionIter.next();
+        for (T cond: this.conditionList) {
             cond.encryptConditionFields(modelEntity, delegator);
         }
     }

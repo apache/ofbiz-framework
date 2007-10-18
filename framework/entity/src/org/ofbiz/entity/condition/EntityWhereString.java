@@ -48,7 +48,7 @@ public class EntityWhereString extends EntityCondition {
         this.sqlString = sqlString;
     }
 
-    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
+    public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         return sqlString;
     }
 
@@ -59,7 +59,7 @@ public class EntityWhereString extends EntityCondition {
 		throw new UnsupportedOperationException("Cannot do entityMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
 	}
 
-    public boolean mapMatches(GenericDelegator delegator, Map map) {
+    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
         throw new UnsupportedOperationException("Cannot do mapMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
     }
 
