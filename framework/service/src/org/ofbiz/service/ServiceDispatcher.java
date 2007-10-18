@@ -852,7 +852,7 @@ public class ServiceDispatcher {
                 //The old way: GenericValue newUserLogin = getLoginObject(service, localName, userLogin.getString("userLoginId"), userLogin.getString("currentPassword"), (Locale) context.get("locale"));
                 GenericValue newUserLogin = null;
                 try {
-                    newUserLogin = this.getDelegator().findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", userLogin.get("userLoginId")));
+                    newUserLogin = this.getDelegator().findByPrimaryKeyCache("UserLogin", "userLoginId", userLogin.get("userLoginId"));
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Error looking up service authentication UserLogin: " + e.toString(), module);
                     // leave newUserLogin null, will be handled below

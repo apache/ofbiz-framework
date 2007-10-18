@@ -457,7 +457,7 @@ public class ServiceUtil {
                             boolean beganTx3 = false;
                             try {
                                 beganTx3 = TransactionUtil.begin();
-                                delegator.removeByAnd("RuntimeData", UtilMisc.toMap("runtimeDataId", runtimeId));
+                                delegator.removeByAnd("RuntimeData", "runtimeDataId", runtimeId);
 
                             } catch (GenericEntityException e) {
                                 Debug.logInfo("Cannot remove runtime data for ID: " + runtimeId, module);
@@ -588,7 +588,7 @@ public class ServiceUtil {
         GenericDelegator delegator = dctx.getDelegator();
         if (runAsUser != null) {
             try {
-                GenericValue runAs = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", runAsUser));
+                GenericValue runAs = delegator.findByPrimaryKeyCache("UserLogin", "userLoginId", runAsUser);
                 if (runAs != null) {
                     userLogin = runAs;
                 }
