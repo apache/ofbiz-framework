@@ -434,9 +434,9 @@ public class GenericValue extends GenericEntity implements Reusable {
      */
     public boolean checkFks(boolean insertDummy) throws GenericEntityException {
         ModelEntity model = this.getModelEntity();
-        Iterator relItr = model.getRelationsIterator();
+        Iterator<ModelRelation> relItr = model.getRelationsIterator();
         while (relItr.hasNext()) {
-            ModelRelation relation = (ModelRelation) relItr.next();
+            ModelRelation relation = relItr.next();
             if ("one".equalsIgnoreCase(relation.getType())) {
                 // see if the related value exists                
                 Map<String, Object> fields = FastMap.newInstance();
@@ -449,10 +449,10 @@ public class GenericValue extends GenericEntity implements Reusable {
                     if (insertDummy) {
                         // create the new related value (dummy)
                         GenericValue newValue = this.getDelegator().makeValue(relation.getRelEntityName());
-                        Iterator keyMapIter = relation.getKeyMapsIterator();
+                        Iterator<ModelKeyMap> keyMapIter = relation.getKeyMapsIterator();
                         boolean allFieldsSet = true;
                         while (keyMapIter.hasNext()) {
-                            ModelKeyMap mkm = (ModelKeyMap) keyMapIter.next();
+                            ModelKeyMap mkm = keyMapIter.next();
                             if (this.get(mkm.getFieldName()) != null) {
                                 newValue.set(mkm.getRelFieldName(), this.get(mkm.getFieldName()));
                                 if (Debug.infoOn()) Debug.logInfo("Set [" + mkm.getRelFieldName() + "] to - " + this.get(mkm.getFieldName()), module);
