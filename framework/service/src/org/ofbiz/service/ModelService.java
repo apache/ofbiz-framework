@@ -223,7 +223,7 @@ public class ModelService extends AbstractMap implements Serializable {
     }
 
     public String toString() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(name).append("::");
         buf.append(description).append("::");
         buf.append(engineName).append("::");

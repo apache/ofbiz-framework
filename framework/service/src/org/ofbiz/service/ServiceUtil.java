@@ -209,7 +209,7 @@ public class ServiceUtil {
     }
 
     public static String getErrorMessage(Map result) {
-        StringBuffer errorMessage = new StringBuffer();
+        StringBuilder errorMessage = new StringBuilder();
 
         if (result.get(ModelService.ERROR_MESSAGE) != null) errorMessage.append((String) result.get(ModelService.ERROR_MESSAGE));
 
@@ -237,7 +237,7 @@ public class ServiceUtil {
         String errorMsg = (String) result.get(ModelService.ERROR_MESSAGE);
         List errorMsgList = (List) result.get(ModelService.ERROR_MESSAGE_LIST);
         Map errorMsgMap = (Map) result.get(ModelService.ERROR_MESSAGE_MAP);
-        StringBuffer outMsg = new StringBuffer();
+        StringBuilder outMsg = new StringBuilder();
 
         if (errorMsg != null) {
             if (msgPrefix != null) outMsg.append(msgPrefix);
@@ -262,7 +262,7 @@ public class ServiceUtil {
         }
 
         if (outMsg.length() > 0) {
-            StringBuffer strBuf = new StringBuffer();
+            StringBuilder strBuf = new StringBuilder();
 
             if (errorPrefix != null) strBuf.append(errorPrefix);
             strBuf.append(outMsg.toString());
@@ -279,7 +279,7 @@ public class ServiceUtil {
         }
         String successMsg = (String) result.get(ModelService.SUCCESS_MESSAGE);
         List successMsgList = (List) result.get(ModelService.SUCCESS_MESSAGE_LIST);
-        StringBuffer outMsg = new StringBuffer();
+        StringBuilder outMsg = new StringBuilder();
 
         outMsg.append(makeMessageList(successMsgList, msgPrefix, msgSuffix));
 
@@ -290,7 +290,7 @@ public class ServiceUtil {
         }
 
         if (outMsg.length() > 0) {
-            StringBuffer strBuf = new StringBuffer();
+            StringBuilder strBuf = new StringBuilder();
             if (successPrefix != null) strBuf.append(successPrefix);
             strBuf.append(outMsg.toString());
             if (successSuffix != null) strBuf.append(successSuffix);
@@ -301,7 +301,7 @@ public class ServiceUtil {
     }
 
     public static String makeMessageList(List msgList, String msgPrefix, String msgSuffix) {
-        StringBuffer outMsg = new StringBuffer();
+        StringBuilder outMsg = new StringBuilder();
         if (msgList != null && msgList.size() > 0) {
             Iterator iter = msgList.iterator();
             while (iter.hasNext()) {
