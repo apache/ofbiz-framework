@@ -136,6 +136,10 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         return dispatcher.runSync(this.name, service, context);
     }
 
+    public Map<String, Object> runSync(String serviceName, Object... context) throws ServiceValidationException, GenericServiceException {
+        return runSync(serviceName, ServiceUtil.makeContext(context));
+    }
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#runSync(java.lang.String, java.util.Map, int, boolean)
      */
@@ -150,12 +154,20 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         return dispatcher.runSync(this.name, cloned, context);
     }
 
+    public Map<String, Object> runSync(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        return runSync(serviceName, transactionTimeout, requireNewTransaction, ServiceUtil.makeContext(context));
+    }
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#runSyncIgnore(java.lang.String, java.util.Map)
      */
     public void runSyncIgnore(String serviceName, Map context) throws GenericServiceException {
         ModelService service = ctx.getModelService(serviceName);
         dispatcher.runSyncIgnore(this.name, service, context);
+    }
+
+    public void runSyncIgnore(String serviceName, Object... context) throws GenericServiceException {
+        runSyncIgnore(serviceName, ServiceUtil.makeContext(context));
     }
 
     /**
@@ -172,6 +184,10 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         dispatcher.runSyncIgnore(this.name, cloned, context);
     }
 
+    public void runSyncIgnore(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        runSyncIgnore(serviceName, ServiceUtil.makeContext(context), transactionTimeout, requireNewTransaction);
+    }
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#runAsync(java.lang.String, java.util.Map, org.ofbiz.service.GenericRequester, boolean, int, boolean)
      */
@@ -186,6 +202,10 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         dispatcher.runAsync(this.name, cloned, context, requester, persist);
     }
 
+    public void runAsync(String serviceName, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        runAsync(serviceName, ServiceUtil.makeContext(context), requester, persist, transactionTimeout, requireNewTransaction);
+    }
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#runAsync(java.lang.String, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */
@@ -193,12 +213,20 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         ModelService service = ctx.getModelService(serviceName);
         dispatcher.runAsync(this.name, service, context, requester, persist);
     }
+
+    public void runAsync(String serviceName, GenericRequester requester, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        runAsync(serviceName, ServiceUtil.makeContext(context), requester, persist);
+    }
    
     /**
      * @see org.ofbiz.service.LocalDispatcher#runAsync(java.lang.String, java.util.Map, org.ofbiz.service.GenericRequester)
      */
     public void runAsync(String serviceName, Map context, GenericRequester requester) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         runAsync(serviceName, context, requester, true);
+    }
+
+    public void runAsync(String serviceName, GenericRequester requester, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        runAsync(serviceName, ServiceUtil.makeContext(context), requester);
     }
     
     /**
@@ -208,12 +236,20 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         ModelService service = ctx.getModelService(serviceName);
         dispatcher.runAsync(this.name, service, context, persist);
     }
+
+    public void runAsync(String serviceName, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        runAsync(serviceName, ServiceUtil.makeContext(context), persist);
+    }
    
     /**
      * @see org.ofbiz.service.LocalDispatcher#runAsync(java.lang.String, java.util.Map)
      */
     public void runAsync(String serviceName, Map context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         runAsync(serviceName, context, true);
+    }
+
+    public void runAsync(String serviceName, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        runAsync(serviceName, ServiceUtil.makeContext(context));
     }
   
     /**
@@ -224,6 +260,10 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         this.runAsync(serviceName, context, waiter, persist);
         return waiter;
     }
+
+    public GenericResultWaiter runAsyncWait(String serviceName, boolean persist, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        return runAsyncWait(serviceName, ServiceUtil.makeContext(context), persist);
+    }
  
     /**
      * @see org.ofbiz.service.LocalDispatcher#runAsyncWait(java.lang.String, java.util.Map)
@@ -231,5 +271,9 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     public GenericResultWaiter runAsyncWait(String serviceName, Map context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         return runAsyncWait(serviceName, context, true);
     }  
+
+    public GenericResultWaiter runAsyncWait(String serviceName, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+        return runAsyncWait(serviceName, ServiceUtil.makeContext(context));
+    }
 }
 
