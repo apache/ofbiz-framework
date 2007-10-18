@@ -49,7 +49,7 @@ import org.ofbiz.entity.jdbc.DatabaseUtil;
  * Generic Entity - Entity model class
  *
  */
-public class ModelEntity extends ModelInfo implements Comparable, Serializable {
+public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, Serializable {
 
     public static final String module = ModelEntity.class.getName();
 
@@ -1169,8 +1169,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         return returnString.toString();
     }
 
-    public int compareTo(Object obj) {
-        ModelEntity otherModelEntity = (ModelEntity) obj;
+    public int compareTo(ModelEntity otherModelEntity) {
 
         /* This DOESN'T WORK, so forget it... using two passes
          //sort list by fk dependencies

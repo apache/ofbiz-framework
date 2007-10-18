@@ -31,7 +31,7 @@ import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
-public class OrderByList implements Comparator {
+public class OrderByList implements Comparator<GenericEntity> {
     protected List orderByList = new ArrayList();
 
     public OrderByList() {
@@ -96,10 +96,6 @@ public class OrderByList implements Comparator {
             OrderByItem orderByItem = (OrderByItem) orderByList.get(i);
             orderByItem.makeOrderByString(sb, modelEntity, includeTablenamePrefix, datasourceInfo);
         }
-    }
-
-    public int compare(Object obj1, Object obj2) {
-        return compare((GenericEntity) obj1, (GenericEntity) obj2);
     }
 
     public int compare(GenericEntity entity1, GenericEntity entity2) {

@@ -65,7 +65,7 @@ import org.ofbiz.base.crypto.HashCrypt;
  * <code>Observer</code>.
  *
  */
-public class GenericEntity extends Observable implements Map, LocalizedMap, Serializable, Comparable, Cloneable, Reusable {
+public class GenericEntity extends Observable implements Map, LocalizedMap, Serializable, Comparable<GenericEntity>, Cloneable, Reusable {
     public static final String module = GenericEntity.class.getName();
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
     public static final NullField NULL_FIELD = new NullField();
@@ -1148,11 +1148,11 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
      *@return      boolean stating if the two objects are equal
      */
     public boolean equals(Object obj) {
-        if (obj == null) return false;
+        if (!(obj instanceof GenericEntity)) return false;
 
         // from here, use the compareTo method since it is more efficient:
         try {
-            return this.compareTo(obj) == 0;
+            return this.compareTo((GenericEntity) obj) == 0;
         } catch (ClassCastException e) {
             return false;
         }
@@ -1258,14 +1258,9 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
      *@param obj Object to compare this to
      *@return int representing the result of the comparison (-1,0, or 1)
      */
-    public int compareTo(Object obj) {
+    public int compareTo(GenericEntity that) {
         // if null, it will push to the beginning
-        if (obj == null) return -1;
-
-        // rather than doing an if instanceof, just cast it and let it throw an exception if
-        // it fails, this will be faster for the expected case (that it IS a GenericEntity)
-        // if not a GenericEntity throw ClassCastException, as the spec says
-        GenericEntity that = (GenericEntity) obj;
+        if (that == null) return -1;
 
         int tempResult = this.entityName.compareTo(that.entityName);
 
@@ -1379,14 +1374,14 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         }
     }
     
-    public static class NullField implements NULL, Comparable {
+    public static class NullField implements NULL, Comparable<NullField> {
         protected NullField() { }
     
         public String toString() {
             return "[null-field]";
         }
 
-        public int compareTo(Object other) {
+        public int compareTo(NullField other) {
             return this != other ? -1 : 0;
         }
     }
