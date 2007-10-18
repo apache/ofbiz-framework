@@ -62,13 +62,13 @@ public interface GenericHelper {
      *@param keys The keys, or names, of the values to retrieve; only these values will be retrieved
      *@return The GenericValue corresponding to the primaryKey
      */
-    public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set keys) throws GenericEntityException;
+    public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set<String> keys) throws GenericEntityException;
 
     /** Find a number of Generic Value objects by their Primary Keys, all at once
      *@param primaryKeys A List of primary keys to find by.
      *@return List of GenericValue objects corresponding to the passed primaryKey objects
      */
-    public List findAllByPrimaryKeys(List primaryKeys) throws GenericEntityException;
+    public List<GenericValue> findAllByPrimaryKeys(List<GenericPK> primaryKeys) throws GenericEntityException;
 
     /** Remove a Generic Entity corresponding to the primaryKey
      *@param  primaryKey  The primary key of the entity to remove.
@@ -76,8 +76,8 @@ public interface GenericHelper {
      */
     public int removeByPrimaryKey(GenericPK primaryKey) throws GenericEntityException;
 
-    public List findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
-        ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List orderBy) throws GenericEntityException;
+    public List<GenericValue> findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
+        ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy) throws GenericEntityException;
 
     /** Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
      *@param modelEntity The ModelEntity of the Entity as defined in the entity XML file
@@ -90,7 +90,7 @@ public interface GenericHelper {
      *      DONE WITH IT, AND DON'T LEAVE IT OPEN TOO LONG BEACUSE IT WILL MAINTAIN A DATABASE CONNECTION.
      */
     public EntityListIterator findListIteratorByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition,
-        EntityCondition havingEntityCondition, Collection fieldsToSelect, List orderBy, EntityFindOptions findOptions)
+        EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
         throws GenericEntityException;
 
     public long findCountByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition,
@@ -110,7 +110,7 @@ public interface GenericHelper {
      *@return int representing number of rows effected by this operation
      *@throws GenericEntityException
      */
-    public int storeByCondition(ModelEntity modelEntity, Map fieldsToSet, EntityCondition condition) throws GenericEntityException;
+    public int storeByCondition(ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException;
 
     /** Store the Entity from the GenericValue to the persistent store
      *@param value GenericValue instance containing the entity
@@ -123,5 +123,5 @@ public interface GenericHelper {
      *@param messages List to put any result messages in
      *@param addMissing Flag indicating whether or not to add missing entities and fields on the server
      */
-    public void checkDataSource(Map modelEntities, List messages, boolean addMissing) throws GenericEntityException;
+    public void checkDataSource(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) throws GenericEntityException;
 }

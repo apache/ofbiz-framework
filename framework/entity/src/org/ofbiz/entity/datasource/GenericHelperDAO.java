@@ -86,7 +86,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@param keys The keys, or names, of the values to retrieve; only these values will be retrieved
      *@return The GenericValue corresponding to the primaryKey
      */
-    public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set keys) throws GenericEntityException {
+    public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set<String> keys) throws GenericEntityException {
         if (primaryKey == null) {
             return null;
         }
@@ -102,14 +102,11 @@ public class GenericHelperDAO implements GenericHelper {
      *@param primaryKeys A List of primary keys to find by.
      *@return List of GenericValue objects corresponding to the passed primaryKey objects
      */
-    public List findAllByPrimaryKeys(List primaryKeys) throws GenericEntityException {
+    public List<GenericValue> findAllByPrimaryKeys(List<GenericPK> primaryKeys) throws GenericEntityException {
         if (primaryKeys == null) return null;
-        List results = new LinkedList();
+        List<GenericValue> results = new LinkedList<GenericValue>();
 
-        Iterator pkiter = primaryKeys.iterator();
-
-        while (pkiter.hasNext()) {
-            GenericPK primaryKey = (GenericPK) pkiter.next();
+        for (GenericPK primaryKey: primaryKeys) {
             GenericValue result = this.findByPrimaryKey(primaryKey);
 
             if (result != null) results.add(result);
@@ -138,13 +135,13 @@ public class GenericHelperDAO implements GenericHelper {
      *      DONE WITH IT, AND DON'T LEAVE IT OPEN TOO LONG BEACUSE IT WILL MAINTAIN A DATABASE CONNECTION.
      */
     public EntityListIterator findListIteratorByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition,
-        EntityCondition havingEntityCondition, Collection fieldsToSelect, List orderBy, EntityFindOptions findOptions)
+        EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
         throws GenericEntityException {
         return genericDAO.selectListIteratorByCondition(modelEntity, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderBy, findOptions);
     }
 
-    public List findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
-        ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List orderBy) throws GenericEntityException {
+    public List<GenericValue> findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
+        ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy) throws GenericEntityException {
         return genericDAO.selectByMultiRelation(value, modelRelationOne, modelEntityOne, modelRelationTwo, modelEntityTwo, orderBy);
     }
 
@@ -182,7 +179,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@return int representing number of rows effected by this operation
      *@throws GenericEntityException
      */
-    public int storeByCondition(ModelEntity modelEntity, Map fieldsToSet, EntityCondition condition) throws GenericEntityException {
+    public int storeByCondition(ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
         if (modelEntity == null || condition == null) {
             return 0;
         }
@@ -194,7 +191,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@param messages List to put any result messages in
      *@param addMissing Flag indicating whether or not to add missing entities and fields on the server
      */
-    public void checkDataSource(Map modelEntities, List messages, boolean addMissing) throws GenericEntityException {
+    public void checkDataSource(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) throws GenericEntityException {
         genericDAO.checkDb(modelEntities, messages, addMissing);
     }
 }

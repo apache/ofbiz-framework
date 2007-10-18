@@ -34,16 +34,16 @@ public class GenericHelperFactory {
     public static final String module = GenericHelperFactory.class.getName();
 
     // protected static UtilCache helperCache = new UtilCache("entity.GenericHelpers", 0, 0);
-    protected static Map helperCache = new HashMap();
+    protected static Map<String, GenericHelper> helperCache = new HashMap<String, GenericHelper>();
 
     public static GenericHelper getHelper(String helperName) {
-        GenericHelper helper = (GenericHelper) helperCache.get(helperName);
+        GenericHelper helper = helperCache.get(helperName);
 
         if (helper == null) // don't want to block here
         {
             synchronized (GenericHelperFactory.class) {
                 // must check if null again as one of the blocked threads can still enter
-                helper = (GenericHelper) helperCache.get(helperName);
+                helper = helperCache.get(helperName);
                 if (helper == null) {
                     try {
                         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
@@ -52,7 +52,7 @@ public class GenericHelperFactory {
                             throw new IllegalStateException("Could not find datasource definition with name " + helperName);
                         }
                         String helperClassName = datasourceInfo.helperClass;
-                        Class helperClass = null;
+                        Class<?> helperClass = null;
 
                         if (helperClassName != null && helperClassName.length() > 0) {
                             try {
@@ -64,7 +64,7 @@ public class GenericHelperFactory {
                             }
                         }
 
-                        Class[] paramTypes = new Class[] {String.class};
+                        Class<?>[] paramTypes = new Class<?>[] {String.class};
                         Object[] params = new Object[] {helperName};
 
                         java.lang.reflect.Constructor helperConstructor = null;
