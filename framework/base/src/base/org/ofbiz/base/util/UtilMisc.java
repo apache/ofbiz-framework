@@ -150,6 +150,10 @@ public class UtilMisc {
         if (data == null) {
             return null;
         }
+        if (data.length == 1 && data[0] instanceof Map) {
+            // Fix for javac's broken type inferring
+            return UtilGenerics.<K, V>checkMap(data[0]);
+        }
         if (data.length % 2 == 1) {
             throw new IllegalArgumentException("You must pass an even sized array to the toMap method");
         }
