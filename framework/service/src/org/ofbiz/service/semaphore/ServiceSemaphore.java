@@ -103,7 +103,7 @@ public class ServiceSemaphore {
         GenericValue semaphore;
 
         try {
-            semaphore = delegator.findByPrimaryKey("ServiceSemaphore", UtilMisc.toMap("serviceName", model.name));
+            semaphore = delegator.findByPrimaryKey("ServiceSemaphore", "serviceName", model.name);
         } catch (GenericEntityException e) {
             throw new SemaphoreFailException(e);
         }

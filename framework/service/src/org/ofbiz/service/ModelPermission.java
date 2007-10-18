@@ -94,7 +94,7 @@ public class ModelPermission implements Serializable {
         GenericDelegator delegator = userLogin.getDelegator();
         List partyRoles = null;
         try {
-            partyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("roleTypeId", nameOrRole, "partyId", userLogin.get("partyId")));
+            partyRoles = delegator.findByAnd("PartyRole", "roleTypeId", nameOrRole, "partyId", userLogin.get("partyId"));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to lookup PartyRole records", module);
         }
