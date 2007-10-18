@@ -40,21 +40,18 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by a condition
  *
  */
-public class PrimaryKeyFinder implements Serializable {
+public class PrimaryKeyFinder extends Finder {
     public static final String module = PrimaryKeyFinder.class.getName();         
     
-    protected FlexibleStringExpander entityNameExdr;
     protected FlexibleMapAccessor valueNameAcsr;
-    protected FlexibleStringExpander useCacheExdr;
     protected FlexibleStringExpander autoFieldMapExdr;
     protected Map fieldMap;
     protected List selectFieldExpanderList;
 
     public PrimaryKeyFinder(Element entityOneElement) {
-        this.entityNameExdr = new FlexibleStringExpander(entityOneElement.getAttribute("entity-name"));
+        super(entityOneElement);
         if (UtilValidate.isNotEmpty(entityOneElement.getAttribute("value-name")))
             this.valueNameAcsr = new FlexibleMapAccessor(entityOneElement.getAttribute("value-name"));
-        this.useCacheExdr = new FlexibleStringExpander(entityOneElement.getAttribute("use-cache"));
         this.autoFieldMapExdr = new FlexibleStringExpander(entityOneElement.getAttribute("auto-field-map"));
 
         // process field-map
@@ -68,7 +65,7 @@ public class PrimaryKeyFinder implements Serializable {
         String entityName = this.entityNameExdr.expandString(context);
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
         
-        String useCacheString = this.useCacheExdr.expandString(context);
+        String useCacheString = this.useCacheStrExdr.expandString(context);
         // default to false
         boolean useCacheBool = "true".equals(useCacheString);
 
