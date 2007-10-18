@@ -16,9 +16,10 @@ import javax.transaction.TransactionManager;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import javolution.util.FastMap;
 
 /**
  * DBCPConnectionFactory
@@ -26,7 +27,7 @@ import java.util.Properties;
 public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
     public static final String module = DBCPConnectionFactory.class.getName();
-    protected static Map dsCache = new HashMap();
+    protected static Map dsCache = FastMap.newInstance();
 
     public Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
         ManagedDataSource mds = (ManagedDataSource) dsCache.get(helperName);
