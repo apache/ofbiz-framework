@@ -434,6 +434,17 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Creates a Entity in the form of a GenericValue without persisting it */
+    public GenericValue makeValue(String entityName) {
+        ModelEntity entity = this.getModelEntity(entityName);
+        if (entity == null) {
+            throw new IllegalArgumentException("[GenericDelegator.makeValue] could not find entity for entityName: " + entityName);
+        }
+        GenericValue value = GenericValue.create(entity);
+        value.setDelegator(this);
+        return value;
+    }
+
+    /** Creates a Entity in the form of a GenericValue without persisting it */
     public GenericValue makeValue(String entityName, Map fields) {
         ModelEntity entity = this.getModelEntity(entityName);
         if (entity == null) {
@@ -466,6 +477,18 @@ public class GenericDelegator implements DelegatorInterface {
         value.setNonPKFields(fields, true);
         value.setDelegator(this);
         return value;
+    }
+
+    /** Creates a Primary Key in the form of a GenericPK without persisting it */
+    public GenericPK makePK(String entityName) {
+        ModelEntity entity = this.getModelEntity(entityName);
+        if (entity == null) {
+            throw new IllegalArgumentException("[GenericDelegator.makePK] could not find entity for entityName: " + entityName);
+        }
+        GenericPK pk = GenericPK.create(entity);
+
+        pk.setDelegator(this);
+        return pk;
     }
 
     /** Creates a Primary Key in the form of a GenericPK without persisting it */
@@ -1238,6 +1261,10 @@ public class GenericDelegator implements DelegatorInterface {
             // only commit the transaction if we started one... this will throw an exception if it fails
             TransactionUtil.commit(beganTransaction);
         }
+    }
+
+    public int removeAll(String entityName) throws GenericEntityException {
+        return removeByAnd(entityName, (Map) null);
     }
 
     /** Remove the Entities from the List from the persistent store.
@@ -2252,6 +2279,13 @@ public class GenericDelegator implements DelegatorInterface {
         if (distribute && this.distributedCacheClear != null) {
             this.distributedCacheClear.clearAllCaches();
         }
+    }
+
+    /** Remove all CACHED Generic Entity (List) from the cache
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     */
+    public void clearCacheLine(String entityName) {
+        cache.remove(entityName);
     }
 
     /** Remove a CACHED Generic Entity (List) from the cache, either a PK, ByAnd, or All
