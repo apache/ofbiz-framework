@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.service.job;
 
-import java.util.Date;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
@@ -46,7 +45,7 @@ public class GenericServiceJob extends AbstractJob {
         this.service = service;
         this.context = context;
         this.requester = req;
-        runtime = new Date().getTime();
+        runtime = System.currentTimeMillis();
     }
 
     protected GenericServiceJob(String jobId, String jobName) {
