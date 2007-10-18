@@ -606,4 +606,13 @@ public class ServiceUtil {
         }
         return locale;
     }
+
+    public static Map makeContext(Object... args) {
+        if (args != null) {
+            for (int i = 0; i < args.length; i += 2) {
+                if (!(args[i] instanceof String)) throw new IllegalArgumentException("Arg(" + i + "), value(" + args[i] + ") is not a string.");
+            }
+        }
+        return UtilMisc.toMap(args);
+    }
 }
