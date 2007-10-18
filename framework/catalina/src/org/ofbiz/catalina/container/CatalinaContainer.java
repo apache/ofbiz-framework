@@ -126,7 +126,7 @@ public class CatalinaContainer implements Container {
     public static final String J2EE_SERVER = "OFBiz Container 3.1";
     public static final String J2EE_APP = "OFBiz";
     public static final String module = CatalinaContainer.class.getName();
-    protected static Map mimeTypes = new HashMap();
+    protected static Map<String, String> mimeTypes = new HashMap<String, String>();
 
     // load the JSSE propertes (set the trust store)
     static {
@@ -135,9 +135,9 @@ public class CatalinaContainer implements Container {
 
     protected GenericDelegator delegator = null;
     protected Embedded embedded = null;
-    protected Map clusterConfig = new HashMap();
-    protected Map engines = new HashMap();
-    protected Map hosts = new HashMap();
+    protected Map<String, ContainerConfig.Container.Property> clusterConfig = new HashMap<String, ContainerConfig.Container.Property>();
+    protected Map<String, Engine> engines = new HashMap<String, Engine>();
+    protected Map<String, Host> hosts = new HashMap<String, Host>();
 
     protected boolean contextReloadable = false;
     protected boolean crossContext = false;
@@ -185,13 +185,11 @@ public class CatalinaContainer implements Container {
         embedded.setUseNaming(useNaming);
 
         // create the engines
-        List engineProps = cc.getPropertiesWithValue("engine");
+        List<ContainerConfig.Container.Property> engineProps = cc.getPropertiesWithValue("engine");
         if (engineProps == null || engineProps.size() == 0) {
             throw new ContainerException("Cannot load CatalinaContainer; no engines defined!");
         }
-        Iterator ei = engineProps.iterator();
-        while (ei.hasNext()) {
-            ContainerConfig.Container.Property engineProp = (ContainerConfig.Container.Property) ei.next();
+        for (ContainerConfig.Container.Property engineProp: engineProps) {
             createEngine(engineProp);
         }
 
@@ -199,13 +197,11 @@ public class CatalinaContainer implements Container {
         loadComponents();
 
         // create the connectors
-        List connectorProps = cc.getPropertiesWithValue("connector");
+        List<ContainerConfig.Container.Property> connectorProps = cc.getPropertiesWithValue("connector");
         if (connectorProps == null || connectorProps.size() == 0) {
             throw new ContainerException("Cannot load CatalinaContainer; no connectors defined!");
         }
-        Iterator ci = connectorProps.iterator();
-        while (ci.hasNext()) {
-            ContainerConfig.Container.Property connectorProp = (ContainerConfig.Container.Property) ci.next();
+        for (ContainerConfig.Container.Property connectorProp: connectorProps) {
             createConnector(connectorProp);
         }
 
@@ -224,16 +220,15 @@ public class CatalinaContainer implements Container {
             throw new ContainerException(e);
         }
 
-        Connector[] cons = embedded.findConnectors();
-        for (int i = 0; i < cons.length; i++) {
-            ProtocolHandler ph = cons[i].getProtocolHandler();
+        for (Connector con: embedded.findConnectors()) {
+            ProtocolHandler ph = con.getProtocolHandler();
             if (ph instanceof Http11Protocol) {
                 Http11Protocol hph = (Http11Protocol) ph;
                 Debug.logInfo("Connector " + hph.getProtocol() + " @ " + hph.getPort() + " - " +
-                    (hph.getSecure() ? "secure" : "not-secure") + " [" + cons[i].getProtocolHandlerClassName() + "] started.", module);
+                    (hph.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", module);
             } else {
-                Debug.logInfo("Connector " + cons[i].getProtocol() + " @ " + cons[i].getPort() + " - " +
-                    (cons[i].getSecure() ? "secure" : "not-secure") + " [" + cons[i].getProtocolHandlerClassName() + "] started.", module);
+                Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
+                    (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", module);
             }
         }
         Debug.logInfo("Started " + ServerInfo.getServerInfo(), module);
@@ -277,13 +272,13 @@ public class CatalinaContainer implements Container {
         hosts.put(engineName + "._DEFAULT", host);
 
         // configure clustering
-        List clusterProps = engineConfig.getPropertiesWithValue("cluster");
+        List<ContainerConfig.Container.Property> clusterProps = engineConfig.getPropertiesWithValue("cluster");
         if (clusterProps != null && clusterProps.size() > 1) {
             throw new ContainerException("Only one cluster configuration allowed per engine");
         }
 
         if (clusterProps != null && clusterProps.size() > 0) {
-            ContainerConfig.Container.Property clusterProp = (ContainerConfig.Container.Property) clusterProps.get(0);
+            ContainerConfig.Container.Property clusterProp = clusterProps.get(0);
             createCluster(clusterProp, host);
             clusterConfig.put(engineName, clusterProp);
         }
@@ -459,9 +454,7 @@ public class CatalinaContainer implements Container {
         if (connectorProp.properties != null && connectorProp.properties.size() > 0) {
             connector = embedded.createConnector(address, port, protocol);
             try {
-                Iterator i = connectorProp.properties.values().iterator();
-                while (i.hasNext()) {
-                    ContainerConfig.Container.Property prop = (ContainerConfig.Container.Property) i.next();
+                for (ContainerConfig.Container.Property prop: connectorProp.properties.values()) {
                     connector.setProperty(prop.name, prop.value);
                     //connector.setAttribute(prop.name, prop.value);
                 }
@@ -475,9 +468,9 @@ public class CatalinaContainer implements Container {
 
     protected Context createContext(ComponentConfig.WebappInfo appInfo) throws ContainerException {
         // webapp settings
-        Map initParameters = appInfo.getInitParameters();
-        List virtualHosts = appInfo.getVirtualHosts();
-        Engine engine = (Engine) engines.get(appInfo.server);
+        Map<String, String> initParameters = appInfo.getInitParameters();
+        List<String> virtualHosts = appInfo.getVirtualHosts();
+        Engine engine = engines.get(appInfo.server);
         if (engine == null) {
             Debug.logWarning("Server with name [" + appInfo.server + "] not found; not mounting [" + appInfo.name + "]", module);
             return null;
@@ -543,30 +536,28 @@ public class CatalinaContainer implements Container {
         configureMimeTypes(context);
 
         // set the init parameters
-        Iterator ip = initParameters.keySet().iterator();
-        while (ip.hasNext()) {
-            String paramName = (String) ip.next();
-            context.addParameter(paramName, (String) initParameters.get(paramName));
+        for (Map.Entry<String, String> entry: initParameters.entrySet()) {
+            context.addParameter(entry.getKey(), entry.getValue());
         }
 
         if (UtilValidate.isEmpty(virtualHosts)) {
-            Host host = (Host) hosts.get(engine.getName() + "._DEFAULT");
+            Host host = hosts.get(engine.getName() + "._DEFAULT");
             context.setRealm(host.getRealm());
             host.addChild(context);
             context.getMapper().setDefaultHostName(host.getName());
         } else {
             // assume that the first virtual-host will be the default; additional virtual-hosts will be aliases
-            Iterator vhi = virtualHosts.iterator();
-            String hostName = (String) vhi.next();
+            Iterator<String> vhi = virtualHosts.iterator();
+            String hostName = vhi.next();
 
             boolean newHost = false;
-            Host host = (Host) hosts.get(engine.getName() + "." + hostName);
+            Host host = hosts.get(engine.getName() + "." + hostName);
             if (host == null) {
                 host = createHost(engine, hostName);
                 newHost = true;
             }
             while (vhi.hasNext()) {
-                host.addAlias((String) vhi.next());
+                host.addAlias(vhi.next());
             }
             context.setRealm(host.getRealm());
             host.addChild(context);
@@ -586,11 +577,11 @@ public class CatalinaContainer implements Container {
         }
 
         // load the applications
-        List webResourceInfos = ComponentConfig.getAllWebappResourceInfos();
-        List loadedMounts = FastList.newInstance();
+        List<ComponentConfig.WebappInfo> webResourceInfos = ComponentConfig.getAllWebappResourceInfos();
+        List<String> loadedMounts = FastList.newInstance();
         if (webResourceInfos != null) {
             for (int i = webResourceInfos.size(); i > 0; i--) {
-                ComponentConfig.WebappInfo appInfo = (ComponentConfig.WebappInfo) webResourceInfos.get(i - 1);
+                ComponentConfig.WebappInfo appInfo = webResourceInfos.get(i - 1);
                 String mount = appInfo.getContextRoot();
                 if (!loadedMounts.contains(mount)) {
                     createContext(appInfo);
@@ -613,22 +604,20 @@ public class CatalinaContainer implements Container {
     }
 
     protected void configureMimeTypes(Context context) throws ContainerException {
-        Map mimeTypes = CatalinaContainer.getMimeTypes();
+        Map<String, String> mimeTypes = CatalinaContainer.getMimeTypes();
         if (mimeTypes != null && mimeTypes.size() > 0) {
-            Iterator i = mimeTypes.entrySet().iterator();
-            while (i.hasNext()) {
-                Map.Entry entry = (Map.Entry) i.next();
-                context.addMimeMapping((String)entry.getKey(), (String)entry.getValue());
+            for (Map.Entry<String, String> entry: mimeTypes.entrySet()) {
+                context.addMimeMapping(entry.getKey(), entry.getValue());
             }
         }
     }
 
-    protected static synchronized Map getMimeTypes() throws ContainerException {
+    protected static synchronized Map<String, String> getMimeTypes() throws ContainerException {
         if (mimeTypes != null && mimeTypes.size() > 0) {
             return mimeTypes;
         }
 
-        if (mimeTypes == null) mimeTypes = new HashMap();
+        if (mimeTypes == null) mimeTypes = new HashMap<String, String>();
         URL xmlUrl = UtilURL.fromResource("mime-type.xml");
 
         // read the document
@@ -652,9 +641,7 @@ public class CatalinaContainer implements Container {
         Element root = mimeTypeDoc.getDocumentElement();
 
         // mapppings
-        Iterator elementIter = UtilXml.childElementList(root, "mime-mapping").iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(root, "mime-mapping")) {
             String extension = UtilXml.childElementValue(curElement, "extension");
             String type = UtilXml.childElementValue(curElement, "mime-type");
             mimeTypes.put(extension, type);

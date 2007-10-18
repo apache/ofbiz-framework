@@ -76,7 +76,7 @@ public class OfbizStore extends StoreBase implements Store {
     }
 
     public String[] keys() throws IOException {
-        List sessions = null;
+        List<GenericValue> sessions = null;
         try {
             sessions = delegator.findAll(entityName);
         } catch (GenericEntityException e) {
@@ -87,10 +87,8 @@ public class OfbizStore extends StoreBase implements Store {
             return new String[0];
         } else {
             String[] ids = new String[sessions.size()];
-            Iterator i = sessions.iterator();
             int loc = 0;
-            while (i.hasNext()) {
-                GenericValue value = (GenericValue) i.next();
+            for (GenericValue value: sessions) {
                 ids[loc++] = value.getString("sessionId");
             }
 
@@ -102,7 +100,7 @@ public class OfbizStore extends StoreBase implements Store {
         StandardSession _session = null;
         GenericValue sessionValue = null;
         try {
-            sessionValue = delegator.findByPrimaryKey(entityName, UtilMisc.toMap("sessionId", id));
+            sessionValue = delegator.findByPrimaryKey(entityName, "sessionId", id);
         } catch (GenericEntityException e) {
             throw new IOException(e.getMessage());
         }
@@ -142,7 +140,7 @@ public class OfbizStore extends StoreBase implements Store {
 
     public void remove(String id) throws IOException {
         try {
-            delegator.removeByAnd(entityName, UtilMisc.toMap("sessionId", id));
+            delegator.removeByAnd(entityName, "sessionId", id);
         } catch (GenericEntityException e) {
             throw new IOException(e.getMessage());
         }
@@ -170,10 +168,10 @@ public class OfbizStore extends StoreBase implements Store {
         GenericValue sessionValue = delegator.makeValue(entityName);
         sessionValue.setBytes("sessionInfo", obs);
         sessionValue.set("sessionId", session.getId());
-        sessionValue.set("sessionSize", new Long(size));
+        sessionValue.set("sessionSize", size);
         sessionValue.set("isValid", session.isValid() ? "Y" : "N");
-        sessionValue.set("maxIdle", new Long(session.getMaxInactiveInterval()));
-        sessionValue.set("lastAccessed", new Long(session.getLastAccessedTime()));
+        sessionValue.set("maxIdle", session.getMaxInactiveInterval());
+        sessionValue.set("lastAccessed", session.getLastAccessedTime());
 
         try {
             delegator.createOrStore(sessionValue);
