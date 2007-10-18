@@ -26,7 +26,7 @@ import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
-public class OrderByItem implements Comparator {
+public class OrderByItem implements Comparator<GenericEntity> {
     public static final int DEFAULT = 0;
     public static final int UPPER   = 1;
     public static final int LOWER   = 2;
@@ -123,10 +123,6 @@ public class OrderByItem implements Comparator {
         return new OrderByItem(value, descending);
     }
 
-    public int compare(java.lang.Object obj1, java.lang.Object obj2) {
-        return compare((GenericEntity) obj1, (GenericEntity) obj2);
-    }
-        
     public void checkOrderBy(ModelEntity modelEntity) throws GenericModelException {
         value.validateSql(modelEntity);
     }
