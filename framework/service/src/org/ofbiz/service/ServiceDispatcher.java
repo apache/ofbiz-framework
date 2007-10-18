@@ -20,9 +20,9 @@ package org.ofbiz.service;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import org.apache.commons.collections.map.LRUMap;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.collections.LRUMap;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
