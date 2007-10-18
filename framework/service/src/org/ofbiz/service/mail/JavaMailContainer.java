@@ -19,6 +19,7 @@
 package org.ofbiz.service.mail;
 
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -42,8 +43,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
-
-import org.apache.commons.collections.map.LinkedMap;
 
 public class JavaMailContainer implements Container {
 
@@ -71,7 +70,7 @@ public class JavaMailContainer implements Container {
      */
     public void init(String[] args, String configFile) throws ContainerException {
         this.configFile = configFile;       
-        this.stores = new LinkedMap();
+        this.stores = new LinkedHashMap();
         this.pollTimer = new Timer();
     }
 

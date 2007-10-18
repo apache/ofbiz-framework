@@ -22,10 +22,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.LinkedMap;
 import org.enhydra.shark.api.common.ExpressionBuilder;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
@@ -44,8 +44,8 @@ public abstract class BaseEntityCondExprBldr implements ExpressionBuilder, Seria
     public static final String module = BaseEntityCondExprBldr.class.getName();
 
     protected EntityCondition condition = null;
-    protected Map entityNames = new LinkedMap();
-    protected Map fieldNames = new LinkedMap();
+    protected Map entityNames = new LinkedHashMap();
+    protected Map fieldNames = new LinkedHashMap();
     protected List autoFields = new ArrayList();
     protected List viewLinks = new ArrayList();
 

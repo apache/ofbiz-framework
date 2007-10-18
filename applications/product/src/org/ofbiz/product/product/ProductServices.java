@@ -21,8 +21,6 @@ package org.ofbiz.product.product;
 import java.sql.Timestamp;
 import java.util.*;
 
-import org.apache.commons.collections.map.LinkedMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -503,7 +501,7 @@ public class ProductServices {
         throws IllegalArgumentException, IllegalStateException {
         //List featureKey = new ArrayList();
         Map tempGroup = new HashMap();
-        Map group = new LinkedMap();
+        Map group = new LinkedHashMap();
         String orderKey = (String) order.get(index);
 
         if (featureList == null) {
@@ -611,7 +609,7 @@ public class ProductServices {
     // builds a variant sample (a single sku for a featureType)
     private static Map makeVariantSample(GenericDelegator delegator, Map featureList, List items, String feature) {
         Map tempSample = new HashMap();
-        Map sample = new LinkedMap();
+        Map sample = new LinkedHashMap();
         Iterator itemIt = items.iterator();
 
         while (itemIt.hasNext()) {

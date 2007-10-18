@@ -24,7 +24,6 @@ import java.io.UnsupportedEncodingException;
 
 import com.Verisign.payment.PFProAPI;
 
-import org.apache.commons.collections.map.LinkedMap;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -340,7 +339,7 @@ public class PayflowPro {
 
     private static void parseAuthResponse(String resp, Map result, String resource, boolean isReAuth) {
         Debug.logInfo("Verisign response string: " + resp, module);
-        Map parameters = new LinkedMap();
+        Map parameters = new HashMap();
         List params = StringUtil.split(resp, "&");
         Iterator i = params.iterator();
 
@@ -428,7 +427,7 @@ public class PayflowPro {
     }
 
     private static void parseCaptureResponse(String resp, Map result) {
-        Map parameters = new LinkedMap();
+        Map parameters = new HashMap();
         List params = StringUtil.split(resp, "&");
         Iterator i = params.iterator();
 
@@ -470,7 +469,7 @@ public class PayflowPro {
     }
 
     private static void parseVoidResponse(String resp, Map result) {
-        Map parameters = new LinkedMap();
+        Map parameters = new HashMap();
         List params = StringUtil.split(resp, "&");
         Iterator i = params.iterator();
 
@@ -512,7 +511,7 @@ public class PayflowPro {
     }
 
     private static void parseRefundResponse(String resp, Map result) {
-        Map parameters = new LinkedMap();
+        Map parameters = new HashMap();
         List params = StringUtil.split(resp, "&");
         Iterator i = params.iterator();
 

@@ -27,6 +27,7 @@ import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +54,6 @@ import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.LocalDispatcher;
-
-import org.apache.commons.collections.map.LinkedMap;
 
 
 public class PayPalEvents {
@@ -129,7 +128,7 @@ public class PayPalEvents {
         String payPalAccount = UtilProperties.getPropertyValue(configString, "payment.paypal.business");
                 
         // create the redirect string
-        Map parameters = new LinkedMap();
+        Map parameters = new LinkedHashMap();
         parameters.put("cmd", "_xclick");
         parameters.put("business", payPalAccount);
         parameters.put("item_name", itemName);

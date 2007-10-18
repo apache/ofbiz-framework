@@ -43,8 +43,6 @@ import org.ofbiz.pos.screen.DialogCallback;
 import org.ofbiz.pos.screen.PosDialog;
 import org.ofbiz.pos.screen.PosScreen;
 
-import org.apache.commons.collections.map.LinkedMap;
-
 public class Receipt extends GenericDevice implements DialogCallback {
 
     public static final String module = Receipt.class.getName();
@@ -64,7 +62,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
     protected SimpleDateFormat[] dateFormat = null;
     protected String[] storeReceiptTmpl = null;
     protected String[] custReceiptTmpl = null;
-    protected LinkedMap reportTmpl = new LinkedMap();
+    protected Map reportTmpl = new HashMap();
 
     protected String[] dateFmtStr = { "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z" };
     protected int[] priceLength = { 7, 7, 7 };
