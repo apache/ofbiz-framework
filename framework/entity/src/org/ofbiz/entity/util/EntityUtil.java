@@ -19,6 +19,7 @@
 
 package org.ofbiz.entity.util;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Collections;
@@ -52,6 +53,23 @@ import org.ofbiz.entity.model.ModelField;
 public class EntityUtil {
 
     public static final String module = EntityUtil.class.getName();
+
+    public static Map<String, Object> makeFields(Object... args) {
+        Map<String, Object> fields = FastMap.newInstance();
+        if (args != null) {
+            for (int i = 0; i < args.length;) {
+                if (!(args[i] instanceof String)) throw new IllegalArgumentException("Key(" + i + "), with value(" + args[i] + ") is not a String.");
+                String key = (String) args[i];
+                i++;
+                if (!(args[i] instanceof Comparable)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Comparable.");
+                if (!(args[i] instanceof Serializable)) throw new IllegalArgumentException("Value(" + i + "), with value(" + args[i] + ") does not implement Serializable.");
+                fields.put(key, args[i]);
+                i++;
+            }
+        }
+        return fields;
+    }
+
 
     public static GenericValue getFirst(List<GenericValue> values) {
         if ((values != null) && (values.size() > 0)) {
