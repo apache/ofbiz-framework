@@ -32,6 +32,10 @@ public class EntityConditionList extends EntityConditionListBase {
         super();
     }
 
+    public EntityConditionList(EntityJoinOperator operator, EntityCondition... conditionList) {
+        super(operator, conditionList);
+    }
+
     public EntityConditionList(List conditionList, EntityJoinOperator operator) {
         super(conditionList, operator);
     }

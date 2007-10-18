@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.entity.condition;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,11 @@ public abstract class EntityConditionListBase extends EntityCondition {
     protected EntityJoinOperator operator;
 
     protected EntityConditionListBase() {}
+
+    public EntityConditionListBase(EntityJoinOperator operator, EntityCondition... conditionList) {
+        this.conditionList = Arrays.asList(conditionList);
+        this.operator = operator;
+    }
 
     public EntityConditionListBase(List conditionList, EntityJoinOperator operator) {
         this.conditionList = conditionList;

@@ -20,6 +20,7 @@
 package org.ofbiz.entity.condition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -36,10 +37,20 @@ public class OrderByList implements Comparator {
     public OrderByList() {
     }
 
+    public OrderByList(String... orderByList) {
+        addOrderBy(orderByList);
+    }
+
     public OrderByList(Collection orderByList) {
         addOrderBy(orderByList);
     }
     
+    public void addOrderBy(String... orderByList) {
+        for (String orderByItem: orderByList) {
+            addOrderBy(orderByItem);
+        }
+    }
+
     public void addOrderBy(Collection orderByList) {
         Iterator it = orderByList.iterator();
         while (it.hasNext()) {

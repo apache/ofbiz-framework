@@ -25,6 +25,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.base.util.UtilMisc;
+
 /**
  * Encapsulates simple expressions used for specifying queries
  *
@@ -35,6 +37,10 @@ public class EntityFieldMap extends EntityConditionListBase {
 
     protected EntityFieldMap() {
         super();
+    }
+
+    public static List<EntityExpr> makeConditionList(EntityComparisonOperator op, Object... keysValues) {
+        return makeConditionList(UtilMisc.toMap(keysValues), op);
     }
 
     public static List makeConditionList(Map fieldMap, EntityComparisonOperator op) {
@@ -50,11 +56,19 @@ public class EntityFieldMap extends EntityConditionListBase {
         return list;
     }
 
+    public EntityFieldMap(EntityComparisonOperator compOp, EntityJoinOperator joinOp, Object... keysValues) {
+        this(UtilMisc.toMap(keysValues), compOp, joinOp);
+    }
+
     public EntityFieldMap(Map fieldMap, EntityComparisonOperator compOp, EntityJoinOperator joinOp) {
         super(makeConditionList(fieldMap, compOp), joinOp);
         this.fieldMap = fieldMap;
         if (this.fieldMap == null) this.fieldMap = new LinkedHashMap();
         this.operator = joinOp;
+    }
+
+    public EntityFieldMap(EntityJoinOperator joinOp, Object... keysValues) {
+        this(UtilMisc.toMap(keysValues), joinOp);
     }
 
     public EntityFieldMap(Map fieldMap, EntityJoinOperator operator) {

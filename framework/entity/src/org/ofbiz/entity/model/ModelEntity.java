@@ -19,6 +19,7 @@
 package org.ofbiz.entity.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -619,6 +620,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         return getFieldNamesFromFieldVector(nopks);
     }
 
+    public List getFieldNamesFromFieldVector(ModelField... modelFields) {
+        return getFieldNamesFromFieldVector(Arrays.asList(modelFields));
+    }
+
     public List getFieldNamesFromFieldVector(List modelFields) {
         List nameList = FastList.newInstance();
 
@@ -755,6 +760,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         return returnString.toString();
     }
 
+    public String typeNameString(ModelField... flds) {
+        return typeNameString(Arrays.asList(flds));
+    }
+
     public String typeNameString(List flds) {
         StringBuffer returnString = new StringBuffer();
 
@@ -806,12 +815,24 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         return fieldsStringList(fields, "null", ", ", false, true);
     }
 
+    public String fieldsStringList(String eachString, String separator, ModelField... flds) {
+        return fieldsStringList(Arrays.asList(flds), eachString, separator);
+    }
+
     public String fieldsStringList(List flds, String eachString, String separator) {
         return fieldsStringList(flds, eachString, separator, false, false);
     }
 
+    public String fieldsStringList(String eachString, String separator, boolean appendIndex, ModelField... flds) {
+        return fieldsStringList(Arrays.asList(flds), eachString, separator, appendIndex, false);
+    }
+
     public String fieldsStringList(List flds, String eachString, String separator, boolean appendIndex) {
         return fieldsStringList(flds, eachString, separator, appendIndex, false);
+    }
+
+    public String fieldsStringList(String eachString, String separator, boolean appendIndex, boolean onlyNonPK, ModelField... flds) {
+        return fieldsStringList(Arrays.asList(flds), eachString, separator, appendIndex, onlyNonPK);
     }
 
     public String fieldsStringList(List flds, String eachString, String separator, boolean appendIndex, boolean onlyNonPK) {
@@ -832,8 +853,16 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         return returnString.toString();
     }
 
+    public String colNameString(ModelField... flds) {
+        return colNameString(Arrays.asList(flds));
+    }
+
     public String colNameString(List flds) {
         return colNameString(flds, ", ", "", false);
+    }
+
+    public String colNameString(String separator, String afterLast, boolean alias, ModelField... flds) {
+        return colNameString(Arrays.asList(flds), separator, afterLast, alias);
     }
 
     public String colNameString(List flds, String separator, String afterLast, boolean alias) {
@@ -856,8 +885,16 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         return returnString.toString();
     }
 
+    public String classNameString(ModelField... flds) {
+        return classNameString(Arrays.asList(flds));
+    }
+
     public String classNameString(List flds) {
         return classNameString(flds, ", ", "");
+    }
+
+    public String classNameString(String separator, String afterLast, ModelField... flds) {
+        return classNameString(Arrays.asList(flds), separator, afterLast);
     }
 
     public String classNameString(List flds, String separator, String afterLast) {
@@ -876,6 +913,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         returnString.append(ModelUtil.upperFirstChar(((ModelField) flds.get(i)).name));
         returnString.append(afterLast);
         return returnString.toString();
+    }
+
+    public String finderQueryString(ModelField... flds) {
+        return finderQueryString(Arrays.asList(flds));
     }
 
     public String finderQueryString(List flds) {
@@ -897,6 +938,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         returnString.append(i);
         returnString.append("}");
         return returnString.toString();
+    }
+
+    public String httpArgList(ModelField... flds) {
+        return httpArgList(Arrays.asList(flds));
     }
 
     public String httpArgList(List flds) {
@@ -923,6 +968,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         returnString.append("=\" + ");
         returnString.append(((ModelField) flds.get(i)).name);
         return returnString.toString();
+    }
+
+    public String httpArgListFromClass(ModelField... flds) {
+        return httpArgListFromClass(Arrays.asList(flds));
     }
 
     public String httpArgListFromClass(List flds) {
@@ -957,6 +1006,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         return returnString.toString();
     }
 
+    public String httpArgListFromClass(String entityNameSuffix, ModelField... flds) {
+        return httpArgListFromClass(Arrays.asList(flds), entityNameSuffix);
+    }
+
     public String httpArgListFromClass(List flds, String entityNameSuffix) {
         StringBuffer returnString = new StringBuffer();
 
@@ -989,6 +1042,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
         returnString.append(ModelUtil.upperFirstChar(((ModelField) flds.get(i)).name));
         returnString.append("()");
         return returnString.toString();
+    }
+
+    public String httpRelationArgList(ModelRelation relation, ModelField... flds) {
+        return httpRelationArgList(Arrays.asList(flds), relation);
     }
 
     public String httpRelationArgList(List flds, ModelRelation relation) {
@@ -1051,6 +1108,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
      return returnString;
      }
      */
+    public String typeNameStringRelatedNoMapped(ModelRelation relation, ModelField... flds) {
+        return typeNameStringRelatedNoMapped(Arrays.asList(flds), relation);
+    }
+
     public String typeNameStringRelatedNoMapped(List flds, ModelRelation relation) {
         StringBuffer returnString = new StringBuffer();
 
@@ -1075,6 +1136,10 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
             }
         }
         return returnString.toString();
+    }
+
+    public String typeNameStringRelatedAndMain(ModelRelation relation, ModelField... flds) {
+        return typeNameStringRelatedAndMain(Arrays.asList(flds), relation);
     }
 
     public String typeNameStringRelatedAndMain(List flds, ModelRelation relation) {
