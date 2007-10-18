@@ -65,7 +65,8 @@ import org.ofbiz.base.crypto.HashCrypt;
  * <code>Observer</code>.
  *
  */
-public class GenericEntity extends Observable implements Map, LocalizedMap, Serializable, Comparable<GenericEntity>, Cloneable, Reusable {
+public class GenericEntity extends Observable implements Map<String, Object>, LocalizedMap, Serializable, Comparable<GenericEntity>, Cloneable, Reusable {
+
     public static final String module = GenericEntity.class.getName();
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
     public static final NullField NULL_FIELD = new NullField();
@@ -83,7 +84,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
      *  between desiring to set a value to null and desiring to not modify the
      *  current value on an update.
      */
-    protected Map fields = FastMap.newInstance();
+    protected Map<String, Object> fields = FastMap.newInstance();
 
     /** Contains the entityName of this entity, necessary for efficiency when creating EJBs */
     protected String entityName = null;
@@ -117,7 +118,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
     }
 
     /** Creates new GenericEntity from existing Map */
-    public static GenericEntity createGenericEntity(ModelEntity modelEntity, Map fields) {
+    public static GenericEntity createGenericEntity(ModelEntity modelEntity, Map<String, ? extends Object> fields) {
         if (modelEntity == null) {
             throw new IllegalArgumentException("Cannot create a GenericEntity with a null modelEntity parameter");
         }
@@ -153,7 +154,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
     }
 
     /** Creates new GenericEntity from existing Map */
-    protected void init(ModelEntity modelEntity, Map fields) {
+    protected void init(ModelEntity modelEntity, Map<String, ? extends Object> fields) {
         if (modelEntity == null) {
             throw new IllegalArgumentException("Cannont create a GenericEntity with a null modelEntity parameter");
         }
@@ -314,7 +315,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         return isPrimaryKey(false);
     }
     public boolean isPrimaryKey(boolean requireValue) {
-        TreeSet fieldKeys = new TreeSet(this.fields.keySet());
+        TreeSet<String> fieldKeys = new TreeSet<String>(this.fields.keySet());
         Iterator pkIter = getModelEntity().getPksIterator();
         while (pkIter.hasNext()) {
             ModelField curPk = (ModelField) pkIter.next();
@@ -751,7 +752,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
     }
 
     public GenericPK getPrimaryKey() {
-        Collection pkNames = FastList.newInstance();
+        Collection<String> pkNames = FastList.newInstance();
         Iterator iter = this.getModelEntity().getPksIterator();
         while (iter != null && iter.hasNext()) {
             ModelField curField = (ModelField) iter.next();
@@ -763,22 +764,22 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
     }
 
     /** go through the pks and for each one see if there is an entry in fields to set */
-    public void setPKFields(Map fields) {
+    public void setPKFields(Map<? extends Object, ? extends Object> fields) {
         setAllFields(fields, true, null, Boolean.TRUE);
     }
 
     /** go through the pks and for each one see if there is an entry in fields to set */
-    public void setPKFields(Map fields, boolean setIfEmpty) {
+    public void setPKFields(Map<? extends Object, ? extends Object> fields, boolean setIfEmpty) {
         setAllFields(fields, setIfEmpty, null, Boolean.TRUE);
     }
 
     /** go through the non-pks and for each one see if there is an entry in fields to set */
-    public void setNonPKFields(Map fields) {
+    public void setNonPKFields(Map<? extends Object, ? extends Object> fields) {
         setAllFields(fields, true, null, Boolean.FALSE);
     }
 
     /** go through the non-pks and for each one see if there is an entry in fields to set */
-    public void setNonPKFields(Map fields, boolean setIfEmpty) {
+    public void setNonPKFields(Map<? extends Object, ? extends Object> fields, boolean setIfEmpty) {
         setAllFields(fields, setIfEmpty, null, Boolean.FALSE);
     }
     
@@ -789,7 +790,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
      * @param namePrefix If not null or empty will be pre-pended to each field name (upper-casing the first letter of the field name first), and that will be used as the fields Map lookup name instead of the field-name
      * @param pks If null, get all values, if TRUE just get PKs, if FALSE just get non-PKs
      */
-    public void setAllFields(Map fields, boolean setIfEmpty, String namePrefix, Boolean pks) {
+    public void setAllFields(Map<? extends Object, ? extends Object> fields, boolean setIfEmpty, String namePrefix, Boolean pks) {
         if (fields == null) {
             return;
         }
@@ -833,7 +834,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
                             String fieldStr = (String) field;
 
                             if (fieldStr.length() > 0) {
-                                this.set(curField.getName(), field);
+                                this.set(curField.getName(), fieldStr);
                             }
                         } else {
                             this.set(curField.getName(), field);
@@ -847,15 +848,15 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
     /** Returns keys of entity fields
      * @return java.util.Collection
      */
-    public Collection getAllKeys() {
+    public Collection<String> getAllKeys() {
         return fields.keySet();
     }
 
     /** Returns key/value pairs of entity fields
      * @return java.util.Map
      */
-    public Map getAllFields() {
-        Map newMap = FastMap.newInstance();
+    public Map<String, Object> getAllFields() {
+        Map<String, Object> newMap = FastMap.newInstance();
         newMap.putAll(this.fields);
         return newMap;
     }
@@ -864,14 +865,11 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
      * @param keysofFields the name of the fields the client is interested in
      * @return java.util.Map
      */
-    public Map getFields(Collection keysofFields) {
+    public Map<String, Object> getFields(Collection<String> keysofFields) {
         if (keysofFields == null) return null;
-        Iterator keys = keysofFields.iterator();
-        Object aKey = null;
-        Map aMap = FastMap.newInstance();
+        Map<String, Object> aMap = FastMap.newInstance();
 
-        while (keys.hasNext()) {
-            aKey = keys.next();
+        for (String aKey: keysofFields) {
             aMap.put(aKey, this.fields.get(aKey));
         }
         return aMap;
@@ -880,26 +878,18 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
     /** Used by clients to update particular fields in the entity
      * @param keyValuePairs java.util.Map
      */
-    public synchronized void setFields(Map keyValuePairs) {
+    public synchronized void setFields(Map<? extends String, ? extends Object> keyValuePairs) {
         if (keyValuePairs == null) return;
-        Iterator entries = keyValuePairs.entrySet().iterator();
-        Map.Entry anEntry = null;
-
         // this could be implement with Map.putAll, but we'll leave it like this for the extra features it has
-        while (entries.hasNext()) {
-            anEntry = (Map.Entry) entries.next();
-            this.set((String) anEntry.getKey(), anEntry.getValue(), true);
+        for (Map.Entry<? extends String, ? extends Object> anEntry: keyValuePairs.entrySet()) {
+            this.set(anEntry.getKey(), anEntry.getValue(), true);
         }
     }
 
-    public boolean matchesFields(Map keyValuePairs) {
+    public boolean matchesFields(Map<String, ? extends Object> keyValuePairs) {
         if (fields == null) return true;
         if (keyValuePairs == null || keyValuePairs.size() == 0) return true;
-        Iterator entries = keyValuePairs.entrySet().iterator();
-
-        while (entries.hasNext()) {
-            Map.Entry anEntry = (Map.Entry) entries.next();
-
+        for (Map.Entry<String, ? extends Object> anEntry: keyValuePairs.entrySet()) {
             if (!UtilValidate.areEqual(anEntry.getValue(), this.fields.get(anEntry.getKey()))) {
                 return false;
             }
@@ -924,19 +914,17 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         return document;
     }
 
-    public static int addToXmlDocument(Collection values, Document document) {
+    public static int addToXmlDocument(Collection<GenericValue> values, Document document) {
         return addToXmlElement(values, document, document.getDocumentElement());
     }
 
-    public static int addToXmlElement(Collection values, Document document, Element element) {
+    public static int addToXmlElement(Collection<GenericValue> values, Document document, Element element) {
         if (values == null) return 0;
         if (document == null) return 0;
 
-        Iterator iter = values.iterator();
         int numberAdded = 0;
 
-        while (iter.hasNext()) {
-            GenericValue value = (GenericValue) iter.next();
+        for (GenericValue value: values) {
             Element valueElement = value.makeXmlElement(document);
 
             element.appendChild(valueElement);
@@ -999,7 +987,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         writer.print(this.getEntityName());
 
         // write attributes immediately and if a CDATA element is needed, put those in a Map for now
-        Map cdataMap = FastMap.newInstance();
+        Map<String, String> cdataMap = FastMap.newInstance();
 
         Iterator modelFields = this.getModelEntity().getFieldsIterator();
         while (modelFields.hasNext()) {
@@ -1120,18 +1108,14 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         } else {
             writer.println('>');
 
-            Iterator cdataIter = cdataMap.entrySet().iterator();
-
-            while (cdataIter.hasNext()) {
-                Map.Entry entry = (Map.Entry) cdataIter.next();
-
+            for (Map.Entry<String, String> entry: cdataMap.entrySet()) {
                 for (int i = 0; i < (indent << 1); i++) writer.print(' ');
                 writer.print('<');
-                writer.print((String) entry.getKey());
+                writer.print(entry.getKey());
                 writer.print("><![CDATA[");
-                writer.print((String) entry.getValue());
+                writer.print(entry.getValue());
                 writer.print("]]></");
-                writer.print((String) entry.getKey());
+                writer.print(entry.getKey());
                 writer.println('>');
             }
 
@@ -1186,9 +1170,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         theString.append(getEntityName());
         theString.append(']');
 
-        Iterator keyNames = new TreeSet(fields.keySet()).iterator();
-        while (keyNames.hasNext()) {
-            String curKey = (String) keyNames.next();
+        for (String curKey: new TreeSet<String>(fields.keySet())) {
             Object curValue = fields.get(curKey);
             ModelField field = this.getModelEntity().getField(curKey);
             if (field.getEncrypt()) {
@@ -1219,9 +1201,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         theString.append(getEntityName());
         theString.append(']');
 
-        Iterator keyNames = new TreeSet(fields.keySet()).iterator();
-        while (keyNames.hasNext()) {
-            String curKey = (String) keyNames.next();
+        for (String curKey: new TreeSet<String>(fields.keySet())) {
             Object curValue = fields.get(curKey);
             theString.append('[');
             theString.append(curKey);
@@ -1310,15 +1290,15 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         return this.fields.containsKey(key);
     }
 
-    public java.util.Set entrySet() {
-        return Collections.unmodifiableSet(this.fields.entrySet());
+    public java.util.Set<Map.Entry<String, Object>> entrySet() {
+        return Collections.unmodifiableMap(this.fields).entrySet();
     }
 
-    public Object put(Object key, Object value) {
-        return this.set((String) key, value, true);
+    public Object put(String key, Object value) {
+        return this.set(key, value, true);
     }
 
-    public void putAll(java.util.Map map) {
+    public void putAll(java.util.Map<? extends String, ? extends Object> map) {
         this.setFields(map);
     }
 
@@ -1339,7 +1319,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         }
     }
 
-    public java.util.Set keySet() {
+    public java.util.Set<String> keySet() {
         return Collections.unmodifiableSet(this.fields.keySet());
     }
 
@@ -1347,8 +1327,8 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         return this.fields.isEmpty();
     }
 
-    public java.util.Collection values() {
-        return Collections.unmodifiableCollection(this.fields.values());
+    public java.util.Collection<Object> values() {
+        return Collections.unmodifiableMap(this.fields).values();
     }
 
     public boolean containsValue(Object value) {

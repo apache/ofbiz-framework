@@ -30,8 +30,8 @@ import org.ofbiz.entity.model.ModelEntity;
  */
 public class GenericPK extends GenericEntity {
 
-    protected static final ObjectFactory genericPKFactory = new ObjectFactory() {
-        protected Object create() {
+    protected static final ObjectFactory<GenericPK> genericPKFactory = new ObjectFactory<GenericPK>() {
+        protected GenericPK create() {
             return new GenericPK();
         }
     };
@@ -40,28 +40,28 @@ public class GenericPK extends GenericEntity {
     
     /** Creates new GenericPK */
     public static GenericPK create(ModelEntity modelEntity) {
-        GenericPK newPK = (GenericPK) genericPKFactory.object();
+        GenericPK newPK = genericPKFactory.object();
         newPK.init(modelEntity);
         return newPK;
     }
 
     /** Creates new GenericPK from existing Map */
-    public static GenericPK create(ModelEntity modelEntity, Map fields) {
-        GenericPK newPK = (GenericPK) genericPKFactory.object();
+    public static GenericPK create(ModelEntity modelEntity, Map<String, ? extends Object> fields) {
+        GenericPK newPK = genericPKFactory.object();
         newPK.init(modelEntity, fields);
         return newPK;
     }
 
     /** Creates new GenericPK from existing Map */
     public static GenericPK create(ModelEntity modelEntity, Object singlePkValue) {
-        GenericPK newPK = (GenericPK) genericPKFactory.object();
+        GenericPK newPK = genericPKFactory.object();
         newPK.init(modelEntity, singlePkValue);
         return newPK;
     }
 
     /** Creates new GenericPK from existing GenericPK */
     public static GenericPK create(GenericPK value) {
-        GenericPK newPK = (GenericPK) genericPKFactory.object();
+        GenericPK newPK = genericPKFactory.object();
         newPK.init(value);
         return newPK;
     }

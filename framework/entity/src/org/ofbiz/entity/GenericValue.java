@@ -45,57 +45,57 @@ public class GenericValue extends GenericEntity implements Reusable {
 
     public static final GenericValue NULL_VALUE = new NullGenericValue();
 
-    protected static final ObjectFactory genericValueFactory = new ObjectFactory() {
-        protected Object create() {
+    protected static final ObjectFactory<GenericValue> genericValueFactory = new ObjectFactory<GenericValue>() {
+        protected GenericValue create() {
             return new GenericValue();
         }
     };
     
     /** Hashtable to cache various related entity collections */
-    public transient Map relatedCache = null;
+    public transient Map<String, List<GenericValue>> relatedCache = null;
 
     /** Hashtable to cache various related cardinality one entity collections */
-    public transient Map relatedOneCache = null;
+    public transient Map<String, GenericValue> relatedOneCache = null;
 
     /** This Map will contain the original field values from the database iff
      * this GenericValue came from the database. If it was made manually it will
      * no have this Map, ie it will be null to not take up memory.
      */
-    protected Map originalDbValues = null;
+    protected Map<String, Object> originalDbValues = null;
 
     protected GenericValue() { }
 
     /** Creates new GenericValue */
     public static GenericValue create(ModelEntity modelEntity) {
-        GenericValue newValue = (GenericValue) genericValueFactory.object();
+        GenericValue newValue = genericValueFactory.object();
         newValue.init(modelEntity);
         return newValue;
     }
 
     /** Creates new GenericValue from existing Map */
-    public static GenericValue create(ModelEntity modelEntity, Map fields) {
-        GenericValue newValue = (GenericValue) genericValueFactory.object();
+    public static GenericValue create(ModelEntity modelEntity, Map<String, ? extends Object> fields) {
+        GenericValue newValue = genericValueFactory.object();
         newValue.init(modelEntity, fields);
         return newValue;
     }
 
     /** Creates new GenericValue from existing Map */
     public static GenericValue create(ModelEntity modelEntity, Object singlePkValue) {
-        GenericValue newValue = (GenericValue) genericValueFactory.object();
+        GenericValue newValue = genericValueFactory.object();
         newValue.init(modelEntity, singlePkValue);
         return newValue;
     }
 
     /** Creates new GenericValue from existing GenericValue */
     public static GenericValue create(GenericValue value) {
-        GenericValue newValue = (GenericValue) genericValueFactory.object();
+        GenericValue newValue = genericValueFactory.object();
         newValue.init(value);
         return newValue;
     }
 
     /** Creates new GenericValue from existing GenericValue */
     public static GenericValue create(GenericPK primaryKey) {
-        GenericValue newValue = (GenericValue) genericValueFactory.object();
+        GenericValue newValue = genericValueFactory.object();
         newValue.init(primaryKey);
         return newValue;
     }
@@ -160,7 +160,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelated(String relationName) throws GenericEntityException {
+    public List<GenericValue> getRelated(String relationName) throws GenericEntityException {
         return this.getDelegator().getRelated(relationName, this);
     }
 
@@ -170,8 +170,8 @@ public class GenericValue extends GenericEntity implements Reusable {
      *      optionally add a " ASC" for ascending or " DESC" for descending
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelated(String relationName, List orderBy) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, null, orderBy, this);
+    public List<GenericValue> getRelated(String relationName, List<String> orderBy) throws GenericEntityException {
+        return this.getDelegator().getRelated(relationName, FastMap.<String, Object>newInstance(), orderBy, this);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
@@ -181,7 +181,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *      optionally add a " ASC" for ascending or " DESC" for descending
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelated(String relationName, Map byAndFields, List orderBy) throws GenericEntityException {
+    public List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy) throws GenericEntityException {
         return this.getDelegator().getRelated(relationName, byAndFields, orderBy, this);
     }
 
@@ -190,7 +190,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedCache(String relationName) throws GenericEntityException {
+    public List<GenericValue> getRelatedCache(String relationName) throws GenericEntityException {
         return this.getDelegator().getRelatedCache(relationName, this);
     }
 
@@ -205,7 +205,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *      optionally add a " ASC" for ascending or " DESC" for descending
      * @return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedMulti(String relationNameOne, String relationNameTwo, List orderBy) throws GenericEntityException {
+    public List<GenericValue> getRelatedMulti(String relationNameOne, String relationNameTwo, List<String> orderBy) throws GenericEntityException {
         return this.getDelegator().getMultiRelation(this, relationNameOne, relationNameTwo, orderBy);
     }
 
@@ -218,7 +218,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      * @param relationNameTwo String containing the relation name for second relation
      * @return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedMulti(String relationNameOne, String relationNameTwo) throws GenericEntityException {
+    public List<GenericValue> getRelatedMulti(String relationNameOne, String relationNameTwo) throws GenericEntityException {
         return this.getDelegator().getMultiRelation(this, relationNameOne, relationNameTwo, null);
     }
 
@@ -230,8 +230,8 @@ public class GenericValue extends GenericEntity implements Reusable {
      *      optionally add a " ASC" for ascending or " DESC" for descending
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedCache(String relationName, Map byAndFields, List orderBy) throws GenericEntityException {
-        List col = getRelatedCache(relationName);
+    public List<GenericValue> getRelatedCache(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy) throws GenericEntityException {
+        List<GenericValue> col = getRelatedCache(relationName);
 
         if (byAndFields != null) col = EntityUtil.filterByAnd(col, byAndFields);
         if (UtilValidate.isNotEmpty(orderBy)) col = EntityUtil.orderBy(col, orderBy);
@@ -245,7 +245,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *      optionally add a " ASC" for ascending or " DESC" for descending
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedCache(String relationName, List orderBy) throws GenericEntityException {
+    public List<GenericValue> getRelatedCache(String relationName, List<String> orderBy) throws GenericEntityException {
         return this.getRelatedCache(relationName, null, orderBy);
     }
 
@@ -255,9 +255,9 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param relationName String containing the relation name which is the combination of relation.title and relation.rel-entity-name as specified in the entity XML definition file
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedEmbeddedCache(String relationName) throws GenericEntityException {
+    public List<GenericValue> getRelatedEmbeddedCache(String relationName) throws GenericEntityException {
         if (relatedCache == null) relatedCache = FastMap.newInstance();
-        List col = (List) relatedCache.get(relationName);
+        List<GenericValue> col = relatedCache.get(relationName);
 
         if (col == null) {
             col = getRelated(relationName);
@@ -275,8 +275,8 @@ public class GenericValue extends GenericEntity implements Reusable {
      *      optionally add a " ASC" for ascending or " DESC" for descending
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedEmbeddedCache(String relationName, Map byAndFields, List orderBy) throws GenericEntityException {
-        List col = getRelatedEmbeddedCache(relationName);
+    public List<GenericValue> getRelatedEmbeddedCache(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy) throws GenericEntityException {
+        List<GenericValue> col = getRelatedEmbeddedCache(relationName);
 
         if (byAndFields != null) col = EntityUtil.filterByAnd(col, byAndFields);
         if (UtilValidate.isNotEmpty(orderBy)) col = EntityUtil.orderBy(col, orderBy);
@@ -288,7 +288,7 @@ public class GenericValue extends GenericEntity implements Reusable {
         relatedCache.remove(relationName);
     }
 
-    public void storeRelatedEmbeddedCache(String relationName, List col) {
+    public void storeRelatedEmbeddedCache(String relationName, List<GenericValue> col) {
         if (relatedCache == null) relatedCache = FastMap.newInstance();
         relatedCache.put(relationName, col);
     }
@@ -327,7 +327,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      */
     public GenericValue getRelatedOneEmbeddedCache(String relationName) throws GenericEntityException {
         if (relatedOneCache == null) relatedOneCache = FastMap.newInstance();
-        GenericValue value = (GenericValue) relatedOneCache.get(relationName);
+        GenericValue value = relatedOneCache.get(relationName);
 
         if (value == null) {
             value = getRelatedOne(relationName);
@@ -341,7 +341,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param fields the fields that must equal in order to keep
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedByAnd(String relationName, Map fields) throws GenericEntityException {
+    public List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return this.getDelegator().getRelatedByAnd(relationName, fields, this);
     }
 
@@ -351,7 +351,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param fields the fields that must equal in order to keep
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedByAndCache(String relationName, Map fields) throws GenericEntityException {
+    public List getRelatedByAndCache(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return EntityUtil.filterByAnd(this.getDelegator().getRelatedCache(relationName, this), fields);
     }
 
@@ -362,7 +362,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param fields the fields that must equal in order to keep
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedByAndEmbeddedCache(String relationName, Map fields) throws GenericEntityException {
+    public List getRelatedByAndEmbeddedCache(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return EntityUtil.filterByAnd(getRelatedEmbeddedCache(relationName), fields);
     }
 
@@ -371,7 +371,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param orderBy the order that they should be returned
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedOrderBy(String relationName, List orderBy) throws GenericEntityException {
+    public List<GenericValue> getRelatedOrderBy(String relationName, List<String> orderBy) throws GenericEntityException {
         return this.getDelegator().getRelatedOrderBy(relationName, orderBy, this);
     }
 
@@ -381,7 +381,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param orderBy the order that they should be returned
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedOrderByCache(String relationName, List orderBy) throws GenericEntityException {
+    public List<GenericValue> getRelatedOrderByCache(String relationName, List<String> orderBy) throws GenericEntityException {
         return EntityUtil.orderBy(this.getDelegator().getRelatedCache(relationName, this), orderBy);
     }
 
@@ -392,7 +392,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param orderBy the order that they should be returned
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedOrderByEmbeddedCache(String relationName, List orderBy) throws GenericEntityException {
+    public List<GenericValue> getRelatedOrderByEmbeddedCache(String relationName, List<String> orderBy) throws GenericEntityException {
         return EntityUtil.orderBy(getRelatedEmbeddedCache(relationName), orderBy);
     }
 
@@ -420,7 +420,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      * @param byAndFields the fields that must equal in order to keep; may be null
      * @return GenericPK containing a possibly incomplete PrimaryKey object representing the related entity or entities
      */
-    public GenericPK getRelatedDummyPK(String relationName, Map byAndFields) throws GenericEntityException {
+    public GenericPK getRelatedDummyPK(String relationName, Map<String, ? extends Object> byAndFields) throws GenericEntityException {
         return this.getDelegator().getRelatedDummyPK(relationName, byAndFields, this);
     }
 
@@ -439,7 +439,7 @@ public class GenericValue extends GenericEntity implements Reusable {
             ModelRelation relation = (ModelRelation) relItr.next();
             if ("one".equalsIgnoreCase(relation.getType())) {
                 // see if the related value exists                
-                Map fields = FastMap.newInstance();
+                Map<String, Object> fields = FastMap.newInstance();
                 for (int i = 0; i < relation.getKeyMapsSize(); i++) {
                     ModelKeyMap keyMap = relation.getKeyMap(i);
                     fields.put(keyMap.getRelFieldName(), this.get(keyMap.getFieldName()));
