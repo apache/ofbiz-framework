@@ -27,7 +27,7 @@ import java.sql.Statement;
 public class CursorConnection extends AbstractCursorHandler {
 
     public static Connection newCursorConnection(Connection con, String cursorName, int pageSize) throws Exception {
-        return (Connection) newHandler(new CursorConnection(con, cursorName, pageSize), Connection.class);
+        return newHandler(new CursorConnection(con, cursorName, pageSize), Connection.class);
     }
 
     protected Connection con;
@@ -37,7 +37,7 @@ public class CursorConnection extends AbstractCursorHandler {
         this.con = con;
     }
 
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object... args) throws Throwable {
         if (method.getName().equals("prepareStatement")) {
             System.err.println("prepareStatement");
             args[0] = "DECLARE " + cursorName + " CURSOR FOR " + args[0];

@@ -46,7 +46,7 @@ public class SQLProcessor {
     public static final String module = SQLProcessor.class.getName();
     
     /** Used for testing connections when test is enabled */
-    public static List CONNECTION_TEST_LIST = new ArrayList();
+    public static List<String> CONNECTION_TEST_LIST = new ArrayList<String>();
     public static int MAX_CONNECTIONS = 1000;
     public static boolean ENABLE_TEST = false;
 
@@ -79,8 +79,8 @@ public class SQLProcessor {
     // / true in case the connection shall be closed.
     private boolean _bDeleteConnection = false;
     
-    private Map _needClobWorkAroundWrite = null;
-    private Map _needBlobWorkAroundWrite = null;
+    private Map<String, String> _needClobWorkAroundWrite = null;
+    private Map<String, String> _needBlobWorkAroundWrite = null;
     
     /**
      * Construct an object based on the helper/datasource
