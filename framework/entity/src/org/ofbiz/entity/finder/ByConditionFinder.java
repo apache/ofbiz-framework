@@ -23,6 +23,8 @@ import java.util.Map;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.finder.EntityFinderUtil.Condition;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionExpr;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionList;
@@ -57,7 +59,7 @@ public class ByConditionFinder extends ListFinder {
         }
     }
 
-    protected EntityCondition getWhereEntityCondition(Map context, ModelEntity modelEntity, GenericDelegator delegator) {
+    protected EntityCondition getWhereEntityCondition(Map<String, Object> context, ModelEntity modelEntity, GenericDelegator delegator) {
         // create whereEntityCondition from whereCondition
         if (this.whereCondition != null) {
             return this.whereCondition.createCondition(context, modelEntity.getEntityName(), delegator);
@@ -65,7 +67,7 @@ public class ByConditionFinder extends ListFinder {
         return null;
     }
 
-    protected EntityCondition getHavingEntityCondition(Map context, ModelEntity modelEntity, GenericDelegator delegator) {
+    protected EntityCondition getHavingEntityCondition(Map<String, Object> context, ModelEntity modelEntity, GenericDelegator delegator) {
         // create havingEntityCondition from havingCondition
         if (this.havingCondition != null) {
             return this.havingCondition.createCondition(context, modelEntity.getEntityName(), delegator);

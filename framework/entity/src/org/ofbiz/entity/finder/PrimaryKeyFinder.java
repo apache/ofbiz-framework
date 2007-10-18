@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -45,8 +46,8 @@ public class PrimaryKeyFinder extends Finder {
     
     protected FlexibleMapAccessor valueNameAcsr;
     protected FlexibleStringExpander autoFieldMapExdr;
-    protected Map fieldMap;
-    protected List selectFieldExpanderList;
+    protected Map<FlexibleMapAccessor, Object> fieldMap;
+    protected List<FlexibleStringExpander> selectFieldExpanderList;
 
     public PrimaryKeyFinder(Element entityOneElement) {
         super(entityOneElement);
@@ -61,7 +62,7 @@ public class PrimaryKeyFinder extends Finder {
         selectFieldExpanderList = EntityFinderUtil.makeSelectFieldExpanderList(entityOneElement);
     }
 
-    public void runFind(Map context, GenericDelegator delegator) throws GeneralException {
+    public void runFind(Map<String, Object> context, GenericDelegator delegator) throws GeneralException {
         String entityName = this.entityNameExdr.expandString(context);
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
         
@@ -74,14 +75,14 @@ public class PrimaryKeyFinder extends Finder {
         boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
 
         // assemble the field map
-        Map entityContext = new HashMap();
+        Map<String, Object> entityContext = new HashMap<String, Object>();
         if (autoFieldMapBool) {
             GenericValue tempVal = delegator.makeValue(entityName);
 
             // try a map called "parameters", try it first so values from here are overriden by values in the main context
             Object parametersObj = context.get("parameters");
             if (parametersObj != null && parametersObj instanceof Map) {
-                tempVal.setAllFields((Map) parametersObj, true, null, Boolean.TRUE);
+                tempVal.setAllFields(UtilGenerics.checkMap(parametersObj), true, null, Boolean.TRUE);
             }
 
             // just get the primary keys, and hopefully will get all of them, if not they must be manually filled in below in the field-maps
@@ -95,7 +96,7 @@ public class PrimaryKeyFinder extends Finder {
         modelEntity.convertFieldMapInPlace(entityContext, delegator);
         
         // get the list of fieldsToSelect from selectFieldExpanderList
-        Set fieldsToSelect = EntityFinderUtil.makeFieldsToSelect(selectFieldExpanderList, context);
+        Set<String> fieldsToSelect = EntityFinderUtil.makeFieldsToSelect(selectFieldExpanderList, context);
         
         //if fieldsToSelect != null and useCacheBool is true, throw an error
         if (fieldsToSelect != null && useCacheBool) {
