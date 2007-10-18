@@ -157,7 +157,8 @@ public class BillingAccountWorker {
         if (orderPaymentPreferenceSums != null) {
             for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext(); ) {
                 GenericValue orderPaymentPreferenceSum = (GenericValue) oppsi.next();
-                balance = balance.subtract(orderPaymentPreferenceSum.getBigDecimal("maxAmount"));
+                BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
+                balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
             }
         }
 
