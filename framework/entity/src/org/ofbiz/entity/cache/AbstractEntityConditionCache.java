@@ -32,8 +32,9 @@ import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelViewEntity;
 
-public abstract class AbstractEntityConditionCache extends AbstractCache {
+public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<EntityCondition, Map<K, V>> {
 
     public static final String module = AbstractEntityConditionCache.class.getName();
 
@@ -41,34 +42,34 @@ public abstract class AbstractEntityConditionCache extends AbstractCache {
         super(delegatorName, id);
     }
 
-    protected Object get(String entityName, EntityCondition condition, Object key) {
-        Map conditionCache = getConditionCache(entityName, condition);
+    protected V get(String entityName, EntityCondition condition, K key) {
+        Map<K, V> conditionCache = getConditionCache(entityName, condition);
         if (conditionCache == null) return null;
         // the following line was synchronized, but for pretty good safety and better performance, only syncrhnizing the put; synchronized (conditionCache) {
         return conditionCache.get(key);
     }
 
-    protected Object put(String entityName, EntityCondition condition, Object key, Object value) {
+    protected V put(String entityName, EntityCondition condition, K key, V value) {
         ModelEntity entity = this.getDelegator().getModelEntity(entityName); 
         if (entity.getNeverCache()) {
             Debug.logWarning("Tried to put a value of the " + entityName + " entity in the cache but this entity has never-cache set to true, not caching.", module);
             return null;
         }
         
-        Map conditionCache = getOrCreateConditionCache(entityName, condition);
+        Map<K, V> conditionCache = getOrCreateConditionCache(entityName, condition);
         synchronized (conditionCache) {
             return conditionCache.put(key, value);
         }
     }
 
     public void remove(String entityName, EntityCondition condition) {
-        UtilCache cache = getCache(entityName);
+        UtilCache<EntityCondition, Map<K, V>> cache = getCache(entityName);
         if (cache == null) return;
         cache.remove(condition);
     }
 
-    protected Object remove(String entityName, EntityCondition condition, Object key) {
-        Map conditionCache = getConditionCache(entityName, condition);
+    protected V remove(String entityName, EntityCondition condition, K key) {
+        Map<K, V> conditionCache = getConditionCache(entityName, condition);
         if (conditionCache == null) return null;
         synchronized (conditionCache) {
             return conditionCache.remove(key);
@@ -91,16 +92,16 @@ public abstract class AbstractEntityConditionCache extends AbstractCache {
         return frozenCondition;
     }
 
-    protected Map getConditionCache(String entityName, EntityCondition condition) {
-        UtilCache cache = getCache(entityName);
+    protected Map<K, V> getConditionCache(String entityName, EntityCondition condition) {
+        UtilCache<EntityCondition, Map<K, V>> cache = getCache(entityName);
         if (cache == null) return null;
-        return (Map) cache.get(getConditionKey(condition));
+        return cache.get(getConditionKey(condition));
     }
 
-    protected Map getOrCreateConditionCache(String entityName, EntityCondition condition) {
-        UtilCache utilCache = getOrCreateCache(entityName);
-        Object conditionKey = getConditionKey(condition);
-        Map conditionCache = (Map) utilCache.get(conditionKey);
+    protected Map<K, V> getOrCreateConditionCache(String entityName, EntityCondition condition) {
+        UtilCache<EntityCondition, Map<K, V>> utilCache = getOrCreateCache(entityName);
+        EntityCondition conditionKey = getConditionKey(condition);
+        Map<K, V> conditionCache = utilCache.get(conditionKey);
         if (conditionCache == null) {
             conditionCache = FastMap.newInstance();
             utilCache.put(conditionKey, conditionCache);
@@ -146,7 +147,7 @@ public abstract class AbstractEntityConditionCache extends AbstractCache {
         storeHook(true, oldPK, newEntity);
     }
 
-    protected List convert(boolean isPK, String targetEntityName, GenericEntity entity) {
+    protected List<? extends Map<String, Object>> convert(boolean isPK, String targetEntityName, GenericEntity entity) {
         if (isNull(entity)) return null;
         if (isPK) {
             return entity.getModelEntity().convertToViewValues(targetEntityName, (GenericPK) entity);
@@ -163,16 +164,16 @@ public abstract class AbstractEntityConditionCache extends AbstractCache {
             //Debug.logInfo("In storeHook calling sub-storeHook for entity name [" + entityName + "] for the oldEntity: " + oldEntity, module);
         }
         storeHook(entityName, isPK, UtilMisc.toList(oldEntity), UtilMisc.toList(newEntity));
-        Iterator it = model.getViewConvertorsIterator();
+        Iterator<Map.Entry<String, ModelViewEntity>> it = model.getViewConvertorsIterator();
         while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            String targetEntityName = (String) entry.getKey();
+            Map.Entry<String, ModelViewEntity> entry = it.next();
+            String targetEntityName = entry.getKey();
             storeHook(targetEntityName, isPK, convert(isPK, targetEntityName, oldEntity), convert(false, targetEntityName, newEntity));
         }
     }
 
-    protected void storeHook(String entityName, boolean isPK, List oldValues, List newValues) {
-        UtilCache entityCache = UtilCache.findCache(getCacheName(entityName));
+    protected <T1 extends Map<String, Object>, T2 extends Map<String, Object>> void storeHook(String entityName, boolean isPK, List<T1> oldValues, List<T2> newValues) {
+        UtilCache<EntityCondition, Map<K, V>> entityCache = UtilCache.findCache(getCacheName(entityName));
         // for info about cache clearing
         if (newValues == null || newValues.size() == 0 || newValues.get(0) == null) {
             //Debug.logInfo("In storeHook (cache clear) for entity name [" + entityName + "], got entity cache with name: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), module);
@@ -180,31 +181,29 @@ public abstract class AbstractEntityConditionCache extends AbstractCache {
         if (entityCache == null) {
             return;
         }
-        Iterator cacheKeyIter = entityCache.getCacheLineKeys().iterator();
-        while (cacheKeyIter.hasNext()) {
-            EntityCondition condition = (EntityCondition) cacheKeyIter.next();
+        for (EntityCondition condition: entityCache.getCacheLineKeys()) {
             //Debug.logInfo("In storeHook entityName [" + entityName + "] checking against condition: " + condition, module);
             boolean shouldRemove = false;
             if (condition == null) {
                 shouldRemove = true;
             } else if (oldValues == null) {
-                Iterator newValueIter = newValues.iterator();
+                Iterator<T2> newValueIter = newValues.iterator();
                 while (newValueIter.hasNext() && !shouldRemove) {
-                    Map newValue = (Map) newValueIter.next();
+                    T2 newValue = newValueIter.next();
                     shouldRemove |= condition.mapMatches(getDelegator(), newValue);
                 }
             } else {
                 boolean oldMatched = false;
-                Iterator oldValueIter = oldValues.iterator();
+                Iterator<T1> oldValueIter = oldValues.iterator();
                 while (oldValueIter.hasNext() && !shouldRemove) {
-                    Map oldValue = (Map) oldValueIter.next();
+                    T1 oldValue = oldValueIter.next();
                     if (condition.mapMatches(getDelegator(), oldValue)) {
                         oldMatched = true;
                         //Debug.logInfo("In storeHook, oldMatched for entityName [" + entityName + "]; shouldRemove is false", module);
                         if (newValues != null) {
-                            Iterator newValueIter = newValues.iterator();
+                            Iterator<T2> newValueIter = newValues.iterator();
                             while (newValueIter.hasNext() && !shouldRemove) {
-                                Map newValue = (Map) newValueIter.next();
+                                T2 newValue = newValueIter.next();
                                 shouldRemove |= isNull(newValue) || condition.mapMatches(getDelegator(), newValue);
                                 //Debug.logInfo("In storeHook, for entityName [" + entityName + "] shouldRemove is now " + shouldRemove, module);
                             }
