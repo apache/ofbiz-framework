@@ -69,14 +69,11 @@ public class GenericEngineFactory {
             synchronized (GenericEngineFactory.class) {
                 engine = (GenericEngine) engines.get(engineName);
                 if (engine == null) {
-                    Class[] paramTypes = new Class[] { ServiceDispatcher.class };
-                    Object[] params = new Object[] { dispatcher };
-
                     try {
                         ClassLoader loader = Thread.currentThread().getContextClassLoader();
                         Class c = loader.loadClass(className);
-                        Constructor cn = c.getConstructor(paramTypes);
-                        engine = (GenericEngine) cn.newInstance(params);
+                        Constructor cn = c.getConstructor(ServiceDispatcher.class);
+                        engine = (GenericEngine) cn.newInstance(dispatcher);
                     } catch (Exception e) {
                         throw new GenericServiceException(e.getMessage(), e);
                     }

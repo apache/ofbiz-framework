@@ -144,14 +144,12 @@ public class JmsListenerFactory implements Runnable {
                 listener = (GenericMessageListener) listeners.get(serverKey);
                 if (listener == null) {
                     ClassLoader cl = this.getClass().getClassLoader();
-                    Class[] paramTypes = new Class[] {ServiceDispatcher.class, String.class, String.class, String.class, String.class, String.class};
-                    Object[] params = new Object[] {dispatcher, serverName, jndiName, queueName, userName, password};
 
                     try {
                         Class c = cl.loadClass(className);
-                        Constructor cn = c.getConstructor(paramTypes);
+                        Constructor cn = c.getConstructor(ServiceDispatcher.class, String.class, String.class, String.class, String.class, String.class);
 
-                        listener = (GenericMessageListener) cn.newInstance(params);
+                        listener = (GenericMessageListener) cn.newInstance(dispatcher, serverName, jndiName, queueName, userName, password);
                     } catch (Exception e) {
                         throw new GenericServiceException(e.getMessage(), e);
                     }
