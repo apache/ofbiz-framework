@@ -1235,6 +1235,25 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         return theString.toString();
     }
 
+    protected int compareToFields(GenericEntity that, String name) {
+        Comparable thisVal = (Comparable) this.fields.get(name);
+        Comparable thatVal = (Comparable) that.fields.get(name);
+
+        if (thisVal == null) {
+            if (thatVal == null)
+                return 0;
+            // if thisVal is null, but thatVal is not, return 1 to put this earlier in the list
+            else
+                return 1;
+        } else {
+            // if thatVal is null, put the other earlier in the list
+            if (thatVal == null)
+                return  -1;
+            else
+                return thisVal.compareTo(thatVal);
+        }
+    }
+
     /** Compares this GenericEntity to the passed object
      *@param obj Object to compare this to
      *@return int representing the result of the comparison (-1,0, or 1)
@@ -1257,22 +1276,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         Iterator pkIter = getModelEntity().getPksIterator();
         while (pkIter.hasNext()) {
             ModelField curField = (ModelField) pkIter.next();
-            Comparable thisVal = (Comparable) this.fields.get(curField.getName());
-            Comparable thatVal = (Comparable) that.fields.get(curField.getName());
-
-            if (thisVal == null) {
-                if (thatVal == null)
-                    tempResult = 0;
-                // if thisVal is null, but thatVal is not, return 1 to put this earlier in the list
-                else
-                    tempResult = 1;
-            } else {
-                // if thatVal is null, put the other earlier in the list
-                if (thatVal == null)
-                    tempResult = -1;
-                else
-                    tempResult = thisVal.compareTo(thatVal);
-            }
+            tempResult = compareToFields(that, curField.getName());
             if (tempResult != 0) return tempResult;
         }
 
@@ -1281,24 +1285,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
         while (nopkIter.hasNext()) {
             ModelField curField = (ModelField) nopkIter.next();
             if (!curField.getIsAutoCreatedInternal()) {
-                Comparable thisVal = (Comparable) this.fields.get(curField.getName());
-                Comparable thatVal = (Comparable) that.fields.get(curField.getName());
-
-                if (thisVal == null) {
-                    if (thatVal == null) {
-                        tempResult = 0;
-                    // if thisVal is null, but thatVal is not, return 1 to put this earlier in the list
-                    } else {
-                        tempResult = 1;
-                    }
-                } else {
-                    // if thatVal is null, put the other earlier in the list
-                    if (thatVal == null) {
-                        tempResult = -1;
-                    } else {
-                        tempResult = thisVal.compareTo(thatVal);
-                    }
-                }
+                tempResult = compareToFields(that, curField.getName());
                 if (tempResult != 0) return tempResult;
             }
         }
