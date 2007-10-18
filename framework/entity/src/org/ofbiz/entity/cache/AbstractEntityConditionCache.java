@@ -172,10 +172,7 @@ public abstract class AbstractEntityConditionCache extends AbstractCache {
     }
 
     protected void storeHook(String entityName, boolean isPK, List oldValues, List newValues) {
-        UtilCache entityCache = null;
-        synchronized (UtilCache.utilCacheTable) {
-            entityCache = (UtilCache) UtilCache.utilCacheTable.get(getCacheName(entityName));
-        }
+        UtilCache entityCache = UtilCache.findCache(getCacheName(entityName));
         // for info about cache clearing
         if (newValues == null || newValues.size() == 0 || newValues.get(0) == null) {
             //Debug.logInfo("In storeHook (cache clear) for entity name [" + entityName + "], got entity cache with name: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), module);

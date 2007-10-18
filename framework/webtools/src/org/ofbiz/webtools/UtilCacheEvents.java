@@ -74,7 +74,7 @@ public class UtilCacheEvents {
             return "error";
         }
 
-        UtilCache utilCache = (UtilCache) UtilCache.utilCacheTable.get(name);
+        UtilCache utilCache = UtilCache.findCache(name);
 
         if (utilCache != null) {
             Object key = null;
@@ -139,7 +139,7 @@ public class UtilCacheEvents {
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
-        UtilCache utilCache = (UtilCache) UtilCache.utilCacheTable.get(name);
+        UtilCache utilCache = UtilCache.findCache(name);
 
         if (utilCache != null) {
             utilCache.clear();
@@ -233,7 +233,7 @@ public class UtilCacheEvents {
             expireTime = Long.valueOf(expireTimeStr);
         } catch (Exception e) {}
 
-        UtilCache utilCache = (UtilCache) UtilCache.utilCacheTable.get(name);
+        UtilCache utilCache = UtilCache.findCache(name);
 
         if (utilCache != null) {
             if (maxSize != null)

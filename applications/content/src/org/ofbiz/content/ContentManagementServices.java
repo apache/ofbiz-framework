@@ -1210,13 +1210,13 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map clearContentAssocViewCache(DispatchContext dctx, Map context) throws GenericServiceException{
         Map results = new HashMap();
 
-        UtilCache utilCache = (UtilCache) UtilCache.utilCacheTable.get("entitycache.entity-list.default.ContentAssocViewFrom");
+        UtilCache utilCache = UtilCache.findCache("entitycache.entity-list.default.ContentAssocViewFrom");
 
         if (utilCache != null) {
             utilCache.clear();
         }
         
-        utilCache = (UtilCache) UtilCache.utilCacheTable.get("entitycache.entity-list.default.ContentAssocViewTo");
+        utilCache = UtilCache.findCache("entitycache.entity-list.default.ContentAssocViewTo");
         if (utilCache != null) {
             utilCache.clear();
         }
@@ -1228,12 +1228,12 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     
         Map results = new HashMap();
 
-        UtilCache utilCache = (UtilCache) UtilCache.utilCacheTable.get("entitycache.entity-list.default.ContentAssocViewDataResourceFrom");
+        UtilCache utilCache = UtilCache.findCache("entitycache.entity-list.default.ContentAssocViewDataResourceFrom");
         if (utilCache != null) {
             utilCache.clear();
         }
         
-        utilCache = (UtilCache) UtilCache.utilCacheTable.get("entitycache.entity-list.default.ContentAssocViewDataResourceTo");
+        utilCache = UtilCache.findCache("entitycache.entity-list.default.ContentAssocViewDataResourceTo");
         if (utilCache != null) {
             utilCache.clear();
         }
