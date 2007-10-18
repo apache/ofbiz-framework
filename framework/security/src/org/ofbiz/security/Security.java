@@ -35,14 +35,14 @@ public abstract class Security {
     /**
      * UtilCache to cache a Collection of UserLoginSecurityGroup entities for each UserLogin, by userLoginId.
      */
-    public static UtilCache userLoginSecurityGroupByUserLoginId = new UtilCache("security.UserLoginSecurityGroupByUserLoginId");
+    public static UtilCache<String, List<GenericValue>> userLoginSecurityGroupByUserLoginId = new UtilCache<String, List<GenericValue>>("security.UserLoginSecurityGroupByUserLoginId");
 
     /**
      * UtilCache to cache whether or not a certain SecurityGroupPermission row exists or not.
      * For each SecurityGroupPermissionPK there is a Boolean in the cache specifying whether or not it exists.
      * In this way the cache speeds things up whether or not the user has a permission.
      */
-    public static UtilCache securityGroupPermissionCache = new UtilCache("security.SecurityGroupPermissionCache");
+    public static UtilCache<GenericValue, Boolean> securityGroupPermissionCache = new UtilCache<GenericValue, Boolean>("security.SecurityGroupPermissionCache");
 
     GenericDelegator delegator = null;
 
@@ -61,7 +61,7 @@ public abstract class Security {
      * @return An iterator made from the Collection either cached or retrieved from the database through the
      * 		   UserLoginSecurityGroup Delegator.
      */
-    public abstract Iterator findUserLoginSecurityGroupByUserLoginId(String userLoginId);
+    public abstract Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId);
 
     /**
      * Finds whether or not a SecurityGroupPermission row exists given a groupId and permission.
@@ -155,7 +155,7 @@ public abstract class Security {
      * @param userLogin The userLogin object for user to check against.
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */
-    public abstract boolean hasRolePermission(String application, String action, String primaryKey, List roles, GenericValue userLogin);
+    public abstract boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, GenericValue userLogin);
     
     /**
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
@@ -169,6 +169,6 @@ public abstract class Security {
      * @param session The current HTTP session, contains the logged in userLogin as an attribute.
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */    
-    public abstract boolean hasRolePermission(String application, String action, String primaryKey, List roles, HttpSession session);
+    public abstract boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, HttpSession session);
     
 }
