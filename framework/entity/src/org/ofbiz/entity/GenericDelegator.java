@@ -614,14 +614,14 @@ public class GenericDelegator implements DelegatorInterface {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            Map ecaEventMap = this.getEcaEntityEventMap(value.getEntityName());
-            this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+            EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(value.getEntityName());
+            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_CREATE, value, false);
 
             if (value == null) {
                 throw new GenericEntityException("Cannot create a null value");
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_CREATE, value, false);
 
             value.setDelegator(this);
             this.encryptFields(value);
@@ -651,13 +651,13 @@ public class GenericDelegator implements DelegatorInterface {
                     refresh(value, doCacheClear);
                 } else {
                     if (doCacheClear) {
-                        this.evalEcaRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+                        ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_CREATE, value, false);
                         this.clearCacheLine(value);
                     }
                 }
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
             return value;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in create operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -688,15 +688,15 @@ public class GenericDelegator implements DelegatorInterface {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            Map ecaEventMap = this.getEcaEntityEventMap(value.getEntityName());
-            this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+            EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(value.getEntityName());
+            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_CREATE, value, false);
 
             if (value == null) {
                 throw new GenericEntityException("Cannot create a null value");
             }
             GenericHelper helper = getEntityHelper(value.getEntityName());
 
-            this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_CREATE, value, false);
 
             value.setDelegator(this);
             this.encryptFields(value);
@@ -708,13 +708,13 @@ public class GenericDelegator implements DelegatorInterface {
                     refresh(value, doCacheClear);
                 } else {
                     if (doCacheClear) {
-                        this.evalEcaRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+                        ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_CREATE, value, false);
                         this.clearCacheLine(value);
                     }
                 }
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
             return value;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in create operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -831,22 +831,22 @@ public class GenericDelegator implements DelegatorInterface {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            Map ecaEventMap = this.getEcaEntityEventMap(primaryKey.getEntityName());
-            this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_REMOVE, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+            EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(primaryKey.getEntityName());
+            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_REMOVE, primaryKey, false);
 
             GenericHelper helper = getEntityHelper(primaryKey.getEntityName());
 
             if (doCacheClear) {
                 // always clear cache before the operation
-                this.evalEcaRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_REMOVE, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+                ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_REMOVE, primaryKey, false);
                 this.clearCacheLine(primaryKey);
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_REMOVE, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_REMOVE, primaryKey, false);
             int num = helper.removeByPrimaryKey(primaryKey);
             this.saveEntitySyncRemoveInfo(primaryKey);
 
-            this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, primaryKey, false);
             return num;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in removeByPrimaryKey operation for entity [" + primaryKey.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -886,21 +886,21 @@ public class GenericDelegator implements DelegatorInterface {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            Map ecaEventMap = this.getEcaEntityEventMap(value.getEntityName());
-            this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_REMOVE, value, ecaEventMap, (ecaEventMap == null), false);
+            EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(value.getEntityName());
+            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_REMOVE, value, false);
 
             GenericHelper helper = getEntityHelper(value.getEntityName());
 
             if (doCacheClear) {
-                this.evalEcaRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_REMOVE, value, ecaEventMap, (ecaEventMap == null), false);
+                ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_REMOVE, value, false);
                 this.clearCacheLine(value);
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_REMOVE, value, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_REMOVE, value, false);
             int num = helper.removeByPrimaryKey(value.getPrimaryKey());
             this.saveEntitySyncRemoveInfo(value.getPrimaryKey());
 
-            this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, value, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, value, false);
             return num;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in removeValue operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -1142,17 +1142,17 @@ public class GenericDelegator implements DelegatorInterface {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            Map ecaEventMap = this.getEcaEntityEventMap(value.getEntityName());
-            this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_STORE, value, ecaEventMap, (ecaEventMap == null), false);
+            EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(value.getEntityName());
+            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_STORE, value, false);
             GenericHelper helper = getEntityHelper(value.getEntityName());
 
             if (doCacheClear) {
                 // always clear cache before the operation
-                this.evalEcaRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_STORE, value, ecaEventMap, (ecaEventMap == null), false);
+                ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CLEAR, EntityEcaHandler.OP_STORE, value, false);
                 this.clearCacheLine(value);
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_STORE, value, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_STORE, value, false);
             this.encryptFields(value);
             int retVal = helper.store(value);
 
@@ -1161,7 +1161,7 @@ public class GenericDelegator implements DelegatorInterface {
                 refresh(value, doCacheClear);
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_STORE, value, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_STORE, value, false);
             return retVal;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in store operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -1388,8 +1388,8 @@ public class GenericDelegator implements DelegatorInterface {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            Map ecaEventMap = this.getEcaEntityEventMap(primaryKey.getEntityName());
-            this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_FIND, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+            EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(primaryKey.getEntityName());
+            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_FIND, primaryKey, false);
 
             GenericHelper helper = getEntityHelper(primaryKey.getEntityName());
             GenericValue value = null;
@@ -1397,7 +1397,7 @@ public class GenericDelegator implements DelegatorInterface {
             if (!primaryKey.isPrimaryKey()) {
                 throw new GenericModelException("[GenericDelegator.findByPrimaryKey] Passed primary key is not a valid primary key: " + primaryKey);
             }
-            this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, primaryKey, false);
             try {
                 value = helper.findByPrimaryKey(primaryKey);
             } catch (GenericEntityNotFoundException e) {
@@ -1408,7 +1408,7 @@ public class GenericDelegator implements DelegatorInterface {
                 this.decryptFields(value);
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, primaryKey, false);
             return value;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in findByPrimaryKey operation for entity [" + primaryKey.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -1432,15 +1432,15 @@ public class GenericDelegator implements DelegatorInterface {
      *@return The GenericValue corresponding to the primaryKey
      */
     public GenericValue findByPrimaryKeyCache(GenericPK primaryKey) throws GenericEntityException {
-        Map ecaEventMap = this.getEcaEntityEventMap(primaryKey.getEntityName());
-        this.evalEcaRules(EntityEcaHandler.EV_CACHE_CHECK, EntityEcaHandler.OP_FIND, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+        EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(primaryKey.getEntityName());
+        ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CHECK, EntityEcaHandler.OP_FIND, primaryKey, false);
 
         GenericValue value = this.getFromPrimaryKeyCache(primaryKey);
         if (value instanceof GenericEntity.NULL) return null;
         if (value == null) {
             value = findByPrimaryKey(primaryKey);
             if (value != null) {
-                this.evalEcaRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+                ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, primaryKey, false);
                 this.putInPrimaryKeyCache(primaryKey, value);
             } else {
                 this.putInPrimaryKeyCache(primaryKey, GenericValue.NULL_VALUE);
@@ -1524,8 +1524,8 @@ public class GenericDelegator implements DelegatorInterface {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            Map ecaEventMap = this.getEcaEntityEventMap(primaryKey.getEntityName());
-            this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_FIND, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+            EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(primaryKey.getEntityName());
+            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_FIND, primaryKey, false);
 
             GenericHelper helper = getEntityHelper(primaryKey.getEntityName());
             GenericValue value = null;
@@ -1534,7 +1534,7 @@ public class GenericDelegator implements DelegatorInterface {
                 throw new GenericModelException("[GenericDelegator.findByPrimaryKey] Passed primary key is not a valid primary key: " + primaryKey);
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, primaryKey, false);
             try {
                 value = helper.findByPrimaryKeyPartial(primaryKey, keys);
             } catch (GenericEntityNotFoundException e) {
@@ -1542,7 +1542,7 @@ public class GenericDelegator implements DelegatorInterface {
             }
             if (value != null) value.setDelegator(this);
 
-            this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, primaryKey, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, primaryKey, false);
             return value;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in findByPrimaryKeyPartial operation for entity [" + primaryKey.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -1750,15 +1750,15 @@ public class GenericDelegator implements DelegatorInterface {
      */
     public List findAllCache(String entityName, List orderBy) throws GenericEntityException {
         GenericValue dummyValue = makeValue(entityName);
-        Map ecaEventMap = this.getEcaEntityEventMap(entityName);
-        this.evalEcaRules(EntityEcaHandler.EV_CACHE_CHECK, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+        EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(entityName);
+        ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CHECK, EntityEcaHandler.OP_FIND, dummyValue, false);
 
         List lst = cache.get(entityName, null, orderBy);
 
         if (lst == null) {
             lst = findAll(entityName, orderBy);
             if (lst != null) {
-                this.evalEcaRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+                ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, dummyValue, false);
                 cache.put(entityName, null, orderBy, lst);
             }
         }
@@ -2001,15 +2001,15 @@ public class GenericDelegator implements DelegatorInterface {
     public List findByConditionCache(String entityName, EntityCondition entityCondition, Collection fieldsToSelect, List orderBy) throws GenericEntityException {
         ModelEntity modelEntity = getModelReader().getModelEntity(entityName);
         GenericValue dummyValue = GenericValue.create(modelEntity);
-        Map ecaEventMap = this.getEcaEntityEventMap(entityName);
-        this.evalEcaRules(EntityEcaHandler.EV_CACHE_CHECK, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+        EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(entityName);
+        ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_CHECK, EntityEcaHandler.OP_FIND, dummyValue, false);
 
         List lst = cache.get(entityName, entityCondition, orderBy);
 
         if (lst == null) {
             lst = findByCondition(entityName, entityCondition, fieldsToSelect, orderBy);
             if (lst != null) {
-                this.evalEcaRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+                ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, dummyValue, false);
                 cache.put(entityName, entityCondition, orderBy, lst);
             }
         }
@@ -2054,8 +2054,8 @@ public class GenericDelegator implements DelegatorInterface {
 
         ModelEntity modelEntity = getModelReader().getModelEntity(entityName);
         GenericValue dummyValue = GenericValue.create(modelEntity);
-        Map ecaEventMap = this.getEcaEntityEventMap(modelEntity.getEntityName());
-        this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+        EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(modelEntity.getEntityName());
+        ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_FIND, dummyValue, false);
 
         if (whereEntityCondition != null) {
             whereEntityCondition.checkCondition(modelEntity);
@@ -2066,13 +2066,13 @@ public class GenericDelegator implements DelegatorInterface {
             havingEntityCondition.encryptConditionFields(modelEntity, this);
         }
 
-        this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+        ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);
         GenericHelper helper = getEntityHelper(modelEntity.getEntityName());
         EntityListIterator eli = helper.findListIteratorByCondition(modelEntity, whereEntityCondition,
                 havingEntityCondition, fieldsToSelect, orderBy, findOptions);
         eli.setDelegator(this);
 
-        this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+        ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
         return eli;
     }
 
@@ -2139,8 +2139,8 @@ public class GenericDelegator implements DelegatorInterface {
 
             ModelEntity modelEntity = getModelReader().getModelEntity(entityName);
             GenericValue dummyValue = GenericValue.create(modelEntity);
-            Map ecaEventMap = this.getEcaEntityEventMap(modelEntity.getEntityName());
-            this.evalEcaRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+            EntityEcaRuleRunner ecaRunner = this.getEcaRuleRunner(modelEntity.getEntityName());
+            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_FIND, dummyValue, false);
 
             if (whereEntityCondition != null) {
                 whereEntityCondition.checkCondition(modelEntity);
@@ -2151,11 +2151,11 @@ public class GenericDelegator implements DelegatorInterface {
                 havingEntityCondition.encryptConditionFields(modelEntity, this);
             }
 
-            this.evalEcaRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);
             GenericHelper helper = getEntityHelper(modelEntity.getEntityName());
             long count = helper.findCountByCondition(modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
 
-            this.evalEcaRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
+            ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
             return count;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in findListIteratorByCondition operation for entity [DynamicView]: " + e.toString() + ". Rolling back transaction.";
@@ -2695,20 +2695,28 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     // ======= Misc Methods ========
+    protected static class EntityEcaRuleRunner {
+        protected EntityEcaHandler entityEcaHandler;
+        protected Map eventMap;
 
-    protected Map getEcaEntityEventMap(String entityName) {
-        if (this.entityEcaHandler == null) return null;
-        Map ecaEventMap = this.entityEcaHandler.getEntityEventMap(entityName);
-        //Debug.logWarning("for entityName " + entityName + " got ecaEventMap: " + ecaEventMap, module);
-        return ecaEventMap;
+        protected EntityEcaRuleRunner(EntityEcaHandler entityEcaHandler, Map eventMap) {
+            this.entityEcaHandler = entityEcaHandler;
+            this.eventMap = eventMap;
+        }
+
+        protected void evalRules(String currentOperation, String event, GenericEntity value, boolean isError) throws GenericEntityException {
+            if (entityEcaHandler == null) return;
+            //if (!"find".equals(currentOperation)) Debug.logWarning("evalRules for entity " + value.getEntityName() + ", currentOperation " + currentOperation + ", event " + event, module);
+            entityEcaHandler.evalRules(currentOperation, eventMap, event, value, isError);
+        }
     }
 
-    protected void evalEcaRules(String event, String currentOperation, GenericEntity value, Map eventMap, boolean noEventMapFound, boolean isError) throws GenericEntityException {
-        // if this is true then it means that the caller had looked for an event map but found none for this entity
-        if (noEventMapFound) return;
-        if (this.entityEcaHandler == null) return;
-        //if (!"find".equals(currentOperation)) Debug.logWarning("evalRules for entity " + value.getEntityName() + ", currentOperation " + currentOperation + ", event " + event, module);
-        this.entityEcaHandler.evalRules(currentOperation, eventMap, event, value, isError);
+    protected EntityEcaRuleRunner getEcaRuleRunner(String entityName) {
+        return createEntityEcaRuleRunner(this.entityEcaHandler, entityName);
+    }
+
+    protected static EntityEcaRuleRunner createEntityEcaRuleRunner(EntityEcaHandler entityEcaHandler, String entityName) {
+        return new EntityEcaRuleRunner(entityEcaHandler, entityEcaHandler != null ? entityEcaHandler.getEntityEventMap(entityName) : null);
     }
 
     public void setEntityEcaHandler(EntityEcaHandler entityEcaHandler) {
