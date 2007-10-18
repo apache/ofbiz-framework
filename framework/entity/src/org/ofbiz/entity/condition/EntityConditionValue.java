@@ -19,6 +19,7 @@
 package org.ofbiz.entity.condition;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public abstract class EntityConditionValue extends EntityConditionBase {
 
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List entityConditionParams, boolean includeTableNamePrefix,
             DatasourceInfo datasourceinfo) {
-        addSqlValue(sql, emptyMap, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
+        addSqlValue(sql, Collections.emptyMap(), modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
     }
 
     public abstract void addSqlValue(StringBuilder sql, Map tableAliases, ModelEntity modelEntity, List entityConditionParams,

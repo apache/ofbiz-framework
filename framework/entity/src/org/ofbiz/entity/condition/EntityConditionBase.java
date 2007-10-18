@@ -46,9 +46,6 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
  */
 public abstract class EntityConditionBase implements Serializable {
 
-    public static final List emptyList = Collections.unmodifiableList(FastList.newInstance());
-    public static final Map emptyMap = Collections.unmodifiableMap(FastMap.newInstance());
-
     protected ModelField getField(ModelEntity modelEntity, String fieldName) {
         ModelField modelField = null;
         if (modelEntity != null) {
