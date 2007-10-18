@@ -51,10 +51,10 @@ import org.ofbiz.entity.util.EntityListIterator;
 public class MemoryHelper implements GenericHelper {
 
     public static final String module = MemoryHelper.class.getName();
-    private static Map cache = new HashMap();
+    private static Map<String, HashMap<GenericPK, GenericValue>> cache = new HashMap<String, HashMap<GenericPK, GenericValue>>();
 
     public static void clearCache() {
-        cache = new HashMap();
+        cache = new HashMap<String, HashMap<GenericPK, GenericValue>>();
     }
 
     private String helperName;
@@ -69,9 +69,9 @@ public class MemoryHelper implements GenericHelper {
         }
 
         value = (GenericValue) value.clone();
-        HashMap entityCache = (HashMap) cache.get(value.getEntityName());
+        HashMap<GenericPK, GenericValue> entityCache = cache.get(value.getEntityName());
         if (entityCache == null) {
-            entityCache = new HashMap();
+            entityCache = new HashMap<GenericPK, GenericValue>();
             cache.put(value.getEntityName(), entityCache);
         }
 
@@ -84,12 +84,12 @@ public class MemoryHelper implements GenericHelper {
             return null;
         }
 
-        HashMap entityCache = (HashMap) cache.get(pk.getEntityName());
+        HashMap<GenericPK, GenericValue> entityCache = cache.get(pk.getEntityName());
         if (entityCache == null) {
             return null;
         }
 
-        GenericValue value = (GenericValue) entityCache.get(pk);
+        GenericValue value = entityCache.get(pk);
         if (value == null) {
             return null;
         } else {
@@ -102,7 +102,7 @@ public class MemoryHelper implements GenericHelper {
             return 0;
         }
 
-        HashMap entityCache = (HashMap) cache.get(pk.getEntityName());
+        HashMap<GenericPK, GenericValue> entityCache = cache.get(pk.getEntityName());
         if (entityCache == null) {
             return 0;
         }
@@ -120,7 +120,7 @@ public class MemoryHelper implements GenericHelper {
             return 0;
         }
 
-        HashMap entityCache = (HashMap) cache.get(entityName);
+        HashMap<GenericPK, GenericValue> entityCache = cache.get(entityName);
         if (entityCache == null) {
             return 0;
         }
@@ -137,9 +137,8 @@ public class MemoryHelper implements GenericHelper {
         return count;
     }
 
-    private boolean isAndMatch(Map values, Map fields) {
-        for (Iterator iterator = fields.entrySet().iterator(); iterator.hasNext();) {
-            Map.Entry mapEntry = (Map.Entry) iterator.next();
+    private boolean isAndMatch(Map<String, Object> values, Map<String, Object> fields) {
+        for (Map.Entry<String, Object> mapEntry: fields.entrySet()) {
             if (mapEntry.getValue() == null) {
                 if (values.get(mapEntry.getKey()) != null) {
                     return false;
@@ -158,9 +157,8 @@ public class MemoryHelper implements GenericHelper {
         return true;
     }
 
-    private boolean isOrMatch(Map values, Map fields) {
-        for (Iterator iterator = fields.entrySet().iterator(); iterator.hasNext();) {
-            Map.Entry mapEntry = (Map.Entry) iterator.next();
+    private boolean isOrMatch(Map<String, Object> values, Map<String, Object> fields) {
+        for (Map.Entry<String, Object> mapEntry: fields.entrySet()) {
             if (mapEntry.getValue() == null) {
                 if (values.get(mapEntry.getKey()) == null) {
                     return true;
@@ -183,24 +181,23 @@ public class MemoryHelper implements GenericHelper {
         ModelEntity me = value.getModelEntity();
 
         // make sure the PKs exist
-        for (Iterator iterator = me.getPksIterator(); iterator.hasNext();) {
-            ModelField field = (ModelField) iterator.next();
+        for (Iterator<ModelField> iterator = me.getPksIterator(); iterator.hasNext();) {
+            ModelField field = iterator.next();
             if (!value.containsKey(field.getName())) {
                 return false;
             }
         }
 
         // make sure the value doesn't have any extra (unknown) fields
-        for (Iterator iterator = value.entrySet().iterator(); iterator.hasNext();) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            if (me.getField((String) entry.getKey()) == null) {
+        for (Map.Entry<String, Object> entry: value.entrySet()) {
+            if (me.getField(entry.getKey()) == null) {
                 return false;
             }
         }
 
         // make sure all fields that are in the value are of the right type
-        for (Iterator iterator = me.getFieldsIterator(); iterator.hasNext();) {
-            ModelField field = (ModelField) iterator.next();
+        for (Iterator<ModelField> iterator = me.getFieldsIterator(); iterator.hasNext();) {
+            ModelField field = iterator.next();
             Object o = value.get(field.getName());
             int typeValue = 0;
             try {
@@ -297,16 +294,15 @@ public class MemoryHelper implements GenericHelper {
         return findFromCache(primaryKey);
     }
 
-    public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set keys) throws GenericEntityException {
+    public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set<String> keys) throws GenericEntityException {
         GenericValue value = findFromCache(primaryKey);
         value.setFields(value.getFields(keys));
         return value;
     }
 
-    public List findAllByPrimaryKeys(List primaryKeys) throws GenericEntityException {
-        ArrayList result = new ArrayList(primaryKeys.size());
-        for (Iterator iterator = primaryKeys.iterator(); iterator.hasNext();) {
-            GenericPK pk = (GenericPK) iterator.next();
+    public List<GenericValue> findAllByPrimaryKeys(List<GenericPK> primaryKeys) throws GenericEntityException {
+        ArrayList<GenericValue> result = new ArrayList<GenericValue>(primaryKeys.size());
+        for (GenericPK pk: primaryKeys) {
             result.add(this.findByPrimaryKey(pk));
         }
 
@@ -317,17 +313,14 @@ public class MemoryHelper implements GenericHelper {
         return removeFromCache(primaryKey);
     }
 
-    public List findByAnd(ModelEntity modelEntity, Map fields, List orderBy) throws GenericEntityException {
-        HashMap entityCache = (HashMap) cache.get(modelEntity.getEntityName());
+    public List<GenericValue> findByAnd(ModelEntity modelEntity, Map<String, Object> fields, List<String> orderBy) throws GenericEntityException {
+        HashMap<GenericPK, GenericValue> entityCache = cache.get(modelEntity.getEntityName());
         if (entityCache == null) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
-        ArrayList result = new ArrayList();
-        for (Iterator iterator = entityCache.entrySet().iterator(); iterator.hasNext();) {
-            Map.Entry mapEntry = (Map.Entry) iterator.next();
-            GenericValue value = (GenericValue) mapEntry.getValue();
-
+        ArrayList<GenericValue> result = new ArrayList<GenericValue>();
+        for (GenericValue value: entityCache.values()) {
             if (isAndMatch(value.getAllFields(), fields)) {
                 result.add(value);
             }
@@ -336,25 +329,22 @@ public class MemoryHelper implements GenericHelper {
         return result;
     }
 
-    public List findByAnd(ModelEntity modelEntity, List expressions, List orderBy) throws GenericEntityException {
+    public List<GenericValue> findByAnd(ModelEntity modelEntity, List<EntityCondition> expressions, List<String> orderBy) throws GenericEntityException {
         return null;
     }
 
-    public List findByLike(ModelEntity modelEntity, Map fields, List orderBy) throws GenericEntityException {
+    public List<GenericValue> findByLike(ModelEntity modelEntity, Map<String, Object> fields, List<String> orderBy) throws GenericEntityException {
         return null;
     }
 
-    public List findByOr(ModelEntity modelEntity, Map fields, List orderBy) throws GenericEntityException {
-        HashMap entityCache = (HashMap) cache.get(modelEntity.getEntityName());
+    public List<GenericValue> findByOr(ModelEntity modelEntity, Map<String, Object> fields, List<String> orderBy) throws GenericEntityException {
+        HashMap<GenericPK, GenericValue> entityCache = cache.get(modelEntity.getEntityName());
         if (entityCache == null) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
-        ArrayList result = new ArrayList();
-        for (Iterator iterator = entityCache.entrySet().iterator(); iterator.hasNext();) {
-            Map.Entry mapEntry = (Map.Entry) iterator.next();
-            GenericValue value = (GenericValue) mapEntry.getValue();
-
+        ArrayList<GenericValue> result = new ArrayList<GenericValue>();
+        for (GenericValue value: entityCache.values()) {
             if (isOrMatch(value.getAllFields(), fields)) {
                 result.add(value);
             }
@@ -364,22 +354,22 @@ public class MemoryHelper implements GenericHelper {
 
     }
 
-    public List findByOr(ModelEntity modelEntity, List expressions, List orderBy) throws GenericEntityException {
+    public List<GenericValue> findByOr(ModelEntity modelEntity, List<EntityCondition> expressions, List<String> orderBy) throws GenericEntityException {
         return null;
     }
 
-    public List findByCondition(ModelEntity modelEntity, EntityCondition entityCondition,
-                                Collection fieldsToSelect, List orderBy) throws GenericEntityException {
+    public List<GenericValue> findByCondition(ModelEntity modelEntity, EntityCondition entityCondition,
+                                Collection<String> fieldsToSelect, List<String> orderBy) throws GenericEntityException {
         return null;
     }
 
-    public List findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
-                                    ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List orderBy) throws GenericEntityException {
+    public List<GenericValue> findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
+                                    ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy) throws GenericEntityException {
         return null;
     }
 
     public EntityListIterator findListIteratorByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition,
-                                                          EntityCondition havingEntityCondition, Collection fieldsToSelect, List orderBy, EntityFindOptions findOptions)
+                                                          EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
             throws GenericEntityException {
         return null;
     }
@@ -388,16 +378,15 @@ public class MemoryHelper implements GenericHelper {
         return 0;
     }
 
-    public int removeByAnd(ModelEntity modelEntity, Map fields) throws GenericEntityException {
-        HashMap entityCache = (HashMap) cache.get(modelEntity.getEntityName());
+    public int removeByAnd(ModelEntity modelEntity, Map<String, Object> fields) throws GenericEntityException {
+        HashMap<GenericPK, GenericValue> entityCache = cache.get(modelEntity.getEntityName());
         if (entityCache == null) {
             return 0;
         }
 
-        ArrayList removeList = new ArrayList();
-        for (Iterator iterator = entityCache.entrySet().iterator(); iterator.hasNext();) {
-            Map.Entry mapEntry = (Map.Entry) iterator.next();
-            GenericValue value = (GenericValue) mapEntry.getValue();
+        ArrayList<GenericPK> removeList = new ArrayList<GenericPK>();
+        for (Map.Entry<GenericPK, GenericValue> mapEntry: entityCache.entrySet()) {
+            GenericValue value = mapEntry.getValue();
             if (isAndMatch(value.getAllFields(), fields)) {
                 removeList.add(mapEntry.getKey());
             }
@@ -410,7 +399,7 @@ public class MemoryHelper implements GenericHelper {
         return removeFromCache(modelEntity.getEntityName(), condition);
     }
 
-    public int storeByCondition(ModelEntity modelEntity, Map fieldsToSet, EntityCondition condition) throws GenericEntityException {
+    public int storeByCondition(ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
         return 0;
     }
 
@@ -422,10 +411,9 @@ public class MemoryHelper implements GenericHelper {
         }
     }
 
-    public int storeAll(List values) throws GenericEntityException {
+    public int storeAll(List<GenericValue> values) throws GenericEntityException {
         int count = 0;
-        for (Iterator iterator = values.iterator(); iterator.hasNext();) {
-            GenericValue gv = (GenericValue) iterator.next();
+        for (GenericValue gv: values) {
             if (addToCache(gv)) {
                 count++;
             }
@@ -434,17 +422,16 @@ public class MemoryHelper implements GenericHelper {
         return count;
     }
 
-    public int removeAll(List dummyPKs) throws GenericEntityException {
+    public int removeAll(List<GenericPK> dummyPKs) throws GenericEntityException {
         int count = 0;
-        for (Iterator iterator = dummyPKs.iterator(); iterator.hasNext();) {
-            GenericPK pk = (GenericPK) iterator.next();
+        for (GenericPK pk: dummyPKs) {
             count = count + removeFromCache(pk);
         }
 
         return count;
     }
 
-    public void checkDataSource(Map modelEntities, List messages, boolean addMissing) throws GenericEntityException {
+    public void checkDataSource(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) throws GenericEntityException {
         messages.add("checkDataSource not implemented for MemoryHelper");
     }
 }
