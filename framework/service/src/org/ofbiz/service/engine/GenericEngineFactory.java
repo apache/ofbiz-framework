@@ -19,8 +19,9 @@
 package org.ofbiz.service.engine;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.service.GenericServiceException;
@@ -39,7 +40,7 @@ public class GenericEngineFactory {
     
     public GenericEngineFactory(ServiceDispatcher dispatcher) {
         this.dispatcher = dispatcher;
-        engines = new HashMap();
+        engines = FastMap.newInstance();
     }
 
     /** 

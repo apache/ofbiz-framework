@@ -749,7 +749,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param locale Locale to use to do some type conversion
      */
     public Map makeValid(Map source, String mode, boolean includeInternal, List errorMessages, TimeZone timeZone, Locale locale) {
-        Map target = new HashMap();
+        Map target = FastMap.newInstance();
 
         if (source == null) {
             return target;
@@ -828,7 +828,7 @@ public class ModelService extends AbstractMap implements Serializable {
     }
 
     private Map makePrefixMap(Map source, ModelParam param) {
-        Map paramMap = new HashMap();
+        Map paramMap = FastMap.newInstance();
         Set sourceSet = source.keySet();
         Iterator i = sourceSet.iterator();
         while (i.hasNext()) {

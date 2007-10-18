@@ -22,10 +22,11 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -239,7 +240,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             }
 
             if (context == null) {
-                context = new HashMap();
+                context = FastMap.newInstance();
             }
 
             // check the runAsUser

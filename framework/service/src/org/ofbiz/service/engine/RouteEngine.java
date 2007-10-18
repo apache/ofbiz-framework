@@ -18,8 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.service.engine;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.service.GenericRequester;
 import org.ofbiz.service.GenericServiceException;
@@ -51,7 +52,7 @@ public class RouteEngine implements GenericEngine {
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */
     public void runAsync(String localName, ModelService modelService, Map context, GenericRequester requester, boolean persist) throws GenericServiceException {
-        requester.receiveResult(new HashMap());
+        requester.receiveResult(FastMap.newInstance());
     }
 
     /**

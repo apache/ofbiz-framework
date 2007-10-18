@@ -18,9 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.service.group;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -116,7 +117,7 @@ public class GroupServiceModel {
                 return dispatcher.runSync(localName, model, thisContext);
             } else {
                 dispatcher.runAsync(localName, model, thisContext, false);
-                return new HashMap();
+                return FastMap.newInstance();
             }
         } else {
             return dispatcher.runSync(localName, model, thisContext);

@@ -18,13 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.service.group;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceDispatcher;
@@ -136,7 +138,7 @@ public class GroupModel {
         } else if (this.getSendMode().equals("first-available")) {
             return runOne(dispatcher, localName, context);  
         } else if (this.getSendMode().equals("none")) {
-            return new HashMap();                                 
+            return FastMap.newInstance();                                 
         } else { 
             throw new GenericServiceException("This mode is not currently supported");
         }
@@ -156,8 +158,8 @@ public class GroupModel {
     }
     
     private Map runAll(ServiceDispatcher dispatcher, String localName, Map context) throws GenericServiceException {
-        Map runContext = new HashMap(context);
-        Map result = new HashMap();
+        Map runContext = UtilMisc.makeMapWritable(context);
+        Map result = FastMap.newInstance();
         Iterator i = services.iterator();
         while (i.hasNext()) {
             GroupServiceModel model = (GroupServiceModel) i.next();
