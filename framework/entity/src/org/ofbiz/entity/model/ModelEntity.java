@@ -81,23 +81,23 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     protected Integer sequenceBankSize = null;
 
     /** A List of the Field objects for the Entity */
-    protected List fields = FastList.newInstance();
-    protected Map fieldsMap = null;
+    protected List<ModelField> fields = FastList.newInstance();
+    protected Map<String, ModelField> fieldsMap = null;
 
     /** A List of the Field objects for the Entity, one for each Primary Key */
-    protected List pks = FastList.newInstance();
+    protected List<ModelField> pks = FastList.newInstance();
 
     /** A List of the Field objects for the Entity, one for each NON Primary Key */
-    protected List nopks = FastList.newInstance();
+    protected List<ModelField> nopks = FastList.newInstance();
 
     /** relations defining relationships between this entity and other entities */
-    protected List relations = FastList.newInstance();
+    protected List<ModelRelation> relations = FastList.newInstance();
 
     /** indexes on fields/columns in this entity */
-    protected List indexes = FastList.newInstance();
+    protected List<ModelIndex> indexes = FastList.newInstance();
 
     /** map of ModelViewEntities that references this model */
-    protected Map viewEntities = FastMap.newInstance();
+    protected Map<String, ModelViewEntity> viewEntities = FastMap.newInstance();
 
     /** An indicator to specify if this entity requires locking for updates */
     protected boolean doLock = false;
@@ -132,10 +132,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         this.populateBasicInfo(entityElement);
 
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before fields");
-        List fieldElementList = UtilXml.childElementList(entityElement, "field");
-        Iterator fieldElementIter = fieldElementList.iterator();
-        while (fieldElementIter.hasNext()) {
-            Element fieldElement = (Element) fieldElementIter.next();
+        for (Element fieldElement: UtilXml.childElementList(entityElement, "field")) {
             ModelField field = reader.createModelField(fieldElement);
             if (field != null) {
                 field.setModelEntity(this);
@@ -186,10 +183,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         }
 
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before prim-keys");
-        List pkElementList = UtilXml.childElementList(entityElement, "prim-key");
-        Iterator pkElementIter = pkElementList.iterator();
-        while (pkElementIter.hasNext()) {
-            Element pkElement = (Element) pkElementIter.next();
+        for (Element pkElement: UtilXml.childElementList(entityElement, "prim-key")) {
             ModelField field = reader.findModelField(this, pkElement.getAttribute("field").intern());
             if (field != null) {
                 this.pks.add(field);
@@ -202,8 +196,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
         // now that we have the pks and the fields, make the nopks vector
         this.nopks = FastList.newInstance();
-        for (int ind = 0; ind < this.fields.size(); ind++) {
-            ModelField field = (ModelField) this.fields.get(ind);
+        for (ModelField field: this.fields) {
             if (!field.isPk) this.nopks.add(field);
         }
 
@@ -213,7 +206,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     /** DB Names Constructor */
-    public ModelEntity(String tableName, Map colMap, ModelFieldTypeReader modelFieldTypeReader, boolean isCaseSensitive) {
+    public ModelEntity(String tableName, Map<String, DatabaseUtil.ColumnCheckInfo> colMap, ModelFieldTypeReader modelFieldTypeReader, boolean isCaseSensitive) {
         // if there is a dot in the name, remove it and everything before it, should be the schema name
         this.tableName = tableName;
         int dotIndex = this.tableName.indexOf(".");
@@ -221,10 +214,8 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             this.tableName = this.tableName.substring(dotIndex + 1);
         }
         this.entityName = ModelUtil.dbNameToClassName(this.tableName);
-        Iterator columnEntryIter = colMap.entrySet().iterator();
-        while (columnEntryIter.hasNext()) {
-            Map.Entry columnEntry = (Map.Entry) columnEntryIter.next();
-            DatabaseUtil.ColumnCheckInfo ccInfo = (DatabaseUtil.ColumnCheckInfo) columnEntry.getValue();
+        for (Map.Entry<String, DatabaseUtil.ColumnCheckInfo> columnEntry: colMap.entrySet()) {
+            DatabaseUtil.ColumnCheckInfo ccInfo = columnEntry.getValue();
             ModelField newField = new ModelField(ccInfo, modelFieldTypeReader);
             this.fields.add(newField);
         }
@@ -254,10 +245,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
 
     protected void populateRelated(ModelReader reader, Element entityElement) {
-        List relationElementList = UtilXml.childElementList(entityElement, "relation");
-        Iterator relationElementIter = relationElementList.iterator();
-        while (relationElementIter.hasNext()) {
-            Element relationElement = (Element) relationElementIter.next();
+        for (Element relationElement: UtilXml.childElementList(entityElement, "relation")) {
             ModelRelation relation = reader.createRelation(this, relationElement);
             if (relation != null) {
                 relation.setModelEntity(this);
@@ -268,20 +256,17 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
 
     protected void populateIndexes(Element entityElement) {
-        List indexElementList = UtilXml.childElementList(entityElement, "index");
-        Iterator indexElementIter = indexElementList.iterator();
-        while (indexElementIter.hasNext()) {
-            Element indexElement = (Element) indexElementIter.next();
+        for (Element indexElement: UtilXml.childElementList(entityElement, "index")) {
             ModelIndex index = new ModelIndex(this, indexElement);
             index.setModelEntity(this);
             this.indexes.add(index);
         }
     }
 
-    public boolean containsAllPkFieldNames(Set fieldNames) {
-        Iterator pksIter = this.getPksIterator();
+    public boolean containsAllPkFieldNames(Set<String> fieldNames) {
+        Iterator<ModelField> pksIter = this.getPksIterator();
         while (pksIter.hasNext()) {
-            ModelField pkField = (ModelField) pksIter.next();
+            ModelField pkField = pksIter.next();
             if (!fieldNames.contains(pkField.getName())) {
                 return false;
             }
@@ -291,10 +276,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
 
     public void addExtendEntity(ModelReader reader, Element extendEntityElement) {
-        List fieldElementList = UtilXml.childElementList(extendEntityElement, "field");
-        Iterator fieldElementIter = fieldElementList.iterator();
-        while (fieldElementIter.hasNext()) {
-            Element fieldElement = (Element) fieldElementIter.next();
+        for (Element fieldElement: UtilXml.childElementList(extendEntityElement, "field")) {
             // TODO: should we look for existing fields of the same name here? for now just add to list...
             ModelField field = reader.createModelField(fieldElement);
             if (field != null) {
@@ -420,9 +402,8 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public void updatePkLists() {
         pks = FastList.newInstance();
         nopks = FastList.newInstance();
-        for (int i = 0; i < fields.size(); i++) {
-            ModelField field = (ModelField) fields.get(i);
 
+        for (ModelField field: fields) {
             if (field.isPk)
                 pks.add(field);
             else
@@ -432,21 +413,15 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     public boolean isField(String fieldName) {
         if (fieldName == null) return false;
-        for (int i = 0; i < fields.size(); i++) {
-            ModelField field = (ModelField) fields.get(i);
-
+        for (ModelField field: fields) {
             if (field.name.equals(fieldName)) return true;
         }
         return false;
     }
 
-    public boolean areFields(Collection fieldNames) {
+    public boolean areFields(Collection<String> fieldNames) {
         if (fieldNames == null) return false;
-        Iterator iter = fieldNames.iterator();
-
-        while (iter.hasNext()) {
-            String fieldName = (String) iter.next();
-
+        for (String fieldName: fieldNames) {
             if (!isField(fieldName)) return false;
         }
         return true;
@@ -460,32 +435,32 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @deprecated
      */
     public ModelField getPk(int index) {
-        return (ModelField) this.pks.get(index);
+        return this.pks.get(index);
     }
 
     public ModelField getOnlyPk() {
         if (this.pks.size() == 1) {
-            return (ModelField) this.pks.get(0);
+            return this.pks.get(0);
         } else {
             throw new IllegalArgumentException("Error in getOnlyPk, the [" + this.getEntityName() + "] entity has more than one pk!");
         }
     }
 
-    public Iterator getPksIterator() {
+    public Iterator<ModelField> getPksIterator() {
         return this.pks.iterator();
     }
 
-    public List getPksCopy() {
-        List newList = FastList.newInstance();
+    public List<ModelField> getPksCopy() {
+        List<ModelField> newList = FastList.newInstance();
         newList.addAll(this.pks);
         return newList;
     }
 
     public String getFirstPkFieldName() {
-        List pkFieldNames = this.getPkFieldNames();
+        List<String> pkFieldNames = this.getPkFieldNames();
         String idFieldName = null;
         if (pkFieldNames != null && pkFieldNames.size() > 0) {
-            idFieldName = (String) pkFieldNames.get(0);
+            idFieldName = pkFieldNames.get(0);
         }
         return idFieldName;
     }
@@ -498,15 +473,15 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @deprecated
      */
     public ModelField getNopk(int index) {
-        return (ModelField) this.nopks.get(index);
+        return this.nopks.get(index);
     }
 
-    public Iterator getNopksIterator() {
+    public Iterator<ModelField> getNopksIterator() {
         return this.nopks.iterator();
     }
 
-    public List getNopksCopy() {
-        List newList = FastList.newInstance();
+    public List<ModelField> getNopksCopy() {
+        List<ModelField> newList = FastList.newInstance();
         newList.addAll(this.nopks);
         return newList;
     }
@@ -519,15 +494,15 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @deprecated
      */
     public ModelField getField(int index) {
-        return (ModelField) this.fields.get(index);
+        return this.fields.get(index);
     }
 
-    public Iterator getFieldsIterator() {
+    public Iterator<ModelField> getFieldsIterator() {
         return this.fields.iterator();
     }
 
-    public List getFieldsCopy() {
-        List newList = FastList.newInstance();
+    public List<ModelField> getFieldsCopy() {
+        List<ModelField> newList = FastList.newInstance();
         newList.addAll(this.fields);
         return newList;
     }
@@ -544,20 +519,20 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         if (fieldsMap == null) {
             createFieldsMap();
         }
-        ModelField modelField = (ModelField) fieldsMap.get(fieldName);
+        ModelField modelField = fieldsMap.get(fieldName);
         if (modelField == null) {
             // sometimes weird things happen and this getField method is called before the fields are all populated, so before moving on just re-create the fieldsMap again real quick...
             // the purpose of the fieldsMap is for speed, but if failures are a little slower, no biggie
             createFieldsMap();
-            modelField = (ModelField) fieldsMap.get(fieldName);
+            modelField = fieldsMap.get(fieldName);
         }
         return modelField;
     }
 
     protected synchronized void createFieldsMap() {
-        Map tempMap = FastMap.newInstance();
+        Map<String, ModelField> tempMap = FastMap.newInstance();
         for (int i = 0; i < fields.size(); i++) {
-            ModelField field = (ModelField) fields.get(i);
+            ModelField field = fields.get(i);
             tempMap.put(field.name, field);
         }
         fieldsMap = tempMap;
@@ -578,7 +553,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public ModelField removeField(int index) {
         ModelField field = null;
 
-        field = (ModelField) fields.remove(index);
+        field = fields.remove(index);
         if (field == null) return null;
 
         if (field.isPk) {
@@ -593,8 +568,10 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         if (fieldName == null) return null;
         ModelField field = null;
 
+        // FIXME: when the field is removed, i is still incremented
+        // while not correct, this doesn't cause any problems
         for (int i = 0; i < fields.size(); i++) {
-            field = (ModelField) fields.get(i);
+            field = fields.get(i);
             if (field.name.equals(fieldName)) {
                 fields.remove(i);
                 if (field.isPk) {
@@ -608,29 +585,27 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return field;
     }
 
-    public List getAllFieldNames() {
+    public List<String> getAllFieldNames() {
         return getFieldNamesFromFieldVector(fields);
     }
 
-    public List getPkFieldNames() {
+    public List<String> getPkFieldNames() {
         return getFieldNamesFromFieldVector(pks);
     }
 
-    public List getNoPkFieldNames() {
+    public List<String> getNoPkFieldNames() {
         return getFieldNamesFromFieldVector(nopks);
     }
 
-    public List getFieldNamesFromFieldVector(ModelField... modelFields) {
+    public List<String> getFieldNamesFromFieldVector(ModelField... modelFields) {
         return getFieldNamesFromFieldVector(Arrays.asList(modelFields));
     }
 
-    public List getFieldNamesFromFieldVector(List modelFields) {
-        List nameList = FastList.newInstance();
+    public List<String> getFieldNamesFromFieldVector(List<ModelField> modelFields) {
+        List<String> nameList = FastList.newInstance();
 
         if (modelFields == null || modelFields.size() <= 0) return nameList;
-        for (int i = 0; i < modelFields.size(); i++) {
-            ModelField field = (ModelField) modelFields.get(i);
-
+        for (ModelField field: modelFields) {
             nameList.add(field.name);
         }
         return nameList;
@@ -642,9 +617,9 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     public int getRelationsOneSize() {
         int numRels = 0;
-        Iterator relationsIter = this.getRelationsIterator();
+        Iterator<ModelRelation> relationsIter = this.getRelationsIterator();
         while (relationsIter.hasNext()) {
-            ModelRelation modelRelation = (ModelRelation) relationsIter.next();
+            ModelRelation modelRelation = relationsIter.next();
             if ("one".equals(modelRelation.getType())) {
                 numRels++;
             }
@@ -653,17 +628,16 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public ModelRelation getRelation(int index) {
-        return (ModelRelation) this.relations.get(index);
+        return this.relations.get(index);
     }
 
-    public Iterator getRelationsIterator() {
+    public Iterator<ModelRelation> getRelationsIterator() {
         return this.relations.iterator();
     }
 
     public ModelRelation getRelation(String relationName) {
         if (relationName == null) return null;
-        for (int i = 0; i < relations.size(); i++) {
-            ModelRelation relation = (ModelRelation) relations.get(i);
+        for (ModelRelation relation: relations) {
             if (relationName.equals(relation.title + relation.relEntityName)) return relation;
         }
         return null;
@@ -675,7 +649,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public ModelRelation removeRelation(int index) {
-        return (ModelRelation) this.relations.remove(index);
+        return this.relations.remove(index);
     }
 
     public int getIndexesSize() {
@@ -683,17 +657,16 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public ModelIndex getIndex(int index) {
-        return (ModelIndex) this.indexes.get(index);
+        return this.indexes.get(index);
     }
 
-    public Iterator getIndexesIterator() {
+    public Iterator<ModelIndex> getIndexesIterator() {
         return this.indexes.iterator();
     }
 
     public ModelIndex getIndex(String indexName) {
         if (indexName == null) return null;
-        for (int i = 0; i < indexes.size(); i++) {
-            ModelIndex index = (ModelIndex) indexes.get(i);
+        for (ModelIndex index: indexes) {
             if (indexName.equals(index.getName())) return index;
         }
         return null;
@@ -705,7 +678,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public ModelIndex removeIndex(int index) {
-        return (ModelIndex) this.indexes.remove(index);
+        return this.indexes.remove(index);
     }
 
     public int getViewEntitiesSize() {
@@ -713,10 +686,10 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public ModelViewEntity getViewEntity(String viewEntityName) {
-        return (ModelViewEntity) this.viewEntities.get(viewEntityName);
+        return this.viewEntities.get(viewEntityName);
     }
 
-    public Iterator getViewConvertorsIterator() {
+    public Iterator<Map.Entry<String, ModelViewEntity>> getViewConvertorsIterator() {
         return this.viewEntities.entrySet().iterator();
     }
 
@@ -724,25 +697,25 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         this.viewEntities.put(view.getEntityName(), view);
     }
 
-    public List convertToViewValues(String viewEntityName, GenericEntity entity) {
+    public List<? extends Map<String, Object>> convertToViewValues(String viewEntityName, GenericEntity entity) {
         if (entity == null || entity == GenericEntity.NULL_ENTITY || entity == GenericValue.NULL_VALUE) return UtilMisc.toList(entity);
-        ModelViewEntity view = (ModelViewEntity) this.viewEntities.get(viewEntityName);
+        ModelViewEntity view = this.viewEntities.get(viewEntityName);
         return view.convert(getEntityName(), entity);
     }
 
     public ModelViewEntity removeViewEntity(String viewEntityName) {
-        return (ModelViewEntity) this.viewEntities.remove(viewEntityName);
+        return this.viewEntities.remove(viewEntityName);
     }
 
     public ModelViewEntity removeViewEntity(ModelViewEntity viewEntity) {
        return removeViewEntity(viewEntity.getEntityName());
     }
 
-    public String nameString(List flds) {
+    public String nameString(List<ModelField> flds) {
         return nameString(flds, ", ", "");
     }
 
-    public String nameString(List flds, String separator, String afterLast) {
+    public String nameString(List<ModelField> flds, String separator, String afterLast) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -752,10 +725,10 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         int i = 0;
 
         for (; i < flds.size() - 1; i++) {
-            returnString.append(((ModelField) flds.get(i)).name);
+            returnString.append(flds.get(i).name);
             returnString.append(separator);
         }
-        returnString.append(((ModelField) flds.get(i)).name);
+        returnString.append(flds.get(i).name);
         returnString.append(afterLast);
         return returnString.toString();
     }
@@ -764,7 +737,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return typeNameString(Arrays.asList(flds));
     }
 
-    public String typeNameString(List flds) {
+    public String typeNameString(List<ModelField> flds) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -774,13 +747,13 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         int i = 0;
 
         for (; i < flds.size() - 1; i++) {
-            ModelField curField = (ModelField) flds.get(i);
+            ModelField curField = flds.get(i);
             returnString.append(curField.type);
             returnString.append(" ");
             returnString.append(curField.name);
             returnString.append(", ");
         }
-        ModelField curField = (ModelField) flds.get(i);
+        ModelField curField = flds.get(i);
         returnString.append(curField.type);
         returnString.append(" ");
         returnString.append(curField.name);
@@ -816,10 +789,10 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public String fieldsStringList(String eachString, String separator, ModelField... flds) {
-        return fieldsStringList(Arrays.asList(flds), eachString, separator);
+        return fieldsStringList(Arrays.asList(flds), eachString, separator, false, false);
     }
 
-    public String fieldsStringList(List flds, String eachString, String separator) {
+    public String fieldsStringList(List<ModelField> flds, String eachString, String separator) {
         return fieldsStringList(flds, eachString, separator, false, false);
     }
 
@@ -827,7 +800,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return fieldsStringList(Arrays.asList(flds), eachString, separator, appendIndex, false);
     }
 
-    public String fieldsStringList(List flds, String eachString, String separator, boolean appendIndex) {
+    public String fieldsStringList(List<ModelField> flds, String eachString, String separator, boolean appendIndex) {
         return fieldsStringList(flds, eachString, separator, appendIndex, false);
     }
 
@@ -835,7 +808,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return fieldsStringList(Arrays.asList(flds), eachString, separator, appendIndex, onlyNonPK);
     }
 
-    public String fieldsStringList(List flds, String eachString, String separator, boolean appendIndex, boolean onlyNonPK) {
+    public String fieldsStringList(List<ModelField> flds, String eachString, String separator, boolean appendIndex, boolean onlyNonPK) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -845,7 +818,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         int i = 0;
 
         for (; i < flds.size(); i++) {
-            if (onlyNonPK && ((ModelField) flds.get(i)).isPk) continue;
+            if (onlyNonPK && flds.get(i).isPk) continue;
             returnString.append(eachString);
             if (appendIndex) returnString.append(i + 1);
             if (i < flds.size() - 1) returnString.append(separator);
@@ -857,7 +830,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return colNameString(Arrays.asList(flds));
     }
 
-    public String colNameString(List flds) {
+    public String colNameString(List<ModelField> flds) {
         return colNameString(flds, ", ", "", false);
     }
 
@@ -865,16 +838,16 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return colNameString(Arrays.asList(flds), separator, afterLast, alias);
     }
 
-    public String colNameString(List flds, String separator, String afterLast, boolean alias) {
+    public String colNameString(List<ModelField> flds, String separator, String afterLast, boolean alias) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
         }
 
-        Iterator fldsIt = flds.iterator();
+        Iterator<ModelField> fldsIt = flds.iterator();
         while(fldsIt.hasNext()) {
-            ModelField field = (ModelField) fldsIt.next();
+            ModelField field = fldsIt.next();
             returnString.append(field.colName);
             if (fldsIt.hasNext()) {
                 returnString.append(separator);
@@ -889,7 +862,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return classNameString(Arrays.asList(flds));
     }
 
-    public String classNameString(List flds) {
+    public String classNameString(List<ModelField> flds) {
         return classNameString(flds, ", ", "");
     }
 
@@ -897,7 +870,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return classNameString(Arrays.asList(flds), separator, afterLast);
     }
 
-    public String classNameString(List flds, String separator, String afterLast) {
+    public String classNameString(List<ModelField> flds, String separator, String afterLast) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -907,10 +880,10 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         int i = 0;
 
         for (; i < flds.size() - 1; i++) {
-            returnString.append(ModelUtil.upperFirstChar(((ModelField) flds.get(i)).name));
+            returnString.append(ModelUtil.upperFirstChar(flds.get(i).name));
             returnString.append(separator);
         }
-        returnString.append(ModelUtil.upperFirstChar(((ModelField) flds.get(i)).name));
+        returnString.append(ModelUtil.upperFirstChar(flds.get(i).name));
         returnString.append(afterLast);
         return returnString.toString();
     }
@@ -919,7 +892,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return finderQueryString(Arrays.asList(flds));
     }
 
-    public String finderQueryString(List flds) {
+    public String finderQueryString(List<ModelField> flds) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -928,12 +901,12 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         int i = 0;
 
         for (; i < flds.size() - 1; i++) {
-            returnString.append(((ModelField) flds.get(i)).colName);
+            returnString.append(flds.get(i).colName);
             returnString.append(" like {");
             returnString.append(i);
             returnString.append("} AND ");
         }
-        returnString.append(((ModelField) flds.get(i)).colName);
+        returnString.append(flds.get(i).colName);
         returnString.append(" like {");
         returnString.append(i);
         returnString.append("}");
@@ -944,7 +917,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return httpArgList(Arrays.asList(flds));
     }
 
-    public String httpArgList(List flds) {
+    public String httpArgList(List<ModelField> flds) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -956,17 +929,17 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             returnString.append("\"");
             returnString.append(tableName);
             returnString.append("_");
-            returnString.append(((ModelField) flds.get(i)).colName);
+            returnString.append(flds.get(i).colName);
             returnString.append("=\" + ");
-            returnString.append(((ModelField) flds.get(i)).name);
+            returnString.append(flds.get(i).name);
             returnString.append(" + \"&\" + ");
         }
         returnString.append("\"");
         returnString.append(tableName);
         returnString.append("_");
-        returnString.append(((ModelField) flds.get(i)).colName);
+        returnString.append(flds.get(i).colName);
         returnString.append("=\" + ");
-        returnString.append(((ModelField) flds.get(i)).name);
+        returnString.append(flds.get(i).name);
         return returnString.toString();
     }
 
@@ -974,7 +947,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return httpArgListFromClass(Arrays.asList(flds));
     }
 
-    public String httpArgListFromClass(List flds) {
+    public String httpArgListFromClass(List<ModelField> flds) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -987,21 +960,21 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             returnString.append("\"");
             returnString.append(tableName);
             returnString.append("_");
-            returnString.append(((ModelField) flds.get(i)).colName);
+            returnString.append(flds.get(i).colName);
             returnString.append("=\" + ");
             returnString.append(ModelUtil.lowerFirstChar(entityName));
             returnString.append(".get");
-            returnString.append(ModelUtil.upperFirstChar(((ModelField) flds.get(i)).name));
+            returnString.append(ModelUtil.upperFirstChar(flds.get(i).name));
             returnString.append("() + \"&\" + ");
         }
         returnString.append("\"");
         returnString.append(tableName);
         returnString.append("_");
-        returnString.append(((ModelField) flds.get(i)).colName);
+        returnString.append(flds.get(i).colName);
         returnString.append("=\" + ");
         returnString.append(ModelUtil.lowerFirstChar(entityName));
         returnString.append(".get");
-        returnString.append(ModelUtil.upperFirstChar(((ModelField) flds.get(i)).name));
+        returnString.append(ModelUtil.upperFirstChar(flds.get(i).name));
         returnString.append("()");
         return returnString.toString();
     }
@@ -1010,7 +983,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return httpArgListFromClass(Arrays.asList(flds), entityNameSuffix);
     }
 
-    public String httpArgListFromClass(List flds, String entityNameSuffix) {
+    public String httpArgListFromClass(List<ModelField> flds, String entityNameSuffix) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -1023,23 +996,23 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             returnString.append("\"");
             returnString.append(tableName);
             returnString.append("_");
-            returnString.append(((ModelField) flds.get(i)).colName);
+            returnString.append(flds.get(i).colName);
             returnString.append("=\" + ");
             returnString.append(ModelUtil.lowerFirstChar(entityName));
             returnString.append(entityNameSuffix);
             returnString.append(".get");
-            returnString.append(ModelUtil.upperFirstChar(((ModelField) flds.get(i)).name));
+            returnString.append(ModelUtil.upperFirstChar(flds.get(i).name));
             returnString.append("() + \"&\" + ");
         }
         returnString.append("\"");
         returnString.append(tableName);
         returnString.append("_");
-        returnString.append(((ModelField) flds.get(i)).colName);
+        returnString.append(flds.get(i).colName);
         returnString.append("=\" + ");
         returnString.append(ModelUtil.lowerFirstChar(entityName));
         returnString.append(entityNameSuffix);
         returnString.append(".get");
-        returnString.append(ModelUtil.upperFirstChar(((ModelField) flds.get(i)).name));
+        returnString.append(ModelUtil.upperFirstChar(flds.get(i).name));
         returnString.append("()");
         return returnString.toString();
     }
@@ -1048,7 +1021,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return httpRelationArgList(Arrays.asList(flds), relation);
     }
 
-    public String httpRelationArgList(List flds, ModelRelation relation) {
+    public String httpRelationArgList(List<ModelField> flds, ModelRelation relation) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -1058,13 +1031,13 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         int i = 0;
 
         for (; i < flds.size() - 1; i++) {
-            ModelKeyMap keyMap = relation.findKeyMapByRelated(((ModelField) flds.get(i)).name);
+            ModelKeyMap keyMap = relation.findKeyMapByRelated(flds.get(i).name);
 
             if (keyMap != null) {
                 returnString.append("\"");
                 returnString.append(tableName);
                 returnString.append("_");
-                returnString.append(((ModelField) flds.get(i)).colName);
+                returnString.append(flds.get(i).colName);
                 returnString.append("=\" + ");
                 returnString.append(ModelUtil.lowerFirstChar(relation.mainEntity.entityName));
                 returnString.append(".get");
@@ -1074,13 +1047,13 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 Debug.logWarning("-- -- ENTITYGEN ERROR:httpRelationArgList: Related Key in Key Map not found for name: " + ((ModelField) flds.get(i)).name + " related entity: " + relation.relEntityName + " main entity: " + relation.mainEntity.entityName + " type: " + relation.type, module);
             }
         }
-        ModelKeyMap keyMap = relation.findKeyMapByRelated(((ModelField) flds.get(i)).name);
+        ModelKeyMap keyMap = relation.findKeyMapByRelated(flds.get(i).name);
 
         if (keyMap != null) {
             returnString.append("\"");
             returnString.append(tableName);
             returnString.append("_");
-            returnString.append(((ModelField) flds.get(i)).colName);
+            returnString.append(flds.get(i).colName);
             returnString.append("=\" + ");
             returnString.append(ModelUtil.lowerFirstChar(relation.mainEntity.entityName));
             returnString.append(".get");
@@ -1112,7 +1085,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return typeNameStringRelatedNoMapped(Arrays.asList(flds), relation);
     }
 
-    public String typeNameStringRelatedNoMapped(List flds, ModelRelation relation) {
+    public String typeNameStringRelatedNoMapped(List<ModelField> flds, ModelRelation relation) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -1121,18 +1094,18 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
         int i = 0;
 
-        if (relation.findKeyMapByRelated(((ModelField) flds.get(i)).name) == null) {
-            returnString.append(((ModelField) flds.get(i)).type);
+        if (relation.findKeyMapByRelated(flds.get(i).name) == null) {
+            returnString.append(flds.get(i).type);
             returnString.append(" ");
-            returnString.append(((ModelField) flds.get(i)).name);
+            returnString.append(flds.get(i).name);
         }
         i++;
         for (; i < flds.size(); i++) {
-            if (relation.findKeyMapByRelated(((ModelField) flds.get(i)).name) == null) {
+            if (relation.findKeyMapByRelated(flds.get(i).name) == null) {
                 if (returnString.length() > 0) returnString.append(", ");
-                returnString.append(((ModelField) flds.get(i)).type);
+                returnString.append(flds.get(i).type);
                 returnString.append(" ");
-                returnString.append(((ModelField) flds.get(i)).name);
+                returnString.append(flds.get(i).name);
             }
         }
         return returnString.toString();
@@ -1142,7 +1115,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return typeNameStringRelatedAndMain(Arrays.asList(flds), relation);
     }
 
-    public String typeNameStringRelatedAndMain(List flds, ModelRelation relation) {
+    public String typeNameStringRelatedAndMain(List<ModelField> flds, ModelRelation relation) {
         StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
@@ -1152,20 +1125,20 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         int i = 0;
 
         for (; i < flds.size() - 1; i++) {
-            ModelKeyMap keyMap = relation.findKeyMapByRelated(((ModelField) flds.get(i)).name);
+            ModelKeyMap keyMap = relation.findKeyMapByRelated(flds.get(i).name);
 
             if (keyMap != null) {
                 returnString.append(keyMap.fieldName);
                 returnString.append(", ");
             } else {
-                returnString.append(((ModelField) flds.get(i)).name);
+                returnString.append(flds.get(i).name);
                 returnString.append(", ");
             }
         }
-        ModelKeyMap keyMap = relation.findKeyMapByRelated(((ModelField) flds.get(i)).name);
+        ModelKeyMap keyMap = relation.findKeyMapByRelated(flds.get(i).name);
 
         if (keyMap != null) returnString.append(keyMap.fieldName);
-        else returnString.append(((ModelField) flds.get(i)).name);
+        else returnString.append(flds.get(i).name);
         return returnString.toString();
     }
 
@@ -1206,10 +1179,10 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.getEntityName().compareTo(otherModelEntity.getEntityName());
     }
 
-    public void convertFieldMapInPlace(Map inContext, GenericDelegator delegator) {
-        Iterator modelFields = this.getFieldsIterator();
+    public void convertFieldMapInPlace(Map<String, Object> inContext, GenericDelegator delegator) {
+        Iterator<ModelField> modelFields = this.getFieldsIterator();
         while (modelFields.hasNext()) {
-            ModelField modelField = (ModelField) modelFields.next();
+            ModelField modelField = modelFields.next();
             String fieldName = modelField.getName();
             Object oldValue = inContext.get(fieldName);
             if (oldValue != null) {
@@ -1330,18 +1303,18 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         }
 
         // append field elements
-        Iterator fieldIter = this.getFieldsIterator();
+        Iterator<ModelField> fieldIter = this.getFieldsIterator();
         while (fieldIter != null && fieldIter.hasNext()) {
-            ModelField field = (ModelField) fieldIter.next();
+            ModelField field = fieldIter.next();
             if (!field.getIsAutoCreatedInternal()) {
                 root.appendChild(field.toXmlElement(document));
             }
         }
 
         // append PK elements
-        Iterator pkIter = this.getPksIterator();
+        Iterator<ModelField> pkIter = this.getPksIterator();
         while (pkIter != null && pkIter.hasNext()) {
-            ModelField pk = (ModelField) pkIter.next();
+            ModelField pk = pkIter.next();
             Element pkey = document.createElement("prim-key");
             pkey.setAttribute("field", pk.getName());
             root.appendChild(pkey);
