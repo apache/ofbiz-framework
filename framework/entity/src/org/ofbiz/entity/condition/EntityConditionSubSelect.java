@@ -51,7 +51,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
         this.requireAll = requireAll;
     }
 
-    public void addSqlValue(StringBuffer sql, Map tableAliases, ModelEntity parentModelEntity, List entityConditionParams,
+    public void addSqlValue(StringBuilder sql, Map tableAliases, ModelEntity parentModelEntity, List entityConditionParams,
             boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
         if (localModelEntity instanceof ModelViewEntity && datasourceInfo == null) {
             throw new IllegalArgumentException("Call to EntityConditionSubSelect.addSqlValue with datasourceInfo=null which is not allowed because the local entity [" + this.localModelEntity.getEntityName() + "] is a view entity");
@@ -73,7 +73,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
             sql.append(SqlJdbcUtil.makeFromClause(localModelEntity, datasourceInfo));
 
             // WHERE clause
-            StringBuffer whereString = new StringBuffer();
+            StringBuilder whereString = new StringBuilder();
             String entityCondWhereString = "";
             if (this.whereCond != null) {
                 entityCondWhereString = this.whereCond.makeWhereString(localModelEntity, entityConditionParams, datasourceInfo);

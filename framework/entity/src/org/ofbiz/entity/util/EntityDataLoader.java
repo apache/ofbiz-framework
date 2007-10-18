@@ -53,7 +53,7 @@ public class EntityDataLoader {
     public static final String module = EntityDataLoader.class.getName();
 
     public static String getPathsString(String helperName) {
-        StringBuffer pathBuffer = new StringBuffer();
+        StringBuilder pathBuffer = new StringBuilder();
         if (helperName != null && helperName.length() > 0) {
             DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
             List sqlLoadPathElements = datasourceInfo.sqlLoadPaths;

@@ -132,7 +132,7 @@ public abstract class EntityFunction extends EntityConditionValue {
             (this.value != null ? value.equals(otherFunc.value) : otherFunc.value == null));
     }
 
-    public void addSqlValue(StringBuffer sql, Map tableAliases, ModelEntity modelEntity, List entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceinfo) {
+    public void addSqlValue(StringBuilder sql, Map tableAliases, ModelEntity modelEntity, List entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceinfo) {
         sql.append(codeString).append('(');
         if (nested != null) {
             nested.addSqlValue(sql, tableAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);

@@ -1668,7 +1668,7 @@ public class DatabaseUtil {
             return errMsg;
         }
 
-        StringBuffer sqlBuf = new StringBuffer("CREATE TABLE ");
+        StringBuilder sqlBuf = new StringBuilder("CREATE TABLE ");
         sqlBuf.append(entity.getTableName(this.datasourceInfo));
         sqlBuf.append(" (");
         Iterator fieldIter = entity.getFieldsIterator();
@@ -1822,7 +1822,7 @@ public class DatabaseUtil {
         Debug.logImportant(message, module);
         if (messages != null) messages.add(message);
 
-        StringBuffer sqlBuf = new StringBuffer("DROP TABLE ");
+        StringBuilder sqlBuf = new StringBuilder("DROP TABLE ");
         sqlBuf.append(entity.getTableName(datasourceInfo));
         if (Debug.verboseOn()) Debug.logVerbose("[deleteTable] sql=" + sqlBuf.toString(), module);
         try {
@@ -1876,7 +1876,7 @@ public class DatabaseUtil {
             return "Field type [" + type + "] not found for field [" + field.getName() + "] of entity [" + entity.getEntityName() + "], not adding column.";
         }
 
-        StringBuffer sqlBuf = new StringBuffer("ALTER TABLE ");
+        StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
         sqlBuf.append(entity.getTableName(datasourceInfo));
         sqlBuf.append(" ADD ");
         sqlBuf.append(field.getColName());
@@ -1904,7 +1904,7 @@ public class DatabaseUtil {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             // if that failed try the alternate syntax real quick
-            StringBuffer sql2Buf = new StringBuffer("ALTER TABLE ");
+            StringBuilder sql2Buf = new StringBuilder("ALTER TABLE ");
             sql2Buf.append(entity.getTableName(datasourceInfo));
             sql2Buf.append(" ADD COLUMN ");
             sql2Buf.append(field.getColName());
@@ -1981,7 +1981,7 @@ public class DatabaseUtil {
             return "Field type [" + type + "] not found for field [" + field.getName() + "] of entity [" + entity.getEntityName() + "], not renaming column.";
         }
 
-        StringBuffer sqlBuf = new StringBuffer("ALTER TABLE ");
+        StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
         sqlBuf.append(entity.getTableName(datasourceInfo));
         sqlBuf.append(" RENAME ");
         sqlBuf.append(field.getColName());
@@ -2055,7 +2055,7 @@ public class DatabaseUtil {
         }
 
         // copy the data from old to new
-        StringBuffer sqlBuf1 = new StringBuffer("UPDATE ");
+        StringBuilder sqlBuf1 = new StringBuilder("UPDATE ");
         sqlBuf1.append(entity.getTableName(datasourceInfo));
         sqlBuf1.append(" SET ");
         sqlBuf1.append(field.getColName());
@@ -2105,7 +2105,7 @@ public class DatabaseUtil {
         }
 
         // remove the old column
-        StringBuffer sqlBuf2 = new StringBuffer("ALTER TABLE ");
+        StringBuilder sqlBuf2 = new StringBuilder("ALTER TABLE ");
         sqlBuf2.append(entity.getTableName(datasourceInfo));
         sqlBuf2.append(" DROP COLUMN ");
         sqlBuf2.append(tempName);
@@ -2283,7 +2283,7 @@ public class DatabaseUtil {
         }
 
         // now add constraint clause
-        StringBuffer sqlBuf = new StringBuffer("ALTER TABLE ");
+        StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
         sqlBuf.append(entity.getTableName(datasourceInfo));
         sqlBuf.append(" ADD ");
         String fkConstraintClause = makeFkConstraintClause(entity, modelRelation, relModelEntity, constraintNameClipLength, fkStyle, useFkInitiallyDeferred);
@@ -2320,8 +2320,8 @@ public class DatabaseUtil {
     public String makeFkConstraintClause(ModelEntity entity, ModelRelation modelRelation, ModelEntity relModelEntity, int constraintNameClipLength, String fkStyle, boolean useFkInitiallyDeferred) {
         // make the two column lists
         Iterator keyMapsIter = modelRelation.getKeyMapsIterator();
-        StringBuffer mainCols = new StringBuffer();
-        StringBuffer relCols = new StringBuffer();
+        StringBuilder mainCols = new StringBuilder();
+        StringBuilder relCols = new StringBuilder();
 
         while (keyMapsIter.hasNext()) {
             ModelKeyMap keyMap = (ModelKeyMap) keyMapsIter.next();
@@ -2348,7 +2348,7 @@ public class DatabaseUtil {
             relCols.append(relField.getColName());
         }
 
-        StringBuffer sqlBuf = new StringBuffer("");
+        StringBuilder sqlBuf = new StringBuilder("");
 
         if ("name_constraint".equals(fkStyle)) {
             sqlBuf.append("CONSTRAINT ");
@@ -2462,7 +2462,7 @@ public class DatabaseUtil {
         String relConstraintName = makeFkConstraintName(modelRelation, constraintNameClipLength);
 
         // now add constraint clause
-        StringBuffer sqlBuf = new StringBuffer("ALTER TABLE ");
+        StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
         sqlBuf.append(entity.getTableName(datasourceInfo));
         if (datasourceInfo.dropFkUseForeignKeyKeyword) {
             sqlBuf.append(" DROP FOREIGN KEY ");
@@ -2536,7 +2536,7 @@ public class DatabaseUtil {
             }
 
             // now add constraint clause
-            StringBuffer sqlBuf = new StringBuffer("ALTER TABLE ");
+            StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
             sqlBuf.append(entity.getTableName(datasourceInfo));
             sqlBuf.append(" ADD ");
 
@@ -2622,7 +2622,7 @@ public class DatabaseUtil {
             }
 
             // now add constraint clause
-            StringBuffer sqlBuf = new StringBuffer("ALTER TABLE ");
+            StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
             sqlBuf.append(entity.getTableName(datasourceInfo));
             sqlBuf.append(" DROP ");
 
@@ -2752,7 +2752,7 @@ public class DatabaseUtil {
 
     public String makeIndexClause(ModelEntity entity, ModelIndex modelIndex) {
         Iterator fieldNamesIter = modelIndex.getIndexFieldsIterator();
-        StringBuffer mainCols = new StringBuffer();
+        StringBuilder mainCols = new StringBuilder();
 
         while (fieldNamesIter.hasNext()) {
             String fieldName = (String) fieldNamesIter.next();
@@ -2763,7 +2763,7 @@ public class DatabaseUtil {
             mainCols.append(mainField.getColName());
         }
 
-        StringBuffer indexSqlBuf = new StringBuffer("CREATE ");
+        StringBuilder indexSqlBuf = new StringBuilder("CREATE ");
         if (datasourceInfo.useIndicesUnique && modelIndex.getUnique()) {
             indexSqlBuf.append("UNIQUE ");
         }
@@ -2795,7 +2795,7 @@ public class DatabaseUtil {
             return "ERROR: Cannot delete declared indices for a view entity";
         }
 
-        StringBuffer retMsgsBuffer = new StringBuffer();
+        StringBuilder retMsgsBuffer = new StringBuilder();
 
         // go through the relationships to see if any foreign keys need to be added
         Iterator indexesIter = entity.getIndexesIterator();
@@ -2836,7 +2836,7 @@ public class DatabaseUtil {
 
         // TODO: also remove the constraing if this was a unique index, in most databases dropping the index does not drop the constraint
 
-        StringBuffer indexSqlBuf = new StringBuffer("DROP INDEX ");
+        StringBuilder indexSqlBuf = new StringBuilder("DROP INDEX ");
         String tableName = entity.getTableName(datasourceInfo);
         String schemaName = (tableName == null || tableName.length() == 0 || tableName.indexOf('.') == -1) ? "" :
                 tableName.substring(0, tableName.indexOf('.'));
@@ -2964,7 +2964,7 @@ public class DatabaseUtil {
 
     public String makeFkIndexClause(ModelEntity entity, ModelRelation modelRelation, int constraintNameClipLength) {
         Iterator keyMapsIter = modelRelation.getKeyMapsIterator();
-        StringBuffer mainCols = new StringBuffer();
+        StringBuilder mainCols = new StringBuilder();
 
         while (keyMapsIter.hasNext()) {
             ModelKeyMap keyMap = (ModelKeyMap) keyMapsIter.next();
@@ -2981,7 +2981,7 @@ public class DatabaseUtil {
             mainCols.append(mainField.getColName());
         }
 
-        StringBuffer indexSqlBuf = new StringBuffer("CREATE INDEX ");
+        StringBuilder indexSqlBuf = new StringBuilder("CREATE INDEX ");
         String relConstraintName = makeFkConstraintName(modelRelation, constraintNameClipLength);
 
         indexSqlBuf.append(relConstraintName);
@@ -3011,7 +3011,7 @@ public class DatabaseUtil {
             return "ERROR: Cannot delete foreign keys indices for a view entity";
         }
 
-        StringBuffer retMsgsBuffer = new StringBuffer();
+        StringBuilder retMsgsBuffer = new StringBuilder();
 
         // go through the relationships to see if any foreign keys need to be added
         Iterator relationsIter = entity.getRelationsIterator();
@@ -3053,7 +3053,7 @@ public class DatabaseUtil {
             return errMsg;
         }
 
-        StringBuffer indexSqlBuf = new StringBuffer("DROP INDEX ");
+        StringBuilder indexSqlBuf = new StringBuilder("DROP INDEX ");
         String relConstraintName = makeFkConstraintName(modelRelation, constraintNameClipLength);
 
         String tableName = entity.getTableName(datasourceInfo);
@@ -3136,7 +3136,7 @@ public class DatabaseUtil {
                 return;
             }
 
-            StringBuffer sqlTableBuf = new StringBuffer("ALTER TABLE ");
+            StringBuilder sqlTableBuf = new StringBuilder("ALTER TABLE ");
             sqlTableBuf.append(entity.getTableName(this.datasourceInfo));
             //sqlTableBuf.append("");
 
@@ -3181,7 +3181,7 @@ public class DatabaseUtil {
                     continue;
                 }
 
-                StringBuffer sqlBuf = new StringBuffer("ALTER TABLE ");
+                StringBuilder sqlBuf = new StringBuilder("ALTER TABLE ");
                 sqlBuf.append(entity.getTableName(this.datasourceInfo));
                 sqlBuf.append(" MODIFY COLUMN ");
                 sqlBuf.append(field.getColName());

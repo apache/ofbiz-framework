@@ -95,7 +95,7 @@ public abstract class EntityConditionBase implements Serializable {
         return colName;
     }
 
-    protected void addValue(StringBuffer buffer, ModelField field, Object value, List params) {
+    protected void addValue(StringBuilder buffer, ModelField field, Object value, List params) {
         SqlJdbcUtil.addValue(buffer, params == null ? null : field, value, params);
     }
 

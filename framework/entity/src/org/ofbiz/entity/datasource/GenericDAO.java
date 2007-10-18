@@ -512,7 +512,7 @@ public class GenericDAO {
             throw new GenericEntityException("Entity has no primary keys, cannot select by primary key");
         }
 
-        StringBuffer sqlBuffer = new StringBuffer("SELECT ");
+        StringBuilder sqlBuffer = new StringBuilder("SELECT ");
 
         if (modelEntity.getNopksSize() > 0) {
             sqlBuffer.append(modelEntity.colNameString(modelEntity.getNopksCopy(), ", ", "", datasourceInfo.aliasViews));
@@ -582,7 +582,7 @@ public class GenericDAO {
             throw new GenericModelException("In partialSelect invalid field names specified: " + tempKeys.toString());
         }
 
-        StringBuffer sqlBuffer = new StringBuffer("SELECT ");
+        StringBuilder sqlBuffer = new StringBuilder("SELECT ");
 
         if (partialFields.size() > 0) {
             sqlBuffer.append(modelEntity.colNameString(partialFields, ", ", "", datasourceInfo.aliasViews));
@@ -666,7 +666,7 @@ public class GenericDAO {
             selectFields = modelEntity.getFieldsCopy();
         }
 
-        StringBuffer sqlBuffer = new StringBuffer("SELECT ");
+        StringBuilder sqlBuffer = new StringBuilder("SELECT ");
 
         if (findOptions.getDistinct()) {
             sqlBuffer.append("DISTINCT ");
@@ -682,7 +682,7 @@ public class GenericDAO {
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
 
         // WHERE clause
-        StringBuffer whereString = new StringBuffer();
+        StringBuilder whereString = new StringBuilder();
         String entityCondWhereString = "";
         List whereEntityConditionParams = FastList.newInstance();
         if (whereEntityCondition != null) {
@@ -786,7 +786,7 @@ public class GenericDAO {
         String ttable = modelEntityTwo.getTableName(datasourceInfo);
 
         // get the column name string to select
-        StringBuffer selsb = new StringBuffer();
+        StringBuilder selsb = new StringBuilder();
         List collist = FastList.newInstance();
         List fldlist = FastList.newInstance();
 
@@ -805,7 +805,7 @@ public class GenericDAO {
 
         // construct assoc->target relation string
         int kmsize = modelRelationTwo.getKeyMapsSize();
-        StringBuffer wheresb = new StringBuffer();
+        StringBuilder wheresb = new StringBuilder();
 
         for (int i = 0; i < kmsize; i++) {
             ModelKeyMap mkm = modelRelationTwo.getKeyMap(i);
@@ -841,7 +841,7 @@ public class GenericDAO {
         }
 
         // construct a join sql query
-        StringBuffer sqlsb = new StringBuffer();
+        StringBuilder sqlsb = new StringBuilder();
 
         sqlsb.append("SELECT ");
         sqlsb.append(selsb.toString());
@@ -906,7 +906,7 @@ public class GenericDAO {
             Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, module);
         }
 
-        StringBuffer sqlBuffer = new StringBuffer("SELECT ");
+        StringBuilder sqlBuffer = new StringBuilder("SELECT ");
 
         if (findOptions.getDistinct()) {
             sqlBuffer.append("DISTINCT ");
@@ -918,7 +918,7 @@ public class GenericDAO {
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
 
         // WHERE clause
-        StringBuffer whereString = new StringBuffer();
+        StringBuilder whereString = new StringBuilder();
         String entityCondWhereString = "";
         List whereEntityConditionParams = FastList.newInstance();
         if (whereEntityCondition != null) {

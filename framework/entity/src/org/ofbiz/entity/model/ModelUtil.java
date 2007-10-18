@@ -38,7 +38,7 @@ public class ModelUtil {
     public static String upperFirstChar(String string) {
         if (string == null) return null;
         if (string.length() <= 1) return string.toLowerCase();
-        StringBuffer sb = new StringBuffer(string);
+        StringBuilder sb = new StringBuilder(string);
 
         sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
         return sb.toString();
@@ -53,7 +53,7 @@ public class ModelUtil {
     public static String lowerFirstChar(String string) {
         if (string == null) return null;
         if (string.length() <= 1) return string.toLowerCase();
-        StringBuffer sb = new StringBuffer(string);
+        StringBuilder sb = new StringBuilder(string);
 
         sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
         return sb.toString();
@@ -88,7 +88,7 @@ public class ModelUtil {
     public static String dbNameToVarName(String columnName) {
         if (columnName == null) return null;
 
-        StringBuffer fieldName = new StringBuffer(columnName.length());
+        StringBuilder fieldName = new StringBuilder(columnName.length());
 
         boolean toUpper = false;
         for (int i=0; i < columnName.length(); i++) {
@@ -121,7 +121,7 @@ public class ModelUtil {
     public static String javaNameToDbName(String javaName) {
         if (javaName == null) return null;
         if (javaName.length() <= 0) return "";
-        StringBuffer dbName = new StringBuffer();
+        StringBuilder dbName = new StringBuilder();
 
         dbName.append(Character.toUpperCase(javaName.charAt(0)));
         int namePos = 1;
@@ -145,7 +145,7 @@ public class ModelUtil {
      * @return shortened String
      */
     public static String shortenDbName(String dbName, int desiredLength) {
-        StringBuffer dbBuf = new StringBuffer(dbName);
+        StringBuilder dbBuf = new StringBuilder(dbName);
         if (dbBuf.length() > desiredLength) {
             // remove one vowel at a time, starting at beginning
             for (int i = dbBuf.length() - 1; i > 0; i--) {

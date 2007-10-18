@@ -79,7 +79,7 @@ public abstract class EntityOperator extends EntityConditionBase {
 
     public static final EntityComparisonOperator EQUALS = new EntityComparisonOperator(ID_EQUALS, "=") {
         public boolean compare(Object lhs, Object rhs) { return EntityComparisonOperator.compareEqual(lhs, rhs); }
-        protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuffer sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+        protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
             if (rhs == null || rhs == GenericEntity.NULL_FIELD) {
                 //Debug.logInfo("makeRHSWhereString: field IS NULL: " + field.getName(), module);
                 sb.append(" IS NULL");
@@ -92,7 +92,7 @@ public abstract class EntityOperator extends EntityConditionBase {
     static { register( "equals", EQUALS ); }
     public static final EntityComparisonOperator NOT_EQUAL = new EntityComparisonOperator(ID_NOT_EQUAL, "<>") {
         public boolean compare(Object lhs, Object rhs) { return EntityComparisonOperator.compareNotEqual(lhs, rhs); }
-        protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuffer sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+        protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
             if (rhs == null || rhs == GenericEntity.NULL_FIELD) {
                 sb.append(" IS NOT NULL");
             } else {
@@ -129,7 +129,7 @@ public abstract class EntityOperator extends EntityConditionBase {
     static { register( "greaterThanEqualTo", GREATER_THAN_EQUAL_TO ); }
     public static final EntityComparisonOperator IN = new EntityComparisonOperator(ID_IN, "IN") {
         public boolean compare(Object lhs, Object rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
-        protected void makeRHSWhereStringValue(ModelEntity entity, List entityConditionParams, StringBuffer sb, ModelField field, Object rhs) { appendRHSList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List entityConditionParams, StringBuilder sb, ModelField field, Object rhs) { appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static { register( "in", IN ); }
     public static final EntityComparisonOperator BETWEEN = new EntityComparisonOperator(ID_BETWEEN, "BETWEEN");
@@ -150,7 +150,7 @@ public abstract class EntityOperator extends EntityConditionBase {
     static { register( "not-like", NOT_LIKE); }
     public static final EntityComparisonOperator NOT_IN = new EntityComparisonOperator(ID_NOT_IN, "NOT IN") {
         public boolean compare(Object lhs, Object rhs) { return !EntityComparisonOperator.compareIn(lhs, rhs); }
-        protected void makeRHSWhereStringValue(ModelEntity entity, List entityConditionParams, StringBuffer sb, ModelField field, Object rhs) { appendRHSList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List entityConditionParams, StringBuilder sb, ModelField field, Object rhs) { appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static { register( "not-in", NOT_IN ); }
 
@@ -191,7 +191,7 @@ public abstract class EntityOperator extends EntityConditionBase {
         return mapMatches(entity.getDelegator(), entity, lhs, rhs);
     }
 
-    protected void appendRHSList(List entityConditionParams, StringBuffer whereStringBuffer, ModelField field, Object rhs) {
+    protected void appendRHSList(List entityConditionParams, StringBuilder whereStringBuffer, ModelField field, Object rhs) {
         whereStringBuffer.append('(');
 
         if (rhs instanceof Collection) {
@@ -217,11 +217,11 @@ public abstract class EntityOperator extends EntityConditionBase {
 
     public abstract boolean mapMatches(GenericDelegator delegator, Map map, Object lhs, Object rhs);
     public abstract void validateSql(ModelEntity entity, Object lhs, Object rhs) throws GenericModelException;
-    public void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity entity, List entityConditionParams, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         addSqlValue(sql, entity, entityConditionParams, true, lhs, rhs, datasourceInfo);
     }
 
-    public abstract void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, boolean compat, Object rhs, Object lhs, DatasourceInfo datasourceInfo);
+    public abstract void addSqlValue(StringBuilder sql, ModelEntity entity, List entityConditionParams, boolean compat, Object rhs, Object lhs, DatasourceInfo datasourceInfo);
     public abstract EntityCondition freeze(Object lhs, Object rhs);
     public abstract void visit(EntityConditionVisitor visitor, Object lhs, Object rhs);
 

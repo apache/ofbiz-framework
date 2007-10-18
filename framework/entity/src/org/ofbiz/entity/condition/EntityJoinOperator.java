@@ -43,7 +43,7 @@ public class EntityJoinOperator extends EntityOperator {
         this.shortCircuitValue = shortCircuitValue;
     }
 
-    public void addSqlValue(StringBuffer sql, ModelEntity modelEntity, List entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         sql.append('(');
         sql.append(((EntityCondition) lhs).makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
         sql.append(' ');
@@ -57,7 +57,7 @@ public class EntityJoinOperator extends EntityOperator {
         sql.append(')');
     }
 
-    public void addSqlValue(StringBuffer sql, ModelEntity modelEntity, List entityConditionParams, List conditionList, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List entityConditionParams, List conditionList, DatasourceInfo datasourceInfo) {
         if (conditionList != null && conditionList.size() > 0) {
             sql.append('(');
             Iterator conditionIter = conditionList.iterator();

@@ -550,7 +550,7 @@ public class EntityTestSuite extends TestCase {
    * This creates an string id from a number 
    */
   private String getTestId(String strTestBase, int iNum) {
-      StringBuffer strBufTemp = new StringBuffer(strTestBase);
+      StringBuilder strBufTemp = new StringBuilder(strTestBase);
       if (iNum < 10000) {
          strBufTemp.append("0");
       }
