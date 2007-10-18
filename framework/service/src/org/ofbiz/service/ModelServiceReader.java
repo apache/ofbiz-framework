@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,7 +33,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.commons.collections.map.LinkedMap;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
@@ -501,7 +501,7 @@ public class ModelServiceReader implements Serializable {
         }
         
         if (delegator != null && entityName != null) {
-            Map modelParamMap = new LinkedMap();
+            Map modelParamMap = new LinkedHashMap();
             try {            
                 ModelEntity entity = delegator.getModelEntity(entityName);
                 if (entity == null) {
