@@ -21,6 +21,7 @@ package org.ofbiz.entity;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -445,6 +446,11 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Creates a Entity in the form of a GenericValue without persisting it */
+    public GenericValue makeValue(String entityName, Object... fields) {
+        return makeValue(entityName, UtilMisc.toMap(fields));
+    }
+
+    /** Creates a Entity in the form of a GenericValue without persisting it */
     public GenericValue makeValue(String entityName, Map fields) {
         ModelEntity entity = this.getModelEntity(entityName);
         if (entity == null) {
@@ -464,6 +470,11 @@ public class GenericDelegator implements DelegatorInterface {
         GenericValue value = GenericValue.create(entity, singlePkValue);
         value.setDelegator(this);
         return value;
+    }
+
+    /** Creates a Entity in the form of a GenericValue without persisting it; only valid fields will be pulled from the fields Map */
+    public GenericValue makeValidValue(String entityName, Object... fields) {
+        return makeValidValue(entityName, UtilMisc.toMap(fields));
     }
 
     /** Creates a Entity in the form of a GenericValue without persisting it; only valid fields will be pulled from the fields Map */
@@ -489,6 +500,11 @@ public class GenericDelegator implements DelegatorInterface {
 
         pk.setDelegator(this);
         return pk;
+    }
+
+    /** Creates a Primary Key in the form of a GenericPK without persisting it */
+    public GenericPK makePK(String entityName, Object... fields) {
+        return makePK(entityName, UtilMisc.toMap(fields));
     }
 
     /** Creates a Primary Key in the form of a GenericPK without persisting it */
@@ -534,6 +550,13 @@ public class GenericDelegator implements DelegatorInterface {
         }
 
         return this.create(GenericValue.create(primaryKey), doCacheClear);
+    }
+
+    /** Creates a Entity in the form of a GenericValue and write it to the database
+     *@return GenericValue instance containing the new instance
+     */
+    public GenericValue create(String entityName, Object... fields) throws GenericEntityException {
+        return create(entityName, UtilMisc.toMap(fields));
     }
 
     /** Creates a Entity in the form of a GenericValue and write it to the database
@@ -901,8 +924,27 @@ public class GenericDelegator implements DelegatorInterface {
      *@param fields The fields of the named entity to query by with their corresponging values
      *@return int representing number of rows effected by this operation
      */
+    public int removeByAnd(String entityName, Object... fields) throws GenericEntityException {
+        return removeByAnd(entityName, UtilMisc.toMap(fields));
+    }
+
+    /** Removes/deletes Generic Entity records found by all of the specified fields (ie: combined using AND)
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param fields The fields of the named entity to query by with their corresponging values
+     *@return int representing number of rows effected by this operation
+     */
     public int removeByAnd(String entityName, Map fields) throws GenericEntityException {
         return this.removeByAnd(entityName, fields, true);
+    }
+
+    /** Removes/deletes Generic Entity records found by all of the specified fields (ie: combined using AND)
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param doCacheClear boolean that specifies whether to clear cache entries for this value to be removed
+     *@param fields The fields of the named entity to query by with their corresponging values
+     *@return int representing number of rows effected by this operation
+     */
+    public int removeByAnd(String entityName, boolean doCacheClear, Object... fields) throws GenericEntityException {
+        return removeByAnd(entityName, UtilMisc.<String, Object>toMap(fields), doCacheClear);
     }
 
     /** Removes/deletes Generic Entity records found by all of the specified fields (ie: combined using AND)
@@ -1412,6 +1454,15 @@ public class GenericDelegator implements DelegatorInterface {
      *@param fields The fields of the named entity to query by with their corresponging values
      *@return The GenericValue corresponding to the primaryKey
      */
+    public GenericValue findByPrimaryKey(String entityName, Object... fields) throws GenericEntityException {
+        return findByPrimaryKey(entityName, UtilMisc.toMap(fields));
+    }
+
+    /** Find a Generic Entity by its Primary Key
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param fields The fields of the named entity to query by with their corresponging values
+     *@return The GenericValue corresponding to the primaryKey
+     */
     public GenericValue findByPrimaryKey(String entityName, Map fields) throws GenericEntityException {
         return findByPrimaryKey(makePK(entityName, fields));
     }
@@ -1430,6 +1481,15 @@ public class GenericDelegator implements DelegatorInterface {
      *@param fields The fields of the named entity to query by with their corresponging values
      *@return The GenericValue corresponding to the primaryKey
      */
+    public GenericValue findByPrimaryKeyCache(String entityName, Object... fields) throws GenericEntityException {
+        return findByPrimaryKeyCache(entityName, UtilMisc.toMap(fields));
+    }
+
+    /** Find a CACHED Generic Entity by its Primary Key
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param fields The fields of the named entity to query by with their corresponging values
+     *@return The GenericValue corresponding to the primaryKey
+     */
     public GenericValue findByPrimaryKeyCache(String entityName, Map fields) throws GenericEntityException {
         return findByPrimaryKeyCache(makePK(entityName, fields));
     }
@@ -1441,6 +1501,15 @@ public class GenericDelegator implements DelegatorInterface {
      */
     public GenericValue findByPrimaryKeyCacheSingle(String entityName, Object singlePkValue) throws GenericEntityException {
         return findByPrimaryKeyCache(makePKSingle(entityName, singlePkValue));
+    }
+
+    /** Find a Generic Entity by its Primary Key and only returns the values requested by the passed keys (names)
+     *@param primaryKey The primary key to find by.
+     *@param keys The keys, or names, of the values to retrieve; only these values will be retrieved
+     *@return The GenericValue corresponding to the primaryKey
+     */
+    public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, String... keys) throws GenericEntityException {
+        return findByPrimaryKeyPartial(primaryKey, UtilMisc.toSet(keys));
     }
 
     /** Find a Generic Entity by its Primary Key and only returns the values requested by the passed keys (names)
@@ -1644,6 +1713,15 @@ public class GenericDelegator implements DelegatorInterface {
      *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending
      *@return    List containing all Generic entities
      */
+    public List findAll(String entityName, String... orderBy) throws GenericEntityException {
+        return findAll(entityName, Arrays.asList(orderBy));
+    }
+
+    /** Finds all Generic entities
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending
+     *@return    List containing all Generic entities
+     */
     public List findAll(String entityName, List orderBy) throws GenericEntityException {
         return this.findByAnd(entityName, FastMap.newInstance(), orderBy);
     }
@@ -1653,7 +1731,16 @@ public class GenericDelegator implements DelegatorInterface {
      *@return    List containing all Generic entities
      */
     public List findAllCache(String entityName) throws GenericEntityException {
-        return this.findAllCache(entityName, null);
+        return this.findAllCache(entityName, (List) null);
+    }
+
+    /** Finds all Generic entities, looking first in the cache; uses orderBy for lookup, but only keys results on the entityName and fields
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending
+     *@return    List containing all Generic entities
+     */
+    public List findAllCache(String entityName, String... orderBy) throws GenericEntityException {
+        return findAllCache(entityName, Arrays.asList(orderBy));
     }
 
     /** Finds all Generic entities, looking first in the cache; uses orderBy for lookup, but only keys results on the entityName and fields
@@ -1683,8 +1770,26 @@ public class GenericDelegator implements DelegatorInterface {
      * @param fields The fields of the named entity to query by with their corresponging values
      * @return List of GenericValue instances that match the query
      */
+    public List findByAnd(String entityName, Object... fields) throws GenericEntityException {
+        return findByAnd(entityName, UtilMisc.toMap(fields));
+    }
+
+    /** Finds Generic Entity records by all of the specified fields (ie: combined using AND)
+     * @param entityName The Name of the Entity as defined in the entity XML file
+     * @param fields The fields of the named entity to query by with their corresponging values
+     * @return List of GenericValue instances that match the query
+     */
     public List findByAnd(String entityName, Map fields) throws GenericEntityException {
         return this.findByAnd(entityName, fields, null);
+    }
+
+    /** Finds Generic Entity records by all of the specified fields (ie: combined using OR)
+     * @param entityName The Name of the Entity as defined in the entity XML file
+     * @param fields The fields of the named entity to query by with their corresponging values
+     * @return List of GenericValue instances that match the query
+     */
+    public List findByOr(String entityName, Object... fields) throws GenericEntityException {
+        return findByOr(entityName, UtilMisc.toMap(fields));
     }
 
     /** Finds Generic Entity records by all of the specified fields (ie: combined using OR)
@@ -1730,6 +1835,15 @@ public class GenericDelegator implements DelegatorInterface {
      *@param fields The fields of the named entity to query by with their corresponging values
      *@return List of GenericValue instances that match the query
      */
+    public List findByAndCache(String entityName, Object... fields) throws GenericEntityException {
+        return findByAndCache(entityName, UtilMisc.toMap(fields));
+    }
+
+    /** Finds Generic Entity records by all of the specified fields (ie: combined using AND), looking first in the cache; uses orderBy for lookup, but only keys results on the entityName and fields
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param fields The fields of the named entity to query by with their corresponging values
+     *@return List of GenericValue instances that match the query
+     */
     public List findByAndCache(String entityName, Map fields) throws GenericEntityException {
         return this.findByAndCache(entityName, fields, null);
     }
@@ -1742,6 +1856,15 @@ public class GenericDelegator implements DelegatorInterface {
      */
     public List findByAndCache(String entityName, Map fields, List orderBy) throws GenericEntityException {
         return findByConditionCache(entityName, new EntityFieldMap(fields, EntityOperator.AND), null, orderBy);
+    }
+
+    /** Finds Generic Entity records by all of the specified expressions (ie: combined using AND)
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param expressions The expressions to use for the lookup, each consisting of at least a field name, an EntityOperator, and a value to compare to
+     *@return List of GenericValue instances that match the query
+     */
+    public List findByAnd(String entityName, EntityCondition... expressions) throws GenericEntityException {
+        return findByAnd(entityName, Arrays.asList(expressions));
     }
 
     /** Finds Generic Entity records by all of the specified expressions (ie: combined using AND)
@@ -1770,6 +1893,15 @@ public class GenericDelegator implements DelegatorInterface {
      *@param expressions The expressions to use for the lookup, each consisting of at least a field name, an EntityOperator, and a value to compare to
      *@return List of GenericValue instances that match the query
      */
+    public List findByOr(String entityName, EntityCondition... expressions) throws GenericEntityException {
+        return findByOr(entityName, Arrays.asList(expressions));
+    }
+
+    /** Finds Generic Entity records by all of the specified expressions (ie: combined using OR)
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param expressions The expressions to use for the lookup, each consisting of at least a field name, an EntityOperator, and a value to compare to
+     *@return List of GenericValue instances that match the query
+     */
     public List findByOr(String entityName, List expressions) throws GenericEntityException {
         EntityConditionList ecl = new EntityConditionList(expressions, EntityOperator.OR);
         return findByCondition(entityName, ecl, null, null);
@@ -1784,6 +1916,10 @@ public class GenericDelegator implements DelegatorInterface {
     public List findByOr(String entityName, List expressions, List orderBy) throws GenericEntityException {
         EntityConditionList ecl = new EntityConditionList(expressions, EntityOperator.OR);
         return findByCondition(entityName, ecl, null, orderBy);
+    }
+
+    public List findByLike(String entityName, Object... fields) throws GenericEntityException {
+        return findByLike(entityName, UtilMisc.toMap(fields));
     }
 
     public List findByLike(String entityName, Map fields) throws GenericEntityException {
@@ -1977,6 +2113,10 @@ public class GenericDelegator implements DelegatorInterface {
 
     public long findCountByAnd(String entityName) throws GenericEntityException {
         return findCountByAnd(entityName, (Map<String, Object>) null);
+    }
+
+    public long findCountByAnd(String entityName, Object... fields) throws GenericEntityException {
+        return findCountByAnd(entityName, UtilMisc.<String, Object>toMap(fields));
     }
 
     public long findCountByAnd(String entityName, Map fields) throws GenericEntityException {
@@ -2286,6 +2426,14 @@ public class GenericDelegator implements DelegatorInterface {
      */
     public void clearCacheLine(String entityName) {
         cache.remove(entityName);
+    }
+
+    /** Remove a CACHED Generic Entity (List) from the cache, either a PK, ByAnd, or All
+     *@param entityName The Name of the Entity as defined in the entity XML file
+     *@param fields The fields of the named entity to query by with their corresponging values
+     */
+    public void clearCacheLine(String entityName, Object... fields) {
+        clearCacheLine(entityName, UtilMisc.toMap(fields));
     }
 
     /** Remove a CACHED Generic Entity (List) from the cache, either a PK, ByAnd, or All

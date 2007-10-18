@@ -280,6 +280,10 @@ public class ModelViewEntity extends ModelEntity {
         this.viewLinks.add(viewLink);
     }
     
+    public String colNameString(String separator, String afterLast, boolean alias, ModelField... flds) {
+        return colNameString(Arrays.asList(flds), separator, afterLast, alias);
+    }
+
     public String colNameString(List flds, String separator, String afterLast, boolean alias) {
         StringBuffer returnString = new StringBuffer();
 
@@ -974,6 +978,10 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
 
+        public ModelViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, ModelKeyMap... keyMaps) {
+            this(entityAlias, relEntityAlias, relOptional, Arrays.asList(keyMaps));
+        }
+
         public ModelViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, List keyMaps) {
             this.entityAlias = entityAlias;
             this.relEntityAlias = relEntityAlias;
@@ -1062,6 +1070,10 @@ public class ModelViewEntity extends ModelEntity {
                 newValues.put((String) it.next(), EntityOperator.WILDCARD);
             }
             return newValues;
+        }
+
+        public void addAllAliasConversions(String fieldName, String... aliases) {
+            addAllAliasConversions(Arrays.asList(aliases), fieldName);
         }
 
         public void addAllAliasConversions(List aliases, String fieldName) {
