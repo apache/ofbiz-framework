@@ -173,15 +173,15 @@ public class ServiceEcaCondition implements java.io.Serializable {
     public String toString() {
         StringBuilder buf = new StringBuilder();
 
-        buf.append("[" + conditionService + "]");
-        buf.append("[" + lhsMapName + "]");
-        buf.append("[" + lhsValueName + "]");
-        buf.append("[" + operator + "]");
-        buf.append("[" + rhsMapName + "]");
-        buf.append("[" + rhsValueName + "]");
-        buf.append("[" + isConstant + "]");
-        buf.append("[" + compareType + "]");
-        buf.append("[" + format + "]");
+        buf.append("[").append(conditionService).append("]");
+        buf.append("[").append(lhsMapName).append("]");
+        buf.append("[").append(lhsValueName).append("]");
+        buf.append("[").append(operator).append("]");
+        buf.append("[").append(rhsMapName).append("]");
+        buf.append("[").append(rhsValueName).append("]");
+        buf.append("[").append(isConstant).append("]");
+        buf.append("[").append(compareType).append("]");
+        buf.append("[").append(format).append("]");
         return buf.toString();
     }
 }
