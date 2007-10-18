@@ -85,9 +85,9 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
     protected boolean checkDataOnly = false;
     protected boolean doCacheClear = true;
     protected boolean disableEeca = false;
-    protected List messageList = null;
+    protected List<Object> messageList = null;
 
-    protected List valuesToWrite = new ArrayList(valuesPerWrite);
+    protected List<GenericValue> valuesToWrite = new ArrayList<GenericValue>(valuesPerWrite);
 
     protected boolean isParseForTemplate = false;
     protected CharSequence templatePath = null;
@@ -174,14 +174,14 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
         return this.disableEeca;
     }
     
-    public List getMessageList() {
+    public List<Object> getMessageList() {
         if (this.checkDataOnly && this.messageList == null) {
             messageList = FastList.newInstance();
         }
         return this.messageList;
     }
     
-    public void setMessageList(List messageList) {
+    public void setMessageList(List<Object> messageList) {
         this.messageList = messageList;
     }
 
@@ -275,7 +275,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
         return numberRead;
     }
 
-    protected void writeValues(List valuesToWrite) throws GenericEntityException {
+    protected void writeValues(List<GenericValue> valuesToWrite) throws GenericEntityException {
         if (this.checkDataOnly) {
             EntityDataAssert.checkValueList(valuesToWrite, delegator, this.getMessageList());
         } else {
@@ -331,7 +331,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
                     Template template = new Template("FMImportFilter", templateReader, config);
                     NodeModel nodeModel = NodeModel.wrap(this.rootNodeForTemplate);
 
-                    Map context = FastMap.newInstance();
+                    Map<String, Object> context = FastMap.newInstance();
                     BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
                     TemplateHashModel staticModels = wrapper.getStaticModels();
                     context.put("Static", staticModels);

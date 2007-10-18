@@ -43,7 +43,7 @@ public class SequenceUtil {
 
     public static final String module = SequenceUtil.class.getName();
 
-    Map sequences = new Hashtable();
+    Map<String, SequenceBank> sequences = new Hashtable<String, SequenceBank>();
     String helperName;
     ModelEntity seqEntity;
     String tableName;
@@ -82,7 +82,7 @@ public class SequenceUtil {
     
     public void forceBankRefresh(String seqName, long staggerMax) {
         // don't use the get method because we don't want to create if it fails
-        SequenceBank bank = (SequenceBank) sequences.get(seqName);
+        SequenceBank bank = sequences.get(seqName);
         if (bank == null) {
             return;
         }
@@ -95,7 +95,7 @@ public class SequenceUtil {
 
         if (bank == null) {
             synchronized(this) {
-                bank = (SequenceBank) sequences.get(seqName);
+                bank = sequences.get(seqName);
                 if (bank == null) {
                     bank = new SequenceBank(seqName, seqModelEntity, this);
                     sequences.put(seqName, bank);

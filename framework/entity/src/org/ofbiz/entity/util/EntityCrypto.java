@@ -45,12 +45,12 @@ public class EntityCrypto {
     public static final String module = EntityCrypto.class.getName();
 
     protected GenericDelegator delegator = null;
-    protected Map keyMap = null;
+    protected Map<String, SecretKey> keyMap = null;
 
     protected EntityCrypto() { }
     public EntityCrypto(GenericDelegator delegator) {
         this.delegator = delegator;
-        this.keyMap = new HashMap();
+        this.keyMap = new HashMap<String, SecretKey>();
 
         // check the key table and make sure there
         // make sure there are some dummy keys
@@ -88,7 +88,7 @@ public class EntityCrypto {
     }
 
     protected SecretKey getKey(String name) throws EntityCryptoException {
-        SecretKey key = (SecretKey) keyMap.get(name);
+        SecretKey key = keyMap.get(name);
         if (key == null) {
             synchronized(this) {
                 String keyName = HashCrypt.getDigestHash(name);
@@ -102,7 +102,7 @@ public class EntityCrypto {
     protected SecretKey getKeyFromStore(String keyName) throws EntityCryptoException {
         GenericValue keyValue = null;
         try {
-            keyValue = delegator.findByPrimaryKey("EntityKeyStore", UtilMisc.toMap("keyName", keyName));
+            keyValue = delegator.findByPrimaryKey("EntityKeyStore", "keyName", keyName);
         } catch (GenericEntityException e) {
             throw new EntityCryptoException(e);
         }

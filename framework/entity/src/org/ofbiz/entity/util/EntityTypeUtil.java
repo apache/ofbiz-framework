@@ -35,13 +35,10 @@ public class EntityTypeUtil {
     
     public static final String module = EntityTypeUtil.class.getName();
 
-    public static boolean isType(Collection thisCollection, String typeRelation, GenericValue targetType) {
-        Iterator iter = thisCollection.iterator();
-
-        while (iter.hasNext()) {
+    public static boolean isType(Collection<GenericValue> thisCollection, String typeRelation, GenericValue targetType) {
+        for (GenericValue value: thisCollection) {
             try {
-                GenericValue related = ((GenericValue) iter.next()).getRelatedOne(typeRelation);
-
+                GenericValue related = value.getRelatedOne(typeRelation);
                 if (isType(related, targetType)) {
                     return true;
                 } // else keep looking
@@ -81,12 +78,12 @@ public class EntityTypeUtil {
         }
     }
 
-    public static List getDescendantTypes(GenericValue typeValue) {
+    public static List<GenericValue> getDescendantTypes(GenericValue typeValue) {
         // assumes Child relation is "Child<entityName>"
-        List descendantTypes = new ArrayList();
+        List<GenericValue> descendantTypes = new ArrayList<GenericValue>();
 
         // first get all childrenTypes ...
-        List childrenTypes = null;
+        List<GenericValue> childrenTypes = null;
         try {
             childrenTypes = typeValue.getRelatedCache("Child" + typeValue.getEntityName());
         } catch (GenericEntityException e) {
@@ -100,10 +97,8 @@ public class EntityTypeUtil {
         descendantTypes.addAll(childrenTypes);
 
         // then add all descendants of the children
-        Iterator childrenTypeIter = childrenTypes.iterator();
-        while (childrenTypeIter.hasNext()) {
-            GenericValue childType = (GenericValue) childrenTypeIter.next();
-            List childTypeDescendants = getDescendantTypes(childType);
+        for (GenericValue childType: childrenTypes) {
+            List<GenericValue> childTypeDescendants = getDescendantTypes(childType);
             if (childTypeDescendants != null) {
                 descendantTypes.addAll(childTypeDescendants);
             }
