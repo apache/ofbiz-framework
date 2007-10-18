@@ -46,7 +46,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     
     public static final String module = OFBizSecurity.class.getName();
     
-    public static final Map simpleRoleEntity = UtilMisc.toMap(
+    public static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
         "ORDERMGR", UtilMisc.toMap("name", "OrderRole", "pkey", "orderId"),
         "FACILITY", UtilMisc.toMap("name", "FacilityRole", "pkey", "facilityId"),
         "MARKETING", UtilMisc.toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));    
@@ -70,8 +70,8 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#findUserLoginSecurityGroupByUserLoginId(java.lang.String)
      */   
-    public Iterator findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
-        List collection = (List) userLoginSecurityGroupByUserLoginId.get(userLoginId);
+    public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
+        List<GenericValue> collection = userLoginSecurityGroupByUserLoginId.get(userLoginId);
 
         if (collection == null) {
             try {
@@ -80,7 +80,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
                 Debug.logWarning(e, module);
             }
             // make an empty collection to speed up the case where a userLogin belongs to no security groups
-            if (collection == null) collection = new LinkedList();
+            if (collection == null) collection = new LinkedList<GenericValue>();
             userLoginSecurityGroupByUserLoginId.put(userLoginId, collection);
         }
         // filter each time after cache retreival, ie cache will contain entire list
@@ -128,11 +128,11 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     public boolean hasPermission(String permission, GenericValue userLogin) {
         if (userLogin == null) return false;
 
-        Iterator iterator = findUserLoginSecurityGroupByUserLoginId(userLogin.getString("userLoginId"));
+        Iterator<GenericValue> iterator = findUserLoginSecurityGroupByUserLoginId(userLogin.getString("userLoginId"));
         GenericValue userLoginSecurityGroup = null;
 
         while (iterator.hasNext()) {
-            userLoginSecurityGroup = (GenericValue) iterator.next();
+            userLoginSecurityGroup = iterator.next();
             if (securityGroupPermissionExists(userLoginSecurityGroup.getString("groupId"), permission)) return true;
         }
 
@@ -156,11 +156,11 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
         if (userLogin == null) return false;
 
         // if (Debug.infoOn()) Debug.logInfo("hasEntityPermission: entity=" + entity + ", action=" + action, module);
-        Iterator iterator = findUserLoginSecurityGroupByUserLoginId(userLogin.getString("userLoginId"));
+        Iterator<GenericValue> iterator = findUserLoginSecurityGroupByUserLoginId(userLogin.getString("userLoginId"));
         GenericValue userLoginSecurityGroup = null;
 
         while (iterator.hasNext()) {
-            userLoginSecurityGroup = (GenericValue) iterator.next();
+            userLoginSecurityGroup = iterator.next();
 
             // if (Debug.infoOn()) Debug.logInfo("hasEntityPermission: userLoginSecurityGroup=" + userLoginSecurityGroup.toString(), module);
 
@@ -186,7 +186,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String, org.ofbiz.entity.GenericValue)
      */
     public boolean hasRolePermission(String application, String action, String primaryKey, String role, GenericValue userLogin) {
-        List roles = null;
+        List<String> roles = null;
         if (role != null && !role.equals(""))
             roles = UtilMisc.toList(role);
         return hasRolePermission(application, action, primaryKey, roles, userLogin);
@@ -195,7 +195,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.util.List, javax.servlet.http.HttpSession)
      */
-    public boolean hasRolePermission(String application, String action, String primaryKey, List roles, HttpSession session) {
+    public boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, HttpSession session) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         return hasRolePermission(application, action, primaryKey, roles, userLogin);
     }    
@@ -203,7 +203,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.util.List, org.ofbiz.entity.GenericValue)
      */
-    public boolean hasRolePermission(String application, String action, String primaryKey, List roles, GenericValue userLogin) {
+    public boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, GenericValue userLogin) {
         String entityName = null;
         EntityCondition condition = null;
         
@@ -216,22 +216,20 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
             if (hasEntityPermission(application + "_ROLE", action, userLogin)) return true;
         }            
         
-        Map simpleRoleMap = (Map) OFBizSecurity.simpleRoleEntity.get(application);
+        Map<String, String> simpleRoleMap = OFBizSecurity.simpleRoleEntity.get(application);
         if (simpleRoleMap != null && roles != null) {
             entityName = (String) simpleRoleMap.get("name");
             String pkey = (String) simpleRoleMap.get("pkey");
             if (pkey != null) {
-                List expressions = new ArrayList();
-                Iterator i = roles.iterator();
-                while (i.hasNext()) {
-                    String role = (String) i.next();
+                List<EntityExpr> expressions = new ArrayList<EntityExpr>();
+                for (String role: roles) {
                     expressions.add(new EntityExpr("roleTypeId", EntityOperator.EQUALS, role));                    
                 }
-                EntityConditionList exprList = new EntityConditionList(expressions, EntityOperator.OR);
+                EntityConditionList<EntityExpr> exprList = new EntityConditionList<EntityExpr>(expressions, EntityOperator.OR);
                 EntityExpr keyExpr = new EntityExpr(pkey, EntityOperator.EQUALS, primaryKey);
                 EntityExpr partyExpr = new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.getString("partyId"));
-                List joinList = UtilMisc.toList(exprList, keyExpr, partyExpr);
-                condition = new EntityConditionList(joinList, EntityOperator.AND);                
+                List<EntityCondition> joinList = UtilMisc.toList(exprList, keyExpr, partyExpr);
+                condition = new EntityConditionList<EntityCondition>(joinList, EntityOperator.AND);                
             }
             
         }
@@ -263,7 +261,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
         // now check the user for the role permission
         if (hasEntityPermission(application + "_ROLE", action, userLogin)) {
             // we have the permission now, we check to make sure we are allowed access
-            List roleTest = null;
+            List<GenericValue> roleTest = null;
             try {
                 //Debug.logInfo("Doing Role Security Check on [" + entityName + "]" + "using [" + condition + "]", module);
                 roleTest = delegator.findByCondition(entityName, condition, null, null);
