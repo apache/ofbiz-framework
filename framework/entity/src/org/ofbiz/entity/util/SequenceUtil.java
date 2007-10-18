@@ -267,7 +267,8 @@ public class SequenceUtil {
                                 Debug.logWarning("[SequenceUtil.SequenceBank.fillBank] Collision found for seqName [" + seqName + "], val1=" + val1 + ", val2=" + val2 + ", val1+bankSize=" + (val1 + bankSize) + ", bankSize=" + bankSize + ", waitTime=" + waitTime, module);
 
                                 try {
-                                    this.wait(waitTime);
+                                    // using the Thread.sleep to more reliably lock this thread: this.wait(waitTime);
+                                    java.lang.Thread.sleep(waitTime);
                                 } catch (Exception e) {
                                     Debug.logWarning(e, "Error waiting in sequence util", module);
                                     throw e;
