@@ -146,7 +146,7 @@ public class GroupModel {
      * @see java.lang.Object#toString()
      */
     public String toString() {
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         str.append(getGroupName());
         str.append("::");
         str.append(getSendMode());

@@ -159,7 +159,7 @@ public class HttpEngine extends GenericAsyncEngine {
         }
         
         // backup error message
-        StringBuffer errorMessage = new StringBuffer();
+        StringBuilder errorMessage = new StringBuilder();
         
         // process the result
         String resultString = null;

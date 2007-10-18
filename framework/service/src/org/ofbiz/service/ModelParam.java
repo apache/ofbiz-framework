@@ -148,7 +148,7 @@ public class ModelParam implements Serializable {
     }
     
     public String toString() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(name).append("::");
         buf.append(type).append("::");
         buf.append(mode).append("::");

@@ -573,7 +573,7 @@ public class RecurrenceRule {
     // Gets the numeric value of the number at the beginning of the string
     private int getDailyNumber(String str) {
         int number = 0;
-        StringBuffer numberBuf = new StringBuffer();
+        StringBuilder numberBuf = new StringBuilder();
 
         for (int i = 0; i < str.length(); i++) {
             String thisChar = str.substring(i, i);
@@ -596,7 +596,7 @@ public class RecurrenceRule {
 
     // Gets the string part of the combined number+string
     private String getDailyString(String str) {
-        StringBuffer sBuf = new StringBuffer();
+        StringBuilder sBuf = new StringBuilder();
 
         for (int i = 0; i < str.length(); i++) {
             String thisChar = str.substring(i, i);

@@ -93,7 +93,7 @@ public class JmsListenerFactory implements Runnable {
 
                         if (listenerEnabled.equalsIgnoreCase("true")) {
                             // create a server key
-                            StringBuffer serverKey = new StringBuffer();
+                            StringBuilder serverKey = new StringBuilder();
 
                             serverKey.append(server.getAttribute("jndi-server-name") + ":");
                             serverKey.append(server.getAttribute("jndi-name") + ":");
