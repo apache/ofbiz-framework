@@ -70,15 +70,13 @@ public abstract class AbstractCache {
     }
 
     protected UtilCache getCache(String entityName) {
-        synchronized (UtilCache.utilCacheTable) {
-            return (UtilCache) UtilCache.utilCacheTable.get(getCacheName(entityName));
-        }
+        return UtilCache.findCache(getCacheName(entityName));
     }
 
     protected UtilCache getOrCreateCache(String entityName) {
         synchronized (UtilCache.utilCacheTable) {
             String name = getCacheName(entityName);
-            UtilCache cache = (UtilCache) UtilCache.utilCacheTable.get(name);
+            UtilCache cache = UtilCache.findCache(name);
             if (cache == null) {
                 cache = new UtilCache(name, 0, 0, true);
                 String[] names = getCacheNames(entityName);

@@ -41,7 +41,7 @@ Iterator nameIter = names.iterator();
 if(nameIter != null && nameIter.hasNext()) {
     while(nameIter.hasNext()) {
         String cacheName = (String)nameIter.next();
-        UtilCache utilCache = (UtilCache)UtilCache.utilCacheTable.get(cacheName);
+        UtilCache utilCache = UtilCache.findCache(cacheName);
         Map cache = new HashMap();
         
         cache.put("cacheName", utilCache.getName());
