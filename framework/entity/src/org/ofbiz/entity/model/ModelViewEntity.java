@@ -90,8 +90,8 @@ public class ModelViewEntity extends ModelEntity {
         Iterator memberEntityIter = memberEntityList.iterator();
         while (memberEntityIter.hasNext()) {
             Element memberEntityElement = (Element) memberEntityIter.next();
-            String alias = UtilXml.checkEmpty(memberEntityElement.getAttribute("entity-alias"));
-            String name = UtilXml.checkEmpty(memberEntityElement.getAttribute("entity-name"));
+            String alias = UtilXml.checkEmpty(memberEntityElement.getAttribute("entity-alias")).intern();
+            String name = UtilXml.checkEmpty(memberEntityElement.getAttribute("entity-name")).intern();
             if (name.length() <= 0 || alias.length() <= 0) {
                 Debug.logError("[new ModelViewEntity] entity-alias or entity-name missing on member-entity element of the view-entity " + this.entityName, module);
             } else {
@@ -695,8 +695,8 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public ModelAliasAll(Element aliasAllElement) {
-            this.entityAlias = UtilXml.checkEmpty(aliasAllElement.getAttribute("entity-alias"));
-            this.prefix = UtilXml.checkEmpty(aliasAllElement.getAttribute("prefix"));
+            this.entityAlias = UtilXml.checkEmpty(aliasAllElement.getAttribute("entity-alias")).intern();
+            this.prefix = UtilXml.checkEmpty(aliasAllElement.getAttribute("prefix")).intern();
             this.groupBy = "true".equals(UtilXml.checkEmpty(aliasAllElement.getAttribute("group-by")));
             this.function = UtilXml.checkEmpty(aliasAllElement.getAttribute("function"));
             
@@ -706,7 +706,7 @@ public class ModelViewEntity extends ModelEntity {
                 Iterator excludeIter = excludes.iterator();
                 while (excludeIter.hasNext()) {
                     Element excludeElement = (Element) excludeIter.next();
-                    this.fieldsToExclude.add(excludeElement.getAttribute("field"));
+                    this.fieldsToExclude.add(excludeElement.getAttribute("field").intern());
                 }
             }
             
@@ -755,10 +755,10 @@ public class ModelViewEntity extends ModelEntity {
         protected ModelAlias() {}
 
         public ModelAlias(Element aliasElement) {
-            this.entityAlias = UtilXml.checkEmpty(aliasElement.getAttribute("entity-alias"));
-            this.name = UtilXml.checkEmpty(aliasElement.getAttribute("name"));
-            this.field = UtilXml.checkEmpty(aliasElement.getAttribute("field"), this.name);
-            this.colAlias = UtilXml.checkEmpty(aliasElement.getAttribute("col-alias"), ModelUtil.javaNameToDbName(UtilXml.checkEmpty(this.name)));
+            this.entityAlias = UtilXml.checkEmpty(aliasElement.getAttribute("entity-alias")).intern();
+            this.name = UtilXml.checkEmpty(aliasElement.getAttribute("name")).intern();
+            this.field = UtilXml.checkEmpty(aliasElement.getAttribute("field"), this.name).intern();
+            this.colAlias = UtilXml.checkEmpty(aliasElement.getAttribute("col-alias"), ModelUtil.javaNameToDbName(UtilXml.checkEmpty(this.name))).intern();
             String primKeyValue = UtilXml.checkEmpty(aliasElement.getAttribute("prim-key"));
 
             if (UtilValidate.isNotEmpty(primKeyValue)) {
@@ -767,8 +767,8 @@ public class ModelViewEntity extends ModelEntity {
                 this.isPk = null;
             }
             this.groupBy = "true".equals(UtilXml.checkEmpty(aliasElement.getAttribute("group-by")));
-            this.function = UtilXml.checkEmpty(aliasElement.getAttribute("function"));
-            this.description = UtilXml.childElementValue(aliasElement, "description");
+            this.function = UtilXml.checkEmpty(aliasElement.getAttribute("function")).intern();
+            this.description = UtilXml.checkEmpty(UtilXml.childElementValue(aliasElement, "description")).intern();
             
             Element complexAliasElement = UtilXml.firstChildElement(aliasElement, "complex-alias");
             if (complexAliasElement != null) {
@@ -858,7 +858,7 @@ public class ModelViewEntity extends ModelEntity {
         }
         
         public ComplexAlias(Element complexAliasElement) {
-            this.operator = complexAliasElement.getAttribute("operator");
+            this.operator = complexAliasElement.getAttribute("operator").intern();
             // handle all complex-alias and complex-alias-field sub-elements
             List subElements = UtilXml.childElementList(complexAliasElement);
             Iterator subElementIter = subElements.iterator();
@@ -907,10 +907,10 @@ public class ModelViewEntity extends ModelEntity {
         protected String function = null;
         
         public ComplexAliasField(Element complexAliasFieldElement) {
-            this.entityAlias = complexAliasFieldElement.getAttribute("entity-alias");
-            this.field = complexAliasFieldElement.getAttribute("field");
-            this.defaultValue = complexAliasFieldElement.getAttribute("default-value");
-            this.function = complexAliasFieldElement.getAttribute("function");
+            this.entityAlias = complexAliasFieldElement.getAttribute("entity-alias").intern();
+            this.field = complexAliasFieldElement.getAttribute("field").intern();
+            this.defaultValue = complexAliasFieldElement.getAttribute("default-value").intern();
+            this.function = complexAliasFieldElement.getAttribute("function").intern();
         }
 
         public ComplexAliasField(String entityAlias, String field, String defaultValue, String function) {
@@ -960,8 +960,8 @@ public class ModelViewEntity extends ModelEntity {
         protected ModelViewLink() {}
 
         public ModelViewLink(Element viewLinkElement) {
-            this.entityAlias = UtilXml.checkEmpty(viewLinkElement.getAttribute("entity-alias"));
-            this.relEntityAlias = UtilXml.checkEmpty(viewLinkElement.getAttribute("rel-entity-alias"));
+            this.entityAlias = UtilXml.checkEmpty(viewLinkElement.getAttribute("entity-alias")).intern();
+            this.relEntityAlias = UtilXml.checkEmpty(viewLinkElement.getAttribute("rel-entity-alias")).intern();
             // if anything but true will be false; ie defaults to false
             this.relOptional = "true".equals(viewLinkElement.getAttribute("rel-optional"));
 

@@ -55,7 +55,7 @@ public class ModelIndex extends ModelChild {
     public ModelIndex(ModelEntity mainEntity, Element indexElement) {
         super(mainEntity);
 
-        this.name = UtilXml.checkEmpty(indexElement.getAttribute("name"));
+        this.name = UtilXml.checkEmpty(indexElement.getAttribute("name")).intern();
         this.unique = "true".equals(UtilXml.checkEmpty(indexElement.getAttribute("unique")));
 
         NodeList indexFieldList = indexElement.getElementsByTagName("index-field");
@@ -63,7 +63,7 @@ public class ModelIndex extends ModelChild {
             Element indexFieldElement = (Element) indexFieldList.item(i);
 
             if (indexFieldElement.getParentNode() == indexElement) {
-                String fieldName = indexFieldElement.getAttribute("name");
+                String fieldName = indexFieldElement.getAttribute("name").intern();
                 this.fieldNames.add(fieldName);            }
         }
     }

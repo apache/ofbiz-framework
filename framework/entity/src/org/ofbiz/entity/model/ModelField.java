@@ -68,9 +68,9 @@ public class ModelField extends ModelChild {
 
     /** XML Constructor */
     public ModelField(Element fieldElement) {
-        this.type = UtilXml.checkEmpty(fieldElement.getAttribute("type"));
-        this.name = UtilXml.checkEmpty(fieldElement.getAttribute("name"));
-        this.setColName(UtilXml.checkEmpty(fieldElement.getAttribute("col-name")));
+        this.type = UtilXml.checkEmpty(fieldElement.getAttribute("type")).intern();
+        this.name = UtilXml.checkEmpty(fieldElement.getAttribute("name")).intern();
+        this.setColName(UtilXml.checkEmpty(fieldElement.getAttribute("col-name")).intern());
         this.isPk = false; // is set elsewhere
         this.encrypt = UtilXml.checkBoolean(fieldElement.getAttribute("encrypt"), false);
         this.description = UtilXml.childElementValue(fieldElement, "description");
@@ -80,7 +80,7 @@ public class ModelField extends ModelChild {
         for (int i = 0; i < validateList.getLength(); i++) {
             Element element = (Element) validateList.item(i);
 
-            this.validators.add(UtilXml.checkEmpty(element.getAttribute("name")));
+            this.validators.add(UtilXml.checkEmpty(element.getAttribute("name")).intern());
         }
     }
 

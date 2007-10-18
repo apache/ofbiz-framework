@@ -152,8 +152,8 @@ public class ModelGroupReader implements Serializable {
                             do {
                                 if (curChild.getNodeType() == Node.ELEMENT_NODE && "entity-group".equals(curChild.getNodeName())) {
                                     Element curEntity = (Element) curChild;
-                                    String entityName = UtilXml.checkEmpty(curEntity.getAttribute("entity"));
-                                    String groupName = UtilXml.checkEmpty(curEntity.getAttribute("group"));
+                                    String entityName = UtilXml.checkEmpty(curEntity.getAttribute("entity")).intern();
+                                    String groupName = UtilXml.checkEmpty(curEntity.getAttribute("group")).intern();
 
                                     if (groupName == null || entityName == null) continue;
                                     this.groupNames.add(groupName);

@@ -136,7 +136,7 @@ public class ModelFieldTypeReader implements Serializable {
                                 i++;
                                 // utilTimer.timerString("Start loop -- " + i + " --");
                                 Element curFieldType = (Element) curChild;
-                                String fieldTypeName = UtilXml.checkEmpty(curFieldType.getAttribute("type"), "[No type name]");
+                                String fieldTypeName = UtilXml.checkEmpty(curFieldType.getAttribute("type"), "[No type name]").intern();
                                 // utilTimer.timerString("  After fieldTypeName -- " + i + " --");
                                 ModelFieldType fieldType = createModelFieldType(curFieldType, docElement, null);
 

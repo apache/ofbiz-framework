@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.entity.model;
 
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 
@@ -64,19 +65,19 @@ public class ModelInfo {
     };
 
     public void populateFromAttributes(Element element) {
-        author = element.getAttribute("author");
-        copyright = element.getAttribute("copyright");
+        author = element.getAttribute("author").intern();
+        copyright = element.getAttribute("copyright").intern();
         description = UtilXml.childElementValue(element, "description");
-        title = element.getAttribute("title");
-        version = element.getAttribute("version");
+        title = element.getAttribute("title").intern();
+        version = element.getAttribute("version").intern();
     }
 
     public void populateFromElements(Element element) {
-        author = UtilXml.childElementValue(element, "author");
-        copyright = UtilXml.childElementValue(element, "copyright");
+        author = StringUtil.internString(UtilXml.childElementValue(element, "author"));
+        copyright = StringUtil.internString(UtilXml.childElementValue(element, "copyright"));
         description = UtilXml.childElementValue(element, "description");
-        title = UtilXml.childElementValue(element, "title");
-        version = UtilXml.childElementValue(element, "version");
+        title = StringUtil.internString(UtilXml.childElementValue(element, "title"));
+        version = StringUtil.internString(UtilXml.childElementValue(element, "version"));
     }
 
     // Strings to go in the comment header.
