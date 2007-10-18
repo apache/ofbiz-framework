@@ -49,9 +49,9 @@ public interface DelegatorInterface {
 
     String getEntityGroupName(String entityName);
 
-    List getModelEntitiesByGroup(String groupName);
+    List<ModelEntity> getModelEntitiesByGroup(String groupName);
 
-    Map getModelEntityMapByGroup(String groupName);
+    Map<String, ModelEntity> getModelEntityMapByGroup(String groupName);
 
     String getGroupHelperName(String groupName);
 
@@ -65,31 +65,31 @@ public interface DelegatorInterface {
 
     ModelFieldType getEntityFieldType(ModelEntity entity, String type) throws GenericEntityException;
 
-    Collection getEntityFieldTypeNames(ModelEntity entity) throws GenericEntityException;
+    Collection<String> getEntityFieldTypeNames(ModelEntity entity) throws GenericEntityException;
 
     GenericValue makeValue(String entityName);
 
     GenericValue makeValue(String entityName, Object... fields);
 
-    GenericValue makeValue(String entityName, Map fields);
+    GenericValue makeValue(String entityName, Map<String, ? extends Object> fields);
 
     GenericValue makeValueSingle(String entityName, Object singlePkValue);
 
     GenericValue makeValidValue(String entityName, Object... fields);
 
-    GenericValue makeValidValue(String entityName, Map fields);
+    GenericValue makeValidValue(String entityName, Map<String, ? extends Object> fields);
 
     GenericPK makePK(String entityName);
 
     GenericPK makePK(String entityName, Object... fields);
 
-    GenericPK makePK(String entityName, Map fields);
+    GenericPK makePK(String entityName, Map<String, ? extends Object> fields);
 
     GenericPK makePKSingle(String entityName, Object singlePkValue);
 
     GenericValue create(String entityName, Object... fields) throws GenericEntityException;
 
-    GenericValue create(String entityName, Map fields) throws GenericEntityException;
+    GenericValue create(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
 
     GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException;
 
@@ -111,23 +111,23 @@ public interface DelegatorInterface {
 
     GenericValue findByPrimaryKey(String entityName, Object... fields) throws GenericEntityException;
 
-    GenericValue findByPrimaryKey(String entityName, Map fields) throws GenericEntityException;
+    GenericValue findByPrimaryKey(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
 
     GenericValue findByPrimaryKeySingle(String entityName, Object singlePkValue) throws GenericEntityException;
 
     GenericValue findByPrimaryKeyCache(String entityName, Object... fields) throws GenericEntityException;
 
-    GenericValue findByPrimaryKeyCache(String entityName, Map fields) throws GenericEntityException;
+    GenericValue findByPrimaryKeyCache(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
 
     GenericValue findByPrimaryKeyCacheSingle(String entityName, Object singlePkValue) throws GenericEntityException;
 
     GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, String... keys) throws GenericEntityException;
 
-    GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set keys) throws GenericEntityException;
+    GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set<String> keys) throws GenericEntityException;
 
-    List findAllByPrimaryKeys(Collection primaryKeys) throws GenericEntityException;
+    List<GenericValue> findAllByPrimaryKeys(Collection<GenericPK> primaryKeys) throws GenericEntityException;
 
-    List findAllByPrimaryKeysCache(Collection primaryKeys) throws GenericEntityException;
+    List<GenericValue> findAllByPrimaryKeysCache(Collection<GenericPK> primaryKeys) throws GenericEntityException;
 
     int removeByPrimaryKey(GenericPK primaryKey) throws GenericEntityException;
 
@@ -137,92 +137,92 @@ public interface DelegatorInterface {
 
     int removeValue(GenericValue value, boolean doCacheClear) throws GenericEntityException;
 
-    List findAll(String entityName) throws GenericEntityException;
+    List<GenericValue> findAll(String entityName) throws GenericEntityException;
 
-    List findAll(String entityName, String... orderBy) throws GenericEntityException;
+    List<GenericValue> findAll(String entityName, String... orderBy) throws GenericEntityException;
 
-    List findAll(String entityName, List orderBy) throws GenericEntityException;
+    List<GenericValue> findAll(String entityName, List<String> orderBy) throws GenericEntityException;
 
-    List findAllCache(String entityName) throws GenericEntityException;
+    List<GenericValue> findAllCache(String entityName) throws GenericEntityException;
 
-    List findAllCache(String entityName, String... orderBy) throws GenericEntityException;
+    List<GenericValue> findAllCache(String entityName, String... orderBy) throws GenericEntityException;
 
-    List findAllCache(String entityName, List orderBy) throws GenericEntityException;
+    List<GenericValue> findAllCache(String entityName, List<String> orderBy) throws GenericEntityException;
 
-    List findByAnd(String entityName, Object... fields) throws GenericEntityException;
+    List<GenericValue> findByAnd(String entityName, Object... fields) throws GenericEntityException;
 
-    List findByAnd(String entityName, Map fields) throws GenericEntityException;
+    List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
 
-    List findByOr(String entityName, Object... fields) throws GenericEntityException;
+    List<GenericValue> findByOr(String entityName, Object... fields) throws GenericEntityException;
 
-    List findByOr(String entityName, Map fields) throws GenericEntityException;
+    List<GenericValue> findByOr(String entityName, Map<String,  ? extends Object> fields) throws GenericEntityException;
 
-    List findByAnd(String entityName, Map fields, List orderBy) throws GenericEntityException;
+    List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException;
 
-    //List findByAnd(ModelEntity modelEntity, Map fields, List orderBy) throws GenericEntityException;
+    //List<GenericValue> findByAnd(ModelEntity modelEntity, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException;
 
-    List findByOr(String entityName, Map fields, List orderBy) throws GenericEntityException;
+    List<GenericValue> findByOr(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException;
 
-    List findByAndCache(String entityName, Object... fields) throws GenericEntityException;
+    List<GenericValue> findByAndCache(String entityName, Object... fields) throws GenericEntityException;
 
-    List findByAndCache(String entityName, Map fields) throws GenericEntityException;
+    List<GenericValue> findByAndCache(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
 
-    List findByAndCache(String entityName, Map fields, List orderBy) throws GenericEntityException;
+    List<GenericValue> findByAndCache(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException;
 
-    List findByAnd(String entityName, EntityCondition... expressions) throws GenericEntityException;
+    <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, T... expressions) throws GenericEntityException;
 
-    List findByAnd(String entityName, List expressions) throws GenericEntityException;
+    <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, List<T> expressions) throws GenericEntityException;
 
-    List findByOr(String entityName, EntityCondition... expressions) throws GenericEntityException;
+    <T extends EntityCondition> List<GenericValue> findByOr(String entityName, T... expressions) throws GenericEntityException;
 
-    List findByOr(String entityName, List expressions) throws GenericEntityException;
+    <T extends EntityCondition> List<GenericValue> findByOr(String entityName, List<T> expressions) throws GenericEntityException;
 
-    List findByAnd(String entityName, List expressions, List orderBy) throws GenericEntityException;
+    <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, List<T> expressions, List<String> orderBy) throws GenericEntityException;
 
-    List findByOr(String entityName, List expressions, List orderBy) throws GenericEntityException;
+    <T extends EntityCondition> List<GenericValue> findByOr(String entityName, List<T> expressions, List<String> orderBy) throws GenericEntityException;
 
-    List findByLike(String entityName, Object... fields) throws GenericEntityException;
+    List<GenericValue> findByLike(String entityName, Object... fields) throws GenericEntityException;
 
-    List findByLike(String entityName, Map fields) throws GenericEntityException;
+    List<GenericValue> findByLike(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
 
-    List findByLike(String entityName, Map fields, List orderBy) throws GenericEntityException;
+    List<GenericValue> findByLike(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException;
 
-    List findByCondition(String entityName, EntityCondition entityCondition, Collection fieldsToSelect, List orderBy) throws GenericEntityException;
+    List<GenericValue> findByCondition(String entityName, EntityCondition entityCondition, Collection<String> fieldsToSelect, List<String> orderBy) throws GenericEntityException;
 
     EntityListIterator findListIteratorByCondition(String entityName, EntityCondition entityCondition,
-        Collection fieldsToSelect, List orderBy) throws GenericEntityException;
+        Collection<String> fieldsToSelect, List<String> orderBy) throws GenericEntityException;
 
     EntityListIterator findListIteratorByCondition(String entityName, EntityCondition whereEntityCondition,
-        EntityCondition havingEntityCondition, Collection fieldsToSelect, List orderBy, EntityFindOptions findOptions)
+        EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
         throws GenericEntityException;
 
     int removeByAnd(String entityName, Object... fields) throws GenericEntityException;
 
-    int removeByAnd(String entityName, Map fields) throws GenericEntityException;
+    int removeByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;
 
     int removeByAnd(String entityName, boolean doCacheClear, Object... fields) throws GenericEntityException;
 
-    int removeByAnd(String entityName, Map fields, boolean doCacheClear) throws GenericEntityException;
+    int removeByAnd(String entityName, Map<String, ? extends Object> fields, boolean doCacheClear) throws GenericEntityException;
 
     int removeByCondition(String entityName, EntityCondition condition) throws GenericEntityException;
 
     int removeByCondition(String entityName, EntityCondition condition, boolean doCacheClear) throws GenericEntityException;
 
-    List getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo, List orderBy) throws GenericEntityException;
+    List<GenericValue> getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo, List<String> orderBy) throws GenericEntityException;
 
-    List getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo) throws GenericEntityException;
+    List<GenericValue> getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo) throws GenericEntityException;
 
-    List getRelated(String relationName, GenericValue value) throws GenericEntityException;
+    List<GenericValue> getRelated(String relationName, GenericValue value) throws GenericEntityException;
 
-    List getRelatedByAnd(String relationName, Map byAndFields, GenericValue value) throws GenericEntityException;
+    List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> byAndFields, GenericValue value) throws GenericEntityException;
 
-    List getRelatedOrderBy(String relationName, List orderBy, GenericValue value) throws GenericEntityException;
+    List<GenericValue> getRelatedOrderBy(String relationName, List<String> orderBy, GenericValue value) throws GenericEntityException;
 
-    List getRelated(String relationName, Map byAndFields, List orderBy, GenericValue value) throws GenericEntityException;
+    List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy, GenericValue value) throws GenericEntityException;
 
-    GenericPK getRelatedDummyPK(String relationName, Map byAndFields, GenericValue value) throws GenericEntityException;
+    GenericPK getRelatedDummyPK(String relationName, Map<String, ? extends Object> byAndFields, GenericValue value) throws GenericEntityException;
 
-    List getRelatedCache(String relationName, GenericValue value) throws GenericEntityException;
+    List<GenericValue> getRelatedCache(String relationName, GenericValue value) throws GenericEntityException;
 
     GenericValue getRelatedOne(String relationName, GenericValue value) throws GenericEntityException;
 
@@ -240,19 +240,19 @@ public interface DelegatorInterface {
 
     int store(GenericValue value, boolean doCacheClear) throws GenericEntityException;
 
-    int storeAll(List values) throws GenericEntityException;
+    int storeAll(List<GenericValue> values) throws GenericEntityException;
 
-    int storeAll(List values, boolean doCacheClear) throws GenericEntityException;
+    int storeAll(List<GenericValue> values, boolean doCacheClear) throws GenericEntityException;
 
-    int storeByCondition(String entityName, Map fieldsToSet, EntityCondition condition) throws GenericEntityException;
+    int storeByCondition(String entityName, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException;
 
-    int storeByCondition(String entityName, Map fieldsToSet, EntityCondition condition, boolean doCacheClear) throws GenericEntityException;
+    int storeByCondition(String entityName, Map<String, ? extends Object> fieldsToSet, EntityCondition condition, boolean doCacheClear) throws GenericEntityException;
 
     int removeAll(String entityName) throws GenericEntityException;
 
-    int removeAll(List dummyPKs) throws GenericEntityException;
+    int removeAll(List<? extends GenericEntity> dummyPKs) throws GenericEntityException;
 
-    int removeAll(List dummyPKs, boolean doCacheClear) throws GenericEntityException;
+    int removeAll(List<? extends GenericEntity> dummyPKs, boolean doCacheClear) throws GenericEntityException;
 
     void clearAllCaches();
 
@@ -262,7 +262,7 @@ public interface DelegatorInterface {
 
     void clearCacheLine(String entityName, Object... fields);
 
-    void clearCacheLine(String entityName, Map fields);
+    void clearCacheLine(String entityName, Map<String, ? extends Object> fields);
 
     void clearCacheLineFlexible(GenericEntity dummyPK);
 
@@ -278,9 +278,9 @@ public interface DelegatorInterface {
 
     void clearCacheLineByCondition(String entityName, EntityCondition condition);
 
-    void clearAllCacheLinesByDummyPK(Collection dummyPKs);
+    void clearAllCacheLinesByDummyPK(Collection<GenericPK> dummyPKs);
 
-    void clearAllCacheLinesByValue(Collection values);
+    void clearAllCacheLinesByValue(Collection<GenericValue> values);
 
     GenericValue getFromPrimaryKeyCache(GenericPK primaryKey);
 

@@ -1392,7 +1392,7 @@ public class PartyServices {
 
         // update the contact mech records
         try {
-            delegator.storeByCondition("PartyContactMech", UtilMisc.toMap("partyId", partyIdTo, "thruDate", now),
+            delegator.storeByCondition("PartyContactMech", UtilMisc.<String, Object>toMap("partyId", partyIdTo, "thruDate", now),
                     new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -1401,7 +1401,7 @@ public class PartyServices {
 
         // update the contact mech purpose records
         try {
-            delegator.storeByCondition("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyIdTo, "thruDate", now),
+            delegator.storeByCondition("PartyContactMechPurpose", UtilMisc.<String, Object>toMap("partyId", partyIdTo, "thruDate", now),
                     new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
