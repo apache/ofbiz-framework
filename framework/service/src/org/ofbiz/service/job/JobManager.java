@@ -340,7 +340,7 @@ public class JobManager {
         // persist the context
         String dataId = null;
         try {
-            GenericValue runtimeData = delegator.makeValue("RuntimeData", null);
+            GenericValue runtimeData = delegator.makeValue("RuntimeData");
             runtimeData.set("runtimeInfo", XmlSerializer.serialize(context));
             runtimeData = delegator.createSetNextSeqId(runtimeData);
             dataId = runtimeData.getString("runtimeDataId");

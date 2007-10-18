@@ -115,7 +115,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         Debug.log("XPDL Clear Repository", module);
         GenericDelegator delegator = SharkContainer.getDelegator();
         try {
-            delegator.removeByAnd(org.ofbiz.shark.SharkConstants.WfRepository, null);
+            delegator.removeAll(org.ofbiz.shark.SharkConstants.WfRepository);
         } catch (GenericEntityException e) {
             throw new RepositoryException(e);
         }
@@ -334,7 +334,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         }
         GenericDelegator delegator = SharkContainer.getDelegator();
         try {
-            GenericValue v = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfRepository, null);
+            GenericValue v = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfRepository);
             v.set(org.ofbiz.shark.SharkConstants.xpdlId, xpdlId);
             v.set(org.ofbiz.shark.SharkConstants.xpdlVersion, newVersion);
             v.set(org.ofbiz.shark.SharkConstants.isHistorical, "N");
@@ -380,7 +380,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     {
             Debug.log("Add XPDL Reference", module);
             GenericDelegator delegator = SharkContainer.getDelegator();
-            GenericValue ref = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfRepositoryRef, null);
+            GenericValue ref = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfRepositoryRef);
             ref.set(org.ofbiz.shark.SharkConstants.xpdlId, referringXPDLId);
             ref.set(org.ofbiz.shark.SharkConstants.xpdlVersion, referringXPDLVersion);
             ref.set(org.ofbiz.shark.SharkConstants.refXpdlId, referredXPDLId);

@@ -300,7 +300,7 @@ public class UploadContentAndImage {
                 //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]currentAuthorAssocList " + currentAuthorAssocList, module);
                 if (currentAuthorAssocList.size() == 0) {
                     // Don't want to bother with permission checking on this association
-                    GenericValue authorAssoc = delegator.makeValue("ContentAssoc", null);
+                    GenericValue authorAssoc = delegator.makeValue("ContentAssoc");
                     authorAssoc.set("contentId", ftlContentId);
                     authorAssoc.set("contentIdTo", userLoginId);
                     authorAssoc.set("contentAssocTypeId", "AUTHOR");
@@ -457,7 +457,7 @@ public class UploadContentAndImage {
                 }
             }
 
-            GenericValue contentAssocDataResourceViewFrom = delegator.makeValue("ContentAssocDataResourceViewFrom",null);
+            GenericValue contentAssocDataResourceViewFrom = delegator.makeValue("ContentAssocDataResourceViewFrom");
             ModelEntity modelEntity = delegator.getModelEntity("ContentAssocDataResourceViewFrom");
             List fieldNames = modelEntity.getAllFieldNames();
             Iterator iter = fieldNames.iterator();

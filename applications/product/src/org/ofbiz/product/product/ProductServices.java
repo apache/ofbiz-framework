@@ -771,7 +771,7 @@ public class ProductServices {
             if (UtilValidate.isEmpty(productId)) {
                 productId = "VP" + delegator.getNextSeqId("VirtualProduct");
                 // Create new virtual product...
-                GenericValue product = delegator.makeValue("Product", null);
+                GenericValue product = delegator.makeValue("Product");
                 product.set("productId", productId);
                 // set: isVirtual=Y, isVariant=N, productTypeId=FINISHED_GOOD, introductionDate=now
                 product.set("isVirtual", "Y");

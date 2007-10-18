@@ -572,7 +572,7 @@ public class ProductEvents {
                 // if there is a productFeatureCategory with the same id as the productFeatureType, use that category.
                 // otherwise, use a default category from the configuration
                 if (delegator.findByPrimaryKey("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureTypeId)) == null) {
-                    GenericValue productFeatureCategory = delegator.makeValue("ProductFeatureCategory", null);
+                    GenericValue productFeatureCategory = delegator.makeValue("ProductFeatureCategory");
                     productFeatureCategory.set("productFeatureCategoryId", productFeatureTypeId);
                     productFeatureCategory.set("description", productFeatureType.get("description"));
                     productFeatureCategory.create();
@@ -737,7 +737,7 @@ public class ProductEvents {
                 // if there is a productFeatureCategory with the same id as the productFeatureType, use that category.
                 // otherwise, create a category for the feature type
                 if (delegator.findByPrimaryKey("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureTypeId)) == null) {
-                    GenericValue productFeatureCategory = delegator.makeValue("ProductFeatureCategory", null);
+                    GenericValue productFeatureCategory = delegator.makeValue("ProductFeatureCategory");
                     productFeatureCategory.set("productFeatureCategoryId", productFeatureTypeId);
                     productFeatureCategory.set("description", productFeatureType.get("description"));
                     productFeatureCategory.create();
@@ -780,7 +780,7 @@ public class ProductEvents {
                 Iterator productFeatureAndApplIter = productFeatureAndAppls.iterator();
                 while (productFeatureAndApplIter.hasNext()) {
                     GenericValue productFeatureAndAppl = (GenericValue) productFeatureAndApplIter.next();
-                    GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl", null);
+                    GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl");
                     productFeatureApplPK.setPKFields(productFeatureAndAppl);
                     delegator.removeByPrimaryKey(productFeatureApplPK);
                 }
@@ -789,7 +789,7 @@ public class ProductEvents {
             Iterator productFeatureAndApplIter = productFeatureAndAppls.iterator();
             while (productFeatureAndApplIter.hasNext()) {
                 GenericValue productFeatureAndAppl = (GenericValue) productFeatureAndApplIter.next();
-                GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl", null);
+                GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl");
                 productFeatureApplPK.setPKFields(productFeatureAndAppl);
                 delegator.removeByPrimaryKey(productFeatureApplPK);
             }

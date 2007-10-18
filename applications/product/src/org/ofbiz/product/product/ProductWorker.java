@@ -320,7 +320,7 @@ public class ProductWorker {
         Iterator variantDistinguishingFeatureIter = UtilMisc.toIterator(EntityUtil.filterByDate(variantDistinguishingFeatures));
         while (variantDistinguishingFeatureIter != null && variantDistinguishingFeatureIter.hasNext()) {
             GenericValue variantDistinguishingFeature = (GenericValue) variantDistinguishingFeatureIter.next();
-            GenericValue dummyFeature = delegator.makeValue("ProductFeature", null);
+            GenericValue dummyFeature = delegator.makeValue("ProductFeature");
             dummyFeature.setAllFields(variantDistinguishingFeature, true, null, null);
             distFeatures.add(dummyFeature);
         }
@@ -342,7 +342,7 @@ public class ProductWorker {
         while (variantStandardFeatureIter != null && variantStandardFeatureIter.hasNext()) {
             GenericValue variantStandardFeature = (GenericValue) variantStandardFeatureIter.next();
             if (virtualSelectableFeatureIds.contains(variantStandardFeature.get("productFeatureId"))) {
-                GenericValue dummyFeature = delegator.makeValue("ProductFeature", null);
+                GenericValue dummyFeature = delegator.makeValue("ProductFeature");
                 dummyFeature.setAllFields(variantStandardFeature, true, null, null);
                 distFeatures.add(dummyFeature);
             }

@@ -139,7 +139,7 @@ public class TrackingCodeEvents {
                 
                 //if trackingCode is still null then the defaultTrackingCode thing didn't work out, use empty TrackingCode
                 if (trackingCode == null) {
-                    trackingCode = delegator.makeValue("TrackingCode", null);
+                    trackingCode = delegator.makeValue("TrackingCode");
                     trackingCode.set("trackingCodeId", trackingCodeId);
                     trackingCode.set("trackingCodeTypeId", "PARTNER_MGD");
                     //leave userLogin fields empty, no use tracking to customer, or is there?; set dates to current

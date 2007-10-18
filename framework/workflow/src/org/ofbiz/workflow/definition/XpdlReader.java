@@ -130,7 +130,7 @@ public class XpdlReader {
         if (!"Package".equals(packageElement.getTagName()))
             throw new DefinitionParserException("Tried to make Package from element not named Package");
 
-        GenericValue packageValue = delegator.makeValue("WorkflowPackage", null);
+        GenericValue packageValue = delegator.makeValue("WorkflowPackage");
 
         values.add(packageValue);
 
@@ -296,7 +296,7 @@ public class XpdlReader {
         while (responsibleIter.hasNext()) {
             Element responsibleElement = (Element) responsibleIter.next();
             String responsibleId = UtilXml.elementValue(responsibleElement);
-            GenericValue participantListValue = delegator.makeValue("WorkflowParticipantList", null);
+            GenericValue participantListValue = delegator.makeValue("WorkflowParticipantList");
 
             participantListValue.set("packageId", valueObject.getString("packageId"));
             participantListValue.set("packageVersion", valueObject.getString("packageVersion"));
@@ -322,7 +322,7 @@ public class XpdlReader {
 
         while (externalPackageIter.hasNext()) {
             Element externalPackageElement = (Element) externalPackageIter.next();
-            GenericValue externalPackageValue = delegator.makeValue("WorkflowPackageExternal", null);
+            GenericValue externalPackageValue = delegator.makeValue("WorkflowPackageExternal");
 
             values.add(externalPackageValue);
             externalPackageValue.set("packageId", packageId);
@@ -338,7 +338,7 @@ public class XpdlReader {
 
         while (typeDeclarationsIter.hasNext()) {
             Element typeDeclarationElement = (Element) typeDeclarationsIter.next();
-            GenericValue typeDeclarationValue = delegator.makeValue("WorkflowTypeDeclaration", null);
+            GenericValue typeDeclarationValue = delegator.makeValue("WorkflowTypeDeclaration");
 
             values.add(typeDeclarationValue);
 
@@ -372,7 +372,7 @@ public class XpdlReader {
     }
 
     protected void readWorkflowProcess(Element workflowProcessElement, String packageId, String packageVersion) throws DefinitionParserException {
-        GenericValue workflowProcessValue = delegator.makeValue("WorkflowProcess", null);
+        GenericValue workflowProcessValue = delegator.makeValue("WorkflowProcess");
 
         values.add(workflowProcessValue);
 
@@ -556,7 +556,7 @@ public class XpdlReader {
         if (activityElement == null)
             return;
 
-        GenericValue activityValue = delegator.makeValue("WorkflowActivity", null);
+        GenericValue activityValue = delegator.makeValue("WorkflowActivity");
 
         values.add(activityValue);
 
@@ -725,7 +725,7 @@ public class XpdlReader {
         if (subFlowElement == null)
             return;
 
-        GenericValue subFlowValue = delegator.makeValue("WorkflowActivitySubFlow", null);
+        GenericValue subFlowValue = delegator.makeValue("WorkflowActivitySubFlow");
 
         values.add(subFlowValue);
 
@@ -753,7 +753,7 @@ public class XpdlReader {
         if (loopElement == null)
             return;
 
-        GenericValue loopValue = delegator.makeValue("WorkflowActivityLoop", null);
+        GenericValue loopValue = delegator.makeValue("WorkflowActivityLoop");
 
         values.add(loopValue);
 
@@ -790,7 +790,7 @@ public class XpdlReader {
         if (toolElement == null)
             return;
 
-        GenericValue toolValue = delegator.makeValue("WorkflowActivityTool", null);
+        GenericValue toolValue = delegator.makeValue("WorkflowActivityTool");
 
         values.add(toolValue);
 
@@ -869,7 +869,7 @@ public class XpdlReader {
         if (transitionElement == null)
             return;
 
-        GenericValue transitionValue = delegator.makeValue("WorkflowTransition", null);
+        GenericValue transitionValue = delegator.makeValue("WorkflowTransition");
 
         values.add(transitionValue);
 
@@ -990,7 +990,7 @@ public class XpdlReader {
 
         while (transitionRefsIter.hasNext()) {
             Element transitionRefElement = (Element) transitionRefsIter.next();
-            GenericValue transitionRefValue = delegator.makeValue("WorkflowTransitionRef", null);
+            GenericValue transitionRefValue = delegator.makeValue("WorkflowTransitionRef");
 
             values.add(transitionRefValue);
 
@@ -1015,7 +1015,7 @@ public class XpdlReader {
         while (participantsIter.hasNext()) {
             Element participantElement = (Element) participantsIter.next();
             String participantId = participantElement.getAttribute("Id");
-            GenericValue participantValue = delegator.makeValue("WorkflowParticipant", null);
+            GenericValue participantValue = delegator.makeValue("WorkflowParticipant");
             
             values.add(participantValue);
             
@@ -1071,7 +1071,7 @@ public class XpdlReader {
                 Debug.logWarning(e, module);
             }
             if (testValue == null) {
-                GenericValue participantValue = delegator.makeValue("WorkflowParticipant", null);
+                GenericValue participantValue = delegator.makeValue("WorkflowParticipant");
 
                 values.add(participantValue);
                 participantValue.set("packageId", packageId);
@@ -1097,7 +1097,7 @@ public class XpdlReader {
             }
 
             // regardless of whether the participant was created, create a participant list entry
-            GenericValue participantListValue = delegator.makeValue("WorkflowParticipantList", null);
+            GenericValue participantListValue = delegator.makeValue("WorkflowParticipantList");
 
             values.add(participantListValue);
             participantListValue.set("participantListId", participantListId);
@@ -1116,7 +1116,7 @@ public class XpdlReader {
 
         while (applicationsIter.hasNext()) {
             Element applicationElement = (Element) applicationsIter.next();
-            GenericValue applicationValue = delegator.makeValue("WorkflowApplication", null);
+            GenericValue applicationValue = delegator.makeValue("WorkflowApplication");
 
             values.add(applicationValue);
 
@@ -1148,7 +1148,7 @@ public class XpdlReader {
 
         while (dataFieldsIter.hasNext()) {
             Element dataFieldElement = (Element) dataFieldsIter.next();
-            GenericValue dataFieldValue = delegator.makeValue("WorkflowDataField", null);
+            GenericValue dataFieldValue = delegator.makeValue("WorkflowDataField");
 
             values.add(dataFieldValue);
 
@@ -1203,7 +1203,7 @@ public class XpdlReader {
 
         while (formalParametersIter.hasNext()) {
             Element formalParameterElement = (Element) formalParametersIter.next();
-            GenericValue formalParameterValue = delegator.makeValue("WorkflowFormalParam", null);
+            GenericValue formalParameterValue = delegator.makeValue("WorkflowFormalParam");
 
             values.add(formalParameterValue);
 

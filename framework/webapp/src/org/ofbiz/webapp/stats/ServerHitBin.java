@@ -548,7 +548,7 @@ public class ServerHitBin {
 
                 // persist each bin when time ends if option turned on
                 if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".bin", "true")) {
-                    GenericValue serverHitBin = delegator.makeValue("ServerHitBin", null);
+                    GenericValue serverHitBin = delegator.makeValue("ServerHitBin");
                     serverHitBin.set("contentId", this.id);
                     serverHitBin.set("hitTypeId", ServerHitBin.typeIds[this.type]);
                     serverHitBin.set("binStartDateTime", new java.sql.Timestamp(this.startTime));
@@ -613,7 +613,7 @@ public class ServerHitBin {
                 return;
             }
 
-            GenericValue serverHit = delegator.makeValue("ServerHit", null);
+            GenericValue serverHit = delegator.makeValue("ServerHit");
 
             serverHit.set("visitId", visitId);
             serverHit.set("hitStartDateTime", new java.sql.Timestamp(startTime));

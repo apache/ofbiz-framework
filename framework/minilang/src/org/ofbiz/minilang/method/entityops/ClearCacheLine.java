@@ -46,7 +46,7 @@ public class ClearCacheLine extends MethodOperation {
         String entityName = methodContext.expandString(this.entityName);
         
         if (mapAcsr.isEmpty()) {
-            methodContext.getDelegator().clearCacheLine(entityName, null);
+            methodContext.getDelegator().clearCacheLine(entityName);
         } else {
             Map theMap = (Map) mapAcsr.get(methodContext);
             if (theMap == null) {

@@ -52,7 +52,7 @@ import javax.servlet.http.*;
 
 delegator = (GenericDelegator) request.getAttribute("delegator");
 userLogin = session.getAttribute("userLogin");
-contentAssocDataResourceViewFrom = delegator.makeValue("ContentAssocDataResourceViewFrom", null);
+contentAssocDataResourceViewFrom = delegator.makeValue("ContentAssocDataResourceViewFrom");
 
 //singleWrapper = context.get("singleWrapper");
 //context.put("contentPurposeTypeId", page.getProperty("contentPurposeTypeId"));
@@ -61,7 +61,7 @@ contentAssocDataResourceViewFrom = delegator.makeValue("ContentAssocDataResource
 
     contentId = context.get("contentId");
     
-    contentAssocPK = delegator.makeValue("ContentAssoc", null);
+    contentAssocPK = delegator.makeValue("ContentAssoc");
     contentAssocPK.setAllFields(context, false, "ca", new Boolean(true));
     Debug.logInfo("in cmseditaddprep, contentAssocPK:" + contentAssocPK,"");
         //Debug.logInfo("in cmseditaddprep, context:" + context,"");

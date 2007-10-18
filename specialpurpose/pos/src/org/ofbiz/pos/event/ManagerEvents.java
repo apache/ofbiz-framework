@@ -121,7 +121,7 @@ public class ManagerEvents {
                         Debug.logError(e, module);
                     }
                 }
-                GenericValue state = pos.getSession().getDelegator().makeValue("PosTerminalState", null);
+                GenericValue state = pos.getSession().getDelegator().makeValue("PosTerminalState");
                 state.set("posTerminalId", pos.getSession().getId());
                 state.set("openedDate", UtilDateTime.nowTimestamp());
                 state.set("openedByUserLoginId", pos.getSession().getUserId());
@@ -432,7 +432,7 @@ public class ManagerEvents {
                 return;
             }
 
-            GenericValue internTx = pos.getSession().getDelegator().makeValue("PosTerminalInternTx", null);
+            GenericValue internTx = pos.getSession().getDelegator().makeValue("PosTerminalInternTx");
             internTx.set("posTerminalLogId", trans.getTerminalLogId());                        
             try
             {

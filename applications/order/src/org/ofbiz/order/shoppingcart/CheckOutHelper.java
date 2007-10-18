@@ -1099,7 +1099,7 @@ public class CheckOutHelper {
             } catch (ParseException e) {
                 throw new GeneralException("Problem getting parsed currency amount from DecimalFormat", e);
             }
-            GenericValue newPref = delegator.makeValue("OrderPaymentPreference", null);
+            GenericValue newPref = delegator.makeValue("OrderPaymentPreference");
             newPref.set("orderId", orderId);
             newPref.set("paymentMethodTypeId", "CASH");
             newPref.set("statusId", "PAYMENT_RECEIVED");

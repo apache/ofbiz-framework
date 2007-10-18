@@ -801,7 +801,7 @@ public class ProductSearch {
 
                 try {
 
-                    GenericValue productSearchResult = delegator.makeValue("ProductSearchResult", null);
+                    GenericValue productSearchResult = delegator.makeValue("ProductSearchResult");
                     String productSearchResultId = delegator.getNextSeqId("ProductSearchResult");
 
                     productSearchResult.set("productSearchResultId", productSearchResultId);

@@ -347,7 +347,7 @@ public class DataServices {
                         electronicText.put("textData", textData);
                         electronicText.store();
                     } else {
-                            electronicText = delegator.makeValue("ElectronicText", null);
+                            electronicText = delegator.makeValue("ElectronicText");
                             electronicText.put("dataResourceId", dataResourceId);
                             electronicText.put("textData", textData);
                             electronicText.create();

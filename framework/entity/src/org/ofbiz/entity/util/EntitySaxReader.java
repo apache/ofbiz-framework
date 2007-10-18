@@ -522,7 +522,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
             }
 
             try {
-                currentValue = delegator.makeValue(entityName, null);
+                currentValue = delegator.makeValue(entityName);
                 // TODO: do we really want this? it makes it so none of the values imported have create/update timestamps set
                 // DEJ 10/16/04 I think they should all be stamped, so commenting this out
                 // JAZ 12/10/04 I think it should be specified when creating the reader

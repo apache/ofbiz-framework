@@ -296,7 +296,7 @@ public class RecurrenceInfo {
         try {
             RecurrenceRule r = RecurrenceRule.makeRule(delegator, frequency, interval, count, endTime);
             String ruleId = r.primaryKey();
-            GenericValue value = delegator.makeValue("RecurrenceInfo", null);
+            GenericValue value = delegator.makeValue("RecurrenceInfo");
 
             value.set("recurrenceRuleId", ruleId);
             value.set("startDateTime", new java.sql.Timestamp(startTime));

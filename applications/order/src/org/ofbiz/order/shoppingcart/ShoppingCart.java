@@ -3261,7 +3261,7 @@ public class ShoppingCart implements Serializable {
                     status = initialStatus;
                 }
 
-                GenericValue orderItem = getDelegator().makeValue("OrderItem", null);
+                GenericValue orderItem = getDelegator().makeValue("OrderItem");
                 orderItem.set("orderItemSeqId", item.getOrderItemSeqId());
                 orderItem.set("externalId", item.getExternalId());
                 orderItem.set("orderItemTypeId", item.getItemType());
@@ -3310,7 +3310,7 @@ public class ShoppingCart implements Serializable {
         while (itemIter.hasNext()) {
             ShoppingCartItem item = (ShoppingCartItem) itemIter.next();
             if ("RENTAL_ORDER_ITEM".equals(item.getItemType())) {         // prepare workeffort when the order item is a rental item
-                GenericValue workEffort = getDelegator().makeValue("WorkEffort", null);
+                GenericValue workEffort = getDelegator().makeValue("WorkEffort");
                 workEffort.set("workEffortId",item.getOrderItemSeqId());  // fill temporary with sequence number
                 workEffort.set("estimatedStartDate",item.getReservStart());
                 workEffort.set("estimatedCompletionDate",item.getReservStart(item.getReservLength()));
@@ -3428,7 +3428,7 @@ public class ShoppingCart implements Serializable {
 
         while (orderAdjsIter.hasNext()) {
             GenericValue orderAdj = (GenericValue) orderAdjsIter.next();
-            GenericValue quoteAdj = this.getDelegator().makeValue("QuoteAdjustment", null);
+            GenericValue quoteAdj = this.getDelegator().makeValue("QuoteAdjustment");
             quoteAdj.put("quoteAdjustmentId", orderAdj.get("orderAdjustmentId"));
             quoteAdj.put("quoteAdjustmentTypeId", orderAdj.get("orderAdjustmentTypeId"));
             quoteAdj.put("quoteItemSeqId", orderAdj.get("orderItemSeqId"));
@@ -3533,7 +3533,7 @@ public class ShoppingCart implements Serializable {
         Iterator productPromoUseInfoIter = this.productPromoUseInfoList.iterator();
         while (productPromoUseInfoIter.hasNext()) {
             ProductPromoUseInfo productPromoUseInfo = (ProductPromoUseInfo) productPromoUseInfoIter.next();
-            GenericValue productPromoUse = this.getDelegator().makeValue("ProductPromoUse", null);
+            GenericValue productPromoUse = this.getDelegator().makeValue("ProductPromoUse");
             productPromoUse.set("promoSequenceId", UtilFormatOut.formatPaddedNumber(sequenceValue, 5));
             productPromoUse.set("productPromoId", productPromoUseInfo.getProductPromoId());
             productPromoUse.set("productPromoCodeId", productPromoUseInfo.getProductPromoCodeId());
@@ -3584,7 +3584,7 @@ public class ShoppingCart implements Serializable {
 
             while (cMechIdsIter.hasNext()) {
                 Map.Entry entry = (Map.Entry) cMechIdsIter.next();
-                GenericValue orderContactMech = getDelegator().makeValue("OrderContactMech", null);
+                GenericValue orderContactMech = getDelegator().makeValue("OrderContactMech");
 
                 orderContactMech.set("contactMechPurposeTypeId", entry.getKey());
                 orderContactMech.set("contactMechId", entry.getValue());
@@ -3610,7 +3610,7 @@ public class ShoppingCart implements Serializable {
 
                 while (cMechIdsIter.hasNext()) {
                     Map.Entry entry = (Map.Entry) cMechIdsIter.next();
-                    GenericValue orderContactMech = getDelegator().makeValue("OrderItemContactMech", null);
+                    GenericValue orderContactMech = getDelegator().makeValue("OrderItemContactMech");
 
                     orderContactMech.set("contactMechPurposeTypeId", entry.getKey());
                     orderContactMech.set("contactMechId", entry.getValue());
@@ -3645,7 +3645,7 @@ public class ShoppingCart implements Serializable {
             Iterator i = attrs.entrySet().iterator();
             while (i.hasNext()) {
                 Map.Entry entry = (Map.Entry) i.next();
-                GenericValue itemAtt = this.getDelegator().makeValue("OrderItemAttribute", null);
+                GenericValue itemAtt = this.getDelegator().makeValue("OrderItemAttribute");
                 itemAtt.set("orderItemSeqId", item.getOrderItemSeqId());
                 itemAtt.set("attrName", entry.getKey());
                 itemAtt.set("attrValue", entry.getValue());
@@ -3661,7 +3661,7 @@ public class ShoppingCart implements Serializable {
         Iterator i = orderAttributes.entrySet().iterator();
         while (i.hasNext()) {
             Map.Entry entry = (Map.Entry) i.next();
-            GenericValue orderAtt = this.getDelegator().makeValue("OrderAttribute", null);
+            GenericValue orderAtt = this.getDelegator().makeValue("OrderAttribute");
             orderAtt.put("attrName", entry.getKey());
             orderAtt.put("attrValue", entry.getValue());
             allOrderAttributes.add(orderAtt);
@@ -3683,7 +3683,7 @@ public class ShoppingCart implements Serializable {
                     // TODO: multiple commitments for the same requirement are still not supported
                     GenericValue commitment = EntityUtil.getFirst(commitments);
                     if (commitment != null) {
-                        GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc", null);
+                        GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc");
                         orderItemAssociation.set("orderId", commitment.getString("orderId"));
                         orderItemAssociation.set("orderItemSeqId", commitment.getString("orderItemSeqId"));
                         orderItemAssociation.set("shipGroupSeqId", "_NA_");
@@ -3697,7 +3697,7 @@ public class ShoppingCart implements Serializable {
                 }
             }
             if (item.getAssociatedOrderId() != null && item.getAssociatedOrderItemSeqId() != null) {
-                GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc", null);
+                GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc");
                 orderItemAssociation.set("orderId", item.getAssociatedOrderId());
                 orderItemAssociation.set("orderItemSeqId", item.getAssociatedOrderItemSeqId());
                 orderItemAssociation.set("shipGroupSeqId", "_NA_");
@@ -4006,7 +4006,7 @@ public class ShoppingCart implements Serializable {
         }
         
         protected GenericValue makeOrderItemGroup(GenericDelegator delegator) {
-            GenericValue orderItemGroup = delegator.makeValue("OrderItemGroup", null);
+            GenericValue orderItemGroup = delegator.makeValue("OrderItemGroup");
             orderItemGroup.set("orderItemGroupSeqId", this.getGroupNumber());
             orderItemGroup.set("groupName", this.getGroupName());
             if (this.parentGroup != null) {
@@ -4083,14 +4083,14 @@ public class ShoppingCart implements Serializable {
             
             // create order contact mech for shipping address
             if (this.internalContactMechId != null) {
-                GenericValue orderCm = delegator.makeValue("OrderContactMech", null);
+                GenericValue orderCm = delegator.makeValue("OrderContactMech");
                 orderCm.set("contactMechPurposeTypeId", "SHIPPING_LOCATION");
                 orderCm.set("contactMechId", this.internalContactMechId);
                 values.add(orderCm);
             }
 
             // create the ship group
-            GenericValue shipGroup = delegator.makeValue("OrderItemShipGroup", null);
+            GenericValue shipGroup = delegator.makeValue("OrderItemShipGroup");
             shipGroup.set("shipmentMethodTypeId", shipmentMethodTypeId);
             shipGroup.set("carrierRoleTypeId", carrierRoleTypeId);
             shipGroup.set("carrierPartyId", carrierPartyId);
@@ -4118,7 +4118,7 @@ public class ShoppingCart implements Serializable {
 
             // create the shipping estimate adjustments
             if (shipEstimate != 0) {
-                GenericValue shipAdj = delegator.makeValue("OrderAdjustment", null);
+                GenericValue shipAdj = delegator.makeValue("OrderAdjustment");
                 shipAdj.set("orderAdjustmentTypeId", "SHIPPING_CHARGES");
                 shipAdj.set("amount", new Double(shipEstimate));
                 shipAdj.set("shipGroupSeqId", shipGroupSeqId);
@@ -4139,7 +4139,7 @@ public class ShoppingCart implements Serializable {
                 ShoppingCartItem item = (ShoppingCartItem) i.next();
                 CartShipItemInfo itemInfo = (CartShipItemInfo) shipItemInfo.get(item);
 
-                GenericValue assoc = delegator.makeValue("OrderItemShipGroupAssoc", null);
+                GenericValue assoc = delegator.makeValue("OrderItemShipGroupAssoc");
                 assoc.set("orderItemSeqId", item.getOrderItemSeqId());
                 assoc.set("shipGroupSeqId", shipGroupSeqId);
                 assoc.set("quantity", new Double(itemInfo.quantity));
@@ -4384,7 +4384,7 @@ public class ShoppingCart implements Serializable {
                     }
 
                     if (UtilValidate.isNotEmpty(billingAddressId)) {
-                        GenericValue orderCm = delegator.makeValue("OrderContactMech", null);
+                        GenericValue orderCm = delegator.makeValue("OrderContactMech");
                         orderCm.set("contactMechPurposeTypeId", "BILLING_LOCATION");
                         orderCm.set("contactMechId", billingAddressId);
                         values.add(orderCm);
@@ -4395,7 +4395,7 @@ public class ShoppingCart implements Serializable {
                 amountBd = amountBd.setScale(scale, rounding);
                 
                 // create the OrderPaymentPreference record
-                GenericValue opp = delegator.makeValue("OrderPaymentPreference", new HashMap());
+                GenericValue opp = delegator.makeValue("OrderPaymentPreference");
                 opp.set("paymentMethodTypeId", valueObj.getString("paymentMethodTypeId"));
                 opp.set("presentFlag", isPresent ? "Y" : "N");
                 opp.set("overflowFlag", overflow ? "Y" : "N");

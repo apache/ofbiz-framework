@@ -237,7 +237,7 @@ public class ContentManagementWorker {
 
         Map paramMap = UtilHttp.getParameterMap(request);
         // Build the primary key that may have been passed in as key values
-        GenericValue v = delegator.makeValue(entityName, null);
+        GenericValue v = delegator.makeValue(entityName);
         GenericPK passedPK = v.getPrimaryKey();
         Collection keyColl = passedPK.getAllKeys();
         Iterator keyIt = keyColl.iterator();
@@ -647,7 +647,7 @@ public class ContentManagementWorker {
             List valueList = (List)results.get("entityList");
             if (valueList.size() > 0) {
                 GenericValue value = (GenericValue)valueList.get(0);
-                authorContent = delegator.makeValue("Content", null);
+                authorContent = delegator.makeValue("Content");
                 authorContent.setPKFields(value);
                 authorContent.setNonPKFields(value);
             //if (Debug.infoOn()) Debug.logInfo("in getAuthorContent, authorContent:" + authorContent, module);

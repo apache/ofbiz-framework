@@ -781,7 +781,7 @@ public class GenericDelegator implements DelegatorInterface {
         }
 
         if (serializedPK != null) {
-            GenericValue entitySyncRemove = this.makeValue("EntitySyncRemove", null);
+            GenericValue entitySyncRemove = this.makeValue("EntitySyncRemove");
             entitySyncRemove.set("primaryKeyRemoved", serializedPK);
             this.createSetNextSeqId(entitySyncRemove);
         }
@@ -1662,7 +1662,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@return    List containing all Generic entities
      */
     public List findAllCache(String entityName, List orderBy) throws GenericEntityException {
-        GenericValue dummyValue = makeValue(entityName, null);
+        GenericValue dummyValue = makeValue(entityName);
         Map ecaEventMap = this.getEcaEntityEventMap(entityName);
         this.evalEcaRules(EntityEcaHandler.EV_CACHE_CHECK, EntityEcaHandler.OP_FIND, dummyValue, ecaEventMap, (ecaEventMap == null), false);
 
@@ -2520,7 +2520,7 @@ public class GenericDelegator implements DelegatorInterface {
             entityName = entityName.substring(entityName.indexOf('-') + 1);
         if (entityName.indexOf(':') > 0)
             entityName = entityName.substring(entityName.indexOf(':') + 1);
-        GenericValue value = this.makeValue(entityName, null);
+        GenericValue value = this.makeValue(entityName);
 
         ModelEntity modelEntity = value.getModelEntity();
 
@@ -2677,7 +2677,7 @@ public class GenericDelegator implements DelegatorInterface {
             String sequencedIdPrefix = this.getDelegatorInfo().sequencedIdPrefix;
 
             value.remove(seqFieldName);
-            GenericValue lookupValue = this.makeValue(value.getEntityName(), null);
+            GenericValue lookupValue = this.makeValue(value.getEntityName());
             lookupValue.setPKFields(value);
 
             boolean beganTransaction = false;

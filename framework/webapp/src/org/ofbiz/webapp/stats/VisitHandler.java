@@ -130,7 +130,7 @@ public class VisitHandler {
                                 Debug.logInfo(new Exception(), "The webappName was empty, somehow the initial request settings were missing.", module);
                             }
                             
-                            visit = delegator.makeValue("Visit", null);
+                            visit = delegator.makeValue("Visit");
                             visit.set("sessionId", session.getId());
                             visit.set("fromDate", new Timestamp(session.getCreationTime()));
 
@@ -222,7 +222,7 @@ public class VisitHandler {
                             
                             if (UtilValidate.isEmpty(cookieVisitorId)) {
                                 // no visitor cookie? create visitor and send back cookie too
-                                visitor = delegator.makeValue("Visitor", null);
+                                visitor = delegator.makeValue("Visitor");
                                 try {
                                     delegator.createSetNextSeqId(visitor);
                                 } catch (GenericEntityException e) {
@@ -234,7 +234,7 @@ public class VisitHandler {
                                     visitor = delegator.findByPrimaryKey("Visitor", UtilMisc.toMap("visitorId", cookieVisitorId));
                                     if (visitor == null) {
                                         // looks like we have an ID that doesn't exist in our database, so we'll create a new one
-                                        visitor = delegator.makeValue("Visitor", null);
+                                        visitor = delegator.makeValue("Visitor");
                                         visitor = delegator.createSetNextSeqId(visitor);
                                         if (Debug.infoOn()) Debug.logInfo("The visitorId [" + cookieVisitorId + "] found in cookie was invalid, creating new Visitor with ID [" + visitor.getString("visitorId") + "]", module);
                                     }

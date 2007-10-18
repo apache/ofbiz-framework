@@ -344,7 +344,7 @@ public class TaxAuthorityServices {
                     // TODO: what to do if no TaxAuthorityGlAccount found? Use some default, or is that done elsewhere later on?
                 }
 
-                GenericValue adjValue = delegator.makeValue("OrderAdjustment", null);
+                GenericValue adjValue = delegator.makeValue("OrderAdjustment");
                 adjValue.set("taxAuthorityRateSeqId", taxAuthorityRateProduct.getString("taxAuthorityRateSeqId"));
                 adjValue.set("amount", taxAmount);
                 adjValue.set("sourcePercentage", taxRate);

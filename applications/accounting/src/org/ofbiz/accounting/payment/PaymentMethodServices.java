@@ -146,10 +146,10 @@ public class PaymentMethodServices {
         }
 
         List toBeStored = new LinkedList();
-        GenericValue newPm = delegator.makeValue("PaymentMethod", null);
+        GenericValue newPm = delegator.makeValue("PaymentMethod");
 
         toBeStored.add(newPm);
-        GenericValue newCc = delegator.makeValue("CreditCard", null);
+        GenericValue newCc = delegator.makeValue("CreditCard");
 
         toBeStored.add(newCc);
 
@@ -458,9 +458,9 @@ public class PaymentMethodServices {
             return result;
 
         List toBeStored = new LinkedList();
-        GenericValue newPm = delegator.makeValue("PaymentMethod", null);
+        GenericValue newPm = delegator.makeValue("PaymentMethod");
         toBeStored.add(newPm);
-        GenericValue newGc = delegator.makeValue("GiftCard", null);
+        GenericValue newGc = delegator.makeValue("GiftCard");
         toBeStored.add(newGc);
 
         String newPmId = (String) context.get("paymentMethodId");
@@ -636,10 +636,10 @@ public class PaymentMethodServices {
         if (result.size() > 0) return result;
 
         List toBeStored = new LinkedList();
-        GenericValue newPm = delegator.makeValue("PaymentMethod", null);
+        GenericValue newPm = delegator.makeValue("PaymentMethod");
 
         toBeStored.add(newPm);
-        GenericValue newEa = delegator.makeValue("EftAccount", null);
+        GenericValue newEa = delegator.makeValue("EftAccount");
 
         toBeStored.add(newEa);
 

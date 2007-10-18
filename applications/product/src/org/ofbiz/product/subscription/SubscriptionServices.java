@@ -79,7 +79,7 @@ public class SubscriptionServices {
 
         GenericValue newSubscription = null;
         if (lastSubscription == null || alwaysCreateNewRecord) {
-            newSubscription = delegator.makeValue("Subscription", null);
+            newSubscription = delegator.makeValue("Subscription");
             newSubscription.set("subscriptionResourceId", subscriptionResourceId);
             newSubscription.set("partyId", partyId);
             newSubscription.set("roleTypeId", roleTypeId);

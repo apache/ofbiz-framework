@@ -56,7 +56,7 @@ public class EntityCrypto {
         // make sure there are some dummy keys
         synchronized(EntityCrypto.class) {
             try {
-                long size = delegator.findCountByAnd("EntityKeyStore", null);
+                long size = delegator.findCountByAnd("EntityKeyStore");
                 if (size == 0) {
                     for (int i = 0; i < 20; i++) {
                         String randomName = this.getRandomString();
@@ -113,7 +113,7 @@ public class EntityCrypto {
             } catch (NoSuchAlgorithmException e) {
                 throw new EntityCryptoException(e);
             }
-            GenericValue newValue = delegator.makeValue("EntityKeyStore", null);
+            GenericValue newValue = delegator.makeValue("EntityKeyStore");
             newValue.set("keyText", StringUtil.toHexString(key.getEncoded()));
             newValue.set("keyName", keyName);
 

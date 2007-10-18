@@ -2516,7 +2516,7 @@ public class InvoiceServices {
         BigDecimal newPaymentApplyAvailable = paymentApplyAvailable;
         GenericValue paymentApplication = null;
         if (paymentApplicationId == null) {
-            paymentApplication = delegator.makeValue("PaymentApplication", null); 
+            paymentApplication = delegator.makeValue("PaymentApplication"); 
             // prepare for creation
         } else { // retrieve existing paymentApplication
             try {

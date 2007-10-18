@@ -481,7 +481,7 @@ public class ProductsExportToGoogle {
                 if (UtilValidate.isNotEmpty(id) && newProductsInGoogle.get(index) != null) {
                     String productId = (String)newProductsInGoogle.get(index);
                     try {
-                        GenericValue googleProductId = delegator.makeValue("GoodIdentification", null);
+                        GenericValue googleProductId = delegator.makeValue("GoodIdentification");
                         googleProductId.set("goodIdentificationTypeId", "GOOGLE_ID");
                         googleProductId.set("productId", productId);
                         googleProductId.set("idValue", id);

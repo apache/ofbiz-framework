@@ -320,11 +320,11 @@ public class ContentServicesComplex {
             if (contentTypes != null && contentTypes.size() > 0) {
                 String contentTypeId = (String)content.get("contentTypeId");
                 if (contentTypes.contains(contentTypeId)) {
-                    contentAssocDataResourceView = delegator.makeValue(viewName, null);
+                    contentAssocDataResourceView = delegator.makeValue(viewName);
                     contentAssocDataResourceView.setAllFields(content, true, null, null);
                 }
             } else {
-                contentAssocDataResourceView = delegator.makeValue(viewName, null);
+                contentAssocDataResourceView = delegator.makeValue(viewName);
                 contentAssocDataResourceView.setAllFields(content, true, null, null);
             }
             SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceView, new ArrayList(), locale);

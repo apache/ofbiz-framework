@@ -73,7 +73,7 @@ currentValue = ContentWorker.getSubContentCache(delegator, contentIdTo, mapKey, 
 
 if (currentValue == null) {
     parentValue = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentIdTo));
-    currentValue = delegator.makeValue("Content", null);
+    currentValue = delegator.makeValue("Content");
     subject =  parentValue.get("contentName");
     if (mapKey != null && mapKey.equals("SUMMARY")) {
         subject = "Short " + subject;

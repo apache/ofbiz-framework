@@ -98,7 +98,7 @@ if (mode != null && mode.equalsIgnoreCase("restore")) {
     singleWrapper.putInContext("nodeTrailCsv", paramMap.get("nodeTrailCsv"));
    
 } else if (currentValue == null || (mode != null && mode.equalsIgnoreCase("add"))) {
-    view = delegator.makeValue("SubContentDataResourceView", null);
+    view = delegator.makeValue("SubContentDataResourceView");
     view.put("localeString", locale.toString());
     singleWrapper = new HtmlFormWrapper(formDefFile, addFormName, request, response);
     currentMap = new HashMap(view);
