@@ -21,10 +21,11 @@ package org.ofbiz.appservers;
 
 import java.util.Map;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.io.*;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
@@ -109,7 +110,7 @@ public class GenerateContainer implements Container {
     }
 
     private Map buildDataMap() {
-        Map dataMap = new HashMap();
+        Map dataMap = FastMap.newInstance();
         List c[] = getClasspath();
         dataMap.put("classpathJars", c[0]);
         dataMap.put("classpathDirs", c[1]);
@@ -121,8 +122,8 @@ public class GenerateContainer implements Container {
     private List[] getClasspath() {
         Classpath classPath = new Classpath(System.getProperty("java.class.path"));
         List elements = classPath.getElements();
-        List jar = new ArrayList();
-        List dir = new ArrayList();
+        List jar = FastList.newInstance();
+        List dir = FastList.newInstance();
 
         Iterator i = elements.iterator();
         while (i.hasNext()) {
