@@ -26,7 +26,6 @@ import java.util.*;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.commons.collections.map.LinkedMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -1878,7 +1877,7 @@ public class ShoppingCart implements Serializable {
     }
 
     public Map getShipGroups(ShoppingCartItem item) {
-        Map shipGroups = new LinkedMap();
+        Map shipGroups = new LinkedHashMap();
         if (item != null) {
             for (int i = 0; i < this.shipInfo.size(); i++) {
                 CartShipInfo csi = (CartShipInfo) shipInfo.get(i);
@@ -4051,7 +4050,7 @@ public class ShoppingCart implements Serializable {
     }
 
     public static class CartShipInfo implements Serializable {
-        public LinkedMap shipItemInfo = new LinkedMap();
+        public Map shipItemInfo = new LinkedHashMap();
         public List shipTaxAdj = new LinkedList();
         public String orderTypeId = null;
         private String internalContactMechId = null;

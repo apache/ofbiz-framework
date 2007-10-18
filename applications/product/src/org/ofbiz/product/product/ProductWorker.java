@@ -21,6 +21,7 @@ package org.ofbiz.product.product;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -29,8 +30,6 @@ import java.util.Set;
 import java.sql.Timestamp;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
-
-import org.apache.commons.collections.map.LinkedMap;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.common.geo.GeoWorker;
@@ -443,7 +442,7 @@ public class ProductWorker {
     }
 
     public static Map getOptionalProductFeatures(GenericDelegator delegator, String productId) {
-        Map featureMap = new LinkedMap();
+        Map featureMap = new LinkedHashMap();
 
         List productFeatureAppls = null;
         try {
