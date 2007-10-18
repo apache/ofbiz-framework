@@ -116,7 +116,7 @@ public class SOAPEventHandler implements EventHandler {
             if (serviceName == null) {
                 try {
                     Writer writer = response.getWriter();
-                    StringBuffer sb = new StringBuffer();
+                    StringBuilder sb = new StringBuilder();
                     sb.append("<html><head><title>OFBiz SOAP/1.1 Services</title></head>");
                     sb.append("<body>No such service.").append("<p>Services:<ul>");
 
@@ -299,7 +299,7 @@ public class SOAPEventHandler implements EventHandler {
     }
 
     private String getLocationURI(HttpServletRequest request) {
-        StringBuffer uri = new StringBuffer();
+        StringBuilder uri = new StringBuilder();
         uri.append(request.getScheme());
         uri.append("://");
         uri.append(request.getServerName());

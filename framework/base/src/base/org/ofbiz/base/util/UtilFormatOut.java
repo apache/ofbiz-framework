@@ -252,7 +252,7 @@ public class UtilFormatOut {
     }
     
     public static String formatPaddedNumber(long number, int numericPadding) {
-        StringBuffer outStrBfr = new StringBuffer(Long.toString(number));
+        StringBuilder outStrBfr = new StringBuilder(Long.toString(number));
         while (numericPadding > outStrBfr.length()) {
             outStrBfr.insert(0, '0');
         }
@@ -261,7 +261,7 @@ public class UtilFormatOut {
     
     public static String formatPaddingRemove(String original) {
         if (original == null) return null;
-        StringBuffer orgBuf = new StringBuffer(original);
+        StringBuilder orgBuf = new StringBuilder(original);
         while (orgBuf.length() > 0 && orgBuf.charAt(0) == '0') {
             orgBuf.deleteCharAt(0);
         }

@@ -363,7 +363,7 @@ public class Record implements Serializable {
 
         if (str != null && field.length > 0 && str.length() < field.length) {
             // pad the end with spaces
-            StringBuffer strBuf = new StringBuffer(str);
+            StringBuilder strBuf = new StringBuilder(str);
 
             while (strBuf.length() < field.length)
                 strBuf.append(' ');
@@ -378,7 +378,7 @@ public class Record implements Serializable {
         boolean isFixedLength = ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.separatorStyle);
         boolean isDelimited = ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle);
 
-        StringBuffer lineBuf = new StringBuffer();
+        StringBuilder lineBuf = new StringBuilder();
 
         for (int f = 0; f < modelRecord.fields.size(); f++) {
             ModelField modelField = (ModelField) modelRecord.fields.get(f);
@@ -388,7 +388,7 @@ public class Record implements Serializable {
             char PAD_CHAR = ' ';
 
             if (data == null) {
-                StringBuffer sb = new StringBuffer("");
+                StringBuilder sb = new StringBuilder("");
 
                 for (int i = 0; i < modelField.length; i++)
                     sb.append(PAD_CHAR);
@@ -429,7 +429,7 @@ public class Record implements Serializable {
     String padFrontZeros(String str, int totalLength) {
         if (totalLength > 0 && str.length() < totalLength) {
             // pad the front with zeros
-            StringBuffer zeros = new StringBuffer();
+            StringBuilder zeros = new StringBuilder();
             int numZeros = totalLength - str.length();
 
             for (int i = 0; i < numZeros; i++)

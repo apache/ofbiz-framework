@@ -277,7 +277,7 @@ public class ConfigXMLReader {
                 String request = (String) o;
                 Map thisURI = (Map) map.get(o);
 
-                StringBuffer verboseMessageBuffer = new StringBuffer();
+                StringBuilder verboseMessageBuffer = new StringBuilder();
 
                 Iterator debugIter = thisURI.keySet().iterator();
                 while (debugIter.hasNext()) {
@@ -371,7 +371,7 @@ public class ConfigXMLReader {
                 String request = (String) o;
                 Map thisURI = (Map) map.get(o);
     
-                StringBuffer verboseMessageBuffer = new StringBuffer();
+                StringBuilder verboseMessageBuffer = new StringBuilder();
     
                 Iterator debugIter = thisURI.keySet().iterator();
                 while (debugIter.hasNext()) {

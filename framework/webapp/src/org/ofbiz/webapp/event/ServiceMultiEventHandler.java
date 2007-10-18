@@ -374,7 +374,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 }
                 errorMessages.add(0, errorPrefixStr);
                 errorMessages.add(errorSuffixStr);
-                StringBuffer errorBuf = new StringBuffer();
+                StringBuilder errorBuf = new StringBuilder();
                 Iterator ei = errorMessages.iterator();
                 while (ei.hasNext()) {
                     String em = (String) ei.next();

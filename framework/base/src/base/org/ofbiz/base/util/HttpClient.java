@@ -330,7 +330,7 @@ public class HttpClient {
         InputStream in = sendHttpRequestStream(method);
         if (in == null) return null;
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         try {
             if (Debug.verboseOn() || debug) {
                 try {

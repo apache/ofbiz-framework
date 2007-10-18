@@ -235,7 +235,7 @@ public class CoreEvents {
         int interval = 1;
         int frequency = RecurrenceRule.DAILY;
 
-        StringBuffer errorBuf = new StringBuffer();
+        StringBuilder errorBuf = new StringBuilder();
 
         // make sure we passed a service
         if (serviceName == null) {

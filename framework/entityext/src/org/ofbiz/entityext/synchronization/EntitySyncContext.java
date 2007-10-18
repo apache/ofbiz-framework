@@ -433,7 +433,7 @@ public class EntitySyncContext {
         // TEST SECTION: leave false for normal use
         boolean logValues = false;
         if (logValues && valuesToCreate.size() > 0) {
-            StringBuffer toCreateInfo = new StringBuffer();
+            StringBuilder toCreateInfo = new StringBuilder();
             Iterator valuesToCreateIter = valuesToCreate.iterator();
             while (valuesToCreateIter.hasNext()) {
                 GenericValue valueToCreate = (GenericValue) valuesToCreateIter.next();
@@ -577,7 +577,7 @@ public class EntitySyncContext {
         // TEST SECTION: leave false for normal use
         boolean logValues = false;
         if (logValues && valuesToStore.size() > 0) {
-            StringBuffer toStoreInfo = new StringBuffer();
+            StringBuilder toStoreInfo = new StringBuilder();
             Iterator valuesToStoreIter = valuesToStore.iterator();
             while (valuesToStoreIter.hasNext()) {
                 GenericValue valueToStore = (GenericValue) valuesToStoreIter.next();
@@ -694,7 +694,7 @@ public class EntitySyncContext {
         // TEST SECTION: leave false for normal use
         boolean logValues = false;
         if (logValues && keysToRemove.size() > 0) {
-            StringBuffer toRemoveInfo = new StringBuffer();
+            StringBuilder toRemoveInfo = new StringBuilder();
             Iterator keysToRemoveIter = keysToRemove.iterator();
             while (keysToRemoveIter.hasNext()) {
                 GenericEntity keyToRemove = (GenericEntity) keysToRemoveIter.next();

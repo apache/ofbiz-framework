@@ -365,7 +365,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
     }
 
     public String getUserRealName(UserTransaction trans, String username) throws RootException {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         GenericValue user = getUser(username);
         if (!UtilValidate.isEmpty(user.getString(org.ofbiz.shark.SharkConstants.firstName))) {
             buf.append(user.getString(org.ofbiz.shark.SharkConstants.firstName));

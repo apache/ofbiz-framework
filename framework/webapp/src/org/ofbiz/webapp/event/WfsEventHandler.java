@@ -178,7 +178,7 @@ public class WfsEventHandler implements EventHandler {
     }
 
     private String getLocationURI(HttpServletRequest request) {
-        StringBuffer uri = new StringBuffer();
+        StringBuilder uri = new StringBuilder();
 //        uri.append(request.getScheme());
 //        uri.append("://");
 //        uri.append(request.getServerName());

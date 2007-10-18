@@ -92,7 +92,7 @@ public class OfbizAmountTransform implements TemplateTransformModel {
     }
     
     public Writer getWriter(final Writer out, Map args) {
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
 
         final Double amount = OfbizAmountTransform.getAmount(args, "amount");
         final String locale = OfbizAmountTransform.getArg(args, "locale");
