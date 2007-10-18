@@ -37,12 +37,12 @@ public abstract class EntityConditionValue extends EntityConditionBase {
 
     public abstract ModelField getModelField(ModelEntity modelEntity);
 
-    public void addSqlValue(StringBuffer sql, ModelEntity modelEntity, List entityConditionParams, boolean includeTableNamePrefix,
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List entityConditionParams, boolean includeTableNamePrefix,
             DatasourceInfo datasourceinfo) {
         addSqlValue(sql, emptyMap, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
     }
 
-    public abstract void addSqlValue(StringBuffer sql, Map tableAliases, ModelEntity modelEntity, List entityConditionParams,
+    public abstract void addSqlValue(StringBuilder sql, Map tableAliases, ModelEntity modelEntity, List entityConditionParams,
             boolean includeTableNamePrefix, DatasourceInfo datasourceinfo);
 
     public abstract void validateSql(ModelEntity modelEntity) throws GenericModelException;
@@ -64,12 +64,12 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         throw new IllegalArgumentException("accept not implemented");
     }
 
-    public void toString(StringBuffer sb) {
+    public void toString(StringBuilder sb) {
         addSqlValue(sb, null, new ArrayList(), false, null);
     }
     
     public String toString() {
-        StringBuffer sql = new StringBuffer();
+        StringBuilder sql = new StringBuilder();
         toString(sql);
         return sql.toString();
     }

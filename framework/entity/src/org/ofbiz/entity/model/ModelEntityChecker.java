@@ -119,7 +119,7 @@ public class ModelEntityChecker {
                     if (reservedWords.contains(field.getColName().toUpperCase()))
                             warningList.add("[FieldNameRW] Column name " + field.getColName() + " of entity " + entity.getEntityName() + " is a reserved word.");
                     if (type == null) {
-                        StringBuffer warningMsg = new StringBuffer();
+                        StringBuilder warningMsg = new StringBuilder();
                         warningMsg.append("[FieldTypeNotFound] Field type " + field.getType() + " of entity " + entity.getEntityName() + " not found in field type definitions");
                         if (helperName == null) {
                             warningMsg.append(" (no helper definition found)");

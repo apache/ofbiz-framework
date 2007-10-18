@@ -68,7 +68,7 @@ public class SqlJdbcUtil {
 
     /** Makes the FROM clause and when necessary the JOIN clause(s) as well */
     public static String makeFromClause(ModelEntity modelEntity, DatasourceInfo datasourceInfo) throws GenericEntityException {
-        StringBuffer sql = new StringBuffer(" FROM ");
+        StringBuilder sql = new StringBuilder(" FROM ");
 
         if (modelEntity instanceof ModelViewEntity) {
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
@@ -95,9 +95,9 @@ public class SqlJdbcUtil {
                 // TODO: at view-link read time make sure they are ordered properly so that each
                 // left hand alias after the first view-link has already been linked before
 
-                StringBuffer openParens = null;
-                if (useParenthesis) openParens = new StringBuffer();
-                StringBuffer restOfStatement = new StringBuffer();
+                StringBuilder openParens = null;
+                if (useParenthesis) openParens = new StringBuilder();
+                StringBuilder restOfStatement = new StringBuilder();
 
                 for (int i = 0; i < modelViewEntity.getViewLinksSize(); i++) {
                     // don't put starting parenthesis
@@ -140,7 +140,7 @@ public class SqlJdbcUtil {
                     restOfStatement.append(viewLink.getRelEntityAlias());
                     restOfStatement.append(" ON ");
 
-                    StringBuffer condBuffer = new StringBuffer();
+                    StringBuilder condBuffer = new StringBuilder();
 
                     for (int j = 0; j < viewLink.getKeyMapsSize(); j++) {
                         ModelKeyMap keyMap = viewLink.getKeyMap(j);
@@ -233,7 +233,7 @@ public class SqlJdbcUtil {
             return "";
         }
 
-        StringBuffer returnString = new StringBuffer("");
+        StringBuilder returnString = new StringBuilder("");
         Iterator iter = modelFields.iterator();
         while (iter.hasNext()) {
             Object item = iter.next();
@@ -267,7 +267,7 @@ public class SqlJdbcUtil {
     }
 
     public static String makeWhereClause(ModelEntity modelEntity, List modelFields, Map fields, String operator, String joinStyle) throws GenericEntityException {
-        StringBuffer whereString = new StringBuffer("");
+        StringBuilder whereString = new StringBuilder("");
 
         if (modelFields != null && modelFields.size() > 0) {
             whereString.append(makeWhereStringFromFields(modelFields, fields, "AND"));
@@ -294,7 +294,7 @@ public class SqlJdbcUtil {
 
     public static String makeViewWhereClause(ModelEntity modelEntity, String joinStyle) throws GenericEntityException {
         if (modelEntity instanceof ModelViewEntity) {
-            StringBuffer whereString = new StringBuffer();
+            StringBuilder whereString = new StringBuilder();
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
 
             if ("ansi".equals(joinStyle) || "ansi-no-parenthesis".equals(joinStyle)) {
@@ -364,7 +364,7 @@ public class SqlJdbcUtil {
     }
 
     public static String makeOrderByClause(ModelEntity modelEntity, List orderBy, boolean includeTablenamePrefix, DatasourceInfo datasourceInfo) throws GenericModelException {
-        StringBuffer sql = new StringBuffer("");
+        StringBuilder sql = new StringBuilder("");
         //String fieldPrefix = includeTablenamePrefix ? (modelEntity.getTableName(datasourceInfo) + ".") : "";
 
         if (orderBy != null && orderBy.size() > 0) {
@@ -379,7 +379,7 @@ public class SqlJdbcUtil {
 
     public static String makeViewTable(ModelEntity modelEntity, DatasourceInfo datasourceInfo) throws GenericEntityException {
         if (modelEntity instanceof ModelViewEntity) {
-            StringBuffer sql = new StringBuffer("(SELECT ");
+            StringBuilder sql = new StringBuilder("(SELECT ");
             Iterator fieldsIter = modelEntity.getFieldsIterator();
             if (fieldsIter.hasNext()) {
                 ModelField curField = (ModelField) fieldsIter.next();
@@ -515,7 +515,7 @@ public class SqlJdbcUtil {
                         //Reader valueReader = rs.getCharacterStream(ind);
                         if (valueReader != null) {
                             char[] inCharBuffer = new char[CHAR_BUFFER_SIZE];
-                            StringBuffer strBuf = new StringBuffer();
+                            StringBuilder strBuf = new StringBuilder();
                             int charsRead = 0;
                             try {
                                 while ((charsRead = valueReader.read(inCharBuffer, 0, CHAR_BUFFER_SIZE)) > 0) {
@@ -822,7 +822,7 @@ public class SqlJdbcUtil {
         return val.intValue();
     }
 
-    public static void addValueSingle(StringBuffer buffer, ModelField field, Object value, List params) {
+    public static void addValueSingle(StringBuilder buffer, ModelField field, Object value, List params) {
         if (field != null) {
             buffer.append('?');
         } else {
@@ -831,7 +831,7 @@ public class SqlJdbcUtil {
         if (field != null && params != null) params.add(new EntityConditionParam(field, value));
     }
 
-    public static void addValue(StringBuffer buffer, ModelField field, Object value, List params) {
+    public static void addValue(StringBuilder buffer, ModelField field, Object value, List params) {
         if (value instanceof Collection) {
             buffer.append("( ");
             Iterator it = ((Collection) value).iterator();

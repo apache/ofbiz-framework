@@ -83,7 +83,7 @@ public class EntityComparisonOperator extends EntityOperator {
         visitor.accept(rhs);
     }
 
-    public void addSqlValue(StringBuffer sql, ModelEntity entity, List entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity entity, List entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         //Debug.logInfo("EntityComparisonOperator.addSqlValue field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
         
         // if this is an IN operator and the rhs Object isEmpty, add "FALSE" instead of the normal SQL
@@ -112,12 +112,12 @@ public class EntityComparisonOperator extends EntityOperator {
         makeRHSWhereString(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
-    protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuffer sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+    protected void makeRHSWhereString(ModelEntity entity, List entityConditionParams, StringBuilder sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
         sql.append(' ').append(getCode()).append(' ');
         makeRHSWhereStringValue(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
-    protected void makeRHSWhereStringValue(ModelEntity entity, List entityConditionParams, StringBuffer sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
+    protected void makeRHSWhereStringValue(ModelEntity entity, List entityConditionParams, StringBuilder sql, ModelField field, Object rhs, DatasourceInfo datasourceInfo) {
         if (rhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) rhs;
             ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);

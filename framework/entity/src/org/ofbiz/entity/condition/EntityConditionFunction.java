@@ -86,7 +86,7 @@ public abstract class EntityConditionFunction extends EntityCondition {
     }
 
     public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(codeString).append('(');
         sb.append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
         sb.append(')');

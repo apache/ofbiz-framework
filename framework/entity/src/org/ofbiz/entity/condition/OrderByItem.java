@@ -149,12 +149,12 @@ public class OrderByItem implements Comparator {
     }
 
     public String makeOrderByString(ModelEntity modelEntity, boolean includeTablenamePrefix, DatasourceInfo datasourceInfo) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         makeOrderByString(sb, modelEntity, includeTablenamePrefix, datasourceInfo);
         return sb.toString();
     }
 
-    public void makeOrderByString(StringBuffer sb, ModelEntity modelEntity, boolean includeTablenamePrefix, DatasourceInfo datasourceInfo) {
+    public void makeOrderByString(StringBuilder sb, ModelEntity modelEntity, boolean includeTablenamePrefix, DatasourceInfo datasourceInfo) {
         getValue().addSqlValue(sb, modelEntity, null, includeTablenamePrefix, datasourceInfo);
         sb.append(descending ? " DESC" : " ASC");
     }
@@ -167,7 +167,7 @@ public class OrderByItem implements Comparator {
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(getValue());
         sb.append(descending ? " DESC" : " ASC");
         return sb.toString();

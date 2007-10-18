@@ -721,7 +721,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
             return fieldValue;
         }
 
-        StringBuffer keyBuffer = new StringBuffer();
+        StringBuilder keyBuffer = new StringBuilder();
         // start with the Entity Name
         keyBuffer.append(modelEntityToUse.getEntityName());
         // next add the Field Name
@@ -1021,7 +1021,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
                 String valueStr = this.getString(name);
     
                 if (valueStr != null) {
-                    StringBuffer value = new StringBuffer(valueStr);
+                    StringBuilder value = new StringBuilder(valueStr);
                     boolean needsCdata = false;
                     
                     // check each character, if line-feed or carriage-return is found set needsCdata to true; also look for invalid characters
@@ -1181,7 +1181,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
      *@return String corresponding to this entity
      */
     public String toString() {
-        StringBuffer theString = new StringBuffer();
+        StringBuilder theString = new StringBuilder();
         theString.append("[GenericEntity:");
         theString.append(getEntityName());
         theString.append(']');
@@ -1214,7 +1214,7 @@ public class GenericEntity extends Observable implements Map, LocalizedMap, Seri
      *@return String corresponding to this entity
      */
     public String toStringInsecure() {
-        StringBuffer theString = new StringBuffer();
+        StringBuilder theString = new StringBuilder();
         theString.append("[GenericEntity:");
         theString.append(getEntityName());
         theString.append(']');

@@ -129,7 +129,7 @@ public class EntityClause {
     }
 
     public String toString() {
-        StringBuffer outputBuffer = new StringBuffer();
+        StringBuilder outputBuffer = new StringBuilder();
 
         outputBuffer.append("[firstEntity," + (firstEntity == null ? "null" : firstEntity) + "]");
         outputBuffer.append("[secondEntity," + (secondEntity == null ? "null" : secondEntity) + "]");

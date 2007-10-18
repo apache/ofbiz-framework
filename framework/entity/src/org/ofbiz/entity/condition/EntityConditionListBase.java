@@ -72,7 +72,7 @@ public abstract class EntityConditionListBase extends EntityCondition {
 
     public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
-        StringBuffer sql = new StringBuffer();
+        StringBuilder sql = new StringBuilder();
         operator.addSqlValue(sql, modelEntity, entityConditionParams, conditionList, datasourceInfo);
         return sql.toString();
     }

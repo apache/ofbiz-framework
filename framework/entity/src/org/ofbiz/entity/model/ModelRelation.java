@@ -205,7 +205,7 @@ public class ModelRelation extends ModelChild {
         if (keyMaps.size() < 1)
             return "";
 
-        StringBuffer returnString = new StringBuffer( keyMaps.size() * 10 );
+        StringBuilder returnString = new StringBuilder( keyMaps.size() * 10 );
         int i=0;
         while (true) {
             ModelKeyMap kmap = (ModelKeyMap) keyMaps.get(i);
@@ -227,7 +227,7 @@ public class ModelRelation extends ModelChild {
         if (keyMaps.size() < 1)
             return "";
 
-        StringBuffer returnString = new StringBuffer( keyMaps.size() * 10 );
+        StringBuilder returnString = new StringBuilder( keyMaps.size() * 10 );
         int i=0;
         while (true) {
             ModelKeyMap kmap = (ModelKeyMap) keyMaps.get(i);

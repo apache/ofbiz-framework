@@ -285,7 +285,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public String colNameString(List flds, String separator, String afterLast, boolean alias) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -398,8 +398,8 @@ public class ModelViewEntity extends ModelEntity {
 
             if (alias.isComplexAlias()) {
                 // if this is a complex alias, make a complex column name...
-                StringBuffer colNameBuffer = new StringBuffer();
-                StringBuffer fieldTypeBuffer = new StringBuffer();
+                StringBuilder colNameBuffer = new StringBuilder();
+                StringBuilder fieldTypeBuffer = new StringBuilder();
                 alias.makeAliasColName(colNameBuffer, fieldTypeBuffer, this, modelReader);
                 field.colName = colNameBuffer.toString();
                 field.type = fieldTypeBuffer.toString();
@@ -605,7 +605,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
                 
                 if (UtilValidate.isNotEmpty(prefix)) {
-                    StringBuffer newAliasBuffer = new StringBuffer(prefix);
+                    StringBuilder newAliasBuffer = new StringBuilder(prefix);
                     //make sure the first letter is uppercase to delineate the field name
                     newAliasBuffer.append(Character.toUpperCase(aliasName.charAt(0)));
                     newAliasBuffer.append(aliasName.substring(1));
@@ -802,7 +802,7 @@ public class ModelViewEntity extends ModelEntity {
             return complexAliasMember != null;
         }
         
-        public void makeAliasColName(StringBuffer colNameBuffer, StringBuffer fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
+        public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             if (complexAliasMember != null) {
                 complexAliasMember.makeAliasColName(colNameBuffer, fieldTypeBuffer, modelViewEntity, modelReader);
             }
@@ -850,7 +850,7 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public static interface ComplexAliasMember extends Serializable {
-        public void makeAliasColName(StringBuffer colNameBuffer, StringBuffer fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader);
+        public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader);
     }
     
     public static class ComplexAlias implements ComplexAliasMember {
@@ -881,7 +881,7 @@ public class ModelViewEntity extends ModelEntity {
             this.complexAliasMembers.add(complexAliasMember);
         }
         
-        public void makeAliasColName(StringBuffer colNameBuffer, StringBuffer fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
+        public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             if (complexAliasMembers.size() == 0) {
                 return;
             } else if (complexAliasMembers.size() == 1) {
@@ -927,7 +927,7 @@ public class ModelViewEntity extends ModelEntity {
         /**
          * Make the alias as follows: function(coalesce(entityAlias.field, defaultValue))
          */
-        public void makeAliasColName(StringBuffer colNameBuffer, StringBuffer fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
+        public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             ModelEntity modelEntity = modelViewEntity.getAliasedEntity(entityAlias, modelReader);
             ModelField modelField = modelViewEntity.getAliasedField(modelEntity, field, modelReader);
             

@@ -146,7 +146,7 @@ public class EntityExpr extends EntityCondition {
 
     public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
-        StringBuffer sql = new StringBuffer();
+        StringBuilder sql = new StringBuilder();
         operator.addSqlValue(sql, modelEntity, entityConditionParams, true, lhs, rhs, datasourceInfo);
         return sql.toString();
     }
@@ -163,7 +163,7 @@ public class EntityExpr extends EntityCondition {
         }
     }
 
-    protected void addValue(StringBuffer buffer, ModelField field, Object value, List params) {
+    protected void addValue(StringBuilder buffer, ModelField field, Object value, List params) {
         if (rhs instanceof EntityFunction.UPPER) {
             if (value instanceof String) {
                 value = ((String) value).toUpperCase();

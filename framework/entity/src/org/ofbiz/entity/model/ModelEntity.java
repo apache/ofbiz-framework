@@ -743,7 +743,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String nameString(List flds, String separator, String afterLast) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -765,7 +765,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String typeNameString(List flds) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -836,7 +836,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String fieldsStringList(List flds, String eachString, String separator, boolean appendIndex, boolean onlyNonPK) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -866,7 +866,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String colNameString(List flds, String separator, String afterLast, boolean alias) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -898,7 +898,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String classNameString(List flds, String separator, String afterLast) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -920,7 +920,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String finderQueryString(List flds) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -945,7 +945,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String httpArgList(List flds) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -975,7 +975,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String httpArgListFromClass(List flds) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -1011,7 +1011,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String httpArgListFromClass(List flds, String entityNameSuffix) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -1049,7 +1049,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String httpRelationArgList(List flds, ModelRelation relation) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -1113,7 +1113,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String typeNameStringRelatedNoMapped(List flds, ModelRelation relation) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
@@ -1143,7 +1143,7 @@ public class ModelEntity extends ModelInfo implements Comparable, Serializable {
     }
 
     public String typeNameStringRelatedAndMain(List flds, ModelRelation relation) {
-        StringBuffer returnString = new StringBuffer();
+        StringBuilder returnString = new StringBuilder();
 
         if (flds.size() < 1) {
             return "";
