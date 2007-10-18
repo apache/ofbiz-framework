@@ -999,7 +999,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
     public static Map pullEntityValues(GenericDelegator delegator, String entityName, Map context) {
-        GenericValue entOut = delegator.makeValue(entityName, null);
+        GenericValue entOut = delegator.makeValue(entityName);
         entOut.setPKFields(context);
         entOut.setNonPKFields(context);
         return (Map) entOut;
@@ -1184,7 +1184,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             return content;
         }
         GenericDelegator delegator = view.getDelegator();
-        content = delegator.makeValue("Content", null);
+        content = delegator.makeValue("Content");
         content.setPKFields(view);
         content.setNonPKFields(view);
         String dataResourceId = null;
@@ -1235,7 +1235,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         GenericValue content = (GenericValue)trailNode.get("value");
         String contentId = (String)trailNode.get("contentId");
         if (contentAssoc == null && content != null && (content.getEntityName().indexOf("Assoc") >= 0)) {
-            contentAssoc = delegator.makeValue("ContentAssoc", null);
+            contentAssoc = delegator.makeValue("ContentAssoc");
             try {
                 // TODO: locale needs to be gotten correctly
                 SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", content, contentAssoc, new ArrayList(), Locale.getDefault());

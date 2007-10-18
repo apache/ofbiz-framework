@@ -96,7 +96,7 @@ public class PromoServices {
             EntityListIterator eli = delegator.findListIteratorByCondition("ProductStorePromoAndAppl", cond, null, null);
             GenericValue productStorePromoAndAppl = null;
             while ((productStorePromoAndAppl = (GenericValue) eli.next()) != null) {
-                GenericValue productStorePromo = delegator.makeValue("ProductStorePromoAppl", null);
+                GenericValue productStorePromo = delegator.makeValue("ProductStorePromoAppl");
                 productStorePromo.setAllFields(productStorePromoAndAppl, true, null, null);
                 productStorePromo.remove();
             }

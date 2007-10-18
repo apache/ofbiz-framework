@@ -356,7 +356,7 @@ public class ContactMechServices {
                         context.get("allowSolicitation"), "extension", context.get("extension"))));
         }
 
-        GenericValue newAddr = delegator.makeValue("PostalAddress", null);
+        GenericValue newAddr = delegator.makeValue("PostalAddress");
 
         newAddr.set("contactMechId", newCmId);
         newAddr.set("toName", context.get("toName"));
@@ -1066,7 +1066,7 @@ public class ContactMechServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 if(UtilValidate.isEmpty(emailAddVerifications)) {
-                    GenericValue emailAddressVerification = delegator.makeValue("EmailAddressVerification", null);
+                    GenericValue emailAddressVerification = delegator.makeValue("EmailAddressVerification");
                     emailAddressVerification.set("emailAddress", emailAddress);
                     emailAddressVerification.set("verifyHash", verifyHash);
                     emailAddressVerification.set("expireDate", expireDate);

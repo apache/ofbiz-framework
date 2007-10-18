@@ -861,7 +861,7 @@ public class PaymentGatewayServices {
 
         // create the PaymentGatewayResponse
         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-        GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse", null);
+        GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse");
         pgResponse.set("paymentGatewayResponseId", responseId);
         pgResponse.set("paymentServiceTypeEnumId", RELEASE_SERVICE_TYPE);
         pgResponse.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
@@ -885,7 +885,7 @@ public class PaymentGatewayServices {
         if (messages != null && messages.size() > 0) {
             Iterator i = messages.iterator();
             while (i.hasNext()) {
-                GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
+                GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                 String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
                 String message = (String) i.next();
                 respMsg.set("paymentGatewayRespMsgId", respMsgId);
@@ -1368,7 +1368,7 @@ public class PaymentGatewayServices {
                     GenericValue productStore = order.getRelatedOne("ProductStore");
                     if (productStore.getString("manualAuthIsCapture") == null || (! productStore.getString("manualAuthIsCapture").equalsIgnoreCase("Y"))) {        
                         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-                        GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse", null);
+                        GenericValue pgResponse = delegator.makeValue("PaymentGatewayResponse");
                         pgResponse.set("paymentGatewayResponseId", responseId);
                         pgResponse.set("paymentServiceTypeEnumId", CAPTURE_SERVICE_TYPE);
                         pgResponse.set("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
@@ -1614,7 +1614,7 @@ public class PaymentGatewayServices {
         Map result = (Map) context.get("serviceResultMap");
 
         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-        GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+        GenericValue response = delegator.makeValue("PaymentGatewayResponse");
         String message = ServiceUtil.getErrorMessage(result);
         if (message.length() > 255) {
             message = message.substring(0, 255);
@@ -1714,7 +1714,7 @@ public class PaymentGatewayServices {
 
             // create the PaymentGatewayResponse
             String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-            GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+            GenericValue response = delegator.makeValue("PaymentGatewayResponse");
             response.set("paymentGatewayResponseId", responseId);
             response.set("paymentServiceTypeEnumId", authType);
             response.set("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"));
@@ -1749,7 +1749,7 @@ public class PaymentGatewayServices {
             if (messages != null && messages.size() > 0) {
                 Iterator i = messages.iterator();
                 while (i.hasNext()) {
-                    GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
+                    GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                     String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
                     String message = (String) i.next();
                     respMsg.set("paymentGatewayRespMsgId", respMsgId);
@@ -2015,7 +2015,7 @@ public class PaymentGatewayServices {
         if (!"EXT_BILLACT".equals(paymentMethodTypeId)) {
             // create the PaymentGatewayResponse record
             String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-            GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+            GenericValue response = delegator.makeValue("PaymentGatewayResponse");
             response.set("paymentGatewayResponseId", responseId);
             response.set("paymentServiceTypeEnumId", serviceType);
             response.set("orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"));
@@ -2046,7 +2046,7 @@ public class PaymentGatewayServices {
             if (messages != null && messages.size() > 0) {
                 Iterator i = messages.iterator();
                 while (i.hasNext()) {
-                    GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
+                    GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                     String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
                     String message = (String) i.next();
                     respMsg.set("paymentGatewayRespMsgId", respMsgId);
@@ -2262,7 +2262,7 @@ public class PaymentGatewayServices {
 
         // create the PaymentGatewayResponse record
         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-        GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+        GenericValue response = delegator.makeValue("PaymentGatewayResponse");
         response.set("paymentGatewayResponseId", responseId);
         response.set("paymentServiceTypeEnumId", REFUND_SERVICE_TYPE);
         response.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
@@ -2288,7 +2288,7 @@ public class PaymentGatewayServices {
         if (messages != null && messages.size() > 0) {
             Iterator i = messages.iterator();
             while (i.hasNext()) {
-                GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg", null);
+                GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                 String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
                 String message = (String) i.next();
                 respMsg.set("paymentGatewayRespMsgId", respMsgId);
@@ -2692,7 +2692,7 @@ public class PaymentGatewayServices {
         }
 
         if (paymentMethodTypeId.equals("CREDIT_CARD")) {
-            GenericValue creditCard = delegator.makeValue("CreditCard", null);
+            GenericValue creditCard = delegator.makeValue("CreditCard");
             creditCard.setAllFields(context, true, null, null);
             if (creditCard.get("firstNameOnCard") == null || creditCard.get("lastNameOnCard") == null || creditCard.get("cardType") == null || creditCard.get("cardNumber") == null) {
                 return ServiceUtil.returnError("Credit card is missing required fields.");
@@ -2704,7 +2704,7 @@ public class PaymentGatewayServices {
             requestContext.put("creditCard", creditCard);
             requestContext.put("cardSecurityCode", context.get("cardSecurityCode"));
 
-            GenericValue billingAddress = delegator.makeValue("PostalAddress", null);
+            GenericValue billingAddress = delegator.makeValue("PostalAddress");
             billingAddress.setAllFields(context, true, null, null);
             if (billingAddress.get("address1") == null || billingAddress.get("city") == null || billingAddress.get("postalCode") == null) {
                 return ServiceUtil.returnError("Credit card billing address is missing required fields.");
@@ -2712,7 +2712,7 @@ public class PaymentGatewayServices {
             requestContext.put("billingAddress", billingAddress);
 
             /* This is not needed any more, using names on CC as a kludge instead of these kludge names until we get a firstName/lastName on the shipping PostalAddress
-            GenericValue contactPerson = delegator.makeValue("Person", null);
+            GenericValue contactPerson = delegator.makeValue("Person");
             contactPerson.setAllFields(context, true, null, null);
             if (contactPerson.get("firstName") == null || contactPerson.get("lastName") == null) {
                 return ServiceUtil.returnError("Contact person is missing required fields.");
@@ -2720,7 +2720,7 @@ public class PaymentGatewayServices {
             requestContext.put("contactPerson", contactPerson);
             */
 
-            GenericValue billToEmail = delegator.makeValue("ContactMech", null);
+            GenericValue billToEmail = delegator.makeValue("ContactMech");
             billToEmail.set("infoString", context.get("infoString"));
             if (billToEmail.get("infoString") == null) {
                 return ServiceUtil.returnError("Email address field cannot be empty.");

@@ -1018,7 +1018,7 @@ public class PriceServices {
                     priceInfoDescription.append(productPriceAction.getString("productPriceActionTypeId"));
                     priceInfoDescription.append("]");
 
-                    GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo", null);
+                    GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo");
 
                     orderItemPriceInfo.set("productPriceRuleId", productPriceAction.get("productPriceRuleId"));
                     orderItemPriceInfo.set("productPriceActionSeqId", productPriceAction.get("productPriceActionSeqId"));
@@ -1319,7 +1319,7 @@ public class PriceServices {
                     priceInfoDescription.append("" + productSupplier.getDouble("minimumOrderQuantity").doubleValue());
                     priceInfoDescription.append(", lastPrice: " + productSupplier.getDouble("lastPrice").doubleValue());
                     priceInfoDescription.append("]");
-                    GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo", null);
+                    GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo");
                     //orderItemPriceInfo.set("productPriceRuleId", productPriceAction.get("productPriceRuleId"));
                     //orderItemPriceInfo.set("productPriceActionSeqId", productPriceAction.get("productPriceActionSeqId"));
                     //orderItemPriceInfo.set("modifyAmount", new Double(modifyAmount));

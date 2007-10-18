@@ -61,7 +61,7 @@ cachedPK = currentEntityMap.get(currentEntityName);
 // Build a key from param or attribute values.
 Map paramMap = UtilHttp.getParameterMap(request);
 //Debug.logInfo("paramMap:" + paramMap, null);
-GenericValue v = delegator.makeValue(currentEntityName, null);
+GenericValue v = delegator.makeValue(currentEntityName);
 passedPK = v.getPrimaryKey();
 keyColl = passedPK.getAllKeys();
 keyIt = keyColl.iterator();

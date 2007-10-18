@@ -464,7 +464,7 @@ public class WorkEffortSearch {
 
                 try {
 
-                    GenericValue workEffortSearchResult = delegator.makeValue("WorkEffortSearchResult", null);
+                    GenericValue workEffortSearchResult = delegator.makeValue("WorkEffortSearchResult");
                     String workEffortSearchResultId = delegator.getNextSeqId("WorkEffortSearchResult");
 
                     workEffortSearchResult.set("workEffortSearchResultId", workEffortSearchResultId);

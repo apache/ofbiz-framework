@@ -372,7 +372,7 @@ public class OrderServices {
                         if (selFixedAssetProduct != null && selFixedAssetProduct.size() > 0) {
                             Iterator firstOne = selFixedAssetProduct.iterator();
                             if(firstOne.hasNext())        {
-                                GenericValue fixedAssetProduct = delegator.makeValue("FixedAssetProduct", null);
+                                GenericValue fixedAssetProduct = delegator.makeValue("FixedAssetProduct");
                                 fixedAssetProduct = (GenericValue) firstOne.next();
                                 workEffort.set("fixedAssetId",fixedAssetProduct.get("fixedAssetId"));
                                 workEffort.set("quantityToProduce",orderItem.get("quantity")); // have quantity easy available later...
@@ -629,7 +629,7 @@ public class OrderServices {
             while (we.hasNext()) {
                 // create the entity maps required.
                 GenericValue workEffort = (GenericValue) we.next();
-                GenericValue workOrderItemFulfillment = delegator.makeValue("WorkOrderItemFulfillment", null);
+                GenericValue workOrderItemFulfillment = delegator.makeValue("WorkOrderItemFulfillment");
                 // find fixed asset supplied on the workeffort map
                 GenericValue fixedAsset = null;
                 Debug.logInfo("find the fixedAsset",module);
@@ -651,7 +651,7 @@ public class OrderServices {
                     Debug.logInfo("TechData calendar does not exist yet so create for fixedAsset: " + fixedAsset.get("fixedAssetId") ,module);
                 }
                 if(techDataCalendar == null ) {
-                    techDataCalendar = delegator.makeValue("TechDataCalendar", null);
+                    techDataCalendar = delegator.makeValue("TechDataCalendar");
                     Debug.logInfo("create techdata calendar because it does not exist",module);
                     String calendarId = delegator.getNextSeqId("TechDataCalendar");
                     techDataCalendar.set("calendarId", calendarId);
@@ -690,7 +690,7 @@ public class OrderServices {
                         Debug.logInfo(" techData excday record not found so creating........", module);
                     }
                     if (techDataCalendarExcDay == null)    {
-                        techDataCalendarExcDay = delegator.makeValue("TechDataCalendarExcDay", null);
+                        techDataCalendarExcDay = delegator.makeValue("TechDataCalendarExcDay");
                         techDataCalendarExcDay.set("calendarId", fixedAsset.get("calendarId"));
                         techDataCalendarExcDay.set("exceptionDateStartTime", exceptionDateStartTime);
                         techDataCalendarExcDay.set("usedCapacity",new Double(00.00));  // initialise to zero
@@ -1013,7 +1013,7 @@ public class OrderServices {
        // if a workEffortId is passed, then prepare a OrderHeaderWorkEffort value
        String workEffortId = (String) context.get("workEffortId");
        if (UtilValidate.isNotEmpty(workEffortId)) {
-           GenericValue orderHeaderWorkEffort = delegator.makeValue("OrderHeaderWorkEffort", null);
+           GenericValue orderHeaderWorkEffort = delegator.makeValue("OrderHeaderWorkEffort");
            orderHeaderWorkEffort.set("orderId", orderId);
            orderHeaderWorkEffort.set("workEffortId", workEffortId);
            toBeStored.add(orderHeaderWorkEffort);
@@ -1999,7 +1999,7 @@ public class OrderServices {
             orderHeader.set("statusId", statusId);
 
             // now create a status change
-            GenericValue orderStatus = delegator.makeValue("OrderStatus", null);
+            GenericValue orderStatus = delegator.makeValue("OrderStatus");
             orderStatus.put("orderStatusId", delegator.getNextSeqId("OrderStatus"));
             orderStatus.put("statusId", statusId);
             orderStatus.put("orderId", orderId);

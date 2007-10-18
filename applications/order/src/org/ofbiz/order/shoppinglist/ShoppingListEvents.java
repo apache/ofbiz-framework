@@ -510,7 +510,7 @@ public class ShoppingListEvents {
             int count = 0;
             while (i.hasNext()) {
                 String responseId = (String) i.next();
-                GenericValue listResp = delegator.makeValue("ShoppingListItemSurvey", null);
+                GenericValue listResp = delegator.makeValue("ShoppingListItemSurvey");
                 listResp.set("shoppingListId", item.getString("shoppingListId"));
                 listResp.set("shoppingListItemSeqId", item.getString("shoppingListItemSeqId"));
                 listResp.set("surveyResponseId", responseId);

@@ -154,7 +154,7 @@ public class DimensionServices {
             }
             boolean newValue = (dateValue == null);
             if (newValue) {
-                dateValue = delegator.makeValue("DateDimension", null);
+                dateValue = delegator.makeValue("DateDimension");
                 dateValue.set("dimensionId", delegator.getNextSeqId("DateDimension"));
                 dateValue.set("dateValue", currentDate);
             }

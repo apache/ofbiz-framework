@@ -311,7 +311,7 @@ public class DataEvents {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         Map paramMap = UtilHttp.getParameterMap(request);
         String dataResourceId = (String)paramMap.get("dataResourceId");
-        GenericValue dataResource = delegator.makeValue("DataResource", null);
+        GenericValue dataResource = delegator.makeValue("DataResource");
         dataResource.setPKFields(paramMap);
         dataResource.setNonPKFields(paramMap);
         Map serviceInMap = new HashMap(dataResource); 

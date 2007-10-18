@@ -79,7 +79,7 @@ public class PrimaryKeyFinder implements Serializable {
         // assemble the field map
         Map entityContext = new HashMap();
         if (autoFieldMapBool) {
-            GenericValue tempVal = delegator.makeValue(entityName, null);
+            GenericValue tempVal = delegator.makeValue(entityName);
 
             // try a map called "parameters", try it first so values from here are overriden by values in the main context
             Object parametersObj = context.get("parameters");

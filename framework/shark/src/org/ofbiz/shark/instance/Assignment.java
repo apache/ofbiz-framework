@@ -59,7 +59,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
     public Assignment(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.assignment = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfAssignment, null);
+        this.assignment = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfAssignment);
         Debug.log("******* New assignment created", module);
     }
 

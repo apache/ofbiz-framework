@@ -1085,7 +1085,7 @@ public class GiftCertificateServices {
         GenericDelegator delegator = dctx.getDelegator();
 
         // create the fulfillment record
-        GenericValue gcFulFill = delegator.makeValue("GiftCardFulfillment", null);
+        GenericValue gcFulFill = delegator.makeValue("GiftCardFulfillment");
         gcFulFill.set("fulfillmentId", delegator.getNextSeqId("GiftCardFulfillment"));
         gcFulFill.set("typeEnumId", context.get("typeEnumId"));
         gcFulFill.set("merchantId", context.get("merchantId"));

@@ -66,7 +66,7 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
     public Process(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.process = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfProcess, null);
+        this.process = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfProcess);
     }
 
     public static Process getInstance(EntityPersistentMgr mgr, GenericValue process) {

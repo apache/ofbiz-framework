@@ -899,7 +899,7 @@ public class PartyServices {
         GenericValue roleType = null;
 
         try {
-            roleType = delegator.makeValue("RoleType", null);
+            roleType = delegator.makeValue("RoleType");
             roleType.setPKFields(context);
             roleType.setNonPKFields(context);
             roleType = delegator.create(roleType);
@@ -1523,7 +1523,7 @@ public class PartyServices {
                 if (map.length != 2 && map.length != 3) {
                     return ServiceUtil.returnError("Invalid format for CSV (key,value,sequence)");
                 } else {
-                    GenericValue addrMap = delegator.makeValue("AddressMatchMap", null);
+                    GenericValue addrMap = delegator.makeValue("AddressMatchMap");
                     addrMap.put("mapKey", map[0].trim().toUpperCase());
                     addrMap.put("mapValue", map[1].trim().toUpperCase());
                     int seq = i + 1;

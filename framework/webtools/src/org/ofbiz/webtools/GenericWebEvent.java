@@ -113,7 +113,7 @@ public class GenericWebEvent {
             return "error";
         }
 
-        GenericValue findByEntity = delegator.makeValue(entityName, null);
+        GenericValue findByEntity = delegator.makeValue(entityName);
 
         // get the primary key parameters...
         String errMsgPk = "";

@@ -112,7 +112,7 @@ public class ZipSalesServices {
                 } catch (DataFileException e) {
                     Debug.logError(e, module);
                 }
-                GenericValue newValue = delegator.makeValue("ZipSalesTaxLookup", null);
+                GenericValue newValue = delegator.makeValue("ZipSalesTaxLookup");
                 // PK fields
                 newValue.set("zipCode", entry.getString("zipCode").trim());
                 newValue.set("stateCode", entry.get("stateCode") != null ? entry.getString("stateCode").trim() : "_NA_");
@@ -182,7 +182,7 @@ public class ZipSalesServices {
                     Debug.logError(e, module);
                 }
                 if (entry.get("stateCode") != null && entry.getString("stateCode").length() > 0) {
-                    GenericValue newValue = delegator.makeValue("ZipSalesRuleLookup", null);
+                    GenericValue newValue = delegator.makeValue("ZipSalesRuleLookup");
                     // PK fields
                     newValue.set("stateCode", entry.get("stateCode") != null ? entry.getString("stateCode").trim() : "_NA_");
                     newValue.set("city", entry.get("city") != null ? entry.getString("city").trim() : "_NA_");

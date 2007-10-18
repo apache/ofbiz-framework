@@ -1176,7 +1176,7 @@ public class OrderReturnServices {
 
         // Create the PaymentGatewayResponse record
         String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-        GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+        GenericValue response = delegator.makeValue("PaymentGatewayResponse");
         response.set("paymentGatewayResponseId", responseId);
         response.set("paymentServiceTypeEnumId", "PRDS_PAY_REFUND");
         response.set("orderPaymentPreferenceId", paymentPref.get("orderPaymentPreferenceId"));
@@ -1650,7 +1650,7 @@ public class OrderReturnServices {
                 }
 
                 // create the replacement adjustment
-                GenericValue adj = delegator.makeValue("OrderAdjustment", null);
+                GenericValue adj = delegator.makeValue("OrderAdjustment");
                 adj.set("orderAdjustmentTypeId", "REPLACE_ADJUSTMENT");
                 adj.set("amount", new Double(orderPriceTotal * -1));
                 adj.set("comments", "Replacement Item Return #" + returnId);

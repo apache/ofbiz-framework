@@ -653,7 +653,7 @@ public class RecurrenceRule {
         String freqStr = freq[frequency];
 
         try {
-            GenericValue value = delegator.makeValue("RecurrenceRule", null);
+            GenericValue value = delegator.makeValue("RecurrenceRule");
 
             value.set("frequency", freqStr);
             value.set("intervalNumber", new Long(interval));

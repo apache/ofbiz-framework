@@ -194,7 +194,7 @@ public class ContentManagementServices {
         if (Debug.infoOn()) Debug.logInfo("in persist... textData(0):" + context.get("textData"), null);
         
 
-        GenericValue content = delegator.makeValue("Content", null);
+        GenericValue content = delegator.makeValue("Content");
         content.setPKFields(context);
         content.setNonPKFields(context);
         String contentId = (String) content.get("contentId");
@@ -203,7 +203,7 @@ public class ContentManagementServices {
         String origDataResourceId = (String) content.get("dataResourceId");
         if (Debug.infoOn()) Debug.logInfo("in persist... contentId(0):" + contentId, null);
 
-        GenericValue dataResource = delegator.makeValue("DataResource", null);
+        GenericValue dataResource = delegator.makeValue("DataResource");
         dataResource.setPKFields(context);
         dataResource.setNonPKFields(context);
         dataResource.setAllFields(context, false, "dr", null);
@@ -212,7 +212,7 @@ public class ContentManagementServices {
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         if (Debug.infoOn()) Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, null);
 
-        GenericValue contentAssoc = delegator.makeValue("ContentAssoc", null);
+        GenericValue contentAssoc = delegator.makeValue("ContentAssoc");
         String contentAssocTypeId = (String)context.get("contentAssocTypeId");
         if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
             context.put("caContentAssocTypeId", contentAssocTypeId);
@@ -222,7 +222,7 @@ public class ContentManagementServices {
         contentAssoc.put("contentId", context.get("caContentId"));
         context.putAll(contentAssoc);
 
-        GenericValue electronicText = delegator.makeValue("ElectronicText", null);
+        GenericValue electronicText = delegator.makeValue("ElectronicText");
         electronicText.setPKFields(context);
         electronicText.setNonPKFields(context);
         
@@ -581,13 +581,13 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       LocalDispatcher dispatcher = dctx.getDispatcher();
       Map result = new HashMap();
       Map newDrContext = new HashMap();
-      GenericValue dataResource = delegator.makeValue("DataResource", null);
+      GenericValue dataResource = delegator.makeValue("DataResource");
       dataResource.setPKFields(context);
       dataResource.setNonPKFields(context);
       dataResource.setAllFields(context, false, "dr", null);
       context.putAll(dataResource);
       
-      GenericValue electronicText = delegator.makeValue("ElectronicText", null);
+      GenericValue electronicText = delegator.makeValue("ElectronicText");
       electronicText.setPKFields(context);
       electronicText.setNonPKFields(context);
       String textData = (String)electronicText.get("textData");
@@ -1480,7 +1480,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         }
         
         if (contentRole == null) {
-            contentRole = delegator.makeValue("ContentRole", null);
+            contentRole = delegator.makeValue("ContentRole");
             contentRole.set("contentId", webPubPt);
             contentRole.set("partyId", partyId);
             contentRole.set("roleTypeId", roleTypeId);

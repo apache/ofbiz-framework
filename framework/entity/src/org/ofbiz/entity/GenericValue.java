@@ -448,7 +448,7 @@ public class GenericValue extends GenericEntity implements Reusable {
                 if (count == 0) {
                     if (insertDummy) {
                         // create the new related value (dummy)
-                        GenericValue newValue = this.getDelegator().makeValue(relation.getRelEntityName(), null);
+                        GenericValue newValue = this.getDelegator().makeValue(relation.getRelEntityName());
                         Iterator keyMapIter = relation.getKeyMapsIterator();
                         boolean allFieldsSet = true;
                         while (keyMapIter.hasNext()) {

@@ -222,7 +222,7 @@ public class ProductSearchEvents {
                while ((searchResultView = (GenericValue) eli.next()) != null) {
                    String productId = searchResultView.getString("mainProductId");
 
-                   GenericValue pcm=delegator.makeValue("ProductCategoryMember", null);
+                   GenericValue pcm=delegator.makeValue("ProductCategoryMember");
                    pcm.set("productCategoryId", productCategoryId);
                    pcm.set("productId", productId);
                    pcm.set("fromDate", fromDate);
@@ -310,7 +310,7 @@ public class ProductSearchEvents {
                 int numAdded = 0;
                 while ((searchResultView = (GenericValue) eli.next()) != null) {
                     String productId = searchResultView.getString("mainProductId");
-                    GenericValue pfa=delegator.makeValue("ProductFeatureAppl", null);
+                    GenericValue pfa=delegator.makeValue("ProductFeatureAppl");
                     pfa.set("productId", productId);
                     pfa.set("productFeatureId", productFeatureId);
                     pfa.set("fromDate", fromDate);

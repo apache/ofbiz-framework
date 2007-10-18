@@ -121,7 +121,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 }
 
                 if (currentContent == null) {
-                    currentContent = delegator.makeValue("Content", null);
+                    currentContent = delegator.makeValue("Content");
                     currentContent.put("ownerContentId", templateCtx.get("ownerContentId"));
                 }
                     //Debug.logInfo("in CheckPermission, currentContent(1):" + currentContent.get("contentId"),"");

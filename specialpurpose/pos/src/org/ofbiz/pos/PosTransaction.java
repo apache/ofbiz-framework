@@ -120,7 +120,7 @@ public class PosTransaction implements Serializable {
 
         // setup the TX log
         String txLogId = session.getDelegator().getNextSeqId("PosTerminalLog");
-        txLog = session.getDelegator().makeValue("PosTerminalLog", null);
+        txLog = session.getDelegator().makeValue("PosTerminalLog");
         txLog.set("posTerminalLogId", txLogId);
         txLog.set("posTerminalId", terminalId);
         txLog.set("transactionId", transactionId);
@@ -391,7 +391,7 @@ public class PosTransaction implements Serializable {
     }
 
     public void addDiscount(String productId, double discount, boolean percent) {
-        GenericValue adjustment = session.getDelegator().makeValue("OrderAdjustment", null);
+        GenericValue adjustment = session.getDelegator().makeValue("OrderAdjustment");
         adjustment.set("orderAdjustmentTypeId", "DISCOUNT_ADJUSTMENT");
         if (percent) {
             adjustment.set("sourcePercentage", new Double(discount * 100));

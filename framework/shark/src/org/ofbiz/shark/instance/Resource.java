@@ -59,7 +59,7 @@ public class Resource extends InstanceEntityObject implements ResourcePersistenc
     public Resource(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.resource = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfResource, null);
+        this.resource = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfResource);
     }
 
     public static Resource getInstance(EntityPersistentMgr mgr, GenericValue resource) {

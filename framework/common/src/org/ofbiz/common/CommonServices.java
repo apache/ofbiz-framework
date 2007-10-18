@@ -238,7 +238,7 @@ public class CommonServices {
         GenericDelegator delegator = dctx.getDelegator();
 
         // attempt to create a DataSource entity w/ an invalid dataSourceTypeId
-        GenericValue newEntity = delegator.makeValue("DataSource", null);
+        GenericValue newEntity = delegator.makeValue("DataSource");
         newEntity.set("dataSourceId", "ENTITY_FAIL_TEST");
         newEntity.set("dataSourceTypeId", "ENTITY_FAIL_TEST");
         newEntity.set("description", "Entity Fail Test - Delete me if I am here");
@@ -289,7 +289,7 @@ public class CommonServices {
         int count = ((Integer) context.get("count")).intValue();
 
         for (int i = 0; i < count; i++ ) {
-            GenericValue v = delegator.makeValue("Visit", null);
+            GenericValue v = delegator.makeValue("Visit");
             String seqId = delegator.getNextSeqId("Visit");
 
             v.set("visitId", seqId);
@@ -482,7 +482,7 @@ public class CommonServices {
 
         long count = -1;
         try {
-            count = delegator.findCountByAnd("SequenceValueItem", null);
+            count = delegator.findCountByAnd("SequenceValueItem");
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
             return ServiceUtil.returnError("Unable to connect to datasource!");

@@ -268,7 +268,7 @@ public class EntityDataServices {
     }
 
     private static GenericValue makeGenericValue(GenericDelegator delegator, String entityName, String[] header, String[] line) {
-        GenericValue newValue = delegator.makeValue(entityName, null);
+        GenericValue newValue = delegator.makeValue(entityName);
         for (int i = 0; i < header.length; i++) {
             String name = header[i].trim();
 

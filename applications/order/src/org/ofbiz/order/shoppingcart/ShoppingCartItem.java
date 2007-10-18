@@ -1902,7 +1902,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         String featureType = additionalProductFeatureAndAppl.getString("productFeatureTypeId");
         this.additionalProductFeatureAndAppls.put(featureType, additionalProductFeatureAndAppl);
 
-        GenericValue orderAdjustment = this.getDelegator().makeValue("OrderAdjustment", null);
+        GenericValue orderAdjustment = this.getDelegator().makeValue("OrderAdjustment");
         orderAdjustment.set("orderAdjustmentTypeId", "ADDITIONAL_FEATURE");
         orderAdjustment.set("description", additionalProductFeatureAndAppl.get("description"));
         orderAdjustment.set("productFeatureId", additionalProductFeatureAndAppl.get("productFeatureId"));

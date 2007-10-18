@@ -53,7 +53,7 @@ public class EntityApplicationMap implements ApplicationMap {
     public EntityApplicationMap(GenericDelegator delegator) {
         this.isNew = true;
         this.delegator = delegator;
-        this.application = delegator.makeValue("SharkApplicationMap", null);
+        this.application = delegator.makeValue("SharkApplicationMap");
     }
 
     public static EntityApplicationMap getInstance(GenericValue application) {

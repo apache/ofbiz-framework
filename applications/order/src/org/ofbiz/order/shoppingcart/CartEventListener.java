@@ -79,7 +79,7 @@ public class CartEventListener implements HttpSessionListener {
             int seqId = 1;
             while (cartItems.hasNext()) {
                 ShoppingCartItem cartItem = (ShoppingCartItem) cartItems.next();
-                GenericValue cartAbandonedLine = delegator.makeValue("CartAbandonedLine", null);
+                GenericValue cartAbandonedLine = delegator.makeValue("CartAbandonedLine");
 
                 cartAbandonedLine.set("visitId", visit.get("visitId"));
                 cartAbandonedLine.set("cartAbandonedLineSeqId", (new Integer(seqId)).toString());

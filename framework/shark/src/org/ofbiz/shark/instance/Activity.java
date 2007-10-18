@@ -60,7 +60,7 @@ public class Activity extends InstanceEntityObject implements ActivityPersistenc
     public Activity(EntityPersistentMgr mgr, GenericDelegator delegator) {
         super(mgr, delegator);
         this.newValue = true;
-        this.activity = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfActivity, null);
+        this.activity = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfActivity);
     }
 
     public static Activity getInstance(EntityPersistentMgr mgr, GenericValue activity) {

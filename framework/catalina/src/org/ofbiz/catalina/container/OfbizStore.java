@@ -67,7 +67,7 @@ public class OfbizStore extends StoreBase implements Store {
     public int getSize() throws IOException {
         long count = 0;
         try {
-            count = delegator.findCountByAnd(entityName, null);
+            count = delegator.findCountByAnd(entityName);
         } catch (GenericEntityException e) {
             throw new IOException(e.getMessage());
         }
@@ -150,7 +150,7 @@ public class OfbizStore extends StoreBase implements Store {
 
     public void clear() throws IOException {
         try {
-            delegator.removeByAnd(entityName, null);
+            delegator.removeAll(entityName);
         } catch (GenericEntityException e) {
             throw new IOException(e.getMessage());
         }
@@ -167,7 +167,7 @@ public class OfbizStore extends StoreBase implements Store {
         byte[] obs = bos.toByteArray();
         int size = obs.length;
 
-        GenericValue sessionValue = delegator.makeValue(entityName, null);
+        GenericValue sessionValue = delegator.makeValue(entityName);
         sessionValue.setBytes("sessionInfo", obs);
         sessionValue.set("sessionId", session.getId());
         sessionValue.set("sessionSize", new Long(size));

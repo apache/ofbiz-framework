@@ -370,7 +370,7 @@ public class LayoutEvents {
             newContent.create();
             Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
 
-            GenericValue newContentAssoc = delegator.makeValue("ContentAssoc", null);
+            GenericValue newContentAssoc = delegator.makeValue("ContentAssoc");
             newContentAssoc.set("contentId", newId);
             newContentAssoc.set("contentIdTo", "TEMPLATE_MASTER");
             newContentAssoc.set("contentAssocTypeId", "SUB_CONTENT");
@@ -447,7 +447,7 @@ public class LayoutEvents {
          
         }
 
-        GenericValue view = delegator.makeValue("ContentDataResourceView", null);
+        GenericValue view = delegator.makeValue("ContentDataResourceView");
         view.set("contentId", newId);
         view.set("drDataResourceId", newDataResourceId);
         Debug.logVerbose("in cloneLayout, view:" + view, "");
@@ -619,7 +619,7 @@ public class LayoutEvents {
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         } 
-        GenericValue v = delegator.makeValue(entityName, null);
+        GenericValue v = delegator.makeValue(entityName);
         GenericPK passedPK = v.getPrimaryKey();
         Collection keyColl = passedPK.getAllKeys();
         Iterator keyIt = keyColl.iterator();

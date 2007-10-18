@@ -955,7 +955,7 @@ public class ImportOrdersFromEbay {
     
             // create the PaymentGatewayResponse
             String responseId = delegator.getNextSeqId("PaymentGatewayResponse");
-            GenericValue response = delegator.makeValue("PaymentGatewayResponse", null);
+            GenericValue response = delegator.makeValue("PaymentGatewayResponse");
             response.set("paymentGatewayResponseId", responseId);
             response.set("paymentServiceTypeEnumId", "PRDS_PAY_EXTERNAL");
             response.set("orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"));
@@ -1178,7 +1178,7 @@ public class ImportOrdersFromEbay {
             geo = EntityUtil.getFirst(delegator.findByAnd("Geo", UtilMisc.toMap("geoCode", geoCode.toUpperCase(), "geoTypeId", "COUNTRY")));
             Debug.logInfo("Found a geo entity " + geo, module);
             if (UtilValidate.isEmpty(geo)) {
-                geo = delegator.makeValue("Geo", null);
+                geo = delegator.makeValue("Geo");
                 geo.set("geoId", geoCode + "_IMPORTED");
                 geo.set("geoTypeId", "COUNTRY");
                 geo.set("geoName", geoCode + "_IMPORTED");

@@ -67,7 +67,7 @@ public class ShipmentServices {
 
 
         // Create the basic entity.
-        GenericValue estimate = delegator.makeValue("ShipmentCostEstimate", null);
+        GenericValue estimate = delegator.makeValue("ShipmentCostEstimate");
 
         estimate.set("shipmentCostEstimateId", delegator.getNextSeqId("ShipmentCostEstimate"));
         estimate.set("shipmentMethodTypeId", productStoreShipMeth.getString("shipmentMethodTypeId"));
@@ -154,7 +154,7 @@ public class ShipmentServices {
                 if (min.doubleValue() <= max.doubleValue() || max.doubleValue() == 0) {
                     try {
                         String newSeqId = delegator.getNextSeqId("QuantityBreak");
-                        GenericValue weightBreak = delegator.makeValue("QuantityBreak", null);
+                        GenericValue weightBreak = delegator.makeValue("QuantityBreak");
                         weightBreak.set("quantityBreakId", newSeqId);
                         weightBreak.set("quantityBreakTypeId", "SHIP_" + breakType.toUpperCase());
                         weightBreak.set("fromQuantity", min);
@@ -259,7 +259,7 @@ public class ShipmentServices {
                 return ServiceUtil.returnError("Cannot get shipping address entity");
             }
         } else if ( shippingPostalCode != null) {
-            shipAddress = delegator.makeValue("PostalAddress", null);
+            shipAddress = delegator.makeValue("PostalAddress");
             shipAddress.set("countryGeoId", shippingCountryCode);
             shipAddress.set("postalCodeGeoId", shippingPostalCode);
         }
@@ -610,7 +610,7 @@ public class ShipmentServices {
             String orderInfoKey = orderId + "/" + shipGroupSeqId;
 
             // make the staging records
-            GenericValue stageShip = delegator.makeValue("OdbcShipmentOut", null);
+            GenericValue stageShip = delegator.makeValue("OdbcShipmentOut");
             stageShip.set("shipmentId", shipment.get("shipmentId"));
             stageShip.set("partyId", shipment.get("partyIdTo"));
             stageShip.set("carrierPartyId", routeSeg.get("carrierPartyId"));
@@ -633,7 +633,7 @@ public class ShipmentServices {
             Iterator p = packages.iterator();
             while (p.hasNext()) {
                 GenericValue shipmentPkg = (GenericValue) p.next();
-                GenericValue stagePkg = delegator.makeValue("OdbcPackageOut", null);               
+                GenericValue stagePkg = delegator.makeValue("OdbcPackageOut");               
                 stagePkg.set("shipmentId", shipmentPkg.get("shipmentId"));
                 stagePkg.set("shipmentPackageSeqId", shipmentPkg.get("shipmentPackageSeqId"));
                 stagePkg.set("orderId", shipment.get("primaryOrderId"));
