@@ -60,7 +60,7 @@ public class JettyContainer implements Container {
     public static final String module = JettyContainer.class.getName();
 
     protected String configFile = null;
-    private Map servers = new HashMap();
+    private Map<String, Server> servers = new HashMap<String, Server>();
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
@@ -89,24 +89,18 @@ public class JettyContainer implements Container {
         ContainerConfig.Container jc = ContainerConfig.getContainer("jetty-container", configFile);
 
         // create the servers
-        Iterator sci = jc.properties.values().iterator();
-        while (sci.hasNext()) {
-            ContainerConfig.Container.Property prop = (ContainerConfig.Container.Property) sci.next();
+        for (ContainerConfig.Container.Property prop: jc.properties.values()) {
             servers.put(prop.name, createServer(prop));
         }
 
         // load the applications
-        Collection componentConfigs = ComponentConfig.getAllComponents();
+        Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
         if (componentConfigs != null) {
-            Iterator components = componentConfigs.iterator();
-            while (components.hasNext()) {
-                ComponentConfig component = (ComponentConfig) components.next();
-                Iterator appInfos = component.getWebappInfos().iterator();
-                while (appInfos.hasNext()) {
-                    ComponentConfig.WebappInfo appInfo = (ComponentConfig.WebappInfo) appInfos.next();
-                    List virtualHosts = appInfo.getVirtualHosts();
-                    Map initParameters = appInfo.getInitParameters();
-                    Server server = (Server) servers.get(appInfo.server);
+            for (ComponentConfig component: componentConfigs) {
+                for (ComponentConfig.WebappInfo appInfo: component.getWebappInfos()) {
+                    List<String> virtualHosts = appInfo.getVirtualHosts();
+                    Map<String, String> initParameters = appInfo.getInitParameters();
+                    Server server = servers.get(appInfo.server);
                     if (server == null) {
                         Debug.logWarning("Server with name [" + appInfo.server + "] not found; not mounting [" + appInfo.name + "]", module);
                     } else {
@@ -127,16 +121,13 @@ public class JettyContainer implements Container {
                             ctx.getWebApplicationHandler().setSessionManager(sm);
                             
                             // set the virtual hosts
-                            Iterator vh = virtualHosts.iterator();
-                            while (vh.hasNext()) {
-                                ctx.addVirtualHost((String)vh.next());
+                            for (String vh: virtualHosts) {
+                                ctx.addVirtualHost(vh);
                             }
 
                             // set the init parameters
-                            Iterator ip = initParameters.keySet().iterator();
-                            while (ip.hasNext()) {
-                                String paramName = (String) ip.next();
-                                ctx.setInitParameter(paramName, (String) initParameters.get(paramName));
+                            for (Map.Entry<String, String> entry: initParameters.entrySet()) {
+                                ctx.setInitParameter(entry.getKey(), entry.getValue());
                             }
 
                         } catch (IOException e) {
@@ -152,11 +143,7 @@ public class JettyContainer implements Container {
         Server server = new Server();
 
         // configure the listeners/loggers
-        Iterator properties = serverConfig.properties.values().iterator();
-        while (properties.hasNext()) {
-            ContainerConfig.Container.Property props =
-                    (ContainerConfig.Container.Property) properties.next();
-
+        for (ContainerConfig.Container.Property props: serverConfig.properties.values()) {
             if ("listener".equals(props.value)) {
                 if ("default".equals(props.getProperty("type").value)) {
                     SocketListener listener = new SocketListener();
@@ -402,9 +389,7 @@ public class JettyContainer implements Container {
         // start the server(s)
         this.initJetty();
         if (servers != null) {
-            Iterator i = servers.values().iterator();
-            while (i.hasNext()) {
-                Server server = (Server) i.next();
+            for (Server server: servers.values()) {
                 try {
                     server.start();
                 } catch (MultiException e) {
@@ -421,9 +406,7 @@ public class JettyContainer implements Container {
      */
     public void stop() throws ContainerException {
         if (servers != null) {
-            Iterator i = servers.values().iterator();
-            while(i.hasNext()) {
-                Server server = (Server) i.next();
+            for (Server server: servers.values()) {
                 try {
                     server.stop();
                 } catch (InterruptedException e) {
