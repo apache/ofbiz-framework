@@ -53,10 +53,7 @@ public class EntityDataAssert {
         Debug.logVerbose("Loading XML Resource: " + dataUrl.toExternalForm(), module);
 
         try {
-            List checkValueList = delegator.readXmlDocument(dataUrl);
-            Iterator checkValueIter = checkValueList.iterator();
-            while (checkValueIter.hasNext()) {
-                GenericValue checkValue = (GenericValue) checkValueIter.next();
+            for (GenericValue checkValue: delegator.readXmlDocument(dataUrl)) {
                 checkSingleValue(checkValue, delegator, errorMessages);
                 rowsChecked++;
             }
