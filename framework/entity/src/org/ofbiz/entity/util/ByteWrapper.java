@@ -23,7 +23,7 @@ import java.io.Serializable;
 /**
  * A very simple class to wrap a byte array for persistence.
  */
-public class ByteWrapper implements Serializable {
+public class ByteWrapper implements Comparable, Serializable {
     protected byte[] bytes;
 
     protected ByteWrapper() {}
@@ -42,5 +42,30 @@ public class ByteWrapper implements Serializable {
 
     public int getLength() {
         return bytes.length;
+    }
+
+    public int compareTo(Object obj) {
+        ByteWrapper other = (ByteWrapper) obj;
+        int r = bytes.length - other.bytes.length;
+        if (r != 0) return r;
+        int i = 0;
+        for (i = 0; i < bytes.length; i++) {
+            r = bytes[i] - other.bytes[i];
+            if (r != 0) return r;
+        }
+        return 0;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof ByteWrapper) return compareTo((ByteWrapper) obj) == 0;
+        return false;
+    }
+
+    public int hashCode() {
+        int hashCode = 0;
+        for (byte b: bytes) {
+            hashCode ^= b;
+        }
+        return hashCode;
     }
 }
