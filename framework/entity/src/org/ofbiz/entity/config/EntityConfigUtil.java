@@ -50,14 +50,14 @@ public class EntityConfigUtil {
     protected static String txFactoryTxMgrJndiServerName;
     protected static String connFactoryClass;
 
-    protected static Map resourceLoaderInfos = FastMap.newInstance();
-    protected static Map delegatorInfos = FastMap.newInstance();
-    protected static Map entityModelReaderInfos = FastMap.newInstance();
-    protected static Map entityGroupReaderInfos = FastMap.newInstance();
-    protected static Map entityEcaReaderInfos = FastMap.newInstance();
-    protected static Map entityDataReaderInfos = FastMap.newInstance();
-    protected static Map fieldTypeInfos = FastMap.newInstance();
-    protected static Map datasourceInfos = FastMap.newInstance();
+    protected static Map<String, ResourceLoaderInfo> resourceLoaderInfos = FastMap.newInstance();
+    protected static Map<String, DelegatorInfo> delegatorInfos = FastMap.newInstance();
+    protected static Map<String, EntityModelReaderInfo> entityModelReaderInfos = FastMap.newInstance();
+    protected static Map<String, EntityGroupReaderInfo> entityGroupReaderInfos = FastMap.newInstance();
+    protected static Map<String, EntityEcaReaderInfo> entityEcaReaderInfos = FastMap.newInstance();
+    protected static Map<String, EntityDataReaderInfo> entityDataReaderInfos = FastMap.newInstance();
+    protected static Map<String, FieldTypeInfo> fieldTypeInfos = FastMap.newInstance();
+    protected static Map<String, DatasourceInfo> datasourceInfos = FastMap.newInstance();
 
     protected static Element getXmlRootElement() throws GenericEntityConfException {
         try {
@@ -128,77 +128,51 @@ public class EntityConfigUtil {
         connFactoryClass = connectionFactoryElement.getAttribute("class");
 
         // not load all of the maps...
-        List childElements = null;
-        Iterator elementIter = null;
 
         // resource-loader - resourceLoaderInfos
-        childElements = UtilXml.childElementList(rootElement, "resource-loader");
-        elementIter = childElements.iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(rootElement, "resource-loader")) {
             ResourceLoaderInfo resourceLoaderInfo = new ResourceLoaderInfo(curElement);
             resourceLoaderInfos.put(resourceLoaderInfo.name, resourceLoaderInfo);
         }
 
         // delegator - delegatorInfos
-        childElements = UtilXml.childElementList(rootElement, "delegator");
-        elementIter = childElements.iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(rootElement, "delegator")) {
             DelegatorInfo delegatorInfo = new DelegatorInfo(curElement);
             delegatorInfos.put(delegatorInfo.name, delegatorInfo);
         }
 
         // entity-model-reader - entityModelReaderInfos
-        childElements = UtilXml.childElementList(rootElement, "entity-model-reader");
-        elementIter = childElements.iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(rootElement, "entity-model-reader")) {
             EntityModelReaderInfo entityModelReaderInfo = new EntityModelReaderInfo(curElement);
             entityModelReaderInfos.put(entityModelReaderInfo.name, entityModelReaderInfo);
         }
 
         // entity-group-reader - entityGroupReaderInfos
-        childElements = UtilXml.childElementList(rootElement, "entity-group-reader");
-        elementIter = childElements.iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(rootElement, "entity-group-reader")) {
             EntityGroupReaderInfo entityGroupReaderInfo = new EntityGroupReaderInfo(curElement);
             entityGroupReaderInfos.put(entityGroupReaderInfo.name, entityGroupReaderInfo);
         }
 
         // entity-eca-reader - entityEcaReaderInfos
-        childElements = UtilXml.childElementList(rootElement, "entity-eca-reader");
-        elementIter = childElements.iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(rootElement, "entity-eca-reader")) {
             EntityEcaReaderInfo entityEcaReaderInfo = new EntityEcaReaderInfo(curElement);
             entityEcaReaderInfos.put(entityEcaReaderInfo.name, entityEcaReaderInfo);
         }
 
         // entity-data-reader - entityDataReaderInfos
-        childElements = UtilXml.childElementList(rootElement, "entity-data-reader");
-        elementIter = childElements.iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(rootElement, "entity-data-reader")) {
             EntityDataReaderInfo entityDataReaderInfo = new EntityDataReaderInfo(curElement);
             entityDataReaderInfos.put(entityDataReaderInfo.name, entityDataReaderInfo);
         }
 
         // field-type - fieldTypeInfos
-        childElements = UtilXml.childElementList(rootElement, "field-type");
-        elementIter = childElements.iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(rootElement, "field-type")) {
             FieldTypeInfo fieldTypeInfo = new FieldTypeInfo(curElement);
             fieldTypeInfos.put(fieldTypeInfo.name, fieldTypeInfo);
         }
 
         // datasource - datasourceInfos
-        childElements = UtilXml.childElementList(rootElement, "datasource");
-        elementIter = childElements.iterator();
-        while (elementIter.hasNext()) {
-            Element curElement = (Element) elementIter.next();
+        for (Element curElement: UtilXml.childElementList(rootElement, "datasource")) {
             DatasourceInfo datasourceInfo = new DatasourceInfo(curElement);
             datasourceInfos.put(datasourceInfo.name, datasourceInfo);
         }
@@ -229,38 +203,38 @@ public class EntityConfigUtil {
     }
 
     public static ResourceLoaderInfo getResourceLoaderInfo(String name) {
-        return (ResourceLoaderInfo) resourceLoaderInfos.get(name);
+        return resourceLoaderInfos.get(name);
     }
 
     public static DelegatorInfo getDelegatorInfo(String name) {
-        return (DelegatorInfo) delegatorInfos.get(name);
+        return delegatorInfos.get(name);
     }
 
     public static EntityModelReaderInfo getEntityModelReaderInfo(String name) {
-        return (EntityModelReaderInfo) entityModelReaderInfos.get(name);
+        return entityModelReaderInfos.get(name);
     }
 
     public static EntityGroupReaderInfo getEntityGroupReaderInfo(String name) {
-        return (EntityGroupReaderInfo) entityGroupReaderInfos.get(name);
+        return entityGroupReaderInfos.get(name);
     }
 
     public static EntityEcaReaderInfo getEntityEcaReaderInfo(String name) {
-        return (EntityEcaReaderInfo) entityEcaReaderInfos.get(name);
+        return entityEcaReaderInfos.get(name);
     }
 
     public static EntityDataReaderInfo getEntityDataReaderInfo(String name) {
-        return (EntityDataReaderInfo) entityDataReaderInfos.get(name);
+        return entityDataReaderInfos.get(name);
     }
 
     public static FieldTypeInfo getFieldTypeInfo(String name) {
-        return (FieldTypeInfo) fieldTypeInfos.get(name);
+        return fieldTypeInfos.get(name);
     }
 
     public static DatasourceInfo getDatasourceInfo(String name) {
-        return (DatasourceInfo) datasourceInfos.get(name);
+        return datasourceInfos.get(name);
     }
     
-    public static Map getDatasourceInfos() {
+    public static Map<String, DatasourceInfo> getDatasourceInfos() {
         return datasourceInfos;
     }
 }

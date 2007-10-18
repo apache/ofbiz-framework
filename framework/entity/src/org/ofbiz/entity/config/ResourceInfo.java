@@ -23,15 +23,17 @@ import java.util.List;
 import org.w3c.dom.Element;
 import org.ofbiz.base.util.UtilXml;
 
+import javolution.util.FastList;
+
 /**
  * Misc. utility method for dealing with the entityengine.xml file
  *
  */
 public abstract class ResourceInfo extends NamedInfo {
-    public List resourceElements;
+    public List<Element> resourceElements = FastList.newInstance();
 
     public ResourceInfo(Element element) {
         super(element);
-        resourceElements = UtilXml.childElementList(element, "resource");
+        resourceElements.addAll(UtilXml.childElementList(element, "resource"));
     }
 }
