@@ -20,12 +20,11 @@ package org.ofbiz.service.engine;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ParameterMode;
@@ -121,7 +120,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         int i = 0;
         
         call.setOperation(call.getOperationName().getLocalPart());
-        Vector vParams = new Vector();
+        List vParams = new ArrayList();
         Iterator iter = inModelParamList.iterator();
         while (iter.hasNext()) {
             ModelParam p = (ModelParam) iter.next();
@@ -160,7 +159,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
     }
         
     private Map getResponseParams(Message respMessage) {
-        Map mRet = new Hashtable();
+        Map mRet = new HashMap();
         try {
             SOAPEnvelope resEnv = respMessage.getSOAPEnvelope();
             List bodies = resEnv.getBodyElements();

@@ -24,7 +24,7 @@ import java.util.*;
 public class AuthorizeResponse {
 
     private String rawResp = null;
-    private Vector response = new Vector();
+    private List response = new ArrayList();
     private String respCode = "";
     private String reasonCode = "";
     private String reasonText = "";
@@ -153,19 +153,19 @@ public class AuthorizeResponse {
         return this.rawResp;
     }
 
-    private Vector splitResp(String r, String delim) {
+    private List splitResp(String r, String delim) {
         int s1=0, s2=-1;
-        Vector out = new Vector(40);
-        out.addElement("empty");
+        List out = new ArrayList(40);
+        out.add("empty");
         while(true){
             s2 = r.indexOf(delim, s1);
             if(s2 != -1){
-                out.addElement(r.substring(s1, s2));
+                out.add(r.substring(s1, s2));
             }else{
                 //the end part of the string (string not pattern terminated)
                 String _ = r.substring(s1);
                 if(_ != null && !_.equals("")){
-                    out.addElement(_);
+                    out.add(_);
                 }
                 break;
             }
