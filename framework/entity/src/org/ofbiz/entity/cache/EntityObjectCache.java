@@ -21,7 +21,7 @@ package org.ofbiz.entity.cache;
 
 import org.ofbiz.entity.condition.EntityCondition;
 
-public class EntityObjectCache extends AbstractEntityConditionCache {
+public class EntityObjectCache extends AbstractEntityConditionCache<String, Object> {
 
     public static final String module = EntityObjectCache.class.getName();
 

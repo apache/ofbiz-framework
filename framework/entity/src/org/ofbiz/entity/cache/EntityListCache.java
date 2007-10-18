@@ -22,10 +22,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 
-public class EntityListCache extends AbstractEntityConditionCache {
+public class EntityListCache extends AbstractEntityConditionCache<Object, List<GenericValue>> {
 
     public static final String module = EntityListCache.class.getName();
 
@@ -33,19 +34,19 @@ public class EntityListCache extends AbstractEntityConditionCache {
         super(delegatorName, "entity-list");
     }
 
-    public List get(String entityName, EntityCondition condition) {
+    public List<GenericValue> get(String entityName, EntityCondition condition) {
         return this.get(entityName, condition, null);
     }
 
-    public List get(String entityName, EntityCondition condition, List orderBy) {
-        Map conditionCache = getConditionCache(entityName, condition);
+    public List<GenericValue> get(String entityName, EntityCondition condition, List<String> orderBy) {
+        Map<Object, List<GenericValue>> conditionCache = getConditionCache(entityName, condition);
         if (conditionCache == null) return null;
         Object orderByKey = getOrderByKey(orderBy);
-        List valueList = (List) conditionCache.get(orderByKey);
+        List<GenericValue> valueList = conditionCache.get(orderByKey);
         if (valueList == null) {
             // the valueList was not found for the given ordering, so grab the first one and order it in memory
-            Iterator it = conditionCache.values().iterator();
-            if (it.hasNext()) valueList = (List) it.next();
+            Iterator<List<GenericValue>> it = conditionCache.values().iterator();
+            if (it.hasNext()) valueList = it.next();
             
             synchronized (conditionCache) {
                 if (valueList != null) {
@@ -57,19 +58,19 @@ public class EntityListCache extends AbstractEntityConditionCache {
         return valueList;
     }
 
-    public void put(String entityName, EntityCondition condition, List entities) {
+    public void put(String entityName, EntityCondition condition, List<GenericValue> entities) {
         this.put(entityName, condition, null, entities);
     }
 
-    public List put(String entityName, EntityCondition condition, List orderBy, List entities) {
-        return (List) super.put(entityName, getFrozenConditionKey(condition), getOrderByKey(orderBy), entities);
+    public List<GenericValue> put(String entityName, EntityCondition condition, List<String> orderBy, List<GenericValue> entities) {
+        return super.put(entityName, getFrozenConditionKey(condition), getOrderByKey(orderBy), entities);
     }
 
-    public List remove(String entityName, EntityCondition condition, List orderBy) {
-        return (List) super.remove(entityName, condition, getOrderByKey(orderBy));
+    public List<GenericValue> remove(String entityName, EntityCondition condition, List<String> orderBy) {
+        return super.remove(entityName, condition, getOrderByKey(orderBy));
     }
 
-    public static final Object getOrderByKey(List orderBy) {
+    public static final Object getOrderByKey(List<String> orderBy) {
         return orderBy != null ? (Object) orderBy : "{null}";
     }
 }

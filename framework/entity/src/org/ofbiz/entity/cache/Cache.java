@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntity;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.condition.EntityCondition;
 
@@ -53,11 +54,11 @@ public class Cache {
         entityListCache.remove(entityName);
     }
 
-    public GenericEntity get(GenericPK pk) {
+    public GenericValue get(GenericPK pk) {
         return entityCache.get(pk);
     }
 
-    public List get(String entityName, EntityCondition condition, List orderBy) {
+    public List<GenericValue> get(String entityName, EntityCondition condition, List<String> orderBy) {
         return entityListCache.get(entityName, condition, orderBy);
     }
 
@@ -65,7 +66,7 @@ public class Cache {
         return entityObjectCache.get(entityName, condition, name);
     }
 
-    public List put(String entityName, EntityCondition condition, List orderBy, List entities) {
+    public List<GenericValue> put(String entityName, EntityCondition condition, List<String> orderBy, List<GenericValue> entities) {
         return entityListCache.put(entityName, condition, orderBy, entities);
     }
 
@@ -73,8 +74,8 @@ public class Cache {
         return entityObjectCache.put(entityName, condition, name, value);
     }
 
-    public GenericEntity put(GenericEntity entity) {
-        GenericEntity oldEntity = entityCache.put(entity.getPrimaryKey(), entity);
+    public GenericValue put(GenericValue entity) {
+        GenericValue oldEntity = entityCache.put(entity.getPrimaryKey(), entity);
         if (entity.getModelEntity().getAutoClearCache()) {
             entityListCache.storeHook(entity);
             entityObjectCache.storeHook(entity);
@@ -82,8 +83,8 @@ public class Cache {
         return oldEntity;
     }
     
-    public GenericEntity put(GenericPK pk, GenericEntity entity) {
-        GenericEntity oldEntity = entityCache.put(pk, entity);
+    public GenericValue put(GenericPK pk, GenericValue entity) {
+        GenericValue oldEntity = entityCache.put(pk, entity);
         if (pk.getModelEntity().getAutoClearCache()) {
             entityListCache.storeHook(pk, entity);
             entityObjectCache.storeHook(pk, entity);
@@ -91,7 +92,7 @@ public class Cache {
         return oldEntity;
     }
 
-    public List remove(String entityName, EntityCondition condition, List orderBy) {
+    public List<GenericValue> remove(String entityName, EntityCondition condition, List<String> orderBy) {
         entityCache.remove(entityName, condition);
         entityObjectCache.remove(entityName, condition);
         return entityListCache.remove(entityName, condition, orderBy);
@@ -107,17 +108,17 @@ public class Cache {
         return entityObjectCache.remove(entityName, condition, name);
     }
 
-    public GenericEntity remove(GenericEntity entity) {
+    public GenericValue remove(GenericEntity entity) {
         if (Debug.verboseOn()) Debug.logVerbose("Cache remove GenericEntity: " + entity, module);
-        GenericEntity oldEntity = entityCache.remove(entity.getPrimaryKey());
+        GenericValue oldEntity = entityCache.remove(entity.getPrimaryKey());
         entityListCache.storeHook(entity, null);
         entityObjectCache.storeHook(entity, null);
         return oldEntity;
     }
 
-    public GenericEntity remove(GenericPK pk) {
+    public GenericValue remove(GenericPK pk) {
         if (Debug.verboseOn()) Debug.logVerbose("Cache remove GenericPK: " + pk, module);
-        GenericEntity oldEntity = entityCache.remove(pk);
+        GenericValue oldEntity = entityCache.remove(pk);
         entityListCache.storeHook(pk, null);
         entityObjectCache.storeHook(pk, null);
         return oldEntity;

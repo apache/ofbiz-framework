@@ -23,66 +23,66 @@ import java.util.Iterator;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.cache.CacheLine;
-import org.ofbiz.entity.GenericEntity;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.condition.EntityCondition;
 
-public class EntityCache extends AbstractCache {
+public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
     public static final String module = EntityCache.class.getName();
 
     public EntityCache(String delegatorName) {
         super(delegatorName, "entity");
     }
 
-    public GenericEntity get(GenericPK pk) {
-        UtilCache entityCache = getCache(pk.getEntityName());
+    public GenericValue get(GenericPK pk) {
+        UtilCache<GenericPK, GenericValue> entityCache = getCache(pk.getEntityName());
         if (entityCache == null) return null;
-        return (GenericEntity) entityCache.get(pk);
+        return entityCache.get(pk);
     }
 
-    public GenericEntity put(GenericEntity entity) {
+    public GenericValue put(GenericValue entity) {
         if (entity == null) return null;
         return put(entity.getPrimaryKey(), entity);
     }
 
-    public GenericEntity put(GenericPK pk, GenericEntity entity) {
+    public GenericValue put(GenericPK pk, GenericValue entity) {
         if (pk.getModelEntity().getNeverCache()) {
             Debug.logWarning("Tried to put a value of the " + pk.getEntityName() + " entity in the BY PRIMARY KEY cache but this entity has never-cache set to true, not caching.", module);
             return null;
         }
 
         if (entity == null) {
-            entity = GenericEntity.NULL_ENTITY;
+            entity = GenericValue.NULL_VALUE;
         } else {
             // before going into the cache, make this value immutable
             entity.setImmutable();
         }
-        UtilCache entityCache = getOrCreateCache(pk.getEntityName());
-        return (GenericEntity)entityCache.put(pk, entity);
+        UtilCache<GenericPK, GenericValue> entityCache = getOrCreateCache(pk.getEntityName());
+        return entityCache.put(pk, entity);
     }
 
     public void remove(String entityName, EntityCondition condition) {
-        UtilCache entityCache = getCache(entityName);
+        UtilCache<GenericPK, GenericValue> entityCache = getCache(entityName);
         if (entityCache == null) return;
-        Iterator it = entityCache.getCacheLineValues().iterator();
+        Iterator<? extends CacheLine<GenericValue>> it = entityCache.getCacheLineValues().iterator();
         while (it.hasNext()) {
-            CacheLine line = (CacheLine) it.next();
+            CacheLine<GenericValue> line = it.next();
             if (line.hasExpired()) continue;
-            GenericEntity entity = (GenericEntity) line.getValue();
+            GenericValue entity = line.getValue();
             if (entity == null) continue;
             if (condition.entityMatches(entity)) it.remove();
         }
     }
 
-    public GenericEntity remove(GenericEntity entity) {
+    public GenericValue remove(GenericValue entity) {
         return remove(entity.getPrimaryKey());
     }
 
-    public GenericEntity remove(GenericPK pk) {
-        UtilCache entityCache = getCache(pk.getEntityName());
+    public GenericValue remove(GenericPK pk) {
+        UtilCache<GenericPK, GenericValue> entityCache = getCache(pk.getEntityName());
         if (Debug.verboseOn()) Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], will remove from this cache: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), module);
         if (entityCache == null) return null;
-        GenericEntity retVal = (GenericEntity) entityCache.remove(pk);
+        GenericValue retVal = entityCache.remove(pk);
         if (Debug.verboseOn()) Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], found this in the cache: " + retVal, module);
         return retVal;
     }
