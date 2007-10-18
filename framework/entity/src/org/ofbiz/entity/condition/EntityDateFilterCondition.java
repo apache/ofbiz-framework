@@ -38,7 +38,7 @@ public class EntityDateFilterCondition extends EntityCondition {
         this.thruDateName = thruDateName;
     }
 
-    public String makeWhereString(ModelEntity modelEntity, List entityConditionParams, DatasourceInfo datasourceInfo) {
+    public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         EntityCondition condition = makeCondition();
         return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);
     }
@@ -48,7 +48,7 @@ public class EntityDateFilterCondition extends EntityCondition {
         condition.checkCondition(modelEntity);
     }
 
-    public boolean mapMatches(GenericDelegator delegator, Map map) {    
+    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {    
         EntityCondition condition = makeCondition();
         return condition.mapMatches(delegator, map);
     }

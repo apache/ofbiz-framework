@@ -32,7 +32,7 @@ import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
 public class OrderByList implements Comparator<GenericEntity> {
-    protected List orderByList = new ArrayList();
+    protected List<OrderByItem> orderByList = new ArrayList<OrderByItem>();
 
     public OrderByList() {
     }
@@ -41,20 +41,19 @@ public class OrderByList implements Comparator<GenericEntity> {
         addOrderBy(orderByList);
     }
 
-    public OrderByList(Collection orderByList) {
+    public OrderByList(Collection<String> orderByList) {
         addOrderBy(orderByList);
     }
-    
+
     public void addOrderBy(String... orderByList) {
         for (String orderByItem: orderByList) {
             addOrderBy(orderByItem);
         }
     }
 
-    public void addOrderBy(Collection orderByList) {
-        Iterator it = orderByList.iterator();
-        while (it.hasNext()) {
-            addOrderBy(OrderByItem.parse(it.next()));
+    public void addOrderBy(Collection<String> orderByList) {
+        for (String orderByItem: orderByList) {
+            addOrderBy(orderByItem);
         }
     }
 
@@ -75,8 +74,7 @@ public class OrderByList implements Comparator<GenericEntity> {
     }
 
     public void checkOrderBy(ModelEntity modelEntity) throws GenericModelException {
-        for (int i = 0; i < orderByList.size(); i++) {
-            OrderByItem orderByItem = (OrderByItem) orderByList.get(i);
+        for (OrderByItem orderByItem: orderByList) {
             orderByItem.checkOrderBy(modelEntity);
         }
     }
@@ -93,15 +91,14 @@ public class OrderByList implements Comparator<GenericEntity> {
         }
         for (int i = 0; i < orderByList.size(); i++) {
             if (i != 0) sb.append(", ");
-            OrderByItem orderByItem = (OrderByItem) orderByList.get(i);
+            OrderByItem orderByItem = orderByList.get(i);
             orderByItem.makeOrderByString(sb, modelEntity, includeTablenamePrefix, datasourceInfo);
         }
     }
 
     public int compare(GenericEntity entity1, GenericEntity entity2) {
         int result = 0;
-        for (int i = 0; i < orderByList.size() && result == 0; i++) {
-            OrderByItem orderByItem = (OrderByItem) orderByList.get(i);
+        for (OrderByItem orderByItem: orderByList) {
             result = orderByItem.compare(entity1, entity2);
         }
         return result;

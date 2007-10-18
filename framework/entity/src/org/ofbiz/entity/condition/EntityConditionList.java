@@ -25,18 +25,18 @@ import java.util.List;
  * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
  *
  */
-public class EntityConditionList extends EntityConditionListBase {
+public class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
     public static final String module = EntityConditionList.class.getName();
 
     protected EntityConditionList() {
         super();
     }
 
-    public EntityConditionList(EntityJoinOperator operator, EntityCondition... conditionList) {
+    public EntityConditionList(EntityJoinOperator operator, T... conditionList) {
         super(operator, conditionList);
     }
 
-    public EntityConditionList(List conditionList, EntityJoinOperator operator) {
+    public EntityConditionList(List<T> conditionList, EntityJoinOperator operator) {
         super(conditionList, operator);
     }
 
@@ -44,7 +44,7 @@ public class EntityConditionList extends EntityConditionListBase {
         return super.getConditionListSize();
     }
     
-    public Iterator getConditionIterator() {
+    public Iterator<T> getConditionIterator() {
         return super.getConditionIterator();
     }
     

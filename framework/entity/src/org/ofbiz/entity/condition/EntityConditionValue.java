@@ -19,7 +19,6 @@
 package org.ofbiz.entity.condition;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -38,12 +37,12 @@ public abstract class EntityConditionValue extends EntityConditionBase {
 
     public abstract ModelField getModelField(ModelEntity modelEntity);
 
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List entityConditionParams, boolean includeTableNamePrefix,
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix,
             DatasourceInfo datasourceinfo) {
-        addSqlValue(sql, Collections.emptyMap(), modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
+        addSqlValue(sql, emptyAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
     }
 
-    public abstract void addSqlValue(StringBuilder sql, Map tableAliases, ModelEntity modelEntity, List entityConditionParams,
+    public abstract void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams,
             boolean includeTableNamePrefix, DatasourceInfo datasourceinfo);
 
     public abstract void validateSql(ModelEntity modelEntity) throws GenericModelException;
@@ -55,7 +54,7 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         return getValue(entity.getDelegator(), entity);
     }
 
-    public abstract Object getValue(GenericDelegator delegator, Map map);
+    public abstract Object getValue(GenericDelegator delegator, Map<String, ? extends Object> map);
 
     public abstract EntityConditionValue freeze();
 
@@ -66,7 +65,7 @@ public abstract class EntityConditionValue extends EntityConditionBase {
     }
 
     public void toString(StringBuilder sb) {
-        addSqlValue(sb, null, new ArrayList(), false, null);
+        addSqlValue(sb, null, new ArrayList<EntityConditionParam>(), false, null);
     }
     
     public String toString() {

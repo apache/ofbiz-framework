@@ -34,7 +34,7 @@ import org.ofbiz.entity.model.ModelEntity;
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  *
  */
-public class EntityJoinOperator extends EntityOperator {
+public class EntityJoinOperator extends EntityOperator<Boolean> {
 
     protected boolean shortCircuitValue;
 
@@ -43,7 +43,7 @@ public class EntityJoinOperator extends EntityOperator {
         this.shortCircuitValue = shortCircuitValue;
     }
 
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         sql.append('(');
         sql.append(((EntityCondition) lhs).makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
         sql.append(' ');
@@ -57,12 +57,12 @@ public class EntityJoinOperator extends EntityOperator {
         sql.append(')');
     }
 
-    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List entityConditionParams, List conditionList, DatasourceInfo datasourceInfo) {
+    public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, List<? extends EntityCondition> conditionList, DatasourceInfo datasourceInfo) {
         if (conditionList != null && conditionList.size() > 0) {
             sql.append('(');
-            Iterator conditionIter = conditionList.iterator();
+            Iterator<? extends EntityCondition> conditionIter = conditionList.iterator();
             while (conditionIter.hasNext()) {
-                EntityCondition condition = (EntityCondition) conditionIter.next();
+                EntityCondition condition = conditionIter.next();
                 sql.append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
                 if (conditionIter.hasNext()) {
                     sql.append(' ');
@@ -82,19 +82,18 @@ public class EntityJoinOperator extends EntityOperator {
         return new EntityExpr(freeze(lhs), this, freeze(rhs));
     }
 
-    public EntityCondition freeze(List conditionList) {
-        List newList = new ArrayList(conditionList.size());
-        for (int i = 0; i < conditionList.size(); i++) {
-            EntityCondition condition = (EntityCondition) conditionList.get(i);
+    public EntityCondition freeze(List<? extends EntityCondition> conditionList) {
+        List<EntityCondition> newList = new ArrayList<EntityCondition>(conditionList.size());
+        for (EntityCondition condition: conditionList) {
             newList.add(condition.freeze());
         }
-        return new EntityConditionList(newList, this);
+        return new EntityConditionList<EntityCondition>(newList, this);
     }
 
-    public void visit(EntityConditionVisitor visitor, List conditionList) {
+    public void visit(EntityConditionVisitor visitor, List<? extends EntityCondition> conditionList) {
         if (conditionList != null && conditionList.size() > 0) {
-            for (int i = 0; i < conditionList.size(); i++) {
-                visitor.visit(conditionList.get(i));
+            for (EntityCondition condition: conditionList) {
+                visitor.visit(condition);
             }
         }
     }
@@ -108,7 +107,7 @@ public class EntityJoinOperator extends EntityOperator {
         return entityMatches(entity, (EntityCondition) lhs, (EntityCondition) rhs);
     }
 
-    public Object eval(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
+    public Boolean eval(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
         return entityMatches(entity, lhs, rhs) ? Boolean.TRUE : Boolean.FALSE;
     }
 
@@ -118,28 +117,27 @@ public class EntityJoinOperator extends EntityOperator {
         return !shortCircuitValue;
     }
 
-    public boolean entityMatches(GenericEntity entity, List conditionList) {
+    public boolean entityMatches(GenericEntity entity, List<? extends EntityCondition> conditionList) {
         return mapMatches(entity.getDelegator(), entity, conditionList);
     }
 
-    public Object eval(GenericDelegator delegator, Map map, Object lhs, Object rhs) {
+    public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         return castBoolean(mapMatches(delegator, map, lhs, rhs));
     }
 
-    public boolean mapMatches(GenericDelegator delegator, Map map, Object lhs, Object rhs) {
+    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         if (((EntityCondition) lhs).mapMatches(delegator, map)) return shortCircuitValue;
         if (((EntityCondition) rhs).mapMatches(delegator, map)) return shortCircuitValue;
         return !shortCircuitValue;
     }
 
-    public Object eval(GenericDelegator delegator, Map map, List conditionList) {
+    public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
         return castBoolean(mapMatches(delegator, map, conditionList));
     }
 
-    public boolean mapMatches(GenericDelegator delegator, Map map, List conditionList) {
+    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
         if (conditionList != null && conditionList.size() > 0) {
-            for (int i = 0; i < conditionList.size(); i++) {
-                EntityCondition condition = (EntityCondition) conditionList.get(i);
+            for (EntityCondition condition: conditionList) {
                 if (condition.mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
             }
         }
@@ -155,16 +153,11 @@ public class EntityJoinOperator extends EntityOperator {
         rhs.checkCondition(modelEntity);
     }
 
-    public void validateSql(ModelEntity modelEntity, List conditionList) throws GenericModelException {
+    public void validateSql(ModelEntity modelEntity, List<? extends EntityCondition> conditionList) throws GenericModelException {
         if (conditionList == null) {
             throw new GenericModelException("Condition list is null");
         }
-        for (int i = 0; i < conditionList.size(); i++) {
-            Object condObj = conditionList.get(i);
-            if (!(condObj instanceof EntityCondition)) {
-                throw new GenericModelException("Object is not a valid EntityCondition [" + condObj.getClass().getName() + "]");
-            }
-            EntityCondition condition = (EntityCondition) condObj;
+        for (EntityCondition condition: conditionList) {
             condition.checkCondition(modelEntity);
         }
     }

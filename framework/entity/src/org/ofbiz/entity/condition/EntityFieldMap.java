@@ -25,53 +25,49 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * Encapsulates simple expressions used for specifying queries
  *
  */
-public class EntityFieldMap extends EntityConditionListBase {
+public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
-    protected Map fieldMap;
+    protected Map<String, ? extends Object> fieldMap;
 
     protected EntityFieldMap() {
         super();
     }
 
     public static List<EntityExpr> makeConditionList(EntityComparisonOperator op, Object... keysValues) {
-        return makeConditionList(UtilMisc.toMap(keysValues), op);
+        return makeConditionList(EntityUtil.makeFields(keysValues), op);
     }
 
-    public static List makeConditionList(Map fieldMap, EntityComparisonOperator op) {
-        if (fieldMap == null) return new ArrayList();
-        List list = new ArrayList(fieldMap.size());
-        Iterator it = fieldMap.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            String field = (String)entry.getKey();
-            Object value = entry.getValue();
-            list.add(new EntityExpr(field, op, value));
+    public static List<EntityExpr> makeConditionList(Map<String, ? extends Object> fieldMap, EntityComparisonOperator op) {
+        if (fieldMap == null) return new ArrayList<EntityExpr>();
+        List<EntityExpr> list = new ArrayList<EntityExpr>(fieldMap.size());
+        for (Map.Entry<String, ? extends Object> entry: fieldMap.entrySet()) {
+            list.add(new EntityExpr(entry.getKey(), op, entry.getValue()));
         }
         return list;
     }
 
     public EntityFieldMap(EntityComparisonOperator compOp, EntityJoinOperator joinOp, Object... keysValues) {
-        this(UtilMisc.toMap(keysValues), compOp, joinOp);
+        this(EntityUtil.makeFields(keysValues), compOp, joinOp);
     }
 
-    public EntityFieldMap(Map fieldMap, EntityComparisonOperator compOp, EntityJoinOperator joinOp) {
+    public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityComparisonOperator compOp, EntityJoinOperator joinOp) {
         super(makeConditionList(fieldMap, compOp), joinOp);
         this.fieldMap = fieldMap;
-        if (this.fieldMap == null) this.fieldMap = new LinkedHashMap();
+        if (this.fieldMap == null) this.fieldMap = new LinkedHashMap<String, Object>();
         this.operator = joinOp;
     }
 
-    public EntityFieldMap(EntityJoinOperator joinOp, Object... keysValues) {
-        this(UtilMisc.toMap(keysValues), joinOp);
+    public EntityFieldMap(EntityJoinOperator operator, Object... keysValues) {
+        this(EntityOperator.EQUALS, operator, keysValues);
     }
 
-    public EntityFieldMap(Map fieldMap, EntityJoinOperator operator) {
+    public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityJoinOperator operator) {
         this(fieldMap, EntityOperator.EQUALS, operator);
     }
 
@@ -83,12 +79,12 @@ public class EntityFieldMap extends EntityConditionListBase {
         return this.fieldMap.containsKey(name);
     }
     
-    public Iterator getFieldKeyIterator() {
+    public Iterator<String> getFieldKeyIterator() {
         return Collections.unmodifiableSet(this.fieldMap.keySet()).iterator();
     }
     
-    public Iterator getFieldEntryIterator() {
-        return Collections.unmodifiableSet(this.fieldMap.entrySet()).iterator();
+    public Iterator<Map.Entry<String, Object>> getFieldEntryIterator() {
+        return Collections.unmodifiableMap(this.fieldMap).entrySet().iterator();
     }
     
     public void accept(EntityConditionVisitor visitor) {

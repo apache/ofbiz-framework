@@ -132,7 +132,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
             (this.value != null ? value.equals(otherFunc.value) : otherFunc.value == null));
     }
 
-    public void addSqlValue(StringBuilder sql, Map tableAliases, ModelEntity modelEntity, List entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceinfo) {
+    public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceinfo) {
         sql.append(codeString).append('(');
         if (nested != null) {
             nested.addSqlValue(sql, tableAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
@@ -167,7 +167,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         }
     }
 
-    public Object getValue(GenericDelegator delegator, Map map) {
+    public Object getValue(GenericDelegator delegator, Map<String, ? extends Object> map) {
         Object value = nested != null ? nested.getValue(delegator, map) : this.value;
         return value != null ? fetcher.getValue(value) : null;
     }
