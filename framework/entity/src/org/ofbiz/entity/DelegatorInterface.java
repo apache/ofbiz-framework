@@ -67,11 +67,15 @@ public interface DelegatorInterface {
 
     Collection getEntityFieldTypeNames(ModelEntity entity) throws GenericEntityException;
 
+    GenericValue makeValue(String entityName);
+
     GenericValue makeValue(String entityName, Map fields);
 
     GenericValue makeValueSingle(String entityName, Object singlePkValue);
 
     GenericValue makeValidValue(String entityName, Map fields);
+
+    GenericPK makePK(String entityName);
 
     GenericPK makePK(String entityName, Map fields);
 
@@ -210,6 +214,8 @@ public interface DelegatorInterface {
 
     int storeByCondition(String entityName, Map fieldsToSet, EntityCondition condition, boolean doCacheClear) throws GenericEntityException;
 
+    int removeAll(String entityName) throws GenericEntityException;
+
     int removeAll(List dummyPKs) throws GenericEntityException;
 
     int removeAll(List dummyPKs, boolean doCacheClear) throws GenericEntityException;
@@ -217,6 +223,8 @@ public interface DelegatorInterface {
     void clearAllCaches();
 
     void clearAllCaches(boolean distribute);
+
+    void clearCacheLine(String entityName);
 
     void clearCacheLine(String entityName, Map fields);
 
