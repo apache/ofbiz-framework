@@ -316,9 +316,9 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
     public boolean isPrimaryKey(boolean requireValue) {
         TreeSet<String> fieldKeys = new TreeSet<String>(this.fields.keySet());
-        Iterator pkIter = getModelEntity().getPksIterator();
+        Iterator<ModelField> pkIter = getModelEntity().getPksIterator();
         while (pkIter.hasNext()) {
-            ModelField curPk = (ModelField) pkIter.next();
+            ModelField curPk = pkIter.next();
             String fieldName = curPk.getName();
             if (requireValue) {
                 if (this.fields.get(fieldName) == null) return false;
@@ -536,12 +536,12 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
     
     public void setNextSeqId() {
-        List pkFieldNameList = this.modelEntity.getPkFieldNames();
+        List<String> pkFieldNameList = this.modelEntity.getPkFieldNames();
         if (pkFieldNameList.size() != 1) {
             throw new IllegalArgumentException("Cannot setNextSeqId for entity [" + this.getEntityName() + "] that does not have a single primary key field, instead has [" + pkFieldNameList.size() + "]");
         }
         
-        String pkFieldName = (String) pkFieldNameList.get(0);
+        String pkFieldName = pkFieldNameList.get(0);
         if (this.get(pkFieldName) != null) {
             // don't throw exception, too much of a pain and usually intended: throw new IllegalArgumentException("Cannot setNextSeqId, pk field [" + pkFieldName + "] of entity [" + this.getEntityName() + "] already has a value [" + this.get(pkFieldName) + "]");
         }
@@ -693,9 +693,9 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         ModelEntity modelEntityToUse = this.getModelEntity();
         if (modelEntityToUse instanceof ModelViewEntity) {
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntityToUse;
-            Iterator it = modelViewEntity.getAliasesIterator();
+            Iterator<ModelAlias> it = modelViewEntity.getAliasesIterator();
             while (it.hasNext()) {
-                ModelAlias modelAlias = (ModelAlias) it.next();                
+                ModelAlias modelAlias = it.next();                
                 if (modelAlias.getName().equalsIgnoreCase(name)) {
                     modelEntityToUse = modelViewEntity.getMemberModelEntity(modelAlias.getEntityAlias());
                     name = modelAlias.getField();
@@ -729,9 +729,9 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         keyBuffer.append('.');
         keyBuffer.append(name);
         // finish off by adding the values of all PK fields
-        Iterator iter = modelEntityToUse.getPksIterator();
+        Iterator<ModelField> iter = modelEntityToUse.getPksIterator();
         while (iter != null && iter.hasNext()) {
-            ModelField curField = (ModelField) iter.next();
+            ModelField curField = iter.next();
             keyBuffer.append('.');
             keyBuffer.append(this.get(curField.getName()));
         }
@@ -753,9 +753,9 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
 
     public GenericPK getPrimaryKey() {
         Collection<String> pkNames = FastList.newInstance();
-        Iterator iter = this.getModelEntity().getPksIterator();
+        Iterator<ModelField> iter = this.getModelEntity().getPksIterator();
         while (iter != null && iter.hasNext()) {
-            ModelField curField = (ModelField) iter.next();
+            ModelField curField = iter.next();
             pkNames.add(curField.getName());
         }
         GenericPK newPK = GenericPK.create(getModelEntity(), this.getFields(pkNames));
@@ -794,7 +794,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         if (fields == null) {
             return;
         }
-        Iterator iter = null;
+        Iterator<ModelField> iter = null;
         if (pks != null) {
             if (pks.booleanValue()) {
                 iter = this.getModelEntity().getPksIterator();
@@ -806,7 +806,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         }
             
         while (iter != null && iter.hasNext()) {
-            ModelField curField = (ModelField) iter.next();
+            ModelField curField = iter.next();
             String fieldName = curField.getName();
             String sourceFieldName = null;
             if (UtilValidate.isNotEmpty(namePrefix)) {
@@ -989,9 +989,9 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         // write attributes immediately and if a CDATA element is needed, put those in a Map for now
         Map<String, String> cdataMap = FastMap.newInstance();
 
-        Iterator modelFields = this.getModelEntity().getFieldsIterator();
+        Iterator<ModelField> modelFields = this.getModelEntity().getFieldsIterator();
         while (modelFields.hasNext()) {
-            ModelField modelField = (ModelField) modelFields.next();
+            ModelField modelField = modelFields.next();
             String name = modelField.getName();
             
             String type = modelField.getType();
@@ -1248,17 +1248,17 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         if (tempResult != 0) return tempResult;
 
         // both have same entityName, should be the same so let's compare PKs
-        Iterator pkIter = getModelEntity().getPksIterator();
+        Iterator<ModelField> pkIter = getModelEntity().getPksIterator();
         while (pkIter.hasNext()) {
-            ModelField curField = (ModelField) pkIter.next();
+            ModelField curField = pkIter.next();
             tempResult = compareToFields(that, curField.getName());
             if (tempResult != 0) return tempResult;
         }
 
         // okay, if we got here it means the primaryKeys are exactly the SAME, so compare the rest of the fields
-        Iterator nopkIter = getModelEntity().getNopksIterator();
+        Iterator<ModelField> nopkIter = getModelEntity().getNopksIterator();
         while (nopkIter.hasNext()) {
-            ModelField curField = (ModelField) nopkIter.next();
+            ModelField curField = nopkIter.next();
             if (!curField.getIsAutoCreatedInternal()) {
                 tempResult = compareToFields(that, curField.getName());
                 if (tempResult != 0) return tempResult;
