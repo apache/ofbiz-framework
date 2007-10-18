@@ -67,7 +67,7 @@ public class ModelInfo {
     public void populateFromAttributes(Element element) {
         author = element.getAttribute("author").intern();
         copyright = element.getAttribute("copyright").intern();
-        description = UtilXml.childElementValue(element, "description");
+        description = StringUtil.internString(UtilXml.childElementValue(element, "description"));
         title = element.getAttribute("title").intern();
         version = element.getAttribute("version").intern();
     }
@@ -75,7 +75,7 @@ public class ModelInfo {
     public void populateFromElements(Element element) {
         author = StringUtil.internString(UtilXml.childElementValue(element, "author"));
         copyright = StringUtil.internString(UtilXml.childElementValue(element, "copyright"));
-        description = UtilXml.childElementValue(element, "description");
+        description = StringUtil.internString(UtilXml.childElementValue(element, "description"));
         title = StringUtil.internString(UtilXml.childElementValue(element, "title"));
         version = StringUtil.internString(UtilXml.childElementValue(element, "version"));
     }
