@@ -178,7 +178,9 @@ under the License.
         <xs:attribute type="xs:string" name="server" use="required"/>
         <xs:attribute type="xs:string" name="location" use="required"/>
         <xs:attribute type="xs:string" name="mount-point"/>
-        <xs:attribute type="xs:string" name="base-permission"/>
+        <xs:attribute type="xs:string" name="base-permission">
+            <xs:annotation><xs:documentation>A user must have ALL of the permissions in the list to access the application</xs:documentation></xs:annotation>
+        </xs:attribute>
         <xs:attribute name="app-bar-display" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
