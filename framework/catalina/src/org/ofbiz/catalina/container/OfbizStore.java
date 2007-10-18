@@ -91,7 +91,7 @@ public class OfbizStore extends StoreBase implements Store {
             int loc = 0;
             while (i.hasNext()) {
                 GenericValue value = (GenericValue) i.next();
-                ids[loc] = value.getString("sessionId");
+                ids[loc++] = value.getString("sessionId");
             }
 
             return ids;
