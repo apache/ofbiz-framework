@@ -92,6 +92,7 @@ public class ModelKeyMap implements java.io.Serializable {
     }
 
     public boolean equals(Object other) {
+        if (!(other instanceof ModelKeyMap)) return false;
         ModelKeyMap otherKeyMap = (ModelKeyMap) other;
 
         if (!otherKeyMap.fieldName.equals(this.fieldName)) return false;
