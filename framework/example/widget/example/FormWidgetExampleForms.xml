@@ -119,11 +119,8 @@ under the License.
                title="Field1: optional"
                tooltip="This is an example of a drop-down field with allow-empty set to true: as you can see, an empty entry is automatically added.">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ExampleType"
-                                key-field-name="exampleTypeId"
-                                description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <!-- ***************** -->
@@ -133,11 +130,8 @@ under the License.
                title="Field2: mandatory"
                tooltip="The same as above, but here allow-empty is set to false (the default, if not specified): as you can see, there is no empty selection.">
             <drop-down allow-empty="false"> <!-- allow-empty="false" is also the default value, so you can also not specify this attribute here -->
-                <entity-options entity-name="ExampleType"
-                                key-field-name="exampleTypeId"
-                                description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <!-- ***************** -->
@@ -145,13 +139,10 @@ under the License.
         <!-- ***************** -->
         <field name="field5"
                title="Field5: selection of a default value from the list"
-               tooltip="TODO">
-            <drop-down no-current-selected-key="INSPIRED">
-                <entity-options entity-name="ExampleType"
-                                key-field-name="exampleTypeId"
-                                description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+               tooltip="How to use the no-current-selected-key to select a default value from the options">
+            <drop-down no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <!-- ***************** -->
@@ -161,13 +152,10 @@ under the License.
                title="Field8: Javascript event"
                event="onChange"
                action="return alert('You have changed the value in the select box');"
-               tooltip="TODO">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="ExampleType"
-                                key-field-name="exampleTypeId"
-                                description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+               tooltip="How to use the event and action attributes (in the field element) to trigger a Javascript action (in this example a popup message when the option is changed).">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
 
