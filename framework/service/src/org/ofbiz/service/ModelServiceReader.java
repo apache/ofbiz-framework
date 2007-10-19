@@ -486,10 +486,10 @@ public class ModelServiceReader implements Serializable {
                 if (entity == null) {
                     throw new GeneralException("Could not find entity with name [" + entityName + "]");
                 }
-                Iterator fieldsIter = entity.getFieldsIterator();
+                Iterator<ModelField> fieldsIter = entity.getFieldsIterator();
                 if (fieldsIter != null) {            
                     while (fieldsIter.hasNext()) {
-                        ModelField field = (ModelField) fieldsIter.next();
+                        ModelField field = fieldsIter.next();
                         if ((!field.getIsAutoCreatedInternal()) && ((field.getIsPk() && includePk) || (!field.getIsPk() && includeNonPk))) {
                             ModelFieldType fieldType = delegator.getEntityFieldType(entity, field.getType());
                             if (fieldType == null) {
