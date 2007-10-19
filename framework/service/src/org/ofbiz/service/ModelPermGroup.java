@@ -34,15 +34,13 @@ public class ModelPermGroup implements Serializable {
     public static final String PERM_JOIN_AND = "AND";
     public static final String PERM_JOIN_OR = "OR";
 
-    public List permissions = new LinkedList();
+    public List<ModelPermission> permissions = new LinkedList<ModelPermission>();
     public String joinType;
 
     public boolean evalPermissions(DispatchContext dctx, Map context) {
         if (permissions != null && permissions.size() > 0)  {
             boolean foundOne = false;
-            Iterator i = permissions.iterator();
-            while (i.hasNext()) {
-                ModelPermission perm = (ModelPermission) i.next();
+            for (ModelPermission perm: permissions) {
                 if (perm.evalPermission(dctx, context)) {
                     foundOne = true;
                 } else {
