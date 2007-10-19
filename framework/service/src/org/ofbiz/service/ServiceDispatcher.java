@@ -331,7 +331,7 @@ public class ServiceDispatcher {
                     
                     //Debug.logInfo("After [" + modelService.name + "] pre-auth ECA, before auth; isFailure=" + isFailure + ", isError=" + isError, module);
 
-                    context = checkAuth(localName, context, modelService);
+                    checkAuth(localName, context, modelService);
                     Object userLogin = context.get("userLogin");
 
                     if (modelService.auth && userLogin == null) {
@@ -643,7 +643,7 @@ public class ServiceDispatcher {
                 // pre-auth ECA
                 if (eventMap != null) ServiceEcaUtil.evalRules(service.name, eventMap, "auth", ctx, context, result, isError, isFailure);
 
-                context = checkAuth(localName, context, service);
+                checkAuth(localName, context, service);
                 Object userLogin = context.get("userLogin");
 
                 if (service.auth && userLogin == null) {
@@ -818,7 +818,7 @@ public class ServiceDispatcher {
     }
 
     // checks if parameters were passed for authentication
-    private Map checkAuth(String localName, Map context, ModelService origService) throws ServiceAuthException, GenericServiceException {
+    private void checkAuth(String localName, Map context, ModelService origService) throws ServiceAuthException, GenericServiceException {
         String service = ServiceConfigUtil.getElementAttr("authorization", "service-name");
 
         if (service == null) {
@@ -826,7 +826,7 @@ public class ServiceDispatcher {
         }
         if (service.equals(origService.name)) {
             // manually calling the auth service, don't continue...
-            return context;
+            return;
         }
 
         if (context.containsKey("login.username")) {
@@ -895,7 +895,7 @@ public class ServiceDispatcher {
             }
         }
 
-        return context;
+        return;
     }
 
     // gets a value object from name/password pair
