@@ -41,7 +41,7 @@ public class ServiceConfigUtil implements Serializable {
     public static final String module = ServiceConfigUtil.class.getName();
     public static final String engine = "default";
     public static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
-    protected static UtilCache notificationGroupCache = new UtilCache("service.NotificationGroups", 0, 0, false);
+    protected static UtilCache<String, Map<String, NotificationGroup>> notificationGroupCache = new UtilCache<String, Map<String, NotificationGroup>>("service.NotificationGroups", 0, 0, false);
 
     public static Element getXmlRootElement() throws GenericConfigException {
         Element root = ResourceLoader.getXmlRootElement(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME);
@@ -128,15 +128,15 @@ public class ServiceConfigUtil implements Serializable {
     }
 
     public static NotificationGroup getNotificationGroup(String group) {
-        Map engineNotifyMap = (Map) notificationGroupCache.get(engine);
+        Map<String, NotificationGroup> engineNotifyMap = notificationGroupCache.get(engine);
         if (engineNotifyMap == null) {
             synchronized(ServiceConfigUtil.class) {
-                engineNotifyMap = (Map) notificationGroupCache.get(engine);
+                engineNotifyMap = notificationGroupCache.get(engine);
                 if (engineNotifyMap == null) {
                     readNotificationGroups();
                 }
             }
-            engineNotifyMap = (Map) notificationGroupCache.get(engine);
+            engineNotifyMap = notificationGroupCache.get(engine);
         }
         if (engineNotifyMap != null) {
            return (NotificationGroup) engineNotifyMap.get(group);

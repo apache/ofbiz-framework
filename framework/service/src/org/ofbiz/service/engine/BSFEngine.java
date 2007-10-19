@@ -39,7 +39,7 @@ import org.apache.bsf.BSFManager;
 public class BSFEngine extends GenericAsyncEngine {
     
     public static final String module = BSFEngine.class.getName();
-    public static UtilCache scriptCache = new UtilCache("BSFScripts", 0, 0);
+    public static UtilCache<String, String> scriptCache = new UtilCache<String, String>("BSFScripts", 0, 0);
             
     public BSFEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -98,11 +98,11 @@ public class BSFEngine extends GenericAsyncEngine {
         }
         
         // source the script into a string
-        String script = (String) scriptCache.get(localName + "_" + location);
+        String script = scriptCache.get(localName + "_" + location);
 
         if (script == null) {
             synchronized (this) {
-                script = (String) scriptCache.get(localName + "_" + location);
+                script = scriptCache.get(localName + "_" + location);
                 if (script == null) {
                     URL scriptUrl = UtilURL.fromResource(location, cl);
 

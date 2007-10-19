@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
 public class ServiceMcaUtil {
 
     public static final String module = ServiceMcaUtil.class.getName();
-    public static UtilCache mcaCache = new UtilCache("service.ServiceMCAs", 0, 0, false);
+    public static UtilCache<String, ServiceMcaRule> mcaCache = new UtilCache<String, ServiceMcaRule>("service.ServiceMCAs", 0, 0, false);
 
     public static void reloadConfig() {
         mcaCache.clear();
@@ -97,7 +97,7 @@ public class ServiceMcaUtil {
         }
     }
 
-    public static List getServiceMcaRules() {
+    public static List<ServiceMcaRule> getServiceMcaRules() {
 	if (mcaCache.size() == 0) {
 	    readConfig();
 	}
