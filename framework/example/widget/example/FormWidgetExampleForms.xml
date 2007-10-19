@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="DropDownFieldsExampleForm" type="single" title="">
+        <field name="entityOptionsFields1" title="entity-options"><display description="All these fields retrieve the list of values from another entity by using the entity-options element." also-hidden="false"/></field>
+        <field name="entityOptionsFields2" title=""><display description="entity-options will look up options for the field in the given entity." also-hidden="false"/></field>
+        <field name="entityOptionsFields3" title=""><display description="The complete syntax is... TODO" also-hidden="false"/></field>
+        <!-- ***************** -->
+        <!-- ***   field1  *** -->
+        <!-- ***************** -->
+        <field name="field1"
+               title="Field1: optional"
+               tooltip="This is an example of a drop-down field with allow-empty set to true: as you can see, an empty entry is automatically added.">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field2  *** -->
+        <!-- ***************** -->
+        <field name="field2"
+               title="Field2: mandatory"
+               tooltip="The same as above, but here allow-empty is set to false (the default, if not specified): as you can see, there is no empty selection.">
+            <drop-down allow-empty="false"> <!-- allow-empty="false" is also the default value, so you can also not specify this attribute here -->
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field3  *** -->
+        <!-- ***************** -->
+        <field name="field3"
+               title="Field3: sort in descending order"
+               tooltip="TODO">
+            <drop-down>
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${description}">
+                    <entity-order-by field-name="-description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field4  *** -->
+        <!-- ***************** -->
+        <field name="field4"
+               title="Field4: combined description"
+               tooltip="TODO">
+            <drop-down>
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${exampleTypeId} - ${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field5  *** -->
+        <!-- ***************** -->
+        <field name="field5"
+               title="Field5: selection of a default value from the list"
+               tooltip="TODO">
+            <drop-down no-current-selected-key="INSPIRED">
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field6  *** -->
+        <!-- ***************** -->
+        <field name="exampleTypeId"
+               title="Field6 (exampleTypeId): shortest notation"
+               tooltip="TODO">
+            <drop-down>
+                <entity-options entity-name="ExampleType"
+                                description="${description}"/>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field7  *** -->
+        <!-- ***************** -->
+        <field name="field7"
+               title="Field7: additional constraint"
+               tooltip="TODO">
+            <drop-down>
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${description}">
+                    <entity-constraint name="exampleTypeId"
+                                       value="INSPIRED"
+                                       operator="greater"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field8  *** -->
+        <!-- ***************** -->
+        <field name="field8"
+               title="Field8: Javascript event"
+               event="onChange"
+               action="return alert('You have changed the value in the select box');"
+               tooltip="TODO">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+    </form>
+
+</forms>

@@ -142,7 +142,9 @@ under the License.
         <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
     </request-map>
-    
+
+    <request-map uri="FormWidgetExamples"><security https="true" auth="true"/><response name="success" type="view" value="FormWidgetExamples"/></request-map>
+
     <request-map uri="LookupExampleFeature"><security https="true" auth="true"/><response name="success" type="view" value="LookupExampleFeature"/></request-map>
     <!-- end of request mappings -->
 
@@ -157,6 +159,8 @@ under the License.
     <view-map name="FindExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#FindExampleFeature"/>
     <view-map name="EditExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#EditExampleFeature"/>
     <view-map name="EditExampleFeatureExampleAppls" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#EditExampleFeatureExampleAppls"/>
+
+    <view-map name="FormWidgetExamples" type="screen" page="component://example/widget/example/FormWidgetExampleScreens.xml#FormWidgetExamples"/>
 
     <view-map name="LookupExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#LookupExampleFeature"/>
     <!-- end of view mappings -->
