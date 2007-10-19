@@ -90,7 +90,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
         }
 
         try {
-            Class c = cl.loadClass(this.getLocation(modelService));
+            Class<?> c = cl.loadClass(this.getLocation(modelService));
             Method m = c.getMethod(modelService.invoke, DispatchContext.class, Map.class);
             result = m.invoke(null, dctx, context);
         } catch (ClassNotFoundException cnfe) {
