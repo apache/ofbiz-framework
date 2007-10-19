@@ -114,12 +114,12 @@ public class JmsServiceEngine extends AbstractEngine {
         return message;
     }
 
-    protected List serverList(Element serviceElement) throws GenericServiceException {
+    protected List<? extends Element> serverList(Element serviceElement) throws GenericServiceException {
         String sendMode = serviceElement.getAttribute("send-mode");
-        List serverList = UtilXml.childElementList(serviceElement, "server");
+        List<? extends Element> serverList = UtilXml.childElementList(serviceElement, "server");
 
         if (sendMode.equals("none")) {
-            return new ArrayList();
+            return new ArrayList<Element>();
         } else if (sendMode.equals("all")) {
             return serverList;
         } else {

@@ -57,22 +57,16 @@ public class ServiceEcaRule implements java.io.Serializable {
         this.runOnFailure = "true".equals(eca.getAttribute("run-on-failure"));
         this.runOnError = "true".equals(eca.getAttribute("run-on-error"));
 
-        List condList = UtilXml.childElementList(eca, "condition");
-        Iterator ci = condList.iterator();
-        while (ci.hasNext()) {
-            conditions.add(new ServiceEcaCondition((Element) ci.next(), true, false));
+        for (Element element: UtilXml.childElementList(eca, "condition")) {
+            conditions.add(new ServiceEcaCondition(element, true, false));
         }
 
-        List condFList = UtilXml.childElementList(eca, "condition-field");
-        Iterator cfi = condFList.iterator();
-        while (cfi.hasNext()) {
-            conditions.add(new ServiceEcaCondition((Element) cfi.next(), false, false));
+        for (Element element: UtilXml.childElementList(eca, "condition-field")) {
+            conditions.add(new ServiceEcaCondition(element, false, false));
         }
 
-        List condSList = UtilXml.childElementList(eca, "condition-service");
-        Iterator sfi = condSList.iterator();
-        while (sfi.hasNext()) {
-            conditions.add(new ServiceEcaCondition((Element) sfi.next(), false, true));
+        for (Element element: UtilXml.childElementList(eca, "condition-service")) {
+            conditions.add(new ServiceEcaCondition(element, false, true));
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
@@ -80,10 +74,7 @@ public class ServiceEcaRule implements java.io.Serializable {
         Set nameSet = FastSet.newInstance();
         nameSet.add("set");
         nameSet.add("action");
-        List actionAndSetList = UtilXml.childElementList(eca, nameSet);
-        Iterator si = actionAndSetList.iterator();
-        while (si.hasNext()) {
-            Element actionOrSetElement = (Element) si.next();
+        for (Element actionOrSetElement: UtilXml.childElementList(eca, nameSet)) {
             if ("action".equals(actionOrSetElement.getNodeName())) {
                 this.actionsAndSets.add(new ServiceEcaAction(actionOrSetElement, this.eventName));
             } else {

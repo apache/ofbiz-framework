@@ -74,13 +74,10 @@ public class ServiceConfigUtil implements Serializable {
         List readPools = null;
         
         Element threadPool = getElement("thread-pool");
-        List readPoolElements = UtilXml.childElementList(threadPool, "run-from-pool");
+        List<? extends Element> readPoolElements = UtilXml.childElementList(threadPool, "run-from-pool");
         if (readPoolElements != null) {
             readPools = FastList.newInstance();        
-            Iterator i = readPoolElements.iterator();
-        
-            while (i.hasNext()) {                
-                Element e = (Element) i.next();
+            for (Element e: readPoolElements) {
                 readPools.add(e.getAttribute("name"));
             }
         }
@@ -122,10 +119,7 @@ public class ServiceConfigUtil implements Serializable {
 
         FastMap engineNotifyMap = FastMap.newInstance();
 
-        List nGroups = UtilXml.childElementList(rootElement, "notification-group");
-        Iterator i = nGroups.iterator();
-        while (i.hasNext()) {
-            Element e = (Element) i.next();
+        for (Element e: UtilXml.childElementList(rootElement, "notification-group")) {
             NotificationGroup ng = new NotificationGroup(e);
             engineNotifyMap.put(ng.getName(), ng);
         }

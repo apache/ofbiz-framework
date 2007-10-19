@@ -84,12 +84,7 @@ public class JmsListenerFactory implements Runnable {
             if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher] : Loading JMS Listeners.", module);
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
-                List serverList = UtilXml.childElementList(element, "server");
-                Iterator serverIter = serverList.iterator();
-
-                while (serverIter.hasNext()) {
-                    Element server = (Element) serverIter.next();
-
+                for (Element server: UtilXml.childElementList(element, "server")) {
                     try {
                         String listenerEnabled = server.getAttribute("listen");
 

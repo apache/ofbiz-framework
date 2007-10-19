@@ -299,10 +299,7 @@ public class DispatchContext implements Serializable {
                         return null;
                     }
 
-                    List globalServicesElements = UtilXml.childElementList(rootElement, "global-services");
-                    Iterator gseIter = globalServicesElements.iterator();
-                    while (gseIter.hasNext()) {
-                        Element globalServicesElement = (Element) gseIter.next();
+                    for (Element globalServicesElement: UtilXml.childElementList(rootElement, "global-services")) {
                         ResourceHandler handler = new MainResourceHandler(
                                 ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServicesElement);
 

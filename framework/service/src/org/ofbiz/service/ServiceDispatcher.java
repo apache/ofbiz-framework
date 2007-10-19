@@ -976,11 +976,9 @@ public class ServiceDispatcher {
         }
 
         int servicesScheduled = 0;
-        List startupServices = UtilXml.childElementList(root, "startup-service");
+        List<? extends Element> startupServices = UtilXml.childElementList(root, "startup-service");
         if (startupServices != null && startupServices.size() > 0) {
-            Iterator i = startupServices.iterator();
-            while (i.hasNext()) {
-                Element ss = (Element) i.next();
+            for (Element ss: startupServices) {
                 String serviceName = ss.getAttribute("name");
                 String runtimeDataId = ss.getAttribute("runtime-data-id");
                 String delayStr = ss.getAttribute("runtime-delay");

@@ -360,7 +360,7 @@ public class ModelServiceReader implements Serializable {
     }
 
     protected void createNotification(Element baseElement, ModelService model) {
-        List n = UtilXml.childElementList(baseElement, "notification");
+        List<? extends Element> n = UtilXml.childElementList(baseElement, "notification");
         // default notification groups
         ModelNotification nSuccess = new ModelNotification();
         nSuccess.notificationEvent = "success";
@@ -378,9 +378,7 @@ public class ModelServiceReader implements Serializable {
         model.notifications.add(nError);
 
         if (n != null) {
-            Iterator i = n.iterator();
-            while (i.hasNext()) {
-                Element e = (Element) i.next();
+            for (Element e: n) {
                 ModelNotification notify = new ModelNotification();
                 notify.notificationEvent = e.getAttribute("event");
                 notify.notificationGroupName = e.getAttribute("group");
@@ -400,11 +398,7 @@ public class ModelServiceReader implements Serializable {
     }
 
     protected void createPermGroups(Element baseElement, ModelService model) {
-        List permGroups = UtilXml.childElementList(baseElement, "required-permissions");
-        Iterator permIter = permGroups.iterator();
-
-        while (permIter.hasNext()) {
-            Element element = (Element) permIter.next();
+        for (Element element: UtilXml.childElementList(baseElement, "required-permissions")) {
             ModelPermGroup group = new ModelPermGroup();
             group.joinType = element.getAttribute("join-type");
             createGroupPermissions(element, group, model);
@@ -413,13 +407,8 @@ public class ModelServiceReader implements Serializable {
     }
 
     protected void createGroupPermissions(Element baseElement, ModelPermGroup group, ModelService service) {
-        List permElements = UtilXml.childElementList(baseElement, "check-permission");
-        List rolePermElements = UtilXml.childElementList(baseElement, "check-role-member");        
-
         // create the simple permissions
-        Iterator si = permElements.iterator();
-        while (si.hasNext()) {
-            Element element = (Element) si.next();
+        for (Element element: UtilXml.childElementList(baseElement, "check-permission")) {
             ModelPermission perm = new ModelPermission();
             perm.nameOrRole = element.getAttribute("permission").intern();
             perm.action = element.getAttribute("action").intern();
@@ -433,9 +422,7 @@ public class ModelServiceReader implements Serializable {
         }
 
         // create the role member permissions
-        Iterator ri = rolePermElements.iterator();
-        while (ri.hasNext()) {
-            Element element = (Element) ri.next();
+        for (Element element: UtilXml.childElementList(baseElement, "check-role-member")) {
             ModelPermission perm = new ModelPermission();
             perm.permissionType = ModelPermission.ROLE_MEMBER;
             perm.nameOrRole = element.getAttribute("role-type").intern();
@@ -445,9 +432,9 @@ public class ModelServiceReader implements Serializable {
     }
 
     protected void createGroupDefs(Element baseElement, ModelService service) {
-        List group = UtilXml.childElementList(baseElement, "group");
+        List<? extends Element> group = UtilXml.childElementList(baseElement, "group");
         if (group != null && group.size() > 0) {
-            Element groupElement = (Element) group.get(0);
+            Element groupElement = group.get(0);
             groupElement.setAttribute("name", "_" + service.name + ".group");
             service.internalGroup = new GroupModel(groupElement);
             service.invoke = service.internalGroup.getGroupName();
@@ -456,11 +443,7 @@ public class ModelServiceReader implements Serializable {
     }
     
     protected void createImplDefs(Element baseElement, ModelService service) {
-        List implElements = UtilXml.childElementList(baseElement, "implements");
-        Iterator implIter = implElements.iterator();
-                
-        while (implIter.hasNext()) {
-            Element implement = (Element) implIter.next();
+        for (Element implement: UtilXml.childElementList(baseElement, "implements")) {
             String serviceName = UtilXml.checkEmpty(implement.getAttribute("service")).intern();
             boolean optional = UtilXml.checkBoolean(implement.getAttribute("optional"), false);
             if (serviceName.length() > 0)
@@ -470,11 +453,7 @@ public class ModelServiceReader implements Serializable {
     }
     
     protected void createAutoAttrDefs(Element baseElement, ModelService service) {
-        List autoElement = UtilXml.childElementList(baseElement, "auto-attributes");
-        Iterator autoIter = autoElement.iterator();
-        
-        while (autoIter.hasNext()) {
-            Element element = (Element) autoIter.next();            
+        for (Element element: UtilXml.childElementList(baseElement, "auto-attributes")) {
             createAutoAttrDef(element, service);
         }
     }
@@ -529,11 +508,9 @@ public class ModelServiceReader implements Serializable {
                     }
                     
                     // get the excludes list; and remove those from the map
-                    List excludes = UtilXml.childElementList(autoElement, "exclude");
+                    List<? extends Element> excludes = UtilXml.childElementList(autoElement, "exclude");
                     if (excludes != null) {                    
-                        Iterator excludesIter = excludes.iterator();
-                        while (excludesIter.hasNext()) {
-                            Element exclude = (Element) excludesIter.next();
+                        for (Element exclude: excludes) {
                             modelParamMap.remove(UtilXml.checkEmpty(exclude.getAttribute("field-name")));
                         }
                     }
@@ -557,11 +534,7 @@ public class ModelServiceReader implements Serializable {
             
     protected void createAttrDefs(Element baseElement, ModelService service) {
         // Add in the defined attributes (override the above defaults if specified)
-        List paramElements = UtilXml.childElementList(baseElement, "attribute");
-        Iterator paramIter = paramElements.iterator();
-
-        while (paramIter.hasNext()) {
-            Element attribute = (Element) paramIter.next();
+        for (Element attribute: UtilXml.childElementList(baseElement, "attribute")) {
             ModelParam param = new ModelParam();
 
             param.name = UtilXml.checkEmpty(attribute.getAttribute("name")).intern();
@@ -667,11 +640,7 @@ public class ModelServiceReader implements Serializable {
     }
     
     protected void createOverrideDefs(Element baseElement, ModelService service) {
-        List paramElements = UtilXml.childElementList(baseElement, "override");
-        Iterator paramIter = paramElements.iterator();
-
-        while (paramIter.hasNext()) {
-            Element attribute = (Element) paramIter.next();
+        for (Element attribute: UtilXml.childElementList(baseElement, "override")) {
             String name = UtilXml.checkEmpty(attribute.getAttribute("name"));
             ModelParam param = service.getParam(name);
             boolean directToParams = true;
@@ -732,13 +701,12 @@ public class ModelServiceReader implements Serializable {
     }
 
     protected void addValidators(Element attribute, ModelParam param) {
-        List validateElements = UtilXml.childElementList(attribute, "type-validate");
+        List<? extends Element> validateElements = UtilXml.childElementList(attribute, "type-validate");
         if (validateElements != null && validateElements.size() > 0) {
             // always clear out old ones; never append
             param.validators = FastList.newInstance();
 
-            Iterator i = validateElements.iterator();
-            Element validate = (Element) i.next();
+            Element validate = validateElements.get(0);
             String methodName = validate.getAttribute("method").intern();
             String className = validate.getAttribute("class").intern();
 

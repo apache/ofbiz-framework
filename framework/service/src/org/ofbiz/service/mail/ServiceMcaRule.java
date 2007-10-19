@@ -43,31 +43,19 @@ public class ServiceMcaRule implements java.io.Serializable {
     public ServiceMcaRule(Element mca) {
         this.ruleName = mca.getAttribute("mail-rule-name");
 
-        List condFList = UtilXml.childElementList(mca, "condition-field");
-        Iterator cfi = condFList.iterator();
-        while (cfi.hasNext()) {
-            Element condElement = (Element) cfi.next();
+        for (Element condElement: UtilXml.childElementList(mca, "condition-field")) {
             conditions.add(new ServiceMcaCondition(condElement, ServiceMcaCondition.CONDITION_FIELD));
         }
 
-        List condHList = UtilXml.childElementList(mca, "condition-header");
-        Iterator chi = condHList.iterator();
-        while (chi.hasNext()) {
-            Element condElement = (Element) chi.next();
+        for (Element condElement: UtilXml.childElementList(mca, "condition-header")) {
             conditions.add(new ServiceMcaCondition(condElement, ServiceMcaCondition.CONDITION_HEADER));
         }
 
-        List condSList = UtilXml.childElementList(mca, "condition-service");
-        Iterator csi = condSList.iterator();
-        while (csi.hasNext()) {
-            Element condElement = (Element) csi.next();
+        for (Element condElement: UtilXml.childElementList(mca, "condition-service")) {
             conditions.add(new ServiceMcaCondition(condElement, ServiceMcaCondition.CONDITION_SERVICE));
         }
 
-        List actList = UtilXml.childElementList(mca, "action");
-        Iterator ai = actList.iterator();
-        while (ai.hasNext()) {
-            Element actionElement = (Element) ai.next();
+        for (Element actionElement: UtilXml.childElementList(mca, "action")) {
             actions.add(new ServiceMcaAction(actionElement));
         }
     }
