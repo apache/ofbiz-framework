@@ -35,13 +35,20 @@ under the License.
                             </condition>
                             <widgets>
                                 <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
-                                <container><label style="head2">Drop down fields</label></container>
+                                <container><label style="head1">Date/Time fields</label></container>
+                                <container>
+                                    <label style="head3">Source Code</label>
+                                    <label> - see the form definition with name &quot;DateTimeFieldsExampleForm&quot; in the file: </label>
+                                    <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="framework/example/widget/example/FormWidgetExampleForms.xml" style="buttontext"/>
+                                </container>
+                                <include-form name="DateTimeFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                
+                                <container><label style="head1">Drop down fields</label></container>
                                 <container>
                                     <label style="head3">Source Code</label>
                                     <label> - see the form definition with name &quot;DropDownFieldsExampleForm&quot; in the file: </label>
                                     <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="framework/example/widget/example/FormWidgetExampleForms.xml" style="buttontext"/>
                                 </container>
-
                                 <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                             </widgets>
                             <fail-widgets>

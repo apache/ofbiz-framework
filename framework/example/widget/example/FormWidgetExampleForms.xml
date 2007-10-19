@@ -20,10 +20,98 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="DateTimeFieldsExampleForm" type="single" title="">
+        <actions>
+            <set field="exampleDateField" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowTimestamp();}" type="Timestamp"/>
+        </actions>
+        <!-- ***************** -->
+        <!-- ***   field1  *** -->
+        <!-- ***************** -->
+        <field name="field1"
+               title="Field1: date and time selection field"
+               tooltip="TODO">
+            <date-time/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field9  *** -->
+        <!-- ***************** -->
+        <field name="field9"
+               title="Field9: date and time selection field with default value"
+               tooltip="Same as above, Uses the ${bsh: notation to call an util method to get the now timestamp">
+            <date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field10  *** -->
+        <!-- ***************** -->
+        <field name="field10"
+               title="Field10: date and time selection field with default value"
+               tooltip="Same as above, Uses the nowTimestamp variable (always available in the form context) to set the default value to now">
+            <date-time default-value="${nowTimestamp}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field2  *** -->
+        <!-- ***************** -->
+        <field name="field2"
+               title="Field2: date selection field"
+               tooltip="TODO">
+            <date-time type="date"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field3  *** -->
+        <!-- ***************** -->
+        <field name="field3"
+               title="Field3: time selection field"
+               tooltip="TODO">
+            <date-time type="time"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field4  *** -->
+        <!-- ***************** -->
+        <field name="field4"
+               title="Field4: advanced date time selection"
+               tooltip="Use the input-method (time-dropdown) and clock (24) attributes to create drop down boxes for hour and minute selections">
+            <date-time input-method="time-dropdown" clock="24"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field5  *** -->
+        <!-- ***************** -->
+        <field name="field5"
+               title="Field5: advanced date time selection (AM/PM)"
+               tooltip="Use the input-method (time-dropdown) and clock (12) attributes to create drop down boxes for hour and minute selections">
+            <date-time input-method="time-dropdown" clock="12"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field6  *** -->
+        <!-- ***************** -->
+        <field name="field6"
+               entry-name="exampleDateField"
+               title="Field6: date and time simple display"
+               tooltip="TODO">
+            <display/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field7  *** -->
+        <!-- ***************** -->
+        <field name="field7"
+               entry-name="exampleDateField"
+               title="Field7: date and time display with custom format"
+               tooltip="This is an example of MM/dd/yyyy format">
+            <display description="${bsh:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MM/dd/yyyy&quot;);}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field8  *** -->
+        <!-- ***************** -->
+        <field name="field8"
+               entry-name="exampleDateField"
+               title="Field8: date and time display with custom format"
+               tooltip="This is an example of MMMM, dd, yyyy format">
+            <display description="${bsh:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MMMM, dd, yyyy&quot;);}"/>
+        </field>
+    </form>
+
     <form name="DropDownFieldsExampleForm" type="single" title="">
-        <field name="entityOptionsFields1" title="entity-options"><display description="All these fields retrieve the list of values from another entity by using the entity-options element." also-hidden="false"/></field>
-        <field name="entityOptionsFields2" title=""><display description="entity-options will look up options for the field in the given entity." also-hidden="false"/></field>
-        <field name="entityOptionsFields3" title=""><display description="The complete syntax is... TODO" also-hidden="false"/></field>
+        <field name="dropDownFields1" title="drop-down"><display description="First of all you have to define a drop-down element inside of the field element that you want to render as a drop down field." also-hidden="false"/></field>
         <!-- ***************** -->
         <!-- ***   field1  *** -->
         <!-- ***************** -->
@@ -53,6 +141,40 @@ under the License.
             </drop-down>
         </field>
         <!-- ***************** -->
+        <!-- ***   field5  *** -->
+        <!-- ***************** -->
+        <field name="field5"
+               title="Field5: selection of a default value from the list"
+               tooltip="TODO">
+            <drop-down no-current-selected-key="INSPIRED">
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field8  *** -->
+        <!-- ***************** -->
+        <field name="field8"
+               title="Field8: Javascript event"
+               event="onChange"
+               action="return alert('You have changed the value in the select box');"
+               tooltip="TODO">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="entityOptionsFields1" title="entity-options"><display description="All these fields retrieve the list of values from another entity by using the entity-options element." also-hidden="false"/></field>
+        <field name="entityOptionsFields2" title=""><display description="entity-options will look up options for the field in the given entity." also-hidden="false"/></field>
+        <field name="entityOptionsFields3" title=""><display description="The complete syntax is... TODO" also-hidden="false"/></field>
+        <!-- ***************** -->
         <!-- ***   field3  *** -->
         <!-- ***************** -->
         <field name="field3"
@@ -81,20 +203,6 @@ under the License.
             </drop-down>
         </field>
         <!-- ***************** -->
-        <!-- ***   field5  *** -->
-        <!-- ***************** -->
-        <field name="field5"
-               title="Field5: selection of a default value from the list"
-               tooltip="TODO">
-            <drop-down no-current-selected-key="INSPIRED">
-                <entity-options entity-name="ExampleType"
-                                key-field-name="exampleTypeId"
-                                description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <!-- ***************** -->
         <!-- ***   field6  *** -->
         <!-- ***************** -->
         <field name="exampleTypeId"
@@ -118,22 +226,6 @@ under the License.
                     <entity-constraint name="exampleTypeId"
                                        value="INSPIRED"
                                        operator="greater"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <!-- ***************** -->
-        <!-- ***   field8  *** -->
-        <!-- ***************** -->
-        <field name="field8"
-               title="Field8: Javascript event"
-               event="onChange"
-               action="return alert('You have changed the value in the select box');"
-               tooltip="TODO">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="ExampleType"
-                                key-field-name="exampleTypeId"
-                                description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
