@@ -39,6 +39,10 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
@@ -399,7 +403,70 @@ public class ShoppingCartEvents {
         if (surveyResponses != null) {
             paramMap.put("surveyResponses", surveyResponses);
         }
-
+        
+        GenericValue productStore = ProductStoreWorker.getProductStore(request); 
+        String addToCartRemoveIncompat = productStore.getString("addToCartRemoveIncompat");
+        String addToCartReplaceUpsell = productStore.getString("addToCartReplaceUpsell");
+        try {
+            if ("Y".equals(addToCartRemoveIncompat)) {
+                List productAssocs = null;
+                EntityCondition cond = new EntityConditionList(UtilMisc.toList(
+                        new EntityExpr(new EntityExpr("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, new EntityExpr("productIdTo", EntityOperator.EQUALS, productId)),
+                        new EntityExpr("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
+                productAssocs = delegator.findByCondition("ProductAssoc", cond, null, null);
+                List productList = FastList.newInstance();
+                if (productAssocs != null) {
+                    Iterator iter = productAssocs.iterator();
+                    while (iter.hasNext()) {
+                        GenericValue productAssoc = (GenericValue) iter.next();
+                        if (productId.equals(productAssoc.getString("productId"))) {
+                            productList.add(productAssoc.getString("productIdTo"));
+                            continue;
+                        }
+                        if (productId.equals(productAssoc.getString("productIdTo"))) {
+                            productList.add(productAssoc.getString("productId"));
+                            continue;
+                        }
+                    }    
+                    Iterator sciIter = cart.iterator();
+                    while (sciIter.hasNext()) {
+                        ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
+                        if (productList.contains(sci.getProductId())) {
+                            try {
+                                cart.removeCartItem(sci, dispatcher);
+                            } catch (CartItemModifyException e) {
+                                Debug.logError(e.getMessage(), module);
+                            }
+                        }
+                    }
+                }
+            }
+            if ("Y".equals(addToCartReplaceUpsell)) {
+                List productList = null;
+                EntityCondition cond = new EntityConditionList(UtilMisc.toList(
+                        new EntityExpr("productIdTo", EntityOperator.EQUALS, productId),
+                        new EntityExpr("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_UPGRADE")), EntityOperator.AND);
+                List fieldsToSelect = FastList.newInstance();
+                fieldsToSelect.add("productId");
+                productList = delegator.findByCondition("ProductAssoc", cond, fieldsToSelect, null);
+                if (productList != null) {
+                    Iterator sciIter = cart.iterator();
+                    while (sciIter.hasNext()) {
+                        ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
+                        if (productList.contains(sci.getProductId())) {
+                            try {
+                                cart.removeCartItem(sci, dispatcher);
+                            } catch (CartItemModifyException e) {
+                                Debug.logError(e.getMessage(), module);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+        }
+        
         // Translate the parameters and add to the cart
         result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, productCategoryId,
                 itemType, itemDescription, price, amount, quantity, reservStart, reservLength, reservPersons, 
