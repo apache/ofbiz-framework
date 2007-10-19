@@ -674,7 +674,7 @@ public class ServiceDispatcher {
                     } else {
                         engine.runAsync(localName, service, context, persist);
                     }
-                    engine.sendCallbacks(service, context, null, GenericEngine.ASYNC_MODE);
+                    engine.sendCallbacks(service, context, GenericEngine.ASYNC_MODE);
                 }
 
                 if (Debug.timingOn()) {
