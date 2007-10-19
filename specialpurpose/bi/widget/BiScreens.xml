@@ -127,7 +127,7 @@ under the License.
                         <container>
                             <label>
                                 The idea is to define a set entities for business intelligence analysis in a separate (olap) database,
-                                accessible as the main one (oltp) via the delegator.
+                                accessible, in the same way as the main one (oltp), via the delegator.
                             </label>
                         </container>
                         <container>
@@ -140,7 +140,7 @@ under the License.
                             <label>
                                 The dimensions, facts and star schemas are defined according to best practices for datawarehouses
                                 and best practices for OFBiz: they are defined as standard entities using the xml entity defs;
-                                clear and consistent naming conventions is used and they are documented
+                                clear and consistent naming conventions are used and they are documented
                                 by meta data descriptions (in the entity def).
                             </label>
                         </container>
@@ -151,8 +151,8 @@ under the License.
                         </container>
                         <container>
                             <label>
-                                The data for dimensions and facts is maintained and kept up to date using standard OFBiz services
-                                (most of them written in minilang) and eca rules (easily customizable).
+                                The data for dimensions and facts are maintained and kept up to date using standard OFBiz services
+                                (most of them written in minilang to facilitate customizations) and eca rules (easily customizable).
                             </label>
                         </container>
                         <container>
@@ -164,13 +164,13 @@ under the License.
                             <label>
                                 The main low level services to post data to the datawarehouse, 
                                 to map the operational keys with the datawarehouse ones, and to manage
-                                history of data changes are already implemented; they will need to be improved (mainly for performance).
+                                history of data changes are already implemented; they will be improved as the datawarehouse will grow (e.g. performance enhancements).
                             </label>
                         </container>
                         <container>
                             <label>
                                 The following dimensions (and data services) are defined: CurrencyDimension, DateDimension, ProductDimension;
-                                we will have to complete them and disign the other ones (to total number of dimension will be probably about 20 entities).
+                                we will have to complete them and design the other ones (the total number of dimension will be probably around 20).
                             </label>
                         </container>
                         <container>
