@@ -62,10 +62,9 @@ under the License.
         <if>
             <condition>
                 <or>
-                    <if-has-permission permission="${primaryPermission}_ADMIN"/>
+                    <!-- Permission checks include _ADMIN -->
                     <if-has-permission permission="${primaryPermission}" action="_${parameters.mainAction}"/>
                     <if-has-permission permission="${altPermission}" action="_${parameters.mainAction}"/>
-                    <if-has-permission permission="${altPermission}_ADMIN"/>
                 </or>
             </condition>
             <then>
