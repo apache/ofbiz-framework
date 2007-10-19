@@ -131,6 +131,11 @@ under the License.
     <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
 
+    <StatusType description="Timesheet" hasTable="N" parentTypeId="" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusItem description="In-Process" sequenceId="01" statusCode="IN_PROCESS" statusId="TIMESHEET_IN_PROCESS" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="TIMESHEET_COMPLETED" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusValidChange condition="" statusId="TIMESHEET_IN_PROCESS" statusIdTo="TIMESHEET_COMPLETED" transitionName="Confirm complete"/>
+    
     <StatusType description="Event" hasTable="N" parentTypeId="CALENDAR_STATUS" statusTypeId="EVENT_STATUS"/>
     <StatusItem description="Tentative" sequenceId="01" statusCode="TENTATIVE" statusId="CAL_TENTATIVE" statusTypeId="EVENT_STATUS"/>
     <StatusItem description="Confirmed" sequenceId="02" statusCode="CONFIRMED" statusId="CAL_CONFIRMED" statusTypeId="EVENT_STATUS"/>
