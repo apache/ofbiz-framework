@@ -53,7 +53,7 @@ public class DispatchContext implements Serializable {
     public static final String module = DispatchContext.class.getName();
 
     protected static final String GLOBAL_KEY = "global.services";
-    protected static UtilCache modelServiceMapByDispatcher = new UtilCache("service.ModelServiceMapByDispatcher", 0, 0, false);
+    protected static UtilCache<String, Map<String, ModelService>> modelServiceMapByDispatcher = new UtilCache<String, Map<String, ModelService>>("service.ModelServiceMapByDispatcher", 0, 0, false);
 
     protected transient LocalDispatcher dispatcher;
     protected transient ClassLoader loader;
@@ -254,18 +254,18 @@ public class DispatchContext implements Serializable {
         return dispatcher.getSecurity();
     }
 
-    private Map getLocalServiceMap() {
-        Map serviceMap = (Map) modelServiceMapByDispatcher.get(name);
+    private Map<String, ModelService> getLocalServiceMap() {
+        Map<String, ModelService> serviceMap = modelServiceMapByDispatcher.get(name);
         if (serviceMap == null) {
             synchronized (this) {
-                serviceMap = (Map) modelServiceMapByDispatcher.get(name);
+                serviceMap = modelServiceMapByDispatcher.get(name);
                 if (serviceMap == null) {
                     if (this.localReaders != null) {
                         serviceMap = FastMap.newInstance();
                         Iterator urlIter = this.localReaders.iterator();
                         while (urlIter.hasNext()) {
                             URL readerURL = (URL) urlIter.next();
-                            Map readerServiceMap = ModelServiceReader.getModelServiceMap(readerURL, this);
+                            Map<String, ModelService> readerServiceMap = ModelServiceReader.getModelServiceMap(readerURL, this);
                             if (readerServiceMap != null) {
                                 serviceMap.putAll(readerServiceMap);
                             }
@@ -282,11 +282,11 @@ public class DispatchContext implements Serializable {
         return serviceMap;
     }
     
-    private Map getGlobalServiceMap() {
-        Map serviceMap = (Map) modelServiceMapByDispatcher.get(GLOBAL_KEY);
+    private Map<String, ModelService> getGlobalServiceMap() {
+        Map<String, ModelService> serviceMap = modelServiceMapByDispatcher.get(GLOBAL_KEY);
         if (serviceMap == null) {
             synchronized (this) {
-                serviceMap = (Map) modelServiceMapByDispatcher.get(GLOBAL_KEY);
+                serviceMap = modelServiceMapByDispatcher.get(GLOBAL_KEY);
                 if (serviceMap == null) {
                     serviceMap = FastMap.newInstance();
 
@@ -303,7 +303,7 @@ public class DispatchContext implements Serializable {
                         ResourceHandler handler = new MainResourceHandler(
                                 ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServicesElement);
 
-                        Map servicesMap = ModelServiceReader.getModelServiceMap(handler, this);
+                        Map<String, ModelService> servicesMap = ModelServiceReader.getModelServiceMap(handler, this);
                         if (servicesMap != null) {
                             serviceMap.putAll(servicesMap);
                         }
@@ -331,11 +331,11 @@ public class DispatchContext implements Serializable {
         return serviceMap;
     }
 
-    public Set getAllServiceNames() {
-        Set serviceNames = new TreeSet();
+    public Set<String> getAllServiceNames() {
+        Set<String> serviceNames = new TreeSet<String>();
 
-        Map globalServices = (Map) modelServiceMapByDispatcher.get(GLOBAL_KEY);
-        Map localServices = (Map) modelServiceMapByDispatcher.get(name);
+        Map<String, ModelService> globalServices = modelServiceMapByDispatcher.get(GLOBAL_KEY);
+        Map<String, ModelService> localServices = modelServiceMapByDispatcher.get(name);
         if (globalServices != null) {
             serviceNames.addAll(globalServices.keySet());
         }

@@ -38,7 +38,7 @@ import bsh.Interpreter;
  */
 public final class BeanShellEngine extends GenericAsyncEngine {
 
-    public static UtilCache scriptCache = new UtilCache("BeanShellScripts", 0, 0);
+    public static UtilCache<String, String> scriptCache = new UtilCache<String, String>("BeanShellScripts", 0, 0);
 
     public BeanShellEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -82,11 +82,11 @@ public final class BeanShellEngine extends GenericAsyncEngine {
         String location = this.getLocation(modelService);
 
         // source the script into a string
-        String script = (String) scriptCache.get(localName + "_" + location);
+        String script = scriptCache.get(localName + "_" + location);
 
         if (script == null) {
             synchronized (this) {
-                script = (String) scriptCache.get(localName + "_" + location);
+                script = scriptCache.get(localName + "_" + location);
                 if (script == null) {
                     URL scriptUrl = UtilURL.fromResource(location, cl);
 
