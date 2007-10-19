@@ -60,20 +60,13 @@ public class GroupModel {
             throw new IllegalArgumentException("Group Definition found with no name attribute! : " + group);
         }
 
-        List serviceList = UtilXml.childElementList(group, "invoke");
-        if (serviceList != null && serviceList.size() > 0) {
-            Iterator i = serviceList.iterator();
-            while (i.hasNext()) {
-                Element service = (Element) i.next();
-                services.add(new GroupServiceModel(service));
-            }
+        for (Element service: UtilXml.childElementList(group, "invoke")) {
+            services.add(new GroupServiceModel(service));
         }
 
-        List oldServiceTags = UtilXml.childElementList(group, "service");
-        if (oldServiceTags != null && oldServiceTags.size() > 0) {
-            Iterator i = oldServiceTags.iterator();
-            while (i.hasNext()) {
-                Element service = (Element) i.next();
+        List<? extends Element> oldServiceTags = UtilXml.childElementList(group, "service");
+        if (oldServiceTags.size() > 0) {
+            for (Element service: oldServiceTags) {
                 services.add(new GroupServiceModel(service));
             }
             Debug.logWarning("Service Group Definition : [" + group.getAttribute("name") + "] found with OLD 'service' attribute, change to use 'invoke'", module);

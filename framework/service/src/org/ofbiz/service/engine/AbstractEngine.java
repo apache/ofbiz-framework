@@ -63,11 +63,9 @@ public abstract class AbstractEngine implements GenericEngine {
             }
 
             if (root != null) {
-                List locationElements = UtilXml.childElementList(root, "service-location");
+                List<? extends Element> locationElements = UtilXml.childElementList(root, "service-location");
                 if (locationElements != null) {
-                    Iterator i = locationElements.iterator();
-                    while (i.hasNext()) {
-                        Element e = (Element) i.next();
+                    for (Element e: locationElements) {
                         locationMap.put(e.getAttribute("name"), e.getAttribute("location"));
                     }
                 }

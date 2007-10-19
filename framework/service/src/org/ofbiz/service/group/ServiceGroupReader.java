@@ -53,10 +53,7 @@ public class ServiceGroupReader {
             return;
         }
 
-        List serviceGroupElements = UtilXml.childElementList(rootElement, "service-groups");
-        Iterator groupsIter = serviceGroupElements.iterator();
-        while (groupsIter.hasNext()) {
-            Element serviceGroupElement = (Element) groupsIter.next();
+        for (Element serviceGroupElement: UtilXml.childElementList(rootElement, "service-groups")) {
             ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, serviceGroupElement);
             addGroupDefinitions(handler);
         }
@@ -79,12 +76,9 @@ public class ServiceGroupReader {
             Debug.logError(e, module);
             return;
         }
-        List groupList = UtilXml.childElementList(rootElement, "group");
-        Iterator groupIt = groupList.iterator();
         int numDefs = 0;
 
-        while (groupIt.hasNext()) {
-            Element group = (Element) groupIt.next();
+        for (Element group: UtilXml.childElementList(rootElement, "group")) {
             String groupName = group.getAttribute("name");
             groupsCache.put(groupName, new GroupModel(group));        
             numDefs++;

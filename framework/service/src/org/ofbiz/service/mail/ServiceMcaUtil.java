@@ -55,10 +55,7 @@ public class ServiceMcaUtil {
             return;
         }
 
-        List serviceMcasElements = UtilXml.childElementList(rootElement, "service-mcas");
-        Iterator secasIter = serviceMcasElements.iterator();
-        while (secasIter.hasNext()) {
-            Element serviceMcasElement = (Element) secasIter.next();
+        for (Element serviceMcasElement: UtilXml.childElementList(rootElement, "service-mcas")) {
             ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, serviceMcasElement);
             addMcaDefinitions(handler);
         }
@@ -81,12 +78,9 @@ public class ServiceMcaUtil {
             return;
         }
 
-        List ecaList = UtilXml.childElementList(rootElement, "mca");
-        Iterator ecaIt = ecaList.iterator();
         int numDefs = 0;
 
-        while (ecaIt.hasNext()) {
-            Element e = (Element) ecaIt.next();
+        for (Element e: UtilXml.childElementList(rootElement, "mca")) {
             String ruleName = e.getAttribute("mail-rule-name");
             mcaCache.put(ruleName, new ServiceMcaRule(e));
             numDefs++;
