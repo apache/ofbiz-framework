@@ -35,7 +35,8 @@ under the License.
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="example" global="true"/>
-                <set field="appheaderTemplate" value="component://example/webapp/example/includes/appheader.ftl" global="true"/>
+                <set field="applicationMenuName" value="ExampleAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>

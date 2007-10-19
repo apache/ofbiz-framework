@@ -20,6 +20,23 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
+
+    <menu name="ExampleAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.ExampleApplication}"
+        default-selected-style="selected" selected-menuitem-context-field-name="headerItem">
+        <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
+        <menu-item name="Example" title="${uiLabelMap.ExampleExample}"><link target="FindExample"/></menu-item>
+        <menu-item name="ExampleFeature" title="${uiLabelMap.ExampleFeature}"><link target="FindExampleFeature"/></menu-item>
+
+        <menu-item name="Logout" title="Logout" align-style="col-right" selected-style="selected">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="logout"/>
+        </menu-item>
+        <menu-item name="Login" title="Login" align-style="col-right" selected-style="selected">
+            <condition><if-empty field-name="userLogin"/></condition>
+            <link target="${checkLoginUrl}"/>
+        </menu-item>
+    </menu>
+
     <menu name="EditExample" default-selected-style="selected" type="simple"
             menu-container-style="button-bar button-style-1" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditExample" title="${uiLabelMap.ExampleExample}">
