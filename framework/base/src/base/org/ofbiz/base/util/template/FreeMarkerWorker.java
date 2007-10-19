@@ -26,6 +26,7 @@ import java.io.StringReader;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -499,7 +500,7 @@ public class FreeMarkerWorker {
                 map.putAll(UtilGenerics.checkMap(o));
                 context.put(key, map);
             } else if (o instanceof List) {
-                List<Object> list = FastList.newInstance();
+                List<Object> list = new ArrayList();
                 list.addAll(UtilGenerics.checkList(o));
                 context.put(key, list);
             } else {
