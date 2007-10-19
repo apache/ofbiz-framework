@@ -2085,15 +2085,14 @@ public class ModelForm {
         this.type = string;
     }
 
-    /**
-     * @return
-     */
     public String getPaginateTarget(Map context) {
         String targ = this.paginateTarget.expandString(context);
         if (UtilValidate.isEmpty(targ)) {
-            targ = getTarget(context, null);
+            Map parameters = (Map) context.get("parameters");
+            if (parameters != null && parameters.containsKey("targetRequestUri")) {
+                targ = (String) parameters.get("targetRequestUri");
+            }
         }
-        
         return targ;
     }
 
