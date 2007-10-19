@@ -609,7 +609,7 @@ public class ModelService extends AbstractMap implements Serializable {
 
     public static boolean typeValidate(ModelParam.ModelParamValidator vali, Object testValue) throws GeneralException {
         // find the validator class
-        Class validatorClass = null;
+        Class<?> validatorClass = null;
         try {
             validatorClass = ObjectType.loadClass(vali.getClassName());
         } catch (ClassNotFoundException e) {

@@ -72,7 +72,7 @@ public class GenericEngineFactory {
                 if (engine == null) {
                     try {
                         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                        Class c = loader.loadClass(className);
+                        Class<?> c = loader.loadClass(className);
                         Constructor cn = c.getConstructor(ServiceDispatcher.class);
                         engine = (GenericEngine) cn.newInstance(dispatcher);
                     } catch (Exception e) {
