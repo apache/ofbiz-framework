@@ -64,10 +64,10 @@ public class ModelServiceReader implements Serializable {
     protected boolean isFromURL;
     protected URL readerURL = null;
     protected ResourceHandler handler = null;
-    protected Map modelServices = null;
+    protected Map<String, ModelService> modelServices = null;
     protected DispatchContext dctx = null;
 
-    public static Map getModelServiceMap(URL readerURL, DispatchContext dctx) {
+    public static Map<String, ModelService> getModelServiceMap(URL readerURL, DispatchContext dctx) {
         if (readerURL == null) {
             Debug.logError("Cannot add reader with a null reader URL", module);
             return null;
@@ -77,7 +77,7 @@ public class ModelServiceReader implements Serializable {
         return reader.getModelServices();
     }
 
-    public static Map getModelServiceMap(ResourceHandler handler, DispatchContext dctx) {
+    public static Map<String, ModelService> getModelServiceMap(ResourceHandler handler, DispatchContext dctx) {
         ModelServiceReader reader = new ModelServiceReader(handler, dctx);
         return reader.getModelServices();
     }
@@ -100,7 +100,7 @@ public class ModelServiceReader implements Serializable {
         getModelServices();
     }
 
-    public Map getModelServices() {
+    public Map<String, ModelService> getModelServices() {
         if (modelServices == null) { // don't want to block here
             synchronized (ModelServiceReader.class) {
                 // must check if null again as one of the blocked threads can still enter
@@ -220,10 +220,10 @@ public class ModelServiceReader implements Serializable {
      * @return An Service object describing the specified service of the specified descriptor file.
      */
     public ModelService getModelService(String serviceName) {
-        Map ec = getModelServices();
+        Map<String, ModelService> ec = getModelServices();
 
         if (ec != null)
-            return (ModelService) ec.get(serviceName);
+            return ec.get(serviceName);
         else
             return null;
     }
@@ -232,8 +232,8 @@ public class ModelServiceReader implements Serializable {
      * Creates a Iterator with the serviceName of each Service defined in the specified XML Service Descriptor file.
      * @return A Iterator of serviceName Strings
      */
-    public Iterator getServiceNamesIterator() {
-        Collection collection = getServiceNames();
+    public Iterator<String> getServiceNamesIterator() {
+        Collection<String> collection = getServiceNames();
 
         if (collection != null) {
             return collection.iterator();
@@ -246,8 +246,8 @@ public class ModelServiceReader implements Serializable {
      * Creates a Collection with the serviceName of each Service defined in the specified XML Service Descriptor file.
      * @return A Collection of serviceName Strings
      */
-    public Collection getServiceNames() {
-        Map ec = getModelServices();
+    public Collection<String> getServiceNames() {
+        Map<String, ModelService> ec = getModelServices();
 
         return ec.keySet();
     }
@@ -480,7 +480,7 @@ public class ModelServiceReader implements Serializable {
         }
         
         if (delegator != null && entityName != null) {
-            Map modelParamMap = new LinkedHashMap();
+            Map<String, ModelParam> modelParamMap = new LinkedHashMap<String, ModelParam>();
             try {            
                 ModelEntity entity = delegator.getModelEntity(entityName);
                 if (entity == null) {
@@ -516,10 +516,7 @@ public class ModelServiceReader implements Serializable {
                     }
                     
                     // now add in all the remaining params
-                    Set keySet = modelParamMap.keySet();
-                    Iterator setIter = keySet.iterator();
-                    while (setIter.hasNext()) {
-                        ModelParam thisParam = (ModelParam) modelParamMap.get(setIter.next()); 
+                    for (ModelParam thisParam: modelParamMap.values()) {
                         //Debug.logInfo("Adding Param to " + service.name + ": " + thisParam.name + " [" + thisParam.mode + "] " + thisParam.type + " (" + thisParam.optional + ")", module);                       
                         service.addParam(thisParam);
                     }                    
