@@ -92,7 +92,7 @@ public class ModelPermission implements Serializable {
             return false;
         }
         GenericDelegator delegator = userLogin.getDelegator();
-        List partyRoles = null;
+        List<GenericValue> partyRoles = null;
         try {
             partyRoles = delegator.findByAnd("PartyRole", "roleTypeId", nameOrRole, "partyId", userLogin.get("partyId"));
         } catch (GenericEntityException e) {

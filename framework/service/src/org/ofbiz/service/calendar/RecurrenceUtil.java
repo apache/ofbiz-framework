@@ -49,15 +49,13 @@ public class RecurrenceUtil {
     }
 
     /** Returns a List of parsed date strings. */
-    public static List parseDateList(List dateList) {
-        List newList = new ArrayList();
+    public static List<Date> parseDateList(List<String> dateList) {
+        List<Date> newList = new ArrayList<Date>();
 
         if (dateList == null)
             return newList;
-        Iterator i = dateList.iterator();
-
-        while (i.hasNext())
-            newList.add(parseDate((String) i.next()));
+        for (String value: dateList)
+            newList.add(parseDate(value));
         return newList;
     }
 
@@ -77,12 +75,10 @@ public class RecurrenceUtil {
     }
 
     /** Returns a Llist of date strings from a List of Date objects */
-    public static List formatDateList(List dateList) {
-        List newList = new ArrayList();
-        Iterator i = dateList.iterator();
-
-        while (i.hasNext())
-            newList.add(formatDate((Date) i.next()));
+    public static List<String> formatDateList(List<Date> dateList) {
+        List<String> newList = new ArrayList<String>();
+        for (Date date: dateList)
+            newList.add(formatDate(date));
         return newList;
     }
 

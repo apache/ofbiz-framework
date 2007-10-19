@@ -63,7 +63,7 @@ public class ModelParam implements Serializable {
     public String stringListSuffix;
 
     /** Validation methods */
-    public List validators;
+    public List<ModelParamValidator> validators;
 
     /** Default value */
     private String defaultValue = null;    
@@ -109,7 +109,7 @@ public class ModelParam implements Serializable {
 
     public String getPrimaryFailMessage(Locale locale) {
         if (validators != null && validators.size() > 0) {
-            return ((ModelParamValidator) validators.get(0)).getFailMessage(locale);
+            return validators.get(0).getFailMessage(locale);
         } else {
             return null;
         }

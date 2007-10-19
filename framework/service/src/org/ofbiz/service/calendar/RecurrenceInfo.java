@@ -41,10 +41,10 @@ public class RecurrenceInfo {
 
     protected GenericValue info;
     protected Date startDate;
-    protected List rRulesList;
-    protected List eRulesList;
-    protected List rDateList;
-    protected List eDateList;;
+    protected List<RecurrenceRule> rRulesList;
+    protected List<RecurrenceRule> eRulesList;
+    protected List<Date> rDateList;
+    protected List<Date> eDateList;;
 
     /** Creates new RecurrenceInfo */
     public RecurrenceInfo(GenericValue info) throws RecurrenceInfoException {
@@ -74,12 +74,9 @@ public class RecurrenceInfo {
 
         // Get the recurrence rules objects
         try {
-            Collection c = info.getRelated("RecurrenceRule");
-            Iterator i = c.iterator();
-
-            rRulesList = new ArrayList();
-            while (i.hasNext()) {
-                rRulesList.add(new RecurrenceRule((GenericValue) i.next()));
+            rRulesList = new ArrayList<RecurrenceRule>();
+            for (GenericValue value: info.getRelated("RecurrenceRule")) {
+                rRulesList.add(new RecurrenceRule(value));
             }
         } catch (GenericEntityException gee) {
             rRulesList = null;
@@ -89,12 +86,9 @@ public class RecurrenceInfo {
 
         // Get the exception rules objects
         try {
-            Collection c = info.getRelated("ExceptionRecurrenceRule");
-            Iterator i = c.iterator();
-
-            eRulesList = new ArrayList();
-            while (i.hasNext()) {
-                eRulesList.add(new RecurrenceRule((GenericValue) i.next()));
+            eRulesList = new ArrayList<RecurrenceRule>();
+            for (GenericValue value: info.getRelated("ExceptionRecurrenceRule")) {
+                eRulesList.add(new RecurrenceRule(value));
             }
         } catch (GenericEntityException gee) {
             eRulesList = null;
@@ -128,22 +122,22 @@ public class RecurrenceInfo {
     }
 
     /** Returns a recurrence rule iterator */
-    public Iterator getRecurrenceRuleIterator() {
+    public Iterator<RecurrenceRule> getRecurrenceRuleIterator() {
         return rRulesList.iterator();
     }
 
     /** Returns a sorted recurrence date iterator */
-    public Iterator getRecurrenceDateIterator() {
+    public Iterator<Date> getRecurrenceDateIterator() {
         return rDateList.iterator();
     }
 
     /** Returns a exception recurrence iterator */
-    public Iterator getExceptionRuleIterator() {
+    public Iterator<RecurrenceRule> getExceptionRuleIterator() {
         return eRulesList.iterator();
     }
 
     /** Returns a sorted exception date iterator */
-    public Iterator getExceptionDateIterator() {
+    public Iterator<Date> getExceptionDateIterator() {
         return eDateList.iterator();
     }
 
@@ -171,15 +165,14 @@ public class RecurrenceInfo {
 
     /** Removes the recurrence from persistant store. */
     public void remove() throws RecurrenceInfoException {
-        List rulesList = new ArrayList();
+        List<RecurrenceRule> rulesList = new ArrayList<RecurrenceRule>();
 
         rulesList.addAll(rRulesList);
         rulesList.addAll(eRulesList);
-        Iterator i = rulesList.iterator();
 
         try {
-            while (i.hasNext())
-                ((RecurrenceRule) i.next()).remove();
+            for (RecurrenceRule rule: rulesList)
+                rule.remove();
             info.remove();
         } catch (RecurrenceRuleException rre) {
             throw new RecurrenceInfoException(rre.getMessage(), rre);
@@ -226,9 +219,9 @@ public class RecurrenceInfo {
         boolean hasNext = true;
 
         // Get the next recurrence from the rule(s).
-        Iterator rulesIterator = getRecurrenceRuleIterator();
+        Iterator<RecurrenceRule> rulesIterator = getRecurrenceRuleIterator();
         while (rulesIterator.hasNext()) {
-            RecurrenceRule rule = (RecurrenceRule) rulesIterator.next();
+            RecurrenceRule rule = rulesIterator.next();
             while (hasNext) {
                 // Gets the next recurrence time from the rule.
                 nextRuleTime = getNextTime(rule, nextRuleTime);
@@ -247,15 +240,11 @@ public class RecurrenceInfo {
         return checkDateList(rDateList, nextTime, fromTime);
     }
 
-    private long checkDateList(List dateList, long time, long fromTime) {
+    private long checkDateList(List<Date> dateList, long time, long fromTime) {
         long nextTime = time;
 
         if (dateList != null && dateList.size() > 0) {
-            Iterator dateIterator = dateList.iterator();
-
-            while (dateIterator.hasNext()) {
-                Date thisDate = (Date) dateIterator.next();
-
+            for (Date thisDate: dateList) {
                 if (nextTime > 0 && thisDate.getTime() < nextTime && thisDate.getTime() > fromTime)
                     nextTime = thisDate.getTime();
                 else if (nextTime == 0 && thisDate.getTime() > fromTime)
@@ -266,10 +255,10 @@ public class RecurrenceInfo {
     }
 
     private boolean isValid(long time) {
-        Iterator exceptRulesIterator = getExceptionRuleIterator();
+        Iterator<RecurrenceRule> exceptRulesIterator = getExceptionRuleIterator();
 
         while (exceptRulesIterator.hasNext()) {
-            RecurrenceRule except = (RecurrenceRule) exceptRulesIterator.next();
+            RecurrenceRule except = exceptRulesIterator.next();
 
             if (except.isValid(getStartTime(), time) || eDateList.contains(new Date(time)))
                 return false;
