@@ -81,12 +81,12 @@ public class GenerateContainer implements Container {
 
     private void generateFiles() throws ContainerException {
         File files[] = getTemplates();
-        Map dataMap = buildDataMap();
+        Map<String, Object> dataMap = buildDataMap();
 
         //Debug.log("Using Data : " + dataMap, module);
-        for (int i = 0; i < files.length; i++) {
-            if (!files[i].isDirectory() && !files[i].isHidden()) {
-                parseTemplate(files[i], dataMap);
+        for (File file: files) {
+            if (!file.isDirectory() && !file.isHidden()) {
+                parseTemplate(file, dataMap);
             }
         }
     }
@@ -109,8 +109,8 @@ public class GenerateContainer implements Container {
         return parentDir.listFiles();
     }
 
-    private Map buildDataMap() {
-        Map dataMap = FastMap.newInstance();
+    private Map<String, Object> buildDataMap() {
+        Map<String, Object> dataMap = FastMap.newInstance();
         List c[] = getClasspath();
         dataMap.put("classpathJars", c[0]);
         dataMap.put("classpathDirs", c[1]);
@@ -121,13 +121,11 @@ public class GenerateContainer implements Container {
 
     private List[] getClasspath() {
         Classpath classPath = new Classpath(System.getProperty("java.class.path"));
-        List elements = classPath.getElements();
-        List jar = FastList.newInstance();
-        List dir = FastList.newInstance();
+        List<File> elements = classPath.getElements();
+        List<String> jar = FastList.newInstance();
+        List<String> dir = FastList.newInstance();
 
-        Iterator i = elements.iterator();
-        while (i.hasNext()) {
-            File f = (File) i.next();
+        for (File f: elements) {
             if (f.exists()) {
                 if (f.isDirectory()) {
                     dir.add(f.getAbsolutePath());
@@ -141,7 +139,7 @@ public class GenerateContainer implements Container {
         return lists;
     }
 
-    private void parseTemplate(File templateFile, Map dataMap) throws ContainerException {
+    private void parseTemplate(File templateFile, Map<String, Object> dataMap) throws ContainerException {
         Debug.log("Parsing template : " + templateFile.getAbsolutePath(), module);
 
         // create the target file/directory
