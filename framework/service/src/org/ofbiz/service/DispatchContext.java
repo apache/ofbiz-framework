@@ -314,7 +314,7 @@ public class DispatchContext implements Serializable {
                     Iterator componentResourceInfoIter = componentResourceInfos.iterator();
                     while (componentResourceInfoIter.hasNext()) {
                         ComponentConfig.ServiceResourceInfo componentResourceInfo = (ComponentConfig.ServiceResourceInfo) componentResourceInfoIter.next();
-                        Map servicesMap = ModelServiceReader.getModelServiceMap(componentResourceInfo.createResourceHandler(), this);
+                        Map<String, ModelService> servicesMap = ModelServiceReader.getModelServiceMap(componentResourceInfo.createResourceHandler(), this);
                         if (servicesMap != null) {
                             serviceMap.putAll(servicesMap);
                         }
