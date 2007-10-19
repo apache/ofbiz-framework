@@ -92,6 +92,14 @@ under the License.
 
         <field name="partyId" title="${uiLabelMap.PartyParty}*"><lookup target-form-name="LookupPartyName"/></field>
         <field name="clientPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}*" position="1">
+            <drop-down no-current-selected-key="TIMESHEET_IN_PROCESS">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" value="TIMESHEET_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="DisplayTimesheetEntries" type="list" list-name="timesheetEntries">

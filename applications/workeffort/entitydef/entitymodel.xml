@@ -110,13 +110,17 @@ under the License.
       <field name="clientPartyId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
+      <field name="statusId" type="id"></field>
       <field name="comments" type="comment"></field>
       <prim-key field="timesheetId"/>
       <relation type="one" fk-name="TIMESHEET_PRTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="TIMESHEET_CPTY" title="Client" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
+        <key-map field-name="clientPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="TIMESHEET_STS" title="Status" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
       </relation>
     </entity>
     <entity entity-name="TimesheetRole"
