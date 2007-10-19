@@ -85,6 +85,8 @@ public interface GenericEngine {
      * @param mode Service mode (sync or async)
      * @throws GenericServiceException
      */
-    public void sendCallbacks(ModelService modelService, Map context, Object cbObj, int mode) throws GenericServiceException;
+    public void sendCallbacks(ModelService modelService, Map context, int mode) throws GenericServiceException;
+    public void sendCallbacks(ModelService modelService, Map context, Map result, int mode) throws GenericServiceException;
+    public void sendCallbacks(ModelService modelService, Map context, Throwable t, int mode) throws GenericServiceException;
 }
 

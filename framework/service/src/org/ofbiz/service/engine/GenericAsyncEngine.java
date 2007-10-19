@@ -154,12 +154,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
         }
     }
 
-    /**
-     * @see org.ofbiz.service.engine.GenericEngine#sendCallbacks(org.ofbiz.service.ModelService, java.util.Map, java.lang.Object, int)
-     */
-    public void sendCallbacks(ModelService model, Map context, Object cbObj, int mode) throws GenericServiceException {
-        if (mode == GenericEngine.SYNC_MODE) {
-            super.sendCallbacks(model, context, cbObj, mode);
-        }
+    protected boolean allowCallbacks(ModelService model, Map context, int mode) throws GenericServiceException {
+        return mode == GenericEngine.SYNC_MODE;
     }
 }

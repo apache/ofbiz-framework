@@ -62,9 +62,12 @@ public class RouteEngine implements GenericEngine {
         return;
     }
 
-    /**
-     * @see org.ofbiz.service.engine.GenericEngine#sendCallbacks(org.ofbiz.service.ModelService, java.util.Map, java.lang.Object, int)
-     */
-    public void sendCallbacks(ModelService modelService, Map context, Object cbObj, int mode) throws GenericServiceException {
+    public void sendCallbacks(ModelService modelService, Map context, int mode) throws GenericServiceException {
+    }
+
+    public void sendCallbacks(ModelService modelService, Map context, Map result, int mode) throws GenericServiceException {
+    }
+
+    public void sendCallbacks(ModelService modelService, Map context, Throwable t, int mode) throws GenericServiceException {
     }
 }
