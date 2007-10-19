@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.Collection;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
@@ -138,7 +139,13 @@ public class ServiceEcaUtil {
             if (event != null) {
                 return (Collection) eventMap.get(event);
             } else {
-                return eventMap.values();
+                List rules = FastList.newInstance();
+                Iterator it = eventMap.values().iterator();
+                while (it.hasNext()) {
+                    Collection col = (Collection) it.next();
+                    rules.addAll(col);
+                }
+                return rules;
             }
         }
         return null;
