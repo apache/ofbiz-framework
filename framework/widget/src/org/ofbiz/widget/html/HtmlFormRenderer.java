@@ -167,7 +167,13 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String description = displayField.getDescription(context);
         //Replace new lines with <br/>
         description = description.replaceAll("\n", "<br/>");
-        buffer.append(description);
+
+        if (UtilValidate.isEmpty(description)) {
+            this.renderFormatEmptySpace(buffer, context, modelFormField.getModelForm());
+        } else {
+            buffer.append(description);
+        }
+
         if (str.length() > 0) {
             buffer.append("</span>");
         }
