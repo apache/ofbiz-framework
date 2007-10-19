@@ -1390,6 +1390,36 @@ public class PartyServices {
         String partyId = (String) context.get("partyId");
         Timestamp now = UtilDateTime.nowTimestamp();
 
+        if (partyIdTo.equals(partyId)) {
+            return ServiceUtil.returnError("Cannot link the same party with itself");
+        }
+
+        // get the from/to party records
+        GenericValue partyTo;
+        try {
+            partyTo = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyIdTo));
+        } catch (GenericEntityException e) {
+            Debug.log(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (partyTo == null) {
+            return ServiceUtil.returnError("Party To does not exist!");
+        }
+        if ("PARTY_DISABLED".equals(partyTo.get("statusId"))) {
+            return ServiceUtil.returnError("Cannot merge records into a disabled party!");
+        }
+
+        GenericValue party;
+        try {
+            party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+        } catch (GenericEntityException e) {
+            Debug.log(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        if (party == null) {
+            return ServiceUtil.returnError("Party FROM does not exist!");
+        }
+
         // update the contact mech records
         try {
             delegator.storeByCondition("PartyContactMech", UtilMisc.<String, Object>toMap("partyId", partyIdTo, "thruDate", now),
@@ -1411,6 +1441,33 @@ public class PartyServices {
         // update the party notes
         try {
             delegator.storeByCondition("PartyNote", UtilMisc.toMap("partyId", partyIdTo),
+                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // update the inventory item(s)
+        try {
+            delegator.storeByCondition("InventoryItem", UtilMisc.toMap("ownerPartyId", partyIdTo),
+                    new EntityExpr("ownerPartyId", EntityOperator.EQUALS, partyId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // update the subscription
+        try {
+            delegator.storeByCondition("Subscription", UtilMisc.toMap("partyId", partyIdTo),
+                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // update the userLogin records
+        try {
+            delegator.storeByCondition("UserLogin", UtilMisc.toMap("partyId", partyIdTo),
                     new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -1439,20 +1496,6 @@ public class PartyServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
-        try {
-            delegator.removeByAnd("PartyRole", UtilMisc.toMap("partyId", partyId));
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
-
-        try {
-            delegator.storeByCondition("PartyRole", UtilMisc.toMap("partyId", partyIdTo),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
-        }
 
         // update the order role records
         try {
@@ -1461,6 +1504,52 @@ public class PartyServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // invoice role
+        try {
+            delegator.storeByCondition("InvoiceRole", UtilMisc.toMap("partyId", partyIdTo),
+                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // data resource role
+        try {
+            delegator.storeByCondition("DataResourceRole", UtilMisc.toMap("partyId", partyIdTo),
+                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // content role
+        try {
+            delegator.storeByCondition("ContentRole", UtilMisc.toMap("partyId", partyIdTo),
+                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // update the fin account
+        try {
+            delegator.storeByCondition("FinAccountRole", UtilMisc.toMap("partyId", partyIdTo),
+                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // TODO: there are a number of other places which may need to be updated
+
+        // remove all previous party roles
+        try {
+            delegator.removeByAnd("PartyRole", UtilMisc.toMap("partyId", partyId));
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, module);
+            // if this fails no problem
         }
 
         // update the non-existing attributes
@@ -1492,18 +1581,31 @@ public class PartyServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        // disable the party
-        Map disableResp = null;
+        // create a party link attribute
+        GenericValue linkAttr = delegator.makeValue("PartyAttribute");
+        linkAttr.set("partyId", partyId);
+        linkAttr.set("attrName", "LINKED_TO");
+        linkAttr.set("attrValue", partyIdTo);
         try {
-            disableResp = dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", "PARTY_DISABLED", "userLogin", userLogin));
-        } catch (GenericServiceException e) {
+            delegator.create(linkAttr);
+        } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        if (disableResp != null && ServiceUtil.isError(disableResp)) {
-            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(disableResp));
-        }
 
+        // disable the party
+        String currentStatus = party.getString("statusId");
+        if (currentStatus == null || !"PARTY_DISABLED".equals(currentStatus)) {
+            party.set("statusId", "PARTY_DISABLED");
+
+            try {
+                party.store();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error setting disable mode on partyId: " + partyId, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        }
+                
         Map resp = ServiceUtil.returnSuccess();
         resp.put("partyId", partyIdTo);
         return resp;
