@@ -771,6 +771,10 @@ public class UtilDateTime {
         return new Timestamp(tempCal.getTimeInMillis());
     }
 
+    public static Timestamp adjustTimestamp(Timestamp stamp, int adjType, int adjQuantity) {
+        return adjustTimestamp(stamp, adjType, adjQuantity, null, null);
+    }
+
     public static Timestamp getDayStart(Timestamp stamp, TimeZone timeZone, Locale locale) {
         return getDayStart(stamp, 0, timeZone, locale);
     }
