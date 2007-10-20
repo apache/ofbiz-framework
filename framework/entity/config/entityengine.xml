@@ -47,7 +47,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     -->
 
     <!-- the connection factory class to use, one is needed for obtaining connections/pools for defined resources -->
-    <connection-factory class="org.ofbiz.entity.connection.MinervaConnectionFactory"/>
+    <connection-factory class="org.ofbiz.entity.connection.DBCPConnectionFactory"/>
 
     <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
         <group-map group-name="org.ofbiz" datasource-name="localderby"/>
