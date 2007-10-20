@@ -134,7 +134,7 @@ public abstract class AbstractEngine implements GenericEngine {
         }
     }
 
-    protected boolean allowCallbacks(ModelService model, Map<String, Object> context, int mode) throws GenericServiceException {
+    protected boolean allowCallbacks(ModelService model, Map context, int mode) throws GenericServiceException {
         return true;
     }
 }
