@@ -119,7 +119,7 @@ under the License.
       <relation type="one" fk-name="TIMESHEET_CPTY" title="Client" rel-entity-name="Party">
         <key-map field-name="clientPartyId" rel-field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="TIMESHEET_STS" title="Status" rel-entity-name="StatusItem">
+      <relation type="one" fk-name="TIMESHEET_STS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
     </entity>
