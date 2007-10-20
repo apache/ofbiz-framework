@@ -26,7 +26,7 @@ under the License.
                 <!-- base/top/specific map first, then more common map added for shared labels --> 
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="layoutSettings.companyName" from-field="uiLabelMap.ManufacturingCompanyName" global="true"/>
+                <set field="layoutSettings.companyName" value="OFBiz : Business Intelligence" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ManufacturingCompanySubtitle" global="true"/>
                 <set field="activeApp" value="bi" global="true"/>
                 <set field="applicationMenuName" value="BiAppBar" global="true"/>
