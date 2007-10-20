@@ -2485,6 +2485,27 @@ under the License.
         <response name="error" type="view" value="ProductsExportToEbay"/>
     </request-map>
     
+    <!-- ================ Vendor Product Requests ================= -->
+    <request-map uri="EditVendorProduct">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditVendorProduct"/>
+        <response name="error" type="view" value="EditVendorProduct"/>
+    </request-map>
+    
+    <request-map uri="createVendorProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createVendorProduct"/>
+        <response name="success" type="view" value="EditVendorProduct"/>
+        <response name="error" type="view" value="EditVendorProduct"/>
+    </request-map>
+    
+    <request-map uri="deleteVendorProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteVendorProduct"/>
+        <response name="success" type="view" value="EditVendorProduct"/>
+        <response name="error" type="view" value="EditVendorProduct"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2601,7 +2622,7 @@ under the License.
     <view-map name="EditProductStoreFinAccountSettings" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFinAccountSettings"/>    
     <view-map name="EditProductStoreVendorPayments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorPayments"/>
     <view-map name="EditProductStoreVendorShipments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorShipments"/>
-    
+    <view-map name="EditVendorProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditVendorProduct"/>
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
 
     <view-map name="pendingReviews" type="screen" page="component://product/widget/catalog/ReviewScreens.xml#pendingReviews"/>

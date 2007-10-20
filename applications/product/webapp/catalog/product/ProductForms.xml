@@ -1530,6 +1530,27 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
-    </form>   
+    </form>
+    
+    <!-- Vendor Product-->
+    <form name="ListVendorProducts" type="list" list-name="vendorProductList" target="deleteVendorProduct" paginate-target="EditVendorProduct">
+        <field name="productId"><hidden/></field>
+        <field name="vendorPartyId"><display/></field>
+        <field name="productStoreGroupId"><display/></field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="EditVendorProduct" type="single" target="createVendorProduct">
+        <field name="productId"><hidden/></field>
+        <field name="vendorPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="productStoreGroupId">
+            <drop-down current="selected" allow-empty="false">
+                <entity-options entity-name="ProductStoreGroup" key-field-name="productStoreGroupId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
  </forms>
  
