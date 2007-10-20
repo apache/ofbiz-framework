@@ -984,7 +984,14 @@ public class HtmlFormRenderer implements FormStringRenderer {
                 buffer.append(modelFormField.getTitleStyle());
                 buffer.append("\">");
             }
-            renderHyperlinkTitle(buffer, context, modelFormField, titleText);         
+            if (" ".equals(titleText)) {
+                // If the title content is just a blank then render it colling renderFormatEmptySpace:
+                // the method will set its content to work fine in most browser
+                this.renderFormatEmptySpace(buffer, context, modelFormField.getModelForm());
+            } else {
+                renderHyperlinkTitle(buffer, context, modelFormField, titleText);
+            }
+
             if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
                 buffer.append("</span>");
             }
