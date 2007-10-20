@@ -19,7 +19,7 @@
 -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/services.xsd">
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
 
     <service name="ConvertOfbizCartToGoogle" engine="simple" invoke="ConvertOfbizCartToGoogle"
         location="org/ofbiz/googleCheckout/ShoppingCartServices.xml">

@@ -59,7 +59,7 @@ public class ModelService extends AbstractMap implements Serializable {
     public static final String module = ModelService.class.getName();
 
     public static final String XSD = "http://www.w3.org/2001/XMLSchema";
-    public static final String TNS = "http://www.ofbiz.org/service/";
+    public static final String TNS = "http://ofbiz.apache.org/service/";
     public static final String OUT_PARAM = "OUT";
     public static final String IN_PARAM = "IN";
 
