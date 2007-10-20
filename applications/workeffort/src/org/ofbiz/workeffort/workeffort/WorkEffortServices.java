@@ -72,9 +72,9 @@ public class WorkEffortServices {
                 conditionList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"));
                 conditionList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"));
                 conditionList.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
-                validWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign",
+                validWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAndPartyAssign",
                                                        conditionList,
-                                                       UtilMisc.toList("estimatedStartDate", "priority"));
+                                                       UtilMisc.toList("estimatedStartDate", "priority")));
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
@@ -97,21 +97,21 @@ public class WorkEffortServices {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                validWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign",
+                validWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAndPartyAssign",
                             UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
                                 new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
                                 new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
                                 new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
                                 new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
                                 new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED")),
-                            UtilMisc.toList("priority"));
-                validWorkEfforts.addAll(delegator.findByAnd("WorkEffortAndPartyAssign",
+                            UtilMisc.toList("priority")));
+                validWorkEfforts.addAll(EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAndPartyAssign",
                         UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
                             new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
                             new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED "),
                             new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"),
                             new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED")),
-                        UtilMisc.toList("createdDate DESC")));
+                        UtilMisc.toList("createdDate DESC"))));
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
@@ -143,7 +143,7 @@ public class WorkEffortServices {
                 constraints.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_COMPLETED"));
                 constraints.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_TERMINATED"));
                 constraints.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_ABORTED"));
-                validWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign", constraints, UtilMisc.toList("priority"));
+                validWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAndPartyAssign", constraints, UtilMisc.toList("priority")));
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
@@ -175,7 +175,7 @@ public class WorkEffortServices {
                 constraints.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_COMPLETED"));
                 constraints.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_TERMINATED"));
                 constraints.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_ABORTED"));
-                roleWorkEfforts = delegator.findByAnd("WorkEffortPartyAssignByRole", constraints, UtilMisc.toList("priority"));
+                roleWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignByRole", constraints, UtilMisc.toList("priority")));
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
@@ -207,7 +207,7 @@ public class WorkEffortServices {
                 constraints.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_COMPLETED"));
                 constraints.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_TERMINATED"));
                 constraints.add(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_ABORTED"));
-                groupWorkEfforts = delegator.findByAnd("WorkEffortPartyAssignByGroup", constraints, UtilMisc.toList("priority"));
+                groupWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignByGroup", constraints, UtilMisc.toList("priority")));
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
@@ -429,7 +429,7 @@ public class WorkEffortServices {
             try {
                 List tempWorkEfforts = null;
                 if (partyIds != null && partyIds.size() > 0) {
-                    tempWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign", entityExprList, UtilMisc.toList("estimatedStartDate"));
+                    tempWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAndPartyAssign", entityExprList, UtilMisc.toList("estimatedStartDate")));
                 } else {
                     tempWorkEfforts = delegator.findByAnd("WorkEffort", entityExprList, UtilMisc.toList("estimatedStartDate"));
                 }
