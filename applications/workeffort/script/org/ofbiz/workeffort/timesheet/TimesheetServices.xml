@@ -34,19 +34,13 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTimesheet" short-description="Update Timesheet">
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
-        <check-errors/>
-        
-        <entity-one entity-name="Timesheet" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <call-simple-method method-name="checkTimesheetStatus"/>
+        <set-nonpk-fields map-name="parameters" value-name="timesheet"/>
+        <store-value value-name="timesheet"/>
     </simple-method>
     <simple-method method-name="deleteTimesheet" short-description="Delete Timesheet">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
-        <check-errors/>
-        
-        <entity-one entity-name="Timesheet" value-name="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <call-simple-method method-name="checkTimesheetStatus"/>
+        <remove-value value-name="timesheet"/>
     </simple-method>
     <simple-method method-name="createTimesheetForThisWeek" short-description="Create Timesheet For This Week">
         <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
@@ -177,8 +171,7 @@ under the License.
     
     <!-- TimeEntry Services -->
     <simple-method method-name="createTimeEntry" short-description="Create TimeEntry">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
-        <check-errors/>
+        <call-simple-method method-name="checkTimesheetStatus"/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
         <make-value value-name="newEntity" entity-name="TimeEntry"/>
@@ -191,22 +184,17 @@ under the License.
                 <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
             </call-class-method>
         </if-empty>
-        
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTimeEntry" short-description="Update TimeEntry">
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
-        <check-errors/>
-        
         <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
+        <call-simple-method method-name="checkTimesheetStatus"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTimeEntry" short-description="Delete TimeEntry">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
-        <check-errors/>
-        
         <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
+        <call-simple-method method-name="checkTimesheetStatus"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="getTimeEntryRate" short-description="Get TimeEntry Rate">
@@ -250,4 +238,38 @@ under the License.
         
         <field-to-result field-name="rateAmount"/>
     </simple-method>
+    
+    <!-- subroutines -->
+    <simple-method method-name="checkTimesheetStatus" short-description="Check access and if the timesheet is in progress">
+        <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <if>
+            <condition>
+                <or>
+                    <not><if-empty field-name="parameters.timesheetId"/></not>
+                    <not><if-empty field-name="lookedUpValue.timesheetId"/></not>
+                </or>                
+            </condition>
+            <then>
+                <if-empty field-name="parameters.timesheetId">
+                    <set field="parameters.timesheetId" from-field="lookedUpValue.timesheetId"/>
+                </if-empty>
+                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <if-empty field-name="timesheet">
+                    <add-error><fail-message message="Timesheet could not be found, timesheetId: ${parameters.timesheetId}"/></add-error>
+                    <log level="info" message="Timesheet not found, timesheet: ${parameters.timesheetId}"/>
+                    <check-errors/>
+                </if-empty>
+                <!-- check if the status is in progress... -->
+                <if-compare field-name="timesheet.statusId" value="TIMESHEET_IN_PROCESS" operator="not-equals">
+                    <get-related-one value-name="timesheet" relation-name="StatusItem" to-value-name="statusItem"/>
+                    <add-error><fail-message message="Can only update Timesheet, when status is in-process...current status: ${statusItem.description}"/></add-error>
+                    <log level="info" message="Can only update Timesheet, when status is in-process...is now: ${timesheet.statusId}"/>
+                </if-compare>
+            </then>
+        </if>
+        <check-errors/>
+    </simple-method>
+    
+    
+    
 </simple-methods>
