@@ -140,7 +140,7 @@ under the License.
        <#-- displays page number.  "theEnd" is an id of a fo:block at the very end -->    
            <fo:block font-size="10pt" text-align="center">${uiLabelMap.CommonPage} <fo:page-number/> ${uiLabelMap.CommonOf} <fo:page-number-citation ref-id="theEnd"/></fo:block>
            <fo:block font-size="10pt"/>
-           <fo:block font-size="8pt" text-align="center">Powered by OFBiz at www.ofbiz.org</fo:block>
+           <fo:block font-size="8pt" text-align="center">Powered by OFBiz at ofbiz.apache.org</fo:block>
        </fo:static-content>
        <#-- end of footer -->
        

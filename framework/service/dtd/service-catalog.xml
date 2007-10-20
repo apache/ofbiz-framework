@@ -26,9 +26,9 @@ under the License.
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
   <!-- <public publicId="-//W3C//DTD SVG 1.0//EN" uri="svg10.dtd"/> -->
   
-  <system systemId="http://www.ofbiz.org/dtds/service-config.xsd" uri="service-config.xsd"/>                                       
-  <system systemId="http://www.ofbiz.org/dtds/service-eca.xsd" uri="service-eca.xsd"/>                                       
-  <system systemId="http://www.ofbiz.org/dtds/service-group.xsd" uri="service-group.xsd"/>                                       
-  <system systemId="http://www.ofbiz.org/dtds/service-mca.xsd" uri="service-mca.xsd"/>                                       
-  <system systemId="http://www.ofbiz.org/dtds/services.xsd" uri="services.xsd"/>                                       
+  <system systemId="http://ofbiz.apache.org/dtds/service-config.xsd" uri="service-config.xsd"/>                                       
+  <system systemId="http://ofbiz.apache.org/dtds/service-eca.xsd" uri="service-eca.xsd"/>                                       
+  <system systemId="http://ofbiz.apache.org/dtds/service-group.xsd" uri="service-group.xsd"/>                                       
+  <system systemId="http://ofbiz.apache.org/dtds/service-mca.xsd" uri="service-mca.xsd"/>                                       
+  <system systemId="http://ofbiz.apache.org/dtds/services.xsd" uri="services.xsd"/>                                       
 </catalog>

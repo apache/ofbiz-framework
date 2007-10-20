@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
-    <xs:include schemaLocation="http://www.ofbiz.org/dtds/service-group.xsd"/>
+    <xs:include schemaLocation="http://ofbiz.apache.org/dtds/service-group.xsd"/>
     <xs:element name="services">
         <xs:complexType>
             <xs:sequence>

@@ -39,7 +39,7 @@ public class TestEvent {
 
     public static String httpClientTest(HttpServletRequest request, HttpServletResponse response) {
         try {
-            HttpClient http = new HttpClient("http://www.ofbiz.org/cgi-bin/http_test.pl");
+            HttpClient http = new HttpClient("http://ofbiz.apache.org/cgi-bin/http_test.pl");
 
             http.setHeader("Cookie", "name=value,value=name");
             http.setHeader("User-Agent", "Mozilla/4.0");

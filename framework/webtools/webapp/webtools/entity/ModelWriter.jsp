@@ -66,7 +66,7 @@ if (security.hasPermission("ENTITY_MAINT", session) || request.getParameter("ori
       String author = "None";
       String version = "1.0";
 %><?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE entitymodel PUBLIC "-//OFBiz//DTD Entity Model//EN" "http://www.ofbiz.org/dtds/entitymodel.dtd">
+<!DOCTYPE entitymodel PUBLIC "-//OFBiz//DTD Entity Model//EN" "http://ofbiz.apache.org/dtds/entitymodel.dtd">
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file

@@ -59,7 +59,7 @@ under the License.
     }
   } else {
 %><?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE entitygroup PUBLIC "-//OFBiz//DTD Entity Group//EN" "http://www.ofbiz.org/dtds/entitygroup.dtd">
+<!DOCTYPE entitygroup PUBLIC "-//OFBiz//DTD Entity Group//EN" "http://ofbiz.apache.org/dtds/entitygroup.dtd">
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
