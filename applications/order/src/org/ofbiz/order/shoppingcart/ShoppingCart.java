@@ -18,39 +18,32 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppingcart;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.*;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilNumber;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
+import org.apache.commons.collections.map.LinkedMap;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.party.contact.ContactHelper;
-import org.ofbiz.party.contact.ContactMechWorker;
-import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.finaccount.FinAccountHelper;
+import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
 import org.ofbiz.order.shoppinglist.ShoppingListEvents;
+import org.ofbiz.party.contact.ContactHelper;
+import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * Shopping Cart Object
@@ -4050,7 +4043,7 @@ public class ShoppingCart implements Serializable {
     }
 
     public static class CartShipInfo implements Serializable {
-        public Map shipItemInfo = new LinkedHashMap();
+        public LinkedMap shipItemInfo = new LinkedMap();
         public List shipTaxAdj = new LinkedList();
         public String orderTypeId = null;
         private String internalContactMechId = null;
