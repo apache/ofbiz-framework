@@ -945,4 +945,16 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
+    <simple-method method-name="createVendorProduct" short-description="Create a VendorProduct">
+        <make-value entity-name="VendorProduct" value-name="newEntity"/>
+        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteVendorProduct" short-description="Remove the VendorProduct">
+        <make-value entity-name="VendorProduct" value-name="lookedUpValue"/>
+        <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
 </simple-methods>

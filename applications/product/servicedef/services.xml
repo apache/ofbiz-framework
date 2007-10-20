@@ -1196,4 +1196,14 @@ under the License.
         <attribute type="String" mode="IN" name="startPrice" optional="false"/>
         <attribute type="String" mode="IN" name="quantity" optional="false"/>
     </service>
+    
+    <!--VendorProduct Services -->
+    <service name="createVendorProduct" engine="simple" default-entity-name="VendorProduct"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="createVendorProduct" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteVendorProduct" engine="simple" default-entity-name="VendorProduct"
+            location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteVendorProduct" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

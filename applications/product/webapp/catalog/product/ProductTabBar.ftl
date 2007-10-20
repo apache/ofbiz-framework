@@ -46,6 +46,8 @@ under the License.
         <a href="<@ofbizUrl>EditProductMeters?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductMeters?default(unselectedClassName)}">${uiLabelMap.ProductMeters}</a>
         <a href="<@ofbizUrl>EditProductSubscriptionResources?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductSubscriptionResources?default(unselectedClassName)}">${uiLabelMap.ProductSubscriptionResources}</a>
         <a href="<@ofbizUrl>EditProductQuickAdmin?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductQuickAdmin?default(unselectedClassName)}">${uiLabelMap.ProductQuickAdmin}</a>
+        <a href="<@ofbizUrl>EditVendorProduct?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditVendorProduct?default(unselectedClassName)}">${uiLabelMap.PartyVendor}</a>
+
         <#if product?exists && product.isVirtual?if_exists == "Y">
             <a href="<@ofbizUrl>QuickAddVariants?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.QuickAddVariants?default(unselectedClassName)}">${uiLabelMap.ProductVariants}</a>
         </#if>
