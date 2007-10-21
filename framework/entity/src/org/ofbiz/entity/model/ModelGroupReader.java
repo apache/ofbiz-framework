@@ -197,7 +197,7 @@ public class ModelGroupReader implements Serializable {
         Collection<String> enames = new LinkedList<String>();
 
         if (groupName == null || groupName.length() <= 0) return enames;
-        if (gc == null || gc.size() < 0) return enames;
+        if (gc == null || gc.size() == 0) return enames;
         for (Map.Entry<String, String> entry: gc.entrySet()) {
             if (groupName.equals(entry.getValue())) enames.add(entry.getKey());
         }
