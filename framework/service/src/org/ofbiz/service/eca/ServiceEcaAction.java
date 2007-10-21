@@ -23,6 +23,7 @@ import javax.transaction.xa.XAException;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -158,21 +159,25 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         if (result != null && !success) {
             String errorMessage = (String) actionResult.get(ModelService.ERROR_MESSAGE);
-            List errorMessageList = (List) actionResult.get(ModelService.ERROR_MESSAGE_LIST);
-            Map errorMessageMap = (Map) actionResult.get(ModelService.ERROR_MESSAGE_MAP);
+            List<? extends Object> errorMessageList = UtilGenerics.checkList(actionResult.get(ModelService.ERROR_MESSAGE_LIST));
+            Map<String, ? extends Object> errorMessageMap = UtilGenerics.checkMap(actionResult.get(ModelService.ERROR_MESSAGE_MAP));
 
             // do something with the errorMessage
             if (UtilValidate.isNotEmpty(errorMessage)) {
                 if (UtilValidate.isEmpty((String) result.get(ModelService.ERROR_MESSAGE))) {
                     result.put(ModelService.ERROR_MESSAGE, errorMessage);
                 } else {
-                    if (errorMessageList == null) errorMessageList = new LinkedList();
-                    errorMessageList.add(0, errorMessage);
+                    List<Object> origErrorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+                    if (origErrorMessageList == null) {
+                        origErrorMessageList = new LinkedList<Object>();
+                        result.put(ModelService.ERROR_MESSAGE_LIST, origErrorMessageList);
+                    }
+                    origErrorMessageList.add(0, errorMessage);
                 }
             }
             // do something with the errorMessageList
             if (errorMessageList != null && errorMessageList.size() > 0) {
-                List origErrorMessageList = (List) result.get(ModelService.ERROR_MESSAGE_LIST);
+                List<Object> origErrorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
                 if (origErrorMessageList == null) {
                     result.put(ModelService.ERROR_MESSAGE_LIST, errorMessageList);
                 } else {
@@ -181,7 +186,7 @@ public class ServiceEcaAction implements java.io.Serializable {
             }
             // do something with the errorMessageMap
             if (errorMessageMap != null && errorMessageMap.size() > 0) {
-                Map origErrorMessageMap = (Map) result.get(ModelService.ERROR_MESSAGE_MAP);
+                Map<String, Object> origErrorMessageMap = UtilGenerics.checkMap(result.get(ModelService.ERROR_MESSAGE_MAP));
                 if (origErrorMessageMap == null) {
                     result.put(ModelService.ERROR_MESSAGE_MAP, errorMessageMap);
                 } else {

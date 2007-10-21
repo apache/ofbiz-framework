@@ -48,7 +48,7 @@ public class ServiceEngineTestServices {
             // make sure to wait for these to both finish to make sure results aren't checked until they are done
             Map threadAResult = threadAWaiter.waitForResult();
             Map threadBResult = threadBWaiter.waitForResult();
-            List errorList = FastList.newInstance();
+            List<Object> errorList = FastList.newInstance();
             if (ServiceUtil.isError(threadAResult)) {
                 errorList.add("Error running testServiceDeadLockRetryThreadA: " + ServiceUtil.getErrorMessage(threadAResult));
             }
@@ -147,7 +147,7 @@ public class ServiceEngineTestServices {
             // make sure to wait for these to both finish to make sure results aren't checked until they are done
             Map grabberResult = grabberWaiter.waitForResult();
             Map waiterResult = waiterWaiter.waitForResult();
-            List errorList = FastList.newInstance();
+            List<Object> errorList = FastList.newInstance();
             if (ServiceUtil.isError(grabberResult)) {
                 errorList.add("Error running testServiceLockWaitTimeoutRetryGrabber: " + ServiceUtil.getErrorMessage(grabberResult));
             }

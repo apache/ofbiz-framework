@@ -29,6 +29,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 
 import org.w3c.dom.Element;
@@ -152,14 +153,13 @@ public class ServiceEcaCondition implements java.io.Serializable {
         if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, module);
 
         // evaluate the condition & invoke the action(s)
-        List messages = new LinkedList();
+        List<Object> messages = new LinkedList<Object>();
         Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), isConstant);
 
         // if any messages were returned send them out
         if (messages.size() > 0) {
-            Iterator m = messages.iterator();
-            while (m.hasNext()) {
-                Debug.logWarning((String) m.next(), module);
+            for (Object message: messages) {
+                Debug.logWarning(message.toString(), module);
             }
         }
         if (cond != null) {
