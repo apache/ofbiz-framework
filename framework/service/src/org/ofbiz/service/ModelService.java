@@ -355,7 +355,7 @@ public class ModelService extends AbstractMap implements Serializable {
         return count;
     }
 
-    public void updateDefaultValues(Map context, String mode) {
+    public void updateDefaultValues(Map<String, Object> context, String mode) {
         List<ModelParam> params = this.getModelParamList();
         if (params != null) {
             for (ModelParam param: params) {
@@ -375,9 +375,9 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param test The Map object to test
      * @param mode Test either mode IN or mode OUT
      */
-    public void validate(Map test, String mode, Locale locale) throws ServiceValidationException {
-        Map requiredInfo = FastMap.newInstance();
-        Map optionalInfo = FastMap.newInstance();
+    public void validate(Map<String, ? extends Object> test, String mode, Locale locale) throws ServiceValidationException {
+        Map<String, String> requiredInfo = FastMap.newInstance();
+        Map<String, String> optionalInfo = FastMap.newInstance();
         boolean verboseOn = Debug.verboseOn();
 
         if (verboseOn) Debug.logVerbose("[ModelService.validate] : {" + this.name + "} : Validating context - " + test, module);
@@ -403,19 +403,16 @@ public class ModelService extends AbstractMap implements Serializable {
         }
 
         // get the test values
-        Map requiredTest = FastMap.newInstance();
-        Map optionalTest = FastMap.newInstance();
+        Map<String, Object> requiredTest = FastMap.newInstance();
+        Map<String, Object> optionalTest = FastMap.newInstance();
 
         if (test == null) test = FastMap.newInstance();
         requiredTest.putAll(test);
 
-        List requiredButNull = FastList.newInstance();
-        List keyList = FastList.newInstance();
+        List<String> requiredButNull = FastList.newInstance();
+        List<String> keyList = FastList.newInstance();
         keyList.addAll(requiredTest.keySet());
-        Iterator t = keyList.iterator();
-
-        while (t.hasNext()) {
-            Object key = t.next();
+        for (String key: keyList) {
             Object value = requiredTest.get(key);
 
             if (!requiredInfo.containsKey(key)) {
@@ -428,10 +425,8 @@ public class ModelService extends AbstractMap implements Serializable {
 
         // check for requiredButNull fields and return an error since null values are not allowed for required fields
         if (requiredButNull.size() > 0) {
-            List missingMsg = FastList.newInstance();
-            Iterator rbni = requiredButNull.iterator();
-            while (rbni.hasNext()) {
-                String missingKey = (String) rbni.next();
+            List<String> missingMsg = FastList.newInstance();
+            for (String missingKey: requiredButNull) {
                 String message = this.getParam(missingKey).getPrimaryFailMessage(locale);
                 if (message == null) {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "ModelService.following_required_parameter_missing", locale);
@@ -444,12 +439,12 @@ public class ModelService extends AbstractMap implements Serializable {
 
         if (verboseOn) {
             StringBuilder requiredNames = new StringBuilder();
-            Iterator requiredIter = requiredInfo.keySet().iterator();
-            while (requiredIter.hasNext()) {
+
+            for (String key: requiredInfo.keySet()) {
                 if (requiredNames.length() > 0) {
                     requiredNames.append(", ");
                 }
-                requiredNames.append(requiredIter.next());
+                requiredNames.append(key);
             }
             Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, module);
 
@@ -474,27 +469,24 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param test The map to test its value types.
      * @param reverse Test the maps in reverse.
      */
-    public static void validate(Map info, Map test, boolean reverse, ModelService model, String mode, Locale locale) throws ServiceValidationException {
+    public static void validate(Map<String, String> info, Map<String, ? extends Object> test, boolean reverse, ModelService model, String mode, Locale locale) throws ServiceValidationException {
         if (info == null || test == null) {
             throw new ServiceValidationException("Cannot validate NULL maps", model);
         }
 
         // * Validate keys first
-        Set testSet = test.keySet();
-        Set keySet = info.keySet();
+        Set<String> testSet = test.keySet();
+        Set<String> keySet = info.keySet();
 
         // Quick check for sizes
         if (info.size() == 0 && test.size() == 0) return;
         // This is to see if the test set contains all from the info set (reverse)
         if (reverse && !testSet.containsAll(keySet)) {
-            Set missing = new TreeSet(keySet);
+            Set<String> missing = new TreeSet<String>(keySet);
 
             missing.removeAll(testSet);
-            List missingMsgs = FastList.newInstance();
-
-            Iterator iter = missing.iterator();
-            while (iter.hasNext()) {
-                String key = (String) iter.next();
+            List<String> missingMsgs = FastList.newInstance();
+            for (String key: missing) {
                 String msg = model.getParam(key).getPrimaryFailMessage(locale);
                 if (msg == null) {
                     String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "ModelService.following_required_parameter_missing", locale) ;
@@ -503,21 +495,18 @@ public class ModelService extends AbstractMap implements Serializable {
                 missingMsgs.add(msg);
             }
             
-            List missingCopy = FastList.newInstance();
+            List<String> missingCopy = FastList.newInstance();
             missingCopy.addAll(missing);
             throw new ServiceValidationException(missingMsgs, model, missingCopy, null, mode);
         }
 
         // This is to see if the info set contains all from the test set
         if (!keySet.containsAll(testSet)) {
-            Set extra = new TreeSet(testSet);
+            Set<String> extra = new TreeSet<String>(testSet);
 
             extra.removeAll(keySet);
-            List extraMsgs = FastList.newInstance();
-
-            Iterator iter = extra.iterator();
-            while (iter.hasNext()) {
-                String key = (String) iter.next();
+            List<String> extraMsgs = FastList.newInstance();
+            for (String key: extra) {
                 ModelParam param = model.getParam(key);
                 String msg = null;
                 if (param != null) {
@@ -529,20 +518,18 @@ public class ModelService extends AbstractMap implements Serializable {
                 extraMsgs.add(msg);
             }
 
-            List extraCopy = FastList.newInstance();
+            List<String> extraCopy = FastList.newInstance();
             extraCopy.addAll(extra);
             throw new ServiceValidationException(extraMsgs, model, null, extraCopy, mode);
         }
 
         // * Validate types next
         List<String> typeFailMsgs = FastList.newInstance();
-        Iterator i = testSet.iterator();
-        while (i.hasNext()) {
-            String key = (String) i.next();
+        for (String key: testSet) {
             ModelParam param = model.getParam(key);
 
             Object testObject = test.get(key);
-            String infoType = (String) info.get(key);
+            String infoType = info.get(key);
 
             if (param.validators != null && param.validators.size() > 0) {
                 for (ModelParam.ModelParamValidator val: param.validators) {
@@ -688,7 +675,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param source The source map
      * @param mode The mode which to build the new map
      */
-    public Map makeValid(Map source, String mode) {
+    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode) {
         return makeValid(source, mode, true, null);
     }
 
@@ -699,7 +686,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param mode The mode which to build the new map
      * @param includeInternal When false will exclude internal fields
      */
-    public Map makeValid(Map source, String mode, boolean includeInternal, List<Object> errorMessages) {
+    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages) {
         return makeValid(source, mode, includeInternal, errorMessages, null);
     }
 
@@ -711,7 +698,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param includeInternal When false will exclude internal fields
      * @param locale Locale to use to do some type conversion
      */
-    public Map makeValid(Map source, String mode, boolean includeInternal, List<Object> errorMessages, Locale locale) {
+    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages, Locale locale) {
         return makeValid(source, mode, includeInternal, errorMessages, null, locale);
     }
 
@@ -724,8 +711,8 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param tz TimeZone to use to do some type conversion
      * @param locale Locale to use to do some type conversion
      */
-    public Map makeValid(Map source, String mode, boolean includeInternal, List<Object> errorMessages, TimeZone timeZone, Locale locale) {
-        Map target = FastMap.newInstance();
+    public Map<String, Object> makeValid(Map<String, ? extends Object> source, String mode, boolean includeInternal, List<Object> errorMessages, TimeZone timeZone, Locale locale) {
+        Map<String, Object> target = FastMap.newInstance();
 
         if (source == null) {
             return target;
@@ -765,13 +752,13 @@ public class ModelService extends AbstractMap implements Serializable {
 
                 // internal map of strings
                 if (param.stringMapPrefix != null && param.stringMapPrefix.length() > 0 && !source.containsKey(key)) {
-                    Map paramMap = this.makePrefixMap(source, param);
+                    Map<String, Object> paramMap = this.makePrefixMap(source, param);
                     if (paramMap != null && paramMap.size() > 0) {
                         target.put(key, paramMap);
                     }
                 // internal list of strings
                 } else if (param.stringListSuffix != null && param.stringListSuffix.length() > 0 && !source.containsKey(key)) {
-                    List paramList = this.makeSuffixList(source, param);
+                    List<Object> paramList = this.makeSuffixList(source, param);
                     if (paramList != null && paramList.size() > 0) {
                         target.put(key, paramList);
                     }
@@ -800,27 +787,23 @@ public class ModelService extends AbstractMap implements Serializable {
         return target;
     }
 
-    private Map makePrefixMap(Map source, ModelParam param) {
-        Map paramMap = FastMap.newInstance();
-        Set sourceSet = source.keySet();
-        Iterator i = sourceSet.iterator();
-        while (i.hasNext()) {
-            String key = (String) i.next();
+    private Map<String, Object> makePrefixMap(Map<String, ? extends Object> source, ModelParam param) {
+        Map<String, Object> paramMap = FastMap.newInstance();
+        for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
+            String key = entry.getKey();
             if (key.startsWith(param.stringMapPrefix)) {
-                paramMap.put(key, source.get(key));
+                paramMap.put(key, entry.getValue());
             }
         }
         return paramMap;
     }
 
-    private List makeSuffixList(Map source, ModelParam param) {
-        List paramList = FastList.newInstance();
-        Set sourceSet = source.keySet();
-        Iterator i = sourceSet.iterator();
-        while (i.hasNext()) {
-            String key = (String) i.next();
+    private List<Object> makeSuffixList(Map<String, ? extends Object> source, ModelParam param) {
+        List<Object> paramList = FastList.newInstance();
+        for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
+            String key = entry.getKey();
             if (key.endsWith(param.stringListSuffix)) {
-                paramList.add(source.get(key));
+                paramList.add(entry.getValue());
             }
         }
         return paramList;
@@ -836,7 +819,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param context Map containing userLogin and context infromation
      * @return result of permission service invocation
      */
-    public Map evalPermission(DispatchContext dctx, Map context) {
+    public Map<String, Object> evalPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
         if (UtilValidate.isNotEmpty(this.permissionServiceName)) {
             ModelService thisService;
             ModelService permission;
@@ -845,13 +828,13 @@ public class ModelService extends AbstractMap implements Serializable {
                 permission = dctx.getModelService(this.permissionServiceName);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Failed to get ModelService: " + e.toString(), module);
-                Map result = ServiceUtil.returnSuccess();
+                Map<String, Object> result = ServiceUtil.returnSuccess();
                 result.put("hasPermission", Boolean.FALSE);
                 result.put("failMessage", e.getMessage());
                 return result;
             }
             if (permission != null) {
-                Map ctx = permission.makeValid(context, ModelService.IN_PARAM);
+                Map<String, Object> ctx = permission.makeValid(context, ModelService.IN_PARAM);
                 if (UtilValidate.isNotEmpty(this.permissionMainAction)) {
                     ctx.put("mainAction", this.permissionMainAction);
                 }
@@ -862,31 +845,31 @@ public class ModelService extends AbstractMap implements Serializable {
                 }
                 
                 LocalDispatcher dispatcher = dctx.getDispatcher();
-                Map resp;
+                Map<String, Object> resp;
                 try {
                     resp = dispatcher.runSync(permission.name,  ctx, 300, true);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
-                    Map result = ServiceUtil.returnSuccess();
+                    Map<String, Object> result = ServiceUtil.returnSuccess();
                     result.put("hasPermission", Boolean.FALSE);
                     result.put("failMessage", e.getMessage());
                     return result;
                 }
                 if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
-                    Map result = ServiceUtil.returnSuccess();
+                    Map<String, Object> result = ServiceUtil.returnSuccess();
                     result.put("hasPermission", Boolean.FALSE);
                     result.put("failMessage", ServiceUtil.getErrorMessage(resp));
                     return result;
                 }
                 return resp;
             } else {
-                Map result = ServiceUtil.returnSuccess();
+                Map<String, Object> result = ServiceUtil.returnSuccess();
                 result.put("hasPermission", Boolean.FALSE);
                 result.put("failMessage", "No ModelService found with the name [" + this.permissionServiceName + "]");
                 return result;
             }
         } else {
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("hasPermission", Boolean.FALSE);
             result.put("failMessage", "No ModelService found; no service name specified!");
             return result;
@@ -896,7 +879,7 @@ public class ModelService extends AbstractMap implements Serializable {
     /**
      * Evaluates notifications
      */
-    public void evalNotifications(DispatchContext dctx, Map context, Map result) {
+    public void evalNotifications(DispatchContext dctx, Map<String, ? extends Object> context, Map<String, Object> result) {
         for (ModelNotification notify: this.notifications) {
             notify.callNotify(dctx, this, context, result);
         }
@@ -908,7 +891,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param context Map containing userLogin infromation
      * @return true if all permissions evaluate true.
      */
-    public boolean evalPermissions(DispatchContext dctx, Map context) {
+    public boolean evalPermissions(DispatchContext dctx, Map<String, ? extends Object> context) {
         // old permission checking
         if (this.containsPermissions()) {
             for (ModelPermGroup group: this.permissionGroups) {
@@ -926,8 +909,8 @@ public class ModelService extends AbstractMap implements Serializable {
      * Gets a list of required IN parameters in sequence.
      * @return A list of required IN parameters in the order which they were defined.
      */
-    public List getInParameterSequence(Map source) {
-        List target = FastList.newInstance();
+    public List<Object> getInParameterSequence(Map<String, ? extends Object> source) {
+        List<Object> target = FastList.newInstance();
         if (source == null) {
             return target;
         }

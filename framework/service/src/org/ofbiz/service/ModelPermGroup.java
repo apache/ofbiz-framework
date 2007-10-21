@@ -37,7 +37,7 @@ public class ModelPermGroup implements Serializable {
     public List<ModelPermission> permissions = new LinkedList<ModelPermission>();
     public String joinType;
 
-    public boolean evalPermissions(DispatchContext dctx, Map context) {
+    public boolean evalPermissions(DispatchContext dctx, Map<String, ? extends Object> context) {
         if (permissions != null && permissions.size() > 0)  {
             boolean foundOne = false;
             for (ModelPermission perm: permissions) {

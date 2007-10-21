@@ -76,7 +76,6 @@ public class ServiceMcaUtil {
         }
 
         int numDefs = 0;
-
         for (Element e: UtilXml.childElementList(rootElement, "mca")) {
             String ruleName = e.getAttribute("mail-rule-name");
             mcaCache.put(ruleName, new ServiceMcaRule(e));

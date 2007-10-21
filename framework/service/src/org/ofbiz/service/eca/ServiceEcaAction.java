@@ -74,18 +74,18 @@ public class ServiceEcaAction implements java.io.Serializable {
         this.persist = "true".equals(action.getAttribute("persist"));
     }
 
-    public boolean runAction(String selfService, DispatchContext dctx, Map context, Map result) throws GenericServiceException {
+    public boolean runAction(String selfService, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result) throws GenericServiceException {
         if (serviceName.equals(selfService)) {
             throw new GenericServiceException("Cannot invoke self on ECA.");
         }
 
         // pull out context parameters needed for this service.
-        Map actionContext = dctx.getModelService(serviceName).makeValid(context, ModelService.IN_PARAM);
+        Map<String, Object> actionContext = dctx.getModelService(serviceName).makeValid(context, ModelService.IN_PARAM);
 
         // set the userLogin object in the context
         actionContext.put("userLogin", ServiceUtil.getUserLogin(dctx, actionContext, runAsUser));
         
-        Map actionResult = null;
+        Map<String, Object> actionResult = null;
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         if (eventName.startsWith("global-")) {
@@ -118,7 +118,7 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         // put the results in to the defined map
         if (resultMapName != null && resultMapName.length() > 0) {
-            Map resultMap = (Map) context.get(resultMapName);
+            Map<String, Object> resultMap = UtilGenerics.checkMap(context.get(resultMapName));
             if (resultMap == null) {
                 resultMap = FastMap.newInstance();
             }

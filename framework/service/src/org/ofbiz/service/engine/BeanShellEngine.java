@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.service.DispatchContext;
@@ -47,19 +48,19 @@ public final class BeanShellEngine extends GenericAsyncEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
-        Map result = runSync(localName, modelService, context);
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
+        runSync(localName, modelService, context);
     }
   
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         return serviceInvoker(localName, modelService, context);
     }
 
     // Invoke the BeanShell Script.
-    private Map serviceInvoker(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    private Map<String, Object> serviceInvoker(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         if (modelService.location == null || modelService.invoke == null)
             throw new GenericServiceException("Cannot locate service to invoke");
 
@@ -106,7 +107,7 @@ public final class BeanShellEngine extends GenericAsyncEngine {
 
         Interpreter bsh = new Interpreter();
 
-        Map result = null;
+        Map<String, Object> result = null;
 
         try {
             bsh.set("dctx", dctx); // set the dispatch context
@@ -114,8 +115,10 @@ public final class BeanShellEngine extends GenericAsyncEngine {
             bsh.eval(script);
             Object bshResult = bsh.get("result");
 
-            if ((bshResult != null) && (bshResult instanceof Map))
-                context.putAll((Map) bshResult);
+            if ((bshResult != null) && (bshResult instanceof Map)) {
+                Map<String, Object> bshMapResult = UtilGenerics.checkMap(bshResult);
+                context.putAll(bshMapResult);
+            }
             result = modelService.makeValid(context, ModelService.OUT_PARAM);
         } catch (EvalError e) {
             throw new GenericServiceException("BeanShell script threw an exception", e);

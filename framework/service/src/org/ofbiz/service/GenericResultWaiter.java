@@ -38,13 +38,13 @@ public class GenericResultWaiter implements GenericRequester {
     
     private boolean completed = false;
     private int status = -1;
-    private Map result = null;
+    private Map<String, Object> result = null;
     private Throwable t = null;
 
     /**
      * @see org.ofbiz.service.GenericRequester#receiveResult(java.util.Map)
      */
-    public synchronized void receiveResult(Map result) {
+    public synchronized void receiveResult(Map<String, Object> result) {
         this.result = result;
         completed = true;
         status = SERVICE_FINISHED;
@@ -93,7 +93,7 @@ public class GenericResultWaiter implements GenericRequester {
      * Gets the results of the service or null if none
      * @return Map
      */
-    public synchronized Map getResult() {
+    public synchronized Map<String, Object> getResult() {
         if (!isCompleted())
             throw new java.lang.IllegalStateException("Cannot return result, asynchronous call has not completed.");
         return result;
@@ -103,7 +103,7 @@ public class GenericResultWaiter implements GenericRequester {
      * Waits for the service to complete
      * @return Map
      */
-    public synchronized Map waitForResult() {
+    public synchronized Map<String, Object> waitForResult() {
         return this.waitForResult(10);
     }
 
@@ -112,7 +112,7 @@ public class GenericResultWaiter implements GenericRequester {
      * @param milliseconds
      * @return Map
      */
-    public synchronized Map waitForResult(long milliseconds) {
+    public synchronized Map<String, Object> waitForResult(long milliseconds) {
         if (Debug.verboseOn()) Debug.logVerbose("Waiting for results...", module);
         while (!isCompleted()) {
             try {

@@ -47,7 +47,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     /**
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.lang.String, java.util.Map, long, int, int, int, long, int)
      */
-    public void schedule(String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
+    public void schedule(String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
         schedule(null, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
     }
 
@@ -58,7 +58,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     /**
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.lang.String, java.lang.String, java.util.Map, long, int, int, int, long, int)
      */
-    public void schedule(String jobName, String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
+    public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
         try {
             getJobManager().schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
                 
@@ -84,7 +84,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     /**
      * @see org.ofbiz.service.LocalDispatcher#setRollbackService(java.lang.String, java.util.Map, boolean)
      */
-    public void addRollbackService(String serviceName, Map context, boolean persist) throws GenericServiceException {
+    public void addRollbackService(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException {
         ServiceXaWrapper xa = new ServiceXaWrapper(this.getDispatchContext());
         xa.setRollbackService(serviceName, context, true, persist);
         try {
@@ -102,7 +102,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     /**
      * @see org.ofbiz.service.LocalDispatcher#setCommitService(java.lang.String, java.util.Map, boolean)
      */
-    public void addCommitService(String serviceName, Map context, boolean persist) throws GenericServiceException {
+    public void addCommitService(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException {
         ServiceXaWrapper xa = new ServiceXaWrapper(this.getDispatchContext());
         xa.setCommitService(serviceName, context, true, persist);
         try {
@@ -120,7 +120,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     /**
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.util.Map, long, int, int, int, long)
      */
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime) throws GenericServiceException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws GenericServiceException {
         ModelService model = ctx.getModelService(serviceName);
         schedule(null, serviceName, context, startTime, frequency, interval, count, endTime, model.maxRetry);
     }
@@ -132,7 +132,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     /**
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.util.Map, long, int, int, int)
      */
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, int count) throws GenericServiceException {            
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count) throws GenericServiceException {            
         schedule(serviceName, context, startTime, frequency, interval, count, 0);
     }  
 
@@ -143,7 +143,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     /**
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.util.Map, long, int, int, long)
      */
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, long endTime) throws GenericServiceException {            
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, long endTime) throws GenericServiceException {            
         schedule(serviceName, context, startTime, frequency, interval, -1, endTime);
     }      
 
@@ -154,7 +154,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     /**
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.util.Map, long)
      */
-    public void schedule(String serviceName, Map context, long startTime) throws GenericServiceException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime) throws GenericServiceException {
         schedule(serviceName, context, startTime, RecurrenceRule.DAILY, 1, 1);
     }
 

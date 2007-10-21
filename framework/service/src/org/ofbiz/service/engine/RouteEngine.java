@@ -37,37 +37,37 @@ public class RouteEngine implements GenericEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */    
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         return modelService.makeValid(context, ModelService.OUT_PARAM);        
     }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         return;
     }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */
-    public void runAsync(String localName, ModelService modelService, Map context, GenericRequester requester, boolean persist) throws GenericServiceException {
-        requester.receiveResult(FastMap.newInstance());
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
+        requester.receiveResult(FastMap.<String, Object>newInstance());
     }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, boolean)
      */
-    public void runAsync(String localName, ModelService modelService, Map context, boolean persist) throws GenericServiceException {
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, boolean persist) throws GenericServiceException {
         return;
     }
 
-    public void sendCallbacks(ModelService modelService, Map context, int mode) throws GenericServiceException {
+    public void sendCallbacks(ModelService modelService, Map<String, Object> context, int mode) throws GenericServiceException {
     }
 
-    public void sendCallbacks(ModelService modelService, Map context, Map result, int mode) throws GenericServiceException {
+    public void sendCallbacks(ModelService modelService, Map<String, Object> context, Map<String, Object> result, int mode) throws GenericServiceException {
     }
 
-    public void sendCallbacks(ModelService modelService, Map context, Throwable t, int mode) throws GenericServiceException {
+    public void sendCallbacks(ModelService modelService, Map<String, Object> context, Throwable t, int mode) throws GenericServiceException {
     }
 }

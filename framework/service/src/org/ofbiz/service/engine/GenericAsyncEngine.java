@@ -58,24 +58,24 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public abstract Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException;
+    public abstract Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException;
     
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public abstract void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException;
+    public abstract void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException;
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, boolean)
      */
-    public void runAsync(String localName, ModelService modelService, Map context, boolean persist) throws GenericServiceException {
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, boolean persist) throws GenericServiceException {
         runAsync(localName, modelService, context, null, persist);
     }
     
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */
-    public void runAsync(String localName, ModelService modelService, Map context, GenericRequester requester, boolean persist) throws GenericServiceException {
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
         DispatchContext dctx = dispatcher.getLocalContext(localName);
         Job job = null;
 
@@ -107,7 +107,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 String jobId = dispatcher.getDelegator().getNextSeqId("JobSandbox");
                 String jobName = Long.toString((new Date().getTime()));
 
-                Map jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", UtilDateTime.nowTimestamp());
+                Map<String, Object> jFields = UtilMisc.toMap("jobId", jobId, "jobName", jobName, "runTime", UtilDateTime.nowTimestamp());
                 jFields.put("poolId", ServiceConfigUtil.getSendPool());
                 jFields.put("statusId", "SERVICE_PENDING");
                 jFields.put("serviceName", modelService.name);
@@ -153,7 +153,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
         }
     }
 
-    protected boolean allowCallbacks(ModelService model, Map context, int mode) throws GenericServiceException {
+    protected boolean allowCallbacks(ModelService model, Map<String, Object> context, int mode) throws GenericServiceException {
         return mode == GenericEngine.SYNC_MODE;
     }
 }

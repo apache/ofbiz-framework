@@ -37,9 +37,9 @@ public class GenericServiceJob extends AbstractJob {
     protected transient DispatchContext dctx = null;
 
     private String service = null;
-    private Map context = null;
+    private Map<String, Object> context = null;
 
-    public GenericServiceJob(DispatchContext dctx, String jobId, String jobName, String service, Map context, GenericRequester req) {
+    public GenericServiceJob(DispatchContext dctx, String jobId, String jobName, String service, Map<String, Object> context, GenericRequester req) {
         super(jobId, jobName);
         this.dctx = dctx;
         this.service = service;
@@ -66,7 +66,7 @@ public class GenericServiceJob extends AbstractJob {
         try {
             // get the dispatcher and invoke the service via runSync -- will run all ECAs
             LocalDispatcher dispatcher = dctx.getDispatcher();
-            Map result = dispatcher.runSync(getServiceName(), getContext());
+            Map<String, Object> result = dispatcher.runSync(getServiceName(), getContext());
 
             // check for a failure
             boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
@@ -121,7 +121,7 @@ public class GenericServiceJob extends AbstractJob {
      * Gets the context for the service invocation.
      * @return Map of name value pairs making up the service context.
      */
-    protected Map getContext() throws InvalidJobException {
+    protected Map<String, Object> getContext() throws InvalidJobException {
         return context;
     }
 

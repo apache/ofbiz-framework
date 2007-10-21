@@ -37,15 +37,15 @@ public class RmiServiceEngine extends GenericAsyncEngine {
         super(dispatcher);
     }
 
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         return run(modelService, context);
     }
 
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         run(modelService, context);
     }
 
-    protected Map run(ModelService service, Map context) throws GenericServiceException {
+    protected Map<String, Object> run(ModelService service, Map<String, Object> context) throws GenericServiceException {
         // locate the remote dispatcher
         RemoteDispatcher rd = null;
         try {
@@ -58,7 +58,7 @@ public class RmiServiceEngine extends GenericAsyncEngine {
             throw new GenericServiceException("RMI Error", e);
         }
 
-        Map result = null;
+        Map<String, Object> result = null;
         if (rd != null) {
             try {
                 result = rd.runSync(service.invoke, context);

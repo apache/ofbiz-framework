@@ -204,7 +204,7 @@ public class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public Map runSync(String localName, ModelService service, Map context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService service, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         return runSync(localName, service, context, true);
     }
 
@@ -217,7 +217,7 @@ public class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public void runSyncIgnore(String localName, ModelService service, Map context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public void runSyncIgnore(String localName, ModelService service, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         runSync(localName, service, context, false);
     }
 
@@ -232,7 +232,7 @@ public class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public Map runSync(String localName, ModelService modelService, Map context, boolean validateOut) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, ? extends Object> params, boolean validateOut) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         // check for semaphore and aquire a lock
         ServiceSemaphore lock = null;
         if ("wait".equals(modelService.semaphore) || "fail".equals(modelService.semaphore)) {
@@ -247,12 +247,13 @@ public class ServiceDispatcher {
                 "/" + modelService.invoke + "] (" + modelService.engineName + ")", module);
         }
 
-        if (context == null) {
-            context = FastMap.newInstance();
+        Map<String, Object> context = FastMap.newInstance();
+        if (params != null) {
+            context.putAll(params);
         }
 
         // setup the result map and other initial settings
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         boolean isFailure = false;
         boolean isError = false;
 
@@ -272,7 +273,7 @@ public class ServiceDispatcher {
         // set IN attributes with default-value as applicable 
         modelService.updateDefaultValues(context, ModelService.IN_PARAM);
         
-        Map ecaContext = null;
+        Map<String, Object> ecaContext = null;
 
         // for isolated transactions
         Transaction parentTransaction = null;
@@ -370,7 +371,7 @@ public class ServiceDispatcher {
 
                     // ===== invoke the service =====
                     if (!isError && !isFailure) {
-                        Map invokeResult = engine.runSync(localName, modelService, context);
+                        Map<String, Object> invokeResult = engine.runSync(localName, modelService, context);
                         engine.sendCallbacks(modelService, context, invokeResult, GenericEngine.SYNC_MODE);
                         if (invokeResult != null) {
                             result.putAll(invokeResult);
@@ -581,7 +582,7 @@ public class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public void runAsync(String localName, ModelService service, Map context, GenericRequester requester, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public void runAsync(String localName, ModelService service, Map<String, ? extends Object> params, GenericRequester requester, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         if (Debug.timingOn()) {
             UtilTimer.timerLog(localName + " / " + service.name, "ASync service started...", module);
         }
@@ -591,12 +592,12 @@ public class ServiceDispatcher {
                 "] (" + service.engineName + ")", module);
         }
         
-        if (context == null) {
-            context = FastMap.newInstance();
+        Map<String, Object> context = FastMap.newInstance();
+        if (params != null) {
+            context.putAll(params);
         }
-
         // setup the result map
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         boolean isFailure = false;
         boolean isError = false;
 
@@ -740,7 +741,7 @@ public class ServiceDispatcher {
      * @throws ServiceValidationException
      * @throws GenericServiceException
      */
-    public void runAsync(String localName, ModelService service, Map context, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
+    public void runAsync(String localName, ModelService service, Map<String, ? extends Object> context, boolean persist) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         this.runAsync(localName, service, context, null, persist);
     }
 
@@ -820,7 +821,7 @@ public class ServiceDispatcher {
     }
 
     // checks if parameters were passed for authentication
-    private void checkAuth(String localName, Map context, ModelService origService) throws ServiceAuthException, GenericServiceException {
+    private void checkAuth(String localName, Map<String, Object> context, ModelService origService) throws ServiceAuthException, GenericServiceException {
         String service = ServiceConfigUtil.getElementAttr("authorization", "service-name");
 
         if (service == null) {
@@ -876,7 +877,7 @@ public class ServiceDispatcher {
         // evaluate permissions for the service or throw exception if fail.
         DispatchContext dctx = this.getLocalContext(localName);
         if (UtilValidate.isNotEmpty(origService.permissionServiceName)) {
-            Map permResp = origService.evalPermission(dctx, context);            
+            Map<String, Object> permResp = origService.evalPermission(dctx, context);            
             Boolean hasPermission = (Boolean) permResp.get("hasPermission");
             if (hasPermission == null) {
                 throw new ServiceAuthException("ERROR: the permission-service [" + origService.permissionServiceName + "] did not return a result. Not running the service [" + origService.name + "]");
@@ -902,7 +903,8 @@ public class ServiceDispatcher {
 
     // gets a value object from name/password pair
     private GenericValue getLoginObject(String service, String localName, String username, String password, Locale locale) throws GenericServiceException {
-        Map context = UtilMisc.toMap("login.username", username, "login.password", password, "isServiceAuth", Boolean.TRUE, "locale", locale);
+        Map<String, Object> context = FastMap.newInstance();
+        context.putAll(UtilMisc.toMap("login.username", username, "login.password", password, "isServiceAuth", true, "locale", locale));
 
         if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", module);
 
@@ -914,12 +916,12 @@ public class ServiceDispatcher {
         GenericEngine engine = getGenericEngine(model.engineName);
 
         // invoke the service and get the UserLogin value object
-        Map result = engine.runSync(localName, model, context);
+        Map<String, Object> result = engine.runSync(localName, model, context);
         return (GenericValue) result.get("userLogin");
     }
 
     // checks the locale object in the context
-    private Locale checkLocale(Map context) {
+    private Locale checkLocale(Map<String, Object> context) {
         Object locale = context.get("locale");
         Locale newLocale = null;
 

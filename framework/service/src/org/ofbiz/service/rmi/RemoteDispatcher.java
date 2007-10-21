@@ -39,7 +39,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public Map runSync(String serviceName, Map context) throws GenericServiceException, RemoteException;
+    public Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service synchronously with a specified timeout and return the result.
@@ -50,7 +50,7 @@ public interface RemoteDispatcher extends Remote {
      * @return Map of name, value pairs composing the result.
      * @throws GenericServiceException
      */
-    public Map runSync(String serviceName, Map context, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException;
+    public Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service synchronously and IGNORE the result.
@@ -59,7 +59,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public void runSyncIgnore(String serviceName, Map context) throws GenericServiceException, RemoteException;
+    public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service synchronously with a specified timeout and IGNORE the result.
@@ -69,7 +69,7 @@ public interface RemoteDispatcher extends Remote {
      * @param requireNewTransaction if true we will suspend and create a new transaction so we are sure to start.
      * @throws GenericServiceException
      */
-    public void runSyncIgnore(String serviceName, Map context, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException;
+    public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
@@ -81,7 +81,7 @@ public interface RemoteDispatcher extends Remote {
      * @param requireNewTransaction if true we will suspend and create a new transaction so we are sure to start.
      * @throws GenericServiceException
      */
-    public void runAsync(String serviceName, Map context, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException;
+    public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
@@ -92,7 +92,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public void runAsync(String serviceName, Map context, GenericRequester requester, boolean persist) throws GenericServiceException, RemoteException;
+    public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
@@ -103,7 +103,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public void runAsync(String serviceName, Map context, GenericRequester requester) throws GenericServiceException, RemoteException;
+    public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service asynchronously and IGNORE the result.
@@ -113,7 +113,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public void runAsync(String serviceName, Map context, boolean persist) throws GenericServiceException, RemoteException;
+    public void runAsync(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service asynchronously and IGNORE the result. This method WILL persist the job.
@@ -122,7 +122,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public void runAsync(String serviceName, Map context) throws GenericServiceException, RemoteException;
+    public void runAsync(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service asynchronously.
@@ -133,7 +133,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public GenericResultWaiter runAsyncWait(String serviceName, Map context, boolean persist) throws GenericServiceException, RemoteException;
+    public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException, RemoteException;
 
     /**
      * Run the service asynchronously. This method WILL persist the job.
@@ -143,7 +143,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public GenericResultWaiter runAsyncWait(String serviceName, Map context) throws GenericServiceException, RemoteException;
+    public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException, RemoteException;
 
     /**
      * Schedule a service to run asynchronously at a specific start time.
@@ -157,7 +157,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime) throws GenericServiceException, RemoteException;
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws GenericServiceException, RemoteException;
                 
     /**
      * Schedule a service to run asynchronously at a specific start time.
@@ -170,7 +170,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, int count) throws GenericServiceException, RemoteException;
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count) throws GenericServiceException, RemoteException;
    
     /**
      * Schedule a service to run asynchronously at a specific start time.
@@ -183,7 +183,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, long endTime) throws GenericServiceException, RemoteException;
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, long endTime) throws GenericServiceException, RemoteException;
              
     /**
      * Schedule a service to run asynchronously at a specific start time.
@@ -193,7 +193,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws GenericServiceException
      * @throws RemoteException
      */
-    public void schedule(String serviceName, Map context, long startTime) throws GenericServiceException, RemoteException;
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime) throws GenericServiceException, RemoteException;
 
 }
 

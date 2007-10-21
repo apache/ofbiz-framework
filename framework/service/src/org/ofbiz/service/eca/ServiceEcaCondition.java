@@ -94,8 +94,8 @@ public class ServiceEcaCondition implements java.io.Serializable {
         // condition-service; run the service and return the reply result
         if (isService) {
             LocalDispatcher dispatcher = dctx.getDispatcher();
-            Map conditionServiceResult = dispatcher.runSync(conditionService,
-                    UtilMisc.toMap("serviceContext", context, "serviceName", serviceName,
+            Map<String, Object> conditionServiceResult = dispatcher.runSync(conditionService,
+                    UtilMisc.<String, Object>toMap("serviceContext", context, "serviceName", serviceName,
                             "userLogin", context.get("userLogin")));
 
             Boolean conditionReply = Boolean.FALSE;
@@ -113,7 +113,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
         if (lhsMapName != null && lhsMapName.length() > 0) {
             try {
                 if (context.containsKey(lhsMapName)) {
-                    Map envMap = (Map) context.get(lhsMapName);
+                    Map<String, ? extends Object> envMap = UtilGenerics.checkMap(context.get(lhsMapName));
                     lhsValue = envMap.get(lhsValueName);
                 } else {
                     Debug.logWarning("From Map (" + lhsMapName + ") not found in context, defaulting to null.", module);
@@ -134,7 +134,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
         } else if (rhsMapName != null && rhsMapName.length() > 0) {
             try {
                 if (context.containsKey(rhsMapName)) {
-                    Map envMap = (Map) context.get(rhsMapName);
+                    Map<String, ? extends Object> envMap = UtilGenerics.checkMap(context.get(rhsMapName));
                     rhsValue = envMap.get(rhsValueName);
                 } else {
                     Debug.logWarning("To Map (" + rhsMapName + ") not found in context for " + serviceName + ", defaulting to null.", module);

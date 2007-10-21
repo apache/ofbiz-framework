@@ -27,6 +27,7 @@ import javax.jms.Message;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.service.*;
 
@@ -53,8 +54,8 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
      * @param message
      * @return Map
      */
-    protected Map runService(MapMessage message) {
-        Map context = null;
+    protected Map<String, Object> runService(MapMessage message) {
+        Map<String, ? extends Object> context = null;
         String serviceName = null;
         String xmlContext = null;
 
@@ -70,7 +71,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
             if (Debug.verboseOn()) Debug.logVerbose("De-Serialized Context --> " + o, module);
             if (ObjectType.instanceOf(o, "java.util.Map"))
-                context = (Map) o;
+                context = UtilGenerics.checkMap(o);
         } catch (JMSException je) {
             Debug.logError(je, "Problems reading message.", module);
         } catch (Exception e) {
@@ -89,7 +90,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
 
         if (Debug.verboseOn()) Debug.logVerbose("Running service: " + serviceName, module);
         
-        Map result = null;
+        Map<String, Object> result = null;
         if (context != null) {
             try {
                 result = dispatcher.runSync(serviceName, context);

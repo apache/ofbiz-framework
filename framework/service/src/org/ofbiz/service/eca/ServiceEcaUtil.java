@@ -140,7 +140,7 @@ public class ServiceEcaUtil {
         return null;
     }
 
-    public static void evalRules(String serviceName, Map<String, Collection<ServiceEcaRule>> eventMap, String event, DispatchContext dctx, Map context, Map result, boolean isError, boolean isFailure) throws GenericServiceException {
+    public static void evalRules(String serviceName, Map<String, Collection<ServiceEcaRule>> eventMap, String event, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result, boolean isError, boolean isFailure) throws GenericServiceException {
         // if the eventMap is passed we save a Map lookup, but if not that's okay we'll just look it up now
         if (eventMap == null) eventMap = getServiceEventMap(serviceName);
         if (eventMap == null || eventMap.size() == 0) {

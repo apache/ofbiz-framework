@@ -79,9 +79,9 @@ public class ServiceMcaCondition implements java.io.Serializable {
     public boolean eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, GenericValue userLogin) {
         boolean passedCondition = false;
         if (serviceName != null) {
-            Map result = null;
+            Map<String, Object> result = null;
             try {
-                result = dispatcher.runSync(serviceName, UtilMisc.toMap("messageWrapper", messageWrapper, "userLogin", userLogin));
+                result = dispatcher.runSync(serviceName, UtilMisc.<String, Object>toMap("messageWrapper", messageWrapper, "userLogin", userLogin));
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return false;

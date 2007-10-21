@@ -47,7 +47,7 @@ public class ModelPermission implements Serializable {
     public String action = null;
     public String clazz = null;
 
-    public boolean evalPermission(DispatchContext dctx, Map context) {
+    public boolean evalPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Security security = dctx.getSecurity();
         if (userLogin == null) {

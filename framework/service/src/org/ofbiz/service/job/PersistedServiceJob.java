@@ -30,6 +30,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -228,14 +229,14 @@ public class PersistedServiceJob extends GenericServiceJob {
     /**
      * @see org.ofbiz.service.job.GenericServiceJob#getContext()
      */
-    protected Map getContext() throws InvalidJobException {
-        Map context = null;
+    protected Map<String, Object> getContext() throws InvalidJobException {
+        Map<String, Object> context = null;
         try {
             GenericValue jobObj = getJob();
             if (!UtilValidate.isEmpty(jobObj.getString("runtimeDataId"))) {
                 GenericValue contextObj = jobObj.getRelatedOne("RuntimeData");
                 if (contextObj != null) {
-                    context = (Map) XmlSerializer.deserialize(contextObj.getString("runtimeInfo"), delegator);
+                    context = UtilGenerics.checkMap(XmlSerializer.deserialize(contextObj.getString("runtimeInfo"), delegator), String.class, Object.class);
                 }
             }
 

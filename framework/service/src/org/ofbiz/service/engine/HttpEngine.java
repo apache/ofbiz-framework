@@ -30,6 +30,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.service.DispatchContext;
@@ -53,7 +54,7 @@ public class HttpEngine extends GenericAsyncEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {       
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {       
         DispatchContext dctx = dispatcher.getLocalContext(localName);
         String xmlContext = null;
         
@@ -64,7 +65,7 @@ public class HttpEngine extends GenericAsyncEngine {
             throw new GenericServiceException("Cannot serialize context.", e);
         }
         
-        Map parameters = FastMap.newInstance();
+        Map<String, Object> parameters = FastMap.newInstance();
         parameters.put("serviceName", modelService.invoke);
         if (xmlContext != null)
             parameters.put("serviceContext", xmlContext);
@@ -77,11 +78,11 @@ public class HttpEngine extends GenericAsyncEngine {
             throw new GenericServiceException("Problems invoking HTTP request", e);
         }
         
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             Object res = XmlSerializer.deserialize(postResult, dctx.getDelegator());
             if (res instanceof Map)
-                result = (Map) res;
+                result = UtilGenerics.checkMap(res);
             else
                 throw new GenericServiceException("Result not an instance of Map.");
         } catch (Exception e) {
@@ -94,8 +95,8 @@ public class HttpEngine extends GenericAsyncEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
-        Map result = runSync(localName, modelService, context);
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
+        Map<String, Object> result = runSync(localName, modelService, context);
     } 
     
     /**
@@ -112,8 +113,8 @@ public class HttpEngine extends GenericAsyncEngine {
         String serviceMode = request.getParameter("serviceMode");
         String xmlContext = request.getParameter("serviceContext");
         
-        Map result = FastMap.newInstance();
-        Map context = null;
+        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> context = null;
         
         if (serviceName == null)
             result.put(ModelService.ERROR_MESSAGE, "Cannot have null service name");
@@ -127,7 +128,7 @@ public class HttpEngine extends GenericAsyncEngine {
                 try {
                     Object o = XmlSerializer.deserialize(xmlContext, delegator);
                     if (o instanceof Map)
-                        context = (Map) o;
+                        context = UtilGenerics.checkMap(o);
                     else {
                         Debug.logError("Context not an instance of Map error", module);
                         result.put(ModelService.ERROR_MESSAGE, "Context not an instance of Map");
