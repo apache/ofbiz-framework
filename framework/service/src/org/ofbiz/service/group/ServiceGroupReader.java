@@ -41,7 +41,7 @@ public class ServiceGroupReader {
     public static final String module = ServiceGroupReader.class.getName();
 
     // using a cache is dangerous here because if someone clears it the groups won't work at all: public static UtilCache groupsCache = new UtilCache("service.ServiceGroups", 0, 0, false);
-    public static Map groupsCache = FastMap.newInstance();
+    public static Map<String, GroupModel> groupsCache = FastMap.newInstance();
     
     public static void readConfig() {
         Element rootElement = null;
@@ -95,6 +95,6 @@ public class ServiceGroupReader {
         if (groupsCache.size() == 0) {
             ServiceGroupReader.readConfig();
         }
-        return (GroupModel) groupsCache.get(serviceName);
+        return groupsCache.get(serviceName);
     }
 }

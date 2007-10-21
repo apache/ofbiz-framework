@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
 public class GenericEngineFactory {
 
     protected ServiceDispatcher dispatcher = null;
-    protected Map engines = null;
+    protected Map<String, GenericEngine> engines = null;
     
     public GenericEngineFactory(ServiceDispatcher dispatcher) {
         this.dispatcher = dispatcher;
@@ -64,11 +64,11 @@ public class GenericEngineFactory {
 
         String className = engineElement.getAttribute("class");
 
-        GenericEngine engine = (GenericEngine) engines.get(engineName);
+        GenericEngine engine = engines.get(engineName);
 
         if (engine == null) {
             synchronized (GenericEngineFactory.class) {
-                engine = (GenericEngine) engines.get(engineName);
+                engine = engines.get(engineName);
                 if (engine == null) {
                     try {
                         ClassLoader loader = Thread.currentThread().getContextClassLoader();

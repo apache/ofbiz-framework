@@ -22,6 +22,7 @@ package org.ofbiz.service;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class ModelNotification {
     }
 
     public Map buildContext(Map context, Map result, ModelService model) throws GenericServiceException {
-        Map userLogin = (Map) context.get("userLogin");
+        Map<String, Object> userLogin = UtilGenerics.checkMap(context.get("userLogin"));
         String partyId = null;
         if (userLogin != null) {
             partyId = (String) userLogin.get("partyId");
@@ -100,7 +101,7 @@ public class ModelNotification {
     public String buildTo() {
         ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
         if (group != null) {
-            List addr = group.getAddress("to");
+            List<String> addr = group.getAddress("to");
             if (addr != null && addr.size() > 0) {
                 return StringUtil.join(addr, ",");
             }
@@ -111,7 +112,7 @@ public class ModelNotification {
     public String buildCc() {
         ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
         if (group != null) {
-            List addr = group.getAddress("cc");
+            List<String> addr = group.getAddress("cc");
             if (addr != null) {
                 return StringUtil.join(addr, ",");
             }
@@ -122,7 +123,7 @@ public class ModelNotification {
     public String buildBcc() {
         ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
         if (group != null) {
-            List addr = group.getAddress("bcc");
+            List<String> addr = group.getAddress("bcc");
             if (addr != null && addr.size() > 0) {
                 return StringUtil.join(addr, ",");
             }
@@ -133,9 +134,9 @@ public class ModelNotification {
     public String buildFrom() {
         ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
         if (group != null) {
-            List addr = group.getAddress("from");
+            List<String> addr = group.getAddress("from");
             if (addr != null && addr.size() > 0) {
-                return (String) addr.get(0);
+                return addr.get(0);
             }
         }
         return null;

@@ -111,7 +111,7 @@ public class GroupServiceModel {
         Map thisContext = model.makeValid(context, ModelService.IN_PARAM);
         Debug.logInfo("Running grouped service [" + serviceName + "]", module);
         if (getMode().equals("async")) {
-            List requiredOut = model.getParameterNames(ModelService.OUT_PARAM, false);
+            List<String> requiredOut = model.getParameterNames(ModelService.OUT_PARAM, false);
             if (requiredOut.size() > 0) {
                 Debug.logWarning("Grouped service (" + getName() + ") requested 'async' invocation; running sync because of required OUT parameters.", module);
                 return dispatcher.runSync(localName, model, thisContext);

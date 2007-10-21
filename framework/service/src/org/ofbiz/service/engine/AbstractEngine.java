@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 public abstract class AbstractEngine implements GenericEngine {
 
     public static final String module = AbstractEngine.class.getName();
-    protected static Map locationMap = null;
+    protected static Map<String, String> locationMap = null;
 
     protected ServiceDispatcher dispatcher = null;
 
@@ -77,7 +77,7 @@ public abstract class AbstractEngine implements GenericEngine {
     // uses the lookup map to determin if the location has been aliased in serviceconfig.xml
     protected String getLocation(ModelService model) {
         if (locationMap.containsKey(model.location)) {
-            return (String) locationMap.get(model.location);
+            return locationMap.get(model.location);
         } else {
             return model.location;
         }
@@ -88,11 +88,11 @@ public abstract class AbstractEngine implements GenericEngine {
      */
     public void sendCallbacks(ModelService model, Map context, int mode) throws GenericServiceException {
         if (!allowCallbacks(model, context, mode)) return;
-        List callbacks = dispatcher.getCallbacks(model.name);
+        List<GenericServiceCallback> callbacks = dispatcher.getCallbacks(model.name);
         if (callbacks != null) {
-            Iterator i = callbacks.iterator();
+            Iterator<GenericServiceCallback> i = callbacks.iterator();
             while (i.hasNext()) {
-                GenericServiceCallback gsc = (GenericServiceCallback) i.next();
+                GenericServiceCallback gsc = i.next();
                 if (gsc.isEnabled()) {
                     gsc.receiveEvent(context);
                 } else {
@@ -104,11 +104,11 @@ public abstract class AbstractEngine implements GenericEngine {
 
     public void sendCallbacks(ModelService model, Map context, Throwable t, int mode) throws GenericServiceException {
         if (!allowCallbacks(model, context, mode)) return;
-        List callbacks = dispatcher.getCallbacks(model.name);
+        List<GenericServiceCallback> callbacks = dispatcher.getCallbacks(model.name);
         if (callbacks != null) {
-            Iterator i = callbacks.iterator();
+            Iterator<GenericServiceCallback> i = callbacks.iterator();
             while (i.hasNext()) {
-                GenericServiceCallback gsc = (GenericServiceCallback) i.next();
+                GenericServiceCallback gsc = i.next();
                 if (gsc.isEnabled()) {
                     gsc.receiveEvent(context,t );
                 } else {
@@ -120,11 +120,11 @@ public abstract class AbstractEngine implements GenericEngine {
 
     public void sendCallbacks(ModelService model, Map context, Map result, int mode) throws GenericServiceException {
         if (!allowCallbacks(model, context, mode)) return;
-        List callbacks = dispatcher.getCallbacks(model.name);
+        List<GenericServiceCallback> callbacks = dispatcher.getCallbacks(model.name);
         if (callbacks != null) {
-            Iterator i = callbacks.iterator();
+            Iterator<GenericServiceCallback> i = callbacks.iterator();
             while (i.hasNext()) {
-                GenericServiceCallback gsc = (GenericServiceCallback) i.next();
+                GenericServiceCallback gsc = i.next();
                 if (gsc.isEnabled()) {
                     gsc.receiveEvent(context, result);
                 } else {
