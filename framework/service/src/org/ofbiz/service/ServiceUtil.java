@@ -50,14 +50,14 @@ public class ServiceUtil {
     public static final String resource = "ServiceErrorUiLabels";
 
     /** A little short-cut method to check to see if a service returned an error */
-    public static boolean isError(Map results) {
+    public static boolean isError(Map<String, ? extends Object> results) {
         if (results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) {
             return false;
         }
         return ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
     }
 
-    public static boolean isFailure(Map results) {
+    public static boolean isFailure(Map<String, ? extends Object> results) {
         if (results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) {
             return false;
         }
@@ -65,39 +65,39 @@ public class ServiceUtil {
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code */
-    public static Map returnError(String errorMessage) {
+    public static Map<String, Object> returnError(String errorMessage) {
         return returnProblem(ModelService.RESPOND_ERROR, errorMessage, null, null, null);
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code */
-    public static Map returnError(String errorMessage, List<? extends Object> errorMessageList) {
+    public static Map<String, Object> returnError(String errorMessage, List<? extends Object> errorMessageList) {
         return returnProblem(ModelService.RESPOND_ERROR, errorMessage, errorMessageList, null, null);
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code */
-    public static Map returnError(List<? extends Object> errorMessageList) {
+    public static Map<String, Object> returnError(List<? extends Object> errorMessageList) {
         return returnProblem(ModelService.RESPOND_ERROR, null, errorMessageList, null, null);
     }
 
-    public static Map returnFailure(String errorMessage) {
+    public static Map<String, Object> returnFailure(String errorMessage) {
         return returnProblem(ModelService.RESPOND_FAIL, errorMessage, null, null, null);
     }
 
-    public static Map returnFailure(List<? extends Object> errorMessageList) {
+    public static Map<String, Object> returnFailure(List<? extends Object> errorMessageList) {
         return returnProblem(ModelService.RESPOND_FAIL, null, errorMessageList, null, null);
     }
 
-    public static Map returnFailure() {
+    public static Map<String, Object> returnFailure() {
         return returnProblem(ModelService.RESPOND_FAIL, null, null, null, null);
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code, also forwards any error messages from the nestedResult */
-    public static Map returnError(String errorMessage, List<? extends Object> errorMessageList, Map<String, ? extends Object> errorMessageMap, Map nestedResult) {
+    public static Map<String, Object> returnError(String errorMessage, List<? extends Object> errorMessageList, Map<String, ? extends Object> errorMessageMap, Map<String, ? extends Object> nestedResult) {
         return returnProblem(ModelService.RESPOND_ERROR, errorMessage, errorMessageList, errorMessageMap, nestedResult);
     }
 
-    public static Map returnProblem(String returnType, String errorMessage, List<? extends Object> errorMessageList, Map<String, ? extends Object> errorMessageMap, Map nestedResult) {
-        Map result = FastMap.newInstance();
+    public static Map<String, Object> returnProblem(String returnType, String errorMessage, List<? extends Object> errorMessageList, Map<String, ? extends Object> errorMessageMap, Map<String, ? extends Object> nestedResult) {
+        Map<String, Object> result = FastMap.newInstance();
         result.put(ModelService.RESPONSE_MESSAGE, returnType);
         if (errorMessage != null) {
             result.put(ModelService.ERROR_MESSAGE, errorMessage);
@@ -135,12 +135,12 @@ public class ServiceUtil {
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the success response code */
-    public static Map returnSuccess(String successMessage) {
+    public static Map<String, Object> returnSuccess(String successMessage) {
         return returnMessage(ModelService.RESPOND_SUCCESS, successMessage);
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the success response code */
-    public static Map returnSuccess() {
+    public static Map<String, Object> returnSuccess() {
         return returnMessage(ModelService.RESPOND_SUCCESS, null);
     }
 
@@ -148,8 +148,8 @@ public class ServiceUtil {
      * NOTE: This brings out some bad points to our message convention: we should be using a single message or message list
      *  and what type of message that is should be determined by the RESPONSE_MESSAGE (and there's another annoyance, it should be RESPONSE_CODE)
      */
-    public static Map returnMessage(String code, String message) {
-        Map result = FastMap.newInstance();
+    public static Map<String, Object> returnMessage(String code, String message) {
+        Map<String, Object> result = FastMap.newInstance();
         if (code != null) result.put(ModelService.RESPONSE_MESSAGE, code);
         if (message != null) result.put(ModelService.SUCCESS_MESSAGE, message);
         return result;
@@ -158,7 +158,7 @@ public class ServiceUtil {
     /** A small routine used all over to improve code efficiency, get the partyId and does a security check
      *<b>security check</b>: userLogin partyId must equal partyId, or must have [secEntity][secOperation] permission
      */
-    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map context, Map result, String secEntity, String secOperation) {
+    public static String getPartyIdCheckSecurity(GenericValue userLogin, Security security, Map<String, ? extends Object> context, Map<String, Object> result, String secEntity, String secOperation) {
         String partyId = (String) context.get("partyId");
         Locale locale = getLocale(context);
         if (partyId == null || partyId.length() == 0) {
@@ -197,18 +197,18 @@ public class ServiceUtil {
 
     }
 
-    public static void getMessages(HttpServletRequest request, Map result, String defaultMessage) {
+    public static void getMessages(HttpServletRequest request, Map<String, ? extends Object> result, String defaultMessage) {
         getMessages(request, result, defaultMessage, null, null, null, null, null, null);
     }
 
-    public static void getMessages(HttpServletRequest request, Map result, String defaultMessage,
+    public static void getMessages(HttpServletRequest request, Map<String, ? extends Object> result, String defaultMessage,
                                    String msgPrefix, String msgSuffix, String errorPrefix, String errorSuffix, String successPrefix, String successSuffix) {
         String errorMessage = ServiceUtil.makeErrorMessage(result, msgPrefix, msgSuffix, errorPrefix, errorSuffix);
         String successMessage = ServiceUtil.makeSuccessMessage(result, msgPrefix, msgSuffix, successPrefix, successSuffix);
         setMessages(request, errorMessage, successMessage, defaultMessage);
     }
 
-    public static String getErrorMessage(Map result) {
+    public static String getErrorMessage(Map<String, ? extends Object> result) {
         StringBuilder errorMessage = new StringBuilder();
 
         if (result.get(ModelService.ERROR_MESSAGE) != null) errorMessage.append((String) result.get(ModelService.ERROR_MESSAGE));
@@ -228,7 +228,7 @@ public class ServiceUtil {
         return errorMessage.toString();
     }
 
-    public static String makeErrorMessage(Map result, String msgPrefix, String msgSuffix, String errorPrefix, String errorSuffix) {
+    public static String makeErrorMessage(Map<String, ? extends Object> result, String msgPrefix, String msgSuffix, String errorPrefix, String errorSuffix) {
         if (result == null) {
             Debug.logWarning("A null result map was passed", module);
             return null;
@@ -268,12 +268,12 @@ public class ServiceUtil {
         }
     }
 
-    public static String makeSuccessMessage(Map result, String msgPrefix, String msgSuffix, String successPrefix, String successSuffix) {
+    public static String makeSuccessMessage(Map<String, ? extends Object> result, String msgPrefix, String msgSuffix, String successPrefix, String successSuffix) {
         if (result == null) {
             return "";
         }
         String successMsg = (String) result.get(ModelService.SUCCESS_MESSAGE);
-        List successMsgList = (List) result.get(ModelService.SUCCESS_MESSAGE_LIST);
+        List<? extends Object> successMsgList = UtilGenerics.checkList(result.get(ModelService.SUCCESS_MESSAGE_LIST));
         StringBuilder outMsg = new StringBuilder();
 
         outMsg.append(makeMessageList(successMsgList, msgPrefix, msgSuffix));
@@ -318,7 +318,7 @@ public class ServiceUtil {
      * @param targetMap The Map to add any Map error messages to
      * @param callResult The result from an invocation
      */
-    public static void addErrors(List<Object> targetList, Map<String, Object> targetMap, Map callResult) {
+    public static void addErrors(List<Object> targetList, Map<String, Object> targetMap, Map<String, ? extends Object> callResult) {
         List<? extends Object> newList;
         Map<String, ? extends Object> errorMsgMap;
 
@@ -340,7 +340,7 @@ public class ServiceUtil {
         }
     }
 
-    public static Map purgeOldJobs(DispatchContext dctx, Map context) {
+    public static Map<String, Object> purgeOldJobs(DispatchContext dctx, Map<String, ? extends Object> context) {
         String sendPool = ServiceConfigUtil.getSendPool();
         int daysToKeep = ServiceConfigUtil.getPurgeJobDays();
         GenericDelegator delegator = dctx.getDelegator();
@@ -413,7 +413,7 @@ public class ServiceUtil {
                 if (curList != null && curList.size() > 0) {
                     // list of runtime data IDs to attempt to delete
                     List<String> runtimeToDelete = FastList.newInstance();
-                    
+
                     for (GenericValue job: curList) {
                         String runtimeId = job.getString("runtimeDataId");
                         String jobId = job.getString("jobId");
@@ -484,7 +484,7 @@ public class ServiceUtil {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map cancelJob(DispatchContext dctx, Map context) {
+    public static Map<String, Object> cancelJob(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -514,7 +514,7 @@ public class ServiceUtil {
 
         Timestamp cancelDate = job.getTimestamp("cancelDateTime");
         if (cancelDate != null) {
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("cancelDateTime", cancelDate);
             return result;
         } else {
@@ -523,7 +523,7 @@ public class ServiceUtil {
         }
     }
 
-    public static Map cancelJobRetries(DispatchContext dctx, Map context) {
+    public static Map<String, Object> cancelJobRetries(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -558,21 +558,21 @@ public class ServiceUtil {
         }
     }
 
-    public static Map genericDateCondition(DispatchContext dctx, Map context) {
+    public static Map<String, Object> genericDateCondition(DispatchContext dctx, Map<String, ? extends Object> context) {
         Timestamp fromDate = (Timestamp) context.get("fromDate");
         Timestamp thruDate = (Timestamp) context.get("thruDate");
         Timestamp now = UtilDateTime.nowTimestamp();
-        Boolean reply = Boolean.TRUE;
+        boolean reply = true;
                            
-        if (fromDate != null && fromDate.after(now)) reply = Boolean.FALSE;
-        if (thruDate != null && thruDate.before(now)) reply = Boolean.FALSE;
+        if (fromDate != null && fromDate.after(now)) reply = false;
+        if (thruDate != null && thruDate.before(now)) reply = false;
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("conditionReply", reply);
         return result;
     }
 
-    public static GenericValue getUserLogin(DispatchContext dctx, Map context, String runAsUser) {
+    public static GenericValue getUserLogin(DispatchContext dctx, Map<String, ? extends Object> context, String runAsUser) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericDelegator delegator = dctx.getDelegator();
         if (runAsUser != null) {
@@ -588,7 +588,7 @@ public class ServiceUtil {
         return userLogin;
     }
 
-    private static Locale getLocale(Map context) {
+    private static Locale getLocale(Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
         if (locale == null) {
             locale = Locale.getDefault();
@@ -596,12 +596,12 @@ public class ServiceUtil {
         return locale;
     }
 
-    public static Map makeContext(Object... args) {
+    public static <T extends Object> Map<String, Object> makeContext(T... args) {
         if (args != null) {
             for (int i = 0; i < args.length; i += 2) {
                 if (!(args[i] instanceof String)) throw new IllegalArgumentException("Arg(" + i + "), value(" + args[i] + ") is not a string.");
             }
         }
-        return UtilMisc.toMap(args);
+        return UtilGenerics.checkMap(UtilMisc.toMap(args));
     }
 }

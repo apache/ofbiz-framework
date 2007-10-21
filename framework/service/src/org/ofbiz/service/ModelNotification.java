@@ -40,13 +40,13 @@ public class ModelNotification {
     public String notificationEvent;
     public String notificationMode;
 
-    public void callNotify(DispatchContext dctx, ModelService model, Map context, Map result) {
+    public void callNotify(DispatchContext dctx, ModelService model, Map<String, ? extends Object> context, Map<String, Object> result) {
         String thisEvent = (String) result.get(ModelService.RESPONSE_MESSAGE);
         if (notificationEvent.equals(thisEvent)) {
             String notificationService = this.getService();
             if (notificationService != null) {
                 try {
-                    Map notifyContext = this.buildContext(context, result, model);
+                    Map<String, Object> notifyContext = this.buildContext(context, result, model);
                     dctx.getDispatcher().runSync(getService(), notifyContext, 90, true);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
@@ -55,7 +55,7 @@ public class ModelNotification {
         }
     }
 
-    public Map buildContext(Map context, Map result, ModelService model) throws GenericServiceException {
+    public Map<String, Object> buildContext(Map<String, ? extends Object> context, Map<String, Object> result, ModelService model) throws GenericServiceException {
         Map<String, Object> userLogin = UtilGenerics.checkMap(context.get("userLogin"));
         String partyId = null;
         if (userLogin != null) {
@@ -77,8 +77,8 @@ public class ModelNotification {
         }
 
         // template context
-        Map notifyContext = FastMap.newInstance();
-        Map bodyParams = FastMap.newInstance();
+        Map<String, Object> notifyContext = FastMap.newInstance();
+        Map<String, Object> bodyParams = FastMap.newInstance();
         bodyParams.put("serviceContext", context);
         bodyParams.put("serviceResult", result);
         bodyParams.put("service", model);

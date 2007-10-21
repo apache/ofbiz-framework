@@ -120,7 +120,7 @@ public class GroupModel {
      * @return Map Result Map
      * @throws GenericServiceException
      */
-    public Map run(ServiceDispatcher dispatcher, String localName, Map context) throws GenericServiceException {
+    public Map<String, Object> run(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
         if (this.getSendMode().equals("all")) {
             return runAll(dispatcher, localName, context);
         } else if (this.getSendMode().equals("round-robin")) {
@@ -150,12 +150,12 @@ public class GroupModel {
         return str.toString();
     }
     
-    private Map runAll(ServiceDispatcher dispatcher, String localName, Map context) throws GenericServiceException {
-        Map runContext = UtilMisc.makeMapWritable(context);
-        Map result = FastMap.newInstance();
+    private Map<String, Object> runAll(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
+        Map<String, Object> runContext = UtilMisc.makeMapWritable(context);
+        Map<String, Object> result = FastMap.newInstance();
         for (GroupServiceModel model: services) {
             if (Debug.verboseOn()) Debug.logVerbose("Using Context: " + runContext, module);
-            Map thisResult = model.invoke(dispatcher, localName, runContext);
+            Map<String, Object> thisResult = model.invoke(dispatcher, localName, runContext);
             if (Debug.verboseOn()) Debug.logVerbose("Result: " + thisResult, module);
             
             // make sure we didn't fail
@@ -173,13 +173,13 @@ public class GroupModel {
         return result;
     }
     
-    private Map runIndex(ServiceDispatcher dispatcher, String localName, Map context, int index) throws GenericServiceException {
+    private Map<String, Object> runIndex(ServiceDispatcher dispatcher, String localName, Map<String, Object> context, int index) throws GenericServiceException {
         GroupServiceModel model = services.get(index);
         return model.invoke(dispatcher, localName, context);
     } 
     
-    private Map runOne(ServiceDispatcher dispatcher, String localName, Map context) throws GenericServiceException {      
-        Map result = null;        
+    private Map<String, Object> runOne(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {      
+        Map<String, Object> result = null;        
         for (GroupServiceModel model: services) {
             try {
                 result = model.invoke(dispatcher, localName, context);

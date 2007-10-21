@@ -27,6 +27,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 
 /**
  * Standard Java Static Method Service Engine
@@ -42,25 +43,25 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Map result = runSync(localName, modelService, context);
     }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Object result = serviceInvoker(localName, modelService, context);
 
         if (result == null || !(result instanceof Map)) {
             throw new GenericServiceException("Service did not return expected result");
         }
-        return (Map) result;
+        return UtilGenerics.checkMap(result);
     }
 
     // Invoke the static java method service.
-    private Object serviceInvoker(String localName, ModelService modelService, Map context) throws GenericServiceException {
-        // static java service methods should be: public Map methodName(DispatchContext dctx, Map context)
+    private Object serviceInvoker(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
+        // static java service methods should be: public Map<String, Object> methodName(DispatchContext dctx, Map<String, Object> context)
         DispatchContext dctx = dispatcher.getLocalContext(localName);
 
         if (modelService == null) {

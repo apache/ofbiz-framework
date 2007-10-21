@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
+import java.net.URL;
 import java.util.Collection;
 
 import org.ofbiz.entity.GenericDelegator;
@@ -29,11 +30,11 @@ public class WebAppDispatcher extends GenericDispatcher {
 
     public static final String module = WebAppDispatcher.class.getName();
      
-    public WebAppDispatcher(String name, GenericDelegator delegator, Collection readerURLs) {
+    public WebAppDispatcher(String name, GenericDelegator delegator, Collection<URL> readerURLs) {
         this(name, delegator, readerURLs, null);
     }
 
-    public WebAppDispatcher(String name, GenericDelegator delegator, Collection readerURLs, ClassLoader loader) {           
+    public WebAppDispatcher(String name, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader) {           
         if (loader == null) {
             try {
                 loader = Thread.currentThread().getContextClassLoader();

@@ -47,77 +47,77 @@ public class RemoteDispatcherImpl extends UnicastRemoteObject implements RemoteD
 
     // RemoteDispatcher methods
 
-    public Map runSync(String serviceName, Map context) throws GenericServiceException, RemoteException {
+    public Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         return dispatcher.runSync(serviceName, context);
     }
 
-    public Map runSync(String serviceName, Map context, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException {
+    public Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         return dispatcher.runSync(serviceName, context, transactionTimeout, requireNewTransaction);
     }
 
-    public void runSyncIgnore(String serviceName, Map context) throws GenericServiceException, RemoteException {
+    public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.runSyncIgnore(serviceName, context);
     }
 
-    public void runSyncIgnore(String serviceName, Map context, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException {
+    public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.runSyncIgnore(serviceName, context, transactionTimeout, requireNewTransaction);
     }
 
-    public void runAsync(String serviceName, Map context, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException {
+    public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist, int transactionTimeout, boolean requireNewTransaction) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.runAsync(serviceName, context, requester, persist, transactionTimeout, requireNewTransaction);
     }
 
-    public void runAsync(String serviceName, Map context, GenericRequester requester, boolean persist) throws GenericServiceException, RemoteException {
+    public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester, boolean persist) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.runAsync(serviceName, context, requester, persist);
     }
 
-    public void runAsync(String serviceName, Map context, GenericRequester requester) throws GenericServiceException, RemoteException {
+    public void runAsync(String serviceName, Map<String, ? extends Object> context, GenericRequester requester) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.runAsync(serviceName, context, requester);
     }
 
-    public void runAsync(String serviceName, Map context, boolean persist) throws GenericServiceException, RemoteException {
+    public void runAsync(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.runAsync(serviceName, context, persist);
     }
 
-    public void runAsync(String serviceName, Map context) throws GenericServiceException, RemoteException {
+    public void runAsync(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.runAsync(serviceName, context);
     }
 
-    public GenericResultWaiter runAsyncWait(String serviceName, Map context, boolean persist) throws GenericServiceException, RemoteException {
+    public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         return dispatcher.runAsyncWait(serviceName, context, persist);
     }
 
-    public GenericResultWaiter runAsyncWait(String serviceName, Map context) throws GenericServiceException, RemoteException {
+    public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         return dispatcher.runAsyncWait(serviceName, context);
     }
 
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime) throws GenericServiceException, RemoteException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.schedule(serviceName, context, startTime, frequency, interval, count, endTime);
     }
 
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, int count) throws GenericServiceException, RemoteException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.schedule(serviceName, context, startTime, frequency, interval, count);
     }
 
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, long endTime) throws GenericServiceException, RemoteException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, long endTime) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.schedule(serviceName, context, startTime, frequency, interval, endTime);
     }
 
-    public void schedule(String serviceName, Map context, long startTime) throws GenericServiceException, RemoteException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime) throws GenericServiceException, RemoteException {
         this.checkExportFlag(serviceName);
         dispatcher.schedule(serviceName, context, startTime);
     }

@@ -39,15 +39,15 @@ public class ServiceEngineTestServices {
 
     public static final String module = ServiceEngineTestServices.class.getName();
     
-    public static Map testServiceDeadLockRetry(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceDeadLockRetry(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
             // NOTE using persist=false so that the lock retry will have to fix the problem instead of the job poller picking it up again
             GenericResultWaiter threadAWaiter = dispatcher.runAsyncWait("testServiceDeadLockRetryThreadA", null, false);
             GenericResultWaiter threadBWaiter = dispatcher.runAsyncWait("testServiceDeadLockRetryThreadB", null, false);
             // make sure to wait for these to both finish to make sure results aren't checked until they are done
-            Map threadAResult = threadAWaiter.waitForResult();
-            Map threadBResult = threadBWaiter.waitForResult();
+            Map<String, Object> threadAResult = threadAWaiter.waitForResult();
+            Map<String, Object> threadBResult = threadBWaiter.waitForResult();
             List<Object> errorList = FastList.newInstance();
             if (ServiceUtil.isError(threadAResult)) {
                 errorList.add("Error running testServiceDeadLockRetryThreadA: " + ServiceUtil.getErrorMessage(threadAResult));
@@ -67,7 +67,7 @@ public class ServiceEngineTestServices {
         return ServiceUtil.returnSuccess();
     }
     
-    public static Map testServiceDeadLockRetryThreadA(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceDeadLockRetryThreadA(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         try {
@@ -101,7 +101,7 @@ public class ServiceEngineTestServices {
 
         return ServiceUtil.returnSuccess();
     }
-    public static Map testServiceDeadLockRetryThreadB(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceDeadLockRetryThreadB(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         try {
@@ -138,15 +138,15 @@ public class ServiceEngineTestServices {
 
     // ==================================================
     
-    public static Map testServiceLockWaitTimeoutRetry(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceLockWaitTimeoutRetry(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
             // NOTE using persist=false so that the lock retry will have to fix the problem instead of the job poller picking it up again
             GenericResultWaiter grabberWaiter = dispatcher.runAsyncWait("testServiceLockWaitTimeoutRetryGrabber", null, false);
             GenericResultWaiter waiterWaiter = dispatcher.runAsyncWait("testServiceLockWaitTimeoutRetryWaiter", null, false);
             // make sure to wait for these to both finish to make sure results aren't checked until they are done
-            Map grabberResult = grabberWaiter.waitForResult();
-            Map waiterResult = waiterWaiter.waitForResult();
+            Map<String, Object> grabberResult = grabberWaiter.waitForResult();
+            Map<String, Object> waiterResult = waiterWaiter.waitForResult();
             List<Object> errorList = FastList.newInstance();
             if (ServiceUtil.isError(grabberResult)) {
                 errorList.add("Error running testServiceLockWaitTimeoutRetryGrabber: " + ServiceUtil.getErrorMessage(grabberResult));
@@ -165,7 +165,7 @@ public class ServiceEngineTestServices {
         
         return ServiceUtil.returnSuccess();
     }
-    public static Map testServiceLockWaitTimeoutRetryGrabber(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceLockWaitTimeoutRetryGrabber(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         try {
@@ -191,7 +191,7 @@ public class ServiceEngineTestServices {
 
         return ServiceUtil.returnSuccess();
     }
-    public static Map testServiceLockWaitTimeoutRetryWaiter(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceLockWaitTimeoutRetryWaiter(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         try {
@@ -237,7 +237,7 @@ public class ServiceEngineTestServices {
      * @param context
      * @return
      */
-    public static Map testServiceLockWaitTimeoutRetryCantRecover(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceLockWaitTimeoutRetryCantRecover(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
@@ -248,7 +248,7 @@ public class ServiceEngineTestServices {
 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecover (grabber) just updated SVCLWTRTCR, running sub-service in own transaction", module);
             // timeout is 5 seconds so it is longer than the tx timeout for this service, so will fail quickly; with this transaction keeping a lock on the record and that one trying to get it, bam we cause the error
-            Map waiterResult = dispatcher.runSync("testServiceLockWaitTimeoutRetryCantRecoverWaiter", null, 5, true);
+            Map<String, Object> waiterResult = dispatcher.runSync("testServiceLockWaitTimeoutRetryCantRecoverWaiter", null, 5, true);
             if (ServiceUtil.isError(waiterResult)) {
                 return ServiceUtil.returnError("Error running testServiceLockWaitTimeoutRetryCantRecoverWaiter", null, null, waiterResult);
             }
@@ -265,7 +265,7 @@ public class ServiceEngineTestServices {
         
         return ServiceUtil.returnSuccess();
     }
-    public static Map testServiceLockWaitTimeoutRetryCantRecoverWaiter(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceLockWaitTimeoutRetryCantRecoverWaiter(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         try {
@@ -288,10 +288,10 @@ public class ServiceEngineTestServices {
     
     // ==================================================
     
-    public static Map testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
-            Map resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent", null, 60, true);
+            Map<String, Object> resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent", null, 60, true);
             if (ServiceUtil.isError(resultMap)) {
                 return ServiceUtil.returnError("Error running main test service in testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper", null, null, resultMap);
             }
@@ -302,7 +302,7 @@ public class ServiceEngineTestServices {
         
         return ServiceUtil.returnSuccess();
     }
-    public static Map testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
@@ -313,7 +313,7 @@ public class ServiceEngineTestServices {
             
             TransactionUtil.setRollbackOnly("Intentionally setting rollback only for testing purposes", null);
             
-            Map resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService", null, 60, true);
+            Map<String, Object> resultMap = dispatcher.runSync("testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService", null, 60, true);
             if (ServiceUtil.isError(resultMap)) {
                 return ServiceUtil.returnError("Error running sub-service in testServiceOwnTxSubServiceAfterSetRollbackOnlyInParent", null, null, resultMap);
             }
@@ -325,7 +325,7 @@ public class ServiceEngineTestServices {
         
         return ServiceUtil.returnSuccess();
     }    
-    public static Map testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService(DispatchContext dctx, Map<String, ? extends Object> context) {
         // this service doesn't actually have to do anything, the problem was in just pausing and resuming the transaciton with setRollbackOnly
         return ServiceUtil.returnSuccess();
     }
@@ -333,7 +333,7 @@ public class ServiceEngineTestServices {
     
     // ==================================================
     
-    public static Map testServiceEcaGlobalEventExec(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceEcaGlobalEventExec(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
             // this will return an error, but we'll ignore the result
@@ -347,7 +347,7 @@ public class ServiceEngineTestServices {
         // this service doesn't actually have to do anything, just a placeholder for ECA rules, this one should commit
         return ServiceUtil.returnSuccess();
     }
-    public static Map testServiceEcaGlobalEventExecOnCommit(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceEcaGlobalEventExecOnCommit(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         try {
@@ -362,11 +362,11 @@ public class ServiceEngineTestServices {
 
         return ServiceUtil.returnSuccess();
     }
-    public static Map testServiceEcaGlobalEventExecToRollback(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceEcaGlobalEventExecToRollback(DispatchContext dctx, Map<String, ? extends Object> context) {
         // this service doesn't actually have to do anything, just a placeholder for ECA rules, this one should rollback
         return ServiceUtil.returnError("Intentional rollback to test global-rollback");
     }
-    public static Map testServiceEcaGlobalEventExecOnRollback(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testServiceEcaGlobalEventExecOnRollback(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         try {

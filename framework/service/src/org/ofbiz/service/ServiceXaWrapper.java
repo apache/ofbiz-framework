@@ -24,6 +24,8 @@ import javax.transaction.Transaction;
 import javax.transaction.xa.XAException;
 import javax.transaction.xa.Xid;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -45,8 +47,8 @@ public class ServiceXaWrapper extends GenericXaResource {
     protected String rollbackService = null;
     protected String commitService = null;
     protected String runAsUser = null;
-    protected Map rollbackContext = null;
-    protected Map commitContext = null;
+    protected Map<String, ? extends Object> rollbackContext = null;
+    protected Map<String, ? extends Object> commitContext = null;
     protected boolean rollbackAsync = true;
     protected boolean rollbackAsyncPersist = true;
     protected boolean commitAsync = false;
@@ -62,7 +64,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param serviceName Name of service to run
      * @param context Context to use when running
      */
-    public void setCommitService(String serviceName, Map context) {
+    public void setCommitService(String serviceName, Map<String, ? extends Object> context) {
         this.setCommitService(serviceName, null, context, commitAsync, commitAsyncPersist);
     }
 
@@ -72,7 +74,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param context Context to use when running
      * @param async override default async behavior
      */
-    public void setCommitService(String serviceName, Map context, boolean async, boolean persist) {
+    public void setCommitService(String serviceName, Map<String, ? extends Object> context, boolean async, boolean persist) {
         this.setCommitService(serviceName, null, context, async, persist);
     }
 
@@ -83,7 +85,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param context Context to use when running
      * @param async override default async behavior
      */
-    public void setCommitService(String serviceName, String runAsUser, Map context, boolean async, boolean persist) {
+    public void setCommitService(String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist) {
         this.commitService = serviceName;
         this.runAsUser = runAsUser;
         this.commitContext = context;
@@ -102,7 +104,7 @@ public class ServiceXaWrapper extends GenericXaResource {
     /**
      * @return The context used when running the rollback() service
      */
-    public Map getCommitContext() {
+    public Map<String, ? extends Object> getCommitContext() {
         return this.commitContext;
     }
 
@@ -111,7 +113,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param serviceName Name of service to run
      * @param context Context to use when running
      */
-    public void setRollbackService(String serviceName, Map context) {
+    public void setRollbackService(String serviceName, Map<String, ? extends Object> context) {
         this.setRollbackService(serviceName, context, rollbackAsync, rollbackAsyncPersist);
     }
 
@@ -121,7 +123,7 @@ public class ServiceXaWrapper extends GenericXaResource {
      * @param context Context to use when running
      * @param async override default async behavior
      */
-    public void setRollbackService(String serviceName, Map context, boolean async, boolean persist) {
+    public void setRollbackService(String serviceName, Map<String, ? extends Object> context, boolean async, boolean persist) {
         this.rollbackService = serviceName;
         this.rollbackContext = context;
         this.rollbackAsync = async;
@@ -162,7 +164,7 @@ public class ServiceXaWrapper extends GenericXaResource {
         }
 
         final String service = commitService;
-        final Map context = commitContext;
+        final Map<String, ? extends Object> context = commitContext;
         final boolean persist = commitAsyncPersist;
         final boolean async = commitAsync;
 
@@ -195,7 +197,7 @@ public class ServiceXaWrapper extends GenericXaResource {
         }
 
         final String service = rollbackService;
-        final Map context = rollbackContext;
+        final Map<String, ? extends Object> context = rollbackContext;
         final boolean persist = rollbackAsyncPersist;
         final boolean async = rollbackAsync;
 
@@ -230,7 +232,7 @@ public class ServiceXaWrapper extends GenericXaResource {
 
 
 
-    protected final void runService(String service, Map context, boolean persist, int mode, int type) throws XAException {
+    protected final void runService(String service, Map<String, ? extends Object> context, boolean persist, int mode, int type) throws XAException {
         // set the logging prefix
         String msgPrefix = "[XaWrapper] ";
         switch (type) {
@@ -269,9 +271,12 @@ public class ServiceXaWrapper extends GenericXaResource {
                 try {
                     // obtain the model and get the valid context
                     ModelService model = dctx.getModelService(service);
-                    Map thisContext = context;
+                    Map<String, Object> thisContext;
                     if (model.validate) {
                         thisContext = model.makeValid(context, ModelService.IN_PARAM);
+                    } else {
+                        thisContext = FastMap.newInstance();
+                        thisContext.putAll(context);
                     }
 
                     // set the userLogin object

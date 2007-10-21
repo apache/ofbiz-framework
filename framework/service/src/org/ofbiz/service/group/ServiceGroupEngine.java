@@ -41,7 +41,7 @@ public class ServiceGroupEngine extends GenericAsyncEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         GroupModel groupModel = modelService.internalGroup;
         if (groupModel == null) {
             groupModel = ServiceGroupReader.getGroupModel(this.getLocation(modelService));
@@ -55,7 +55,7 @@ public class ServiceGroupEngine extends GenericAsyncEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {        
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {        
         runSync(localName, modelService, context);
     }
 }

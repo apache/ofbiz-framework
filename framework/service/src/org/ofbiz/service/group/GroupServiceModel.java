@@ -102,13 +102,13 @@ public class GroupServiceModel {
      * @return Map result Map
      * @throws GenericServiceException
      */
-    public Map invoke(ServiceDispatcher dispatcher, String localName, Map context) throws GenericServiceException {
+    public Map<String, Object> invoke(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
         DispatchContext dctx = dispatcher.getLocalContext(localName);
         ModelService model = dctx.getModelService(getName());
         if (model == null)
             throw new GenericServiceException("Group defined service (" + getName() + ") is not a defined service.");
             
-        Map thisContext = model.makeValid(context, ModelService.IN_PARAM);
+        Map<String, Object> thisContext = model.makeValid(context, ModelService.IN_PARAM);
         Debug.logInfo("Running grouped service [" + serviceName + "]", module);
         if (getMode().equals("async")) {
             List<String> requiredOut = model.getParameterNames(ModelService.OUT_PARAM, false);

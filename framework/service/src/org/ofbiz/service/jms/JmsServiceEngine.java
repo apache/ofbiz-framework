@@ -93,7 +93,7 @@ public class JmsServiceEngine extends AbstractEngine {
         return serviceElement;
     }
 
-    protected Message makeMessage(Session session, ModelService modelService, Map context)
+    protected Message makeMessage(Session session, ModelService modelService, Map<String, Object> context)
         throws GenericServiceException, JMSException {
         List<String> outParams = modelService.getParameterNames(ModelService.OUT_PARAM, false);
 
@@ -127,7 +127,7 @@ public class JmsServiceEngine extends AbstractEngine {
         }
     }
 
-    protected Map runTopic(ModelService modelService, Map context, Element server) throws GenericServiceException {
+    protected Map<String, Object> runTopic(ModelService modelService, Map<String, Object> context, Element server) throws GenericServiceException {
         String serverName = server.getAttribute("jndi-server-name");
         String jndiName = server.getAttribute("jndi-name");
         String topicName = server.getAttribute("topic-queue");
@@ -186,7 +186,7 @@ public class JmsServiceEngine extends AbstractEngine {
 
     }
 
-    protected Map runQueue(ModelService modelService, Map context, Element server) throws GenericServiceException {
+    protected Map<String, Object> runQueue(ModelService modelService, Map<String, Object> context, Element server) throws GenericServiceException {
         String serverName = server.getAttribute("jndi-server-name");
         String jndiName = server.getAttribute("jndi-name");
         String queueName = server.getAttribute("topic-queue");
@@ -244,7 +244,7 @@ public class JmsServiceEngine extends AbstractEngine {
         return ServiceUtil.returnSuccess();
     }
 
-    protected Map runXaQueue(ModelService modelService, Map context, Element server) throws GenericServiceException {
+    protected Map<String, Object> runXaQueue(ModelService modelService, Map<String, Object> context, Element server) throws GenericServiceException {
         String serverName = server.getAttribute("jndi-server-name");
         String jndiName = server.getAttribute("jndi-name");
         String queueName = server.getAttribute("topic-queue");
@@ -315,11 +315,11 @@ public class JmsServiceEngine extends AbstractEngine {
         return ServiceUtil.returnSuccess();
     }
 
-    protected Map run(ModelService modelService, Map context) throws GenericServiceException {
+    protected Map<String, Object> run(ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Element serviceElement = getServiceElement(modelService);
         List<? extends Element> serverList = serverList(serviceElement);
 
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         for (Element server: serverList) {
             String serverType = server.getAttribute("type");
 
@@ -336,22 +336,22 @@ public class JmsServiceEngine extends AbstractEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         return run(modelService, context);
     }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         run(modelService, context);
     }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */
-    public void runAsync(String localName, ModelService modelService, Map context, GenericRequester requester, boolean persist) throws GenericServiceException {        
-        Map result = run(modelService, context);
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {        
+        Map<String, Object> result = run(modelService, context);
 
         requester.receiveResult(result);
     }
@@ -359,7 +359,7 @@ public class JmsServiceEngine extends AbstractEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, boolean)
      */
-    public void runAsync(String localName, ModelService modelService, Map context, boolean persist) throws GenericServiceException {
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, boolean persist) throws GenericServiceException {
         run(modelService, context);
     }
 

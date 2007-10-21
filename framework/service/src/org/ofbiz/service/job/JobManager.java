@@ -266,7 +266,7 @@ public class JobManager {
      *@param interval The interval of the frequency recurrence
      *@param count The number of times to repeat
      */
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, int count) throws JobManagerException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count) throws JobManagerException {
         schedule(serviceName, context, startTime, frequency, interval, count, 0);
     }
 
@@ -279,7 +279,7 @@ public class JobManager {
      *@param interval The interval of the frequency recurrence
      *@param endTime The time in milliseconds the service should expire
      */
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, long endTime) throws JobManagerException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, long endTime) throws JobManagerException {
         schedule(serviceName, context, startTime, frequency, interval, -1, endTime);
     }
 
@@ -293,7 +293,7 @@ public class JobManager {
      *@param count The number of times to repeat
      *@param endTime The time in milliseconds the service should expire
      */
-    public void schedule(String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime) throws JobManagerException {
+    public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws JobManagerException {
         schedule(null, serviceName, context, startTime, frequency, interval, count, endTime);
     }
 
@@ -308,7 +308,7 @@ public class JobManager {
      *@param count The number of times to repeat
      *@param endTime The time in milliseconds the service should expire
      */
-    public void schedule(String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime) throws JobManagerException {
+    public void schedule(String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws JobManagerException {
         schedule(null, null, serviceName, context, startTime, frequency, interval, count, endTime, -1);
     }
 
@@ -325,7 +325,7 @@ public class JobManager {
      *@param endTime The time in milliseconds the service should expire
      *@param maxRetry The max number of retries on failure (-1 for no max)
      */
-    public void schedule(String jobName, String poolName, String serviceName, Map context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
+    public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
         if (delegator == null) {
             Debug.logWarning("No delegator referenced; cannot schedule job.", module);
             return;

@@ -86,7 +86,7 @@ public abstract class AbstractEngine implements GenericEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#sendCallbacks(org.ofbiz.service.ModelService, java.util.Map, java.lang.Object, int)
      */
-    public void sendCallbacks(ModelService model, Map context, int mode) throws GenericServiceException {
+    public void sendCallbacks(ModelService model, Map<String, Object> context, int mode) throws GenericServiceException {
         if (!allowCallbacks(model, context, mode)) return;
         List<GenericServiceCallback> callbacks = dispatcher.getCallbacks(model.name);
         if (callbacks != null) {
@@ -102,7 +102,7 @@ public abstract class AbstractEngine implements GenericEngine {
         }
     }
 
-    public void sendCallbacks(ModelService model, Map context, Throwable t, int mode) throws GenericServiceException {
+    public void sendCallbacks(ModelService model, Map<String, Object> context, Throwable t, int mode) throws GenericServiceException {
         if (!allowCallbacks(model, context, mode)) return;
         List<GenericServiceCallback> callbacks = dispatcher.getCallbacks(model.name);
         if (callbacks != null) {
@@ -118,7 +118,7 @@ public abstract class AbstractEngine implements GenericEngine {
         }
     }
 
-    public void sendCallbacks(ModelService model, Map context, Map result, int mode) throws GenericServiceException {
+    public void sendCallbacks(ModelService model, Map<String, Object> context, Map<String, Object> result, int mode) throws GenericServiceException {
         if (!allowCallbacks(model, context, mode)) return;
         List<GenericServiceCallback> callbacks = dispatcher.getCallbacks(model.name);
         if (callbacks != null) {
@@ -134,7 +134,7 @@ public abstract class AbstractEngine implements GenericEngine {
         }
     }
 
-    protected boolean allowCallbacks(ModelService model, Map context, int mode) throws GenericServiceException {
+    protected boolean allowCallbacks(ModelService model, Map<String, Object> context, int mode) throws GenericServiceException {
         return true;
     }
 }

@@ -59,15 +59,15 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         runSync(localName, modelService, context);
     }
     
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
-        Map result = serviceInvoker(modelService, context);
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
+        Map<String, Object> result = serviceInvoker(modelService, context);
         
         if (result == null)
             throw new GenericServiceException("Service did not return expected result");
@@ -75,7 +75,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
     }
     
     // Invoke the remote SOAP service
-    private Map serviceInvoker(ModelService modelService, Map context) throws GenericServiceException {
+    private Map<String, Object> serviceInvoker(ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         if (modelService.location == null || modelService.invoke == null)
             throw new GenericServiceException("Cannot locate service to invoke");
         
@@ -145,8 +145,8 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         return getResponseParams(call.getMessageContext().getResponseMessage());
     }
         
-    private Map getResponseParams(Message respMessage) {
-        Map mRet = FastMap.newInstance();
+    private Map<String, Object> getResponseParams(Message respMessage) {
+        Map<String, Object> mRet = FastMap.newInstance();
         try {
             SOAPEnvelope resEnv = respMessage.getSOAPEnvelope();
             List bodies = resEnv.getBodyElements();

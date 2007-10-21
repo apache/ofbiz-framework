@@ -24,6 +24,7 @@ import java.util.Map;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -48,23 +49,23 @@ public class BSFEngine extends GenericAsyncEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
-        Map result = runSync(localName, modelService, context);
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
+        runSync(localName, modelService, context);
     }
     
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Object result = serviceInvoker(localName, modelService, context);
 
         if (result == null || !(result instanceof Map))
             throw new GenericServiceException("Service did not return expected result");
-        return (Map) result;
+        return UtilGenerics.checkMap(result);
     }
     
     // Invoke the BSF Script.
-    private Object serviceInvoker(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    private Object serviceInvoker(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         if (modelService.location == null || modelService.invoke == null)
             throw new GenericServiceException("Cannot locate service to invoke");
 

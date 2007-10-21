@@ -46,7 +46,7 @@ public class ServiceEcaSetField {
         this.format = set.getAttribute("format");
     }
 
-    public void eval(Map context) {
+    public void eval(Map<String, Object> context) {
         if (fieldName != null) {
             // try to expand the envName
             if (UtilValidate.isEmpty(value)) {
@@ -69,7 +69,7 @@ public class ServiceEcaSetField {
         }
     }
 
-    protected Object format(String s, Map c) {
+    protected Object format(String s, Map<String, ? extends Object> c) {
         if (UtilValidate.isEmpty(s) || UtilValidate.isEmpty(format)) {            
             return s;
         }

@@ -61,15 +61,15 @@ public class ExampleRemoteClient {
         }
     }
 
-    public Map runTestService() throws RemoteException, GenericServiceException {
-        Map context = FastMap.newInstance();
+    public Map<String, Object> runTestService() throws RemoteException, GenericServiceException {
+        Map<String, Object> context = FastMap.newInstance();
         context.put("message", "Remote Service Test");
         return rd.runSync("testScv", context);
     }
 
     public static void main(String[] args) throws Exception {
         ExampleRemoteClient rm = new ExampleRemoteClient();
-        Map result = rm.runTestService();
+        Map<String, Object> result = rm.runTestService();
         System.out.println("Service Result Map: " + result);
     }
 }

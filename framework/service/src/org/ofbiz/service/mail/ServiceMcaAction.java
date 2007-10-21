@@ -20,6 +20,8 @@ package org.ofbiz.service.mail;
 
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -51,11 +53,12 @@ public class ServiceMcaAction implements java.io.Serializable {
     }
 
     public boolean runAction(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, GenericValue userLogin) throws GenericServiceException {
-        Map serviceContext = UtilMisc.toMap("messageWrapper", messageWrapper, "userLogin", userLogin);
+        Map<String, Object> serviceContext = FastMap.newInstance();
+        serviceContext.putAll(UtilMisc.toMap("messageWrapper", messageWrapper, "userLogin", userLogin));
         serviceContext.put("userLogin", ServiceUtil.getUserLogin(dispatcher.getDispatchContext(), serviceContext, runAsUser));
 
         if (serviceMode.equals("sync")) {
-            Map result = dispatcher.runSync(serviceName, serviceContext);
+            Map<String, Object> result = dispatcher.runSync(serviceName, serviceContext);
             if (ServiceUtil.isError(result)) {
                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
                 return false;
