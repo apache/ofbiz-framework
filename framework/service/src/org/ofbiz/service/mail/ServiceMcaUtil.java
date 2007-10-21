@@ -61,10 +61,7 @@ public class ServiceMcaUtil {
         }
 
         // get all of the component resource eca stuff, ie specified in each ofbiz-component.xml file
-        List componentResourceInfos = ComponentConfig.getAllServiceResourceInfos("mca");
-        Iterator componentResourceInfoIter = componentResourceInfos.iterator();
-        while (componentResourceInfoIter.hasNext()) {
-            ComponentConfig.ServiceResourceInfo componentResourceInfo = (ComponentConfig.ServiceResourceInfo) componentResourceInfoIter.next();
+        for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("mca")) {
             addMcaDefinitions(componentResourceInfo.createResourceHandler());
         }
     }

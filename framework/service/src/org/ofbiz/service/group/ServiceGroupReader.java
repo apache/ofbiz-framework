@@ -59,10 +59,7 @@ public class ServiceGroupReader {
         }
 
         // get all of the component resource group stuff, ie specified in each ofbiz-component.xml file
-        List componentResourceInfos = ComponentConfig.getAllServiceResourceInfos("group");
-        Iterator componentResourceInfoIter = componentResourceInfos.iterator();
-        while (componentResourceInfoIter.hasNext()) {
-            ComponentConfig.ServiceResourceInfo componentResourceInfo = (ComponentConfig.ServiceResourceInfo) componentResourceInfoIter.next();
+        for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("group")) {
             addGroupDefinitions(componentResourceInfo.createResourceHandler());
         }
     }    
