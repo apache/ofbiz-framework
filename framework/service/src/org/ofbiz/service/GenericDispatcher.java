@@ -136,10 +136,6 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         return dispatcher.runSync(this.name, service, context);
     }
 
-    public Map<String, Object> runSync(String serviceName, Object... context) throws ServiceValidationException, GenericServiceException {
-        return runSync(serviceName, ServiceUtil.makeContext(context));
-    }
-
     /**
      * @see org.ofbiz.service.LocalDispatcher#runSync(java.lang.String, java.util.Map, int, boolean)
      */
@@ -164,10 +160,6 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException {
         ModelService service = ctx.getModelService(serviceName);
         dispatcher.runSyncIgnore(this.name, service, context);
-    }
-
-    public void runSyncIgnore(String serviceName, Object... context) throws GenericServiceException {
-        runSyncIgnore(serviceName, ServiceUtil.makeContext(context));
     }
 
     /**
@@ -248,10 +240,6 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         runAsync(serviceName, context, true);
     }
 
-    public void runAsync(String serviceName, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
-        runAsync(serviceName, ServiceUtil.makeContext(context));
-    }
-  
     /**
      * @see org.ofbiz.service.LocalDispatcher#runAsyncWait(java.lang.String, java.util.Map, boolean)
      */
@@ -271,9 +259,5 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         return runAsyncWait(serviceName, context, true);
     }  
-
-    public GenericResultWaiter runAsyncWait(String serviceName, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
-        return runAsyncWait(serviceName, ServiceUtil.makeContext(context));
-    }
 }
 

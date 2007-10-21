@@ -40,7 +40,6 @@ public interface LocalDispatcher {
      * @throws GenericServiceException
      */
     public Map<String, Object> runSync(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException;
-    public Map<String, Object> runSync(String serviceName, Object... context) throws GenericServiceException;
 
     /**
      * Run the service synchronously with a specified timeout and return the result.
@@ -65,7 +64,6 @@ public interface LocalDispatcher {
      * @throws GenericServiceException
      */
     public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context) throws GenericServiceException;
-    public void runSyncIgnore(String serviceName, Object... context) throws GenericServiceException;
 
     /**
      * Run the service synchronously with a specified timeout and IGNORE the result.
@@ -142,7 +140,6 @@ public interface LocalDispatcher {
      * @throws GenericServiceException
      */
     public void runAsync(String serviceName, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    public void runAsync(String serviceName, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Run the service asynchronously.
@@ -167,7 +164,6 @@ public interface LocalDispatcher {
      * @throws GenericServiceException
      */
     public GenericResultWaiter runAsyncWait(String serviceName, Map<String, ? extends Object> context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
-    public GenericResultWaiter runAsyncWait(String serviceName, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
 
     /**
      * Register a callback listener on a specific service.
