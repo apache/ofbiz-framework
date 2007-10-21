@@ -66,10 +66,7 @@ public class ServiceEcaUtil {
             return;
         }
 
-        List serviceEcasElements = UtilXml.childElementList(rootElement, "service-ecas");
-        Iterator secasIter = serviceEcasElements.iterator();
-        while (secasIter.hasNext()) {
-            Element serviceEcasElement = (Element) secasIter.next();
+        for (Element serviceEcasElement: UtilXml.childElementList(rootElement, "service-ecas")) {
             ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, serviceEcasElement);
             addEcaDefinitions(handler);
         }
@@ -92,11 +89,8 @@ public class ServiceEcaUtil {
             return;
         }
 
-        List ecaList = UtilXml.childElementList(rootElement, "eca");
-        Iterator ecaIt = ecaList.iterator();
         int numDefs = 0;
-        while (ecaIt.hasNext()) {
-            Element e = (Element) ecaIt.next();
+        for (Element e: UtilXml.childElementList(rootElement, "eca")) {
             String serviceName = e.getAttribute("service");
             String eventName = e.getAttribute("event");
             Map eventMap = (Map) ecaCache.get(serviceName);

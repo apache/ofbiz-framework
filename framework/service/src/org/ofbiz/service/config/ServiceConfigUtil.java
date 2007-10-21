@@ -155,10 +155,7 @@ public class ServiceConfigUtil implements Serializable {
             notify = FastList.newInstance();
             notification = new Notification(UtilXml.firstChildElement(e, "notification"));
 
-            List n = UtilXml.childElementList(e, "notify");
-            Iterator i = n.iterator();
-            while (i.hasNext()) {
-                Element e2 = (Element) i.next();
+            for (Element e2: UtilXml.childElementList(e, "notify")) {
                 notify.add(new Notify(e2));
             }
         }
