@@ -195,11 +195,11 @@ public class DispatchContext implements Serializable {
     }
     
     private ModelService getLocalModelService(String serviceName) throws GenericServiceException {
-        Map serviceMap = this.getLocalServiceMap();
+        Map<String, ModelService> serviceMap = this.getLocalServiceMap();
         
         ModelService retVal = null;
         if (serviceMap != null) {
-            retVal = (ModelService) serviceMap.get(serviceName); 
+            retVal = serviceMap.get(serviceName); 
             if (retVal != null && !retVal.inheritedParameters()) {
                 retVal.interfaceUpdate(this);     
             }
@@ -209,11 +209,11 @@ public class DispatchContext implements Serializable {
     }
 
     private ModelService getGlobalModelService(String serviceName) throws GenericServiceException {
-        Map serviceMap = this.getGlobalServiceMap();
+        Map<String, ModelService> serviceMap = this.getGlobalServiceMap();
 
         ModelService retVal = null;
         if (serviceMap != null) {
-            retVal = (ModelService) serviceMap.get(serviceName);
+            retVal = serviceMap.get(serviceName);
             if (retVal != null && !retVal.inheritedParameters()) {
                 retVal.interfaceUpdate(this);
             }
