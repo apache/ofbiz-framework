@@ -461,13 +461,13 @@ public class ModelService extends AbstractMap implements Serializable {
         }
 
         if (verboseOn) {
-            String requiredNames = "";
+            StringBuilder requiredNames = new StringBuilder();
             Iterator requiredIter = requiredInfo.keySet().iterator();
             while (requiredIter.hasNext()) {
-                requiredNames = requiredNames + requiredIter.next();
-                if (requiredIter.hasNext()) {
-                    requiredNames = requiredNames + ", ";
+                if (requiredNames.length() > 0) {
+                    requiredNames.append(", ");
                 }
+                requiredNames.append(requiredIter.next());
             }
             Debug.logVerbose("[ModelService.validate] : required fields - " + requiredNames, module);
 

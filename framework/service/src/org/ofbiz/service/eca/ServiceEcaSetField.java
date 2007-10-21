@@ -76,12 +76,12 @@ public class ServiceEcaSetField {
 
         // string formats
         if ("append".equalsIgnoreCase(format) && envName != null) {
-            String newStr = "";
+            StringBuilder newStr = new StringBuilder();
             if (c.get(envName) != null) {
-                newStr = newStr + c.get(envName);
+                newStr.append(c.get(envName));
             }
-            newStr = newStr + s;
-            return newStr; 
+            newStr.append(s);
+            return newStr.toString(); 
         }
         if ("to-upper".equalsIgnoreCase(format)) {
             return s.toUpperCase();
