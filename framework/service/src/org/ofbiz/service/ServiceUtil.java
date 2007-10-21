@@ -547,7 +547,7 @@ public class ServiceUtil {
         try {
             job = delegator.findByPrimaryKey("JobSandbox", fields);
             if (job != null) {
-                job.set("maxRetry", new Long(0));
+                job.set("maxRetry", Long.valueOf(0));
                 job.store();
             }
         } catch (GenericEntityException e) {

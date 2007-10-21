@@ -411,7 +411,7 @@ public class JobManager {
         jFields.put("loaderName", dispatcherName);
 
         // set the max retry
-        jFields.put("maxRetry", new Long(maxRetry));
+        jFields.put("maxRetry", Long.valueOf(maxRetry));
 
         // create the value and store
         GenericValue jobV = null;

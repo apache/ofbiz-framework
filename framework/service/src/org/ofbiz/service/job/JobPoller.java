@@ -127,8 +127,8 @@ public class JobPoller implements Runnable {
             stateMap.put("threadName", invoker.getName());
             stateMap.put("jobName", invoker.getJobName());
             stateMap.put("serviceName", invoker.getServiceName());
-            stateMap.put("runTime", new Long(invoker.getCurrentRuntime()));
-            stateMap.put("status", new Integer(invoker.getCurrentStatus()));
+            stateMap.put("runTime", Long.valueOf(invoker.getCurrentRuntime()));
+            stateMap.put("status", Integer.valueOf(invoker.getCurrentStatus()));
             stateList.add(stateMap);
         }
         return stateList;

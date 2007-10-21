@@ -155,10 +155,8 @@ public class RecurrenceInfo {
 
     /** Increments the current count of this recurrence. */
     public void incrementCurrentCount(boolean store) throws GenericEntityException {
-        Long count = new Long(getCurrentCount() + 1);
-
         if (store) {
-            info.set("recurrenceCount", count);
+            info.set("recurrenceCount", getCurrentCount() + 1);
             info.store();
         }
     }
