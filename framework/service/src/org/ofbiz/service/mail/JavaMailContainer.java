@@ -58,7 +58,7 @@ public class JavaMailContainer implements Container {
     protected boolean deleteMail = false;    // whether to delete emails after fetching them.
 
     protected String configFile = null;
-    protected Map stores = null;
+    protected Map<Store, Session> stores = null;
 
     /**
      * Initialize the container
@@ -70,7 +70,7 @@ public class JavaMailContainer implements Container {
      */
     public void init(String[] args, String configFile) throws ContainerException {
         this.configFile = configFile;       
-        this.stores = new LinkedHashMap();
+        this.stores = new LinkedHashMap<Store, Session>();
         this.pollTimer = new Timer();
     }
 
@@ -249,10 +249,9 @@ public class JavaMailContainer implements Container {
 
         public void run() {
             if (stores != null && stores.size() > 0) {
-                Iterator i = stores.keySet().iterator();
-                while (i.hasNext()) {
-                    Store store = (Store) i.next();
-                    Session session = (Session) stores.get(store);
+                for (Map.Entry<Store, Session> entry: stores.entrySet()) {
+                    Store store = entry.getKey();
+                    Session session = entry.getValue();
                     try {
                         checkMessages(store, session);
                     } catch (GeneralException e) {
@@ -297,22 +296,22 @@ public class JavaMailContainer implements Container {
             folder.fetch(messages, profile);
 
             // process each message
-            for (int i = 0; i < messages.length; i++) {
+            for (Message message: messages) {
                 // process each un-read message
-            	if (!messages[i].isSet(Flags.Flag.SEEN)) {
-            		long messageSize = messages[i].getSize();
-            		if (messages[i] instanceof MimeMessage && messageSize >= maxSize) {
-            			Debug.logWarning("Message from: " + messages[i].getFrom()[0] + "not received, too big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", module);
+            	if (!message.isSet(Flags.Flag.SEEN)) {
+            		long messageSize = message.getSize();
+            		if (message instanceof MimeMessage && messageSize >= maxSize) {
+            			Debug.logWarning("Message from: " + message.getFrom()[0] + "not received, too big, size:" + messageSize + " cannot be more than " + maxSize + " bytes", module);
             		} else {
-            			this.processMessage(messages[i], session);
-            			if (Debug.verboseOn()) Debug.logVerbose("Message from " + UtilMisc.toListArray(messages[i].getFrom()) + " with subject [" + messages[i].getSubject() + "]  has been processed." , module);
-            			messages[i].setFlag(Flags.Flag.SEEN, true);
-            			if (Debug.verboseOn()) Debug.logVerbose("Message [" + messages[i].getSubject() + "] is marked seen", module);
+            			this.processMessage(message, session);
+            			if (Debug.verboseOn()) Debug.logVerbose("Message from " + UtilMisc.toListArray(message.getFrom()) + " with subject [" + message.getSubject() + "]  has been processed." , module);
+            			message.setFlag(Flags.Flag.SEEN, true);
+            			if (Debug.verboseOn()) Debug.logVerbose("Message [" + message.getSubject() + "] is marked seen", module);
             		}
             	}
             	if (deleteMail) {
-            		if (Debug.verboseOn()) Debug.logVerbose("Message [" + messages[i].getSubject() + "] is being deleted", module);
-            		messages[i].setFlag(Flags.Flag.DELETED, true);
+            		if (Debug.verboseOn()) Debug.logVerbose("Message [" + message.getSubject() + "] is being deleted", module);
+            		message.setFlag(Flags.Flag.DELETED, true);
             	}
             }
 

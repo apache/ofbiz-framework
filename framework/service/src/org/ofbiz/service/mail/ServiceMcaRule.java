@@ -36,8 +36,8 @@ public class ServiceMcaRule implements java.io.Serializable {
     public static final String module = ServiceMcaRule.class.getName();
 
     protected String ruleName = null;
-    protected List conditions = new LinkedList();
-    protected List actions = new LinkedList();
+    protected List<ServiceMcaCondition> conditions = new LinkedList<ServiceMcaCondition>();
+    protected List<ServiceMcaAction> actions = new LinkedList<ServiceMcaAction>();
     protected boolean enabled = true;
 
     public ServiceMcaRule(Element mca) {
@@ -60,16 +60,14 @@ public class ServiceMcaRule implements java.io.Serializable {
         }
     }
 
-    public void eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, Set actionsRun, GenericValue userLogin) throws GenericServiceException {
+    public void eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, Set<String> actionsRun, GenericValue userLogin) throws GenericServiceException {
         if (!enabled) {
             Debug.logInfo("Service MCA [" + ruleName + "] is disabled; not running.", module);
             return;
         }
         
         boolean allCondTrue = true;
-        Iterator i = conditions.iterator();
-        while (i.hasNext()) {
-            ServiceMcaCondition cond = (ServiceMcaCondition) i.next();
+        for (ServiceMcaCondition cond: conditions) {
             if (!cond.eval(dispatcher, messageWrapper, userLogin)) {
                 allCondTrue = false;
                 break;
@@ -77,15 +75,12 @@ public class ServiceMcaRule implements java.io.Serializable {
         }
 
         if (allCondTrue) {
-            Iterator a = actions.iterator();
-            boolean allOkay = true;
-            while (a.hasNext() && allOkay) {
-                ServiceMcaAction action = (ServiceMcaAction) a.next();
+            for (ServiceMcaAction action: actions) {
                 if (!actionsRun.contains(action.serviceName)) {
                     if (action.runAction(dispatcher, messageWrapper, userLogin)) {
                         actionsRun.add(action.serviceName);
                     } else {
-                        allOkay = false;
+                        break;
                     }
                 }
             }

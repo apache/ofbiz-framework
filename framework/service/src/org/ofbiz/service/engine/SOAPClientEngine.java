@@ -99,10 +99,9 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
             throw new GenericServiceException("Location not a valid URL", e);
         }
         
-        List inModelParamList = modelService.getInModelParamList();
-        Object[] params = new Object[inModelParamList.size()];
+        List<ModelParam> inModelParamList = modelService.getInModelParamList();
         
-        if (Debug.infoOn()) Debug.logInfo("[SOAPClientEngine.invoke] : Parameter length - " + params.length, module);
+        if (Debug.infoOn()) Debug.logInfo("[SOAPClientEngine.invoke] : Parameter length - " + inModelParamList.size(), module);
         
         call.setTargetEndpointAddress(endPoint);
         
@@ -115,11 +114,8 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         int i = 0;
         
         call.setOperation(call.getOperationName().getLocalPart());
-        List vParams = new ArrayList();
-        Iterator iter = inModelParamList.iterator();
-        while (iter.hasNext()) {
-            ModelParam p = (ModelParam) iter.next();
-            
+        List<Object> vParams = new ArrayList<Object>();
+        for (ModelParam p: inModelParamList) {
             if (Debug.infoOn()) Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ") - " + i, module);
             
             //Exclude params that ModelServiceReader insert into
@@ -128,15 +124,11 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
                 call.addParameter(p.name, qName, getMode(p.mode));
                 vParams.add(context.get(p.name));
             }
-            
-            // if the value is null, that's fine, it will go in null...
-            params[i] = context.get(p.name);
-            
             i++;
         }
         
         call.setReturnType(XMLType.XSD_ANYTYPE);
-        params=vParams.toArray();
+        Object[] params=vParams.toArray(new Object[vParams.size()]);
         
         Object result = null;
         

@@ -19,7 +19,6 @@
 package org.ofbiz.service.mail;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.mail.Address;
@@ -28,6 +27,8 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.internet.MimeMessage;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -104,33 +105,33 @@ public class ServiceMcaCondition implements java.io.Serializable {
         } else if (headerName != null) {
             // compare the header field
             MimeMessage message = messageWrapper.getMessage();
-            String[] headerValue = null;
+            String[] headerValues = null;
             try {
-                headerValue = message.getHeader(headerName);
+                headerValues = message.getHeader(headerName);
             } catch (MessagingException e) {
                 Debug.logError(e, module);
             }
 
-            if (headerValue != null) {
-                for (int i = 0; i < headerValue.length; i++) {
+            if (headerValues != null) {
+                for (String headerValue: headerValues) {
                     if ("equals".equals(operator)) {
-                        if (headerValue[i].equals(value)) {
+                        if (headerValue.equals(value)) {
                             passedCondition = true;
                             break;
                         }
                     } else if ("not-equals".equals(operator)) {
-                        if (!headerValue[i].equals(value)) {
+                        if (!headerValue.equals(value)) {
                             passedCondition = true;
                         } else {
                             passedCondition = false;
                         }
                     } else if ("matches".equals(operator)) {
-                        if (headerValue[i].matches(value)) {
+                        if (headerValue.matches(value)) {
                             passedCondition = true;
                             break;
                         }
                     } else if ("not-matches".equals(operator)) {
-                        if (!headerValue[i].matches(value)) {
+                        if (!headerValue.matches(value)) {
                             passedCondition = true;
                         } else {
                             passedCondition = false;
@@ -145,35 +146,35 @@ public class ServiceMcaCondition implements java.io.Serializable {
             }
         } else if (fieldName != null) {
             MimeMessage message = messageWrapper.getMessage();
-            String[] fieldValue = null;
+            String[] fieldValues = null;
             try {
-                fieldValue = this.getFieldValue(message, fieldName);
+                fieldValues = this.getFieldValue(message, fieldName);
             } catch (MessagingException e) {
                 Debug.logError(e, module);
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
 
-            if (fieldValue != null) {
-                for (int i = 0; i < fieldValue.length; i++) {
+            if (fieldValues != null) {
+                for (String fieldValue: fieldValues) {
                     if ("equals".equals(operator)) {
-                        if (fieldValue[i].equals(value)) {
+                        if (fieldValue.equals(value)) {
                             passedCondition = true;
                             break;
                         }
                     } else if ("not-equals".equals(operator)) {
-                        if (!fieldValue[i].equals(value)) {
+                        if (!fieldValue.equals(value)) {
                             passedCondition = true;
                         } else {
                             passedCondition = false;
                         }
                     } else if ("matches".equals(operator)) {
-                        if (fieldValue[i].matches(value)) {
+                        if (fieldValue.matches(value)) {
                             passedCondition = true;
                             break;
                         }
                     } else if ("not-matches".equals(operator)) {
-                        if (!fieldValue[i].matches(value)) {
+                        if (!fieldValue.matches(value)) {
                             passedCondition = true;
                         } else {
                             passedCondition = false;
@@ -237,21 +238,18 @@ public class ServiceMcaCondition implements java.io.Serializable {
             values = new String[1];
             values[0] = message.getReceivedDate().toString();
         } else if ("body".equals(fieldName)) {
-            List bodyParts = this.getBodyText(message);
-            values = new String[bodyParts.size()];
-            for (int i = 0; i < bodyParts.size(); i++) {
-                values[i] = (String) bodyParts.get(i);
-            }
+            List<String> bodyParts = this.getBodyText(message);
+            values = bodyParts.toArray(new String[bodyParts.size()]);
         }
         return values;
     }
 
-    private List getBodyText(Part part) throws MessagingException, IOException {
+    private List<String> getBodyText(Part part) throws MessagingException, IOException {
         Object c = part.getContent();
         if (c instanceof String) {
-            return UtilMisc.toList(c);
+            return UtilMisc.toList((String) c);
         } else if (c instanceof Multipart) {
-            List textContent = new ArrayList();
+            List<String> textContent = FastList.newInstance();
             int count = ((Multipart) c).getCount();
             for (int i = 0; i < count; i++) {
                 BodyPart bp = ((Multipart) c).getBodyPart(i);
@@ -259,7 +257,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
             }
             return textContent;
         } else {
-            return new ArrayList();
+            return FastList.newInstance();
         }
     }
 }

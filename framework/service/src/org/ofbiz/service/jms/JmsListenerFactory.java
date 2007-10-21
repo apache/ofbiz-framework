@@ -45,8 +45,8 @@ public class JmsListenerFactory implements Runnable {
     public static final String TOPIC_LISTENER_CLASS = "org.ofbiz.service.jms.JmsTopicListener";
     public static final String QUEUE_LISTENER_CLASS = "org.ofbiz.service.jms.JmsQueueListener";
 
-    protected static Map listeners = FastMap.newInstance();
-    protected static Map servers = FastMap.newInstance();
+    protected static Map<String, GenericMessageListener> listeners = FastMap.newInstance();
+    protected static Map<String, Element> servers = FastMap.newInstance();
 
     protected ServiceDispatcher dispatcher;
     protected boolean firstPass = true;
@@ -134,11 +134,11 @@ public class JmsListenerFactory implements Runnable {
                 className = JmsListenerFactory.QUEUE_LISTENER_CLASS;
         }
 
-        GenericMessageListener listener = (GenericMessageListener) listeners.get(serverKey);
+        GenericMessageListener listener = listeners.get(serverKey);
 
         if (listener == null) {
             synchronized (this) {
-                listener = (GenericMessageListener) listeners.get(serverKey);
+                listener = listeners.get(serverKey);
                 if (listener == null) {
                     ClassLoader cl = this.getClass().getClassLoader();
 
@@ -171,7 +171,7 @@ public class JmsListenerFactory implements Runnable {
      * @throws GenericServiceException
      */
     public void loadListener(String serverKey) throws GenericServiceException {
-        Element server = (Element) servers.get(serverKey);
+        Element server = servers.get(serverKey);
 
         if (server == null)
             throw new GenericServiceException("No listener found with that serverKey.");
@@ -184,10 +184,7 @@ public class JmsListenerFactory implements Runnable {
      */
     public void closeListeners() throws GenericServiceException {
         loadable = 0;
-        Set listenerKeys = listeners.keySet();
-        Iterator listenerIterator = listenerKeys.iterator();
-        while (listenerIterator.hasNext()) {
-            String serverKey = (String) listenerIterator.next();
+        for (String serverKey: listeners.keySet()) {
             closeListener(serverKey);
         }
     }
@@ -198,7 +195,7 @@ public class JmsListenerFactory implements Runnable {
      * @throws GenericServiceException
      */
     public void closeListener(String serverKey) throws GenericServiceException {
-        GenericMessageListener listener = (GenericMessageListener) listeners.get(serverKey);
+        GenericMessageListener listener = listeners.get(serverKey);
 
         if (listener == null)
             throw new GenericServiceException("No listener found with that serverKey.");
@@ -211,7 +208,7 @@ public class JmsListenerFactory implements Runnable {
      * @throws GenericServiceException
      */
     public void refreshListener(String serverKey) throws GenericServiceException {
-        GenericMessageListener listener = (GenericMessageListener) listeners.get(serverKey);
+        GenericMessageListener listener = listeners.get(serverKey);
 
         if (listener == null)
             throw new GenericServiceException("No listener found with that serverKey.");
@@ -222,7 +219,7 @@ public class JmsListenerFactory implements Runnable {
      * Gets a Map of JMS Listeners.
      * @return Map of JMS Listeners
      */
-    public Map getJMSListeners() {
+    public Map<String, GenericMessageListener> getJMSListeners() {
         return UtilMisc.makeMapWritable(listeners);
     }
 
