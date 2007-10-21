@@ -45,8 +45,8 @@ public class ServiceEcaRule implements java.io.Serializable {
     protected String eventName = null;
     protected boolean runOnFailure = false;
     protected boolean runOnError = false;
-    protected List conditions = FastList.newInstance();
-    protected List actionsAndSets = FastList.newInstance();
+    protected List<ServiceEcaCondition> conditions = FastList.newInstance();
+    protected List<Object> actionsAndSets = FastList.newInstance();
     protected boolean enabled = true;
 
     protected ServiceEcaRule() {}
@@ -71,9 +71,7 @@ public class ServiceEcaRule implements java.io.Serializable {
 
         if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
         
-        Set nameSet = FastSet.newInstance();
-        nameSet.add("set");
-        nameSet.add("action");
+        Set<String> nameSet = UtilMisc.toSet("set", "action");
         for (Element actionOrSetElement: UtilXml.childElementList(eca, nameSet)) {
             if ("action".equals(actionOrSetElement.getNodeName())) {
                 this.actionsAndSets.add(new ServiceEcaAction(actionOrSetElement, this.eventName));
@@ -98,10 +96,7 @@ public class ServiceEcaRule implements java.io.Serializable {
         }
 
         boolean allCondTrue = true;
-        Iterator c = conditions.iterator();
-
-        while (c.hasNext()) {
-            ServiceEcaCondition ec = (ServiceEcaCondition) c.next();
+        for (ServiceEcaCondition ec: conditions) {
             if (!ec.eval(serviceName, dctx, context)) {
                 if (Debug.infoOn()) Debug.logInfo("For Service ECA [" + this.serviceName + "] on [" + this.eventName + "] got false for condition: " + ec, module);
                 allCondTrue = false;
@@ -113,10 +108,8 @@ public class ServiceEcaRule implements java.io.Serializable {
 
         // if all conditions are true
         if (allCondTrue) {
-            Iterator actionsAndSetIter = actionsAndSets.iterator();
             boolean allOkay = true;
-            while (allOkay && actionsAndSetIter.hasNext()) {
-                Object setOrAction = actionsAndSetIter.next();
+            for (Object setOrAction: actionsAndSets) {
                 if (setOrAction instanceof ServiceEcaAction) {
                     ServiceEcaAction ea = (ServiceEcaAction) setOrAction;
                     // in order to enable OR logic without multiple calls to the given service,

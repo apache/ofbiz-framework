@@ -33,6 +33,7 @@ import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.service.config.ServiceConfigUtil;
+import org.ofbiz.service.eca.ServiceEcaRule;
 import org.ofbiz.service.eca.ServiceEcaUtil;
 import org.ofbiz.service.engine.GenericEngine;
 import org.ofbiz.service.engine.GenericEngineFactory;
@@ -44,6 +45,7 @@ import org.ofbiz.service.semaphore.ServiceSemaphore;
 import org.w3c.dom.Element;
 
 import javax.transaction.Transaction;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -59,7 +61,7 @@ public class ServiceDispatcher {
     public static final int LOCK_RETRIES = 3;
 
     protected static final Map<RunningService, ServiceDispatcher> runLog = new LRUMap<RunningService, ServiceDispatcher>(lruLogSize);
-    protected static Map dispatchers = FastMap.newInstance();
+    protected static Map<String, ServiceDispatcher> dispatchers = FastMap.newInstance();
     protected static boolean enableJM = true;
     protected static boolean enableJMS = true;
     protected static boolean enableSvcs = true;
@@ -67,8 +69,8 @@ public class ServiceDispatcher {
     protected GenericDelegator delegator = null;
     protected GenericEngineFactory factory = null;
     protected Security security = null;
-    protected Map localContext = null;
-    protected Map callbacks = null;
+    protected Map<String, DispatchContext> localContext = null;
+    protected Map<String, List<GenericServiceCallback>> callbacks = null;
     protected JobManager jm = null;
     protected JmsListenerFactory jlf = null;
 
@@ -136,11 +138,11 @@ public class ServiceDispatcher {
         ServiceDispatcher sd;
 
         String dispatcherKey = delegator != null ? delegator.getDelegatorName() : "null";
-        sd = (ServiceDispatcher) dispatchers.get(dispatcherKey);
+        sd = dispatchers.get(dispatcherKey);
         if (sd == null) {
             synchronized (ServiceDispatcher.class) {
                 if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", module);
-                sd = (ServiceDispatcher) dispatchers.get(dispatcherKey);
+                sd = dispatchers.get(dispatcherKey);
                 if (sd == null) {
                     sd = new ServiceDispatcher(delegator);
                     dispatchers.put(dispatcherKey, sd);
@@ -180,7 +182,7 @@ public class ServiceDispatcher {
     }
 
     public synchronized void registerCallback(String serviceName, GenericServiceCallback cb) {
-        List callBackList = (List) callbacks.get(serviceName);
+        List<GenericServiceCallback> callBackList = callbacks.get(serviceName);
         if (callBackList == null) {
             callBackList = FastList.newInstance();
         }
@@ -188,8 +190,8 @@ public class ServiceDispatcher {
         callbacks.put(serviceName, callBackList);
     }
 
-    public List getCallbacks(String serviceName) {
-        return (List) callbacks.get(serviceName);
+    public List<GenericServiceCallback> getCallbacks(String serviceName) {
+        return callbacks.get(serviceName);
     }
 
     /**
@@ -258,13 +260,13 @@ public class ServiceDispatcher {
         RunningService rs = this.logService(localName, modelService, GenericEngine.SYNC_MODE);
 
         // get eventMap once for all calls for speed, don't do event calls if it is null
-        Map eventMap = ServiceEcaUtil.getServiceEventMap(modelService.name);
+        Map<String, Collection<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(modelService.name);
 
         // check the locale
         Locale locale = this.checkLocale(context);
 
         // setup the engine and context
-        DispatchContext ctx = (DispatchContext) localContext.get(localName);
+        DispatchContext ctx = localContext.get(localName);
         GenericEngine engine = this.getGenericEngine(modelService.engineName);
 
         // set IN attributes with default-value as applicable 
@@ -605,7 +607,7 @@ public class ServiceDispatcher {
         Locale locale = this.checkLocale(context);
 
         // setup the engine and context
-        DispatchContext ctx = (DispatchContext) localContext.get(localName);
+        DispatchContext ctx = localContext.get(localName);
         GenericEngine engine = this.getGenericEngine(service.engineName);
 
         // for isolated transactions
@@ -638,7 +640,7 @@ public class ServiceDispatcher {
 
             try {
                 // get eventMap once for all calls for speed, don't do event calls if it is null
-                Map eventMap = ServiceEcaUtil.getServiceEventMap(service.name);
+                Map<String, Collection<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(service.name);
 
                 // pre-auth ECA
                 if (eventMap != null) ServiceEcaUtil.evalRules(service.name, eventMap, "auth", ctx, context, result, isError, isFailure);
@@ -788,7 +790,7 @@ public class ServiceDispatcher {
      * @param name of the context to find.
      */
     public DispatchContext getLocalContext(String name) {
-        return (DispatchContext) localContext.get(name);
+        return localContext.get(name);
     }
 
     /**
@@ -797,7 +799,7 @@ public class ServiceDispatcher {
      * @return LocalDispatcher matching the loader name
      */
     public LocalDispatcher getLocalDispatcher(String name) {
-        return ((DispatchContext) localContext.get(name)).getDispatcher();
+        return localContext.get(name).getDispatcher();
     }
 
     /**

@@ -42,7 +42,7 @@ public class GroupModel {
     public static final String module = GroupModel.class.getName();
     
     private String groupName, sendMode;    
-    private List services;
+    private List<GroupServiceModel> services;
     private boolean optional = false;
     private int lastServiceRan;
     
@@ -53,7 +53,7 @@ public class GroupModel {
     public GroupModel(Element group) {
         this.sendMode = group.getAttribute("send-mode");
         this.groupName = group.getAttribute("name");
-        this.services = new LinkedList();
+        this.services = new LinkedList<GroupServiceModel>();
         this.lastServiceRan = -1;
 
         if (groupName == null) {
@@ -81,7 +81,7 @@ public class GroupModel {
      * @param sendMode Mode used (see DTD)
      * @param services List of GroupServiceModel objects
      */
-    public GroupModel(String groupName, String sendMode, List services) {
+    public GroupModel(String groupName, String sendMode, List<GroupServiceModel> services) {
         this.lastServiceRan = -1;
         this.groupName = groupName;
         this.sendMode = sendMode;
@@ -108,7 +108,7 @@ public class GroupModel {
      * Returns a list of services in this group
      * @return List
      */
-    public List getServices() {
+    public List<GroupServiceModel> getServices() {
         return this.services;
     }
     
@@ -153,9 +153,7 @@ public class GroupModel {
     private Map runAll(ServiceDispatcher dispatcher, String localName, Map context) throws GenericServiceException {
         Map runContext = UtilMisc.makeMapWritable(context);
         Map result = FastMap.newInstance();
-        Iterator i = services.iterator();
-        while (i.hasNext()) {
-            GroupServiceModel model = (GroupServiceModel) i.next();
+        for (GroupServiceModel model: services) {
             if (Debug.verboseOn()) Debug.logVerbose("Using Context: " + runContext, module);
             Map thisResult = model.invoke(dispatcher, localName, runContext);
             if (Debug.verboseOn()) Debug.logVerbose("Result: " + thisResult, module);
@@ -176,15 +174,13 @@ public class GroupModel {
     }
     
     private Map runIndex(ServiceDispatcher dispatcher, String localName, Map context, int index) throws GenericServiceException {
-        GroupServiceModel model = (GroupServiceModel) services.get(index);
+        GroupServiceModel model = services.get(index);
         return model.invoke(dispatcher, localName, context);
     } 
     
     private Map runOne(ServiceDispatcher dispatcher, String localName, Map context) throws GenericServiceException {      
         Map result = null;        
-        Iterator i = services.iterator();
-        while (i.hasNext() && result != null) {
-            GroupServiceModel model = (GroupServiceModel) i.next();
+        for (GroupServiceModel model: services) {
             try {
                 result = model.invoke(dispatcher, localName, context);
             } catch (GenericServiceException e) {

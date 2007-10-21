@@ -142,25 +142,25 @@ public class ModelService extends AbstractMap implements Serializable {
     public int semaphoreSleep;
     
     /** Set of services this service implements */
-    public Set implServices = new LinkedHashSet();
+    public Set<ModelServiceIface> implServices = new LinkedHashSet<ModelServiceIface>();
 
     /** Set of override parameters */
-    public Set overrideParameters = new LinkedHashSet();
+    public Set<ModelParam> overrideParameters = new LinkedHashSet<ModelParam>();
 
     /** List of permission groups for service invocation */
-    public List permissionGroups = FastList.newInstance();
+    public List<ModelPermGroup> permissionGroups = FastList.newInstance();
 
     /** List of email-notifications for this service */
-    public List notifications = FastList.newInstance();
+    public List<ModelNotification> notifications = FastList.newInstance();
 
     /** Internal Service Group */
     public GroupModel internalGroup = null;
     
     /** Context Information, a Map of parameters used by the service, contains ModelParam objects */
-    protected Map contextInfo = FastMap.newInstance();
+    protected Map<String, ModelParam> contextInfo = FastMap.newInstance();
 
     /** Context Information, a List of parameters used by the service, contains ModelParam objects */
-    protected List contextParamList = FastList.newInstance();
+    protected List<ModelParam> contextParamList = FastList.newInstance();
 
     /** Flag to say if we have pulled in our addition parameters from our implemented service(s) */
     protected boolean inheritedParameters = false;
@@ -190,10 +190,9 @@ public class ModelService extends AbstractMap implements Serializable {
         this.inheritedParameters = model.inheritedParameters();
         this.internalGroup = model.internalGroup;
 
-        List modelParamList = model.getModelParamList();
-        Iterator i = modelParamList.iterator();
-        while (i.hasNext()) {
-            this.addParamClone((ModelParam) i.next());
+        List<ModelParam> modelParamList = model.getModelParamList();
+        for (ModelParam param: modelParamList) {
+            this.addParamClone(param);
         }
     }
 
@@ -266,7 +265,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @return ModelParam object with the specified name
      */
     public ModelParam getParam(String name) {
-        return (ModelParam) contextInfo.get(name);
+        return contextInfo.get(name);
     }
 
     /**
@@ -302,23 +301,17 @@ public class ModelService extends AbstractMap implements Serializable {
         }
     }
 
-    public Set getAllParamNames() {
-        Set nameList = new LinkedHashSet();
-        Iterator i = this.contextParamList.iterator();
-
-        while (i.hasNext()) {
-            ModelParam p = (ModelParam) i.next();
+    public Set<String> getAllParamNames() {
+        Set<String> nameList = new TreeSet<String>();
+        for (ModelParam p: this.contextParamList) {
             nameList.add(p.name);
         }
         return nameList;
     }
 
-    public Set getInParamNames() {
-        Set nameList = new LinkedHashSet();
-        Iterator i = this.contextParamList.iterator();
-
-        while (i.hasNext()) {
-            ModelParam p = (ModelParam) i.next();
+    public Set<String> getInParamNames() {
+        Set<String> nameList = new TreeSet<String>();
+        for (ModelParam p: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
             if ("OUT".equals(p.mode)) continue;
             nameList.add(p.name);
@@ -330,9 +323,7 @@ public class ModelService extends AbstractMap implements Serializable {
     public int getDefinedInCount() {
         int count = 0;
 
-        Iterator i = this.contextParamList.iterator();
-        while (i.hasNext()) {
-            ModelParam p = (ModelParam) i.next();
+        for (ModelParam p: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
             if ("OUT".equals(p.mode) || p.internal) continue;
             count++;
@@ -341,12 +332,9 @@ public class ModelService extends AbstractMap implements Serializable {
         return count;
     }
 
-    public Set getOutParamNames() {
-        Set nameList = new LinkedHashSet();
-        Iterator i = this.contextParamList.iterator();
-
-        while (i.hasNext()) {
-            ModelParam p = (ModelParam) i.next();
+    public Set<String> getOutParamNames() {
+        Set<String> nameList = new TreeSet<String>();
+        for (ModelParam p: this.contextParamList) {
             // don't include IN parameters in this list, only OUT and INOUT
             if ("IN".equals(p.mode)) continue;
             nameList.add(p.name);
@@ -358,9 +346,7 @@ public class ModelService extends AbstractMap implements Serializable {
     public int getDefinedOutCount() {
         int count = 0;
 
-        Iterator i = this.contextParamList.iterator();
-        while (i.hasNext()) {
-            ModelParam p = (ModelParam) i.next();
+        for (ModelParam p: this.contextParamList) {
             // don't include IN parameters in this list, only OUT and INOUT
             if ("IN".equals(p.mode) || p.internal) continue;
             count++;
@@ -370,11 +356,9 @@ public class ModelService extends AbstractMap implements Serializable {
     }
 
     public void updateDefaultValues(Map context, String mode) {
-        List params = this.getModelParamList();
+        List<ModelParam> params = this.getModelParamList();
         if (params != null) {
-            Iterator i = params.iterator();
-            while (i.hasNext()) {
-                ModelParam param = (ModelParam) i.next();
+            for (ModelParam param: params) {
                 if ("INOUT".equals(param.mode) || mode.equals(param.mode)) {
                     Object defaultValueObj = param.getDefaultValue();
                     if (defaultValueObj != null && context.get(param.name) == null) {
@@ -407,9 +391,7 @@ public class ModelService extends AbstractMap implements Serializable {
         }
 
         // get the info values
-        Iterator contextParamIter = this.contextParamList.iterator();
-        while (contextParamIter.hasNext()) {
-            ModelParam modelParam = (ModelParam) contextParamIter.next();
+        for (ModelParam modelParam: this.contextParamList) {
             // Debug.logInfo("In ModelService.validate preparing parameter [" + modelParam.name + (modelParam.optional?"(optional):":"(required):") + modelParam.mode + "] for service [" + this.name + "]", module);
             if ("INOUT".equals(modelParam.mode) || mode.equals(modelParam.mode)) {
                 if (modelParam.optional) {
@@ -553,7 +535,7 @@ public class ModelService extends AbstractMap implements Serializable {
         }
 
         // * Validate types next
-        List typeFailMsgs = FastList.newInstance();
+        List<String> typeFailMsgs = FastList.newInstance();
         Iterator i = testSet.iterator();
         while (i.hasNext()) {
             String key = (String) i.next();
@@ -563,9 +545,7 @@ public class ModelService extends AbstractMap implements Serializable {
             String infoType = (String) info.get(key);
 
             if (param.validators != null && param.validators.size() > 0) {
-                Iterator vali = param.validators.iterator();
-                while (vali.hasNext()) {
-                    ModelParam.ModelParamValidator val = (ModelParam.ModelParamValidator) vali.next();
+                for (ModelParam.ModelParamValidator val: param.validators) {
                     if (UtilValidate.isNotEmpty(val.getMethodName())) {
                         try {
                             if (!typeValidate(val, testObject)) {
@@ -677,8 +657,8 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param internal True to include internal parameters
      * @return List of parameter names
      */
-    public List getParameterNames(String mode, boolean optional, boolean internal) {
-        List names = FastList.newInstance();
+    public List<String> getParameterNames(String mode, boolean optional, boolean internal) {
+        List<String> names = FastList.newInstance();
 
         if (!"IN".equals(mode) && !"OUT".equals(mode) && !"INOUT".equals(mode)) {
             return names;
@@ -686,11 +666,7 @@ public class ModelService extends AbstractMap implements Serializable {
         if (contextInfo.size() == 0) {
             return names;
         }
-        Iterator i = contextParamList.iterator();
-
-        while (i.hasNext()) {
-            ModelParam param = (ModelParam) i.next();
-
+        for (ModelParam param: contextParamList) {
             if (param.mode.equals("INOUT") || param.mode.equals(mode)) {
                 if (optional || !param.optional) {
                     if (internal || !param.internal) {
@@ -702,7 +678,7 @@ public class ModelService extends AbstractMap implements Serializable {
         return names;
     }
 
-    public List getParameterNames(String mode, boolean optional) {
+    public List<String> getParameterNames(String mode, boolean optional) {
         return this.getParameterNames(mode, optional, true);
     }
 
@@ -781,14 +757,11 @@ public class ModelService extends AbstractMap implements Serializable {
             }
         }
         
-        Iterator i = contextParamList.iterator();
-
-        while (i.hasNext()) {
-            ModelParam param = (ModelParam) i.next();
+        for (ModelParam param: contextParamList) {
             //boolean internalParam = param.internal;
 
             if (param.mode.equals("INOUT") || param.mode.equals(mode)) {
-                Object key = param.name;
+                String key = param.name;
 
                 // internal map of strings
                 if (param.stringMapPrefix != null && param.stringMapPrefix.length() > 0 && !source.containsKey(key)) {
@@ -924,9 +897,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * Evaluates notifications
      */
     public void evalNotifications(DispatchContext dctx, Map context, Map result) {
-        Iterator i = this.notifications.iterator();
-        while (i.hasNext()) {
-            ModelNotification notify = (ModelNotification) i.next();
+        for (ModelNotification notify: this.notifications) {
             notify.callNotify(dctx, this, context, result);
         }
     }
@@ -940,9 +911,7 @@ public class ModelService extends AbstractMap implements Serializable {
     public boolean evalPermissions(DispatchContext dctx, Map context) {
         // old permission checking
         if (this.containsPermissions()) {
-            Iterator i = this.permissionGroups.iterator();
-            while (i.hasNext()) {
-                ModelPermGroup group = (ModelPermGroup) i.next();
+            for (ModelPermGroup group: this.permissionGroups) {
                 if (!group.evalPermissions(dctx, context)) {
                     return false;
                 }
@@ -965,10 +934,7 @@ public class ModelService extends AbstractMap implements Serializable {
         if (contextInfo == null || contextInfo.size() == 0) {
             return target;
         }
-        Iterator contextParamIter = this.contextParamList.iterator();
-        while (contextParamIter.hasNext()) {
-            ModelParam modelParam = (ModelParam) contextParamIter.next();
-
+        for (ModelParam modelParam: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
             if ("OUT".equals(modelParam.mode)) continue;
 
@@ -984,8 +950,8 @@ public class ModelService extends AbstractMap implements Serializable {
      * Returns a list of ModelParam objects in the order they were defined when
      * the service was created.
      */
-    public List getModelParamList() {
-        List newList = FastList.newInstance();
+    public List<ModelParam> getModelParamList() {
+        List<ModelParam> newList = FastList.newInstance();
         newList.addAll(this.contextParamList);
     	return newList;
     }
@@ -994,12 +960,9 @@ public class ModelService extends AbstractMap implements Serializable {
      * Returns a list of ModelParam objects in the order they were defined when
      * the service was created.
      */
-    public List getInModelParamList() {
-        List inList = FastList.newInstance();
-        Iterator contactParamIter = this.contextParamList.iterator();
-        while (contactParamIter.hasNext()) {
-            ModelParam modelParam = (ModelParam) contactParamIter.next();
-            
+    public List<ModelParam> getInModelParamList() {
+        List<ModelParam> inList = FastList.newInstance();
+        for (ModelParam modelParam: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
             if ("OUT".equals(modelParam.mode)) continue;
             
@@ -1021,10 +984,7 @@ public class ModelService extends AbstractMap implements Serializable {
                     group = ServiceGroupReader.getGroupModel(this.location);
                 }
                 if (group != null) {
-                    List groupedServices = group.getServices();
-                    Iterator i = groupedServices.iterator();
-                    while (i.hasNext()) {
-                        GroupServiceModel sm = (GroupServiceModel) i.next();
+                    for (GroupServiceModel sm: group.getServices()) {
                         implServices.add(new ModelServiceIface(sm.getName(), sm.isOptional()));
                         if (Debug.verboseOn()) Debug.logVerbose("Adding service [" + sm.getName() + "] as interface of: [" + this.name + "]", module);
                     }
@@ -1033,18 +993,14 @@ public class ModelService extends AbstractMap implements Serializable {
 
             // handle interfaces
             if (implServices != null && implServices.size() > 0 && dctx != null) {
-                Iterator implIter = implServices.iterator();
-                while (implIter.hasNext()) {
-                    ModelServiceIface iface = (ModelServiceIface) implIter.next();
+                for (ModelServiceIface iface: implServices) {
                     String serviceName = iface.getService();
                     boolean optional = iface.isOptional();
 
                     ModelService model = dctx.getModelService(serviceName);
                     if (model != null) {
-                        Iterator contextParamIter = model.contextParamList.iterator();
-                        while (contextParamIter.hasNext()) {
-                            ModelParam newParam = (ModelParam) contextParamIter.next();
-                            ModelParam existingParam = (ModelParam) this.contextInfo.get(newParam.name);
+                        for (ModelParam newParam: model.contextParamList) {
+                            ModelParam existingParam = this.contextInfo.get(newParam.name);
                             if (existingParam != null) {
                                 // if the existing param is not INOUT and the newParam.mode is different from existingParam.mode, make the existing param optional and INOUT
                             	// TODO: this is another case where having different optional/required settings for IN and OUT would be quite valuable...
@@ -1072,10 +1028,8 @@ public class ModelService extends AbstractMap implements Serializable {
 
             // handle any override parameters
             if (overrideParameters != null && overrideParameters.size() > 0) {
-                Iterator keySetIter = overrideParameters.iterator();
-                while (keySetIter.hasNext()) {
-                    ModelParam overrideParam = (ModelParam) keySetIter.next();
-                    ModelParam existingParam = (ModelParam) contextInfo.get(overrideParam.name);
+                for (ModelParam overrideParam: overrideParameters) {
+                    ModelParam existingParam = contextInfo.get(overrideParam.name);
 
                     // keep the list clean, remove it then add it back
                     contextParamList.remove(existingParam);
@@ -1132,14 +1086,12 @@ public class ModelService extends AbstractMap implements Serializable {
     public void getWSDL(Definition def, String locationURI) throws WSDLException {
         // set the IN parameters
         Input input = def.createInput();
-        List inParam = this.getParameterNames(IN_PARAM, true, false);
+        List<String> inParam = this.getParameterNames(IN_PARAM, true, false);
         if (inParam != null) {
             Message inMessage = def.createMessage();
             inMessage.setQName(new QName(TNS, this.name + "Request"));
             inMessage.setUndefined(false);
-            Iterator i = inParam.iterator();
-            while (i.hasNext()) {
-                String paramName = (String) i.next();
+            for (String paramName: inParam) {
                 ModelParam param = this.getParam(paramName);
                 if (!param.internal) {
                     inMessage.addPart(param.getWSDLPart(def));
@@ -1151,14 +1103,12 @@ public class ModelService extends AbstractMap implements Serializable {
 
         // set the OUT parameters
         Output output = def.createOutput();
-        List outParam = this.getParameterNames(OUT_PARAM, true, false);
+        List<String> outParam = this.getParameterNames(OUT_PARAM, true, false);
         if (outParam != null) {
             Message outMessage = def.createMessage();
             outMessage.setQName(new QName(TNS, this.name + "Response"));
             outMessage.setUndefined(false);
-            Iterator i = outParam.iterator();
-            while (i.hasNext()) {
-                String paramName = (String) i.next();
+            for (String paramName: outParam) {
                 ModelParam param = this.getParam(paramName);
                 if (!param.internal) {
                     outMessage.addPart(param.getWSDLPart(def));
