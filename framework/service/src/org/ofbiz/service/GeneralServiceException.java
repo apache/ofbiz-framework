@@ -23,14 +23,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 
 /**
  * General Service Exception - base Exception for in-Service Errors
  */
 public class GeneralServiceException extends org.ofbiz.base.util.GeneralException {
 
-    protected List errorMsgList = null;
-    protected Map errorMsgMap = null;
+    protected List<Object> errorMsgList = null;
+    protected Map<String, ? extends Object> errorMsgMap = null;
     protected Map nestedServiceResult = null;
 
     public GeneralServiceException() {
@@ -49,9 +50,9 @@ public class GeneralServiceException extends org.ofbiz.base.util.GeneralExceptio
         super(nested);
     }
 
-    public GeneralServiceException(String str, List errorMsgList, Map errorMsgMap, Map nestedServiceResult, Throwable nested) {
+    public GeneralServiceException(String str, List<? extends Object> errorMsgList, Map<String, ? extends Object> errorMsgMap, Map nestedServiceResult, Throwable nested) {
         super(str, nested);
-        this.errorMsgList = errorMsgList;
+        this.errorMsgList = UtilMisc.makeListWritable(errorMsgList);
         this.errorMsgMap = errorMsgMap;
         this.nestedServiceResult = nestedServiceResult;
     }
@@ -64,9 +65,9 @@ public class GeneralServiceException extends org.ofbiz.base.util.GeneralExceptio
         return ServiceUtil.returnError(errMsg, this.errorMsgList, this.errorMsgMap, this.nestedServiceResult);
     }
 
-    public void addErrorMessages(List errMsgs) {
+    public void addErrorMessages(List<? extends Object> errMsgs) {
         if (this.errorMsgList == null) {
-            this.errorMsgList = new LinkedList();
+            this.errorMsgList = new LinkedList<Object>();
         }
         this.errorMsgList.addAll(errMsgs);
     }

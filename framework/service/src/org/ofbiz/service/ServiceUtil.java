@@ -70,12 +70,12 @@ public class ServiceUtil {
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code */
-    public static Map returnError(String errorMessage, List errorMessageList) {
+    public static Map returnError(String errorMessage, List<? extends Object> errorMessageList) {
         return returnProblem(ModelService.RESPOND_ERROR, errorMessage, errorMessageList, null, null);
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code */
-    public static Map returnError(List errorMessageList) {
+    public static Map returnError(List<? extends Object> errorMessageList) {
         return returnProblem(ModelService.RESPOND_ERROR, null, errorMessageList, null, null);
     }
 
@@ -83,7 +83,7 @@ public class ServiceUtil {
         return returnProblem(ModelService.RESPOND_FAIL, errorMessage, null, null, null);
     }
 
-    public static Map returnFailure(List errorMessageList) {
+    public static Map returnFailure(List<? extends Object> errorMessageList) {
         return returnProblem(ModelService.RESPOND_FAIL, null, errorMessageList, null, null);
     }
 
@@ -92,23 +92,23 @@ public class ServiceUtil {
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code, also forwards any error messages from the nestedResult */
-    public static Map returnError(String errorMessage, List errorMessageList, Map errorMessageMap, Map nestedResult) {
+    public static Map returnError(String errorMessage, List<? extends Object> errorMessageList, Map<String, ? extends Object> errorMessageMap, Map nestedResult) {
         return returnProblem(ModelService.RESPOND_ERROR, errorMessage, errorMessageList, errorMessageMap, nestedResult);
     }
 
-    public static Map returnProblem(String returnType, String errorMessage, List errorMessageList, Map errorMessageMap, Map nestedResult) {
+    public static Map returnProblem(String returnType, String errorMessage, List<? extends Object> errorMessageList, Map<String, ? extends Object> errorMessageMap, Map nestedResult) {
         Map result = FastMap.newInstance();
         result.put(ModelService.RESPONSE_MESSAGE, returnType);
         if (errorMessage != null) {
             result.put(ModelService.ERROR_MESSAGE, errorMessage);
         }
 
-        List errorList = new LinkedList();
+        List<Object> errorList = new LinkedList<Object>();
         if (errorMessageList != null) {
             errorList.addAll(errorMessageList);
         }
 
-        Map errorMap = FastMap.newInstance();
+        Map<String, Object> errorMap = FastMap.newInstance();
         if (errorMessageMap != null) {
             errorMap.putAll(errorMessageMap);
         }
@@ -118,10 +118,10 @@ public class ServiceUtil {
                 errorList.add(nestedResult.get(ModelService.ERROR_MESSAGE));
             }
             if (nestedResult.get(ModelService.ERROR_MESSAGE_LIST) != null) {
-                errorList.addAll((List) nestedResult.get(ModelService.ERROR_MESSAGE_LIST));
+                errorList.addAll(UtilGenerics.checkList(nestedResult.get(ModelService.ERROR_MESSAGE_LIST)));
             }
             if (nestedResult.get(ModelService.ERROR_MESSAGE_MAP) != null) {
-                errorMap.putAll((Map) nestedResult.get(ModelService.ERROR_MESSAGE_MAP));
+                errorMap.putAll(UtilGenerics.<String, Object>checkMap(nestedResult.get(ModelService.ERROR_MESSAGE_MAP)));
             }
         }
 
@@ -214,11 +214,10 @@ public class ServiceUtil {
         if (result.get(ModelService.ERROR_MESSAGE) != null) errorMessage.append((String) result.get(ModelService.ERROR_MESSAGE));
 
         if (result.get(ModelService.ERROR_MESSAGE_LIST) != null) {
-            List errors = (List) result.get(ModelService.ERROR_MESSAGE_LIST);
-            Iterator errorIter = errors.iterator();
-            while (errorIter.hasNext()) {
+            List<? extends Object> errors = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+            for (Object message: errors) {
                 // NOTE: this MUST use toString and not cast to String because it may be a MessageString object
-                String curMessage = errorIter.next().toString();
+                String curMessage = message.toString();
                 if (errorMessage.length() > 0) {
                     errorMessage.append(", ");
                 }
@@ -235,8 +234,8 @@ public class ServiceUtil {
             return null;
         }
         String errorMsg = (String) result.get(ModelService.ERROR_MESSAGE);
-        List errorMsgList = (List) result.get(ModelService.ERROR_MESSAGE_LIST);
-        Map errorMsgMap = (Map) result.get(ModelService.ERROR_MESSAGE_MAP);
+        List<? extends Object> errorMsgList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+        Map<String, ? extends Object> errorMsgMap = UtilGenerics.checkMap(result.get(ModelService.ERROR_MESSAGE_MAP));
         StringBuilder outMsg = new StringBuilder();
 
         if (errorMsg != null) {
@@ -248,11 +247,7 @@ public class ServiceUtil {
         outMsg.append(makeMessageList(errorMsgList, msgPrefix, msgSuffix));
 
         if (errorMsgMap != null) {
-            Iterator mapIter = errorMsgMap.entrySet().iterator();
-
-            while (mapIter.hasNext()) {
-                Map.Entry entry = (Map.Entry) mapIter.next();
-
+            for (Map.Entry<String, ? extends Object> entry: errorMsgMap.entrySet()) {
                 outMsg.append(msgPrefix);
                 outMsg.append(entry.getKey());
                 outMsg.append(": ");
@@ -300,12 +295,10 @@ public class ServiceUtil {
         }
     }
 
-    public static String makeMessageList(List msgList, String msgPrefix, String msgSuffix) {
+    public static String makeMessageList(List<? extends Object> msgList, String msgPrefix, String msgSuffix) {
         StringBuilder outMsg = new StringBuilder();
         if (msgList != null && msgList.size() > 0) {
-            Iterator iter = msgList.iterator();
-            while (iter.hasNext()) {
-                Object msg = iter.next();
+            for (Object msg: msgList) {
                 if (msg == null) continue;
                 String curMsg = msg.toString();
                 if (msgPrefix != null) outMsg.append(msgPrefix);
@@ -325,9 +318,9 @@ public class ServiceUtil {
      * @param targetMap The Map to add any Map error messages to
      * @param callResult The result from an invocation
      */
-    public static void addErrors(List targetList, Map targetMap, Map callResult) {
-        List newList;
-        Map errorMsgMap;
+    public static void addErrors(List<Object> targetList, Map<String, Object> targetMap, Map callResult) {
+        List<? extends Object> newList;
+        Map<String, ? extends Object> errorMsgMap;
 
         //See if there is a single message
         if (callResult.containsKey(ModelService.ERROR_MESSAGE)) {
@@ -336,13 +329,13 @@ public class ServiceUtil {
 
         //See if there is a message list
         if (callResult.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
-            newList = (List) callResult.get(ModelService.ERROR_MESSAGE_LIST);
+            newList = UtilGenerics.checkList(callResult.get(ModelService.ERROR_MESSAGE_LIST));
             targetList.addAll(newList);
         }
 
         //See if there are an error message map
         if (callResult.containsKey(ModelService.ERROR_MESSAGE_MAP)) {
-            errorMsgMap = (Map) callResult.get(ModelService.ERROR_MESSAGE_MAP);
+            errorMsgMap = UtilGenerics.checkMap(callResult.get(ModelService.ERROR_MESSAGE_MAP));
             targetMap.putAll(errorMsgMap);
         }
     }

@@ -699,7 +699,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param mode The mode which to build the new map
      * @param includeInternal When false will exclude internal fields
      */
-    public Map makeValid(Map source, String mode, boolean includeInternal, List errorMessages) {
+    public Map makeValid(Map source, String mode, boolean includeInternal, List<Object> errorMessages) {
         return makeValid(source, mode, includeInternal, errorMessages, null);
     }
 
@@ -711,7 +711,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param includeInternal When false will exclude internal fields
      * @param locale Locale to use to do some type conversion
      */
-    public Map makeValid(Map source, String mode, boolean includeInternal, List errorMessages, Locale locale) {
+    public Map makeValid(Map source, String mode, boolean includeInternal, List<Object> errorMessages, Locale locale) {
         return makeValid(source, mode, includeInternal, errorMessages, null, locale);
     }
 
@@ -724,7 +724,7 @@ public class ModelService extends AbstractMap implements Serializable {
      * @param tz TimeZone to use to do some type conversion
      * @param locale Locale to use to do some type conversion
      */
-    public Map makeValid(Map source, String mode, boolean includeInternal, List errorMessages, TimeZone timeZone, Locale locale) {
+    public Map makeValid(Map source, String mode, boolean includeInternal, List<Object> errorMessages, TimeZone timeZone, Locale locale) {
         Map target = FastMap.newInstance();
 
         if (source == null) {
