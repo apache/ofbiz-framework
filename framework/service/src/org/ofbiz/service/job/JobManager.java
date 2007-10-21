@@ -60,10 +60,10 @@ import org.ofbiz.service.config.ServiceConfigUtil;
 public class JobManager {
 
     public static final String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
-    public static final Map updateFields = UtilMisc.toMap("runByInstanceId", instanceId, "statusId", "SERVICE_QUEUED");
+    public static final Map<String, Object> updateFields = UtilMisc.<String, Object>toMap("runByInstanceId", instanceId, "statusId", "SERVICE_QUEUED");
     public static final String module = JobManager.class.getName();
     public static final String dispatcherName = "JobDispatcher";
-    public static Map registeredManagers = FastMap.newInstance();
+    public static Map<String, JobManager> registeredManagers = FastMap.newInstance();
 
     protected GenericDelegator delegator;
     protected JobPoller jp;
@@ -104,8 +104,8 @@ public class JobManager {
         return this.delegator;
     }
 
-    public synchronized Iterator poll() {
-        List poll = FastList.newInstance();
+    public synchronized Iterator<Job> poll() {
+        List<Job> poll = FastList.newInstance();
         Collection<GenericValue> jobEnt = null;
 
         // sort the results by time
@@ -118,12 +118,10 @@ public class JobManager {
                 new EntityExpr("runByInstanceId", EntityOperator.EQUALS, null));
 
         // limit to just defined pools
-        List pools = ServiceConfigUtil.getRunPools();
+        List<String> pools = ServiceConfigUtil.getRunPools();
         List<EntityExpr> poolsExpr = UtilMisc.toList(new EntityExpr("poolId", EntityOperator.EQUALS, null));
         if (pools != null) {
-            Iterator poolsIter = pools.iterator();
-            while (poolsIter.hasNext()) {
-                String poolName = (String) poolsIter.next();
+            for (String poolName: pools) {
                 poolsExpr.add(new EntityExpr("poolId", EntityOperator.EQUALS, poolName));
             }
         }
@@ -146,7 +144,7 @@ public class JobManager {
                     return null;
                 }
                 
-                List localPoll = FastList.newInstance();
+                List<Job> localPoll = FastList.newInstance();
                 
                 // first update the jobs w/ this instance running information
                 delegator.storeByCondition("JobSandbox", updateFields, mainCondition);
@@ -435,7 +433,7 @@ public class JobManager {
      * Get a List of each threads current state.
      * @return List containing a Map of each thread's state.
      */
-    public List processList() {
+    public List<Map<String, Object>> processList() {
         return jp.getPoolState();
     }
 

@@ -39,8 +39,8 @@ public class JobPoller implements Runnable {
     //public static final long MAX_TTL = 18000000;
 
     protected Thread thread = null;
-    protected LinkedList pool = null;
-    protected LinkedList run = null;
+    protected LinkedList<JobInvoker> pool = null;
+    protected LinkedList<Job> run = null;
     protected JobManager jm = null;
 
     protected volatile boolean isRunning = false;
@@ -51,7 +51,7 @@ public class JobPoller implements Runnable {
      */
     public JobPoller(JobManager jm, boolean enabled) {
         this.jm = jm;
-        this.run = new LinkedList();
+        this.run = new LinkedList<Job>();
 
         // create the thread pool
         this.pool = createThreadPool();
@@ -118,12 +118,10 @@ public class JobPoller implements Runnable {
         destroyThreadPool();
     }
 
-    public List getPoolState() {
-        List stateList = new ArrayList();
-        Iterator i = this.pool.iterator();
-        while (i.hasNext()) {
-            JobInvoker invoker = (JobInvoker) i.next();
-            Map stateMap = FastMap.newInstance();
+    public List<Map<String, Object>> getPoolState() {
+        List<Map<String, Object>> stateList = new ArrayList<Map<String, Object>>();
+        for (JobInvoker invoker: this.pool) {
+            Map<String, Object> stateMap = FastMap.newInstance();
             stateMap.put("threadName", invoker.getName());
             stateMap.put("jobName", invoker.getJobName());
             stateMap.put("serviceName", invoker.getServiceName());
@@ -140,9 +138,7 @@ public class JobPoller implements Runnable {
      */
     private void destroyThreadPool() {
         Debug.logInfo("Destroying thread pool...", module);
-        Iterator it = pool.iterator();
-        while (it.hasNext()) {
-            JobInvoker ji = (JobInvoker) it.next();
+        for (JobInvoker ji: pool) {
             ji.stop();
         }
         pool.clear();
@@ -157,9 +153,7 @@ public class JobPoller implements Runnable {
     }
 
     private JobInvoker findThread(String threadName) {
-        Iterator i = this.pool.iterator();
-        while (i.hasNext()) {
-            JobInvoker inv = (JobInvoker) i.next();
+        for (JobInvoker inv: pool) {
             if (threadName.equals(inv.getName())) {
                 return inv;
             }
@@ -172,7 +166,7 @@ public class JobPoller implements Runnable {
      */
     public synchronized Job next() {
         if (run.size() > 0)
-            return (Job) run.removeFirst();
+            return run.removeFirst();
         return null;
     }
 
@@ -209,8 +203,8 @@ public class JobPoller implements Runnable {
     }
 
     // Creates the invoker pool
-    private LinkedList createThreadPool() {
-        LinkedList threadPool = new LinkedList();
+    private LinkedList<JobInvoker> createThreadPool() {
+        LinkedList<JobInvoker> threadPool = new LinkedList<JobInvoker>();
 
         while (threadPool.size() < minThreads()) {
             JobInvoker iv = new JobInvoker(this, invokerWaitTime());

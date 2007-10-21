@@ -95,7 +95,7 @@ public class JmsServiceEngine extends AbstractEngine {
 
     protected Message makeMessage(Session session, ModelService modelService, Map context)
         throws GenericServiceException, JMSException {
-        List outParams = modelService.getParameterNames(ModelService.OUT_PARAM, false);
+        List<String> outParams = modelService.getParameterNames(ModelService.OUT_PARAM, false);
 
         if (outParams != null && outParams.size() > 0)
             throw new GenericServiceException("JMS service cannot have required OUT parameters; no parameters will be returned.");
@@ -317,13 +317,10 @@ public class JmsServiceEngine extends AbstractEngine {
 
     protected Map run(ModelService modelService, Map context) throws GenericServiceException {
         Element serviceElement = getServiceElement(modelService);
-        List serverList = serverList(serviceElement);
+        List<? extends Element> serverList = serverList(serviceElement);
 
         Map result = FastMap.newInstance();
-        Iterator i = serverList.iterator();
-
-        while (i.hasNext()) {
-            Element server = (Element) i.next();
+        for (Element server: serverList) {
             String serverType = server.getAttribute("type");
 
             if (serverType.equals("topic"))
