@@ -67,21 +67,15 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
-        Object result = serviceInvoker(modelService, context);
+        Map result = serviceInvoker(modelService, context);
         
         if (result == null)
             throw new GenericServiceException("Service did not return expected result");
-        if (!(result instanceof Map)) {
-            Map newResult = FastMap.newInstance();
-            
-            newResult.put("result", result);
-            return newResult;
-        }
-        return (Map) result;
+        return result;
     }
     
     // Invoke the remote SOAP service
-    private Object serviceInvoker(ModelService modelService, Map context) throws GenericServiceException {
+    private Map serviceInvoker(ModelService modelService, Map context) throws GenericServiceException {
         if (modelService.location == null || modelService.invoke == null)
             throw new GenericServiceException("Cannot locate service to invoke");
         
