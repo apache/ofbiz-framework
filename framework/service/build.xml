@@ -80,6 +80,7 @@ under the License.
 
     <target name="classes" depends="prepare,classpath">
         <javac debug="on" source="1.5" deprecation="on" destdir="${build.dir}/classes">
+            <compilerarg value="-Xlint:unchecked"/>
             <classpath>
                 <path refid="local.class.path"/>
             </classpath>
