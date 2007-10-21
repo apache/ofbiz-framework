@@ -58,7 +58,7 @@ public class ServiceDispatcher {
     public static final int lruLogSize = 200;
     public static final int LOCK_RETRIES = 3;
 
-    protected static final Map runLog = new LRUMap(lruLogSize);
+    protected static final Map<RunningService, ServiceDispatcher> runLog = new LRUMap<RunningService, ServiceDispatcher>(lruLogSize);
     protected static Map dispatchers = FastMap.newInstance();
     protected static boolean enableJM = true;
     protected static boolean enableJMS = true;
@@ -1058,7 +1058,7 @@ public class ServiceDispatcher {
         ServiceDispatcher.enableSvcs = enable;
     }
 
-    public static Map getServiceLogMap() {
+    public static Map<RunningService, ServiceDispatcher> getServiceLogMap() {
         return runLog;
     }
 
