@@ -90,13 +90,13 @@ public class ServiceEcaSetField {
             return s.toLowerCase();
         }
         if ("hash-code".equalsIgnoreCase(format)) {
-            return new Integer(s.hashCode());
+            return Integer.valueOf(s.hashCode());
         }
         if ("long".equalsIgnoreCase(format)) {
-            return new Long(s);
+            return Long.valueOf(s);
         }
         if ("double".equalsIgnoreCase(format)) {
-            return new Double(s);
+            return Double.valueOf(s);
         }
 
         // entity formats

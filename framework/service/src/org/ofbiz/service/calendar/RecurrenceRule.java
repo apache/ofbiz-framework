@@ -380,15 +380,15 @@ public class RecurrenceRule {
 
         // Test each byXXX rule.
         if (bySecondList != null && bySecondList.size() > 0) {
-            if (!bySecondList.contains(new Integer(cal.get(Calendar.SECOND))))
+            if (!bySecondList.contains(cal.get(Calendar.SECOND)))
                 return false;
         }
         if (byMinuteList != null && byMinuteList.size() > 0) {
-            if (!byMinuteList.contains(new Integer(cal.get(Calendar.MINUTE))))
+            if (!byMinuteList.contains(cal.get(Calendar.MINUTE)))
                 return false;
         }
         if (byHourList != null && byHourList.size() > 0) {
-            if (!byHourList.contains(new Integer(cal.get(Calendar.HOUR))))
+            if (!byHourList.contains(cal.get(Calendar.HOUR)))
                 return false;
         }
         if (byDayList != null && byDayList.size() > 0) {
