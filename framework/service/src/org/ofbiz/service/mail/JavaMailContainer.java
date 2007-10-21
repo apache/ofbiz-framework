@@ -105,10 +105,8 @@ public class JavaMailContainer implements Container {
         ServiceMcaUtil.readConfig();
 
         // load the listeners
-        List configs = cfg.getPropertiesWithValue("store-listener");
-        Iterator i = configs.iterator();
-        while (i.hasNext()) {
-            ContainerConfig.Container.Property prop = (ContainerConfig.Container.Property) i.next();
+        List<ContainerConfig.Container.Property> configs = cfg.getPropertiesWithValue("store-listener");
+        for (ContainerConfig.Container.Property prop: configs) {
             Session session = this.makeSession(prop);
             Store store = this.getStore(session);
             if (store != null) {
@@ -142,12 +140,9 @@ public class JavaMailContainer implements Container {
     // java-mail methods
     protected Session makeSession(ContainerConfig.Container.Property client) {
         Properties props = new Properties();
-        Map clientProps = client.properties;
+        Map<String, ContainerConfig.Container.Property> clientProps = client.properties;
         if (clientProps != null) {
-            Iterator i = clientProps.entrySet().iterator();
-            while (i.hasNext()) {
-                Map.Entry e = (Map.Entry) i.next();
-                ContainerConfig.Container.Property p = (ContainerConfig.Container.Property) e.getValue();
+            for (ContainerConfig.Container.Property p: clientProps.values()) {
                 props.setProperty(p.name.toLowerCase(), p.value);
             }
         }

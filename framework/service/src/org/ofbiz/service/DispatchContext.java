@@ -310,10 +310,7 @@ public class DispatchContext implements Serializable {
                     }
                     
                     // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
-                    List componentResourceInfos = ComponentConfig.getAllServiceResourceInfos("model");
-                    Iterator componentResourceInfoIter = componentResourceInfos.iterator();
-                    while (componentResourceInfoIter.hasNext()) {
-                        ComponentConfig.ServiceResourceInfo componentResourceInfo = (ComponentConfig.ServiceResourceInfo) componentResourceInfoIter.next();
+                    for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
                         Map<String, ModelService> servicesMap = ModelServiceReader.getModelServiceMap(componentResourceInfo.createResourceHandler(), this);
                         if (servicesMap != null) {
                             serviceMap.putAll(servicesMap);
