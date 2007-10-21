@@ -361,17 +361,17 @@ public class ServiceUtil {
         // create the conditions to query
         EntityCondition pool = new EntityExpr("poolId", EntityOperator.EQUALS, sendPool);
 
-        List finExp = UtilMisc.toList(new EntityExpr("finishDateTime", EntityOperator.NOT_EQUAL, null));
+        List<EntityExpr> finExp = UtilMisc.toList(new EntityExpr("finishDateTime", EntityOperator.NOT_EQUAL, null));
         finExp.add(new EntityExpr("finishDateTime", EntityOperator.LESS_THAN, purgeTime));
 
-        List canExp = UtilMisc.toList(new EntityExpr("cancelDateTime", EntityOperator.NOT_EQUAL, null));
+        List<EntityExpr> canExp = UtilMisc.toList(new EntityExpr("cancelDateTime", EntityOperator.NOT_EQUAL, null));
         canExp.add(new EntityExpr("cancelDateTime", EntityOperator.LESS_THAN, purgeTime));
 
-        EntityCondition cancelled = new EntityConditionList(canExp, EntityOperator.AND);
-        EntityCondition finished = new EntityConditionList(finExp, EntityOperator.AND);
+        EntityCondition cancelled = new EntityConditionList<EntityExpr>(canExp, EntityOperator.AND);
+        EntityCondition finished = new EntityConditionList<EntityExpr>(finExp, EntityOperator.AND);
 
-        EntityCondition doneCond = new EntityConditionList(UtilMisc.toList(cancelled, finished), EntityOperator.OR);
-        EntityCondition mainCond = new EntityConditionList(UtilMisc.toList(doneCond, pool), EntityOperator.AND);
+        EntityCondition doneCond = new EntityConditionList<EntityCondition>(UtilMisc.toList(cancelled, finished), EntityOperator.OR);
+        EntityCondition mainCond = new EntityConditionList<EntityCondition>(UtilMisc.toList(doneCond, pool), EntityOperator.AND);
 
         // configure the find options
         EntityFindOptions findOptions = new EntityFindOptions();
@@ -391,7 +391,7 @@ public class ServiceUtil {
             boolean beganTx1 = false;
             while (!noMoreResults) {
                 // current list of records
-                List curList = null;
+                List<GenericValue> curList = null;
                 try {
                     // begin this transaction
                     beganTx1 = TransactionUtil.begin();
@@ -419,11 +419,9 @@ public class ServiceUtil {
                 // remove each from the list in its own transaction
                 if (curList != null && curList.size() > 0) {
                     // list of runtime data IDs to attempt to delete
-                    List runtimeToDelete = FastList.newInstance();
+                    List<String> runtimeToDelete = FastList.newInstance();
                     
-                    Iterator curIter = curList.iterator();
-                    while (curIter.hasNext()) {
-                        GenericValue job = (GenericValue) curIter.next();
+                    for (GenericValue job: curList) {
                         String runtimeId = job.getString("runtimeDataId");
                         String jobId = job.getString("jobId");
                         boolean beganTx2 = false;
@@ -451,9 +449,7 @@ public class ServiceUtil {
                     // we do this so that the ones which cannot be deleted to not cause
                     // the entire group to rollback; some may be attached to multiple jobs.
                     if (runtimeToDelete.size() > 0) {
-                        Iterator delIter = runtimeToDelete.iterator();
-                        while (delIter.hasNext()) {
-                            String runtimeId = (String) delIter.next();
+                        for (String runtimeId: runtimeToDelete) {
                             boolean beganTx3 = false;
                             try {
                                 beganTx3 = TransactionUtil.begin();
@@ -507,7 +503,7 @@ public class ServiceUtil {
         }
 
         String jobId = (String) context.get("jobId");
-        Map fields = UtilMisc.toMap("jobId", jobId);
+        Map<String, Object> fields = UtilMisc.<String, Object>toMap("jobId", jobId);
 
         GenericValue job = null;
         try {
@@ -545,7 +541,7 @@ public class ServiceUtil {
         }
 
         String jobId = (String) context.get("jobId");
-        Map fields = UtilMisc.toMap("jobId", jobId);
+        Map<String, Object> fields = UtilMisc.<String, Object>toMap("jobId", jobId);
 
         GenericValue job = null;
         try {

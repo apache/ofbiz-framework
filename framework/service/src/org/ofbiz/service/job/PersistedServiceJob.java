@@ -268,8 +268,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     // gets the job value object
     private GenericValue getJob() throws InvalidJobException {
         try {
-            Map fields = UtilMisc.toMap("jobId", getJobId());
-            GenericValue jobObj = delegator.findByPrimaryKey("JobSandbox", fields);
+            GenericValue jobObj = delegator.findByPrimaryKey("JobSandbox", "jobId", getJobId());
 
             if (jobObj == null) {
                 throw new InvalidJobException("Job [" + getJobId() + "] came back null from datasource");
@@ -288,10 +287,9 @@ public class PersistedServiceJob extends GenericServiceJob {
             return 0;
         }
 
-        Map fields = UtilMisc.toMap("parentJobId", pJobId, "statusId", "SERVICE_FAILED");
         long count = 0;
         try {
-            count = delegator.findCountByAnd("JobSandbox", fields);
+            count = delegator.findCountByAnd("JobSandbox", "parentJobId", pJobId, "statusId", "SERVICE_FAILED");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
