@@ -63,20 +63,31 @@ if (action != null) {
                         }
                     }
                 }
-                
-                totalCostPrice = costPrice * quantityOnHandTotal;
-                totalRetailPrice = retailPrice * availableToPromiseTotal;
-                qohGrandTotal += quantityOnHandTotal;
-                atpGrandTotal += availableToPromiseTotal;
-                costPriceGrandTotal += costPrice;
-                retailPriceGrandTotal += retailPrice;
-                totalCostPriceGrandTotal += totalCostPrice;
-                totalRetailPriceGrandTotal += totalRetailPrice;
+                if(costPrice != null && quantityOnHandTotal != null){
+                    totalCostPrice = costPrice * quantityOnHandTotal;
+                    resultMap.put("totalCostPrice", totalCostPrice);
+                    totalCostPriceGrandTotal += totalCostPrice;
+                }
+                if(retailPrice != null && quantityOnHandTotal != null){
+                    totalRetailPrice = retailPrice * quantityOnHandTotal;
+                    resultMap.put("totalRetailPrice", totalRetailPrice);
+                    totalRetailPriceGrandTotal += totalRetailPrice;
+                }
+                if(quantityOnHandTotal != null){
+                    qohGrandTotal += quantityOnHandTotal;
+                }
+                if(availableToPromiseTotal != null){
+                    atpGrandTotal += availableToPromiseTotal;
+                }
+                if(costPrice != null){
+                    costPriceGrandTotal += costPrice;
+                }
+                if(retailPrice != null){
+                    retailPriceGrandTotal += retailPrice;
+                }
                 
                 resultMap = UtilMisc.toMap("productId", product.getString("productId"), "quantityOnHand", quantityOnHandTotal, "availableToPromise", availableToPromiseTotal, 
                         "costPrice", costPrice, "retailPrice", retailPrice);
-                resultMap.put("totalCostPrice", totalCostPrice);
-                resultMap.put("totalRetailPrice", totalRetailPrice);
                 inventoryItemTotals.add(resultMap);
             }
         }
