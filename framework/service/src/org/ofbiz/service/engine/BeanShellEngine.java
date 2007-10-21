@@ -55,15 +55,11 @@ public final class BeanShellEngine extends GenericAsyncEngine {
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
-        Object result = serviceInvoker(localName, modelService, context);
-
-        if (result == null || !(result instanceof Map))
-            throw new GenericServiceException("Service did not return expected result");
-        return (Map) result;
+        return serviceInvoker(localName, modelService, context);
     }
 
     // Invoke the BeanShell Script.
-    private Object serviceInvoker(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    private Map serviceInvoker(String localName, ModelService modelService, Map context) throws GenericServiceException {
         if (modelService.location == null || modelService.invoke == null)
             throw new GenericServiceException("Cannot locate service to invoke");
 
