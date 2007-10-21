@@ -33,7 +33,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
 
     public static final String module = GenericDispatcher.class.getName();
     
-    protected static Map dispatcherCache = FastMap.newInstance();
+    protected static Map<String, LocalDispatcher> dispatcherCache = FastMap.newInstance();
     
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator) {
         return getLocalDispatcher(dispatcherName, delegator, null, null);
@@ -48,12 +48,12 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
             dispatcherName = "default";
             Debug.logWarning("Got a getGenericDelegator call with a null dispatcherName, assuming default for the name.", module);
         }
-        LocalDispatcher dispatcher = (LocalDispatcher) dispatcherCache.get(dispatcherName);
+        LocalDispatcher dispatcher = dispatcherCache.get(dispatcherName);
 
         if (dispatcher == null) {
             synchronized (GenericDelegator.class) {
                 // must check if null again as one of the blocked threads can still enter
-                dispatcher = (GenericDispatcher) dispatcherCache.get(dispatcherName);
+                dispatcher = dispatcherCache.get(dispatcherName);
                 if (dispatcher == null) {
                     if (Debug.infoOn()) Debug.logInfo("Creating new dispatcher [" + dispatcherName + "] (" + Thread.currentThread().getName() + ")", module);
                     //Debug.logInfo(new Exception(), "Showing stack where new dispatcher is being created...", module);

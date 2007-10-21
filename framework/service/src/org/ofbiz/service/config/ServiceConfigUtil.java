@@ -70,8 +70,8 @@ public class ServiceConfigUtil implements Serializable {
         return getElementAttr("thread-pool", "send-to-pool");        
     }
     
-    public static List getRunPools() {
-        List readPools = null;
+    public static List<String> getRunPools() {
+        List<String> readPools = null;
         
         Element threadPool = getElement("thread-pool");
         List<? extends Element> readPoolElements = UtilXml.childElementList(threadPool, "run-from-pool");
@@ -117,7 +117,7 @@ public class ServiceConfigUtil implements Serializable {
             Debug.logError(e, "Error getting Service Engine XML root element", module);
         }
 
-        FastMap engineNotifyMap = FastMap.newInstance();
+        FastMap<String, NotificationGroup> engineNotifyMap = FastMap.newInstance();
 
         for (Element e: UtilXml.childElementList(rootElement, "notification-group")) {
             NotificationGroup ng = new NotificationGroup(e);
@@ -139,7 +139,7 @@ public class ServiceConfigUtil implements Serializable {
             engineNotifyMap = notificationGroupCache.get(engine);
         }
         if (engineNotifyMap != null) {
-           return (NotificationGroup) engineNotifyMap.get(group);
+           return engineNotifyMap.get(group);
         }
 
         return null;
@@ -147,7 +147,7 @@ public class ServiceConfigUtil implements Serializable {
         
     public static class NotificationGroup implements Serializable {
         protected Notification notification;
-        protected List notify;
+        protected List<Notify> notify;
         protected String name;
 
         protected NotificationGroup(Element e) {
@@ -168,7 +168,7 @@ public class ServiceConfigUtil implements Serializable {
             return notification;
         }
 
-        public List getNotify() {
+        public List<Notify> getNotify() {
             return notify;
         }
 
@@ -184,11 +184,9 @@ public class ServiceConfigUtil implements Serializable {
             return notification.getScreen();
         }
 
-        public List getAddress(String type) {
-            List l = FastList.newInstance();
-            Iterator i = notify.iterator();
-            while (i.hasNext()) {
-                Notify n = (Notify) i.next();
+        public List<String> getAddress(String type) {
+            List<String> l = FastList.newInstance();
+            for (Notify n: notify) {
                 if (n.getType().equals(type)) {
                     l.add(n.getValue());
                 }

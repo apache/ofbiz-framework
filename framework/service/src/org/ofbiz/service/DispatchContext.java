@@ -57,8 +57,8 @@ public class DispatchContext implements Serializable {
 
     protected transient LocalDispatcher dispatcher;
     protected transient ClassLoader loader;
-    protected Collection localReaders;
-    protected Map attributes;
+    protected Collection<URL> localReaders;
+    protected Map<String, Object> attributes;
     protected String name;
 
     /** 
@@ -66,7 +66,7 @@ public class DispatchContext implements Serializable {
      * @param localReaders a collection of reader URLs
      * @param loader the classloader to use for dispatched services
      */
-    public DispatchContext(String name, Collection localReaders, ClassLoader loader, LocalDispatcher dispatcher) {
+    public DispatchContext(String name, Collection<URL> localReaders, ClassLoader loader, LocalDispatcher dispatcher) {
         this.name = name;
         this.localReaders = localReaders;
         this.loader = loader;
@@ -111,7 +111,7 @@ public class DispatchContext implements Serializable {
      * Gets the collection of readers associated with this context
      * @return Collection of reader URLs
      */
-    public Collection getReaders() {
+    public Collection<URL> getReaders() {
         return localReaders;
     }
 
@@ -262,9 +262,7 @@ public class DispatchContext implements Serializable {
                 if (serviceMap == null) {
                     if (this.localReaders != null) {
                         serviceMap = FastMap.newInstance();
-                        Iterator urlIter = this.localReaders.iterator();
-                        while (urlIter.hasNext()) {
-                            URL readerURL = (URL) urlIter.next();
+                        for (URL readerURL: this.localReaders) {
                             Map<String, ModelService> readerServiceMap = ModelServiceReader.getModelServiceMap(readerURL, this);
                             if (readerServiceMap != null) {
                                 serviceMap.putAll(readerServiceMap);
