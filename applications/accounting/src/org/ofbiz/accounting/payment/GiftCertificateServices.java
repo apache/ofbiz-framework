@@ -109,7 +109,7 @@ public class GiftCertificateServices {
                 acctCtx.put("userLogin", userLogin);
                 acctResult = dispatcher.runSync("createFinAccount", acctCtx);
             } else {
-                acctResult = dispatcher.runSync("createFinAccountForStore", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId, "userLogin", userLogin));  
+                acctResult = dispatcher.runSync("createFinAccountForStore", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId, "userLogin", userLogin));  
                 if (acctResult.get("finAccountId") != null) {
                     cardNumber = (String) acctResult.get("finAccountId");
                 }
@@ -396,7 +396,7 @@ public class GiftCertificateServices {
             }
             
             // now release the authorization should this use the gift card release service?
-            Map releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
+            Map releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
             if (ServiceUtil.isError(releaseResult)) {
                 return releaseResult;
             }
@@ -480,7 +480,7 @@ public class GiftCertificateServices {
                 if (giftCertSettings.getLong("authValidDays") != null) {
                     thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), giftCertSettings.getLong("authValidDays").intValue());
                 }
-                Map tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.toMap("finAccountId", finAccountId, "amount", amount, "currencyUomId", currency,
+                Map tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "amount", amount, "currencyUomId", currency,
                         "thruDate", thruDate, "userLogin", userLogin));
                 if (ServiceUtil.isError(tmpResult)) {
                     return tmpResult; 

@@ -205,7 +205,7 @@ public class PromoServices {
                 if (line.length() > 0 && !line.startsWith("#")) {
                     if (UtilValidate.isEmail(line)) {
                         // valid email address
-                        Map result = dispatcher.runSync("createProductPromoCodeEmail", UtilMisc.toMap("productPromoCodeId",
+                        Map result = dispatcher.runSync("createProductPromoCodeEmail", UtilMisc.<String, Object>toMap("productPromoCodeId",
                                 productPromoCodeId, "emailAddress", line, "userLogin", userLogin));
                         if (result != null && ServiceUtil.isError(result)) {
                             errors.add(line + ": " + ServiceUtil.getErrorMessage(result));

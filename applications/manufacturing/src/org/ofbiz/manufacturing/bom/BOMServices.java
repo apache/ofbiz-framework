@@ -227,7 +227,7 @@ public class BOMServices {
             while (productsIt.hasNext()) {
                 GenericValue product = (GenericValue)productsIt.next();
                 try {
-                    Map depthResult = dispatcher.runSync("updateLowLevelCode", UtilMisc.toMap("productIdTo", product.getString("productId"), "alsoComponents", Boolean.valueOf(false), "alsoVariants", Boolean.valueOf(false)));
+                    Map depthResult = dispatcher.runSync("updateLowLevelCode", UtilMisc.<String, Object>toMap("productIdTo", product.getString("productId"), "alsoComponents", Boolean.valueOf(false), "alsoVariants", Boolean.valueOf(false)));
                     Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", module);
                 } catch(Exception exc) {
                     Debug.logWarning(exc.getMessage(), module);
@@ -704,7 +704,7 @@ public class BOMServices {
                         // If needed, create the package
                         if (shipmentPackageSeqId == null) {
                             try {
-                                Map resultService = dispatcher.runSync("createShipmentPackage", UtilMisc.toMap("shipmentId", orderShipment.getString("shipmentId"), "shipmentBoxTypeId", boxTypeId, "userLogin", userLogin));
+                                Map resultService = dispatcher.runSync("createShipmentPackage", UtilMisc.<String, Object>toMap("shipmentId", orderShipment.getString("shipmentId"), "shipmentBoxTypeId", boxTypeId, "userLogin", userLogin));
                                 shipmentPackageSeqId = (String)resultService.get("shipmentPackageSeqId");
                             } catch (GenericServiceException e) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));

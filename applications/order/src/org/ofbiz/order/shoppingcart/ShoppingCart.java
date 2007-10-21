@@ -3865,7 +3865,7 @@ public class ShoppingCart implements Serializable {
                 // Find a supplier for the product
                 String supplierPartyId = null;
                 try {
-                    Map getSuppliersForProductResult = dispatcher.runSync("getSuppliersForProduct", UtilMisc.toMap("productId", productId, "quantity", new Double(dropShipQuantity), "canDropShip", "Y", "currencyUomId", getCurrency()));
+                    Map getSuppliersForProductResult = dispatcher.runSync("getSuppliersForProduct", UtilMisc.<String, Object>toMap("productId", productId, "quantity", new Double(dropShipQuantity), "canDropShip", "Y", "currencyUomId", getCurrency()));
                     List supplierProducts = (List) getSuppliersForProductResult.get("supplierProducts");
                     
                     // Order suppliers by supplierPrefOrderId so that preferred suppliers are used first

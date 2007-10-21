@@ -121,7 +121,7 @@ public class CheckOutEvents {
             if (UtilValidate.isNotEmpty(taxAuthPartyGeoIds)) {
                 try {
                     Map createCustomerTaxAuthInfoResult = dispatcher.runSync("createCustomerTaxAuthInfo", 
-                            UtilMisc.toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId", partyTaxId, "isExempt", isExempt, "userLogin", userLogin));
+                            UtilMisc.<String, Object>toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId", partyTaxId, "isExempt", isExempt, "userLogin", userLogin));
                     ServiceUtil.getMessages(request, createCustomerTaxAuthInfoResult, null);
                     if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
                         return "error";

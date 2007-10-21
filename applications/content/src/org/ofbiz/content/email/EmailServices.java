@@ -602,7 +602,7 @@ public class EmailServices {
                     
                     if (!UtilValidate.isEmpty(emailAddress)) {
                         result = dispatcher.runSync("findPartyFromEmailAddress", 
-                                UtilMisc.toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
+                                UtilMisc.<String, Object>toMap("address", emailAddress.getAddress(), "userLogin", userLogin));
                         if (result.get("partyId") != null) {
                             tempResults.add(result);
                         }
@@ -796,7 +796,7 @@ public class EmailServices {
             
             // if partyIdTo not found try to find the "to" address using the delivered-to header
             if ((partyIdTo == null) && (deliveredTo != null)) {
-                result = dispatcher.runSync("findPartyFromEmailAddress", UtilMisc.toMap("address", deliveredTo, "userLogin", userLogin));          
+                result = dispatcher.runSync("findPartyFromEmailAddress", UtilMisc.<String, Object>toMap("address", deliveredTo, "userLogin", userLogin));          
                 partyIdTo = (String)result.get("partyId");
                 contactMechIdTo = (String)result.get("contactMechId");
             }
@@ -953,7 +953,7 @@ public class EmailServices {
                     // Check if "_NA_" role exists for the partyId. If not, then first associate that role with the partyId
                     GenericValue partyRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "_NA_"));
                     if (partyRole == null) {
-                        dispatcher.runSync("createPartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "_NA_", "userLogin", userLogin));
+                        dispatcher.runSync("createPartyRole", UtilMisc.<String, Object>toMap("partyId", partyId, "roleTypeId", "_NA_", "userLogin", userLogin));
                     }
                     Map input = UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", "_NA_", "userLogin", userLogin, "contactMechId", (String)address.get("contactMechId"));
                     dispatcher.runSync("createCommunicationEventRole", input);

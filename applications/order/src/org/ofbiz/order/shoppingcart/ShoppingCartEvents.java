@@ -1150,7 +1150,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = null;
         try {
             Map outMap = dispatcher.runSync("loadCartFromShoppingList",
-                    UtilMisc.toMap("shoppingListId", shoppingListId,
+                    UtilMisc.<String, Object>toMap("shoppingListId", shoppingListId,
                     "userLogin", userLogin));
             cart = (ShoppingCart)outMap.get("shoppingCart");
         } catch(GenericServiceException exc) {
@@ -1177,7 +1177,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = null;
         try {
             Map outMap = dispatcher.runSync("loadCartFromQuote",
-                    UtilMisc.toMap("quoteId", quoteId,
+                    UtilMisc.<String, Object>toMap("quoteId", quoteId,
                             "applyQuoteAdjustments", "true",
                             "userLogin", userLogin));
             cart = (ShoppingCart) outMap.get("shoppingCart");
@@ -1210,7 +1210,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = null;
         try {
             Map outMap = dispatcher.runSync("loadCartFromOrder",
-                                            UtilMisc.toMap("orderId", quoteId,
+                                            UtilMisc.<String, Object>toMap("orderId", quoteId,
                                                            "userLogin", userLogin));
             cart = (ShoppingCart) outMap.get("shoppingCart");
         } catch (GenericServiceException exc) {

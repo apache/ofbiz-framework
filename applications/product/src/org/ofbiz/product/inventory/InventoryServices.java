@@ -625,7 +625,7 @@ public class InventoryServices {
             String orderId = (String) orderNotifyIter.next();                                  
             
             try {
-                dispatcher.runAsync("sendOrderBackorderNotification", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                dispatcher.runAsync("sendOrderBackorderNotification", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problems sending off the notification", module);
                 continue;

@@ -68,7 +68,7 @@ public class BillingAccountWorker {
     public static List makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException {
         List billingAccountList = FastList.newInstance();
 
-        Map agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.toMap("userLogin", userLogin, "partyIdFrom", partyId, 
+        Map agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin, "partyIdFrom", partyId, 
                 "roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyRelationshipTypeId", "AGENT", "includeFromToSwitched", "Y"));
         if (ServiceUtil.isError(agentResult)) {
             throw new GeneralException("Error while finding party BillingAccounts when getting Customers that this party is an agent of: " + ServiceUtil.getErrorMessage(agentResult));

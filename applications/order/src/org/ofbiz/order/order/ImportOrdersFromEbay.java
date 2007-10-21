@@ -1027,7 +1027,7 @@ public class ImportOrdersFromEbay {
                     lastName = name;    
                 }
                     
-                Map summaryResult = dispatcher.runSync("createPerson", UtilMisc.toMap("description", name, "firstName", firstName, "lastName", lastName, 
+                Map summaryResult = dispatcher.runSync("createPerson", UtilMisc.<String, Object>toMap("description", name, "firstName", firstName, "lastName", lastName, 
                                                                                       "userLogin", userLogin, "comments", "Created via eBay"));                                         
                 partyId = (String) summaryResult.get("partyId");   
                 Debug.logVerbose("Created Customer Party: "+partyId, module);

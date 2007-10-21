@@ -1104,7 +1104,7 @@ public class ProductPromoWorker {
                         // check inventory on this product, make sure it is available before going on
                         //NOTE: even though the store may not require inventory for purchase, we will always require inventory for gifts
                         try {
-                            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId, "product", product, "quantity", new Double(quantity)));
+                            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productId, "product", product, "quantity", new Double(quantity)));
                             if (ServiceUtil.isError(invReqResult)) {
                                 Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
                                 throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
@@ -1133,7 +1133,7 @@ public class ProductPromoWorker {
                     String optionProductId = (String) optionProductIdIter.next();
 
                     try {
-                        Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", productStoreId, "productId", optionProductId, "product", product, "quantity", new Double(quantity)));
+                        Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", optionProductId, "product", product, "quantity", new Double(quantity)));
                         if (ServiceUtil.isError(invReqResult)) {
                             Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
                             throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));

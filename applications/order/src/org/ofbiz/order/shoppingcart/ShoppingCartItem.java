@@ -891,7 +891,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     protected boolean isInventoryAvailableOrNotRequired(double quantity, String productStoreId, LocalDispatcher dispatcher) throws CartItemModifyException {
         boolean inventoryAvailable = true;
         try {
-            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId, "product", this.getProduct(), "quantity", new Double(quantity)));
+            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productId, "product", this.getProduct(), "quantity", new Double(quantity)));
             if (ServiceUtil.isError(invReqResult)) {
                 Debug.logError("Error calling isStoreInventoryAvailableOrNotRequired service, result is: " + invReqResult, module);
                 throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));

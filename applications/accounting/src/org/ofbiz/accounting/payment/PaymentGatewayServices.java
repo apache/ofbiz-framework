@@ -1094,7 +1094,7 @@ public class PaymentGatewayServices {
                 if (UtilValidate.isNotEmpty(invoiceId)) {
                     Map captureResult = null;
                     try {
-                        captureResult = dispatcher.runSync("captureBillingAccountPayments", UtilMisc.toMap("invoiceId", invoiceId,
+                        captureResult = dispatcher.runSync("captureBillingAccountPayments", UtilMisc.<String, Object>toMap("invoiceId", invoiceId,
                                                                                                           "billingAccountId", billingAccountId,
                                                                                                           "captureAmount", new Double(amountThisCapture.doubleValue()),
                                                                                                           "orderId", orderId,
@@ -1343,7 +1343,7 @@ public class PaymentGatewayServices {
             } 
             
             String paymentId = (String) tmpResult.get("paymentId");
-            tmpResult = dispatcher.runSync("createPaymentApplication", UtilMisc.toMap("paymentId", paymentId, "invoiceId", invoiceId, "billingAccountId", billingAccountId, 
+            tmpResult = dispatcher.runSync("createPaymentApplication", UtilMisc.<String, Object>toMap("paymentId", paymentId, "invoiceId", invoiceId, "billingAccountId", billingAccountId, 
                     "amountApplied", captureAmount, "userLogin", userLogin));
             if (ServiceUtil.isError(tmpResult)) {
                 return tmpResult;
@@ -2374,7 +2374,7 @@ public class PaymentGatewayServices {
         // run the auth service and check for failure(s)
         Map serviceResult = null;
         try {
-            serviceResult = dispatcher.runSync("authOrderPayments", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+            serviceResult = dispatcher.runSync("authOrderPayments", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());
@@ -2430,7 +2430,7 @@ public class PaymentGatewayServices {
                     if (!processList.contains(orderId)) { // just try each order once
                         try {
                             // each re-try is independent of each other; if one fails it should not effect the others
-                            dispatcher.runAsync("retryFailedOrderAuth", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                            dispatcher.runAsync("retryFailedOrderAuth", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
                             processList.add(orderId);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
@@ -2479,7 +2479,7 @@ public class PaymentGatewayServices {
                     if (!processList.contains(orderId)) { // just try each order once
                         try {
                             // each re-try is independent of each other; if one fails it should not effect the others
-                            dispatcher.runAsync("retryFailedOrderAuthNsf", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                            dispatcher.runAsync("retryFailedOrderAuthNsf", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
                             processList.add(orderId);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);

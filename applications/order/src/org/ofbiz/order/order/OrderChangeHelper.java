@@ -274,7 +274,7 @@ public class OrderChangeHelper {
                     if (payments == null || payments.size() == 0) {
                         // only do this one time; if we have payment already for this pref ignore.
                         Map results = dispatcher.runSync("createPaymentFromPreference", 
-                                UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreferenceId", opp.getString("orderPaymentPreferenceId"), 
+                                UtilMisc.<String, Object>toMap("userLogin", userLogin, "orderPaymentPreferenceId", opp.getString("orderPaymentPreferenceId"), 
                                 "paymentRefNum",  UtilDateTime.nowTimestamp().toString(), "paymentFromId", partyId));
                         if (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
                             Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);

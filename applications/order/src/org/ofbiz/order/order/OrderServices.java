@@ -261,7 +261,7 @@ public class OrderServices {
                 try {
                     // count product ordered quantities
                     // run this synchronously so it will run in the same transaction
-                    dispatcher.runSync("countProductQuantityOrdered", UtilMisc.toMap("productId", currentProductId, "quantity", orderItem.getDouble("quantity"), "userLogin", userLogin));
+                    dispatcher.runSync("countProductQuantityOrdered", UtilMisc.<String, Object>toMap("productId", currentProductId, "quantity", orderItem.getDouble("quantity"), "userLogin", userLogin));
                 } catch (GenericServiceException e1) {
                     Debug.logError(e1, "Error calling countProductQuantityOrdered service", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCallingCountProductQuantityOrderedService",locale) + e1.toString());
@@ -584,7 +584,7 @@ public class OrderServices {
             while (orderInternalNotesIt.hasNext()) {
                 String orderInternalNote = (String) orderInternalNotesIt.next();
                 try {
-                    Map noteOutputMap = dispatcher.runSync("createOrderNote", UtilMisc.toMap("orderId", orderId, 
+                    Map noteOutputMap = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, 
                                                                                              "internalNote", "Y",
                                                                                              "note", orderInternalNote,
                                                                                              "userLogin", userLogin));
@@ -606,7 +606,7 @@ public class OrderServices {
             while (orderNotesIt.hasNext()) {
                 String orderNote = (String) orderNotesIt.next();
                 try {
-                    Map noteOutputMap = dispatcher.runSync("createOrderNote", UtilMisc.toMap("orderId", orderId,
+                    Map noteOutputMap = dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId,
                                                                                              "internalNote", "N",
                                                                                              "note", orderNote,
                                                                                              "userLogin", userLogin));
@@ -1266,7 +1266,7 @@ public class OrderServices {
                 String orderId = orderHeader.getString("orderId");
                 Map resetResult = null;
                 try {
-                    resetResult = dispatcher.runSync("resetGrandTotal", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                    resetResult = dispatcher.runSync("resetGrandTotal", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "ERROR: Cannot reset order totals - " + orderId, module);
                 }
@@ -1957,7 +1957,7 @@ public class OrderServices {
             
             if (newItemStatusId != null) {
                 try {
-                    Map resp = dispatcher.runSync("changeOrderItemStatus", UtilMisc.toMap("orderId", orderId, "statusId", newItemStatusId, "userLogin", userLogin));
+                    Map resp = dispatcher.runSync("changeOrderItemStatus", UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", newItemStatusId, "userLogin", userLogin));
                     if (ServiceUtil.isError(resp)) {
                         return ServiceUtil.returnError("Error changing item status to " + newItemStatusId, null, null, resp);
                     }
@@ -3089,7 +3089,7 @@ public class OrderServices {
 
         // log an order note
         try {
-            dispatcher.runSync("createOrderNote", UtilMisc.toMap("orderId", orderId, "note", "Added item to order: " +
+            dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", "Added item to order: " +
                     productId + " (" + quantity + ")", "internalNote", "Y", "userLogin", userLogin));
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
@@ -3253,7 +3253,7 @@ public class OrderServices {
 
         // log an order note
         try {
-            dispatcher.runSync("createOrderNote", UtilMisc.toMap("orderId", orderId, "note", "Updated order.", "internalNote", "Y", "userLogin", userLogin));
+            dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", "Updated order.", "internalNote", "Y", "userLogin", userLogin));
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
         }
@@ -3276,7 +3276,7 @@ public class OrderServices {
         // load the order into a shopping cart
         Map loadCartResp = null;
         try {
-            loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", orderId,
+            loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.<String, Object>toMap("orderId", orderId,
                                                                                   "skipInventoryChecks", Boolean.TRUE, // the items are already reserved, no need to check again
                                                                                   "skipProductChecks", Boolean.TRUE, // the products are already in the order, no need to check their validity now
                                                                                   "userLogin", userLogin));
@@ -3373,7 +3373,7 @@ public class OrderServices {
         // cancel exiting authorizations
         Map releaseResp = null;
         try {
-            releaseResp = dispatcher.runSync("releaseOrderPayments", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+            releaseResp = dispatcher.runSync("releaseOrderPayments", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             throw new GeneralException(e.getMessage());
@@ -4124,7 +4124,7 @@ public class OrderServices {
             while (cqit.hasNext()) {
                 String productId = (String) cqit.next();
                 Double requiredQuantity = (Double) productRequirementQuantities.get(productId);
-                Map createRequirementResult = dispatcher.runSync("createRequirement", UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "facilityId", facilityId, "productId", productId, "quantity", requiredQuantity, "userLogin", userLogin));
+                Map createRequirementResult = dispatcher.runSync("createRequirement", UtilMisc.<String, Object>toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "facilityId", facilityId, "productId", productId, "quantity", requiredQuantity, "userLogin", userLogin));
                 if (ServiceUtil.isError(createRequirementResult)) return createRequirementResult;                
             }
             
