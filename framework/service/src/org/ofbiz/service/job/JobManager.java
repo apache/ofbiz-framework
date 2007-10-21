@@ -106,20 +106,20 @@ public class JobManager {
 
     public synchronized Iterator poll() {
         List poll = FastList.newInstance();
-        Collection jobEnt = null;
+        Collection<GenericValue> jobEnt = null;
 
         // sort the results by time
-        List order = UtilMisc.toList("runTime");
+        List<String> order = UtilMisc.toList("runTime");
 
         // basic query
-        List expressions = UtilMisc.toList(new EntityExpr("runTime", EntityOperator.LESS_THAN_EQUAL_TO,
+        List<EntityExpr> expressions = UtilMisc.toList(new EntityExpr("runTime", EntityOperator.LESS_THAN_EQUAL_TO,
                 UtilDateTime.nowTimestamp()), new EntityExpr("startDateTime", EntityOperator.EQUALS, null),
                 new EntityExpr("cancelDateTime", EntityOperator.EQUALS, null),
                 new EntityExpr("runByInstanceId", EntityOperator.EQUALS, null));
 
         // limit to just defined pools
         List pools = ServiceConfigUtil.getRunPools();
-        List poolsExpr = UtilMisc.toList(new EntityExpr("poolId", EntityOperator.EQUALS, null));
+        List<EntityExpr> poolsExpr = UtilMisc.toList(new EntityExpr("poolId", EntityOperator.EQUALS, null));
         if (pools != null) {
             Iterator poolsIter = pools.iterator();
             while (poolsIter.hasNext()) {
@@ -129,9 +129,9 @@ public class JobManager {
         }
 
         // make the conditions
-        EntityCondition baseCondition = new EntityConditionList(expressions, EntityOperator.AND);
-        EntityCondition poolCondition = new EntityConditionList(poolsExpr, EntityOperator.OR);
-        EntityCondition mainCondition = new EntityConditionList(UtilMisc.toList(baseCondition, poolCondition), EntityOperator.AND);
+        EntityCondition baseCondition = new EntityConditionList<EntityExpr>(expressions, EntityOperator.AND);
+        EntityCondition poolCondition = new EntityConditionList<EntityExpr>(poolsExpr, EntityOperator.OR);
+        EntityCondition mainCondition = new EntityConditionList<EntityCondition>(UtilMisc.toList(baseCondition, poolCondition), EntityOperator.AND);
 
         // we will loop until we have no more to do
         boolean pollDone = false;
@@ -156,9 +156,7 @@ public class JobManager {
                 //jobEnt = delegator.findByCondition("JobSandbox", mainCondition, null, order);
 
                 if (jobEnt != null && jobEnt.size() > 0) {
-                    Iterator i = jobEnt.iterator();
-                    while (i.hasNext()) {
-                        GenericValue v = (GenericValue) i.next();
+                    for (GenericValue v: jobEnt) {
                         DispatchContext dctx = getDispatcher().getDispatchContext();
                         if (dctx == null) {
                             Debug.logError("Unable to locate DispatchContext object; not running job!", module);
@@ -204,9 +202,9 @@ public class JobManager {
 
     public synchronized void reloadCrashedJobs() {
         String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
-        List crashed = null;
+        List<GenericValue> crashed = null;
 
-        List exprs = UtilMisc.toList(new EntityExpr("finishDateTime", EntityOperator.EQUALS, null));
+        List<EntityExpr> exprs = UtilMisc.toList(new EntityExpr("finishDateTime", EntityOperator.EQUALS, null));
         exprs.add(new EntityExpr("cancelDateTime", EntityOperator.EQUALS, null));
         exprs.add(new EntityExpr("runByInstanceId", EntityOperator.EQUALS, instanceId));
         try {
@@ -218,9 +216,7 @@ public class JobManager {
         if (crashed != null && crashed.size() > 0) {
             try {
                 int rescheduled = 0;
-                Iterator i = crashed.iterator();
-                while (i.hasNext()) {
-                    GenericValue job = (GenericValue) i.next();
+                for (GenericValue job: crashed) {
                     long runtime = job.getTimestamp("runTime").getTime();
                     RecurrenceInfo ri = JobManager.getRecurrenceInfo(job);
                     if (ri != null) {
@@ -401,7 +397,7 @@ public class JobManager {
         if (UtilValidate.isEmpty(jobName)) {
             jobName = Long.toString((new Date().getTime()));
         }
-        Map jFields = UtilMisc.toMap("jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
+        Map<String, Object> jFields = UtilMisc.<String, Object>toMap("jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
                 "serviceName", serviceName, "recurrenceInfoId", infoId, "runtimeDataId", dataId);
 
         // set the pool ID

@@ -109,8 +109,7 @@ public class ServiceSemaphore {
         }
 
         if (semaphore == null) {
-            Map fields = UtilMisc.toMap("serviceName", model.name, "lockThread", threadName, "lockTime", lockTime);
-            semaphore = delegator.makeValue("ServiceSemaphore", fields);
+            semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", model.name, "lockThread", threadName, "lockTime", lockTime);
 
             // use the special method below so we can reuse the unqiue tx functions
             dbWrite(semaphore, false);
