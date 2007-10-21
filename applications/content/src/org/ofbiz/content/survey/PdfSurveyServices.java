@@ -103,7 +103,7 @@ public class PdfSurveyServices {
             
             // create a SurveyQuestionCategory to put the questions in
             Map createCategoryResultMap = dispatcher.runSync("createSurveyQuestionCategory", 
-                    UtilMisc.toMap("description", "From AcroForm in Content [" + contentId + "] for Survey [" + surveyId + "]", "userLogin", userLogin));
+                    UtilMisc.<String, Object>toMap("description", "From AcroForm in Content [" + contentId + "] for Survey [" + surveyId + "]", "userLogin", userLogin));
             String surveyQuestionCategoryId = (String) createCategoryResultMap.get("surveyQuestionCategoryId");
             
             pdfStamper.setFormFlattening(true);

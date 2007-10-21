@@ -947,7 +947,7 @@ public class CheckOutHelper {
             try {
                 // invoke the payment gateway service.
                 paymentResult = dispatcher.runSync("authOrderPayments",
-                        UtilMisc.toMap("orderId", orderId, "userLogin", userLogin), 180, false);
+                        UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin), 180, false);
             } catch (GenericServiceException e) {
                 Debug.logWarning(e, module);
                 throw new GeneralException("Error in authOrderPayments service: " + e.toString(), e.getNested());

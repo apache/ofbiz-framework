@@ -589,7 +589,7 @@ public class DhlServices {
                     billingWeightUomId = "WT_lb"; // TODO: this should be specified in a properties file
                 }
                 // convert
-                Map results = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", billingWeightUomId, "uomIdTo", DHL_WEIGHT_UOM_ID, "originalValue", billingWeight));
+                Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", billingWeightUomId, "uomIdTo", DHL_WEIGHT_UOM_ID, "originalValue", billingWeight));
                 if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                     Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId , module);
                     // try getting the weight from package instead
@@ -644,7 +644,7 @@ public class DhlServices {
                     Debug.logWarning("Shipment Route Segment missing weightUomId in shipmentId " + shipmentId,  module);
                     weightUomId = "WT_lb"; // TODO: this should be specified in a properties file
                 }
-                Map results = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", weightUomId, "uomIdTo", DHL_WEIGHT_UOM_ID, "originalValue", packageWeight));
+                Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", DHL_WEIGHT_UOM_ID, "originalValue", packageWeight));
                 if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) || (results.get("convertedValue") == null)) {
                     Debug.logWarning("Unable to convert weights for shipmentId " + shipmentId , module);
                     packageWeight = new Double(1.0);

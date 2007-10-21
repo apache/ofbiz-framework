@@ -277,7 +277,7 @@ public class ProductUtilServices {
                     //    Debug.logInfo("Virtual product ID to make stand-alone: " + productId, module);
                     //}
                     // for all virtuals with one variant move all info from virtual to variant and remove virtual, make variant as not a variant
-                    dispatcher.runSync("mergeVirtualWithSingleVariant", UtilMisc.toMap("productId", productId, "removeOld", Boolean.TRUE, "userLogin", userLogin));
+                    dispatcher.runSync("mergeVirtualWithSingleVariant", UtilMisc.<String, Object>toMap("productId", productId, "removeOld", Boolean.TRUE, "userLogin", userLogin));
 
                     numWithOneOnly++;
                     if (numWithOneOnly % 100 == 0) {
@@ -312,7 +312,7 @@ public class ProductUtilServices {
                     Debug.logInfo("Virtual product with ID " + productId + " should have 1 assoc, has " + paList.size(), module);
                 } else {
                     // for all virtuals with one valid variant move info from virtual to variant, put variant in categories from virtual, remove virtual from all categories but leave "family" otherwise intact, mark variant as not a variant
-                    dispatcher.runSync("mergeVirtualWithSingleVariant", UtilMisc.toMap("productId", productId, "removeOld", Boolean.FALSE, "userLogin", userLogin));
+                    dispatcher.runSync("mergeVirtualWithSingleVariant", UtilMisc.<String, Object>toMap("productId", productId, "removeOld", Boolean.FALSE, "userLogin", userLogin));
 
                     numWithOneValid++;
                     if (numWithOneValid % 100 == 0) {

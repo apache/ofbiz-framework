@@ -105,7 +105,7 @@ public class CommunicationEventServices {
                 if (ServiceUtil.isError(tmpResult)) {
                     errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
                 } else {
-                    Map completeResult = dispatcher.runSync("setCommEventComplete", UtilMisc.toMap("communicationEventId", communicationEventId, "userLogin", userLogin));                    
+                    Map completeResult = dispatcher.runSync("setCommEventComplete", UtilMisc.<String, Object>toMap("communicationEventId", communicationEventId, "userLogin", userLogin));                    
                     if (ServiceUtil.isError(completeResult)) {
                         errorMessages.add(ServiceUtil.getErrorMessage(completeResult));
                     }
@@ -308,7 +308,7 @@ public class CommunicationEventServices {
         // assume it's a success unless updateCommunicationEvent gives us an error
         Map result = ServiceUtil.returnSuccess();
         try {
-            Map tmpResult = dispatcher.runSync("updateCommunicationEvent", UtilMisc.toMap("communicationEventId", communicationEventId,
+            Map tmpResult = dispatcher.runSync("updateCommunicationEvent", UtilMisc.<String, Object>toMap("communicationEventId", communicationEventId,
                     "statusId", "COM_COMPLETE", "userLogin", userLogin));
             if (ServiceUtil.isError(result)) {
                 result = ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));

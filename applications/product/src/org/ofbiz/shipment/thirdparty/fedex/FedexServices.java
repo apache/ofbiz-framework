@@ -658,7 +658,7 @@ public class FedexServices {
                 
                 // Convert the weight if necessary
                 if (! billingWeightUomId.equals(weightUomId)) {
-                    Map results = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", billingWeightUomId, "uomIdTo", weightUomId, "originalValue", billingWeight));
+                    Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", billingWeightUomId, "uomIdTo", weightUomId, "originalValue", billingWeight));
                     if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                         Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId , module);
     
@@ -720,7 +720,7 @@ public class FedexServices {
                     }
                     if (dimensionsLength != null && dimensionsLength.doubleValue() > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
-                            Map results = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsLength));
+                            Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsLength));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert length for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
                                 dimensionsLength = null;
@@ -732,7 +732,7 @@ public class FedexServices {
                     }
                     if (dimensionsWidth != null && dimensionsWidth.doubleValue() > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
-                            Map results = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsWidth));
+                            Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsWidth));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert width for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
                                 dimensionsWidth = null;
@@ -744,7 +744,7 @@ public class FedexServices {
                     }
                     if (dimensionsHeight != null && dimensionsHeight.doubleValue() > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
-                            Map results = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsHeight));
+                            Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsHeight));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert height for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
                                 dimensionsHeight = null;
@@ -779,7 +779,7 @@ public class FedexServices {
                         packageWeightUomId = weightUomId;
                     }
                     if (! packageWeightUomId.equals(weightUomId)) {
-                        Map results = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", packageWeightUomId, "uomIdTo", weightUomId, "originalValue", packageWeight));
+                        Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", packageWeightUomId, "uomIdTo", weightUomId, "originalValue", packageWeight));
                         if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                             ServiceUtil.returnError("Unable to convert weight for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId);
                         } else {

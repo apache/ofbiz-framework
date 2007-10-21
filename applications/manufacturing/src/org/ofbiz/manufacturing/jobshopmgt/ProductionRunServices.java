@@ -926,7 +926,7 @@ public class ProductionRunServices {
             BigDecimal totalCost = ZERO;
             while (tasksIt.hasNext()) {
                 GenericValue task = (GenericValue)tasksIt.next();
-                Map outputMap = dispatcher.runSync("getWorkEffortCosts", UtilMisc.toMap("userLogin", userLogin, "workEffortId", task.getString("workEffortId")));
+                Map outputMap = dispatcher.runSync("getWorkEffortCosts", UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", task.getString("workEffortId")));
                 BigDecimal taskCost = (BigDecimal)outputMap.get("totalCost");
                 totalCost = totalCost.add(taskCost);
             }
@@ -1518,7 +1518,7 @@ public class ProductionRunServices {
         // calculate the inventory item unit cost
         BigDecimal unitCost = ZERO;
         try {
-            Map outputMap = dispatcher.runSync("getProductionRunCost", UtilMisc.toMap("userLogin", userLogin, "workEffortId", productionRunId));
+            Map outputMap = dispatcher.runSync("getProductionRunCost", UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", productionRunId));
             BigDecimal totalCost = (BigDecimal)outputMap.get("totalCost");
             // FIXME
             unitCost = totalCost.divide(BigDecimal.valueOf(quantity.doubleValue()), decimals, rounding);
@@ -1771,7 +1771,7 @@ public class ProductionRunServices {
         // TODO: if the task is not running, then return an error message.
 
         try {
-            Map inventoryResult = dispatcher.runSync("productionRunTaskProduce", UtilMisc.toMap("workEffortId", productionRunTaskId,
+            Map inventoryResult = dispatcher.runSync("productionRunTaskProduce", UtilMisc.<String, Object>toMap("workEffortId", productionRunTaskId,
                                                                                                 "productId", productId,
                                                                                                 "quantity", quantity,
                                                                                                 "inventoryItemTypeId", inventoryItemTypeId,
@@ -1924,7 +1924,7 @@ public class ProductionRunServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRequirementNotExists", locale));
         }
         try {
-            result = dispatcher.runSync("updateRequirement", UtilMisc.toMap("requirementId", requirementId, "statusId", "REQ_APPROVED", "requirementTypeId", requirement.getString("requirementTypeId"), "userLogin", userLogin));
+            result = dispatcher.runSync("updateRequirement", UtilMisc.<String, Object>toMap("requirementId", requirementId, "statusId", "REQ_APPROVED", "requirementTypeId", requirement.getString("requirementTypeId"), "userLogin", userLogin));
         } catch (GenericServiceException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRequirementNotUpdated", locale));
         }
@@ -2120,7 +2120,7 @@ public class ProductionRunServices {
         try {
             // first figure out how much of this product we already have in stock (ATP)
             double existingAtp = 0.0; 
-            Map tmpResults = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", orderItem.getString("productId"), "facilityId", facilityId, "userLogin", userLogin));
+            Map tmpResults = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.<String, Object>toMap("productId", orderItem.getString("productId"), "facilityId", facilityId, "userLogin", userLogin));
             if (tmpResults.get("availableToPromiseTotal") != null) {
                 existingAtp = ((Double) tmpResults.get("availableToPromiseTotal")).doubleValue();
             }

@@ -230,7 +230,7 @@ public class OagisShipmentServices {
                     } else if (carrierCode.startsWith("U")|| carrierCode.startsWith("u")) {
                         carrierPartyId = "UPS";                                            
                     }
-                    Map resultMap = dispatcher.runSync("updateShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001", "carrierPartyId", carrierPartyId, "trackingIdNumber", trackingNum, "userLogin", userLogin));                        
+                    Map resultMap = dispatcher.runSync("updateShipmentRouteSegment", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001", "carrierPartyId", carrierPartyId, "trackingIdNumber", trackingNum, "userLogin", userLogin));                        
                     if (ServiceUtil.isError(resultMap)) {
                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "updateShipmentRouteSegmentError"));
@@ -537,7 +537,7 @@ public class OagisShipmentServices {
                 }
 
                 if (errorMapList.size() == 0) {
-                    Map resultMap = dispatcher.runSync("setShipmentStatusPackedAndShipped", UtilMisc.toMap("shipmentId", shipmentId, "userLogin", userLogin));               
+                    Map resultMap = dispatcher.runSync("setShipmentStatusPackedAndShipped", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "userLogin", userLogin));               
                     if (ServiceUtil.isError(resultMap)) {
                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
                         errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SetShipmentStatusPackedAndShippedError"));
@@ -815,7 +815,7 @@ public class OagisShipmentServices {
                 }
                 shipmentId = shipment.getString("shipmentId");
             } else {
-                Map cospResult= dispatcher.runSync("createOrderShipmentPlan", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                Map cospResult= dispatcher.runSync("createOrderShipmentPlan", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
                 shipmentId = (String) cospResult.get("shipmentId");
                 shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
             }

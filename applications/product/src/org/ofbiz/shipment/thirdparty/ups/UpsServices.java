@@ -475,7 +475,7 @@ public class UpsServices {
                     BigDecimal packageValue = (BigDecimal) getPackageValueResult.get("packageValue");
                     
                     // Convert the value of the COD surcharge to the shipment currency, if necessary
-                    Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", codSurchargeCurrencyUomId, "uomIdTo", currencyCode, "originalValue", new Double(codSurchargePackageAmount.doubleValue())));
+                    Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", codSurchargeCurrencyUomId, "uomIdTo", currencyCode, "originalValue", new Double(codSurchargePackageAmount.doubleValue())));
                     if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
                     if (convertUomResult.containsKey("convertedValue")) {
                         codSurchargePackageAmount = new BigDecimal(((Double) convertUomResult.get("convertedValue")).doubleValue()).setScale(decimals, rounding);

@@ -1011,7 +1011,7 @@ public class ContactMechServices {
                 String contactMechId = contactMech.getString("contactMechId");
 
                 // create a new party contact mech for the partyIdTo
-                Map serviceResults = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", partyIdTo, "userLogin", userLogin,
+                Map serviceResults = dispatcher.runSync("createPartyContactMech", UtilMisc.<String, Object>toMap("partyId", partyIdTo, "userLogin", userLogin,
                             "contactMechId", contactMechId, "fromDate", UtilDateTime.nowTimestamp(), 
                             "allowSolicitation", partyContactMech.getString("allowSolicitation"), "extension", partyContactMech.getString("extension")));
                 if (ServiceUtil.isError(serviceResults)) {

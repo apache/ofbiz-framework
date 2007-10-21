@@ -798,14 +798,14 @@ public class InvoiceServices {
                 if (invoiceType.equals("PURCHASE_INVOICE")) {
                     nextStatusId = "INVOICE_IN_PROCESS";
                 }
-                Map setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.toMap("invoiceId", invoiceId, "statusId", nextStatusId, "userLogin", userLogin));
+                Map setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "statusId", nextStatusId, "userLogin", userLogin));
                 if (ServiceUtil.isError(setInvoiceStatusResult)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceFromOrder",locale), null, null, setInvoiceStatusResult);
                 }
             }
 
             // check to see if we are all paid up
-            Map checkResp = dispatcher.runSync("checkInvoicePaymentApplications", UtilMisc.toMap("invoiceId", invoiceId, "userLogin", userLogin));
+            Map checkResp = dispatcher.runSync("checkInvoicePaymentApplications", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "userLogin", userLogin));
             if (ServiceUtil.isError(checkResp)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceFromOrderCheckPaymentAppl",locale), null, null, checkResp);
             }
@@ -879,7 +879,7 @@ public class InvoiceServices {
                 
                 // Determine commission parties for this invoiceItem
                 if (productId != null && productId.length() > 0) {
-                    Map outMap = dispatcher.runSync("getCommissionForProduct", UtilMisc.toMap(
+                    Map outMap = dispatcher.runSync("getCommissionForProduct", UtilMisc.<String, Object>toMap(
                             "productId", productId,
                             "invoiceItemTypeId", invoiceItem.getString("invoiceItemTypeId"),
                             "amount", amount,
@@ -1014,7 +1014,7 @@ public class InvoiceServices {
         try {
             while (it.hasNext()) {
                 String invoiceId = (String) it.next();
-                Map setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.toMap("invoiceId", invoiceId, "statusId", nextStatusId, "userLogin", userLogin));
+                Map setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "statusId", nextStatusId, "userLogin", userLogin));
                 if (ServiceUtil.isError(setInvoiceStatusResult)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingInvoiceCommissionError",locale), null, null, setInvoiceStatusResult);
                 }
@@ -1853,7 +1853,7 @@ public class InvoiceServices {
             }
         
             // Set the invoice to READY
-            serviceResults = dispatcher.runSync("setInvoiceStatus", UtilMisc.toMap("invoiceId", invoiceId, "statusId", "INVOICE_READY", "userLogin", userLogin));
+            serviceResults = dispatcher.runSync("setInvoiceStatus", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "statusId", "INVOICE_READY", "userLogin", userLogin));
             if (ServiceUtil.isError(serviceResults)) {
                 return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
             }
@@ -3000,7 +3000,7 @@ public class InvoiceServices {
                 GenericValue paymentApplication = (GenericValue) iter.next();
                 String invoiceId = paymentApplication.getString("invoiceId");
                 if (invoiceId != null) {
-                    Map serviceResult = dispatcher.runSync("checkInvoicePaymentApplications", UtilMisc.toMap("invoiceId", invoiceId, "userLogin", userLogin));
+                    Map serviceResult = dispatcher.runSync("checkInvoicePaymentApplications", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "userLogin", userLogin));
                     if (ServiceUtil.isError(serviceResult)) return serviceResult;
                 }
             }

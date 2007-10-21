@@ -806,7 +806,7 @@ public class ShipmentServices {
             // remove the shipment info
             Map clearResp = null;
             try {
-                clearResp = dispatcher.runSync("clearShipmentStaging", UtilMisc.toMap("shipmentId", shipmentId, "userLogin", userLogin));
+                clearResp = dispatcher.runSync("clearShipmentStaging", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "userLogin", userLogin));
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -853,7 +853,7 @@ public class ShipmentServices {
             // If there are shipment receipts, the shipment must have been shipped, so set the shipment status to PURCH_SHIP_SHIPPED if it's only PURCH_SHIP_CREATED
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
             if ((! UtilValidate.isEmpty(shipment)) && "PURCH_SHIP_CREATED".equals(shipment.getString("statusId"))) {
-                Map updateShipmentMap = dispatcher.runSync("updateShipment", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED", "userLogin", userLogin));
+                Map updateShipmentMap = dispatcher.runSync("updateShipment", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED", "userLogin", userLogin));
                 if (ServiceUtil.isError(updateShipmentMap)) return updateShipmentMap;
             }
             
@@ -888,7 +888,7 @@ public class ShipmentServices {
             }
 
             // now update the shipment
-            dispatcher.runSync("updateShipment", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_RECEIVED", "userLogin", userLogin));
+            dispatcher.runSync("updateShipment", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_RECEIVED", "userLogin", userLogin));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1039,7 +1039,7 @@ public class ShipmentServices {
             
                 // Convert the value to the shipment currency, if necessary
                 GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader");
-                Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", new Double(packageContentValue.doubleValue())));
+                Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", new Double(packageContentValue.doubleValue())));
                 if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
                 if (convertUomResult.containsKey("convertedValue")) {
                     packageContentValue = new BigDecimal(((Double) convertUomResult.get("convertedValue")).doubleValue()).setScale(decimals, rounding);

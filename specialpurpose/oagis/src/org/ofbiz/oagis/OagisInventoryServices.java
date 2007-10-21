@@ -1086,8 +1086,8 @@ public class OagisInventoryServices {
                         }
                         
                         if (fullReturnReceived) {
-                            dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_RECEIVED", "returnId", returnId, "userLogin", userLogin));
-                            dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("statusId", "RETURN_COMPLETED", "returnId", returnId, "userLogin", userLogin));
+                            dispatcher.runSync("updateReturnHeader", UtilMisc.<String, Object>toMap("statusId", "RETURN_RECEIVED", "returnId", returnId, "userLogin", userLogin));
+                            dispatcher.runSync("updateReturnHeader", UtilMisc.<String, Object>toMap("statusId", "RETURN_COMPLETED", "returnId", returnId, "userLogin", userLogin));
                         }
                     }
                 }

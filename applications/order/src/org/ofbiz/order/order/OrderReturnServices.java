@@ -585,7 +585,7 @@ public class OrderReturnServices {
                 // to the final status
                 if (currentStatus != null && "RETURN_ACCEPTED".equals(currentStatus)) {
                     try {
-                        dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("returnId", returnId,
+                        dispatcher.runSync("updateReturnHeader", UtilMisc.<String, Object>toMap("returnId", returnId,
                                                                                 "statusId", "RETURN_RECEIVED",
                                                                                 "userLogin", userLogin));
                     } catch (GenericServiceException e) {
@@ -594,7 +594,7 @@ public class OrderReturnServices {
                     }
                 } else if (currentStatus != null && "RETURN_RECEIVED".equals(currentStatus)) {
                     try {
-                        dispatcher.runSync("updateReturnHeader", UtilMisc.toMap("returnId", returnId,
+                        dispatcher.runSync("updateReturnHeader", UtilMisc.<String, Object>toMap("returnId", returnId,
                                                                                 "statusId", "RETURN_COMPLETED",
                                                                                 "userLogin", userLogin));
                     } catch (GenericServiceException e) {
@@ -766,7 +766,7 @@ public class OrderReturnServices {
             // create the payment applications for the return invoice
             try {
                 serviceResults = dispatcher.runSync("createPaymentApplicationsFromReturnItemResponse", 
-                        UtilMisc.toMap("returnItemResponseId", itemResponseId, "userLogin", userLogin));
+                        UtilMisc.<String, Object>toMap("returnItemResponseId", itemResponseId, "userLogin", userLogin));
                 if (ServiceUtil.isError(serviceResults)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingPaymentApplicationRecord", locale), null, null, serviceResults);
                 }
@@ -1026,7 +1026,7 @@ public class OrderReturnServices {
                             if (electronicTypes.contains(paymentMethodTypeId)) {
                                 try {
                                     // for electronic types such as CREDIT_CARD and EFT_ACCOUNT, use refundPayment service
-                                    serviceResult = dispatcher.runSync("refundPayment", UtilMisc.toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
+                                    serviceResult = dispatcher.runSync("refundPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
                                         Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
                                         continue;
@@ -1039,7 +1039,7 @@ public class OrderReturnServices {
                             } else if (paymentMethodTypeId.equals("EXT_BILLACT")) {
                                 try {
                                     // for Billing Account refunds
-                                    serviceResult = dispatcher.runSync("refundBillingAccountPayment", UtilMisc.toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
+                                    serviceResult = dispatcher.runSync("refundBillingAccountPayment", UtilMisc.<String, Object>toMap("orderPaymentPreference", orderPaymentPreference, "refundAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()), "userLogin", userLogin));
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
                                         Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
                                         continue;
@@ -1108,7 +1108,7 @@ public class OrderReturnServices {
                             // Create the payment applications for the return invoice
                             try {
                                 serviceResults = dispatcher.runSync("createPaymentApplicationsFromReturnItemResponse", 
-                                        UtilMisc.toMap("returnItemResponseId", responseId, "userLogin", userLogin));
+                                        UtilMisc.<String, Object>toMap("returnItemResponseId", responseId, "userLogin", userLogin));
                                 if (ServiceUtil.isError(serviceResults)) {
                                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemUpdatingReturnItemReturnItemResponseId", locale), null, null, serviceResults);
                                 }
@@ -1227,7 +1227,7 @@ public class OrderReturnServices {
             GenericValue billingAccount = orh.getBillingAccount();
             if (UtilValidate.isNotEmpty(billingAccount.getString("billingAccountId"))) {
                 try {
-                    Map paymentApplResult = dispatcher.runSync("createPaymentApplication", UtilMisc.toMap("paymentId", paymentId, "billingAccountId", billingAccount.getString("billingAccountId"),
+                    Map paymentApplResult = dispatcher.runSync("createPaymentApplication", UtilMisc.<String, Object>toMap("paymentId", paymentId, "billingAccountId", billingAccount.getString("billingAccountId"),
                                 "amountApplied", refundAmount, "userLogin", userLogin));
                     if (ServiceUtil.isError(paymentApplResult)) {
                         return paymentApplResult; 

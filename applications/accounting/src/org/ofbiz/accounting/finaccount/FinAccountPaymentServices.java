@@ -226,7 +226,7 @@ public class FinAccountPaymentServices {
                     thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), 30); // default 30 days for an auth
                 }
 
-                Map tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.toMap("finAccountId", finAccountId,
+                Map tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId", finAccountId,
                         "amount", amount, "thruDate", thruDate, "userLogin", userLogin));
 
                 if (ServiceUtil.isError(tmpResult)) {
@@ -370,7 +370,7 @@ public class FinAccountPaymentServices {
         // cancel the authorization before doing the withdraw to avoid problems with way negative available amount on account; should happen in same transaction to avoid conflict problems
         Map releaseResult;
         try {
-            releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
+            releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -845,7 +845,7 @@ public class FinAccountPaymentServices {
         // say we are in good standing again
         if ("FNACT_NEGPENDREPL".equals(statusId)) {
             try {
-                Map ufaResp = dispatcher.runSync("updateFinAccount", UtilMisc.toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", userLogin));
+                Map ufaResp = dispatcher.runSync("updateFinAccount", UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "statusId", "FNACT_ACTIVE", "userLogin", userLogin));
                 if (ServiceUtil.isError(ufaResp)) {
                     return ufaResp;
                 }
