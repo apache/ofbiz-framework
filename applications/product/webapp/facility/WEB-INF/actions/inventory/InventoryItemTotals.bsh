@@ -42,6 +42,8 @@ if (action != null) {
     conditions.add(new EntityExpr("statusId", EntityOperator.EQUALS, null));
     conditionList = new EntityConditionList(conditions, EntityOperator.OR);
     try {
+        // create resultMap to stop issue with the first puts in the while loop
+        resultMap = new HashMap();
         beganTransaction = TransactionUtil.begin();
         invItemListItr = delegator.findListIteratorByCondition("InventoryItem", conditionList, null, UtilMisc.toList("productId"));
         while ((inventoryItem = invItemListItr.next()) != null) {
