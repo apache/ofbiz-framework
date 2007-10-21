@@ -42,6 +42,7 @@ under the License.
     <target name="clean-all">
         <antcall target="clean-data"/>
         <antcall target="clean-logs"/>
+        <antcall target="clean-output"/>
         <antcall target="clean-xtra"/>
         <antcall target="clean-catalina"/>
         <antcall target="clean"/>
@@ -59,13 +60,19 @@ under the License.
         </subant>
     </target>
 
-    <target name="clean-xtra" depends="">
+    <target name="clean-output">
+        <subant target="clean-output">
+            <filelist dir="." files="framework/build.xml"/>
+        </subant>
+    </target>
+
+    <target name="clean-xtra">
         <delete verbose="on">
             <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
         </delete>
     </target>
 
-    <target name="clean-catalina" depends="">
+    <target name="clean-catalina">
         <subant target="clean-catalina">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
@@ -100,7 +107,7 @@ under the License.
     <!-- Build Components                                                   -->
     <!-- ================================================================== -->
 
-    <target name="build" depends="">
+    <target name="build">
         <echo message="[build] ========== Start Building (Compile) =========="/>
 
         <subant inheritall="false">
@@ -126,7 +133,7 @@ under the License.
     <!-- Build JavaDocs                                                     -->
     <!-- ================================================================== -->
 
-    <target name="docs" depends="">
+    <target name="docs">
         <echo message="[docs] ========== Start Building (JavaDoc) =========="/>
 
         <subant target="docs">

@@ -46,7 +46,9 @@ under the License.
 
     <target name="dir-init" depends="ofbiz-init">
         <mkdir dir="../runtime"/>
+        <mkdir dir="../runtime/output"/>
         <mkdir dir="../runtime/logs"/>
+        <mkdir dir="../runtime/logs/test-results"/>
         <mkdir dir="../runtime/data"/>
         <mkdir dir="../runtime/data/derby"/>
         <mkdir dir="../runtime/data/hsql"/>
@@ -73,6 +75,7 @@ under the License.
     <target name="clean-all">
         <antcall target="clean-data"/>
         <antcall target="clean-logs"/>
+        <antcall target="clean-output"/>
         <antcall target="clean-xtra"/>
         <antcall target="clean-catalina"/>
         <antcall target="clean"/>
@@ -88,6 +91,7 @@ under the License.
     </target>
 
     <target name="clean-logs">
+        <delete dir="../runtime/logs/test-results"/>
         <delete verbose="on">
             <fileset dir="../runtime/logs" includes="*">
                 <exclude name="README"/>
@@ -95,13 +99,17 @@ under the License.
         </delete>
     </target>
 
-    <target name="clean-xtra" depends="">
+    <target name="clean-output">
+        <delete dir="../runtime/output"/>
+    </target>
+
+    <target name="clean-xtra">
         <delete verbose="on">
             <fileset dir="." includes="**/.nbattrs,**/*~,**/.#*,**/.DS_Store,**/*.rej,**/*.orig"/>
         </delete>
     </target>
 
-    <target name="clean-catalina" depends="">
+    <target name="clean-catalina">
         <delete dir="../runtime/catalina/work"/>
     </target>
 
@@ -140,7 +148,7 @@ under the License.
     <!-- Build JavaDocs                                                     -->
     <!-- ================================================================== -->
 
-    <target name="docs" depends="">
+    <target name="docs">
         <echo message="[docs] ========== Start Building Framework (JavaDoc) =========="/>
 
         <subant target="docs">
