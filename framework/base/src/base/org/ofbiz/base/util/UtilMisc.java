@@ -146,20 +146,20 @@ public class UtilMisc {
      * Create a map from passed nameX, valueX parameters
      * @return The resulting Map
      */
-    public static <K, V> Map<K, V> toMap(Object... data) {
+    public static <K, V> Map<String, V> toMap(Object... data) {
         if (data == null) {
             return null;
         }
         if (data.length == 1 && data[0] instanceof Map) {
             // Fix for javac's broken type inferring
-            return UtilGenerics.<K, V>checkMap(data[0]);
+            return UtilGenerics.<String, V>checkMap(data[0]);
         }
         if (data.length % 2 == 1) {
             throw new IllegalArgumentException("You must pass an even sized array to the toMap method");
         }
-        Map<K, V> map = FastMap.newInstance();
+        Map<String, V> map = FastMap.newInstance();
         for (int i = 0; i < data.length; ) {
-            map.put((K) data[i++], (V) data[i++]);
+            map.put((String) data[i++], (V) data[i++]);
         }
         return map;
     }
