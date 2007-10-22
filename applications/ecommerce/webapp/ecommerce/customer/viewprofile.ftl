@@ -442,10 +442,10 @@ under the License.
             <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
             <input type="hidden" name="roleTypeId" value="OWNER"/>
             <input type="file" name="uploadedFile" size="50" class="inputBox"/>
-            <select name="contentPurposeEnumId" class="selectBox">
+            <select name="partyContentTypeId" class="selectBox">
               <option value="">${uiLabelMap.PartySelectPurpose}</option>
-              <#list contentPurposes as contentPurpose>
-                <option value="${contentPurpose.enumId}">${contentPurpose.get("description", locale)?default(contentPurpose.enumId)}</option>          
+              <#list partyContentTypes as partyContentType>
+                <option value="${partyContentType.partyContentTypeId}">${partyContentType.get("description", locale)?default(partyContentType.partyContentTypeId)}</option>          
               </#list>
             </select>
             <select name="mimeTypeId" class="selectBox">

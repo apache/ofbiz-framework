@@ -72,8 +72,8 @@ if (userLogin != null) {
     mimeTypes = delegator.findAll("MimeType", UtilMisc.toList("description", "mimeTypeId"));
     context.put("mimeTypes", mimeTypes);
 
-    contentPurposes = delegator.findByAnd("Enumeration", UtilMisc.toMap("enumTypeId", "PTYCNT_PRP"), UtilMisc.toList("sequenceId"));
-    context.put("contentPurposes", contentPurposes);
+    partyContentTypes = delegator.findAll("PartyContentType", UtilMisc.toList("description"));
+    context.put("partyContentTypes", partyContentTypes);
 
     // call the getOrderedSummaryInformation service to get the sub-total of valid orders in last X months
     monthsToInclude = new Integer(12);
