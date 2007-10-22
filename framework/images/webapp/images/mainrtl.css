@@ -220,34 +220,43 @@ text-align: left;
 /* ===== Main Navigation (App Menu) Styles ========== */
 /* ================================================== */
 
+#main-navigation ul {
+direction: rtl;
+}
+
 #main-navigation ul li {
-/*background-image: url(/images/tabs/main_uns_right.gif);
-background-position: top right;*/
+background-image: url(/images/rtl/main_uns_right.gif);
+background-position: top right;
 float: right;
 }
 
 #main-navigation ul a {
-/*background-image: url(/images/tabs/main_uns_left.gif);
-background-position: top left;*/
+background-image: url(/images/rtl/main_uns_left.gif);
+background-position: top left;
+}
+
+#main-navigation ul .selected,
+#main-navigation ul li:hover {
+background-image: url(/images/rtl/main_sel_right.gif);
+background-position: top right;
 float: right;
 }
 
-/*#main-navigation ul .selected,
-#main-navigation ul li:hover {
-background-image: url(/images/tabs/main_sel_right.gif);
-background-position: top right;
-}*/
-
-/*#main-navigation ul a:hover,
+#main-navigation ul a:hover,
 #main-navigation ul .selected a,
 #main-navigation ui .selected a:hover {
-background-image: url(/images/tabs/main_sel_left.gif);
+background-image: url(/images/rtl/main_sel_left.gif);
 background-position: top left;
-}*/
+}
 
 /* ========================================================= */
 /* ===== Component Navigation (App Header) Styles ========== */
 /* ========================================================= */
+
+#app-navigation {
+background-image: url(/images/rtl/gradient_main.gif);
+background-position: top right;
+}
 
 #app-navigation ul li {
 border-right: none;
