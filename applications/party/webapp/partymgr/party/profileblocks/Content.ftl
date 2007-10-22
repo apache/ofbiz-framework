@@ -29,18 +29,20 @@ under the License.
             <#assign contentType = content.getRelatedOneCache("ContentType")>
             <#assign mimeType = content.getRelatedOneCache("MimeType")?if_exists>
             <#assign status = content.getRelatedOneCache("StatusItem")>
-            <#assign pcPurpose = pContent.getRelatedOne("Enumeration")>
+            <#assign pcType = pContent.getRelatedOne("PartyContentType")>
             <tr>
-              <td class="button-col"><a href="<@ofbizUrl>EditPartyContents?contentId=${pContent.contentId}&partyId=${pContent.partyId}</@ofbizUrl>">${content.contentId}</a></td>
-              <td>${pcPurpose.description?if_exists}</td>
+              <td class="button-col"><a href="<@ofbizUrl>EditPartyContents?contentId=${pContent.contentId}&partyId=${pContent.partyId}&partyContentTypeId=${pContent.partyContentTypeId}&fromDate=${pContent.fromDate}</@ofbizUrl>">${content.contentId}</a></td>
+              <td>${pcType.description?if_exists}</td>
               <td>${content.contentName?if_exists}</td>
               <td>${(contentType.get("description",locale))?if_exists}</td>
               <td>${(mimeType.description)?if_exists}</td>
               <td>${(status.get("description",locale))?if_exists}</td>
-              <#-- <td>${contentRole.fromDate?if_exists}</td> -->
+              <td>${pContent.fromDate?if_exists}</td>
               <td class="button-col">
-                <a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>">${uiLabelMap.CommonView}</a>
-                <a href="<@ofbizUrl>removePartyContent/viewprofile?contentId=${pContent.contentId}&partyId=${pContent.partyId}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
+                <#if (content.contentName?has_content)>
+                    <a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>">${uiLabelMap.CommonView}</a>
+                </#if>                
+                <a href="<@ofbizUrl>removePartyContent/viewprofile?contentId=${pContent.contentId}&partyId=${pContent.partyId}&partyContentTypeId=${pContent.partyContentTypeId}&fromDate=${pContent.fromDate}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
               </td>
             </tr>
           </#list>
@@ -56,10 +58,10 @@ under the License.
         <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
         <input type="hidden" name="partyId" value="${partyId}"/>
         <input type="file" name="uploadedFile" size="20"/>
-        <select name="contentPurposeEnumId">
+        <select name="partyContentTypeId">
           <option value="">${uiLabelMap.PartySelectPurpose}</option>
-          <#list contentPurposes as contentPurpose>
-            <option value="${contentPurpose.enumId}">${contentPurpose.get("description", locale)?default(contentPurpose.enumId)}</option>
+          <#list partyContentTypes as partyContentType>
+            <option value="${partyContentType.partyContentTypeId}">${partyContentType.get("description", locale)?default(partyContentType.partyContentTypeId)}</option>
           </#list>
         </select>
         <select name="roleTypeId">

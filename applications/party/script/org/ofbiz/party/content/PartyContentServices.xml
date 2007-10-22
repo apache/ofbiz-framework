@@ -25,10 +25,13 @@ under the License.
         <make-value value-name="partyContent" entity-name="PartyContent"/>
         <set-pk-fields value-name="partyContent" map-name="parameters"/>
         <set-nonpk-fields value-name="partyContent" map-name="parameters"/>
-        <create-value value-name="partyContent"/>
 
-        <field-to-result field-name="contentId" map-name="partyContent"/>
-        <field-to-result field-name="partyId" map-name="partyContent"/>
+        <if-empty field-name="fromDate" map-name="partyContent">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set field="partyContent.fromDate" from-field="nowTimestamp"/>
+        </if-empty>
+
+        <create-value value-name="partyContent"/>
     </simple-method>
 
     <simple-method method-name="updatePartyContent" short-description="Update Party Content Entity">
@@ -37,10 +40,7 @@ under the License.
 
         <find-by-primary-key map-name="lookupPkMap" value-name="partyContent"/>
         <set-nonpk-fields value-name="partyContent" map-name="parameters"/>
-        <store-value value-name="partyContent"/>
-
-        <field-to-result field-name="contentId" map-name="partyContent"/>
-        <field-to-result field-name="partyId" map-name="partyContent"/>
+        <store-value value-name="partyContent"/>       
     </simple-method>
 
     <simple-method method-name="removePartyContent" short-description="Update Party Content Entity">

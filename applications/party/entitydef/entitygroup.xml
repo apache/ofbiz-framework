@@ -113,6 +113,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="PartyClassificationType" />
     <entity-group group="org.ofbiz" entity="PartyContactWithPurpose" />
     <entity-group group="org.ofbiz" entity="PartyContent" />
+    <entity-group group="org.ofbiz" entity="PartyContentType" />    
     <entity-group group="org.ofbiz" entity="PartyDataSource" />
     <entity-group group="org.ofbiz" entity="PartyGroup" />
     <entity-group group="org.ofbiz" entity="PartyIcsAvsOverride" />

@@ -708,15 +708,16 @@ under the License.
     <service name="createPartyContent" engine="simple" default-entity-name="PartyContent"
             location="org/ofbiz/party/content/PartyContentServices.xml" invoke="createPartyContent" auth="true">
         <description>Create a PartyContent record</description>
-        <auto-attributes mode="INOUT" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="false"/>        
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="fromDate" optional="true" />
     </service>
 
     <service name="updatePartyContent" engine="simple" default-entity-name="PartyContent"
             location="org/ofbiz/party/content/PartyContentServices.xml" invoke="updatePartyContent" auth="true">
         <description>Update a PartyContent record</description>
-        <auto-attributes mode="INOUT" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="false"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 
     <service name="removePartyContent" engine="simple" default-entity-name="PartyContent"

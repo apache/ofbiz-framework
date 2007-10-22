@@ -266,7 +266,7 @@ public class PartyContentWrapper implements ContentWrapper {
 
         List partyContentList = null;
         try {
-            partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", partyId, "contentPurposeEnumId", partyContentTypeId), UtilMisc.toList("-fromDate"));
+            partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", partyId, "partyContentTypeId", partyContentTypeId), UtilMisc.toList("-fromDate"));
         } catch (GeneralException e) {
             Debug.logError(e, module);
         }
