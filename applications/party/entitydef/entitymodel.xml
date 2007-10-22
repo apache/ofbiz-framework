@@ -1612,18 +1612,33 @@ under the License.
             title="Party Data Object Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="contentId" type="id-ne"></field>
-      <field name="contentPurposeEnumId" type="id-ne"></field>
+      <field name="partyContentTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
       <prim-key field="partyId"/>
       <prim-key field="contentId"/>
+      <prim-key field="partyContentTypeId"/>
+      <prim-key field="fromDate"/>
       <relation type="one" fk-name="PARTY_CNT_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="PARTY_CNT_CNT" rel-entity-name="Content">
         <key-map field-name="contentId"/>
       </relation>
-      <relation type="one" fk-name="PARTY_CNT_PENUM" rel-entity-name="Enumeration">
-        <key-map field-name="contentPurposeEnumId" rel-field-name="enumId"/>
+      <relation type="one" fk-name="PARTY_CNT_TYPE" rel-entity-name="PartyContentType">
+        <key-map field-name="partyContentTypeId"/>
       </relation>
+    </entity>
+    <entity entity-name="PartyContentType"
+            package-name="org.ofbiz.party.party"
+            title="Party Content Type Entity">
+        <field name="partyContentTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="partyContentTypeId"/>
+        <relation type="one" fk-name="PARTYCNT_TP_PAR" title="Parent" rel-entity-name="PartyContentType">
+            <key-map field-name="parentTypeId" rel-field-name="partyContentTypeId"/>
+        </relation>
     </entity>
     <entity entity-name="PartyDataSource"
             package-name="org.ofbiz.party.party"

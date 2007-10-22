@@ -307,10 +307,9 @@
                 <entity-and entity-name="PartyContent" list-name="partyContent">
                     <field-map field-name="partyId" env-name="parameters.partyId"/>
                 </entity-and>
-                <entity-and entity-name="Enumeration" list-name="contentPurposes">
-                    <field-map field-name="enumTypeId" value="PTYCNT_PRP"/>
-                    <order-by field-name="sequenceId"/>
-                </entity-and>
+                <entity-condition entity-name="PartyContentType" list-name="partyContentTypes">
+                    <order-by field-name="description"/>
+                </entity-condition>
                 <entity-condition entity-name="MimeType" list-name="mimeTypes">
                     <order-by field-name="description"/>
                     <order-by field-name="mimeTypeId"/>

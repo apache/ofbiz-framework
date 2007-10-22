@@ -115,12 +115,12 @@ under the License.
     <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_PHONE" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_QUICK" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" contactMechTypeId="WEB_ADDRESS"/>
-    
-    <EnumerationType description="Party Content Purpose" enumTypeId="PTYCNT_PRP" hasTable="N" parentTypeId=""/>
-    <Enumeration description="Internal Content" enumCode="INTERNAL" enumId="PCPRP_INTERNAL" sequenceId="01" enumTypeId="PTYCNT_PRP"/>
-    <Enumeration description="User Defined Content" enumCode="USERDEF" enumId="PCPRP_USERDEF" sequenceId="02" enumTypeId="PTYCNT_PRP"/>
-    <Enumeration description="Logo Image URL" enumCode="LGOIMGURL" enumId="PCPRP_LGOIMGURL" sequenceId="03" enumTypeId="PTYCNT_PRP"/>
-    <Enumeration description="Vendor Shipping Info" enumCode="VNDSHPINF" enumId="PCPRP_VNDSHPINF" sequenceId="21" enumTypeId="PTYCNT_PRP"/>
+
+    <!-- party content types -->
+    <PartyContentType description="Internal Content" parentTypeId="" partyContentTypeId="INTERNAL"/>
+    <PartyContentType description="User Defined Content"  parentTypeId="" partyContentTypeId="USERDEF"/>
+    <PartyContentType description="Logo Image URL"  parentTypeId="" partyContentTypeId="LGOIMGURL"/>
+    <PartyContentType description="Vendor Shipping Info"  parentTypeId="" partyContentTypeId="VNDSHPINF"/>
     
     <EnumerationType description="Employment Status" enumTypeId="EMPLOY_STTS" hasTable="N" parentTypeId=""/>
     <Enumeration description="Full-time Employed" enumCode="FULLTIME" enumId="EMPS_FULLTIME" sequenceId="01" enumTypeId="EMPLOY_STTS"/>
