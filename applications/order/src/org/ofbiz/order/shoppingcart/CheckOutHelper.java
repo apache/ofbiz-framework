@@ -1028,7 +1028,7 @@ public class CheckOutHelper {
             List cashCodBaExpr = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "CASH"),
                                            new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_COD"),
                                            new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
-            List cashCodBaPaymentPreferences = EntityUtil.filterByAnd(allPaymentPreferences, cashCodBaExpr);
+            List cashCodBaPaymentPreferences = EntityUtil.filterByOr(allPaymentPreferences, cashCodBaExpr);
 
             if (UtilValidate.isNotEmpty(cashCodBaPaymentPreferences) && 
                     UtilValidate.isNotEmpty(allPaymentPreferences) &&
