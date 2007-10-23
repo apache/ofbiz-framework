@@ -3739,6 +3739,12 @@ under the License.
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="sequenceNum" type="numeric"></field>
+      <field name="manualOnly" type="indicator">
+          <description>
+              If set to Y then the promotion is not automatically evaluated, but only if it
+              is manually added to the cart.
+          </description>
+      </field>
       <prim-key field="productStoreId"/>
       <prim-key field="productPromoId"/>
       <prim-key field="fromDate"/>
