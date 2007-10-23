@@ -19,6 +19,7 @@
 package org.ofbiz.webapp.event;
 
 import java.io.File;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,8 +34,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastMap;
+
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -44,7 +46,6 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -146,7 +147,7 @@ public class ServiceEventHandler implements EventHandler {
         String encoding = request.getCharacterEncoding();
         // check for multipart content types which may have uploaded items
         boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
-        Map multiPartMap = new HashMap();
+        Map multiPartMap = FastMap.newInstance();
         if (isMultiPart) {
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, new File(tmpUploadRepository)));
             if (encoding != null) {
@@ -207,7 +208,7 @@ public class ServiceEventHandler implements EventHandler {
                                 fileName = fileName.substring(lastIndex + 1);
                             }
                         }
-                        multiPartMap.put(fieldName, new ByteWrapper(item.get()));
+                        multiPartMap.put(fieldName, ByteBuffer.wrap(item.get()));
                         multiPartMap.put("_" + fieldName + "_size", new Long(item.getSize()));
                         multiPartMap.put("_" + fieldName + "_fileName", fileName);
                         multiPartMap.put("_" + fieldName + "_contentType", item.getContentType());

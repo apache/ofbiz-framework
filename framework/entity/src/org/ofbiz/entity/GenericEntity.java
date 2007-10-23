@@ -21,6 +21,8 @@ package org.ofbiz.entity;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -532,7 +534,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      * @param bytes The byte array to be wrapped and set
      */
     public void setBytes(String name, byte[] bytes) {
-        this.set(name, new ByteWrapper(bytes));
+        this.set(name, bytes);
     }
     
     public void setNextSeqId() {
@@ -634,12 +636,24 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         if (value == null) {
             return null;
         }
-        if (value instanceof ByteWrapper) {
-            ByteWrapper wrapper = (ByteWrapper) value;
-            return wrapper.getBytes();
+        if (value instanceof Blob) {
+            try {
+                Blob valueBlob = (Blob) value;
+                return valueBlob.getBytes(1, (int) valueBlob.length());
+            } catch (SQLException e) {
+                String errMsg = "Error getting byte[] from Blob: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return null;
+            }
         }
         if (value instanceof byte[]) {
             return (byte[]) value;
+        }
+        if (value instanceof ByteWrapper) {
+            // NOTE DEJ20071022: the use of ByteWrapper is not recommended and is deprecated, only old data should be stored that way
+            Debug.logWarning("Found a ByteWrapper object in the database for field [" + this.getEntityName() + "." + name + "]; converting to byte[] and returning, but note that you need to update your database to unwrap these objects for future compatibility", module);
+            ByteWrapper wrapper = (ByteWrapper) value;
+            return wrapper.getBytes();
         }
         // uh-oh, this shouldn't happen...
         throw new IllegalArgumentException("In call to getBytes the value is not a supported type, should be byte[] or ByteWrapper, is: " + value.getClass().getName());

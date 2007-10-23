@@ -31,7 +31,6 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.service.*;
 
@@ -114,7 +113,7 @@ public class PromoServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         // check the uploaded file
-        ByteWrapper wrapper = (ByteWrapper) context.get("uploadedFile");
+        byte[] wrapper = (byte[]) context.get("uploadedFile");
         if (wrapper == null) {
             return ServiceUtil.returnError("Uploaded file not valid or corrupted");
         }
@@ -132,7 +131,7 @@ public class PromoServices {
         Map invokeCtx = promoModel.makeValid(context, ModelService.IN_PARAM);
 
         // read the bytes into a reader
-        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper.getBytes())));
+        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper)));
         List errors = FastList.newInstance();
         int lines = 0;
         String line;
@@ -186,7 +185,7 @@ public class PromoServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         String productPromoCodeId = (String) context.get("productPromoCodeId");
-        ByteWrapper wrapper = (ByteWrapper) context.get("uploadedFile");
+        byte[] wrapper = (byte[]) context.get("uploadedFile");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
         if (wrapper == null) {
@@ -194,7 +193,7 @@ public class PromoServices {
         }
 
         // read the bytes into a reader
-        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper.getBytes())));
+        BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper)));
         List errors = FastList.newInstance();
         int lines = 0;
         String line;

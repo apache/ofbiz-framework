@@ -150,19 +150,19 @@ under the License.
         <attribute name="rollback" type="Boolean" mode="IN" optional="true"/>     
     </service>
     
-    <service name="byteWrapperTest" engine="java" auth="true"
-            location="org.ofbiz.common.CommonServices" invoke="byteWrapperTest">
-        <description>Test Passing ByteWrapper To Service</description>
-        <attribute name="byteWrapper1" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
+    <service name="byteBufferTest" engine="java" auth="true"
+            location="org.ofbiz.common.CommonServices" invoke="byteBufferTest">
+        <description>Test Passing ByteBuffer To Service</description>
+        <attribute name="byteBuffer1" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="saveAsFileName1" type="String" mode="IN" optional="false"/>
-        <attribute name="byteWrapper2" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
+        <attribute name="byteBuffer2" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="saveAsFileName2" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="uploadContentTest" engine="java" auth="true"
             location="org.ofbiz.common.CommonServices" invoke="uploadTest">
         <description>Upload Content Test Service</description>
-        <attribute name="uploadFile" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
+        <attribute name="uploadFile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="_uploadFile_contentType" type="String" mode="IN" optional="false"/>
         <attribute name="_uploadFile_fileName" type="String" mode="IN" optional="false"/>
     </service>

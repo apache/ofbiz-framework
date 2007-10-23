@@ -49,7 +49,6 @@ import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
@@ -1613,8 +1612,8 @@ public class PartyServices {
 
     public static Map importAddressMatchMapCsv(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
-        ByteWrapper file = (ByteWrapper) context.get("uploadedFile");
-        String csvFile = new String(file.getBytes());
+        byte[] fileBytes = (byte[]) context.get("uploadedFile");
+        String csvFile = new String(fileBytes);
         csvFile = csvFile.replaceAll("\\r", "");
         String[] records = csvFile.split("\\n");
 

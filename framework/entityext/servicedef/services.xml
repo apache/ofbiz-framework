@@ -145,6 +145,14 @@ under the License.
         <attribute name="records" type="Integer" mode="OUT" optional="false"/>
     </service>
 
+    <!-- data updates services -->
+    <service name="unwrapByteWrappers" engine="java" auth="true" transaction-timeout="14400" require-new-transaction="true"
+        location="org.ofbiz.entityext.data.EntityDataServices" invoke="unwrapByteWrappers">
+        <description>Unwrap ByteWrapper Fields for the given entity and field</description>
+        <attribute name="entityName" type="String" mode="IN" optional="false"/>
+        <attribute name="fieldName" type="String" mode="IN" optional="false"/>
+    </service>
+    
     <!-- EntitySync Services -->
     <service name="createEntitySync" default-entity-name="EntitySync" engine="simple"
             location="org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="createEntitySync" auth="true">

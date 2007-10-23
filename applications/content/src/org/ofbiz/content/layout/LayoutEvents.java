@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.content.layout;
 
+import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +28,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -41,7 +43,6 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMapProcessor;
 import org.ofbiz.service.GenericServiceException;
@@ -65,9 +66,9 @@ public class LayoutEvents {
             HttpSession session = request.getSession();
             Map uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
             //Debug.logVerbose("in createLayoutImage(java), uploadResults:" + uploadResults, "");
-            Map formInput = (Map)uploadResults.get("formInput");
-            Map context = new HashMap();
-            ByteWrapper byteWrap = (ByteWrapper)uploadResults.get("imageData");
+            Map formInput = (Map) uploadResults.get("formInput");
+            Map context = FastMap.newInstance();
+            ByteBuffer byteWrap = (ByteBuffer) uploadResults.get("imageData");
             if (byteWrap == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.image_data_null", locale);                                                      
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -83,7 +84,7 @@ public class LayoutEvents {
                     imageFileNameExt = imageFileName.substring(pos + 1);
             }
             String mimeTypeId = "image/" + imageFileNameExt;
-            List errorMessages = new ArrayList();
+            List errorMessages = FastList.newInstance();
             if (locale == null)
                 locale = Locale.getDefault();
             context.put("locale", locale);
@@ -121,7 +122,7 @@ public class LayoutEvents {
             String dataResourceId = (String)result.get("dataResourceId");
             String activeContentId = (String)result.get("contentId");
             if (UtilValidate.isNotEmpty(activeContentId)) {
-                Map context2 = new HashMap();
+                Map context2 = FastMap.newInstance();
                 context2.put("activeContentId", activeContentId);
                 //context2.put("dataResourceId", dataResourceId);
                 context2.put("contentAssocTypeId", result.get("contentAssocTypeId"));
@@ -154,12 +155,11 @@ public class LayoutEvents {
                           UtilMisc.toMap("dataResourceId", dataResourceId));
         //Debug.logVerbose("in createLayoutImage, imageDataResource(0):" + imageDataResource, module);
             if (imageDataResource == null) {
-                imageDataResource = delegator.makeValue("ImageDataResource",
-                          UtilMisc.toMap("dataResourceId", dataResourceId));
-                imageDataResource.set("imageData", byteWrap.getBytes());
+                imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+                imageDataResource.set("imageData", byteWrap.array());
                 imageDataResource.create();
             } else {
-                imageDataResource.set("imageData", byteWrap.getBytes());
+                imageDataResource.set("imageData", byteWrap.array());
                 imageDataResource.store();
             }
         } catch (GenericEntityException e3) {
@@ -179,7 +179,7 @@ public class LayoutEvents {
             HttpSession session = request.getSession();
             Map uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
             Map context = (Map)uploadResults.get("formInput");
-            ByteWrapper byteWrap = (ByteWrapper)uploadResults.get("imageData");
+            ByteBuffer byteWrap = (ByteBuffer)uploadResults.get("imageData");
             if (byteWrap == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.image_data_null", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -218,10 +218,10 @@ public class LayoutEvents {
             if (imageDataResource == null) {
                 imageDataResource = delegator.makeValue("ImageDataResource",
                           UtilMisc.toMap("dataResourceId", dataResourceId));
-                imageDataResource.set("imageData", byteWrap.getBytes());
+                imageDataResource.set("imageData", byteWrap.array());
                 imageDataResource.create();
             } else {
-                imageDataResource.set("imageData", byteWrap.getBytes());
+                imageDataResource.set("imageData", byteWrap.array());
                 imageDataResource.store();
             }
         } catch (GenericEntityException e3) {
@@ -236,7 +236,7 @@ public class LayoutEvents {
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
-        Map context = new HashMap();
+        Map context = FastMap.newInstance();
         Map paramMap = UtilHttp.getParameterMap(request);
         Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, module);
         String dataResourceId = (String)paramMap.get("dataResourceId");
@@ -286,7 +286,7 @@ public class LayoutEvents {
                 Map result = dispatcher.runSync("persistContentAndAssoc", context);
         //Debug.logVerbose("in replaceSubContent, result:" + result, module);
                 request.setAttribute("contentId", contentIdTo);
-                Map context2 = new HashMap();
+                Map context2 = FastMap.newInstance();
                 context2.put("activeContentId", contentId);
                 //context2.put("dataResourceId", dataResourceId);
                 context2.put("contentAssocTypeId", "SUB_CONTENT");
@@ -381,7 +381,7 @@ public class LayoutEvents {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
         }
-        Map serviceIn = new HashMap();
+        Map serviceIn = FastMap.newInstance();
         Map results = null;
         serviceIn.put("fromDate", UtilDateTime.nowTimestamp());
         serviceIn.put("contentId", contentId);
@@ -401,16 +401,17 @@ public class LayoutEvents {
                 return "error";
         }
         
-        serviceIn = new HashMap();
+        serviceIn = FastMap.newInstance();
         serviceIn.put("userLogin", session.getAttribute("userLogin"));
 
         // Can't count on records being unique
-        Map beenThere = new HashMap();
+        Map beenThere = FastMap.newInstance();
         for (int i=0; i<entityList.size(); i++) {
             GenericValue view = (GenericValue)entityList.get(i);
-            List errorMessages = new ArrayList();
-            if (locale == null)
+            List errorMessages = FastList.newInstance();
+            if (locale == null) {
                 locale = Locale.getDefault();
+            }
             try {
                 SimpleMapProcessor.runSimpleMapProcessor(
                       "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn",
@@ -426,11 +427,7 @@ public class LayoutEvents {
             String mapKey = (String)view.get("caMapKey");
             Timestamp fromDate = (Timestamp)view.get("caFromDate");
             Timestamp thruDate = (Timestamp)view.get("caThruDate");
-            Debug.logVerbose("in cloneLayout, contentIdFrom:" + contentIdFrom 
-                      + " fromDate:" + fromDate
-                      + " thruDate:" + thruDate
-                      + " mapKey:" + mapKey
-                      , "");
+            Debug.logVerbose("in cloneLayout, contentIdFrom:" + contentIdFrom + " fromDate:" + fromDate + " thruDate:" + thruDate + " mapKey:" + mapKey, "");
             if (beenThere.get(contentIdFrom) == null) {
                 serviceIn.put("contentIdFrom", contentIdFrom);
                 serviceIn.put("contentIdTo", newId);
@@ -444,7 +441,6 @@ public class LayoutEvents {
                 }
                 beenThere.put(contentIdFrom, view);
             }
-         
         }
 
         GenericValue view = delegator.makeValue("ContentDataResourceView");
@@ -458,8 +454,6 @@ public class LayoutEvents {
     }
 
     public static String createLayoutSubContent(HttpServletRequest request, HttpServletResponse response) {
-
-       
         try {
             LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
             HttpSession session = request.getSession();
@@ -470,11 +464,12 @@ public class LayoutEvents {
                 Debug.logVerbose("in createSubContent, contentIdTo:" + contentIdTo, module);
                 Debug.logVerbose("in createSubContent, mapKey:" + mapKey, module);
             }
-            Map context = new HashMap();
+            Map context = FastMap.newInstance();
             List errorMessages = null;
             Locale loc = (Locale)request.getSession().getServletContext().getAttribute("locale");
-            if (loc == null) 
+            if (loc == null) {
                 loc = Locale.getDefault();
+            }
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
             context.put("userLogin", userLogin);
 
@@ -517,7 +512,7 @@ public class LayoutEvents {
             request.setAttribute("contentId", contentId);
             request.setAttribute("drDataResourceId", dataResourceId);
             request.setAttribute("currentEntityName", "SubContentDataResourceId");
-            Map context2 = new HashMap();
+            Map context2 = FastMap.newInstance();
             context2.put("activeContentId", contentId);
             //context2.put("dataResourceId", dataResourceId);
             context2.put("contentAssocTypeId", "SUB_CONTENT");
@@ -536,15 +531,13 @@ public class LayoutEvents {
 
 
     public static String updateLayoutSubContent(HttpServletRequest request, HttpServletResponse response) {
-
-       
         try {
             LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
             HttpSession session = request.getSession();
             Map paramMap = UtilHttp.getParameterMap(request);
             String contentIdTo = (String)paramMap.get("contentIdTo");
             String mapKey = (String)paramMap.get("mapKey");
-            Map context = new HashMap();
+            Map context = FastMap.newInstance();
             List errorMessages = null;
             Locale loc = (Locale)request.getSession().getServletContext().getAttribute("locale");
             if (loc == null) 
@@ -590,7 +583,7 @@ public class LayoutEvents {
             request.setAttribute("drDataResourceId", dataResourceId);
             request.setAttribute("currentEntityName", "SubContentDataResourceId");
             /*
-            Map context2 = new HashMap();
+            Map context2 = FastMap.newInstance();
             context2.put("activeContentId", contentId);
             //context2.put("dataResourceId", dataResourceId);
             context2.put("contentAssocTypeId", "SUB_CONTENT");

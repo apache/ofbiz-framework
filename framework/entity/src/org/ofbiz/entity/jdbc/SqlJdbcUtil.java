@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -34,6 +35,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialClob;
 
 import javolution.util.FastMap;
 
@@ -543,51 +547,30 @@ public class SqlJdbcUtil {
 
                 case 11:
                     Object obj = null;
-                    InputStream binaryInput = null;
 
                     byte[] fieldBytes = rs.getBytes(ind);
-                    if (fieldBytes != null && fieldBytes.length > 0) {
-                        binaryInput = new ByteArrayInputStream(fieldBytes);
+                    obj = deserializeField(fieldBytes, ind, curField);
+                    
+                    if (obj != null) {
+                        entity.dangerousSetNoCheckButFast(curField, obj);
+                    } else {
+                        entity.dangerousSetNoCheckButFast(curField, fieldBytes);
                     }
-
-                    if (fieldBytes != null && fieldBytes.length <= 0) {
-                        Debug.logWarning("Got bytes back for Object field with length: " + fieldBytes.length + " while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): ", module);
-                    }
-
-                    //alt 1: binaryInput = rs.getBinaryStream(ind);
-                    //alt 2: Blob blobLocator = rs.getBlob(ind);
-                    //if (blobLocator != null) {
-                    //    binaryInput = blobLocator.getBinaryStream();
-                    //}
-
-                    if (binaryInput != null) {
-                        ObjectInputStream in = null;
-                        try {
-                            in = new ObjectInputStream(binaryInput);
-                            obj = in.readObject();
-                        } catch (IOException ex) {
-                            throw new GenericDataSourceException("Unable to read BLOB data from input stream while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): " + ex.toString(), ex);
-                        } catch (ClassNotFoundException ex) {
-                            throw new GenericDataSourceException("Class not found: Unable to cast BLOB data to an Java object while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): " + ex.toString(), ex);
-                        } finally {
-                            if (in != null) {
-                                try {
-                                    in.close();
-                                } catch (IOException e) {
-                                    throw new GenericDataSourceException("Unable to close binary input stream while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): " + e.toString(), e);
-                                }
-                            }
-                        }
-                    }
-
-                    binaryInput = null;
-                    entity.dangerousSetNoCheckButFast(curField, obj);
                     break;
                 case 12:
-                    entity.dangerousSetNoCheckButFast(curField, rs.getBlob(ind));
+                    Blob theBlob = new SerialBlob(rs.getBlob(ind));
+                    
+                    // for backward compatibility, check to see if there is a serialized object and if so return that
+                    Object blobObject = deserializeField(theBlob.getBytes(1, (int) theBlob.length()), ind, curField);
+                    if (blobObject != null) {
+                        entity.dangerousSetNoCheckButFast(curField, blobObject);
+                    } else {
+                        entity.dangerousSetNoCheckButFast(curField, theBlob);
+                    }
+                    
                     break;
                 case 13:
-                    entity.dangerousSetNoCheckButFast(curField, rs.getClob(ind));
+                    entity.dangerousSetNoCheckButFast(curField, new SerialClob(rs.getClob(ind)));
                     break;
                 case 14:
                 case 15:
@@ -655,6 +638,50 @@ public class SqlJdbcUtil {
             throw new GenericDataSourceException("SQL Exception while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + ")", sqle);
         }
     }
+    
+    private static Object deserializeField(byte[] fieldBytes, int ind, ModelField curField) throws GenericDataSourceException {
+        // NOTE DEJ20071022: the following code is to convert the byte[] back into an object; if that fails 
+        //just return the byte[]; this was for the ByteWrapper thing which is now deprecated, so this may 
+        //be removed in the near future to enhance performance
+        InputStream binaryInput = null;
+        if (fieldBytes != null && fieldBytes.length > 0) {
+            binaryInput = new ByteArrayInputStream(fieldBytes);
+        }
+
+        if (fieldBytes != null && fieldBytes.length <= 0) {
+            Debug.logWarning("Got bytes back for Object field with length: " + fieldBytes.length + " while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): ", module);
+        }
+
+        //alt 1: binaryInput = rs.getBinaryStream(ind);
+        //alt 2: Blob blobLocator = rs.getBlob(ind);
+        //if (blobLocator != null) {
+        //    binaryInput = blobLocator.getBinaryStream();
+        //}
+
+        if (binaryInput != null) {
+            ObjectInputStream in = null;
+            try {
+                in = new ObjectInputStream(binaryInput);
+                return in.readObject();
+            } catch (IOException ex) {
+                if (Debug.verboseOn()) Debug.logVerbose("Unable to read BLOB data from input stream while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): " + ex.toString(), module);
+                return null;
+            } catch (ClassNotFoundException ex) {
+                if (Debug.verboseOn()) Debug.logVerbose("Class not found: Unable to cast BLOB data to an Java object while getting value: " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "); most likely because it is a straight byte[], so just using the raw bytes" + ex.toString(), module);
+                return null;
+            } finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        throw new GenericDataSourceException("Unable to close binary input stream while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + "): " + e.toString(), e);
+                    }
+                }
+            }
+        }
+        
+        return null;
+    }
 
     public static void setValue(SQLProcessor sqlP, ModelField modelField, GenericEntity entity, ModelFieldTypeReader modelFieldTypeReader) throws GenericEntityException {
         Object fieldValue = entity.dangerousGetNoCheckButFast(modelField);
@@ -681,8 +708,10 @@ public class SqlJdbcUtil {
                 // this is only an info level message because under normal operation for most JDBC
                 // drivers this will be okay, but if not then the JDBC driver will throw an exception
                 // and when lower debug levels are on this should help give more info on what happened
-                Class fieldClass = fieldValue.getClass();
-                String fieldClassName = fieldClass.getName();
+                String fieldClassName = fieldValue.getClass().getName();
+                if (fieldValue instanceof byte[]) {
+                    fieldClassName = "byte[]";
+                }
 
                 if (Debug.verboseOn()) Debug.logVerbose("type of field " + entityName + "." + modelField.getName() +
                         " is " + fieldClassName + ", was expecting " + mft.getJavaType() + "; this may " +
@@ -742,7 +771,11 @@ public class SqlJdbcUtil {
                 break;
 
             case 12:
-                sqlP.setValue((java.sql.Blob) fieldValue);
+                if (fieldValue instanceof byte[]) {
+                    sqlP.setBytes((byte[]) fieldValue);
+                } else {
+                    sqlP.setValue((java.sql.Blob) fieldValue);
+                }
                 break;
 
             case 13:
@@ -795,6 +828,7 @@ public class SqlJdbcUtil {
         fieldTypeMap.put("Object", new Integer(11));
         fieldTypeMap.put("java.sql.Blob", new Integer(12));
         fieldTypeMap.put("Blob", new Integer(12));
+        fieldTypeMap.put("byte[]", new Integer(12));
         fieldTypeMap.put("java.sql.Clob", new Integer(13));
         fieldTypeMap.put("Clob", new Integer(13));
 

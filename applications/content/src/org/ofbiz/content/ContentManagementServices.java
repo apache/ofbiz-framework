@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.content;
 
+import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.ArrayList;
@@ -47,7 +48,6 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelUtil;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -94,7 +94,7 @@ public class ContentManagementServices {
             view = ContentWorker.getSubContentCache( delegator, contentId, mapKey, subContentId, userLogin, assocTypes, fromDate, Boolean.FALSE, null);
             content = ContentWorker.getContentFromView(view);
         } catch(GenericEntityException e) {
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.toString());
         }
 
         Map results = ServiceUtil.returnSuccess();
@@ -117,7 +117,7 @@ public class ContentManagementServices {
         try {
             view = ContentWorker.getContentCache( delegator, contentId);
         } catch(GenericEntityException e) {
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.toString());
         }
 
         Map results = ServiceUtil.returnSuccess();
@@ -262,11 +262,14 @@ public class ContentManagementServices {
             try {
                 dataResourceResult = persistDataResourceAndDataMethod(dctx, context);
             } catch (GenericServiceException e) {
-                return ServiceUtil.returnError(e.getMessage());
+                Debug.logError(e, e.toString(), module);
+                return ServiceUtil.returnError(e.toString());
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(e.getMessage());
+                Debug.logError(e, e.toString(), module);
+                return ServiceUtil.returnError(e.toString());
             } catch (Exception e) {
-                return ServiceUtil.returnError(e.getMessage());
+                Debug.logError(e, e.toString(), module);
+                return ServiceUtil.returnError(e.toString());
             }
             String errorMsg = ServiceUtil.getErrorMessage(dataResourceResult);
             if (UtilValidate.isNotEmpty(errorMsg)) {
@@ -292,7 +295,7 @@ public class ContentManagementServices {
                     GenericValue val = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
                     if (val == null) contentExists = false;
                 } catch(GenericEntityException e) {
-                    return ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.toString());
                 }
             }
             //List targetOperations = new ArrayList();
@@ -348,7 +351,7 @@ public class ContentManagementServices {
                         }
                     }
                 } catch(GenericEntityException e) {
-                    return ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.toString());
                 }
             }
 
@@ -423,9 +426,9 @@ public class ContentManagementServices {
                     }
                 }
             } catch (GenericEntityException e) {
-                throw new GenericServiceException(e.getMessage());
+                throw new GenericServiceException(e.toString());
             } catch (Exception e2) {
-                throw new GenericServiceException(e2.getMessage());
+                throw new GenericServiceException(e2.toString());
             }
             String errMsg = ServiceUtil.getErrorMessage(thisResult);
             if (UtilValidate.isNotEmpty(errMsg)) {
@@ -467,7 +470,7 @@ public class ContentManagementServices {
       try {
           siteRoles = delegator.findByAndCache("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"));
       } catch(GenericEntityException e) {
-          return ServiceUtil.returnError( e.getMessage());
+          return ServiceUtil.returnError( e.toString());
       }
         
       Iterator siteRoleIter = siteRoles.iterator();
@@ -490,7 +493,7 @@ public class ContentManagementServices {
           serviceContext.put("roleTypeId", siteRole);
           if (siteRoleVal != null && siteRoleVal.equalsIgnoreCase("Y")) {
                   // for now, will assume that any error is due to duplicates - ignore
-                  //return ServiceUtil.returnError(e.getMessage());
+                  //return ServiceUtil.returnError(e.toString());
               if (fromDate == null ) {
                   try {
                       Map newContext = new HashMap();
@@ -507,17 +510,17 @@ public class ContentManagementServices {
                         return ServiceUtil.returnError(errMsg);
                       //addRoleToUser(delegator, dispatcher, serviceContext);
                   } catch (GenericServiceException e) {
-                      Debug.logError(e, e.getMessage(), module);
-                      return ServiceUtil.returnError( e.getMessage());
+                      Debug.logError(e, e.toString(), module);
+                      return ServiceUtil.returnError( e.toString());
                   } catch (Exception e2) {
-                      Debug.logError(e2, e2.getMessage(), module);
-                      return ServiceUtil.returnError( e2.getMessage());
+                      Debug.logError(e2, e2.toString(), module);
+                      return ServiceUtil.returnError( e2.toString());
                   }
               }
           } else {
               if (fromDate != null ) {
                       // for now, will assume that any error is due to non-existence - ignore
-                      //return ServiceUtil.returnError(e.getMessage());
+                      //return ServiceUtil.returnError(e.toString());
                   try {
 Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                       //Timestamp thruDate = UtilDateTime.nowTimestamp();
@@ -533,11 +536,11 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                       if (UtilValidate.isNotEmpty(errMsg)) 
                         return ServiceUtil.returnError(errMsg);
                   } catch (GenericServiceException e) {
-                      Debug.logError(e, e.getMessage(), module);
-                      return ServiceUtil.returnError( e.getMessage());
+                      Debug.logError(e, e.toString(), module);
+                      return ServiceUtil.returnError( e.toString());
                   } catch (Exception e2) {
-                      Debug.logError(e2, e2.getMessage(), module);
-                      return ServiceUtil.returnError( e2.getMessage());
+                      Debug.logError(e2, e2.toString(), module);
+                      return ServiceUtil.returnError( e2.toString());
                   }
               }
           }
@@ -563,11 +566,14 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             return ServiceUtil.returnError("no access to upload image");  
           }
       } catch (GenericServiceException e) {
-          return ServiceUtil.returnError(e.getMessage());
+          Debug.logError(e, e.toString(), module);
+          return ServiceUtil.returnError(e.toString());
       } catch (GenericEntityException e) {
-          return ServiceUtil.returnError(e.getMessage());
+          Debug.logError(e, e.toString(), module);
+          return ServiceUtil.returnError(e.toString());
       } catch (Exception e) {
-          return ServiceUtil.returnError(e.getMessage());
+          Debug.logError(e, e.toString(), module);
+          return ServiceUtil.returnError(e.toString());
       }
       String errorMsg = ServiceUtil.getErrorMessage(result);
       if (UtilValidate.isNotEmpty(errorMsg)) {
@@ -606,7 +612,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               if (val == null)
                   dataResourceExists = false;
           } catch(GenericEntityException e) {
-              return ServiceUtil.returnError(e.getMessage());
+              return ServiceUtil.returnError(e.toString());
           }
       }
       GenericValue userLogin = (GenericValue) context.get("userLogin"); 
@@ -616,9 +622,9 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       newDrContext.putAll(ctx);
       newDrContext.put("userLogin", userLogin);
       newDrContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
-      ByteWrapper byteWrapper = (ByteWrapper)context.get("imageData");
+      ByteBuffer imageDataBytes = (ByteBuffer) context.get("imageData");
       String mimeTypeId = (String) newDrContext.get("mimeTypeId");
-      if (byteWrapper != null && (mimeTypeId == null || (mimeTypeId.indexOf("image") >= 0) || (mimeTypeId.indexOf("application") >= 0))) {
+      if (imageDataBytes != null && (mimeTypeId == null || (mimeTypeId.indexOf("image") >= 0) || (mimeTypeId.indexOf("application") >= 0))) {
           mimeTypeId = (String) context.get("_imageData_contentType");
           if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
               String fileName = (String) context.get("_imageData_fileName");
@@ -644,8 +650,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               fileContext.put("textData", textData);
               hasData = true;
           }
-          if (byteWrapper != null) {
-              fileContext.put("binData", byteWrapper);
+          if (imageDataBytes != null) {
+              fileContext.put("binData", imageDataBytes);
               hasData = true;
           }
           if (hasData) {
@@ -659,16 +665,16 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               }
           }
       } else if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
-          if (byteWrapper != null) {
+          if (imageDataBytes != null) {
               fileContext.put("dataResourceId", dataResourceId);
-              fileContext.put("imageData", byteWrapper);
+              fileContext.put("imageData", imageDataBytes);
               thisResult = dispatcher.runSync("createImage", fileContext);
               errorMsg = ServiceUtil.getErrorMessage(thisResult);
               if (UtilValidate.isNotEmpty(errorMsg)) {
                   return ServiceUtil.returnError(errorMsg);
               }
           } else {
-              //return ServiceUtil.returnError("'byteWrapper' empty when trying to create database image.");
+              //return ServiceUtil.returnError("'byteBuffer' empty when trying to create database image.");
           }
       } else if (dataResourceTypeId.equals("SHORT_TEXT")) {
       } else if (dataResourceTypeId.startsWith("SURVEY")) {
@@ -703,8 +709,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               fileContext.put("textData", textData);
               hasData = true;
           }
-          if (byteWrapper != null) {
-              fileContext.put("binData", byteWrapper);
+          if (imageDataBytes != null) {
+              fileContext.put("binData", imageDataBytes);
               hasData = true;
           }
           if (hasData || "true".equalsIgnoreCase(forceElectronicText)) {
@@ -718,9 +724,9 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               }
           }
       } else if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
-          if (byteWrapper != null || "true".equalsIgnoreCase(forceElectronicText)) {
+          if (imageDataBytes != null || "true".equalsIgnoreCase(forceElectronicText)) {
               fileContext.put("dataResourceId", dataResourceId);
-              fileContext.put("imageData", byteWrapper);
+              fileContext.put("imageData", imageDataBytes);
               Debug.logInfo("====trying to update image", module);
               thisResult = dispatcher.runSync("updateImage", fileContext);
               errorMsg = ServiceUtil.getErrorMessage(thisResult);
@@ -728,7 +734,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                   return ServiceUtil.returnError(errorMsg);
               }
           } else {
-              return ServiceUtil.returnError("'byteWrapper' empty when trying to create database image.");
+              return ServiceUtil.returnError("'byteBuffer' empty when trying to create database image.");
           }
       } else if (dataResourceTypeId.equals("SHORT_TEXT")) {
       } else if (dataResourceTypeId.startsWith("SURVEY")) {
@@ -786,7 +792,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       try {
             siteRoles = delegator.findByAndCache("RoleType", UtilMisc.toMap("parentTypeId", "BLOG"));
       } catch(GenericEntityException e) {
-          return ServiceUtil.returnError( e.getMessage());
+          return ServiceUtil.returnError( e.toString());
       }
       Iterator siteRoleIter = siteRoles.iterator();
       while (siteRoleIter.hasNext()) {
@@ -800,7 +806,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
           serviceContext.put("roleTypeId", siteRole);
           if (siteRoleVal != null && siteRoleVal.equalsIgnoreCase("Y")) {
                   // for now, will assume that any error is due to duplicates - ignore
-                  //return ServiceUtil.returnError(e.getMessage());
+                  //return ServiceUtil.returnError(e.toString());
               if (fromDate == null ) {
                   try {
                       serviceContext.put("fromDate", UtilDateTime.nowTimestamp());
@@ -808,15 +814,15 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                       addRoleToUser(delegator, dispatcher, serviceContext);
                       Map permResults = dispatcher.runSync("createContentRole", serviceContext);
                   } catch (GenericServiceException e) {
-                      Debug.logError(e, e.getMessage(), module);
+                      Debug.logError(e, e.toString(), module);
                   } catch (Exception e2) {
-                      Debug.logError(e2, e2.getMessage(), module);
+                      Debug.logError(e2, e2.toString(), module);
                   }
               }
           } else {
               if (fromDate != null ) {
                       // for now, will assume that any error is due to non-existence - ignore
-                      //return ServiceUtil.returnError(e.getMessage());
+                      //return ServiceUtil.returnError(e.toString());
                   try {
 Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                       //Timestamp thruDate = UtilDateTime.nowTimestamp();
@@ -828,9 +834,9 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                       newContext.put("roleTypeId", serviceContext.get("roleTypeId"));
                       Map permResults = dispatcher.runSync("deactivateAllContentRoles", newContext);
                   } catch (GenericServiceException e) {
-                      Debug.logError(e, e.getMessage(), module);
+                      Debug.logError(e, e.toString(), module);
                   } catch (Exception e2) {
-                      Debug.logError(e2, e2.getMessage(), module);
+                      Debug.logError(e2, e2.toString(), module);
                   }
               }
           }
@@ -879,7 +885,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.toString());
         }
         return results; 
     }
@@ -931,7 +937,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                                      contentAssoc.put("sequenceNum", prevSeqNum);
                                      contentAssoc.store();
                                  } catch (Exception e) {
-                                     return ServiceUtil.returnError(e.getMessage());             
+                                     return ServiceUtil.returnError(e.toString());             
                                  }
                              }
                          } else {
@@ -958,7 +964,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
              }
         } catch(GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());             
+            return ServiceUtil.returnError(e.toString());             
          }
          
        
@@ -1016,7 +1022,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 try {
                     Map thisResult = dispatcher.runSync("persistContentAndAssoc", serviceIn);
                 } catch(ServiceAuthException e) {
-                    return ServiceUtil.returnError(e.getMessage());             
+                    return ServiceUtil.returnError(e.toString());             
                 }
                 
                 List typeList = UtilMisc.toList("SUB_CONTENT");
@@ -1025,7 +1031,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             
         } catch(GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());             
+            return ServiceUtil.returnError(e.toString());             
         }
          
        
@@ -1045,7 +1051,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             result.put("leafCount", new Integer(leafCount));
         } catch(GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());             
+            return ServiceUtil.returnError(e.toString());             
         }
         return result;
     }
@@ -1108,7 +1114,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         
         } catch(GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());             
+            return ServiceUtil.returnError(e.toString());             
         }
         return result;
     }
@@ -1155,7 +1161,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             }
         } catch(GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.toString());
         }
             
         return results;
@@ -1201,7 +1207,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             }
         } catch(GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.toString());
         }
             
         return results;
@@ -1338,7 +1344,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
              results.put("_LIST_", lst);
         } catch(GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(e.getMessage());             
+            return ServiceUtil.returnError(e.toString());             
         }
         return results;
     }
@@ -1401,7 +1407,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 
                 ContentManagementWorker.updateStatsBottomUp(delegator, contentId, UtilMisc.toList(contentAssocTypeId), changeBranchCount, changeLeafCount);
             } catch(GenericEntityException e) {
-                    return ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.toString());
             }
         return result;
     }
@@ -1427,7 +1433,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 
                 ContentManagementWorker.updateStatsBottomUp(delegator, contentId, UtilMisc.toList(contentAssocTypeId), changeBranchCount, changeLeafCount);
             } catch(GenericEntityException e) {
-                    return ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.toString());
             }
         return result;
     }
@@ -1448,7 +1454,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         try {
             ContentManagementWorker.updateStatsTopDown(delegator, contentId, typeList);
         } catch(GenericEntityException e) {
-                return ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.toString());
         }
         return result;
     }
@@ -1476,7 +1482,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 hasExistingContentRole = true;
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.toString());
         }
         
         if (contentRole == null) {
@@ -1527,7 +1533,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 contentRole.create();
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.toString());
         }
         return result;
     }
@@ -1558,8 +1564,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 productContent = (GenericValue) listOrdered.get(0);   
             }
         } catch(GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
-            return ServiceUtil.returnError(e.getMessage());
+            Debug.logError(e.toString(), module);
+            return ServiceUtil.returnError(e.toString());
         }
         if (productContent == null) {
             String msg = "No ProductContent found for productId:" + productId;
@@ -1622,8 +1628,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 }
             }
         } catch(GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
-            return ServiceUtil.returnError(e.getMessage());
+            Debug.logError(e.toString(), module);
+            return ServiceUtil.returnError(e.toString());
         }
         return result;
     }
@@ -1656,8 +1662,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             GenericValue content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
             result = followNodeChildrenMethod(content, dispatcher, serviceName, ctx);
         } catch(GenericEntityException e) {
-            Debug.logError(e.getMessage(), module);
-            return ServiceUtil.returnError(e.getMessage());
+            Debug.logError(e.toString(), module);
+            return ServiceUtil.returnError(e.toString());
         }
         return result;
     }
@@ -1708,8 +1714,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
           try {
               dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", oldDataResourceId));
           } catch(GenericEntityException e) {
-              Debug.logError(e.getMessage(), module);
-              return ServiceUtil.returnError(e.getMessage());
+              Debug.logError(e.toString(), module);
+              return ServiceUtil.returnError(e.toString());
           }
       }
       
@@ -1755,8 +1761,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
           }
           
       } catch (GenericServiceException e) {
-          Debug.logError(e.getMessage(), module);
-          return ServiceUtil.returnError(e.getMessage());
+          Debug.logError(e.toString(), module);
+          return ServiceUtil.returnError(e.toString());
       }
       return result;
   }

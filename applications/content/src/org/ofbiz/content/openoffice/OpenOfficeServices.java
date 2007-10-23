@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.Random;
 import java.sql.Timestamp;
@@ -35,7 +36,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -65,7 +65,7 @@ public class OpenOfficeServices {
      * This value should be operating system dependent with "\\" separators for Windows
      * and "/" for Linux/Unix.
      */
-    public static Map convertDocumentByteWrapper(DispatchContext dctx, Map context) {
+    public static Map convertDocumentByteBuffer(DispatchContext dctx, Map context) {
         
         Map results = ServiceUtil.returnSuccess();
         GenericDelegator delegator = dctx.getDelegator();
@@ -79,7 +79,7 @@ public class OpenOfficeServices {
         File fileIn = null;
         File fileOut = null;
         
-        ByteWrapper inByteWrapper = (ByteWrapper) context.get("inByteWrapper");
+        ByteBuffer inByteBuffer = (ByteBuffer) context.get("inByteBuffer");
         String inputMimeType = (String) context.get("inputMimeType");
         String outputMimeType = (String) context.get("outputMimeType");
         String extName = OpenOfficeWorker.getExtensionFromMimeType(outputMimeType);
@@ -91,11 +91,11 @@ public class OpenOfficeServices {
         
         try {   
             xmulticomponentfactory = OpenOfficeWorker.getRemoteServer(oooHost, oooPort);
-            byte[] inByteArray = inByteWrapper.getBytes();
+            byte[] inByteArray = inByteBuffer.getBytes();
             
             // The following line work in linux, but not Windows or Mac environment. It is preferred because it does not use temporary files
             //OpenOfficeByteArrayInputStream oobais = new OpenOfficeByteArrayInputStream(inByteArray);
-            //Debug.logInfo("Doing convertDocumentByteWrapper, inBytes size is [" + inByteArray.length + "]", module);
+            //Debug.logInfo("Doing convertDocumentByteBuffer, inBytes size is [" + inByteArray.length + "]", module);
              //OpenOfficeByteArrayOutputStream baos = OpenOfficeWorker.convertOODocByteStreamToByteStream(xmulticomponentfactory, oobais, inputMimeType, outputMimeType);
             
             
@@ -115,7 +115,7 @@ public class OpenOfficeServices {
             }
             fis.close();
             
-            results.put("outByteWrapper", new ByteWrapper(baos.toByteArray()));
+            results.put("outByteBuffer", new ByteBuffer(baos.toByteArray()));
             baos.close();
 
         } catch (MalformedURLException e) {

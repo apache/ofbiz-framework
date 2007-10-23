@@ -737,7 +737,12 @@ public class SQLProcessor {
         if (field != null) {
             _ps.setBlob(_ind, field);
         } else {
-            _ps.setNull(_ind, Types.BLOB);
+            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperName);
+            if (datasourceInfo.useBinaryTypeForBlob) {
+                _ps.setNull(_ind, Types.BINARY);
+            } else {
+                _ps.setNull(_ind, Types.BLOB);
+            }
         }
         _ind++;
     }
@@ -791,6 +796,28 @@ public class SQLProcessor {
             }
         }
 
+        _ind++;
+    }
+    
+    /**
+     * Set the next binding variable of the currently active prepared statement
+     * to write the serialized data of 'field' to a Blob with the given bytes.
+     * 
+     * @param bytes
+     * 
+     * @throws SQLException
+     */
+    public void setBytes(byte[] bytes) throws SQLException {
+        if (bytes != null) {
+            _ps.setBytes(_ind, bytes);
+        } else {
+            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperName);
+            if (datasourceInfo.useBinaryTypeForBlob) {
+                _ps.setNull(_ind, Types.BINARY);
+            } else {
+                _ps.setNull(_ind, Types.BLOB);
+            }
+        }
         _ind++;
     }
 

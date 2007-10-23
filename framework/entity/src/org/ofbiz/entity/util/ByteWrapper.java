@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,15 +15,19 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.entity.util;
 
 import java.io.Serializable;
 
 /**
+ * @deprecated
+ * NOTE DEJ20071022: deprecating this because we want to save the byte[] directly instead of inside a serialized 
+ * object, which makes it hard for other apps to use the data, and causes problems if this object is ever updated
+ * 
  * A very simple class to wrap a byte array for persistence.
  */
-public class ByteWrapper implements Comparable<ByteWrapper>, Serializable {
+public class ByteWrapper implements Serializable {
     protected byte[] bytes;
 
     protected ByteWrapper() {}
@@ -42,29 +46,5 @@ public class ByteWrapper implements Comparable<ByteWrapper>, Serializable {
 
     public int getLength() {
         return bytes.length;
-    }
-
-    public int compareTo(ByteWrapper other) {
-        int r = bytes.length - other.bytes.length;
-        if (r != 0) return r;
-        int i = 0;
-        for (i = 0; i < bytes.length; i++) {
-            r = bytes[i] - other.bytes[i];
-            if (r != 0) return r;
-        }
-        return 0;
-    }
-
-    public boolean equals(Object obj) {
-        if (obj instanceof ByteWrapper) return compareTo((ByteWrapper) obj) == 0;
-        return false;
-    }
-
-    public int hashCode() {
-        int hashCode = 0;
-        for (byte b: bytes) {
-            hashCode ^= b;
-        }
-        return hashCode;
     }
 }
