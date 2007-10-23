@@ -214,6 +214,8 @@ under the License.
     <ProductContentType description="Special Instructions" hasTable="N" parentTypeId="" productContentTypeId="SPECIALINSTRUCTIONS"/>
     <ProductContentType description="Warnings" hasTable="N" parentTypeId="" productContentTypeId="WARNINGS"/>
     <ProductContentType description="Directions" hasTable="N" parentTypeId="" productContentTypeId="DIRECTIONS"/>
+    <ProductContentType description="Terms and Conditions" hasTable="N" parentTypeId="" productContentTypeId="TERMS_AND_CONDS"/>
+    <ProductContentType description="Delivery Info" hasTable="N" parentTypeId="" productContentTypeId="DELIVERY_INFO"/>
     <ProductContentType description="Image - Small" hasTable="N" parentTypeId="" productContentTypeId="SMALL_IMAGE_URL"/>
     <ProductContentType description="Image - Medium" hasTable="N" parentTypeId="" productContentTypeId="MEDIUM_IMAGE_URL"/>
     <ProductContentType description="Image - Large" hasTable="N" parentTypeId="" productContentTypeId="LARGE_IMAGE_URL"/>
