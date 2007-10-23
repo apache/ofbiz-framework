@@ -40,7 +40,7 @@ under the License.
         <required-permissions join-type="AND">
             <check-permission permission="PARTYMGR" action="_CREATE"/>
         </required-permissions>
-        <attribute name="uploadedFile" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="false"/>
+        <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="false"/>
         <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
     </service>
@@ -684,7 +684,7 @@ under the License.
         location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyContent" auth="false">
         <description>Create Party Associated Content</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="uploadedFile" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="true"/>
+        <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="true"/>
         <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
         <attribute name="dataCategoryId" type="String" mode="IN" optional="true"/>
@@ -698,7 +698,7 @@ under the License.
         <description>Update a Party Content</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="uploadedFile" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="true"/>
+        <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="true"/>
         <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
         <attribute mode="IN" name="partyId" optional="true" type="String"/>        

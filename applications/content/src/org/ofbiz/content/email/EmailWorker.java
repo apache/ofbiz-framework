@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
@@ -34,7 +35,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.entity.util.ByteWrapper;
 
 public class EmailWorker {
 
@@ -107,8 +107,8 @@ public class EmailWorker {
                         while ((c = is.read()) > -1) {
                             baos.write(c);
                         }
-                        ByteWrapper imageData = new ByteWrapper(baos.toByteArray());
-                        int len = imageData.getLength();
+                        ByteBuffer imageData = ByteBuffer.wrap(baos.toByteArray());
+                        int len = imageData.limit();
                         if (Debug.infoOn()) Debug.logInfo("imageData length: " + len, module);
                         commEventMap.put("drDataResourceName", part.getFileName());
                         commEventMap.put("imageData", imageData);

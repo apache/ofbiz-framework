@@ -306,7 +306,7 @@ under the License.
         <description>Create a Survey and related entities from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
         <attribute name="contentId" type="String" mode="IN" optional="true" />
-        <attribute name="inputByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="true" />
+        <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true" />
         <attribute name="surveyName" type="String" mode="IN" optional="true" />
         <attribute name="surveyId" type="String" mode="INOUT" optional="true"/>
     </service>
@@ -316,7 +316,7 @@ under the License.
         <description>Create a Survey and related entities from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
         <attribute name="contentId" type="String" mode="IN" optional="true" />
-        <attribute name="inputByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="true" />
+        <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true" />
         <attribute name="surveyId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="surveyResponseId" type="String" mode="INOUT" optional="true"/>
@@ -327,7 +327,7 @@ under the License.
         <description>Get fields from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
         <attribute name="contentId" type="String" mode="IN" optional="true" />
-        <attribute name="inputByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="true" />
+        <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true" />
         <attribute name="acroFieldMap" type="Map" mode="OUT" optional="false"/>
     </service>
 
@@ -336,9 +336,9 @@ under the License.
         <description>Get fields from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
         <attribute name="contentId" type="String" mode="IN" optional="true" />
-        <attribute name="inputByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="true" />
+        <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true" />
         <attribute name="surveyResponseId" type="String" mode="IN" optional="false" />
-        <attribute name="outByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="OUT" optional="true" />
+        <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="true" />
     </service>
 
     <service name="setAcroFields" engine="java" 
@@ -346,16 +346,16 @@ under the License.
         <description>Get fields from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
         <attribute name="contentId" type="String" mode="IN" optional="true" />
-        <attribute name="inputByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="IN" optional="true" />
+        <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true" />
         <attribute name="acroFieldMap" type="Map" mode="IN" optional="false"/>
-        <attribute name="outByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="OUT" optional="true" />
+        <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="true" />
     </service>
 
     <service name="buildPdfFromSurveyResponse" engine="java" 
             location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildPdfFromSurveyResponse" auth="false">
         <description>Build Pdf From Survey Response</description>
         <attribute name="surveyResponseId" type="String" mode="IN" optional="false" />
-        <attribute name="outByteWrapper" type="org.ofbiz.entity.util.ByteWrapper" mode="OUT" optional="false" />
+        <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="false" />
     </service>    
     <service name="buildSurveyQuestionsAndAnswers" engine="java" 
             location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyQuestionsAndAnswers" auth="false">

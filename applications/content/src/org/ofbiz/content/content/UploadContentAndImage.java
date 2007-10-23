@@ -41,7 +41,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMapProcessor;
@@ -276,7 +275,7 @@ public class UploadContentAndImage {
                 imgContext.put("dataResourceTypeId", dataResourceTypeId);
                 imgContext.put("contentIdTo", ftlContentId);
                 imgContext.put("contentAssocTypeId", "SUB_CONTENT");
-                imgContext.put("imageData", new ByteWrapper(imageBytes));
+                imgContext.put("imageData", imageBytes);
                 imgContext.put("mapKey", "IMAGE");
                 imgContext.put("dataTemplateTypeId", "NONE");
                 String rootDir = request.getSession().getServletContext().getRealPath("/");
@@ -489,9 +488,8 @@ public class UploadContentAndImage {
 
             ftlContext.put("textData", passedParams.get("textData" + suffix));
             byte[] bytes = (byte[])passedParams.get("imageData" + suffix);
-            ByteWrapper byteWrapper = new ByteWrapper(bytes);
-            ftlContext.put("imageData", byteWrapper);
-            if (Debug.infoOn()) Debug.logInfo("[UploadContentStuff]byteWrapper:" + byteWrapper, module);
+            ftlContext.put("imageData", bytes);
+            //if (Debug.infoOn()) Debug.logInfo("[UploadContentStuff]byteBuffer:" + bytes, module);
             //contentAssocDataResourceViewFrom.setAllFields(ftlContext2, true, null, null);
             //ftlContext.putAll(ftlContext2);             
             if (Debug.infoOn()) Debug.logInfo("[UploadContentStuff]ftlContext:" + ftlContext, module);

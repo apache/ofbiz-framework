@@ -26,6 +26,7 @@ import java.io.StringWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Writer;
+import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
@@ -179,7 +179,7 @@ public class DataServices {
             //GenericValue dataResource = (GenericValue) context.get("dataResource");
             String dataResourceTypeId = (String) context.get("dataResourceTypeId");
             String objectInfo = (String) context.get("objectInfo");
-            ByteWrapper binData = (ByteWrapper) context.get("binData");
+            ByteBuffer binData = (ByteBuffer) context.get("binData");
             String textData = (String) context.get("textData");
 
             // a few place holders
@@ -228,7 +228,7 @@ public class DataServices {
             } else if (binData != null) {
                 try {
                     RandomAccessFile out = new RandomAccessFile(file, "rw");
-                    out.write(binData.getBytes());
+                    out.write(binData.array());
                     out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, module);
@@ -381,7 +381,7 @@ public class DataServices {
             String dataResourceTypeId = (String) context.get("dataResourceTypeId");
             String objectInfo = (String) context.get("objectInfo");
             String textData = (String) context.get("textData");
-            ByteWrapper binData = (ByteWrapper) context.get("binData");
+            ByteBuffer binData = (ByteBuffer) context.get("binData");
             String prefix = "";
             File file = null;
             String fileName = "";
@@ -426,7 +426,7 @@ public class DataServices {
             } else if (binData != null) {
                 try {
                     RandomAccessFile out = new RandomAccessFile(file, "rw");
-                    out.write(binData.getBytes());
+                    out.write(binData.array());
                     out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, module);
@@ -495,9 +495,9 @@ public class DataServices {
         GenericDelegator delegator = dctx.getDelegator();
         //Locale locale = (Locale) context.get("locale");
             String dataResourceId = (String) context.get("dataResourceId");
-            ByteWrapper byteWrapper = (ByteWrapper)context.get("imageData");
-            if (byteWrapper != null) {
-                byte[] imageBytes = byteWrapper.getBytes();
+            ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
+            if (byteBuffer != null) {
+                byte[] imageBytes = byteBuffer.array();
                 try {
                     GenericValue imageDataResource = delegator.findByPrimaryKey("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
                     if (Debug.infoOn()) Debug.logInfo("imageDataResource(U):" + imageDataResource, module);
@@ -528,9 +528,9 @@ public class DataServices {
         HashMap result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
             String dataResourceId = (String) context.get("dataResourceId");
-            ByteWrapper byteWrapper = (ByteWrapper)context.get("imageData");
-            if (byteWrapper != null) {
-                byte[] imageBytes = byteWrapper.getBytes();
+            ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
+            if (byteBuffer != null) {
+                byte[] imageBytes = byteBuffer.array();
                 try {
                     GenericValue imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
                     //imageDataResource.set("imageData", imageBytes);

@@ -751,7 +751,7 @@
             </if-compare>
             <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CONTENT">
                 <!-- <log level="always" message="Found CONTENT type question"/> -->
-                <if-instance-of field-name="answers.${currentFieldName}" class="org.ofbiz.entity.util.ByteWrapper">
+                <if-instance-of field-name="answers.${currentFieldName}" class="java.nio.ByteBuffer">
                     <set from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_contentType" field="partyContent._uploadedFile_contentType"/>
                     <set from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_fileName" field="partyContent._uploadedFile_fileName"/>
                     <set from-field="answers.${currentFieldName}" field="partyContent.uploadedFile"/>

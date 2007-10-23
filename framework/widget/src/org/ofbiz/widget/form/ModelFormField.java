@@ -625,8 +625,16 @@ public class ModelFormField {
         if ((Boolean.TRUE.equals(isError) && !Boolean.FALSE.equals(useRequestParameters)) || (Boolean.TRUE.equals(useRequestParameters))) {
             //Debug.logInfo("Getting entry, isError true so getting from parameters for field " + this.getName() + " of form " + this.modelForm.getName(), module);
             Map parameters = (Map) context.get("parameters");
-            if (parameters != null && parameters.get(this.getParameterName(context)) != null) {
-                return (String) parameters.get(this.getParameterName(context));
+            String parameterName = this.getParameterName(context);
+            if (parameters != null && parameters.get(parameterName) != null) {
+                Object parameterValue = parameters.get(parameterName);
+                if (parameterValue instanceof String) {
+                    return (String) parameterValue;
+                } else {
+                    // we might want to do something else here in the future, but for now this is probably best
+                    Debug.logWarning("Found a non-String parameter value for field [" + this.getModelForm().getName() + "." + this.getFieldName() + "]", module);
+                    return defaultValue;
+                }
             } else {
                 return defaultValue;
             }

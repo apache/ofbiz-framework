@@ -19,6 +19,7 @@
 package org.ofbiz.common;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -35,7 +36,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -330,9 +330,9 @@ public class CommonServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map byteWrapperTest(DispatchContext dctx, Map context) {
-        ByteWrapper wrapper1 = (ByteWrapper) context.get("byteWrapper1");
-        ByteWrapper wrapper2 = (ByteWrapper) context.get("byteWrapper2");
+    public static Map byteBufferTest(DispatchContext dctx, Map context) {
+        ByteBuffer buffer1 = (ByteBuffer) context.get("byteBuffer1");
+        ByteBuffer buffer2 = (ByteBuffer) context.get("byteBuffer2");
         String fileName1 = (String) context.get("saveAsFileName1");
         String fileName2 = (String) context.get("saveAsFileName2");
         String ofbizHome = System.getProperty("ofbiz.home");
@@ -342,8 +342,8 @@ public class CommonServices {
         try {
             RandomAccessFile file1 = new RandomAccessFile(outputPath1, "rw");
             RandomAccessFile file2 = new RandomAccessFile(outputPath2, "rw");
-            file1.write(wrapper1.getBytes());
-            file2.write(wrapper2.getBytes());
+            file1.write(buffer1.array());
+            file2.write(buffer2.array());
         } catch (FileNotFoundException e) {
             Debug.logError(e, module);
         } catch (IOException e) {
@@ -357,12 +357,12 @@ public class CommonServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
-        ByteWrapper wrapper = (ByteWrapper) context.get("uploadFile");
+        byte[] array = (byte[]) context.get("uploadFile");
         String fileName = (String) context.get("_uploadFile_fileName");
         String contentType = (String) context.get("_uploadFile_contentType");
 
         Map createCtx = new HashMap();
-        createCtx.put("binData", wrapper);
+        createCtx.put("binData", array);
         createCtx.put("dataResourceTypeId", "OFBIZ_FILE");
         createCtx.put("dataResourceName", fileName);
         createCtx.put("dataCategoryId", "PERSONAL");

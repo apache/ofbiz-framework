@@ -20,6 +20,7 @@ package org.ofbiz.content.compdoc;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -40,7 +41,6 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
@@ -151,7 +151,7 @@ public class CompDocEvents {
 
     public static String genCompDocPdf(HttpServletRequest request, HttpServletResponse response) {
         String responseStr = "success";
-        //ByteWrapper byteWrapper = null;
+        //ByteBuffer byteBuffer = null;
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
@@ -200,23 +200,23 @@ public class CompDocEvents {
             return "error";
         }
         
-        ByteWrapper outByteWrapper = (ByteWrapper)results.get("outByteWrapper");
+        ByteBuffer outByteBuffer = (ByteBuffer) results.get("outByteBuffer");
 
         // setup content type
         String contentType = "application/pdf; charset=ISO-8859-1";
 
-        ByteArrayInputStream bais = new ByteArrayInputStream(outByteWrapper.getBytes());
+        ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array());
         
         /*
         try {
             FileOutputStream fos = new FileOutputStream("/home/byersa/pdftest.pdf");
-            fos.write(outByteWrapper.getBytes());
+            fos.write(outByteBuffer.getBytes());
         } catch(FileNotFoundException e) {
         } catch(IOException e) {
         }
         */
         try {
-            UtilHttp.streamContentToBrowser(response, bais, outByteWrapper.getLength(), contentType);
+            UtilHttp.streamContentToBrowser(response, bais, outByteBuffer.limit(), contentType);
         } catch(IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
@@ -225,7 +225,7 @@ public class CompDocEvents {
     }
     public static String genContentPdf(HttpServletRequest request, HttpServletResponse response) {
         String responseStr = "success";
-        //ByteWrapper byteWrapper = null;
+        //ByteBuffer byteBuffer = null;
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         ServletContext servletContext = session.getServletContext();
@@ -274,24 +274,24 @@ public class CompDocEvents {
             return "error";
         }
         
-        ByteWrapper outByteWrapper = (ByteWrapper)results.get("outByteWrapper");
+        ByteBuffer outByteBuffer = (ByteBuffer) results.get("outByteBuffer");
 
         // setup content type
         String contentType = "application/pdf; charset=ISO-8859-1";
 
-        ByteArrayInputStream bais = new ByteArrayInputStream(outByteWrapper.getBytes());
+        ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array());
         
         /*
         try {
             FileOutputStream fos = new FileOutputStream("/home/byersa/pdftest.pdf");
-            fos.write(outByteWrapper.getBytes());
+            fos.write(outByteBuffer.getBytes());
             fos.close();
         } catch(FileNotFoundException e) {
         } catch(IOException e) {
         }
         */
         try {
-            UtilHttp.streamContentToBrowser(response, bais, outByteWrapper.getLength(), contentType);
+            UtilHttp.streamContentToBrowser(response, bais, outByteBuffer.limit(), contentType);
         } catch(IOException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";

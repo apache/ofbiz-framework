@@ -20,6 +20,7 @@ package org.ofbiz.content.compdoc;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +41,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -199,12 +199,12 @@ public class CompDocServices {
                 byte [] inputByteArray = null;
                 PdfReader reader = null;
                 if (inputMimeType != null && inputMimeType.equals("application/pdf")) {
-                    ByteWrapper byteWrapper = DataResourceWorker.getContentAsByteWrapper(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
-                    inputByteArray = byteWrapper.getBytes();
+                    ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
+                    inputByteArray = byteBuffer.array();
                     reader = new PdfReader(inputByteArray);
                 } else if (inputMimeType != null && inputMimeType.equals("text/html")) {
-                    ByteWrapper byteWrapper = DataResourceWorker.getContentAsByteWrapper(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
-                    inputByteArray = byteWrapper.getBytes();
+                    ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
+                    inputByteArray = byteBuffer.array();
                     String s = new String(inputByteArray);
                     Debug.logInfo("text/html string:" + s, module);
                     continue;
@@ -236,8 +236,8 @@ public class CompDocServices {
                                 return ServiceUtil.returnError("Error building PDF from SurveyResponse: ", null, null, survey2PdfResults);
                             }
 
-                            ByteWrapper outByteWrapper = (ByteWrapper)survey2PdfResults.get("outByteWrapper");
-                            inputByteArray = outByteWrapper.getBytes();
+                            ByteBuffer outByteBuffer = (ByteBuffer) survey2PdfResults.get("outByteBuffer");
+                            inputByteArray = outByteBuffer.array();
                             reader = new PdfReader(inputByteArray);
                         } else {
                             // Fill in acroForm
@@ -246,26 +246,26 @@ public class CompDocServices {
                                 return ServiceUtil.returnError("Error setting AcroFields from SurveyResponse: ", null, null, survey2AcroFieldResults);
                             }
 
-                            ByteWrapper outByteWrapper = (ByteWrapper) survey2AcroFieldResults.get("outByteWrapper");
-                            inputByteArray = outByteWrapper.getBytes();
+                            ByteBuffer outByteBuffer = (ByteBuffer) survey2AcroFieldResults.get("outByteBuffer");
+                            inputByteArray = outByteBuffer.array();
                             reader = new PdfReader(inputByteArray);
                         }
                     }
                 } else {
-                    ByteWrapper inByteWrapper = DataResourceWorker.getContentAsByteWrapper(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
+                    ByteBuffer inByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, thisDataResourceId, https, webSiteId, locale, rootDir);
 
-                    Map convertInMap = UtilMisc.toMap("userLogin", userLogin, "inByteWrapper", inByteWrapper, "inputMimeType", inputMimeType, "outputMimeType", "application/pdf");
+                    Map convertInMap = UtilMisc.toMap("userLogin", userLogin, "inByteBuffer", inByteBuffer, "inputMimeType", inputMimeType, "outputMimeType", "application/pdf");
                     if (UtilValidate.isNotEmpty(oooHost)) convertInMap.put("oooHost", oooHost);
                     if (UtilValidate.isNotEmpty(oooPort)) convertInMap.put("oooPort", oooPort);
 
-                    Map convertResult = dispatcher.runSync("convertDocumentByteWrapper", convertInMap);
+                    Map convertResult = dispatcher.runSync("convertDocumentByteBuffer", convertInMap);
                     
                     if (ServiceUtil.isError(convertResult)) {
                         return ServiceUtil.returnError("Error in Open", null, null, convertResult);
                     }
 
-                    ByteWrapper outByteWrapper = (ByteWrapper) convertResult.get("outByteWrapper");
-                    inputByteArray = outByteWrapper.getBytes();
+                    ByteBuffer outByteBuffer = (ByteBuffer) convertResult.get("outByteBuffer");
+                    inputByteArray = outByteBuffer.array();
                     reader = new PdfReader(inputByteArray);
                 }
                 if (reader != null) {
@@ -279,10 +279,10 @@ public class CompDocServices {
                 }
             }
             document.close();
-            ByteWrapper outByteWrapper = new ByteWrapper(baos.toByteArray());
+            ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
 
             Map results = ServiceUtil.returnSuccess();
-            results.put("outByteWrapper", outByteWrapper);
+            results.put("outByteBuffer", outByteBuffer);
             return results;
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
@@ -347,11 +347,11 @@ public class CompDocServices {
             }
             byte [] inputByteArray = null;
             if (inputMimeType != null && inputMimeType.equals("application/pdf")) {
-                ByteWrapper byteWrapper = DataResourceWorker.getContentAsByteWrapper(delegator, dataResourceId, https, webSiteId, locale, rootDir);
-                inputByteArray = byteWrapper.getBytes();
+                ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
+                inputByteArray = byteBuffer.array();
             } else if (inputMimeType != null && inputMimeType.equals("text/html")) {
-                ByteWrapper byteWrapper = DataResourceWorker.getContentAsByteWrapper(delegator, dataResourceId, https, webSiteId, locale, rootDir);
-                inputByteArray = byteWrapper.getBytes();
+                ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
+                inputByteArray = byteBuffer.array();
                 String s = new String(inputByteArray);
                 Debug.logInfo("text/html string:" + s, module);
             } else if (inputMimeType != null && inputMimeType.equals("application/vnd.ofbiz.survey.response")) {
@@ -383,8 +383,8 @@ public class CompDocServices {
                             return ServiceUtil.returnError("Error building PDF from SurveyResponse: ", null, null, survey2PdfResults);
                         }
 
-                        ByteWrapper outByteWrapper = (ByteWrapper)survey2PdfResults.get("outByteWrapper");
-                        inputByteArray = outByteWrapper.getBytes();
+                        ByteBuffer outByteBuffer = (ByteBuffer)survey2PdfResults.get("outByteBuffer");
+                        inputByteArray = outByteBuffer.array();
                     } else {
                         // Fill in acroForm
                         Map survey2AcroFieldResults = dispatcher.runSync("setAcroFieldsFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
@@ -392,30 +392,30 @@ public class CompDocServices {
                             return ServiceUtil.returnError("Error setting AcroFields from SurveyResponse: ", null, null, survey2AcroFieldResults);
                         }
 
-                        ByteWrapper outByteWrapper = (ByteWrapper) survey2AcroFieldResults.get("outByteWrapper");
-                        inputByteArray = outByteWrapper.getBytes();
+                        ByteBuffer outByteBuffer = (ByteBuffer) survey2AcroFieldResults.get("outByteBuffer");
+                        inputByteArray = outByteBuffer.array();
                     }
                 }
             } else {
-                ByteWrapper inByteWrapper = DataResourceWorker.getContentAsByteWrapper(delegator, dataResourceId, https, webSiteId, locale, rootDir);
+                ByteBuffer inByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 
-                Map convertInMap = UtilMisc.toMap("userLogin", userLogin, "inByteWrapper", inByteWrapper, 
+                Map convertInMap = UtilMisc.toMap("userLogin", userLogin, "inByteBuffer", inByteBuffer, 
                         "inputMimeType", inputMimeType, "outputMimeType", "application/pdf");
                 if (UtilValidate.isNotEmpty(oooHost)) convertInMap.put("oooHost", oooHost);
                 if (UtilValidate.isNotEmpty(oooPort)) convertInMap.put("oooPort", oooPort);
 
-                Map convertResult = dispatcher.runSync("convertDocumentByteWrapper", convertInMap);
+                Map convertResult = dispatcher.runSync("convertDocumentByteBuffer", convertInMap);
                 
                 if (ServiceUtil.isError(convertResult)) {
                     return ServiceUtil.returnError("Error in Open", null, null, convertResult);
                 }
 
-                ByteWrapper outByteWrapper = (ByteWrapper) convertResult.get("outByteWrapper");
-                inputByteArray = outByteWrapper.getBytes();
+                ByteBuffer outByteBuffer = (ByteBuffer) convertResult.get("outByteBuffer");
+                inputByteArray = outByteBuffer.array();
             }
             
-            ByteWrapper outByteWrapper = new ByteWrapper(inputByteArray);
-            results.put("outByteWrapper", outByteWrapper);
+            ByteBuffer outByteBuffer = ByteBuffer.wrap(inputByteArray);
+            results.put("outByteBuffer", outByteBuffer);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
         } catch (IOException e) {

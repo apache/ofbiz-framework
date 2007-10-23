@@ -21,8 +21,8 @@ under the License.
 <fieldtypemodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/fieldtypemodel.xsd">
   <!-- ===================== field-type-def ==================== -->
-   <!-- General Types --> 
-    <field-type-def type="blob" sql-type="BLOB" java-type="java.lang.Object"></field-type-def>
+    <!-- General Types --> 
+    <field-type-def type="blob" sql-type="BLOB" java-type="java.sql.Blob"></field-type-def>
     
     <field-type-def type="date-time" sql-type="TIMESTAMP" sql-type-alias="TIMESTAMP(6)" java-type="java.sql.Timestamp"></field-type-def>
     <field-type-def type="date" sql-type="DATE" java-type="java.sql.Date"></field-type-def>
@@ -48,7 +48,7 @@ under the License.
     <field-type-def type="name" sql-type="VARCHAR2(100)" java-type="String"></field-type-def>
     <field-type-def type="value" sql-type="VARCHAR2(255)" java-type="String"></field-type-def>
 
-   <!-- Specialized Types -->
+    <!-- Specialized Types -->
     <field-type-def type="credit-card-number" sql-type="VARCHAR2(255)" java-type="String"><validate method="isAnyCard" /></field-type-def>
     <field-type-def type="credit-card-date" sql-type="VARCHAR2(20)" java-type="String"><validate method="isDateAfterToday" /></field-type-def>
     <field-type-def type="email" sql-type="VARCHAR2(255)" java-type="String"><validate method="isEmail" /></field-type-def>

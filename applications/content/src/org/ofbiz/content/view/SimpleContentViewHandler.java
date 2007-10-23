@@ -20,6 +20,8 @@ package org.ofbiz.content.view;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +37,6 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
@@ -70,7 +71,7 @@ public class SimpleContentViewHandler implements ViewHandler {
     	String dataResourceId = request.getParameter("dataResourceId");
         String contentRevisionSeqId = request.getParameter("contentRevisionSeqId");
         String mimeTypeId = request.getParameter("mimeTypeId");
-        ByteWrapper byteWrapper = null;
+        ByteBuffer byteBuffer = null;
         Locale locale = UtilHttp.getLocale(request);
         String rootDir = null;
         String webSiteId = null;
@@ -125,8 +126,8 @@ public class SimpleContentViewHandler implements ViewHandler {
                 }
     		}
 			GenericValue dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-    		byteWrapper = DataResourceWorker.getContentAsByteWrapper(delegator, dataResourceId, https, webSiteId, locale, rootDir);
-    		ByteArrayInputStream bais = new ByteArrayInputStream(byteWrapper.getBytes());
+    		byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
+    		ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer.array());
             // hack for IE and mime types
             //String userAgent = request.getHeader("User-Agent");
             //if (userAgent.indexOf("MSIE") > -1) {
@@ -146,7 +147,7 @@ public class SimpleContentViewHandler implements ViewHandler {
             // setup content type
             String contentType2 = UtilValidate.isNotEmpty(mimeTypeId) ? mimeTypeId + "; charset=" +charset : contentType;
 
-            UtilHttp.streamContentToBrowser(response, bais, byteWrapper.getLength(), contentType2);
+            UtilHttp.streamContentToBrowser(response, bais, byteBuffer.limit(), contentType2);
     	} catch(GenericEntityException e) {
             throw new ViewHandlerException(e.getMessage());
     	} catch(IOException e) {

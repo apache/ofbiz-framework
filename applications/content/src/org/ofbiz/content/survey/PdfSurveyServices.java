@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,7 +43,6 @@ import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -83,8 +83,8 @@ public class PdfSurveyServices {
         try {
             String surveyName = (String) context.get("surveyName");
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ByteWrapper byteWrapper = getInputByteWrapper(context, delegator);
-            PdfReader pdfReader = new PdfReader(byteWrapper.getBytes());
+            ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
+            PdfReader pdfReader = new PdfReader(byteBuffer.array());
             PdfStamper pdfStamper = new PdfStamper(pdfReader, os);
             AcroFields acroFields = pdfStamper.getAcroFields();
             HashMap acroFieldMap = acroFields.getFields();
@@ -265,8 +265,8 @@ public class PdfSurveyServices {
             }
             
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ByteWrapper byteWrapper = getInputByteWrapper(context, delegator);
-            PdfReader r = new PdfReader(byteWrapper.getBytes());
+            ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
+            PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r,os);
             AcroFields fs = s.getAcroFields();
             HashMap hm = fs.getFields();
@@ -323,8 +323,8 @@ public class PdfSurveyServices {
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             GenericDelegator delegator = dctx.getDelegator();
-            ByteWrapper byteWrapper = getInputByteWrapper(context, delegator);
-            PdfReader r = new PdfReader(byteWrapper.getBytes());
+            ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
+            PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r,os);
             AcroFields fs = s.getAcroFields();
             HashMap map = fs.getFields();
@@ -367,8 +367,8 @@ public class PdfSurveyServices {
         GenericDelegator delegator = dctx.getDelegator();
         try {
             Map acroFieldMap = (Map)context.get("acroFieldMap");
-            ByteWrapper byteWrapper = getInputByteWrapper(context, delegator);
-            PdfReader r = new PdfReader(byteWrapper.getBytes());
+            ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
+            PdfReader r = new PdfReader(byteBuffer.array());
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfStamper s = new PdfStamper(r, baos);
             AcroFields fs = s.getAcroFields();
@@ -405,8 +405,8 @@ public class PdfSurveyServices {
                  
             s.close();
             baos.close();
-            ByteWrapper outByteWrapper = new ByteWrapper(baos.toByteArray());
-            results.put("outByteWrapper", outByteWrapper);
+            ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
+            results.put("outByteBuffer", outByteBuffer);
         } catch(DocumentException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
@@ -486,8 +486,8 @@ public class PdfSurveyServices {
                 Paragraph p = new Paragraph(chunk);
                 document.add(p);
             }
-            ByteWrapper outByteWrapper = new ByteWrapper(baos.toByteArray());
-            results.put("outByteWrapper", outByteWrapper);
+            ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
+            results.put("outByteBuffer", outByteBuffer);
         } catch (GenericEntityException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
@@ -609,12 +609,12 @@ public class PdfSurveyServices {
                 System.err.println(errMsg);
                 ServiceUtil.returnError(errMsg);
             }
-            String pdfFileNameOut = (String)context.get("pdfFileNameOut");
-            ByteWrapper outByteWrapper = (ByteWrapper)map.get("outByteWrapper");
-            results.put("outByteWrapper", outByteWrapper);
+            String pdfFileNameOut = (String) context.get("pdfFileNameOut");
+            ByteBuffer outByteBuffer = (ByteBuffer) map.get("outByteBuffer");
+            results.put("outByteBuffer", outByteBuffer);
             if (UtilValidate.isNotEmpty(pdfFileNameOut)) {
                 FileOutputStream fos = new FileOutputStream(pdfFileNameOut);
-                fos.write(outByteWrapper.getBytes());
+                fos.write(outByteBuffer.array());
                 fos.close();
             }
         } catch(FileNotFoundException e) {
@@ -631,11 +631,11 @@ public class PdfSurveyServices {
     return results;
     }
     
-    public static ByteWrapper getInputByteWrapper(Map context, GenericDelegator delegator) throws GeneralException {
+    public static ByteBuffer getInputByteBuffer(Map context, GenericDelegator delegator) throws GeneralException {
         
-        ByteWrapper inputByteWrapper = (ByteWrapper)context.get("inputByteWrapper");
+        ByteBuffer inputByteBuffer = (ByteBuffer)context.get("inputByteBuffer");
         
-        if (inputByteWrapper == null) {
+        if (inputByteBuffer == null) {
             String pdfFileNameIn = (String)context.get("pdfFileNameIn");
             String contentId = (String)context.get("contentId");
             if (UtilValidate.isNotEmpty(pdfFileNameIn)) {
@@ -644,7 +644,7 @@ public class PdfSurveyServices {
                     int c;
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     while ((c = fis.read()) != -1) baos.write(c);
-                    inputByteWrapper = new ByteWrapper(baos.toByteArray());
+                    inputByteBuffer = ByteBuffer.wrap(baos.toByteArray());
                 } catch(FileNotFoundException e) {
                     throw(new GeneralException(e.getMessage()));
                 } catch(IOException e) {
@@ -658,7 +658,7 @@ public class PdfSurveyServices {
                     String rootDir = (String)context.get("rootDir");
                     GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
                     String dataResourceId = content.getString("dataResourceId");
-                    inputByteWrapper = DataResourceWorker.getContentAsByteWrapper(delegator, dataResourceId, https, webSiteId, locale, rootDir);
+                    inputByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 } catch (GenericEntityException e) {
                     throw(new GeneralException(e.getMessage()));
                 } catch (IOException e) {
@@ -666,6 +666,6 @@ public class PdfSurveyServices {
                 }
             }
         }
-        return inputByteWrapper;
+        return inputByteBuffer;
     }
 }

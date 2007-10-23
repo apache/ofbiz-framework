@@ -84,7 +84,7 @@ under the License.
         </call-class-method>
         
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
-              method-name="returnByteWrapper"
+              method-name="returnByteBuffer"
               ret-field-name="byteWrap"
            >
              <field field-name="formInput" type="java.util.Map"/>
@@ -111,7 +111,7 @@ under the License.
         </call-class-method>
         
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
-              method-name="returnByteWrapper"
+              method-name="returnByteBuffer"
               ret-field-name="byteWrap"
            >
              <field field-name="formInput" type="java.util.Map"/>

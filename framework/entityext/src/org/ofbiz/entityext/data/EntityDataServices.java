@@ -24,10 +24,12 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.security.Security;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilURL;
@@ -444,5 +446,39 @@ public class EntityDataServices {
         Map result = ServiceUtil.returnSuccess();
         result.put("messages", messages);
         return result;
+    }
+    
+    public static Map unwrapByteWrappers(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        String entityName = (String) context.get("entityName");
+        String fieldName = (String) context.get("fieldName");
+        
+        EntityListIterator eli = null;
+        try {
+            eli = delegator.findListIteratorByCondition(entityName, null, null, null);
+            GenericValue currentValue;
+            while ((currentValue = eli.next()) != null) {
+                byte[] bytes = currentValue.getBytes(fieldName);
+                if (bytes != null) {
+                    currentValue.setBytes(fieldName, bytes);
+                    currentValue.store();
+                }
+            }
+        } catch (GenericEntityException e) {
+            String errMsg = "Error unwrapping ByteWrapper records: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        } finally {
+            if (eli != null) {
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    String errMsg = "Error closing EntityListIterator: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                }
+            }
+        }
+       
+        return ServiceUtil.returnSuccess();
     }
 }

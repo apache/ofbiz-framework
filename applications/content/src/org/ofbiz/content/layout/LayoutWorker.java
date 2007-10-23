@@ -19,15 +19,16 @@
 package org.ofbiz.content.layout;
 
 import java.io.File;
-import java.util.HashMap;
+import java.nio.ByteBuffer;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.ofbiz.service.ServiceUtil;
 
 import org.apache.commons.fileupload.FileItem;
@@ -53,8 +54,8 @@ public class LayoutWorker {
         //Debug.logVerbose("in uploadAndStoreImage", "");
         Locale locale = UtilHttp.getLocale(request);
         
-        HashMap results = new HashMap();
-        HashMap formInput = new HashMap();
+        Map results = FastMap.newInstance();
+        Map formInput = FastMap.newInstance();
         results.put("formInput", formInput);
         ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File("runtime/tmp")));
         java.util.List lst = null;
@@ -96,20 +97,11 @@ public class LayoutWorker {
         }
 
         byte[] imageBytes = imageFi.get();
-        ByteWrapper byteWrap = new ByteWrapper(imageBytes);
+        ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
         results.put("imageData", byteWrap);
         results.put("imageFileName", imageFi.getName());
       
         //Debug.logVerbose("in uploadAndStoreImage, results:" + results, "");
         return results;
-
     }
-
-
-    public static ByteWrapper returnByteWrapper(Map map) {
-
-        ByteWrapper byteWrap = (ByteWrapper)map.get("imageData");
-        return byteWrap;
-    }
-
 }
