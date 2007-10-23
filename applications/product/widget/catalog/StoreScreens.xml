@@ -100,14 +100,37 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStorePromos.bsh"/>
+                <set field="userEntered" from-field="parameters.userEntered"/>
+                <set field="activeOnly" from-field="parameters.activeOnly" default-value="true"/>
+                <entity-condition entity-name="ProductStorePromoAndAppl" list-name="productStorePromoAndAppls" filter-by-date="${activeOnly}">
+                    <condition-list combine="and">
+                        <condition-expr field-name="userEntered" env-name="userEntered" ignore-if-empty="true"/>
+                        <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    </condition-list>
+                    <order-by field-name="sequenceNum"/>
+                    <order-by field-name="productPromoId"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/store/EditProductStorePromos.ftl"/></html>
-                        </platform-specific>
+                        <container>
+                            <label style="head3">${uiLabelMap.CommonView}</label>
+                            <link target="EditProductStorePromos?productStoreId=${productStoreId}" text="${uiLabelMap.CommonAll}" style="buttontext"/>
+                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
+                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
+                        </container>
+                        <container>
+                            <label style="head3">${uiLabelMap.CommonView} ${uiLabelMap.CommonActiveInactive}</label>
+                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;activeOnly=N" text="${uiLabelMap.CommonAll}" style="buttontext"/>
+                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;activeOnly=N&amp;userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
+                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;activeOnly=N&amp;userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
+                        </container>
+                        <include-form name="ListProductStorePromos" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.ProductAddStorePromo}</label>
+                        </container>
+                        <include-form name="CreateProductStorePromo" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

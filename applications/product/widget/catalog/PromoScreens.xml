@@ -88,7 +88,7 @@ under the License.
                         <container>
                             <label style="head3">${uiLabelMap.CommonView}</label>
                             <link target="FindProductPromo" text="${uiLabelMap.CommonAll}" style="buttontext"/>
-                            <link target="FindProductPromo?userEntered=Y" text="${uiLabelMap.ProductPromotionManual}" style="buttontext"/>
+                            <link target="FindProductPromo?userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
                             <link target="FindProductPromo?userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
                         </container>
                         <include-form name="GoToProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>

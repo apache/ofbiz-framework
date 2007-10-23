@@ -771,4 +771,40 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
+    <form name="ListProductStorePromos" type="list" list-name="productStorePromoAndAppls" target="updateProductStorePromoAppl">
+        <field name="productStoreId"><hidden/></field>
+        <field name="productPromoId" widget-style="buttontext">
+            <hyperlink target="EditProductPromo?productPromoId=${productPromoId}"
+                description="${productPromoId}" also-hidden="true"/>
+        </field>
+        <field name="promoName"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="sequenceNum"><text/></field>
+        <field name="manualOnly">
+            <drop-down allow-empty="true">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+    <form name="CreateProductStorePromo" type="single" target="createProductStorePromoAppl">
+        <field name="productStoreId"><hidden/></field>
+        <field name="productPromoId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProductPromo" description="[${productPromoId}] ${promoName}"/>
+            </drop-down>
+        </field>
+        <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="manualOnly">
+            <drop-down>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>
