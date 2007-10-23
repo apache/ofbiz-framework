@@ -68,7 +68,11 @@ under the License.
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showcart.bsh"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showpromotext.bsh"/>
-                <entity-condition entity-name="ProductPromo" list-name="allProductPromos">
+                <entity-condition entity-name="ProductStorePromoAndAppl" list-name="allProductPromos" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="manualOnly" value="Y"/>
+                        <condition-expr field-name="productStoreId" env-name="productStoreId"/>
+                    </condition-list>
                     <order-by field-name="productPromoId"/>
                 </entity-condition>
             </actions>

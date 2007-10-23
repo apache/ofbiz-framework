@@ -108,6 +108,11 @@ public class ProductPromoWorker {
                 Iterator productStorePromoAppls = UtilMisc.toIterator(EntityUtil.filterByDate(productStore.getRelatedCache("ProductStorePromoAppl", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum")), true));
                 while (productStorePromoAppls != null && productStorePromoAppls.hasNext()) {
                     GenericValue productStorePromoAppl = (GenericValue) productStorePromoAppls.next();
+                    if (UtilValidate.isNotEmpty(productStorePromoAppl.getString("manualOnly")) && "Y".equals(productStorePromoAppl.getString("manualOnly"))) {
+                        // manual only promotions are not automatically evaluated (they must be explicitly selected by the user)
+                        if (Debug.verboseOn()) Debug.logVerbose("Skipping promotion with id [" + productStorePromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
+                        continue;
+                    }
                     GenericValue productPromo = productStorePromoAppl.getRelatedOneCache("ProductPromo");
                     List productPromoRules = productPromo.getRelatedCache("ProductPromoRule", null, null);
 
@@ -174,6 +179,11 @@ public class ProductPromoWorker {
             Iterator prodCatalogPromoAppls = UtilMisc.toIterator(productStorePromoApplsList);
             while (prodCatalogPromoAppls != null && prodCatalogPromoAppls.hasNext()) {
                 GenericValue prodCatalogPromoAppl = (GenericValue) prodCatalogPromoAppls.next();
+                if (UtilValidate.isNotEmpty(prodCatalogPromoAppl.getString("manualOnly")) && "Y".equals(prodCatalogPromoAppl.getString("manualOnly"))) {
+                    // manual only promotions are not automatically evaluated (they must be explicitly selected by the user)
+                    if (Debug.verboseOn()) Debug.logVerbose("Skipping promotion with id [" + prodCatalogPromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
+                    continue;
+                }
                 GenericValue productPromo = prodCatalogPromoAppl.getRelatedOneCache("ProductPromo");
                 productPromoList.add(productPromo);
             }

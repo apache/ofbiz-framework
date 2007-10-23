@@ -51,6 +51,10 @@ context.put("allgiftWraps", allgiftWraps);
 
 context.put("contentPathPrefix", CatalogWorker.getContentPathPrefix(request));
 
+// retrieve the product store id from the cart
+productStoreId = shoppingCart.getProductStoreId();
+context.put("productStoreId", productStoreId);
+
 partyId = shoppingCart.getPartyId();
 if (partyId != null && partyId.equals("_NA_")) partyId = null;
 context.put("partyId", partyId);
@@ -76,7 +80,7 @@ if (partyId != null) {
 }
 
 // get product inventory summary for each shopping cart item
-productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", shoppingCart.getProductStoreId()));
+productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
 productStoreFacilityId = null;
 if (productStore != null) {
     productStoreFacilityId = productStore.getString("inventoryFacilityId");
