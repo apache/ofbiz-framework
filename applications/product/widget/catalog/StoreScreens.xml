@@ -317,14 +317,19 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStorePaySetup.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/store/EditProductStorePaySetup.ftl"/></html>
-                        </platform-specific>
+                        <include-form name="ListProductStorePaymentSettings" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="CREATE"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="EditProductStorePaymentSetting" location="component://product/webapp/catalog/store/ProductStoreForms.xml"/>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

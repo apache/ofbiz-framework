@@ -807,4 +807,65 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
+    <form name="ListProductStorePaymentSettings" type="list">
+        <actions>
+            <entity-and entity-name="ProductStorePaymentSetting">
+                <field-map field-name="productStoreId"/>
+                <order-by field-name="paymentMethodTypeId"/>
+                <order-by field-name="paymentServiceTypeEnumId"/>
+            </entity-and>
+        </actions>
+        <field name="productStoreId"><hidden/></field>
+        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">
+            <display-entity entity-name="PaymentMethodType" description="${description}"/>
+        </field>
+        <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="paymentService" title="${uiLabelMap.ProductServiceName}"><display/></field>
+        <field name="paymentPropertiesPath" title="${uiLabelMap.AccountingPaymentProps}"><display/></field>
+        <field name="applyToAllProducts" title="${uiLabelMap.ApplyToAll}"><display/></field>
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}" widget-style="buttontext">
+            <hyperlink target="EditProductStorePaySetup?productStoreId=${productStoreId}&amp;paymentMethodTypeId=${paymentMethodTypeId}&amp;paymentServiceTypeEnumId=${paymentServiceTypeEnumId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+        </field>
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}">
+            <display/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}" widget-style="buttontext">
+            <hyperlink target="storeRemovePaySetting?productStoreId=${productStoreId}&amp;paymentMethodTypeId=${paymentMethodTypeId}&amp;paymentServiceTypeEnumId=${paymentServiceTypeEnumId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}">
+            <display/>
+        </field>
+    </form>
+
+    <form name="EditProductStorePaymentSetting" type="single" target="storeUpdatePaySetting" default-map-name="editSetting">
+        <alt-target use-when="editSetting==null" target="storeCreatePaySetting"/>
+        <field name="productStoreId"><hidden/></field>
+        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PaymentMethodType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" value="PRDS_PAYSVC"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="paymentService" title="${uiLabelMap.ProductServiceName}"><text/></field>
+        <field name="paymentPropertiesPath" title="${uiLabelMap.AccountingPaymentProps}"><text/></field>
+        <field name="applyToAllProducts" title="${uiLabelMap.ApplyToAll} ${uiLabelMap.ProductProducts}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>
