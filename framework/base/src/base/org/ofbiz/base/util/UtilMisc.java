@@ -267,6 +267,19 @@ public class UtilMisc {
         return lst.remove(0);
     }
     
+    public static <T> Set<T> collectionToSet(Collection<T> c) {
+        if (c == null) return null;
+        Set theSet = null;
+        if (c instanceof Set) {
+            theSet = (Set) c;
+        } else {
+            theSet = FastSet.newInstance();
+            c.remove(null);
+            theSet.addAll(c);
+        }
+        return theSet;
+    }
+    
     /**
      * Create a Set from passed objX parameters
      * @return The resulting Set
