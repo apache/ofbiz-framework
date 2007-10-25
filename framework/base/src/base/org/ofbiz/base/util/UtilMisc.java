@@ -269,9 +269,9 @@ public class UtilMisc {
     
     public static <T> Set<T> collectionToSet(Collection<T> c) {
         if (c == null) return null;
-        Set theSet = null;
+        Set<T> theSet = null;
         if (c instanceof Set) {
-            theSet = (Set) c;
+            theSet = (Set<T>) c;
         } else {
             theSet = FastSet.newInstance();
             c.remove(null);
