@@ -923,6 +923,7 @@ under the License.
       <field name="orderPaymentPreferenceId" type="id-ne"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
+      <field name="shipGroupSeqId" type="id"></field>
       <field name="productPricePurposeId" type="id"></field>
       <field name="paymentMethodTypeId" type="id"></field>
       <field name="paymentMethodId" type="id"></field>
@@ -952,6 +953,10 @@ under the License.
       <relation type="one-nofk" rel-entity-name="OrderItem">
         <key-map field-name="orderId"/>
         <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderItemShipGroup">
+        <key-map field-name="orderId"/>
+        <key-map field-name="shipGroupSeqId"/>
       </relation>
       <relation type="one" fk-name="ORDER_PMPRF_PPRP" rel-entity-name="ProductPricePurpose">
         <key-map field-name="productPricePurposeId"/>
@@ -1047,6 +1052,7 @@ under the License.
       <field name="statusId" type="id"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
+      <field name="orderPaymentPreferenceId" type="id"></field>
       <field name="statusDatetime" type="date-time"></field>
       <field name="statusUserLogin" type="id-vlong"></field>
       <field name="changeReason" type="description"></field>
@@ -1060,6 +1066,9 @@ under the License.
       <relation type="one-nofk" rel-entity-name="OrderItem">
         <key-map field-name="orderId"/>
         <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderPaymentPreference">
+        <key-map field-name="orderPaymentPreferenceId"/>
       </relation>
       <relation type="one" fk-name="ORDER_STTS_USER" rel-entity-name="UserLogin">
         <key-map field-name="statusUserLogin" rel-field-name="userLoginId"/>
