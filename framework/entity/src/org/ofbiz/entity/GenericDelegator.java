@@ -2675,7 +2675,7 @@ public class GenericDelegator implements DelegatorInterface {
             this.eventMap = eventMap;
         }
 
-        protected void evalRules(String currentOperation, String event, GenericEntity value, boolean isError) throws GenericEntityException {
+        protected void evalRules(String event, String currentOperation, GenericEntity value, boolean isError) throws GenericEntityException {
             if (entityEcaHandler == null) return;
             //if (!"find".equals(currentOperation)) Debug.logWarning("evalRules for entity " + value.getEntityName() + ", currentOperation " + currentOperation + ", event " + event, module);
             entityEcaHandler.evalRules(currentOperation, eventMap, event, value, isError);
