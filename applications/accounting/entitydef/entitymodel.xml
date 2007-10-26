@@ -1540,6 +1540,7 @@ under the License.
       <alias entity-alias="ATE" name="glAccountId" group-by="false"/>
       <alias entity-alias="GLA" name="glAccountTypeId" group-by="true"/> <!-- so we can select by type of account -->
       <alias entity-alias="ACT" name="isPosted" group-by="false"/> <!-- so we can select by posted status -->
+      <alias entity-alias="ACT" name="glFiscalTypeId" group-by="true"/>
       <alias entity-alias="ACT" name="transactionDate" group-by="false"/> <!-- so we can select the sum by date -->
       <view-link entity-alias="ATE" rel-entity-alias="GLA">
         <key-map field-name="glAccountId"/>
