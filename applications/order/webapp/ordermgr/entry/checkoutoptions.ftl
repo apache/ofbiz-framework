@@ -239,7 +239,7 @@ function submitForm(form, mode, value) {
                   <tr>
                     <td colspan="2">
                       <div>
-                        <span class="head2"><b>${uiLabelMap.OrderIsThisGift}?</b></span>
+                        <span class="head2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
                         <input type="radio" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"><span class="tabletext">${uiLabelMap.CommonYes}</span>
                         <input type="radio" <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name="is_gift" value="false"><span class="tabletext">${uiLabelMap.CommonNo}</span>
                       </div>
