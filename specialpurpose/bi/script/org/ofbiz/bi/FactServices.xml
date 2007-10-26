@@ -56,7 +56,7 @@ under the License.
         <check-errors/>
 
         <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
-            <entity-one entity-name="SalesInvoiceItemFact" value-name="fact" auto-fields-map="false">
+            <entity-one entity-name="SalesInvoiceItemFact" value-name="fact" auto-field-map="false">
                 <field-map field-name="invoiceId" env-name="invoiceItem.invoiceId"/>
                 <field-map field-name="invoiceItemSeqId" env-name="invoiceItem.invoiceItemSeqId"/>
             </entity-one>
