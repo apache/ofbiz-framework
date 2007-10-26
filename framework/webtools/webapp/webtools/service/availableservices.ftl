@@ -125,7 +125,7 @@ under the License.
           <b>${selectedServiceMap.implServices}</b>
         <#elseif selectedServiceMap.implServices?has_content>
           <#list selectedServiceMap.implServices as implSrv>
-            <a href='<@ofbizUrl>${url}?sel_service_name=${implSrv}</@ofbizUrl>'>${implSrv}</a><br>
+            <a href='<@ofbizUrl>${url}?sel_service_name=${implSrv.getService()}</@ofbizUrl>'>${implSrv.getService()}</a><br/>
           </#list>
         </#if>
       </div>
