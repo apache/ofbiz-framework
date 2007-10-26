@@ -156,19 +156,19 @@ public class DimensionServices {
             if (newValue) {
                 dateValue = delegator.makeValue("DateDimension");
                 dateValue.set("dimensionId", delegator.getNextSeqId("DateDimension"));
-                dateValue.set("dateValue", currentDate);
+                dateValue.set("dateValue", new java.sql.Date(currentDate.getTime()));
             }
             dateValue.set("description", dayDescriptionFormat.format(currentDate));
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             dateValue.set("dayName", dayNameFormat.format(currentDate));
-            dateValue.set("dayOfMonth", new Integer(calendar.get(Calendar.DAY_OF_MONTH)));
-            dateValue.set("dayOfYear", new Integer(calendar.get(Calendar.DAY_OF_YEAR)));
+            dateValue.set("dayOfMonth", new Long(calendar.get(Calendar.DAY_OF_MONTH)));
+            dateValue.set("dayOfYear", new Long(calendar.get(Calendar.DAY_OF_YEAR)));
             dateValue.set("monthName", monthNameFormat.format(currentDate));
             
-            dateValue.set("monthOfYear", new Integer(calendar.get(Calendar.MONTH) + 1));
-            dateValue.set("yearName", new Integer(calendar.get(Calendar.YEAR)));
-            dateValue.set("weekOfMonth", new Integer(calendar.get(Calendar.WEEK_OF_MONTH)));
-            dateValue.set("weekOfYear", new Integer(calendar.get(Calendar.WEEK_OF_YEAR)));
+            dateValue.set("monthOfYear", new Long(calendar.get(Calendar.MONTH) + 1));
+            dateValue.set("yearName", new Long(calendar.get(Calendar.YEAR)));
+            dateValue.set("weekOfMonth", new Long(calendar.get(Calendar.WEEK_OF_MONTH)));
+            dateValue.set("weekOfYear", new Long(calendar.get(Calendar.WEEK_OF_YEAR)));
             dateValue.set("weekdayType", (dayOfWeek == 1 || dayOfWeek == 7? "Weekend": "Weekday"));
             dateValue.set("yearMonthDay", yearMonthDayFormat.format(currentDate));
             dateValue.set("yearMonth", yearMonthFormat.format(currentDate));
