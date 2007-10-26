@@ -57,7 +57,7 @@ under the License.
                 <set field="headerItem" value="survey"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <section>
                             <condition>

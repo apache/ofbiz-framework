@@ -35,7 +35,7 @@ under the License.
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><link target="EditContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
                         <label style="head1" text="${uiLabelMap.PageTitleFindContent}"/>
@@ -46,7 +46,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <decorator-screen name="mainContentDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
                     </decorator-section>

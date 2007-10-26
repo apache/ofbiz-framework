@@ -38,16 +38,6 @@ under the License.
     </postprocessor>
     -->
 
-    <!-- Security Mappings -->
-    <request-map uri="login">
-      <security https="true" auth="false"/>
-      <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
-      <response name="success" type="view" value="main"/>
-      <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
-      <response name="error" type="view" value="login"/>
-    </request-map>
-    <!-- End of Security Mappings -->
-
     <!-- Request Mappings -->
     <request-map uri="view"><security https="true" auth="false"/><response name="success" type="view" value="main"/></request-map>
     <request-map uri="authview"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
@@ -902,8 +892,6 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#findparty"/>
-    <view-map name="login" type="screen" page="component://party/widget/partymgr/CommonScreens.xml#login"/>
-    <view-map name="requirePasswordChange" type="screen" page="component://party/widget/partymgr/CommonScreens.xml#requirePasswordChange"/>
 
     <view-map name="findparty" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#findparty"/>
 

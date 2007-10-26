@@ -173,8 +173,6 @@
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FindFixedAssets"/>
-    <view-map name="login" type="screen" page="component://assetmaint/widget/CommonScreens.xml#login"/> 
-    <view-map name="requirePasswordChange" type="screen" page="component://assetmaint/widget/CommonScreens.xml#requirePasswordChange"/>
 
     <!-- FixedAsset and Relationship management screens -->    
     <view-map name="FindFixedAssets" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FindFixedAssets" />
