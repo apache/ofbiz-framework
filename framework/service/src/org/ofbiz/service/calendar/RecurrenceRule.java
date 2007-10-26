@@ -656,8 +656,8 @@ public class RecurrenceRule {
             GenericValue value = delegator.makeValue("RecurrenceRule");
 
             value.set("frequency", freqStr);
-            value.set("intervalNumber", interval);
-            value.set("countNumber", count);
+            value.set("intervalNumber", Long.valueOf(interval));
+            value.set("countNumber", Long.valueOf(count));
             if (endTime > 0) {
                 value.set("untilDateTime", new java.sql.Timestamp(endTime));
             }
