@@ -40,16 +40,6 @@ under the License.
     </postprocessor>
     -->
 
-    <!-- Security Mappings -->
-    <request-map uri="login">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
-        <response name="success" type="view" value="main"/>
-        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
-        <response name="error" type="view" value="login"/>
-    </request-map>
-    <!-- End of Security Mappings -->
-
     <!-- Request Mappings -->
     <request-map uri="view">
         <security https="true" auth="false"/>
@@ -2510,8 +2500,6 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://product/widget/catalog/CommonScreens.xml#main"/>
-    <view-map name="login" type="screen" page="component://product/widget/catalog/CommonScreens.xml#login"/>
-    <view-map name="requirePasswordChange" type="screen" page="component://product/widget/catalog/CommonScreens.xml#requirePasswordChange"/>
 
     <view-map name="ChooseTopCategory" type="screen" page="component://product/widget/catalog/CommonScreens.xml#ChooseTopCategory"/>
     <view-map name="FastLoadCache" type="screen" page="component://product/widget/catalog/CommonScreens.xml#FastLoadCache"/>

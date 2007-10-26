@@ -41,16 +41,6 @@ under the License.
     </postprocessor>
     -->
 
-    <!-- Security Mappings -->
-    <request-map uri="login">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
-        <response name="success" type="view" value="main"/>
-        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
-        <response name="error" type="view" value="login"/>
-    </request-map>
-    <!-- End of Security Mappings -->
-
     <!-- Request Mappings -->
     <request-map uri="view"><security https="false" auth="false"/><response name="success" type="view" value="main"/></request-map>
     <request-map uri="views"><security https="true" auth="false"/><response name="success" type="view" value="main"/></request-map>
@@ -1653,8 +1643,6 @@ under the License.
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
-    <view-map name="login" type="screen" page="component://content/widget/CommonScreens.xml#login"/>
-    <view-map name="requirePasswordChange" type="screen" page="component://content/widget/CommonScreens.xml#requirePasswordChange"/>
     <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo" content-type="application/pdf" encoding="none"/>
     
     <view-map name="FindForumGroups" page="component://content/widget/forum/ForumScreens.xml#FindForumGroups" type="screen"/>

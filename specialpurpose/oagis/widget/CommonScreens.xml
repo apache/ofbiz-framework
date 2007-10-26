@@ -45,33 +45,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="login">
-        <section>
-            <widgets>
-                <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://common/webcommon/login.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requirePasswordChange">
-        <section>
-            <widgets>
-                <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://common/webcommon/changePassword.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
     <screen name="CommonOagisMessageScreen">
         <section>
             <widgets>

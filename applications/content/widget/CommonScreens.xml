@@ -20,7 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="mainContentDecorator">
+    <screen name="main-decorator">
         <section>
             <actions>
                 <!-- base/top/specific map first, then more common map added for shared labels --> 
@@ -54,7 +54,7 @@ under the License.
                 <set field="headerItem" value="CMS"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator">
+                <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -80,7 +80,7 @@ under the License.
                 <set field="headerItem" value="Content"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator">
+                <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -120,7 +120,7 @@ under the License.
                 <set field="headerItem" value="Forum"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator">
+                <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -163,7 +163,7 @@ under the License.
                 <set field="currentContentMenuItemName" from-field="currentContentMenuItemName" from-scope="user"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator">
+                <decorator-screen name="main-decorator">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -200,7 +200,7 @@ under the License.
                 <set field="headerItem" value="CompDoc"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator" >
+                <decorator-screen name="main-decorator" >
                     <decorator-section name="body">
                         <include-menu name="${menuName}" location="component://content/widget/compdoc/CompDocMenus.xml"/>
                         <label text="${title}" style="head1"/>
@@ -217,7 +217,7 @@ under the License.
                 <set field="currentMenuItemName" from-field="currentMenuItemName" from-scope="user"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -243,7 +243,7 @@ under the License.
                 <set field="tabButtonItem" from-field="tabButtonItem" from-scope="user"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -269,7 +269,7 @@ under the License.
                 <set field="tabButtonItem" from-field="tabButtonItem" from-scope="user"/>
             </actions>
             <widgets>
-                <decorator-screen name="mainContentDecorator" location="component://content/widget/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -292,7 +292,7 @@ under the License.
     <screen name="main">
         <section>
             <widgets>
-                <decorator-screen name="mainContentDecorator"  location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-header">
@@ -302,32 +302,6 @@ under the License.
                                 <container><label style="tabletext" text="Welcome to the Content Manager!"/></container>
                             </container>
                         </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="login">
-        <section>
-            <widgets>
-                <decorator-screen name="mainContentDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://common/webcommon/login.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requirePasswordChange">
-        <section>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://common/webcommon/changePassword.ftl"/></html>
-                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
