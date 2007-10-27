@@ -1367,10 +1367,18 @@ under the License.
     </request-map>
     
     <!--  WorkEffort Quote request mappings -->
-    <request-map uri="ListQuoteWorkEfforts"><security https="true" auth="true"/><response name="success" type="view" value="ListQuoteWorkEfforts"/></request-map>
-    <request-map uri="AddQuoteWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="AddQuoteWorkEffort"/></request-map>
-
-    <request-map uri="EditQuoteWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="EditQuoteWorkEffort"/></request-map>
+    <request-map uri="ListQuoteWorkEfforts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListQuoteWorkEfforts"/>
+    </request-map>
+    <request-map uri="AddQuoteWorkEffort">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AddQuoteWorkEffort"/>
+    </request-map>
+    <request-map uri="EditQuoteWorkEffort">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditQuoteWorkEffort"/>
+    </request-map>
     <request-map uri="createQuoteWorkEffort">
         <security https="true" auth="true"/>
         <event type="service" invoke="createQuoteWorkEffort"/>
