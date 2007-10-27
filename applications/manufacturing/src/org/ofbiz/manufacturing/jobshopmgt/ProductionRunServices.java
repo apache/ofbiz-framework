@@ -2420,13 +2420,17 @@ public class ProductionRunServices {
                 serviceContext.put("statusId", "PRUN_DOC_PRINTED");
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("changeProductionRunStatus", serviceContext);
-            } else if (statusId.equals("PRUN_COMPLETED") ||
+            } 
+            if (statusId.equals("PRUN_COMPLETED") ||
                        statusId.equals("PRUN_CLOSED")) {
+                serviceContext.clear();
                 serviceContext.put("productionRunId", productionRunId);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("quickRunAllProductionRunTasks", serviceContext);
-            } else if (statusId.equals("PRUN_CLOSED")) {
+            } 
+            if (statusId.equals("PRUN_CLOSED")) {
                 // Put in warehouse the products manufactured
+                serviceContext.clear();
                 serviceContext.put("workEffortId", productionRunId);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("productionRunProduce", serviceContext);
