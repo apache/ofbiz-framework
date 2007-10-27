@@ -141,7 +141,7 @@ under the License.
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToEmailAddress}"
             use-when="(parameters.get(&quot;communicationEventTypeId&quot;)!=null)&amp;&amp;(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))">
             <drop-down allow-empty="false" current="selected" no-current-selected-key="${parameters.contactMechIdTo}">
-            	<list-options key-name="contactMechId" list-name="targetEmailAddresses" description="${infoString}"/>
+              <list-options key-name="contactMechId" list-name="targetEmailAddresses" description="${infoString}"/>
             </drop-down>            
         </field>
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToContactMech}"
@@ -250,11 +250,11 @@ under the License.
         <field name="origCommEventId"><text-find/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyName"/></field>
-		<field name="communicationEventTypeId">
+    <field name="communicationEventTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/>
-			</drop-down>
-		</field>
+      </drop-down>
+    </field>
         <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem">
@@ -382,7 +382,7 @@ under the License.
 
     <form name="AddCommEventWorkEffort" type="single" extends="EditWorkEffort"
         extends-resource="component://workeffort/widget/WorkEffortForms.xml"
-        target="createCommEventWorkEffort">
+        target="/partymgr/control/createCommEventWorkEffort" target-type="inter-app">
         <field name="communicationEventId"><display/></field>
         <field name="workEffortId"  use-when="workEffort==null&amp;&amp;workEffortId==null" ><lookup target-form-name="/workeffort/control/LookupWorkEffort"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/> </field>
@@ -450,7 +450,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.PartyAddRole}"><submit button-type="button"/></field>
     </form>
-	
+  
     <form name="listCommContent" type="list" list-name="contentDataResourceList"
         paginate-target="/ListCommContent" view-size="20">
         <actions>
@@ -497,7 +497,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
-	
+  
     <form name="editCommContent" type="single" target="updateCommContentDataResource" default-map-name="commEventContentDataResource">
         <field name="communicationEventId"><display/></field>
         <field name="contentId"><display/></field>
@@ -522,9 +522,9 @@ under the License.
         </field>
         <field name="dataResourceTypeId" entry-name="drDataResourceTypeId">
             <drop-down allow-empty="false">
-				<entity-options entity-name="DataResourceType" description="${description}">
-					
-				</entity-options>
+        <entity-options entity-name="DataResourceType" description="${description}">
+          
+        </entity-options>
             </drop-down>
         </field>
         <!-- <field name="mimeTypeId" map-name="dataResource" title="Document Type"><display/></field> -->
@@ -549,16 +549,16 @@ under the License.
             <hyperlink description="Create Response (for Survey ${templateDataResource.relatedDetailId})" target="EditSurveyResponse?surveyId=${templateDataResource.relatedDetailId}" also-hidden="false" target-window="_blank"/>
         </field>
         -->
-		<!--
+    <!--
         <field name="objectInfo" title="Current File Name" map-name="dataResource" 
             use-when="mimeTypeId!=null &amp;&amp; !mimeTypeId.startsWith(&quot;text&quot;)">
             <display also-hidden="false"/>
         </field>
-			-->
+      -->
 
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
-	
+  
     <form name="uploadCommContent" type="upload" target="uploadCommEventContent" default-map-name="commEventContentDataResource">
         <field name="contentId" map-name="contentAssoc"><hidden/></field>
         <field name="drDataResourceId"><hidden/></field>

@@ -18,8 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-  
-    <form name="ListQuoteWorkEfforts" separate-columns="true" title="" type="list"  target="ListQuoteWorkEfforts" 
+
+    <form name="ListQuoteWorkEfforts" separate-columns="true" title="" type="list"  target="ListQuoteWorkEfforts"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
         <actions>
             <entity-and entity-name="QuoteWorkEffortView">
@@ -40,10 +40,10 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteQuoteWorkEffort?workEffortId=${workEffortId}&amp;quoteId=${quoteId}"/>
         </field>
     </form>
-  
-    <form name="AddQuoteWorkEffort" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml" target="createQuoteWorkEffort" title="" type="single"
+
+    <form name="AddQuoteWorkEffort" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml" target="/ordermgr/control/createQuoteWorkEffort" target-type="inter-app" title="" type="single"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
-            
+
         <field name="quoteId" map-name="parameters"><display/></field>
         <field name="workEffortId" use-when="workEffort==null&amp;&amp;workEffortId!=null">
             <lookup target-form-name="/workeffort/control/LookupWorkEffort"/>
@@ -58,7 +58,7 @@ under the License.
             <banner left-text-style="tabletext" left-text="${uiLabelMap.OrderOrderQuoteEnterWorkEffortIdNew}"/>
         </sort-order>
     </form>
-    
+
     <form name="EditQuoteWorkEffort" target="updateQuoteWorkEffort" title="" type="single" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
         default-title-style="tableheadtext" default-tooltip-style="tabletext"  default-widget-style="inputBox">
         <actions>
