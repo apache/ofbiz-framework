@@ -1474,6 +1474,7 @@ under the License.
             package-name="org.ofbiz.accounting.ledger"
             title="View of AcctgTrans and Entries, for easier lookup and calculation">
       <member-entity entity-alias="ATR" entity-name="AcctgTrans"/>
+      <member-entity entity-alias="ATT" entity-name="AcctgTransType"/>
       <member-entity entity-alias="ATE" entity-name="AcctgTransEntry"/>
       <member-entity entity-alias="GLA" entity-name="GlAccount"/>
       <member-entity entity-alias="GLAC" entity-name="GlAccountClass"/>
@@ -1482,6 +1483,7 @@ under the License.
       <alias entity-alias="ATR" name="acctgTransTypeId"/>
       <alias entity-alias="ATR" name="transactionDate"/>
       <alias entity-alias="ATR" name="transDescription" field="description"/>
+      <alias entity-alias="ATT" name="transTypeDescription" field="description"/>
       <alias entity-alias="ATR" name="invoiceId"/>
       <alias entity-alias="ATR" name="paymentId"/>
       <alias entity-alias="ATR" name="shipmentId"/>
@@ -1498,12 +1500,17 @@ under the License.
       <alias entity-alias="ATE" name="currencyUomId"/>
       <alias entity-alias="ATE" name="organizationPartyId"/>
       <alias entity-alias="GLA" name="glAccountTypeId"/>
+      <alias entity-alias="GLA" name="accountCode"/>
+      <alias entity-alias="GLA" name="accountName"/>
       <alias entity-alias="GLAC" name="glAccountClassId"/>
       <alias entity-alias="ATE" name="partyId"/>
       <alias entity-alias="ATE" name="reconcileStatusId"/>
       <alias entity-alias="ATE" name="acctgTransEntryTypeId"/>
       <view-link entity-alias="ATR" rel-entity-alias="ATE">
         <key-map field-name="acctgTransId"/>
+      </view-link>
+      <view-link entity-alias="ATR" rel-entity-alias="ATT">
+        <key-map field-name="acctgTransTypeId"/>
       </view-link>
       <view-link entity-alias="ATE" rel-entity-alias="GLA">
         <key-map field-name="glAccountId"/>
