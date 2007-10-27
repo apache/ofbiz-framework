@@ -166,6 +166,7 @@ under the License.
             location="org.ofbiz.party.party.PartyServices" invoke="createPartyNote" auth="true">
         <description>Create a note item and associate with a party. If a noteId is passed, creates an assoication to that note instead.</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="noteName" type="String" mode="IN" optional="true"/>
         <attribute name="noteId" type="String" mode="INOUT" optional="true"/>
         <attribute name="note" type="String" mode="IN" optional="true"/>
     </service>

@@ -600,15 +600,32 @@ public class PartyServices {
         String noteString = (String) context.get("note");
         String partyId = (String) context.get("partyId");
         String noteId = (String) context.get("noteId");
+        String noteName = (String) context.get("noteName");
+
         String errMsg = null;
         Locale locale = (Locale) context.get("locale");
         //Map noteCtx = UtilMisc.toMap("note", noteString, "userLogin", userLogin);
+
+        //Make sure the note Id actually exists if one is passed to avoid a foreign key error below
+        if(noteId != null) {
+            try {
+                GenericValue value = delegator.findByPrimaryKey("NoteData", UtilMisc.toMap("noteId", noteId));
+                if(value == null) {
+                    Debug.logError("ERROR: Note id does not exist for : " + noteId + ", autogenerating." , module);
+                    noteId = null;
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "ERROR: Note id does not exist for : " + noteId + ", autogenerating." , module);
+                noteId = null;
+            }
+        }
 
         // if no noteId is specified, then create and associate the note with the userLogin
         if (noteId == null) {
             Map noteRes = null;
             try {
-                noteRes = dispatcher.runSync("createNote", UtilMisc.toMap("partyId", userLogin.getString("partyId"), "note", noteString, "userLogin", userLogin, "locale", locale));
+                noteRes = dispatcher.runSync("createNote", UtilMisc.toMap("partyId", userLogin.getString("partyId"),
+                         "note", noteString, "userLogin", userLogin, "locale", locale, "noteName", noteName));
             } catch (GenericServiceException e) {
                 Debug.logError(e, e.getMessage(), module);
                 return ServiceUtil.returnError("Unable to create Note: " + e.getMessage());
