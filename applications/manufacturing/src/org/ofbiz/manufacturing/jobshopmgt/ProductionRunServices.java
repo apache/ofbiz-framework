@@ -2151,20 +2151,26 @@ public class ProductionRunServices {
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError("Error creating a production run for marketing package for order [" + orderId + " " + orderItemSeqId + "]: " + e.getMessage());
                 }
-                try {
-                    serviceContext.clear();
-                    serviceContext.put("productionRunId", productionRunId);
-                    serviceContext.put("statusId", "PRUN_COMPLETED");
-                    serviceContext.put("userLogin", userLogin);
-                    resultService = dispatcher.runSync("quickChangeProductionRunStatus", serviceContext);
-                    serviceContext.clear();
-                    serviceContext.put("workEffortId", productionRunId);
-                    serviceContext.put("userLogin", userLogin);
-                    resultService = dispatcher.runSync("productionRunProduce", serviceContext);
-                } catch (GenericServiceException e) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
+                // only complete the production run if we have enough components available to produce the desired amount, otherwise errors will result
+                serviceContext.remove("pRQuantity");
+                serviceContext.remove("startDate");
+                resultService = dispatcher.runSync("getMktgPackagesAvailable", serviceContext);
+                double mktgPackagesAvailable = ((Double) resultService.get("availableToPromiseTotal")).doubleValue();
+                if (mktgPackagesAvailable > qtyToProduce) {
+                    try {
+                        serviceContext.clear();
+                        serviceContext.put("productionRunId", productionRunId);
+                        serviceContext.put("statusId", "PRUN_COMPLETED");
+                        serviceContext.put("userLogin", userLogin);
+                        resultService = dispatcher.runSync("quickChangeProductionRunStatus", serviceContext);
+                        serviceContext.clear();
+                        serviceContext.put("workEffortId", productionRunId);
+                        serviceContext.put("userLogin", userLogin);
+                        resultService = dispatcher.runSync("productionRunProduce", serviceContext);
+                    } catch (GenericServiceException e) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
+                    }
                 }
-
                 result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunCreated", UtilMisc.toMap("productionRunId", productionRunId), locale));
                 return result;
 
