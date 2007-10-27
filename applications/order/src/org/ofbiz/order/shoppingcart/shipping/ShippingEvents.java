@@ -225,9 +225,21 @@ public class ShippingEvents {
 
     public static Double getExternalShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map context) throws GeneralException {
         // invoke the external shipping estimate service
+        String serviceName = (String)storeShipMeth.get("serviceName");
         Double externalShipAmt = null;
-        if (storeShipMeth.get("serviceName") != null) {
-            String serviceName = storeShipMeth.getString("serviceName");
+        if(serviceName != null){
+            String doEstimates = UtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck", "true");
+            //If all estimates are not turned off, check for the individual one
+            if("true".equals(doEstimates)){
+                String dothisEstimate = UtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck." + serviceName, "true");
+                if("false".equals(dothisEstimate))
+                 serviceName = null;
+            } else {
+                //Rate checks inhibited
+                serviceName = null;
+            }
+        }
+        if (( serviceName != null)) {
             String configProps = storeShipMeth.getString("configProps");
             if (UtilValidate.isNotEmpty(serviceName)) {
                 // prepare the external service context
@@ -255,5 +267,6 @@ public class ShippingEvents {
         return externalShipAmt;
     }
 }
+
 
 
