@@ -1119,9 +1119,9 @@ public class ProductPromoWorker {
                                 Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
                                 throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
                             } else if (!"Y".equals((String) invReqResult.get("available"))) {
+                                Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction", UtilMisc.toMap("productId", productId, "productPromoAction", productPromoAction), cart.getLocale()), module);
                                 productId = null;
                                 product = null;
-                                Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction", cart.getLocale()), module);
                             }
                         } catch (GenericServiceException e) {
                             String errMsg = "Fatal error calling inventory checking services: " + e.toString();
