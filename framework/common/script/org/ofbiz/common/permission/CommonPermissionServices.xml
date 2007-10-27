@@ -51,11 +51,9 @@ under the License.
         <!-- altPermission is not a required field; no need to add Error -->
 
         <!-- set up called service name -->
+        <set field="resourceDescription" from-field="parameters.resourceDescription"/>
         <if-empty field-name="resourceDescription">
-            <set field="resourceDescription" from-field="parameters.resourceDescriptionn"/>
-            <if-empty field-name="resourceDescription">
-                <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
-            </if-empty>
+            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
         </if-empty>
 
         <!-- check permission -->
