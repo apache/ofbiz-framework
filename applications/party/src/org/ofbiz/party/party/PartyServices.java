@@ -49,7 +49,6 @@ import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
@@ -192,26 +191,19 @@ public class PartyServices {
 
     /**
      * Sets a party status.
-     * <b>security check</b>: userLogin must have permission PARTYMGR_STS_UPDATE and the status change must be defined in StatusValidChange.
+     * <b>security check</b>: the status change must be defined in StatusValidChange.
      */
     public static Map setPartyStatus(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
         String partyId = (String) context.get("partyId");
         String statusId = (String) context.get("statusId");
         Timestamp statusDate = (Timestamp) context.get("statusDate");
-        if (statusDate == null) statusDate = UtilDateTime.nowTimestamp();
-
-        // userLogin must have PARTYMGR_STS_UPDATE. Also, we aren't letting userLogin with same partyId change his own status.
-        if (!security.hasEntityPermission("PARTYMGR", "_STS_UPDATE", userLogin)) {
-            String errorMsg = UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.no_permission_to_operation", locale) + ".";
-            Debug.logWarning(errorMsg, module);
-            return ServiceUtil.returnError(errorMsg);
+        if (statusDate == null) {
+            statusDate = UtilDateTime.nowTimestamp();
         }
+
         try {
             GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
 
@@ -243,7 +235,6 @@ public class PartyServices {
 
     /**
      * Updates a Person.
-     * <b>security check</b>: userLogin partyId must equal partyId, or must have PARTYMGR_GRP_UPDATE permission.
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
@@ -251,14 +242,12 @@ public class PartyServices {
     public static Map updatePerson(DispatchContext ctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
-        String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_GRP_UPDATE");
-
-        if (result.size() > 0)
-            return result;
+        String partyId = getPartyId(context);
+        if (UtilValidate.isEmpty(partyId)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.party_id_missing", locale));
+        }
 
         GenericValue person = null;
         GenericValue party = null;
@@ -406,22 +395,14 @@ public class PartyServices {
     public static Map updatePartyGroup(DispatchContext ctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-
-        // get the party Id from context if party has permission to update groups, otherwise use getPartyIdCheckSecurity
-        String partyId = null;
-        if (security.hasEntityPermission("PARTYMGR", "_GRP_UPDATE", userLogin)) {
-            partyId = (String) context.get("partyId");
-        } else {
-            partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_UPDATE");
-        }
         Locale locale = (Locale) context.get("locale");
+
+        String partyId = getPartyId(context);
+        if (UtilValidate.isEmpty(partyId)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.party_id_missing", locale));
+        }
+
         String errMsg = null;
-
-        if (result.size() > 0)
-            return result;
-
         GenericValue partyGroup = null;
         GenericValue party = null;
 
@@ -466,16 +447,12 @@ public class PartyServices {
     public static Map createAffiliate(DispatchContext ctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
 
-        String partyId = (String) context.get("partyId");
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
 
-        if (partyId == null || partyId.length() == 0) {
-            partyId = userLogin.getString("partyId");
-        }
+        String partyId = getPartyId(context);
 
         // if specified partyId starts with a number, return an error
         if (Character.isDigit(partyId.charAt(0))) {
@@ -540,24 +517,20 @@ public class PartyServices {
 
     /**
      * Updates an Affiliate.
-     * <b>security check</b>: userLogin partyId must equal partyId, or must have PARTYMGR_UPDATE permission.
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
     public static Map updateAffiliate(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-
-        String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_UPDATE");
         Locale locale = (Locale) context.get("locale");
+
+        String partyId = getPartyId(context);
+        if (UtilValidate.isEmpty(partyId)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.party_id_missing", locale));
+        }
+
         String errMsg = null;
-
-        if (result.size() > 0)
-            return result;
-
         GenericValue affiliate = null;
 
         try {
@@ -931,9 +904,6 @@ public class PartyServices {
 
     public static Map createPartyDataSource(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Locale locale = (Locale) context.get("locale"); 
 
         // input data
         String partyId = (String) context.get("partyId");
@@ -941,11 +911,6 @@ public class PartyServices {
         Timestamp fromDate = (Timestamp) context.get("fromDate");
         if (fromDate == null) fromDate = UtilDateTime.nowTimestamp();
 
-        // userLogin must have PARTYMGR_SRC_CREATE permission
-        if (!security.hasEntityPermission("PARTYMGR", "_SRC_CREATE", userLogin)) {
-            String errorMsg = UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.no_permission_to_operation", locale) + ".";
-            return ServiceUtil.returnError(errorMsg);
-        }
         try {
             // validate the existance of party and dataSource
             GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
@@ -1677,5 +1642,16 @@ public class PartyServices {
         }
 
         return ServiceUtil.returnSuccess();
+    }
+
+    public static String getPartyId(Map context) {
+        String partyId = (String) context.get("partyId");
+        if (UtilValidate.isEmpty(partyId)) {
+            GenericValue userLogin = (GenericValue) context.get("userLogin");
+            if (userLogin != null) {
+                partyId = userLogin.getString("partyId");
+            }
+        }
+        return partyId;
     }
 }

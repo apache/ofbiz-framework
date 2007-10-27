@@ -24,12 +24,6 @@ under the License.
 
     <!-- create PartyRole -->
     <simple-method method-name="createPartyRole" short-description="Create Party Role">
-        <check-permission permission="PARTYMGR" action="_ROLE_CREATE">
-            <accept-userlogin-party/>
-            <fail-property resource="PartyUiLabels" property="PartyCreatePartyRolePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-name="partyRolePK" entity-name="PartyRole"/>
         <set-pk-fields value-name="partyRolePK" map-name="parameters"/>
         <find-by-primary-key entity-name="PartyRole" map-name="partyRolePK" value-name="partyRole"/>
@@ -41,11 +35,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deletePartyRole" short-description="Delete a  PartyRole">
-        <check-permission permission="PARTYMGR" action="_DELETE">
-            <accept-userlogin-party/>
-            <fail-property resource="PartyUiLabels" property="PartyDeletePartyRolePermissionError"/>
-        </check-permission>
-        <check-errors/>
         <entity-one entity-name="PartyRole" value-name="partyRole"/>
         <remove-value value-name="partyRole"/>
     </simple-method>
@@ -190,25 +179,18 @@ under the License.
     
     <!-- PostalAddressBoundary methods -->
     <simple-method method-name="createPostalAddressBoundary" short-description="Create Postal Address Boundary">
-        <check-permission permission="PARTYMGR" action="_CREATE"><fail-property resource="PartyUiLabels" property="PartyCreatePostalAddressBoundaryPermissionError"/></check-permission>
-        <check-errors/>
         <make-value entity-name="PostalAddressBoundary" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePostalAddressBoundary" short-description="Delete a  Postal Address Boundary">
-        <check-permission permission="PARTYMGR" action="_DELETE"><fail-property resource="PartyUiLabels" property="PartyRemovePostalAddressBoundaryPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="PostalAddressBoundary" value-name="postalAddressBoundary"/>
         <remove-value value-name="postalAddressBoundary"/>
     </simple-method>
     <simple-method method-name="getPostalAddressBoundary" short-description="Get Postal Address Boundary">
-        <check-permission permission="PARTYMGR" action="_VIEW"><fail-property resource="PartyUiLabels" property="PartyViewPostalAddressBoundaryPermissionError"/></check-permission>
-        <check-errors/>
         <make-value entity-name="PostalAddressBoundary" value-name="postalAddressBoundaryLookupMap"/>
         <set field="postalAddressBoundaryLookupMap.geoId" from-field="parameters.geoId"/>
         <find-by-and entity-name="PostalAddressBoundary" map-name="postalAddressBoundaryLookupMap" list-name="postalAddressBoundaries"/>
-        
         <iterate list-name="postalAddressBoundaries" entry-name="postalAddressBoundary">
             <get-related-one value-name="postalAddressBoundary" to-value-name="geo" relation-name="Geo"/>
             <field-to-list field-name="geo" list-name="geos"/>
@@ -218,8 +200,6 @@ under the License.
 
     <!-- PartyClassification methods -->
     <simple-method method-name="createPartyClassification" short-description="create a PartyClassification">
-        <check-permission permission="PARTYMGR" action="_CREATE"><fail-property resource="PartyUiLabels" property="PartyCreatePartyClassificationPermissionError"/></check-permission>
-        <check-errors/>
         <make-value entity-name="PartyClassification" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -227,23 +207,17 @@ under the License.
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updatePartyClassification" short-description="update a PartyClassification">
-        <check-permission permission="PARTYMGR" action="_UPDATE"><fail-property resource="PartyUiLabels" property="PartyUpdatePartyClassificationPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="PartyClassification" value-name="lookedUpValue"/>
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyClassification" short-description="delete a PartyClassification">
-        <check-permission permission="PARTYMGR" action="_DELETE"><fail-property resource="PartyUiLabels" property="PartyRemovePartyClassificationPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="PartyClassification" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <!-- PartyClassificationGroup methods -->
     <simple-method method-name="createPartyClassificationGroup" short-description="create a PartyClassificationGroup">
         <log level="verbose" message="in newEntity" />
-        <check-permission permission="PARTYMGR" action="_CREATE"><fail-property resource="PartyUiLabels" property="PartyCreatePartyClassificationGroupPermissionError"/></check-permission>
-        <check-errors/>
         <make-value entity-name="PartyClassificationGroup" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="PartyClassificationGroup" env-name="newEntity.partyClassificationGroupId"/>
         <field-to-result field-name="newEntity.partyClassificationGroupId" result-name="partyClassificationGroupId"/>
@@ -252,96 +226,54 @@ under the License.
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updatePartyClassificationGroup" short-description="update a PartyClassificationGroup">
-        <check-permission permission="PARTYMGR" action="_UPDATE"><fail-property resource="PartyUiLabels" property="PartyUpdatePartyClassificationGroupPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="PartyClassificationGroup" value-name="lookedUpValue"/>
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyClassificationGroup" short-description="delete a PartyClassificationGroup">
-        <check-permission permission="PARTYMGR" action="_DELETE"><fail-property resource="PartyUiLabels" property="PartyRemovePartyClassificationGroupPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="PartyClassificationGroup" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
     <!-- Vendor Party services -->
     <simple-method method-name="createVendor" short-description="createVendor">
-        <check-permission permission="PARTYMGR" action="_CREATE">
-            <fail-property resource="PartyUiLabels" property="PartyCreateVendorPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-name="newEntity" entity-name="Vendor"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateVendor" short-description="updateVendor">
-        <check-permission permission="PARTYMGR" action="_UPDATE">
-            <fail-property resource="PartyUiLabels" property="PartyUpdateVendorPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="Vendor" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteVendor" short-description="deleteVendor">
-        <check-permission permission="PARTYMGR" action="_DELETE">
-            <fail-property resource="PartyUiLabels" property="PartyDeleteVendorPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="Vendor" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
     <!-- party attribute services -->
-    <simple-method method-name="createPartyAttribute" short-description="cratePartyAttribute">
-        <check-permission permission="PARTYMGR" action="_CREATE">
-            <fail-property resource="PartyUiLabels" property="PartyCreateAttributePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
+    <simple-method method-name="createPartyAttribute" short-description="createPartyAttribute">
         <make-value value-name="newEntity" entity-name="PartyAttribute"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePartyAttribute" short-description="updatePartyAttribute">
-        <check-permission permission="PARTYMGR" action="_UPDATE">
-            <fail-property resource="PartyUiLabels" property="PartyUpdateAttributePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="PartyAttribute" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removePartyAttribute" short-description="removePartyAttribute">
-        <check-permission permission="PARTYMGR" action="_DELETE">
-            <fail-property resource="PartyUiLabels" property="PartyRemoveAttributePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="PartyAttribute" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
     <!-- party profile default -->
     <simple-method method-name="setPartyProfileDefaults" short-description="Sets Party Profile Defaults">
-        <!-- check make sure we have permission to set this -->
         <if-empty map-name="parameters" field-name="partyId">
             <set from-field="userLogin.partyId" field="parameters.partyId"/>
         </if-empty>
-        <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
-            <check-permission permission="PARTYMGR" action="_UPDATE">
-                <fail-property resource="PartyUiLabels" property="PartyPermissionErrorForThisParty"/>
-            </check-permission>
-        </if-compare-field>
 
         <!-- lookup existing value -->
         <entity-one entity-name="PartyProfileDefault" value-name="partyProfileDefault"/>
@@ -763,17 +695,6 @@ under the License.
 
     <!-- PartyRelationship services -->
     <simple-method method-name="createPartyRelationship" short-description="createPartyRelationship">
-        <if-empty field-name="parameters.partyIdFrom">
-            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
-            <else>
-                <check-permission permission="PARTYMGR_REL" action="_CREATE">
-                    <alt-permission permission="PARTYMGR" action="_CREATE"/>
-                    <fail-property resource="ServiceErrorUiLabels" property="serviceUtil.no_permission_to_operation"/>
-                </check-permission>
-            </else>
-        </if-empty>
-        <check-errors/>
-        
         <if-empty field-name="parameters.roleTypeIdFrom"><set field="parameters.roleTypeIdFrom" value="_NA_"/></if-empty>
         <if-empty field-name="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
 
@@ -786,17 +707,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePartyRelationship" short-description="updatePartyRelationship">
-        <if-empty field-name="parameters.partyIdFrom">
-            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
-            <else>
-                <check-permission permission="PARTYMGR_REL" action="_UPDATE">
-                    <alt-permission permission="PARTYMGR" action="_UPDATE"/>
-                    <fail-property resource="ServiceErrorUiLabels" property="serviceUtil.no_permission_to_operation"/>
-                </check-permission>
-            </else>
-        </if-empty>
-        <check-errors/>
-        
         <if-empty field-name="parameters.roleTypeIdFrom"><set field="parameters.roleTypeIdFrom" value="_NA_"/></if-empty>
         <if-empty field-name="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
         
@@ -805,17 +715,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyRelationship" short-description="deletePartyRelationship">
-        <if-empty field-name="parameters.partyIdFrom">
-            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
-            <else>
-                <check-permission permission="PARTYMGR_REL" action="_DELETE">
-                    <alt-permission permission="PARTYMGR" action="_DELETE"/>
-                    <fail-property resource="ServiceErrorUiLabels" property="serviceUtil.no_permission_to_operation"/>
-                </check-permission>
-            </else>
-        </if-empty>
-        <check-errors/>
-        
         <if-empty field-name="parameters.roleTypeIdFrom"><set field="parameters.roleTypeIdFrom" value="_NA_"/></if-empty>
         <if-empty field-name="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
 

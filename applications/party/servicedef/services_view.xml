@@ -166,6 +166,7 @@ under the License.
     <service name="getPostalAddressBoundary" engine="simple"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="getPostalAddressBoundary">
         <description>Get all Postal Address Boundaries</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="VIEW"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="geos" type="java.util.List" mode="OUT" optional="true"/>
     </service>

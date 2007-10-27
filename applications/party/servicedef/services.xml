@@ -28,18 +28,14 @@ under the License.
     <service name="createAddressMatchMap" engine="simple" default-entity-name="AddressMatchMap" auth="true"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="createAddressMatchMap">
         <description>Create an AddressMatchMap record</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="PARTYMGR" action="_CREATE"/>
-        </required-permissions>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="importAddressMatchMapCsv" engine="java" auth="true"
             location="org.ofbiz.party.party.PartyServices" invoke="importAddressMatchMapCsv">
         <description>Import a CSV (name,value) of AddressMatchMap records</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="PARTYMGR" action="_CREATE"/>
-        </required-permissions>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="false"/>
         <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
@@ -47,17 +43,13 @@ under the License.
     <service name="removeAddressMatchMap" engine="simple" default-entity-name="AddressMatchMap" auth="true"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="deleteAddressMatchMap">
         <description>Delete an AddressMatchMap record</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="PARTYMGR" action="_DELETE"/>
-        </required-permissions>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="clearAddressMatchMap" engine="simple" default-entity-name="AddressMatchMap" auth="true"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="clearAddressMatchMap">
         <description>Delete an AddressMatchMap record</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="PARTYMGR" action="_DELETE"/>
-        </required-permissions>        
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
     </service>
 
     <service name="deleteParty" engine="java"
@@ -67,8 +59,9 @@ under the License.
     </service>
     <service name="setPartyStatus" engine="java"
             location="org.ofbiz.party.party.PartyServices" invoke="setPartyStatus" auth="true">
-        <description>Set the party status. Requires PARTYMGR_STS_UPDATE permission. The change to statusId must be defined in StatusValidChange, otherwise
+        <description>Set the party status. Requires PARTYMGR_UPDATE or PARTYMGR_STS_UPDATE permission. The change to statusId must be defined in StatusValidChange, otherwise
             this service will fail. The result is the original statusId, so that ECA conditions can check if a status has actually changed.</description>
+        <permission-service service-name="partyStatusPermissionCheck" main-action="UPDATE"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="statusDate" type="Timestamp" mode="IN" optional="true"/>
@@ -97,6 +90,7 @@ under the License.
     <service name="updatePerson" engine="java" default-entity-name="Person"
             location="org.ofbiz.party.party.PartyServices" invoke="updatePerson" auth="true">
         <description>Update a Person</description>
+        <permission-service service-name="partyGroupPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="true"><!-- if no partyId specified will use userLogin.partyId --></auto-attributes>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
@@ -117,6 +111,7 @@ under the License.
     <service name="updatePartyGroup" engine="java" default-entity-name="PartyGroup"
             location="org.ofbiz.party.party.PartyServices" invoke="updatePartyGroup" auth="true">
         <description>Update a PartyGroup</description>
+        <permission-service service-name="partyGroupPermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
@@ -162,6 +157,19 @@ under the License.
         <attribute name="siteVisitors" type="String" mode="IN" optional="true"/>
     </service>
 
+    <service name="updateAffiliate" engine="java"
+            location="org.ofbiz.party.party.PartyServices" invoke="updateAffiliate" auth="true">
+        <description>Update an Affiliate</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="affiliateName" type="String" mode="IN"/>
+        <attribute name="affiliateDescription" type="String" mode="IN" optional="true"/>
+        <attribute name="yearEstablished" type="String" mode="IN" optional="true"/>
+        <attribute name="siteType" type="String" mode="IN" optional="true"/>
+        <attribute name="sitePageViews" type="String" mode="IN" optional="true"/>
+        <attribute name="siteVisitors" type="String" mode="IN" optional="true"/>
+    </service>
+
     <service name="createPartyNote" engine="java"
             location="org.ofbiz.party.party.PartyServices" invoke="createPartyNote" auth="true">
         <description>Create a note item and associate with a party. If a noteId is passed, creates an assoication to that note instead.</description>
@@ -182,6 +190,7 @@ under the License.
     <service name="setPartyProfileDefaults" engine="simple"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="setPartyProfileDefaults" auth="true">
         <description>Sets the party (customer) profile defaults</description>
+        <permission-service service-name="partyIdPermissionCheck" main-action="UPDATE"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="defaultShipAddr" type="String" mode="IN" optional="true"/>
@@ -192,18 +201,21 @@ under the License.
     <service name="createPartyAttribute" engine="simple" default-entity-name="PartyAttribute"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyAttribute" auth="true">
         <description>create a party attribute record</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updatePartyAttribute" engine="simple" default-entity-name="PartyAttribute"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyAttribute" auth="true">
         <description>updates a party attribute record</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removePartyAttribute" engine="simple" default-entity-name="PartyAttribute"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="removePartyAttribute" auth="true">
         <description>removes a party attribute record</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -219,6 +231,7 @@ under the License.
             location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyRole" auth="true">
         <description>Create a Party Role (add a Role to a Party). The logged in user must have PARTYMGR_CREATE or have 
             permission to change the role of this partyId</description>
+        <permission-service service-name="partyRolePermissionCheck" main-action="CREATE"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
     </service>
@@ -226,6 +239,7 @@ under the License.
             location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyRole" auth="true">
         <description>Delete a Party Role (remove a Role from a Party). The logged in user must have PARTYMGR_DELETE or have 
             permission to change the role of this partyId</description>
+        <permission-service service-name="partyRolePermissionCheck" main-action="DELETE"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
     </service>
@@ -260,6 +274,7 @@ under the License.
             if roleTypeIds are not specified they will default to "_NA_". 
             If a partyIdFrom is passed in, it will be used if the userLogin has PARTYMGR_REL_CREATE permission.
         </description>
+        <permission-service service-name="partyRelationshipPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="partyIdTo" optional="false"/>
@@ -272,6 +287,7 @@ under the License.
             if roleTypeIds are not specified they will default to "_NA_". 
             If a partyIdFrom is passed in, it will be used if the userLogin has PARTYMGR_REL_UPDATE permission.
         </description>
+        <permission-service service-name="partyRelationshipPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="partyIdFrom" optional="true"/>
@@ -285,6 +301,7 @@ under the License.
             if partyIdFrom is not specified the partyId of the current userLogin will be used; 
             if roleTypeIds are not specified they will default to "_NA_".
         </description>
+        <permission-service service-name="partyRelationshipPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <override name="partyIdFrom" optional="true"/>
         <override name="roleTypeIdFrom" optional="true"/>
@@ -310,6 +327,7 @@ under the License.
     <service name="createPartyContactMech" engine="simple"
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createPartyContactMech" auth="true">
         <description>Create a PartyContactMech</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
@@ -325,6 +343,7 @@ under the License.
     <service name="updatePartyContactMech" engine="simple"
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePartyContactMech" auth="true">
         <description>Update a PartyContactMech</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
         <attribute name="contactMechTypeId" type="String" mode="IN" optional="false"/>
@@ -334,6 +353,7 @@ under the License.
     <service name="deletePartyContactMech" engine="simple"
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="deletePartyContactMech" auth="true">
         <description>Delete a PartyContactMech</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="DELETE"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
     </service>
@@ -359,6 +379,7 @@ under the License.
     <service name="createPartyPostalAddress" engine="simple"
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createPartyPostalAddress" auth="true">
         <description>Create a Postal Address</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>        
@@ -383,6 +404,7 @@ under the License.
     <service name="updatePartyPostalAddress" engine="simple"
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePartyPostalAddress" auth="true">
         <description>Update a Postal Address</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
@@ -400,6 +422,7 @@ under the License.
     <service name="createPartyTelecomNumber" engine="simple"
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createPartyTelecomNumber" auth="true">
         <description>Create a Telecommunications Number</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
@@ -415,6 +438,7 @@ under the License.
     <service name="updatePartyTelecomNumber" engine="simple"
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePartyTelecomNumber" auth="true">
         <description>Update a Telecommunications Number</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
@@ -430,6 +454,7 @@ under the License.
     <service name="createPartyEmailAddress" engine="simple"
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createPartyEmailAddress" auth="true">
         <description>Create an Email Address</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
@@ -445,6 +470,7 @@ under the License.
     <service name="updatePartyEmailAddress" engine="simple"
             location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePartyEmailAddress" auth="true">
         <description>Update an Email Address</description>
+        <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/> <!-- the out paramater is the id of the new address -->
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
@@ -461,18 +487,21 @@ under the License.
     <service name="createContactMechAttribute" engine="simple" default-entity-name="ContactMechAttribute"
             location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="createContactMechAttribute" auth="true">
         <description>create a contact mech attribute record</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateContactMechAttribute" engine="simple" default-entity-name="ContactMechAttribute"
             location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="updateContactMechAttribute" auth="true">
         <description>updates a contact mech attribute record</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeContactMechAttribute" engine="simple" default-entity-name="ContactMechAttribute"
             location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="removeContactMechAttribute" auth="true">
         <description>removes a contact mech attribute record</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -515,11 +544,13 @@ under the License.
     <service name="createPostalAddressBoundary" engine="simple" default-entity-name="PostalAddressBoundary"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="createPostalAddressBoundary">
         <description>Create a Postal Address Boundary</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="deletePostalAddressBoundary" engine="simple" default-entity-name="PostalAddressBoundary"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePostalAddressBoundary">
         <description>Delete a Postal Address Boundary</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
@@ -527,6 +558,7 @@ under the License.
     <service name="createPartyClassification" engine="simple" default-entity-name="PartyClassification"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyClassification">
         <description>create PartyClassification</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -534,29 +566,34 @@ under the License.
     <service name="updatePartyClassification" engine="simple" default-entity-name="PartyClassification"
         location="org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyClassification">
         <description>update PartyClassification</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deletePartyClassification" engine="simple" default-entity-name="PartyClassification"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyClassification">
         <description>delete PartyClassification</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="createPartyClassificationGroup" engine="simple" default-entity-name="PartyClassificationGroup"
         location="org/ofbiz/party/party/PartyServices.xml" invoke="createPartyClassificationGroup">
         <description>create PartyClassificationGroup</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updatePartyClassificationGroup" engine="simple" default-entity-name="PartyClassificationGroup"
         location="org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyClassificationGroup">
         <description>update PartyClassificationGroup</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deletePartyClassificationGroup" engine="simple" default-entity-name="PartyClassificationGroup"
         location="org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyClassificationGroup">
         <description>delete PartyClassificationGroup</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     
@@ -564,18 +601,21 @@ under the License.
     <service name="createVendor" engine="simple"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="createVendor" auth="true">
         <description>Create Vendor Information</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="Vendor" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="Vendor" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateVendor" engine="simple"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="updateVendor" auth="true">
         <description>Update Vendor Information</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="Vendor" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="Vendor" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteVendor" engine="simple"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="deleteVendor" auth="true">
         <description>Remove Vendor Information</description>
+        <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="Vendor" include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -583,6 +623,7 @@ under the License.
     <service name="createPartyDataSource" engine="java"
             location="org.ofbiz.party.party.PartyServices" invoke="createPartyDataSource" auth="true">
         <description>Creates a relation between a Party and a DataSource using PartyDataSource. The userLogin must have PARTYMGR_SRC_CREATE permission.</description>
+        <permission-service service-name="partyDatasourcePermissionCheck" main-action="CREATE"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
@@ -790,5 +831,77 @@ under the License.
     <service name="verifyEmailAddress" engine="simple"
              location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="verifyEmailAddress">
         <attribute name="verifyHash" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Permission checking services-->
+    <service name="partyBasePermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="basePermissionCheck">
+        <description>
+            Performs a basic Party Manager security check. The user must have one of the base PARTYMGR
+            CRUD+ADMIN permissions.
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="partyIdPermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="basePlusPartyIdPermissionCheck">
+        <description>
+            Performs a party ID security check. The userLogin partyId must equal
+            the partyId parameter, or the logged-in user must have the correct permission
+            to perform the operation.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="partyStatusPermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyStatusPermissionCheck">
+        <description>
+            Performs a party status security check. The user must have one of the base PARTYMGR or
+            PARTYMGR_STS CRUD+ADMIN permissions.
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="partyGroupPermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyGroupPermissionCheck">
+        <description>
+            Performs a party group security check. The userLogin partyId must equal the partyId parameter OR
+            the user has one of the base PARTYMGR or PARTYMGR_GRP CRUD+ADMIN permissions.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="partyDatasourcePermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyDatasourcePermissionCheck">
+        <description>
+            Performs a party datasource security check. The user must have one of the base PARTYMGR or
+            PARTYMGR_SRC CRUD+ADMIN permissions.
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="partyRolePermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyRolePermissionCheck">
+        <description>
+            Performs a party role security check. The user must have one of the base PARTYMGR or
+            PARTYMGR_ROLE CRUD+ADMIN permissions.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    <service name="partyRelationshipPermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyRelationshipPermissionCheck">
+        <description>
+            Performs a party relationship security check. The user must have one of the base PARTYMGR or
+            PARTYMGR_REL CRUD+ADMIN permissions.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="partyContactMechPermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyContactMechPermissionCheck">
+        <description>
+            Performs a party contact mech security check. The userLogin partyId must equal the partyId parameter OR
+            the user must have one of the base PARTYMGR or PARTYMGR_PCM CRUD+ADMIN permissions.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
 </services>

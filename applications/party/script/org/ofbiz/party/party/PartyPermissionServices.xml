@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <!-- ============== Basic Permission Checking ============= -->
+
+    <!-- Returns hasPermission=true if user has one of the base PARTYMGR CRUD+ADMIN permissions -->
+    <simple-method method-name="basePermissionCheck" short-description="Party Manager base permission logic">
+        <set field="primaryPermission" value="PARTYMGR"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+    </simple-method>
+
+    <!-- Returns hasPermission=true if userLogin partyId equals partyId parameter -->
+    <simple-method method-name="partyIdPermissionCheck" short-description="Party ID Permission Check">
+        <if-empty field-name="partyId">
+            <set field="partyId" from-field="parameters.partyId"/>
+        </if-empty>
+        <if>
+            <condition>
+                <and>
+                    <not><if-empty field-name="partyId"/></not>
+                    <not><if-empty field-name="userLogin.partyId"/></not>
+                    <if-compare-field field-name="partyId" operator="equals" to-field-name="userLogin.partyId"/>
+                </and>
+            </condition>
+            <then>
+                <set field="hasPermission" type="Boolean" value="true"/>
+            </then>
+            <else>
+                <set field="resourceDescription" from-field="parameters.resourceDescription"/>
+                <if-empty field-name="resourceDescription">
+                    <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
+                </if-empty>
+                <property-to-field resource="PartyUiLabels" property="PartyPermissionErrorPartyId" field-name="failMessage"/>
+                <set field="hasPermission" type="Boolean" value="false"/>
+                <field-to-result field-name="failMessage"/>
+            </else>
+        </if>
+        <field-to-result field-name="hasPermission"/>
+    </simple-method>
+
+    <!-- Returns hasPermission=true if userLogin party equals partyId parameter OR
+        user has one of the base PARTYMGR CRUD+ADMIN permissions -->
+    <simple-method method-name="basePlusPartyIdPermissionCheck" short-description="Base Permission Plus Party ID Permission Check">
+        <call-simple-method method-name="basePermissionCheck"/>
+        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+            <call-simple-method method-name="partyIdPermissionCheck"/>
+        </if-compare>
+    </simple-method>
+
+    <!-- ============== Additional Permission Checking ============= -->
+
+    <!-- Returns hasPermission=true if user has one of the base PARTYMGR or PARTYMGR_STS CRUD+ADMIN permissions -->
+    <simple-method method-name="partyStatusPermissionCheck" short-description="Party status permission logic">
+        <set field="altPermission" value="PARTYMGR_STS"/>
+        <call-simple-method method-name="basePermissionCheck"/>
+    </simple-method>
+
+    <!-- Returns hasPermission=true if userLogin partyId equals partyId parameter OR
+         user has one of the base PARTYMGR or PARTYMGR_GRP CRUD+ADMIN permissions -->
+    <simple-method method-name="partyGroupPermissionCheck" short-description="Party group permission logic">
+        <set field="altPermission" value="PARTYMGR_GRP"/>
+        <call-simple-method method-name="basePlusPartyIdPermissionCheck"/>
+    </simple-method>
+
+    <!-- Returns hasPermission=true if user has one of the base PARTYMGR or PARTYMGR_SRC CRUD+ADMIN permissions -->
+    <simple-method method-name="partyDatasourcePermissionCheck" short-description="Party datasource permission logic">
+        <set field="altPermission" value="PARTYMGR_SRC"/>
+        <call-simple-method method-name="basePermissionCheck"/>
+    </simple-method>
+
+    <!-- Returns hasPermission=true if user has one of the base PARTYMGR or PARTYMGR_ROLE CRUD+ADMIN permissions -->
+    <simple-method method-name="partyRolePermissionCheck" short-description="Party role permission logic">
+        <set field="altPermission" value="PARTYMGR_ROLE"/>
+        <call-simple-method method-name="basePlusPartyIdPermissionCheck"/>
+    </simple-method>
+
+    <!-- Returns hasPermission=true if user has one of the base PARTYMGR or PARTYMGR_REL CRUD+ADMIN permissions -->
+    <simple-method method-name="partyRelationshipPermissionCheck" short-description="Party relationship permission logic">
+        <if-empty field-name="parameters.partyIdFrom">
+            <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
+            <set field="hasPermission" type="Boolean" value="true"/>
+            <field-to-result field-name="hasPermission"/>
+            <else>
+                <set field="altPermission" value="PARTYMGR_REL"/>
+                <call-simple-method method-name="basePermissionCheck"/>
+            </else>
+        </if-empty>
+    </simple-method>
+
+    <!-- Returns hasPermission=true if userLogin partyId equals partyId parameter OR
+         user has one of the base PARTYMGR or PARTYMGR_PCM CRUD+ADMIN permissions -->
+    <simple-method method-name="partyContactMechPermissionCheck" short-description="Party contact mech permission logic">
+        <if-empty map-name="parameters" field-name="partyId">
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
+        </if-empty>
+        <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="not-equals">
+            <set field="altPermission" value="PARTYMGR_PCM"/>
+            <call-simple-method method-name="basePermissionCheck"/>
+        </if-compare-field>
+    </simple-method>
+
+</simple-methods>

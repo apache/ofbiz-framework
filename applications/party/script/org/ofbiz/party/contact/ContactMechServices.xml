@@ -259,36 +259,21 @@ under the License.
 
     <!-- contactmech attribute services -->
     <simple-method method-name="createContactMechAttribute" short-description="createContactMechAttribute">
-        <check-permission permission="PARTYMGR" action="_CREATE">
-            <fail-property resource="PartyUiLabels" property="PartyCreateAttributePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-name="newEntity" entity-name="ContactMechAttribute"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContactMechAttribute" short-description="updateContactMechAttribute">
-        <check-permission permission="PARTYMGR" action="_UPDATE">
-            <fail-property resource="PartyUiLabels" property="PartyUpdateAttributePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="ContactMechAttribute" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContactMechAttribute" short-description="removeContactMechAttribute">
-        <check-permission permission="PARTYMGR" action="_DELETE">
-            <fail-property resource="PartyUiLabels" property="PartyRemoveAttributePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="ContactMechAttribute" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+
     <simple-method method-name="sendVerifyEmailAddressNotification" short-description="Send an email to the person for Verification of his Email Address" login-required="false">
         <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
             <condition-list>
