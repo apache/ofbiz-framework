@@ -85,6 +85,9 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/find/keywordsearch.ftl"/></html>
                         </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/find/keywordsearchactions.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
