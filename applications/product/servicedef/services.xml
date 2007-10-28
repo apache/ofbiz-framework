@@ -1153,25 +1153,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- Products Export Services -->    
-    <service name="exportToGoogle" engine="java"
-             location="org.ofbiz.product.product.ProductsExportToGoogle" invoke="exportToGoogle" auth="true">
-        <description>Export products to Google Base</description>
-        <attribute type="List" mode="IN" name="selectResult" optional="false"/>
-        <attribute type="String" mode="IN" name="webSiteUrl" optional="false"/>
-        <attribute type="String" mode="IN" name="imageUrl" optional="true"/>
-        <attribute type="String" mode="IN" name="actionType" optional="false"/>
-        <attribute type="String" mode="IN" name="statusId" optional="false"/>
-        <attribute type="String" mode="IN" name="testMode" optional="false"/>
-        <attribute type="String" mode="IN" name="trackingCodeId" optional="true"/>
-    </service>
-    <service name="exportProductCategoryToGoogle" engine="java"
-             location="org.ofbiz.product.product.ProductsExportToGoogle" invoke="exportProductCategoryToGoogle" auth="true">
-        <description>Export products in a category to Google Base</description>
-        <attribute type="String" mode="IN" name="productCategoryId" optional="false"/>
-        <attribute type="String" mode="IN" name="actionType" optional="false"/>
-        <attribute type="String" mode="IN" name="webSiteUrl" optional="false"/>
-        <attribute type="String" mode="IN" name="imageUrl" optional="true"/>
-    </service>
     <service name="exportToEbay" engine="java"
              location="org.ofbiz.product.product.ProductsExportToEbay" invoke="exportToEbay" auth="true">
         <description>Export products to eBay</description>

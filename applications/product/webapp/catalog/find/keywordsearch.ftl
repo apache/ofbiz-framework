@@ -63,11 +63,6 @@ under the License.
         e.checked = !e.checked;
     }
 
-    function exportToGoogle() {
-        document.products.action="<@ofbizUrl>ProductsExportToGoogle</@ofbizUrl>";
-        document.products.submit();
-    }
-    
     function exportToeBay() {
         document.products.action="<@ofbizUrl>ProductsExportToEbay</@ofbizUrl>";
         document.products.submit();
@@ -226,7 +221,6 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 <div class="tabletext">
   <b>${uiLabelMap.ProductSearchExportProductList}:</b> <a href="<@ofbizUrl>searchExportProductList?clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchExport}</a>
   <#if productIds?has_content>
-    <a href="javascript:exportToGoogle();" class="buttontext">${uiLabelMap.ProductExportToGoogle}</a>
     <a href="javascript:exportToeBay();" class="buttontext">${uiLabelMap.ProductExportToeBay}</a>
   </#if>
 </div>

@@ -2444,25 +2444,6 @@ under the License.
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>      
 
-    <request-map uri="ProductsExportToGoogle">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ProductsExportToGoogle"/>
-    </request-map>
-    
-    <request-map uri="exportProductsToGoogle">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="exportToGoogle"/>
-        <response name="success" type="view" value="ProductsExportToGoogle"/>
-        <response name="error" type="view" value="ProductsExportToGoogle"/>
-    </request-map>
-    
-    <request-map uri="searchExportProductListToGoogle">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.product.ProductSearchEvents" invoke="searchExportProductListToGoogle"/>
-        <response name="success" type="view" value="ProductsExportToGoogle"/>
-        <response name="error" type="view" value="ProductsExportToGoogle"/>
-    </request-map>
-    
      <request-map uri="ProductsExportToEbay">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProductsExportToEbay"/>
@@ -2628,7 +2609,6 @@ under the License.
     <view-map name="ListShipmentMethodTypes" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentMethodTypes"/>
     <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
 
-    <view-map name="ProductsExportToGoogle" type="screen" page="component://product/widget/catalog/FindScreens.xml#ProductsExportToGoogle"/>
     <view-map name="ProductsExportToEbay" type="screen" page="component://product/widget/catalog/FindScreens.xml#ProductsExportToEbay"/>
    
     <!-- Lookup request mappings -->
