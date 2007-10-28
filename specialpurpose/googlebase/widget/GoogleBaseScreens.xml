@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <property-map resource="GoogleBaseUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="activeApp" value="googlebase" global="true"/>
+
+                <!-- The two default (global) stylesheets are added to the list
+                     of stylesheets to the first and second position -->
+                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
+                <!-- The default (global) java scripts -->
+                <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.GoogleBaseCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.GoogleBaseApplication" global="true"/>
+                <set field="applicationMenuName" value="GoogleBaseAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://googlebase/widget/GoogleBaseMenus.xml" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonFindDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="googlebase"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for CATALOG, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="advancedsearch">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleAdvancedSearch"/>
+
+                <entity-condition entity-name="ProductCategory" list-name="productCategories">
+                    <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
+                    <order-by field-name="description"/>
+                </entity-condition>
+                <entity-condition entity-name="ProdCatalog" list-name="prodCatalogs">
+                    <order-by field-name="catalogName"/>
+                </entity-condition>  
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFindDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/find/advancedsearch.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="keywordsearch">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSearchResults"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFindDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/find/keywordsearch.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://googlebase/webapp/googlebase/find/googleExportLink.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ProductsExportToGoogle">
+        <section>
+            <actions>
+                <set field="headerItem" value="googlebase"/>
+                <set field="titleProperty" value="PageTitleGoogleBaseProductsExportToGoogle"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.PageTitleGoogleBaseProductsExportToGoogle}</label>
+                        </container>
+                        <include-form name="ProductsExportToGoogle" location="component://googlebase/widget/GoogleBaseForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>  
+    </screen>
+</screens>

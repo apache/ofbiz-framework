@@ -18,14 +18,22 @@
     under the License.
 -->
 
-<component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
-    <load-component component-location="pos"/>
-    <load-component component-location="hhfacility"/>
-    <load-component component-location="assetmaint"/>
-    <load-component component-location="cmssite"/>
-    <load-component component-location="projectmgr"/>
-    <load-component component-location="oagis"/>
-    <load-component component-location="bi"/>
-    <load-component component-location="googlebase"/>
-</component-loader>
+<ofbiz-component name="googlebase"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+    <resource-loader name="main" type="component"/>
+    <classpath type="dir" location="config"/>
+    <classpath type="jar" location="build/lib/*"/>
+
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/GoogleBaseTypeData.xml"/>
+
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    
+    <webapp name="googlebase"
+        title="Google Base"
+        server="default-server"
+        location="webapp/googlebase"
+        base-permission="OFBTOOLS"
+        mount-point="/googlebase"
+        app-bar-display="true"/>
+</ofbiz-component>

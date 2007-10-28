@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.product.product;
+package org.ofbiz.googlebase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,7 +57,7 @@ import org.w3c.dom.Element;
 
 public class ProductsExportToGoogle {
     
-    private static final String resource = "ProductUiLabels";
+    private static final String resource = "GoogleBaseUiLabels";
     private static final String module = ProductsExportToGoogle.class.getName();
 
     public static Map exportToGoogle(DispatchContext dctx, Map context) {
@@ -67,22 +67,22 @@ public class ProductsExportToGoogle {
         
         Map result = null;
         try {
-            String configString = "productsExport.properties";
+            String configString = "googleBaseExport.properties";
                             
             // get the Developer Key
-            String developerKey = UtilProperties.getPropertyValue(configString, "productsExport.google.developerKey");
+            String developerKey = UtilProperties.getPropertyValue(configString, "googleBaseExport.developerKey");
             
             // get the Authentication Url
-            String authenticationUrl = UtilProperties.getPropertyValue(configString, "productsExport.google.authenticationUrl");
+            String authenticationUrl = UtilProperties.getPropertyValue(configString, "googleBaseExport.authenticationUrl");
             
             // get the Google Account Email
-            String accountEmail = UtilProperties.getPropertyValue(configString, "productsExport.google.accountEmail");
+            String accountEmail = UtilProperties.getPropertyValue(configString, "googleBaseExport.accountEmail");
             
             // get the Google Account Password
-            String accountPassword = UtilProperties.getPropertyValue(configString, "productsExport.google.accountPassword");
+            String accountPassword = UtilProperties.getPropertyValue(configString, "googleBaseExport.accountPassword");
             
             // get the Url to Post Items
-            String postItemsUrl = UtilProperties.getPropertyValue(configString, "productsExport.google.postItemsUrl");
+            String postItemsUrl = UtilProperties.getPropertyValue(configString, "googleBaseExport.postItemsUrl");
         
             StringBuffer dataItemsXml = new StringBuffer();
             
