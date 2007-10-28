@@ -380,7 +380,7 @@ public class ShipmentServices {
                 }
 
                 // add the feature quantities
-                Double quantity = (Double) itemMap.get("quantity");
+                BigDecimal quantity = (BigDecimal) itemMap.get("quantity");
                 Set featureSet = (Set) itemMap.get("featureSet");
                 if (featureSet != null && featureSet.size() > 0) {
                     Iterator fi = featureSet.iterator();
