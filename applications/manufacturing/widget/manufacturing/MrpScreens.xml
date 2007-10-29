@@ -99,7 +99,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="-createdStamp"/>
                 </entity-condition>
-                <entity-condition entity-name="JobSandbox" list-name="mrpFinishedJobs">
+                <entity-condition entity-name="JobSandbox" list-name="lastFinishedJobs">
                     <condition-list combine="and">
                         <condition-expr field-name="serviceName" value="executeMrp"/>
                         <condition-list combine="or">
@@ -110,10 +110,8 @@ under the License.
                         </condition-list>
                     </condition-list>
                     <order-by field-name="-finishDateTime"/>
+                    <limit-range start="0" size="1"/>
                 </entity-condition>
-                <set field="lastFinishedJob" from-field="mrpFinishedJobs[0]"/>
-                <set field="lastFinishedJobs[]" from-field="lastFinishedJob"/>
-                
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/mrp/findInventoryEventPlan.bsh"/>
             </actions>
             <widgets>
