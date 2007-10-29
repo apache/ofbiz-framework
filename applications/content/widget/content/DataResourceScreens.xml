@@ -23,20 +23,77 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="DataResource"/>
+                <set field="tabButtonItem" value="findDataResource"/>
                 <set field="titleProperty" value="PageTitleFindDataResource"/>
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="commonDataResourceDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="editDataResource" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
-                        <label style="head1" text="${uiLabelMap.PageTitleFindDataResource}"/>
                         <include-form name="FindDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
                         <label style="head1" text="${uiLabelMap.PageTitleListDataResource}"></label>
                         <include-form name="ListDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="navigateDataResource">
+        <section>
+            <actions>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
+                <set field="titleProperty" value="PageTitleEditWebSiteCMS"/>
+                <set field="tabButtonItem" value="navigateDataResource"/>
+                <set field="labelTitleProperty" value="PageTitleEditWebSiteCMS"/>
+                <entity-and entity-name="DataCategory" list-name="subCategories">
+                    <field-map field-name="parentCategoryId" value="ROOT"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>                                                                
+                                <container id="cmsnav" style="left-border">
+                                    <include-screen name="navigateMenu"/>
+                                </container>
+                                <container id="cmsmain" style="nocolumns">
+                                    <container id="cmscontent">
+                                        <include-screen name="listDataResources"/>
+                                    </container>    
+                                </container>                                                                
+                            </widgets>
+                            <fail-widgets>
+                                <container id="norender" style="tableheadtext">
+                                    <label text="${uiLabelMap.ContentCMSNotExist}"/>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="navigateMenu">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://content/webapp/content/content/nav.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="listDataResources">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-form name="ListDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
             </widgets>
         </section>
     </screen>

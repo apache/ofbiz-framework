@@ -500,6 +500,16 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="FindDataResource"/>
     </request-map>
+    <request-map uri="navigateDataResource">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="navigateDataResource"/>
+    </request-map>
+    
+    <request-map uri="listDataResources">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="listDataResources"/>
+    </request-map>
+    
     <request-map uri="EditDataResourceType">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="EditDataResourceType"/>
@@ -1635,6 +1645,7 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupSurveyResponse"/>
     </request-map>
+    
     <!-- lookup other components -->    
     <request-map uri="LookupPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPartyAndUserLoginAndPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyAndUserLoginAndPerson"/></request-map>
@@ -1685,6 +1696,8 @@ under the License.
     <view-map name="EditContentWorkEfforts" page="component://content/widget/content/ContentScreens.xml#EditContentWorkEfforts" type="screen"/>
     
     <view-map name="FindDataResource"  page="component://content/widget/content/DataResourceScreens.xml#FindDataResource" type="screen"/>
+    <view-map name="navigateDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#navigateDataResource"/>
+    <view-map name="listDataResources" type="screen" page="component://content/widget/content/DataResourceScreens.xml#listDataResources"/>
     <view-map name="UploadImage"  page="component://content/widget/content/DataResourceScreens.xml#UploadImage" type="screen"/>
     <view-map name="EditDataResource"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResource" type="screen"/>
     <view-map name="AddDataResource"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResource" type="screen"/>
