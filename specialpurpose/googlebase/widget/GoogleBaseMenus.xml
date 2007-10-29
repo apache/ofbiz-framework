@@ -20,7 +20,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="GoogleBaseAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.GoogleBaseApplication}"
         default-selected-style="selected" selected-menuitem-context-field-name="headerItem">
-        <menu-item name="googlebase" title="${uiLabelMap.ProductExportToGoogle}"><link target="advancedsearch"/></menu-item>
+        <menu-item name="googlebase" title="${uiLabelMap.GoogleBaseExportToGoogle}"><link target="advancedsearch"/></menu-item>
 
         <menu-item name="Logout" title="Logout" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
