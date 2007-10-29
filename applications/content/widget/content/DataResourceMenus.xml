@@ -95,19 +95,25 @@ under the License.
         </menu-item>
         <menu-item name="editElectronicText" title="${uiLabelMap.ContentDataResourceText}" >
             <condition>
-                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                <and>
+                    <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                    <not><if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"/></not>
+                </and>
             </condition>
             <link target="EditElectronicText?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>
         <menu-item name="editHtmlText" title="${uiLabelMap.ContentDataResourceHtml}" >
             <condition>
-                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                <and>
+                    <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                    <not><if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"/></not>
+                </and>
             </condition>
             <link target="EditHtmlText?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>
         <menu-item name="uploadImage" title="${uiLabelMap.ContentDataResourceImage}" >
             <condition>
-                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+                <if-compare field-name="currentValue.dataResourceTypeId" operator="equals" value="IMAGE_OBJECT"/>
             </condition>
             <link target="UploadImage?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>
