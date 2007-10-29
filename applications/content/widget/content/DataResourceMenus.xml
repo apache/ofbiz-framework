@@ -81,11 +81,17 @@ under the License.
         <menu-item name="navigateDataResource" title="${uiLabelMap.ContentNavigate}">
             <link target="navigateDataResource"/>
         </menu-item>
-        <menu-item name="editDataResource" title="${uiLabelMap.CommonNew}">
+        <menu-item name="editDataResource" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <not><if-empty field-name="currentValue.dataResourceId"/></not>
+            </condition>
+            <link target="editDataResource?dataResourceId=${parameters.dataResourceId}"/>
+        </menu-item>
+        <menu-item name="newDataResource" title="${uiLabelMap.CommonNew}">
             <condition>
                 <if-empty field-name="currentValue.dataResourceId"/>
             </condition>
-            <link target="editDataResource?dataResourceId=${parameters.dataResourceId}"/>
+            <link target="editDataResource"/>
         </menu-item>
         <menu-item name="editElectronicText" title="${uiLabelMap.ContentDataResourceText}" >
             <condition>
