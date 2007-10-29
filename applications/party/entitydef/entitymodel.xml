@@ -1629,6 +1629,21 @@ under the License.
         <key-map field-name="partyContentTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="PartyContentDetail" package-name="org.ofbiz.content.content" title="Party Content Detail View Entity">
+        <member-entity entity-alias="PCT" entity-name="PartyContent"/>
+        <member-entity entity-alias="CNT" entity-name="Content"/>
+        <alias-all entity-alias="PCT"/>
+        <alias-all entity-alias="CNT"/>
+        <view-link entity-alias="PCT" rel-entity-alias="CNT">
+            <key-map field-name="contentId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="DataResource">
+            <key-map field-name="dataResourceId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="ContentType">
+            <key-map field-name="contentTypeId"/>
+        </relation>
+    </view-entity>
     <entity entity-name="PartyContentType"
             package-name="org.ofbiz.party.party"
             title="Party Content Type Entity">
