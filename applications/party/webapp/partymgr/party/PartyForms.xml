@@ -412,23 +412,28 @@ under the License.
                 <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
             </entity-one>
         </actions>
+        
         <alt-target use-when="content==null" target="createPartyContent"/>
-        <auto-fields-entity entity-name="Content" />
+        <!-- <auto-fields-entity entity-name="Content"/> -->
+        
         <field name="partyId" map-name="parameters"><hidden/></field>
         <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="content==null&amp;&amp;contentId==null" name="contentId"><ignored/></field>
-        <field use-when="content==null&amp;&amp;contentId!=null" name="contentId"><display description="${uiLabelMap.CommonCannotBeFound}: [${contentId}]" also-hidden="false"/></field>
-        <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>        
-        <field name="dataResourceId">
-            <lookup target-form-name="LookupDataResource"/>
-        </field>
-        <field name="contentTypeId">
+        <field name="partyContentTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId"/>
+                <entity-options description="${description}" entity-name="PartyContentType"/>
+            </drop-down>
+        </field>
+        <!-- note sure if these two are necessray, but they are kind of confusing in this context:
+        <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>        
+        <field name="dataResourceId"><lookup target-form-name="LookupDataResource"/></field>
+        -->
+        <field name="contentTypeId">
+            <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
+                <entity-options description="${description}" entity-name="ContentType"/>
             </drop-down>
         </field>
         <field name="statusId" use-when="content==null">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
@@ -436,7 +441,7 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" use-when="content!=null">
-                <drop-down allow-empty="false" current-description="${currentStatus.description}">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}" no-current-selected-key="CTNT_AVAILABLE">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${content.statusId}"/>
                     <entity-order-by field-name="sequenceId"/>
@@ -470,7 +475,7 @@ under the License.
     <form name="ListPartyContents" type="list"
         separate-columns="false">
         <actions>
-            <entity-and entity-name="ContentAndRole">
+            <entity-and entity-name="PartyContentDetail">
                 <field-map field-name="partyId"/>
             </entity-and>
         </actions>
@@ -481,6 +486,7 @@ under the License.
                 <sub-hyperlink target="EditPartyContents?contentId=${contentId}&amp;amp;partyId=${partyId}" description="${contentId}" link-style="smallSubmit"/>
             </display-entity>
         </field>
+        <field name="partyContentTypeId"><display-entity entity-name="PartyContentType"/></field>
         <field name="description"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem"></display-entity></field>
         <field name="localeString"><display-entity entity-name="CountryCode" key-field-name="countryCode" description="${countryName}${countryCode}"></display-entity></field>

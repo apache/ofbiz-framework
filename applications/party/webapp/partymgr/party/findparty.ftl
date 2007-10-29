@@ -249,9 +249,9 @@ under the License.
               </#if>
             </td>
             <td>
-              <#if partyRow.lastName?has_content>
+              <#if partyRow.getModelEntity().isField("lastName") && lastName?has_content>
                 ${partyRow.lastName}<#if partyRow.firstName?has_content>, ${partyRow.firstName}</#if>
-              <#elseif partyRow.groupName?has_content>
+              <#elseif partyRow.getModelEntity().isField("groupName") && partyRow.groupName?has_content>
                 ${partyRow.groupName}
               <#else>
                 <#assign partyName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(partyRow, true)>
