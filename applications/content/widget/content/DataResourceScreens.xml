@@ -124,6 +124,7 @@ under the License.
                 <set field="tabButtonItem" value="editDataResource"/>
                 <set field="dataResourceId" from-field="parameters.dataResourceId"/>
                 <entity-one entity-name="DataResource" value-name="currentValue"/>
+                <entity-and entity-name="DataCategory" list-name="dataCategoryList"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
