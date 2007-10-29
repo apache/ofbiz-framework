@@ -500,6 +500,10 @@ public class ModelServiceReader implements Serializable {
                             param.fieldName = field.getName();
                             param.name = field.getName();
                             param.type = fieldType.getJavaType();
+                            // this is a special case where we use something different in the service layer than we do in the entity/data layer
+                            if ("java.sql.Blob".equals(param.type)) {
+                            	param.type = "java.nio.ByteBuffer";
+                            }
                             param.mode = UtilXml.checkEmpty(autoElement.getAttribute("mode")).intern();
                             param.optional = "true".equalsIgnoreCase(autoElement.getAttribute("optional")); // default to true
                             param.formDisplay = !"false".equalsIgnoreCase(autoElement.getAttribute("form-display")); // default to false                        

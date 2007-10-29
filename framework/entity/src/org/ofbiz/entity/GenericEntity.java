@@ -60,7 +60,7 @@ import org.w3c.dom.Element;
 
 import org.ofbiz.base.crypto.HashCrypt;
 /**
- * Generic Entity Value Object - Handles persisntence for any defined entity.
+ * Generic Entity Value Object - Handles persistence for any defined entity.
  * <p>Note that this class extends <code>Observable</code> to achieve change notification for
  * <code>Observer</code>s. Whenever a field changes the name of the field will be passed to
  * the <code>notifyObservers()</code> method, and through that to the <code>update()</code> method of each
@@ -73,7 +73,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     public static final GenericEntity NULL_ENTITY = new NullGenericEntity();
     public static final NullField NULL_FIELD = new NullField();
 
-    /** Name of the GenericDelegator, used to reget the GenericDelegator when deserialized */
+    /** Name of the GenericDelegator, used to re-get the GenericDelegator when deserialized */
     protected String delegatorName = null;
 
     /** Reference to an instance of GenericDelegator used to do some basic operations on this entity value. If null various methods in this class will fail. This is automatically set by the GenericDelegator for all GenericValue objects instantiated through it. You may set this manually for objects you instantiate manually, but it is optional. */
@@ -1363,6 +1363,9 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     public static class NullGenericEntity extends GenericEntity implements NULL {
         protected NullGenericEntity() { }
         
+        public String getEntityName() {
+            return "[null-entity]";
+        }
         public String toString() {
             return "[null-entity]";
         }

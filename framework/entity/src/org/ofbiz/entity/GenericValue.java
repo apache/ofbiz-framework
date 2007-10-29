@@ -485,5 +485,12 @@ public class GenericValue extends GenericEntity implements Reusable {
         return newEntity;
     }
 
-    protected static class NullGenericValue extends GenericValue implements NULL { };
+    protected static class NullGenericValue extends GenericValue implements NULL {
+        public String getEntityName() {
+            return "[null-entity-value]";
+        }
+        public String toString() {
+            return "[null-entity-value]";
+        }
+    };
 }

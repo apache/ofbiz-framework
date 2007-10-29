@@ -1873,6 +1873,7 @@ public class ModelFormField {
             
             String retVal = null;
             if (value != null) {
+                //Debug.logInfo("In DisplayEntityField.getDescription value=" + value + "; entityName=" + this.entityName, module);
                 retVal = this.description.expandString(value, locale);
             }
             // try to get the entry for the field if description doesn't expand to anything
