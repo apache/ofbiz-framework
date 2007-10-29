@@ -437,7 +437,9 @@ public class ModelReader implements Serializable {
         }
         ModelEntity modelEntity = ec.get(entityName);
         if (modelEntity == null) {
-            throw new GenericModelException("Could not find definition for entity name " + entityName);
+            String errMsg = "Could not find definition for entity name " + entityName;
+            // Debug.logError(new Exception("Placeholder"), errMsg, module);
+            throw new GenericModelException(errMsg);
         }
         return modelEntity;
     }

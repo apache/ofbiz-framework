@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
+import java.nio.ByteBuffer;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -773,6 +774,8 @@ public class SqlJdbcUtil {
             case 12:
                 if (fieldValue instanceof byte[]) {
                     sqlP.setBytes((byte[]) fieldValue);
+                } else if (fieldValue instanceof ByteBuffer) {
+                    sqlP.setBytes(((ByteBuffer) fieldValue).array());
                 } else {
                     sqlP.setValue((java.sql.Blob) fieldValue);
                 }
@@ -826,9 +829,13 @@ public class SqlJdbcUtil {
         
         fieldTypeMap.put("java.lang.Object", new Integer(11));
         fieldTypeMap.put("Object", new Integer(11));
+        
         fieldTypeMap.put("java.sql.Blob", new Integer(12));
         fieldTypeMap.put("Blob", new Integer(12));
         fieldTypeMap.put("byte[]", new Integer(12));
+        fieldTypeMap.put("java.nio.ByteBuffer", new Integer(12));
+        fieldTypeMap.put("java.nio.HeapByteBuffer", new Integer(12));
+        
         fieldTypeMap.put("java.sql.Clob", new Integer(13));
         fieldTypeMap.put("Clob", new Integer(13));
 
