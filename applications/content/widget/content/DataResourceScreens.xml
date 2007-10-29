@@ -43,9 +43,9 @@ under the License.
         <section>
             <actions>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
-                <set field="titleProperty" value="PageTitleEditWebSiteCMS"/>
+                <set field="titleProperty" value="PageTitleNavigateDataResources"/>
                 <set field="tabButtonItem" value="navigateDataResource"/>
-                <set field="labelTitleProperty" value="PageTitleEditWebSiteCMS"/>
+                <set field="labelTitleProperty" value="PageTitleNavigateDataResources"/>
                 <entity-and entity-name="DataCategory" list-name="subCategories">
                     <field-map field-name="parentCategoryId" value="ROOT"/>
                 </entity-and>
