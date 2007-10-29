@@ -35,17 +35,6 @@ LocalDispatcher dispatcher = request.getAttribute("dispatcher");
 //get the inventory (inventoryEventPlanned)
 productId = request.getParameter("productId");
 
-// create the eventDate for calendar
-UtilDateTime fromDate = new UtilDateTime();
-Timestamp fromTs = fromDate.nowTimestamp();
-fromTs = fromDate.getDayStart( fromTs );
-
-String fromStr = fromTs.toString();
-fromStr = fromStr.substring(0, fromStr.indexOf('.'));
-
-context.put("eventDateStr", fromStr);
-Debug.logInfo("eventDateStr =  " + fromStr, "truc");
-
 // get the lookup flag
 lookupFlag = request.getParameter("lookupFlag");
 
@@ -109,9 +98,9 @@ if (listSize < highIndex)
     highIndex = listSize;
 if( highIndex < 1 )
     highIndex = 0;
-
 context.put("viewIndex", viewIndex);
 context.put("listSize", listSize);
 context.put("highIndex", highIndex);
 context.put("lowIndex", lowIndex);
 context.put("viewSize", viewSize);
+
