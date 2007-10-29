@@ -53,19 +53,19 @@ under the License.
         <field name="partyId" map-name="parameters"><hidden/></field>
                 
         <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
-        <field name="communicationEventTypeId" use-when="communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="communicationEventTypeId" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <drop-down>
                 <entity-options entity-name="CommunicationEventType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="communicationEventTypeId" use-when="communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="communicationEventTypeId" use-when="${bsh:(communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;))}">
             <display-entity entity-name="CommunicationEventType" description="${description}" key-field-name="communicationEventTypeId"/>
         </field>
 
         <!-- parent communications -->
-        <field name="parentCommEventId" use-when="communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;parentCommEventId&quot;)!=null">
+        <field name="parentCommEventId" use-when="${bsh:communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;parentCommEventId&quot;)!=null}">
             <hyperlink description="${communicationEvent.parentCommEventId}" target="EditCommunicationEvent?communicationEventId=${communicationEvent.parentCommEventId}&amp;partyId=${partyId}" target-type="intra-app"/>
         </field>
         <field name="parentCommEventId" map-name="parameters" use-when="communicationEvent==null" >
@@ -91,13 +91,13 @@ under the License.
         </field>
 
         <!-- auto email fields -->
-        <field name="fromString" use-when="communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;fromString&quot;)!=null">
+        <field name="fromString" use-when="${bsh:communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;fromString&quot;)!=null}">
             <display/>
         </field>
-        <field name="toString" use-when="communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;toString&quot;)!=null">
+        <field name="toString" use-when="${bsh:communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;toString&quot;)!=null}">
             <display/>
         </field>
-        <field name="toString" map-name="parameters" use-when="communicationEvent==null&amp;&amp;toString!=null">
+        <field name="toString" map-name="parameters" use-when="${bsh:communicationEvent==null&amp;&amp;toString!=null}">
             <text size="60"/>
         </field>
         
@@ -113,20 +113,20 @@ under the License.
         </field>
 
         <!-- contact mech type -->
-        <field name="contactMechTypeId" use-when="communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="contactMechTypeId" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <drop-down>
                 <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="contactMechTypeId" use-when="communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="contactMechTypeId" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <display-entity entity-name="ContactMechType" description="${description}" key-field-name="contactMechTypeId"/>
         </field>
 
         <!-- this is an example of how to display different types of contact mech to the user -->
         <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromEmailAddress}"
-            use-when="(parameters.get(&quot;communicationEventTypeId&quot;)!=null)&amp;&amp;(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;)||parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;AUTO_EMAIL_COMM&quot;))">
+            use-when="${bsh:(parameters.get(&quot;communicationEventTypeId&quot;)!=null)&amp;&amp;(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;)||parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;AUTO_EMAIL_COMM&quot;))}">
             <drop-down allow-empty="false" current="selected">
                 <entity-options entity-name="PartyAndContactMech" description="${infoString}" key-field-name="contactMechId">
                     <entity-constraint name="partyId" operator="equals" value="${partyIdFrom}"/>
@@ -134,56 +134,56 @@ under the License.
             </drop-down>            
         </field>
         <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromContactMech}"
-            use-when="(parameters.get(&quot;communicationEventTypeId&quot;)==null)||!(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;)||parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;AUTO_EMAIL_COMM&quot;))">
+            use-when="${bsh:(parameters.get(&quot;communicationEventTypeId&quot;)==null)||!(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;)||parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;AUTO_EMAIL_COMM&quot;))}">
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdFrom"/></field>
         
         <!-- TODO: somehow show the address or email here, rather than just a contactMechId -->
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToEmailAddress}"
-            use-when="(parameters.get(&quot;communicationEventTypeId&quot;)!=null)&amp;&amp;(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))">
+            use-when="${bsh:(parameters.get(&quot;communicationEventTypeId&quot;)!=null)&amp;&amp;(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))}">
             <drop-down allow-empty="false" current="selected" no-current-selected-key="${parameters.contactMechIdTo}">
               <list-options key-name="contactMechId" list-name="targetEmailAddresses" description="${infoString}"/>
             </drop-down>            
         </field>
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToContactMech}"
-            use-when="(parameters.get(&quot;communicationEventTypeId&quot;)==null)||!(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))">
+            use-when="${bsh:(parameters.get(&quot;communicationEventTypeId&quot;)==null)||!(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))}">
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdTo"/></field>
 
         <!-- role type info -->
-        <field name="roleTypeIdFrom" use-when="communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="roleTypeIdFrom" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <drop-down no-current-selected-key="_NA_">
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="roleTypeIdFrom" use-when="communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="roleTypeIdFrom" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <display-entity entity-name="RoleType" description="${description}" key-field-name="roleTypeId"/>
         </field>
 
-        <field name="roleTypeIdTo" use-when="communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="roleTypeIdTo" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <drop-down no-current-selected-key="_NA_">
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="roleTypeIdTo" use-when="communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="roleTypeIdTo" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <display-entity entity-name="RoleType" description="${description}" key-field-name="roleTypeId"/>
         </field>
 
         <!-- contact list -->
-        <field name="contactListId" use-when="communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="contactListId" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <lookup size="20" target-form-name="LookupContactList">
                 <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${communicationEvent.contactListId}" target-type="inter-app" link-style="smallSubmit"/>
             </lookup>
         </field>
-        <field name="contactListId" use-when="communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;contactListId&quot;)!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)"><display/></field>
+        <field name="contactListId" use-when="${bsh:communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;contactListId&quot;)!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><display/></field>
 
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-time/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-time/></field>
 
-        <field name="subject" use-when="communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)"><text size="60"/></field>
-        <field name="subject" use-when="communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)"><display/></field>
+        <field name="subject" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><text size="60"/></field>
+        <field name="subject" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><display/></field>
 
         <field name="reasonEnumId">
             <drop-down no-current-selected-key="" allow-empty="true">
@@ -193,20 +193,20 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>                              
-        <field name="contentMimeTypeId" use-when="communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)">
+        <field name="contentMimeTypeId" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <drop-down no-current-selected-key="text/plain" allow-empty="false">
                 <entity-options description="${mimeTypeId}" entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="mimeTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="contentMimeTypeId" use-when="communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)"><display/></field>
+        <field name="contentMimeTypeId" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><display/></field>
 
-        <field name="content" title="${uiLabelMap.CommonContent}" use-when="communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)"><textarea cols="60" rows="10"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}" use-when="communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)"><textarea cols="60" rows="10" read-only="true"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><textarea cols="60" rows="10"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><textarea cols="60" rows="10" read-only="true"/></field>
 
         <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
-        <field name="messageId" use-when="communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;messageId&quot;)!=null"><display/></field>
+        <field name="messageId" use-when="${bsh:communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;messageId&quot;)!=null}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
     </form>
 
