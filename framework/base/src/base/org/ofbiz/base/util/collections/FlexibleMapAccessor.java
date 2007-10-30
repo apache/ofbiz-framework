@@ -214,14 +214,17 @@ public class FlexibleMapAccessor implements Serializable {
                 lst = FastList.newInstance();
                 base.put(this.extName, lst);
             }
-            //if brackets are empty, append to list
-            if (this.isAddAtEnd) {
-                lst.add(value);
-            } else {
-                if (this.isAddAtIndex) {
-                    lst.add(this.listIndex, value);
+            //if brackets are empty, append to list, but only if it's not null (avoid NPEs with FastList)
+            if (value != null) {
+            	// note that we are checking for null AFTER checking/creating the list itself, so that it will exist after referenced the first time
+                if (this.isAddAtEnd) {
+                    lst.add(value);
                 } else {
-                    lst.set(this.listIndex, value);
+                    if (this.isAddAtIndex) {
+                        lst.add(this.listIndex, value);
+                    } else {
+                        lst.set(this.listIndex, value);
+                    }
                 }
             }
         } else {
