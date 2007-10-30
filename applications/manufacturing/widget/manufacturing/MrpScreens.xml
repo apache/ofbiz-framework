@@ -110,7 +110,7 @@ under the License.
                         </condition-list>
                     </condition-list>
                     <order-by field-name="-finishDateTime"/>
-                    <limit-range start="0" size="1"/>
+                    <limit-range start="0" size="5"/>
                 </entity-condition>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/mrp/findInventoryEventPlan.bsh"/>
             </actions>
