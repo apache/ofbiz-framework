@@ -108,6 +108,7 @@ under the License.
                     <set from-field="orderItem.orderItemSeqId" field="newValue.orderItemSeqId"/>
                     <set from-field="orderItem.orderId" field="newValue.orderId"/>
                     <set from-field="orderItem.statusId" field="newValue.statusId"/>
+                    <set from-field="parameters.userLogin.userLoginId" field="newValue.statusUserLogin"/>
                     <now-timestamp-to-env env-name="newValue.statusDatetime"/>
                     
                     <create-value value-name="newValue"/>
@@ -136,6 +137,7 @@ under the License.
             
             <set from-field="orderHeader.orderId" field="newValue.orderId"/>
             <set from-field="orderHeader.statusId" field="newValue.statusId"/>
+            <set from-field="parameters.userLogin.userLoginId" field="newValue.statusUserLogin"/>
             <now-timestamp-to-env env-name="newValue.statusDatetime"/>
             
             <create-value value-name="newValue"/>
