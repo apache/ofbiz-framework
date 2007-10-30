@@ -2102,7 +2102,7 @@ public class ProductionRunServices {
         String facilityId = (String)context.get("facilityId");
         String orderId = (String)context.get("orderId");
         String orderItemSeqId = (String)context.get("orderItemSeqId");
-        
+
         GenericValue orderItem = null;
         try {
             orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
@@ -2126,37 +2126,32 @@ public class ProductionRunServices {
             }
 
             if (Debug.verboseOn()) { Debug.logVerbose("Order item [" + orderItem + "] Existing ATP = [" + existingAtp + "]", module); } 
-            // we only need to produce more marketing packages if it is out of stock.  note that the ATP quantity already includes this order item
+            // we only need to produce more marketing packages if there isn't enough in stock.
             if (existingAtp < 0.0) {
-                // how much should we produce?  If there already is some inventory, then just produce enough to bring ATP back up to zero, which may be less than the quantity ordered.
-                // Otherwise, the ATP might be more negative due to previous orders, so just produce the quantity on this order
-                double qtyToProduce = Math.min((0 - existingAtp), orderItem.getDouble("quantity").doubleValue());
-                if (Debug.verboseOn()) { Debug.logVerbose("Order quantity = [" + orderItem.getDouble("quantity").doubleValue() + "] quantity to produce = [" + qtyToProduce + "]", module); }
-
+                // how many should we produce?  If there already is some inventory, then just produce enough to bring ATP back up to zero.
+                double qtyRequired = 0 - existingAtp;
+                // ok so that's how many we WANT to produce, but let's check how many we can actually produce based on the available components
                 Map serviceContext = new HashMap();
                 serviceContext.put("productId", orderItem.getString("productId"));
-                serviceContext.put("pRQuantity", new Double(qtyToProduce));
-                serviceContext.put("startDate", UtilDateTime.nowTimestamp());
                 serviceContext.put("facilityId", facilityId);
-                //serviceContext.put("workEffortName", "");
                 serviceContext.put("userLogin", userLogin);
-                
-                Map resultService = dispatcher.runSync("createProductionRun", serviceContext);
-            
-                String productionRunId = (String)resultService.get("productionRunId");
-                result.put("productionRunId", productionRunId);
-
-                try {
-                    delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId));
-                } catch (GenericEntityException e) {
-                    return ServiceUtil.returnError("Error creating a production run for marketing package for order [" + orderId + " " + orderItemSeqId + "]: " + e.getMessage());
-                }
-                // only complete the production run if we have enough components available to produce the desired amount, otherwise errors will result
-                serviceContext.remove("pRQuantity");
-                serviceContext.remove("startDate");
-                resultService = dispatcher.runSync("getMktgPackagesAvailable", serviceContext);
+                Map resultService = dispatcher.runSync("getMktgPackagesAvailable", serviceContext);
                 double mktgPackagesAvailable = ((Double) resultService.get("availableToPromiseTotal")).doubleValue();
-                if (mktgPackagesAvailable > qtyToProduce) {
+
+                double qtyToProduce = Math.min(qtyRequired, mktgPackagesAvailable);
+
+                if (qtyToProduce > 0) {
+                    if (Debug.verboseOn()) { Debug.logVerbose("Required quantity (all orders) = [" + qtyRequired + "] quantity to produce = [" + qtyToProduce + "]", module); }
+
+                    serviceContext.put("pRQuantity", new Double(qtyToProduce));
+                    serviceContext.put("startDate", UtilDateTime.nowTimestamp());
+                    //serviceContext.put("workEffortName", "");
+
+                    resultService = dispatcher.runSync("createProductionRun", serviceContext);
+
+                    String productionRunId = (String)resultService.get("productionRunId");
+                    result.put("productionRunId", productionRunId);
+
                     try {
                         serviceContext.clear();
                         serviceContext.put("productionRunId", productionRunId);
@@ -2170,12 +2165,15 @@ public class ProductionRunServices {
                     } catch (GenericServiceException e) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunNotCreated", locale));
                     }
-                }
-                result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunCreated", UtilMisc.toMap("productionRunId", productionRunId), locale));
-                return result;
 
+                    result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunCreated", UtilMisc.toMap("productionRunId", productionRunId), locale));
+                    return result;
+                } else {
+                    if (Debug.verboseOn()) { Debug.logVerbose("There are not enough components available to produce any marketing packages [" + orderItem.getString("productId") + "]", module); }
+                    return ServiceUtil.returnSuccess();
+                }
             } else {
-                if (Debug.verboseOn()) { Debug.logVerbose("Order item [" + orderItem + "] does not need to be produced - ATP is [" + existingAtp + "]", module); }
+                if (Debug.verboseOn()) { Debug.logVerbose("No marketing packages need to be produced - ATP is [" + existingAtp + "]", module); }
                 return ServiceUtil.returnSuccess();
             }
         } catch (GenericServiceException e) {
