@@ -1150,6 +1150,21 @@ public class OrderServices {
                                         invErrMsg += " with ID " + orderItem.getString("productId") + " is no longer in stock. Please try reducing the quantity or removing the product from this order.";
                                         resErrorMessages.add(invErrMsg);
                                     }
+                                    // If the product is a marketing package auto, attempt to create enough packages to bring ATP back to 0, won't necessarily create enough to cover this order.
+                                    if ("MARKETING_PKG_AUTO".equals(product.get("productTypeId"))) {
+                                        // do something tricky here: run as the "system" user 
+                                        // that can actually create and run a production run
+                                        GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+                                        Map inputMap = new HashMap();
+                                        inputMap.put("facilityId", productStore.getString("inventoryFacilityId"));
+                                        inputMap.put("orderId", orderItem.getString("orderId"));
+                                        inputMap.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
+                                        inputMap.put("userLogin", permUserLogin);
+                                        Map prunResult = dispatcher.runSync("createProductionRunForMktgPkg", inputMap);
+                                        if (ServiceUtil.isError(prunResult)) {
+                                            Debug.logError(ServiceUtil.getErrorMessage(prunResult) + " for input:" + inputMap, module);
+                                        }
+                                    }
                                 }
                             } catch (GenericServiceException e) {
                                 String errMsg = "Fatal error calling reserveStoreInventory service: " + e.toString();
