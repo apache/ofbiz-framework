@@ -192,33 +192,33 @@ public abstract class ModelScreenAction implements Serializable {
             }
             
             if (this.toScope != null && this.toScope.equals("user")) {
-                    String originalName = this.field.getOriginalName();
-                    List currentWidgetTrail = (List)context.get("_WIDGETTRAIL_");
-                    String newKey = "";
-                    if (currentWidgetTrail != null) {
-                        newKey = StringUtil.join(currentWidgetTrail, "|");
-                    }
-                    if (UtilValidate.isNotEmpty(newKey)) {
-                        newKey += "|";
-                    }
-                    newKey += originalName;
-                    HttpSession session = (HttpSession)context.get("session");
-                    session.setAttribute(newKey, newValue);
-                    if (Debug.verboseOn()) Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
+                String originalName = this.field.getOriginalName();
+                List currentWidgetTrail = (List)context.get("_WIDGETTRAIL_");
+                String newKey = "";
+                if (currentWidgetTrail != null) {
+                    newKey = StringUtil.join(currentWidgetTrail, "|");
+                }
+                if (UtilValidate.isNotEmpty(newKey)) {
+                    newKey += "|";
+                }
+                newKey += originalName;
+                HttpSession session = (HttpSession)context.get("session");
+                session.setAttribute(newKey, newValue);
+                if (Debug.verboseOn()) Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
             } else if (this.toScope != null && this.toScope.equals("application")) {
-                    String originalName = this.field.getOriginalName();
-                    List currentWidgetTrail = (List)context.get("_WIDGETTRAIL_");
-                    String newKey = "";
-                    if (currentWidgetTrail != null) {
-                        newKey = StringUtil.join(currentWidgetTrail, "|");
-                    }
-                    if (UtilValidate.isNotEmpty(newKey)) {
-                        newKey += "|";
-                    }
-                    newKey += originalName;
-                    ServletContext servletContext = (ServletContext)context.get("application");
-                    servletContext.setAttribute(newKey, newValue);
-                    if (Debug.verboseOn()) Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
+                String originalName = this.field.getOriginalName();
+                List currentWidgetTrail = (List)context.get("_WIDGETTRAIL_");
+                String newKey = "";
+                if (currentWidgetTrail != null) {
+                    newKey = StringUtil.join(currentWidgetTrail, "|");
+                }
+                if (UtilValidate.isNotEmpty(newKey)) {
+                    newKey += "|";
+                }
+                newKey += originalName;
+                ServletContext servletContext = (ServletContext)context.get("application");
+                servletContext.setAttribute(newKey, newValue);
+                if (Debug.verboseOn()) Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
             } else {
                 // only do this if it is not global, if global ONLY put it in the global context
                 if (!global) {
