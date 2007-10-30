@@ -46,7 +46,7 @@ under the License.
 
     <!-- Persisted Picklist Services -->
     <service name="createPicklistFromOrders" engine="simple"
-            location="org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="createPicklistFromOrders">
+            location="org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="createPicklistFromOrders" transaction-timeout="600">
         <description>Create Picklist From Orders</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="true"/>
