@@ -111,7 +111,7 @@ public class GiftCertificateServices {
             } else {
                 acctResult = dispatcher.runSync("createFinAccountForStore", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId, "userLogin", userLogin));  
                 if (acctResult.get("finAccountId") != null) {
-                    cardNumber = (String) acctResult.get("finAccountId");
+                    finAccountId = cardNumber = (String) acctResult.get("finAccountId");
                 }
                 if (acctResult.get("finAccountCode") != null) {
                     cardNumber = (String) acctResult.get("finAccountCode");
