@@ -740,7 +740,7 @@ public class OagisShipmentServices {
             
             String orderStatusId = orderHeader.getString("statusId");
             if (!"ORDER_APPROVED".equals(orderStatusId)) {
-                return ServiceUtil.returnError("OrderHeader not in the approved status (ORDER_APPROVED) with ID [" + orderId + "]");
+                return ServiceUtil.returnError("OrderHeader not in the approved status (ORDER_APPROVED) with ID [" + orderId + "], is in the [" + orderStatusId + "] status");
             }
             if (!"SALES_ORDER".equals(orderHeader.getString("orderTypeId"))) {
                 return ServiceUtil.returnError("OrderHeader not a sales order (SALES_ORDER) with ID [" + orderId + "]");
