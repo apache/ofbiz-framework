@@ -23,10 +23,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
@@ -183,6 +186,10 @@ public class UspsServices {
             return ServiceUtil.returnError("Error sending request for USPS Domestic Rate Calculation service: " + e.getMessage());
         }
 
+        if (responseDocument == null) {
+            return ServiceUtil.returnError("No rate available at this time");
+        }
+        
         List rates = UtilXml.childElementList(responseDocument.getDocumentElement(), "Package");
         if (UtilValidate.isEmpty(rates)) {
             return ServiceUtil.returnError("No rate available at this time");
@@ -207,14 +214,14 @@ public class UspsServices {
 
     private static List getPackageSplit(DispatchContext dctx, List shippableItemInfo, double maxWeight) {
         // create the package list w/ the first pacakge
-        List packages = new LinkedList();
+        List packages = FastList.newInstance();
 
         if (shippableItemInfo != null) {
             Iterator sii = shippableItemInfo.iterator();
             while (sii.hasNext()) {
                 Map itemInfo = (Map) sii.next();
                 long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
-                double totalQuantity = ((Double) itemInfo.get("quantity")).doubleValue();
+                double totalQuantity = ((BigDecimal) itemInfo.get("quantity")).doubleValue();
                 double totalWeight = ((Double) itemInfo.get("weight")).doubleValue();
                 String productId = (String) itemInfo.get("productId");
 
@@ -1350,7 +1357,11 @@ public class UspsServices {
         }
 
         Debug.logInfo("USPS response: " + responseString, module);
-
+        
+        if (UtilValidate.isEmpty(responseString)) {
+        	return null;
+        }
+ 
         Document responseDocument = null;
         try {
             responseDocument = UtilXml.readXmlDocument(responseString, false);
