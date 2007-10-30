@@ -25,7 +25,7 @@ under the License.
         <make-value value-name="newEntity" entity-name="ProductContent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-
+        
         <if-empty field-name="fromDate" map-name="newEntity">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
@@ -73,10 +73,12 @@ under the License.
         <call-service service-name="updateEmailContent" in-map-name="updateEmail"/>
     </simple-method>
 
-    <simple-method method-name="createDownloadContentForProduct" short-description="Create Email Content For Product">
+    <simple-method method-name="createDownloadContentForProduct" short-description="Create Download Content For Product">
         <set-service-fields service-name="createProductContent" map-name="parameters" to-map-name="createProductContent"/>
-        <set-service-fields service-name="createDownloadContent" map-name="parameters" to-map-name="createDownload"/>
-        <call-service service-name="createDownloadContent" in-map-name="createDownload" break-on-error="true" >
+        <set-service-fields service-name="persistContentAndAssoc" map-name="parameters" to-map-name="persistContentAndAssoc"/>
+        <set field="persistContentAndAssoc.contentTypeId" value="DOCUMENT"/>
+        <set field="persistContentAndAssoc.dataResourceTypeId" value="IMAGE_OBJECT"/>
+        <call-service service-name="persistContentAndAssoc" in-map-name="persistContentAndAssoc" break-on-error="true" >
             <result-to-field result-name="contentId" map-name="createProductContent" />
         </call-service>
         <call-service service-name="createProductContent" in-map-name="createProductContent"/>
