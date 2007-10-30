@@ -1293,7 +1293,7 @@ under the License.
         <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
         <call-simple-method method-name="getOrderItemShipGroupLists"/>
         <call-simple-method method-name="createShipmentForFacilityAndShipGroup"/>
-        <log level="info" message="Finished quickShipPurchaseOrder for orderId ${orderId} and destination facilityId ${facilityId}"/>
+        <log level="info" message="Finished quickShipPurchaseOrder for orderId ${parameters.orderId} and destination facilityId ${parameters.facilityId}"/>
     </simple-method>
 
     <simple-method method-name="getOrderItemShipGroupLists" 
