@@ -253,16 +253,6 @@ if (orderHeader != null) {
     context.put("mktgPkgATPMap", inventorySummary.get("mktgPkgATPMap"));
     context.put("mktgPkgQOHMap", inventorySummary.get("mktgPkgQOHMap"));
 
-    // get inventory summary with respect to facility
-    productStore = orderHeader.getRelatedOne("ProductStore");
-    if (productStore != null) {
-        facility = productStore.getRelatedOne("Facility");
-        inventorySummaryByFacility = dispatcher.runSync("getProductInventorySummaryForItems", UtilMisc.toMap("orderItems", orderItems, "facilityId", facility.getString("facilityId")));
-        context.put("availableToPromiseByFacilityMap", inventorySummaryByFacility.get("availableToPromiseMap"));
-        context.put("quantityOnHandByFacilityMap", inventorySummaryByFacility.get("quantityOnHandMap"));
-        context.put("facility", facility);
-    }
-    
     // Get a list of facilities for purchase orders to receive against.
     // These facilities must be owned by the bill-to party of the purchase order.
     // For a given ship group, the allowed facilities are the ones associated
