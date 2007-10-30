@@ -24,6 +24,7 @@ import javax.transaction.xa.XAException;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -133,12 +134,18 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         // use the result to update the result fields
         if (resultToResult) {
-            result.putAll(dctx.getModelService(selfService).makeValid(actionResult, ModelService.OUT_PARAM, false, null));
+        	Map normalizedActionResult = dctx.getModelService(selfService).makeValid(actionResult, ModelService.OUT_PARAM, false, null);
+        	// don't copy over the error messages, use the combining code to do that later
+        	normalizedActionResult.remove(ModelService.ERROR_MESSAGE);
+        	normalizedActionResult.remove(ModelService.ERROR_MESSAGE_LIST);
+        	normalizedActionResult.remove(ModelService.ERROR_MESSAGE_MAP);
+            result.putAll(normalizedActionResult);
         }
 
         // if we aren't ignoring errors check it here...
         boolean success = true;
-        if (actionResult != null) {
+        // don't do this if resultToResult, will already be copied over
+        if (actionResult != null && !resultToResult) {
             if (!ignoreFailure) {
                 if (ModelService.RESPOND_FAIL.equals(actionResult.get(ModelService.RESPONSE_MESSAGE))) {
                     if (result != null) {
@@ -157,7 +164,8 @@ public class ServiceEcaAction implements java.io.Serializable {
             }
         }
 
-        if (result != null && !success) {
+        // copy/combine error messages on error/failure (!success) or on resultToResult to combine any error info coming out, regardless of success status
+        if (!success || resultToResult) {
             String errorMessage = (String) actionResult.get(ModelService.ERROR_MESSAGE);
             List<? extends Object> errorMessageList = UtilGenerics.checkList(actionResult.get(ModelService.ERROR_MESSAGE_LIST));
             Map<String, ? extends Object> errorMessageMap = UtilGenerics.checkMap(actionResult.get(ModelService.ERROR_MESSAGE_MAP));
