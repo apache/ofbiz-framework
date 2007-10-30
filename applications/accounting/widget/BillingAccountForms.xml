@@ -92,9 +92,12 @@ under the License.
     </form>
 
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" title="" default-map-name="billingAccount">
+        <actions>
+            <set field="availableBalance" value="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountBalance(billingAccount)}" type="BigDecimal"/>
+        </actions>
         <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
- 
+
         <field name="description"><text size="60"/></field> 
         
         <field use-when="billingAccount!=null" name="billingAccountId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
@@ -126,11 +129,8 @@ under the License.
             <display description="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
         -->
-        <field name="availableBalanceBIL" title="${uiLabelMap.AccountingBillingAvailableBalance}" tooltip="${uiLabelMap.AccountingBillingAvailableBalanceMessage}">
-            <display description="${bsh:
-                import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountBalance(billingAccount)));}"
-                     type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
+        <field name="availableBalance" title="${uiLabelMap.AccountingBillingAvailableBalance}" tooltip="${uiLabelMap.AccountingBillingAvailableBalanceMessage}">
+            <display type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
