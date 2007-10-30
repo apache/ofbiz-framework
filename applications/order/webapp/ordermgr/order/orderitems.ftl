@@ -111,13 +111,7 @@ under the License.
                               </td><td>&nbsp;</td></tr>
                               <tr><td align="left">${uiLabelMap.OrderRequiredForSO}</td>
                                 <td style="padding-left: 15px; text-align: left;">${requiredQuantity}</td></tr>
-                              <#if availableToPromiseByFacilityMap?exists && quantityOnHandByFacilityMap?exists && quantityOnHandByFacilityMap.get(productId)?exists && availableToPromiseByFacilityMap.get(productId)?exists>  
-                                <#assign atpQuantityByFacility = availableToPromiseByFacilityMap.get(productId)?default(0)>
-                                <#assign qohQuantityByFacility = quantityOnHandByFacilityMap.get(productId)?default(0)>
-                                <tr><td align="left">${uiLabelMap.ProductInInventory} [${facility.facilityName?if_exists}] ${uiLabelMap.ProductQoh}</td>
-                                  <td style="padding-left: 15px; text-align: left;">${qohQuantityByFacility} (${uiLabelMap.ProductAtp}: ${atpQuantityByFacility})</td></tr>
-                              </#if>    
-                              <tr><td align="left">${uiLabelMap.ProductInInventory} [${uiLabelMap.CommonAll} ${uiLabelMap.ProductFacilities}] ${uiLabelMap.ProductQoh}</td>
+                              <tr><td align="left">${uiLabelMap.ProductInInventory} ${uiLabelMap.ProductQoh}</td>
                                 <td style="padding-left: 15px; text-align: left;">${qohQuantity} (${uiLabelMap.ProductAtp}: ${atpQuantity})</td></tr>
                               <#if (product != null) && (product.productTypeId != null) && (product.productTypeId == "MARKETING_PKG_AUTO" || product.productTypeId == "MARKETING_PKG_PICK")>
                                 <tr><td align="left">${uiLabelMap.ProductMarketingPackageQOH}</td>
