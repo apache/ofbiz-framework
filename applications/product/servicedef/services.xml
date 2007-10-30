@@ -368,11 +368,13 @@ under the License.
     </service>
     <service name="createDownloadContentForProduct" default-entity-name="ProductContent" engine="simple"
         location="org/ofbiz/product/product/ProductContentServices.xml" invoke="createDownloadContentForProduct" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="file" type="String" mode="IN" optional="false"/>
-        <override name="contentId" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" entity-name="Content" optional="true"/>
+        <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
+        <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
+        <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
+        <override name="productContentTypeId" optional="false"/>
     </service>
     <service name="updateDownloadContentForProduct" default-entity-name="ProductContent" engine="simple"
         location="org/ofbiz/product/product/ProductContentServices.xml" invoke="updateDownloadContentForProduct" auth="true">
