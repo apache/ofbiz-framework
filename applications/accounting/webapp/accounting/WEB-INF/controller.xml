@@ -207,6 +207,16 @@ under the License.
         <response name="success" type="view" value="listInvoiceItems"/>
         <response name="error" type="view" value="listInvoiceItems"/>
     </request-map>
+    <request-map uri="editInvoiceTimeEntries">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editInvoiceTimeEntries"/>
+    </request-map>    
+    <request-map uri="unlinkInvoiceFromTimeEntry">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="unlinkInvoiceFromTimeEntry"/>
+        <response name="success" type="view" value="editInvoiceTimeEntries"/>
+        <response name="error" type="view" value="editInvoiceTimeEntries"/>
+    </request-map>
     <request-map uri="editInvoiceApplications">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editInvoiceApplications"/>
@@ -1407,6 +1417,7 @@ under the License.
     <view-map name="editInvoice" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoice"/>
     <view-map name="listInvoiceItems" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceItems"/>
     <view-map name="editInvoiceItem" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceItem"/>
+    <view-map name="editInvoiceTimeEntries" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceTimeEntries"/>
     <view-map name="invoiceStatus" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceStatus"/>
     <view-map name="editInvoiceApplications" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceApplications"/>
     <view-map name="invoiceRoles" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceRoles"/>

@@ -112,6 +112,10 @@ under the License.
                     <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="invoiceTermId"/>
                 </entity-and>
+                <entity-and entity-name="TimeEntry" list-name="timeEntries">
+                    <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
+                    <order-by field-name="timeEntryId"/>
+                </entity-and>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/createApplicationList.bsh"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/orderListInvoiceItem.bsh"/>
                 <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(invoice)}"/>
@@ -143,6 +147,9 @@ under the License.
                                 <container><label style="head1" text="${uiLabelMap.AccountingInvoiceItems}"/></container>
                                 <container><link target="listInvoiceItems?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
                                 <include-form name="invoiceItems" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                <container><label style="head1" text="${uiLabelMap.AccountingInvoiceTimeEntries}"/></container>
+                                <container><link target="editInvoiceTimeEntries?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
+                                <include-form name="ListTimeEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 <container><label style="head1" text="${uiLabelMap.AccountingTransactions}"/></container>
                                 <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                             </widgets>
@@ -158,6 +165,8 @@ under the License.
                                 <include-form name="ListInvoiceApplications" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 <container><label style="head1" text="${uiLabelMap.AccountingInvoiceItems}"/></container>
                                 <include-form name="invoiceItems" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                <container><label style="head1" text="${uiLabelMap.AccountingInvoiceTimeEntries}"/></container>
+                                <include-form name="ListTimeEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 <container><label style="head1" text="${uiLabelMap.AccountingTransactions}"/></container>
                                 <include-form name="AcctgTransAndEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                             </fail-widgets>
@@ -283,6 +292,30 @@ under the License.
         </section>
     </screen>
 
+    <screen name="EditInvoiceTimeEntries">
+        <section>
+            <actions>
+                <set field="title" value="List time entries for an invoice"/>
+                <set field="titleProperty" value="PageTitleListInvoiceTimeEntries"/>
+                <set field="tabButtonItem" value="EditInvoiceTimeEntries"/>
+                <set field="invoiceId" from-field="parameters.invoiceId"/>
+                <entity-one entity-name="Invoice" value-name="invoice"/>
+                <entity-and entity-name="TimeEntry" list-name="timeEntries">
+                    <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
+                    <order-by field-name="timeEntryId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label style="head1" text="${uiLabelMap.AccountingInvoiceTimeEntries}"/>
+                        <include-form name="EditTimeEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="InvoiceRoles">
         <section>
             <actions>

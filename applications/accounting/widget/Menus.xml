@@ -56,6 +56,20 @@ under the License.
             </condition>
             <link target="listInvoiceItems?invoiceId=${invoice.invoiceId}"/>
         </menu-item>
+
+        <menu-item name="EditInvoiceTimeEntries" title="${uiLabelMap.AccountingInvoiceTimeEntries}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
+                        <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
+                    </or>                
+                </and>
+            </condition>
+            <link target="editInvoiceTimeEntries?invoiceId=${invoice.invoiceId}"/>
+        </menu-item>
         
         <menu-item name="invoiceRoles" title="${uiLabelMap.AccountingInvoiceRoles}">
             <condition>

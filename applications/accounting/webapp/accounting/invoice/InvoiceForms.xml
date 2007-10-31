@@ -439,4 +439,20 @@ under the License.
         <field name="bodyText"><textarea/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="EditTimeEntries" type="list" list-name="timeEntries">
+        <auto-fields-service service-name="updateTimeEntry" default-field-type="display"/>
+        
+        <field name="invoiceId"><hidden/></field>
+        
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="unlinkInvoiceFromTimeEntry?timeEntryId=${timeEntryId}&amp;invoiceId=${invoiceId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="ListTimeEntries" type="list" list-name="timeEntries">
+        <auto-fields-service service-name="updateTimeEntry" default-field-type="display"/>
+        
+        <field name="invoiceId"><hidden/></field>
+        
+    </form>
 </forms>
