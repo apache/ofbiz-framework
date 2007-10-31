@@ -109,16 +109,6 @@ under the License.
               </div>
             </td>
           </tr>
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
-          <tr>
-            <td align="right" valign="top" width="15%">
-              <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderPurchaseOrderNumber}</b></div>
-            </td>
-            <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
-              <div class="tabletext">${customerPoNumber?if_exists}</div>
-            </td>
-          </tr>
         </#if>                
       </table>
     </div>
