@@ -91,7 +91,7 @@ under the License.
         <field name="capture" use-when="${bsh:paidInvoice}"><display/></field>
     </form>
 
-    <form name="EditBillingAccount" type="single" target="updateBillingAccount" title="" default-map-name="billingAccount">
+    <form name="EditBillingAccount" type="single" target="updateBillingAccount" title="">
         <actions>
             <set field="availableBalance" value="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountBalance(billingAccount)}" type="BigDecimal"/>
         </actions>
