@@ -55,7 +55,7 @@ function lookupShipments() {
               <tr>
                 <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.ProductShipmentId} :</div></td>
                 <td width="5%">&nbsp;</td>
-                <td><input type="text" class="inputBox" name="shipmentId"></td>
+                <td><input type="text" class="inputBox" name="shipmentId" value="${shipmentId?if_exists}"></td>
               </tr>             
               <tr>
                 <td width="25%" align="right"><div class="tableheadtext">${uiLabelMap.ProductShipmentType} :</div></td>
