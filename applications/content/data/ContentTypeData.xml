@@ -96,6 +96,7 @@ under the License.
     <ContentPurposeType contentPurposeTypeId="FEEDBACK" description="Feedback"/>
     <ContentPurposeType contentPurposeTypeId="COMMENT" description="Comment"/>
     <ContentPurposeType contentPurposeTypeId="PRODUCT_INFO" description="Product Info"/>
+    <ContentPurposeType contentPurposeTypeId="PROJECT_INFO" description="Project Info"/>    
     <ContentPurposeType contentPurposeTypeId="COMPANY_INFO" description="Company Info"/>
     <ContentPurposeType contentPurposeTypeId="ADVERTISEMENT" description="Advertisement"/>
     <ContentPurposeType contentPurposeTypeId="GENERAL_INFO" description="General Info"/>
