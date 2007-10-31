@@ -1222,7 +1222,7 @@ public class OrderReadHelper {
     public Map getItemInfoMap(GenericValue item) {
         Map itemInfo = FastMap.newInstance();
         itemInfo.put("productId", item.getString("productId"));
-        itemInfo.put("quantity", getOrderItemQuantity(item));
+        itemInfo.put("quantity", Double.valueOf(getOrderItemQuantity(item).doubleValue()));
         itemInfo.put("weight", new Double(this.getItemWeight(item).doubleValue()));
         itemInfo.put("size",  new Double(this.getItemSize(item)));
         itemInfo.put("piecesIncluded", new Long(this.getItemPiecesIncluded(item)));
