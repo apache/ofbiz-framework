@@ -22,6 +22,7 @@ package org.ofbiz.securityext.login;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -53,6 +54,7 @@ public class LoginEvents {
 
     public static final String module = LoginEvents.class.getName();
     public static final String resource = "SecurityextUiLabels";
+    public static final String usernameCookieName = "OFBiz.Username";
 
     /**
      * Save USERNAME and PASSWORD for use by auth pages even if we start in non-auth pages.
@@ -342,7 +344,41 @@ public class LoginEvents {
         if (!"success".equals(responseString)) {
             return responseString;
         }
+        if ("Y".equals(request.getParameter("rememberMe"))) {
+            setUsername(request, response);
+        }
         // if we logged in okay, do the check store customer role
         return ProductEvents.checkStoreCustomerRole(request, response);
     }
+    
+    public static String getUsername(HttpServletRequest request) {
+        String cookieUsername = null;
+        Cookie[] cookies = request.getCookies();
+        if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, module);
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals(usernameCookieName)) {
+                    cookieUsername = cookies[i].getValue();
+                    break;
+                }
+            }
+        }
+        return cookieUsername;
+    }
+    
+    public static void setUsername(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        String domain = UtilProperties.getPropertyValue("url.properties", "cookie.domain");
+        // first try to get the username from the cookie
+        synchronized (session) {
+            if (UtilValidate.isEmpty(getUsername(request))) {
+                // create the cookie and send it back
+                Cookie cookie = new Cookie(usernameCookieName, request.getParameter("USERNAME"));
+                cookie.setMaxAge(60 * 60 * 24 * 365);
+                cookie.setPath("/");
+                cookie.setDomain(domain);
+                response.addCookie(cookie);
+            } 
+        }
+    }    
 }
