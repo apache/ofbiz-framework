@@ -2762,7 +2762,7 @@ public class ShoppingCart implements Serializable {
             if (csii != null && csii.quantity > 0) {
                 if (item.shippingApplies()) {
                     Map itemInfo = item.getItemProductInfo();
-                    itemInfo.put("quantity", BigDecimal.valueOf(csii.quantity));
+                    itemInfo.put("quantity", Double.valueOf(csii.quantity));
                     itemInfos.add(itemInfo);
                 }
             }
