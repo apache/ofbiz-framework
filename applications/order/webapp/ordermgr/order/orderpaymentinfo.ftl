@@ -343,10 +343,12 @@ under the License.
               </div>
             </td>
           </tr>
+        </#if>
+        <#if customerPoNumber?has_content>
           <tr><td colspan="4"><hr class="sepbar"/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
-              <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderPurchaseOrderNumber}</b></div>
+              <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderPONumber}</b></div>
             </td>
             <td width="5">&nbsp;</td>
             <td colspan="2" align="left" valign="top" width="80%">
