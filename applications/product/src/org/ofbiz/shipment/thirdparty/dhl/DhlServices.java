@@ -499,6 +499,7 @@ public class DhlServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");        
         
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
         Map result = new HashMap();
@@ -564,6 +565,12 @@ public class DhlServices {
                 destPhoneNumber = StringUtil.replaceString(destPhoneNumber, " ", "");
             }
 
+            String recipientEmail = null;
+            Map results = dispatcher.runSync("getPartyEmail", UtilMisc.toMap("partyId", shipment.get("partyIdTo"), "userLogin", userLogin));
+            if (results.get("emailAddress") != null) {
+                recipientEmail = (String) results.get("emailAddress");
+            }
+            
             // lookup the two letter country code (in the geoCode field)
             GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo");
             if (destCountryGeo == null) {
@@ -723,7 +730,8 @@ public class DhlServices {
             inContext.put("phoneNbr", destPhoneNumber);
             inContext.put("labelImageType", labelImagePreference);
             inContext.put("shipperReference", shipment.getString("primaryOrderId") + "-" + shipment.getString("primaryShipGroupSeqId"));
-            
+            inContext.put("notifyEmailAddress", recipientEmail);
+
             try {
                 ContentWorker.renderContentAsText(dispatcher, delegator, templateName, outWriter, inContext, locale, "text/plain", false);
             } catch (Exception e) {
@@ -749,7 +757,6 @@ public class DhlServices {
             }
 	    // pass to handler method
             return handleDhlShipmentConfirmResponse(responseString, shipmentRouteSegment, shipmentPackageRouteSegs);
-            
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             if (shipmentConfirmResponseString != null) {

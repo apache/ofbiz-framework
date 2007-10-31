@@ -81,13 +81,16 @@ under the License.
         <#if overrideCode?exists>
             <Overrides><Override><Code>${overrideCode}</Code></Override></Overrides>
         </#if>
-        <#if notifyEmailMessage?exists>
+        <#if notifyEmailAddress?exists>
             <Notification>
                 <Notify>
                     <!-- TODO: up to 42 of these -->
                    <EmailAddress>${notifyEmailAddress?if_exists}</EmailAddress>
                </Notify>
-               <Message>${notifyEmailMessage?if_exists}</Message> <!-- CDATA -->
+               <#if notifyEmailMessage?has_content>
+               <!-- CDATA here -->
+               <Message>${notifyEmailMessage}</Message>
+               </#if> 
             </Notification>
         </#if>
       </ShipmentProcessingInstructions>
