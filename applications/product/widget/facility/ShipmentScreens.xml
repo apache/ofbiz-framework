@@ -81,25 +81,37 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonShipmentDecorator">
-                    <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipment.ftl"/></html>
-                        </platform-specific>
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentInfo.ftl"/></html>
-                        </platform-specific>
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentItemInfo.ftl"/></html>
-                        </platform-specific>
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentPackageInfo.ftl"/></html>
-                        </platform-specific>
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentRouteInfo.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field-name="shipment"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <decorator-screen name="CommonShipmentDecorator">
+                            <decorator-section name="body">
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/shipment/ViewShipment.ftl"/></html>
+                                </platform-specific>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentInfo.ftl"/></html>
+                                </platform-specific>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentItemInfo.ftl"/></html>
+                                </platform-specific>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentPackageInfo.ftl"/></html>
+                                </platform-specific>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentRouteInfo.ftl"/></html>
+                                </platform-specific>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                    <fail-widgets>
+                        <include-screen name="FindShipment"/>
+                    </fail-widgets>
+                </section>
             </widgets>
         </section>
     </screen>
