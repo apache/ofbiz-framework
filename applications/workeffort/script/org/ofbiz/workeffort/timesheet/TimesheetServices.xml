@@ -197,6 +197,12 @@ under the License.
         <call-simple-method method-name="checkTimesheetStatus"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    <simple-method method-name="unlinkInvoiceFromTimeEntry" short-description="Delete TimeEntry">
+        <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
+        <field-to-result field-name="invoiceId" map-name="lookedUpValue"/>
+        <clear-field field-name="lookedUpValue.invoiceId"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
     <simple-method method-name="getTimeEntryRate" short-description="Get TimeEntry Rate">
         <check-permission permission="WORKEFFORTMGR" action="_VIEW"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
         <check-errors/>

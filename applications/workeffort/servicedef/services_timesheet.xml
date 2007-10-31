@@ -121,6 +121,12 @@ under the License.
         <description>Deletes TimeEntry</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="unlinkInvoiceFromTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
+        location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="unlinkInvoiceFromTimeEntry">
+        <description>Deletes TimeEntry</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="INOUT" optional="false"/>
+    </service>
     <service name="getTimeEntryRate" default-entity-name="TimeEntry" engine="simple" auth="true"
         location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="getTimeEntryRate">
         <description>Creates TimeEntry</description>
