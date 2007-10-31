@@ -39,6 +39,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -450,7 +451,8 @@ public class LoginServices {
         userLoginToCreate.set("currentPassword", useEncryption ? getPasswordHash(currentPassword) : currentPassword);
 
         try {
-            if (delegator.findByPrimaryKey(userLoginToCreate.getPrimaryKey()) != null) {
+            EntityCondition condition = new EntityExpr("userLoginId", true, EntityOperator.EQUALS, userLoginId, true);
+            if (UtilValidate.isNotEmpty(delegator.findByCondition("UserLogin", condition, null, null))) {
                 Map messageMap = UtilMisc.toMap("userLoginId", userLoginId);
                 errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_create_login_user_with_ID_exists", messageMap, locale);
                 errorMessageList.add(errMsg);
