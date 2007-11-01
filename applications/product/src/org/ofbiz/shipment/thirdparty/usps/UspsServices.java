@@ -221,7 +221,7 @@ public class UspsServices {
             while (sii.hasNext()) {
                 Map itemInfo = (Map) sii.next();
                 long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
-                double totalQuantity = ((BigDecimal) itemInfo.get("quantity")).doubleValue();
+                double totalQuantity = ((Double) itemInfo.get("quantity")).doubleValue();
                 double totalWeight = ((Double) itemInfo.get("weight")).doubleValue();
                 String productId = (String) itemInfo.get("productId");
 
