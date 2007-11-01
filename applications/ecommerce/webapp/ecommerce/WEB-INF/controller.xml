@@ -510,7 +510,7 @@ under the License.
        <response name="error" type="view" value="quickAnonEftInfo"/>
    </request-map>
     
-   <request-map uri="quickAnonenterExtOffline">
+   <request-map uri="quickAnonEnterExtOffline">
         <security https="true" auth="false"/>
        <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/processPaymentSettings.bsh"/>        
         <response name="success" type="view" value="quickAnonOrderReview"/>
