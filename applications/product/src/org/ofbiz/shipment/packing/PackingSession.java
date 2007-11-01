@@ -962,9 +962,9 @@ public class PackingSession implements java.io.Serializable {
                 // this is an OrderItemAndShipGrpInvResAndItemSum
                 orderItem = v;
                 productId = v.getString("inventoryProductId");
-                quantity = v.getBigDecimal("totQuantityAvailable").setScale(2, BigDecimal.ROUND_HALF_UP);
+                quantity = v.getBigDecimal("quantityOrdered").setScale(2, BigDecimal.ROUND_HALF_UP);
             }
-            Debug.log("created item display object quanttiy: " + quantity + " (" + productId + ")", module);
+            Debug.log("created item display object quantity: " + quantity + " (" + productId + ")", module);
         }
 
         public GenericValue getOrderItem() {
