@@ -38,7 +38,7 @@ public class UtilGenerics {
             if (!(clz.isInstance(object))) throw new ClassCastException("Not a " + clz.getName());
             int i = 0;
             for (Object value: (Collection) object) {
-                if (!type.isInstance(value)) {
+                if (value != null && !type.isInstance(value)) {
                     throw new IllegalArgumentException("Value(" + i + "), with value(" + value + ") is not a " + type.getName());
                 }
                 i++;
@@ -75,10 +75,10 @@ public class UtilGenerics {
             Map<?, ?> map = (Map) object;
             int i = 0;
             for (Map.Entry<?, ?> entry: map.entrySet()) {
-                if (!keyType.isInstance(entry.getKey())) {
+                if (entry.getKey() != null && !keyType.isInstance(entry.getKey())) {
                     throw new IllegalArgumentException("Key(" + i + "), with value(" + entry.getKey() + ") is not a " + keyType);
                 }
-                if (!valueType.isInstance(entry.getValue())) {
+                if (entry.getValue() != null && !valueType.isInstance(entry.getValue())) {
                     throw new IllegalArgumentException("Value(" + i + "), with value(" + entry.getValue() + ") is not a " + valueType);
                 }
                 i++;
@@ -106,10 +106,10 @@ public class UtilGenerics {
         Map<K, V> map = FastMap.newInstance();
         for (int i = 0; i < data.length; ) {
             Object key = data[i];
-            if (!(keyType.isInstance(key))) throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
+            if (key != null && !(keyType.isInstance(key))) throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
             i++;
             Object value = data[i];
-            if (!(valueType.isInstance(value))) throw new IllegalArgumentException("Value(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
+            if (value != null && !(valueType.isInstance(value))) throw new IllegalArgumentException("Value(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
             i++;
             map.put(keyType.cast(key), valueType.cast(value));
         }
@@ -126,7 +126,7 @@ public class UtilGenerics {
         Map<K, Object> map = FastMap.newInstance();
         for (int i = 0; i < data.length; ) {
             Object key = data[i];
-            if (!(keyType.isInstance(key))) throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
+            if (key != null && !(keyType.isInstance(key))) throw new IllegalArgumentException("Key(" + i + ") is not a " + keyType.getName() + ", was(" + key.getClass().getName() + ")");
             i++;
             Object value = data[i];
             map.put(keyType.cast(key), value);
