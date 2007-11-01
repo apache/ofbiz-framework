@@ -74,24 +74,20 @@ under the License.
             <link target="EditDataResourceProductFeatures" name="EditDataResourceProductFeatures" target-window="_top" style="tabButton" />
         </menu-item>
     </menu>
-    <menu name="dataresource">
+    <menu name="dataresourceTopMenu">
         <menu-item name="findDataResource" title="${uiLabelMap.CommonFind}">
             <link target="findDataResource"/>
         </menu-item>
         <menu-item name="navigateDataResource" title="${uiLabelMap.ContentNavigate}">
             <link target="navigateDataResource"/>
         </menu-item>
+    </menu>
+    <menu name="dataresource">
         <menu-item name="editDataResource" title="${uiLabelMap.CommonEdit}">
             <condition>
                 <not><if-empty field-name="currentValue.dataResourceId"/></not>
             </condition>
             <link target="editDataResource?dataResourceId=${parameters.dataResourceId}"/>
-        </menu-item>
-        <menu-item name="newDataResource" title="${uiLabelMap.CommonNew}">
-            <condition>
-                <if-empty field-name="currentValue.dataResourceId"/>
-            </condition>
-            <link target="editDataResource"/>
         </menu-item>
         <menu-item name="editElectronicText" title="${uiLabelMap.ContentDataResourceText}" >
             <condition>
