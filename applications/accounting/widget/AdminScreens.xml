@@ -45,9 +45,10 @@ under the License.
     <screen name="ListGlAccountOrganization">
         <section>
             <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AcctgListGlAcctOrg"/>
                 <set field="tabButtonItem" value="ListGlAccountOrganization"/>
-                <set field="labelTitleProperty" value="AcctgListGlAcctOrg"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AcctgListGlAcctOrg}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
@@ -274,6 +275,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingPrintChecks"/>
                 <set field="tabButtonItem" value="ChecksTabButton"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingPrintChecks}"/>
                 <set field="checksTabButtonItem" value="PrintChecksTabButton"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
 
