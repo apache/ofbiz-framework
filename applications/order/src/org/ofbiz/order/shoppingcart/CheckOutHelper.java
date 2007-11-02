@@ -42,6 +42,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.order.OrderChangeHelper;
+import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
@@ -384,7 +385,21 @@ public class CheckOutHelper {
 
             // set the shipping address
             errorMessages.addAll(setCheckOutShippingAddressInternal(shippingContactMechId));
+            
+            // Recalc shipping costs before setting payment
+            Map shipEstimateMap = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, 0);
+            Double shippingTotal = (Double) shipEstimateMap.get("shippingTotal");
+            if (shippingTotal == null) {
+                shippingTotal = new Double(0.00);
+            }
+            cart.setItemShipGroupEstimate(shippingTotal.doubleValue(), 0);
 
+            //Recalc tax before setting payment
+            try {
+                this.calcAndAddTax();
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+            }
             // set the payment method(s) option
             errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId));
 
