@@ -230,7 +230,7 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="result-to-result" default="false">
-            <xs:annotation><xs:documentation>If true, and the action is successful, copies the action's result Map into the service's result Map.</xs:documentation></xs:annotation>
+            <xs:annotation><xs:documentation>If true, copies the action's result Map into the service's result Map.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>

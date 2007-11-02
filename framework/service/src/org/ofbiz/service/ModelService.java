@@ -858,7 +858,11 @@ public class ModelService extends AbstractMap implements Serializable {
                 if (ServiceUtil.isError(resp) || ServiceUtil.isFailure(resp)) {
                     Map<String, Object> result = ServiceUtil.returnSuccess();
                     result.put("hasPermission", Boolean.FALSE);
-                    result.put("failMessage", ServiceUtil.getErrorMessage(resp));
+                    String failMessage = (String) resp.get("failMessage");
+                    if (UtilValidate.isEmpty(failMessage)) {
+                        failMessage = ServiceUtil.getErrorMessage(resp);
+                    }
+                    result.put("failMessage", failMessage);
                     return result;
                 }
                 return resp;
