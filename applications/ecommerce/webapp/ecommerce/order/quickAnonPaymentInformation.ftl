@@ -51,7 +51,7 @@ function aroundSubmitOrder(invocation) {
                } else {
                    document.getElementById("paymentInfoSection").innerHTML = evaldObj;
                }
-               if(formToSubmit.paymentMethodId.value != "") {
+               if(formToSubmit.paymentMethodTypeId.value != "") {
                    var result = invocation.proceed();
                    return result;
                }
