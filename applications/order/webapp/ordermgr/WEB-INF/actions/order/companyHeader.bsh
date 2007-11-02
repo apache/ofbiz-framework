@@ -60,7 +60,7 @@ if (quoteId != null) {
 }
 
 // defaults:
-logoImageUrl = null; // "http://localhost:8080/images/ofbiz_powered.gif";
+logoImageUrl = null; // the default value, "/images/ofbiz_powered.gif", is set in the screen decorators
 partyId = null;
 
 // get the logo partyId from order or invoice - note that it is better to do comparisons this way in case the there are null values
