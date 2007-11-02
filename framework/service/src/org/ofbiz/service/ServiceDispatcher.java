@@ -888,6 +888,9 @@ public class ServiceDispatcher {
             } else {
                 String message = (String) permResp.get("failMessage");
                 if (UtilValidate.isEmpty(message)) {
+                    message = ServiceUtil.getErrorMessage(permResp);
+                }
+                if (UtilValidate.isEmpty(message)) {
                     message = "You do not have permission to invoke the service [" + origService.name + "]";
                 }
                 throw new ServiceAuthException(message);

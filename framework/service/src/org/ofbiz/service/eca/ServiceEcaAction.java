@@ -139,6 +139,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         	normalizedActionResult.remove(ModelService.ERROR_MESSAGE);
         	normalizedActionResult.remove(ModelService.ERROR_MESSAGE_LIST);
         	normalizedActionResult.remove(ModelService.ERROR_MESSAGE_MAP);
+            normalizedActionResult.remove("failMessage");
             result.putAll(normalizedActionResult);
         }
 
@@ -167,6 +168,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         // copy/combine error messages on error/failure (!success) or on resultToResult to combine any error info coming out, regardless of success status
         if (!success || resultToResult) {
             String errorMessage = (String) actionResult.get(ModelService.ERROR_MESSAGE);
+            String failMessage = (String) actionResult.get("failMessage");
             List<? extends Object> errorMessageList = UtilGenerics.checkList(actionResult.get(ModelService.ERROR_MESSAGE_LIST));
             Map<String, ? extends Object> errorMessageMap = UtilGenerics.checkMap(actionResult.get(ModelService.ERROR_MESSAGE_MAP));
 
@@ -199,6 +201,15 @@ public class ServiceEcaAction implements java.io.Serializable {
                     result.put(ModelService.ERROR_MESSAGE_MAP, errorMessageMap);
                 } else {
                     origErrorMessageMap.putAll(errorMessageMap);
+                }
+            }
+            // do something with the fail message
+            if (UtilValidate.isNotEmpty(failMessage)) {
+                String origFailMessage = (String) result.get("failMessage");
+                if (UtilValidate.isEmpty(origFailMessage)) {
+                    result.put("failMessage", failMessage);
+                } else {
+                    result.put("failMessage", origFailMessage + ", " + failMessage);
                 }
             }
         }
