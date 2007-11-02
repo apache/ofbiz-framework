@@ -33,7 +33,7 @@ under the License.
         </section>
     </screen>
     
-	<screen name="genericaddress">
+    <screen name="genericaddress">
         <section>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/genericaddress.ftl"/></html></platform-specific>
@@ -49,7 +49,7 @@ under the License.
         </section>
     </screen>
     
-	<screen name="orderitems">
+    <screen name="orderitems">
         <section>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/orderitems.ftl"/></html></platform-specific>
@@ -169,8 +169,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-	
-	<screen name="paymentinformation">
+
+    <screen name="paymentinformation">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -190,7 +190,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-		
+
     <screen name="orderreview">
         <section>
             <actions>
@@ -207,7 +207,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-	
+
     <screen name="billsettings">
         <section>
             <actions>
@@ -227,7 +227,7 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>	
+    </screen>
     
     <screen name="checkoutoptions">
         <section>
@@ -248,7 +248,7 @@ under the License.
         </section>
     </screen>
 
-	<screen name="checkoutshippingaddress">
+    <screen name="checkoutshippingaddress">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -267,7 +267,7 @@ under the License.
         </section>
     </screen>
     
-	<screen name="checkoutshippingoptions">
+    <screen name="checkoutshippingoptions">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -286,7 +286,7 @@ under the License.
         </section>
     </screen>
     
-	<screen name="checkoutpayment">
+    <screen name="checkoutpayment">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -339,7 +339,7 @@ under the License.
         </section>
     </screen>
     
-	<screen name="ordercomplete">
+    <screen name="ordercomplete">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleOrderSummary"/>
@@ -374,7 +374,7 @@ under the License.
         </section>
     </screen>
     
-	<screen name="orderstatus">
+    <screen name="orderstatus">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -394,7 +394,7 @@ under the License.
         </section>
     </screen>
     
-	<screen name="requestreturn">
+    <screen name="requestreturn">
         <section>
             <actions>
                 <set field="rightbarScreenName" value="rightbar"/>
@@ -440,8 +440,7 @@ under the License.
             <actions>
                 <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/>
                 <set field="requireDojo" value="true"/>
-								
-				<script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/quickAnonCheckoutLinks.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/quickAnonCheckoutLinks.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
