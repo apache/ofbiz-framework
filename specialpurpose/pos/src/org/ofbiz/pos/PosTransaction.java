@@ -108,7 +108,6 @@ public class PosTransaction implements Serializable {
         this.locale = (Locale) session.getAttribute("locale");
 
         this.cart = new ShoppingCart(session.getDelegator(), productStoreId, locale, currency);
-        this.transactionId = session.getDelegator().getNextSeqId("PosTerminalLog");
         this.ch = new CheckOutHelper(session.getDispatcher(), session.getDelegator(), cart);
         cart.setChannelType("POS_SALES_CHANNEL");
         cart.setTransactionId(transactionId);
@@ -119,9 +118,9 @@ public class PosTransaction implements Serializable {
         }
 
         // setup the TX log
-        String txLogId = session.getDelegator().getNextSeqId("PosTerminalLog");
+        this.transactionId = session.getDelegator().getNextSeqId("PosTerminalLog");
         txLog = session.getDelegator().makeValue("PosTerminalLog");
-        txLog.set("posTerminalLogId", txLogId);
+        txLog.set("posTerminalLogId", this.transactionId);
         txLog.set("posTerminalId", terminalId);
         txLog.set("transactionId", transactionId);
         txLog.set("userLoginId", session.getUserId());
