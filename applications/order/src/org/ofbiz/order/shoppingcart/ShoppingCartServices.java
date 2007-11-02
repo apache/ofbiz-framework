@@ -257,6 +257,8 @@ public class ShoppingCartServices {
                 if ("FIN_ACCOUNT".equals(paymentId)) {
                     cpi.finAccountId = opp.getString("finAccountId");
                 }
+                // set the billing account and amount
+                cart.setBillingAccount(orderHeader.getString("billingAccountId"), orh.getBillingAccountMaxAmount());
             }
         } else {
             Debug.log("No payment preferences found for order #" + orderId, module);
