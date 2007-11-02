@@ -24,12 +24,12 @@ under the License.
     <!-- ECAs used to extend service permission checking -->
     <eca service="fixedAssetPermissionCheck" event="return" run-on-failure="true">
         <condition field-name="hasPermission" operator="equals" value="false" type="Boolean"/>
-        <action service="assetMaintPermissionCheck" mode="sync" ignore-failure="false"/>
+        <action service="assetMaintPermissionCheck" mode="sync" result-to-result="true"/>
     </eca>
 
     <eca service="facilityGenericPermission" event="return" run-on-failure="true">
         <condition field-name="hasPermission" operator="equals" value="false" type="Boolean"/>
-        <action service="assetMaintPermissionCheck" mode="sync" ignore-failure="false"/>
+        <action service="assetMaintPermissionCheck" mode="sync" result-to-result="true"/>
     </eca>
 
 </service-eca>
