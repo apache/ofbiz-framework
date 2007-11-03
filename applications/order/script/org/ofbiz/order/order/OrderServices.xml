@@ -205,8 +205,8 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCheckCreateOrderRequirement"/>
         </check-permission>
         <check-errors/>
-        <call-simple-method method-name="getProductRequirementMethod"/>
         <if-compare field-name="order.orderTypeId" operator="equals" value="SALES_ORDER">
+            <call-simple-method method-name="getProductRequirementMethod"/>
             <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_AUTO">
                 <!-- create the requirement -->
                 <set from-field="parameters.productId" field="inputMap.productId"/>
