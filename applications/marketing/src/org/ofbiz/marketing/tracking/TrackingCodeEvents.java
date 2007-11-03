@@ -438,7 +438,10 @@ public class TrackingCodeEvents {
             Debug.logInfo(" trackingCodeOrder is " + trackingCodeOrder, module);
             trackingCodeOrders.add(trackingCodeOrder);
         } else {
-            Debug.logError("TrackingCode not found for trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId.", module);
+            // Only log an error if there was a trackingCodeId to begin with
+            if (trackingCodeId != null) {
+                Debug.logError("TrackingCode not found for trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId.", module);
+            }
         }
 
         return trackingCodeOrders;
