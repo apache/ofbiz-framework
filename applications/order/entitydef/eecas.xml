@@ -34,7 +34,7 @@ under the License.
         <action service="quickReceiveReturn" mode="sync"/>
     </eca>
     
-    <eca entity="OrderItem" operation="create-store" event="return">
+    <eca entity="OrderItem" operation="create" event="return">
         <action service="checkCreateOrderRequirement" mode="sync"/>
     </eca>
     <eca entity="OrderItem" operation="create-store" event="return">
