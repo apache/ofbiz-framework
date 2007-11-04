@@ -44,23 +44,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <screen name="ServiceEcaDetail">
-        <section>
-            <actions>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/serviceecadetail.bsh"/>
-            </actions>
-            <widgets>
-                <section>
-                    <widgets>
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://webtools/webapp/webtools/service/serviceecadetail.ftl"/>
-                            </html>
-                        </platform-specific>
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
 </screens>

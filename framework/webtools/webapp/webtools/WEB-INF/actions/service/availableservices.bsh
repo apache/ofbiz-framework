@@ -143,6 +143,15 @@ getEcaListForService(String selectedService){
                     }
                     resultToContext.setAccessible(false);
 
+                    //resultToResult
+                    resultToResult = actionClass.getDeclaredField("resultToResult");
+                    resultToResult.setAccessible(true);
+                    resultToResultVal = resultToResult.get(curAction);
+                    if(resultToResultVal != null){
+                        actionMap.put("resultToResult", resultToResultVal+"");
+                    }
+                    resultToResult.setAccessible(false);
+
                     //serviceMode
                     serviceMode = actionClass.getDeclaredField("serviceMode");
                     serviceMode.setAccessible(true);
