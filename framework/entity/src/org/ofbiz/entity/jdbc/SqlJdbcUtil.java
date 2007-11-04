@@ -559,14 +559,17 @@ public class SqlJdbcUtil {
                     }
                     break;
                 case 12:
-                    Blob theBlob = new SerialBlob(rs.getBlob(ind));
+                    Blob theBlob = rs.getBlob(ind);
                     
-                    // for backward compatibility, check to see if there is a serialized object and if so return that
-                    Object blobObject = deserializeField(theBlob.getBytes(1, (int) theBlob.length()), ind, curField);
-                    if (blobObject != null) {
-                        entity.dangerousSetNoCheckButFast(curField, blobObject);
-                    } else {
-                        entity.dangerousSetNoCheckButFast(curField, theBlob);
+                    if (theBlob != null) {
+	                    // for backward compatibility, check to see if there is a serialized object and if so return that
+	                    Object blobObject = deserializeField(theBlob.getBytes(1, (int) theBlob.length()), ind, curField);
+	                    if (blobObject != null) {
+	                        entity.dangerousSetNoCheckButFast(curField, blobObject);
+	                    } else {
+	                    	// NOTE using SerialBlob here instead of the Blob from the database to make sure we can pass it around, serialize it, etc
+	                        entity.dangerousSetNoCheckButFast(curField, new SerialBlob(theBlob));
+	                    }
                     }
                     
                     break;
