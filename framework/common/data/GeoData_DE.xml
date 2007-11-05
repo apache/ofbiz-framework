@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <Geo abbreviation="BW" geoCode="BW" geoId="DE-BW" geoName="Baden-Württemberg" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BY" geoCode="BY" geoId="DE-BY" geoName="Bayern" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BE" geoCode="BE" geoId="DE-BE" geoName="Berlin" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BR" geoCode="BR" geoId="DE-BR" geoName="Brandenburg" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HB" geoCode="HB" geoId="DE-HB" geoName="Bremen" geoTypeId="COUNTY"/>
+    <Geo abbreviation="HH" geoCode="HH" geoId="DE-HH" geoName="Hamburg" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MV" geoCode="MV" geoId="DE-MV" geoName="Mecklenburg-Vorpommern" geoTypeId="COUNTY"/>
+    <Geo abbreviation="NI" geoCode="NI" geoId="DE-NI" geoName="Niedersachsen" geoTypeId="COUNTY"/>
+    <Geo abbreviation="NW" geoCode="NW" geoId="DE-NW" geoName="Nordrhein-Westfalen" geoTypeId="COUNTY"/>
+    <Geo abbreviation="RP" geoCode="RP" geoId="DE-RP" geoName="Rheinland-Pfalz" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SL" geoCode="SL" geoId="DE-SL" geoName="Saarland" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SN" geoCode="SN" geoId="DE-SN" geoName="Sachsen" geoTypeId="COUNTY"/>
+    <Geo abbreviation="TH" geoCode="TH" geoId="DE-TH" geoName="Thüringen" geoTypeId="COUNTY"/>
+</entity-engine-xml>
