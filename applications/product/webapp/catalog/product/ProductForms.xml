@@ -247,6 +247,13 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="customPriceCalcService">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="CustomMethod" key-field-name="customMethodId" description="${description}">
+                    <entity-constraint name="customMethodTypeId" operator="equals" value="PRICE_FORMULA"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductPrice" type="list" target="updateProductPrice" title="" list-name="productPrices">
@@ -264,6 +271,13 @@ under the License.
                     <entity-constraint name="uomTypeId" operator="not-equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="typeDescription"/>
                     <entity-order-by field-name="uomId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="customPriceCalcService">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="CustomMethod" key-field-name="customMethodId" description="${description}">
+                    <entity-constraint name="customMethodTypeId" operator="equals" value="PRICE_FORMULA"/>
                 </entity-options>
             </drop-down>
         </field>

@@ -36,6 +36,7 @@ under the License.
         <attribute name="productStoreGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="agreementId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="amount" type="Double" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="productPricePurposeId" type="String" mode="IN" optional="true"><!-- defaults to PURCHASE --></attribute>
         <attribute name="termUomId" type="String" mode="IN" optional="true"><!-- if specified ProductPrice records will be filtered by this, ensures for purposes like recurring prices that only the recurring term desired is taken into consideration --></attribute>

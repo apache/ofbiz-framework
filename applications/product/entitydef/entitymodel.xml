@@ -1725,6 +1725,7 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="price" type="currency-precise"></field>
       <field name="termUomId" type="id"><description>mainly used for recurring and usage prices to specify a time/freq measure, or a usage unit measure (bits, minutes, etc)</description></field>
+      <field name="customPriceCalcService" type="id"><description>used to specify an external service for the price calculation</description></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
@@ -1752,6 +1753,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="PROD_PRICE_PSTG" rel-entity-name="ProductStoreGroup">
         <key-map field-name="productStoreGroupId"/>
+      </relation>
+      <relation type="one" fk-name="PROD_PRICE_CMET" rel-entity-name="CustomMethod">
+        <key-map field-name="customPriceCalcService" rel-field-name="customMethodId"/>
       </relation>
       <relation type="one" fk-name="PROD_PRICE_CBUL" title="CreatedBy" rel-entity-name="UserLogin">
         <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
