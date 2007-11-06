@@ -112,7 +112,7 @@ public class ModelFieldType implements Serializable {
             } else {
                 return 255;
             }
-        } else if (sqlTypeUpperCase.indexOf("TEXT") >= 0 || sqlTypeUpperCase.indexOf("LONG") >= 0) {
+        } else if (sqlTypeUpperCase.indexOf("TEXT") >= 0 || sqlTypeUpperCase.indexOf("LONG") >= 0 || sqlTypeUpperCase.indexOf("CLOB") >= 0) {
             return 5000;
         }
         return 20;
