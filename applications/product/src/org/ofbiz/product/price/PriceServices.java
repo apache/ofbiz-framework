@@ -195,7 +195,9 @@ public class PriceServices {
         Double quantityDbl = (Double) context.get("quantity");
         if (quantityDbl == null) quantityDbl = new Double(1.0);
         double quantity = quantityDbl.doubleValue();
-        
+
+        Double amountDbl = (Double) context.get("amount");
+
         List productPriceEcList = FastList.newInstance();
         productPriceEcList.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
         // this funny statement is for backward compatibility purposes; the productPricePurposeId is a new pk field on the ProductPrice entity and in order databases may not be populated, until the pk is updated and such; this will ease the transition somewhat 
@@ -480,9 +482,42 @@ public class PriceServices {
 
         boolean validPriceFound = false;
         double defaultPrice = 0;
-        if (defaultPriceValue != null && defaultPriceValue.get("price") != null) {
-            defaultPrice = defaultPriceValue.getDouble("price").doubleValue();
-            validPriceFound = true;
+        List orderItemPriceInfos = FastList.newInstance();
+        List additionalAdjustments = FastList.newInstance();
+        if (defaultPriceValue != null) {
+            // If a price calc formula (service) is specified, then use it to get the unit price
+            if (UtilValidate.isNotEmpty(defaultPriceValue.getString("customPriceCalcService"))) {
+                GenericValue customMethod = null;
+                try {
+                    customMethod = defaultPriceValue.getRelatedOne("CustomMethod");
+                } catch(GenericEntityException gee) {
+                    Debug.logError(gee, "An error occurred while getting the customPriceCalcService", module);
+                }
+                if (UtilValidate.isNotEmpty(customMethod) && UtilValidate.isNotEmpty(customMethod.getString("customMethodName"))) {
+                    Map inMap = UtilMisc.toMap("userLogin", (GenericValue) context.get("userLogin"), "product", product);
+                    inMap.put("currencyUomId", currencyUomId);
+                    inMap.put("quantity", quantityDbl);
+                    inMap.put("amount", amountDbl);
+                    try {
+                        Map outMap = dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
+                        if (!ServiceUtil.isError(outMap)) {
+                            Double calculatedDefaultPrice = (Double)outMap.get("price");
+                            orderItemPriceInfos = (List)outMap.get("orderItemPriceInfos");
+                            //additionalAdjustments = (List)outMap.get("additionalAdjustments");
+                            if (UtilValidate.isNotEmpty(calculatedDefaultPrice)) {
+                                defaultPrice = calculatedDefaultPrice.doubleValue();
+                                validPriceFound = true;
+                            }
+                        }
+                    } catch(GenericServiceException gse) {
+                        Debug.logError(gse, "An error occurred while running the customPriceCalcService [" + customMethod.getString("customMethodName") + "]", module);
+                    }
+                }
+            }
+            if (!validPriceFound && defaultPriceValue.get("price") != null) {
+                defaultPrice = defaultPriceValue.getDouble("price").doubleValue();
+                validPriceFound = true;
+            }
         }
 
         Double listPriceDbl = listPriceValue != null ? listPriceValue.getDouble("price") : null;
@@ -512,7 +547,7 @@ public class PriceServices {
             result.put("specialPromoPrice", specialPromoPriceValue != null ? specialPromoPriceValue.getDouble("price") : null);
             result.put("validPriceFound", new Boolean(validPriceFound));
             result.put("isSale", Boolean.FALSE);
-            result.put("orderItemPriceInfos", FastList.newInstance());
+            result.put("orderItemPriceInfos", orderItemPriceInfos);
 
             Map errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore, 
                     checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
