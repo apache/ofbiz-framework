@@ -495,6 +495,7 @@ public class PriceServices {
                 }
                 if (UtilValidate.isNotEmpty(customMethod) && UtilValidate.isNotEmpty(customMethod.getString("customMethodName"))) {
                     Map inMap = UtilMisc.toMap("userLogin", (GenericValue) context.get("userLogin"), "product", product);
+                    inMap.put("initialPrice", (Double)defaultPriceValue.get("price"));
                     inMap.put("currencyUomId", currencyUomId);
                     inMap.put("quantity", quantityDbl);
                     inMap.put("amount", amountDbl);
