@@ -115,6 +115,95 @@ under the License.
         <field name="softIdentifier"><display/></field>
         <field name="quantityOnHandTotal"><display description="${availableToPromiseTotal} / ${quantityOnHandTotal}"/></field>
     </form>
+
+    <form name="SearchInventoryItemsDetailsParams" type="single" target="ViewFacilityInventoryItemsDetails">
+        <field name="facilityId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
+                    <entity-order-by field-name="facilityName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="effectiveDate"><date-find/></field>
+        <field name="productId"><text-find/></field>
+        <field name="inventoryItemId"><text-find/></field>
+        <field name="serialNumber"><text-find/></field>
+        <field name="softIdentifier"><text/></field>
+        <field name="manufacturerPartyId">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="orderId">
+            <lookup target-form-name="LookupOrderHeader"/>
+        </field>
+        <field name="shipmentId"><text/></field>
+        <field name="returnId"><text/></field>
+        <field name="workEffortId"><text/></field>
+        <field name="reasonEnumId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" value="IID_REASON"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- the content of the softIdentifier field is converted from hex to int if it starts with "0x";
+             this is a nice example of using JavaScript in a form widget definition -->
+        <field name="quantityOnHandDiff" tooltip="By default, only movements affecting the qoh are shown; remove the 0 here to get also the movements related to reservations."><text-find default-value="0" default-option="notEqual" ignore-case="false"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" event="onClick" action="javascript:var field=document.SearchInventoryItemsParams.softIdentifier;var tmp=field.value;if (tmp.substring(0, 2) == '0x') {tmp=parseInt(tmp, 16)};if (!isNaN(tmp)) {field.value=tmp};return true;">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListFacilityInventoryItemsDetails" type="list" target="" title="" list-name="listIt">
+        <actions>
+            <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="InventoryItemAndDetail"/>
+                <field-map field-name="orderBy" value="productId|inventoryItemId|-inventoryItemDetailSeqId|-effectiveDate|quantityOnHandTotal"/>
+            </service>
+        </actions>
+        <row-actions>
+            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;inventoryItemId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(inventoryItemId)));}" type="Boolean"/>
+        </row-actions>
+
+        <field name="inventoryItemId" widget-style="buttontext" position="1" use-when="showPosition1" widget-area-style="viewManyTR1">
+            <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" description="${inventoryItemId}"/>
+        </field>
+        <field name="productId" position="1" use-when="showPosition1" widget-area-style="viewManyTR1">
+            <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/>
+        </field>
+        <field name="quantityOnHandTotal" position="1" use-when="showPosition1" widget-area-style="viewManyTR1">
+            <display description="${quantityOnHandTotal}"/>
+        </field>
+        <field name="availableToPromiseTotal" position="1" use-when="showPosition1" widget-area-style="viewManyTR1">
+            <display description="${availableToPromiseTotal}"/>
+        </field>
+        <field name="serialNumber" position="1" use-when="showPosition1" widget-area-style="viewManyTR1"><display/></field>
+        <field name="softIdentifier" position="1" use-when="showPosition1" widget-area-style="viewManyTR1"><display/></field>
+
+        <field name="inventoryItemDetailSeqId" position="2"><display/></field>
+        <field name="effectiveDate" position="2"><display/></field>
+        <field name="quantityOnHandDiff" position="2"><display/></field>
+        <field name="availableToPromiseDiff" position="2"><display/></field>
+        
+        <field name="reasonEnumId" position="2">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="description" position="2"><display/></field>
+        <field name="orderId" widget-style="buttontext" position="2">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}" />
+        </field>
+        <field name="orderItemSeqId" position="2"><display/></field>
+        <field name="shipmentId" widget-style="buttontext" position="2">
+            <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}" />
+        </field>
+        <field name="shipmentItemSeqId" position="2"><display/></field>
+        <field name="workEffortId" widget-style="buttontext" position="2">
+            <hyperlink target="/workeffort/control/WorkEffortSummary?workEffortId=${workEffortId}" target-type="inter-app" description="${workEffortId}" />
+        </field>
+        <field name="returnId" position="2"><display/></field>
+        <field name="returnItemSeqId" position="2"><display/></field>
+    </form>
+
     <form name="FindFacilityInventoryByProduct" type="single" target="${facilityInventoryByProductScreen}" title="" 
         default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
