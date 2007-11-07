@@ -74,6 +74,11 @@ under the License.
     <Enumeration description="Less Unit Cost" enumCode="LUNIT_COST" enumId="INVRO_LUNIT_COST" sequenceId="06" enumTypeId="INV_RES_ORDER"/>
 
     <EnumerationType description="Inventory Item Detail Reason" enumTypeId="IID_REASON" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Lost" enumCode="VAR_LOST" enumId="VAR_LOST" sequenceId="01" enumTypeId="IID_REASON"/>
+    <Enumeration description="Stolen" enumCode="VAR_STOLEN" enumId="VAR_STOLEN" sequenceId="02" enumTypeId="IID_REASON"/>
+    <Enumeration description="Found" enumCode="VAR_FOUND" enumId="VAR_FOUND" sequenceId="03" enumTypeId="IID_REASON"/>
+    <Enumeration description="Damaged" enumCode="VAR_DAMAGED" enumId="VAR_DAMAGED" sequenceId="04" enumTypeId="IID_REASON"/>
+    <Enumeration description="Sample (Giveaway)" enumCode="VAR_SAMPLE" enumId="VAR_SAMPLE" sequenceId="05" enumTypeId="IID_REASON"/>
 
     <EnumerationType description="Product Store Payment Service Type" enumTypeId="PRDS_PAYSVC" hasTable="N" parentTypeId=""/>
     <Enumeration description="Payment Authorization Service" enumCode="PAY_AUTH" enumId="PRDS_PAY_AUTH" sequenceId="01" enumTypeId="PRDS_PAYSVC"/>

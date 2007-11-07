@@ -377,6 +377,36 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ViewFacilityInventoryItemsDetails">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewFacilityInventoryItemsDetails"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="ViewFacilityInventoryItemsDetails"/>
+
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <entity-one entity-name="Facility" value-name="facility"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.ProductInventoryItemsDetailsFor}</label>
+                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
+                        </container>
+                        <container>
+                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                        </container>
+                        <include-form name="SearchInventoryItemsDetailsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <include-form name="ListFacilityInventoryItemsDetails" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="InventoryItemTotals">
         <section>
             <actions>
@@ -658,7 +688,7 @@ under the License.
                     <condition-list combine="and">
                         <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItemId"/>
                     </condition-list>
-                    <order-by field-name="inventoryItemDetailSeqId DESC"/>
+                    <order-by field-name="-inventoryItemDetailSeqId"/>
                 </entity-condition>
             </actions>
             <widgets>

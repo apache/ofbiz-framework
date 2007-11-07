@@ -138,6 +138,9 @@ under the License.
         <field name="shipmentId" widget-style="buttontext">
             <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}" />
         </field>
+        <field name="reasonEnumId">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
         <!-- workEffortId - not sure if it's better to show manufacturing or workeffort app
         itemIssuanceId, receiptId, physicalInventoryId - no natural screens to show these -->
     </form>

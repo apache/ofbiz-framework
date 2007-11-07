@@ -44,6 +44,9 @@ under the License.
         <menu-item name="EditFacilityInventoryItems" title="${uiLabelMap.ProductInventoryItems}">
             <link target="EditFacilityInventoryItems?facilityId=${facilityId}"/>
         </menu-item>
+        <menu-item name="ViewFacilityInventoryItemsDetails" title="${uiLabelMap.ProductInventoryItemsDetails}">
+            <link target="ViewFacilityInventoryItemsDetails?facilityId=${facilityId}"/>
+        </menu-item>
         <menu-item name="ReceiveInventory" title="${uiLabelMap.ProductInventoryReceive}">
             <link target="ReceiveInventory?facilityId=${facilityId}"/>
         </menu-item>
