@@ -1490,6 +1490,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         String opContains = UtilProperties.getMessage("conditional", "contains", locale);
         String opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
         String ignoreCase = UtilProperties.getMessage("conditional", "ignore_case", locale);
+        String opNotEqual = UtilProperties.getMessage("conditional", "not_equal", locale);
 
         String defaultOption = textFindField.getDefaultOption();
         boolean ignCase = textFindField.getIgnoreCase();
@@ -1501,6 +1502,7 @@ public class HtmlFormRenderer implements FormStringRenderer {
         buffer.append("<option value=\"like\"" + ("like".equals(defaultOption)? " selected": "") + ">" + opBeginsWith + "</option>");
         buffer.append("<option value=\"contains\"" + ("contains".equals(defaultOption)? " selected": "") + ">" + opContains + "</option>");
         buffer.append("<option value=\"empty\"" + ("empty".equals(defaultOption)? " selected": "") + ">" + opIsEmpty + "</option>");
+        buffer.append("<option value=\"notEqual\"" + ("notEqual".equals(defaultOption)? " selected": "") + ">" + opNotEqual + "</option>");
         buffer.append("</select>");
         
         buffer.append("<input type=\"text\"");
