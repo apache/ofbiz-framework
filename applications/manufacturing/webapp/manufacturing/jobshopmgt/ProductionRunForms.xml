@@ -31,7 +31,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="routingId"><lookup target-form-name="LookupRouting" size="16"/></field>
+        <field name="routingId" title="${uiLabelMap.ManufacturingRoutingId}"><lookup target-form-name="LookupRouting" size="16"/></field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><text size="30"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="50"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
@@ -483,14 +483,14 @@ under the License.
     <form name="AddProductionRunTaskFixedAsset" type="single" target="createWorkEffortFixedAssetAssign" title="">
         <auto-fields-service service-name="createWorkEffortFixedAssetAssign" />
         <field name="productionRunId"><hidden /></field>
-        <field name="workEffortId">
+        <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTask}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="WorkEffort" description="[${workEffortId}] ${workEffortName}">
+                <entity-options entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
                     <entity-constraint name="workEffortParentId" value="${productionRunId}" />
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fixedAssetId">
+        <field name="fixedAssetId" title="${uiLabelMap.ManufacturingMachine}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]" />
             </drop-down>
@@ -633,7 +633,7 @@ under the License.
     </form>
     <form name="ProductionRunTaskComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunComponents" title="" list-name="records">
         <field name="productId"><display/></field>
-        <field name="internalName" entry-name="productId">
+        <field name="internalName" entry-name="productId" title="${uiLabelMap.ProductProductInternalName}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
         <field name="workEffortId"><hidden/></field>
