@@ -830,6 +830,7 @@ under the License.
                     <xs:enumeration value="like"/>
                     <xs:enumeration value="contains"/>
                     <xs:enumeration value="empty"/>
+                    <xs:enumeration value="notEqual"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
