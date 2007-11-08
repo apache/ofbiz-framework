@@ -1481,11 +1481,12 @@ public class ModelForm {
     public void renderItemRow(StringBuffer buffer, Map localContext, FormStringRenderer formStringRenderer, boolean formPerItem, List hiddenIgnoredFieldList, List innerDisplayHyperlinkFieldsBegin, List innerFormFields, List innerDisplayHyperlinkFieldsEnd, int position, int numOfColumns) {
         int numOfCells = innerDisplayHyperlinkFieldsBegin.size() +
                          innerDisplayHyperlinkFieldsEnd.size() + 
-                         ((hiddenIgnoredFieldList.size() > 0 || innerFormFields.size() > 0)? 1: 0);
+                         (innerFormFields.size() > 0? 1: 0);
         int numOfColumnsToSpan = numOfColumns - numOfCells + 1;
         if (numOfColumnsToSpan < 1) {
             numOfColumnsToSpan = 1;
         }
+
         // render row formatting open
         formStringRenderer.renderFormatItemRowOpen(buffer, localContext, this);
 
