@@ -142,12 +142,8 @@ under the License.
             <td width="85%"><div class="tabletext"><b>${uiLabelMap.ProductActionTypeAmount}</b></div></td>
             <td width="10%"><div class="tabletext"><b>&nbsp;</b></div></td>
           </tr>
-          <#assign maxActionSeqId = 1>
           <#list productPriceActions as productPriceAction>
               <tr>
-                <#-- if cur seq id is a number and is greater than max, set new max for input box prefill below -->
-                <#assign curActionSeqId = productPriceAction.productPriceActionSeqId?number>
-                <#if (curActionSeqId >= maxActionSeqId)><#assign maxActionSeqId = curActionSeqId + 1></#if>
                 <td><div class="tabletext"><b>${productPriceAction.productPriceActionSeqId}</b></div></td>
                 <td align="left">
                     <FORM method="post" action="<@ofbizUrl>updateProductPriceAction</@ofbizUrl>">

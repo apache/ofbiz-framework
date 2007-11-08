@@ -195,16 +195,8 @@ under the License.
             <td align="right"><div class="tabletext">${uiLabelMap.ProductActions} :</div></td>
             <td align="left" colspan="2">
                 <table border="1" cellpadding="2" cellspacing="0">
-                <#assign maxActionSeqId = 1>
                 <#list productPromoActions as productPromoAction>
                     <tr>
-                        <!-- if cur seq id is a number and is greater than max, set new max for input box prefill below -->
-                        <#if (productPromoAction.productPromoActionSeqId)?exists>
-                            <#assign curActionSeqId = Static["java.lang.Integer"].valueOf(productPromoAction.productPromoActionSeqId)>
-                            <#if (curActionSeqId >= maxActionSeqId)>
-                                <#assign maxActionSeqId = curActionSeqId + 1>
-                            </#if>
-                        </#if>
                         <td><div class="tabletext"><b>${(productPromoAction.productPromoActionSeqId)?if_exists}</b></div></td>
                         <td align="left">
                             <div class="tabletext">
@@ -322,7 +314,6 @@ under the License.
                             <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)?if_exists}">
                             <input type="hidden" name="productPromoRuleId" value="${(productPromoRule.productPromoRuleId)?if_exists}">
                             <span class="tabletext"><b>${uiLabelMap.CommonNew}:</b>&nbsp;</span>
-                            <#-- <input type="text" size="5" name="productPromoActionSeqId" value="${maxActionSeqId?if_exists}" class="inputBox"> -->
                             <select name="productPromoActionEnumId" size="1" class="selectBox">
                                 <#list productPromoActionEnums as productPromoActionEnum>
                                 <option value="${(productPromoActionEnum.enumId)?if_exists}">${(productPromoActionEnum.get("description",locale))?if_exists}</option>
