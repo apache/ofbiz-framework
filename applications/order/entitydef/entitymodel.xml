@@ -695,19 +695,19 @@ under the License.
       <field name="orderItemPriceInfoId" type="id-ne"></field>
       <field name="orderId" type="id-ne"></field>
       <field name="orderItemSeqId" type="id-ne"></field>
-      <field name="productPriceRuleId" type="id-ne"></field>
-      <field name="productPriceActionSeqId" type="id-ne"></field>
+      <field name="productPriceRuleId" type="id"></field>
+      <field name="productPriceActionSeqId" type="id"></field>
       <field name="modifyAmount" type="floating-point"></field>
       <field name="description" type="description"></field>
       <prim-key field="orderItemPriceInfoId"/>
-      <relation type="one" fk-name="ORDER_OIPI_OHDR" rel-entity-name="OrderHeader">
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>
       </relation>
       <relation type="one" fk-name="ORDER_OIPI_OITM" rel-entity-name="OrderItem">
         <key-map field-name="orderId"/>
         <key-map field-name="orderItemSeqId"/>
       </relation>
-      <relation type="one" fk-name="ORDER_OIPI_PRPR" rel-entity-name="ProductPriceRule">
+      <relation type="one-nofk" rel-entity-name="ProductPriceRule">
         <key-map field-name="productPriceRuleId"/>
       </relation>
       <relation type="one" fk-name="ORDER_OIPI_PRAI" rel-entity-name="ProductPriceAction">
