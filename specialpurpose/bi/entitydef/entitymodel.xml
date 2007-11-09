@@ -69,7 +69,7 @@ under the License.
         <field name="yearMonthDay" type="short-varchar">
             <description>YYYY-MM-DD</description>
         </field>
-        <field name="yearMonth" type="short-varchar">
+        <field name="yearAndMonth" type="short-varchar">
             <description>YYYY-MM</description>
         </field>
         <field name="weekdayType" type="short-varchar">
