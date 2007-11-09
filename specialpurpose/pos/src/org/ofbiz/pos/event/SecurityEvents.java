@@ -21,7 +21,7 @@ package org.ofbiz.pos.event;
 import java.util.Locale;
 
 import org.ofbiz.pos.screen.PosScreen;
-import org.ofbiz.pos.component.Input;
+import org.ofbiz.pos.component.InputWithPassword;
 import org.ofbiz.pos.component.Output;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.base.util.UtilProperties;
@@ -79,7 +79,7 @@ public class SecurityEvents {
     private static void baseLogin(PosScreen pos, boolean mgr) {
         XuiSession session = pos.getSession();
         Output output = pos.getOutput();
-        Input input = pos.getInput();
+        InputWithPassword input = pos.getInput();
 
         String loginFunc = mgr ? "MGRLOGIN" : "LOGIN";
         String[] func = input.getLastFunction();
@@ -88,10 +88,13 @@ public class SecurityEvents {
             if (UtilValidate.isEmpty(func[1]) && UtilValidate.isEmpty(text)) {
                 output.print(UtilProperties.getMessage("pos","ULOGIN",Locale.getDefault()));
                 input.setFunction(loginFunc);
+                input.setPasswordInput( false);
             } else if (UtilValidate.isEmpty(func[1])) {
                 output.print(UtilProperties.getMessage("pos","UPASSW",Locale.getDefault()));
                 input.setFunction(loginFunc);
+                input.setPasswordInput( true);
             } else {
+                input.setPasswordInput( false);
                 String username = func[1];
                 String password = text;
                 if (!mgr) {

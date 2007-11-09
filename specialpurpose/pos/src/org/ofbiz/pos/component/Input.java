@@ -42,7 +42,7 @@ public class Input implements KeyboardReceiver, KeyListener {
     protected Stack functionStack = new Stack();
     protected Component[] pageComs = null;
     protected Color lastColor = null;
-    protected XEdit input = null;
+    protected javax.swing.JTextField input = null;
     protected boolean isLocked = false;
 
     public Input(PosScreen page) {
