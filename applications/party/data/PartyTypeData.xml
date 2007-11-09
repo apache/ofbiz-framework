@@ -311,12 +311,16 @@ under the License.
 
     <StatusType description="Party Invitation" hasTable="N" parentTypeId="" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Sent" sequenceId="01" statusCode="SENT" statusId="PARTYINV_SENT" statusTypeId="PARTY_INV_STATUS"/>
+    <StatusItem description="Invitation Pending" sequenceId="02" statusCode="PENDING" statusId="PARTYINV_PENDING" statusTypeId="PARTY_INV_STATUS"/>    
     <StatusItem description="Invitation Accepted" sequenceId="05" statusCode="ACCEPTED" statusId="PARTYINV_ACCEPTED" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Declined" sequenceId="06" statusCode="DECLINED" statusId="PARTYINV_DECLINED" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Cancelled" sequenceId="10" statusCode="CANCELLED" statusId="PARTYINV_CANCELLED" statusTypeId="PARTY_INV_STATUS"/>
+    <StatusValidChange condition="" statusId="PARTYINV_SENT" statusIdTo="PARTYINV_PENDING" transitionName="Pending"/>
     <StatusValidChange condition="" statusId="PARTYINV_SENT" statusIdTo="PARTYINV_ACCEPTED" transitionName="Accepted"/>
     <StatusValidChange condition="" statusId="PARTYINV_SENT" statusIdTo="PARTYINV_DECLINED" transitionName="Declined"/>
     <StatusValidChange condition="" statusId="PARTYINV_SENT" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
+    <StatusValidChange condition="" statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_ACCEPTED" transitionName="Accepted"/>
+    <StatusValidChange condition="" statusId="PARTYINV_PENDING" statusIdTo="PARTYINV_CANCELLED" transitionName="Cancelled"/>
 
     <TermType description="Financial" hasTable="N" parentTypeId="" termTypeId="FINANCIAL_TERM"/>
     <TermType description="Payment (net days)" hasTable="N" parentTypeId="FINANCIAL_TERM" termTypeId="FIN_PAYMENT_TERM"/>
