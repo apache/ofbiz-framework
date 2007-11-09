@@ -62,7 +62,7 @@ under the License.
                                 <#if entity.plainTableName?has_content>  | ${uiLabelMap.WebtoolsTable}: ${entity.plainTableName}</#if>
                             </div>
                             <div>${entity.title}&nbsp;
-                                <#if (parameters.forstatic)?default("false") == "false">
+                                <#if !forstatic>
                                     <#assign encodeURL = response.encodeURL(controlPath + "/FindGeneric?entityName=" + entity.entityName + "&find=true&VIEW_SIZE=50&VIEW_INDEX=0")>
                                     <a target='main' href="${encodeURL}">[${uiLabelMap.WebtoolsViewData}]</a>
                                 </#if>
