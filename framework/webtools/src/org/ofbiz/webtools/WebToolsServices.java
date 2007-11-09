@@ -62,6 +62,11 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.entity.model.ModelIndex;
+import org.ofbiz.entity.model.ModelRelation;
+import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -85,11 +90,6 @@ public class WebToolsServices {
 
     public static Map entityImport(DispatchContext dctx, Map context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Security security = dctx.getSecurity();
-        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
-        }
-
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         List messages = new ArrayList();
@@ -210,11 +210,6 @@ public class WebToolsServices {
 
     public static Map entityImportDir(DispatchContext dctx, Map context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Security security = dctx.getSecurity();
-        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
-        }
-
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         List messages = FastList.newInstance();
@@ -319,12 +314,6 @@ public class WebToolsServices {
     }
 
     public static Map entityImportReaders(DispatchContext dctx, Map context) {
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Security security = dctx.getSecurity();
-        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
-        }
-
         String readers = (String) context.get("readers");
         String overrideDelegator = (String) context.get("overrideDelegator");
         String overrideGroup = (String) context.get("overrideGroup");
@@ -435,12 +424,6 @@ public class WebToolsServices {
     }
     
     public static Map parseEntityXmlFile(DispatchContext dctx, Map context) {
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Security security = dctx.getSecurity();
-        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
-        }
-
         GenericDelegator delegator = dctx.getDelegator();
 
         URL url = (URL)context.get("url");
@@ -479,12 +462,6 @@ public class WebToolsServices {
     }
 
     public static Map entityExportAll(DispatchContext dctx, Map context) {
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Security security = dctx.getSecurity();
-        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", (Locale) context.get("locale")));
-        }
-
         GenericDelegator delegator = dctx.getDelegator();
 
         String outpath = (String)context.get("outpath"); // mandatory
@@ -573,5 +550,222 @@ public class WebToolsServices {
         // send the notification
         Map resp = UtilMisc.toMap("results", results);
         return resp;
+    }
+    
+    /** Get entity reference data. Returns the number of entities in 
+     * <code>numberOfEntities</code> and a List of Maps - 
+     * <code>packagesList</code>.<br/> Each Map contains:<br/>
+     * <ul><li><code>packageName</code> - the entity package name</li>
+     * <li><code>entitiesList</code> - a list of Maps:
+       <ul>
+         <li><code>entityName</code></li>
+         <li><code>helperName</code></li>
+         <li><code>groupName</code></li>
+         <li><code>plainTableName</code></li>
+         <li><code>title</code></li>
+         <li><code>description</code></li>
+         <!-- <li><code>location</code></li> -->
+         <li><code>javaNameList</code> - list of Maps:
+           <ul>
+             <li><code>isPk</code></li>
+             <li><code>name</code></li>
+             <li><code>colName</code></li>
+             <li><code>description</code></li>
+             <li><code>type</code></li>
+             <li><code>javaType</code></li>
+             <li><code>sqlType</code></li>
+           </ul>
+         </li>
+         <li><code>relationsList</code> - list of Maps:
+           <ul>
+             <li><code>title</code></li>
+             <!-- <li><code>description</code></li> -->
+             <li><code>relEntity</code></li>
+             <li><code>fkName</code></li>
+             <li><code>type</code></li>
+             <li><code>length</code></li>
+             <li><code>keysList</code> - list of Maps:
+               <ul>
+                 <li><code>row</code></li>
+                 <li><code>fieldName</code></li>
+                 <li><code>relFieldName</code></li>
+               </ul>
+             </li>
+           </ul>
+         </li>
+         <li><code>indexList</code> - list of Maps:
+           <ul>
+             <li><code>name</code></li>
+             <!-- <li><code>description</code></li> -->
+             <li><code>fieldNameList</code> - list of Strings</li>
+           </ul>
+         </li>
+       </ul>
+       </li></ul>
+     * */
+    public static Map getEntityRefData(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+        Map resultMap = ServiceUtil.returnSuccess();
+        
+        ModelReader reader = delegator.getModelReader();
+        Map packages = new HashMap();
+        TreeSet packageNames = new TreeSet();
+        TreeSet tableNames = new TreeSet();
+        
+        //put the entityNames TreeSets in a HashMap by packageName
+        try {
+            Collection ec = reader.getEntityNames();
+            resultMap.put("numberOfEntities", ec.size());
+            TreeSet entityNames = new TreeSet(ec);
+            Iterator ecIter = ec.iterator();
+            while (ecIter.hasNext()) {
+                String eName = (String) ecIter.next();
+                ModelEntity ent = reader.getModelEntity(eName);
+                //make sure the table name is in the list of all table names, if not null
+                if (UtilValidate.isNotEmpty(ent.getPlainTableName())) {
+                    tableNames.add(ent.getPlainTableName());
+                }
+                TreeSet entities = (TreeSet) packages.get(ent.getPackageName());
+                if (entities == null) {
+                    entities = new TreeSet();
+                    packages.put(ent.getPackageName(), entities);
+                    packageNames.add(ent.getPackageName());
+                }
+                entities.add(eName);
+            }
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("ERROR: getting entity names: " + e.getMessage());
+        }
+        
+        String search = (String) context.get("search");
+        List packagesList = new ArrayList();
+        Iterator piter = packageNames.iterator();
+        try {
+            while (piter.hasNext()) {
+                Map packageMap = new HashMap();
+                String pName = (String) piter.next();
+                TreeSet entities = (TreeSet) packages.get(pName);
+                List entitiesList = new ArrayList();
+                Iterator i = entities.iterator();
+                while (i.hasNext()) {
+                    Map entityMap = new HashMap();
+                    String entityName = (String) i.next();
+                    String helperName = delegator.getEntityHelperName(entityName);
+                    String groupName = delegator.getEntityGroupName(entityName);
+                    if (search == null || entityName.toLowerCase().indexOf(search.toLowerCase()) != -1) {
+                        ModelEntity entity = reader.getModelEntity(entityName);
+
+                        // fields list
+                        List javaNameList = new ArrayList();
+                        TreeSet ufields = new TreeSet();
+                        for (int y = 0; y < entity.getFieldsSize(); y++) {
+                            Map javaNameMap = new HashMap();
+                            ModelField field = entity.getField(y);
+                            ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
+                            String javaName = null;
+                            javaNameMap.put("isPk", field.getIsPk());
+                            javaNameMap.put("name", field.getName());
+                            javaNameMap.put("colName", field.getColName());
+                            javaNameMap.put("description", field.getDescription());
+                            javaNameMap.put("type", (field.getType()) != null ? field.getType() : null);
+                            javaNameMap.put("javaType", (field.getType() != null && type != null) ? type.getJavaType() : "Undefined");
+                            javaNameMap.put("sqlType", (type != null && type.getSqlType() != null) ? type.getSqlType() : "Undefined");
+                            javaNameList.add(javaNameMap);
+                        }
+
+                        // relations list
+                        List relationsList = new ArrayList();
+                        for (int r = 0; r < entity.getRelationsSize(); r++) {
+                            Map relationMap = new HashMap();
+                            ModelRelation relation = entity.getRelation(r);
+                            List keysList = new ArrayList();
+                            for (int km = 0; km < relation.getKeyMapsSize(); km++) {
+                                Map keysMap = new HashMap();
+                                ModelKeyMap keyMap = relation.getKeyMap(km);
+                                String fieldName = null;
+                                String relFieldName = null;
+                                if (keyMap.getFieldName().equals(keyMap.getRelFieldName())) {
+                                    fieldName = keyMap.getFieldName();
+                                    relFieldName = "aa";
+                                } else {
+                                    fieldName = keyMap.getFieldName();
+                                    relFieldName = keyMap.getRelFieldName();
+                                }
+                                keysMap.put("row", km + 1);
+                                keysMap.put("fieldName", fieldName);
+                                keysMap.put("relFieldName", relFieldName);
+                                keysList.add(keysMap);
+                            }
+                            relationMap.put("title", relation.getTitle());
+                            //relationMap.put("description", relation.getDescription());
+                            relationMap.put("relEntity", relation.getRelEntityName());
+                            relationMap.put("fkName", relation.getFkName());
+                            relationMap.put("type", relation.getType());
+                            relationMap.put("length", relation.getType().length());
+                            relationMap.put("keysList", keysList);
+                            relationsList.add(relationMap);
+                        }
+
+                        // index list
+                        List indexList = new ArrayList();
+                        for (int r = 0; r < entity.getIndexesSize(); r++) {
+                            List fieldNameList = new ArrayList();
+                            
+                            ModelIndex index = entity.getIndex(r);
+                            for (Iterator fieldIterator = index.getIndexFieldsIterator(); fieldIterator.hasNext();) {
+                                fieldNameList.add((String) fieldIterator.next());
+                            }
+                            
+                            Map indexMap = new HashMap();
+                            indexMap.put("name", index.getName());
+                            //indexMap.put("description", index.getDescription());
+                            indexMap.put("fieldNameList", fieldNameList);
+                            indexList.add(indexMap);
+                        }
+                        
+                        entityMap.put("entityName", entityName);
+                        entityMap.put("helperName", helperName);
+                        entityMap.put("groupName", groupName);
+                        entityMap.put("plainTableName", entity.getPlainTableName());
+                        entityMap.put("title", entity.getTitle());
+                        entityMap.put("description", entity.getDescription());
+                        //entityMap.put("location", entity.getLocation());
+                        entityMap.put("javaNameList", javaNameList);
+                        entityMap.put("relationsList", relationsList);
+                        entityMap.put("indexList", indexList);
+                        entitiesList.add(entityMap);
+                    }
+                }
+                packageMap.put("packageName", pName);
+                packageMap.put("entitiesList", entitiesList);
+                packagesList.add(packageMap);
+            }
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("ERROR: getting entity info: " + e.getMessage());
+        }
+        
+        resultMap.put("packagesList", packagesList);
+        return resultMap;
+    }
+
+    /** Performs an entity maintenance security check. Returns hasPermission=true
+     * if the user has the ENTITY_MAINT permission.
+     * @param dctx
+     * @param context
+     * @return
+     */
+    public static Map entityMaintPermCheck(DispatchContext dctx, Map context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        Security security = dctx.getSecurity();
+        Map resultMap = null;
+        if (security.hasPermission("ENTITY_MAINT", userLogin)) {
+            resultMap = ServiceUtil.returnSuccess();
+            resultMap.put("hasPermission", true);
+        } else {
+            resultMap = ServiceUtil.returnFailure(UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsPermissionError", locale));
+            resultMap.put("hasPermission", false);
+        }
+        return resultMap;
     }
 }
