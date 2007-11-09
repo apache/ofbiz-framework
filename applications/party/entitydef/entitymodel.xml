@@ -1710,6 +1710,7 @@ under the License.
         <field name="partyInvitationId" type="id-ne"></field>
         <field name="partyIdFrom" type="id-ne"></field>
         <field name="partyId" type="id"></field>
+        <field name="toName" type="name"></field>
         <field name="emailAddress" type="long-varchar"></field>
         <field name="statusId" type="id"></field>
         <field name="lastInviteDate" type="date-time"></field>
