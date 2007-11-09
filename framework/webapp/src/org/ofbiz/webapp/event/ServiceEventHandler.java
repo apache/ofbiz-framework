@@ -150,6 +150,12 @@ public class ServiceEventHandler implements EventHandler {
         Map multiPartMap = FastMap.newInstance();
         if (isMultiPart) {
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, new File(tmpUploadRepository)));
+
+            // create the progress listener and add it to the session
+            FileUploadProgressListener listener = new FileUploadProgressListener();
+            upload.setProgressListener(listener);
+            session.setAttribute("uploadProgressListener", listener);
+
             if (encoding != null) {
                 upload.setHeaderEncoding(encoding);
             }
