@@ -39,7 +39,7 @@ import org.ofbiz.guiapp.xui.XuiContainer;
 import org.ofbiz.guiapp.xui.XuiSession;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.adaptor.KeyboardAdaptor;
-import org.ofbiz.pos.component.Input;
+import org.ofbiz.pos.component.InputWithPassword;
 import org.ofbiz.pos.component.Journal;
 import org.ofbiz.pos.component.Operator;
 import org.ofbiz.pos.component.Output;
@@ -63,7 +63,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
     protected ClassLoader classLoader = null;
     protected XuiSession session = null;
     protected Output output = null;
-    protected Input input = null;
+    protected InputWithPassword input = null;
     protected Journal journal = null;
     protected Operator operator = null;
     protected PosButton buttons = null;
@@ -89,7 +89,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
         // setup the shared components
         this.session = XuiContainer.getSession();
         this.output = new Output(this);
-        this.input = new Input(this);
+        this.input = new InputWithPassword(this);
         this.journal = new Journal(this);
         this.operator = new Operator(this);
         this.setLastActivity(System.currentTimeMillis());
@@ -256,7 +256,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
         return this.session;
     }
 
-    public Input getInput() {
+    public InputWithPassword getInput() {
         return this.input;
     }
 

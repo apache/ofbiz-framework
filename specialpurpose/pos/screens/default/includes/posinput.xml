@@ -22,6 +22,7 @@ under the License.
         <Panel name="toppan" x="0" y="1" w="1024" h="46" border="1" style="panel">
             <Edit name="pos_output" x="2" y="2" w="618" h="42" style="input" border="0" alignment="Left"/>
             <Edit name="pos_input" x="622" y="2" w="400" h="42" style="input" border="0" alignment="Right"/>
+            <Password name="pos_inputpassword" x="622" y="2" w="400" h="42" style="input" border="0" alignment="Right"/>
         </Panel>
     </Components>
 </XPage>
