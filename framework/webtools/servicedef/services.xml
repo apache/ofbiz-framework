@@ -29,6 +29,7 @@ under the License.
     <service name="parseEntityXmlFile" engine="java" require-new-transaction="true"
             location="org.ofbiz.webtools.WebToolsServices" invoke="parseEntityXmlFile" auth="true" use-transaction="false">
         <description>Parses an entity xml file or an entity xml text</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="url" type="java.net.URL" mode="IN" optional="true"/>
         <attribute name="xmltext" type="String" mode="IN" optional="true"/>
         <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>
@@ -41,6 +42,7 @@ under the License.
     <service name="entityImport" engine="java"
             location="org.ofbiz.webtools.WebToolsServices" invoke="entityImport" auth="true" use-transaction="false">
         <description>Imports an entity xml file or text string</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="filename" type="String" mode="IN" optional="true"/>
         <attribute name="fmfilename" type="String" mode="IN" optional="true"/>
         <attribute name="fulltext" type="String" mode="IN" optional="true"/>
@@ -55,6 +57,7 @@ under the License.
     <service name="entityImportDir" engine="java"
             location="org.ofbiz.webtools.WebToolsServices" invoke="entityImportDir" auth="true" use-transaction="false">
         <description>Imports all entity xml files contained in a directory</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="path" type="String" mode="IN" optional="true"/>
         <attribute name="mostlyInserts" type="String" mode="IN" optional="true"/>
         <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
@@ -68,6 +71,7 @@ under the License.
     <service name="entityImportReaders" engine="java"
         location="org.ofbiz.webtools.WebToolsServices" invoke="entityImportReaders" auth="true" use-transaction="false">
         <description>Imports an entity xml file or text string</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="readers" type="String" mode="IN" optional="true"/>
         <attribute name="overrideDelegator" type="String" mode="IN" optional="true"/>
         <attribute name="overrideGroup" type="String" mode="IN" optional="true"/>
@@ -81,9 +85,20 @@ under the License.
     <service name="entityExportAll" engine="java"
             location="org.ofbiz.webtools.WebToolsServices" invoke="entityExportAll" auth="true" use-transaction="false">
         <description>Exports all entities into xml files</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="outpath" type="String" mode="IN" optional="true"/>
         <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
         <attribute name="results" type="List" mode="OUT" optional="false"/>
     </service>
-
+    <service name="getEntityRefData" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="getEntityRefData" auth="true" use-transaction="false">
+        <description>Gets the entity reference data - for the entity reference screen. See org.ofbiz.webtools.WebToolsServices.getEntityRefData().</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
+        <attribute name="numberOfEntities" type="java.lang.Integer" mode="OUT" optional="true"/>
+        <attribute name="packagesList" type="java.util.List" mode="OUT" optional="true"/>
+    </service>
+    <service name="entityMaintPermCheck" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="entityMaintPermCheck">
+        <description>Performs an entity maintenance security check. Returns hasPermission=true
+          if the user has the ENTITY_MAINT permission.</description>
+        <implements service="permissionInterface"/>
+    </service>
 </services>

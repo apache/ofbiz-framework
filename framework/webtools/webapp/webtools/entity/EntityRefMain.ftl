@@ -21,7 +21,10 @@ under the License.
 <#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
     <#assign langDir = "rtl">
 </#if>
-
+<#assign forstatic = false/>
+<#if (parameters.forstatic)?default("false") == "true">
+  <#assign forstatic = true/>
+</#if>
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>${uiLabelMap.WebtoolsEntityReference}</title>
@@ -59,7 +62,7 @@ under the License.
                                 <#if entity.plainTableName?has_content>  | ${uiLabelMap.WebtoolsTable}: ${entity.plainTableName}</#if>
                             </div>
                             <div>${entity.title}&nbsp;
-                                <#if !forstatic>
+                                <#if (parameters.forstatic)?default("false") == "false">
                                     <#assign encodeURL = response.encodeURL(controlPath + "/FindGeneric?entityName=" + entity.entityName + "&find=true&VIEW_SIZE=50&VIEW_INDEX=0")>
                                     <a target='main' href="${encodeURL}">[${uiLabelMap.WebtoolsViewData}]</a>
                                 </#if>

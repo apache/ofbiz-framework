@@ -255,7 +255,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>           
+                <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRef.bsh"/>                            
             </actions>
             <widgets> 
@@ -282,7 +282,9 @@ under the License.
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>           
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRefMain.bsh"/>                            
+                <service service-name="getEntityRefData" result-map-name="result"/>
+                <set field="numberOfEntities" from-field="result.numberOfEntities"/>
+                <set field="packagesList" from-field="result.packagesList"/>
             </actions>
             <widgets> 
                 <section>
@@ -307,8 +309,8 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="WebtoolsEntityReference"/>           
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRefList.bsh"/>                            
+                <set field="titleProperty" value="WebtoolsEntityReference"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRefList.bsh"/>
             </actions>
             <widgets> 
                 <section>
