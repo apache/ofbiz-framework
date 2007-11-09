@@ -92,7 +92,7 @@ boolean beganTransaction = false;
 try {
     beganTransaction = TransactionUtil.begin();
 
-    productFeaturesEli = delegator.findListIteratorByCondition("ProductFeature", whereCondition, null, null, UtilMisc.toList("productFeatureTypeId", "description"), efo);
+    productFeaturesEli = delegator.findListIteratorByCondition("ProductFeature", whereCondition, null, null, UtilMisc.toList("productFeatureTypeId", "defaultSequenceNum", "description"), efo);
     productFeatures = productFeaturesEli.getPartialList(lowIndex + 1, highIndex - lowIndex);
     productFeaturesEli.close();
 } catch (GenericEntityException e) {
