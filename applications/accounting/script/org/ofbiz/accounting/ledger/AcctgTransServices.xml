@@ -99,9 +99,9 @@ under the License.
         <check-errors/>
        
         <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
-        <property-to-field resource="arithmetic" property="ledger.rounding" field-name="ledgerRounding"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
  
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${ledgerRounding}]"/>
+        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
 
         <!-- get all AcctgTransEntry for this trans, for each if debit add to debits total if credit add to credits total -->
         <entity-condition entity-name="AcctgTransEntry" list-name="acctgTransEntryList">
@@ -112,7 +112,7 @@ under the License.
         <calculate field-name="creditTotal" type="BigDecimal"><number value="0"/></calculate>
         <iterate entry-name="acctgTransEntry" list-name="acctgTransEntryList">
             <if-compare field-name="debitCreditFlag" map-name="acctgTransEntry" operator="equals" value="D">
-               <calculate field-name="debitTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${ledgerRounding}">
+               <calculate field-name="debitTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                         <calcop operator="add">
                             <calcop operator="get" field-name="debitTotal"/>
                             <calcop operator="get" field-name="acctgTransEntry.amount"/>
@@ -120,7 +120,7 @@ under the License.
                </calculate>
             <else>
                 <if-compare field-name="debitCreditFlag" map-name="acctgTransEntry" operator="equals" value="C">
-                    <calculate field-name="creditTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${ledgerRounding}">
+                    <calculate field-name="creditTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                         <calcop operator="add">
                             <calcop operator="get" field-name="creditTotal"/>
                             <calcop operator="get" field-name="acctgTransEntry.amount"/>
@@ -139,10 +139,10 @@ under the License.
         <check-errors/>
         
         <!-- should now have the debitTotal and creditTotal, calculate the debitCreditDifference -->
-        <calculate field-name="debitCreditDifference" type="BigDecimal"  decimal-scale="${ledgerDecimals}" rounding-mode="${ledgerRounding}">
+        <calculate field-name="debitCreditDifference" type="BigDecimal"  decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="add">
-                <calcop operator="get" field-name="debitTotal" type="BigDecimal"/>
-                <calcop operator="negative" field-name="creditTotal" type="BigDecimal"/>
+                <calcop operator="get" field-name="debitTotal"/>
+                <calcop operator="negative" field-name="creditTotal"/>
             </calcop>
         </calculate>
         
