@@ -122,8 +122,9 @@ under the License.
             </if-not-empty>  <!-- custom conversion? -->
 
             <!-- round result, if UomConversion[Dated] so specifies -->
+            <set field="roundingMode" from-field="uomConversion.roundingMode"/>
             <if-not-empty field-name="uomConversion.roundingMode">
-                <calculate field-name="roundedValue" type="Double" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${uomConversion.roundingMode}">
+                <calculate field-name="roundedValue" type="Double" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${roundingMode}">
                     <calcop operator="get" field-name="convertedValue"/>
                 </calculate>
                 <set field="convertedValue" from-field="roundedValue"/>
