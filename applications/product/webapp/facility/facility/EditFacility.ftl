@@ -39,7 +39,7 @@ under the License.
     </td>
   </tr>
 <#else>
-  <form action="<@ofbizUrl>CreateFacility</@ofbizUrl>" method="post" style='margin: 0;'>
+  <form action="<@ofbizUrl>CreateFacility</@ofbizUrl>" name="EditFacilityForm" method="post" style='margin: 0;'>
   <#if facilityId?exists>
     <h3>${uiLabelMap.ProductCouldNotFindFacilityWithId} "${facilityId?if_exists}".</h3>
   </#if>
