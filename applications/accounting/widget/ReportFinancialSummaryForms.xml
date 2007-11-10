@@ -67,5 +67,28 @@ under the License.
     <form name="FinancialAccountSummaryOptions" type="single" target="FinancialAccountSummary" extends="BaseSummaryOptions">
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
+    <form name="TrialBalanceList" type="list" list-name="trialBalances">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-name="glAccount">
+                <field-map field-name="glAccountId"/>
+            </entity-one>
+            <set field="showDebit" value="${bsh:(postedBalance &gt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)) || (postedBalance &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount))}" type="Boolean"/>
+            <set field="showCredit" value="${bsh:(postedBalance &gt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount)) || (postedBalance &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount))}" type="Boolean"/>
+            <set field="absolutePostedBalance" value="${bsh:(postedBalance &gt; 0? postedBalance: (-1)*postedBalance)}" type="Double"/>
+            <set field="showTotals" value="${bsh:(isLastRow != null &amp;&amp; isLastRow==true)}" type="Boolean"/>
+            <set field="debitTotal" from-field="parameters.debitTotal" type="Double"/>
+            <set field="creditTotal" from-field="parameters.creditTotal" type="Double"/>
+            <set field="parameters.debitTotal" value="${bsh:(showDebit? (debitTotal + absolutePostedBalance): (debitTotal))}" type="Double"/>
+            <set field="parameters.creditTotal" value="${bsh:(showCredit? (creditTotal + absolutePostedBalance): (creditTotal))}" type="Double"/>
+        </row-actions>
+        <field name="glAccountId" use-when="!showTotals"><display description="[${glAccount.accountCode}] ${glAccount.accountName}"/></field>
+        <field name="debit" entry-name="absolutePostedBalance" use-when="showDebit"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="debit" use-when="showCredit"><display/></field>
+        <field name="credit" entry-name="absolutePostedBalance" use-when="showCredit"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit" use-when="showDebit"><display/></field>
+        <field name="glAccountId" use-when="showTotals" widget-style="tableheadtext" widget-area-style="viewManyTR1"><display description="${uiLabelMap.CommonTotal}"/></field>
+        <field name="debit" entry-name="parameters.debitTotal" use-when="showTotals" widget-area-style="viewManyTR1"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit" entry-name="creditTotal" use-when="showTotals" widget-area-style="viewManyTR1"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
 </forms>
-    

@@ -192,4 +192,42 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="TrialBalance">
+        <section>
+            <actions>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                </entity-one>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+
+                <entity-condition entity-name="GlAccountOrganization" list-name="trialBalances" filter-by-date="true">
+                    <condition-list>
+                        <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="postedBalance" operator="not-equals" env-name="null"/>
+                    </condition-list>
+                    <order-by field-name="glAccountId"/>
+                </entity-condition>
+                <set field="totalsRow.isLastRow" value="true" type="Boolean"/>
+                <set field="totalsRow.postedBalance" value="0" type="Double"/>
+                <set field="trialBalances[]" from-field="totalsRow" type="Object"/>
+                <set field="parameters.debitTotal" value="0" type="Double"/>
+                <set field="parameters.creditTotal" value="0" type="Double"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head2" text="${uiLabelMap.AccountingTrialBalance}"/>
+                        </container>
+                        <container>
+                            <label style="head3" text="${uiLabelMap.CommonFor} ${organizationPartyId}"/>
+                        </container>
+                        <include-form name="TrialBalanceList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
