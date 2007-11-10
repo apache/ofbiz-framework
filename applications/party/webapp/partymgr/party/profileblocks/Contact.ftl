@@ -76,7 +76,7 @@ under the License.
                   </div>
                   <#if (postalAddress?has_content && !postalAddress.countryGeoId?has_content) || postalAddress.countryGeoId = "USA">
                     <#assign addr1 = postalAddress.address1?if_exists>
-                    <#if (addr1.indexOf(" ") > 0)>
+                    <#if addr1?has_content && (addr1.indexOf(" ") > 0)>
                       <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
                       <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
                       <a target="_blank" href="http://www.whitepages.com/find_person_results.pl?fid=a&s_n=${addressNum}&s_a=${addressOther}&c=${postalAddress.city?if_exists}&s=${postalAddress.stateProvinceGeoId?if_exists}&x=29&y=18">(lookup:whitepages.com)</a>
