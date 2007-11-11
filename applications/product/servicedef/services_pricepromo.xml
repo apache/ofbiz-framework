@@ -327,6 +327,7 @@ under the License.
         <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="amount" type="Double" mode="IN" optional="true"/>
         
         <attribute name="price" type="Double" mode="OUT" optional="false"/>
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>

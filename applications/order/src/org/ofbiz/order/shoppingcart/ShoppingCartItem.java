@@ -1028,6 +1028,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     priceContext.put("partyId", partyId);
                 }
                 priceContext.put("quantity", new Double(this.getQuantity()));
+                priceContext.put("amount", new Double(this.getSelectedAmount()));
                 priceContext.put("product", this.getProduct());
                 if (cart.getOrderType().equals("PURCHASE_ORDER")) {
                     Map priceResult = dispatcher.runSync("calculatePurchasePrice", priceContext);
