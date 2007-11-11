@@ -65,15 +65,15 @@ if (UtilValidate.isNotEmpty(serviceName)) {
     if (model != null) {
         Iterator params = model.getInParamNames().iterator();
         while (params.hasNext()) {
-            ModelParam par = model.getParam((String)params.next());
+            ModelParam par = model.getParam((String) params.next());
             if (par.internal) {
                 continue;
             }
             Map serviceParam = null;
-            if(null!=savedSyncResult && null!=savedSyncResult.get(par.name)){
-                serviceParam = UtilMisc.toMap("name", par.name, "type", par.type, "optional", (par.optional? "Y": "N"), "value", savedSyncResult.get(par.name).toString());
+            if(null != savedSyncResult && null != savedSyncResult.get(par.name)){
+                serviceParam = UtilMisc.toMap("name", par.name, "type", par.type, "optional", (par.optional? "Y": "N"), "defaultValue", par.defaultValue, "value", savedSyncResult.get(par.name).toString());
             }else{
-                serviceParam = UtilMisc.toMap("name", par.name, "type", par.type, "optional", (par.optional? "Y": "N"));
+                serviceParam = UtilMisc.toMap("name", par.name, "type", par.type, "optional", (par.optional? "Y": "N"), "defaultValue", par.defaultValue);
             }
             serviceParameters.add(serviceParam);
         }
