@@ -28,8 +28,9 @@ under the License.
       <tr>
         <td class="label">${serviceParameter.name} (${serviceParameter.type})</td>
         <td>
-          <input type="text" size="20" name="${serviceParameter.name}" value="${serviceParameter.value?if_exists}" />
+          <input type="text" size="20" name="${serviceParameter.name}" value="${serviceParameter.value?if_exists}"/>
           <#if serviceParameter.optional == "N">(required)<#else>(optional)</#if>
+          <#if serviceParameter.defaultValue?has_content> (default: [${serviceParameter.defaultValue}])</#if>
         </td>
       </tr>
     </#list>
