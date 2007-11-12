@@ -40,6 +40,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
@@ -61,12 +62,13 @@ import org.xml.sax.SAXException;
 /**
  * Widget Library - Screen model class
  */
-public abstract class ModelScreenWidget implements Serializable {
+public abstract class ModelScreenWidget extends ModelWidget implements Serializable {
     public static final String module = ModelScreenWidget.class.getName();
 
     protected ModelScreen modelScreen;
     
     public ModelScreenWidget(ModelScreen modelScreen, Element widgetElement) {
+        super(widgetElement);
         this.modelScreen = modelScreen;
         if (Debug.verboseOn()) Debug.logVerbose("Reading Screen sub-widget with name: " + widgetElement.getNodeName(), module);
     }
@@ -126,42 +128,17 @@ public abstract class ModelScreenWidget implements Serializable {
         Iterator subWidgetIter = subWidgets.iterator();
         while (subWidgetIter.hasNext()) {
             ModelScreenWidget subWidget = (ModelScreenWidget) subWidgetIter.next();
-            if (Debug.verboseOn()) Debug.logVerbose("Rendering screen " + subWidget.modelScreen.name + "; widget class is " + subWidget.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Rendering screen " + subWidget.modelScreen.getName() + "; widget class is " + subWidget.getClass().getName(), module);
 
-            Map parameters = (Map) context.get("parameters");
-            boolean insertWidgetBoundaryComments = "true".equals(parameters==null?null:parameters.get("widgetVerbose"));
-            StringBuffer widgetDescription = null;
-            if (insertWidgetBoundaryComments) {
-                widgetDescription = new StringBuffer(); 
-                widgetDescription.append("Widget [screen:");
-                widgetDescription.append(subWidget.modelScreen.name);
-                widgetDescription.append("] ");
-                widgetDescription.append(subWidget.rawString());
-                
-                try {
-                    writer.write("<!-- === BEGIN ");
-                    writer.write(widgetDescription.toString());
-                    writer.write(" -->\n");
-                } catch (IOException e) {
-                    throw new GeneralException("Error adding verbose sub-widget HTML/XML comments:", e);
-                }
-            }
-            
             // render the sub-widget itself
             subWidget.renderWidgetString(writer, context, screenStringRenderer);
-            
-            if (insertWidgetBoundaryComments) {
-                try {
-                    writer.write("\n<!-- === END   ");
-                    writer.write(widgetDescription.toString());
-                    writer.write(" -->\n");
-                } catch (IOException e) {
-                    throw new GeneralException("Error adding verbose sub-widget HTML/XML comments:", e);
-                }
-            }
         }
     }
 
+    public boolean boundaryCommentsEnabled() {
+        return modelScreen.boundaryCommentsEnabled();
+    }
+    
     public static class SectionsRenderer {
         protected Map sectionMap;
         protected ScreenStringRenderer screenStringRenderer;
@@ -187,15 +164,14 @@ public abstract class ModelScreenWidget implements Serializable {
     }
 
     public static class Section extends ModelScreenWidget {
-        protected String name;
         protected ModelScreenCondition condition;
         protected List actions;
         protected List subWidgets;
         protected List failWidgets;
+        public boolean isMainSection = false;
         
         public Section(ModelScreen modelScreen, Element sectionElement) {
             super(modelScreen, sectionElement);
-            this.name = sectionElement.getAttribute("name");
 
             // read condition under the "condition" element
             Element conditionElement = UtilXml.firstChildElement(sectionElement, "condition");
@@ -221,7 +197,7 @@ public abstract class ModelScreenWidget implements Serializable {
                 this.failWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, failElementList);
             }
         }
-
+        
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
             // check the condition, if there is one
             boolean condTrue = true;
@@ -267,10 +243,14 @@ public abstract class ModelScreenWidget implements Serializable {
             
         }
         
-        public String getName() {
-            return name;
+        public String getBoundaryCommentName() {
+            if (isMainSection) {
+                return modelScreen.getSourceLocation() + "#" + modelScreen.getName();
+            } else {
+                return name;
+            }
         }
-
+        
         public String rawString() {
             return "<section" + (UtilValidate.isNotEmpty(this.name)?" name=\"" + this.name + "\"":"") + ">";
         }
@@ -505,12 +485,10 @@ public abstract class ModelScreenWidget implements Serializable {
     }
 
     public static class DecoratorSection extends ModelScreenWidget {
-        protected String name;
         protected List subWidgets;
         
         public DecoratorSection(ModelScreen modelScreen, Element decoratorSectionElement) {
             super(modelScreen, decoratorSectionElement);
-            this.name = decoratorSectionElement.getAttribute("name");
             // read sub-widgets
             List subElementList = UtilXml.childElementList(decoratorSectionElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
@@ -527,11 +505,9 @@ public abstract class ModelScreenWidget implements Serializable {
     }
     
     public static class DecoratorSectionInclude extends ModelScreenWidget {
-        protected String name;
         
         public DecoratorSectionInclude(ModelScreen modelScreen, Element decoratorSectionElement) {
             super(modelScreen, decoratorSectionElement);
-            this.name = decoratorSectionElement.getAttribute("name");
         }
 
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {

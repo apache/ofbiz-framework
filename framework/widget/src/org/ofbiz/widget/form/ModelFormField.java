@@ -1087,13 +1087,13 @@ public class ModelFormField {
                     condTrue = boolVal.booleanValue();
                 } else {
                     throw new IllegalArgumentException("Return value from use-when condition eval was not a Boolean: "
-                            + retVal.getClass().getName() + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.name);
+                            + retVal.getClass().getName() + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
                 }
 
                 return condTrue;
             } catch (EvalError e) {
                 String errMsg = "Error evaluating BeanShell use-when condition [" + useWhenStr + "] on the field "
-                        + this.name + " of form " + this.modelForm.name + ": " + e.toString();
+                        + this.name + " of form " + this.modelForm.getName() + ": " + e.toString();
                 Debug.logError(e, errMsg, module);
                 //Debug.logError("For use-when eval error context is: " + context, module);
                 throw new IllegalArgumentException(errMsg);

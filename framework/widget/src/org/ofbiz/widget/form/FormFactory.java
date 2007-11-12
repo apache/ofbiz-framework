@@ -65,7 +65,7 @@ public class FormFactory {
                     URL formFileUrl = null;
                     formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
                     Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
-                    modelFormMap = readFormDocument(formFileDoc, delegator, dispatcher);
+                    modelFormMap = readFormDocument(formFileDoc, delegator, dispatcher, resourceName);
                     formLocationCache.put(resourceName, modelFormMap);
                 }
             }
@@ -95,7 +95,7 @@ public class FormFactory {
                     
                     URL formFileUrl = servletContext.getResource(resourceName);
                     Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
-                    modelFormMap = readFormDocument(formFileDoc, delegator, dispatcher);
+                    modelFormMap = readFormDocument(formFileDoc, delegator, dispatcher, cacheKey);
                     formWebappCache.put(cacheKey, modelFormMap);
                 }
             }
@@ -108,7 +108,7 @@ public class FormFactory {
         return modelForm;
     }
     
-    public static Map readFormDocument(Document formFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public static Map readFormDocument(Document formFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String formLocation) {
         Map modelFormMap = new HashMap();
         if (formFileDoc != null) {
             // read document and construct ModelForm for each form element
@@ -118,6 +118,7 @@ public class FormFactory {
             while (formElementIter.hasNext()) {
                 Element formElement = (Element) formElementIter.next();
                 ModelForm modelForm = new ModelForm(formElement, delegator, dispatcher);
+                modelForm.setFormLocation(formLocation);
                 modelFormMap.put(modelForm.getName(), modelForm);
             }
         }

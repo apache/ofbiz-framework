@@ -42,7 +42,7 @@ import org.ofbiz.widget.menu.ModelMenuItem.Link;
 /**
  * Widget Library - HTML Menu Renderer implementation
  */
-public class HtmlMenuRenderer implements MenuStringRenderer {
+public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRenderer {
 
     HttpServletRequest request;
     HttpServletResponse response;
@@ -57,12 +57,6 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
     public HtmlMenuRenderer(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
-    }
-
-    public void appendWhitespace(StringBuffer buffer) {
-        // appending line ends for now, but this could be replaced with a simple space or something
-        buffer.append("\r\n");
-        //buffer.append(' ');
     }
 
     public void appendOfbizUrl(StringBuffer buffer, String location) {
@@ -189,7 +183,7 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
 
         buffer.append("</li>");
         
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public boolean isDisableIfEmpty(ModelMenuItem menuItem, Map context) {
@@ -224,8 +218,7 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
         }
 
             //Debug.logInfo("in HtmlMenuRenderer, userLoginIdHasChanged:" + userLoginIdHasChanged,"");
-        buffer.append("<!-- begin menu widget -->");
-        this.appendWhitespace(buffer);
+        renderBeginningBoundaryComment(buffer, "Menu Widget", modelMenu);
         buffer.append("<div");
         String menuId = modelMenu.getId();
         if (UtilValidate.isNotEmpty(menuId)) {
@@ -245,13 +238,13 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
         buffer.append(">");
         String menuTitle = modelMenu.getTitle(context);
         if (UtilValidate.isNotEmpty(menuTitle)) {
-            this.appendWhitespace(buffer);
+            appendWhitespace(buffer);
             buffer.append(" <h2>" + menuTitle + "</h2>");
         }
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
         buffer.append(" <ul>");
         
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)
@@ -264,13 +257,12 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
         }
         //String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
         buffer.append(" </ul>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
         buffer.append(" <br class=\"clear\" />");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
         buffer.append("</div>");
-        this.appendWhitespace(buffer);
-        buffer.append("<!-- end menu widget -->");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
+        renderEndingBoundaryComment(buffer, "Menu Widget", modelMenu);
         
         userLoginIdHasChanged = userLoginIdHasChanged(); 
         GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
@@ -285,11 +277,11 @@ public class HtmlMenuRenderer implements MenuStringRenderer {
     }
 
     public void renderFormatSimpleWrapperOpen(StringBuffer buffer, Map context, ModelMenu modelMenu) {
-        //this.appendWhitespace(buffer);
+        //appendWhitespace(buffer);
     }
 
     public void renderFormatSimpleWrapperClose(StringBuffer buffer, Map context, ModelMenu modelMenu) {
-        //this.appendWhitespace(buffer);
+        //appendWhitespace(buffer);
     }
 
     public void setRequest(HttpServletRequest request) {

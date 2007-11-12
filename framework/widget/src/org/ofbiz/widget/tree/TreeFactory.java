@@ -65,7 +65,7 @@ public class TreeFactory {
                     URL treeFileUrl = null;
                     treeFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
                     Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true);
-                    modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher);
+                    modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher, resourceName);
                     treeLocationCache.put(resourceName, modelTreeMap);
                 }
             }
@@ -95,7 +95,7 @@ public class TreeFactory {
                     
                     URL treeFileUrl = servletContext.getResource(resourceName);
                     Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true);
-                    modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher);
+                    modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher, cacheKey);
                     treeWebappCache.put(cacheKey, modelTreeMap);
                 }
             }
@@ -108,7 +108,7 @@ public class TreeFactory {
         return modelTree;
     }
     
-    public static Map readTreeDocument(Document treeFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public static Map readTreeDocument(Document treeFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String treeLocation) {
         Map modelTreeMap = new HashMap();
         if (treeFileDoc != null) {
             // read document and construct ModelTree for each tree element
@@ -118,6 +118,7 @@ public class TreeFactory {
             while (treeElementIter.hasNext()) {
                 Element treeElement = (Element) treeElementIter.next();
                 ModelTree modelTree = new ModelTree(treeElement, delegator, dispatcher);
+                modelTree.setTreeLocation(treeLocation);
                 modelTreeMap.put(modelTree.getName(), modelTree);
             }
         }

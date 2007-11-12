@@ -37,6 +37,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.html.HtmlWidgetRenderer;
 import org.ofbiz.widget.WidgetContentWorker;
 import org.ofbiz.widget.WidgetDataResourceWorker;
 import org.ofbiz.widget.screen.ModelScreenWidget;
@@ -47,17 +48,17 @@ import javolution.util.FastMap;
 /**
  * Widget Library - HTML Form Renderer implementation
  */
-public class HtmlScreenRenderer implements ScreenStringRenderer {
+public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStringRenderer {
 
     public static final String module = HtmlScreenRenderer.class.getName();
 
     public HtmlScreenRenderer() {}
 
     public void renderSectionBegin(Writer writer, Map context, ModelScreenWidget.Section section) throws IOException {
-        // do nothing, this is just a place holder container for HTML
+        renderBeginningBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
     public void renderSectionEnd(Writer writer, Map context, ModelScreenWidget.Section section) throws IOException {
-        // do nothing, this is just a place holder container for HTML
+        renderEndingBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
 
     public void renderContainerBegin(Writer writer, Map context, ModelScreenWidget.Container container) throws IOException {
@@ -514,11 +515,5 @@ public class HtmlScreenRenderer implements ScreenStringRenderer {
             }
             appendWhitespace(writer);
         }
-    }
-
-    public void appendWhitespace(Writer writer) throws IOException {
-        // appending line ends for now, but this could be replaced with a simple space or something
-        writer.write("\r\n");
-        //writer.write(' ');
     }
 }

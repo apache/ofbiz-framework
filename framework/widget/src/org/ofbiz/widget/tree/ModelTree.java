@@ -51,6 +51,7 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.widget.ModelWidget;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -59,11 +60,11 @@ import org.xml.sax.SAXException;
 /**
  * Widget Library - Tree model class
  */
-public class ModelTree {
+public class ModelTree extends ModelWidget {
 
     public static final String module = ModelTree.class.getName();
 
-    protected String name;
+    protected String treeLocation;
     protected String rootNodeName;
     protected String defaultRenderStyle;
     protected FlexibleStringExpander defaultWrapStyleExdr;
@@ -89,8 +90,7 @@ public class ModelTree {
     public ModelTree() {}
     
     public ModelTree(Element treeElement, GenericDelegator delegator, LocalDispatcher dispatcher) {
-
-        this.name = treeElement.getAttribute("name");
+        super(treeElement);
         this.rootNodeName = treeElement.getAttribute("root-node-name");
         this.defaultRenderStyle = UtilFormatOut.checkEmpty(treeElement.getAttribute("default-render-style"), "simple");
         // A temporary hack to accommodate those who might still be using "render-style" instead of "default-render-style"
@@ -134,10 +134,6 @@ public class ModelTree {
 
     }
     
-    public String getName() {
-        return name;
-    }
-
     public void setDefaultEntityName(String name) {
         String nm = name;
         if (UtilValidate.isEmpty(nm)) {
@@ -213,7 +209,14 @@ public class ModelTree {
         return currentNodeTrail;
     }
     
-
+    public String getBoundaryCommentName() {
+        return treeLocation + "#" + name;
+    }
+    
+    public void setTreeLocation(String treeLocation) {
+        this.treeLocation = treeLocation;
+    }
+    
     /**
      * Renders this tree to a String, i.e. in a text format, as defined with the
      * TreeStringRenderer implementation.
@@ -230,6 +233,9 @@ public class ModelTree {
      *   use the same tree definitions for many types of tree UIs
      */
     public void renderTreeString(StringBuffer buf, Map context, TreeStringRenderer treeStringRenderer) throws GeneralException {
+        Map parameters = (Map) context.get("parameters");
+        setWidgetBoundaryComments(context);
+
         ModelNode node = (ModelNode)nodeMap.get(rootNodeName);
         /*
         List parentNodeTrail = (List)context.get("currentNodeTrail");
@@ -244,7 +250,6 @@ public class ModelTree {
         String trailName = trailNameExdr.expandString(context);
         String treeString = (String)context.get(trailName);
         if (UtilValidate.isEmpty(treeString)) {
-            Map parameters = (Map)context.get("parameters");
             treeString = (String)parameters.get(trailName);
         }
         if (UtilValidate.isNotEmpty(treeString)) {
