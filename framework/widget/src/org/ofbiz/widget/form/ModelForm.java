@@ -52,13 +52,14 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.ModelWidget;
 
 import org.w3c.dom.Element;
 
 /**
  * Widget Library - Form model class
  */
-public class ModelForm {
+public class ModelForm extends ModelWidget {
 
     public static final String module = ModelForm.class.getName();
     public static final String DEFAULT_FORM_RESULT_LIST_NAME = "defaultFormResultList";
@@ -66,7 +67,7 @@ public class ModelForm {
     protected GenericDelegator delegator;
     protected LocalDispatcher dispatcher;
 
-    protected String name;
+    protected String formLocation;
     protected String type;
     protected FlexibleStringExpander target;
     protected String targetType;
@@ -179,12 +180,14 @@ public class ModelForm {
 
     /** XML Constructor */
     public ModelForm(Element formElement, GenericDelegator delegator, LocalDispatcher dispatcher) {
+        super(formElement);
         this.delegator = delegator;
         this.dispatcher = dispatcher;
         initForm(formElement);
     }
     
     public ModelForm(Element formElement) {
+        super(formElement);
         initForm(formElement);
     }
     
@@ -274,7 +277,6 @@ public class ModelForm {
             }
         }
 
-        this.name = formElement.getAttribute("name");
         if (this.type == null || formElement.hasAttribute("type")) {
             this.type = formElement.getAttribute("type");
         }
@@ -685,6 +687,8 @@ public class ModelForm {
     public void renderFormString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
         ModelFormAction.runSubActions(this.actions, context);
         
+        setWidgetBoundaryComments(context);
+
         // if this is a list form, don't useRequestParameters
         if ("list".equals(this.type) || "multi".equals(this.type)) {
             context.put("useRequestParameters", Boolean.FALSE);
@@ -1905,6 +1909,10 @@ public class ModelForm {
         return this.type;
     }
 
+    public String getBoundaryCommentName() {
+        return formLocation + "#" + name;
+    }
+    
     public void resetBshInterpreter(Map context) {
         context.remove("bshInterpreter");
     }
@@ -2021,6 +2029,13 @@ public class ModelForm {
      */
     public void setItemIndexSeparator(String string) {
         this.itemIndexSeparator = string;
+    }
+
+    /**
+     * @param string Form's location
+     */
+    public void setFormLocation(String formLocation) {
+        this.formLocation = formLocation;
     }
 
     /**

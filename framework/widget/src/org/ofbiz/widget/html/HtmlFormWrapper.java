@@ -79,6 +79,8 @@ public class HtmlFormWrapper {
         
         //make sure the locale is in the context
         context.put("locale", UtilHttp.getLocale(request));
+        //make sure the timeZone is in the context
+        context.put("timeZone", UtilHttp.getTimeZone(request));
         
         // if there was an error message, this is an error
         if (UtilValidate.isNotEmpty((String) request.getAttribute("_ERROR_MESSAGE_"))) {

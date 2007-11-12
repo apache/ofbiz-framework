@@ -32,6 +32,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.widget.ModelWidget;
 import org.w3c.dom.Element;
 
 import bsh.EvalError;
@@ -40,14 +41,14 @@ import bsh.Interpreter;
 /**
  * Widget Library - Menu model class
  */
-public class ModelMenu {
+public class ModelMenu extends ModelWidget {
 
     public static final String module = ModelMenu.class.getName();
 
     protected GenericDelegator delegator;
     protected LocalDispatcher dispatcher;
 
-    protected String name;
+    protected String menuLocation;
     protected String type;
     protected String target;
     protected String id;
@@ -102,6 +103,7 @@ public class ModelMenu {
 
     /** XML Constructor */
     public ModelMenu(Element menuElement, GenericDelegator delegator, LocalDispatcher dispatcher) {
+        super(menuElement);
         this.delegator = delegator;
         this.dispatcher = dispatcher;
 
@@ -167,7 +169,6 @@ public class ModelMenu {
             }
         }
 
-        this.name = menuElement.getAttribute("name");
         if (this.type == null || menuElement.hasAttribute("type"))
             this.type = menuElement.getAttribute("type");
         if (this.target == null || menuElement.hasAttribute("target"))
@@ -301,7 +302,8 @@ public class ModelMenu {
      *   use the same menu definitions for many types of menu UIs
      */
     public void renderMenuString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
-        
+        setWidgetBoundaryComments(context);
+
         boolean passed = true;
 
             //Debug.logInfo("in ModelMenu, name:" + this.getName(), module);
@@ -439,14 +441,6 @@ public class ModelMenu {
             return this.defaultMenuItemName;
     }
 
-
-    /**
-     * @return
-     */
-    public String getName() {
-        return this.name;
-    }
-
     public String getCurrentMenuName(Map context) {
         return this.name;
     }
@@ -479,6 +473,10 @@ public class ModelMenu {
         return this.type;
     }
 
+    public String getBoundaryCommentName() {
+        return menuLocation + "#" + name;
+    }
+    
     public Interpreter getBshInterpreter(Map context) throws EvalError {
         Interpreter bsh = (Interpreter) context.get("bshInterpreter");
         if (bsh == null) {
@@ -538,6 +536,12 @@ public class ModelMenu {
         this.currentMenuItemName = string;
     }
 
+    /**
+     * @param string
+     */
+    public void setMenuLocation(String menuLocation) {
+        this.menuLocation = menuLocation;
+    }
 
     /**
      * @param string

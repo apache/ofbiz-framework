@@ -23,7 +23,6 @@ import java.io.Writer;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -32,16 +31,16 @@ import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.widget.ModelWidget;
 import org.w3c.dom.Element;
 
 /**
  * Widget Library - Screen model class
  */
-public class ModelScreen implements Serializable {
+public class ModelScreen extends ModelWidget implements Serializable {
 
     public static final String module = ModelScreen.class.getName();
 
-    protected String name;
     protected String sourceLocation;
     protected FlexibleStringExpander transactionTimeoutExdr;
     protected Map modelScreenMap;
@@ -55,8 +54,8 @@ public class ModelScreen implements Serializable {
 
     /** XML Constructor */
     public ModelScreen(Element screenElement, Map modelScreenMap, String sourceLocation) {
+        super(screenElement);
         this.sourceLocation = sourceLocation;
-        this.name = screenElement.getAttribute("name");
         this.transactionTimeoutExdr = new FlexibleStringExpander(screenElement.getAttribute("transaction-timeout"));
         this.modelScreenMap = modelScreenMap;
         this.useCache = "true".equals(screenElement.getAttribute("use-cache"));
@@ -67,6 +66,11 @@ public class ModelScreen implements Serializable {
             throw new IllegalArgumentException("No section found for the screen definition with name: " + this.name);
         }
         this.section = new ModelScreenWidget.Section(this, sectionElement);
+        this.section.isMainSection = true;
+    }
+    
+    public String getSourceLocation() {
+        return sourceLocation;
     }
 
     /**
@@ -93,9 +97,11 @@ public class ModelScreen implements Serializable {
         // make sure the "null" object is in there for entity ops
         context.put("null", GenericEntity.NULL_FIELD);
 
+        setWidgetBoundaryComments(context);
+
         // wrap the whole screen rendering in a transaction, should improve performance in querying and such
-        boolean beganTransaction = false;
         Map parameters = (Map) context.get("parameters");
+        boolean beganTransaction = false;
         int transactionTimeout = -1;
         if (parameters != null) {
             String transactionTimeoutPar = (String) parameters.get("TRANSACTION_TIMEOUT");
@@ -179,10 +185,6 @@ public class ModelScreen implements Serializable {
     public GenericDelegator getDelegator(Map context) {
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
         return delegator;
-    }
-    
-    public String getName() {
-        return name;
     }
 }
 

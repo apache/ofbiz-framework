@@ -68,7 +68,7 @@ public class MenuFactory {
                     
                     URL menuFileUrl = servletContext.getResource(resourceName);
                     Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true);
-                    modelMenuMap = readMenuDocument(menuFileDoc, delegator, dispatcher);
+                    modelMenuMap = readMenuDocument(menuFileDoc, delegator, dispatcher, cacheKey);
                     menuWebappCache.put(cacheKey, modelMenuMap);
                 }
             }
@@ -85,7 +85,7 @@ public class MenuFactory {
         return modelMenu;
     }
     
-    public static Map readMenuDocument(Document menuFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public static Map readMenuDocument(Document menuFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String menuLocation) {
         Map modelMenuMap = new HashMap();
         if (menuFileDoc != null) {
             // read document and construct ModelMenu for each menu element
@@ -95,6 +95,7 @@ public class MenuFactory {
             while (menuElementIter.hasNext()) {
                 Element menuElement = (Element) menuElementIter.next();
                 ModelMenu modelMenu = new ModelMenu(menuElement, delegator, dispatcher);
+                modelMenu.setMenuLocation(menuLocation);
                 modelMenuMap.put(modelMenu.getName(), modelMenu);
             }
         }
@@ -116,7 +117,7 @@ public class MenuFactory {
                     URL menuFileUrl = null;
                     menuFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
                     Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true);
-                    modelMenuMap = readMenuDocument(menuFileDoc, delegator, dispatcher);
+                    modelMenuMap = readMenuDocument(menuFileDoc, delegator, dispatcher, resourceName);
                     menuLocationCache.put(resourceName, modelMenuMap);
                 }
             }

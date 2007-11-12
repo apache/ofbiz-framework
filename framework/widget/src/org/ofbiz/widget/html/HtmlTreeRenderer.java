@@ -40,7 +40,7 @@ import org.ofbiz.widget.tree.TreeStringRenderer;
 /**
  * Widget Library - HTML Tree Renderer implementation
  */
-public class HtmlTreeRenderer implements TreeStringRenderer {
+public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRenderer {
 
     ScreenStringRenderer screenStringRenderer = null;
     public static final String module = HtmlTreeRenderer.class.getName(); 
@@ -68,6 +68,7 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
         context.put("depth", Integer.toString(depth));
         if (node.isRootNode()) {
             appendWhitespace(writer);
+            renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
             writer.write("<ul class=\"basic-tree\">");
         }
         appendWhitespace(writer);
@@ -170,6 +171,7 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
             appendWhitespace(writer);
             writer.write("</ul>");
             appendWhitespace(writer);
+            renderEndingBoundaryComment(writer, "Tree Widget", node.getModelTree());
         }
     }
 
@@ -354,12 +356,6 @@ public class HtmlTreeRenderer implements TreeStringRenderer {
         }
         writer.write("/>");
         
-    }
-
-    public void appendWhitespace(Writer writer) throws IOException {
-        // appending line ends for now, but this could be replaced with a simple space or something
-        writer.write("\r\n");
-        //writer.write(' ');
     }
 
     public ScreenStringRenderer getScreenStringRenderer(Map context) {

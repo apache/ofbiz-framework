@@ -33,6 +33,8 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
+import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.html.HtmlWidgetRenderer;
 import org.w3c.dom.Element;
 
 import freemarker.template.TemplateException;
@@ -79,7 +81,15 @@ public class HtmlWidget extends ModelScreenWidget {
         
         if (location.endsWith(".ftl")) {
             try {
+                Map parameters = (Map) context.get("parameters");
+                boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(parameters);
+                if (insertWidgetBoundaryComments) {
+                    writer.write(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
+                }
                 FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
+                if (insertWidgetBoundaryComments) {
+                    writer.write(HtmlWidgetRenderer.buildBoundaryComment("End", "Template", location));
+                }
             } catch (MalformedURLException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -187,8 +197,4 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 }
-
-
-
-
 
