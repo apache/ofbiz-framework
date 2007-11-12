@@ -67,8 +67,8 @@ under the License.
         <#else>
           <of:FRGHTTERMS>PREPAID</of:FRGHTTERMS>
         </#if>
-        <of:NOTES>${orderItemShipGroup.shippingInstructions?if_exists}</of:NOTES>
-        <of:SHIPNOTES>${shipnotes?if_exists}</of:SHIPNOTES><#-- if order was a return replacement order (associated with return), then set to RETURNLABEL otherwise leave blank -->
+        <of:NOTES>${orderItemShipGroup.shippingInstructions?if_exists?xml}</of:NOTES>
+        <of:SHIPNOTES>${shipnotes?if_exists?xml}</of:SHIPNOTES><#-- if order was a return replacement order (associated with return), then set to RETURNLABEL otherwise leave blank -->
         <of:TRANSMETHD>${orderItemShipGroup.shipmentMethodTypeId?if_exists}</of:TRANSMETHD>
         <os:PARTNER>
           <#if address?has_content>
@@ -79,40 +79,40 @@ under the License.
             <#-- NOTE: this is the to name -->
             <#assign toName = (address.toName)?default(partyName)?if_exists/>
             <#if (toName?length > partnerNameSize)><#assign toName = (toName?substring(0,partnerNameSize))?if_exists/></#if>
-            <of:NAME>${toName?if_exists}</of:NAME>
+            <of:NAME>${toName?if_exists?xml}</of:NAME>
             <of:PARTNRTYPE>SHIPTO</of:PARTNRTYPE>
             <of:CURRENCY>USD</of:CURRENCY>
             <os:ADDRESS>
               <#assign address1 = address.address1?if_exists/>
               <#if (address1?length > partnerAddressLineSize)><#assign address1 = (address1?substring(0,partnerAddressLineSize))?if_exists/></#if>
-              <of:ADDRLINE>${address1?if_exists}</of:ADDRLINE>
+              <of:ADDRLINE>${address1?if_exists?xml}</of:ADDRLINE>
               <#if address.address2?exists>
                 <#assign address2 = address.address2?if_exists/>
                 <#if (address2?length > partnerAddressLineSize)><#assign address2 = (address2?substring(0,partnerAddressLineSize))?if_exists/></#if>
-                <of:ADDRLINE>${address2}</of:ADDRLINE>
+                <of:ADDRLINE>${address2?xml}</of:ADDRLINE>
               </#if>
               <#assign city = address.city?if_exists/>
               <#if (city?length > partnerAddressCitySize)><#assign city = (city?substring(0,partnerAddressCitySize))?if_exists/></#if>
-              <of:CITY>${city?if_exists}</of:CITY>
+              <of:CITY>${city?if_exists?xml}</of:CITY>
               <#assign countryGeoId = address.countryGeoId?if_exists/>
               <#if (countryGeoId?length > partnerAddressCountrySize)><#assign countryGeoId = (countryGeoId?substring(0,partnerAddressCountrySize))?if_exists/></#if>
               <of:COUNTRY>${countryGeoId?if_exists}</of:COUNTRY>
               <#--<of:DESCRIPTN></of:DESCRIPTN>
               <of:FAX></of:FAX>-->
-              <of:POSTALCODE>${address.postalCode?if_exists}</of:POSTALCODE>
+              <of:POSTALCODE>${address.postalCode?if_exists?xml}</of:POSTALCODE>
               <of:STATEPROVN>${address.stateProvinceGeoId?if_exists}</of:STATEPROVN>
               <#if telecomNumber?has_content>
-              <of:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
+              <of:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode?xml}-</#if>${telecomNumber.areaCode?if_exists?xml}-${telecomNumber.contactNumber?if_exists?xml}</of:TELEPHONE>
               </#if>
             </os:ADDRESS>
             <os:CONTACT>
               <#-- NOTE: this is the attention name -->
               <#assign attnName = (address.attnName)?default(partyName)?if_exists/>
               <#if (attnName?length > partnerContactNameSize)><#assign attnName = (attnName?substring(0,partnerContactNameSize))?if_exists/></#if>
-              <of:NAME>${attnName?if_exists}</of:NAME>
-              <of:EMAIL>${emailString?if_exists}</of:EMAIL>
+              <of:NAME>${attnName?if_exists?xml}</of:NAME>
+              <of:EMAIL>${emailString?if_exists?xml}</of:EMAIL>
               <#--<of:FAX></of:FAX>-->
-              <of:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode}-</#if>${telecomNumber.areaCode?if_exists}-${telecomNumber.contactNumber?if_exists}</of:TELEPHONE>
+              <of:TELEPHONE><#if telecomNumber.countryCode?has_content>${telecomNumber.countryCode?xml}-</#if>${telecomNumber.areaCode?if_exists?xml}-${telecomNumber.contactNumber?if_exists?xml}</of:TELEPHONE>
             </os:CONTACT>
           </#if>
         </os:PARTNER>
@@ -140,13 +140,13 @@ under the License.
         <#list externalIdSet?if_exists as externalId>
         <n:DOCUMNTREF>
           <of:DOCTYPE>PARTNER_SO</of:DOCTYPE>
-          <of:DOCUMENTID>${externalId?if_exists}</of:DOCUMENTID>
+          <of:DOCUMENTID>${externalId?if_exists?xml}</of:DOCUMENTID>
         </n:DOCUMNTREF>
         </#list>
         <#list correspondingPoIdSet?if_exists as correspondingPoId>
         <n:DOCUMNTREF>
           <of:DOCTYPE>CUST_PO</of:DOCTYPE>
-          <of:DOCUMENTID>${correspondingPoId?if_exists}</of:DOCUMENTID>
+          <of:DOCUMENTID>${correspondingPoId?if_exists?xml}</of:DOCUMENTID>
         </n:DOCUMNTREF>
         </#list>
         <#-- data preparation code to create the replacementReturnId; this is the returnId if the order is a return replacement order -->

@@ -56,8 +56,8 @@
         <#if errorMapList?exists>
           <#list errorMapList as errorMap>
             <n:CONFIRMMSG>
-              <of:DESCRIPTN>${errorMap.description?if_exists}</of:DESCRIPTN>
-              <of:REASONCODE>${errorMap.reasonCode?if_exists}</of:REASONCODE>
+              <of:DESCRIPTN>${errorMap.description?if_exists?xml}</of:DESCRIPTN>
+              <of:REASONCODE>${errorMap.reasonCode?if_exists?xml}</of:REASONCODE>
             </n:CONFIRMMSG>
           </#list>
         </#if>
