@@ -444,16 +444,13 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <inline-jdbc
                 jdbc-driver="org.firebirdsql.jdbc.FBDriver"
-                <!-- jdbc-uri="jdbc:firebirdsql://localhost:3050//opt/interbase/data/ofbiz.gdb"
-                jdbc-username="OFBIZ"
-                jdbc-password="ofbiz" -->
                 jdbc-uri="jdbc:firebirdsql:127.0.0.1:C:\\data\\ofbiz.gdb"
                 jdbc-username="SYSDBA"
                 jdbc-password="masterkey"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
-                pool-maxsize="250"
-                 />
+                pool-maxsize="250"/>
+        <!-- Sample remote URI: jdbc-uri="jdbc:firebirdsql://localhost:3050//opt/interbase/data/ofbiz.gdb" -->
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="comp/env/jdbc/xa/localfirebird" isolation-level="ReadCommitted"/> --> <!-- Orion Style JNDI name -->
         <!-- <tyrex-dataSource dataSource-name="firebird" isolation-level="ReadCommitted"/> Â -->
     </datasource>
