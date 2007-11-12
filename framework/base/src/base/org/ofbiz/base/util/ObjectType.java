@@ -426,7 +426,7 @@ public class ObjectType {
     }
 
     public static Object simpleTypeConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
-        return simpleTypeConvert(obj, type, format, TimeZone.getDefault(), locale, noTypeFail);
+        return simpleTypeConvert(obj, type, format, UtilDateTime.getDefaultTimeZone(), locale, noTypeFail);
     }
 
     /** 

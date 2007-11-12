@@ -618,7 +618,7 @@ public class ModelFormField {
         Locale locale = (Locale) context.get("locale");
         if (locale == null) locale = Locale.getDefault();
         TimeZone timeZone = (TimeZone) context.get("timeZone");
-        if (timeZone == null) timeZone = TimeZone.getDefault();
+        if (timeZone == null) timeZone = UtilDateTime.getDefaultTimeZone();
         
         // if useRequestParameters is TRUE then parameters will always be used, if FALSE then parameters will never be used
         // if isError is TRUE and useRequestParameters is not FALSE (ie is null or TRUE) then parameters will be used

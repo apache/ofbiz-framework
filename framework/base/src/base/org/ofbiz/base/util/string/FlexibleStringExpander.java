@@ -190,7 +190,7 @@ public class FlexibleStringExpander implements Serializable {
         if (timeZone == null) {
             timeZone = (TimeZone) context.get("timeZone");
             if (timeZone == null) {
-                timeZone = TimeZone.getDefault();
+                timeZone = UtilDateTime.getDefaultTimeZone();
             }
         }
 
