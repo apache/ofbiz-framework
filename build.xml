@@ -110,6 +110,18 @@ under the License.
     <target name="build">
         <echo message="[build] ========== Start Building (Compile) =========="/>
 
+        <!-- ================================================================== -->
+        <!-- Clean the utilcache file else POS shows errors like                -->
+        <!-- org.ofbiz.base.util.cache.CacheLine; local class incompatible:     -->
+        <!-- stream classdesc serialVersionUID = -1660410335854090898,          -->
+        <!-- local class serialVersionUID = -7035478304991053884                -->
+        <!--           More a hack than a definitive solution                   -->
+        <!-- ================================================================== -->
+        
+        <property file="framework/base/config/cache.properties"/>
+        <echo message="NOTICE: deleting ${cache.file.store}.db"/>
+        <delete file="${cache.file.store}.db" verbose="true"/>
+
         <subant inheritall="false">
             <filelist dir="." files="framework/build.xml"/>
         </subant>
