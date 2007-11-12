@@ -42,6 +42,7 @@ import com.ibm.wsdl.extensions.soap.SOAPAddressImpl;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
@@ -740,7 +741,7 @@ public class ModelService extends AbstractMap implements Serializable {
                 timeZone = (TimeZone) source.get("timeZone");
             }
             if (timeZone == null) {
-                timeZone = TimeZone.getDefault();
+                timeZone = UtilDateTime.getDefaultTimeZone();
             }
         }
         

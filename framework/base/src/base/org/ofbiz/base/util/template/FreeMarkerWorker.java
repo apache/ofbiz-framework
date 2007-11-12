@@ -44,6 +44,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -221,7 +222,7 @@ public class FreeMarkerWorker {
 
         TimeZone timeZone = (TimeZone) context.get("timeZone");
         if (timeZone == null) {
-            timeZone = TimeZone.getDefault();
+            timeZone = UtilDateTime.getDefaultTimeZone();
         }
         env.setTimeZone(timeZone);
     }
