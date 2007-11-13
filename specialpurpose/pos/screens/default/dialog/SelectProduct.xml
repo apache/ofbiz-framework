@@ -20,7 +20,7 @@ under the License.
 <XPage class="net.xoetrope.swing.XDialog">
     <Components>
         <Panel name="SelectProduct" x="0" y="0" w="680" h="420" style="menu">
-            <ScrollPane name="scroolList" x="20" y="20" w="400" h="372">
+            <ScrollPane name="scrollList" x="20" y="20" w="400" h="372">
                 <List name="productsList" x="0" y="0" w="400" h="400" style="editAndList"/>
             </ScrollPane>
             <Button name="BtnCancel" x="460" y="20" w="180" h="44" content="Cancel" style="dialogButton"/>
