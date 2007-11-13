@@ -101,9 +101,6 @@ under the License.
                             <link target="FindFacilityTransfers?facilityId=${facilityId}&amp;completeRequested=true" text="${uiLabelMap.ProductCompleteRequestedTransfers}" style="buttontext"/>
                             <link target="TransferInventoryItem?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryTransfer}" style="buttontext"/>
                         </container>
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/FindFacilityTransfers.ftl"/></html>
-                        </platform-specific>
                         <container>
                             <label style="head1">${uiLabelMap.ProductInventoryTransfersFor} ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]</label>
                         </container>
