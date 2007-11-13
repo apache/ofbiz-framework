@@ -18,19 +18,9 @@
  */
 
 import java.util.*;
-import java.io.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.widget.html.*;
-
-delegator = request.getAttribute("delegator");
-
-String facilityId = parameters.get("facilityId");
-if (facilityId != null) context.put("facilityId", facilityId);
-
-GenericValue facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
-if (facility != null) context.put("facility", facility);
 
 //default this to true, ie only show active
 boolean activeOnly = !"false".equals(request.getParameter("activeOnly"));
