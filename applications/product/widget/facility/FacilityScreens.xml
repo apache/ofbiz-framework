@@ -77,6 +77,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
     <screen name="FindFacilityTransfers">
         <section>
             <actions>
@@ -84,14 +85,46 @@ under the License.
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="FindFacilityTransfers"/>
 
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <entity-one entity-name="Facility" value-name="facility"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/FindFacilityTransfers.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
+                        <container>
+                            <label style="head3">${uiLabelMap.CommonView} </label>
+                            <link target="FindFacilityTransfers?facilityId=${facilityId}&amp;activeOnly=true" text="${uiLabelMap.ProductActiveOnly}" style="buttontext"/>
+                            <link target="FindFacilityTransfers?facilityId=${facilityId}&amp;activeOnly=false" text="${uiLabelMap.CommonAll}" style="buttontext"/>
+                        </container>
+                        <container>
+                            <link target="FindFacilityTransfers?facilityId=${facilityId}&amp;completeRequested=true" text="${uiLabelMap.ProductCompleteRequestedTransfers}" style="buttontext"/>
+                            <link target="TransferInventoryItem?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryTransfer}" style="buttontext"/>
+                        </container>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/facility/facility/FindFacilityTransfers.ftl"/></html>
                         </platform-specific>
+                        <container>
+                            <label style="head1">${uiLabelMap.ProductInventoryTransfersFor} ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]</label>
+                        </container>
+                        <container>
+                            <label style="head2">${uiLabelMap.CommonTo}: ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]</label>
+                        </container>
+                        <include-form name="ToFacilityTransfers" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <container>
+                            <label style="head2">${uiLabelMap.CommonFrom}: ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]</label>
+                        </container>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.completeRequested" operator="equals" value="true"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="FromFacilityTransfersComplete" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <include-form name="FromFacilityTransfers" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -400,7 +433,30 @@ under the License.
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
                         </container>
                         <include-form name="SearchInventoryItemsDetailsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                        <include-form name="ListFacilityInventoryItemsDetails" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.reportType" operator="equals" value="BY_ITEM"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListFacilityInventoryItemsDetailsByItem" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.reportType" operator="equals" value="BY_PRODUCT"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListFacilityInventoryItemsDetailsByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.reportType" operator="equals" value="BY_DATE"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListFacilityInventoryItemsDetailsByDate" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
