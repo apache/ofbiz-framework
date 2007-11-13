@@ -45,6 +45,7 @@ under the License.
         <antcall target="clean-output"/>
         <antcall target="clean-xtra"/>
         <antcall target="clean-catalina"/>
+        <antcall target="clean-cache"/>
         <antcall target="clean"/>
     </target>
 
@@ -78,6 +79,13 @@ under the License.
         </subant>
     </target>
 
+    <target name="clean-cache">
+        <!-- Clean the UtilCache file if errors found with old objects in the cache (Java runtime error something like "local class incompatible") -->
+        <property file="framework/base/config/cache.properties"/>
+        <echo message="NOTICE: deleting ${cache.file.store}.db"/>
+        <delete file="${cache.file.store}.db" verbose="true"/>
+    </target>
+
     <target name="tests">
         <subant target="tests">
             <filelist dir="." files="framework/build.xml"/>
@@ -85,19 +93,6 @@ under the License.
     </target>
 
     <target name="clean">
-    
-        <!-- ================================================================== -->
-        <!-- Clean the utilcache file else POS shows errors like                -->
-        <!-- org.ofbiz.base.util.cache.CacheLine; local class incompatible:     -->
-        <!-- stream classdesc serialVersionUID = -1660410335854090898,          -->
-        <!-- local class serialVersionUID = -7035478304991053884                -->
-        <!--           More a hack than a definitive solution                   -->
-        <!-- ================================================================== -->
-        
-        <property file="framework/base/config/cache.properties"/>
-        <echo message="NOTICE: deleting ${cache.file.store}.db"/>
-        <delete file="${cache.file.store}.db" verbose="true"/>
-    
         <subant target="clean">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <include name="**/build.xml"/>
