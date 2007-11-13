@@ -99,10 +99,10 @@
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jpos18-controls.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jcl.jar"/>
-	<classpathentry kind="lib" path="framework/webapp/lib/xmlgraphics-commons-1.1.jar"/>
+	<classpathentry kind="lib" path="framework/webapp/lib/xmlgraphics-commons-1.2.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/jdom-1.0.jar"/>
-	<classpathentry kind="lib" path="framework/webapp/lib/fop-0.93.jar"/>
+	<classpathentry kind="lib" path="framework/webapp/lib/fop-0.94.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/barcode4j-fop-ext-0.93.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-java5-1.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-util-1.0.1.jar"/>
