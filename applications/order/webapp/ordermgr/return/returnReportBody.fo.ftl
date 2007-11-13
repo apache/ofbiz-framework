@@ -30,7 +30,9 @@ under the License.
     </fo:table-cell>
     <fo:table-cell padding="1mm" text-align="right"><fo:block><@ofbizCurrency amount=returnAdjustment.amount isoCode=returnHeader.currencyUomId/></fo:block></fo:table-cell>
     </fo:table-row>
-    <#assign total = total + returnAdjustment.get("amount")>
+    <#if returnAdjustment.amount?has_content> 
+         <#assign total = total + returnAdjustment.get("amount")>
+    </#if>
 </#macro>
 
       <#-- Items returned -->
