@@ -85,6 +85,19 @@ under the License.
     </target>
 
     <target name="clean">
+    
+        <!-- ================================================================== -->
+        <!-- Clean the utilcache file else POS shows errors like                -->
+        <!-- org.ofbiz.base.util.cache.CacheLine; local class incompatible:     -->
+        <!-- stream classdesc serialVersionUID = -1660410335854090898,          -->
+        <!-- local class serialVersionUID = -7035478304991053884                -->
+        <!--           More a hack than a definitive solution                   -->
+        <!-- ================================================================== -->
+        
+        <property file="framework/base/config/cache.properties"/>
+        <echo message="NOTICE: deleting ${cache.file.store}.db"/>
+        <delete file="${cache.file.store}.db" verbose="true"/>
+    
         <subant target="clean">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <include name="**/build.xml"/>
