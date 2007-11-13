@@ -155,4 +155,23 @@ under the License.
         </else>
         </if-empty>
     </simple-method>
+    <simple-method method-name="getFileUploadProgressStatus" short-description="Look up progress made in File Upload process">
+        <set field="uploadProgressListener" from-field="parameters.uploadProgressListener"/>
+        <if-not-empty field-name="uploadProgressListener">
+            <call-object-method obj-field-name="uploadProgressListener" method-name="getContentLength" ret-field-name="parameters.contentLength"/>
+            <field-to-result field-name="parameters.contentLength" result-name="contentLength"/>
+            <call-object-method obj-field-name="uploadProgressListener" method-name="getBytesRead" ret-field-name="parameters.bytesRead"/>
+            <field-to-result field-name="parameters.bytesRead" result-name="bytesRead"/>
+            <call-object-method obj-field-name="uploadProgressListener" method-name="hasStarted" ret-field-name="parameters.hasStarted"/>
+            <field-to-result field-name="parameters.hasStarted" result-name="hasStarted"/>
+            <call-bsh><![CDATA[
+                contentLength = parameters.get("contentLength");
+                bytesRead = parameters.get("bytesRead");
+                int readPercent = (bytesRead* 100)/contentLength;
+                parameters.put("readPercent", readPercent);
+            ]]></call-bsh>
+            <field-to-result field-name="parameters.readPercent" result-name="readPercent"/>
+            <field-to-result field-name="parameters.hasStarted" result-name="hasStarted"/>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>
