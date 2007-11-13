@@ -331,6 +331,14 @@ under the License.
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
         <attribute name="convertedValue" mode="OUT" type="Double" optional="true"/>
     </service>
+    <service name="getFileUploadProgressStatus" engine="simple" location="org/ofbiz/common/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
+        <description>Look up progress made in File Upload process</description>
+        <attribute name="uploadProgressListener" mode="IN" type="org.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
+        <attribute name="contentLength" mode="OUT" type="Long" optional="true"/>
+        <attribute name="bytesRead" mode="OUT" type="Long" optional="true"/>
+        <attribute name="readPercent" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="hasStarted" mode="OUT" type="Boolean" optional="true"/>
+    </service>
 
     <!-- ftp services -->
     <service name="ftpInterface" engine="interface" location="" invoke="">
