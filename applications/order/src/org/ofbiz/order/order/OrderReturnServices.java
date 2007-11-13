@@ -2229,7 +2229,9 @@ public class OrderReturnServices {
                 Iterator adjustmentIterator = adjustments.iterator();
                 while (adjustmentIterator.hasNext()) {
                     GenericValue returnAdjustment = (GenericValue) adjustmentIterator.next();
-                    total += returnAdjustment.getDouble("amount").doubleValue();
+                    if ((returnAdjustment != null) && (returnAdjustment.get("amount") != null)) {
+                       total += returnAdjustment.getDouble("amount").doubleValue();
+                    }
                 }
             }
         } catch (org.ofbiz.entity.GenericEntityException e) {
