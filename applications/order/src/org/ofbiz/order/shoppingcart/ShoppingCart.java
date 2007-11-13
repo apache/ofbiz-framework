@@ -2299,6 +2299,13 @@ public class ShoppingCart implements Serializable {
         this.internalOrderNotes.add(note);
     }
 
+    public void clearInternalOrderNotes() {
+        this.internalOrderNotes.clear();
+    }
+    public void clearOrderNotes() {
+        this.orderNotes.clear();
+    }
+
     public void addOrderNote(String note) {
         this.orderNotes.add(note);
     }
