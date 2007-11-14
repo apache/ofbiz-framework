@@ -144,7 +144,11 @@ public class TestRunContainer implements Container {
                     Debug.log("None");
                 } else {
                     while (err.hasMoreElements()) {
-                        Debug.log("--> " + err.nextElement(), module);
+                        Object error = err.nextElement();
+                        Debug.log("--> " + error, module);
+                        if (error instanceof TestFailure) {
+                            Debug.log(((TestFailure) error).trace());
+                        }
                     }
                 }
                 Debug.log("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
