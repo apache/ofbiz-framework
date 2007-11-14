@@ -4292,6 +4292,10 @@ public class ShoppingCart implements Serializable {
                 return itemTax.setScale(taxCalcScale, taxRounding).doubleValue();
             }
 
+            public ShoppingCartItem getItem() {
+                return this.item;
+            }
+            
             public double getItemQuantity() {
                 return this.quantity;
             }
