@@ -19,28 +19,25 @@
 
 package org.ofbiz.accounting.finaccount;
 
-import java.sql.Timestamp;
-import java.util.Map;
-import java.util.List;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.ServiceUtil;
-
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
+import org.ofbiz.service.*;
+
 import javolution.util.FastMap;
 
 public class FinAccountServices {
@@ -352,7 +349,10 @@ public class FinAccountServices {
                 BigDecimal remainingBalance = new BigDecimal(actualBalance.toString());
                 BigDecimal refundAmount = BigDecimal.ZERO;
 
-                EntityCondition condition = new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT");
+                List exprs = UtilMisc.toList(new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
+                        new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId));
+                EntityCondition condition = new EntityConditionList(exprs, EntityOperator.AND);
+
                 EntityListIterator eli = null;
                 try {
                     eli = delegator.findListIteratorByCondition("FinAccountTrans", condition, null, UtilMisc.toList("-transactionDate"));
