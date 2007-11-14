@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <!-- Party Invitation Services -->
+    <simple-method method-name="createPartyInvitation" short-description="Create a PartyInvitation">
+        <make-value entity-name="PartyInvitation" value-name="newEntity"/>
+        <sequenced-id-to-env sequence-name="PartyInvitation" env-name="newEntity.partyInvitationId"/>
+        <field-to-result field-name="newEntity.partyInvitationId" result-name="partyInvitationId"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <set from-field="nowTimestamp" field="newEntity.lastInviteDate"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updatePartyInvitation" short-description="Update a PartyInvitation">
+        <entity-one entity-name="PartyInvitation" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deletePartyInvitation" short-description="Remove a PartyInvitation">
+        <entity-one entity-name="PartyInvitation" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="createPartyInvitationGroupAssoc" short-description="Create a PartyInvitationGroupAssoc">
+        <make-value entity-name="PartyInvitationGroupAssoc" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deletePartyInvitationGroupAssoc" short-description="Remove a PartyInvitationGroupAssoc">
+        <entity-one entity-name="PartyInvitationGroupAssoc" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="createPartyInvitationRoleAssoc" short-description="Create a PartyInvitationRoleAssoc">
+        <make-value entity-name="PartyInvitationRoleAssoc" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deletePartyInvitationRoleAssoc" short-description="Remove a PartyInvitationRoleAssoc">
+        <entity-one entity-name="PartyInvitationRoleAssoc" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+
+</simple-methods>

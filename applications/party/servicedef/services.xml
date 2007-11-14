@@ -832,6 +832,46 @@ under the License.
              location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="verifyEmailAddress">
         <attribute name="verifyHash" type="String" mode="IN" optional="false"/>
     </service>
+    
+    <!-- Party Invitation Services -->
+    <service name="createPartyInvitation" engine="simple"
+            location="org/ofbiz/party/party/PartyInvitationServices.xml" invoke="createPartyInvitation">
+        <description>Create Party Invitation</description>
+        <auto-attributes entity-name="PartyInvitation" include="pk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="PartyInvitation" include="nonpk" mode="IN" optional="true"/>
+        <override name="partyInvitationId" mode="OUT" optional="false"/>
+    </service>
+    <service name="updatePartyInvitation" engine="simple"
+            location="org/ofbiz/party/party/PartyInvitationServices.xml" invoke="updatePartyInvitation">
+        <description>Update Party Invitation</description>
+        <auto-attributes entity-name="PartyInvitation" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="PartyInvitation" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePartyInvitation" engine="simple"
+            location="org/ofbiz/party/party/PartyInvitationServices.xml" invoke="deletePartyInvitation">
+        <description>Remove Party Invitation</description>
+        <auto-attributes entity-name="PartyInvitation" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createPartyInvitationGroupAssoc" engine="simple"
+            location="org/ofbiz/party/party/PartyInvitationServices.xml" invoke="createPartyInvitationGroupAssoc">
+        <description>Create PartyInvitationGroupAssoc</description>
+        <auto-attributes entity-name="PartyInvitationGroupAssoc" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deletePartyInvitationGroupAssoc" engine="simple"
+            location="org/ofbiz/party/party/PartyInvitationServices.xml" invoke="deletePartyInvitationGroupAssoc">
+        <description>Remove PartyInvitationGroupAssoc</description>
+        <auto-attributes entity-name="PartyInvitationGroupAssoc" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createPartyInvitationRoleAssoc" engine="simple"
+            location="org/ofbiz/party/party/PartyInvitationServices.xml" invoke="createPartyInvitationRoleAssoc">
+        <description>Create PartyInvitationRoleAssoc</description>
+        <auto-attributes entity-name="PartyInvitationRoleAssoc" include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="deletePartyInvitationRoleAssoc" engine="simple"
+            location="org/ofbiz/party/party/PartyInvitationServices.xml" invoke="deletePartyInvitationRoleAssoc">
+        <description>Remove PartyInvitationRoleAssoc</description>
+        <auto-attributes entity-name="PartyInvitationRoleAssoc" include="pk" mode="IN" optional="false"/>
+    </service> 
 
     <!-- Permission checking services-->
     <service name="partyBasePermissionCheck" engine="simple"
