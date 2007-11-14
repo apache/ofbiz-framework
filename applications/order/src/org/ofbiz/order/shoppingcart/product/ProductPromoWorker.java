@@ -485,14 +485,17 @@ public class ProductPromoWorker {
 
         // check promo code use limits, per customer, code
         Long codeUseLimitPerCustomer = productPromoCode.getLong("useLimitPerCustomer");
-        if (codeUseLimitPerCustomer != null && UtilValidate.isNotEmpty(partyId)) {
-            // check to see how many times this has been used for other orders for this customer, the remainder is the limit for this order
-            EntityCondition checkCondition = new EntityConditionList(UtilMisc.toList(
-                    new EntityExpr("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
-            long productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null);
+        if (codeUseLimitPerCustomer != null) {
+            long productPromoCustomerUseSize = 0;
+            if (UtilValidate.isNotEmpty(partyId)) {
+                // check to see how many times this has been used for other orders for this customer, the remainder is the limit for this order
+                EntityCondition checkCondition = new EntityConditionList(UtilMisc.toList(
+                        new EntityExpr("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId),
+                        new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
+                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
+                productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null);
+            }
             long perCustomerThisOrder = codeUseLimitPerCustomer.longValue() - productPromoCustomerUseSize;
             if (codeUseLimit == null || codeUseLimit.longValue() > perCustomerThisOrder) {
                 codeUseLimit = new Long(perCustomerThisOrder);
