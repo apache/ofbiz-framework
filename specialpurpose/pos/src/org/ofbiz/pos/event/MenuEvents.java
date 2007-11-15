@@ -367,6 +367,7 @@ public class MenuEvents {
     public static void voidAll(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.voidSale();
+        NavagationEvents.showPosScreen(pos);
         pos.refresh();
     }
 
