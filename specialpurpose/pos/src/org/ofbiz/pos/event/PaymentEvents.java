@@ -135,7 +135,7 @@ public class PaymentEvents {
                     pos.getOutput().print(UtilProperties.getMessage("pos","CREDEX",Locale.getDefault()));
                 } else {
                     Debug.log("Invalid card number - " + input.value(), module);
-                    input.clearFunction("MSRINFO");
+                    input.clearFunction("CREDIT");
                     input.clearInput();
                     pos.showDialog("dialog/error/invalidcardnumber");
                 }
