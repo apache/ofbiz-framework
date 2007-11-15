@@ -162,6 +162,7 @@ public class PosDialog {
         // set the window listener
         dialog.addWindowListener(new WindowListener() {
             public void windowClosing(WindowEvent e) {
+                close();
             }
 
             public void windowActivated(WindowEvent e) {
