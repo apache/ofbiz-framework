@@ -2233,8 +2233,15 @@ public class PaymentGatewayServices {
                     refundResCtx.put("payFromPartyId", payFromPartyId);
                     refundResCtx.put("refundRefNum", refundResponse.get("refundRefNum"));
                     refundResCtx.put("refundResult", refundResponse.get("refundResult"));
-                    // TODO: should we uncomment the following line?
-                    //refundResCtx.put("refundAmount", (Double)refundResponse.get("refundAmount"));
+
+                    // The refund amount could be different from what we tell the payment gateway due to issues
+                    // such as having to void the entire original auth amount and re-authorize the new order total.
+                    // However, since some legacy services might be non-compliant, so as a safety measure we will
+                    // override the original refund amount if the refund response has a positive value
+                    Double actualRefundAmount = (Double) refundResponse.get("refundAmount");
+                    if (actualRefundAmount != null && actualRefundAmount.doubleValue() > 0) {
+                        refundResCtx.put("refundAmount", refundResponse.get("refundAmount"));
+                    }
                     refundResRes = dispatcher.runSync(model.name, refundResCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
