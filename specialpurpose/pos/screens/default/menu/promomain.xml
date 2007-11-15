@@ -26,6 +26,6 @@ under the License.
         <Button name="" x="408" y="0" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="menuPay" x="510" y="0" w="100" h="60" style="posButton" content="PAY" alignment="Center"/>
                
-        <Label x="0" y="200" w="600" h="50" name="promoLabel" style="input" content="promo_page" alignment="center"/>
+        <Button name="promoCode" x="0" y="62" w="100" h="60" style="posButton" content="PROMO_CODE" alignment="Center"/>
     </Components>    
 </XPage>

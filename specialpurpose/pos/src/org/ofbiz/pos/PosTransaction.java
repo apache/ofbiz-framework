@@ -1049,4 +1049,9 @@ public class PosTransaction implements Serializable {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
         }
     }
+
+    public String addProductPromoCode(String code, PosScreen pos) {
+        LocalDispatcher dispatcher = session.getDispatcher();
+        return cart.addProductPromoCode(code, dispatcher);
+    }
 }
