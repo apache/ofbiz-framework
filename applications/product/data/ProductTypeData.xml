@@ -447,7 +447,9 @@ under the License.
     <StatusItem description="Available" sequenceId="02" statusCode="AVAILABLE" statusId="INV_AVAILABLE" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Promised" sequenceId="03" statusCode="PROMISED" statusId="INV_PROMISED" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Delivered" sequenceId="04" statusCode="DELIVERED" statusId="INV_DELIVERED" statusTypeId="INV_SERIALIZED_STTS"/>
-    <StatusItem description="On Hold" sequenceId="05" statusCode="ON_HOLD" statusId="INV_ON_HOLD" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Activated" sequenceId="05" statusCode="ACTIVATED" statusId="INV_ACTIVATED" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Deactivated" sequenceId="06" statusCode="DEACTIVATED" statusId="INV_DEACTIVATED" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="On Hold" sequenceId="07" statusCode="ON_HOLD" statusId="INV_ON_HOLD" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Being Transfered" sequenceId="10" statusCode="BEING_TRANSFERED" statusId="INV_BEING_TRANSFERED" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Being Transfered (Promised)" sequenceId="11" statusCode="BEING_TRANS_PRM" statusId="INV_BEING_TRANS_PRM" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="Returned" sequenceId="20" statusCode="RETURNED" statusId="INV_RETURNED" statusTypeId="INV_SERIALIZED_STTS"/>
@@ -469,6 +471,11 @@ under the License.
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_AVAILABLE" transitionName="Make Return Available"/>
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_ON_HOLD" transitionName="Make Return Held"/>
     <StatusValidChange condition="" statusId="INV_RETURNED" statusIdTo="INV_DEFECTIVE" transitionName="Mark Return Defective"/>
+    <StatusValidChange condition="" statusId="INV_DELIVERED" statusIdTo="INV_ACTIVATED" transitionName="Activate"/>
+    <StatusValidChange condition="" statusId="INV_ACTIVATED" statusIdTo="INV_DEACTIVATED" transitionName="Deactivate"/>
+    <StatusValidChange condition="" statusId="INV_ACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
+    <StatusValidChange condition="" statusId="INV_DEACTIVATED" statusIdTo="INV_ON_HOLD" transitionName="Hold Inactive"/>
+    <StatusValidChange condition="" statusId="INV_DEACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Inactive"/>
 
     <!-- inventory transfer status -->
     <StatusType description="Inventory Transfer" hasTable="N" parentTypeId="" statusTypeId="INVENTORY_XFER_STTS"/>
