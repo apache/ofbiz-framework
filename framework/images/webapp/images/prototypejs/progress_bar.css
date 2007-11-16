@@ -1,0 +1,23 @@
+/**
+ * @author Ryan Johnson <ryan@livepipe.net>
+ * @copyright 2007 LivePipe LLC
+ * @package Control.ProgressBar
+ * @license MIT
+ * @url http://livepipe.net/projects/control_progress_bar/
+ * @version 1.0.1
+ */
+
+#progress_bar {
+    width:102px;
+    height:7px;
+    border:1px solid #ccc;
+    padding:0;
+    margin:0;
+    position:relative;
+    background-image:url("/images/gradient_main.gif");
+    background-repeat:repeat-x;
+}
+
+#progress_bar div {
+    background-color:#fff;
+}
