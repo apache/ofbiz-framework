@@ -48,6 +48,11 @@ under the License.
 
     <simple-method method-name="addProductCategoryToProdCatalog" short-description="Add Category To ProdCatalog">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run addProductCategoryToProdCatalog you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <!-- Check that the ProductCategory exists -->
+        <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+        <if-empty field-name="productCategory">
+            <add-error><fail-property resource="ProductUiLabels" property="ProductCategoryNotFoundforCategoryID"/></add-error>
+        </if-empty>
         <check-errors/>
 
         <make-value value-name="newEntity" entity-name="ProdCatalogCategory"/>
