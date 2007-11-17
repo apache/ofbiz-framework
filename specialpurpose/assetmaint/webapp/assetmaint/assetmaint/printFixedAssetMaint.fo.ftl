@@ -167,17 +167,17 @@ under the License.
   </fo:table>
 <#-- End Print Maintenance Schedule Information -->
 
-  <fo:table table-layout="fixed"  border-spacing="3pt" border-style="solid" border-width="1pt">
-    <fo:table-column column-width="6.5in"/>
-    <fo:table-column column-width="1.5in"/>
-    <fo:table-header>
-      <fo:table-row>
-        <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.FixedAssetMaintItemIssuance}</fo:block></fo:table-cell>
-        <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block></fo:table-cell>
-      </fo:table-row>        
-    </fo:table-header>
-    <fo:table-body>
-      <#if itemIssuanceList?has_content>
+  <#if itemIssuanceList?has_content>
+    <fo:table table-layout="fixed"  border-spacing="3pt" border-style="solid" border-width="1pt">
+      <fo:table-column column-width="6.5in"/>
+      <fo:table-column column-width="1.5in"/>
+      <fo:table-header>
+        <fo:table-row>
+          <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.FixedAssetMaintItemIssuance}</fo:block></fo:table-cell>
+          <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block></fo:table-cell>
+        </fo:table-row>        
+      </fo:table-header>
+      <fo:table-body>
         <#list itemIssuanceList as itemIssuance>
           <#assign productId = itemIssuance.productId?if_exists>
           <#assign quantity = itemIssuance.quantity?default(0)>
@@ -192,23 +192,23 @@ under the License.
               <fo:table-cell text-align="center"><fo:block>${quantity}</fo:block></fo:table-cell>            
             </fo:table-row>
         </#list>
-      </#if>
-    </fo:table-body>
-  </fo:table>
+      </fo:table-body>
+    </fo:table>
+  </#if>
 
-  <fo:table table-layout="fixed"   border-spacing="3pt" border-style="solid" border-width="1pt">
-    <fo:table-column column-width="8in"/>
-    <fo:table-header>
-      <fo:table-row>
-        <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.WorkEffortNotes}</fo:block></fo:table-cell>
-      </fo:table-row>        
-    </fo:table-header>
-    <fo:table-body>
-      <#if notes?has_content>
+  <#if notes?has_content>
+    <fo:table table-layout="fixed"   border-spacing="3pt" border-style="solid" border-width="1pt">
+      <fo:table-column column-width="8in"/>
+      <fo:table-header>
+        <fo:table-row>
+          <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.WorkEffortNotes}</fo:block></fo:table-cell>
+        </fo:table-row>        
+      </fo:table-header>
+      <fo:table-body>
         <#list notes as note>
           <fo:table-row>
             <fo:table-cell>
-              <fo:block>Auther : ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</fo:block>
+              <fo:block>Author : ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</fo:block>
               <fo:block>Date : ${note.noteDateTime?string.short}</fo:block>
               <#escape x as x?html>
                 <fo:block>${note.noteInfo?if_exists}</fo:block>
@@ -216,9 +216,9 @@ under the License.
             </fo:table-cell>
           </fo:table-row>
         </#list>
-      </#if>
-    </fo:table-body>
-  </fo:table>
+      </fo:table-body>
+    </fo:table>
+  </#if>
 
   </fo:flow>
   </fo:page-sequence>

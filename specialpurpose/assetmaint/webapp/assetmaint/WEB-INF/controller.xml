@@ -192,7 +192,7 @@
     <view-map name="EditWorkEffortTimeEntries" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortTimeEntries"/>
     <view-map name="EditWorkEffortNotes" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortNotes"/>
     <view-map name="EditItemIssuances" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditItemIssuances"/>
-    <view-map name="PrintFixedAssetMaint" type="screenfop" page="component://assetmaint/widget/AssetmaintScreens.xml#PrintFixedAssetMaint"/>
+    <view-map name="PrintFixedAssetMaint" type="screenfop" page="component://assetmaint/widget/AssetmaintScreens.xml#PrintFixedAssetMaint" content-type="application/pdf"/>
 
     <!-- Lookup request mappings -->
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
