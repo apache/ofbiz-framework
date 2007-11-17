@@ -94,6 +94,7 @@ under the License.
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
     <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange"/>
+    <view-map name="EventMessages" type="screen" page="component://common/widget/CommonScreens.xml#EventMessages"/>
 
     <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
     <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
