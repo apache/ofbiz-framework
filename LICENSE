@@ -2281,6 +2281,11 @@ ofbiz/trunk/framework/images/webapp/images/prototype/sound.js
 ofbiz/trunk/framework/images/webapp/images/prototype/unittest.js
 ofbiz/trunk/framework/images/webapp/images/prototype/builder.js
 ===================================================================================
+Apache Ofbiz includes LivePipe Control Suite from http://livepipe.net/projects/control_suite/ 
+licensed under the terms of the MIT License 
+ofbiz/trunk/framework/images/webapp/images/prototype/control.progress_bar.js
+ofbiz/trunk/framework/images/webapp/images/prototype/progress_bar.css
+===================================================================================
 Apache Ofbiz includes validation.js file from 
 http://www.tetlaw.id.au/view/javascript/really-easy-field-validation. 
 ofbiz/trunk/framework/images/webapp/images/prototype/validation.js
