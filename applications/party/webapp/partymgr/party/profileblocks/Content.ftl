@@ -16,47 +16,19 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
   <div id="partyContent" class="screenlet">
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.PartyContent}</h3>
     </div>
     <div class="screenlet-body">
-      <#if partyContent?has_content>
-        <table class="basic-table" cellspacing="0">
-          <#list partyContent as pContent>
-            <#assign content = pContent.getRelatedOne("Content")>
-            <#assign contentType = content.getRelatedOneCache("ContentType")>
-            <#assign mimeType = content.getRelatedOneCache("MimeType")?if_exists>
-            <#assign status = content.getRelatedOneCache("StatusItem")>
-            <#assign pcType = pContent.getRelatedOne("PartyContentType")>
-            <tr>
-              <td class="button-col"><a href="<@ofbizUrl>EditPartyContents?contentId=${pContent.contentId}&partyId=${pContent.partyId}&partyContentTypeId=${pContent.partyContentTypeId}&fromDate=${pContent.fromDate}</@ofbizUrl>">${content.contentId}</a></td>
-              <td>${pcType.description?if_exists}</td>
-              <td>${content.contentName?if_exists}</td>
-              <td>${(contentType.get("description",locale))?if_exists}</td>
-              <td>${(mimeType.description)?if_exists}</td>
-              <td>${(status.get("description",locale))?if_exists}</td>
-              <td>${pContent.fromDate?if_exists}</td>
-              <td class="button-col">
-                <#if (content.contentName?has_content)>
-                    <a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>">${uiLabelMap.CommonView}</a>
-                </#if>                
-                <a href="<@ofbizUrl>removePartyContent/viewprofile?contentId=${pContent.contentId}&partyId=${pContent.partyId}&partyContentTypeId=${pContent.partyContentTypeId}&fromDate=${pContent.fromDate}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
-              </td>
-            </tr>
-          </#list>
-        </table>
-      <#else>
-        ${uiLabelMap.PartyNoContent}
-      </#if>
+          ${screens.render("component://party/widget/partymgr/ProfileScreens.xml#ContentList")}
       <hr/>
       <div class="label">${uiLabelMap.PartyAttachContent}</div>
-      <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>uploadPartyContent</@ofbizUrl>">
+      <form id="uploadPartyContent" method="post" enctype="multipart/form-data" action="<@ofbizUrl>uploadPartyContent</@ofbizUrl>">
         <input type="hidden" name="dataCategoryId" value="PERSONAL"/>
         <input type="hidden" name="contentTypeId" value="DOCUMENT"/>
         <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
-        <input type="hidden" name="partyId" value="${partyId}"/>
+        <input type="hidden" name="partyId" value="${partyId}" id="contentPartyId"/>
         <input type="file" name="uploadedFile" size="20"/>
         <select name="partyContentTypeId">
           <option value="">${uiLabelMap.PartySelectPurpose}</option>
@@ -78,6 +50,6 @@ under the License.
         </select>
         <input type="submit" value="${uiLabelMap.CommonUpload}"/>
       </form>
+      <div id='progress_bar'><div></div></div>
     </div>
   </div>
-  
