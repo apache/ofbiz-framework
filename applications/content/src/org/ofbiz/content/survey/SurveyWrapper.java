@@ -67,6 +67,7 @@ public class SurveyWrapper {
     protected String responseId = null;
     protected String partyId = null;
     protected String surveyId = null;
+    protected Map templateContext = null;
     protected Map passThru = null;
     protected Map defaultValues = null;
     protected boolean edit = false;
@@ -120,6 +121,27 @@ public class SurveyWrapper {
     }
 
     /**
+     * Adds an object to the FTL survey template context
+     * @param name
+     * @param value
+     */
+    public void addToTemplateContext(String name, Object value) {
+        if (templateContext == null) {
+            templateContext = FastMap.newInstance();
+        }
+        templateContext.put(name, value);
+    }
+
+    /**
+     * Removes an object from the FTL survey template context
+     * @param name
+     */
+    public void removeFromTemplateContext(String name) {
+        if (templateContext != null)
+            templateContext.remove(name);
+    }
+
+    /**
      * Renders the Survey
      * @return Writer object from the parsed Freemarker Template
      * @throws SurveyWrapperException
@@ -163,7 +185,10 @@ public class SurveyWrapper {
             }
         }
 
-        Map templateContext = FastMap.newInstance();
+        if (templateContext == null) {
+            templateContext = FastMap.newInstance();
+        }
+
         FreeMarkerWorker.addAllOfbizTransforms(templateContext);
         templateContext.put("partyId", partyId);
         templateContext.put("survey", survey);
