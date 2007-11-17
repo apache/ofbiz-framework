@@ -124,7 +124,7 @@ under the License.
                 <sub-hyperlink link-style="buttontext" target="EditCategory?productCategoryId=${productCategoryId}" description="${productCategoryId}"/>
             </display-entity>
         </field>
-        <field name="prodCatalogCategoryTypeId"><display-entity entity-name="ProdCatalogCategoryType" also-hidden="true" cache="true"/></field>
+        <field name="prodCatalogCategoryTypeId" title="${uiLabelMap.ProductCatalogCategoryType}"><display-entity entity-name="ProdCatalogCategoryType" also-hidden="true" cache="true"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}" widget-style="inputBox"></field>
         <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}" widget-style="inputBox"></field>
@@ -143,7 +143,7 @@ under the License.
         <auto-fields-service service-name="addProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}"><lookup target-form-name="LookupProductCategory"></lookup></field>
-        <field name="prodCatalogCategoryTypeId" widget-style="selectBox">
+        <field name="prodCatalogCategoryTypeId" widget-style="selectBox" title="${uiLabelMap.ProductCatalogCategoryType}">
             <drop-down>
                 <entity-options entity-name="ProdCatalogCategoryType" description="${description}">
                     <entity-order-by field-name="description"/>
