@@ -182,7 +182,9 @@ under the License.
     <WorkEffortAssocType description="Template of" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_TEMPLATE"/>
     <!-- For Routing definition, (workEffort Template) -->
     <WorkEffortAssocType description="Routing and Routing Task Association" hasTable="N" parentTypeId="" workEffortAssocTypeId="ROUTING_COMPONENT"/>
-    
+
+    <WorkEffortContentType workEffortContentTypeId="PROJECT_DISCUSSION" description="Project Discussion" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="PROJECT_UPDATE" description="Project Update" parentTypeId=""/>
     <WorkEffortContentType workEffortContentTypeId="PROJECT_SPEC" description="Project Specification" parentTypeId=""/>
     <WorkEffortContentType workEffortContentTypeId="PROPOSAL_MEDIA" description="Proposal Media" parentTypeId=""/>
     <WorkEffortContentType workEffortContentTypeId="SUPPORTING_MEDIA" description="Supporting Media" parentTypeId=""/>
