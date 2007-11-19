@@ -485,9 +485,11 @@ under the License.
         <response name="success" type="view" value="viewprofile"/>
     </request-map>
     <request-map uri="findSkillTypes">
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="EditSkillTypes"/>
     </request-map>
     <request-map uri="EditSkillTypes">
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="EditSkillTypes"/>
     </request-map>
     <request-map uri="createSkillType">
