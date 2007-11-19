@@ -136,7 +136,9 @@ under the License.
     <ContentType contentTypeId="PEOPLE" description="People" parentTypeId="PLACEHOLDER"/>
     <ContentType contentTypeId="PERSON" description="Person" parentTypeId="PLACEHOLDER"/>
     <ContentType contentTypeId="WEB_SITE_PUB_PT" parentTypeId="PLACEHOLDER" hasTable="Y" description="Publish Point"/>
-    <ContentType contentTypeId="FORUM_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="Forum root publish point"/>
+    <ContentType contentTypeId="FORUM_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="Forum Root"/>
+    <ContentType contentTypeId="BLOG_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="Blog Root"/>
+    <ContentType contentTypeId="FAQ_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="FAQ Root"/>
     <ContentType contentTypeId="DEPARTMENT" description="Department" parentTypeId="PLACEHOLDER"/>
     <ContentType contentTypeId="TOPIC" description="Topic" parentTypeId="PLACEHOLDER"/>
 
