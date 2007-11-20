@@ -75,6 +75,7 @@ public class ModelRelation extends ModelChild {
         this.title = UtilXml.checkEmpty(relationElement.getAttribute("title")).intern();
         this.relEntityName = UtilXml.checkEmpty(relationElement.getAttribute("rel-entity-name")).intern();
         this.fkName = UtilXml.checkEmpty(relationElement.getAttribute("fk-name")).intern();
+        this.description = StringUtil.internString(UtilXml.childElementValue(relationElement, "description"));
 
         NodeList keyMapList = relationElement.getElementsByTagName("key-map");
         for (int i = 0; i < keyMapList.getLength(); i++) {

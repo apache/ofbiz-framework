@@ -358,6 +358,7 @@ public class ModelViewEntity extends ModelEntity {
                 newModelField.setColName(modelMemberEntity.getEntityAlias() + "." + aliasedModelField.getColName());
                 newModelField.setName(modelMemberEntity.getEntityAlias() + "." + aliasedModelField.getName());
                 newModelField.setType(aliasedModelField.getType());
+                newModelField.setDescription(aliasedModelField.getDescription());
                 newModelField.setIsPk(false);
                 aliasedModelEntity.addField(newModelField);
             }
@@ -369,6 +370,7 @@ public class ModelViewEntity extends ModelEntity {
             ModelField field = new ModelField();
             field.setModelEntity(this);
             field.name = alias.name;
+            field.description = alias.description;
 
             // if this is a groupBy field, add it to the groupBys list
             if (alias.groupBy) {
@@ -631,6 +633,7 @@ public class ModelViewEntity extends ModelEntity {
                 expandedAlias.colAlias = ModelUtil.javaNameToDbName(UtilXml.checkEmpty(expandedAlias.name));
                 expandedAlias.function = function;
                 expandedAlias.groupBy = groupBy;
+                expandedAlias.description = modelField.getDescription();
                
                 aliases.add(expandedAlias);
             }
