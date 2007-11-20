@@ -99,9 +99,6 @@
         <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
         <field name="createdStamp"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTask?workEffortId=${workEffortId}"/>
-        </field>
     </form>
     <form name="ListChildEfforts" target="updateTaskListAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTaskList">
         <row-actions>
