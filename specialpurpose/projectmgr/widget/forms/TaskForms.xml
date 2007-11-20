@@ -98,7 +98,7 @@
         </field>
         <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
-        <field name="workEffortPurposeTypeId" title="${uiLabelMap.ProjectMgrWorkEffortPurposeTypeId}"><display-entity entity-name="WorkEffortPurposeType"/></field>        
+        <field name="createdStamp"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTask?workEffortId=${workEffortId}"/>
         </field>
