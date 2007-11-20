@@ -472,7 +472,7 @@ public class ProductSearchSession {
             request.setAttribute("processSearchParametersAlreadyRun", Boolean.TRUE);
         }
         
-        Debug.logInfo("Processing Product Search parameters: " + parameters, module);
+        //Debug.logInfo("Processing Product Search parameters: " + parameters, module);
         
         HttpSession session = request.getSession();
         boolean constraintsChanged = false;
