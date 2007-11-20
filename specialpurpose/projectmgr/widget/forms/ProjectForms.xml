@@ -32,9 +32,6 @@
             <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrProjectSummary}" target="projectView?workEffortId=${workEffortId}"/>
         </field-->
         <field name="createdStamp"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProject?workEffortId=${workEffortId}"/>
-        </field>
     </form>                                        	
     <form name="ListChildEfforts"  target="updateProjectAndAssoc" title="" list-name="projects" type="list" separate-columns="true" paginate-target="FindProject">
         <row-actions>
