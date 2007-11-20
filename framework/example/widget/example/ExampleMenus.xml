@@ -39,7 +39,7 @@ under the License.
     </menu>
 
     <menu name="EditExample" default-selected-style="selected" type="simple"
-            menu-container-style="button-bar button-style-1" selected-menuitem-context-field-name="tabButtonItem">
+            menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditExample" title="${uiLabelMap.ExampleExample}">
             <link target="EditExample?exampleId=${exampleId}"/>
         </menu-item>
@@ -51,7 +51,7 @@ under the License.
         </menu-item>
     </menu>
     <menu name="EditExampleFeature" default-selected-style="selected" type="simple"
-            menu-container-style="button-bar button-style-1" selected-menuitem-context-field-name="tabButtonItem">
+            menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditExampleFeature" title="${uiLabelMap.ExampleFeature}">
             <link target="EditExampleFeature?exampleFeatureId=${exampleFeatureId}"/>
         </menu-item>
