@@ -165,6 +165,11 @@ public class ModelReader implements Serializable {
 
         // utilTimer.timerString("  After createModelEntity -- " + i + " --");
         if (modelEntity != null) {
+            try {
+                modelEntity.setLocation(entityResourceHandler.getFullLocation());
+            } catch (GenericConfigException e) {
+                Debug.logWarning("Error getting ResourceHandler full location: " + e.getMessage(), module);
+            }
             entityCache.put(entityName, modelEntity);
             // utilTimer.timerString("  After entityCache.put -- " + i + " --");
             if (isEntity) {

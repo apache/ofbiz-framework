@@ -57,6 +57,7 @@ public class ModelIndex extends ModelChild {
 
         this.name = UtilXml.checkEmpty(indexElement.getAttribute("name")).intern();
         this.unique = "true".equals(UtilXml.checkEmpty(indexElement.getAttribute("unique")));
+        this.description = StringUtil.internString(UtilXml.childElementValue(indexElement, "description"));
 
         NodeList indexFieldList = indexElement.getElementsByTagName("index-field");
         for (int i = 0; i < indexFieldList.getLength(); i++) {
@@ -64,7 +65,8 @@ public class ModelIndex extends ModelChild {
 
             if (indexFieldElement.getParentNode() == indexElement) {
                 String fieldName = indexFieldElement.getAttribute("name").intern();
-                this.fieldNames.add(fieldName);            }
+                this.fieldNames.add(fieldName);
+            }
         }
     }
 

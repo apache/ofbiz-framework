@@ -113,6 +113,9 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     protected boolean autoClearCache = true;
 
+    /** The location of this entity's definition */
+    protected String location = "";
+
     // ===== CONSTRUCTORS =====
     /** Default Constructor */
     public ModelEntity() {}
@@ -375,6 +378,16 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     public void setAutoClearCache(boolean autoClearCache) {
         this.autoClearCache = autoClearCache;
+    }
+
+    /* Get the location of this entity's definition */
+    public String getLocation() {
+        return this.location;
+    }
+
+    /* Set the location of this entity's definition */
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     /** An indicator to specify if this entity requires locking for updates */
@@ -1342,4 +1355,5 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.toXmlElement(document, this.getPackageName());
     }
 }
+
 

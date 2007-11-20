@@ -27,6 +27,8 @@ import java.io.Serializable;
 public abstract class ModelChild implements Serializable {
 
     protected ModelEntity parentModelEntity;
+    /** The description for documentation purposes */
+    protected String description = "";
 
     protected ModelChild() {}
     protected ModelChild(ModelEntity parentModelEntity) {
@@ -40,4 +42,14 @@ public abstract class ModelChild implements Serializable {
     public ModelEntity getModelEntity() {
         return parentModelEntity;
     }
+
+    /** The description for documentation purposes */
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }

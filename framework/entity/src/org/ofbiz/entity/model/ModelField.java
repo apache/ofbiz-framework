@@ -47,9 +47,6 @@ public class ModelField extends ModelChild {
     /** validators to be called when an update is done */
     protected List<String> validators = new ArrayList<String>();
 
-    /** The description for documentation purposes */
-    protected String description = "";
-
     /** Default Constructor */
     public ModelField() {}
 
@@ -165,15 +162,6 @@ public class ModelField extends ModelChild {
 
     public String removeValidator(int index) {
         return this.validators.remove(index);
-    }
-
-    /** The description for documentation purposes */
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public boolean equals(Object obj) {
