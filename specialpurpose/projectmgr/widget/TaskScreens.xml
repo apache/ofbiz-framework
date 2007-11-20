@@ -110,9 +110,12 @@ under the License.
                         <section>                                                       
                             <!-- To add a new Project -->
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittask.ftl"/></html>
-                                </platform-specific>                                
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditTask} #${task.workEffortId} ${uiLabelMap.CommonInformation}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </container>
+                                </container>
                             </widgets>                            
                         </section>
                     </decorator-section>
