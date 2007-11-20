@@ -697,7 +697,7 @@ public class WebToolsServices {
                                 keysList.add(keysMap);
                             }
                             relationMap.put("title", relation.getTitle());
-                            //relationMap.put("description", relation.getDescription());
+                            relationMap.put("description", relation.getDescription());
                             relationMap.put("relEntity", relation.getRelEntityName());
                             relationMap.put("fkName", relation.getFkName());
                             relationMap.put("type", relation.getType());
@@ -718,7 +718,7 @@ public class WebToolsServices {
                             
                             Map indexMap = new HashMap();
                             indexMap.put("name", index.getName());
-                            //indexMap.put("description", index.getDescription());
+                            indexMap.put("description", index.getDescription());
                             indexMap.put("fieldNameList", fieldNameList);
                             indexList.add(indexMap);
                         }
@@ -729,7 +729,7 @@ public class WebToolsServices {
                         entityMap.put("plainTableName", entity.getPlainTableName());
                         entityMap.put("title", entity.getTitle());
                         entityMap.put("description", entity.getDescription());
-                        //entityMap.put("location", entity.getLocation());
+                        entityMap.put("location", entity.getLocation());
                         entityMap.put("javaNameList", javaNameList);
                         entityMap.put("relationsList", relationsList);
                         entityMap.put("indexList", indexList);
