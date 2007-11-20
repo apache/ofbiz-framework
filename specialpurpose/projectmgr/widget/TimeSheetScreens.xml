@@ -59,9 +59,12 @@ under the License.
                     <decorator-section name="body">                                                  
                         <section>          
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/editTimeSheet.ftl"/></html>
-                                </platform-specific>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditTimesheet} # ${timesheet.timesheetId}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="EditTimesheet" location="component://workeffort/widget/TimesheetForms.xml"/>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
