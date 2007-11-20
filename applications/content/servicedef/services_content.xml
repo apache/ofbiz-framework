@@ -51,6 +51,14 @@
         
     </service>
 
+    <service name="createTextAndUploadedContent" engine="simple" auth="true"
+            location="org/ofbiz/content/content/ContentServices.xml" invoke="createTextAndUploadedContent">
+        <description>Creates text content and optional uploaded sub-content</description>
+        <implements service="createTextContent"/>
+        <implements service="uploadFileInterface" optional="true"/>
+        <implements service="createContentFromUploadedFile" optional="true"/>
+    </service>
+
     <service name="createTextContent" engine="group" auth="true">
         <description>Creates a Text Document DataResource and Content Records</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
@@ -75,7 +83,8 @@
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="uploadFileInterface"/>
         <attribute name="dataResourceId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="mimeTypeId" type="String" mode="INOUT" optional="false"/>
+        <!-- mimetype is set from the uploaded file (contentType) when empty -->
+        <attribute name="mimeTypeId" type="String" mode="INOUT" optional="true"/>
     </service>
 
     <service name="createContentFromUploadedFile" engine="group" transaction-timeout="300">
