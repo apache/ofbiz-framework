@@ -93,7 +93,7 @@
     </request-map>
     <request-map uri="createTask">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
+        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffort"/>
         <response name="success" type="view" value="EditTask"/>
         <response name="error" type="view" value="EditTask"/>
     </request-map>
