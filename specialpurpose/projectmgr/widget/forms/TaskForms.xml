@@ -73,7 +73,7 @@
         </field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="WorkEffort" description="${workEffortName}[${workEffortId}](project:${workEffortParentId})">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}[${workEffortId}](project:${workEffortParentId})">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
                     <entity-order-by field-name="workEffortParentId"/>
                 </entity-options>        
@@ -91,14 +91,14 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
-	<!--================ UnAssigned Tasks Lists==============-->
     <form name="ListTaskLists" type="list" list-name="tasks" paginate-target="FindTaskList">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditTask?workEffortId=${workEffortId}"/>
         </field>
-        <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
         <field name="createdStamp"><display/></field>
+        <field name="phase"><display description="${phaseName}[${phaseId}]"/></field>
+        <field name="project"><hyperlink target="EditProject?workEffortId=${projectId}" description="${projectName}[${projectId}]"/></field>
     </form>
     <form name="ListChildEfforts" target="updateTaskListAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTaskList">
         <row-actions>
