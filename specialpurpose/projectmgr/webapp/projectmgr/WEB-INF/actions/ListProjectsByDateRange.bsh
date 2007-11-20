@@ -112,6 +112,7 @@ if(workEffortTypeId.equals("PROJECT")) {
                 unAssignedTasks.add(UtilMisc.toMap("workEffortId", task.getString("workEffortId"),
                                                  "workEffortName", task.getString("workEffortName"),  
                                                  "workEffortTypeId", task.getString("workEffortTypeId"),
+                                                 "workEffortParentId", task.getString("workEffortParentId"),
                                                  "createdStamp", task.getTimestamp("createdStamp").toString().substring(0,10),
                                                  "workEffortPurposeTypeId", task.getString("workEffortPurposeTypeId")));
             }
@@ -127,13 +128,27 @@ if(workEffortTypeId.equals("PROJECT")) {
             workEffortId = task.get("workEffortId");    
             GenericValue workEffortAssoc = EntityUtil.getFirst(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", workEffortId)));
             if (workEffortAssoc == null) {
-            unAssignedTasks.add(UtilMisc.toMap("workEffortId", task.getString("workEffortId"),
+            GenericValue phase = task.getRelatedOne("ParentWorkEffort");
+            GenericValue project = null;
+            if (!UtilValidate.isEmpty(phase)) {
+                project = phase.getRelatedOne("ParentWorkEffort");
+                }
+            fields = UtilMisc.toMap("workEffortId", task.getString("workEffortId"),
                                                  "workEffortName", task.getString("workEffortName"),  
                                                  "workEffortTypeId", task.getString("workEffortTypeId"),
                                                  "createdStamp", task.getTimestamp("createdStamp").toString().substring(0,10),
-                                                 "workEffortPurposeTypeId", task.getString("workEffortPurposeTypeId")));
+                                                 "workEffortPurposeTypeId", task.getString("workEffortPurposeTypeId"));
+            if (!UtilValidate.isEmpty(phase)) {
+                                                 fields.put("phaseId", phase.getString("workEffortId"));
+                                                 fields.put("phaseName", phase.getString("workEffortName"));
+                                                 }
+            if (!UtilValidate.isEmpty(project)) {
+                                                 fields.put("projectId", project.getString("workEffortId"));
+                                                 fields.put("projectName", project.getString("workEffortName"));
+                                                 }
+            unAssignedTasks.add(fields);                                 
             }
-            context.put("tasks", unAssignedTasks);        
+        context.put("tasks", unAssignedTasks);        
         }        
     } else {
         List unAssignedTasks=null;
