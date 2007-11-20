@@ -22,6 +22,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
+import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.order.shoppingcart.shipping.*;
 import org.ofbiz.order.shoppinglist.*;
 import org.ofbiz.party.contact.*;
@@ -34,10 +35,12 @@ dispatcher = request.getAttribute("dispatcher");
 userLogin = session.getAttribute("userLogin");
 party = userLogin.getRelatedOne("Party");
 
+cart = ShoppingCartEvents.getCartObject(request);
+currencyUomId = cart.getCurrency();
+
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
 webSiteId = CatalogWorker.getWebSiteId(request);
-currencyUomId = UtilHttp.getCurrencyUom(request);
 
 context.put("productStoreId", productStoreId);
 context.put("currencyUomId", currencyUomId);
