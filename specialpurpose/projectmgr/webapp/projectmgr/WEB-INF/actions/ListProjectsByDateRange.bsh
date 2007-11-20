@@ -39,10 +39,14 @@ if (findAll == null) {
     findAll = "N";
 }
 if(workEffortTypeId.equals("PROJECT")) {
-    if ( !(UtilValidate.isEmpty(fromDate) || UtilValidate.isEmpty(thruDate))) {
+    if ( !UtilValidate.isEmpty(fromDate) || !UtilValidate.isEmpty(thruDate)) {
         conditions = UtilMisc.toList(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"));
-        conditions.add(new EntityExpr("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate ));
-        conditions.add(new EntityExpr("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate ));
+        if (!UtilValidate.isEmpty(fromDate)) {
+            conditions.add(new EntityExpr("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate ));
+            }
+        if (!UtilValidate.isEmpty(thruDate)) {
+            conditions.add(new EntityExpr("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate ));
+            }
         allConditions = new EntityConditionList( conditions, EntityOperator.AND );
         orderBy = UtilMisc.toList("createdStamp DESC");
         listProjects = delegator.findByConditionCache("WorkEffort", allConditions, null, orderBy );
@@ -56,10 +60,11 @@ if(workEffortTypeId.equals("PROJECT")) {
                 projects.add(UtilMisc.toMap("workEffortId", project.getString("workEffortId"),
                                          "workEffortName", project.getString("workEffortName"),  
                                          "workEffortTypeId", project.getString("workEffortTypeId"),
+                                         "createdStamp", project.getTimestamp("createdStamp").toString().substring(0,10),
                                          "workEffortPurposeTypeId", project.getString("workEffortPurposeTypeId")));
-                context.put("projects", projects);        
             }
         }
+        context.put("projects", projects);        
      } else { 
          if (findAll.equals("Y") ){
              List listProjects = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortTypeId", workEffortTypeId));
@@ -73,21 +78,26 @@ if(workEffortTypeId.equals("PROJECT")) {
                      projects.add(UtilMisc.toMap("workEffortId", project.getString("workEffortId"),
                                               "workEffortName", project.getString("workEffortName"),  
                                               "workEffortTypeId", project.getString("workEffortTypeId"),
+                                              "createdStamp", project.getTimestamp("createdStamp").toString().substring(0,10),
                                               "workEffortPurposeTypeId", project.getString("workEffortPurposeTypeId")));
-                     context.put("projects", projects);        
                  }
              }
+             context.put("projects", projects);        
          } else {
              List projects=null;
              context.put("projects", projects);
          }
     }
 } else {
-    if ( !(UtilValidate.isEmpty(fromDate) || UtilValidate.isEmpty(thruDate))) {
+    if ( !UtilValidate.isEmpty(fromDate) || !UtilValidate.isEmpty(thruDate)) {
 
         conditions = UtilMisc.toList(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"));
-        conditions.add(new EntityExpr("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate ));
-        conditions.add(new EntityExpr("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate ));
+        if (!UtilValidate.isEmpty(fromDate)) {
+            conditions.add(new EntityExpr("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate ));
+            }
+        if (!UtilValidate.isEmpty(thruDate)) {
+            conditions.add(new EntityExpr("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate ));
+            }
 
         allConditions = new EntityConditionList( conditions, EntityOperator.AND );
         orderBy = UtilMisc.toList("createdStamp DESC");
@@ -99,13 +109,14 @@ if(workEffortTypeId.equals("PROJECT")) {
             workEffortId = task.get("workEffortId");    
             GenericValue workEffortAssoc = EntityUtil.getFirst(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", workEffortId)));
             if (workEffortAssoc == null) {
-            unAssignedTasks.add(UtilMisc.toMap("workEffortId", task.getString("workEffortId"),
+                unAssignedTasks.add(UtilMisc.toMap("workEffortId", task.getString("workEffortId"),
                                                  "workEffortName", task.getString("workEffortName"),  
                                                  "workEffortTypeId", task.getString("workEffortTypeId"),
+                                                 "createdStamp", task.getTimestamp("createdStamp").toString().substring(0,10),
                                                  "workEffortPurposeTypeId", task.getString("workEffortPurposeTypeId")));
-                context.put("tasks", unAssignedTasks);        
             }
         }
+        context.put("tasks", unAssignedTasks);        
     } else {         
         if (findAll.equals("Y") ){
         List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortTypeId", workEffortTypeId));
@@ -119,9 +130,10 @@ if(workEffortTypeId.equals("PROJECT")) {
             unAssignedTasks.add(UtilMisc.toMap("workEffortId", task.getString("workEffortId"),
                                                  "workEffortName", task.getString("workEffortName"),  
                                                  "workEffortTypeId", task.getString("workEffortTypeId"),
+                                                 "createdStamp", task.getTimestamp("createdStamp").toString().substring(0,10),
                                                  "workEffortPurposeTypeId", task.getString("workEffortPurposeTypeId")));
-                context.put("tasks", unAssignedTasks);        
             }
+            context.put("tasks", unAssignedTasks);        
         }        
     } else {
         List unAssignedTasks=null;
