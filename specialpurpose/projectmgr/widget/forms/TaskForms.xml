@@ -20,6 +20,12 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    
+    <form name="listtasksbydaterange" type="single" target="FindTaskByRange?workEffortTypeId=TASK&amp;findAll=Y">
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
 	<!--================ UnAssigned Tasks Lists==============-->
     <form name="ListTaskLists" type="list" list-name="tasks" paginate-target="FindTaskList">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">

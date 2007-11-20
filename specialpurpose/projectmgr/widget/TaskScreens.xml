@@ -75,10 +75,13 @@ under the License.
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                                                
                         <section>                                                        
-                            <widgets>                                                                             
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/listtasksbydaterange.ftl"/></html>
-                                </platform-specific>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleFindTask}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="listtasksbydaterange" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </container>
+                                </container>                                                                             
                                 <container style="button-bar"><link target="EditTask?workEffortTypeId=Task" text="${uiLabelMap.ProjectMgrNewTask}" style="buttontext"/></container>
                                 <include-form name="ListTaskLists" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                             </widgets>                            
