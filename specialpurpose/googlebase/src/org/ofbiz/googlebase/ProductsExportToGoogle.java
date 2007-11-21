@@ -320,12 +320,33 @@ public class ProductsExportToGoogle {
              String actionType = (String)context.get("actionType");
              String statusId = (String)context.get("statusId");
              String trackingCodeId = (String)context.get("trackingCodeId");
+             String countryCode = (String)context.get("countryCode");
+             String webSiteMountPoint = (String)context.get("webSiteMountPoint");
              
              if (!webSiteUrl.startsWith("http://") && !webSiteUrl.startsWith("https://")) {
                  webSiteUrl = "http://" + webSiteUrl;
              }
              if (webSiteUrl.endsWith("/")) {
                  webSiteUrl = webSiteUrl.substring(0, webSiteUrl.length() - 1);
+             }
+
+             if (webSiteMountPoint.endsWith("/")) {
+                 webSiteMountPoint = webSiteMountPoint.substring(0, webSiteMountPoint.length() - 1);
+             }
+             if (webSiteMountPoint.startsWith("/")) {
+                 webSiteMountPoint = webSiteMountPoint.substring(1, webSiteMountPoint.length());
+             }
+
+             String productCurrency = null;
+             if ("US".equals(countryCode)) {
+                 productCurrency = "USD";
+             } else if ("GB".equals(countryCode)) {
+                 productCurrency = "GBP";
+             } else if ("DE".equals(countryCode)) {
+                 productCurrency = "EUR";
+             } else {
+                 Debug.logError("Exception during building data items to Google, Country Code must be either US, UK or DE: "+countryCode, module);
+                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.invalidCountryCode", locale));
              }
              // Get the list of products to be exported to Google Base
              List productsList  = delegator.findByCondition("Product", new EntityExpr("productId", EntityOperator.IN, selectResult), null, null);
@@ -350,6 +371,7 @@ public class ProductsExportToGoogle {
                  Iterator productsListItr = productsList.iterator();
                  int index = 0;
                  String itemActionType = null;
+                 GenericValue googleProduct;
                  while(productsListItr.hasNext()) {
                      itemActionType = actionType;
                      GenericValue prod = (GenericValue)productsListItr.next();
@@ -359,7 +381,7 @@ public class ProductsExportToGoogle {
                          continue;
                      }
                      // TODO: improve this (i.e. get the relative path from the properies file)
-                     String link = webSiteUrl + "/ecommerce/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
+                     String link = webSiteUrl + "/"+webSiteMountPoint+"/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
                      String title = UtilFormatOut.encodeXmlValue(prod.getString("productName"));
                      String description = UtilFormatOut.encodeXmlValue(prod.getString("description"));
                      String imageLink = "";
@@ -374,7 +396,7 @@ public class ProductsExportToGoogle {
                      String googleProductId = null;
                      if (!"insert".equals(actionType)) {
                          try {
-                             GenericValue googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "GOOGLE_ID"));
+                             googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "GOOGLE_ID"));
                              if (UtilValidate.isNotEmpty(googleProduct)) {
                                 googleProductId = googleProduct.getString("idValue");
                              }
@@ -419,6 +441,27 @@ public class ProductsExportToGoogle {
                      UtilXml.addChildElementValue(entryElem, "g:item_type", "products", feedDocument);
                      UtilXml.addChildElementValue(entryElem, "g:price", price, feedDocument);
                      
+                     // Might be nicer to load this from the product but for now we'll set it based on the country destination
+                     UtilXml.addChildElementValue(entryElem, "g:currency", productCurrency, feedDocument);
+
+                     // Ensure the load goes to the correct country location either US dollar, GB sterling or DE euro
+                     UtilXml.addChildElementValue(entryElem, "g:target_country", countryCode, feedDocument);
+
+                     UtilXml.addChildElementValue(entryElem, "g:brand", prod.getString("brandName"), feedDocument);
+
+                     try {
+                         googleProduct = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("productId", prod.getString("productId"), "goodIdentificationTypeId", "SKU"));
+                         if (UtilValidate.isNotEmpty(googleProduct)) {
+                            UtilXml.addChildElementValue(entryElem, "g:ean", googleProduct.getString("idValue"), feedDocument);
+                         }
+                     } catch(GenericEntityException gee) {
+                         Debug.logInfo("Unable to get the SKU for product [" + prod.getString("productId") + "]: " + gee.getMessage(), module);
+                     }
+
+                     UtilXml.addChildElementValue(entryElem, "g:condition", "new", feedDocument);
+                     // This is a US specific requirement for product feeds
+//                     UtilXml.addChildElementValue(entryElem, "g:mpn", "", feedDocument);
+
                      // if the product has an image it will be published on Google Product Search
                      if (UtilValidate.isNotEmpty(imageLink)) {
                          UtilXml.addChildElementValue(entryElem, "g:image_link", imageLink, feedDocument);
