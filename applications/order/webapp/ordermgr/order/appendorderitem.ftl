@@ -57,7 +57,7 @@ under the License.
                   <td class="label">${uiLabelMap.OrderDesiredDeliveryDate} :</td>
                   <td>
                       <input type="text" size="25" maxlength="30" name="itemDesiredDeliveryDate"/>
-                      <a href="javascript:call_cal(document.quickaddform.itemDesiredDeliveryDate,'${toDayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
+                      <a href="javascript:call_cal(document.appendItemForm.itemDesiredDeliveryDate,'${toDayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                   </td>
                 </tr>
                 <tr>
