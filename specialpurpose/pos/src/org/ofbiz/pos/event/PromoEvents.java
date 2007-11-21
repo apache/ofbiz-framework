@@ -18,60 +18,43 @@
  *******************************************************************************/
 package org.ofbiz.pos.event;
 
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-import java.sql.Timestamp;
 import java.util.Locale;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 
-import net.xoetrope.xui.XProjectManager;
-
-import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.pos.device.DeviceLoader;
-import org.ofbiz.pos.device.impl.Receipt;
-import org.ofbiz.pos.screen.PosScreen;
-import org.ofbiz.pos.screen.PaidInOut;
-import org.ofbiz.pos.screen.PromoCode;
 import org.ofbiz.pos.PosTransaction;
-import org.ofbiz.pos.adaptor.SyncCallbackAdaptor;
 import org.ofbiz.pos.component.Input;
 import org.ofbiz.pos.component.Output;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.guiapp.xui.XuiSession;
-import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.pos.screen.PosScreen;
 
 public class PromoEvents {
 
     public static final String module = PromoEvents.class.getName();
 
-    public static void promoCode(PosScreen pos) {
-        
+    public static void addPromoCode(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         if (!trans.isOpen()) {
             pos.showDialog("dialog/error/terminalclosed");
             return;
         }
-        
-        PromoCode promoCode = new PromoCode(trans, pos);
-        promoCode.openDlg();
-        if (promoCode.isPromoLoaded()) {
-            NavagationEvents.showPosScreen(pos);
+        Input input = pos.getInput();
+        String[] lastFunc = input.getLastFunction();
+        if (lastFunc == null || !"PROMOCODE".equals(lastFunc[0])) {
+            Output output = pos.getOutput();
+            input.setFunction("PROMOCODE");
+            output.print(UtilProperties.getMessage("pos","ENTPROMOCODE",Locale.getDefault()));
+        } else if ("PROMOCODE".equals(lastFunc[0])) {
+            String promoCode = input.value();
+            if (UtilValidate.isNotEmpty(promoCode)) {
+                String result = trans.addProductPromoCode(promoCode, pos);
+                if (result != null) {
+                    pos.showDialog("dialog/error/exception", result);
+                    input.clearFunction("PROMOCODE");
+                } else {
+                    NavagationEvents.showPosScreen(pos);
+                    pos.refresh();
+                }
+            }
         }
     }    
 }

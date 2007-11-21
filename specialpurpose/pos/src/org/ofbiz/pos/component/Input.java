@@ -35,9 +35,10 @@ import org.ofbiz.pos.screen.PosScreen;
 public class Input implements KeyboardReceiver, KeyListener {
 
     public static final String module = Input.class.getName();
-    private static final String[] validFunc = { "LOGIN", "OPEN", "CLOSE", "UNLOCK", "MGRLOGIN", "PAID", "TOTAL",
-                                                "CREDIT", "GIFTCARD", "MSRINFO", "CHECK", "CHECKINFO", "REFNUM",
-                                                "QTY", "VOID", "SHIFT", "PAID_IN" , "PAID_OUT" };
+    private static final String[] validFunc = { "CHECK", "CHECKINFO", "CLOSE", "CREDIT", "GIFTCARD", "LOGIN", "MGRLOGIN",
+                                                "MSRINFO", "OPEN", "PAID", "PAID_IN", "PAID_OUT", "PROMOCODE", "QTY",
+                                                "REFNUM", "SHIFT", "TOTAL", "UNLOCK", "VOID"};
+                                                
 
     protected Stack functionStack = new Stack();
     protected Component[] pageComs = null;

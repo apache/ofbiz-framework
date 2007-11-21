@@ -109,6 +109,8 @@ public class MenuEvents {
                 }
             } else if ("SKU".equals(lastFunc[0])) {
                 MenuEvents.addItem(pos, event);
+            } else if ("PROMOCODE".equals(lastFunc[0])) {
+                PromoEvents.addPromoCode(pos);
             }
         } else if (input.value().length() > 0) {
             MenuEvents.addItem(pos, event);
