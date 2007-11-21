@@ -842,13 +842,24 @@ under the License.
     </service>
 
     <service name="createTestSalesOrders" engine="java" auth="true" transaction-timeout="300"
-            location="org.ofbiz.order.order.OrderServices" invoke="createTestSalesOrders">
+            location="org.ofbiz.order.test.OrderTestServices" invoke="createTestSalesOrders">
         <description>Bulk create test sales orders. Note that default-values depend on demo data in ecommerce/data.</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="true" default-value="100"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true" default-value="9000"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true" default-value="USD"/>
         <attribute name="partyId" type="String" mode="IN" optional="true" default-value="DemoCustomer"/>
         <attribute name="numberOfOrders" type="Integer" mode="IN" optional="true" default-value="10"/>
+        <attribute name="numberOfProductsPerOrder" type="Integer" mode="IN" optional="true" default-value="5"/>
+        <attribute name="salesChannel" type="String" mode="IN" optional="true"/>
+    </service>
+    <!-- add require-new-transaction="true" to the following service to fix the lock wait timeout problem, or leave it off to cause that problem -->
+    <service name="createTestSalesOrderSingle" engine="java" auth="true" transaction-timeout="300" 
+        location="org.ofbiz.order.test.OrderTestServices" invoke="createTestSalesOrderSingle">
+        <description>Bulk create test sales orders. Note that default-values depend on demo data in ecommerce/data.</description>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="true" default-value="100"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true" default-value="9000"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true" default-value="USD"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true" default-value="DemoCustomer"/>
         <attribute name="numberOfProductsPerOrder" type="Integer" mode="IN" optional="true" default-value="5"/>
         <attribute name="salesChannel" type="String" mode="IN" optional="true"/>
     </service>
