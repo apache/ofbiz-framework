@@ -153,8 +153,8 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <lookup target-form-name="LookupPartyName" size="20" maxlength="20"/>
         </field>
-        <field name="roleTypeId" parameter-name="roleTypeId" allow-empty="true">
-            <drop-down>
+        <field name="roleTypeId" parameter-name="roleTypeId">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
                     <entity-order-by field-name="roleTypeId"/>
                 </entity-options>
@@ -190,17 +190,17 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditAcctgTrans" type="single" target="updateAcctgTrans" default-map-name="acctgTrans" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+    <form name="EditAcctgTrans" type="single" target="updateAcctgTrans" default-map-name="acctgTrans">
         <field name="acctgTransId"><display/></field>
-        <field name="organizationPartyId"  map-name="parameter"><hidden/></field>
-        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}" widget-style="selectBox">
+        <field name="organizationPartyId" map-name="parameter"><hidden/></field>
+        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">
                     <entity-order-by field-name="acctgTransTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glFiscalTypeId" widget-style="selectBox">
+        <field name="glFiscalTypeId">
             <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}">
                     <entity-order-by field-name="glFiscalTypeId"/>
@@ -208,7 +208,7 @@ under the License.
             </drop-down>
         </field>
         <field name="transactionDate"><date-time/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field> 
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field> 
     </form>
 
     <form name="EditAcctgTransEntry" type="single" target="updateAcctgTransEntry" default-map-name="acctgTransEntry" default-entity-name="AcctgTransEntry">
