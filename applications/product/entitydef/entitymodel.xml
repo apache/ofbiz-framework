@@ -1725,7 +1725,7 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="price" type="currency-precise"></field>
       <field name="termUomId" type="id"><description>Mainly used for recurring and usage prices to specify a time/freq measure, or a usage unit measure (bits, minutes, etc)</description></field>
-      <field name="customPriceCalcService" type="long-varchar"><description>Used to specify an external service for the calculation of the unit price of the product</description></field>
+      <field name="customPriceCalcService" type="id"><description>Points to a CustomMethod used to specify a service for the calculation of the unit price of the product (NOTE: a better name for this field might be priceCalcCustomMethodId)</description></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
