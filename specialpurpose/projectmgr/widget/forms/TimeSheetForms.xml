@@ -34,4 +34,62 @@
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
+
+    <form name="AddTimesheetEntry" type="single" target="createTimesheetEntry" title="">
+        <auto-fields-service service-name="createTimeEntry"/>
+        
+        <field name="timeEntryId"><ignored/><!-- don't pass, will be sequenced --></field>
+        <field name="timesheetId"><hidden/></field>
+        
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+            <drop-down no-current-selected-key="STANDARD">
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="taskId" description="${projectName}--${phaseName}--${taskName}">
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="taskName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="QuickCreateTimeEntry" target="createQuickTimeEntry" title="" type="single">
+        <actions>
+            <entity-one entity-name="WorkEffort">
+                <field-map field-name="workEffortId" env-name=""/>
+            </entity-one>
+        </actions>
+        <field name="timesheetId" map-name="currentTimesheet"><hidden/></field>
+        <field name="partyId" map-name="userLogin"><hidden/></field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+            <drop-down no-current-selected-key="STANDARD" >
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortId"><drop-down allow-empty="false">
+            <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName}--${phaseName}--${taskName}">
+                <entity-constraint name="partyId" env-name="userLogin.partyId"/>
+                <entity-order-by field-name="projectName"/>
+                <entity-order-by field-name="phaseName"/>
+                <entity-order-by field-name="taskName"/>
+            </entity-options>
+        </drop-down></field>
+        <field name="hours"><text size="5"/></field>
+        <field name="comments"><text size="40"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    
 </forms>

@@ -372,6 +372,8 @@
     <view-map name="EditTimeEntries" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditTimeEntries"/>
     <view-map name="FindTimeSheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#FindTimeSheet"/>
     <view-map name="EditTimeSheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimeSheet"/>
+    <view-map name="EditTimesheetEntries" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimeSheetEntries"/>
+    <view-map name="MyTimesheets" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#MyTimesheets"/>
     <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditSkillTypes"/>
     <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
     <view-map name="EditWorkEffortNotes" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectNotes"/>
