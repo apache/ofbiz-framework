@@ -101,7 +101,7 @@ under the License.
     <event button-name="menuPromo" class-name="org.ofbiz.pos.event.NavagationEvents" method-name="showPromoScreen" disable-lock="false"/>
 
     <!-- pos promo menu events -->
-    <event button-name="promoCode" class-name="org.ofbiz.pos.event.PromoEvents" method-name="promoCode" disable-lock="false"/>
+    <event button-name="promoCode" class-name="org.ofbiz.pos.event.PromoEvents" method-name="addPromoCode" disable-lock="false"/>
 
     <!-- pos mgr menu events -->
     <event button-name="mgrOpenTerm" class-name="org.ofbiz.pos.event.ManagerEvents" method-name="openTerminal" disable-lock="false"/>
