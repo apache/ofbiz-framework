@@ -289,20 +289,24 @@ public class UtilHttp {
     }
 
     public static Map<String, Object> makeParamMapWithPrefix(HttpServletRequest request, Map<String, Object> additionalFields, String prefix, String suffix) {
+        return makeParamMapWithPrefix(getParameterMap(request), additionalFields, prefix, suffix);
+    }
+
+    public static Map<String, Object> makeParamMapWithPrefix(Map<String, Object> context, Map<String, Object> additionalFields, String prefix, String suffix) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        Enumeration parameterNames = request.getParameterNames();
-        while (parameterNames.hasMoreElements()) {
-            String parameterName = (String) parameterNames.nextElement();
+        Iterator parameterNames = context.keySet().iterator();
+        while (parameterNames.hasNext()) {
+            String parameterName = (String) parameterNames.next();
             if (parameterName.startsWith(prefix)) {
                 if (suffix != null && suffix.length() > 0) {
                     if (parameterName.endsWith(suffix)) {
                         String key = parameterName.substring(prefix.length(), parameterName.length() - (suffix.length()));
-                        String value = request.getParameter(parameterName);
+                        String value = (String)context.get(parameterName);
                         paramMap.put(key, value);
                     }
                 } else {
                     String key = parameterName.substring(prefix.length());
-                    String value = request.getParameter(parameterName);
+                    String value = (String)context.get(parameterName);
                     paramMap.put(key, value);
                 }
             }
