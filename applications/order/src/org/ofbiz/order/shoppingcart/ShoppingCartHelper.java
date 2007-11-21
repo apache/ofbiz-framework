@@ -40,6 +40,8 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
+import javolution.util.FastMap;
+
 /**
  * A facade over the 
  * {@link org.ofbiz.order.shoppingcart.ShoppingCart ShoppingCart}
@@ -174,12 +176,35 @@ public class ShoppingCartHelper {
             
         }
 
+        // Get the additional features selected for the product (if any)
+        Map selectedFeatures = UtilHttp.makeParamMapWithPrefix(context, null, "FT", null);
+        Iterator selectedFeaturesTypes = selectedFeatures.keySet().iterator();
+        Map additionalFeaturesMap = FastMap.newInstance();
+        while (selectedFeaturesTypes.hasNext()) {
+            String selectedFeatureType = (String)selectedFeaturesTypes.next();
+            String selectedFeatureValue = (String)selectedFeatures.get(selectedFeatureType);
+            if (UtilValidate.isNotEmpty(selectedFeatureValue)) {
+                GenericValue productFeatureAndAppl = null;
+                try {
+                    productFeatureAndAppl = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl",
+                                                                                    UtilMisc.toMap("productId", productId,
+                                                                                                   "productFeatureId", selectedFeatureValue))));
+                } catch (GenericEntityException gee) {
+                    Debug.logError(gee, module);
+                }
+                if (UtilValidate.isNotEmpty(productFeatureAndAppl)) {
+                    productFeatureAndAppl.set("productFeatureApplTypeId", "STANDARD_FEATURE");
+                }
+                additionalFeaturesMap.put(selectedFeatureType, productFeatureAndAppl);
+            }
+        }
+        
         // add or increase the item to the cart        
         try {
             int itemId = -1;
             if (productId != null) {
                 itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength, 
-                                                reservPersons, shipBeforeDate, shipAfterDate, null, attributes, 
+                                                reservPersons, shipBeforeDate, shipAfterDate, additionalFeaturesMap, attributes, 
                                                 catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
             } else {
                 itemId = cart.addNonProductItem(itemType, itemDescription, productCategoryId, price, quantity, attributes, catalogId, itemGroupNumber, dispatcher);
