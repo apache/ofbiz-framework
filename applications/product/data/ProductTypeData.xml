@@ -406,8 +406,8 @@ under the License.
     <ProductPriceActionType description="Promo Amount Override" productPriceActionTypeId="PRICE_PFLAT"/>
     <ProductPriceActionType description="Wholesale Amount Override" productPriceActionTypeId="PRICE_WFLAT"/>
 
-    <CustomMethodType customMethodTypeId="PRICE_FORMULA" description="Formula for calculating the unit price of a product"/>
-
+    <CustomMethodType customMethodTypeId="PRICE_FORMULA" description="Service with formula for calculating the unit price of a product"/>
+    
     <ProductStoreGroup productStoreGroupName="Not Applicable" description="Not Applicable" productStoreGroupId="_NA_" productStoreGroupTypeId="" primaryParentGroupId=""/>
 
     <ProductType description="Fixed Asset Usage" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="ASSET_USAGE"/>
