@@ -141,6 +141,12 @@ under the License.
         <response name="success" type="view" value="entityref"/>
     </request-map>
 
+    <request-map uri="entityrefReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="entityrefReport"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+
     <request-map uri="ModelWriter">
         <security https="false" auth="true"/>
         <response name="success" type="view" value="ModelWriter"/>
@@ -523,6 +529,7 @@ under the License.
     <view-map name="entityref" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRef"/>
     <view-map name="entityref_list" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefList"/>
     <view-map name="entityref_main" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefMain"/>
+    <view-map name="entityrefReport" type="screenfop" page="component://webtools/widget/EntityScreens.xml#EntityRefReport" content-type="application/pdf" encoding="none"/>
 
     <view-map name="entitymaint" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityMaint"/>
     <view-map name="FindGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#FindGeneric"/>
