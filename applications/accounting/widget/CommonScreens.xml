@@ -273,7 +273,7 @@ under the License.
     <screen name="CommonPartyAccountsDecorator">
         <section>
             <actions>
-                <set field="tabButtonItemTop" value="PartyAccountsSummary"/>
+                <set field="tabButtonItemTop" value="PartyAccounts"/>
                 <entity-one entity-name="PartyNameView" value-name="currentOrganization" auto-field-map="false">
                     <field-map field-name="partyId" env-name="organizationPartyId"/>
                 </entity-one>
@@ -292,6 +292,30 @@ under the License.
         </section>
     </screen>
     
+    <screen name="CommonAdminChecksDecorator">
+        <section>
+            <actions>
+                <set field="tabButtonItemTop" value="PartyAccounts"/>
+                <entity-one entity-name="PartyNameView" value-name="currentOrganization" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="PartyAccountsTabBar" location="component://accounting/widget/Menus.xml"/>
+                        <include-menu name="PartyAccountingChecksTabBar" location="component://accounting/widget/Menus.xml"/>
+                        <container>
+                            <label style="head1">${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
+                        </container>
+                        <decorator-section-include name="checks-body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+
     <screen name="CommonFinAccountDecorator">
         <section>
             <actions>

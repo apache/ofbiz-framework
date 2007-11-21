@@ -406,10 +406,10 @@ under the License.
     
     <menu name="PartyTopTabBar" selected-menuitem-context-field-name="tabButtonItemTop" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple">
-        <menu-item name="Admin" title="${uiLabelMap.AccountingAccounts}">
+        <menu-item name="Admin" title="${uiLabelMap.AccountingSetup}">
             <link target="AdminMain?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="PartyAccountsSummary" title="${uiLabelMap.AcctgPartyGlJournalSummary}">
+        <menu-item name="PartyAccounts" title="${uiLabelMap.AccountingAccounting}">
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
@@ -424,6 +424,9 @@ under the License.
         <menu-item name="ListUnpostedAcctgTrans" title="${uiLabelMap.AccountingManualPostTrans}">
             <link target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
+        <menu-item name="ChecksTabButton" title="${uiLabelMap.AccountingChecks}">
+            <link target="listChecksToPrint?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
     </menu>
     <menu name="PartyAdminTabBar" default-menu-item-name="ListGlAccountOrganization" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple">  
@@ -435,9 +438,6 @@ under the License.
         </menu-item>
         <menu-item name="PartyAcctgPreference" title="${uiLabelMap.AccountingPreference}">
             <link target="PartyAcctgPreference?organizationPartyId=${organizationPartyId}"/>
-        </menu-item>
-        <menu-item name="ChecksTabButton" title="${uiLabelMap.AccountingChecks}">
-            <link target="listChecksToPrint?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="ViewFXConversions" title="${uiLabelMap.AccountingFX}">
             <link target="viewFXConversions?organizationPartyId=${organizationPartyId}"/>
@@ -461,26 +461,14 @@ under the License.
             <link target="GlAccountNrPaymentMethod?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-
-    <menu name="JournalEntryShortcuts" menu-container-style="${shortCutsMenuStyle}" type="simple">  
-        <menu-item name="CreateSalesJournalEntry" title="${uiLabelMap.AccountingCreateSalesJournalEntry}">
-            <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES_ACCTG_TRANS"/>
+    <menu name="PartyAccountingChecksTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice" default-selected-style="selected"
+        menu-container-style="button-bar tab-bar" type="simple">  
+        <menu-item name="PrintChecksTabButton" title="${uiLabelMap.AccountingPrintChecks}">
+            <link target="listChecksToPrint?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="CreatePaymentJournalEntry" title="${uiLabelMap.AccountingCreatePaymentJournalEntry}">
-            <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS"/>
-        </menu-item>
-    </menu>
-    <menu name="AccountingReports" menu-container-style="${shortCutsMenuStyle}" type="simple">  
-        <menu-item name="TrialBalance" title="${uiLabelMap.AccountingTrialBalance}">
-            <link target="TrialBalance?organizationPartyId=${organizationPartyId}"/>
-        </menu-item>
-        <menu-item name="IncomeStatement" title="${uiLabelMap.AccountingIncomeStatement}">
-            <link target="IncomeStatement?organizationPartyId=${organizationPartyId}"/>
-        </menu-item>
-        <menu-item name="BalanceSheet" title="${uiLabelMap.AccountingBalanceSheet}">
-            <link target="BalanceSheet?organizationPartyId=${organizationPartyId}"/>
+        <menu-item name="SendChecksTabButton" title="${uiLabelMap.AccountingSendChecks}">
+            <link target="listChecksToSend?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-    
 </menus>
     
