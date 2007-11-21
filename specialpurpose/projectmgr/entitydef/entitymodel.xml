@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright 2001-2006 The Apache Software Foundation</copyright>
+    <author>None</author>
+    <version>1.0</version>
+  <view-entity entity-name="ProjectPartyAndPhaseAndTask"
+    package-name="org.ofbiz.workeffort.project"
+    title="WorkEffort for use in party -> project -> phase -> task">
+    <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/>
+    <alias-all entity-alias="WEPA">
+      <exclude field="facilityId"/>
+    </alias-all>
+    <alias-all entity-alias="WET">
+      <exclude field="workEffortId"/>
+      <exclude field="workEffortName"/>
+    </alias-all>
+    <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
+    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <alias entity-alias="WET" field="workEffortId" name="taskId"/>
+    <alias entity-alias="WET" field="workEffortName" name="taskName"/>
+    <view-link entity-alias="WEPA" rel-entity-alias="WEP">
+      <key-map field-name="workEffortId"/>
+    </view-link>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="PartyNameView">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="many" rel-entity-name="TimeEntry">
+      <key-map field-name="taskId" rel-field-name="workEffortId"/>
+    </relation>
+  </view-entity>
+  
+  <view-entity entity-name="ProjectAndPhaseAndTask"
+    package-name="org.ofbiz.workeffort.project"
+    title="WorkEffort for use in project -> phase -> task">
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
+    <alias-all entity-alias="WET">
+      <exclude field="workEffortId"/>
+      <exclude field="workEffortName"/>
+    </alias-all>
+    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <alias entity-alias="WET" field="workEffortId" name="taskId"/>
+    <alias entity-alias="WET" field="workEffortName" name="taskName"/>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <relation type="many" rel-entity-name="TimeEntry">
+      <key-map field-name="taskId" rel-field-name="workEffortId"/>
+    </relation>
+  </view-entity>
+  </entitymodel>

@@ -44,7 +44,6 @@ under the License.
     <entity-group group="org.ofbiz" entity="WorkEffortAndFulfillment" />
     <entity-group group="org.ofbiz" entity="WorkEffortAndPartyAssign" />
     <entity-group group="org.ofbiz" entity="WorkEffortAndSalesOpportunity" />
-    <entity-group group="org.ofbiz" entity="WorkEffortParentPartyAndChild" />  
     <entity-group group="org.ofbiz" entity="WorkEffortAssoc" />
     <entity-group group="org.ofbiz" entity="WorkEffortAssocView" />
     <entity-group group="org.ofbiz" entity="WorkEffortAssocAttribute" />
