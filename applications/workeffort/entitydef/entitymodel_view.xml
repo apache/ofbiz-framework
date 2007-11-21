@@ -352,7 +352,52 @@ under the License.
         <key-map field-name="roleTypeId"/>
       </relation>
     </view-entity>
-    <view-entity entity-name="WorkEffortAndGoods" package-name="org.ofbiz.workeffort.workeffort" 
+
+  <view-entity entity-name="WorkEffortParentPartyAndChild"
+    package-name="org.ofbiz.workeffort.workeffort"
+    title="WorkEffort for use in party -> project -> phase -> task">
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+    <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+    <alias-all entity-alias="WE"/>
+    <alias-all entity-alias="WEPA">
+      <exclude field="facilityId"/>
+    </alias-all>
+    <alias entity-alias="WEP" field="workEffortParentId" name="projectId"/>
+    <alias entity-alias="WEP" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="phaseName"/>
+    <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
+    <view-link entity-alias="WEP" rel-entity-alias="WE">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPA">
+      <key-map field-name="workEffortParentId" rel-field-name="workEffortId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="WorkEffort">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="WorkEffortPartyAssignment">
+      <key-map field-name="workEffortId"/>
+      <key-map field-name="partyId"/>
+      <key-map field-name="roleTypeId"/>
+      <key-map field-name="fromDate"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="Person">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="PartyRole">
+      <key-map field-name="partyId"/>
+      <key-map field-name="roleTypeId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="RoleType">
+      <key-map field-name="roleTypeId"/>
+    </relation>
+  </view-entity>
+  
+  <view-entity entity-name="WorkEffortAndGoods" package-name="org.ofbiz.workeffort.workeffort" 
         title="WorkEffort and related WorkEffortGoodStandard">
       <description>WorkEffort and its WorkEffortGoodStandard</description>
       <member-entity entity-alias="WE" entity-name="WorkEffort"></member-entity>
