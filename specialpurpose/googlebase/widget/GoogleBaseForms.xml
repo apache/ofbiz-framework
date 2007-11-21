@@ -22,7 +22,15 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ProductsExportToGoogle" type="single" target="searchExportProductListToGoogle">
         <field name="selectResult"><hidden/></field>
+        <field name="countryCode" tooltip="${uiLabelMap.GoogleBaseExportCountryCode}">
+            <drop-down no-current-selected-key="US">
+                <option key="US" description="${uiLabelMap.GoogleBaseExportCountryCodeUS}"/>
+                <option key="GB" description="${uiLabelMap.GoogleBaseExportCountryCodeGB}"/>
+                <option key="DE" description="${uiLabelMap.GoogleBaseExportCountryCodeDE}"/>
+            </drop-down>
+        </field>
         <field name="webSiteUrl"><text size="50" maxlength="250"/></field>
+        <field name="webSiteMountPoint"><text size="30" maxlength="30" default-value="ecommerce"/></field>
         <field name="actionType" widget-style="selectBox">
             <drop-down no-current-selected-key="insert">
                 <option key="insert" description="${uiLabelMap.CommonInsert}"/>

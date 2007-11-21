@@ -88,6 +88,8 @@ public class GoogleBaseSearchEvents {
                 String statusId = (String) request.getParameter("statusId");
                 String testMode = (String) request.getParameter("testMode");
                 String trackingCodeId = (String) request.getParameter("trackingCodeId");
+                String webSiteMountPoint = (String) request.getParameter("webSiteMountPoint");
+                String countryCode = (String) request.getParameter("countryCode");
                 
                 // Export all or selected products to Google Base
                 try {
@@ -96,7 +98,9 @@ public class GoogleBaseSearchEvents {
                                                "imageUrl", imageUrl,
                                                "actionType", actionType,
                                                "statusId", statusId,
-                                               "testMode", testMode);
+                                               "testMode", testMode,
+                                               "webSiteMountPoint", webSiteMountPoint,
+                                               "countryCode", countryCode);
                     inMap.put("trackingCodeId", trackingCodeId);
                     inMap.put("userLogin", userLogin);
                     Map exportResult = dispatcher.runSync("exportToGoogle", inMap);

@@ -34,6 +34,8 @@ under the License.
         <attribute type="String" mode="IN" name="statusId" optional="false"/>
         <attribute type="String" mode="IN" name="testMode" optional="false"/>
         <attribute type="String" mode="IN" name="trackingCodeId" optional="true"/>
+        <attribute type="String" mode="IN" name="webSiteMountPoint" optional="false"/>
+        <attribute type="String" mode="IN" name="countryCode" optional="false"/>
     </service>
     <service name="exportProductCategoryToGoogle" engine="java"
              location="org.ofbiz.googlebase.ProductsExportToGoogle" invoke="exportProductCategoryToGoogle" auth="true">
