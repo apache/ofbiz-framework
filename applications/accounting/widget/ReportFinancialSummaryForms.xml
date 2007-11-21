@@ -82,7 +82,9 @@ under the License.
             <set field="parameters.debitTotal" value="${bsh:(showDebit? (debitTotal + absolutePostedBalance): (debitTotal))}" type="Double"/>
             <set field="parameters.creditTotal" value="${bsh:(showCredit? (creditTotal + absolutePostedBalance): (creditTotal))}" type="Double"/>
         </row-actions>
-        <field name="glAccountId" use-when="!showTotals"><display description="[${glAccount.accountCode}] ${glAccount.accountName}"/></field>
+        <field name="glAccountId" use-when="!showTotals">
+            <hyperlink target="ListGlAccountEntries?glAccountId=${glAccountId}" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/>
+        </field>
         <field name="debit" entry-name="absolutePostedBalance" use-when="showDebit"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="debit" use-when="showCredit"><display/></field>
         <field name="credit" entry-name="absolutePostedBalance" use-when="showCredit"><display type="currency" currency="${currencyUomId}"/></field>

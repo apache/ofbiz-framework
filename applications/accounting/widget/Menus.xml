@@ -404,8 +404,17 @@ under the License.
         </menu-item>
     </menu>
     
+    <menu name="PartyTopTabBar" selected-menuitem-context-field-name="tabButtonItemTop" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
+        menu-container-style="button-bar tab-bar" type="simple">
+        <menu-item name="Admin" title="${uiLabelMap.AccountingAccounts}">
+            <link target="AdminMain?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="PartyAccountsSummary" title="${uiLabelMap.AcctgPartyGlJournalSummary}">
+            <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+    </menu>
     <menu name="PartyAccountsTabBar" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple">  
+        menu-container-style="button-bar tab-bar" type="simple">
         <menu-item name="PartyAccountsSummary" title="${uiLabelMap.AcctgPartyGlJournalSummary}">
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
@@ -416,7 +425,43 @@ under the License.
             <link target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-    
+    <menu name="PartyAdminTabBar" default-menu-item-name="ListGlAccountOrganization" default-selected-style="selected"
+        menu-container-style="button-bar tab-bar" type="simple">  
+        <menu-item name="ListGlAccountOrganization" title="${uiLabelMap.AcctgListGlAcctOrg}">
+            <link target="ListGlAccountOrganization?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="TimePeriods" title="${uiLabelMap.TimePeriod}">
+            <link target="TimePeriods?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="PartyAcctgPreference" title="${uiLabelMap.AccountingPreference}">
+            <link target="PartyAcctgPreference?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="ChecksTabButton" title="${uiLabelMap.AccountingChecks}">
+            <link target="listChecksToPrint?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="ViewFXConversions" title="${uiLabelMap.AccountingFX}">
+            <link target="viewFXConversions?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="GlAccountAssignment" title="${uiLabelMap.AccountingGlAccountDefault}">
+            <link target="GlAccountAssignment?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+    </menu>
+    <menu name="PartyAdminAssignTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice" default-selected-style="selected"
+        menu-container-style="button-bar tab-bar" type="simple">  
+        <menu-item name="GlAccountSalInvoice" title="${uiLabelMap.AccountingInvoiceSales}">
+            <link target="GlAccountSalInvoice?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="GlAccountPurInvoice" title="${uiLabelMap.AccountingInvoicePurchase}">
+            <link target="GlAccountPurInvoice?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="GlAccountTypePaymentType" title="${uiLabelMap.AccountingPaymentType}/${uiLabelMap.FormFieldTitle_glAccountTypeId}">
+            <link target="GlAccountTypePaymentType?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="GlAccountNrPaymentMethod" title="${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}">
+            <link target="GlAccountNrPaymentMethod?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+    </menu>
+
     <menu name="JournalEntryShortcuts" menu-container-style="${shortCutsMenuStyle}" type="simple">  
         <menu-item name="CreateSalesJournalEntry" title="${uiLabelMap.AccountingCreateSalesJournalEntry}">
             <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES_ACCTG_TRANS"/>

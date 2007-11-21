@@ -106,7 +106,7 @@ under the License.
                 </entity-condition -->
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
+            <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="head1">${uiLabelMap.PartyAccountsSummary}</label>
                             <section>
@@ -133,7 +133,7 @@ under the License.
                 <set field="labelTitleProperty" value="AcctgFindGlJournalEntry"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext" target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
@@ -162,7 +162,7 @@ under the License.
                 <set field="labelTitleProperty" value="AcctgNewGlJournalEntry"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="NewGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
                     </decorator-section>
