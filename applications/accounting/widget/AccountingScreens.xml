@@ -106,7 +106,7 @@ under the License.
                 </entity-condition -->
             </actions>
             <widgets>
-            <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="head1">${uiLabelMap.PartyAccountsSummary}</label>
                             <section>
