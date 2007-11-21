@@ -328,6 +328,29 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+    <screen name="EntityRefReport">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>
+                <service service-name="getEntityRefData" result-map-name="result"/>
+                <set field="numberOfEntities" from-field="result.numberOfEntities"/>
+                <set field="packagesList" from-field="result.packagesList"/>
+            </actions>
+            <widgets> 
+                <section>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://webtools/webapp/webtools/entity/EntityRefReport.fo.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>                               
+            </widgets>
+        </section>
+    </screen>
     <screen name="CheckDb">
         <section>
             <condition>
@@ -408,11 +431,4 @@ under the License.
         </section>
     </screen>
 </screens>
-
-
-
-
-
-
-
 
