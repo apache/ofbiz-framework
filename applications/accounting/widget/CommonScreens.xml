@@ -216,7 +216,7 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonAdminDecorator">
+    <screen name="CommonPartyDecorator">
         <section>
             <actions>
                 <set field="headerItem" value="companies"/>
@@ -226,10 +226,11 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
+                            <condition>
+                                <not><if-empty field-name="organizationPartyId"/></not>
+                            </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://accounting/webapp/accounting/admin/AdminTabBar.ftl"/></html>
-                                </platform-specific>
+                                <include-menu name="PartyTopTabBar" location="component://accounting/widget/Menus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                         </section>
@@ -238,23 +239,53 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
+    <screen name="CommonAdminDecorator">
+        <section>
+            <actions>
+                <set field="tabButtonItemTop" value="Admin"/>
+                <entity-one entity-name="PartyNameView" value-name="currentOrganization" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="PartyAdminTabBar" location="component://accounting/widget/Menus.xml"/>
+                        <section>
+                            <condition>
+                                <if-compare field-name="tabButtonItem" operator="equals" value="GlAccountAssignment"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="PartyAdminAssignTabBar" location="component://accounting/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
+                        <container>
+                            <label style="head1">${labelTitleProperty} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
+                        </container>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="CommonPartyAccountsDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="companies"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="tabButtonItemTop" value="PartyAccountsSummary"/>
+                <entity-one entity-name="PartyNameView" value-name="currentOrganization" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                </entity-one>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section><condition><not><if-empty field-name="organizationPartyId"/></not></condition>
-                            <widgets>
-                                <include-menu name="PartyAccountsTabBar" location="component://accounting/widget/Menus.xml"/>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                        </section>
-                        <!-- Todo: Add fail widget to show partyId missing error -->
+                        <include-menu name="PartyAccountsTabBar" location="component://accounting/widget/Menus.xml"/>
+                        <container>
+                            <label style="head1">${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
+                        </container>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
