@@ -24,40 +24,61 @@ under the License.
     <form name="FindGlJournalEntry" type="single" target="FindGlJournalEntry" title="" default-map-name="journal">
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="AcctgTransType" description="${description}">
                     <entity-order-by field-name="acctgTransTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glFiscalTypeId">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="GlFiscalType" description="${description}">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyId" parameter-name="partyId">
-            <drop-down>
-                <entity-options entity-name="Party" key-field-name="partyId" description="${partyId}">
-                    <entity-order-by field-name="partyId"/>
-                </entity-options>
-            </drop-down>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <lookup target-form-name="LookupPartyName" size="20" maxlength="20"/>
         </field>
+        <field name="isPosted">
+            <drop-down allow-empty="true">
+                <option description="${uiLabelMap.CommonNo}" key="N"/>
+                <option description="${uiLabelMap.CommonYes}" key="Y"/>
+            </drop-down>
+        </field> 
         <field name="invoiceId"><text size="20" maxlength="20"/></field>
         <field name="paymentId"><text size="20" maxlength="20"/></field>
         <field name="produtId"><text size="20" maxlength="20"/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="workEffortId"><text size="20" maxlength="20"/></field>
+        <field name="performSearch"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
 
-    <form name="ListJournalEntries" type="list" title="List Journal Transactions" list-name="listIt">
+    <form name="ListJournalEntries" type="list" title="List Journal Transactions" list-name="acctgTransList">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" value="AcctgTransAndEntries"/>
-            </service>
+            <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransList" distinct="true">
+                <condition-list>
+                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <condition-expr field-name="isPosted" operator="equals" env-name="parameters.isPosted" ignore-if-empty="true"/>
+                    <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransTypeId" operator="equals" env-name="parameters.acctgTransTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransId" operator="equals" env-name="parameters.acctgTransId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                </condition-list>
+                <select-field field-name="acctgTransId"/>
+                <select-field field-name="transactionDate"/>
+                <select-field field-name="acctgTransTypeId"/>
+                <select-field field-name="glFiscalTypeId"/>
+                <select-field field-name="invoiceId"/>
+                <select-field field-name="paymentId"/>
+                <select-field field-name="workEffortId"/>
+                <select-field field-name="partyId"/>
+                <select-field field-name="isPosted"/>
+                <select-field field-name="postedDate"/>
+                <order-by field-name="-transactionDate"/>
+            </entity-condition>
         </actions>
+
         <field name="acctgTransId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
         </field>                
@@ -72,8 +93,16 @@ under the License.
             <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
+        <field name="workEffortId"><display/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <display-entity entity-name="PartyNameView" description="${groupName}${firstName} ${lastName} [${partyId}]"/>
+        </field>
         <field name="isPosted"><display/></field>
-        <field name="partyId"><display/></field>
+        <field name="postedDate"><display/></field>
+        <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="&quot;N&quot;.equals(isPosted)" widget-style="buttontext">
+            <hyperlink target="postAcctgTrans?acctgTransId=${acctgTransId}" description="Post"/>
+        </field>
+        <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="!&quot;N&quot;.equals(isPosted)"><display/></field>
     </form>
 
     <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions">
@@ -121,14 +150,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyId" parameter-name="partyId">
-            <drop-down>
-                <entity-options entity-name="Party" key-field-name="partyId" description="${partyId}">
-                    <entity-order-by field-name="partyId"/>
-                </entity-options>
-            </drop-down>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <lookup target-form-name="LookupPartyName" size="20" maxlength="20"/>
         </field>
-        <field name="roleTypeId" parameter-name="roleTypeId">
+        <field name="roleTypeId" parameter-name="roleTypeId" allow-empty="true">
             <drop-down>
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
                     <entity-order-by field-name="roleTypeId"/>
@@ -138,6 +163,7 @@ under the License.
         <field name="invoiceId"><text size="20" maxlength="20"/></field>
         <field name="paymentId"><text size="20" maxlength="20"/></field>
         <field name="produtId"><text size="20" maxlength="20"/></field>
+        <field name="workEffortId"><text size="20" maxlength="20"/></field>
         <field name="debitGlAccountId">
             <drop-down>
                 <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
@@ -161,7 +187,7 @@ under the License.
             </drop-down>
         </field>
         <field name="amount"><text size="20" maxlength="20"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
 
     <form name="EditAcctgTrans" type="single" target="updateAcctgTrans" default-map-name="acctgTrans" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
