@@ -49,7 +49,7 @@ under the License.
         <#if (cart.getPoNumber()?has_content)>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <span class="tabletext">&nbsp;<b>${uiLabelMap.OrderPoNumber}</b> </span>
+                    <span class="tabletext">&nbsp;<b>${uiLabelMap.OrderPONumber}</b> </span>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%" class="tabletext">

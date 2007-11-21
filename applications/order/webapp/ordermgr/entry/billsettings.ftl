@@ -508,7 +508,7 @@ function makeExpDate() {
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               <tr>
                 <td width="1%" nowrap><input type="radio" name="paymentMethodTypeAndId" value="EXT_COD" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_COD">checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/></td>
-                <td width="50%"nowrap><div class="tabletext">${uiLabelMap.OrderCOD}</div></td>
+                <td width="50%"nowrap><div class="tabletext">${uiLabelMap.FormFieldTitle_paymentCOD}</div></td>
               </tr>
               <tr><td colspan="2"><hr class="sepbar"/></td></tr>
               </#if>

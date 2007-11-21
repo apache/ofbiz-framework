@@ -68,7 +68,7 @@ under the License.
     <fo:table-body>
       <fo:table-row>
         <fo:table-cell number-rows-spanned="4">
-          <#assign address = data.address>
+          <#assign address = data.address?if_exists>
           <fo:block>${uiLabelMap.CommonTo}: ${address.toName?if_exists}</fo:block>
           <#if address.attnName?has_content>
           <fo:block>${uiLabelMap.CommonAttn}: ${address.attnName?if_exists}</fo:block>
@@ -87,7 +87,7 @@ under the License.
       </fo:table-row>
       <fo:table-row>
         <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.ProductShipmentMethod}</fo:block></fo:table-cell>
-        <fo:table-cell><fo:block>${data.carrierShipmentMethod.partyId} ${data.shipmentMethodType.description}</fo:block></fo:table-cell>
+        <fo:table-cell><#if data.carrierShipmentMethod?exists><fo:block>${data.carrierShipmentMethod.partyId} ${data.shipmentMethodType.description}</fo:block></#if></fo:table-cell>
       </fo:table-row>
       <fo:table-row>
         <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderShipBeforeDate}</fo:block></fo:table-cell>

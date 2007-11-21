@@ -225,8 +225,10 @@ under the License.
                             <#if orderItem.orderItemTypeId != "RENTAL_ORDER_ITEM">
                               <b><i>${uiLabelMap.ManufacturingProductionRun}</i>:</b>
                               <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${workEffort.workEffortId}</a>&nbsp;
-                            </#if>
+                              ${uiLabelMap.OrderCurrentStatus}: ${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId"))).get("description",locale))?if_exists}
+                            <#else>
                             ${uiLabelMap.CommonFrom}: ${workEffort.estimatedStartDate?string("yyyy-MM-dd")} ${uiLabelMap.CommonTo}: ${workEffort.estimatedCompletionDate?string("yyyy-MM-dd")} ${uiLabelMap.OrderNumberOfPersons}: ${workEffort.reservPersons?default("")}
+                            </#if>
                           </div>
                         </td>
                       </tr>
