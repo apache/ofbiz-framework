@@ -31,6 +31,9 @@ under the License.
         <field-to-result field-name="newEntity.timesheetId" result-name="timesheetId"/>
         
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.statusId">
+            <set field="newEntity.statusId" value="TIMESHEET_IN_PROCESS"/>
+        </if-empty>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTimesheet" short-description="Update Timesheet">
@@ -53,9 +56,21 @@ under the License.
         <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekEnd" ret-field-name="createTimesheetParams.thruDate">
             <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
         </call-class-method>
-        <call-service service-name="createTimesheet" in-map-name="createTimesheetParams">
-            <result-to-result result-name="timesheetId"/>
-        </call-service>
+        <!-- check if timesheet already exists -->
+        <entity-and entity-name="Timesheet" list-name="timesheets">
+            <field-map field-name="partyId" env-name="createTimesheetParams.partyId"/>
+            <field-map field-name="fromDate" env-name="createTimesheetParams.fromDate"/>
+            <field-map field-name="thruDate" env-name="createTimesheetParams.thruDate"/>
+        </entity-and>
+        <if-empty field-name="timesheets">
+            <call-service service-name="createTimesheet" in-map-name="createTimesheetParams">
+                <result-to-result result-name="timesheetId"/>
+            </call-service>
+            <else>
+                <add-error><fail-message message="Time sheet already exist, not created an other one."/></add-error>
+                <check-errors/>
+            </else>            
+        </if-empty>
     </simple-method>
     <simple-method  method-name="createTimesheets" short-description="Creates Timesheet multiple parties at a time">
        <iterate list-name="parameters.partyIdList" entry-name="partyId">
