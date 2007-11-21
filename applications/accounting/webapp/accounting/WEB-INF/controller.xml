@@ -1439,6 +1439,8 @@ under the License.
     <view-map name="NewGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#NewGlJournalEntry"/>
     <view-map name="EditAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditAcctgTrans"/>
     <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListUnpostedAcctgTrans"/>
+    <view-map name="ListChecksToPrint" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListChecksToPrint"/>
+    <view-map name="ListChecksToSend" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListChecksToSend"/>
     
     <!-- GlAccount, GlJournalEntry, AcctgTrans -->
     <view-map name="AddGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AddGlAccount"/>
@@ -1528,8 +1530,6 @@ under the License.
     <view-map name="GlAccountSalInvoice" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountSalInvoice"/>
     <view-map name="GlAccountTypePaymentType" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountTypePaymentType"/>
     <view-map name="GlAccountNrPaymentMethod" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountNrPaymentMethod"/>
-    <view-map name="ListChecksToPrint" type="screen" page="component://accounting/widget/AdminScreens.xml#ListChecksToPrint"/>
-    <view-map name="ListChecksToSend" type="screen" page="component://accounting/widget/AdminScreens.xml#ListChecksToSend"/>
     
     <!-- Manual Credit Card Transaction -->
     <view-map name="FindGatewayResponses" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses" type="screen"/>

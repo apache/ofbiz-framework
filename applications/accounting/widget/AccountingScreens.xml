@@ -101,6 +101,7 @@ under the License.
                 <set field="titleProperty" value="PartyAccountsSummary"/>
                 <set field="tabButtonItem" value="PartyAccountsSummary"/>
                 <set field="labelTitleProperty" value="PartyAccountsSummary"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <!-- entity-condition entity-name="GlAccountOrganization" list-name="entityList" use-cache="true" >
                     <condition-expr field-name="glAccountId" operator="greater" value="0" />
                 </entity-condition -->
@@ -108,17 +109,29 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="head1">${uiLabelMap.PartyAccountsSummary}</label>
-                            <section>
-                                <widgets>                                                   
-                                    <container style="lefthalf">
-                                        <include-screen name="JournalEntryShortcuts"/>
+                        <section>
+                            <widgets>
+                                <container style="lefthalf">
+                                    <container>
+                                        <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES_ACCTG_TRANS" text="${uiLabelMap.AccountingCreateSalesJournalEntry}" style="buttontext"/>
                                     </container>
-                                    <container style="righthalf">
-                                        <include-screen name="AccountingReports"/>
+                                    <container>
+                                        <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS" text="${uiLabelMap.AccountingCreatePaymentJournalEntry}" style="buttontext"/>
                                     </container>
-                                </widgets>
-                            </section>                        
+                                </container>
+                                <container style="righthalf">
+                                    <container>
+                                        <link target="TrialBalance?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext"/>
+                                    </container>
+                                    <container>
+                                        <link target="IncomeStatement?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext"/>
+                                    </container>
+                                    <container>
+                                        <link target="BalanceSheet?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext"/>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -131,6 +144,7 @@ under the License.
                 <set field="titleProperty" value="AcctgFindGlJournalEntry"/>
                 <set field="tabButtonItem" value="FindGlJournalEntry"/>
                 <set field="labelTitleProperty" value="AcctgFindGlJournalEntry"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -486,6 +500,88 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
+    <screen name="ListChecksToPrint">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingPrintChecks"/>
+                <set field="tabButtonItem" value="ChecksTabButton"/>
+                <set field="tabButtonItem2" value="PrintChecksTabButton"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingPrintChecks}"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+
+                <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
+                <entity-condition entity-name="Payment" list-name="payments">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="COMPANY_CHECK"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="effectiveDate"/>
+                </entity-condition>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/filterOutReceipts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminChecksDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="checks-body">
+                        <section>
+                        <condition><if-has-permission permission="ACCOUNTING" action="_PRINT_CHECKS"/></condition>
+                        <widgets>
+                            <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <label style="head3">${uiLabelMap.AccountingPrintChecksPermissionError}</label>
+                        </fail-widgets>
+                      </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListChecksToSend">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingSendChecks"/>
+                <set field="tabButtonItem" value="ChecksTabButton"/>
+                <set field="tabButtonItem2" value="SendChecksTabButton"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+
+                <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
+                <entity-condition entity-name="Payment" list-name="payments">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="COMPANY_CHECK"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="effectiveDate"/>
+                </entity-condition>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/filterOutReceipts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminChecksDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="checks-body">
+                        <section>
+                        <condition><if-has-permission permission="PAY_INFO" action="_UPDATE"/></condition>
+                        <widgets>
+                            <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <label style="head3">${uiLabelMap.AccountingUpdatePaymentPermissionError}</label>
+                        </fail-widgets>
+                      </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
 
