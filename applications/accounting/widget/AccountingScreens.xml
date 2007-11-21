@@ -135,9 +135,18 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="JournalEntryActionsBar" location="component://accounting/widget/Menus.xml"/>
+                        <container>
+                            <link text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext" target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
+                        </container>
                         <include-form name="FindGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
-                        <include-form name="ListJournalEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListJournalEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -155,7 +164,6 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="JournalEntryActionsBar" location="component://accounting/widget/Menus.xml"/>
                         <include-form name="NewGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
                     </decorator-section>
                 </decorator-screen>

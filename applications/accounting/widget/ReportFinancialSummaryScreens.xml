@@ -196,6 +196,7 @@ under the License.
     <screen name="TrialBalance">
         <section>
             <actions>
+                <set field="tabButtonItem" value="PartyAccountsSummary"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
                     <field-map field-name="partyId" env-name="organizationPartyId"/>
@@ -216,13 +217,13 @@ under the License.
                 <set field="parameters.creditTotal" value="0" type="Double"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head2" text="${uiLabelMap.AccountingTrialBalance}"/>
                         </container>
                         <container>
-                            <label style="head3" text="${uiLabelMap.CommonFor} ${organizationPartyId}"/>
+                            <label style="head3" text="${uiLabelMap.CommonFor}: ${organizationPartyId}"/>
                         </container>
                         <include-form name="TrialBalanceList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                     </decorator-section>

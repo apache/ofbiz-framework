@@ -417,14 +417,6 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="JournalEntryActionsBar" menu-container-style="button-bar button-style-2" type="simple">  
-        <menu-item name="FindGlJournalEntry" title="${uiLabelMap.AcctgFindGlJournalEntry}">
-            <link target="FindGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
-        </menu-item>
-        <menu-item name="NewJournalEnty" title="${uiLabelMap.AcctgNewGlJournalEntry}">
-            <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
-        </menu-item>
-    </menu>
     <menu name="JournalEntryShortcuts" menu-container-style="${shortCutsMenuStyle}" type="simple">  
         <menu-item name="CreateSalesJournalEntry" title="${uiLabelMap.AccountingCreateSalesJournalEntry}">
             <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES_ACCTG_TRANS"/>
