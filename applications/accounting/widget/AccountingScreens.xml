@@ -118,6 +118,9 @@ under the License.
                                     <container>
                                         <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS" text="${uiLabelMap.AccountingCreatePaymentJournalEntry}" style="buttontext"/>
                                     </container>
+                                    <container>
+                                        <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+                                    </container>
                                 </container>
                                 <container style="righthalf">
                                     <container>
@@ -140,12 +143,12 @@ under the License.
         </section>
     </screen>
 
-    <screen name="FindGlJournalEntry">
+    <screen name="FindAcctgTrans">
         <section>
             <actions>
-                <set field="titleProperty" value="AcctgFindGlJournalEntry"/>
-                <set field="tabButtonItem" value="FindGlJournalEntry"/>
-                <set field="labelTitleProperty" value="AcctgFindGlJournalEntry"/>
+                <set field="titleProperty" value="AccountingAcctgTrans"/>
+                <set field="tabButtonItem" value="FindAcctgTrans"/>
+                <set field="labelTitleProperty" value="AccountingAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
             </actions>
             <widgets>
@@ -153,14 +156,40 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext" target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
+                            <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
                         </container>
-                        <include-form name="FindGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <include-form name="FindAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
                         <section>
                             <condition>
                                 <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
-                                <include-form name="ListJournalEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                <include-form name="ListAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindAcctgTransEntries">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingAcctgTransEntries"/>
+                <set field="tabButtonItem" value="FindAcctgTransEntries"/>
+                <set field="labelTitleProperty" value="AccountingAcctgTransEntries"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="FindAcctgTransEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListFindAcctgTransEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -173,7 +202,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AcctgNewGlJournalEntry"/>
-                <set field="tabButtonItem" value="FindGlJournalEntry"/>
+                <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="labelTitleProperty" value="AcctgNewGlJournalEntry"/>
             </actions>
@@ -192,7 +221,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="Edit Accounting transaction"/>
-                <set field="tabButtonItem" value="FindGlJournalEntry"/>
+                <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="acctgTransId" from-field="parameters.acctgTransId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/editGlJournalEntry.bsh"/>
@@ -245,7 +274,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="tabButtonItem" value="ListUnpostedAcctgTrans"/>
+                <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.PageTitleUnpostedTransactions}"/>
                 <set field="partyId" from-field="parameters.organizationPartyId"/>
@@ -257,7 +286,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListUnpostedAcctgTrans" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

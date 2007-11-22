@@ -281,7 +281,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="PartyAccountsTabBar" location="component://accounting/widget/Menus.xml"/>
+                        <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/Menus.xml"/>
                         <container>
                             <label style="head1">${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
                         </container>
@@ -303,7 +303,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="PartyAccountsTabBar" location="component://accounting/widget/Menus.xml"/>
+                        <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/Menus.xml"/>
                         <include-menu name="PartyAccountingChecksTabBar" location="component://accounting/widget/Menus.xml"/>
                         <container>
                             <label style="head1">${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>

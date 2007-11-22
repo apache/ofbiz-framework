@@ -27,14 +27,14 @@ under the License.
         <field name="accounting" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="PartyAccountsSummary?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAccounting}"/></field>
     </form>
 
-    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" paginate-target="ListGlAccountOrganization">
+    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list">
         <actions>
-            <entity-condition entity-name="GlAccountOrganization">
+            <entity-condition entity-name="GlAccountOrganizationAndClass">
                 <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
                 <order-by field-name="glAccountId"/>
             </entity-condition>
         </actions>
-        <auto-fields-entity entity-name="GlAccountOrganization" default-field-type="display"/>
+        <auto-fields-entity entity-name="GlAccountOrganizationAndClass" default-field-type="display"/>
         <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate?glAccountId=${glAccountId}"/>
         </field>
@@ -185,28 +185,6 @@ under the License.
             </drop-down>
         </field>
     </form>
-    
-    <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions">
-        <field name="acctgTransId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/> 
-        </field>                
-        <field name="transactionDate"><display/></field>                
-        <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
-        <field name="glFiscalTypeId"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
-        <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
-        </field>
-        <field name="invoiceId" use-when="invoiceId==null"><display/></field>
-        <field name="paymentId" use-when="paymentId!=null">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
-        </field>
-        <field name="paymentId" use-when="paymentId==null"><display/></field>
-        <field name="partyId"><display/></field>                
-        <field name="post" title="${uiLabelMap.AccountingPostTransaction}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.AccountingPostTransaction}" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}" also-hidden="false"/> 
-        </field>              
-    </form>
-    
      
     <!-- forms for managing FX rates -->
     <form name="ListConversions" type="list" list-name="conversions">
