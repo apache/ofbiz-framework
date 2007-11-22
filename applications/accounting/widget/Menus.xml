@@ -413,16 +413,16 @@ under the License.
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-    <menu name="PartyAccountsTabBar" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
+    <menu name="OrganizationAccountingTabBar" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple">
         <menu-item name="PartyAccountsSummary" title="${uiLabelMap.AcctgPartyGlJournalSummary}">
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="FindGlJournalEntry" title="${uiLabelMap.AcctgGlJournalEntry}">
-            <link target="FindGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
+        <menu-item name="FindAcctgTrans" title="${uiLabelMap.AccountingAcctgTranss}">
+            <link target="FindAcctgTrans?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="ListUnpostedAcctgTrans" title="${uiLabelMap.AccountingManualPostTrans}">
-            <link target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+        <menu-item name="FindAcctgTransEntries" title="${uiLabelMap.AccountingAcctgTransEntries}">
+            <link target="FindAcctgTransEntries?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="ChecksTabButton" title="${uiLabelMap.AccountingChecks}">
             <link target="listChecksToPrint?organizationPartyId=${organizationPartyId}"/>

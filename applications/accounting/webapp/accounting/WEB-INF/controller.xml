@@ -401,9 +401,9 @@ under the License.
         <response name="success" type="view" value="NewGlJournalEntry"/>
         <response name="error" type="view" value="NewGlJournalEntry"/>
     </request-map>
-    <request-map uri="FindGlJournalEntry">
+    <request-map uri="FindAcctgTrans">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindGlJournalEntry"/>
+        <response name="success" type="view" value="FindAcctgTrans"/>
     </request-map>
     <request-map uri="NewGlJournalEntry">
         <security https="true" auth="true"/>
@@ -435,6 +435,11 @@ under the License.
         <response name="success" type="view" value="EditAcctgTrans"/>
         <response name="error" type="view" value="EditAcctgTrans"/>
     </request-map>
+    <request-map uri="FindAcctgTransEntries">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindAcctgTransEntries"/>
+    </request-map>
+
     <request-map uri="updateAcctgTransEntry">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateAcctgTransEntry"/>
@@ -522,10 +527,6 @@ under the License.
         <event type="service" invoke="updateGlAccountRole"/>
         <response name="success" type="view" value="EditGlobalGlAccountRoles"/>
         <response name="error" type="view" value="EditGlobalGlAccountRoles"/>
-    </request-map>
-    <request-map uri="AccountActivitiesDetail">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="AccountActivitiesDetail"/>
     </request-map>
     <request-map uri="ListGlAccountEntries">
         <security https="true" auth="true"/>
@@ -1441,9 +1442,10 @@ under the License.
     
     <!-- Party Accounts -->
     <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/AccountingScreens.xml#PartyAccountsSummary"/>
-    <view-map name="FindGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#FindGlJournalEntry"/>
+    <view-map name="FindAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#FindAcctgTrans"/>
     <view-map name="NewGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#NewGlJournalEntry"/>
     <view-map name="EditAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditAcctgTrans"/>
+    <view-map name="FindAcctgTransEntries" type="screen" page="component://accounting/widget/AccountingScreens.xml#FindAcctgTransEntries"/>
     <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListUnpostedAcctgTrans"/>
     <view-map name="ListChecksToPrint" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListChecksToPrint"/>
     <view-map name="ListChecksToSend" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListChecksToSend"/>
@@ -1462,7 +1464,6 @@ under the License.
     <view-map name="EditGlobalGlAccountOrganizations" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditGlobalGlAccountOrganizations"/>
     <view-map name="EditGlobalGlAccountRoles" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditGlobalGlAccountRoles"/>
 
-    <view-map name="AccountActivitiesDetail" type="screen" page="component://accounting/widget/AccountingScreens.xml#AccountActivitiesDetail"/>
     <view-map name="ListGlAccountEntries" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountEntries"/>
     <view-map name="ListAcctgTransEntries" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListAcctgTransEntries"/>
     
