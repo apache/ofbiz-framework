@@ -1107,6 +1107,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="TimePeriods"/>
     </request-map>
+    <request-map uri="createCustomTimePeriod">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCustomTimePeriod"/>
+        <response name="success" type="view" value="TimePeriods"/>
+        <response name="error" type="view" value="TimePeriods"/>
+    </request-map>
     <request-map uri="PartyAcctgPreference">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PartyAcctgPreference"/>
