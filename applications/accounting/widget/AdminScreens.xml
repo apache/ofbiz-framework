@@ -91,9 +91,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://accounting/webapp/accounting/admin/timePeriods.ftl"/></html>
-                        </platform-specific>                    
+                        <label style="head1">${uiLabelMap.AccountingOpenTimePeriods}</label>
+                        <include-form name="ListOpenTimePeriods" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <label style="head1">${uiLabelMap.AccountingClosedTimePeriods}</label>
+                        <include-form name="ListClosedTimePeriods" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <label style="head1">${uiLabelMap.CommonNew}</label>
+                        <include-form name="CreateTimePeriod" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
