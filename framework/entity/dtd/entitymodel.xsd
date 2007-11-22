@@ -340,6 +340,19 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="complex-alias">
+        <xs:annotation>
+            <xs:documentation>
+                In every SELECT statement, the fields that are normally used are really defined to be expressions.  
+                This means for example that you can supply an expression like (discountPercent * 100) in place of  just a field name.
+                The complex-alias tag is the Ofbiz way to do this.
+                
+                The argument to the right of operator = can be any operator valid for that data type on the database system you are using.
+                For example, *, +, -, and / are commonly available mathematical operators (min, max, sum, avg, count, count-distinct, upper, lower)  
+                You can also use any operator on any data type supported on the underlying database system including string and date operators.
+                complex-alias can be as complex as you need by adding nested complex-alias statements and complex-alias-field
+                can use the same functions (min, max, count, count-distinct, sum, avg, upper, and lower) as the alias tag.                                
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element ref="complex-alias"/>
