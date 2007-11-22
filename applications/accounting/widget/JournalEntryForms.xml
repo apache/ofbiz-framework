@@ -214,9 +214,7 @@ under the License.
         <field name="acctgTransId" widget-style="buttontext" position="2">
             <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
         </field>
-        <field name="acctgTransEntrySeqId" widget-style="buttontext" position="2">
-            <hyperlink also-hidden="false" description="${acctgTransEntrySeqId}" target="EditAcctgTransEntry?acctgTransId=${acctgTransId}&amp;acctgTransEntrySeqId=${acctgTransEntrySeqId}&amp;organizationPartyId=${organizationPartyId}"/> 
-        </field>
+        <field name="acctgTransEntrySeqId" widget-style="buttontext" position="2"><display/></field>
         <field name="transactionDate" position="2"><display/></field>
         <field name="acctgTransTypeId" position="2"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
         <field name="glFiscalTypeId" position="2"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
