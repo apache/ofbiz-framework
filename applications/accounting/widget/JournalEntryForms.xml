@@ -50,7 +50,9 @@ under the License.
         <field name="paymentId"><text size="20" maxlength="20"/></field>
         <field name="produtId"><text size="20" maxlength="20"/></field>
         <field name="workEffortId"><text size="20" maxlength="20"/></field>
-        <field name="performSearch"><hidden value="Y"/></field> 
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="performSearch"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
 
@@ -68,6 +70,8 @@ under the License.
                     <condition-expr field-name="productId" operator="equals" env-name="parameters.productId" ignore-if-empty="true"/>
                     <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId" ignore-if-empty="true"/>
                     <condition-expr field-name="acctgTransId" operator="equals" env-name="parameters.acctgTransId" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
                 </condition-list>
                 <select-field field-name="acctgTransId"/>
                 <select-field field-name="transactionDate"/>
@@ -169,6 +173,8 @@ under the License.
         <field name="paymentId"><text size="20" maxlength="20"/></field>
         <field name="produtId"><text size="20" maxlength="20"/></field>
         <field name="workEffortId"><text size="20" maxlength="20"/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
         <field name="performSearch"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
@@ -187,6 +193,8 @@ under the License.
                     <condition-expr field-name="productId" operator="equals" env-name="parameters.productId" ignore-if-empty="true"/>
                     <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId" ignore-if-empty="true"/>
                     <condition-expr field-name="acctgTransId" operator="equals" env-name="parameters.acctgTransId" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
                 </condition-list>
                 <order-by field-name="-transactionDate"/>
                 <order-by field-name="glAccountId"/>
