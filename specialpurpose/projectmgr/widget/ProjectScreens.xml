@@ -529,12 +529,11 @@ under the License.
                             <widgets>                                                   
                                 <container style="lefthalf">
                                     <include-screen name="ProjectInfo"/>
-                                    <include-screen name="PhasesInfo"/>
-                                    <include-screen name="PartiesInfo"/>
+                                    <include-screen name="PhasesTasksInfo"/>
                                 </container>
                                 <container style="righthalf">
                                     <include-screen name="SubProjectsInfo"/>
-                                    <include-screen name="TasksInfo"/>                                    
+                                    <include-screen name="PartiesInfo"/>
                                     <include-screen name="NoteInfo"/>
                                 </container>
                             </widgets>
@@ -572,39 +571,22 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="TasksInfo">
-        <section>
-            <actions>
-                <set field="parameters.workEffortIdFrom" from-field="parameters.workEffortId"/>
-                <set field="parameters.workEffortTypeId" value="TASK"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
-            </actions>
-            <widgets>                
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <label style="boxhead" text="">${uiLabelMap.ProjectMgrTaskList}</label>
-                    </container>
-                    <container style="screenlet-body">
-                        <include-form name="ListTaskLists" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                    </container>
-                </container>                
-            </widgets>
-        </section>
-    </screen>
-    <screen name="PhasesInfo">
+    <screen name="PhasesTasksInfo">
         <section>
             <actions>
                 <set field="parameters.workEffortIdFrom" from-field="parameters.workEffortId"/>
                 <set field="parameters.workEffortTypeId" value="PHASE"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
+                <entity-and entity-name="ProjectAndPhaseAndTask" list-name="phases">
+                    <field-map field-name="projectId" env-name="parameters.workEffortId"/>
+                </entity-and>
             </actions>
             <widgets>                
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
-                        <label style="boxhead" text="">${uiLabelMap.ProjectMgrPhaseList}</label>
+                        <label style="boxhead" text="">${uiLabelMap.ProjectMgrPhaseTaskList}</label>
                     </container>
                     <container style="screenlet-body">
-                        <include-form name="ListPhaseInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        <include-form name="ListPhaseTaskInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </container>
                 </container>                
             </widgets>

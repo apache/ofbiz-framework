@@ -162,19 +162,15 @@
         <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-    <form name="ListPhaseInfo" type="list" list-name="phases">
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="EditPhase?workEffortId=${workEffortId}"/>
-        </field>
-        <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
-        <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
-        <field name="workEffortPurposeTypeId" title="${uiLabelMap.ProjectMgrWorkEffortPurposeTypeId}"><display-entity entity-name="WorkEffortPurposeType"/></field>
-        <!--field name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrProjectSummary}" target="projectView?workEffortId=${workEffortId}"/>
-        </field-->
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProject?workEffortId=${workEffortId}"/>
-        </field>
+    <form name="ListPhaseTaskInfo" type="list" list-name="phases">
+        <field name="workEffortIdFrom"><hidden value="parameters.worEffortIdFrom"/></field>
+        <field name="Phase"><hyperlink target="FindPhase?workEffortIdFrom=${projectId}" description="${phaseName}[${phaseId}"/></field>
+        <field name="Task"><hyperlink target="EditTask?workEffortId=${taskId}" description="${taskName}[${taskId}]"/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="estimatedStartDate"><display/></field>
+        <field name="estimatedEndDate"><display/></field>
+        <field name="actualStartDate"><display/></field>
+        <field name="actualEndDate"><display/></field>
     </form>
     <form name="ListAssociatedParties" type="list" list-name="associatedParties">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
