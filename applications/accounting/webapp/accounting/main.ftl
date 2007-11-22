@@ -120,10 +120,4 @@ under the License.
 </td>
 </tr>
 </table>
-
-<!--
-<p><b>${uiLabelMap.AccountingMainPageNote1}</b><br/>
-${uiLabelMap.AccountingMainPageNote2} 
-<a href="http://www.opensourcestrategies.com/ofbiz/accounting.php">${uiLabelMap.AccountingMainPageNote3}</a> ${uiLabelMap.AccountingMainPageNote4}</p>
--->
 </div>
