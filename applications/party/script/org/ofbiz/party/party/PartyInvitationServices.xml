@@ -58,5 +58,41 @@ under the License.
         <entity-one entity-name="PartyInvitationRoleAssoc" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    <simple-method method-name="acceptPartyInvitation" short-description="Accept Party Invitation">
+        <entity-and entity-name="PartyInvitationGroupAssoc" list-name="partyInvitationGroupAssocs">
+            <field-map field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
+        </entity-and>
+        <if-not-empty field-name="partyInvitationGroupAssocs">
+            <set field="createPartyRelationshipCtx.partyIdTo" from-field="parameters.partyId"/>
+            <set field="createPartyRelationshipCtx.partyRelationshipTypeId" value="GROUP_ROLLUP"/>            
+            <iterate list-name="partyInvitationGroupAssocs" entry-name="partyInvitationGroupAssoc">
+                <set field="createPartyRelationshipCtx.partyIdFrom" from-field="partyInvitationGroupAssoc.partyIdTo"/>
+                <call-service service-name="createPartyRelationship" in-map-name="createPartyRelationshipCtx"/>
+            </iterate>
+        </if-not-empty>
+        <entity-and entity-name="PartyInvitationRoleAssoc" list-name="partyInvitationRoleAssocs">
+            <field-map field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
+        </entity-and>
+        <if-not-empty field-name="partyInvitationRoleAssocs">
+            <set field="createPartyRoleCtx.partyId" from-field="parameters.partyId"/>
+            <iterate list-name="partyInvitationRoleAssocs" entry-name="partyInvitationRoleAssoc">
+                <set field="createPartyRoleCtx.roleTypeId" from-field="partyInvitationRoleAssoc.roleTypeId"/>
+                <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+            </iterate>
+        </if-not-empty>
+        <set field="updatePartyInvitationCtx.partyInvitationId" from-field="parameters.partyInvitationId"/>
+        <set field="updatePartyInvitationCtx.statusId" value="PARTYINV_ACCEPTED"/>
+        <call-service service-name="updatePartyInvitation" in-map-name="updatePartyInvitationCtx"/>
+    </simple-method>
+    <simple-method method-name="declinePartyInvitation" short-description="Decline Party Invitation">
+        <set field="updatePartyInvitationCtx.partyInvitationId" from-field="parameters.partyInvitationId"/>
+        <set field="updatePartyInvitationCtx.statusId" value="PARTYINV_DECLINED"/>
+        <call-service service-name="updatePartyInvitation" in-map-name="updatePartyInvitationCtx"/>
+    </simple-method>
+    <simple-method method-name="cancelPartyInvitation" short-description="Cancel Party Invitation">
+        <set field="updatePartyInvitationCtx.partyInvitationId" from-field="parameters.partyInvitationId"/>
+        <set field="updatePartyInvitationCtx.statusId" value="PARTYINV_CANCELLED"/>
+        <call-service service-name="updatePartyInvitation" in-map-name="updatePartyInvitationCtx"/>
+    </simple-method>
 
 </simple-methods>

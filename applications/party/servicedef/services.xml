@@ -872,6 +872,22 @@ under the License.
         <description>Remove PartyInvitationRoleAssoc</description>
         <auto-attributes entity-name="PartyInvitationRoleAssoc" include="pk" mode="IN" optional="false"/>
     </service> 
+    <service name="acceptPartyInvitation" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyInvitationServices.xml" invoke="acceptPartyInvitation">
+        <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
+        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="declinePartyInvitation" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyInvitationServices.xml" invoke="declinePartyInvitation">
+        <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
+        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="cancelPartyInvitation" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyInvitationServices.xml" invoke="cancelPartyInvitation">
+        <permission-service service-name="cancelPartyInvitationPermissionCheck"/>
+        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
+    </service>
 
     <!-- Permission checking services-->
     <service name="partyBasePermissionCheck" engine="simple"
@@ -943,5 +959,25 @@ under the License.
         </description>
         <implements service="permissionInterface"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="accAndDecPartyInvitationPermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="accAndDecPartyInvitationPermissionCheck">
+        <description>
+            Performs accept and decline PartyInvitation security check. The userLogin partyId must equal the 
+            partyIdTo in PartyInvitation OR partyId fetched using emailAdress in PartyInvitation.
+            The user with PARTYMGR_UPDATE permission can also perform this function.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="cancelPartyInvitationPermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="cancelPartyInvitationPermissionCheck">
+        <description>
+            Performs cancel PartyInvitation security check. The userLogin partyId must equal the 
+            partyId/partyIdFrom in PartyInvitation OR partyId fetched using emailAdress in PartyInvitation.
+            The user with PARTYMGR_UPDATE permission can also perform this function.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
     </service>
 </services>
