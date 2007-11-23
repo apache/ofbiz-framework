@@ -154,6 +154,29 @@ under the License.
         </section>
     </screen>
     
+    <screen name="GlAccountTypeDefaults">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingGlAccountTypeDefaults"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingGlAccountTypeDefaults}"/>
+                <set field="tabButtonItem" value="GlAccountAssignment"/>
+                <set field="tabButtonItem2" value="GlAccountTypeDefaults"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <include-form name="ListGlAccountTypeDefaults" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <container><label style="head1">${uiLabelMap.CommonAdd}</label></container>
+                            <include-form name="EditGlAccountTypeDefault" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="GlAccountSalInvoice">
         <section>
             <actions>
