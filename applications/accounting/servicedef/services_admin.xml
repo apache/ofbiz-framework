@@ -73,6 +73,16 @@ under the License.
         <attribute type="Timestamp" mode="IN" name="asOfTimestamp" optional="true"/>
     </service>
 
+    <service name="createGlAccountTypeDefault" engine="simple" 
+        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="createGlAccountTypeDefault">
+        <description>Define a default GL account for an Account Type for a certain organisation party.</description>
+        <auto-attributes mode="IN" entity-name="GlAccountTypeDefault" include="all" optional="false"/>
+    </service>
+    <service name="removeGlAccountTypeDefault" engine="simple" 
+        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="removeGlAccountTypeDefault">
+        <description>Remove a default GL account for an Account Type for a certain organisation party.</description>
+        <auto-attributes mode="IN" entity-name="GlAccountTypeDefault" include="pk" optional="false"/>
+    </service>
     <service name="addInvoiceItemTypeGlAssignment" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="addInvoiceItemTypeGlAssignment">
         <description>add a override GL account number to a invoice Itemtype for a certain organisation party.</description>

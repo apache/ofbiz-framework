@@ -217,6 +217,46 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingUpdateFX}"><submit/></field>
     </form>
 
+    <form name="ListGlAccountTypeDefaults" type="list" target="" list-name="glAccountTypeDefaults">
+        <actions>
+            <entity-condition entity-name="GlAccountTypeDefault" list-name="glAccountTypeDefaults">
+                <condition-list>
+                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                </condition-list>
+                <order-by field-name="glAccountTypeId"/>
+            </entity-condition>
+        </actions>
+        <field name="glAccountTypeId">
+            <display-entity entity-name="GlAccountType"/>
+        </field>
+        <field name="glAccountId">
+            <display-entity entity-name="GlAccount" description="[${glAccountId}] ${accountCode} ${accountName}"/>
+        </field>
+        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">            
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeGlAccountTypeDefault?glAccountTypeId=${glAccountTypeId}&amp;glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}"/>
+        </field>
+    </form>
+    <form name="EditGlAccountTypeDefault" type="single" title="" target="createGlAccountTypeDefault">
+        <auto-fields-service service-name="createGlAccountTypeDefault"/>
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
+        <field name="glAccountTypeId">
+            <drop-down>
+                <entity-options entity-name="GlAccountType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glAccountId">
+            <drop-down>
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
+    </form>
+
     <!-- forms for Sales invoice Itemtypes to GLAccount number -->
     <form name="ListSalInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes">
         <actions>

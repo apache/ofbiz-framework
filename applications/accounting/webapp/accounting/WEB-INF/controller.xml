@@ -1136,6 +1136,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="GlAccountSalInvoice"/>
     </request-map>
+    <request-map uri="GlAccountTypeDefaults">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="GlAccountTypeDefaults"/>
+    </request-map>
     <request-map uri="GlAccountSalInvoice">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="GlAccountSalInvoice"/>
@@ -1153,6 +1157,19 @@ under the License.
         <response name="success" type="view" value="GlAccountNrPaymentMethod"/>
     </request-map>
     
+    <request-map uri="createGlAccountTypeDefault">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createGlAccountTypeDefault"/>
+        <response name="success" type="view" value="GlAccountTypeDefaults"/>
+        <response name="error" type="view" value="GlAccountTypeDefaults"/>
+    </request-map>
+    <request-map uri="removeGlAccountTypeDefault">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeGlAccountTypeDefault"/>
+        <response name="success" type="view" value="GlAccountTypeDefaults"/>
+        <response name="error" type="view" value="GlAccountTypeDefaults"/>
+    </request-map>
+
     <request-map uri="addSalInvoiceItemTypeGlAssignment">
         <security https="true" auth="true"/>
         <event type="service" invoke="addInvoiceItemTypeGlAssignment"/>
@@ -1533,6 +1550,7 @@ under the License.
     <view-map name="TimePeriods" type="screen" page="component://accounting/widget/AdminScreens.xml#TimePeriods"/>
     <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/AdminScreens.xml#PartyAcctgPreference"/>
     <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/AdminScreens.xml#ViewFXConversions"/>
+    <view-map name="GlAccountTypeDefaults" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountTypeDefaults"/>
     <view-map name="GlAccountPurInvoice" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountPurInvoice"/>
     <view-map name="GlAccountSalInvoice" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountSalInvoice"/>
     <view-map name="GlAccountTypePaymentType" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountTypePaymentType"/>

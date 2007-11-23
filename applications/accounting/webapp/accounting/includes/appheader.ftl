@@ -23,18 +23,18 @@ under the License.
   <h2>${uiLabelMap.AccountingManagerApplication}</h2>
   <ul>
     <li<#if selected == "main"> class="selected"</#if>><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonMain}</a></li>
-    <li<#if selected == "agreement"> class="selected"</#if>><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreements}</a></li>
-    <li<#if selected == "billingaccount"> class="selected"</#if>><a href="<@ofbizUrl>FindBillingAccount</@ofbizUrl>">${uiLabelMap.AccountingBillingMenu}</a></li>
     <li<#if selected == "invoices"> class="selected"</#if>><a href="<@ofbizUrl>findInvoices</@ofbizUrl>">${uiLabelMap.AccountingInvoicesMenu}</a></li>
     <li<#if selected == "payments"> class="selected"</#if>><a href="<@ofbizUrl>findPayments</@ofbizUrl>">${uiLabelMap.AccountingPaymentsMenu}</a></li>
     <#if security.hasEntityPermission("MANUAL", "_PAYMENT", session)>
       <li<#if selected == "transaction"> class="selected"</#if>><a href="<@ofbizUrl>FindGatewayResponses</@ofbizUrl>">${uiLabelMap.AccountingTransactions}</a></li>
     </#if>
-    <li<#if selected == "chartofaccounts"> class="selected"</#if>><a href="<@ofbizUrl>FindGlobalGlAccount</@ofbizUrl>">${uiLabelMap.AccountingChartOfAcctsMenu}</a></li>
-    <li<#if selected == "ListFixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>
-    <li<#if selected == "TaxAuthorities"> class="selected"</#if>><a href="<@ofbizUrl>FindTaxAuthority</@ofbizUrl>">${uiLabelMap.AccountingTaxAuthorities}</a></li>
-    <li<#if selected == "companies"> class="selected"</#if>><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>">${uiLabelMap.AccountingCompanies}</a></li>
+    <li<#if selected == "billingaccount"> class="selected"</#if>><a href="<@ofbizUrl>FindBillingAccount</@ofbizUrl>">${uiLabelMap.AccountingBillingMenu}</a></li>
     <li<#if selected == "FindFinAccount"> class="selected"</#if>><a href="<@ofbizUrl>FindFinAccount</@ofbizUrl>">${uiLabelMap.AccountingFinAccount}</a></li>
+    <li<#if selected == "TaxAuthorities"> class="selected"</#if>><a href="<@ofbizUrl>FindTaxAuthority</@ofbizUrl>">${uiLabelMap.AccountingTaxAuthorities}</a></li>
+    <li<#if selected == "agreement"> class="selected"</#if>><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreements}</a></li>
+    <li<#if selected == "ListFixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>
+    <li<#if selected == "chartofaccounts"> class="selected"</#if>><a href="<@ofbizUrl>FindGlobalGlAccount</@ofbizUrl>">${uiLabelMap.AccountingChartOfAcctsMenu}</a></li>
+    <li<#if selected == "companies"> class="selected"</#if>><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>">${uiLabelMap.AccountingCompanies}</a></li>
     <#if userLogin?has_content>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
