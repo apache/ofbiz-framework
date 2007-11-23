@@ -83,7 +83,7 @@ under the License.
             <set field="parameters.creditTotal" value="${bsh:(showCredit? (creditTotal + absolutePostedBalance): (creditTotal))}" type="Double"/>
         </row-actions>
         <field name="glAccountId" use-when="!showTotals">
-            <hyperlink target="ListGlAccountEntries?glAccountId=${glAccountId}" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/>
+            <hyperlink target="FindAcctgTransEntries?glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/>
         </field>
         <field name="debit" entry-name="absolutePostedBalance" use-when="showDebit"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="debit" use-when="showCredit"><display/></field>
