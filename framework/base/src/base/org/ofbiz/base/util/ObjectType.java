@@ -574,6 +574,10 @@ public class ObjectType {
                 DateFormat df = null;
                 if (format == null || format.length() == 0) {
                     df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
+                    // if time is missing add zeros
+                    if (str.length() > 0 && !str.contains(":")) {
+                    	str = str + " 00:00:00.00";
+                    }
                     // hack to mimic Timestamp.valueOf() method
                     if (str.length() > 0 && !str.contains(".")) {
                         str = str + ".0";
