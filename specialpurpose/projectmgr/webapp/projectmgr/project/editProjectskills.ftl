@@ -28,7 +28,7 @@ under the License.
     <form name="editProjectSkillForm" action="<@ofbizUrl>createProjectSkillStandard</@ofbizUrl>">
       <table width="100%" cellpadding="2" cellspacing="0" border="1">
         <tr>
-          <td><input type="hidden" name="workEffortId" value="${parameters.workEffortId?if_exists}"/></td>
+          <td><input type="hidden" name="workEffortId" value="${parameters.workEffortIdFrom?if_exists}"/></td>
         </tr>
         <tr>
           <td class="label">${uiLabelMap.ProjectMgrSkillType}</td>

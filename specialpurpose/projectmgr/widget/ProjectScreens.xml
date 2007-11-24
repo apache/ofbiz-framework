@@ -19,7 +19,7 @@ under the License.
 -->
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindProject">
         <section>            
             <actions>
@@ -102,7 +102,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProject"/>
                 <set field="tabButtonItem" value="editproject"/>                
                 <set field="labelTitleProperty" value="PageTitleEditProject"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
                 <entity-one entity-name="WorkEffort" value-name="project"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/MilliSecToHour.bsh"/>
             </actions>
@@ -205,46 +205,43 @@ under the License.
                 <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="tasks"/>
                 <set field="labelTitleProperty" value="PageTitleFindTask"/>                
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
                 <set field="filterTaskNotAssigned" from-field="parameters.filterTaskNotAssigned"/>
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListFilteredTasks.bsh"/>
+                <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
+                    <field-map field-name="projectId" env-name="parameters.workEffortIdFrom"/>
+                    <order-by field-name="phaseName"/>
+                    <order-by field-name="taskName"/>
+                </entity-and>
+                <set field="workEffort" from-field=""/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                 <if-empty field-name="parameters.filterTaskNotAssigned"/>
-                            </condition>
-                            <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/findtasks.ftl"/></html>
-                                </platform-specific>
-                                <container style="screenlet">                                    
-                                    <container style="screenlet-title-bar">
-                                        <label style="boxhead">${uiLabelMap.${titleProperty}}</label>
-                                    </container>                                
-                                    <container style="screenlet-body">                                                                 
-                                        <include-form name="ListTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>                                     
-                                     </container>                                      
+                        <container style="screenlet">                                    
+                            <container style="screenlet-title-bar">
+                                <label style="boxhead">${uiLabelMap.${titleProperty}}</label>
+                            </container>                                
+                            <container style="screenlet-body">                                                                 
+                                <include-form name="ListTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>                                     
+                            </container>                                      
+                        </container>
+                        <container style="lefthalf">
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddTask}</label></container>                                
+                                <container style="screenlet-body"> 
+                                    <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                 </container>
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskandassoc.ftl"/></html>
-                                </platform-specific>
-                            </widgets>
-                            <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <label style="boxhead">${uiLabelMap.${titleProperty}}</label>
-                                    </container>
-                                    <container style="screenlet-body">                                                                 
-                                        <include-form name="ListUnassignedTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                     </container> 
+                            </container>
+                        </container>
+                        <container style="righthalf">
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddPhase}</label></container>                                
+                                <container style="screenlet-body"> 
+                                    <include-form name="AddPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                 </container>
-                            </fail-widgets>                            
-                        </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -375,7 +372,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="tabButtonItem" value="parties"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
             </actions>            
             <widgets>
@@ -404,7 +401,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSkill"/>
                 <set field="tabButtonItem" value="projectskills"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="workEffortId" from-field="parameters.workEffortIdFrom" default-value="${parameters.workEffortId}"/>
                 <entity-and entity-name="WorkEffortSkillStandard" list-name="workEffortSkillStandardList">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
@@ -435,7 +432,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="parties"/>                
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -490,8 +487,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleListProjectNotes"/>
                 <set field="tabButtonItem" value="notes"/>
                 <set field="labelTitleProperty" value="PageTitleListProjectNotes"/>
-
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="workEffortId" from-field="parameters.workEffortIdFrom" default-value="${parameters.workEffortId}"/>
+                <set field="parameters.workEffortIdFrom" from-field="workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -515,8 +512,8 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="projectView"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <set field="workEffortIdFrom" from-field="parameters.workEffortId"/>
+                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
                 <entity-one entity-name="WorkEffort" value-name="project"/>
             </actions>                        
             <widgets>
@@ -574,10 +571,8 @@ under the License.
     <screen name="PhasesTasksInfo">
         <section>
             <actions>
-                <set field="parameters.workEffortIdFrom" from-field="parameters.workEffortId"/>
-                <set field="parameters.workEffortTypeId" value="PHASE"/>
                 <entity-and entity-name="ProjectAndPhaseAndTask" list-name="phases">
-                    <field-map field-name="projectId" env-name="parameters.workEffortId"/>
+                    <field-map field-name="projectId" env-name="parameters.workEffortIdFrom"/>
                 </entity-and>
             </actions>
             <widgets>                

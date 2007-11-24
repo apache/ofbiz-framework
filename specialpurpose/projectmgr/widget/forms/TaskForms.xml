@@ -23,11 +23,14 @@
     
     <form name="EditTask" type="single" target="updateTask" default-map-name="task">
         <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+            <set field="projectId" from-field="parameters.workEffortIdFrom"/>
+           <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="task.statusId"/>
             </entity-one>
         </actions>
+        <alt-target use-when="projectId!=null" target="createProjectTaskOrPhase"/>
         <alt-target use-when="task==null" target="createTask"/>
+        <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
         <field name="DONE_PAGE"><hidden value="${donePage}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
         <field use-when="task!=null" name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
@@ -71,10 +74,19 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
+        <field use-when="projectId==null" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}[${workEffortId}](project:${workEffortParentId})">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
+                    <entity-order-by field-name="workEffortParentId"/>
+                </entity-options>        
+            </drop-down>
+        </field>
+        <field use-when="projectId!=null" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}[${workEffortId}]">
+                    <entity-constraint name="workEffortTypeId" value="PHASE"/>
+                    <entity-constraint name="workEffortParentId" value="${projectId}"/>
                     <entity-order-by field-name="workEffortParentId"/>
                 </entity-options>        
             </drop-down>
@@ -85,7 +97,16 @@
         <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><date-time/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-
+    <form name="AddPhase" type="single" target="createProjectTaskOrPhase" default-map-name="dummy">
+        <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
+        <field name="workEffortTypeId"><hidden value="PHASE"/></field>
+        <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field> 
+        <field name="workEffortName" title="${uiLabelMap.CommonName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="workEffortParentId"><hidden value="${projectId}"/></field>
+        <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+    </form>
+    
     <form name="listtasksbydaterange" type="single" target="FindTaskByRange?workEffortTypeId=TASK&amp;findAll=Y">
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>

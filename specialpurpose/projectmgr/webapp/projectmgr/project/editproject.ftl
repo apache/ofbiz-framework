@@ -37,7 +37,7 @@ function actualTimeHourToMilliSec() {
   <div class="screenlet-title-bar">
     <ul>
       <#if project?has_content>
-        <li class="head3">&nbsp;${uiLabelMap.PageTitleEditProject}&nbsp;#${project.workEffortName?if_exists} ${uiLabelMap.CommonInformation}</li>
+        <li class="head3">&nbsp;${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}</li>
       <#else>
         <li class="head3">&nbsp;${uiLabelMap.PageTitleAddProject}</li>
       </#if>
