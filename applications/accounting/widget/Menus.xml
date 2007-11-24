@@ -433,7 +433,7 @@ under the License.
         <menu-item name="PartyAcctgPreference" title="${uiLabelMap.AccountingPreference}">
             <link target="PartyAcctgPreference?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="ListGlAccountOrganization" title="${uiLabelMap.AcctgListGlAcctOrg}">
+        <menu-item name="ListGlAccountOrganization" title="${uiLabelMap.AccountingChartOfAcctsMenu}">
             <link target="ListGlAccountOrganization?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="GlAccountAssignment" title="${uiLabelMap.AccountingGlAccountDefault}">
