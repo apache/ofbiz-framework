@@ -132,6 +132,10 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
 
         this.setLastActivity(System.currentTimeMillis());
 
+        // The input receives keyboard events even when it's page is deactivated, so
+        // we'll clear it early to prevent the characters from displaying momentarily
+        input.clearInput();
+
         if (session.getUserLogin() == null) {
             this.setLock(true);
         } else {
