@@ -50,8 +50,7 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}]">
-                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                <entity-options entity-name="GlAccount" description="${accountName} [${glAccountId}]">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

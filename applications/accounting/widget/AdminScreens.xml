@@ -46,9 +46,9 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="AcctgListGlAcctOrg"/>
+                <set field="titleProperty" value="AccountingChartOfAcctsMenu"/>
                 <set field="tabButtonItem" value="ListGlAccountOrganization"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.AcctgListGlAcctOrg}"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingChartOfAcctsMenu}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
