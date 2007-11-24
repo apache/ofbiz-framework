@@ -428,22 +428,22 @@ under the License.
             <link target="listChecksToPrint?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-    <menu name="PartyAdminTabBar" default-menu-item-name="ListGlAccountOrganization" default-selected-style="selected"
+    <menu name="PartyAdminTabBar" default-menu-item-name="PartyAcctgPreference" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple">  
+        <menu-item name="PartyAcctgPreference" title="${uiLabelMap.AccountingPreference}">
+            <link target="PartyAcctgPreference?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
         <menu-item name="ListGlAccountOrganization" title="${uiLabelMap.AcctgListGlAcctOrg}">
             <link target="ListGlAccountOrganization?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="GlAccountAssignment" title="${uiLabelMap.AccountingGlAccountDefault}">
+            <link target="GlAccountAssignment?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="TimePeriods" title="${uiLabelMap.TimePeriod}">
             <link target="TimePeriods?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="PartyAcctgPreference" title="${uiLabelMap.AccountingPreference}">
-            <link target="PartyAcctgPreference?organizationPartyId=${organizationPartyId}"/>
-        </menu-item>
         <menu-item name="ViewFXConversions" title="${uiLabelMap.AccountingFX}">
             <link target="viewFXConversions?organizationPartyId=${organizationPartyId}"/>
-        </menu-item>
-        <menu-item name="GlAccountAssignment" title="${uiLabelMap.AccountingGlAccountDefault}">
-            <link target="GlAccountAssignment?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
     <menu name="PartyAdminAssignTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice" default-selected-style="selected"
