@@ -237,7 +237,12 @@ under the License.
         <field name="amount" position="2"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="NewGlJournalEntry" type="single" target="createGlJournalEntry" title="" default-map-name="journal">
+    <form name="NewGlJournalEntry" type="single" target="createGlJournalEntry" title="">
+        <actions>
+            <set field="debitGlAccountClassId" from-field="parameters.debitGlAccountClassId"/>
+            <set field="creditGlAccountClassId" from-field="parameters.creditGlAccountClassId"/>
+        </actions>
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">
@@ -249,15 +254,6 @@ under the License.
             <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}">
                     <entity-order-by field-name="glFiscalTypeId"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="organizationPartyId" parameter-name="organizationPartyId">
-            <drop-down>
-                <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${partyId}">
-                <!-- entity-options entity-name="PartyRoleAndPartyDetail" description="${organizationPartyId}" -->
-                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
-                    <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -275,25 +271,37 @@ under the License.
         <field name="paymentId"><text size="20" maxlength="20"/></field>
         <field name="produtId"><text size="20" maxlength="20"/></field>
         <field name="workEffortId"><text size="20" maxlength="20"/></field>
-        <field name="debitGlAccountId">
+        <field name="debitGlAccountId" use-when="debitGlAccountClassId!=null">
             <drop-down>
-                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
-                    <entity-constraint name="glAccountClassId" operator="equals" value="${parameters.debitGlAccountClassId}"/>
-                    <entity-order-by field-name="glAccountId"/>
-                </entity-options> 
-                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
-                    <entity-order-by field-name="glAccountId"/>
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                    <entity-constraint name="glAccountClassId" operator="equals" env-name="debitGlAccountClassId" ignore-if-null="true"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="creditGlAccountId">
+        <field name="debitGlAccountId" use-when="debitGlAccountClassId==null">
             <drop-down>
-                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
-                    <entity-constraint name="glAccountClassId" operator="equals" value="${parameters.creditGlAccountClassId}"/>
-                    <entity-order-by field-name="glAccountId"/>
-                </entity-options> 
-                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
-                    <entity-order-by field-name="glAccountId"/>
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="creditGlAccountId" use-when="creditGlAccountClassId!=null">
+            <drop-down>
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                    <entity-constraint name="glAccountClassId" operator="equals" env-name="creditGlAccountClassId" ignore-if-null="true"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="creditGlAccountId" use-when="creditGlAccountClassId==null">
+            <drop-down>
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -324,6 +332,7 @@ under the License.
 
     <form name="EditAcctgTransEntry" type="single" target="updateAcctgTransEntry" default-map-name="acctgTransEntry" default-entity-name="AcctgTransEntry">
         <alt-target use-when="acctgTransEntry==null" target="createAcctgTransEntry"/>
+        <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
         <field name="acctgTransEntrySeqId"><hidden/></field>     
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
@@ -342,10 +351,17 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="glAccountId">
+            <drop-down>
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="amount"><text size="30"/></field>
         <field name="voucherRef"><text size="30"/></field>
         <field name="partyId"><text size="30"/></field>
-        <field name="organizationPartyId"><hidden/></field>
         <field name="productId"><text size="20"/></field>
         <field name="debitCreditFlag">
             <drop-down current="selected">
