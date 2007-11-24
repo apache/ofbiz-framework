@@ -34,24 +34,29 @@ under the License.
                 <order-by field-name="glAccountId"/>
             </entity-condition>
         </actions>
-        <auto-fields-entity entity-name="GlAccountOrganizationAndClass" default-field-type="display"/>
-        <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+        <auto-fields-entity entity-name="GlAccount" default-field-type="display"/>
+        <field name="glAccountId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate?glAccountId=${glAccountId}"/>
+        </field>
+        <field name="glAccountClassId">
+            <display-entity entity-name="GlAccountClass"/>
+        </field>
+        <field name="glAccountTypeId">
+            <display-entity entity-name="GlAccountType"/>
         </field>
     </form>
 
-    <!-- Displays the form for assigning accounts to a party or company -->
-    <!-- TODO: Localize field names --> 
     <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account">
+        <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down>
-                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}"> 
-                    <entity-order-by field-name="glAccountId"/>
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="organizationPartyId"><hidden/></field>
-        <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}"><submit button-type="button"/></field>
     </form>
     
     <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="partyAcctgPreference">
