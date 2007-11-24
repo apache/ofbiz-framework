@@ -63,6 +63,9 @@ under the License.
             <actions>
                 <set field="headerItem" value="projects"/>                
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <entity-one entity-name="WorkEffort" value-name="project">
+                    <field-map field-name="workEffortId" env-name="parameters.workEffortIdFrom"/>
+                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -75,11 +78,12 @@ under the License.
                                 <section>
                                     <condition>
                                         <not>                                            
-                                            <if-empty field-name="workEffortId"/>                                                
+                                            <if-empty field-name="project"/>                                                
                                         </not>                                        
                                     </condition>
                                     <widgets>                                        
                                         <include-menu name="ProjectTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                        <label style="head1" text="${uiLabelMap.ProjectMgrProjectCurrent}: ${project.workEffortName}[${project.workEffortId}]"/>
                                     </widgets>
                                  </section>   
                                                                                                                                       
