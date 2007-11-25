@@ -121,6 +121,12 @@
         <response name="success" type="view" value="FindTask"/>
         <response name="error" type="view" value="FindTask"/>
     </request-map>
+    <request-map uri="updateProjectPhase">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="FindPhase"/>
+        <response name="error" type="view" value="FindPhase"/>
+    </request-map>
     <request-map uri="deleteTask">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteWorkEffort"/>

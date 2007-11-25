@@ -345,10 +345,14 @@ under the License.
                 <set field="tabButtonItem" value="phases"/>
                 <set field="labelTitleProperty" value="PageTitleFindPhase"/>
                 <set field="projectId" from-field="parameters.workEffortIdFrom"/>
-                <entity-and entity-name="WorkEffort" list-name="phases">
+                <service service-name="getProjectPhaseList" result-map-name="result">
+                    <field-map field-name="projectId" env-name="projectId"/>
+                </service>
+                <set field="phases" from-field="result.phaseList"/>
+                <!--entity-and entity-name="WorkEffort" list-name="phases">
                     <field-map field-name="workEffortParentId" env-name="projectId"/>
                     <field-map field-name="workEffortTypeId" value="PHASE"/>
-                </entity-and>
+                </entity-and-->
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
