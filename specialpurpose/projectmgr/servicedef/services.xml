@@ -29,21 +29,18 @@ under the License.
         <attribute name="projectInfo" type="Map" mode="OUT" optional="true"/>
     </service>
     
-    <service name="getProjectPhase" engine="simple"
-        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectPhase">
+    <service name="getProjectPhaseList" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectPhaseList">
         <description>Get project phase information and related task info.</description>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="projectPhaseId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="phaseInfo" type="Map" mode="OUT" optional="false"/>
+        <attribute name="phaseList" type="List" mode="OUT" optional="true"/>
     </service>
     
-    <service name="getProjectTask" engine="simple"
-        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectTask">
+    <service name="getProjectTaskList" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectTaskList">
         <description>Get project task information and related timesheet info.</description>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="projectPhaseId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="projectTaskId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="taskInfo" type="Map" mode="OUT" optional="true"/>
+        <attribute name="taskList" type="List" mode="OUT" optional="true"/>
     </service>
     
 </services>

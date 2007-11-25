@@ -42,10 +42,8 @@ under the License.
         <!-- loop through the related phases and tasks -->
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
         <iterate entry-name="phase" list-name="phases">
-            <log level="always" message="====processing phase: ${phase.workEffortName}"></log>
             <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
             <iterate entry-name="lowInfo" list-name="tasks">
-                <log level="always" message="====processing task: ${lowInfo.workEffortName}"></log>
                 <call-simple-method method-name="combineInfo"/>
             </iterate>
         </iterate>
@@ -62,49 +60,52 @@ under the License.
         <!-- results -->
         <field-to-result field-name="highInfo" result-name="projectInfo"/>
         <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
-        <field-to-result field-name="parameters.phaseId" result-name="phaseIdId"/>        
-        <field-to-result field-name="parameters.taskId" result-name="taskId"/>        
     </simple-method>
     
-    <simple-method method-name="getProjectPhase" short-description="get Project Phase information" login-required="true">
-        <!-- get the phase seq id -->
-        <entity-one entity-name="StatusItem" value-name="highSeq">
-            <field-map field-name="statusId" env-name="phase.currentStatusId"/>
-        </entity-one>
-        <set field="highInfo.sequenceId" from-field="highSeq.sequenceId"/>
+    <simple-method method-name="getProjectPhaseList" short-description="get Project Phase information" login-required="true">
+        <if-empty field-name="parameters.projectId">
+            <return/>
+        </if-empty>
+        <entity-and entity-name="WorkEffort" list-name="phases">
+            <field-map field-name="workEffortParentId" env-name="parameters.projectId"/>
+        </entity-and>        
         
-        <entity-one entity-name="WorkEffort" value-name="phase">
-            <field-map field-name="workEffortId" env-name="parameters.phaseId"/>
-        </entity-one>
-        <set field="highInfo.phaseId" from-field="phase.worEffortId"/>
-        <set field="highInfo.phaseName" from-field="phase.worEffortName"/>
-        <set field="highInfo.phaseDescription" from-field="phase.description"/>
-        <set field="highInfo.priority" from-field="phase.priority"/>
-        <set field="highInfo.scopeEnumId" from-field="phase.scopeEnumId"/>
-        
-        <!-- loop through the related tasks -->
-        <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
-        <iterate entry-name="lowInfo" list-name="tasks">
-            <call-simple-method method-name="combineInfo"/>
+        <iterate entry-name="phase" list-name="phases">
+            <!-- get the phase seq id -->
+            <entity-one entity-name="StatusItem" value-name="highSeq">
+                <field-map field-name="statusId" env-name="phase.currentStatusId"/>
+            </entity-one>
+            <clear-field field-name="highInfo"/>
+            <set field="highInfo.sequenceId" from-field="highSeq.sequenceId"/>
+            <set field="highInfo.phaseId" from-field="phase.workEffortId"/>
+            <set field="highInfo.phaseName" from-field="phase.workEffortName"/>
+            <set field="highInfo.phaseDescription" from-field="phase.description"/>
+            <set field="highInfo.priority" from-field="phase.priority"/>
+            <set field="highInfo.scopeEnumId" from-field="phase.scopeEnumId"/>
+            
+            <!-- loop through the related tasks -->
+            <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
+            <iterate entry-name="lowInfo" list-name="tasks">
+                <call-simple-method method-name="combineInfo"/>
+            </iterate>
+            
+            <!-- translate squenceId back into statusId -->
+            <entity-and entity-name="StatusItem" list-name="statusses">
+                <field-map field-name="sequenceId" env-name="highInfo.sequenceId"/>
+                <field-map field-name="statusTypeId" value="TASK_STATUS"/>
+            </entity-and>
+            <first-from-list entry-name="status" list-name="statusses"/>
+            <clear-field field-name="highInfo.sequenceId"/>
+            <set field="highInfo.statusId" from-field="status.statusId"/>
+            <field-to-list field-name="highInfo" list-name="phaseList"/>
         </iterate>
         
-        <!-- translate squenceId back into statusId -->
-        <entity-and entity-name="StatusItem" list-name="statusses">
-            <field-map field-name="sequenceId" env-name="highInfo.sequenceId"/>
-            <field-map field-name="statusTypeId" value="TASK_STATUS"/>
-        </entity-and>
-        <first-from-list entry-name="status" list-name="statusses"/>
-        <clear-field field-name="highInfo.sequenceId"/>
-        <set field="highInfo.statusId" from-field="status.statusId"/>
-
         <!-- results -->
-        <field-to-result field-name="highInfo" result-name="phaseInfo"/>
+        <field-to-result field-name="phaseList"/>
         <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
-        <field-to-result field-name="parameters.phaseId" result-name="phaseIdId"/>        
-        <field-to-result field-name="parameters.taskId" result-name="taskId"/>        
     </simple-method>
     
-    <simple-method method-name="getProjectTask" short-description="get Project task information" login-required="true">
+    <simple-method method-name="getProjectTaskList" short-description="get Project task information" login-required="true">
         <entity-one entity-name="WorkEffort" value-name="lowInfo">
             <field-map field-name="workEffortId" env-name="parameters.taskId"/>
         </entity-one>
@@ -126,12 +127,10 @@ under the License.
     <simple-method method-name="combineInfo" short-description="combine lower level status, dates of tasks.">
         <!-- in/output highInfo infoMap -->
         <!-- input lowInfo info map -->
-        <log level="always" message="========Lowinfo:${lowInfo} ===highInfo: ${highInfo}"></log>
         <!-- set the dates from the lower level tasks -->
         <if-not-empty field-name="lowInfo.estimatedStartDate">
             <if-empty field-name="highInfo.estimatedStartDate">
                 <set field="highInfo.estimatedStartDate" from-field="lowInfo.estimatedStartDate" />
-                <log level="always" message="======Setting: ${highInfo.estimatedStartDate} from ${lowInfo.estimatedStartDate}"></log>
                 <else>
                     <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="estimatedStartDate" operator="less">
                         <set field="highInfo.estimatedStartDate" from-field="lowInfo.estimatedStartDate" />
@@ -170,7 +169,7 @@ under the License.
             </if-empty>
         </if-not-empty>
         
-        <!-- get the status from the lowerlevel tasks follow the sequence in the StatusItem entity and us the lowest-->
+        <!-- get the status from the lowerlevel tasks follow the sequence in the StatusItem entity and use the lowest-->
         <entity-one entity-name="StatusItem" value-name="status">
             <field-map field-name="statusId" env-name="lowInfo.currentStatusId"/>
         </entity-one>
