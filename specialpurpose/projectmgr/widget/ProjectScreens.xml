@@ -103,16 +103,21 @@ under the License.
                 <set field="tabButtonItem" value="editproject"/>                
                 <set field="labelTitleProperty" value="PageTitleEditProject"/>
                 <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
-                <entity-one entity-name="WorkEffort" value-name="project"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/MilliSecToHour.bsh"/>
+                <service service-name="getProject" result-map-name="result">
+                    <field-map field-name="projectId" env-name="parameters.workEffortIdFrom"/>
+                </service>
+                <set field="project" from-field="result.projectInfo"/>
             </actions>
-            <widgets>                
+            <widgets>
+                <label text="========${project.estimatedStartDate}"></label>                
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                               
-                        <!-- To add a new Project -->                        
-                        <platform-specific>
-                            <html><html-template location="component://projectmgr/webapp/projectmgr/project/editproject.ftl"/></html>
-                        </platform-specific>
+                    <decorator-section name="body">  
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}</label></container>                                
+                            <container style="screenlet-body"> 
+                                <include-form name="EditProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
