@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Project Manager service definitions.</description>
+
+    <service name="getProject" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getProject">
+        <description>Get project information and realated phase and task info.</description>
+        <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="projectInfo" type="Map" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="getProjectPhase" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectPhase">
+        <description>Get project phase information and related task info.</description>
+        <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="projectPhaseId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="phaseInfo" type="Map" mode="OUT" optional="false"/>
+    </service>
+    
+    <service name="getProjectTask" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectTask">
+        <description>Get project task information and related timesheet info.</description>
+        <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="projectPhaseId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="projectTaskId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="taskInfo" type="Map" mode="OUT" optional="true"/>
+    </service>
+    
+</services>

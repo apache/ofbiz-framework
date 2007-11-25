@@ -18,6 +18,42 @@
     under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <form name="EditProject" type="single" target="updateProject" default-map-name="project">
+        <alt-target use-when="project==null" target="createProject"/>
+        <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
+        <field name="DONE_PAGE"><hidden value="${donePage}"/></field>
+        <field name="workEffortTypeId"><hidden value="PROJECT"/></field> 
+        <field name="projectId" parameter-name="workEffortId"><hidden/></field>
+        <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
+        <field name="projectDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field use-when="project!=null" name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field use-when="project==null" name="statusId" parameter-name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}">
+            <drop-down allow-empty="true" current="selected">
+                <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/> 
+                <option key="2" description="2"/> 
+                <option key="3" description="3"/> 
+                <option key="4" description="4"/> 
+                <option key="5" description="5"/> 
+                <option key="6" description="6"/> 
+                <option key="7" description="7"/> 
+                <option key="8" description="8"/> 
+                <option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/> 
+            </drop-down>
+        </field>
+        <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field use-when="project!=null" name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display description="${bsh:project.get(&quot;estimatedStartDate&quot;)!=null?project.get(&quot;estimatedStartDate&quot;).toString().substring(0,10):&quot;&quot;;}"/></field>
+        <field use-when="project!=null" name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display description="${bsh:project.get(&quot;estimatedCompletionDate&quot;)!=null?project.get(&quot;estimatedCompletionDate&quot;).toString().substring(0,10):&quot;&quot;;}"/></field>
+        <field use-when="project!=null" name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display description="${bsh:project.get(&quot;actualStartDate&quot;)!=null?project.get(&quot;actualStartDate&quot;).toString().substring(0,10):&quot;&quot;;}"/></field>
+        <field use-when="project!=null" name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display description="${bsh:project.get(&quot;actualCompletionDate&quot;)!=null?project.get(&quot;actualCompletionDate&quot;).toString().substring(0,10):&quot;&quot;;}"/></field>
+        <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+    </form>
     
 	<!--================ Project Lists==============-->
     <form name="ListProjects" type="list" list-name="projects" paginate-target="FindProject">
