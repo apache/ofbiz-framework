@@ -562,7 +562,7 @@ under the License.
                         <section>
                         <condition><if-has-permission permission="ACCOUNTING" action="_PRINT_CHECKS"/></condition>
                         <widgets>
-                            <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                         </widgets>
                         <fail-widgets>
                             <label style="head3">${uiLabelMap.AccountingPrintChecksPermissionError}</label>
@@ -602,7 +602,7 @@ under the License.
                         <section>
                         <condition><if-has-permission permission="PAY_INFO" action="_UPDATE"/></condition>
                         <widgets>
-                            <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                         </widgets>
                         <fail-widgets>
                             <label style="head3">${uiLabelMap.AccountingUpdatePaymentPermissionError}</label>

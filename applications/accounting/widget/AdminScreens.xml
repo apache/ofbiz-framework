@@ -65,7 +65,7 @@ under the License.
 
     <screen name="TimePeriods">
         <section>
-            <actions>				
+            <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="TimePeriod"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.TimePeriod}"/>
@@ -105,7 +105,7 @@ under the License.
     
     <screen name="PartyAcctgPreference">
         <section>
-            <actions>			
+            <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingPreference"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingPreference}"/>
@@ -148,6 +148,26 @@ under the License.
                         <include-form name="ListConversions" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
                         <label style="head1">${uiLabelMap.AccountingUpdateFX}</label>
                         <include-form name="updateFXConversion" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SetupGlJournals">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingGlJournals"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingGlJournals}"/>
+                <set field="tabButtonItem" value="SetupGlJournals"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <entity-one entity-name="GlJournal" value-name="glJournal"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListGlJournals" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="EditGlJournal" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

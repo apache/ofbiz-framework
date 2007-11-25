@@ -1484,6 +1484,7 @@ under the License.
       <alias entity-alias="ATR" name="transactionDate"/>
       <alias entity-alias="ATR" name="postedDate"/>
       <alias entity-alias="ATR" name="transDescription" field="description"/>
+      <alias entity-alias="ATR" name="glJournalId"/>
       <alias entity-alias="ATT" name="transTypeDescription" field="description"/>
       <alias entity-alias="ATR" name="invoiceId"/>
       <alias entity-alias="ATR" name="paymentId"/>
@@ -1533,6 +1534,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="ATAE_PAYMENT" rel-entity-name="Payment">
         <key-map field-name="paymentId"/>
+      </relation>
+      <relation type="one" fk-name="ATAE_GLJOURNAL" rel-entity-name="GlJournal">
+        <key-map field-name="glJournalId"/>
       </relation>
     </view-entity>
     <view-entity entity-name="AcctgTransEntryProdSums"
@@ -1947,6 +1951,12 @@ under the License.
         <field name="orderIdPrefix" type="very-short"/>
         <field name="lastOrderNumber" type="numeric"/>
         <field name="refundPaymentMethodId" type="id"/>
+        <field name="errorGlJournalId" type="id">
+            <description>
+                Journal to which all the failed automatic transaction are assigned.
+                If the error journal is set, if the GL posting fails for some reason the triggering operation (finalizing an invoice or payment or whatever) would NOT roll back, instead the partial GL post would be placed into the error journal.
+            </description>
+        </field>
         <prim-key field="partyId"/>
         <relation type="one" rel-entity-name="Party" fk-name="ACTG_PREF_PTY">
             <key-map field-name="partyId"/>
@@ -1971,6 +1981,9 @@ under the License.
         </relation>
         <relation type="one" rel-entity-name="PaymentMethod">
             <key-map field-name="refundPaymentMethodId" rel-field-name="paymentMethodId"/>
+        </relation>
+        <relation type="one" fk-name="ACTGPREF_GLJRNL" rel-entity-name="GlJournal">
+            <key-map field-name="errorGlJournalId" rel-field-name="glJournalId"/>
         </relation>
     </entity>
     <entity entity-name="ProductAverageCost"
