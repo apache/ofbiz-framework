@@ -26,7 +26,6 @@ public class NavagationEvents {
     public static void showPosScreen(PosScreen pos) {
         ManagerEvents.mgrLoggedIn = false;
         pos.showPage("pospanel");
-        PosScreen.currentScreen.getInput().clear();
     }
 
     public static void showPayScreen(PosScreen pos) {
@@ -44,7 +43,6 @@ public class NavagationEvents {
     public static void showPromoScreen(PosScreen pos) {
         ManagerEvents.mgrLoggedIn = false;
         pos.showPage("promopanel");
-        PosScreen.currentScreen.getInput().clear();        
     }
 }
 
