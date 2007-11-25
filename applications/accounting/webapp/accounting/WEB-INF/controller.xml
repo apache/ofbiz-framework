@@ -1478,14 +1478,14 @@ under the License.
     <view-map name="PrintChecks" type="screenfop" page="component://accounting/widget/PaymentScreens.xml#PrintChecks" content-type="application/pdf" encoding="none"/>
     
     <!-- Party Accounts -->
-    <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/AccountingScreens.xml#PartyAccountsSummary"/>
-    <view-map name="FindAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#FindAcctgTrans"/>
-    <view-map name="NewGlJournalEntry" type="screen" page="component://accounting/widget/AccountingScreens.xml#NewGlJournalEntry"/>
-    <view-map name="EditAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditAcctgTrans"/>
-    <view-map name="FindAcctgTransEntries" type="screen" page="component://accounting/widget/AccountingScreens.xml#FindAcctgTransEntries"/>
-    <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListUnpostedAcctgTrans"/>
-    <view-map name="ListChecksToPrint" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListChecksToPrint"/>
-    <view-map name="ListChecksToSend" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListChecksToSend"/>
+    <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/GlScreens.xml#PartyAccountsSummary"/>
+    <view-map name="FindAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#FindAcctgTrans"/>
+    <view-map name="NewGlJournalEntry" type="screen" page="component://accounting/widget/GlScreens.xml#NewGlJournalEntry"/>
+    <view-map name="EditAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#EditAcctgTrans"/>
+    <view-map name="FindAcctgTransEntries" type="screen" page="component://accounting/widget/GlScreens.xml#FindAcctgTransEntries"/>
+    <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#ListUnpostedAcctgTrans"/>
+    <view-map name="ListChecksToPrint" type="screen" page="component://accounting/widget/GlScreens.xml#ListChecksToPrint"/>
+    <view-map name="ListChecksToSend" type="screen" page="component://accounting/widget/GlScreens.xml#ListChecksToSend"/>
     
     <!-- GlAccount, GlJournalEntry, AcctgTrans -->
     <view-map name="AddGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AddGlAccount"/>
