@@ -109,6 +109,7 @@
                 <field-map field-name="statusId" env-name="currentStatusId"/>
             </entity-one>
         </row-actions>
+        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><hyperlink target="taskView?workEffortId=${taskId}" description="${taskName}"/></field>
         <field name="workEffortId"><hidden value="${taskId}"/></field>
         <field name="workEffortIdFrom"><hidden/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
@@ -120,7 +121,6 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
