@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="PartyAccountsSummary">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PartyAccountsSummary"/>
+                <set field="tabButtonItem" value="PartyAccountsSummary"/>
+                <set field="labelTitleProperty" value="PartyAccountsSummary"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <!-- entity-condition entity-name="GlAccountOrganization" list-name="entityList" use-cache="true" >
+                    <condition-expr field-name="glAccountId" operator="greater" value="0" />
+                </entity-condition -->
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="lefthalf">
+                                    <container>
+                                        <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES_ACCTG_TRANS" text="${uiLabelMap.AccountingCreateSalesJournalEntry}" style="buttontext"/>
+                                    </container>
+                                    <container>
+                                        <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS" text="${uiLabelMap.AccountingCreatePaymentJournalEntry}" style="buttontext"/>
+                                    </container>
+                                    <container>
+                                        <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+                                    </container>
+                                </container>
+                                <container style="righthalf">
+                                    <container>
+                                        <link target="TrialBalance?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext"/>
+                                    </container>
+                                    <container>
+                                        <link text="${uiLabelMap.AccountingIncomeStatement}" style="buttontextdisabled"/>
+                                        <!--<link target="IncomeStatement?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext"/>-->
+                                    </container>
+                                    <container>
+                                        <link text="${uiLabelMap.AccountingBalanceSheet}" style="buttontextdisabled"/>
+                                        <!--<link target="BalanceSheet?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext"/>-->
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FindAcctgTrans">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingAcctgTrans"/>
+                <set field="tabButtonItem" value="FindAcctgTrans"/>
+                <set field="labelTitleProperty" value="AccountingAcctgTrans"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <link text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext" target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
+                            <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+                        </container>
+                        <include-form name="FindAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindAcctgTransEntries">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingAcctgTransEntries"/>
+                <set field="tabButtonItem" value="FindAcctgTransEntries"/>
+                <set field="labelTitleProperty" value="AccountingAcctgTransEntries"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="FindAcctgTransEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListFindAcctgTransEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="NewGlJournalEntry">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AcctgNewGlJournalEntry"/>
+                <set field="tabButtonItem" value="FindAcctgTrans"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="labelTitleProperty" value="AcctgNewGlJournalEntry"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="NewGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditAcctgTrans">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="Edit Accounting transaction"/>
+                <set field="tabButtonItem" value="FindAcctgTrans"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="acctgTransId" from-field="parameters.acctgTransId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/editGlJournalEntry.bsh"/>
+                <set field="isPosted" from-field="parameters.isPosted"/>
+                
+                <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
+                <entity-one entity-name="AcctgTransEntry" value-name="acctgTransEntry">
+                    <field-map field-name="acctgTransId"/>
+                    <field-map field-name="acctgTransEntrySeqId" env-name="parameters.editAcctgTransEntrySeqId"/>
+                </entity-one>
+                <entity-and entity-name="AcctgTransEntry" list-name="acctgTransEntries">
+                    <field-map field-name="acctgTransId"/>
+                    <order-by field-name="acctgTransEntrySeqId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="acctgTransId"/></not>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <include-form name="EditAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                    <include-form name="ListAcctgTransEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                               <if-empty field-name="isPosted"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <link target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext"/>
+                                </container>
+                                <container>
+                                    <include-form name="EditAcctgTransEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ListUnpostedAcctgTrans">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="FindAcctgTrans"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleUnpostedTransactions}"/>
+                <set field="partyId" from-field="parameters.organizationPartyId"/>
+                <entity-condition entity-name="AcctgTrans" list-name="transactions">
+                    <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
+                    <order-by field-name="transactionDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ListChecksToPrint">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingPrintChecks"/>
+                <set field="tabButtonItem" value="ChecksTabButton"/>
+                <set field="tabButtonItem2" value="PrintChecksTabButton"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingPrintChecks}"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+
+                <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
+                <entity-condition entity-name="Payment" list-name="payments">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="COMPANY_CHECK"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="effectiveDate"/>
+                </entity-condition>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/filterOutReceipts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminChecksDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="checks-body">
+                        <section>
+                        <condition><if-has-permission permission="ACCOUNTING" action="_PRINT_CHECKS"/></condition>
+                        <widgets>
+                            <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <label style="head3">${uiLabelMap.AccountingPrintChecksPermissionError}</label>
+                        </fail-widgets>
+                      </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListChecksToSend">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingSendChecks"/>
+                <set field="tabButtonItem" value="ChecksTabButton"/>
+                <set field="tabButtonItem2" value="SendChecksTabButton"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+
+                <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
+                <entity-condition entity-name="Payment" list-name="payments">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="organizationPartyId"/>
+                        <condition-expr field-name="statusId" operator="equals" value="PMNT_NOT_PAID"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="PERSONAL_CHECK"/>
+                            <condition-expr field-name="paymentMethodTypeId" operator="equals" value="COMPANY_CHECK"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="effectiveDate"/>
+                </entity-condition>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/filterOutReceipts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminChecksDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="checks-body">
+                        <section>
+                        <condition><if-has-permission permission="PAY_INFO" action="_UPDATE"/></condition>
+                        <widgets>
+                            <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <label style="head3">${uiLabelMap.AccountingUpdatePaymentPermissionError}</label>
+                        </fail-widgets>
+                      </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>
+
