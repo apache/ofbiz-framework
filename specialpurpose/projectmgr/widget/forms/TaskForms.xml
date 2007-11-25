@@ -100,7 +100,7 @@
     </form>
     <form name="AddPhase" type="single" target="createProjectTaskOrPhase">
         <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
-        <field name="workEffortParentId"><hidden value="${projectId}"/></field>
+        <field name="workEffortParentId"><hidden value="${parameters.workEffortIdFrom}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
         <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field> 
         <field name="workEffortName" title="${uiLabelMap.CommonName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
@@ -129,7 +129,7 @@
     </form>
     <form name="AddProjectPhase" type="single" target="createProjectPhase">
         <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
-        <field name="workEffortParentId"><hidden value="${projectId}"/></field>
+        <field name="workEffortParentId"><hidden value="${parameters.workEffortIdFrom}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
         <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field> 
         <field name="workEffortName" title="${uiLabelMap.CommonName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
