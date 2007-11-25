@@ -109,7 +109,7 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericDecorator">
                     <decorator-section name="body">
-                        <include-form name="AssignGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-form name="AssignGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -140,8 +140,8 @@ under the License.
                         <container style="column-left-wide">
                             <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml" /> 
                         </container>
-                        <include-form name="EditGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
-                        <!-- include-form name="AssignGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/ -->
+                        <include-form name="EditGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        <!-- include-form name="AssignGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/ -->
                      </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -165,7 +165,7 @@ under the License.
                         <container style="column-left-wide">
                             <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml" /> 
                         </container>
-                        <include-form name="ListAcctgTransEntries" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                      </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -191,7 +191,7 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/chartofaccounts/GlAccountTabBar.ftl"/></html>
                         </platform-specific>
-                        <include-form name="ListAcctgTransEntries" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                      </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -210,7 +210,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-form name="EditGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                         
                         <!-- include-screen screen-name="ListGlAccounts" name="ListGlAccounts" / --> 
                     
@@ -240,7 +240,7 @@ under the License.
                             <link target="ListGlAccountsReport" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                             <link target="ListGlAccountsExport" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                         </container>
-                        <include-form name="ListGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-form name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -258,7 +258,7 @@ under the License.
             <widgets>
                 <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-form name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -273,7 +273,7 @@ under the License.
             <widgets>
                 <decorator-screen name="XmlDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListGlAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-form name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -306,7 +306,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAccountDecorator">
                     <decorator-section name="body">
-                        <include-form name="EditGlobalAccount" location="component://accounting/webapp/accounting/chartofaccounts/GlAccountForms.xml"/>
+                        <include-form name="EditGlobalAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

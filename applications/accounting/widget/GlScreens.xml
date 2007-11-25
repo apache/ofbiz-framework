@@ -84,13 +84,13 @@ under the License.
                             <link text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext" target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
                             <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
                         </container>
-                        <include-form name="FindAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <include-form name="FindAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                         <section>
                             <condition>
                                 <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
-                                <include-form name="ListAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                <include-form name="ListAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -109,13 +109,13 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="FindAcctgTransEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <include-form name="FindAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
                         <section>
                             <condition>
                                 <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
-                                <include-form name="ListFindAcctgTransEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                <include-form name="ListFindAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -135,7 +135,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="NewGlJournalEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <include-form name="NewGlJournalEntry" location="component://accounting/widget/GlForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -172,8 +172,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
-                                    <include-form name="EditAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
-                                    <include-form name="ListAcctgTransEntries" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                    <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                    <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
                                 </container>
                             </widgets>
                         </section>
@@ -186,7 +186,7 @@ under the License.
                                     <link target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext"/>
                                 </container>
                                 <container>
-                                    <include-form name="EditAcctgTransEntry" location="component://accounting/widget/JournalEntryForms.xml"/>
+                                    <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
                                 </container>
                             </widgets>
                         </section>
@@ -212,7 +212,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/JournalEntryForms.xml"/>
+                        <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
