@@ -35,7 +35,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListCompanies" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="ListCompanies" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -55,8 +55,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListGlAccountOrganization" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
-                        <include-form name="AssignGlAccount" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="ListGlAccountOrganization" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <include-form name="AssignGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -92,11 +92,11 @@ under the License.
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="head1">${uiLabelMap.AccountingOpenTimePeriods}</label>
-                        <include-form name="ListOpenTimePeriods" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="ListOpenTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
                         <label style="head1">${uiLabelMap.AccountingClosedTimePeriods}</label>
-                        <include-form name="ListClosedTimePeriods" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="ListClosedTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
                         <label style="head1">${uiLabelMap.CommonNew}</label>
-                        <include-form name="CreateTimePeriod" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="CreateTimePeriod" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -118,7 +118,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="PartyAcctgPreference" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -145,9 +145,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListConversions" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="ListConversions" location="component://accounting/widget/GlSetupForms.xml"/>
                         <label style="head1">${uiLabelMap.AccountingUpdateFX}</label>
-                        <include-form name="updateFXConversion" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="updateFXConversion" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -166,8 +166,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListGlJournals" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
-                        <include-form name="EditGlJournal" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                        <include-form name="ListGlJournals" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <include-form name="EditGlJournal" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -188,9 +188,9 @@ under the License.
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <include-form name="ListGlAccountTypeDefaults" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="ListGlAccountTypeDefaults" location="component://accounting/widget/GlSetupForms.xml"/>
                             <container><label style="head1">${uiLabelMap.CommonAdd}</label></container>
-                            <include-form name="EditGlAccountTypeDefault" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="EditGlAccountTypeDefault" location="component://accounting/widget/GlSetupForms.xml"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -212,9 +212,9 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <container><label style="head1">${uiLabelMap.AccountingSalesInvoiceToRevenue}</label></container>
-                            <include-form name="ListSalInvoiceItemTypeGlAssignments" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="ListSalInvoiceItemTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
                             <container><label style="head1">${uiLabelMap.AccountingAssignSalesInvoiceToRevenue}</label></container>
-                            <include-form name="AddSalInvoiceItemTypeGlAssignment" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="AddSalInvoiceItemTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -236,10 +236,10 @@ under the License.
                         <container>
                             <container><label style="head1">Purchase Invoice type to Expense GL Account Number assignmentlist</label></container>
                             <container>
-                                <include-form name="ListPurInvoiceItemTypeGlAssignments" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                                <include-form name="ListPurInvoiceItemTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
                             </container>
                             <container><label style="head1">Assign Purchase Invoice Item type to Expense GL Account Number</label></container>
-                            <include-form name="AddPurInvoiceItemTypeGlAssignment" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="AddPurInvoiceItemTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -259,9 +259,9 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <container><label style="head1">Payment type to GL Account type assignment list</label></container>
-                            <include-form name="ListPaymentTypeGlAssignments" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="ListPaymentTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
                             <container><label style="head1">Assign Payment type to GL Account Type</label></container>
-                            <include-form name="AddPaymentTypeGlAssignment" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="AddPaymentTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -281,9 +281,9 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <container><label style="head1">Payment methods to GL Account numbers assigmentlist</label></container>
-                            <include-form name="ListPaymentMethodTypeGlAssignments" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="ListPaymentMethodTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
                             <container><label style="head1">Assign Payment method type to GL Account number></label></container>
-                            <include-form name="AddPaymentMethodTypeGlAssignment" location="component://accounting/webapp/accounting/admin/AdminForms.xml"/>
+                            <include-form name="AddPaymentMethodTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>

@@ -73,7 +73,6 @@ under the License.
         <section>
             <actions>
                 <set field="title" value="Check"/>
-                <!-- script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/editInvoice.bsh"/ -->
             </actions>
             <widgets>
                 <platform-specific>
