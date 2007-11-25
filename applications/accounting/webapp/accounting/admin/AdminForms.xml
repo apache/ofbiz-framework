@@ -188,6 +188,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="errorGlJournalId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlJournal" key-field-name="glJournalId" description="${glJournalName} [${glJournalId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="glJournalName"/>
+                </entity-options>
+            </drop-down>
+        </field>
     </form>
      
     <!-- forms for managing FX rates -->
@@ -454,32 +462,27 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
 
-    <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" separate-columns="true">
-        <field name="paymentId">
-            <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>
-        </field>
-        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
-          <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
-        </field>
-        <field name="amount" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="effectiveDate"><display/></field>
-        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonPrint}" widget-style="smallSubmit">
-            <submit/>
-        </field>
+    <form name="EditGlJournal" type="single" target="createGlJournal" title="" default-map-name="glJournal">
+        <alt-target use-when="glJournal!=null" target="updateGlJournal"/>
+        <auto-fields-service service-name="createGlJournal"/>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="glJournalId" use-when="glJournal!=null"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
-    <form name="ListChecksToSend" type="multi" use-row-submit="true" list-name="payments" target="quickSendPayment?organizationPartyId=${organizationPartyId}" separate-columns="true">
-        <field name="paymentId"><hidden/></field>
-        <field name="paymentId">
-            <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>
+    <form name="ListGlJournals" type="list">
+        <actions>
+            <entity-condition entity-name="GlJournal">
+                <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                <order-by field-name="glJournalId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="GlJournal" default-field-type="display"/>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="glJournalId" widget-style="buttontext">
+            <hyperlink target="SetupGlJournals?organizationPartyId=${organizationPartyId}&amp;glJournalId=${glJournalId}" description="${glJournalId}"/>
         </field>
-        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
-          <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
+        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteGlJournal?organizationPartyId=${organizationPartyId}&amp;glJournalId=${glJournalId}" description="${uiLabelMap.CommonRemove}"/>
         </field>
-        <field name="amount" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="effectiveDate"><display/></field>
-        <field name="paymentRefNum"><text/></field>
-        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSend}" widget-style="smallSubmit"><submit/></field>
     </form>
 </forms>

@@ -536,7 +536,27 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListAcctgTransEntries"/>
     </request-map>
-                                                                                                
+
+    <request-map uri="SetupGlJournals"><security https="true" auth="true"/><response name="success" type="view" value="SetupGlJournals"/></request-map>
+    <request-map uri="createGlJournal">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createGlJournal"/>
+        <response name="success" type="view" value="SetupGlJournals"/>
+        <response name="error" type="view" value="SetupGlJournals"/>
+    </request-map>
+    <request-map uri="updateGlJournal">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGlJournal"/>
+        <response name="success" type="view" value="SetupGlJournals"/>
+        <response name="error" type="view" value="SetupGlJournals"/>
+    </request-map>
+    <request-map uri="deleteGlJournal">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteGlJournal"/>
+        <response name="success" type="view" value="SetupGlJournals"/>
+        <response name="error" type="view" value="SetupGlJournals"/>
+    </request-map>
+
     <!-- =============== Fixed Asset mapping =================-->
     <request-map uri="ListFixedAssets"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssets"/></request-map>
     <request-map uri="EditFixedAsset"><security https="true" auth="true"/><response name="success" type="view" value="EditFixedAsset"/></request-map>
@@ -1545,10 +1565,11 @@ under the License.
     <view-map name="EditTaxAuthorityPartyInfo" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#EditTaxAuthorityPartyInfo"/>
 
     <!-- administrative pages -->
-    <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/AdminScreens.xml#ListGlAccountOrganization"/>
     <view-map name="ListCompanies" type="screen" page="component://accounting/widget/AdminScreens.xml#ListCompanies"/>
     <view-map name="TimePeriods" type="screen" page="component://accounting/widget/AdminScreens.xml#TimePeriods"/>
     <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/AdminScreens.xml#PartyAcctgPreference"/>
+    <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/AdminScreens.xml#ListGlAccountOrganization"/>
+    <view-map name="SetupGlJournals" type="screen" page="component://accounting/widget/AdminScreens.xml#SetupGlJournals"/>
     <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/AdminScreens.xml#ViewFXConversions"/>
     <view-map name="GlAccountTypeDefaults" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountTypeDefaults"/>
     <view-map name="GlAccountPurInvoice" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountPurInvoice"/>

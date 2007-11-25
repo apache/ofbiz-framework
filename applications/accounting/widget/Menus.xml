@@ -436,6 +436,9 @@ under the License.
         <menu-item name="ListGlAccountOrganization" title="${uiLabelMap.AccountingChartOfAcctsMenu}">
             <link target="ListGlAccountOrganization?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
+        <menu-item name="SetupGlJournals" title="${uiLabelMap.AccountingGlJournals}">
+            <link target="SetupGlJournals?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
         <menu-item name="GlAccountAssignment" title="${uiLabelMap.AccountingGlAccountDefault}">
             <link target="GlAccountAssignment?organizationPartyId=${organizationPartyId}"/>
         </menu-item>

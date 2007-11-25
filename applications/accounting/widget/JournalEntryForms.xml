@@ -37,6 +37,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="glJournalId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlJournal" description="${glJournalName} [${glJournalId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="glJournalName"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="isPosted">
             <drop-down allow-empty="true">
                 <option description="${uiLabelMap.CommonNo}" key="N"/>
@@ -63,6 +71,7 @@ under the License.
                     <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
                     <condition-expr field-name="acctgTransTypeId" operator="equals" env-name="parameters.acctgTransTypeId" ignore-if-empty="true"/>
                     <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glJournalId" operator="equals" env-name="parameters.glJournalId" ignore-if-empty="true"/>
                     <condition-expr field-name="isPosted" operator="equals" env-name="parameters.isPosted" ignore-if-empty="true"/>
                     <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
                     <condition-expr field-name="invoiceId" operator="equals" env-name="parameters.invoiceId" ignore-if-empty="true"/>
@@ -160,6 +169,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="glJournalId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlJournal" description="${glJournalName} [${glJournalId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="glJournalName"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="isPosted">
             <drop-down allow-empty="true">
                 <option description="${uiLabelMap.CommonNo}" key="N"/>
@@ -186,6 +203,7 @@ under the License.
                     <condition-expr field-name="glAccountId" operator="equals" env-name="parameters.glAccountId" ignore-if-empty="true"/>
                     <condition-expr field-name="acctgTransTypeId" operator="equals" env-name="parameters.acctgTransTypeId" ignore-if-empty="true"/>
                     <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glJournalId" operator="equals" env-name="parameters.glJournalId" ignore-if-empty="true"/>
                     <condition-expr field-name="isPosted" operator="equals" env-name="parameters.isPosted" ignore-if-empty="true"/>
                     <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
                     <condition-expr field-name="invoiceId" operator="equals" env-name="parameters.invoiceId" ignore-if-empty="true"/>

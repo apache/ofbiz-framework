@@ -399,4 +399,33 @@ under the License.
         <auto-fields-entity entity-name="AcctgTransAndEntries" default-field-type="display"/>
         <field name="paymentId"><hidden/></field>
     </form>
+
+    <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" separate-columns="true">
+        <field name="paymentId">
+            <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
+          <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
+        </field>
+        <field name="amount" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="effectiveDate"><display/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonPrint}" widget-style="smallSubmit">
+            <submit/>
+        </field>
+    </form>
+    <form name="ListChecksToSend" type="multi" use-row-submit="true" list-name="payments" target="quickSendPayment?organizationPartyId=${organizationPartyId}" separate-columns="true">
+        <field name="paymentId"><hidden/></field>
+        <field name="paymentId">
+            <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
+          <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
+        </field>
+        <field name="amount" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="effectiveDate"><display/></field>
+        <field name="paymentRefNum"><text/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSend}" widget-style="smallSubmit"><submit/></field>
+    </form>
 </forms>
