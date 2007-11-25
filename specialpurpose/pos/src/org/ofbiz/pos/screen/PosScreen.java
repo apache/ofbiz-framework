@@ -213,7 +213,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
             operator.refresh();
             if (updateOutput) {
                 if (input.isFunctionSet("PAID")) {
-                    output.print(UtilProperties.getMessage("pos","ULOGIN",defaultLocale)
+                    output.print(UtilProperties.getMessage("pos","CHANGE",defaultLocale)
                             + UtilFormatOut.formatPrice(trans.getTotalDue() * -1));
                 } else if (input.isFunctionSet("TOTAL")) {
                     if (trans.getTotalDue() > 0) {
