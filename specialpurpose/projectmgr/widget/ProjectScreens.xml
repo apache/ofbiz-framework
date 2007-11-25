@@ -213,7 +213,7 @@ under the License.
                     <order-by field-name="phaseName"/>
                     <order-by field-name="taskName"/>
                 </entity-and>
-                <set field="workEffort" from-field=""/>
+                <set field="task" from-field=""/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -339,10 +339,11 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditPhase"/>
                 <set field="tabButtonItem" value="phases"/>
                 <set field="labelTitleProperty" value="PageTitleFindPhase"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
-                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
-                <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
+                <set field="projectId" from-field="parameters.workEffortIdFrom"/>
+                <entity-and entity-name="WorkEffort" list-name="phases">
+                    <field-map field-name="workEffortParentId" env-name="projectId"/>
+                    <field-map field-name="workEffortTypeId" value="PHASE"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -356,9 +357,12 @@ under the License.
                                         <include-form name="ListPhases" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                     </container>                                              
                                 </container>    
-                                <platform-specific>
-                                        <html><html-template location="component://projectmgr/webapp/projectmgr/project/editphaseandassoc.ftl"/></html>
-                                </platform-specific>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddPhase}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="AddProjectPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </container>
+                                </container>
                             </widgets>                            
                         </section>
                     </decorator-section>

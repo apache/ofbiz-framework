@@ -24,12 +24,12 @@
     <form name="EditTask" type="single" target="updateTask" default-map-name="task">
         <actions>
             <set field="projectId" from-field="parameters.workEffortIdFrom"/>
-           <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="task.statusId"/>
             </entity-one>
         </actions>
         <alt-target use-when="projectId!=null" target="createProjectTaskOrPhase"/>
-        <alt-target use-when="task==null" target="createTask"/>
+        <alt-target use-when="task==null&amp;&amp;projectId==null" target="createTask"/>
         <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
         <field name="DONE_PAGE"><hidden value="${donePage}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
@@ -37,6 +37,7 @@
         <field use-when="task==null&amp;&amp;taskId==null" name="taskId" title="${uiLabelMap.ProjectMgrWorkEffortId}"><ignored/></field>
         <field use-when="task==null&amp;&amp;taskId!=null" name="workEffortName" title="${uiLabelMap.CommonName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field use-when="task!=null" name="workEffortName" title="${uiLabelMap.CommonName}*"><display/></field>
+        <field use-when="task==null&amp;&amp;taskId!=null" name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field use-when="task!=null" name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
@@ -97,13 +98,22 @@
         <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><date-time/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="AddPhase" type="single" target="createProjectTaskOrPhase" default-map-name="dummy">
+    <form name="AddPhase" type="single" target="createProjectTaskOrPhase">
         <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
+        <field name="workEffortParentId"><hidden value="${projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
         <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field> 
         <field name="workEffortName" title="${uiLabelMap.CommonName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+    </form>
+    <form name="AddProjectPhase" type="single" target="createProjectPhase">
+        <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
         <field name="workEffortParentId"><hidden value="${projectId}"/></field>
+        <field name="workEffortTypeId"><hidden value="PHASE"/></field>
+        <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field> 
+        <field name="workEffortName" title="${uiLabelMap.CommonName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     
@@ -118,8 +128,8 @@
         </field>
         <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
         <field name="createdStamp"><display/></field>
-        <field name="phase"><display description="${phaseName}[${phaseId}]"/></field>
-        <field name="project"><hyperlink target="EditProject?workEffortId=${projectId}" description="${projectName}[${projectId}]"/></field>
+        <field name="phase"><hyperlink target="FindPhase?workEffortIdFrom=${projectId}" description="${phaseName}[${phaseId}]"/></field>
+        <field name="project"><hyperlink target="EditProject?workEffortIdFrom=${projectId}" description="${projectName}[${projectId}]"/></field>
     </form>
     <form name="ListChildEfforts" target="updateTaskListAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTaskList">
         <row-actions>
