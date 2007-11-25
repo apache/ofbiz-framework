@@ -1565,17 +1565,17 @@ under the License.
     <view-map name="EditTaxAuthorityPartyInfo" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#EditTaxAuthorityPartyInfo"/>
 
     <!-- administrative pages -->
-    <view-map name="ListCompanies" type="screen" page="component://accounting/widget/AdminScreens.xml#ListCompanies"/>
-    <view-map name="TimePeriods" type="screen" page="component://accounting/widget/AdminScreens.xml#TimePeriods"/>
-    <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/AdminScreens.xml#PartyAcctgPreference"/>
-    <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/AdminScreens.xml#ListGlAccountOrganization"/>
-    <view-map name="SetupGlJournals" type="screen" page="component://accounting/widget/AdminScreens.xml#SetupGlJournals"/>
-    <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/AdminScreens.xml#ViewFXConversions"/>
-    <view-map name="GlAccountTypeDefaults" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountTypeDefaults"/>
-    <view-map name="GlAccountPurInvoice" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountPurInvoice"/>
-    <view-map name="GlAccountSalInvoice" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountSalInvoice"/>
-    <view-map name="GlAccountTypePaymentType" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountTypePaymentType"/>
-    <view-map name="GlAccountNrPaymentMethod" type="screen" page="component://accounting/widget/AdminScreens.xml#GlAccountNrPaymentMethod"/>
+    <view-map name="ListCompanies" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListCompanies"/>
+    <view-map name="TimePeriods" type="screen" page="component://accounting/widget/GlSetupScreens.xml#TimePeriods"/>
+    <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/GlSetupScreens.xml#PartyAcctgPreference"/>
+    <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrganization"/>
+    <view-map name="SetupGlJournals" type="screen" page="component://accounting/widget/GlSetupScreens.xml#SetupGlJournals"/>
+    <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ViewFXConversions"/>
+    <view-map name="GlAccountTypeDefaults" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountTypeDefaults"/>
+    <view-map name="GlAccountPurInvoice" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountPurInvoice"/>
+    <view-map name="GlAccountSalInvoice" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountSalInvoice"/>
+    <view-map name="GlAccountTypePaymentType" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountTypePaymentType"/>
+    <view-map name="GlAccountNrPaymentMethod" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountNrPaymentMethod"/>
     
     <!-- Manual Credit Card Transaction -->
     <view-map name="FindGatewayResponses" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses" type="screen"/>
