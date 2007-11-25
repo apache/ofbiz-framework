@@ -145,13 +145,9 @@
                 <field-map field-name="statusId" env-name="currentStatusId"/>
             </entity-one>
         </row-actions>
-        <field name="workEffortTypeId"><hidden/></field>
-        <field name="workEffortId"><hidden/></field>
         <field name="workEffortIdFrom"><hidden/></field>
-        <field name="fromDate"><hidden/></field>
-        <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
-        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
+        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><text/></field>
         <field name="currentStatusId">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
@@ -161,10 +157,6 @@
             </drop-down>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>        
-        <field name="estimatedStartDate" entry-name="workEffortToEstimatedStartDate" title="${uiLabelMap.WorkEffortStartDate}"><date-time/></field>
-        <field name="estimatedCompletionDate"  entry-name="workEffortToEstimatedCompletionDate" title="${uiLabelMap.WorkEffortStartDate}"><date-time/></field>        
-        <field name="actualStartDate" entry-name="actualStartDate" title="${uiLabelMap.WorkEffortCompletionDate}"><date-time/></field>
-        <field name="actualCompletionDate"  entry-name="actualCompletionDate" title="${uiLabelMap.WorkEffortCompletionDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     <form name="ListPhaseTaskInfo" type="list" list-name="phases">
