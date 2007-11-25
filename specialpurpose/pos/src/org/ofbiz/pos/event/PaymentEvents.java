@@ -43,7 +43,7 @@ public class PaymentEvents {
             Debug.log("Processing [Cash] Amount : " + amount, module);
 
             // add the payment
-            trans.addPayment("CASH", amount, "N/A", null);
+            trans.addPayment("CASH", amount, null, null);
         } catch (GeneralException e) {
             // errors handled
         }
@@ -59,6 +59,7 @@ public class PaymentEvents {
         // check for no/external payment processing
         int paymentCheck = trans.checkPaymentMethodType("PERSONAL_CHECK");
         if (paymentCheck == PosTransaction.NO_PAYMENT) {
+            trans.clearPayment("PERSONAL_CHECK");
             processNoPayment(pos, "PERSONAL_CHECK");
             return;
         } else if (paymentCheck == PosTransaction.EXTERNAL_PAYMENT) {
@@ -148,6 +149,7 @@ public class PaymentEvents {
                         msrInfoStr = input.value();
                     }
                 }
+                input.clearFunction("MSRINFO");
                 input.setFunction("MSRINFO", msrInfoStr);
                 String[] msrInfoArr = msrInfoStr.split("\\|");
                 int allInfo = msrInfoArr.length;
@@ -172,6 +174,8 @@ public class PaymentEvents {
                         if (pmId != null) {
                             trans.addPayment(pmId, amount);
                         }
+                        input.clearFunction("MSRINFO");
+                        input.clearFunction("CREDIT");
                         pos.refresh();
                         break;
                     case 1: // card number only found
@@ -195,7 +199,7 @@ public class PaymentEvents {
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment
-            trans.addPayment(paymentMethodTypeId, amount, "N/A", null);
+            trans.addPayment(paymentMethodTypeId, amount, null, null);
         } catch (GeneralException e) {
             // errors handled
         }
