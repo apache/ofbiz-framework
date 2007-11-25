@@ -1488,21 +1488,21 @@ under the License.
     <view-map name="ListChecksToSend" type="screen" page="component://accounting/widget/GlScreens.xml#ListChecksToSend"/>
     
     <!-- GlAccount, GlJournalEntry, AcctgTrans -->
-    <view-map name="AddGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AddGlAccount"/>
-    <view-map name="FindGlobalGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccounts"/>
-    <view-map name="ListGlobalGlAccounts" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccounts"/>
-    <view-map name="ListGlAccountsReport" type="screenfop" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountsReport" content-type="application/pdf" encoding="none"/>
-    <view-map name="ListGlAccountsExport" type="screenxml" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountsExport" content-type="text/xml"/>
-    <view-map name="GlAccountNavigate" type="screen" page="component://accounting/widget/AccountingScreens.xml#GlAccountNavigate"/>
-    <view-map name="AssignGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AssignGlAccount"/>
+    <view-map name="AddGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#AddGlAccount"/>
+    <view-map name="FindGlobalGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccounts"/>
+    <view-map name="ListGlobalGlAccounts" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccounts"/>
+    <view-map name="ListGlAccountsReport" type="screenfop" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountsReport" content-type="application/pdf" encoding="none"/>
+    <view-map name="ListGlAccountsExport" type="screenxml" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountsExport" content-type="text/xml"/>
+    <view-map name="GlAccountNavigate" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#GlAccountNavigate"/>
+    <view-map name="AssignGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#AssignGlAccount"/>
  
-    <view-map name="EditGlobalGlAccount" type="screen" page="component://accounting/widget/AccountingScreens.xml#AddGlAccount"/>
+    <view-map name="EditGlobalGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#AddGlAccount"/>
     <!-- NOTE/TODO: these 2 appear to never have been implemented all the way, just request and view defs so far... -->
-    <view-map name="EditGlobalGlAccountOrganizations" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditGlobalGlAccountOrganizations"/>
-    <view-map name="EditGlobalGlAccountRoles" type="screen" page="component://accounting/widget/AccountingScreens.xml#EditGlobalGlAccountRoles"/>
+    <view-map name="EditGlobalGlAccountOrganizations" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#EditGlobalGlAccountOrganizations"/>
+    <view-map name="EditGlobalGlAccountRoles" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#EditGlobalGlAccountRoles"/>
 
-    <view-map name="ListGlAccountEntries" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListGlAccountEntries"/>
-    <view-map name="ListAcctgTransEntries" type="screen" page="component://accounting/widget/AccountingScreens.xml#ListAcctgTransEntries"/>
+    <view-map name="ListGlAccountEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountEntries"/>
+    <view-map name="ListAcctgTransEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListAcctgTransEntries"/>
     
     <!-- FinAccount -->
     <view-map name="FindFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindFinAccount"/>
