@@ -34,7 +34,7 @@ under the License.
     <li<#if selected == "agreement"> class="selected"</#if>><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreements}</a></li>
     <li<#if selected == "ListFixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>
     <li<#if selected == "chartofaccounts"> class="selected"</#if>><a href="<@ofbizUrl>FindGlobalGlAccount</@ofbizUrl>">${uiLabelMap.AccountingChartOfAcctsMenu}</a></li>
-    <li<#if selected == "companies"> class="selected"</#if>><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>">${uiLabelMap.AccountingCompanies}</a></li>
+    <li<#if selected == "companies"> class="selected"</#if>><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>">${uiLabelMap.AccountingGeneralLedger}</a></li>
     <#if userLogin?has_content>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
