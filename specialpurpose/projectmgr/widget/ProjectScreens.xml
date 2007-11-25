@@ -24,7 +24,6 @@ under the License.
         <section>            
             <actions>
                 <set field="titleProperty" value="PageTitleFindProject"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="subprojects"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
@@ -72,7 +71,6 @@ under the License.
         <section>            
             <actions>
                 <set field="titleProperty" value="PageTitleFindProject"/>
-                <set field="headerItem" value="projects"/>                
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
                 <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
@@ -128,11 +126,11 @@ under the License.
         <section>
             <actions>                
                 <set field="titleProperty" value="PageTitleListWorkEfforts"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="treeDetails"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEfforts"/>
                 <set field="trail" from-field="parameters.trail" default-value="${parameters.workEffortId}"/>
-                <set field="workEffortId" from-field="parameters.trail"/>
+                <set field="workEffortId" from-field="parameters.WorkEffortId" default-value="parameters.workEffortIdForm"/>
+                <set field="workEffortIdFrom" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -155,7 +153,6 @@ under the License.
         <section>
             <actions>
                 <set field="workEffortId" from-field="workEffortIdFrom" default-value="${workEffort.workEffortId}"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="treeDetails"/>
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ChildWorkEfforts?workEffortId=${workEffort.workEffortId}"/>                
@@ -180,7 +177,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProject"/>                
                 <set field="labelTitleProperty" value="PageTitleEditProject"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="treeDetails"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE"/>
                 <set field="workEffortId" from-field="parameters.workEffortIdTo"/>
@@ -207,12 +203,9 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditTask"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="tasks"/>
                 <set field="labelTitleProperty" value="PageTitleFindTask"/>                
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
-                <set field="filterTaskNotAssigned" from-field="parameters.filterTaskNotAssigned"/>
-                <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
                 <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
                     <field-map field-name="projectId" env-name="parameters.workEffortIdFrom"/>
                     <order-by field-name="phaseName"/>
@@ -257,7 +250,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditTask"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="edittask"/>
                 <set field="labelTitleProperty" value="ProjectMgrTaskName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindTasks"/>
@@ -318,7 +310,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditTask"/>                
                 <set field="labelTitleProperty" value="PageTitleEditTask"/>
-                <set field="headerItem" value="projects"/>
                 <set field="tabButtonItem" value="edittask"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE"/>
                 <set field="workEffortIdTo" from-field="parameters.workEffortIdTo"/>
