@@ -1461,7 +1461,7 @@ public class ShoppingCart implements Serializable {
 
     /** adds a payment method/payment method type */
     public CartPaymentInfo addPaymentAmount(String id, Double amount, String refNum, String authCode, boolean isSingleUse, boolean isPresent, boolean replace) {
-        CartPaymentInfo inf = this.getPaymentInfo(id, refNum, authCode, amount, true);
+        CartPaymentInfo inf = this.getPaymentInfo(id, refNum, authCode, amount, replace);
         if (isSalesOrder()) {
             GenericValue billingAddress = inf.getBillingAddress(this.getDelegator());
             if (billingAddress != null) {
