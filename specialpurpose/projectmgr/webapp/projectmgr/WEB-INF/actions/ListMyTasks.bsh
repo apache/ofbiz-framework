@@ -1,0 +1,76 @@
+/*
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+  
+import java.util.*;
+import java.lang.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+
+
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.condition.*;
+import java.sql.Timestamp;
+
+fromDate = parameters.get("fromDate");
+thruDate = parameters.get("thruDate");
+userLogin = parameters.get("userLogin");
+
+// date conditions    
+dateCondition = new LinkedList();    
+if (UtilValidate.isNotEmpty(fromDate)) {
+    dateCondition.add(new EntityExpr("createdDate", EntityOperator.GREATER_THAN, fromDate + " 00:00:00.0"));
+}    
+if (UtilValidate.isNotEmpty(thruDate)) {
+    dateCondition.add(new EntityExpr("createdDate", EntityOperator.LESS_THAN, thruDate + " 00:00:00.0"));
+}    
+
+// create workEffort list for tasks with no phase.
+exprList = UtilMisc.toList(
+    new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
+    new EntityExpr("workEffortParentId", EntityOperator.EQUALS, null),
+    new EntityExpr("createdByUserLogin", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
+if (UtilValidate.isNotEmpty(dateCondition)) exprList.addAll(dateCondition);
+condition = new EntityConditionList(exprList, EntityOperator.AND);
+tasks = delegator.findByCondition("WorkEffort", condition, null, null);
+
+// create workEffort list in a project
+exprList = UtilMisc.toList(
+    new EntityExpr("createdByUserLogin", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
+if (UtilValidate.isNotEmpty(dateCondition)) exprList.addAll(dateCondition);
+condition = new EntityConditionList(exprList, EntityOperator.AND);
+tasks.addAll(delegator.findByCondition("ProjectAndPhaseAndTask", condition, null, null));
+
+// add the timeEntry conditions
+exprList = UtilMisc.toList(
+    new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
+    new EntityExpr("createdByUserLogin", EntityOperator.NOT_EQUAL, userLogin.getString("userLoginId"))); //already have these
+if (UtilValidate.isNotEmpty(dateCondition)) exprList.addAll(dateCondition);
+condition = new EntityConditionList(exprList, EntityOperator.AND);
+tasks.addAll(delegator.findByCondition("WorkEffortAndTimeEntry", condition, null, null));
+
+// sort tasks
+UtilMisc.sortMaps(tasks, UtilMisc.toList("workEffortName"));
+context.put("tasks", tasks);

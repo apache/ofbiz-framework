@@ -102,6 +102,7 @@ under the License.
         <section>
             <actions>
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <set field="headerItem" value="mytasks"/>
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
             </actions>
             <widgets>

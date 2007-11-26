@@ -37,18 +37,15 @@ under the License.
     <member-entity entity-alias="WET" entity-name="WorkEffort"/>
     <alias-all entity-alias="WEPA">
       <exclude field="facilityId"/>
-    </alias-all>
-    <alias-all entity-alias="WET">
       <exclude field="workEffortId"/>
-      <exclude field="workEffortName"/>
     </alias-all>
+    <alias-all entity-alias="WET"/>
+    
     <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
     <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
     <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
     <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
-    <alias entity-alias="WET" field="workEffortId" name="taskId"/>
-    <alias entity-alias="WET" field="workEffortName" name="taskName"/>
     <view-link entity-alias="WEPA" rel-entity-alias="WEP">
       <key-map field-name="workEffortId"/>
     </view-link>
@@ -62,7 +59,7 @@ under the License.
       <key-map field-name="partyId"/>
     </relation>
     <relation type="many" rel-entity-name="TimeEntry">
-      <key-map field-name="taskId" rel-field-name="workEffortId"/>
+      <key-map field-name="workEffortId"/>
     </relation>
   </view-entity>
   
@@ -72,16 +69,11 @@ under the License.
     <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
     <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
     <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
-    <alias-all entity-alias="WET">
-      <exclude field="workEffortId"/>
-      <exclude field="workEffortName"/>
-    </alias-all>
+    <alias-all entity-alias="WET"/>
     <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
     <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
     <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
-    <alias entity-alias="WET" field="workEffortId" name="taskId"/>
-    <alias entity-alias="WET" field="workEffortName" name="taskName"/>
     <view-link entity-alias="WEP" rel-entity-alias="WEPH">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
     </view-link>
@@ -89,7 +81,7 @@ under the License.
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
     </view-link>
     <relation type="many" rel-entity-name="TimeEntry">
-      <key-map field-name="taskId" rel-field-name="workEffortId"/>
+      <key-map field-name="workEffortId"/>
     </relation>
   </view-entity>
   </entitymodel>

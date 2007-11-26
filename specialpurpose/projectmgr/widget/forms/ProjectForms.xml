@@ -109,8 +109,8 @@
                 <field-map field-name="statusId" env-name="currentStatusId"/>
             </entity-one>
         </row-actions>
-        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><hyperlink target="taskView?workEffortId=${taskId}" description="${taskName}"/></field>
-        <field name="workEffortId"><hidden value="${taskId}"/></field>
+        <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
+        <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="workEffortIdFrom"><hidden/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
             <drop-down allow-empty="false">
@@ -142,7 +142,7 @@
         <!--field name="description" title="${uiLabelMap.CommonDescription}"><textarea cols="6"/></field-->
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrTimeEntries}" target="EditTimeEntries?workEffortId=${taskId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrTimeEntries}" target="EditTimeEntries?workEffortId=${workEffortId}"/>
         </field>
     </form> 
     <form name="ListUnassignedTasks" target="updateTaskAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTask">
@@ -209,7 +209,7 @@
     <form name="ListPhaseTaskInfo" type="list" list-name="phases">
         <field name="workEffortIdFrom"><hidden value="parameters.worEffortIdFrom"/></field>
         <field name="Phase"><hyperlink target="FindPhase?workEffortIdFrom=${projectId}" description="${phaseName}"/></field>
-        <field name="Task"><hyperlink target="EditTask?workEffortId=${taskId}" description="${taskName}"/></field>
+        <field name="Task"><hyperlink target="EditTask?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="estimatedStartDate"><display/></field>
         <field name="estimatedCompletionDate"><display/></field>
