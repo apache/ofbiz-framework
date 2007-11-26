@@ -51,10 +51,10 @@
         </field>
         <field name="workEffortId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="taskId" description="${projectName}--${phaseName}--${taskName}">
+                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="taskId" description="${projectName}--${phaseName}--${workEffortName}">
                     <entity-order-by field-name="projectName"/>
                     <entity-order-by field-name="phaseName"/>
-                    <entity-order-by field-name="taskName"/>
+                    <entity-order-by field-name="workEffortName"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -83,7 +83,7 @@
                 <entity-constraint name="partyId" env-name="userLogin.partyId"/>
                 <entity-order-by field-name="projectName"/>
                 <entity-order-by field-name="phaseName"/>
-                <entity-order-by field-name="taskName"/>
+                <entity-order-by field-name="workEffortName"/>
             </entity-options>
         </drop-down></field>
         <field name="hours"><text size="5"/></field>

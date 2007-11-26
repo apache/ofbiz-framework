@@ -22,13 +22,13 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="ProjectMgrAppBar" default-menu-item-name="task" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.ProjectManagerApplication}" menu-container-style="button-bar tab-bar">
     
-        <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="FindTaskByRange?workEffortTypeId=TASK"/></menu-item>
-        <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProjectByRange?workEffortTypeId=PROJECT"/></menu-item>
-        <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
-        <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
+        <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
+        <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProjectByRange?workEffortTypeId=PROJECT"/></menu-item>
         <menu-item name="timesheet" title="${uiLabelMap.Timesheet}"><link target="FindTimeSheet?findAll=N"/></menu-item>
         <menu-item name="SkillType" title="${uiLabelMap.ProjectMgrSkillType}"><link target="findSkillTypes"/></menu-item>
+        <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
+        <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
         
         <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>

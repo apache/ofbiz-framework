@@ -34,10 +34,10 @@
         <field name="DONE_PAGE"><hidden value="${donePage}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
         <field use-when="task!=null" name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="task==null&amp;&amp;taskId==null" name="taskId" title="${uiLabelMap.ProjectMgrWorkEffortId}"><ignored/></field>
-        <field use-when="task==null&amp;&amp;taskId!=null" name="workEffortName" title="${uiLabelMap.CommonName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field use-when="task==null&amp;&amp;workEffortId==null" name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}"><ignored/></field>
+        <field use-when="task==null&amp;&amp;workEffortId!=null" name="workEffortName" title="${uiLabelMap.CommonName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field use-when="task!=null" name="workEffortName" title="${uiLabelMap.CommonName}*"><display/></field>
-        <field use-when="task==null&amp;&amp;taskId!=null" name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
+        <field use-when="task==null&amp;&amp;workEffortId!=null" name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field use-when="task!=null" name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
@@ -157,19 +157,18 @@
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     
-    <form name="listtasksbydaterange" type="single" target="FindTaskByRange?workEffortTypeId=TASK&amp;findAll=Y">
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+    <form name="FindTask" type="single" target="MyTasks">
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="date"/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
-    <form name="ListTaskLists" type="list" list-name="tasks" paginate-target="FindTaskList">
+    <form name="ListTasks" type="list" list-name="tasks" paginate-target="FindTaskList">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditTask?workEffortId=${workEffortId}"/>
         </field>
-        <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
-        <field name="createdStamp"><display/></field>
-        <field name="phase"><hyperlink target="FindPhase?workEffortIdFrom=${projectId}" description="${phaseName}[${phaseId}]"/></field>
-        <field name="project"><hyperlink target="EditProject?workEffortIdFrom=${projectId}" description="${projectName}[${projectId}]"/></field>
+        <field name="createdDate"><display/></field>
+        <field name="phaseId"><hyperlink target="FindPhase?workEffortIdFrom=${projectId}" description="${phaseName}[${phaseId}]"/></field>
+        <field name="projectId"><hyperlink target="EditProject?workEffortIdFrom=${projectId}" description="${projectName}[${projectId}]"/></field>
     </form>
     <form name="ListChildEfforts" target="updateTaskListAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTaskList">
         <row-actions>

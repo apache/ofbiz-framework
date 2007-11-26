@@ -209,7 +209,7 @@ under the License.
                 <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
                     <field-map field-name="projectId" env-name="parameters.workEffortIdFrom"/>
                     <order-by field-name="phaseName"/>
-                    <order-by field-name="taskName"/>
+                    <order-by field-name="workEffortName"/>
                 </entity-and>
                 <set field="task" from-field=""/>
             </actions>

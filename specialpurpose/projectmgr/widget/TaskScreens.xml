@@ -24,7 +24,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleUnassignedTask"/>
-                <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="subtasks"/>
                 <set field="labelTitleProperty" value="PageTitleFindTask"/>
                 <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
@@ -41,7 +40,7 @@ under the License.
                             <widgets>
                                 <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
                                 <container style="button-bar"><link target="EditTask?workEffortTypeId=TASK" text="${uiLabelMap.ProjectMgrNewTask}" style="buttontext"/></container>
-                                <include-form name="ListTaskLists" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <container style="screenlet">
@@ -60,16 +59,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="FindTaskByRange">
+    <screen name="MyTasks">
         <section>            
             <actions>
                 <set field="titleProperty" value="PageTitleFindTask"/>
-                <set field="headerItem" value="task"/>                
                 <set field="labelTitleProperty" value="ProjectMgrTaskName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindTaskList"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
-                <set field="parameters.workEffortTypeId" value="TASK"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjectsByDateRange.bsh"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListMyTasks.bsh"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -79,11 +75,11 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleFindTask}</label></container>                                
                                     <container style="screenlet-body"> 
-                                        <include-form name="listtasksbydaterange" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                        <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                     </container>
                                 </container>                                                                             
                                 <container style="button-bar"><link target="EditTask?workEffortTypeId=Task" text="${uiLabelMap.ProjectMgrNewTask}" style="buttontext"/></container>
-                                <include-form name="ListTaskLists" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                             </widgets>                            
                         </section>
                     </decorator-section>
@@ -95,7 +91,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditTaskList"/>
-                <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="edittask"/>                
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindTaskList"/>
@@ -128,7 +123,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditTask"/>                
                 <set field="labelTitleProperty" value="PageTitleEditTask"/>
-                <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="edittask"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE"/>
                 <set field="workEffortIdTo" from-field="parameters.workEffortIdTo"/>
@@ -152,7 +146,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditSkill"/>
-                <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="projectskills"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
@@ -259,7 +252,6 @@ under the License.
     <screen name="TaskSummary">        
         <section>
             <actions>
-                <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="workEffortIdFrom" from-field="parameters.workEffortId"/>
@@ -309,7 +301,7 @@ under the License.
                         <label style="boxhead">${uiLabelMap.ProjectMgrSubTasks}</label>
                     </container>
                     <container style="screenlet-body">
-                        <include-form name="ListTaskLists" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                        <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                     </container>
                 </container>                
             </widgets>

@@ -110,7 +110,7 @@ under the License.
             <field-map field-name="workEffortId" env-name="parameters.taskId"/>
         </entity-one>
         <set field="highInfo.taskId" from-field="lowInfo.worEffortId"/>
-        <set field="highInfo.taskName" from-field="lowInfo.worEffortName"/>
+        <set field="highInfo.taskName" from-field="lowInfo.workEffortName"/>
         <set field="highInfo.tasDescription" from-field="lowInfo.description"/>
         <set field="highInfo.priority" from-field="lowInfo.priority"/>
         <set field="highInfo.scopeEnumId" from-field="lowInfo.scopeEnumId"/>

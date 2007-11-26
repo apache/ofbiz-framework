@@ -155,9 +155,9 @@
         <response name="success" type="view" value="FindTaskList"/>
         <response name="error" type="view" value="FindTaskList"/>
     </request-map>
-    <request-map uri="FindTaskByRange">
+    <request-map uri="MyTasks">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindTaskByRange"/>
+        <response name="success" type="view" value="MyTasks"/>
     </request-map>
     <request-map uri="EditTaskList">
         <security https="true" auth="true"/>
@@ -371,7 +371,7 @@
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="main" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTaskByRange"/>
+    <view-map name="main" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
     <view-map name="FindProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProject"/>    
     <view-map name="FindProjectByRange" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProjectByRange"/>    
     <view-map name="EditProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
@@ -379,7 +379,7 @@
     <view-map name="ChildWorkEfforts" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ChildWorkEfforts"/>
     <view-map name="EditProjectAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectAndAssoc"/>
     <view-map name="FindTask" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindTask"/>
-    <view-map name="FindTaskByRange" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTaskByRange"/>
+    <view-map name="MyTasks" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
     <view-map name="EditTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTask"/>
     <view-map name="AddTaskAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddTaskAndAssoc"/>
     <view-map name="EditTaskAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskAndAssoc"/>
