@@ -47,7 +47,7 @@ public class PaymentEvents {
         } catch (GeneralException e) {
             // errors handled
         }
-
+        clearInputPaymentFunctions(pos);
         pos.refresh();
     }
 
@@ -91,6 +91,7 @@ public class PaymentEvents {
             if (gcInfo == null) {
                 input.setFunction("GIFTCARD");
                 pos.getOutput().print(UtilProperties.getMessage("pos","REFNUM",Locale.getDefault()));
+                clearInputPaymentFunctions(pos);
                 return;
             } else {
                 processExternalPayment(pos, "GIFT_CARD", gcInfo[1]);
@@ -100,6 +101,7 @@ public class PaymentEvents {
 
         // now for internal payment processing
         pos.showDialog("dialog/error/notyetsupported");
+        clearInputPaymentFunctions(pos);
     }
 
     public static synchronized void payCredit(PosScreen pos) {
@@ -131,12 +133,12 @@ public class PaymentEvents {
         } else {
             Debug.log("Credit Func Info : " + crtInfo[1], module);
             if (msrInfo == null) {
-                if (UtilValidate.isCreditCard(input.value())) {
+                if (UtilValidate.isNotEmpty(input.value()) && UtilValidate.isCreditCard(input.value())) {
                     input.setFunction("MSRINFO");
                     pos.getOutput().print(UtilProperties.getMessage("pos","CREDEX",Locale.getDefault()));
                 } else {
                     Debug.log("Invalid card number - " + input.value(), module);
-                    input.clearFunction("CREDIT");
+                    clearInputPaymentFunctions(pos);
                     input.clearInput();
                     pos.showDialog("dialog/error/invalidcardnumber");
                 }
@@ -174,8 +176,7 @@ public class PaymentEvents {
                         if (pmId != null) {
                             trans.addPayment(pmId, amount);
                         }
-                        input.clearFunction("MSRINFO");
-                        input.clearFunction("CREDIT");
+                        clearInputPaymentFunctions(pos);
                         pos.refresh();
                         break;
                     case 1: // card number only found
@@ -203,7 +204,7 @@ public class PaymentEvents {
         } catch (GeneralException e) {
             // errors handled
         }
-
+        clearInputPaymentFunctions(pos);
         pos.refresh();
     }
 
@@ -226,7 +227,7 @@ public class PaymentEvents {
         } catch (GeneralException e) {
             // errors handled
         }
-
+        clearInputPaymentFunctions(pos);
         pos.refresh();
     }
 
@@ -245,18 +246,14 @@ public class PaymentEvents {
                 trans.clearPayment(index);
             }
         }
-        pos.getInput().clearFunction("GIFTCARD");
-        pos.getInput().clearFunction("CREDIT");
-        pos.getInput().clearFunction("CHECK");
+        clearInputPaymentFunctions(pos);
         pos.refresh();
     }
 
     public static void clearAllPayments(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.clearPayments();
-        pos.getInput().clearFunction("GIFTCARD");
-        pos.getInput().clearFunction("CREDIT");
-        pos.getInput().clearFunction("CHECK");
+        clearInputPaymentFunctions(pos);
         pos.refresh();
     }
 
@@ -285,6 +282,7 @@ public class PaymentEvents {
         } else {
             pos.refresh();
         }
+        clearInputPaymentFunctions(pos);
     }
 
     public static synchronized void processSale(PosScreen pos) {
@@ -313,6 +311,7 @@ public class PaymentEvents {
                 pos.getButtons().setLock(false);
                 pos.showDialog("dialog/error/exception", e.getMessage());
             }
+            clearInputPaymentFunctions(pos);
             pos.setNormalCursor();
         }
     }
@@ -345,6 +344,20 @@ public class PaymentEvents {
         } else {
             Debug.log("TOTAL function NOT set", module);
             throw new GeneralException();
+        }
+    }
+
+    // Removes all payment functions from the input function stack
+    // Useful for clearing redundant data after a payment has been
+    // processed or if an error occurred
+    public static void clearInputPaymentFunctions(PosScreen pos) {
+        String[] paymentFuncs = {"CHECK", "CHECKINFO", "CREDIT",
+                                    "GIFTCARD", "MSRINFO", "REFNUM"};
+        Input input = pos.getInput();
+        for (int i = 0; i < paymentFuncs.length; i++) {
+            while (input.isFunctionSet(paymentFuncs[i])) {
+                input.clearFunction(paymentFuncs[i]);
+            }
         }
     }
 }
