@@ -41,8 +41,8 @@ under the License.
         <#list groups as group>
             <#assign helper = delegator.getGroupHelperName(group)?if_exists/>
             <#if (helper?has_content)>
-                <#assign pooledObjs = Static["org.ofbiz.entity.transaction.MinervaConnectionFactory"].getPooledData(helper)?if_exists/>
-                <#assign pool = Static["org.ofbiz.entity.transaction.MinervaConnectionFactory"].getPoolName(helper)?if_exists/>
+                <#assign pooledObjs = Static["org.ofbiz.entity.connection.MinervaConnectionFactory"].getPooledData(helper)?if_exists/>
+                <#assign pool = Static["org.ofbiz.entity.connection.MinervaConnectionFactory"].getPoolName(helper)?if_exists/>
                 <#if (pooledObjs?has_content)>
                     <#list pooledObjs as obj>
                         <#assign isTx = (obj.getCurrentXid()?has_content)/>
