@@ -168,6 +168,7 @@ public class HtmlWidget extends ModelScreenWidget {
             context.put("sections", sections);
 
             renderHtmlTemplate(writer, this.locationExdr, context);
+            contextMs.pop();
         }
 
         public String rawString() {
