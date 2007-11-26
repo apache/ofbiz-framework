@@ -103,7 +103,7 @@ public class ModelWidget implements Serializable {
      * @param parameters Optional parameters Map
      */
     public static boolean widgetBoundaryCommentsEnabled(Map parameters) {
-        boolean result = "true".equals(UtilProperties.getPropertyValue("debug", "widget.verbose"));
+        boolean result = "true".equals(UtilProperties.getPropertyValue("widget", "widget.verbose"));
         if (!result && parameters != null) {
             result = "true".equals(parameters.get(enableBoundaryCommentsParam));
         }
