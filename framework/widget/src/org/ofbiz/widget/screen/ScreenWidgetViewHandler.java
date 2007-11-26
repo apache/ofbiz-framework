@@ -30,6 +30,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilJ2eeCompat;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
@@ -76,8 +78,8 @@ public class ScreenWidgetViewHandler implements ViewHandler {
             }
 
             // compress HTML output if configured to do so
-            String compressHTML = null;
-            if (this.servletContext != null) {
+            String compressHTML = UtilProperties.getPropertyValue("widget", "compress.HTML");
+            if (UtilValidate.isEmpty(compressHTML) && this.servletContext != null) {
                 compressHTML = (String) this.servletContext.getAttribute("compressHTML");
             }
             if ("true".equals(compressHTML)) {
