@@ -24,6 +24,27 @@ under the License.
   </div>
   <div class="screenlet-body">
      <table width="100%" border="0" cellpadding="1" cellspacing="0"><tbody>
+     <#-- order payment status -->
+     <tr>
+       <td align="center" valign="top" width="25%">
+         <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderStatusHistory}</b></div>
+       </td>
+       <td width="15">&nbsp;</td>
+       <td>
+         <#assign orderPaymentStatuses = orderReadHelper.getOrderPaymentStatuses()>
+         <#if orderPaymentStatuses?has_content>
+           <#list orderPaymentStatuses as orderPaymentStatus>
+             <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem")>
+             <div class="tabletext">
+               ${statusItem.get("description",locale)} - ${orderPaymentStatus.statusDatetime?default("0000-00-00 00:00:00")?string}
+               &nbsp;
+               ${uiLabelMap.CommonBy} - [${orderPaymentStatus.statusUserLogin}]
+             </div>
+           </#list>
+         </#if>
+       </td>
+     </tr>
+     <tr><td colspan="3"><hr class="sepbar"/></td></tr>
      <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
         <#list orderPaymentPreferences as orderPaymentPreference>
           <#assign pmBillingAddress = {}>

@@ -65,28 +65,28 @@ cal.set(Calendar.MONTH, 0);
 Timestamp yearBegin = new Timestamp(cal.getTime().getTime());       
   
 // order status report
-List dayList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin)));
+List dayList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin)));
 context.put("dayOrder", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
 context.put("dayApprove", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_APPROVED")));
 context.put("dayComplete", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_COMPLETED")));
 context.put("dayCancelled", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
 context.put("dayRejected", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
   
-List weekList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin)));
+List weekList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin)));
 context.put("weekOrder", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
 context.put("weekApprove", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_APPROVED")));
 context.put("weekComplete", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_COMPLETED")));
 context.put("weekCancelled", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
 context.put("weekRejected", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
   
-List monthList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin)));
+List monthList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin)));
 context.put("monthOrder", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
 context.put("monthApprove", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_APPROVED")));
 context.put("monthComplete", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_COMPLETED")));
 context.put("monthCancelled", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
 context.put("monthRejected", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
   
-List yearList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin)));
+List yearList = delegator.findByAnd("OrderStatus", UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null), new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin)));
 context.put("yearOrder", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
 context.put("yearApprove", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_APPROVED")));
 context.put("yearComplete", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_COMPLETED")));

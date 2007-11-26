@@ -257,6 +257,7 @@ under the License.
         <attribute name="orderTypeId" type="String" mode="OUT" optional="true"/>
         <attribute name="needsInventoryIssuance" type="String" mode="OUT" optional="true"/>
         <attribute name="grandTotal" type="Double" mode="OUT" optional="true"/>
+        <attribute name="changeReason" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="changeOrderItemStatus" engine="java" auth="true"
@@ -267,6 +268,7 @@ under the License.
         <attribute name="fromStatusId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="statusDateTime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="changeReason" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="cancelOrderItem" engine="java" auth="true"
