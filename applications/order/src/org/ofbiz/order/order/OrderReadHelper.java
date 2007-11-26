@@ -2296,15 +2296,16 @@ public class OrderReadHelper {
 
     public static List getOrderHeaderStatuses(List orderStatuses) {
         List contraints1 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null));
-        List contraints2 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
-        List contraints3 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, ""));
+        contraints1.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+        contraints1.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, ""));
+        
+        List contraints2 = UtilMisc.toList(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
+        contraints2.add(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+        contraints2.add(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
+        
         List newOrderStatuses = FastList.newInstance();
-
-        newOrderStatuses.addAll(EntityUtil.filterByAnd(orderStatuses, contraints1));
-        newOrderStatuses.addAll(EntityUtil.filterByAnd(orderStatuses, contraints2));
-        newOrderStatuses.addAll(EntityUtil.filterByAnd(orderStatuses, contraints3));
-        newOrderStatuses = EntityUtil.orderBy(newOrderStatuses, UtilMisc.toList("-statusDatetime"));
-        return newOrderStatuses;
+        newOrderStatuses.addAll(EntityUtil.filterByOr(orderStatuses, contraints1));
+        return EntityUtil.orderBy(EntityUtil.filterByOr(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
     }
 
     public static BigDecimal getOrderAdjustmentsTotal(List orderItems, List adjustments) {
@@ -2534,7 +2535,14 @@ public class OrderReadHelper {
     }
 
     public static List getOrderItemStatuses(GenericValue orderItem, List orderStatuses) {
-        return EntityUtil.orderBy(EntityUtil.filterByAnd(orderStatuses, UtilMisc.toMap("orderItemSeqId", orderItem.get("orderItemSeqId"))), UtilMisc.toList("-statusDatetime"));
+        List contraints1 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, orderItem.get("orderItemSeqId")));
+        List contraints2 = UtilMisc.toList(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
+        contraints2.add(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+        contraints2.add(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
+        
+        List newOrderStatuses = FastList.newInstance();
+        newOrderStatuses.addAll(EntityUtil.filterByAnd(orderStatuses, contraints1));
+        return EntityUtil.orderBy(EntityUtil.filterByOr(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
     }
 
 
@@ -2772,5 +2780,21 @@ public class OrderReadHelper {
            Debug.logError(e, e.getMessage(), module);
        }
        return invoiced;
+   }
+
+   public List getOrderPaymentStatuses() {
+       return getOrderPaymentStatuses(getOrderStatuses());
+   }
+
+   public static List getOrderPaymentStatuses(List orderStatuses) {
+       List contraints1 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null));
+       contraints1.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+       contraints1.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, ""));
+       
+       List contraints2 = UtilMisc.toList(new EntityExpr("orderPaymentPreferenceId", EntityOperator.NOT_EQUAL, null));
+       List newOrderStatuses = FastList.newInstance();
+       newOrderStatuses.addAll(EntityUtil.filterByOr(orderStatuses, contraints1));
+       
+       return EntityUtil.orderBy(EntityUtil.filterByAnd(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
    }
 }
