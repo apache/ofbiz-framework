@@ -20,6 +20,7 @@ package org.ofbiz.entity.connection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -125,15 +126,18 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
     public static Set getPooledData(String helperName) throws GenericEntityException {
         XAPoolDataSource pds = dsCache.get(helperName);
         if (pds == null) {
-            throw new GenericEntityException("No pool found for helper name [" + helperName + "]");
+            Debug.logError("No pool found for helper name [" + helperName + "]", module);
+            return new HashSet();
+        } else {
+            return pds.getPooledObjectRecords(0); // 0 to return all (in use and waiting)
         }
-        return pds.getPooledObjectRecords(0); // 0 to return all (in use and waiting)
     }
 
     public static String getPoolName(String helperName) throws GenericEntityException {
         XAPoolDataSource pds = dsCache.get(helperName);
         if (pds == null) {
-            throw new GenericEntityException("No pool found for helper name [" + helperName + "]");
+            Debug.logError("No pool found for helper name [" + helperName + "]", module);
+            return null;
         }
         return pds.getPoolDataString();
     }
