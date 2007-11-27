@@ -163,17 +163,19 @@
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
     <form name="ListTasks" type="list" list-name="tasks" paginate-target="FindTaskList">
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditTask?workEffortId=${workEffortId}"/>
         </field>
-        <field name="createdDate"><display type="date"/></field>
-        <field name="projectId"><hyperlink target="projectView?workEffortIdFrom=${projectId}" description="${projectName}[${projectId}]"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?workEffortIdFrom=${projectId}" description="${projectName}[${projectId}]"/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="priority"><display/></field>
         <field use-when="actualStartDate!=null" name="startDate" entry-name="actualStartDate" title="${uiLabelMap.WorkEffortStartDate}" parameter-name="actualStartDate"><display type="date"/></field>
-        <field use-when="actualStartDate==null" name="startDate" entry-name="estimatedStartDate" title="${uiLabelMap.WorkEffortStartDate}" parameter-name="estimatedStartDate"><display type="date"/></field>
+        <field use-when="actualStartDate==null" name="startDate" entry-name="estimatedStartDate" title="${uiLabelMap.WorkEffortStartDate}" parameter-name="estimatedStartDate" red-when="before-now"><display type="date"/></field>
         <field use-when="actualCompletionDate!=null" name="completionDate" entry-name="actualCompletionDate" title="${uiLabelMap.WorkEffortCompletionDate}" parameter-name="actualCompletionDate"><display type="date"/></field>
-        <field use-when="actualCompletionDate==null" name="completionDate" entry-name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortCompletionDate}" parameter-name="estimatedCompletionDate"><display type="date"/></field>
+        <field use-when="actualCompletionDate==null" name="completionDate" entry-name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortCompletionDate}" parameter-name="estimatedCompletionDate" red-when="before-now"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
+        <field name="createdDate"><display type="date"/></field>
     </form>
     <form name="ListChildEfforts" target="updateTaskListAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTaskList">
         <row-actions>
