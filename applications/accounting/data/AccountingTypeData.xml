@@ -42,6 +42,8 @@ under the License.
 
     <AcctgTransType acctgTransTypeId="INVENTORY_RETURN" description="Inventory from Return" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
 
+    <AcctgTransType acctgTransTypeId="SALES_SHIPMENT" parentTypeId="" hasTable="N" description="Sales Shipment"/>
+
     <AcctgTransEntryType acctgTransEntryTypeId="_NA_" description="Not Applicable" hasTable="N" parentTypeId=""/>
 
     <StatusType description="Acctg Entry Reconcile" hasTable="N" parentTypeId="" statusTypeId="ACCTG_ENREC_STATUS"/>

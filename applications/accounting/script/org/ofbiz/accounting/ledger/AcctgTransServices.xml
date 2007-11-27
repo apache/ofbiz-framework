@@ -69,6 +69,9 @@ under the License.
             </entity-one>
             <set from-field="partyAcctgPreference.baseCurrencyUomId" field="newEntity.currencyUomId"/>
         </if-empty>
+        <if-empty field-name="newEntity.acctgTransEntryTypeId">
+            <set field="newEntity.acctgTransEntryTypeId" value="_NA_"/>
+        </if-empty>
 
         <!-- by default, set the reconciled status of this new entry to not reconciled -->
         <set value="AES_NOT_RECONCILED" field="newEntity.reconcileStatusId"/>
