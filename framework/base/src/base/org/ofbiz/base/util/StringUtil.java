@@ -447,7 +447,7 @@ public class StringUtil {
      * </ol>
      */
     public static String htmlSpecialChars(String html, boolean doubleQuotes, boolean singleQuotes, boolean insertBR) {
-        html = StringUtil.replaceString(html, "&", "&amps;");
+        html = StringUtil.replaceString(html, "&", "&amp;");
         html = StringUtil.replaceString(html, "<", "&lt;");
         html = StringUtil.replaceString(html, ">", "&gt;");
         if (doubleQuotes) {
