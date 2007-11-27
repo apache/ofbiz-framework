@@ -255,7 +255,7 @@ under the License.
         <field name="amount" position="2"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="NewGlJournalEntry" type="single" target="createGlJournalEntry" title="">
+    <form name="CreateAcctgTransAndEntries" type="single" target="quickCreateAcctgTransAndEntries" title="">
         <actions>
             <set field="debitGlAccountClassId" from-field="parameters.debitGlAccountClassId"/>
             <set field="creditGlAccountClassId" from-field="parameters.creditGlAccountClassId"/>

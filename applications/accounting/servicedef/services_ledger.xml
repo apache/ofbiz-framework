@@ -68,9 +68,9 @@ under the License.
     </service>
 
     <!-- GlJournal -->
-    <service name="createGlJournalEntry" engine="simple" 
-            location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createGlJournalEntry" auth="true">
-        <description>Calls three services: createGlJournal, createAcctTrans, createAcctgTransEntry</description>
+    <service name="quickCreateAcctgTransAndEntries" engine="simple" 
+            location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="quickCreateAcctgTransAndEntries" auth="true">
+        <description>Creates an AcctgTrans and two offsetting AcctgTransEntry records</description>
         <auto-attributes mode="IN" entity-name="AcctgTrans" include="nonpk" optional="true"/>
         <auto-attributes mode="IN" entity-name="AcctgTransEntry" include="nonpk" optional="true">
             <exclude field-name="debitCreditFlag"/>

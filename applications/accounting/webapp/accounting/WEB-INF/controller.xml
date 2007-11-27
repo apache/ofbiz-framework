@@ -395,19 +395,19 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PartyAccountsSummary"/>
     </request-map>
-    <request-map uri="createGlJournalEntry">
+    <request-map uri="quickCreateAcctgTransAndEntries">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createGlJournalEntry"/>
-        <response name="success" type="view" value="NewGlJournalEntry"/>
-        <response name="error" type="view" value="NewGlJournalEntry"/>
+        <event type="service" invoke="quickCreateAcctgTransAndEntries"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+        <response name="error" type="view" value="CreateAcctgTransAndEntries"/>
     </request-map>
     <request-map uri="FindAcctgTrans">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindAcctgTrans"/>
     </request-map>
-    <request-map uri="NewGlJournalEntry">
+    <request-map uri="CreateAcctgTransAndEntries">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="NewGlJournalEntry"/>
+        <response name="success" type="view" value="CreateAcctgTransAndEntries"/>
     </request-map>
     <request-map uri="EditAcctgTrans">
         <security https="true" auth="true"/>
@@ -1480,7 +1480,7 @@ under the License.
     <!-- Party Accounts -->
     <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/GlScreens.xml#PartyAccountsSummary"/>
     <view-map name="FindAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#FindAcctgTrans"/>
-    <view-map name="NewGlJournalEntry" type="screen" page="component://accounting/widget/GlScreens.xml#NewGlJournalEntry"/>
+    <view-map name="CreateAcctgTransAndEntries" type="screen" page="component://accounting/widget/GlScreens.xml#CreateAcctgTransAndEntries"/>
     <view-map name="EditAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#EditAcctgTrans"/>
     <view-map name="FindAcctgTransEntries" type="screen" page="component://accounting/widget/GlScreens.xml#FindAcctgTransEntries"/>
     <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#ListUnpostedAcctgTrans"/>

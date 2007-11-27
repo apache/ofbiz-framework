@@ -92,7 +92,7 @@ under the License.
     </simple-method>
 
     <!-- ========= GlJournal methods ========= -->
-    <simple-method method-name="createGlJournalEntry" short-description="Creates an AcctgTrans and two offsetting AcctgTransEntry records">
+    <simple-method method-name="quickCreateAcctgTransAndEntries" short-description="Creates an AcctgTrans and two offsetting AcctgTransEntry records">
         <!-- TODO: Do we need to create a GlJournal record here? -->
     
         <!-- first, create the AcctgTrans -->
@@ -340,10 +340,6 @@ under the License.
                     </if-compare-field>
                 </if-not-empty>
             </if-empty>
-            <if-empty field-name="acctgTransEntry.amount">
-                <add-error><fail-message message="Cannot process accounting transaction entries with null amount: ${acctgTransEntry}"/></add-error>
-                <check-errors/>
-            </if-empty>
             <!-- if the glAccountId is empty, but we have a glAccountTypeId, then we will determine the
                  correct glAccountId from the gl setup settings -->
             <if-empty field-name="acctgTransEntry.glAccountId">
@@ -361,10 +357,13 @@ under the License.
                     </if-not-empty>
                 </if-not-empty>
             </if-empty>
-            <if-empty field-name="acctgTransEntry.glAccountId">
-                <add-error><fail-message message="Cannot process accounting transaction entries with a null glAccountId: ${acctgTransEntry}"/></add-error>
-                <check-errors/>
+            <if-empty field-name="acctgTransEntry.amount">
+                <add-error><fail-message message="Cannot process accounting transaction entries with null amount: ${acctgTransEntry}"/></add-error>
             </if-empty>
+            <if-empty field-name="acctgTransEntry.glAccountId">
+                <add-error><fail-message message="Mapping not configured for the account type ${acctgTransEntry.glAccountTypeId}; cannot process accounting transaction entries with a null glAccountId."/></add-error>
+            </if-empty>
+            <check-errors/>
             <!-- add up debits and credits -->
             <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                 <calculate field-name="debitTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
@@ -469,7 +468,7 @@ under the License.
 
     <!-- Services for the automatic creation of accounting transactions based on business transactions
          Typically, these services are triggered by SECAs -->
-    <simple-method method-name="createAcctgTransForSalesShipment" short-description="Create accounting transactions for issuances for a sales shipment (D: Inventory, C: COGS)">
+    <simple-method method-name="createAcctgTransForSalesShipment" short-description="Create accounting transactions for issuances for a sales shipment (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT)">
         <!-- retrieve ledger rounding properties -->
         <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>

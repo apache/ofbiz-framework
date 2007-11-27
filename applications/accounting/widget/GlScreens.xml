@@ -39,10 +39,10 @@ under the License.
                             <widgets>
                                 <container style="lefthalf">
                                     <container>
-                                        <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES_ACCTG_TRANS" text="${uiLabelMap.AccountingCreateSalesJournalEntry}" style="buttontext"/>
+                                        <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES_ACCTG_TRANS" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext"/>
                                     </container>
                                     <container>
-                                        <link target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS" text="${uiLabelMap.AccountingCreatePaymentJournalEntry}" style="buttontext"/>
+                                        <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext"/>
                                     </container>
                                     <container>
                                         <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
@@ -81,7 +81,7 @@ under the License.
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <link text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext" target="NewGlJournalEntry?organizationPartyId=${organizationPartyId}"/>
+                            <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}"/>
                             <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
                         </container>
                         <include-form name="FindAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
@@ -124,18 +124,18 @@ under the License.
         </section>
     </screen>
 
-    <screen name="NewGlJournalEntry">
+    <screen name="CreateAcctgTransAndEntries">
         <section>
             <actions>
-                <set field="titleProperty" value="AcctgNewGlJournalEntry"/>
+                <set field="titleProperty" value="AccountingCreateAcctgTransAndEntries"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
-                <set field="labelTitleProperty" value="AcctgNewGlJournalEntry"/>
+                <set field="labelTitleProperty" value="AccountingCreateAcctgTransAndEntries"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="NewGlJournalEntry" location="component://accounting/widget/GlForms.xml"/>
+                        <include-form name="CreateAcctgTransAndEntries" location="component://accounting/widget/GlForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -182,9 +182,6 @@ under the License.
                                <if-empty field-name="isPosted"/>
                             </condition>
                             <widgets>
-                                <container>
-                                    <link target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AcctgNewGlJournalEntry}" style="buttontext"/>
-                                </container>
                                 <container>
                                     <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
                                 </container>
