@@ -311,4 +311,6 @@ under the License.
     <Uom abbreviation="cd" description="Candela - Luminosity (intensity of light)" uomId="OTH_cd" uomTypeId="OTHER_MEASURE"/>
     <Uom abbreviation="mol" description="Mole - Substance (molecule)" uomId="OTH_mol" uomTypeId="OTHER_MEASURE"/>
 
+    <Uom abbreviation="ea" description="Each" uomId="OTH_ea" uomTypeId="OTHER_MEASURE"/>
+    <Uom abbreviation="pp" description="Per Person" uomId="OTH_pp" uomTypeId="OTHER_MEASURE"/>
 </entity-engine-xml>
