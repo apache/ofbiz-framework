@@ -1423,11 +1423,13 @@ under the License.
       <field name="theirPartyId" type="id"></field>
       <field name="productId" type="id"></field>
       <field name="theirProductId" type="id"></field>
+      <field name="glAccountTypeId" type="id"></field>
       <field name="glAccountId" type="id-ne"></field>
       <field name="organizationPartyId" type="id-ne"></field>
       <field name="amount" type="currency-amount"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="origAmount" type="currency-amount"></field>
+      <field name="origCurrencyUomId" type="id"></field>
       <field name="debitCreditFlag" type="indicator"></field>
       <field name="dueDate" type="date"></field>
       <field name="groupId" type="id"></field>
@@ -1443,6 +1445,9 @@ under the License.
       <relation type="one" fk-name="ACCTTXENT_CURNCY" title="Currency" rel-entity-name="Uom">  <!-- title strictly speaking not necessary here but nice for consistency -->
         <key-map field-name="currencyUomId" rel-field-name="uomId"/>
       </relation>
+      <relation type="one" fk-name="ACCTTXENT_OCURNCY" title="OrigCurrency" rel-entity-name="Uom">
+        <key-map field-name="origCurrencyUomId" rel-field-name="uomId"/>
+      </relation>
       <relation type="one" fk-name="ACCTTXENT_ACTX" rel-entity-name="AcctgTrans">
         <key-map field-name="acctgTransId"/>
       </relation>
@@ -1455,6 +1460,9 @@ under the License.
       <relation type="one-nofk" rel-entity-name="PartyRole">
         <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_GLACTT" rel-entity-name="GlAccountType">
+        <key-map field-name="glAccountTypeId"/>
       </relation>
       <relation type="one" fk-name="ACCTTXENT_GLACT" rel-entity-name="GlAccount">
         <key-map field-name="glAccountId"/>

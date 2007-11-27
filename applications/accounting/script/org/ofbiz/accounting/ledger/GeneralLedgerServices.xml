@@ -300,7 +300,7 @@ under the License.
         <!-- retrieve ledger rounding properties -->
         <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
-        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>        
+        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
 
         <!-- first loop through and make sure all the entries are valid  -->
         <iterate list-name="parameters.acctgTransEntries" entry-name="acctgTransEntry">
@@ -312,6 +312,57 @@ under the License.
             </entity-one>
             <if-empty field-name="partyRole">
                 <add-error><fail-message message="${acctgTransEntry.organizationPartyId} for transaction ${acctgTransEntry.acctgTransId} entry ${acctgTransEntry.acctTransEntrySeqId} is not an internal organization "/></add-error>
+                <check-errors/>
+            </if-empty>
+            <!-- if the amount field is empty, then determine it from the origAmount and origCurrencyUomId fields:
+                 if origCurrencyUomId is different from the base currency of the organization, then the amount value will be converted -->
+            <if-empty field-name="acctgTransEntry.amount">
+                <if-not-empty field-name="acctgTransEntry.origAmount">
+                    <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" use-cache="true" auto-field-map="false">
+                        <field-map field-name="partyId" env-name="acctgTransEntry.organizationPartyId"/>
+                    </entity-one>
+                    <if-empty field-name="acctgTransEntry.origCurrencyUomId">
+                        <set field="acctgTransEntry.origCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                    </if-empty>
+                    <set field="acctgTransEntry.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                    <if-compare-field field-name="acctgTransEntry.origCurrencyUomId" operator="not-equals" to-field-name="acctgTransEntry.currencyUomId">
+                        <clear-field field-name="convertUomInMap"/>
+                        <set field="convertUomInMap.originalValue" from-field="acctgTransEntry.origAmount"/>
+                        <set field="convertUomInMap.uomId" from-field="acctgTransEntry.origCurrencyUomId"/>
+                        <set field="convertUomInMap.uomIdTo" from-field="acctgTransEntry.currencyUomId"/>
+                        <!-- TODO: set the optional asOfDate input parameter -->
+                        <call-service service-name="convertUom" in-map-name="convertUomInMap">
+                            <result-to-field result-name="convertedValue" field-name="acctgTransEntry.amount"/>
+                        </call-service>
+                    <else>
+                        <set field="acctgTransEntry.amount" from-field="acctgTransEntry.origAmount"/>
+                    </else>
+                    </if-compare-field>
+                </if-not-empty>
+            </if-empty>
+            <if-empty field-name="acctgTransEntry.amount">
+                <add-error><fail-message message="Cannot process accounting transaction entries with null amount: ${acctgTransEntry}"/></add-error>
+                <check-errors/>
+            </if-empty>
+            <!-- if the glAccountId is empty, but we have a glAccountTypeId, then we will determine the
+                 correct glAccountId from the gl setup settings -->
+            <if-empty field-name="acctgTransEntry.glAccountId">
+                <if-not-empty field-name="acctgTransEntry.glAccountTypeId">
+                    <!-- if a productId is set, then we get the gl account associated to the product, or the default one 
+                         for the glAccountTypeId as returned by the service getProductOrgGlAccount -->
+                    <if-not-empty field-name="acctgTransEntry.productId">
+                        <clear-field field-name="getProductOrgGlAccountInMap"/>
+                        <set field="getProductOrgGlAccountInMap.productId" from-field="acctgTransEntry.productId"/>
+                        <set field="getProductOrgGlAccountInMap.glAccountTypeId" from-field="acctgTransEntry.glAccountTypeId"/>
+                        <set field="getProductOrgGlAccountInMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
+                        <call-service service-name="getProductOrgGlAccount" in-map-name="getProductOrgGlAccountInMap">
+                            <result-to-field result-name="glAccountId" field-name="acctgTransEntry.glAccountId"/>
+                        </call-service>
+                    </if-not-empty>
+                </if-not-empty>
+            </if-empty>
+            <if-empty field-name="acctgTransEntry.glAccountId">
+                <add-error><fail-message message="Cannot process accounting transaction entries with a null glAccountId: ${acctgTransEntry}"/></add-error>
                 <check-errors/>
             </if-empty>
             <!-- add up debits and credits -->
@@ -369,7 +420,8 @@ under the License.
                 </if-compare>
             </if-compare>
             
-            <!-- now create the AcctgTransEntry using the acctgTransId we already have from above -->    
+            <!-- now create the AcctgTransEntry using the acctgTransId we already have from above -->
+            <clear-field field-name="createAcctgTransEntryParams"/>
             <set-service-fields service-name="createAcctgTransEntry" map-name="acctgTransEntry" to-map-name="createAcctgTransEntryParams"/>
             <set from-field="acctgTransId" field="createAcctgTransEntryParams.acctgTransId"/>
             <call-service service-name="createAcctgTransEntry" in-map-name="createAcctgTransEntryParams"/>
@@ -382,7 +434,6 @@ under the License.
     <!-- Miscellaneous services for product and inventory -->
 
     <simple-method method-name="getProductOrgGlAccount" short-description="Look up a GlAccountId from ProductGlAccount, then GlAccountTypeDefault"> 
-        <log level="warning" message="getProductOrgGlAccount is deprecated. Please use UtilAccounting.getProductOrgGlAccountId instead."/>
         <!-- if parameters for ProductGlAccount were passed, then try there first -->
         <if>
             <condition>
@@ -409,5 +460,58 @@ under the License.
         <entity-one entity-name="InventoryItem" value-name="item"/>
         <get-related-one  relation-name="Facility" value-name="item" to-value-name="facility"/>
         <field-to-result field-name="facility.ownerPartyId" result-name="ownerPartyId"/>
-   </simple-method>
+    </simple-method>
+
+    <!-- Services for the automatic creation of accounting transactions based on business transactions
+         Typically, these services are triggered by SECAs -->
+    <simple-method method-name="createAcctgTransForSalesShipment" short-description="Create accounting transactions for issuances for a sales shipment (D: Inventory, C: COGS)">
+        <!-- retrieve ledger rounding properties -->
+        <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
+        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+
+        <entity-and entity-name="ItemIssuance" list-name="itemIssuances">
+            <field-map field-name="shipmentId" env-name="parameters.shipmentId"/>
+        </entity-and>
+        <iterate list-name="itemIssuances" entry-name="itemIssuance">
+            <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-name="orderHeader"/>
+            <get-related-one value-name="itemIssuance" relation-name="InventoryItem" to-value-name="inventoryItem"/>
+            <!-- TODO: handle serialized inventory -->
+            <calculate field-name="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="multiply">
+                    <calcop operator="get" field-name="itemIssuance.quantity"/>
+                    <calcop operator="get" field-name="inventoryItem.unitCost"/>
+                </calcop>
+            </calculate>
+            <!-- Credit -->
+            <make-value entity-name="AcctgTransEntry" value-name="creditEntry"/>
+            <set field="creditEntry.debitCreditFlag" value="C"/>
+            <set field="creditEntry.glAccountTypeId" value="INVENTORY_ACCOUNT"/>
+            <set field="creditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+            <set field="creditEntry.productId" from-field="inventoryItem.productId"/>
+            <set field="creditEntry.origAmount" from-field="origAmount"/>
+            <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
+            <!-- TODO: roleId, partyId -->
+            <!-- Debit -->
+            <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
+            <set field="debitEntry.debitCreditFlag" value="D"/>
+            <set field="debitEntry.glAccountTypeId" value="COGS_ACCOUNT"/>
+            <set field="debitEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+            <set field="debitEntry.productId" from-field="inventoryItem.productId"/>
+            <set field="debitEntry.origAmount" from-field="origAmount"/>
+            <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
+            <!-- TODO: roleId, partyId -->
+            <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+        </iterate>
+        <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="SALES_SHIPMENT"/>
+        <set field="createAcctgTransAndEntriesInMap.shipmentId" from-field="parameters.shipmentId"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
+        <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
+            <result-to-field result-name="acctgTransId"/>
+        </call-service>
+        <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>        
+    </simple-method>
+
 </simple-methods>
