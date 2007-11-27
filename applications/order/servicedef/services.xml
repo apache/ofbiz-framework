@@ -865,4 +865,11 @@ under the License.
         <attribute name="numberOfProductsPerOrder" type="Integer" mode="IN" optional="true" default-value="5"/>
         <attribute name="salesChannel" type="String" mode="IN" optional="true"/>
     </service>
+    
+    <service name="changeOrderPaymentStatus" engine="java" auth="true"
+            location="org.ofbiz.order.order.OrderServices" invoke="setOrderPaymentStatus">
+        <description>Change the payment status of an existing order</description>
+        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
+        <attribute name="changeReason" type="String" mode="IN" optional="true"/>
+    </service>    
 </services>

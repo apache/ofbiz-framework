@@ -4515,4 +4515,41 @@ public class OrderServices {
         result.put("invoicedQuantity", invoicedQuantity.setScale(orderDecimals, orderRounding));
         return result;
     }
+    
+    public static Map setOrderPaymentStatus(DispatchContext ctx, Map context) {
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericDelegator delegator = ctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
+        String changeReason = (String) context.get("changeReason");
+        Map successResult = ServiceUtil.returnSuccess();
+        Locale locale = (Locale) context.get("locale");
+        try {
+            GenericValue orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
+            String orderId = orderPaymentPreference.getString("orderId");
+            GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            if (orderHeader == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCouldNotChangeOrderStatusOrderCannotBeFound", locale));
+            }
+            String statusId = orderPaymentPreference.getString("statusId");
+            if (Debug.verboseOn()) Debug.logVerbose("[OrderServices.setOrderPaymentStatus] : Setting Order Payment Status to : " + statusId, module);
+            // create a order payment status
+            GenericValue orderStatus = delegator.makeValue("OrderStatus");
+            orderStatus.put("orderStatusId", delegator.getNextSeqId("OrderStatus"));
+            orderStatus.put("statusId", statusId);
+            orderStatus.put("orderId", orderId);
+            orderStatus.put("orderPaymentPreferenceId", orderPaymentPreferenceId);
+            orderStatus.put("statusDatetime", UtilDateTime.nowTimestamp());
+            orderStatus.put("statusUserLogin", userLogin.getString("userLoginId"));
+            orderStatus.put("changeReason", changeReason);
+
+            orderStatus.create();
+
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCouldNotChangeOrderStatus", locale) + e.getMessage() + ").");
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
+
 }
