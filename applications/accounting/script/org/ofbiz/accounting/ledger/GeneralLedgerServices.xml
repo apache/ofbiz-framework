@@ -457,9 +457,14 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getInventoryItemOwner" short-description="Get an ownerPartyId from inventoryItemId">
-        <entity-one entity-name="InventoryItem" value-name="item"/>
-        <get-related-one  relation-name="Facility" value-name="item" to-value-name="facility"/>
-        <field-to-result field-name="facility.ownerPartyId" result-name="ownerPartyId"/>
+        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <if-empty field-name="inventoryItem.ownerPartyId">
+            <get-related-one value-name="inventoryItem" relation-name="Facility" to-value-name="facility"/>
+            <field-to-result field-name="facility.ownerPartyId" result-name="ownerPartyId"/>
+        <else>
+            <field-to-result field-name="inventoryItem.ownerPartyId" result-name="ownerPartyId"/>
+        </else>
+        </if-empty>
     </simple-method>
 
     <!-- Services for the automatic creation of accounting transactions based on business transactions
@@ -474,8 +479,12 @@ under the License.
             <field-map field-name="shipmentId" env-name="parameters.shipmentId"/>
         </entity-and>
         <iterate list-name="itemIssuances" entry-name="itemIssuance">
-            <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-name="orderHeader"/>
             <get-related-one value-name="itemIssuance" relation-name="InventoryItem" to-value-name="inventoryItem"/>
+            <entity-and entity-name="OrderRole" list-name="billToCustomers">
+                <field-map field-name="orderId" env-name="itemIssuance.orderId"/>
+                <field-map field-name="roleTypeId" value="BILL_TO_CUSTOMER"/>
+            </entity-and>
+            <first-from-list list-name="billToCustomers" entry-name="billToCustomer"/>
             <!-- TODO: handle serialized inventory -->
             <calculate field-name="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="multiply">
@@ -491,7 +500,10 @@ under the License.
             <set field="creditEntry.productId" from-field="inventoryItem.productId"/>
             <set field="creditEntry.origAmount" from-field="origAmount"/>
             <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
-            <!-- TODO: roleId, partyId -->
+            <if-not-empty field-name="billToCustomer">
+                <set field="creditEntry.partyId" from-field="billToCustomer.partyId"/>
+                <set field="creditEntry.roleTypeId" from-field="billToCustomer.roleTypeId"/>
+            </if-not-empty>
             <!-- Debit -->
             <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
@@ -500,7 +512,10 @@ under the License.
             <set field="debitEntry.productId" from-field="inventoryItem.productId"/>
             <set field="debitEntry.origAmount" from-field="origAmount"/>
             <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
-            <!-- TODO: roleId, partyId -->
+            <if-not-empty field-name="billToCustomer">
+                <set field="debitEntry.partyId" from-field="billToCustomer.partyId"/>
+                <set field="debitEntry.roleTypeId" from-field="billToCustomer.roleTypeId"/>
+            </if-not-empty>
             <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
             <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
         </iterate>
