@@ -1784,7 +1784,7 @@ public class ModelFormField {
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
                 } 
-            } else if ("date".equals(type)) {
+            } else if ("date".equals(type) && retVal.length() > 10) {
             	retVal = retVal.substring(0,10);
             }
             return retVal;
