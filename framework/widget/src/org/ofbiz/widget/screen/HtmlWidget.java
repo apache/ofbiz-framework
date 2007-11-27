@@ -90,6 +90,10 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.write(HtmlWidgetRenderer.buildBoundaryComment("End", "Template", location));
                 }
+            } catch (IllegalArgumentException e) {
+                String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                writeError(writer, errMsg);
             } catch (MalformedURLException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
