@@ -1723,6 +1723,7 @@ public class ModelFormField {
         protected FlexibleStringExpander description;
         protected String type;  // matches type of field, currently text or currency
         protected FlexibleStringExpander currency;
+        protected FlexibleStringExpander date;
 
         protected DisplayField() {
             super();
@@ -1741,6 +1742,7 @@ public class ModelFormField {
             this.type = element.getAttribute("type");
             this.setCurrency(element.getAttribute("currency"));
             this.setDescription(element.getAttribute("description"));
+            this.setDate(element.getAttribute("date"));
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
         }
 
@@ -1781,8 +1783,10 @@ public class ModelFormField {
                     String errMsg = "Error formatting currency value [" + retVal + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
-                }
-            } 
+                } 
+            } else if ("date".equals(type)) {
+            	retVal = retVal.substring(0,10);
+            }
             return retVal;
         }
 
@@ -1794,7 +1798,7 @@ public class ModelFormField {
         }
 
         /**
-         * @param string
+         * @param Description
          */
         public void setDescription(String string) {
             description = new FlexibleStringExpander(string);
@@ -1805,6 +1809,12 @@ public class ModelFormField {
          */
         public void setCurrency(String string) {
             currency = new FlexibleStringExpander(string);
+        }
+        /**
+         * @param date
+         */
+        public void setDate(String string) {
+            date = new FlexibleStringExpander(string);
         }
     }
 
