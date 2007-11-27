@@ -83,5 +83,8 @@ under the License.
     <relation type="many" rel-entity-name="TimeEntry">
       <key-map field-name="workEffortId"/>
     </relation>
+    <relation type="many" rel-entity-name="WorkEffortSkillStandard">
+      <key-map field-name="workEffortId"/>
+    </relation>
   </view-entity>
   </entitymodel>

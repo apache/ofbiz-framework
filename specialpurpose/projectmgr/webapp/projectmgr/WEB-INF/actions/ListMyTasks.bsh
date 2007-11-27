@@ -20,6 +20,10 @@
   
 import java.util.*;
 import java.lang.*;
+import java.util.Iterator;
+import javolution.util.FastMap;
+import java.math.BigDecimal;
+
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.UtilMisc;
@@ -71,6 +75,42 @@ if (UtilValidate.isNotEmpty(dateCondition)) exprList.addAll(dateCondition);
 condition = new EntityConditionList(exprList, EntityOperator.AND);
 tasks.addAll(delegator.findByCondition("WorkEffortAndTimeEntry", condition, null, null));
 
+// add fields for planned and actual hours.
+newTasks = new LinkedList();    
+t = tasks.iterator();
+while(t.hasNext()) {
+    newTask =  FastMap.newInstance();
+    task = t.next();
+    newTask.putAll(task);
+
+    // get estimated hours
+    plannedHours = new BigDecimal("0.00");
+    workEffortSkillStandards = task.getRelated("WorkEffortSkillStandard");
+    ss = workEffortSkillStandards.iterator();
+    while(ss.hasNext()) {
+        workEffortSkillStandard = ss.next();
+        Debug.logInfo("===========" + workEffortSkillStandard.getBigDecimal("estimatedDuration"),"");
+        if (UtilValidate.isNotEmpty(workEffortSkillStandard.get("estimatedDuration"))) {
+            plannedHours = plannedHours.add(workEffortSkillStandard.getBigDecimal("estimatedDuration")); 
+        }
+    }
+    if(plannedHours.signum() != 0) newTask.put("plannedHours", plannedHours);
+    
+    // get the actual hours
+    actualHours = new BigDecimal("0.00");
+    timeEntries = task.getRelated("TimeEntry");
+    te = timeEntries.iterator();
+    while(te.hasNext()) {
+        timeEntry = te.next();
+        if (UtilValidate.isNotEmpty(timeEntry.get("hours"))) {
+            actualHours = actualHours.add(timeEntry.getBigDecimal("hours")); 
+        }
+    }    
+    if(actualHours.signum() != 0) newTask.put("actualHours", actualHours);
+    
+    newTasks.add(newTask);
+}
+
 // sort tasks
-UtilMisc.sortMaps(tasks, UtilMisc.toList("workEffortName"));
-context.put("tasks", tasks);
+newTasks = UtilMisc.sortMaps(newTasks, UtilMisc.toList("workEffortName"));
+context.put("tasks", newTasks);

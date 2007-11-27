@@ -79,7 +79,7 @@
             </drop-down>
         </field>
         <field name="workEffortId"><drop-down allow-empty="false">
-            <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName}--${phaseName}--${taskName}">
+            <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName}--${phaseName}--${workEffortName}">
                 <entity-constraint name="partyId" env-name="userLogin.partyId"/>
                 <entity-order-by field-name="projectName"/>
                 <entity-order-by field-name="phaseName"/>

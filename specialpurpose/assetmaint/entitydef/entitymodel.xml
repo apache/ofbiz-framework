@@ -69,6 +69,9 @@
         <view-link entity-alias="WE" rel-entity-alias="TE">
             <key-map field-name="workEffortId"/>
         </view-link>
+        <relation type="many" rel-entity-name="WorkEffortSkillStandard">
+            <key-map field-name="workEffortId"/>
+        </relation>
     </view-entity>
     <view-entity entity-name="FixedAssetMaintWorkEffortAndPartyAssignment"
         package-name="org.ofbiz.assetmaint"
