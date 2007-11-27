@@ -513,7 +513,7 @@ under the License.
                     <xs:enumeration value="text"/>
                     <xs:enumeration value="currency"/>
                     <xs:enumeration value="date">
-                        <xs:annotation>Display only the date part of a timestamp field</xs:annotation>
+                        <xs:annotation><xs:documentation>Display only the date part of a timestamp field</xs:documentation></xs:annotation>
                     </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
