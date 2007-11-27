@@ -121,6 +121,7 @@ under the License.
                                     </condition>
                                     <widgets>                                        
                                         <include-menu name="TaskTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                        <label style="head1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}]"/>
                                     </widgets>                                    
                                 </section>
                                 

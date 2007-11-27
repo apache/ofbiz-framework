@@ -200,10 +200,10 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display description="${bsh:estimatedStartDate!=void?estimatedStartDate.toString().substring(0,10):&quot;&quot;;}"/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display description="${bsh:estimatedCompletionDate!=void?estimatedCompletionDate.toString().substring(0,10):&quot;&quot;;}"/></field>
-        <field name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display description="${bsh:actualStartDate!=void?actualStartDate.toString().substring(0,10):&quot;&quot;;}"/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display description="${bsh:actualCompletionDate!=void?actualCompletionDate.toString().substring(0,10):&quot;&quot;;}"/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     <form name="ListPhaseTaskInfo" type="list" list-name="phases">
