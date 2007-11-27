@@ -24,6 +24,9 @@ import java.util.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.accounting.invoice.InvoiceWorker;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -2762,6 +2765,125 @@ public class PaymentGatewayServices {
         Map returnResults = ServiceUtil.returnSuccess("Transaction result [" + msg + "/" + code +"] Ref#: " + refNum);
         returnResults.put("referenceNum", refNum);
         return returnResults;
+    }
+    
+    // Verify Credit Card (Manually) Service
+    
+    public static Map verifyCreditCard(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        String productStoreId = (String) context.get("productStoreId");
+        String mode = (String) context.get("mode");
+        String paymentMethodId = (String) context.get("paymentMethodId");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        GenericValue productStore = null;
+        productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+        
+        String productStorePaymentProperties = "payment.properties";
+        if (productStore != null) {
+            productStorePaymentProperties = ProductStoreWorker.getProductStorePaymentProperties(delegator, productStoreId, "CREDIT_CARD", "PRDS_PAY_CREDIT", false);
+        }
+        
+        String amount = null;
+        if (mode.equalsIgnoreCase("CREATE")) {
+            amount = UtilProperties.getPropertyValue(productStorePaymentProperties, "payment.general.cc_create.auth");
+        } else if (mode.equalsIgnoreCase("UPDATE")) {
+            amount = UtilProperties.getPropertyValue(productStorePaymentProperties, "payment.general.cc_update.auth");
+        }
+                
+        if (amount != null && amount.length() > 0) {
+            double authAmount = Double.parseDouble(amount);
+            if (authAmount > 0.0) {
+                Map ccAuthContext = FastMap.newInstance();
+                ccAuthContext.put("paymentMethodTypeId", "CREDIT_CARD");
+                ccAuthContext.put("productStoreId", productStoreId);
+                ccAuthContext.put("transactionType", "PRDS_PAY_CREDIT");
+                    
+                GenericValue paymentMethod = null;
+                GenericValue creditCard = null;
+                GenericValue postalAddress = null;
+                try {
+                    paymentMethod = delegator.findByPrimaryKey("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
+                    creditCard = paymentMethod.getRelatedOne("CreditCard");
+                    postalAddress = creditCard.getRelatedOne("PostalAddress");
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                if (postalAddress == null) {
+                    String errMsg = UtilProperties.getPropertyValue("AccountingUiLabels", "AccountingCreditCardBillingAddNotFoundError");
+                    return ServiceUtil.returnError(errMsg);
+                }
+                        
+                ccAuthContext.put("firstNameOnCard", creditCard.getString("firstNameOnCard"));
+                ccAuthContext.put("lastNameOnCard", creditCard.getString("lastNameOnCard"));
+                ccAuthContext.put("cardType", creditCard.getString("cardType"));
+                ccAuthContext.put("cardNumber", creditCard.getString("cardNumber"));
+                String expireDate = creditCard.getString("expireDate");
+                String expMonth = expireDate.substring(0, expireDate.indexOf('/'));
+                String expYear = expireDate.substring(expireDate.indexOf('/') + 1);
+                ccAuthContext.put("expMonth", expMonth);
+                ccAuthContext.put("expYear", expYear);
+                ccAuthContext.put("amount", authAmount);
+                ccAuthContext.put("address1", postalAddress.getString("address1"));
+                ccAuthContext.put("address2", postalAddress.getString("address2"));
+                ccAuthContext.put("city", postalAddress.getString("city"));
+                ccAuthContext.put("stateProvinceGeoId", postalAddress.getString("stateProvinceGeoId"));
+                ccAuthContext.put("countryGeoId", postalAddress.getString("countryGeoId"));
+                ccAuthContext.put("postalCode", postalAddress.getString("postalCode"));
+                        
+                List partyContactMechPurposeList = FastList.newInstance();
+                try {
+                    partyContactMechPurposeList = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", paymentMethod.getString("partyId"), "contactMechPurposeTypeId", "BILLING_EMAIL"), UtilMisc.toList("-fromDate")));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                if (UtilValidate.isEmpty(partyContactMechPurposeList)) {
+                    String errMsg = UtilProperties.getPropertyValue("AccountingUiLabels", "AccountingCreditCardEmailAddNotFoundError");
+                    return ServiceUtil.returnError(errMsg);
+                }
+
+                GenericValue partyContactMechPurpose = EntityUtil.getFirst(partyContactMechPurposeList);
+                List partyContactMechList = FastList.newInstance();
+                try {
+                    partyContactMechList = EntityUtil.filterByDate(partyContactMechPurpose.getRelated("PartyContactMech", UtilMisc.toList("-fromDate")));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                if (UtilValidate.isEmpty(partyContactMechList)) {
+                    String errMsg = UtilProperties.getPropertyValue("AccountingUiLabels", "AccountingCreditCardEmailAddNotFoundError");
+                    return ServiceUtil.returnError(errMsg);
+                }
+                        
+                GenericValue partyContactMech = EntityUtil.getFirst(partyContactMechList);
+                GenericValue contactMech = null;
+                try {
+                    contactMech = partyContactMech.getRelatedOne("ContactMech");
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());                            
+                }
+                ccAuthContext.put("infoString", contactMech.getString("infoString"));
+                ccAuthContext.put("userLogin", userLogin);
+                        
+                Map results = FastMap.newInstance();
+                try {
+                    results = dispatcher.runSync("manualForcedCcTransaction", ccAuthContext);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                        
+                if (ServiceUtil.isError(results)) {
+                    String errMsg = UtilProperties.getPropertyValue("AccountingUiLabels", "AccountingCreditCardManualAuthFailedError");
+                    return ServiceUtil.returnError(errMsg);
+                }
+            }
+        }
+        return ServiceUtil.returnSuccess();
     }
 
     // ****************************************************

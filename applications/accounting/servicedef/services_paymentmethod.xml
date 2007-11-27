@@ -45,6 +45,7 @@ under the License.
         <!-- these two will be assembled into a expireDate by buildCcExpireDate on an ECA if needed -->
         <attribute name="expMonth" type="String" mode="IN" optional="true"/>
         <attribute name="expYear" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
         <override name="firstNameOnCard" optional="false"/>
         <override name="lastNameOnCard" optional="false"/>
         <override name="cardType" optional="false"/>
@@ -76,6 +77,7 @@ under the License.
         <attribute name="expYear" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="OUT" optional="false"/> <!-- This is the id of the new cc -->
         <attribute name="oldPaymentMethodId" type="String" mode="OUT" optional="false"/> <!-- This is the id of the old cc -->
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="clearCreditCardDataAndExpire" engine="java"
             location="org.ofbiz.accounting.payment.PaymentMethodServices" invoke="clearCreditCardData" auth="true">
@@ -196,8 +198,10 @@ under the License.
         <attribute name="cardSecurityCode" type="String" mode="IN" optional="true"/>
         <attribute name="expMonth" type="String" mode="IN" optional="false"/>
         <attribute name="expYear" type="String" mode="IN" optional="false"/>
+        <!-- Not used in the service any more
         <attribute name="firstName" type="String" mode="IN" optional="false"/>
         <attribute name="lastName" type="String" mode="IN" optional="false"/>
+        -->
         <attribute name="infoString" type="String" mode="IN" optional="false"/>
         <attribute name="address1" type="String" mode="IN" optional="false"/>
         <attribute name="address2" type="String" mode="IN" optional="true"/>
@@ -656,5 +660,14 @@ under the License.
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRelease">
         <description>EFT Account Test Release</description>
         <implements service="paymentReleaseInterface"/>
+    </service>
+    
+    <!-- Verify Credit Card Service-->
+    <service name="verifyCreditCard" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="verifyCreditCard" auth="true">
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldPaymentMethodId" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+        <attribute name="mode" type="String" mode="IN" optional="false"/>
     </service>
 </services>
