@@ -67,6 +67,15 @@ under the License.
         <condition field-name="expYear" operator="is-not-empty"/>
         <action service="buildCcExpireDate" mode="sync"/>
     </eca>
+    <eca service="createCreditCard" event="commit">
+        <set field-name="mode" value="CREATE"/>
+        <action service="verifyCreditCard" mode="sync" run-as-user="system"/>
+    </eca>
+    <eca service="updateCreditCard" event="commit">
+        <condition-field field-name="oldPaymentMethodId" operator="not-equals" to-field-name="paymentMethodId"/>
+        <set field-name="mode" value="UPDATE"/>
+        <action service="verifyCreditCard" mode="sync" run-as-user="system"/>
+    </eca>
 
     <eca service="createCreditCardAndAddress" event="in-validate">
         <condition field-name="expMonth" operator="is-not-empty"/>
