@@ -89,7 +89,6 @@ while(t.hasNext()) {
     ss = workEffortSkillStandards.iterator();
     while(ss.hasNext()) {
         workEffortSkillStandard = ss.next();
-        Debug.logInfo("===========" + workEffortSkillStandard.getBigDecimal("estimatedDuration"),"");
         if (UtilValidate.isNotEmpty(workEffortSkillStandard.get("estimatedDuration"))) {
             plannedHours = plannedHours.add(workEffortSkillStandard.getBigDecimal("estimatedDuration")); 
         }
