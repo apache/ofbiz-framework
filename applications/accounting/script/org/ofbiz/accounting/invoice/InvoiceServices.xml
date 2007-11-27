@@ -295,6 +295,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
         <!-- check if the productNumber is updated, when yes retrieve product description and price -->
+        <if-not-empty field-name="productId">
         <if-compare-field field-name="productId"  map-name="savedValue" operator="not-equals" to-map-name="lookedUpValue">
             <entity-one entity-name="Product" value-name="product"/>
             <set from-field="product.description" field="lookedUpValue.description"/>
@@ -304,6 +305,7 @@ under the License.
                 <result-to-field result-name="price" field-name="lookedUpValue.amount"/>
             </call-service>
         </if-compare-field>
+        </if-not-empty>
         <if-empty field-name="newEntity.amount">
             <add-error>
                 <fail-message message="The amount value is mandatory"/>
