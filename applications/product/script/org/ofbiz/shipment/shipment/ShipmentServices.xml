@@ -1287,6 +1287,37 @@ under the License.
         <call-service service-name="updateShipment" in-map-name="updateShipmentContext"/>
         <check-errors/>
         <field-to-result field-name="shipmentId" result-name="shipmentId"/>
+
+        <!-- Iterate through the order items in the ship group -->
+        <entity-and entity-name="OrderItemShipGroupAssoc" list-name="orderItemShipGroupAssocs">
+            <field-map field-name="orderId" env-name="parameters.orderId"/>
+            <field-map field-name="shipGroupSeqId" env-name="parameters.shipGroupSeqId"/>
+        </entity-and>
+        <iterate entry-name="orderItemShipGroupAssoc" list-name="orderItemShipGroupAssocs">
+            <get-related-one relation-name="OrderItem" value-name="orderItemShipGroupAssoc" to-value-name="orderItem"/>
+
+            <!-- Set the item status to completed -->
+            <set field="itemStatusContext.orderId" from-field="parameters.orderId"/>
+            <set field="itemStatusContext.orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+            <set field="itemStatusContext.statusId" value="ITEM_COMPLETED"/>
+            <call-service service-name="changeOrderItemStatus" in-map-name="itemStatusContext"/>
+            <check-errors/>
+
+            <!-- Set the status of any linked sales order items to completed as well -->
+            <entity-and entity-name="OrderItemAssoc" list-name="orderItemAssocs">
+                <field-map field-name="toOrderId" env-name="parameters.orderId"/>
+                <field-map field-name="toOrderItemSeqId" env-name="orderItem.orderItemSeqId"/>
+                <field-map field-name="orderItemAssocTypeId" value="DROP_SHIPMENT"/>
+            </entity-and>
+            <if-not-empty field-name="orderItemAssocs">
+                <iterate entry-name="orderItemAssoc" list-name="orderItemAssocs">
+                    <set field="itemStatusContext.orderId" from-field="orderItemAssoc.orderId"/>
+                    <set field="itemStatusContext.orderItemSeqId" from-field="orderItemAssoc.orderItemSeqId"/>
+                    <call-service service-name="changeOrderItemStatus" in-map-name="itemStatusContext"/>
+                    <check-errors/>
+                </iterate>
+            </if-not-empty>
+        </iterate>
     </simple-method>
         
     <simple-method method-name="quickShipPurchaseOrder" short-description="Quick ships an entire purchase order to a facility">
