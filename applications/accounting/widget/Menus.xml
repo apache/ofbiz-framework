@@ -448,14 +448,14 @@ under the License.
         <menu-item name="ViewFXConversions" title="${uiLabelMap.AccountingFX}">
             <link target="viewFXConversions?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="ProductGlAccounts" title="${uiLabelMap.AccountingProductGlAccount}">
-            <link target="editProductGlAccounts?organizationPartyId=${organizationPartyId}"/>
-        </menu-item>
     </menu>
     <menu name="PartyAdminAssignTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple">
         <menu-item name="GlAccountTypeDefaults" title="${uiLabelMap.AccountingGlAccountTypeDefaults}">
             <link target="GlAccountTypeDefaults?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="ProductGlAccounts" title="${uiLabelMap.AccountingProductGlAccount}">
+            <link target="editProductGlAccounts?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="GlAccountSalInvoice" title="${uiLabelMap.AccountingInvoiceSales}">
             <link target="GlAccountSalInvoice?organizationPartyId=${organizationPartyId}"/>
