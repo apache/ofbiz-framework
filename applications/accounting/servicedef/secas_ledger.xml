@@ -28,5 +28,10 @@ under the License.
         <condition field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
         <action service="createAcctgTransForSalesShipment" mode="sync"/>        
     </eca>
+    <!-- this eca automatically post the accounting transactions to GL -->
+    <eca service="createAcctgTransAndEntries" event="commit">
+        <condition field-name="acctgTransId" operator="is-not-empty"/>
+        <action service="postAcctgTrans" mode="sync"/>
+    </eca>
 
 </service-eca>

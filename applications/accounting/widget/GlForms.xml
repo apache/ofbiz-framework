@@ -58,6 +58,7 @@ under the License.
         <field name="paymentId"><text size="20" maxlength="20"/></field>
         <field name="produtId"><text size="20" maxlength="20"/></field>
         <field name="workEffortId"><text size="20" maxlength="20"/></field>
+        <field name="shipmentId"><text size="20" maxlength="20"/></field>
         <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
         <field name="performSearch"><hidden value="Y"/></field>
@@ -78,6 +79,7 @@ under the License.
                     <condition-expr field-name="paymentId" operator="equals" env-name="parameters.paymentId" ignore-if-empty="true"/>
                     <condition-expr field-name="productId" operator="equals" env-name="parameters.productId" ignore-if-empty="true"/>
                     <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId" ignore-if-empty="true"/>
+                    <condition-expr field-name="shipmentId" operator="equals" env-name="parameters.shipmentId" ignore-if-empty="true"/>
                     <condition-expr field-name="acctgTransId" operator="equals" env-name="parameters.acctgTransId" ignore-if-empty="true"/>
                     <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
                     <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
@@ -89,6 +91,7 @@ under the License.
                 <select-field field-name="invoiceId"/>
                 <select-field field-name="paymentId"/>
                 <select-field field-name="workEffortId"/>
+                <select-field field-name="shipmentId"/>
                 <select-field field-name="partyId"/>
                 <select-field field-name="isPosted"/>
                 <select-field field-name="postedDate"/>
@@ -111,6 +114,7 @@ under the License.
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId"><display/></field>
+        <field name="shipmentId"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" description="${groupName}${firstName} ${lastName} [${partyId}]"/>
         </field>
@@ -138,6 +142,8 @@ under the License.
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="partyId"><display/></field>
+        <field name="workEffortId" position="2"><display/></field>
+        <field name="shipmentId" position="2"><display/></field>
         <field name="verify" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.AccountingVerifyTransaction}" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y" also-hidden="false"/>
         </field>
@@ -193,6 +199,7 @@ under the License.
         <field name="paymentId"><text size="20" maxlength="20"/></field>
         <field name="produtId"><text size="20" maxlength="20"/></field>
         <field name="workEffortId"><text size="20" maxlength="20"/></field>
+        <field name="shipmentId"><text size="20" maxlength="20"/></field>
         <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
         <field name="performSearch"><hidden value="Y"/></field> 
@@ -213,6 +220,7 @@ under the License.
                     <condition-expr field-name="paymentId" operator="equals" env-name="parameters.paymentId" ignore-if-empty="true"/>
                     <condition-expr field-name="productId" operator="equals" env-name="parameters.productId" ignore-if-empty="true"/>
                     <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId" ignore-if-empty="true"/>
+                    <condition-expr field-name="shipmentId" operator="equals" env-name="parameters.shipmentId" ignore-if-empty="true"/>
                     <condition-expr field-name="acctgTransId" operator="equals" env-name="parameters.acctgTransId" ignore-if-empty="true"/>
                     <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
                     <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
@@ -248,6 +256,7 @@ under the License.
         </field>
         <field name="paymentId" position="2" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" position="2"><display/></field>
+        <field name="shipmentId" position="2"><display/></field>
         <field name="partyId" position="2" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" description="${groupName}${firstName} ${lastName} [${partyId}]"/>
         </field>
