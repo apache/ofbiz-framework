@@ -301,6 +301,7 @@ under the License.
             <if-not-empty field-name="parameters.productId">
                 <entity-one entity-name="Product" value-name="product"/>
                 <set from-field="product" field="calculateProductPriceMap.product"/>
+                <set from-field="parameters.quantity" field="calculateProductPriceMap.quantity"/> 
                 <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
                     <result-to-field result-name="price" field-name="newEntity.quoteUnitPrice"/>
                 </call-service>
@@ -458,7 +459,7 @@ under the License.
     <simple-method method-name="createQuoteAndQuoteItemForRequest" short-description="Create a Quote">
         <check-permission permission="ORDERMGR" action="_CREATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest"/>        
-		</check-permission>
+    </check-permission>
         <check-errors/>
         <entity-one entity-name="CustRequest" value-name="custRequest" auto-field-map="true"/>
         <entity-one entity-name="CustRequestItem" value-name="custRequestItem" auto-field-map="true"/>
