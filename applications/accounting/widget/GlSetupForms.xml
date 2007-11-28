@@ -485,4 +485,38 @@ under the License.
             <hyperlink target="deleteGlJournal?organizationPartyId=${organizationPartyId}&amp;glJournalId=${glJournalId}" description="${uiLabelMap.CommonRemove}"/>
         </field>
     </form>
+    
+    <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" list-name="productGlAccounts">
+        <auto-fields-service service-name="updateProductGlAccount" default-field-type="display"/>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
+        <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
+            <drop-down allow-empty="false">                
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>    
+            </drop-down>
+        </field>     
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteProductGlAccount?organizationPartyId=${organizationPartyId}&amp;productId=${productId}&amp;glAccountTypeId=${glAccountTypeId}" description="${uiLabelMap.CommonRemove}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddProductGlAccount" type="single" target="createProductGlAccount">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
+            <drop-down allow-empty="false">
+                <list-options key-name="glAccountTypeId" list-name="productGlAccountTypes" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
+            <drop-down allow-empty="false">
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            </drop-down>
+        </field>
+        <field name="productId" title="${uiLabelMap.AccountingProductId}">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    
 </forms>

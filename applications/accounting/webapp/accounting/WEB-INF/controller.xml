@@ -1257,7 +1257,33 @@ under the License.
         <response name="success" type="view" value="ViewFXConversions"/>
         <response name="error" type="view" value="ViewFXConversions"/>
     </request-map>
-
+    
+    <request-map uri="editProductGlAccounts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductGlAccounts"/>
+    </request-map>
+    
+     <request-map uri="createProductGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProductGlAccount"/>
+        <response name="success" type="view" value="EditProductGlAccounts"/>
+        <response name="error" type="view" value="EditProductGlAccounts"/>
+    </request-map>
+    
+    <request-map uri="updateProductGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductGlAccount"/>
+        <response name="success" type="view" value="EditProductGlAccounts"/>
+        <response name="error" type="view" value="EditProductGlAccounts"/>
+    </request-map>
+    
+    <request-map uri="deleteProductGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteProductGlAccount"/>
+        <response name="success" type="view" value="EditProductGlAccounts"/>
+        <response name="error" type="view" value="EditProductGlAccounts"/>
+    </request-map>
+    
     <!-- Actually reconcile account -->
     <request-map uri="reconcileGlAccount">
         <security https="true" auth="true"/>
@@ -1576,6 +1602,7 @@ under the License.
     <view-map name="GlAccountSalInvoice" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountSalInvoice"/>
     <view-map name="GlAccountTypePaymentType" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountTypePaymentType"/>
     <view-map name="GlAccountNrPaymentMethod" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountNrPaymentMethod"/>
+    <view-map name="EditProductGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditProductGlAccounts"/>
     
     <!-- Manual Credit Card Transaction -->
     <view-map name="FindGatewayResponses" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses" type="screen"/>
