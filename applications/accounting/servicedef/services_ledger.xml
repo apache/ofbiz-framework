@@ -306,4 +306,23 @@ under the License.
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
 
+    <!-- FinAccountTypeGlAccount Services -->
+    <service name="createFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="simple"
+                location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountTypeGlAccount" auth="true">
+        <description>Create a FinAccountTypeGlAccount</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+    <service name="updateFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="simple"
+                location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="updateFinAccountTypeGlAccount" auth="true">
+        <description>Update a FinAccountTypeGlAccount</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteFinAccountTypeGlAccount" default-entity-name="FinAccountTypeGlAccount" engine="simple"
+                location="org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="deleteFinAccountTypeGlAccount" auth="true">
+        <description>Delete a FinAccountTypeGlAccount</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
 </services>

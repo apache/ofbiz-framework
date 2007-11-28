@@ -324,4 +324,23 @@ under the License.
         <set field="finAccount.availableBalance" from-field="availableBalanceSum" type="Double"/>
         <store-value value-name="finAccount"/>
     </simple-method>
+    
+    <!-- FinAccountTypeGlAccount methods -->
+    <simple-method method-name="createFinAccountTypeGlAccount" short-description="Create an FinAccountTypeGlAccount">
+        <make-value value-name="newEntity" entity-name="FinAccountTypeGlAccount"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateFinAccountTypeGlAccount" short-description="Update an FinAccountTypeGlAccount">
+        <entity-one entity-name="FinAccountTypeGlAccount" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteFinAccountTypeGlAccount" short-description="Delete an FinAccountTypeGlAccount">
+        <entity-one entity-name="FinAccountTypeGlAccount" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>
