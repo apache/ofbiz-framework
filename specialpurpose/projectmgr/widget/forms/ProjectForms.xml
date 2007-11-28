@@ -20,7 +20,7 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <form name="EditProject" type="single" target="updateProject" default-map-name="project">
         <alt-target use-when="project==null" target="createProject"/>
-        <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
+        <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="DONE_PAGE"><hidden value="${donePage}"/></field>
         <field name="workEffortTypeId"><hidden value="PROJECT"/></field> 
         <field name="projectId" parameter-name="workEffortId"><hidden/></field>
@@ -58,7 +58,7 @@
 	<!--================ Project Lists==============-->
     <form name="ListProjects" type="list" list-name="projects" paginate-target="FindProject">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="EditProject?workEffortIdFrom=${workEffortId}"/>
+            <hyperlink also-hidden="false" description="${workEffortId}" target="EditProject?projectId=${workEffortId}"/>
         </field>
         <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
@@ -76,7 +76,7 @@
         </row-actions>
         <field name="workEffortTypeId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
-        <field name="workEffortIdFrom"><hidden/></field>
+        <field name="projectId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
@@ -111,12 +111,12 @@
         </row-actions>
         <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
-        <field name="workEffortIdFrom"><hidden/></field>
+        <field name="projectId"><hidden/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}[${workEffortId}]">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
-                    <entity-constraint name="workEffortParentId" value="${workEffortIdFrom}"/>
+                    <entity-constraint name="workEffortParentId" value="${projectId}"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>        
             </drop-down>
@@ -156,7 +156,7 @@
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
         <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
-        <field name="workEffortIdFrom" title="${uiLabelMap.ProjectMgrWorkEffortIdFrom}"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="projectId" title="${uiLabelMap.ProjectMgrWorkEffortIdFrom}"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="fromDate"><date-time/></field>
         <field name="currentStatusId">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
@@ -176,7 +176,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>       
     <form name="ListPhases" target="updateProjectPhase" title="" list-name="phases" type="list" separate-columns="true" paginate-target="FindPhase">
-        <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
+        <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="phaseId" parameter-name="workEffortId"><hidden/></field>
         <field name="phaseName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
@@ -207,8 +207,8 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     <form name="ListPhaseTaskInfo" type="list" list-name="phases">
-        <field name="workEffortIdFrom"><hidden value="parameters.worEffortIdFrom"/></field>
-        <field name="Phase"><hyperlink target="FindPhase?workEffortIdFrom=${projectId}" description="${phaseName}"/></field>
+        <field name="projectId"><hidden value="parameters.worEffortIdFrom"/></field>
+        <field name="Phase"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
         <field name="Task"><hyperlink target="EditTask?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="estimatedStartDate"><display/></field>

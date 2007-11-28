@@ -27,8 +27,9 @@ under the License.
                 <set field="tabButtonItem" value="subprojects"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
-                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <set field="parameters.workEffortIdFrom" from-field="parameters.projectId"/>
+                <set field="projectId" from-field="parameters.projectId"/>
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
             </actions>                                                
@@ -37,7 +38,7 @@ under the License.
                     <decorator-section name="body">                                                                                                                
                         <section>                            
                             <condition>
-                                <!--if-empty field-name="workEffortId"/-->
+                                <if-empty field-name="workEffortId"/>
                             </condition>                            
                             <!-- This is the code for the List of Projects -->
                             <widgets>
@@ -73,7 +74,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindProject"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjectsByDateRange.bsh"/>
             </actions>                                                
@@ -100,9 +101,9 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProject"/>
                 <set field="tabButtonItem" value="editproject"/>                
                 <set field="labelTitleProperty" value="PageTitleEditProject"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <service service-name="getProject" result-map-name="result">
-                    <field-map field-name="projectId" env-name="parameters.workEffortIdFrom"/>
+                    <field-map field-name="projectId" env-name="projectId"/>
                 </service>
                 <set field="project" from-field="result.projectInfo"/>
             </actions>
@@ -204,13 +205,13 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTask"/>
                 <set field="tabButtonItem" value="tasks"/>
                 <set field="labelTitleProperty" value="PageTitleFindTask"/>                
-                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
+                <set field="projectId" from-field="parameters.projectId"/>
                 <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
-                    <field-map field-name="projectId" env-name="parameters.workEffortIdFrom"/>
+                    <field-map field-name="projectId" env-name="parameters.projectId"/>
                     <order-by field-name="phaseName"/>
                     <order-by field-name="workEffortName"/>
                 </entity-and>
-                <set field="task" from-field=""/>
+                <set field="task" value=""/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -244,7 +245,6 @@ under the License.
             </widgets>
         </section>
     </screen>        
-	   <!-- Edit a Task -->
     <screen name="EditTask">
         <section>
             <actions>
@@ -252,7 +252,7 @@ under the License.
                 <set field="tabButtonItem" value="edittask"/>
                 <set field="labelTitleProperty" value="ProjectMgrTaskName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindTasks"/>
-                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
+                <set field="projectId" from-field="parameters.projectId"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="workEffortAssocTypeId" from-field="parameters.workEffortAssocTypeId"/>
                 <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
@@ -334,7 +334,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditPhase"/>
                 <set field="tabButtonItem" value="phases"/>
                 <set field="labelTitleProperty" value="PageTitleFindPhase"/>
-                <set field="projectId" from-field="parameters.workEffortIdFrom"/>
+                <set field="projectId" from-field="parameters.projectId"/>
                 <service service-name="getProjectPhaseList" result-map-name="result">
                     <field-map field-name="projectId" env-name="projectId"/>
                 </service>
@@ -352,7 +352,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.${titleProperty}}</label></container>
                                     <container style="screenlet-body">
-                                        <!--container style="button-bar"><link target="EditTask?workEffortIdFrom=${parameters.workEffortIdFrom}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN" text="${uiLabelMap.ProjectMgrNewTask}" style="buttontext"/></container-->
+                                        <!--container style="button-bar"><link target="EditTask?projectId=${parameters.projectId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN" text="${uiLabelMap.ProjectMgrNewTask}" style="buttontext"/></container-->
                                         <include-form name="ListPhases" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                     </container>                                              
                                 </container>    
@@ -375,7 +375,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="tabButtonItem" value="parties"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
             </actions>            
             <widgets>
@@ -404,7 +404,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSkill"/>
                 <set field="tabButtonItem" value="projectskills"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom" default-value="${parameters.workEffortId}"/>
+                <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <entity-and entity-name="WorkEffortSkillStandard" list-name="workEffortSkillStandardList">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
@@ -435,7 +435,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="parties"/>                
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -490,8 +490,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleListProjectNotes"/>
                 <set field="tabButtonItem" value="notes"/>
                 <set field="labelTitleProperty" value="PageTitleListProjectNotes"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom" default-value="${parameters.workEffortId}"/>
-                <set field="parameters.workEffortIdFrom" from-field="workEffortId"/>
+                <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <set field="parameters.projectId" from-field="workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -515,8 +515,8 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="projectView"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
-                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <set field="projectId" from-field="parameters.projectId"/>
                 <entity-one entity-name="WorkEffort" value-name="project"/>
             </actions>                        
             <widgets>
@@ -565,7 +565,7 @@ under the License.
     <screen name="SubProjectsInfo">
         <section>
             <actions>
-                <set field="parameters.workEffortIdFrom" from-field="parameters.workEffortId"/>
+                <set field="parameters.projectId" from-field="parameters.workEffortId"/>
                 <set field="parameters.workEffortTypeId" value="PROJECT"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
             </actions>
@@ -585,7 +585,7 @@ under the License.
         <section>
             <actions>
                 <entity-and entity-name="ProjectAndPhaseAndTask" list-name="phases">
-                    <field-map field-name="projectId" env-name="parameters.workEffortIdFrom"/>
+                    <field-map field-name="projectId" env-name="parameters.projectId"/>
                 </entity-and>
             </actions>
             <widgets>                

@@ -23,11 +23,9 @@ under the License.
     <screen name="Dependencies">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleUnassignedTask"/>
+                <set field="titleProperty" value="PageTitleDependencies"/>                
                 <set field="tabButtonItem" value="dependencies"/>
-                <set field="labelTitleProperty" value="PageTitleFindTask"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
             </actions>
             <widgets>
@@ -281,7 +279,7 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <set field="workEffortIdFrom" from-field="parameters.workEffortId"/>
+                <set field="projectId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-name="task"/>
             </actions>                        
             <widgets>

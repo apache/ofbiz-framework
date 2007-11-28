@@ -40,15 +40,15 @@
         </menu-item>
     </menu>
     <menu name="ProjectTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
-        <menu-item name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}"><link target="projectView?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
-        <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditPoject}"><link target="EditProject?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
-        <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}"><link target="FindPhase?workEffortIdFrom=${parameters.workEffortIdFrom}&amp;workEffortTypeId=PHASE&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
-        <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask?workEffortIdFrom=${parameters.workEffortIdFrom}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>        
-        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="FindProject?workEffortIdFrom=${parameters.workEffortIdFrom}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
-        <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditWorkEffortNotes?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
-        <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}"><link target="EditProjectSkills?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
-        <menu-item name="parties" title="${uiLabelMap.ProjectMgrParties}"><link target="ListWorkEffortPartyAssigns?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
-        <menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildWorkEfforts?workEffortIdFrom=${parameters.workEffortIdFrom}&amp;trail=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+        <menu-item name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}"><link target="projectView?projectId=${parameters.projectId}"/></menu-item>
+        <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditPoject}"><link target="EditProject?projectId=${parameters.projectId}"/></menu-item>
+        <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}"><link target="FindPhase?projectId=${parameters.projectId}&amp;workEffortTypeId=PHASE&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+        <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask?projectId=${parameters.projectId}"/></menu-item>        
+        <menu-item name="parties" title="${uiLabelMap.ProjectMgrParties}"><link target="ListWorkEffortPartyAssigns?projectId=${parameters.projectId}"/></menu-item>
+        <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditWorkEffortNotes?projectId=${parameters.projectId}"/></menu-item>
+        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="FindProject?projectId=${parameters.projectId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+        <!-- estimates only on task level menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}"><link target="EditProjectSkills?projectId=${parameters.projectId}"/></menu-item-->
+        <menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildWorkEfforts?projectId=${parameters.projectId}&amp;trail=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
     </menu>
     <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}"><link target="taskView?workEffortId=${workEffortId}"/></menu-item>
