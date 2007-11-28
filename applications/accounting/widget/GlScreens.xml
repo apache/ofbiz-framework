@@ -183,6 +183,10 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
+                                    <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y"/>
+                                    <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
+                                </container>
+                                <container>
                                     <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
                                 </container>
                             </widgets>

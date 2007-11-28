@@ -207,10 +207,12 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="reconcileStatusId"/>
         </auto-attributes>
-        <override name="glAccountId" optional="false"/>
         <override name="organizationPartyId" optional="false"/>
-        <override name="amount" optional="false"/>
         <override name="debitCreditFlag" optional="false"/>
+        <!--
+        <override name="glAccountId" optional="false"/>
+        <override name="amount" optional="false"/>
+        -->
     </service>
     <service name="createAcctgTransEntry" default-entity-name="AcctgTransEntry" engine="simple"
             location="org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="createAcctgTransEntry" auth="true">
@@ -276,6 +278,7 @@ under the License.
             <check-permission permission="ACCOUNTING" action="_ATX_POST"/>
         </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="verifyOnly" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Miscellaneous Ledger-related services -->

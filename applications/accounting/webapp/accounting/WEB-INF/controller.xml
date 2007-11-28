@@ -420,8 +420,8 @@ under the License.
     <request-map uri="postAcctgTrans">
         <security https="true" auth="true"/>
         <event type="service" invoke="postAcctgTrans"/>
-        <response name="success" type="view" value="ListUnpostedAcctgTrans"/>
-        <response name="error" type="view" value="ListUnpostedAcctgTrans"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+        <response name="error" type="view" value="EditAcctgTrans"/>
     </request-map>
     <request-map uri="updateAcctgTrans">
         <security https="true" auth="true"/>

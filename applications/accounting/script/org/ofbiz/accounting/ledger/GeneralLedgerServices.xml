@@ -357,41 +357,11 @@ under the License.
                     </if-not-empty>
                 </if-not-empty>
             </if-empty>
-            <if-empty field-name="acctgTransEntry.amount">
-                <add-error><fail-message message="Cannot process accounting transaction entries with null amount: ${acctgTransEntry}"/></add-error>
+            <if-empty field-name="acctgTransEntry.origAmount">
+                <set field="acctgTransEntry.origAmount" from-field="acctgTransEntry.amount"/>
             </if-empty>
-            <if-empty field-name="acctgTransEntry.glAccountId">
-                <add-error><fail-message message="Mapping not configured for the account type ${acctgTransEntry.glAccountTypeId}; cannot process accounting transaction entries with a null glAccountId."/></add-error>
-            </if-empty>
-            <check-errors/>
-            <!-- add up debits and credits -->
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                <calculate field-name="debitTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
-                    <calcop operator="get" field-name="acctgTransEntry.amount"/>
-                    <calcop operator="get" field-name="debitTotal"/>
-                </calculate>
-            </if-compare>
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                <calculate field-name="creditTotal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
-                    <calcop operator="get" field-name="acctgTransEntry.amount"/>
-                    <calcop operator="get" field-name="creditTotal"/>
-                </calculate>
-            </if-compare>
         </iterate>
-        <calculate field-name="debitCreditDifference" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
-            <calcop operator="get" field-name="debitTotal"/>
-            <calcop operator="negative" field-name="creditTotal"/>
-        </calculate>
-        <!-- <log level="info" message="In createAcctgTransAndEntries: debitTotal = [${debitTotal}] creditTotal=[${creditTotal}] debitCreditDifference=[${debitCreditDifference}]"/> -->
-        <!-- if the debit and credit totals do not balance, return an error -->
-        <if-compare field-name="debitCreditDifference" operator="greater-equals" value="0.000001" type="Double">
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingDebitCreditMustEqual"/></add-error>
-        </if-compare>
-        <if-compare field-name="debitCreditDifference" operator="less-equals" value="-0.000001" type="Double">
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingDebitCreditMustEqual"/></add-error>
-        </if-compare>
-        <check-errors/>
-        
+
         <!-- now do the posting. First, create the AcctgTrans entity -->
         <set-service-fields service-name="createAcctgTrans" map-name="parameters" to-map-name="createAcctgTransParams"/>
         <if-empty field-name="createAcctgTransParams.transactionDate">
@@ -404,8 +374,11 @@ under the License.
         <!-- Next, create the AcctgTransEntry entities one by one -->
         <iterate list-name="parameters.acctgTransEntries" entry-name="acctgTransEntry">
             <!-- if any amount is negative, then get the absolute (positive) value of that amount, and flip the Debit/Credit flag  -->
-            <if-compare field-name="amount" map-name="acctgTransEntry" operator="less" value="0">
+            <if-compare field-name="acctgTransEntry.origAmount" operator="less" value="0">
                 <log level="verbose" message="${acctgTransEntry} is going to get inverted"/>
+                <calculate field-name="acctgTransEntry.origAmount">
+                    <calcop field-name="acctgTransEntry.origAmount" operator="negative"/>
+                </calculate>
                 <calculate field-name="acctgTransEntry.amount">
                     <calcop field-name="acctgTransEntry.amount" operator="negative"/>
                 </calculate>
@@ -418,7 +391,7 @@ under the License.
                 </else>
                 </if-compare>
             </if-compare>
-            
+
             <!-- now create the AcctgTransEntry using the acctgTransId we already have from above -->
             <clear-field field-name="createAcctgTransEntryParams"/>
             <set-service-fields service-name="createAcctgTransEntry" map-name="acctgTransEntry" to-map-name="createAcctgTransEntryParams"/>
