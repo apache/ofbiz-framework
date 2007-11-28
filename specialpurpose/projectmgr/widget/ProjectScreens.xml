@@ -37,7 +37,7 @@ under the License.
                     <decorator-section name="body">                                                                                                                
                         <section>                            
                             <condition>
-                                <if-empty field-name="workEffortId"/>
+                                <!--if-empty field-name="workEffortId"/-->
                             </condition>                            
                             <!-- This is the code for the List of Projects -->
                             <widgets>
@@ -107,7 +107,6 @@ under the License.
                 <set field="project" from-field="result.projectInfo"/>
             </actions>
             <widgets>
-                <label text="========${project.estimatedStartDate}"></label>                
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">  
                         <container style="screenlet">
@@ -512,7 +511,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="ProjectSummary">        
+    <screen name="ProjectView">        
         <section>
             <actions>
                 <set field="tabButtonItem" value="projectView"/>
@@ -537,11 +536,21 @@ under the License.
                                     <include-screen name="PartiesInfo"/>
                                     <include-screen name="NoteInfo"/>
                                 </container>
+                                <include-screen name="gantChart"/>
                             </widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>            
+        </section>
+    </screen>
+    <screen name="gantChart">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/gantChart.ftl"/></html>
+                </platform-specific>
+            </widgets>
         </section>
     </screen>
     <screen name="ProjectInfo">
