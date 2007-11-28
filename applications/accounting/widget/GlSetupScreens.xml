@@ -296,7 +296,8 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>                
                 <set field="titleProperty" value="AccountingProductGlAccount"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingProductGlAccount}"/>
-                <set field="tabButtonItem" value="ProductGlAccounts"/>
+                <set field="tabButtonItem" value="GlAccountAssignment"/>
+                <set field="tabButtonItem2" value="ProductGlAccounts"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 
                 <entity-condition entity-name="ProductGlAccount" list-name="productGlAccounts">
@@ -306,7 +307,8 @@ under the License.
                 <entity-condition entity-name="GlAccountType" list-name="productGlAccountTypes" use-cache="true">
                     <order-by field-name="description"/>
                 </entity-condition>
-                <entity-condition entity-name="GlAccount" list-name="glAccounts" use-cache="true">
+                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
+                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
                     <order-by field-name="accountCode"/>
                 </entity-condition>
             </actions>
