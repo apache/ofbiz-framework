@@ -1402,6 +1402,34 @@ under the License.
         <response name="error" type="view" value="EditFinAccountAuths"/>
     </request-map>
     
+    <!--request-uri FinAccountTypeGlAccount -->
+    
+    <request-map uri="editFinAccountTypeGlAccounts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFinAccountTypeGlAccounts"/>
+    </request-map>
+    
+    <request-map uri="createFinAccountTypeGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createFinAccountTypeGlAccount"/>
+        <response name="success" type="view" value="EditFinAccountTypeGlAccounts"/>
+        <response name="error" type="view" value="EditFinAccountTypeGlAccounts"/>
+    </request-map>
+    
+    <request-map uri="updateFinAccountTypeGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateFinAccountTypeGlAccount"/>
+        <response name="success" type="view" value="EditFinAccountTypeGlAccounts"/>
+        <response name="error" type="view" value="EditFinAccountTypeGlAccounts"/>
+    </request-map>
+    
+    <request-map uri="deleteFinAccountTypeGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteFinAccountTypeGlAccount"/>
+        <response name="success" type="view" value="EditFinAccountTypeGlAccounts"/>
+        <response name="error" type="view" value="EditFinAccountTypeGlAccounts"/>
+    </request-map>
+    
     <!-- =================== Assignment ====================== -->
     <request-map uri="EditPartyFixedAssetAssignments">
         <security https="true" auth="true"/>
@@ -1537,6 +1565,7 @@ under the License.
     <view-map name="EditFinAccountRoles" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountRoles"/>
     <view-map name="EditFinAccountTrans" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountTrans"/>
     <view-map name="EditFinAccountAuths" type="screen" page="component://accounting/widget/FinAccountScreens.xml#EditFinAccountAuths"/> 
+    <view-map name="EditFinAccountTypeGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditFinAccountTypeGlAccounts"/> 
     
     <!-- FixedAsset -->
     <view-map name="ListFixedAssets" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssets"/> 
