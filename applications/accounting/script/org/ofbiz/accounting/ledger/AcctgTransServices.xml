@@ -242,8 +242,25 @@ under the License.
         <if-compare field-name="parameters.verifyOnly" operator="equals" value="Y">
             <check-errors/>
         <else>
-            <!-- TODO: if there are errors and we have an error journal assign to the journal and return -->
-            <check-errors/>
+            <!-- if there are errors and we have an error journal assign to the journal and return -->
+            <if-not-empty field-name="error_list">
+                <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
+                    <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" use-cache="true" auto-field-map="false">
+                        <field-map field-name="partyId" env-name="acctgTransEntry.organizationPartyId"/>
+                    </entity-one>
+                    <if-empty field-name="partyAcctgPreference.errorGlJournalId">
+                        <!-- if no error journal is set, then return the error messages -->
+                        <check-errors/>
+                    <else>
+                        <!-- assign the transaction to the error journal -->
+                        <set field="acctgTrans.glJournalId" from-field="partyAcctgPreference.errorGlJournalId"/>
+                        <!-- FIXME: we should probably store the journal id in each one of the AcctgTransEntry records-->
+                        <store-value value-name="acctgTrans"/>
+                        <return/>
+                    </else>
+                    </if-empty>
+                </iterate>
+            </if-not-empty>
             <!-- TODO: for each entry: lookup GlAccount, update posted balance -->
             <iterate entry-name="acctgTransEntry" list-name="acctgTransEntryList">
                 <!-- Get all data to operate on: GlAccount, GlAccountOrganization, GlAccountHistory -->
