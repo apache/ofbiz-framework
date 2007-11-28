@@ -1777,6 +1777,7 @@ under the License.
       <field name="productPriceActionSeqId" type="id-ne"></field>
       <field name="productPriceActionTypeId" type="id-ne"></field>
       <field name="amount" type="floating-point"></field>
+      <field name="rateCode" type="short-varchar"></field>
       <prim-key field="productPriceRuleId"/>
       <prim-key field="productPriceActionSeqId"/>
       <relation type="one" fk-name="PROD_PCACT_TYPE" rel-entity-name="ProductPriceActionType">
