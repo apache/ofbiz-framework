@@ -58,9 +58,9 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="projects"/>                
-                <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <entity-one entity-name="WorkEffort" value-name="project">
-                    <field-map field-name="workEffortId" env-name="parameters.workEffortIdFrom"/>
+                    <field-map field-name="workEffortId" env-name="projectId"/>
                 </entity-one>
             </actions>
             <widgets>
@@ -97,7 +97,6 @@ under the License.
     <screen name="CommonTaskDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="mytasks"/>
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
             </actions>
@@ -120,7 +119,6 @@ under the License.
                                         <label style="head1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] Project: ${projectName}"/>
                                     </widgets>                                    
                                 </section>
-                                
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
