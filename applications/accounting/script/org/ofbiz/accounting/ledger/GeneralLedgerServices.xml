@@ -421,6 +421,25 @@ under the License.
                 <entity-one entity-name="ProductGlAccount" value-name="lookedUpValue" use-cache="true"/> 
             </then>
         </if>
+        
+        <!-- if parameters for ProductCategoryGlAccount were passed, then try it this time -->
+        <if-empty field-name="lookedUpValue">
+            <if>
+                <condition>
+                    <not>
+                        <or>
+                            <if-empty field-name="parameters.productCategoryId"/>
+                            <if-empty field-name="parameters.organizationPartyId"/>
+                            <if-empty field-name="parameters.glAccountTypeId"/>
+                        </or>
+                    </not>
+                </condition>
+                <then>
+                    <entity-one entity-name="ProductCategoryGlAccount" value-name="lookedUpValue" use-cache="true"/>
+                </then>
+            </if>
+        </if-empty>
+        
         <!-- if nothing found or if no such parameters were passed (lookedUpValue empty in both cases), try GlAccountTypeDefault -->
         <if-empty field-name="lookedUpValue.glAccountId">
             <entity-one entity-name="GlAccountTypeDefault" value-name="lookedUpValue" use-cache="true"/> 
