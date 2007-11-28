@@ -20,40 +20,67 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="FindTaskList">
+    <screen name="Dependencies">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleUnassignedTask"/>
-                <set field="tabButtonItem" value="subtasks"/>
+                <set field="tabButtonItem" value="dependencies"/>
                 <set field="labelTitleProperty" value="PageTitleFindTask"/>
-                <set field="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-empty field-name="workEffortId"/>
-                            </condition>
-                            <widgets>
-                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
-                                <container style="button-bar"><link target="EditTask?workEffortTypeId=TASK" text="${uiLabelMap.ProjectMgrNewTask}" style="buttontext"/></container>
-                                <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                            </widgets>
-                            <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditSubTask}</label></container>                                
-                                    <container style="screenlet-body"> 
-                                        <include-form name="ListChildEfforts" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                            <section>
+                                <actions>
+                                    <entity-and entity-name="WorkEffortAssocView" list-name="depList" filter-by-date="true">
+                                        <field-map field-name="workEffortIdTo" env-name="parameters.workEffortId"/>
+                                        <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
+                                    </entity-and>
+                                </actions>
+                                <widgets>
+                                    <container style="lefthalf">
+                                        <container style="screenlet">
+                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksBefore}</label></container>                                
+                                            <container style="screenlet-body"> 
+                                                <include-form name="Dependencies" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </container>
+                                        </container>
+                                        <container style="screenlet">
+                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddDependency}</label></container>                                
+                                            <container style="screenlet-body"> 
+                                                <include-form name="AddDependencyBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </container>
+                                        </container>
                                     </container>
-                                </container>
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittasklistandassoc.ftl"/></html>
-                                </platform-specific> 
-                            </fail-widgets>
-                        </section>
+                                </widgets>
+                            </section>
+                            <section>
+                                <actions>
+                                    <entity-and entity-name="WorkEffortAssocView" list-name="depList" filter-by-date="true">
+                                        <field-map field-name="workEffortIdFrom" env-name="parameters.workEffortId"/>
+                                        <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
+                                    </entity-and>
+                                </actions>
+                                <widgets>
+                                    <container style="righthalf">
+                                        <container style="screenlet">
+                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksAfter}</label></container>                                
+                                            <container style="screenlet-body"> 
+                                                <include-form name="Dependencies" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </container>
+                                        </container>
+                                        <container style="screenlet">
+                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddDependency}</label></container>                                
+                                            <container style="screenlet-body"> 
+                                                <include-form name="AddDependencyAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </container>
+                                        </container>
+                                    </container>
+                                </widgets>
+                            </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -64,7 +91,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindTask"/>
                 <set field="labelTitleProperty" value="ProjectMgrTaskName"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindTaskList"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/Dependencies"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListMyTasks.bsh"/>
             </actions>                                                
             <widgets>  
@@ -93,7 +120,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaskList"/>
                 <set field="tabButtonItem" value="edittask"/>                
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindTaskList"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/Dependencies"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>                
                 <set field="workEffortAssocTypeId" from-field="parameters.workEffortAssocTypeId"/>
                 <entity-one entity-name="WorkEffort" value-name="task"/>                

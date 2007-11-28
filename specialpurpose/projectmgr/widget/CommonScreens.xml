@@ -35,11 +35,7 @@ under the License.
 
                 <!-- The two default (global) stylesheets are added to the list
                      of stylesheets to the first and second position -->
-                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <!-- The default (global) java scripts -->
-                <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/>
 
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ProjectMgrCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ProjectMgrCompanySubtitle" global="true"/>
@@ -101,9 +97,9 @@ under the License.
     <screen name="CommonTaskDecorator">
         <section>
             <actions>
-                <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
                 <set field="headerItem" value="mytasks"/>
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -116,12 +112,12 @@ under the License.
                                 <section>
                                     <condition>
                                         <not>
-                                            <if-empty field-name="workEffortId"/>
+                                            <if-empty field-name="workEffort"/>
                                         </not>
                                     </condition>
                                     <widgets>                                        
                                         <include-menu name="TaskTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                                        <label style="head1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}]"/>
+                                        <label style="head1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] Project: ${projectName}"/>
                                     </widgets>                                    
                                 </section>
                                 

@@ -43,8 +43,8 @@
         <menu-item name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}"><link target="projectView?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
         <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditPoject}"><link target="EditProject?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
         <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}"><link target="FindPhase?workEffortIdFrom=${parameters.workEffortIdFrom}&amp;workEffortTypeId=PHASE&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
-        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="FindProject?workEffortIdFrom=${parameters.workEffortIdFrom}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
         <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask?workEffortIdFrom=${parameters.workEffortIdFrom}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>        
+        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="FindProject?workEffortIdFrom=${parameters.workEffortIdFrom}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditWorkEffortNotes?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
         <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}"><link target="EditProjectSkills?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrParties}"><link target="ListWorkEffortPartyAssigns?workEffortIdFrom=${parameters.workEffortIdFrom}"/></menu-item>
@@ -53,7 +53,7 @@
     <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}"><link target="taskView?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="edittask" title="${uiLabelMap.ProjectMgrEditTask}"><link target="EditTask?workEffortId=${workEffortId}"/></menu-item>
-        <menu-item name="subtasks" title="${uiLabelMap.ProjectMgrSubTasks}"><link target="FindTaskList?workEffortIdFrom=${workEffortId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
+        <menu-item name="dependencies" title="${uiLabelMap.ProjectMgrDependencies}"><link target="Dependencies?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}"><link target="EditTaskSkills?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditTaskNotes?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildTaskWorkEfforts?workEffortId=${workEffortId}&amp;trail=${workEffortId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
