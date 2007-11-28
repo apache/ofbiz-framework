@@ -75,13 +75,5 @@ under the License.
     <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-10-01" thruDate="2007-11-01" isClosed="N" periodNum="10" periodName="Month"/>
     <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-11-01" thruDate="2007-12-01" isClosed="N" periodNum="11" periodName="Month"/>
     <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-12-01" thruDate="2008-01-01" isClosed="N" periodNum="12" periodName="Month"/>
-    
-    <!-- FinAccountTypeGlAccount Entries for Company -->
-    <FinAccountTypeGlAccount finAccountTypeId="GIFTCERT_ACCOUNT" organizationPartyId="Company" glAccountId="213200"/>
-    <FinAccountTypeGlAccount finAccountTypeId="DEPOSIT_ACCOUNT" organizationPartyId="Company" glAccountId="213500"/>
-    <FinAccountTypeGlAccount finAccountTypeId="BANK_ACCOUNT" organizationPartyId="Company" glAccountId="213500"/>
-    <FinAccountTypeGlAccount finAccountTypeId="INVESTMENT_ACCOUNT" organizationPartyId="Company" glAccountId="213500"/>
-    
-    <!-- TODO: The LONG Section: GlAccountOrganization Records for Company -->
-    <GlAccountOrganization glAccountId="100000" organizationPartyId="Company" fromDate="2001-05-13 12:00:00.0"/>
+
 </entity-engine-xml>
