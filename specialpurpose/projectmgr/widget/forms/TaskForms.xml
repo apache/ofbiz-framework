@@ -156,7 +156,7 @@
     
     <form name="FindTask" type="single" target="MyTasks">
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="date"/></field>
+        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}"><text/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
     <form name="ListTasks" type="list" list-name="tasks" paginate-target="Dependencies">

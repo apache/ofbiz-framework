@@ -54,19 +54,22 @@
         <field use-when="project!=null" name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display description="${bsh:project.get(&quot;actualCompletionDate&quot;)!=null?project.get(&quot;actualCompletionDate&quot;).toString().substring(0,10):&quot;&quot;;}"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    
-	<!--================ Project Lists==============-->
+    <form name="FindProject" type="single" target="FindProjectByRange">
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
+        <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}"><text/></field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
     <form name="ListProjects" type="list" list-name="projects" paginate-target="FindProject">
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="EditProject?projectId=${workEffortId}"/>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>
-        <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
-        <field name="workEffortTypeId" title="${uiLabelMap.ProjectMgrWorkEffortTypeId}"><display-entity entity-name="WorkEffortType"/></field>
-        <field name="workEffortPurposeTypeId" title="${uiLabelMap.ProjectMgrWorkEffortPurposeTypeId}"><display-entity entity-name="WorkEffortPurposeType"/></field>
-        <!--field name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrProjectSummary}" target="projectView?workEffortId=${workEffortId}"/>
-        </field-->
-        <field name="createdStamp"><display/></field>
+        <field name="statusDescription" title="${uiLabelMap.CommonStatus}"><display/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
+        <field name="createdDate"><display type="date"/></field>
     </form>                                        	
     <form name="ListChildEfforts"  target="updateProjectAndAssoc" title="" list-name="projects" type="list" separate-columns="true" paginate-target="FindProject">
         <row-actions>

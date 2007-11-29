@@ -75,19 +75,26 @@ under the License.
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjectsByDateRange.bsh"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/FindProject.bsh"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                                                
                         <section>                                                        
-                            <widgets>                                                                             
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/listprojectsbydaterange.ftl"/></html>
-                                </platform-specific>
-                                <container style="button-bar"><link target="EditProject?workEffortTypeId=PROJECT" text="${uiLabelMap.ProjectMgrNewProject}" style="buttontext"/></container>
-                                <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="FindProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                    </container>                                                                             
+                                </container>                                                                             
+                                <container style="button-bar"><link target="EditProject" text="${uiLabelMap.ProjectMgrNewProject}" style="buttontext"/></container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                    </container>
+                                </container>
                             </widgets>                            
                         </section>
                     </decorator-section>

@@ -33,11 +33,18 @@ under the License.
         <set field="highInfo.projectName" from-field="project.workEffortName"/>
         <set field="highInfo.projectDescription" from-field="project.description"/>
         <set field="highInfo.priority" from-field="project.priority"/>
+        <set field="highInfo.currentStatusId" from-field="project.currentStatusId"/>
         <set field="highInfo.scopeEnumId" from-field="project.scopeEnumId"/>
         <entity-one entity-name="StatusItem" value-name="highSeq">
-            <field-map field-name="statusId" env-name="phase.currentStatusId"/>
+            <field-map field-name="statusId" env-name="project.currentStatusId"/>
         </entity-one>
         <set field="highInfo.sequenceId" from-field="highSeq.sequenceId"/>
+        <set field="highInfo.statusDescription" from-field="highSeq.description"/>
+        <set field="highInfo.createdDate" from-field="project.createdDate"/>
+        <set field="highInfo.estimatedStartDate" from-field="project.estimatedStartDate"/>
+        <set field="highInfo.estimatedCompletionDate" from-field="project.estimatedCompletionDate"/>
+        <set field="highInfo.actualStartDate" from-field="project.actualStartDate"/>
+        <set field="highInfo.actualCompletionDate" from-field="project.actualCompletionDate"/>
         
         <!-- loop through the related phases and tasks -->
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
