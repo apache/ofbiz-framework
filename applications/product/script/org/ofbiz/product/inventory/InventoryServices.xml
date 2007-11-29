@@ -277,7 +277,7 @@ under the License.
             </else>
         </if-not-empty>
 
-        <!-- if availableToPromiseDiff and quantityOnHandDiff are empty set to 0 -->
+        <!-- if availableToPromiseDiff or quantityOnHandDiff are empty set to 0 -->
         <if-empty field-name="newEntity.availableToPromiseDiff"><set field="newEntity.availableToPromiseDiff" value="0" type="Double"/></if-empty>
         <if-empty field-name="newEntity.quantityOnHandDiff"><set field="newEntity.quantityOnHandDiff" value="0" type="Double"/></if-empty>
 
