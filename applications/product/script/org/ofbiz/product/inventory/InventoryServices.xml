@@ -214,8 +214,20 @@ under the License.
         </if-empty>
         <field-to-result field-name="lookedUpValue.ownerPartyId" result-name="oldOwnerPartyId"/>
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
+        <!-- special handling for the unitCost -->
+        <if-compare field-name="parameters.unitCost" operator="less" value="0.0" type="Double">
+            <add-error><fail-message message="Unit cost for inventory item [${lookupPKMap.inventoryItemId}] cannot be negative."/></add-error>
+            <check-errors/>
+        </if-compare>
+        <set field-name="oldUnitCost" from-field="lookedUpValue.unitCost"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
+        <!-- if the unit cost is changed create an InventoryItemDetail to keep track of unit cost history -->
+        <if-compare-field field-name="parameters.unitCost" operator="not-equals" to-field-name="oldUnitCost">
+            <set field="createInventoryItemDetailInMap.inventoryItemId" from-field="lookedUpValue.inventoryItemId"/>
+            <set field="createInventoryItemDetailInMap.unitCost" from-field="parameters.unitCost"/>
+            <call-service service-name="createInventoryItemDetail" in-map-name="createInventoryItemDetailInMap"/>
+        </if-compare-field>
     </simple-method>
 
     <simple-method method-name="createInventoryItemStatus" short-description="Create an inventory item status record">
@@ -265,7 +277,7 @@ under the License.
             </else>
         </if-not-empty>
 
-        <!-- if availableToPromiseDiff or quantityOnHandDiff are empty set to 0 -->
+        <!-- if availableToPromiseDiff and quantityOnHandDiff are empty set to 0 -->
         <if-empty field-name="newEntity.availableToPromiseDiff"><set field="newEntity.availableToPromiseDiff" value="0" type="Double"/></if-empty>
         <if-empty field-name="newEntity.quantityOnHandDiff"><set field="newEntity.quantityOnHandDiff" value="0" type="Double"/></if-empty>
 
@@ -277,6 +289,7 @@ under the License.
 
         <set field="inventoryItem.availableToPromiseTotal" from-field="inventoryItemDetailSummary.availableToPromiseTotal"/>
         <set field="inventoryItem.quantityOnHandTotal" from-field="inventoryItemDetailSummary.quantityOnHandTotal"/>
+        <set field="inventoryItem.unitCost" from-field="inventoryItemDetailSummary.unitCostTotal"/>
         <store-value value-name="inventoryItem"/>
     </simple-method>
 
@@ -420,6 +433,8 @@ under the License.
         <set from-field="parameters.physicalInventoryId" field="createDetailMap.physicalInventoryId"/>
         <set from-field="parameters.availableToPromiseVar" field="createDetailMap.availableToPromiseDiff"/>
         <set from-field="parameters.quantityOnHandVar" field="createDetailMap.quantityOnHandDiff"/>
+        <set from-field="parameters.varianceReasonId" field="createDetailMap.reasonEnumId"/>
+        <set from-field="parameters.comments" field="createDetailMap.description"/>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
 
         <make-value value-name="newEntity" entity-name="InventoryItemVariance"/>

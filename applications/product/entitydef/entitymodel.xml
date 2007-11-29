@@ -1246,6 +1246,7 @@ under the License.
       <field name="effectiveDate" type="date-time"></field>
       <field name="quantityOnHandDiff" type="floating-point"></field>
       <field name="availableToPromiseDiff" type="floating-point"></field>
+      <field name="unitCost" type="floating-point"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
       <field name="shipGroupSeqId" type="id"></field>
