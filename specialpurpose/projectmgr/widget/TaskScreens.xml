@@ -88,6 +88,7 @@ under the License.
         <section>            
             <actions>
                 <set field="titleProperty" value="PageTitleFindTask"/>
+                <set field="headerItem" value="mytasks"/>
                 <set field="labelTitleProperty" value="ProjectMgrTaskName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/Dependencies"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/MyTasks.bsh"/>
