@@ -85,10 +85,19 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleEditTimesheetEntries}</label></container>
                         <container><link  text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet" style="linktext"/></container>
-                        <include-form name="ListTimesheetEntries" location="component://workeffort/widget/TimesheetForms.xml"/>
-                        <include-form name="AddTimesheetEntry" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditTimesheetEntries}</label></container>
+                            <container style="screenlet-body">
+                                <include-form name="ListTimesheetEntries" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddTimesheetEntry}</label></container>
+                            <container style="screenlet-body">
+                                <include-form name="AddTimesheetEntry" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -179,6 +188,37 @@ under the License.
                         <include-form name="ListMyRates" location="component://workeffort/widget/TimesheetForms.xml"/>
                         <container><label text="${uiLabelMap.WorkEffortMyTimesheets}" style="head2"/></container>
                         <include-form name="ListMyTimesheets" location="component://workeffort/widget/TimesheetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditTimesheetRoles">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditTimesheetRoles"/>
+                <set field="tabButtonItem" value="TimesheetRoles"/>
+                <set field="labelTitleProperty" value="PageTitleEditTimesheetRoles"/>
+                
+                <set field="timesheetId" from-field="parameters.timesheetId"/>
+                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><link  text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet" style="linktext"/></container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditTimesheetRoles}</label></container>
+                            <container style="screenlet-body">
+                                <include-form name="ListTimesheetRoles" location="component://workeffort/widget/TimesheetForms.xml"/>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddTimesheetRole}</label></container>
+                            <container style="screenlet-body">
+                                <include-form name="AddTimesheetRole" location="component://workeffort/widget/TimesheetForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

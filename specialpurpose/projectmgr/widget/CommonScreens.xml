@@ -175,7 +175,7 @@ under the License.
                                     <condition><not><if-empty field-name="timesheetId"/></not></condition>
                                     <widgets>
                                         <include-menu name="TimesheetTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                                        <!--container><label style="head1">${uiLabelMap.TimesheetTimesheetId}: ${timesheetId}</label></container-->
+                                        <container><label style="head1">${uiLabelMap.TimesheetTimesheetId}: ${timesheetId}</label></container>
                                     </widgets>
                                 </section>
                                 
