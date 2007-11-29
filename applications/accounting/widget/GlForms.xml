@@ -225,8 +225,8 @@ under the License.
                     <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
                     <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
                 </condition-list>
-                <order-by field-name="-transactionDate"/>
                 <order-by field-name="glAccountId"/>
+                <order-by field-name="-transactionDate"/>
             </entity-condition>
         </actions>
         <row-actions>
