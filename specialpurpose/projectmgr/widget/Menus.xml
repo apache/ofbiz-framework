@@ -24,7 +24,7 @@
     
         <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
         <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
-        <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProjectByRange?workEffortTypeId=PROJECT"/></menu-item>
+        <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProject?workEffortTypeId=PROJECT"/></menu-item>
         <menu-item name="timesheet" title="${uiLabelMap.Timesheet}"><link target="FindTimeSheet?findAll=N"/></menu-item>
         <menu-item name="SkillType" title="${uiLabelMap.ProjectMgrSkillType}"><link target="findSkillTypes"/></menu-item>
         <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
@@ -46,8 +46,7 @@
         <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask?projectId=${parameters.projectId}"/></menu-item>        
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrParties}"><link target="ListWorkEffortPartyAssigns?projectId=${parameters.projectId}"/></menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditWorkEffortNotes?projectId=${parameters.projectId}"/></menu-item>
-        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="FindProject?projectId=${parameters.projectId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
-        <!-- estimates only on task level menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}"><link target="EditProjectSkills?projectId=${parameters.projectId}"/></menu-item-->
+        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="ListSubProjects?projectId=${parameters.projectId}"/></menu-item>
         <menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildWorkEfforts?projectId=${parameters.projectId}&amp;trail=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item>
     </menu>
     <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
