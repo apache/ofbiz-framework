@@ -20,6 +20,8 @@ package org.ofbiz.base.util;
 
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -31,8 +33,13 @@ import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.collections.FlexibleProperties;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -123,21 +130,9 @@ public class UtilProperties implements java.io.Serializable {
     public static String getPropertyValue(String resource, String name) {
         if (resource == null || resource.length() <= 0) return "";
         if (name == null || name.length() <= 0) return "";
-        FlexibleProperties properties = resourceCache.get(resource);
 
+        Properties properties = getProperties(resource);
         if (properties == null) {
-            try {
-                URL url = UtilURL.fromResource(resource);
-
-                if (url == null) return "";
-                properties = FlexibleProperties.makeFlexibleProperties(url);
-                resourceCache.put(resource, properties);
-            } catch (MissingResourceException e) {
-                Debug.log(e.getMessage(), module);
-            }
-        }
-        if (properties == null) {
-            Debug.log("[UtilProperties.getPropertyValue] could not find resource: " + resource, module);
             return "";
         }
 
@@ -186,12 +181,12 @@ public class UtilProperties implements java.io.Serializable {
     public static Properties getProperties(URL url) {
         if (url == null)
             return null;
-        FlexibleProperties properties = resourceCache.get(url.toString());
+        FlexibleProperties properties = urlCache.get(url.toString());
 
         if (properties == null) {
             try {
                 properties = FlexibleProperties.makeFlexibleProperties(url);
-                resourceCache.put(url.toString(), properties);
+                urlCache.put(url.toString(), properties);
             } catch (MissingResourceException e) {
                 Debug.log(e.getMessage(), module);
             }
@@ -266,18 +261,9 @@ public class UtilProperties implements java.io.Serializable {
     public static String getPropertyValue(URL url, String name) {
         if (url == null) return "";
         if (name == null || name.length() <= 0) return "";
-        FlexibleProperties properties = urlCache.get(url.toString());
+        Properties properties = getProperties(url);
 
         if (properties == null) {
-            try {
-                properties = FlexibleProperties.makeFlexibleProperties(url);
-                urlCache.put(url.toString(), properties);
-            } catch (MissingResourceException e) {
-                Debug.log(e.getMessage(), module);
-            }
-        }
-        if (properties == null) {
-            Debug.log("[UtilProperties.getPropertyValue] could not find resource: " + url, module);
             return null;
         }
 
@@ -303,18 +289,9 @@ public class UtilProperties implements java.io.Serializable {
         if (url == null) return "";
         if (name == null || name.length() <= 0) return "";
 
-        FlexibleProperties properties = urlCache.get(url.toString());
+        Properties properties = getProperties(url);
 
         if (properties == null) {
-            try {
-                properties = FlexibleProperties.makeFlexibleProperties(url);
-                urlCache.put(url.toString(), properties);
-            } catch (MissingResourceException e) {
-                Debug.log(e.getMessage(), module);
-            }
-        }
-        if (properties == null) {
-            Debug.log("[UtilProperties.getPropertyValue] could not find resource: " + url, module);
             return null;
         }
 
@@ -344,22 +321,9 @@ public class UtilProperties implements java.io.Serializable {
     public static void setPropertyValue(String resource, String name, String value) {
         if (resource == null || resource.length() <= 0) return;
         if (name == null || name.length() <= 0) return;
-        FlexibleProperties properties = (FlexibleProperties) resourceCache.get(resource);
 
+        Properties properties = getProperties(resource);
         if (properties == null) {
-            try {
-                URL url = UtilURL.fromResource(resource);
-
-                if (url == null) return;
-                properties = FlexibleProperties.makeFlexibleProperties(url);
-                resourceCache.put(resource, properties);
-            } catch (MissingResourceException e) {
-                Debug.log(e.getMessage(), module);
-            }
-        }
-
-        if (properties == null) {
-            Debug.log("[UtilProperties.setPropertyValue] could not find resource: " + resource, module);
             return;
         }
 
@@ -539,6 +503,9 @@ public class UtilProperties implements java.io.Serializable {
                     }
                     bundleMap = new ResourceBundleMapWrapper.InternalRbmWrapper(bundle);
                     if (bundleMap != null) {
+                        // TODO: Make this smarter by checking the Locale of the ResourceBundle -
+                        // there might be an instance of this bundle already in the cache.
+                        // See http://java.sun.com/j2se/1.4.2/docs/api/java/util/ResourceBundle.html#getLocale()
                         bundleLocaleCache.put(resourceCacheKey, bundleMap);
                     }
                 }
@@ -555,7 +522,7 @@ public class UtilProperties implements java.io.Serializable {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         ResourceBundle bundle = null;
         try {
-            bundle = ResourceBundle.getBundle(resource, locale, loader);
+            bundle = XmlResourceBundle.getBundle(resource, locale, loader);
         } catch (MissingResourceException e) {
             String resourceFullName = resource + "_" + locale.toString();
             if (!resourceNotFoundMessagesShown.contains(resourceFullName)) {
@@ -639,5 +606,153 @@ public class UtilProperties implements java.io.Serializable {
             Debug.logInfo("[UtilProperties.getProperties] could not find resource: " + resource + ", locale: " + locale, module);
 
         return properties;
+    }
+    
+    /**
+     * Custom ResourceBundle class. This class reads XML properties files and supports
+     * the OFBiz <code>component://</code> location protocol.<p>The format of the XML
+     * properties file is:<br /><br /><code>
+     * &lt;resource&gt;<br />
+     * &nbsp;&lt;property key="key"&gt;<br />
+     * &nbsp;&nbsp;&lt;value xml:lang="locale 1"&gt;Some value&lt;/value&gt<br />
+     * &nbsp;&nbsp;&lt;value xml:lang="locale 2"&gt;Some value&lt;/value&gt<br />
+     * &nbsp;&nbsp;...<br />
+     * &nbsp;&lt;/property&gt;<br />
+     * &nbsp;...<br />
+     * &lt;/resource&gt;<br /><br /></code>
+     * where <em>"locale 1", "locale 2"</em> are valid Locale strings.</p>
+     */
+    public static class XmlResourceBundle extends ResourceBundle {
+        protected Map<String, Object> propertyMap = null;
+        protected String locale = null;
+
+        protected XmlResourceBundle() {}
+        
+        public XmlResourceBundle(Map<String, Object> propertyMap, String locale, ResourceBundle parent) {
+            this.propertyMap = propertyMap;
+            this.locale = locale;
+            this.parent = parent;
+        }
+
+        /**
+         * Get ResourceBundle. <p>This method override behaves differently than the
+         * ResourceBundle method. The method calls ResourceBundle.getBundle(...) first
+         * - to preserve the original behavior. If null is returned, then the method
+         * attempts to get an XML resource. The resource search starts with the
+         * specified locale, then the system locale, and finally the locale specified
+         * in the general.properties <code>locale.properties.fallback</code> property.</p>
+         */
+        public static ResourceBundle getBundle(String resource, Locale locale, ClassLoader loader) throws MissingResourceException {
+            ResourceBundle bundle = null;
+            try {
+                bundle = ResourceBundle.getBundle(resource, locale, loader);
+            } catch (MissingResourceException e) {
+                // do nothing
+            }
+            if (bundle != null) {
+                return bundle;
+            }
+            try {
+                URL url = FlexibleLocation.resolveLocation(resource, loader);
+                if (url == null) {
+                    url = FlexibleLocation.resolveLocation(resource + ".xml");
+                }
+                if (url != null) {
+                    Document doc = UtilXml.readXmlDocument(url);
+                    bundle = createBundle(doc, locale.toString());
+                    if (bundle == null && !Locale.getDefault().toString().equals(locale.toString())) {
+                        bundle = createBundle(doc, Locale.getDefault().toString());
+                    }
+                    if (bundle == null && !getFallbackLocale().toString().equals(locale.toString())) {
+                        bundle = createBundle(doc, getFallbackLocale().toString());
+                    }
+                }
+            } catch (Exception e) {
+                throw new MissingResourceException(e.getMessage(), null, null);
+            }
+            if (bundle == null) {
+                throw new MissingResourceException("Resource " + resource + " not found", null, null);
+            }
+            return bundle;
+        }
+        
+        /**
+         * Creates a new XmlResourceBundle.
+         * @param doc The XML Document instance to search
+         * @param localeString
+         * @return new ResourceBundle, or null if no matching resource found
+         * @throws Exception Invalid properties XML file
+         */
+        protected static ResourceBundle createBundle(Document doc, String localeString) throws Exception {
+            Map<String, Object> propertyMap = null;
+            Element resourceElement = doc.getDocumentElement();
+            List propertyList = UtilXml.childElementList(resourceElement, "property");
+            if (propertyList == null) {
+                throw new Exception("XML properties file invalid or empty");
+            }
+            int pos = 0;
+            while (pos != -1) {
+                for (Iterator p = propertyList.iterator(); p.hasNext();) {
+                    Element property = (Element) p.next();
+                    Element value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
+                    if (value != null) {
+                        if (propertyMap == null) {
+                            propertyMap = FastMap.newInstance();
+                        }
+                        propertyMap.put(property.getAttribute("key"), UtilXml.elementValue(value));
+                    }
+                }
+                if (propertyMap != null) {
+                    return new XmlResourceBundle(propertyMap, localeString, null);
+                }
+                pos = localeString.lastIndexOf("_", localeString.length());
+                if (pos != -1) {
+                    localeString = localeString.substring(0, pos);
+                }
+            }
+            return null;
+        }
+        
+        public Locale getLocale() {
+            return UtilMisc.ensureLocale(this.locale);
+        }
+        
+        protected Object handleGetObject(String key) {
+            Object obj = propertyMap.get(key);
+            if (obj == null && this.parent != null) {
+                obj = parent.getObject(key);
+            }
+            return obj;
+        }
+        
+        public Enumeration getKeys() {
+            return new Enumeration() {
+                Iterator i = propertyMap.keySet().iterator();
+                public boolean hasMoreElements() {
+                    return (i.hasNext());
+                }
+                public Object nextElement() {
+                    return i.next();
+                }
+            };
+        }
+
+        protected static Locale fallbackLocale = null;
+        public static Locale getFallbackLocale() {
+            if (fallbackLocale == null) {
+                synchronized (XmlResourceBundle.class) {
+                    if (fallbackLocale == null) {
+                        String locale = UtilProperties.getPropertyValue("general", "locale.properties.fallback");
+                        if (UtilValidate.isNotEmpty(locale)) {
+                            fallbackLocale = UtilMisc.parseLocale(locale);
+                        }
+                        if (fallbackLocale == null) {
+                            fallbackLocale = UtilMisc.parseLocale("en");
+                        }
+                    }
+                }
+            }
+            return fallbackLocale;
+        }
     }
 }
