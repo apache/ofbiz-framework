@@ -457,6 +457,9 @@ under the License.
         <menu-item name="ProductGlAccounts" title="${uiLabelMap.AccountingProductGlAccount}">
             <link target="editProductGlAccounts?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
+        <menu-item name="ProductCategoryGlAccounts" title="${uiLabelMap.AccountingProductCategoryGlAccount}">
+            <link target="editProductCategoryGlAccounts?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
         <menu-item name="FinAccountTypeGlAccounts" title="${uiLabelMap.AccountingFinAccountTypeGlAccount}">
             <link target="editFinAccountTypeGlAccounts?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
