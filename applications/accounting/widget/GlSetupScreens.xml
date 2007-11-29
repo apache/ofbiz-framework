@@ -366,4 +366,43 @@ under the License.
         </section>
     </screen>
     
+    <screen name="EditProductCategoryGlAccounts">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>                
+                <set field="titleProperty" value="AccountingProductCategoryGlAccount"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingProductCategoryGlAccount}"/>
+                <set field="tabButtonItem" value="GlAccountAssignment"/>
+                <set field="tabButtonItem2" value="ProductCategoryGlAccounts"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                
+                <entity-condition entity-name="ProductCategoryGlAccount" list-name="productCategoryGlAccounts">
+                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                    <order-by field-name="glAccountTypeId"/>
+                </entity-condition>
+                <entity-condition entity-name="GlAccountType" list-name="productGlAccountTypes" use-cache="true">
+                    <order-by field-name="description"/>
+                </entity-condition>
+                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
+                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                    <order-by field-name="accountCode"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <include-form name="ListProductCategoryGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container>
+                                <label style="head2">${uiLabelMap.ProductAddCategoryGlAccount}</label>
+                            </container>
+                            <include-form name="AddProductCategoryGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>

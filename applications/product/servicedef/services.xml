@@ -1189,4 +1189,23 @@ under the License.
             location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteVendorProduct" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    
+    <!-- ProductCategoryGlAccount Services -->
+    <service name="createProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="simple"
+                location="org/ofbiz/product/product/ProductServices.xml" invoke="createProductCategoryGlAccount" auth="true">
+        <description>Create a ProductCategoryGlAccount</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+    <service name="updateProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="simple"
+                location="org/ofbiz/product/product/ProductServices.xml" invoke="updateProductCategoryGlAccount" auth="true">
+        <description>Update a ProductCategoryGlAccount</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="simple"
+                location="org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductCategoryGlAccount" auth="true">
+        <description>Delete a ProductCategoryGlAccount</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

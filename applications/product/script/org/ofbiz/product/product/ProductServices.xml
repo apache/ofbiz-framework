@@ -956,5 +956,38 @@ under the License.
         <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <!-- ProductCategoryGlAccount methods -->
+    <simple-method method-name="createProductCategoryGlAccount" short-description="Create an ProductCategoryGlAccount">
+        <set value="createProductCategoryGlAccount" field="callingMethodName"/>
+        <set value="CREATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
+        <check-errors/>
 
+        <make-value value-name="newEntity" entity-name="ProductCategoryGlAccount"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateProductCategoryGlAccount" short-description="Update an ProductCategoryGlAccount">
+        <set value="updateProductCategoryGlAccount" field="callingMethodName"/>
+        <set value="UPDATE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
+        <check-errors/>
+
+        <entity-one entity-name="ProductCategoryGlAccount" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteProductCategoryGlAccount" short-description="Delete an ProductCategoryGlAccount">
+        <set value="deleteProductCategoryGlAccount" field="callingMethodName"/>
+        <set value="DELETE" field="checkAction"/>
+        <call-simple-method method-name="checkProductRelatedPermission"/>
+        <check-errors/>
+
+        <entity-one entity-name="ProductCategoryGlAccount" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>
