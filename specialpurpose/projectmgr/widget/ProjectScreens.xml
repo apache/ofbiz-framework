@@ -492,7 +492,12 @@ under the License.
                             </condition>
                             <widgets>                                                   
                                 <container style="lefthalf">
-                                    <include-screen name="ProjectInfo"/>
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditSubProject}</label></container>
+                                        <container style="screenlet-body">
+                                            <include-form name="ProjectInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                        </container>
+                                    </container>
                                     <include-screen name="PhasesTasksInfo"/>
                                 </container>
                                 <container style="righthalf">
@@ -513,15 +518,6 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html><html-template location="component://projectmgr/webapp/projectmgr/project/gantChart.ftl"/></html>
-                </platform-specific>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="ProjectInfo">
-        <section>
-            <widgets>
-                <platform-specific>
-                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/summary/projectinfo.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

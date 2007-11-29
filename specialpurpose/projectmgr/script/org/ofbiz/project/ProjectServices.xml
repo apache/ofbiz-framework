@@ -188,6 +188,29 @@ under the License.
                 </if-compare-field>
             </else>
         </if-empty>
+        
+        <!-- add the extimated hours together -->
+        <get-related value-name="lowInfo" relation-name="WorkEffortSkillStandard" list-name="estimates"/>
+        <iterate entry-name="estimate" list-name="estimates">
+            <if-not-empty field-name="estimate.estimatedDuration">
+                <calculate field-name="highInfo.plannedHours">
+                    <calcop operator="get" field-name="highInfo.hours"></calcop>
+                    <calcop operator="add" field-name="estimate.estimatedDuration"/>
+                </calculate>
+            </if-not-empty>
+        </iterate>
+        
+        <!-- get the actual hours -->
+        <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="actuals"/>
+        <iterate entry-name="actual" list-name="actuals">
+            <if-not-empty field-name="actual.hours">
+                <calculate field-name="highInfo.actualHours">
+                    <calcop operator="get" field-name="highInfo.actualHours"/>
+                    <calcop operator="add" field-name="actual.hours"></calcop>
+                </calculate>
+            </if-not-empty>
+        </iterate>
+        
     </simple-method>
     
                 
