@@ -26,7 +26,7 @@ under the License.
         <condition field-name="shipmentId" operator="is-not-empty"/>
         <action service="createAcctgTransForSalesShipmentIssuance" mode="sync"/>
     </eca>
-    <!--
+    <!-- DEPRECATED
     <eca service="updateShipment" event="commit">
         <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
@@ -34,6 +34,11 @@ under the License.
         <action service="createAcctgTransForSalesShipment" mode="sync"/>
     </eca>
     -->
+    <!-- create the accounting transactions for a shipment receipt every time the inventory is received -->
+    <eca service="createShipmentReceipt" event="commit">
+        <action service="createAcctgTransForShipmentReceipt" mode="sync"/>
+    </eca>
+
     <!-- this eca automatically posts the accounting transactions to GL -->
     <eca service="createAcctgTransAndEntries" event="commit">
         <condition field-name="acctgTransId" operator="is-not-empty"/>
