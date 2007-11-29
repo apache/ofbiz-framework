@@ -81,8 +81,28 @@
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
+        <field name="plannedHours"><display/></field>
+        <field name="actualHours"><display/></field>
         <field name="createdDate"><display type="date"/></field>
     </form>                                        	
+    <form name="ProjectInfo" type="single" default-map-name="project" paginate-target="FindProject">
+        <actions>
+            <service service-name="getProject" result-map-name="result">
+                <field-map field-name="projectId" env-name="parameters.projectId"/>
+            </service>
+            <set field="project" from-field="result.projectInfo"/>
+        </actions>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><display/></field>
+        <field name="statusDescription" title="${uiLabelMap.CommonStatus}"><display/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
+        <field name="plannedHours"><display/></field>
+        <field name="actualHours"><display/></field>
+        <field name="createdDate"><display type="date"/></field>
+    </form>                                         
     <form name="ListChildEfforts"  target="updateProjectAndAssoc" title="" list-name="projects" type="list" separate-columns="true" paginate-target="FindProject">
         <row-actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus">

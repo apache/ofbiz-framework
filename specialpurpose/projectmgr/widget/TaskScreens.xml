@@ -292,7 +292,6 @@ under the License.
                             <widgets>                                                   
                                 <container style="lefthalf">
                                     <include-screen name="TaskInfo"/>
-                                    <include-screen name="SubTasksInfo"/>
                                 </container>
                                 <container style="righthalf">
                                     <include-screen name="NoteInfo"/>
