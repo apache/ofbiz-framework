@@ -32,13 +32,19 @@
         <response name="success" type="view" value="main"/>
     </request-map>
    
+    <request-map uri="ListSubProjects">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListSubProjects"/>
+    </request-map>
+    <request-map uri="AddSubProject">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="error" type="view" value="ListSubProjects"/>
+        <response name="success" type="view" value="ListSubProjects"/>
+    </request-map>
     <request-map uri="FindProject">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindProject"/>
-    </request-map>
-    <request-map uri="FindProjectByRange">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindProjectByRange"/>
     </request-map>
     <request-map uri="EditProject">
         <security https="true" auth="true"/>
@@ -383,8 +389,8 @@
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
+    <view-map name="ListSubProjects" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ListSubProjects"/>    
     <view-map name="FindProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProject"/>    
-    <view-map name="FindProjectByRange" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProjectByRange"/>    
     <view-map name="EditProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
     <view-map name="EditWorkEffort" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
     <view-map name="ChildWorkEfforts" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ChildWorkEfforts"/>

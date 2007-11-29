@@ -24,7 +24,7 @@
         <field name="DONE_PAGE"><hidden value="${donePage}"/></field>
         <field name="workEffortTypeId"><hidden value="PROJECT"/></field> 
         <field name="projectId" parameter-name="workEffortId"><hidden/></field>
-        <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
+        <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}*"><text/></field>
         <field name="projectDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field use-when="project!=null" name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field use-when="project==null" name="statusId" parameter-name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
@@ -53,6 +53,18 @@
         <field use-when="project!=null" name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display description="${bsh:project.get(&quot;actualStartDate&quot;)!=null?project.get(&quot;actualStartDate&quot;).toString().substring(0,10):&quot;&quot;;}"/></field>
         <field use-when="project!=null" name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display description="${bsh:project.get(&quot;actualCompletionDate&quot;)!=null?project.get(&quot;actualCompletionDate&quot;).toString().substring(0,10):&quot;&quot;;}"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+    </form>
+    <form name="AddSubProject" type="single" target="AddSubProject">
+        <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrProjectName}">
+            <drop-down>
+                <entity-options entity-name="WorkEffort" description="${workEffortName}">
+                    <entity-constraint name="workEffortTypeId" value="PROJECT"/>
+                    <entity-constraint name="workEffortId" operator="not-equals" env-name="parameters.projectId"/>                    
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="add"><submit/></field>
     </form>
     <form name="FindProject" type="single" target="FindProjectByRange">
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>

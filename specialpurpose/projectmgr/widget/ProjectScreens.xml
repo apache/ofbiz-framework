@@ -20,55 +20,37 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="FindProject">
+    <screen name="ListSubProjects">
         <section>            
             <actions>
                 <set field="titleProperty" value="PageTitleFindProject"/>
                 <set field="tabButtonItem" value="subprojects"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
-                <set field="workEffortId" from-field="parameters.projectId"/>
-                <set field="parameters.workEffortIdFrom" from-field="parameters.projectId"/>
-                <set field="projectId" from-field="parameters.projectId"/>
-                <set field="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/FindProject.bsh"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                                                
-                        <section>                            
-                            <condition>
-                                <if-empty field-name="workEffortId"/>
-                            </condition>                            
-                            <!-- This is the code for the List of Projects -->
-                            <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.${titleProperty}}</label></container>
-                                    <container style="screenlet-body">
-                                        <container style="button-bar"><link target="EditProject?workEffortTypeId=PROJECT" text="${uiLabelMap.ProjectMgrNewProject}" style="buttontext"/></container>
-                                        <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/> 
-                                    </container>      
-                                </container>     
-                            </widgets>
-                            <!-- This is the code for the List of subProjects -->
-                            <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditSubProject}</label></container>
-                                    <container style="screenlet-body">
-                                        <include-form name="ListChildEfforts" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </container>         
-                                </container>     
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/editprojectandassoc.ftl"/></html>
-                                </platform-specific>
-                            </fail-widgets>
-                        </section>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditSubProject}</label></container>
+                            <container style="screenlet-body">
+                                <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            </container>         
+                        </container>     
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditSubProject}</label></container>
+                            <container style="screenlet-body">
+                                <include-form name="AddSubProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            </container>         
+                        </container>     
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    <screen name="FindProjectByRange">
+    <screen name="FindProject">
         <section>            
             <actions>
                 <set field="titleProperty" value="PageTitleFindProject"/>
@@ -310,31 +292,6 @@ under the License.
         </section>
     </screen>
     
-    <!-- Edit an existing SubTask and their Association-->
-    <!--screen name="EditTaskAndAssoc">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleEditTask"/>                
-                <set field="labelTitleProperty" value="PageTitleEditTask"/>
-                <set field="tabButtonItem" value="edittask"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE"/>
-                <set field="workEffortIdTo" from-field="parameters.workEffortIdTo"/>
-                <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
-                <set field="fromDate" from-field="parameters.fromDate"/>
-                <entity-one entity-name="WorkEffort" value-name="task"/>
-                <entity-one entity-name="WorkEffortAssoc" value-name="workEffortAssoc"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                        
-                        <platform-specific>
-                            <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskandassoc.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen-->
     <screen name="FindPhase">
         <section>
             <actions>
@@ -572,9 +529,8 @@ under the License.
     <screen name="SubProjectsInfo">
         <section>
             <actions>
-                <set field="parameters.projectId" from-field="parameters.workEffortId"/>
-                <set field="parameters.workEffortTypeId" value="PROJECT"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
+                <set field="parameters.projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/FindProject.bsh"/>
             </actions>
             <widgets>                
                 <container style="screenlet">
