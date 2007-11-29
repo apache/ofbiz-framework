@@ -21,14 +21,20 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
-    <!-- create the accounting transactions for a sales shipment when the status changes to SHIPMENT_PACKED -->
+    <!-- create the accounting transactions for a sales shipment issuance every time the inventory is issued to the shipment -->
+    <eca service="createItemIssuance" event="commit">
+        <condition field-name="shipmentId" operator="is-not-empty"/>
+        <action service="createAcctgTransForSalesShipmentIssuance" mode="sync"/>
+    </eca>
+    <!--
     <eca service="updateShipment" event="commit">
         <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
-        <action service="createAcctgTransForSalesShipment" mode="sync"/>        
+        <action service="createAcctgTransForSalesShipment" mode="sync"/>
     </eca>
-    <!-- this eca automatically post the accounting transactions to GL -->
+    -->
+    <!-- this eca automatically posts the accounting transactions to GL -->
     <eca service="createAcctgTransAndEntries" event="commit">
         <condition field-name="acctgTransId" operator="is-not-empty"/>
         <action service="postAcctgTrans" mode="sync"/>
