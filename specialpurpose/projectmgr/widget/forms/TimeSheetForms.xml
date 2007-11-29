@@ -49,7 +49,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortId">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="workEffortId" description="${projectName}--${phaseName}--${workEffortName}">
                     <entity-order-by field-name="projectName"/>
@@ -89,6 +89,51 @@
         <field name="hours"><text size="5"/></field>
         <field name="comments"><text size="40"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListTimesheetEntries" type="list" list-name="timesheetEntries" target="updateTimesheetEntry">
+        <actions>
+            <entity-condition entity-name="TimeEntry">
+                <condition-expr field-name="timesheetId" env-name="timesheetId"/>
+                <order-by field-name="partyId"/>
+                <order-by field-name="rateTypeId"/>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateTimeEntry"/>
+        
+        <field name="timeEntryId"><hidden/></field>
+        <field name="timesheetId"><hidden/></field>
+        
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+            <drop-down>
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="workEffortId" description="${projectName}--${phaseName}--${workEffortName}">
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        
+        <field name="comments"><text size="60"/></field>
+        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteTimesheetEntry?timesheetId=${timesheetId}&amp;timeEntryId=${timeEntryId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
     </form>
     
     
