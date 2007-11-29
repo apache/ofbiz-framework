@@ -1317,6 +1317,7 @@ public class GiftCertificateServices {
         transCtx.put("partyId", userLogin.getString("partyId"));
         transCtx.put("userLogin", userLogin);
         transCtx.put("paymentId", paymentId);
+        transCtx.put("amount", amount);
 
         Map transResult = null;
         String txId = null;
