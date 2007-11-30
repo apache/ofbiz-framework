@@ -139,6 +139,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="BillingAccountPayments"/>
     </request-map>
+    <request-map uri="BillingAccountOrders">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="BillingAccountOrders"/>
+    </request-map>
     <request-map uri="createPaymentAndAssociateToBillingAccount">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPaymentAndApplication"/>

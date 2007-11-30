@@ -455,4 +455,16 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         
     </form>
+    <form name="lookupInvoicesStatus" type="single" target="BillingAccountInvoices" title="">
+        <field name="billingAccountId"><hidden/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
 </forms>

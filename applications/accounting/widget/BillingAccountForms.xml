@@ -50,7 +50,10 @@ under the License.
     <form name="ListBillingAccountInvoices" type="list" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice">
         <actions>
             <entity-condition entity-name="Invoice" list-name="billingAccountInvoices">
-                <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
+                <condition-list>
+                    <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
+                    <condition-expr field-name="statusId" env-name="parameters.statusId"/>
+                </condition-list>
             </entity-condition>
         </actions>
         <row-actions>
@@ -275,6 +278,22 @@ under the License.
         <field name="amount"><text/></field>
         <field name="createButton">
             <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListBillingAccountOrders" type="list" list-name="orderPaymentPreferencesList" paginate-target="BillingAccountOrders">
+        <field name="billingAccountId"><hidden/></field>
+        <field name="orderId" widget-style="buttontext">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}" also-hidden="false"/>
+        </field>  
+        <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
+        <field name="paymentMethodTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId" description="${description}"/>
+        </field>
+        <field name="paymentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="maxAmount">
+            <display type="currency" currency="${currencyUomId}"/>
         </field>
     </form>
 

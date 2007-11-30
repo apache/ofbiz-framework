@@ -188,11 +188,35 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
                     <decorator-section name="body">
+                        <label style="head1" text="${uiLabelMap.AccountingFindInvoices}"/>
+                        <include-form name="lookupInvoicesStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.AccountingListInvoices}"/>
                         <include-form name="ListBillingAccountInvoices" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
          </section>
+    </screen>
+    <screen name="BillingAccountOrders">
+        <section>
+            <actions>
+                <set field="title" value="Billing Account Orders"/>
+                <set field="titleProperty" value="PageTitleEditBillingAccountOrders"/>
+                <set field="headerItem" value="billingaccount"/>
+                <set field="tabButtonItem" value="BillingAccountOrders"/>
+                    
+                <set field="billingAccountId" from-field="parameters.billingAccountId"/> 
+                <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/order/billingAccountOrders.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBillingAccountDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ListBillingAccountOrders" location="component://accounting/widget/BillingAccountForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
     </screen>
     <screen name="BillingAccountPayments">
         <section>
