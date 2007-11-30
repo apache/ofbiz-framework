@@ -344,17 +344,15 @@ under the License.
                  correct glAccountId from the gl setup settings -->
             <if-empty field-name="acctgTransEntry.glAccountId">
                 <if-not-empty field-name="acctgTransEntry.glAccountTypeId">
-                    <!-- if a productId is set, then we get the gl account associated to the product, or the default one 
-                         for the glAccountTypeId as returned by the service getProductOrgGlAccount -->
+                    <clear-field field-name="getGlAccountFromAccountTypeInMap"/>
                     <if-not-empty field-name="acctgTransEntry.productId">
-                        <clear-field field-name="getProductOrgGlAccountInMap"/>
-                        <set field="getProductOrgGlAccountInMap.productId" from-field="acctgTransEntry.productId"/>
-                        <set field="getProductOrgGlAccountInMap.glAccountTypeId" from-field="acctgTransEntry.glAccountTypeId"/>
-                        <set field="getProductOrgGlAccountInMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
-                        <call-service service-name="getProductOrgGlAccount" in-map-name="getProductOrgGlAccountInMap">
-                            <result-to-field result-name="glAccountId" field-name="acctgTransEntry.glAccountId"/>
-                        </call-service>
+                        <set field="getGlAccountFromAccountTypeInMap.productId" from-field="acctgTransEntry.productId"/>
                     </if-not-empty>
+                    <set field="getGlAccountFromAccountTypeInMap.glAccountTypeId" from-field="acctgTransEntry.glAccountTypeId"/>
+                    <set field="getGlAccountFromAccountTypeInMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
+                    <call-service service-name="getGlAccountFromAccountType" in-map-name="getGlAccountFromAccountTypeInMap">
+                        <result-to-field result-name="glAccountId" field-name="acctgTransEntry.glAccountId"/>
+                    </call-service>
                 </if-not-empty>
             </if-empty>
             <if-empty field-name="acctgTransEntry.origAmount">
@@ -405,41 +403,33 @@ under the License.
 
     <!-- Miscellaneous services for product and inventory -->
 
-    <simple-method method-name="getProductOrgGlAccount" short-description="Look up a GlAccountId from ProductGlAccount, then GlAccountTypeDefault"> 
-        <!-- if parameters for ProductGlAccount were passed, then try there first -->
-        <if>
-            <condition>
-                <not>
-                    <or>
-                        <if-empty field-name="parameters.productId"/>
-                        <if-empty field-name="parameters.glAccountTypeId"/>
-                        <if-empty field-name="parameters.organizationPartyId"/>
-                    </or>
-                </not>
-            </condition>
-            <then>
-                <entity-one entity-name="ProductGlAccount" value-name="lookedUpValue" use-cache="true"/> 
-            </then>
-        </if>
-        
-        <!-- if parameters for ProductCategoryGlAccount were passed, then try it this time -->
-        <if-empty field-name="lookedUpValue">
-            <if>
-                <condition>
-                    <not>
-                        <or>
-                            <if-empty field-name="parameters.productCategoryId"/>
-                            <if-empty field-name="parameters.organizationPartyId"/>
-                            <if-empty field-name="parameters.glAccountTypeId"/>
-                        </or>
-                    </not>
-                </condition>
-                <then>
-                    <entity-one entity-name="ProductCategoryGlAccount" value-name="lookedUpValue" use-cache="true"/>
-                </then>
-            </if>
-        </if-empty>
-        
+    <simple-method method-name="getGlAccountFromAccountType" short-description="Look up a GlAccountId from GlAccountTypeId"> 
+        <if-not-empty field-name="parameters.productId">
+            <entity-one entity-name="ProductGlAccount" value-name="lookedUpValue" use-cache="true"/>
+            <!-- if nothing found look if the parameters.productId is member of any ProductCategory in ProductCategoryGlAccount --> 
+            <if-empty field-name="lookedUpValue.glAccountId">
+                <entity-and entity-name="ProductCategoryGlAccount" list-name="productCategoryGlAccounts">
+                    <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+                    <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
+                </entity-and>
+                <if-not-empty field-name="productCategoryGlAccounts">
+                    <iterate list-name="productCategoryGlAccounts" entry-name="productCategoryGlAccount">
+                        <if-not-empty field-name="productCategoryGlAccount.glAccountId">
+                            <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers" filter-by-date="true">
+                                <field-map field-name="productCategoryId" env-name="productCategoryGlAccount.productCategoryId"/>
+                                <field-map field-name="productId" env-name="parameters.productId"/>
+                                <order-by field-name="-fromDate"/>
+                            </entity-and>
+                            <if-not-empty field-name="productCategoryMembers">
+                                <field-to-result field-name="productCategoryGlAccount.glAccountId" result-name="glAccountId"/>
+                                <return/>
+                            </if-not-empty>
+                        </if-not-empty>
+                    </iterate>
+                </if-not-empty>
+            </if-empty>
+        </if-not-empty>
+
         <!-- if nothing found or if no such parameters were passed (lookedUpValue empty in both cases), try GlAccountTypeDefault -->
         <if-empty field-name="lookedUpValue.glAccountId">
             <entity-one entity-name="GlAccountTypeDefault" value-name="lookedUpValue" use-cache="true"/> 
