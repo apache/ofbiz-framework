@@ -282,13 +282,14 @@ under the License.
     </service>
 
     <!-- Miscellaneous Ledger-related services -->
-    <service name="getProductOrgGlAccount" engine="simple" 
-            location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getProductOrgGlAccount" auth="true"> 
+    <service name="getGlAccountFromAccountType" engine="simple" 
+            location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getGlAccountFromAccountType" auth="true"> 
         <description>Look up a GlAccountId first in ProductGlAccount by productId and productGlAccountTypeId, if not found, 
             then in organizationPartyId and glAccountTypeId </description> 
-        <auto-attributes include="pk" entity-name="ProductGlAccount" mode="IN" optional="true"/> 
-        <auto-attributes include="pk" entity-name="GlAccountTypeDefault" mode="IN" optional="true"/>
-        <attribute name="glAccountId" type="String" mode="OUT" optional="true"/> 
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="glAccountTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="glAccountId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="getInventoryItemOwner" default-entity-name="InventoryItem" engine="simple" 
         location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getInventoryItemOwner" auth="true"> 
