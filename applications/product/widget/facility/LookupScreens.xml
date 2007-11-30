@@ -68,4 +68,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="LookupShipment">
+        <section>
+            <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.ProductLookupShipment}"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="lookupShipment" location="component://product/webapp/facility/lookup/FieldLookupForms.xml" />
+                        <include-form name="listShipment" location="component://product/webapp/facility/lookup/FieldLookupForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>

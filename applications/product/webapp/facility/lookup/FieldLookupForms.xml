@@ -91,4 +91,41 @@ under the License.
         </field>
     </form>
 
+    <form name="lookupShipment" type="single" target="LookupShipment">
+        <field position="1" name="shipmentId"><text-find/></field>
+        <field position="1" name="shipmentTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="ShipmentType"/>
+            </drop-down>
+        </field>
+        <field position="2" name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="SHIPMENT_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field position="1" name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><text-find/></field>
+        <field position="1" name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><text-find/></field>
+        <field position="1" name="Datefrom" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field position="2" name="DateThru" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listShipment" list-name="listIt" title="" type="list" paginate-target="LookupShipment">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Shipment"/>
+            </service>
+        </actions>
+        <field name="shipmentId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${shipmentId}" target="javascript:set_value('${shipmentId}')"/>
+        </field>
+        <field name="shipmentTypeId"><display-entity entity-name="ShipmentType"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
+    </form>
+    
 </forms>
