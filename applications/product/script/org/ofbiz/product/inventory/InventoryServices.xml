@@ -215,19 +215,23 @@ under the License.
         <field-to-result field-name="lookedUpValue.ownerPartyId" result-name="oldOwnerPartyId"/>
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
         <!-- special handling for the unitCost -->
-        <if-compare field-name="parameters.unitCost" operator="less" value="0.0" type="Double">
-            <add-error><fail-message message="Unit cost for inventory item [${lookupPKMap.inventoryItemId}] cannot be negative."/></add-error>
-            <check-errors/>
-        </if-compare>
+        <if-not-empty field-name="parameters.unitCost">
+            <if-compare field-name="parameters.unitCost" operator="less" value="0.0" type="Double">
+                <add-error><fail-message message="Unit cost for inventory item [${lookupPKMap.inventoryItemId}] cannot be negative."/></add-error>
+                <check-errors/>
+            </if-compare>
+        </if-not-empty>
         <set field="oldUnitCost" from-field="lookedUpValue.unitCost"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
         <!-- if the unit cost is changed create an InventoryItemDetail to keep track of unit cost history -->
-        <if-compare-field field-name="parameters.unitCost" operator="not-equals" to-field-name="oldUnitCost">
-            <set field="createInventoryItemDetailInMap.inventoryItemId" from-field="lookedUpValue.inventoryItemId"/>
-            <set field="createInventoryItemDetailInMap.unitCost" from-field="parameters.unitCost"/>
-            <call-service service-name="createInventoryItemDetail" in-map-name="createInventoryItemDetailInMap"/>
-        </if-compare-field>
+        <if-not-empty field-name="parameters.unitCost">
+            <if-compare-field field-name="parameters.unitCost" operator="not-equals" to-field-name="oldUnitCost">
+                <set field="createInventoryItemDetailInMap.inventoryItemId" from-field="lookedUpValue.inventoryItemId"/>
+                <set field="createInventoryItemDetailInMap.unitCost" from-field="parameters.unitCost"/>
+                <call-service service-name="createInventoryItemDetail" in-map-name="createInventoryItemDetailInMap"/>
+            </if-compare-field>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="createInventoryItemStatus" short-description="Create an inventory item status record">
