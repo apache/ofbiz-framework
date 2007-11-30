@@ -40,7 +40,8 @@ under the License.
     <!-- Default mapping between account types and account ids -->
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000" />
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="UNINVOICED_SHIP_RCPT" glAccountId="214000"/>
-    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000" />
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INV_ADJ_VAL" glAccountId="515000"/>
 
     <!-- Specific mapping between financial account types and account ids -->
     <FinAccountTypeGlAccount organizationPartyId="Company" finAccountTypeId="GIFTCERT_ACCOUNT" glAccountId="213200"/>
