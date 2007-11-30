@@ -77,7 +77,7 @@ under the License.
             if from account refill product purchase pull from special account where those funds wait; 
             if purchase on account, balance like bank acount received or something -->
         <if>
-            <condition><if-compare field-name="finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
+            <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
             <then>
                 <!-- TODO: somehow check to see if the deposit was not from a product, or didn't get into the general CUSTOMER CREDITS 213000 account -->
                 
@@ -93,7 +93,7 @@ under the License.
                 <set field="createAcctgTransAndEntriesMap.acctgTransTypeId" value="RECEIPT_ACCTG_TRANS"/>
             </then>
             <else-if>
-                <condition><if-compare field-name="finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
+                <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
                 <then>
                     <!-- TODO: somehow determine if this is an order placed against the account or some other type of withdrawal -->
                     
@@ -105,7 +105,7 @@ under the License.
                 </then>
             </else-if>
             <else-if>
-                <condition><if-compare field-name="finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
+                <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
                 <then>
                     <!-- TODO: what to do for an adjustment? for now nothing, will error out below -->
                     
