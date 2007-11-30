@@ -40,8 +40,6 @@ under the License.
       <exclude field="workEffortId"/>
     </alias-all>
     <alias-all entity-alias="WET"/>
-    
-    <alias entity-alias="WEPA" name="partyAssignFacilityId" field="facilityId"/>
     <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
     <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
@@ -59,6 +57,9 @@ under the License.
       <key-map field-name="partyId"/>
     </relation>
     <relation type="many" rel-entity-name="TimeEntry">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortSkillStandard">
       <key-map field-name="workEffortId"/>
     </relation>
   </view-entity>
