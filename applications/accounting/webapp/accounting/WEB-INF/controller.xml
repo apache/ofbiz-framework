@@ -496,7 +496,8 @@ under the License.
     <request-map uri="EditGlobalGlAccount">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditGlobalGlAccount"/>
-    </request-map> 
+    </request-map>
+    
     <request-map uri="createGlAccount">
         <security https="true" auth="true"/>
         <event type="service" invoke="createGlAccount"/>
@@ -1321,6 +1322,34 @@ under the License.
         <response name="success" type="view" value="EditProductCategoryGlAccounts"/>
         <response name="error" type="view" value="EditProductCategoryGlAccounts"/>
     </request-map>
+   
+   <!--request-uri VarianceReasonGlAccount -->
+    
+    <request-map uri="editVarianceReasonGlAccounts">
+         <security https="true" auth="true"/>
+         <response name="success" type="view" value="EditVarianceReasonGlAccounts"/>
+    </request-map>
+    
+     <request-map uri="createVarianceReasonGlAccount">
+         <security https="true" auth="true"/>
+         <event type="service" invoke="createVarianceReasonGlAccount"/>
+         <response name="success" type="view" value="EditVarianceReasonGlAccounts"/>
+         <response name="error" type="view" value="EditVarianceReasonGlAccounts"/>
+     </request-map>
+    
+    <request-map uri="updateVarianceReasonGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateVarianceReasonGlAccount"/>
+        <response name="success" type="view" value="EditVarianceReasonGlAccounts"/>
+        <response name="error" type="view" value="EditVarianceReasonGlAccounts"/>
+    </request-map>
+    
+    <request-map uri="deleteVarianceReasonGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteVarianceReasonGlAccount"/>
+        <response name="success" type="view" value="EditVarianceReasonGlAccounts"/>
+        <response name="error" type="view" value="EditVarianceReasonGlAccounts"/>
+    </request-map> 
     
     <!-- Actually reconcile account -->
     <request-map uri="reconcileGlAccount">
@@ -1671,7 +1700,8 @@ under the License.
     <view-map name="GlAccountNrPaymentMethod" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountNrPaymentMethod"/>
     <view-map name="EditProductGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditProductGlAccounts"/>
     <view-map name="EditProductCategoryGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditProductCategoryGlAccounts"/>    
-    
+    <view-map name="EditVarianceReasonGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditVarianceReasonGlAccounts"/>
+        
     <!-- Manual Credit Card Transaction -->
     <view-map name="FindGatewayResponses" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses" type="screen"/>
     <view-map name="ViewGatewayResponse" page="component://accounting/widget/TransactionScreens.xml#ViewGatewayResponse" type="screen"/>

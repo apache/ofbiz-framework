@@ -475,6 +475,9 @@ under the License.
         <menu-item name="GlAccountNrPaymentMethod" title="${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}">
             <link target="GlAccountNrPaymentMethod?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
+        <menu-item name="VarianceReasonGlAccounts" title="${uiLabelMap.VarianceReasonGlAccounts}">
+            <link target="editVarianceReasonGlAccounts?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
     </menu>
     <menu name="PartyAccountingChecksTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple">  
