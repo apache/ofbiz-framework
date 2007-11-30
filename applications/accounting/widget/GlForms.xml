@@ -355,7 +355,8 @@ under the License.
     </form>
 
     <form name="EditAcctgTrans" type="single" target="updateAcctgTrans" default-map-name="acctgTrans">
-        <field name="acctgTransId"><display/></field>
+        <auto-fields-service service-name="updateAcctgTrans"/>        
+        <field name="acctgTransId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="organizationPartyId" map-name="parameter"><hidden/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down>
@@ -371,6 +372,42 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="roleTypeId">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="roleTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName" size="20" maxlength="20"/></field> 
+        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
+        <field name="invoiceId"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
+        <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
+        <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
+        <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
+        <field name="inventoryItemId">
+            <drop-down>
+                <entity-options entity-name="InventoryItem" description="${inventoryItemId}">
+                    <entity-order-by field-name="inventoryItemId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="groupStatusId">
+            <drop-down>
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fixedAssetId">
+            <drop-down>
+                <entity-options entity-name="FixedAsset" description="${fixedAssetId}">
+                    <entity-order-by field-name="fixedAssetId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="createdByUserLogin"><hidden/></field>
+        <field name="lastModifiedByUserLogin"><hidden/></field>
         <field name="transactionDate"><date-time/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field> 
     </form>
@@ -420,27 +457,51 @@ under the License.
         <field use-when="acctgTransEntry!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
         <field use-when="acctgTransEntry==null" name="createButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
     </form>
-    <form name="ListAcctgTransEntries" type="list" list-name="acctgTransEntries" default-entity-name="AcctgTransEntry">
+    <form name="ListAcctgTransEntries" type="list" list-name="acctgTransEntries" default-entity-name="AcctgTransEntry" target="updateAcctgTransEntry">
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
         <field name="acctgTransEntrySeqId"><display/></field>     
         <field name="glAccountId">
-            <display-entity entity-name="GlAccount" description="${accountName}">
-                <sub-hyperlink target="FindAcctgTransEntries?glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}" description="[${glAccountId}]"/>
-             </display-entity>
+            <drop-down>
+                <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
         </field>
+        <field name="acctgTransEntryTypeId" title="${uiLabelMap.AccountingTransactionEntryType}">
+            <drop-down>
+                <entity-options entity-name="AcctgTransEntryType" description="${description}">
+                    <entity-order-by field-name="acctgTransEntryTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>    
         <field name="description"><display/></field>
         <field name="voucherRef"><display/></field>
-        <field name="partyId"><display/></field>
-        <field name="productId"><display/></field>
-        <field name="reconcileStatusId"><display/></field>
+        <field name="partyId">
+            <lookup target-form-name="LookupPartyName" size="20" maxlength="20"/>
+        </field>
+        <field name="productId">
+            <lookup target-form-name="LookupProduct" size="20" maxlength="20"/>
+        </field>        
+        <field name="reconcileStatusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ACCTG_ENREC_STATUS"/>
+                    <entity-order-by field-name="statusId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="settlementTermId"><display/></field>
         <field name="isSummary"><display/></field>
-        <field name="debitCreditFlag"><display/></field>
-        <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="EditButton" title="" widget-style="buttontext" use-when="isPosted==null">
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;editAcctgTransEntrySeqId=${acctgTransEntrySeqId}&amp;organizationPartyId=${organizationPartyId}"/>
+        <field name="debitCreditFlag">
+            <drop-down current="selected">
+                <option description="Credit" key="C"/>
+                <option description="Debit" key="D"/>
+            </drop-down>
         </field>
+        <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="removeButton" title="" widget-style="buttontext" use-when="isPosted==null">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAcctgTransEntry?acctgTransId=${acctgTransId}&amp;acctgTransEntrySeqId=${acctgTransEntrySeqId}&amp;organizationPartyId=${organizationPartyId}"/>
         </field>
