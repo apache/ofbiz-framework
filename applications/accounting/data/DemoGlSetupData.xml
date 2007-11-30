@@ -36,12 +36,21 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="213500" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="214000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="500000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="514000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="625000" fromDate="2001-01-01 00:00:00.0"/>
     
     <!-- Default mapping between account types and account ids -->
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000" />
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="UNINVOICED_SHIP_RCPT" glAccountId="214000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INV_ADJ_VAL" glAccountId="515000"/>
+
+    <VarianceReasonGlAccount organizationPartyId="Company" varianceReasonId="VAR_LOST" glAccountId="514000"/>
+    <VarianceReasonGlAccount organizationPartyId="Company" varianceReasonId="VAR_STOLEN" glAccountId="514000"/>
+    <VarianceReasonGlAccount organizationPartyId="Company" varianceReasonId="VAR_FOUND" glAccountId="514000"/>
+    <VarianceReasonGlAccount organizationPartyId="Company" varianceReasonId="VAR_DAMAGED" glAccountId="514000"/>
+    <VarianceReasonGlAccount organizationPartyId="Company" varianceReasonId="VAR_INTEGR" glAccountId="514000"/>
+    <VarianceReasonGlAccount organizationPartyId="Company" varianceReasonId="VAR_SAMPLE" glAccountId="625000"/>
 
     <!-- Specific mapping between financial account types and account ids -->
     <FinAccountTypeGlAccount organizationPartyId="Company" finAccountTypeId="GIFTCERT_ACCOUNT" glAccountId="213200"/>
