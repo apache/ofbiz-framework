@@ -113,11 +113,18 @@ under the License.
             <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
-        <field name="workEffortId"><display/></field>
-        <field name="shipmentId"><display/></field>
-        <field name="partyId" title="${uiLabelMap.PartyParty}">
-            <display-entity entity-name="PartyNameView" description="${groupName}${firstName} ${lastName} [${partyId}]"/>
+        <field name="workEffortId" use-when="workEffortId!=null">
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/> 
         </field>
+        <field name="workEffortId" use-when="workEffortId==null"><display/></field>
+        <field name="shipmentId" use-when="shipmentId!=null">
+            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
+        </field>
+        <field name="shipmentId" use-when="shipmentId==null"><display/></field>
+        <field name="partyId" use-when="partyId!=null">
+            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"/>
+        </field>
+        <field name="partyId" use-when="partyId==null"><display/></field>
         <field name="isPosted"><display/></field>
         <field name="postedDate"><display/></field>
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="&quot;N&quot;.equals(isPosted)" widget-style="buttontext">
@@ -255,12 +262,22 @@ under the License.
             <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
         </field>
         <field name="paymentId" position="2" use-when="paymentId==null"><display/></field>
-        <field name="workEffortId" position="2"><display/></field>
-        <field name="shipmentId" position="2"><display/></field>
-        <field name="partyId" position="2" title="${uiLabelMap.PartyParty}">
-            <display-entity entity-name="PartyNameView" description="${groupName}${firstName} ${lastName} [${partyId}]"/>
+        <field name="workEffortId" position="2" use-when="workEffortId!=null">
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/> 
         </field>
-        <field name="productId" position="2"><display/></field>
+        <field name="workEffortId" position="2" use-when="workEffortId==null"><display/></field>
+        <field name="shipmentId" position="2" use-when="shipmentId!=null">
+            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
+        </field>
+        <field name="shipmentId" position="2" use-when="shipmentId==null"><display/></field>
+        <field name="partyId" position="2" use-when="partyId!=null">
+            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"/>
+        </field>
+        <field name="partyId" position="2" use-when="partyId==null"><display/></field>
+        <field name="productId" position="2" use-when="productId!=null">
+            <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app"/>
+        </field>
+        <field name="productId" position="2" use-when="productId==null"><display/></field>
         <field name="isPosted" position="2"><display/></field>
         <field name="postedDate" position="2"><display/></field>
         <field name="debitCreditFlag" position="2"><display/></field>
