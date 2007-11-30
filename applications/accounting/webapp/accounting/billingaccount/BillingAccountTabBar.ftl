@@ -26,6 +26,7 @@ under the License.
       <li<#if selected == "EditBillingAccountTerms"> class="selected"</#if>><a href="<@ofbizUrl>EditBillingAccountTerms?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>">${uiLabelMap.PartyTerms}</a></li>
       <li<#if selected == "BillingAccountInvoices"> class="selected"</#if>><a href="<@ofbizUrl>BillingAccountInvoices?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>">${uiLabelMap.AccountingInvoices}</a></li>
       <li<#if selected == "BillingAccountPayments"> class="selected"</#if>><a href="<@ofbizUrl>BillingAccountPayments?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>">${uiLabelMap.AccountingPayments}</a></li>
+      <li<#if selected == "BillingAccountOrders"> class="selected"</#if>><a href="<@ofbizUrl>BillingAccountOrders?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>">${uiLabelMap.AccountingOrders}</a></li>
     </ul>
     <br class="clear"/>
   </div>
