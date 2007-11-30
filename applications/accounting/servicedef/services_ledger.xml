@@ -289,6 +289,7 @@ under the License.
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="glAccountTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
+        <attribute name="varianceReasonId" type="String" mode="IN" optional="true"/>
         <attribute name="glAccountId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="getInventoryItemOwner" default-entity-name="InventoryItem" engine="simple" 
