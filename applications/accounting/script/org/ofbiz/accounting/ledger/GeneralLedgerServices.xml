@@ -408,25 +408,21 @@ under the License.
             <entity-one entity-name="ProductGlAccount" value-name="lookedUpValue" use-cache="true"/>
             <!-- if nothing found look if the parameters.productId is member of any ProductCategory in ProductCategoryGlAccount --> 
             <if-empty field-name="lookedUpValue.glAccountId">
-                <entity-and entity-name="ProductCategoryGlAccount" list-name="productCategoryGlAccounts">
-                    <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                    <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
+                <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers" filter-by-date="true">
+                    <field-map field-name="productId" env-name="parameters.productId"/>
+                    <order-by field-name="-fromDate"/>
                 </entity-and>
-                <if-not-empty field-name="productCategoryGlAccounts">
-                    <iterate list-name="productCategoryGlAccounts" entry-name="productCategoryGlAccount">
-                        <if-not-empty field-name="productCategoryGlAccount.glAccountId">
-                            <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers" filter-by-date="true">
-                                <field-map field-name="productCategoryId" env-name="productCategoryGlAccount.productCategoryId"/>
-                                <field-map field-name="productId" env-name="parameters.productId"/>
-                                <order-by field-name="-fromDate"/>
-                            </entity-and>
-                            <if-not-empty field-name="productCategoryMembers">
-                                <field-to-result field-name="productCategoryGlAccount.glAccountId" result-name="glAccountId"/>
-                                <return/>
-                            </if-not-empty>
-                        </if-not-empty>
-                    </iterate>
-                </if-not-empty>
+                <iterate list-name="productCategoryMembers" entry-name="productCategoryMember">
+                    <entity-one entity-name="ProductCategoryGlAccount" value-name="productCategoryGlAccount">
+                        <field-map field-name="productCategoryId" env-name="productCategoryMember.productCategoryId"/>
+                        <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
+                        <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+                    </entity-one>
+                    <if-not-empty field-name="productCategoryGlAccount.glAccountId">
+                        <field-to-result field-name="productCategoryGlAccount.glAccountId" result-name="glAccountId"/>
+                        <return/>
+                    </if-not-empty>
+                </iterate>
             </if-empty>
         </if-not-empty>
 
