@@ -1549,6 +1549,7 @@ under the License.
     <request-map uri="LookupBillingAccount"><security auth="true" https="true"/><response name="success" type="view" value="LookupBillingAccount"/></request-map>
     <request-map uri="LookupFacility"><security https="true" auth="true"/><response name="success" type="view" value="LookupFacility"/></request-map>
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
+    <request-map uri="LookupShipment"><security auth="true" https="true"/><response name="success" type="view" value="LookupShipment"/></request-map>
     
     <request-map uri="viewprofile"><security https="true" auth="true"/><response name="success" type="view" value="viewprofile"/></request-map>
     
@@ -1737,6 +1738,7 @@ under the License.
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader" />
     <view-map name="LookupFacility" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacility"/>
     <view-map name="LookupFacilityLocation" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation"/>
+    <view-map name="LookupShipment" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupShipment"/>
     
     <!-- PDFs  -->
     <view-map name="InvoicePDF" type="screenfop" page="component://accounting/widget/AccountingPrintForms.xml#InvoicePDF" content-type="application/pdf" encoding="none"/>
