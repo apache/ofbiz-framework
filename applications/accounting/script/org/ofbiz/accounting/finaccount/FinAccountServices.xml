@@ -343,4 +343,23 @@ under the License.
         <entity-one entity-name="FinAccountTypeGlAccount" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <!-- VarianceReasonGlAccount methods -->
+    <simple-method method-name="createVarianceReasonGlAccount" short-description="Create a Variance Reason Gl Account">
+        <make-value entity-name="VarianceReasonGlAccount" value-name="newEntity" />
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateVarianceReasonGlAccount" short-description="Update an Variance Reason Gl Account">
+        <entity-one entity-name="VarianceReasonGlAccount" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteVarianceReasonGlAccount" short-description="Delete an Variance Reason Gl Account">
+        <entity-one entity-name="VarianceReasonGlAccount" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>

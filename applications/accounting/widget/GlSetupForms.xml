@@ -582,4 +582,36 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
+    <form name="ListVarianceReasonGlAccounts" type="list" target="updateVarianceReasonGlAccount" list-name="varianceReasonGlAccounts">
+        <auto-fields-service service-name="updateVarianceReasonGlAccount" default-field-type="display"/>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="varianceReasonId"><display-entity entity-name="VarianceReason"/></field>
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
+            <drop-down allow-empty="false">                
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            </drop-down>
+        </field>     
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteVarianceReasonGlAccount?organizationPartyId=${organizationPartyId}&amp;varianceReasonId=${varianceReasonId}" description="${uiLabelMap.CommonRemove}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="AddVarianceReasonGlAccount" type="single" target="createVarianceReasonGlAccount">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="varianceReasonId" title="${uiLabelMap.FormFieldTitle_varianceReasonId}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="VarianceReason" description="${description}">
+                    <entity-order-by field-name="varianceReasonId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glAccountId" title="${uiLabelMap.FormFieldTitle_glAccountTypeId}">
+            <drop-down allow-empty="false">
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+   
 </forms>
