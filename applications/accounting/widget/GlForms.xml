@@ -430,4 +430,57 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAcctgTransEntry?acctgTransId=${acctgTransId}&amp;acctgTransEntrySeqId=${acctgTransEntrySeqId}&amp;organizationPartyId=${organizationPartyId}"/>
         </field>
     </form>
+    <form name="CreateAcctgTrans" type="single" target="createAcctgTrans">
+        <auto-fields-service service-name="createAcctgTrans"/>
+        <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
+        <field name="acctgTransTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="AcctgTransType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glFiscalTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlFiscalType" description="${description}" key-field-name="glFiscalTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="groupStatusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ACCTG_ENREC_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fixedAssetId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="FixedAsset" description="${fixedAssetId}">
+                    <entity-order-by field-name="fixedAssetId"/>
+                </entity-options>
+            </drop-down>
+        </field> 
+        <field name="paymentId">
+            <lookup target-form-name="LookupPayment" size="20" maxlength="20"/>
+        </field>
+        <field name="invoiceId">
+            <lookup target-form-name="LookupInvoice" size="20" maxlength="20"/>
+        </field>
+        <field name="partyId">
+            <lookup target-form-name="LookupPartyName" size="20" maxlength="20"/>
+        </field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortId">
+            <lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/>
+        </field>
+        <field name="createButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>
