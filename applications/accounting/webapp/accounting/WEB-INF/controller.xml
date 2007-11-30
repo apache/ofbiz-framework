@@ -452,6 +452,16 @@ under the License.
         <response name="success" type="view" value="EditAcctgTrans"/>
         <response name="error" type="view" value="EditAcctgTrans"/>
     </request-map>
+    <request-map uri="newAcctgTrans">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewAcctgTrans"/>
+    </request-map>
+    <request-map uri="createAcctgTrans">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createAcctgTrans"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+        <response name="error" type="view" value="NewAcctgTrans"/>
+    </request-map>
 
     <!-- GlAccount requests -->
     <request-map uri="AssignGlAccount">
@@ -1568,7 +1578,7 @@ under the License.
     <view-map name="ListUnpostedAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#ListUnpostedAcctgTrans"/>
     <view-map name="ListChecksToPrint" type="screen" page="component://accounting/widget/GlScreens.xml#ListChecksToPrint"/>
     <view-map name="ListChecksToSend" type="screen" page="component://accounting/widget/GlScreens.xml#ListChecksToSend"/>
-    
+    <view-map name="NewAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#NewAcctgTrans"/>    
     <!-- GlAccount, GlJournalEntry, AcctgTrans -->
     <view-map name="AddGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#AddGlAccount"/>
     <view-map name="FindGlobalGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccounts"/>

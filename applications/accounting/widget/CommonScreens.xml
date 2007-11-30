@@ -283,7 +283,7 @@ under the License.
                     <decorator-section name="body">
                         <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/Menus.xml"/>
                         <container>
-                            <label style="head1">${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
+                            <label style="head1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
                         </container>
                         <decorator-section-include name="body"/>
                     </decorator-section>

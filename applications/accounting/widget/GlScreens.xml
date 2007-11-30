@@ -81,6 +81,7 @@ under the License.
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
+                            <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}" style="buttontext" target="newAcctgTrans?organizationPartyId=${organizationPartyId}"/>
                             <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}"/>
                             <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
                         </container>
@@ -301,6 +302,22 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="NewAcctgTrans">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingCreateAnAccountingTransaction"/>
+                <set field="tabButtonItem" value="FindAcctgTrans"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="labelTitleProperty" value="AccountingCreateAnAccountingTransaction"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="CreateAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
 
