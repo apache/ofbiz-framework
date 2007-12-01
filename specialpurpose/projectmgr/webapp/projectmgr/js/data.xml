@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <task start="10/27/2006" end="11/03/2006" label="planning">
+        <task start="10/27/2006" end="10/29/2006" label="Task 1" type="t"/>
+        <task start="10/29/2006" end="10/30/2006" label="Task 2" type="t"/>
+        <task start="10/30/2006" end="11/02/2006" label="Task 3" type="t"/>
+        <task start="10/31/2006" end="11/03/2006" label="Task 4" type="t"/>
+    </task>
+    <task start="11/02/2006" end="11/02/2006" label="Milestone 1" type="j"/>
+    <task start="11/03/2006" end="11/08/2006" label="Task 6" type="t"/>
+    <task start="11/08/2006" end="11/10/2006" label="Task 7" type="t"/>
+    <task start="11/10/2006" end="11/15/2006" label="Task 8" type="t"/>
+</data>
