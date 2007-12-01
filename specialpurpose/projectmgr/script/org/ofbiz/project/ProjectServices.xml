@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
     <simple-method method-name="getProject" short-description="get Project information" login-required="true">
         <!-- get the phase seq id -->
         <if-empty field-name="parameters.projectId">
@@ -41,10 +41,6 @@ under the License.
         <set field="highInfo.sequenceId" from-field="highSeq.sequenceId"/>
         <set field="highInfo.statusDescription" from-field="highSeq.description"/>
         <set field="highInfo.createdDate" from-field="project.createdDate"/>
-        <set field="highInfo.estimatedStartDate" from-field="project.estimatedStartDate"/>
-        <set field="highInfo.estimatedCompletionDate" from-field="project.estimatedCompletionDate"/>
-        <set field="highInfo.actualStartDate" from-field="project.actualStartDate"/>
-        <set field="highInfo.actualCompletionDate" from-field="project.actualCompletionDate"/>
         
         <!-- loop through the related phases and tasks -->
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
@@ -63,7 +59,9 @@ under the License.
         <first-from-list entry-name="status" list-name="statusses"/>
         <clear-field field-name="highInfo.sequenceId"/>
         <set field="highInfo.statusId" from-field="status.statusId"/>
-
+        
+        <call-simple-method method-name="createDates"/>
+        
         <!-- results -->
         <field-to-result field-name="highInfo" result-name="projectInfo"/>
         <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
@@ -75,6 +73,7 @@ under the License.
         </if-empty>
         <entity-and entity-name="WorkEffort" list-name="phases">
             <field-map field-name="workEffortParentId" env-name="parameters.projectId"/>
+            <field-map field-name="workEffortTypeId" value="PHASE"/>
         </entity-and>        
         
         <iterate entry-name="phase" list-name="phases">
@@ -96,6 +95,8 @@ under the License.
                 <call-simple-method method-name="combineInfo"/>
             </iterate>
             
+            <!-- merge estimated and actual dates -->
+            <call-simple-method method-name="createDates"/>
             <!-- translate squenceId back into statusId -->
             <entity-and entity-name="StatusItem" list-name="statusses">
                 <field-map field-name="sequenceId" env-name="highInfo.sequenceId"/>
@@ -112,24 +113,130 @@ under the License.
         <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
     </simple-method>
     
-    <simple-method method-name="getProjectTaskList" short-description="get Project task information" login-required="true">
+    <simple-method method-name="getProjectTaskList" short-description="get Project Phase/task information" login-required="true">
+        <if-empty field-name="parameters.projectId">
+            <return/>
+        </if-empty>
+        <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
+            <field-map field-name="projectId" env-name="parameters.projectId"/>
+        </entity-and>        
+        
+        <iterate entry-name="task" list-name="tasks">
+            
+            <!-- merge estimated and actual dates -->
+            <if-empty field-name="savePhaseName">
+                <set field="savePhaseName" from-field="task.phaseName"/>
+                <set field="highInfo.phaseName" from-field="task.phaseName"/>
+                <else>
+                    <if-compare-field field-name="task.phaseName" operator="not-equals" to-field-name="savePhaseName">
+                        <set field="highInfo.phaseName" from-field="task.phaseName"/>
+                        <set field="savePhaseName" from-field="task.phaseName"/>
+                    </if-compare-field>
+                </else>
+            </if-empty>
+            <set field="highInfo.phaseId" from-field="task.phaseId"/>
+            <set field="highInfo.workEffortId" from-field="task.workEffortId"/>
+            <set field="highInfo.workEffortName" from-field="task.workEffortName"/>
+            <set field="highInfo.workEffortDescription" from-field="workEffortDescription"/>
+            <set field="highInfo.priority" from-field="task.priority"/>
+            <set field="highInfo.currentStatusId" from-field="task.currentStatusId"/>
+            <set field="highInfo.scopeEnumId" from-field="task.scopeEnumId"/>
+            <set field="highInfo.estimatedStartDate" from-field="task.estimatedStartDate"/>
+            <set field="highInfo.estimatedCompletionDate" from-field="task.estimatedCompletionDate"/>
+            <set field="highInfo.actualStartDate" from-field="task.actualStartDate"/>
+            <set field="highInfo.actualCompletionDate" from-field="task.actualCompletionDate"/>
+            <call-simple-method method-name="createDates"/>
+            <set field="lowInfo" from-field="task"/>
+            <call-simple-method method-name="getHours"/>
+            <field-to-list field-name="highInfo" list-name="taskList"/>
+            <clear-field field-name="highInfo"/>
+        </iterate>
+        
+        <!-- results -->
+        <field-to-result field-name="taskList"/>
+        <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
+    </simple-method>
+    
+    <simple-method method-name="getProjectTask" short-description="get Project task information" login-required="true">
         <entity-one entity-name="WorkEffort" value-name="lowInfo">
             <field-map field-name="workEffortId" env-name="parameters.taskId"/>
         </entity-one>
         <set field="highInfo.taskId" from-field="lowInfo.worEffortId"/>
         <set field="highInfo.taskName" from-field="lowInfo.workEffortName"/>
-        <set field="highInfo.tasDescription" from-field="lowInfo.description"/>
+        <set field="highInfo.taskDescription" from-field="lowInfo.description"/>
         <set field="highInfo.priority" from-field="lowInfo.priority"/>
         <set field="highInfo.scopeEnumId" from-field="lowInfo.scopeEnumId"/>
         <call-simple-method method-name="combineInfo"/>
         <clear-field field-name="highInfo.sequenceId"/>
         <set field="highInfo.statusId" from-field="lowInfo.currentStatusId"/>
-        <field-to-result field-name="highInfo"/>
+        <field-to-result field-name="highInfo" result-name="taskInfo"/>
         <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
-        <field-to-result field-name="parameters.phaseId" result-name="phaseIdId"/>        
         <field-to-result field-name="parameters.taskId" result-name="taskId"/>        
     </simple-method>
 
+    <simple-method method-name="getProjectsByParties" short-description="get Project information by party member" login-required="true">
+        <!-- get the list of tasks optionaly selected for a party -->
+        <if-empty field-name="parameters.partyId">
+            <set field="parameters.partyId" value="%"/>
+        </if-empty>
+        <if-empty field-name="parameters.projectId">
+            <set field="parameters.projectId" value="%"/>
+        </if-empty>
+        <entity-condition entity-name="ProjectPartyAndPhaseAndTask" list-name="tasks">
+            <condition-list combine="and">
+                <condition-expr field-name="partyId" operator="like" env-name="parameters.partyId"/>
+                <condition-expr field-name="projectId" operator="like" env-name="parameters.projectId"/>
+            </condition-list>
+            <order-by field-name="projectId"/>
+            <order-by field-name="partyId"/>
+        </entity-condition>
+        <if-not-empty field-name="tasks">
+            <iterate entry-name="task" list-name="tasks">
+                <if>
+                    <condition >
+                        <and>
+                            <not>
+                                <if-empty field-name="projectParty"/>
+                            </not>
+                            <if-compare-field field-name="task.partyId" operator="not-equals" to-field-name="projectParty.partyId"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <field-to-list field-name="projectParty" list-name="projectParties"/>
+                        <clear-field field-name="projectParty"/>
+                    </then>
+                </if>
+                
+                <if-empty field-name="projectParty">
+                    <set field="projectParty.partyId" from-field="task.partyId"/>
+                    <entity-one entity-name="PartyNameView" value-name="partyNameView">
+                        <field-map field-name="partyId" env-name="task.partyId"/>
+                    </entity-one>
+                    <if-not-empty field-name="partyNameView">
+                        <set field="projectParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName}${partyNameView.groupName}"/>
+                    </if-not-empty>
+                    <set field="projectParty.roleTypeId" from-field="task.roleTypeId"/>
+                    <set field="projectParty.fromDate" from-field="task.fromDate"/>
+                    <set field="projectParty.thruDate" from-field="task.thruDate"/>
+                </if-empty>
+                
+                <!-- get the planned hours -->
+                <set field="lowInfo" from-field="task"/>
+                <set field="hoursPartyId" from-field="task.partyId"/>
+                <call-simple-method method-name="getHours"/>
+                <set field="projectParty.plannedHours" from-field="highInfo.plannedHours"/>                    
+                <set field="projectParty.actualHours" from-field="highInfo.actualHours"/>                    
+                
+            </iterate>
+            <if-not-empty field-name="projectParty">
+                <field-to-list field-name="projectParty" list-name="projectParties"/>
+            </if-not-empty>
+            <if-not-empty field-name="projectParties">
+                <field-to-result field-name="projectParties"/>                                                                                       
+            </if-not-empty>
+        </if-not-empty>
+    </simple-method>
+    
     <!-- Internal functions  -->
     <simple-method method-name="combineInfo" short-description="combine lower level status, dates of tasks.">
         <!-- in/output highInfo infoMap -->
@@ -189,7 +296,17 @@ under the License.
             </else>
         </if-empty>
         
-        <!-- add the extimated hours together -->
+        <!-- add the estimated/planned hours together -->
+        <call-simple-method method-name="getHours"/>
+        
+    </simple-method>
+    
+    <simple-method method-name="getHours" short-description="get the planned and estimated hours for a task">
+        
+        <!-- input is 'lowInfo' map output is 'highInfo map -->
+        <!-- hoursPartyId: if provided only the hours of that party -->
+        
+        <!-- add the estimated hours together -->
         <get-related value-name="lowInfo" relation-name="WorkEffortSkillStandard" list-name="estimates"/>
         <iterate entry-name="estimate" list-name="estimates">
             <if-not-empty field-name="estimate.estimatedDuration">
@@ -204,14 +321,43 @@ under the License.
         <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="actuals"/>
         <iterate entry-name="actual" list-name="actuals">
             <if-not-empty field-name="actual.hours">
-                <calculate field-name="highInfo.actualHours">
-                    <calcop operator="get" field-name="highInfo.actualHours"/>
-                    <calcop operator="add" field-name="actual.hours"></calcop>
-                </calculate>
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field-name="hoursPartyId"/>
+                            <and>
+                                <not><if-empty field-name="hoursPartyId"/></not>
+                                <if-compare-field field-name="actuals.partyId" operator="equals" to-field-name="hoursPartyId"/>
+                            </and>
+                        </or>
+                    </condition>
+                    <then>
+                        <calculate field-name="highInfo.actualHours">
+                            <calcop operator="get" field-name="highInfo.actualHours"/>
+                            <calcop operator="add" field-name="actual.hours"></calcop>
+                        </calculate>
+                    </then>
+                </if>
             </if-not-empty>
         </iterate>
-        
     </simple-method>
     
-                
+    <simple-method method-name="createDates" short-description="merge the estimated and actual dates">
+
+        <!-- input/output is 'highInfo map -->
+        
+        <!-- create dates taking the last known one to save space on the list -->
+        <if-not-empty field-name="highInfo.actualStartDate">
+            <set field="highInfo.startDate" from-field="highInfo.actualStartDate"/>
+            <else>
+                <set field="highInfo.startDate" from-field="highInfo.estimatedStartDate"/>
+            </else>
+        </if-not-empty> 
+        <if-not-empty field-name="highInfo.actualCompletionDate">
+            <set field="highInfo.completionDate" from-field="highInfo.actualCompletionDate"/>
+            <else>
+                <set field="highInfo.completionDate" from-field="highInfo.estimatedCompletionDate"/>
+            </else>
+        </if-not-empty> 
+    </simple-method>    
 </simple-methods>

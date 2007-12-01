@@ -119,13 +119,11 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaskList"/>
                 <set field="tabButtonItem" value="edittask"/>                
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/Dependencies"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>                
-                <set field="workEffortAssocTypeId" from-field="parameters.workEffortAssocTypeId"/>
-                <entity-one entity-name="WorkEffort" value-name="task"/>                
+                <entity-one entity-name="WorkEffort" value-name="task"/>    
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
             </actions>
             <widgets>
-                
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>                                                       
@@ -281,7 +279,10 @@ under the License.
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="projectId" from-field="parameters.workEffortId"/>
-                <entity-one entity-name="WorkEffort" value-name="task"/>
+                <service service-name="getProjectTask" result-map-name="result">
+                    <field-map field-name="taskId" env-name="workEffortId"/>
+                </service>
+                <set field="task" from-field="result.taskInfo"/>
             </actions>                        
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -290,9 +291,14 @@ under the License.
                             <condition>
                                 <not><if-empty field-name="task"/></not>
                             </condition>
-                            <widgets>                                                   
+                            <widgets>                                
                                 <container style="lefthalf">
-                                    <include-screen name="TaskInfo"/>
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.PageTitleTaskInformation}"/></container>
+                                        <container style="screenlet-body">
+                                            <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>                  
+                                        </container>
+                                    </container> 
                                 </container>
                                 <container style="righthalf">
                                     <include-screen name="NoteInfo"/>

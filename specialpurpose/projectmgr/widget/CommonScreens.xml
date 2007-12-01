@@ -98,7 +98,6 @@ under the License.
         <section>
             <actions>
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

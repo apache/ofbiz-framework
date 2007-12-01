@@ -26,7 +26,7 @@ under the License.
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProject">
         <description>Get project information and realated phase and task info.</description>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="projectInfo" type="Map" mode="OUT" optional="true"/>
+        <attribute name="projectInfo" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
     
     <service name="getProjectPhaseList" engine="simple"
@@ -38,9 +38,25 @@ under the License.
     
     <service name="getProjectTaskList" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectTaskList">
-        <description>Get project task information and related timesheet info.</description>
+        <description>Get project phase information and related task info.</description>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="taskList" type="List" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="getProjectTask" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectTask">
+        <description>Get project task information and related timesheet info.</description>
+        <attribute name="taskId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="projectId" type="String" mode="OUT" optional="true"/>
+        <attribute name="taskInfo" type="Map" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="getProjectsByParties" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectsByParties">
+        <description>Get project information by party</description>
+        <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="projectParties" type="List" mode="OUT" optional="true"/>
     </service>
     
 </services>

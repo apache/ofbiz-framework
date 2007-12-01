@@ -17,7 +17,8 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditProject" type="single" target="updateProject" default-map-name="project">
         <alt-target use-when="project==null" target="createProject"/>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
@@ -77,21 +78,13 @@
         </field>
         <field name="statusDescription" title="${uiLabelMap.CommonStatus}"><display/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
-        <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
+        <field name="startDate" title="${uiLabelMap.WorkEffortStartDate}"><display type="date"/></field>
+        <field name="completionDate" title="${uiLabelMap.WorkEffortCompletionDate}"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
         <field name="createdDate"><display type="date"/></field>
     </form>                                        	
     <form name="ProjectInfo" type="single" default-map-name="project" paginate-target="FindProject">
-        <actions>
-            <service service-name="getProject" result-map-name="result">
-                <field-map field-name="projectId" env-name="parameters.projectId"/>
-            </service>
-            <set field="project" from-field="result.projectInfo"/>
-        </actions>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><display/></field>
         <field name="statusDescription" title="${uiLabelMap.CommonStatus}"><display/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
@@ -241,28 +234,35 @@
         <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-    <form name="ListPhaseTaskInfo" type="list" list-name="phases">
-        <field name="projectId"><hidden value="parameters.worEffortIdFrom"/></field>
-        <field name="Phase"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
-        <field name="Task"><hyperlink target="EditTask?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
-        <field name="estimatedStartDate"><display/></field>
-        <field name="estimatedCompletionDate"><display/></field>
-        <field name="actualStartDate"><display/></field>
-        <field name="actualCompletionDate"><display/></field>
+    <form name="ListPhaseInfo" type="list" list-name="phases">
+        <field name="projectId"><hidden value="parameters.projectId"/></field>
+        <field name="phase"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="startDate"><display/></field>
+        <field name="completionDate"><display/></field>
+        <field name="plannedHours"><display/></field>
+        <field name="actualHours"><display/></field>
     </form>
-    <form name="ListAssociatedParties" type="list" list-name="associatedParties">
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="EditProject?workEffortId=${workEffortId}"/>
-        </field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
-            </display-entity>
+    <form name="ListTaskInfo" type="list" list-name="tasks">
+        <field name="projectId"><hidden value="parameters.projectId"/></field>
+        <field name="phase"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
+        <field name="task"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="startDate"><display/></field>
+        <field name="completionDate"><display/></field>
+        <field name="plannedHours"><display/></field>
+        <field name="actualHours"><display/></field>
+    </form>
+    <form name="ListProjectParties" type="list" list-name="parties">
+        <field name="projectId"><hidden/></field>
+        <field name="partyName" title="${uiLabelMap.CommonName}">
+            <hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyName}"/>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}"><display-entity entity-name="RoleType" description="${description}"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
+        <field name="plannedHours"><display/></field>
+        <field name="actualHours"><display/></field>
     </form>
     <form name="ListProjectSkills" type="list" target="updateProjectSkillStandard" list-name="workEffortSkillStandardList" paginate-target="EditProjectSkills">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}">

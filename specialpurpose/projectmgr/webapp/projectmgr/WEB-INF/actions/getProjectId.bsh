@@ -23,12 +23,12 @@ import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.UtilMisc;
 import javolution.util.FastMap;
-
+Debug.logInfo("==========workEffortId:" + parameters.get("workEffortId"),"");
 if (parameters.get("workEffortId") != null) {
     workEffortId = parameters.get("workEffortId");
-    project = delegator.findByAnd("ProjectAndPhaseAndTask", UtilMisc.toMap("workEffortId", workEffortId));
-    if (UtilValidate.isNotEmpty(project)) {
-        context.put("projectId", project.get(0).getString("projectId"));
-        context.put("projectName", project.get(0).getString("projectName"));
+    projects = delegator.findByAnd("ProjectAndPhaseAndTask", UtilMisc.toMap("workEffortId", workEffortId));
+    if (UtilValidate.isNotEmpty(projects)) {
+        context.put("projectId", projects.get(0).getString("projectId"));
+        context.put("projectName", projects.get(0).getString("projectName"));
     }
 }
