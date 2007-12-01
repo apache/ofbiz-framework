@@ -281,6 +281,7 @@ public class ServiceDispatcher {
         // start the transaction
         boolean beganTrans = false;
         try {
+            //Debug.logInfo("=========================== " + modelService.name + " 1 tx status =" + TransactionUtil.getStatusString() + ", modelService.requireNewTransaction=" + modelService.requireNewTransaction + ", modelService.useTransaction=" + modelService.useTransaction + ", TransactionUtil.isTransactionInPlace()=" + TransactionUtil.isTransactionInPlace(), module);
             if (modelService.useTransaction) {
                 if (TransactionUtil.isTransactionInPlace()) {
                     // if a new transaction is needed, do it here; if not do nothing, just use current tx
@@ -482,7 +483,6 @@ public class ServiceDispatcher {
                 if (isFailure) {
                     Debug.logWarning("Service Failure [" + modelService.name + "]: " + ServiceUtil.getErrorMessage(result), module);
                 }
-
             } catch (Throwable t) {
                 if (Debug.timingOn()) {
                     UtilTimer.closeTimer(localName + " / " + modelService.name, "Sync service failed...", module);

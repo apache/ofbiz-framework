@@ -396,6 +396,7 @@ public class SQLProcessor {
             // if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.executeQuery] ps=" + _ps.toString(), module);
             _rs = _ps.executeQuery();
         } catch (SQLException sqle) {
+        	this.checkLockWaitInfo(sqle);
             throw new GenericDataSourceException("SQL Exception while executing the following:" + _sql, sqle);
         }
 
@@ -424,8 +425,10 @@ public class SQLProcessor {
     public int executeUpdate() throws GenericDataSourceException {
         try {
             // if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.executeUpdate] ps=" + _ps.toString(), module);
+        	//TransactionUtil.printAllThreadsTransactionBeginStacks();
             return _ps.executeUpdate();
         } catch (SQLException sqle) {
+        	this.checkLockWaitInfo(sqle);
             // don't display this here, may not be critical, allow handling further up... Debug.logError(sqle, "SQLProcessor.executeUpdate() : ERROR : ", module);
             throw new GenericDataSourceException("SQL Exception while executing the following:" + _sql, sqle);
         }
@@ -860,5 +863,18 @@ public class SQLProcessor {
         if (fetchSize > -1) {
             stmt.setFetchSize(fetchSize);
         }
+    }
+    
+    private void checkLockWaitInfo(Exception sqle) {
+    	String eMsg = sqle.getMessage();
+    	
+    	// see if there is a lock wait timeout error, if so try to get and print more info about it
+    	//   the string for Derby is "A lock could not be obtained within the time requested"
+    	//   the string for MySQL is "Lock wait timeout exceeded; try restarting transaction"
+    	if (eMsg.indexOf("A lock could not be obtained within the time requested") >= 0 ||
+    			eMsg.indexOf("Lock wait timeout exceeded") >= 0) {
+    		Debug.logWarning(sqle, "Lock wait timeout error found in thread [" + Thread.currentThread().getId() + "]: (" + eMsg + ") when executing the SQL [" + _sql + "]", module);
+    		TransactionUtil.printAllThreadsTransactionBeginStacks();
+    	}
     }
 }

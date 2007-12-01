@@ -18,12 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.service.job;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.service.config.ServiceConfigUtil;
 
 /**
  * JobPoller - Polls for persisted jobs to run.
@@ -39,8 +41,8 @@ public class JobPoller implements Runnable {
     //public static final long MAX_TTL = 18000000;
 
     protected Thread thread = null;
-    protected LinkedList<JobInvoker> pool = null;
-    protected LinkedList<Job> run = null;
+    protected List<JobInvoker> pool = null;
+    protected List<Job> run = null;
     protected JobManager jm = null;
 
     protected volatile boolean isRunning = false;
@@ -51,7 +53,7 @@ public class JobPoller implements Runnable {
      */
     public JobPoller(JobManager jm, boolean enabled) {
         this.jm = jm;
-        this.run = new LinkedList<Job>();
+        this.run = FastList.newInstance();
 
         // create the thread pool
         this.pool = createThreadPool();
@@ -77,30 +79,28 @@ public class JobPoller implements Runnable {
     protected JobPoller() {}
 
     public synchronized void run() {
-        if (Debug.infoOn()) Debug.logInfo("JobPoller: (" + thread.getName() + ") Thread Running...", module);
         try {
             // wait 30 seconds before the first poll
-            wait(30000);
+            java.lang.Thread.sleep(30000);
         } catch (InterruptedException e) {
         }
         while (isRunning) {
             try {
                 // grab a list of jobs to run.
-                Iterator poll = jm.poll();
+                List<Job> pollList = jm.poll();
 
-                while (poll.hasNext()) {
-                    Job job = (Job) poll.next();
-
-                    if (job.isValid())
+                for (Job job : pollList) {
+                    if (job.isValid()) {
                         queueNow(job);
+                    }
                 }
-                wait(pollWaitTime());
+                // NOTE: using sleep instead of wait for stricter locking
+                java.lang.Thread.sleep(pollWaitTime());
             } catch (InterruptedException e) {
                 Debug.logError(e, module);
                 stop();
             }
         }
-        if (Debug.infoOn()) Debug.logInfo("JobPoller: (" + thread.getName() + ") Thread ending...", module);
     }
 
     /**
@@ -119,10 +119,11 @@ public class JobPoller implements Runnable {
     }
 
     public List<Map<String, Object>> getPoolState() {
-        List<Map<String, Object>> stateList = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> stateList = FastList.newInstance();
         for (JobInvoker invoker: this.pool) {
             Map<String, Object> stateMap = FastMap.newInstance();
             stateMap.put("threadName", invoker.getName());
+            stateMap.put("threadId", invoker.getThreadId());
             stateMap.put("jobName", invoker.getJobName());
             stateMap.put("serviceName", invoker.getServiceName());
             stateMap.put("runTime", Long.valueOf(invoker.getCurrentRuntime()));
@@ -164,26 +165,38 @@ public class JobPoller implements Runnable {
     /**
      * Returns the next job to run
      */
-    public synchronized Job next() {
-        if (run.size() > 0)
-            return run.removeFirst();
+    public Job next() {
+        if (run.size() > 0) {
+        	synchronized (run) {
+        		return run.remove(0);
+        	}
+        }
         return null;
     }
 
     /**
      * Adds a job to the RUN queue
      */
-    public synchronized void queueNow(Job job) {
-        run.add(job);
+    public void queueNow(Job job) {
+    	//Debug.logInfo("[" + Thread.currentThread().getId() + "] Begin queueNow; holds run lock? " + Thread.holdsLock(run), module);
+    	
+    	// NOTE DEJ20071201 MUST use a different object for the lock here because the "this" object is always held by the poller thread in the run method above (which sleeps and runs)
+    	synchronized (run) {
+            run.add(job);
+    	}
         if (Debug.verboseOn()) Debug.logVerbose("New run queue size: " + run.size(), module);
         if (run.size() > pool.size() && pool.size() < maxThreads()) {
-            int calcSize = (run.size() / jobsPerThread()) - (pool.size());
-            int addSize = calcSize > maxThreads() ? maxThreads() : calcSize;
-
-            for (int i = 0; i < addSize; i++) {
-                JobInvoker iv = new JobInvoker(this, invokerWaitTime());
-                pool.add(iv);
-            }
+	    	synchronized (pool) {
+	            if (run.size() > pool.size() && pool.size() < maxThreads()) {
+	                int calcSize = (run.size() / jobsPerThread()) - (pool.size());
+	                int addSize = calcSize > maxThreads() ? maxThreads() : calcSize;
+	
+	                for (int i = 0; i < addSize; i++) {
+	                    JobInvoker iv = new JobInvoker(this, invokerWaitTime());
+	                    pool.add(iv);
+	                }
+	            }
+	    	}
         }
     }
 
@@ -203,8 +216,8 @@ public class JobPoller implements Runnable {
     }
 
     // Creates the invoker pool
-    private LinkedList<JobInvoker> createThreadPool() {
-        LinkedList<JobInvoker> threadPool = new LinkedList<JobInvoker>();
+    private List<JobInvoker> createThreadPool() {
+        List<JobInvoker> threadPool = FastList.newInstance();
 
         while (threadPool.size() < minThreads()) {
             JobInvoker iv = new JobInvoker(this, invokerWaitTime());
