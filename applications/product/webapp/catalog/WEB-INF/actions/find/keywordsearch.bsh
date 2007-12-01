@@ -48,6 +48,8 @@ context.put("viewSize", result.get("viewSize"));
 context.put("listSize", result.get("listSize"));
 context.put("lowIndex", result.get("lowIndex"));
 context.put("highIndex", result.get("highIndex"));
+context.put("paging", result.get("paging"));
+context.put("previousViewSize", result.get("previousViewSize"));
 context.put("searchCategory", result.get("searchCategory"));
 context.put("searchConstraintStrings", result.get("searchConstraintStrings"));
 context.put("searchSortOrderString", result.get("searchSortOrderString"));

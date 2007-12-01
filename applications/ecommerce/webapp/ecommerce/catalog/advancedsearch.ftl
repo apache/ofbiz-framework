@@ -22,6 +22,7 @@ under the License.
 <br/>
 <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
   <input type="hidden" name="VIEW_SIZE" value="10"/>
+  <input type="hidden" name="PAGING" value="Y"/>
   <table border="0" wdith="100%">
     <input type="hidden" name="SEARCH_CATALOG_ID" value="${currentCatalogId}">
     <#if searchCategory?has_content>
