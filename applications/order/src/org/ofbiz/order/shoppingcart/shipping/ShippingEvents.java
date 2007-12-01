@@ -254,7 +254,7 @@ public class ShippingEvents {
                     serviceResp = dispatcher.runSync(serviceName, context, 0, true);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Shipment Service Error", module);
-                    throw new GeneralException();
+                    throw new GeneralException(e);
                 }
                 if (!ServiceUtil.isError(serviceResp)) {
                     externalShipAmt = (Double) serviceResp.get("shippingEstimateAmount");
