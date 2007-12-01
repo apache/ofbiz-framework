@@ -78,15 +78,16 @@ under the License.
     
     <!-- Set up accounting organization preferences security -->
     <SecurityPermission description="Set organization accounting preferences" permissionId="ACCTG_PREF_CREATE"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_PREF_CREATE"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_CREATE"/>
     <SecurityPermission description="Update organization accounting preferences" permissionId="ACCTG_PREF_UPDATE"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_PREF_UPDATE"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_UPDATE"/>
-    
-    <SecurityPermission description="Set foreign exchange rates" permissionId="ACCTG_FX_ENTRY"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_FX_ENTRY"/>
+    <SecurityPermission description="Delete organization accounting preferences" permissionId="ACCTG_PREF_DELETE"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_PREF_ADMIN"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_CREATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_UPDATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_DELETE"/>
+    
+    <SecurityPermission description="Set foreign exchange rates" permissionId="ACCTG_FX_UPDATE"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_FX_UPDATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_FX_UPDATE"/>
 
     <!-- For general ledger cccounting transactions.  Note that anyone who is authorized for proesses that create accounting transaction entries,
         such as quick shipping an order, approving an invoice, a return, or authorizing shipments, should have the _CREATE and _POST privileges, but

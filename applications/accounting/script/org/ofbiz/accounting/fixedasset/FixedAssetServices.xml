@@ -586,27 +586,4 @@ under the License.
         <remove-value value-name="newEntity"/>
     </simple-method>
         
-    <!-- ==============Permission Checking Service============= -->
-    <simple-method method-name="fixedAssetPermissionCheck" short-description="Fixed Asset permission logic">
-        <if-has-permission permission="ACCOUNTING_ADMIN">
-            <set field="hasPermission" type="Boolean" value="true"/>
-            <else>
-                <if-has-permission permission="ACCOUNTING" action="_${parameters.mainAction}">
-                    <set field="hasPermission" type="Boolean" value="true"/>
-                    <else>
-                        <if-has-permission permission="ACCOUNTING_ROLE" action="_${parameters.mainAction}">
-                            <set field="hasPermission" type="Boolean" value="true"/>
-                            <else>
-                                <set field="hasPermission" type="Boolean" value="false"/>
-                                <set field="failMessage" value="Security Error: you must have the ACCOUNTING_${parameters.mainAction} or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_${parameters.mainAction} permission"/>
-                                <field-to-result field-name="failMessage"/>
-                            </else>
-                        </if-has-permission>
-                    </else>
-                </if-has-permission>
-            </else>
-        </if-has-permission>
-        <field-to-result field-name="hasPermission"/>
-    </simple-method>
-
 </simple-methods>

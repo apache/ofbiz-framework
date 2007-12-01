@@ -21,6 +21,36 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
+    <screen name="CommonAdminDecorator">
+        <section>
+            <actions>
+                <set field="tabButtonItemTop" value="Admin"/>
+                <entity-one entity-name="PartyNameView" value-name="currentOrganization" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="PartyAdminTabBar" location="component://accounting/widget/Menus.xml"/>
+                        <section>
+                            <condition>
+                                <if-compare field-name="tabButtonItem" operator="equals" value="GlAccountAssignment"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="PartyAdminAssignTabBar" location="component://accounting/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
+                        <container>
+                            <label style="head1">${labelTitleProperty} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
+                        </container>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ListCompanies">
         <section>
             <actions>
@@ -31,6 +61,14 @@ under the License.
                 <entity-condition entity-name="PartyRole" list-name="parties">
                     <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                 </entity-condition>
+                <service service-name="acctgPrefPermissionCheck" result-map-name="permResult">
+                    <field-map field-name="mainAction" value="UPDATE"/>
+                </service>
+                <set field="hasPrefPermission" from-field="permResult.hasPermission"/>
+                <service service-name="basicGeneralLedgerPermissionCheck" result-map-name="permResult">
+                    <field-map field-name="mainAction" value="VIEW"/>
+                </service>
+                <set field="hasBasicPermission" from-field="permResult.hasPermission"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -53,7 +91,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <include-form name="ListGlAccountOrganization" location="component://accounting/widget/GlSetupForms.xml"/>
                         <include-form name="AssignGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -89,7 +127,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <label style="head1">${uiLabelMap.AccountingOpenTimePeriods}</label>
                         <include-form name="ListOpenTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -116,7 +154,7 @@ under the License.
                 <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
@@ -143,7 +181,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <include-form name="ListConversions" location="component://accounting/widget/GlSetupForms.xml"/>
                         <label style="head1">${uiLabelMap.AccountingUpdateFX}</label>
@@ -164,7 +202,7 @@ under the License.
                 <entity-one entity-name="GlJournal" value-name="glJournal"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <include-form name="ListGlJournals" location="component://accounting/widget/GlSetupForms.xml"/>
                         <include-form name="EditGlJournal" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -185,7 +223,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <container>
                             <include-form name="ListGlAccountTypeDefaults" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -208,7 +246,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <container>
                             <container><label style="head1">${uiLabelMap.AccountingSalesInvoiceToRevenue}</label></container>
@@ -231,7 +269,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <container>
                             <container><label style="head1">Purchase Invoice type to Expense GL Account Number assignmentlist</label></container>
@@ -255,7 +293,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <container>
                             <container><label style="head1">Payment type to GL Account type assignment list</label></container>
@@ -277,7 +315,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <container>
                             <container><label style="head1">Payment methods to GL Account numbers assigmentlist</label></container>
@@ -313,7 +351,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <container>
                             <include-form name="ListProductGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -351,7 +389,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <container>
                             <include-form name="ListFinAccountTypeGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -390,7 +428,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <container>
                             <include-form name="ListProductCategoryGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
@@ -425,7 +463,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
                         <container>
                             <include-form name="ListVarianceReasonGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>

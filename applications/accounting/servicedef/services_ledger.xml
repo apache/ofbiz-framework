@@ -359,4 +359,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
+    <!-- Permission services -->
+    <service name="basicGeneralLedgerPermissionCheck" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
+        <description>Basic General Ledger Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
 </services>
