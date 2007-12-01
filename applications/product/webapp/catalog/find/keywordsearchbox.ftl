@@ -45,7 +45,7 @@ under the License.
 <#if isOpen>
     <div class="screenlet-body">
         <div>
-            <form name="keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch?VIEW_SIZE=25</@ofbizUrl>" style="margin: 0;">
+            <form name="keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch?VIEW_SIZE=25&PAGING=Y</@ofbizUrl>" style="margin: 0;">
               <div class="tabletext">${uiLabelMap.ProductKeywords}: <input type="text" class="inputBox" name="SEARCH_STRING" size="20" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}"/></div>
               <div class="tabletext">
                 ${uiLabelMap.ProductCategoryId}:

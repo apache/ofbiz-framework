@@ -24,6 +24,7 @@ under the License.
     <div class="screenlet-body" style="text-align: center;">
         <form name="keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>">
           <input type="hidden" name="VIEW_SIZE" value="10"/>
+          <input type="hidden" name="PAGING" value="Y"/>
           <div class="tabletext">
             <input type="text" class="inputBox" name="SEARCH_STRING" size="14" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}"/>
           </div>

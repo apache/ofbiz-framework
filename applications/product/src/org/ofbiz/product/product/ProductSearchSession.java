@@ -80,6 +80,8 @@ public class ProductSearchSession {
         protected Integer viewIndex = null;
         protected Integer viewSize = null;
         protected boolean changed = false;
+        protected String paging = "Y";
+        protected Integer previousViewSize = null;
 
         public ProductSearchOptions() { }
 
@@ -92,6 +94,8 @@ public class ProductSearchSession {
             this.viewIndex = productSearchOptions.viewIndex;
             this.viewSize = productSearchOptions.viewSize;
             this.changed = productSearchOptions.changed;
+            this.paging = productSearchOptions.paging;
+            this.previousViewSize = productSearchOptions.previousViewSize;
         }
 
         public List getConstraintList() {
@@ -138,6 +142,8 @@ public class ProductSearchSession {
         public void clearViewInfo() {
             this.viewIndex = null;
             this.viewSize = null;
+            this.paging = "Y";
+            this.previousViewSize = null;
         }
 
         /**
@@ -175,12 +181,15 @@ public class ProductSearchSession {
         public Integer getViewSize() {
             return viewSize;
         }
+        
         /**
          * @param viewSize The viewSize to set.
          */
         public void setViewSize(Integer viewSize) {
+            setPreviousViewSize(getViewSize());
             this.viewSize = viewSize;
         }
+        
         /**
          * @param viewSize The viewSize to set.
          */
@@ -197,7 +206,41 @@ public class ProductSearchSession {
                 }
             }
         }
-
+        
+        /**
+         * @return Returns the paging.
+         */
+        public String getPaging() {
+            return paging;
+        }
+        
+        /**
+         * @param paging The paging to set.
+         */
+        public void setPaging(String paging) {
+            if (paging == null) {
+                paging = "Y";
+            }
+            this.paging = paging;
+        }
+        
+        /**
+         * @return Returns the previousViewSize.
+         */
+        public Integer getPreviousViewSize() {
+            return previousViewSize;
+        }
+        /**
+         * @param previousViewSize The previousViewSize to set.
+         */
+        public void setPreviousViewSize(Integer previousViewSize) {
+            if (previousViewSize == null) {
+                this.previousViewSize = new Integer(20);
+            } else {
+                this.previousViewSize = previousViewSize;
+            }
+        }
+        
         public String getTopProductCategoryId() {
             return topProductCategoryId;
         }
@@ -466,7 +509,7 @@ public class ProductSearchSession {
             ProductSearchOptions productSearchOptions = getProductSearchOptions(request.getSession());
             productSearchOptions.setViewIndex((String) parameters.get("VIEW_INDEX"));
             productSearchOptions.setViewSize((String) parameters.get("VIEW_SIZE"));
-            
+            productSearchOptions.setPaging((String) parameters.get("PAGING"));
             return;
         } else {
             request.setAttribute("processSearchParametersAlreadyRun", Boolean.TRUE);
@@ -768,6 +811,7 @@ public class ProductSearchSession {
 
         productSearchOptions.setViewIndex((String) parameters.get("VIEW_INDEX"));
         productSearchOptions.setViewSize((String) parameters.get("VIEW_SIZE"));
+        productSearchOptions.setPaging((String) parameters.get("PAGING"));
     }
 
     public static Map getProductSearchResult(HttpServletRequest request, GenericDelegator delegator, String prodCatalogId) {
@@ -778,16 +822,34 @@ public class ProductSearchSession {
         int highIndex = 0;
         int lowIndex = 0;
         int listSize = 0;
+        String paging = "Y";
+        int previousViewSize = 20;
 
         HttpSession session = request.getSession();
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
         
         String addOnTopProdCategoryId = productSearchOptions.getTopProductCategoryId();
+        
         Integer viewIndexInteger = productSearchOptions.getViewIndex();
-        if (viewIndexInteger != null) viewIndex = viewIndexInteger.intValue();
+        if (viewIndexInteger != null) {
+            viewIndex = viewIndexInteger.intValue();
+        }
+        
         Integer viewSizeInteger = productSearchOptions.getViewSize();
-        if (viewSizeInteger != null) viewSize = viewSizeInteger.intValue();
-
+        if (viewSizeInteger != null) {
+            viewSize = viewSizeInteger.intValue();
+        }
+        
+        Integer previousViewSizeInteger = productSearchOptions.getPreviousViewSize();
+        if (previousViewSizeInteger != null) {
+            previousViewSize = previousViewSizeInteger.intValue();
+        }
+        
+        String pag = productSearchOptions.getPaging();
+        if (paging != null) {
+            paging = pag;
+        }
+            
         lowIndex = viewIndex * viewSize;
         highIndex = (viewIndex + 1) * viewSize;
 
@@ -882,6 +944,8 @@ public class ProductSearchSession {
         result.put("listSize", new Integer(listSize));
         result.put("lowIndex", new Integer(lowIndex));
         result.put("highIndex", new Integer(highIndex));
+        result.put("paging", paging);
+        result.put("previousViewSize", previousViewSize);
         result.put("searchConstraintStrings", searchConstraintStrings);
         result.put("searchSortOrderString", searchSortOrderString);
 
