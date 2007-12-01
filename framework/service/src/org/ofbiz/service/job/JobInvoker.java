@@ -132,6 +132,14 @@ public class JobInvoker implements Runnable {
             return 0;
         }
     }
+    
+    public Long getThreadId() {
+    	if (this.thread != null) {
+    		return this.thread.getId();
+    	} else {
+    		return null;
+    	}
+    }
 
     /**
      * Get the current running job's ID.

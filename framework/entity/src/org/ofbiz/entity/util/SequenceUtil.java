@@ -185,7 +185,7 @@ public class SequenceUtil {
                 if (Debug.verboseOn()) Debug.logVerbose("[SequenceUtil.SequenceBank.fillBank] Trying to get a bank of sequenced ids for " +
                         this.seqName + "; start of loop val1=" + val1 + ", val2=" + val2 + ", bankSize=" + bankSize, module);
                 
-                // not sure if this syncrhonized block is totally necessary, the method is syncrhonized but it does do a wait/sleep 
+                // not sure if this synchronized block is totally necessary, the method is synchronized but it does do a wait/sleep 
                 //outside of this block, and this is the really sensitive block, so making sure it is isolated; there is some overhead 
                 //to this, but very bad things can happen if we try to do too many of these at once for a single sequencer
                 synchronized (this) {

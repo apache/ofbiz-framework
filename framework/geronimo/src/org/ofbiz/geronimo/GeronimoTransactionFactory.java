@@ -79,7 +79,7 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
      */
     public UserTransaction getUserTransaction() {  
         return geronimoTransactionManager;
-    }                
+    }
     
     public String getTxMgrName() {
         return "geronimo";

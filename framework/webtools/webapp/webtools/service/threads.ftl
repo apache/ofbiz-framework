@@ -18,7 +18,7 @@ under the License.
 -->
 <#assign javaVer = Static["java.lang.System"].getProperty("java.vm.version")/>
 <#assign isJava5 = javaVer.startsWith("1.5")/>
-<#if parameters.maxElements?has_content><#assign maxElements = parameters.maxElements?number/><#else><#assign maxElements = 5/></#if>
+<#if parameters.maxElements?has_content><#assign maxElements = parameters.maxElements?number/><#else><#assign maxElements = 10/></#if>
 
 <div class="screenlet">
   <div class="screenlet-title-bar">
@@ -34,7 +34,7 @@ under the License.
   </tr>
   <#list threads as thread>
   <tr>
-    <td>${thread.threadName?if_exists}</td>
+    <td>[${thread.threadId?if_exists}] ${thread.threadName?if_exists}</td>
     <td>${thread.status?if_exists}</td>
     <td>${thread.jobName?default("[${uiLabelMap.CommonNone}]")}</td>
     <td>${thread.serviceName?default("[${uiLabelMap.CommonNone}]")}</td>
@@ -65,20 +65,20 @@ under the License.
     <#if javaThread?exists>
       <#if isJava5><#assign stackTraceArray = javaThread.getStackTrace()/></#if>
       <tr>
-        <td>${(javaThread.getThreadGroup().getName())?if_exists}</td>
-        <td><#if isJava5>${javaThread.getId()?string}</#if></td>
-        <td>
+        <td valign="top">${(javaThread.getThreadGroup().getName())?if_exists}</td>
+        <td valign="top"><#if isJava5>${javaThread.getId()?string}</#if></td>
+        <td valign="top">
           <b>${javaThread.getName()?if_exists}</b>
           <#if isJava5>
             <#list 1..maxElements as stackIdx>
               <#assign stackElement = stackTraceArray[stackIdx]?if_exists/>
-              <#if (stackElement.toString())?has_content>${stackElement.toString()}</#if>
+              <#if (stackElement.toString())?has_content><div>${stackElement.toString()}</div></#if>
             </#list>
           </#if>
         </td>
-        <td><#if isJava5>${javaThread.getState().name()?if_exists}</#if>&nbsp;</td>
-        <td>${javaThread.getPriority()}</td>
-        <td>${javaThread.isDaemon()?string}<#-- /${javaThread.isAlive()?string}/${javaThread.isInterrupted()?string} --></td>
+        <td valign="top"><#if isJava5>${javaThread.getState().name()?if_exists}</#if>&nbsp;</td>
+        <td valign="top">${javaThread.getPriority()}</td>
+        <td valign="top">${javaThread.isDaemon()?string}<#-- /${javaThread.isAlive()?string}/${javaThread.isInterrupted()?string} --></td>
       </tr>
     </#if>
   </#list>

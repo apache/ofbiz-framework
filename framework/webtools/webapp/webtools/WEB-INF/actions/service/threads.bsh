@@ -50,7 +50,7 @@ if (jobs != null) {
             case -1: status = uiLabelMap.get("WebtoolsStatusShuttingDown"); break;
             default: status = uiLabelMap.get("WebtoolsStatusInvalid"); break;
         }
-        threads.add(UtilMisc.toMap("serviceName", job.get("serviceName"), "threadName", job.get("threadName"), "jobName", job.get("jobName"), "status", status));
+        threads.add(UtilMisc.toMap("serviceName", job.get("serviceName"), "threadName", job.get("threadName"), "threadId", job.get("threadId"), "jobName", job.get("jobName"), "status", status));
     }
 }
 context.put("threads", threads);
