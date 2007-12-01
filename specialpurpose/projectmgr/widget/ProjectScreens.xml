@@ -479,26 +479,26 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="projectView"/>
-                <set field="workEffortId" from-field="parameters.projectId"/>
-                <set field="projectId" from-field="parameters.projectId"/>
-                <entity-one entity-name="WorkEffort" value-name="project"/>
+                <set field="projectId" from-field="parameters.projectId" default-value="parameters.workEffortId"/>
+                <service service-name="getProject" result-map-name="result">
+                    <field-map field-name="projectId" env-name="projectId"/>
+                </service>
+                <set field="project" from-field="result.projectInfo"/>
             </actions>                        
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>                                                 
-                            <condition>
-                                <not><if-empty field-name="project"/></not>
-                            </condition>
                             <widgets>                                                   
                                 <container style="lefthalf">
                                     <container style="screenlet">
-                                        <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditSubProject}</label></container>
+                                        <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.PageTitleProjectInformation}"/></container>
                                         <container style="screenlet-body">
                                             <include-form name="ProjectInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                         </container>
                                     </container>
-                                    <include-screen name="PhasesTasksInfo"/>
+                                    <include-screen name="PhasesInfo"/>
+                                    <include-screen name="TasksInfo"/>
                                 </container>
                                 <container style="righthalf">
                                     <include-screen name="SubProjectsInfo"/>
@@ -540,20 +540,41 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="PhasesTasksInfo">
+    <screen name="PhasesInfo">
         <section>
             <actions>
-                <entity-and entity-name="ProjectAndPhaseAndTask" list-name="phases">
-                    <field-map field-name="projectId" env-name="parameters.projectId"/>
-                </entity-and>
+                <service service-name="getProjectPhaseList" result-map-name="result">
+                    <field-map field-name="projectId" env-name="projectId"/>
+                </service>
+                <set field="phases" from-field="result.phaseList"/>
             </actions>
             <widgets>                
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
-                        <label style="boxhead" text="">${uiLabelMap.ProjectMgrPhaseTaskList}</label>
+                        <label style="boxhead" text="">${uiLabelMap.ProjectMgrPhaseList}</label>
                     </container>
                     <container style="screenlet-body">
-                        <include-form name="ListPhaseTaskInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        <include-form name="ListPhaseInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                    </container>
+                </container>                
+            </widgets>
+        </section>
+    </screen>
+    <screen name="TasksInfo">
+        <section>
+            <actions>
+                <service service-name="getProjectTaskList" result-map-name="result">
+                    <field-map field-name="projectId" env-name="projectId"/>
+                </service>
+                <set field="tasks" from-field="result.taskList"/>
+            </actions>
+            <widgets>                
+                <container style="screenlet">
+                    <container style="screenlet-title-bar">
+                        <label style="boxhead" text="">${uiLabelMap.ProjectMgrTaskList}</label>
+                    </container>
+                    <container style="screenlet-body">
+                        <include-form name="ListTaskInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </container>
                 </container>                
             </widgets>
@@ -562,8 +583,10 @@ under the License.
     <screen name="PartiesInfo">
         <section>
             <actions>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>                
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/AssociatedParties.bsh"/>
+                <service service-name="getProjectsByParties" result-map-name="result">
+                    <field-map field-name="projectId" env-name="projectId"/>
+                </service>
+                <set field="parties" from-field="result.projectParties"/>
             </actions>
             <widgets>                
                 <container style="screenlet">
@@ -571,7 +594,7 @@ under the License.
                         <label style="boxhead" text="">${uiLabelMap.ProjectMgrProjectTeam}</label>
                     </container>
                     <container style="screenlet-body">
-                        <include-form name="ListAssociatedParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        <include-form name="ListProjectParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </container>
                 </container>                
             </widgets>
