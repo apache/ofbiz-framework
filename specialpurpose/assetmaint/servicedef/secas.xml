@@ -32,4 +32,14 @@ under the License.
         <action service="assetMaintPermissionCheck" mode="sync" result-to-result="true"/>
     </eca>
 
+    <eca service="workEffortGenericPermission" event="return" run-on-failure="true">
+        <condition field-name="hasPermission" operator="equals" value="false" type="Boolean"/>
+        <action service="assetMaintPermissionCheck" mode="sync" result-to-result="true"/>
+    </eca>
+
+    <eca service="workEffortGenericPermission" event="return" run-on-failure="true">
+        <condition field-name="hasPermission" operator="equals" value="false" type="Boolean"/>
+        <action service="assetMaintPermissionCheck" mode="sync" result-to-result="true"/>
+    </eca>
+
 </service-eca>
