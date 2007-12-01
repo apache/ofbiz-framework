@@ -26,18 +26,14 @@ under the License.
     <service name="createPartyAcctgPreference" default-entity-name="PartyAcctgPreference" engine="simple"
             location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="createPartyAcctgPreference" auth="true">
         <description>Create accounting preferences for a party (organization)</description>
-        <required-permissions join-type="OR">
-            <check-permission permission="ACCTG_PREF_CREATE"/>
-        </required-permissions>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updatePartyAcctgPreference" default-entity-name="PartyAcctgPreference" engine="simple"
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="updatePartyAcctgPreference" auth="true">
         <description>Update accounting preferences for a party (organization)</description>
-        <required-permissions join-type="OR">
-            <check-permission permission="ACCTG_PREF_UPDATE"/>
-        </required-permissions>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <!-- the following fields should not be updated because can cause big problems.
@@ -64,9 +60,7 @@ under the License.
     <service name="updateFXConversion" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="updateFXConversion">
         <description>Update the conversion rate between two currencies and expire the old conversion rates</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="ACCTG_FX_ENTRY"/>
-        </required-permissions>
+        <permission-service service-name="acctgFxPermissionCheck" main-action="UPDATE"/>
         <attribute type="String" mode="IN" name="uomId" optional="false"/>
         <attribute type="String" mode="IN" name="uomIdTo" optional="false"/>
         <attribute type="Double" mode="IN" name="conversionFactor" optional="false"/>
@@ -76,43 +70,63 @@ under the License.
     <service name="createGlAccountTypeDefault" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="createGlAccountTypeDefault">
         <description>Define a default GL account for an Account Type for a certain organisation party.</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="GlAccountTypeDefault" include="all" optional="false"/>
     </service>
     <service name="removeGlAccountTypeDefault" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="removeGlAccountTypeDefault">
         <description>Remove a default GL account for an Account Type for a certain organisation party.</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" entity-name="GlAccountTypeDefault" include="pk" optional="false"/>
     </service>
     <service name="addInvoiceItemTypeGlAssignment" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="addInvoiceItemTypeGlAssignment">
         <description>add a override GL account number to a invoice Itemtype for a certain organisation party.</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="InvoiceItemTypeGlAccount" include="all" optional="false"/>
     </service>
     <service name="removeInvoiceItemTypeGlAssignment" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="removeInvoiceItemTypeGlAssignment">
         <description>Remove a override GL account number to a invoice type for a certain organisation party.</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" entity-name="InvoiceItemTypeGlAccount" include="pk" optional="false"/>
     </service>
 
     <service name="addPaymentTypeGlAssignment" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="addPaymentTypeGlAssignment">
         <description>add a default GL account type to a payment type.</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="PaymentGlAccountTypeMap" include="all" optional="false"/>
     </service>
     <service name="removePaymentTypeGlAssignment" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="removePaymentTypeGlAssignment">
         <description>Remove a default GL account type from a payment type.</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" entity-name="PaymentGlAccountTypeMap" include="pk" optional="false"/>
     </service>
     
     <service name="addPaymentMethodTypeGlAssignment" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="addPaymentMethodTypeGlAssignment">
         <description>add a default GL account number to a payment method type.</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="PaymentMethodTypeGlAccount" include="all" optional="false"/>
     </service>
     <service name="removePaymentMethodTypeGlAssignment" engine="simple" 
         location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="removePaymentMethodTypeGlAssignment">
         <description>Remove a default GL account number from a payment method type.</description>
+        <permission-service service-name="acctgPrefPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" entity-name="PaymentMethodTypeGlAccount" include="pk" optional="false"/>
+    </service>
+
+    <!-- Permission services -->
+    <service name="acctgPrefPermissionCheck" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="preferencePermissionCheck">
+        <description>Accounting Preferences Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="acctgFxPermissionCheck" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgFxPermissionCheck">
+        <description>Accounting Foreign Exchange Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
     </service>
 </services>

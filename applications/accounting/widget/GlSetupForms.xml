@@ -23,8 +23,8 @@ under the License.
         
     <form name="ListCompanies" type="list" title="Internal Organizations" list-name="parties">
         <field name="partyId" title="${uiLabelMap.AccountingCompanies}"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
-        <field name="setup" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="AdminMain?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingSetup}"/></field>
-        <field name="accounting" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="PartyAccountsSummary?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAccounting}"/></field>
+        <field name="setup" title="${uiLabelMap.CommonEmptyHeader}" use-when="hasPrefPermission"><hyperlink target="AdminMain?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingSetup}"/></field>
+        <field name="accounting" title="${uiLabelMap.CommonEmptyHeader}" use-when="hasBasicPermission"><hyperlink target="PartyAccountsSummary?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAccounting}"/></field>
     </form>
 
     <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list">

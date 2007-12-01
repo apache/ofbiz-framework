@@ -300,7 +300,7 @@ under the License.
     </service>
     
     <service name="fixedAssetPermissionCheck" engine="simple"
-            location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="fixedAssetPermissionCheck">
+            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
         <description>Fixed Asset Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
