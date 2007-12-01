@@ -36,7 +36,7 @@ under the License.
     </simple-method>
 
     <!-- Returns hasPermission=true if user has one of the ACCTG_FX CRUD+ADMIN permissions -->
-    <simple-method method-name="acctgFxPermissionCheck" short-description="Accounting preferences permission logic">
+    <simple-method method-name="acctgFxPermissionCheck" short-description="Foreign exchange permission logic">
         <set field="primaryPermission" value="ACCTG_FX"/>
         <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
         <if-compare field-name="hasPermission" operator="not-equals" value="true">
