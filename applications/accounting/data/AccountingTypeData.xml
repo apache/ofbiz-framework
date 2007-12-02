@@ -201,6 +201,7 @@ under the License.
     <GlAccountType description="Merchant Account Settlement" glAccountTypeId="MRCH_STLMNT_ACCOUNT" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
     <GlAccountType description="Current Asset" glAccountTypeId="CURRENT_ASSET" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Fixed Asset" glAccountTypeId="FIXED_ASSET" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Fixed Asset Maintenance" glAccountTypeId="FIXED_ASSET_MAINT" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Other Asset" glAccountTypeId="OTHER_ASSET" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Credit Card" glAccountTypeId="CREDIT_CARD" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Current Liability" glAccountTypeId="CURRENT_LIABILITY" hasTable="N" parentTypeId=""/>
