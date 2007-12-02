@@ -20,6 +20,37 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="CommonFinAccountDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="FindFinAccount"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="acctgFinAcctPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field-name="finAccountId"/></not></condition>
+                                    <widgets>
+                                        <include-menu name="FinAccountTabBar" location="component://accounting/widget/Menus.xml"/>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3" text="${uiLabelMap.AcccountingViewPermissionError}"/>
+                            </fail-widgets>
+                        </section>                    
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 	
     <screen name="FindFinAccount">
         <section>
@@ -30,10 +61,14 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonFinAccountDecorator">
                     <decorator-section name="body">
-                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container>
-                        <container><label style="head1" text="${uiLabelMap.AccountingFindFinAccount}"/></container>
+                        <container>
+                            <label style="head1" text="${uiLabelMap.AccountingFindFinAccount}"/>
+                        </container>
+                        <container style="button-bar">
+                            <link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/>
+                        </container>
                         <include-form name="FindFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
                         <include-form name="ListFinAccounts" location="component://accounting/widget/FinAccountForms.xml"/>
                     </decorator-section>
@@ -52,12 +87,19 @@ under the License.
                 <entity-one entity-name="FinAccount" value-name="finAccount"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonFinAccountDecorator">
                     <decorator-section name="body">
                         <section>
                             <widgets>
                                 <label style="head1" text="${uiLabelMap.AccountingEditFinAccount}"/>
-                                <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container>
+                                <section>
+                                    <condition><not><if-empty field-name="finAccountId"/></not></condition>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
                                 <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/> 
                             </widgets>
                         </section>
@@ -72,8 +114,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditFinAccountRole"/>
                 <set field="tabButtonItem" value="EditFinAccountRoles"/>
-                <set field="labelTitleProperty" value="PageTitleEditFinAccountRole"/>
-
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-name="finAccount"/>
                 <set field="partyId" from-field="parameters.partyId"/>
@@ -81,11 +121,12 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonFinAccountDecorator">
                     <decorator-section name="body">
-                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container>
-                        <include-form name="ListFinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleEditFinAccountRole} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]"/>
+<!--                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container> -->
                         <include-form name="AddFinAccountRole" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <include-form name="ListFinAccountRoles" location="component://accounting/widget/FinAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -97,17 +138,17 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditFinAccountTrans"/>
                 <set field="tabButtonItem" value="EditFinAccountTrans"/>
-                <set field="labelTitleProperty" value="PageTitleEditFinAccountTrans"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-name="finAccount"/>
                 <set field="finAccountTransId" from-field="parameters.finAccountTransId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonFinAccountDecorator">
                     <decorator-section name="body">
-                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container>
-                        <include-form name="ListFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleEditFinAccountTrans} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]"/>
+<!--                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container> -->
                         <include-form name="AddFinAccountTrans" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <include-form name="ListFinAccountTransactions" location="component://accounting/widget/FinAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -119,18 +160,18 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditFinAccountAuths"/>
                 <set field="tabButtonItem" value="EditFinAccountAuths"/>
-                <set field="labelTitleProperty" value="PageTitleEditFinAccountAuths"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-name="finAccount"/>
                 <set field="finAccountAuthId" from-field="parameters.finAccountAuthId"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
             </actions>
             <widgets>
-                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonFinAccountDecorator">
                     <decorator-section name="body">
-                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container>
-                        <include-form name="ListFinAccountAuths" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <label style="head1" text="${uiLabelMap.PageTitleEditFinAccountAuths} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]"/>
+<!--                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container> -->
                         <include-form name="AddFinAccountAuth" location="component://accounting/widget/FinAccountForms.xml"/>
+                        <include-form name="ListFinAccountAuths" location="component://accounting/widget/FinAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

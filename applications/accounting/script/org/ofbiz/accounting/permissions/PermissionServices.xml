@@ -85,4 +85,9 @@ under the License.
         <call-simple-method method-name="basePermissionCheck"/>
     </simple-method>
 
+    <!-- Returns hasPermission=true if user has one of the base ACCOUNTING CRUD+ADMIN permissions -->
+    <simple-method method-name="acctgFinAcctPermissionCheck" short-description="Accounting financial account permission logic">
+        <call-simple-method method-name="basePermissionCheck"/>
+    </simple-method>
+
 </simple-methods>

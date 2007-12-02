@@ -389,7 +389,7 @@ under the License.
     </menu>
     
     <menu name="FinAccountTabBar" default-menu-item-name="EditFinAccount" default-selected-style="selected"
-        menu-container-style="button-bar button-style-1" type="simple">  
+        menu-container-style="button-bar tab-bar" type="simple">  
         <menu-item name="EditFinAccount" title="${uiLabelMap.AccountingFinAccount}">
             <link target="EditFinAccount?finAccountId=${finAccountId}"/>
         </menu-item>
