@@ -27,8 +27,7 @@
                 <field-map field-name="statusId" env-name="task.statusId"/>
             </entity-one>
         </actions>
-        <alt-target use-when="headerItem==&quot;projects&quot;" target="createProjectTaskOrPhase"/>
-        <alt-target use-when="task==null&amp;&amp;projectId==null" target="createTask"/>
+        <alt-target use-when="task==null" target="createTask"/>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="DONE_PAGE"><hidden value="${donePage}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
@@ -44,14 +43,14 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="task==null" name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+        <!--field use-when="task==null" name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
-                    <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
+            <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+            <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
+            <entity-order-by field-name="sequenceId"/>
+            </entity-options>
             </drop-down>
-        </field>
+            </field-->
         <field name="priority" title="${uiLabelMap.CommonPriority}">
             <drop-down allow-empty="true" current="selected">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/> 
@@ -95,14 +94,22 @@
         <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><date-time/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="AddPhase" type="single" target="createProjectTaskOrPhase">
+    <form name="AddProjectTask" type="single" target="createProjectTaskOrPhase">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
-        <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
-        <field name="workEffortTypeId"><hidden value="PHASE"/></field>
-        <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field> 
-        <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}">
+        <field name="workEffortTypeId"><hidden value="TASK"/></field> 
+        <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
+        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="taskDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="phaseName" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
+                    <entity-constraint name="workEffortTypeId" value="PHASE"/>
+                    <entity-constraint name="workEffortParentId" value="${projectId}"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>        
+            </drop-down>
+        </field>
+        <field name="taskPriority" parameter-name="priority" title="${uiLabelMap.CommonPriority}">
             <drop-down allow-empty="true" current="selected">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/> 
                 <option key="2" description="2"/> 
@@ -115,42 +122,42 @@
                 <option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/> 
             </drop-down>
         </field>
-        <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
+        <field name="taskScopeEnumId" parameter-name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
                 </entity-options>
             </drop-down>
         </field>
+        <field name="phaseName" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
+                    <entity-constraint name="workEffortTypeId" value="PHASE"/>
+                    <entity-constraint name="workEffortParentId" value="${projectId}"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>        
+            </drop-down>
+        </field>
+        <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><date-time type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><date-time type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="AddProjectPhase" type="single" target="createProjectPhase">
+    <form name="AddProjectPhase" type="single" target="createProjectTaskOrPhase">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
-        <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field> 
+        <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
         <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}">
-            <drop-down allow-empty="true" current="selected">
-                <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/> 
-                <option key="2" description="2"/> 
-                <option key="3" description="3"/> 
-                <option key="4" description="4"/> 
-                <option key="5" description="5"/> 
-                <option key="6" description="6"/> 
-                <option key="7" description="7"/> 
-                <option key="8" description="8"/> 
-                <option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/> 
-            </drop-down>
-        </field>
-        <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
-            <drop-down allow-empty="false">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
-                    <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+    </form>
+    <form name="AddPhase" type="single" target="createProjectPhase">
+        <field name="projectId"><hidden value="${parameters.projectId}"/></field>
+        <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
+        <field name="workEffortTypeId"><hidden value="PHASE"/></field>
+        <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
+        <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     

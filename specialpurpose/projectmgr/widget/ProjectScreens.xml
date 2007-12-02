@@ -200,7 +200,6 @@ under the License.
                     <order-by field-name="phaseName"/>
                     <order-by field-name="workEffortName"/>
                 </entity-and>
-                <set field="task" value=""/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -217,7 +216,7 @@ under the License.
                             <container style="screenlet">
                                 <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddTask}</label></container>                                
                                 <container style="screenlet-body"> 
-                                    <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    <include-form name="AddProjectTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                 </container>
                             </container>
                         </container>
@@ -225,7 +224,7 @@ under the License.
                             <container style="screenlet">
                                 <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddPhase}</label></container>                                
                                 <container style="screenlet-body"> 
-                                    <include-form name="AddPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    <include-form name="AddProjectPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                 </container>
                             </container>
                         </container>
@@ -303,10 +302,6 @@ under the License.
                     <field-map field-name="projectId" env-name="projectId"/>
                 </service>
                 <set field="phases" from-field="result.phaseList"/>
-                <!--entity-and entity-name="WorkEffort" list-name="phases">
-                    <field-map field-name="workEffortParentId" env-name="projectId"/>
-                    <field-map field-name="workEffortTypeId" value="PHASE"/>
-                </entity-and-->
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -323,7 +318,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddPhase}</label></container>                                
                                     <container style="screenlet-body"> 
-                                        <include-form name="AddProjectPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                        <include-form name="AddPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                     </container>
                                 </container>
                             </widgets>                            

@@ -169,9 +169,9 @@
         <field use-when="actualCompletionDate==null" name="CompletionDate" entry-name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortCompletionDate}" parameter-name="estimatedCompletionDate"><date-time type="date"/></field>
         <!--field name="description" title="${uiLabelMap.CommonDescription}"><textarea cols="6"/></field-->
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}" widget-style="buttontext">
+        <!--field name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrTimeEntries}" target="EditTimeEntries?workEffortId=${workEffortId}"/>
-        </field>
+        </field-->
     </form> 
     <form name="ListUnassignedTasks" target="updateTaskAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTask">
         <row-actions>
@@ -208,26 +208,8 @@
         <field name="phaseId" parameter-name="workEffortId"><hidden/></field>
         <field name="phaseName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}">
-            <drop-down allow-empty="true" current="selected">
-                <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/> 
-                <option key="2" description="2"/> 
-                <option key="3" description="3"/> 
-                <option key="4" description="4"/> 
-                <option key="5" description="5"/> 
-                <option key="6" description="6"/> 
-                <option key="7" description="7"/> 
-                <option key="8" description="8"/> 
-                <option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/> 
-            </drop-down>
-        </field>
-        <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
-            <drop-down allow-empty="false">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
-                    <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
+        <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>

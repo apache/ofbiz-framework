@@ -32,7 +32,6 @@
         <set field="highInfo.projectId" from-field="project.workEffortId"/>
         <set field="highInfo.projectName" from-field="project.workEffortName"/>
         <set field="highInfo.projectDescription" from-field="project.description"/>
-        <set field="highInfo.priority" from-field="project.priority"/>
         <set field="highInfo.currentStatusId" from-field="project.currentStatusId"/>
         <set field="highInfo.scopeEnumId" from-field="project.scopeEnumId"/>
         <entity-one entity-name="StatusItem" value-name="highSeq">
@@ -86,10 +85,9 @@
             <set field="highInfo.phaseId" from-field="phase.workEffortId"/>
             <set field="highInfo.phaseName" from-field="phase.workEffortName"/>
             <set field="highInfo.phaseDescription" from-field="phase.description"/>
-            <set field="highInfo.priority" from-field="phase.priority"/>
             <set field="highInfo.scopeEnumId" from-field="phase.scopeEnumId"/>
             
-            <!-- loop through the related tasks -->
+            <!-- loop through the related tasks and combine information -->
             <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
             <iterate entry-name="lowInfo" list-name="tasks">
                 <call-simple-method method-name="combineInfo"/>
@@ -138,9 +136,9 @@
             <set field="highInfo.workEffortId" from-field="task.workEffortId"/>
             <set field="highInfo.workEffortName" from-field="task.workEffortName"/>
             <set field="highInfo.workEffortDescription" from-field="workEffortDescription"/>
-            <set field="highInfo.priority" from-field="task.priority"/>
             <set field="highInfo.currentStatusId" from-field="task.currentStatusId"/>
             <set field="highInfo.scopeEnumId" from-field="task.scopeEnumId"/>
+            <set field="highInfo.priority" from-field="task.priority"/>
             <set field="highInfo.estimatedStartDate" from-field="task.estimatedStartDate"/>
             <set field="highInfo.estimatedCompletionDate" from-field="task.estimatedCompletionDate"/>
             <set field="highInfo.actualStartDate" from-field="task.actualStartDate"/>
@@ -164,7 +162,6 @@
         <set field="highInfo.taskId" from-field="lowInfo.worEffortId"/>
         <set field="highInfo.taskName" from-field="lowInfo.workEffortName"/>
         <set field="highInfo.taskDescription" from-field="lowInfo.description"/>
-        <set field="highInfo.priority" from-field="lowInfo.priority"/>
         <set field="highInfo.scopeEnumId" from-field="lowInfo.scopeEnumId"/>
         <call-simple-method method-name="combineInfo"/>
         <clear-field field-name="highInfo.sequenceId"/>
@@ -278,6 +275,18 @@
                 <else>
                     <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="actualCompletionDate" operator="less">
                         <set field="highInfo.actualCompletionDate" from-field="lowInfo.actualCompletionDate" />
+                    </if-compare-field>
+                </else>
+            </if-empty>
+        </if-not-empty>
+        
+        <!-- combine the priorities -->
+        <if-not-empty field-name="lowInfo.priority">
+            <if-empty field-name="highInfo.priority">
+                <set field="highInfo.priority" from-field="lowInfo.priority" />
+                <else>
+                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="priority" operator="less">
+                        <set field="highInfo.priority" from-field="lowInfo.priority" />
                     </if-compare-field>
                 </else>
             </if-empty>
