@@ -21,31 +21,26 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditProject" type="single" target="updateProject" default-map-name="project">
         <alt-target use-when="project==null" target="createProject"/>
-        <field name="projectId"><hidden value="${parameters.projectId}"/></field>
-        <field name="DONE_PAGE"><hidden value="${donePage}"/></field>
         <field name="workEffortTypeId"><hidden value="PROJECT"/></field> 
-        <field name="projectId" parameter-name="workEffortId"><hidden/></field>
+        <field name="projectId"><hidden/></field>
+        <field name="workEffortId"><hidden value="${projectId}"/></field>
         <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}*"><text/></field>
         <field name="projectDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field use-when="project!=null" name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field use-when="project==null" name="statusId" parameter-name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}">
-            <drop-down allow-empty="true" current="selected">
-                <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/> 
-                <option key="2" description="2"/> 
-                <option key="3" description="3"/> 
-                <option key="4" description="4"/> 
-                <option key="5" description="5"/> 
-                <option key="6" description="6"/> 
-                <option key="7" description="7"/> 
-                <option key="8" description="8"/> 
-                <option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/> 
-            </drop-down>
-        </field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="parentProjectName" parameter-name="workEffortParentId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
+                    <entity-constraint name="workEffortTypeId" value="PROJECT"/>
+                    <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>                    
                 </entity-options>
             </drop-down>
         </field>
@@ -56,18 +51,19 @@
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <form name="AddSubProject" type="single" target="AddSubProject">
-        <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
+        <field name="workEffortParentId"><hidden value="${projectId}"/></field>
+        <field name="projectId"><hidden/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrProjectName}">
             <drop-down>
                 <entity-options entity-name="WorkEffort" description="${workEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
-                    <entity-constraint name="workEffortId" operator="not-equals" env-name="parameters.projectId"/>                    
+                    <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>                    
                 </entity-options>
             </drop-down>
         </field>
         <field name="add"><submit/></field>
     </form>
-    <form name="FindProject" type="single" target="FindProjectByRange">
+    <form name="FindProject" type="single" target="FindProject">
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
         <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}"><text/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
@@ -77,7 +73,7 @@
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>
         <field name="statusDescription" title="${uiLabelMap.CommonStatus}"><display/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="startDate" title="${uiLabelMap.WorkEffortStartDate}"><display type="date"/></field>
         <field name="completionDate" title="${uiLabelMap.WorkEffortCompletionDate}"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
@@ -87,7 +83,8 @@
     <form name="ProjectInfo" type="single" default-map-name="project" paginate-target="FindProject">
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><display/></field>
         <field name="statusDescription" title="${uiLabelMap.CommonStatus}"><display/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
+        <field name="parentProjectName" title="${uiLabelMap.ProjectMgrParentProjectName}"><hyperlink target="projectView?projectId=${project.parentProjectId}" description="${project.parentProjectName}"/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>

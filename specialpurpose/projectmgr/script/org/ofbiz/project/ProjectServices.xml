@@ -40,7 +40,13 @@
         <set field="highInfo.sequenceId" from-field="highSeq.sequenceId"/>
         <set field="highInfo.statusDescription" from-field="highSeq.description"/>
         <set field="highInfo.createdDate" from-field="project.createdDate"/>
-        
+        <if-not-empty field-name="project.workEffortParentId">
+            <entity-one entity-name="WorkEffort" value-name="parentProject">
+                <field-map field-name="workEffortId" env-name="project.workEffortParentId"/>
+            </entity-one>
+            <set field="highInfo.parentProjectName" from-field="parentProject.workEffortName"/> 
+            <set field="highInfo.parentProjectId" from-field="parentProject.workEffortId"/> 
+        </if-not-empty>
         <!-- loop through the related phases and tasks -->
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
         <iterate entry-name="phase" list-name="phases">
