@@ -26,23 +26,20 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for ACCOUNTING, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                                <if-service-permission service-name="acctgAgreementPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <platform-specific>
                                     <html><html-template location="component://accounting/webapp/accounting/agreement/AgreementTabBar.ftl"/></html>
                                 </platform-specific>
                                 <container>
-                                    <label style="head1">[${uiLabelMap.CommonId}:${agreement.agreementId}] ${agreement.description}</label>
+                                    <label style="head1">${agreement.description} [${agreement.agreementId}] </label>
                                 </container>
-
                                 <decorator-section-include name="body"/>
-
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.AcccountingViewPermissionError}</label>
+                                <label style="head3">${uiLabelMap.AccountingViewPermissionError}</label>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -59,32 +56,44 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.AccountingAgreements}</label>
-                        </container>
-                        <container>
-                            <link target="EditAgreement" text="[${uiLabelMap.AccountingNewAgreement}]" style="buttontext"/>
-                        </container>
-                        <include-form name="FindAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                        <include-form name="ListAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="acctgAgreementPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <label style="head1">${uiLabelMap.AccountingAgreements}</label>
+                                </container>
+                                <container style="button-bar">
+                                    <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext"/>
+                                </container>
+                                <include-form name="FindAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                <container style="button-bar">
+                                    <label text=""/>
+                                </container>
+                                <include-form name="ListAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.AcccountingViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
                     </decorator-section>
                 </decorator-screen>
             </widgets>
          </section>
     </screen>
+
     <screen name="EditAgreement">
         <section>
             <actions>
                 <set field="title" value="Edit Agreement"/>
                 <set field="titleProperty" value="PageTitleEditAgreement"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="EditAgreement"/>
-                
+                <set field="tabButtonItem" value="AgreementMain"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-name="agreement"/>
             </actions>
@@ -96,7 +105,7 @@ under the License.
                                 <not><if-empty field-name="agreement"/></not>
                             </condition>
                             <widgets>
-                                <container>
+                                <container style="button-bar">
                                     <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext"/>
                                 </container>
                             </widgets>
@@ -110,25 +119,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="ListAgreementItems">
         <section>
             <actions>
                 <set field="title" value="List Agreement Items"/>
                 <set field="titleProperty" value="PageTitleListAgreementItems"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementItems"/>
-    
+                <set field="tabButtonItem" value="AgreementItems"/>
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-and entity-name="AgreementItem" list-name="agreementItems">
                     <field-map env-name="agreement.agreementId" field-name="agreementId"/>
                 </entity-and>
-
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="[${uiLabelMap.AccountingNewAgreementItem}]" style="buttontext"/>
+                        <container style="button-bar">
+                            <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext"/>
                         </container>
                         <include-form name="ListAgreementItems" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                     </decorator-section>
@@ -136,25 +144,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditAgreementItem">
         <section>
             <actions>
                 <set field="title" value="Edit Agreement Item"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItem"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="EditAgreementItem"/>
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="EditAgreementItem"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
-                
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="[${uiLabelMap.AccountingNewAgreementItem}]" style="buttontext"/>
+                        <container style="button-bar">
+                            <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext"/>
                         </container>
                         <include-form name="EditAgreementItem" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                     </decorator-section>
@@ -162,13 +171,15 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditAgreementTerms">
         <section>
             <actions>
                 <set field="title" value="Edit Agreement Terms"/>
                 <set field="titleProperty" value="PageTitleEditAgreementTerm"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="EditAgreementTerms"/>
+                <set field="tabButtonItem" value="AgreementTerms"/>
+                <set field="buttonBarItem" value="EditAgreementTerms"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
             </actions>
@@ -182,14 +193,15 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="ListAgreementPromoAppls">
         <section>
             <actions>
                 <set field="title" value="List Agreement Promo Appls"/>
                 <set field="titleProperty" value="PageTitleListAgreementPromoAppls"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementPromoAppls"/>
-    
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementPromoAppls"/>
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
                 <entity-and entity-name="AgreementPromoAppl" list-name="agreementPromoAppls">
@@ -210,17 +222,17 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditAgreementPromoAppl">
         <section>
             <actions>
                 <set field="title" value="Edit Agreement Promo Appl"/>
                 <set field="titleProperty" value="PageTitleEditAgreementPromoAppl"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementPromoAppls"/>
-                
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementPromoAppls"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementTermId" from-field="parameters.agreementTermId"/>
-
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
                 <entity-one entity-name="AgreementPromoAppl" value-name="agreementPromoAppl" auto-field-map="true"/>
@@ -237,14 +249,15 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="ListAgreementItemTerms">
         <section>
             <actions>
                 <set field="title" value="List Agreement Item Terms"/>
                 <set field="titleProperty" value="PageTitleListAgreementItemTerms"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementItemTerms"/>
-
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementItemTerms"/>
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
                 <entity-and entity-name="AgreementTerm" list-name="agreementTerms">
@@ -264,18 +277,18 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditAgreementItemTerm">
         <section>
             <actions>
                 <set field="title" value="Edit Agreement Item Term"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItemTerm"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementItemTerms"/>
-                
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementItemTerms"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="agreementTermId" from-field="parameters.agreementTermId"/>
-
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
                 <entity-one entity-name="AgreementTerm" value-name="agreementTerm" auto-field-map="true"/>
@@ -292,14 +305,15 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="ListAgreementItemProducts">
         <section>
             <actions>
                 <set field="title" value="List Agreement Item Products"/>
                 <set field="titleProperty" value="PageTitleListAgreementItemProducts"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementItemProducts"/>
-
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementItemProducts"/>
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
                 <entity-and entity-name="AgreementProductAppl" list-name="agreementProducts">
@@ -320,6 +334,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="ListAgreementItemProductsReport">
         <section>
             <actions>
@@ -351,13 +366,14 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditAgreementItemProduct">
         <section>
             <actions>
                 <set field="title" value="Edit Agreement Item Product"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItemProduct"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementItemProducts"/>
+                <set field="tabButtonItem" value="AgreementItems"/>
                 
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
@@ -386,8 +402,8 @@ under the License.
                 <set field="title" value="List Agreement Item Products"/>
                 <set field="titleProperty" value="PageTitleListAgreementItemProducts"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementItemSupplierProducts"/>
-
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementItemSupplierProducts"/>
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
                 <entity-and entity-name="SupplierProduct" list-name="agreementProducts">
@@ -408,6 +424,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="ListAgreementItemSupplierProductsReport">
         <section>
             <actions>
@@ -439,18 +456,18 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditAgreementItemSupplierProduct">
         <section>
             <actions>
                 <set field="title" value="Edit Agreement Item Product"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItemProduct"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementItemSupplierProducts"/>
-                
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementItemSupplierProducts"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="productId" from-field="parameters.productId"/>
-
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
                 <entity-one entity-name="SupplierProduct" value-name="agreementProductAppl" auto-field-map="true"/>
@@ -493,8 +510,8 @@ under the License.
                 <set field="title" value="List Agreement Item Parties"/>
                 <set field="titleProperty" value="PageTitleListAgreementItemParties"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementItemParties"/>
-
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementItemParties"/>
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
                 <entity-and entity-name="AgreementPartyApplic" list-name="agreementParties">
@@ -514,18 +531,18 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditAgreementItemParty">
         <section>
             <actions>
                 <set field="title" value="Edit Agreement Item Party"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItemParty"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementItemParties"/>
-                
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementItemParties"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
                 <entity-one entity-name="AgreementPartyApplic" value-name="agreementPartyApplic" auto-field-map="true"/>
@@ -542,14 +559,15 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="ListAgreementGeographicalApplic">
         <section>
             <actions>
                 <set field="title" value="List Agreement Geos"/>
                 <set field="titleProperty" value="PageTitleListAgreementGeographicalApplic"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementGeographicalApplic"/>
-
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementGeographicalApplic"/>
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
                 <entity-and entity-name="AgreementGeographicalApplic" list-name="agreementGeographicalApplics">
@@ -569,18 +587,18 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditAgreementGeographicalApplic">
         <section>
             <actions>
                 <set field="title" value="Edit Agreement Geo"/>
                 <set field="titleProperty" value="PageTitleEditAgreementGeographicalApplic"/>
                 <set field="headerItem" value="agreement"/>
-                <set field="tabButtonItem" value="ListAgreementGeographicalApplic"/>
-                
+                <set field="tabButtonItem" value="AgreementItems"/>
+                <set field="buttonBarItem" value="ListAgreementGeographicalApplic"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="geoId" from-field="parameters.geoId"/>
-
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
                 <entity-one entity-name="AgreementGeographicalApplic" value-name="agreementGeographicalApplic" auto-field-map="true"/>

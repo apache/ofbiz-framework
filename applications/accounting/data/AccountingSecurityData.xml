@@ -89,26 +89,24 @@ under the License.
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_FX_UPDATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_FX_UPDATE"/>
 
-    <!-- For general ledger cccounting transactions.  Note that anyone who is authorized for proesses that create accounting transaction entries,
-        such as quick shipping an order, approving an invoice, a return, or authorizing shipments, should have the _CREATE and _POST privileges, but
-        _UPDATE and _DELETE should be given to accountants only, as that involves changing the books. -->
-    <SecurityPermission description="Create general ledger accounting transaction and entries." permissionId="ACCOUNTING_ATX_CREATE"/>
-    <SecurityPermission description="Update general ledger accounting transaction and entries." permissionId="ACCOUNTING_ATX_UPDATE"/>
-    <SecurityPermission description="Delete general ledger accounting transaction and entries." permissionId="ACCOUNTING_ATX_DELETE"/>
-    <SecurityPermission description="Post general ledger accounting transactions." permissionId="ACCOUNTING_ATX_POST"/>
+    <!-- For general ledger accounting transactions. Note that any component that needs to post
+        accounting transactions should create a permission service SECA to grant
+        task-specific permissions to post transactions. The following permissions
+        should be given to accountants only, as that involves changing the books. -->
+    <SecurityPermission description="ALL operations involving general ledger accounting transactions and entries." permissionId="ACCOUNTING_ATX_ADMIN"/>
+    <SecurityPermission description="Create general ledger accounting transaction and entries." permissionId="ACCTG_ATX_CREATE"/>
+    <SecurityPermission description="Update general ledger accounting transaction and entries." permissionId="ACCTG_ATX_UPDATE"/>
+    <SecurityPermission description="Delete general ledger accounting transaction and entries." permissionId="ACCTG_ATX_DELETE"/>
+    <SecurityPermission description="View general ledger accounting transaction and entries." permissionId="ACCTG_ATX_VIEW"/>
 
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_ATX_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_ATX_CREATE"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ATX_CREATE"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_ATX_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_ATX_UPDATE"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ATX_UPDATE"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_ATX_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_ATX_DELETE"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ATX_DELETE"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_ATX_POST"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_ATX_POST"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ATX_POST"/>
-    
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_ATX_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCTG_ATX_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCTG_ATX_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCTG_ATX_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCTG_ATX_DELETE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_CREATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_UPDATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_DELETE"/>
     
 </entity-engine-xml>
