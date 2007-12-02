@@ -27,8 +27,6 @@ under the License.
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
 
-    <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
-    <handler name="screentext" type="view" class="org.ofbiz.widget.screen.ScreenTextViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
