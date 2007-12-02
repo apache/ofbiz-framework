@@ -26,21 +26,20 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindProject"/>
                 <set field="tabButtonItem" value="subprojects"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/FindProject.bsh"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjects.bsh"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                                                
                         <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditSubProject}</label></container>
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleListSubProjects}</label></container>
                             <container style="screenlet-body">
                                 <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                             </container>         
                         </container>     
                         <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditSubProject}</label></container>
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddSubProject}</label></container>
                             <container style="screenlet-body">
                                 <include-form name="AddSubProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                             </container>         
@@ -57,7 +56,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/FindProject.bsh"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjects.bsh"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
