@@ -285,7 +285,7 @@
             <if-empty field-name="highInfo.priority">
                 <set field="highInfo.priority" from-field="lowInfo.priority" />
                 <else>
-                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="priority" operator="less">
+                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="priority" operator="greater">
                         <set field="highInfo.priority" from-field="lowInfo.priority" />
                     </if-compare-field>
                 </else>
