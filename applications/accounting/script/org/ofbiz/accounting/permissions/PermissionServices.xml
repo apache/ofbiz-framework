@@ -80,4 +80,9 @@ under the License.
         <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
 
+    <!-- Returns hasPermission=true if user has one of the base ACCOUNTING CRUD+ADMIN permissions -->
+    <simple-method method-name="acctgCostPermissionCheck" short-description="Accounting cost permission logic">
+        <call-simple-method method-name="basePermissionCheck"/>
+    </simple-method>
+
 </simple-methods>
