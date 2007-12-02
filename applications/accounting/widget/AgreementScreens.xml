@@ -20,6 +20,9 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- Custom apps can use their own agreement decorator by specifying its
+         location in parameters.agreementDecoratorLocation -->
     <screen name="CommonAgreementDecorator">
         <section>
             <widgets>
@@ -30,12 +33,19 @@ under the License.
                                 <if-service-permission service-name="acctgAgreementPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://accounting/webapp/accounting/agreement/AgreementTabBar.ftl"/></html>
-                                </platform-specific>
-                                <container>
-                                    <label style="head1">${agreement.description} [${agreement.agreementId}] </label>
-                                </container>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="agreement"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://accounting/webapp/accounting/agreement/AgreementTabBar.ftl"/></html>
+                                        </platform-specific>
+                                        <container>
+                                            <label style="head1">${agreement.description} [${agreement.agreementId}] </label>
+                                        </container>
+                                    </widgets>
+                                </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -58,7 +68,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -66,7 +76,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
-                                    <label style="head1">${uiLabelMap.AccountingAgreements}</label>
+                                    <label style="head1">${uiLabelMap.PageTitleFindAgreement}</label>
                                 </container>
                                 <container style="button-bar">
                                     <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext"/>
@@ -98,7 +108,7 @@ under the License.
                 <entity-one entity-name="Agreement" value-name="agreement"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -133,7 +143,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
                             <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext"/>
@@ -160,7 +170,7 @@ under the License.
                 <entity-one entity-name="AgreementItem" value-name="agreementItem"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
                             <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext"/>
@@ -184,7 +194,7 @@ under the License.
                 <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="ListAgreementTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                         <include-form name="AddAgreementTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
@@ -211,7 +221,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementPromoAppl?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.AccountingNewAgreementPromoAppl}" style="buttontext"/>
@@ -238,7 +248,7 @@ under the License.
                 <entity-one entity-name="AgreementPromoAppl" value-name="agreementPromoAppl" auto-field-map="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementPromoAppl?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.AccountingNewAgreementPromoAppl}" style="buttontext"/>
@@ -266,7 +276,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementItemTerm?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.AccountingNewAgreementItemTerm}" style="buttontext"/>
@@ -294,7 +304,7 @@ under the License.
                 <entity-one entity-name="AgreementTerm" value-name="agreementTerm" auto-field-map="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementItemTerm?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.AccountingNewAgreementItemTerm}" style="buttontext"/>
@@ -322,7 +332,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementItemProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
@@ -384,7 +394,7 @@ under the License.
                 <entity-one entity-name="AgreementProductAppl" value-name="agreementProductAppl" auto-field-map="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementItemProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
@@ -412,7 +422,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementItemSupplierProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
@@ -481,7 +491,7 @@ under the License.
                 </and>
             </condition>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementItemSupplierProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
@@ -491,7 +501,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head2">${uiLabelMap.AccountingAgreementIsNotSetForSupplierProducts}</label>
@@ -520,7 +530,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementItemParty?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
@@ -548,7 +558,7 @@ under the License.
                 <entity-one entity-name="AgreementPartyApplic" value-name="agreementPartyApplic" auto-field-map="true"/>
            </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementItemParty?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
@@ -576,7 +586,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementGeographicalApplic?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
@@ -604,7 +614,7 @@ under the License.
                 <entity-one entity-name="AgreementGeographicalApplic" value-name="agreementGeographicalApplic" auto-field-map="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonAgreementDecorator">
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <link target="EditAgreementGeographicalApplic?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
