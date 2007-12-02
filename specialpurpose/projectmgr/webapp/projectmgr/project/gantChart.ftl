@@ -16,5 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<html>
+<header>
+    <script type="text/javascript" src="/images/dojo/dojo.js"
+            djConfig="parseOnLoad: true"></script>
+
+</header>
+<body>
 <script language="javascript" src="/projectmgr/js/gantt.js" type="text/javascript"></script>
+</body>
+</html>
 

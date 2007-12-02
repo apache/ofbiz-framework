@@ -31,7 +31,12 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-   
+    
+    <request-map uri="ganttChart">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ganttChart"/>
+    </request-map>
+    
     <request-map uri="ListSubProjects">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListSubProjects"/>
@@ -389,6 +394,7 @@
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
+    <view-map name="ganttChart" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ganttChart"/>    
     <view-map name="ListSubProjects" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ListSubProjects"/>    
     <view-map name="FindProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProject"/>    
     <view-map name="EditProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>

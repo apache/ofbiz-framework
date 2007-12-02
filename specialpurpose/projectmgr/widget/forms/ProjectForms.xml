@@ -266,46 +266,40 @@
     <form name="ListWorkEffortPartyAssigns" separate-columns="false" target="updateWorkEffortPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns">
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignment">
-                <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortId" operator="equals" env-name="projectId"/>
                 <order-by field-name="roleTypeId"/>
             </entity-condition>
         </actions>
         <field name="workEffortId"><hidden/></field>
+        <field name="projectId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="fromDate"><display/></field>
+        <field name="fromDate"><display type="date"/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <display-entity entity-name="RoleType"/>
         </field>
-        <field name="statusDateTime"><display/></field>
-        
-        <field name="thruDate"><date-time/></field>
-        <field name="statusId">
-            <drop-down no-current-selected-key="PARTYASSIGN_UNASSIGNED">
-                <entity-options description="${description}" entity-name="StatusItem">
-                    <entity-constraint name="statusTypeId" operator="equals" value="PRTYASGN_STATUS"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="expectationEnumId" title="${uiLabelMap.CommonExpectation}">
-            <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
-                    <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_EXPECT"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
-        <field name="mustRsvp"><check/></field>
-        <field name="comments"><text size="60" maxlength="255"/></field>
-        <field name="PartySkills" title="${uiLabelMap.ProjectMgrPartySkills}" widget-style="buttontext">
-            <hyperlink target="EditPartySkills?partyId=${partyId}&amp;workEffortId=${workEffortId}" description="${uiLabelMap.ProjectMgrPartySkills}" also-hidden="false"/>
-        </field>
+        <field name="thruDate"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddWorkEffortPartyAssign" target="createWorkEffortPartyAssign" title="" type="single">
+        <field name="projectId"><hidden/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="workEffortId"><hidden value="${projectId}"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time type="date"/></field>
+        
+        <field name="thruDate"><date-time type="date"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListTimeEntries" type="list" list-name="timesheetEntries" target="updateTimeEntry" paginate-target="EditTimeEntries">
         <actions>

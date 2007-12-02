@@ -35,7 +35,6 @@ under the License.
 
                 <!-- The two default (global) stylesheets are added to the list
                      of stylesheets to the first and second position -->
-                <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/>
 
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ProjectMgrCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ProjectMgrCompanySubtitle" global="true"/>

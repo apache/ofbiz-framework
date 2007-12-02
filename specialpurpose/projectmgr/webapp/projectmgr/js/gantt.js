@@ -175,7 +175,7 @@
             });
             dojo.debug("--end callBack");
     }           
-//          dojo.event.connect(dojo, "loaded", "init")
+          dojo.event.connect(dojo, "loaded", "init")
 
     function loadData(){
         var xml = {
