@@ -43,40 +43,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonInvoiceDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="invoices"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <!-- do check for ACCOUNTING, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="InvoiceTabBar" location="component://accounting/widget/Menus.xml"/>
-                                <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
-                                <section>
-                                    <condition><not><if-empty field-name="parameters.invoiceId"/></not></condition>
-                                    <widgets>
-                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${invoice.description} [${invoiceId}]  ${${extraFunctionName}}"/>
-                                    </widgets>
-                                </section>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="head3">${uiLabelMap.AcccountingViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>                    
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="CommonPaymentDecorator">
         <section>
             <actions>

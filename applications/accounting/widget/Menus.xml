@@ -21,7 +21,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
-    <menu name="InvoiceTabBar" menu-container-style="button-bar button-style-1" default-selected-style="selected"> 
+    <menu name="InvoiceTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected"> 
         <menu-item name="invoiceOverview" title="${uiLabelMap.AccountingInvoiceOverview}">
             <condition>
                 <not><if-empty field-name="invoice.invoiceId"/></not>

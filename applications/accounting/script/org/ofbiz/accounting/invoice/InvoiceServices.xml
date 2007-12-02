@@ -124,12 +124,6 @@ under the License.
 
 
     <simple-method method-name="createInvoice" short-description="Create a new Invoice">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createInvoice you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>
-        <check-errors/>
-
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <make-value value-name="newEntity" entity-name="Invoice"/>
@@ -166,11 +160,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="copyInvoice" short-description="Create a new Invoice from an existing invoice">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createInvoice you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>
-        <check-errors/>
         <set field="invoiceLookup.invoiceId" from-field="parameters.invoiceIdToCopyFrom"/>
         <call-service service-name="getInvoice" in-map-name="invoiceLookup">
             <result-to-field result-name="invoice" field-name="invoice"/>
@@ -195,11 +184,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getInvoice" short-description="Retrieve an invoice and the items">
-        <check-permission permission="ACCOUNTING" action="_VIEW">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_VIEW"/>
-            <fail-message message="Security Error: to run getInvoice you must have the ACCOUNTING_VIEW or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission"/>
-        </check-permission>
-        <check-errors/>
         <!-- find the invoice record -->
         <make-value value-name="lookupPKMap" entity-name="Invoice"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
@@ -334,13 +318,7 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
-    <simple-method method-name="removePaymentApplication"
-        short-description="Remove an existing payment application">
-        <!-- check access to the accounting function -->
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: To update an Invoice you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>
+    <simple-method method-name="removePaymentApplication" short-description="Remove an existing payment application">
         <entity-one entity-name="PaymentApplication" value-name="paymentApplication">
             <field-map field-name="paymentApplicationId" value="${parameters.paymentApplicationId}"/>
         </entity-one>
@@ -436,11 +414,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="setInvoiceStatus" short-description="Set The Invoice Status">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: To update an Invoice you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>
-
         <entity-one entity-name="Invoice" value-name="invoice"/>
         <field-to-result field-name="invoice.statusId" result-name="oldStatusId"/>
         <if-compare-field field-name="invoice.statusId" operator="not-equals" to-field-name="parameters.statusId">
@@ -513,11 +486,6 @@ under the License.
 
     <!-- ===============subroutine services =================-->
     <simple-method method-name="InvoiceStatusInProgress" short-description="Check if the invoiceStatus is in progress">
-        <!-- check access to the accounting function -->
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: To update an Invoice you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
-        </check-permission>
         <!-- find the current header record -->
         <entity-one entity-name="Invoice" value-name="headerValue"/>
         <if-empty field-name="headerValue">
@@ -533,11 +501,6 @@ under the License.
         <check-errors/>
     </simple-method>
     <simple-method method-name="createInvoiceContactMech" short-description="Create a ContactMech for an invoice">
-        <check-permission permission="ACCOUNTING" action="_CREATE">
-            <fail-message message="Security Error: To create an InvoiceContactMech you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-name="invoiceContactMech" entity-name="InvoiceContactMech"/>
         <set-pk-fields map-name="parameters" value-name="invoiceContactMech"/>
         <create-value value-name="invoiceContactMech"/>
