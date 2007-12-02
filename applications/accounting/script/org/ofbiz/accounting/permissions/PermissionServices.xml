@@ -90,4 +90,13 @@ under the License.
         <call-simple-method method-name="basePermissionCheck"/>
     </simple-method>
 
+    <!-- Returns hasPermission=true if user has one of the base ACCOUNTING CRUD+ADMIN permissions
+        OR if user has one of the base ACCOUNTING_ROLE CRUD+ADMIN permissions -->
+    <!-- TODO: Make this more user-role-specific. Users working with suppliers should only access
+        purchase invoices, users working with customers should only access sales-related
+        invoices, etc. -->
+    <simple-method method-name="acctgInvoicePermissionCheck" short-description="Accounting invoice permission logic">
+        <call-simple-method method-name="basePlusRolePermissionCheck"/>
+    </simple-method>
+
 </simple-methods>

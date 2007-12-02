@@ -36,6 +36,7 @@ under the License.
     <service name="createInvoice" engine="simple" default-entity-name="Invoice"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoice">
         <description>Create Invoice Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="invoiceTypeId" mode="IN" optional="false"/>
@@ -46,12 +47,14 @@ under the License.
     <service name="copyInvoice" engine="simple" default-entity-name="Invoice"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="copyInvoice">
         <description>Create Invoice Record/items from an existing invoice</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <attribute name="invoiceIdToCopyFrom" type="String" mode="IN" optional="false"/>
     </service>
     <service name="getInvoice" engine="simple" default-entity-name="Invoice"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getInvoice">
         <description>Retrieve an existing Invoice/Items</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="VIEW"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="invoice" type="GenericValue" mode="OUT"/>
         <attribute name="invoiceItems" type="List" mode="OUT"/><!-- list of invoiceItem GenericValues -->
@@ -59,12 +62,14 @@ under the License.
     <service name="updateInvoice" engine="simple" default-entity-name="Invoice"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoice">
         <description>Update an existing Invoice Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="setInvoiceStatus" engine="simple"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="setInvoiceStatus">
         <description>Set the Invoice  Status</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="statusDate" type="Timestamp" mode="IN" optional="true"/>
@@ -83,6 +88,7 @@ under the License.
     <service name="createInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceItem">
         <description>Create a new Invoice Item Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="invoiceItemSeqId" mode="INOUT" optional="true"/><!-- will optionally assign by the system -->
@@ -90,29 +96,34 @@ under the License.
     <service name="updateInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItem">
         <description>Update existing Invoice Item Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="removeInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removeInvoiceItem">
         <description>Remove an existing Invoice Item Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     
     <service name="createInvoiceRole" engine="simple" default-entity-name="InvoiceRole"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceRole">
         <description>Create a new Invoice Role Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="removeInvoiceRole" engine="simple" default-entity-name="InvoiceRole"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removeInvoiceRole">
         <description>Remove an existing Invoice Role Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
     <service name="createInvoiceTerm" engine="simple" default-entity-name="InvoiceTerm"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceTerm">
         <description>Create Invoice (Item) Term Record</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
@@ -239,6 +250,7 @@ under the License.
     <service name="createInvoiceContactMech" engine="simple"
             location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceContactMech">
         <description>Create a ContactMech for an invoice</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="InvoiceContactMech" include="pk" mode="IN" optional="false"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
@@ -247,5 +259,12 @@ under the License.
         <description>Calculate the previously invoiced amount for an OrderAdjustment</description>
         <attribute name="orderAdjustment" type="GenericValue" mode="IN" optional="false"/>
         <attribute name="invoicedTotal" type="BigDecimal" mode="OUT" optional="false"/>
+    </service>
+
+    <!-- Permission services -->
+    <service name="acctgInvoicePermissionCheck" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgInvoicePermissionCheck">
+        <description>Accounting Invoice Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
     </service>
 </services>

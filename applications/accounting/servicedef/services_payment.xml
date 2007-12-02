@@ -103,6 +103,7 @@ under the License.
     <service name="removePaymentApplication" default-entity-name="PaymentApplication" engine="simple"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removePaymentApplication">
         <description>Delete a paymentApplication record.</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="OUT" include="nonpk" optional="true"/>
     </service>
