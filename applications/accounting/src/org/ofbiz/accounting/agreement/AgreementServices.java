@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javolution.util.FastList;
-import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
@@ -35,7 +34,6 @@ import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
@@ -78,21 +76,11 @@ public class AgreementServices {
      *              productId       String  Product Id
      */
     public static Map getCommissionForProduct(DispatchContext ctx, Map context) {
-        Map result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
-        Security security = ctx.getSecurity();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
         List commissions = FastList.newInstance();
         
-        // either ACCOUNTING_COMM_VIEW or ACCOUNTING_MANAGER should be allowed to see commission amounts
-        if (!security.hasEntityPermission("ACCOUNTING", "_COMM_VIEW", userLogin)) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            errMsg = UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.no_permission_to_operation", locale) + ".";
-            result.put(ModelService.ERROR_MESSAGE, errMsg);
-            return result;
-        }
         try {
             BigDecimal amount = ((BigDecimal)context.get("amount"));
             BigDecimal quantity = (BigDecimal)context.get("quantity");
