@@ -23,7 +23,7 @@ import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.UtilMisc;
 import javolution.util.FastMap;
-Debug.logInfo("==========workEffortId:" + parameters.get("workEffortId"),"");
+
 if (parameters.get("workEffortId") != null) {
     workEffortId = parameters.get("workEffortId");
     projects = delegator.findByAnd("ProjectAndPhaseAndTask", UtilMisc.toMap("workEffortId", workEffortId));
