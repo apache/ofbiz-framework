@@ -99,4 +99,10 @@ under the License.
         <call-simple-method method-name="basePlusRolePermissionCheck"/>
     </simple-method>
 
+    <!-- Returns hasPermission=true if user has one of the ACCTG_ATX CRUD+ADMIN permissions -->
+    <simple-method method-name="acctgTransactionPermissionCheck" short-description="Accounting transaction permission logic">
+        <set field="primaryPermission" value="ACCTG_ATX"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+    </simple-method>
+
 </simple-methods>

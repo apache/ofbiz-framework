@@ -20,11 +20,9 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
     <!-- ========= GlAccount methods ========= -->
     <simple-method method-name="createGlAccount" short-description="Create an GlAccount">
-        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="GlAccount" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -40,9 +38,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateGlAccount" short-description="Update an GlAccount">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlAccount you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="GlAccount" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -50,9 +45,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteGlAccount" short-description="Delete an GlAccount">
-        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlAccount you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="GlAccount" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -61,9 +53,6 @@ under the License.
     
     <!-- ========= GlAccountOrganization methods ========= -->
     <simple-method method-name="createGlAccountOrganization" short-description="Create GlAccountOrganization">
-        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlAccountOrganization you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="GlAccountOrganization" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -71,9 +60,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateGlAccountOrganization" short-description="Update GlAccountOrganization">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlAccountOrganization you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="GlAccountOrganization" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -82,9 +68,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteGlAccountOrganization" short-description="Delete GlAccountOrganization">
-        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlAccountOrganization you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="GlAccountOrganization" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -124,9 +107,6 @@ under the License.
     </simple-method> 
        
     <simple-method method-name="createGlJournal" short-description="Create an GlJournal">
-        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlJournal you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="GlJournal" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -137,17 +117,11 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateGlJournal" short-description="Update an GlJournal">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlJournal you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="GlJournal" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteGlJournal" short-description="Delete an GlJournal">
-        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlJournal you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="GlJournal" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -221,9 +195,6 @@ under the License.
 
     <!-- ========= GlReconciliation methods ========= -->
     <simple-method method-name="createGlReconciliation" short-description="Create an GlReconciliation">
-        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlReconciliation you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="GlReconciliation" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -237,9 +208,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateGlReconciliation" short-description="Update an GlReconciliation">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlReconciliation you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="GlReconciliation" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         
@@ -247,9 +215,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteGlReconciliation" short-description="Delete an GlReconciliation">
-        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlReconciliation you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="GlReconciliation" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -262,9 +227,6 @@ under the License.
     
     <!-- ========= GlReconciliationEntry methods ========= -->
     <simple-method method-name="createGlReconciliationEntry" short-description="Add Entry To GlReconciliation">
-        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-message message="Security Error: to run createGlReconciliationEntry you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value entity-name="GlReconciliationEntry" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -274,9 +236,6 @@ under the License.
         <call-simple-method method-name="updateGlReconciliationLastModified"/>
     </simple-method>
     <simple-method method-name="updateGlReconciliationEntry" short-description="Update Entry To GlReconciliation">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-message message="Security Error: to run updateGlReconciliationEntry you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="GlReconciliationEntry" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -285,9 +244,6 @@ under the License.
         <call-simple-method method-name="updateGlReconciliationLastModified"/>
     </simple-method>
     <simple-method method-name="deleteGlReconciliationEntry" short-description="Remove Entry From GlReconciliation">
-        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-message message="Security Error: to run deleteGlReconciliationEntry you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="GlReconciliationEntry" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
 
