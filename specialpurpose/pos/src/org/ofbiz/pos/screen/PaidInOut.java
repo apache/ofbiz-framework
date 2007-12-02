@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.pos.screen;
 
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -56,6 +57,7 @@ public class PaidInOut extends XPage {
     protected DefaultComboBoxModel m_comboModel = null; 
     protected static PosTransaction m_trans = null;
     protected String m_type = null; 
+    protected boolean cancelled = false;
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
 
@@ -103,11 +105,16 @@ public class PaidInOut extends XPage {
         m_dialog.pack();
         m_reasonsCombo.requestFocusInWindow();
         m_dialog.showDialog(this);
-        return UtilMisc.toMap("amount", m_amountEdit.getText(), "reason", (String) m_reasonsCombo.getSelectedItem());        
+        if (cancelled) {
+            return new HashMap();
+        } else {
+            return UtilMisc.toMap("amount", m_amountEdit.getText(), "reason", (String) m_reasonsCombo.getSelectedItem());
+        }
     }
 
     public synchronized void cancel() {
-        if (wasMouseClicked()) {            
+        if (wasMouseClicked()) {
+            cancelled = true;
             m_dialog.closeDlg();
         }
     }
