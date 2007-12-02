@@ -500,7 +500,7 @@ under the License.
                                     <include-screen name="PartiesInfo"/>
                                     <include-screen name="NoteInfo"/>
                                 </container>
-                                <!--include-screen name="gantChart"/-->
+                                <include-screen name="gantChart"/>
                             </widgets>
                         </section>
                     </decorator-section>

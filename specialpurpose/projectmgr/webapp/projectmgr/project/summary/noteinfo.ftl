@@ -22,11 +22,11 @@ under the License.
     <div class="screenlet-title-bar">
       <ul>
         <li class="head3">&nbsp;${uiLabelMap.WorkEffortNotes}</li>
-          <#if project?has_content>
+          <#--if project?has_content>
             <li><a href="<@ofbizUrl>newNotesForProject?workEffortId=${project.workEffortId?if_exists}&showForm=Y</@ofbizUrl>">${uiLabelMap.ProjectMgrNotesCreateNew}</a></li>
           <#else>
             <li><a href="<@ofbizUrl>newNotesForTask?workEffortId=${task.workEffortId?if_exists}&showForm=Y</@ofbizUrl>">${uiLabelMap.ProjectMgrNotesCreateNew}</a></li>
-          </#if>
+          </#if-->
       </ul>
       <br class="clear" />
     </div>
