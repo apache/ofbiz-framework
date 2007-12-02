@@ -74,7 +74,7 @@ under the License.
 
         <field name="thruDate"><date-time/></field>
         <field name="statusId">
-            <drop-down no-current-selected-key="PARTYASSIGN_UNASSIGNED">
+            <drop-down no-current-selected-key="PRTYASGN_ASSIGNED">
                 <entity-options description="${description}" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PRTYASGN_STATUS"/>
                     <entity-order-by field-name="description"/>
