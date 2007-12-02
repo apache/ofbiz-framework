@@ -289,6 +289,7 @@
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
                 <entity-options entity-name="RoleType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
