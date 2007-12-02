@@ -21,6 +21,8 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
+    <!-- Custom apps can use their own financial account decorator by specifying its
+         location in parameters.finAccountDecoratorLocation -->
     <screen name="CommonFinAccountDecorator">
         <section>
             <actions>
@@ -61,7 +63,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFinAccountDecorator">
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1" text="${uiLabelMap.AccountingFindFinAccount}"/>
@@ -87,7 +89,7 @@ under the License.
                 <entity-one entity-name="FinAccount" value-name="finAccount"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFinAccountDecorator">
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -121,7 +123,7 @@ under the License.
                 <set field="fromDate" from-field="parameters.fromDate"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFinAccountDecorator">
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="head1" text="${uiLabelMap.PageTitleEditFinAccountRole} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]"/>
 <!--                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container> -->
@@ -143,7 +145,7 @@ under the License.
                 <set field="finAccountTransId" from-field="parameters.finAccountTransId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFinAccountDecorator">
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="head1" text="${uiLabelMap.PageTitleEditFinAccountTrans} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]"/>
 <!--                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container> -->
@@ -166,7 +168,7 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
             </actions>
             <widgets>
-                <decorator-screen name="CommonFinAccountDecorator">
+                <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="head1" text="${uiLabelMap.PageTitleEditFinAccountAuths} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]"/>
 <!--                        <container><link target="EditFinAccount" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingFinAccount}" style="buttontext"/></container> -->
