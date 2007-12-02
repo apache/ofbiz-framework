@@ -220,6 +220,7 @@
         <field name="projectId"><hidden value="parameters.projectId"/></field>
         <field name="phase"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="priority"><display/></field>
         <field name="startDate"><display/></field>
         <field name="completionDate"><display/></field>
         <field name="plannedHours"><display/></field>
@@ -230,6 +231,7 @@
         <field name="phase"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
         <field name="task"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="priority"><display/></field>
         <field name="startDate"><display/></field>
         <field name="completionDate"><display/></field>
         <field name="plannedHours"><display/></field>
