@@ -98,19 +98,19 @@
     </request-map>
     <request-map uri="createTask">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffort"/>
+        <event type="service" invoke="createWorkEffort"/>
         <response name="success" type="view" value="EditTask"/>
         <response name="error" type="view" value="EditTask"/>
     </request-map>
     <request-map uri="createProjectTaskOrPhase">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffort"/>
+        <event type="service" invoke="createWorkEffort"/>
         <response name="success" type="view" value="FindTask"/>
         <response name="error" type="view" value="FindTask"/>
     </request-map>
     <request-map uri="createProjectPhase">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffort"/>
+        <event type="service" invoke="createWorkEffort"/>
         <response name="success" type="view" value="FindPhase"/>
         <response name="error" type="view" value="FindPhase"/>
     </request-map>
