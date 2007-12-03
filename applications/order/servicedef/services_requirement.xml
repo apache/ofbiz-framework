@@ -178,5 +178,13 @@ under the License.
         <attribute mode="IN" name="fromFacilityId" optional="false" type="String"/>
         <attribute mode="IN" name="quantity" optional="true" type="Double"/>
     </service>
+
+    <service name="createAutoRequirementsForOrder" engine="java"
+            location="org.ofbiz.order.requirement.RequirementServices" invoke="createAutoRequirementsForOrder" auth="true">
+        <description>
+            Creates requirements for any products with requirementMethodEnumId PRODRQM_AUTO in the given sales order.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>
 

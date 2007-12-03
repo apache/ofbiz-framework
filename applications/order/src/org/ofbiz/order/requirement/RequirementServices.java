@@ -44,7 +44,7 @@ public class RequirementServices {
     public static final String module = RequirementServices.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
-    public static final Map getRequirementsForSupplier(DispatchContext ctx, Map context) {
+    public static Map getRequirementsForSupplier(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -192,4 +192,45 @@ public class RequirementServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderEntityExceptionSeeLogs", locale));
         }
     }
+
+    // note that this service is designed to work only when a sales order status changes from CREATED -> APPROVED because HOLD -> APPROVED is too complex
+    public static Map createAutoRequirementsForOrder(DispatchContext ctx, Map context) {
+        GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+
+        String orderId = (String) context.get("orderId");
+        try {
+            GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            GenericValue productStore = order.getRelatedOneCache("ProductStore");
+            String facilityId = productStore.getString("inventoryFacilityId");
+            List orderItems = order.getRelated("OrderItem");
+            for (Iterator iter = orderItems.iterator(); iter.hasNext(); ) {
+                GenericValue item = (GenericValue) iter.next();
+                GenericValue product = item.getRelatedOne("Product");
+                if (product == null) continue;
+                if (! "PRODRQM_AUTO".equals(product.get("requirementMethodEnumId"))) continue;
+
+                Double quantity = item.getDouble("quantity");
+                Double cancelQuantity = item.getDouble("cancelQuantity");
+                Double required = new Double( quantity.doubleValue() - (cancelQuantity == null ? 0.0 : cancelQuantity.doubleValue()) );
+                if (required.doubleValue() <= 0.0) continue;
+
+                Map input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
+                Map results = dispatcher.runSync("createRequirement", input);
+                if (ServiceUtil.isError(results)) return results;
+                String requirementId = (String) results.get("requirementId");
+
+                input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"), "requirementId", requirementId, "quantity", required);
+                results = dispatcher.runSync("createOrderRequirementCommitment", input);
+                if (ServiceUtil.isError(results)) return results;
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+        }
+        return ServiceUtil.returnSuccess();
+    }
 }
+
