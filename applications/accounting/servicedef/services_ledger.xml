@@ -306,6 +306,13 @@ under the License.
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
+    <service name="createAcctgTransForInventoryItemCostChange" engine="simple" auth="true"
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForInventoryItemCostChange">
+        <description>Create accounting transaction when item cost is changed (D: INV_ADJ_VAL, C: INVENTORY_ACCOUNT)</description>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemDetailSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
+    </service>
     <!-- DEPRECATED: use createAcctgTransForSalesShipmentIssuance instead -->
     <service name="createAcctgTransForSalesShipment" engine="simple"  auth="true"
         location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForSalesShipment">
