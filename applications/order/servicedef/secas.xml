@@ -285,6 +285,14 @@ under the License.
         <action service="createRequirementFromItemATP" mode="sync" run-as-user="system"/>
         <action service="checkCreateStockRequirementAtp" mode="sync" run-as-user="system"/>
     </eca>
+    <!-- create the automatic requirements for sales orders but only if the status changes from created to approved -->
+    <eca service="changeOrderStatus" event="commit" run-on-error="false">
+        <condition field-name="oldStatusId" operator="equals" value="ORDER_CREATED"/>
+        <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
+        <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
+        <action service="createAutoRequirementsForOrder" mode="sync"/>
+    </eca>
+
     <!-- WorkEffort -->
     <eca service="createQuoteWorkEffort" event="invoke">
         <condition field-name="workEffortId" operator="is-empty" />

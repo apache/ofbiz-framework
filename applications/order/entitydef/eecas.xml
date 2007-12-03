@@ -34,9 +34,6 @@ under the License.
         <action service="quickReceiveReturn" mode="sync"/>
     </eca>
     
-    <eca entity="OrderItem" operation="create" event="return">
-        <action service="checkCreateOrderRequirement" mode="sync"/>
-    </eca>
     <eca entity="OrderItem" operation="create-store" event="return">
         <condition field-name="quoteId" operator="is-not-empty"/>
         <action service="checkUpdateQuoteStatus" mode="sync"/>
