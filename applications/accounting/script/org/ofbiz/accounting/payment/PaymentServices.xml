@@ -45,20 +45,17 @@ under the License.
         <field-to-result field-name="payment.paymentId" result-name="paymentId"/>
         
         <if-not-empty field-name="parameters.paymentMethodId">
-            <if-empty field-name="parameters.paymentMethodTypeId">
-                <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
-                    <field-map field-name="paymentMethodId" env-name="parameters.paymentMethodId"/>
-                </entity-one>      
-                <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>        
-            </if-empty>         
-        </if-not-empty>        
-        <if-empty field-name="parameters.paymentMethodId">
-           <if-empty field-name="parameters.paymentMethodTypeId">
-             <add-error>
+            <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
+                <field-map field-name="paymentMethodId" env-name="parameters.paymentMethodId"/>
+            </entity-one>
+            <log level="info" message="Replacing passed payment method type [${parameters.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${parameters.paymentMethodId}]"/>
+            <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
+        </if-not-empty>
+        <if-empty field-name="parameters.paymentMethodTypeId">
+            <add-error>
                 <fail-property resource="AccountingUiLabels" property="AccountingPaymentMethodIdPaymentMethodTypeIdNullError"/>
-             </add-error>               
-           </if-empty> 
-        </if-empty>  
+            </add-error>
+        </if-empty>
         
         <set-nonpk-fields map-name="parameters" value-name="payment"/>
         <if-empty field-name="payment.effectiveDate">
@@ -84,7 +81,7 @@ under the License.
             </then>
         </if>
         <check-errors/>
-        
+
         <if-compare field-name="payment.statusId" value="PMNT_NOT_PAID" operator="not-equals">
             <!-- check if only status change -->
             <make-value value-name="newPayment" entity-name="Payment"/>
@@ -109,6 +106,15 @@ under the License.
         <if-empty field-name="payment.effectiveDate">
             <now-timestamp-to-env env-name="payment.effectiveDate"/>
         </if-empty>
+        <if-not-empty field-name="payment.paymentMethodId">
+            <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
+                <field-map field-name="paymentMethodId" env-name="payment.paymentMethodId"/>
+            </entity-one>
+            <if-compare-field field-name="payment.paymentMethodTypeId" operator="not-equals" to-field-name="paymentMethod.paymentMethodTypeId">
+                <log level="info" message="Replacing passed payment method type [${payment.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${payment.paymentMethodId}]"/>
+            </if-compare-field>
+            <set field="payment.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
+        </if-not-empty>
         <store-value value-name="payment"/>
         
         <if-not-empty field-name="parameters.statusId">
