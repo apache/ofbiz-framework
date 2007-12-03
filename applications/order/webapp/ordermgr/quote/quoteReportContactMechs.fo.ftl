@@ -41,7 +41,7 @@ under the License.
                             <#if toPostalAddress?exists>
                             <fo:block>${toPostalAddress.address1?if_exists}</fo:block>
                             <fo:block>${toPostalAddress.address2?if_exists}</fo:block>
-                            <fo:block>${toPostalAddress.city}<#if toPostalAddress.stateProvinceGeoId?has_content>, ${toPostalAddress.stateProvinceGeoId}</#if> ${toPostalAddress.postalCode?if_exists}</fo:block>
+                            <fo:block>${toPostalAddress.city?if_exists}<#if toPostalAddress.stateProvinceGeoId?has_content>, ${toPostalAddress.stateProvinceGeoId}</#if> ${toPostalAddress.postalCode?if_exists}</fo:block>
                             </#if>
                         </fo:block>
                     </fo:table-cell>
