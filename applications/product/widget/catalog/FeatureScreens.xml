@@ -201,7 +201,9 @@
                 <set field="titleProperty" value="ProductEditFeatureGroupAppls"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureGroup"/>
-
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                
                 <set field="productFeatureGroupId" from-field="parameters.productFeatureGroupId"/>
                 <set field="productFeatureCategoryId" from-field="parameters.productFeatureCategoryId"/>
                 <entity-and entity-name="ProductFeatureGroupAndAppl" list-name="productFeatureGroupAndAppls">
