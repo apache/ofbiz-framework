@@ -23,8 +23,9 @@ under the License.
     <screen name="main-decorator">
         <section>
             <actions>
-                <!-- base/top/specific map first, then more common map added for shared labels --> 
-                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <!-- XML Properties - the preferred properties file format -->
+                <property-map resource="component://example/config/ExampleXmlUiLabels.xml" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ExampleCompanyName" global="true"/>
