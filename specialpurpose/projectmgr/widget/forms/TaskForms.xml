@@ -35,6 +35,7 @@
         <field use-when="task==null" entry-name="dummy" name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field use-when="task!=null&amp;&amp;workEffortId!=null" name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field use-when="task=null" name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
         <field use-when="task!=null" name="statusId" parameter-name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
@@ -43,14 +44,6 @@
                 </entity-options>
             </drop-down>
         </field>
-        <!--field use-when="task==null" name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="false">
-            <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
-            <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
-            <entity-order-by field-name="sequenceId"/>
-            </entity-options>
-            </drop-down>
-            </field-->
         <field name="priority" title="${uiLabelMap.CommonPriority}">
             <drop-down allow-empty="true" current="selected">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/> 
@@ -90,8 +83,6 @@
         </field>
         <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><date-time/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><date-time/></field>
-        <field name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><date-time/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><date-time/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <form name="AddProjectTask" type="single" target="createProjectTaskOrPhase">
