@@ -44,6 +44,8 @@ under the License.
     <AcctgTransType acctgTransTypeId="INVENTORY_RETURN" description="Inventory from Return" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
 
     <AcctgTransType acctgTransTypeId="SALES_SHIPMENT" parentTypeId="" hasTable="N" description="Sales Shipment"/>
+    <AcctgTransType acctgTransTypeId="SALES_INVOICE" parentTypeId="" hasTable="N" description="Sales Invoice"/>
+    <AcctgTransType acctgTransTypeId="PURCHASE_INVOICE" parentTypeId="" hasTable="N" description="Purchase Invoice"/>
     <AcctgTransType acctgTransTypeId="SHIPMENT_RECEIPT" parentTypeId="" hasTable="N" description="Shipment Receipt"/>
     <AcctgTransType acctgTransTypeId="MANUFACTURING" parentTypeId="" hasTable="N" description="Manufacturing"/>
 
