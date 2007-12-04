@@ -47,4 +47,72 @@ under the License.
         <value xml:lang="en">Not Allowed</value>
         <value xml:lang="it">Non Permesso</value>
     </property>
+
+    <!-- Entity field descriptions. The Webtools component will use these properties
+         for online documentation. Field description properties have two forms:
+         FieldDescription.[fieldname] - will be used for all fields of that name
+         FieldDescription.[entityname].[fieldname] - will be used for the specified
+         entity field
+    -->
+    <property key="FieldDescription.exampleId">
+        <value xml:lang="en">Example ID</value>
+        <value xml:lang="it">Codice Esempio</value>
+        <value xml:lang="ro">Cod Exemplu</value>
+    </property>
+    <property key="FieldDescription.exampleTypeId">
+        <value xml:lang="en">Example Type ID</value>
+    </property>
+    <property key="FieldDescription.exampleItemSeqId">
+        <value xml:lang="en">Example Item sequence ID</value>
+    </property>
+    <property key="FieldDescription.amount">
+        <value xml:lang="en">Amount</value>
+        <value xml:lang="it">Importo</value>
+        <value xml:lang="ro">Import</value>
+    </property>
+    <property key="FieldDescription.exampleName">
+        <value xml:lang="en">Example Name</value>
+        <value xml:lang="it">Nome Esempio</value>
+        <value xml:lang="ro">Nume Exemplu</value>
+    </property>
+    <property key="FieldDescription.longDescription">
+        <value xml:lang="en">Long Description</value>
+        <value xml:lang="it">Descrizione Lunga</value>
+        <value xml:lang="ro">Descriere Lunga</value>
+    </property>
+    <property key="FieldDescription.comments">
+        <value xml:lang="en">Comments</value>
+        <value xml:lang="it">Commenti</value>
+        <value xml:lang="ro">Comentarii</value>
+    </property>
+    <property key="FieldDescription.exampleSize">
+        <value xml:lang="en">Example Size</value>
+        <value xml:lang="it">Esempio Taglia</value>
+        <value xml:lang="ro">Marime-size Exemplu</value>
+    </property>
+    <property key="FieldDescription.exampleDate">
+        <value xml:lang="en">Example Date</value>
+        <value xml:lang="it">Esempio Data</value>
+        <value xml:lang="ro">Data Exemplu</value>
+    </property>
+    <property key="FieldDescription.anotherDate">
+        <value xml:lang="en">Another Date</value>
+        <value xml:lang="it">Altra Data</value>
+    </property>   
+    <property key="FieldDescription.anotherText">
+        <value xml:lang="en">Another Text</value>
+        <value xml:lang="it">Altro Testo</value>
+    </property>
+    <property key="FieldDescription.Example.exampleId">
+        <value xml:lang="en">A unique Example ID. If you don't assign an
+            ID, one will be generated automatically</value>
+    </property>
+    <property key="FieldDescription.ExampleItem.exampleItemSeqId">
+        <value xml:lang="en">A unique Example Item sequence ID. If you don't assign an
+            ID, one will be generated automatically</value>
+    </property>
+    <property key="FieldDescription.ExampleType.exampleTypeId">
+        <value xml:lang="en">A unique Example Type ID. If you don't assign an
+            ID, one will be generated automatically</value>
+    </property>
 </resource>
