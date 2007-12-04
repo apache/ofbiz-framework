@@ -44,5 +44,9 @@ under the License.
         <condition field-name="acctgTransId" operator="is-not-empty"/>
         <action service="postAcctgTrans" mode="sync"/>
     </eca>
+    
+    <eca service="createWorkEffortInventoryProduced" event="commit">
+        <action service="createAcctgTransForWorkEffortInventoryProduced" mode="sync"/>
+    </eca>
 
 </service-eca>
