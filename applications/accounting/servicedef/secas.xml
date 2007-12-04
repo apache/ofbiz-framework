@@ -164,4 +164,11 @@ under the License.
         <condition field-name="receiptId" operator="is-empty"/>
         <action service="createAcctgTransForInventoryItemCostChange" mode="sync"/>
     </eca>
+
+    <!-- attempt to create AcctgTrans Physical Inventory Variance when Physical InventoryAndVariance is created-->
+    <eca service="createPhysicalInventoryAndVariance" event="commit">
+        <condition field-name="physicalInventoryId" operator="is-not-empty"/>
+        <action service="createAcctgTransForPhysicalInventoryVariance" mode="sync"/>
+    </eca>
+    
 </service-eca>
