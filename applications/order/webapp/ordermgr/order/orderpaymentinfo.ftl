@@ -34,12 +34,14 @@ under the License.
          <#assign orderPaymentStatuses = orderReadHelper.getOrderPaymentStatuses()>
          <#if orderPaymentStatuses?has_content>
            <#list orderPaymentStatuses as orderPaymentStatus>
-             <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem")>
-             <div class="tabletext">
-               ${statusItem.get("description",locale)} - ${orderPaymentStatus.statusDatetime?default("0000-00-00 00:00:00")?string}
-               &nbsp;
-               ${uiLabelMap.CommonBy} - [${orderPaymentStatus.statusUserLogin}]
-             </div>
+             <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem")?if_exists>
+             <#if statusItem?has_content>
+                <div class="tabletext">
+                  ${statusItem.get("description",locale)} - ${orderPaymentStatus.statusDatetime?default("0000-00-00 00:00:00")?string}
+                  &nbsp;
+                  ${uiLabelMap.CommonBy} - [${orderPaymentStatus.statusUserLogin?if_exists}]
+                </div>
+             </#if>
            </#list>
          </#if>
        </td>

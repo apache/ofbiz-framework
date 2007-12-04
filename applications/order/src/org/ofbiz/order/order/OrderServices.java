@@ -4527,6 +4527,7 @@ public class OrderServices {
         try {
             GenericValue orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
             String orderId = orderPaymentPreference.getString("orderId");
+            String statusUserLogin = orderPaymentPreference.getString("createdByUserLogin"); 
             GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCouldNotChangeOrderStatusOrderCannotBeFound", locale));
@@ -4540,7 +4541,7 @@ public class OrderServices {
             orderStatus.put("orderId", orderId);
             orderStatus.put("orderPaymentPreferenceId", orderPaymentPreferenceId);
             orderStatus.put("statusDatetime", UtilDateTime.nowTimestamp());
-            orderStatus.put("statusUserLogin", userLogin.getString("userLoginId"));
+            orderStatus.put("statusUserLogin", statusUserLogin);
             orderStatus.put("changeReason", changeReason);
 
             orderStatus.create();
