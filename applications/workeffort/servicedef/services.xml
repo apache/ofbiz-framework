@@ -614,4 +614,17 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    
+    <!--WorkEffortInventoryProduced Services   -->
+    <service name="createWorkEffortInventoryProduced" engine="simple" default-entity-name="WorkEffortInventoryProduced"
+            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortInventoryProduced" auth="true">
+        <description>Create WorkEffortInventoryProduced</description>        
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteWorkEffortInventoryProduced" engine="simple" default-entity-name="WorkEffortInventoryProduced"
+            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffortInventoryProduced" auth="true">
+        <description>Delete WorkEffortInventoryProduced</description>        
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>
