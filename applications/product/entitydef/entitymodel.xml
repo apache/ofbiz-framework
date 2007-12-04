@@ -2382,16 +2382,16 @@ under the License.
       <prim-key field="productCategoryId"/>
       <prim-key field="organizationPartyId"/>
       <prim-key field="glAccountTypeId"/>
-      <relation type="one" fk-name="PROD_CAT_GLACT_PROD" rel-entity-name="ProductCategory">
+      <relation type="one" fk-name="PRD_CT_GLACT_PCAT" rel-entity-name="ProductCategory">
         <key-map field-name="productCategoryId"/>
       </relation>
-      <relation type="one" fk-name="PROD_CAT_GLACT_PARTY" rel-entity-name="Party">
+      <relation type="one" fk-name="PRD_CT_GLACT_PRTY" rel-entity-name="Party">
         <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="PROD_CAT_GLACT_TYPE" rel-entity-name="GlAccountType">
+      <relation type="one" fk-name="PRD_CT_GLACT_TYPE" rel-entity-name="GlAccountType">
         <key-map field-name="glAccountTypeId"/>
       </relation>
-      <relation type="one" fk-name="PROD_CAT_GLACT_GLACT" rel-entity-name="GlAccount">
+      <relation type="one" fk-name="PRD_CT_GLACT_GLACT" rel-entity-name="GlAccount">
         <key-map field-name="glAccountId"/>
       </relation>
     </entity>
