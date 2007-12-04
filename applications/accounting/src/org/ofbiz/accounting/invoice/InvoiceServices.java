@@ -1734,6 +1734,7 @@ public class InvoiceServices {
                             + " for shipment receipt [" + receipt.getString("receiptId") + "]", module);
                 }
 
+                String parentInvoiceItemSeqId = invoiceItemSeqId;                
                 // increment the seqId counter after creating the invoice item and return item billing
                 invoiceItemSeqNum += 1;  
                 invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
@@ -1777,6 +1778,8 @@ public class InvoiceServices {
                     input.put("productId", returnItem.get("productId"));
                     input.put("description", adjustment.get("description"));
                     input.put("overrideGlAccountId", adjustment.get("overrideGlAccountId"));
+                    input.put("parentInvoiceId", invoiceId);
+                    input.put("parentInvoiceItemSeqId", parentInvoiceItemSeqId);                    
                     input.put("taxAuthPartyId", adjustment.get("taxAuthPartyId"));
                     input.put("taxAuthGeoId", adjustment.get("taxAuthGeoId"));
                     input.put("userLogin", userLogin);
