@@ -392,4 +392,14 @@ under the License.
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>      
+
+    <!--Accounting transaction for cost record related to work effort-->
+    <service name="createAcctgTransForWorkEffortCost" engine="simple" auth="true"
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForWorkEffortCost">
+        <description>Create an accounting transaction for cost record created for a work effort</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="costComponentId" type="String" mode="IN" optional="false"/>
+        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
+    </service>  
+
 </services>

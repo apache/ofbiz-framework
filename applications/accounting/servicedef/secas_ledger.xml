@@ -49,4 +49,10 @@ under the License.
         <action service="createAcctgTransForWorkEffortInventoryProduced" mode="sync"/>
     </eca>
 
+    <eca service="createWorkEffortInventoryProduced" event="commit">
+        <condition field-name="workEffortId" operator="is-not-empty"/>
+        <condition field-name="costComponentTypeId" operator="not-equals" value="ACTUAL_MAT_COST"/>
+        <action service="createAcctgTransForWorkEffortCost" mode="sync"/>
+    </eca> 
+
 </service-eca>
