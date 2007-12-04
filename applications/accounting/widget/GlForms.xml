@@ -122,6 +122,9 @@ under the License.
         <field name="partyId" use-when="partyId!=null">
             <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"/>
         </field>
+        <field name="partyName" entry-name="partyId" title="${uiLabelMap.PartyParty}">
+            <display-entity entity-name="PartyNameView" description="${groupName}${firstName} ${lastName}" key-field-name="partyId"/>
+        </field> 
         <field name="partyId" use-when="partyId==null"><display/></field>
         <field name="isPosted"><display/></field>
         <field name="postedDate"><display/></field>
