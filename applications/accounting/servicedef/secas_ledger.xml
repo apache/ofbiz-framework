@@ -55,4 +55,10 @@ under the License.
         <action service="createAcctgTransForWorkEffortCost" mode="sync"/>
     </eca> 
 
+    <eca service="updateInventoryItem" event="commit">
+        <condition field-name="ownerPartyId" operator="is-not-empty"/>
+        <condition-field field-name="ownerPartyId" operator="not-equals" to-field-name="oldOwnerPartyId"/>
+        <action service="createAcctgTransForInventoryItemOwnerChange" mode="sync"/>
+    </eca>
+
 </service-eca>

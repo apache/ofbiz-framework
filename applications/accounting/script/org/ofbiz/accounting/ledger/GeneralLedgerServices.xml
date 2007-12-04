@@ -797,5 +797,76 @@ under the License.
         <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>
     </simple-method>
 
+    <!-- AcctgTrans For Inventory Item Owner Change Service -->
+    <simple-method method-name="createAcctgTransForInventoryItemOwnerChange" short-description="Create an accounting transactions for Inventory Item Owner Change (D: INVENTORY_ACCOUNT(old Owner) INVENTORY_ACCOUNT(new Owner), C: INVENTORY_XFER_IN(oldOwner) INVENTORY_XFER_OUT(new Owner))">
+        <!-- retrieve ledger rounding properties -->
+        <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
+        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+ 
+        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        
+        <!-- TODO: handle serialized inventory -->
+        <if-not-empty field-name="inventoryItem.quantityOnHandTotal">
+            <calculate field-name="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="multiply">
+                    <calcop operator="get" field-name="inventoryItem.quantityOnHandTotal"/>
+                    <calcop operator="get" field-name="inventoryItem.unitCost"/>
+                </calcop>
+            </calculate>
+        </if-not-empty>
+        <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) for old OwnerPartyId  -->
+        <!-- Credit -->
+        <make-value entity-name="AcctgTransEntry" value-name="oldPartyCreditEntry"/>
+        <set field="oldPartyCreditEntry.debitCreditFlag" value="C"/>
+        <set field="oldPartyCreditEntry.glAccountTypeId" value="INVENTORY_XFER_IN"/>
+        <set field="oldPartyCreditEntry.productId" from-field="inventoryItem.productId"/>
+        <set field="oldPartyCreditEntry.origAmount" from-field="origAmount"/>
+        <set field="oldPartyCreditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
+        <set field="oldPartyCreditEntry.organizationPartyId" from-field="parameters.oldOwnerPartyId"/>
+                
+        <!-- Debit -->
+        <make-value entity-name="AcctgTransEntry" value-name="oldPartyDebitEntry"/>
+        <set field="oldPartyDebitEntry.debitCreditFlag" value="D"/>
+        <set field="oldPartyDebitEntry.productId" from-field="inventoryItem.productId"/>
+        <set field="oldPartyDebitEntry.origAmount" from-field="origAmount"/>
+        <set field="oldPartyDebitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
+        <set field="oldPartyDebitEntry.organizationPartyId" from-field="parameters.oldOwnerPartyId"/>
+        <set field="oldPartyDebitEntry.glAccountTypeId" value="INVENTORY_ACCOUNT"/>
+        <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) for New ownerPartyId -->
+        <!-- Credit -->
+        <make-value entity-name="AcctgTransEntry" value-name="newPartyCreditEntry"/>
+        <set field="newPartyCreditEntry.debitCreditFlag" value="C"/>
+        <set field="newPartyCreditEntry.glAccountTypeId" value="INVENTORY_XFER_IN"/>
+        <set field="newPartyCreditEntry.productId" from-field="inventoryItem.productId"/>
+        <set field="newPartyCreditEntry.origAmount" from-field="origAmount"/>
+        <set field="newPartyCreditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
+        <set field="newPartyCreditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+                
+        <!-- Debit -->
+        <make-value entity-name="AcctgTransEntry" value-name="newPartyDebitEntry"/>
+        <set field="newPartyDebitEntry.debitCreditFlag" value="D"/>
+        <set field="newPartyDebitEntry.productId" from-field="inventoryItem.productId"/>
+        <set field="newPartyDebitEntry.origAmount" from-field="origAmount"/>
+        <set field="newPartyDebitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
+        <set field="newPartyDebitEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <set field="newPartyDebitEntry.glAccountTypeId" value="INVENTORY_ACCOUNT"/>
+
+        <set field="acctgTransEntries[]" from-field="oldPartyCreditEntry" type="Object"/>
+        <set field="acctgTransEntries[]" from-field="oldPartyDebitEntry" type="Object"/>
+        <set field="acctgTransEntries[]" from-field="newPartyCreditEntry" type="Object"/>
+        <set field="acctgTransEntries[]" from-field="newPartyDebitEntry" type="Object"/>
+        
+        <!-- Set header fields (AcctgTrans) -->
+        
+        <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INVENTORY"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
+        <set field="createAcctgTransAndEntriesInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
+        <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
+        <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
+            <result-to-field result-name="acctgTransId"/>
+        </call-service>
+        <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>
+    </simple-method>
 
 </simple-methods>
