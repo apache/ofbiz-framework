@@ -613,5 +613,36 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-   
+    
+    <form name="ListCreditCardTypeGlAccounts" type="list" target="updateCreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts">
+        <auto-fields-service service-name="updateCreditCardTypeGlAccount" default-field-type="display"/> 
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}"> 
+            <drop-down allow-empty="false">
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            </drop-down>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteCreditCardTypeGlAccount?organizationPartyId=${organizationPartyId}&amp;cardType=${cardType}" description="${uiLabelMap.CommonRemove}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field> 
+    </form>
+    
+    <form name="AddCreditCardTypeGlAccount" type="single" target="createCreditCardTypeGlAccount">
+        <field name="organizationPartyId"><hidden/></field> 
+        <field name="cardType">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Enumeration" description="${enumCode}" key-field-name="enumId"> 
+                    <entity-constraint name="enumTypeId" operator="equals" value="CREDIT_CARD_TYPE"/>
+                    <entity-order-by field-name="enumId"/> 
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
+            <drop-down allow-empty="false">
+               <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
 </forms>

@@ -477,4 +477,38 @@ under the License.
             </widgets>    
         </section>
     </screen>
+    
+    <screen name="EditCreditCardTypeGlAccounts">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="CreditCardTypeGlAccounts"/>
+                <set field="tabButtonItem" value="GlAccountAssignment"/>
+                <set field="tabButtonItem2" value="CreditCardTypeGlAccount"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.CreditCardTypeGlAccount}"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <entity-condition entity-name="CreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts">
+                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                </entity-condition>
+                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
+                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                    <order-by field-name="accountCode"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <include-form name="ListCreditCardTypeGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container>
+                                <label style="head2">${uiLabelMap.ProductAddCategoryGlAccount}</label>
+                            </container>
+                            <include-form name="AddCreditCardTypeGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>

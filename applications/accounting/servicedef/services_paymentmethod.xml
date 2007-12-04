@@ -678,4 +678,24 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
         <attribute name="mode" type="String" mode="IN" optional="false"/>
     </service>
+
+    <!-- CreditCardTypeGlAccount Services -->
+    <service name="createCreditCardTypeGlAccount" default-entity-name="CreditCardTypeGlAccount" engine="simple"
+                location="org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="createCreditCardTypeGlAccount" auth="true">
+        <description>create a Credit Card Gl Account</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+    <service name="updateCreditCardTypeGlAccount" default-entity-name="CreditCardTypeGlAccount" engine="simple"
+                location="org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="updateCreditCardTypeGlAccount" auth="true">
+        <description>Update a Credit Card Gl Account </description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteCreditCardTypeGlAccount" default-entity-name="CreditCardTypeGlAccount" engine="simple"
+                location="org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="deleteCreditCardTypeGlAccount" auth="true">
+        <description>delete a Credit Card Gl Account</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
 </services>

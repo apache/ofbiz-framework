@@ -101,4 +101,22 @@ under the License.
             <call-service service-name="updateEftAccount" in-map-name="ueaMap" break-on-error="false"/>
         </iterate>
     </simple-method>
+    <!--CreateCreditCardTypeGlAccount methods -->
+    <simple-method method-name="createCreditCardTypeGlAccount" short-description="Create a Credit Card Gl Account">
+        <make-value entity-name="CreditCardTypeGlAccount" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateCreditCardTypeGlAccount" short-description="Update a Credit Card Gl Account">
+        <entity-one entity-name="CreditCardTypeGlAccount" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteCreditCardTypeGlAccount" short-description="Delete a Credit Card Gl Account">
+        <entity-one entity-name="CreditCardTypeGlAccount" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>
