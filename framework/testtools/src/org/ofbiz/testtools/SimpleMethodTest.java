@@ -20,6 +20,7 @@ package org.ofbiz.testtools;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import junit.framework.AssertionFailedError;
@@ -61,7 +62,7 @@ public class SimpleMethodTest extends TestCaseBase {
         try {
 
             Map serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, dispatcher.getDispatchContext(), 
-                    UtilMisc.toMap("test", this, "testResult", result));
+                    UtilMisc.toMap("test", this, "testResult", result, "locale", Locale.getDefault()));
 
             // do something with the errorMessage
             String errorMessage = (String) serviceResult.get(ModelService.ERROR_MESSAGE);
