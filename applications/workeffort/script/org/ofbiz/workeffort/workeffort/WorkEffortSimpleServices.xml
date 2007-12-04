@@ -1151,4 +1151,13 @@ under the License.
         <entity-one entity-name="WorkEffortSkillStandard" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    <simple-method method-name="createWorkEffortInventoryProduced" short-description="Create Work Effort InventoryProduced">
+        <make-value entity-name="WorkEffortInventoryProduced" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deleteWorkEffortInventoryProduced" short-description="Delete Work Effort InventoryProduced">
+        <entity-one entity-name="WorkEffortInventoryProduced" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>  
+    </simple-method>
 </simple-methods>
