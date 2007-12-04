@@ -868,5 +868,63 @@ under the License.
         </call-service>
         <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>
     </simple-method>
-
+    <!--automatic GL posting service triggered when inventory is issued to a work effort-->
+  
+    <simple-method method-name="createAcctgTransForWorkEffortIssuance" short-description="Create an accounting transaction for inventory that is issued to a work effort (Type: INVENTORY D: RAWMAT_INVENTORY, C: WIP_INVENTORY)">
+        <!-- retrieve ledger rounding properties -->
+        <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
+        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+        <entity-one entity-name="WorkEffort" value-name="workEffort">
+            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+        </entity-one>
+        <if-compare field-name="workEffort.workEffortTypeId" operator="equals" value="PROD_ORDER_TASK">
+            <if-not-empty field-name="workEffort.workEffortParentId">
+                <entity-and entity-name="WorkEffortGoodStandard" list-name="workEffortGoodStandards">
+                    <field-map field-name="workEffortId" env-name="workEffort.workEffortParentId"/>
+                    <field-map field-name="workEffortGoodStdTypeId" value="PRUN_PROD_DELIV"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-and>
+               <first-from-list list-name="workEffortGoodStandards" entry-name="workEffortGoodStandard"/>
+            </if-not-empty>
+        </if-compare>
+        <entity-one entity-name="WorkEffortInventoryAssign" value-name="workEffortInventoryAssign">
+            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+            <field-map field-name="inventoryItemId" env-name="parameters.inventoryItemId"/>
+        </entity-one>        
+        <get-related-one value-name="workEffortInventoryAssign" relation-name="InventoryItem" to-value-name="inventoryItem"/>
+        <!-- TODO: handle serialized inventory -->
+        <calculate field-name="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calcop operator="multiply">
+                <calcop operator="get" field-name="workEffortInventoryAssign.quantity"/>
+                <calcop operator="get" field-name="inventoryItem.unitCost"/>
+            </calcop>
+        </calculate>
+        <!--Credit -->
+        <make-value entity-name="AcctgTransEntry" value-name="creditEntry"/>
+        <set field="creditEntry.debitCreditFlag" value="C"/>
+        <set field="creditEntry.glAccountTypeId" value="WIP_INVENTORY"/>
+        <set field="creditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <set field="creditEntry.productId" from-field="workEffortGoodStandard.productId"/>
+        <set field="creditEntry.origAmount" from-field="origAmount"/>
+        <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>        
+        <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+        <!-- Debit -->
+        <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
+        <set field="debitEntry.debitCreditFlag" value="D"/>
+        <set field="debitEntry.glAccountTypeId" value="RAWMAT_INVENTORY"/>
+        <set field="debitEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <set field="debitEntry.productId" from-field="inventoryItem.productId"/>
+        <set field="debitEntry.origAmount" from-field="origAmount"/>
+        <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>        
+        <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+        <!-- Set header fields (AcctgTrans) -->
+        <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INVENTORY"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
+        <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
+            <result-to-field result-name="acctgTransId"/>
+        </call-service>
+        <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>        
+    </simple-method>
 </simple-methods>
