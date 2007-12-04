@@ -1546,8 +1546,6 @@ public class ProductionRunServices {
                     Map resultService = dispatcher.runSync("createInventoryItem", serviceContext);
                     String inventoryItemId = (String)resultService.get("inventoryItemId");
                     inventoryItemIds.add(inventoryItemId);
-                    GenericValue inventoryProduced = delegator.makeValue("WorkEffortInventoryProduced", UtilMisc.toMap("workEffortId", productionRunId , "inventoryItemId", inventoryItemId));
-                    inventoryProduced.create();
                     serviceContext.clear();
                     serviceContext.put("inventoryItemId", inventoryItemId);
                     serviceContext.put("workEffortId", productionRunId);
@@ -1555,6 +1553,10 @@ public class ProductionRunServices {
                     serviceContext.put("quantityOnHandDiff", new Double(1));
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
+                    serviceContext.clear();
+                    serviceContext.put("workEffortId", productionRunId);
+                    serviceContext.put("inventoryItemId", inventoryItemId);
+                    resultService = dispatcher.runSync("createWorkEffortInventoryProduced", serviceContext);
                     // Recompute reservations
                     serviceContext = new HashMap();
                     serviceContext.put("inventoryItemId", inventoryItemId);
@@ -1579,8 +1581,6 @@ public class ProductionRunServices {
                 Map resultService = dispatcher.runSync("createInventoryItem", serviceContext);
                 String inventoryItemId = (String)resultService.get("inventoryItemId");
                 inventoryItemIds.add(inventoryItemId);
-                GenericValue inventoryProduced = delegator.makeValue("WorkEffortInventoryProduced", UtilMisc.toMap("workEffortId", productionRunId , "inventoryItemId", inventoryItemId));
-                inventoryProduced.create();
                 serviceContext.clear();
                 serviceContext.put("inventoryItemId", inventoryItemId);
                 serviceContext.put("workEffortId", productionRunId);
@@ -1588,6 +1588,10 @@ public class ProductionRunServices {
                 serviceContext.put("quantityOnHandDiff", quantity);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
+                serviceContext.clear();
+                serviceContext.put("workEffortId", productionRunId);
+                serviceContext.put("inventoryItemId", inventoryItemId);
+                resultService = dispatcher.runSync("createWorkEffortInventoryProduced", serviceContext);
                 // Recompute reservations
                 serviceContext = new HashMap();
                 serviceContext.put("inventoryItemId", inventoryItemId);
@@ -1665,8 +1669,6 @@ public class ProductionRunServices {
                     serviceContext.put("userLogin", userLogin);
                     Map resultService = dispatcher.runSync("createInventoryItem", serviceContext);
                     String inventoryItemId = (String)resultService.get("inventoryItemId");
-                    GenericValue inventoryProduced = delegator.makeValue("WorkEffortInventoryProduced", UtilMisc.toMap("workEffortId", productionRunTaskId , "inventoryItemId", inventoryItemId));
-                    inventoryProduced.create();
                     serviceContext.clear();
                     serviceContext.put("inventoryItemId", inventoryItemId);
                     serviceContext.put("workEffortId", productionRunTaskId);
@@ -1674,6 +1676,10 @@ public class ProductionRunServices {
                     serviceContext.put("quantityOnHandDiff", new Double(1));
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
+                    serviceContext.clear();
+                    serviceContext.put("workEffortId", productionRunTaskId);
+                    serviceContext.put("inventoryItemId", inventoryItemId);
+                    resultService = dispatcher.runSync("createWorkEffortInventoryProduced", serviceContext);
                     inventoryItemIds.add(inventoryItemId);
                     // Recompute reservations
                     serviceContext = new HashMap();
@@ -1699,9 +1705,6 @@ public class ProductionRunServices {
                 Map resultService = dispatcher.runSync("createInventoryItem", serviceContext);
                 String inventoryItemId = (String)resultService.get("inventoryItemId");
                 
-                GenericValue inventoryProduced = delegator.makeValue("WorkEffortInventoryProduced", UtilMisc.toMap("workEffortId", productionRunTaskId , "inventoryItemId", inventoryItemId));
-                inventoryProduced.create();
-                
                 serviceContext.clear();
                 serviceContext.put("inventoryItemId", inventoryItemId);
                 serviceContext.put("workEffortId", productionRunTaskId);
@@ -1709,6 +1712,10 @@ public class ProductionRunServices {
                 serviceContext.put("quantityOnHandDiff", quantity);
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
+                serviceContext.clear();
+                serviceContext.put("workEffortId", productionRunTaskId);
+                serviceContext.put("inventoryItemId", inventoryItemId);
+                resultService = dispatcher.runSync("createWorkEffortInventoryProduced", serviceContext);
                 inventoryItemIds.add(inventoryItemId);
                 // Recompute reservations
                 serviceContext = new HashMap();
