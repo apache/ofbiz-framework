@@ -186,5 +186,14 @@ under the License.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="createATPRequirementsForOrder" engine="java"
+            location="org.ofbiz.order.requirement.RequirementServices" invoke="createATPRequirementsForOrder" auth="true">
+        <description>
+            Creates requirements for any products with requirementMethodEnumId PRODRQM_ATP in the given sales order when
+            the ATP falls below or is below the minimum stock for the order facility.  ProductFacility.minimumStock must
+            be configured for requirements to be generated.  ProductFacility.reorderQuantity is not currently supported.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>
 
