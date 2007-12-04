@@ -60,5 +60,9 @@ under the License.
         <condition-field field-name="ownerPartyId" operator="not-equals" to-field-name="oldOwnerPartyId"/>
         <action service="createAcctgTransForInventoryItemOwnerChange" mode="sync"/>
     </eca>
+    
+    <eca service="assignInventoryToWorkEffort" event="commit">
+        <action service="createAcctgTransForWorkEffortIssuance" mode="sync"/>
+    </eca>
 
 </service-eca>
