@@ -24,6 +24,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
 import org.ofbiz.base.util.UtilMisc;
 
 import java.util.Map;
@@ -37,8 +38,6 @@ public class FinAccountTests extends TestCase {
 
     protected LocalDispatcher dispatcher = null;
     protected GenericValue userLogin = null;
-    protected String finAccountId = null;
-    protected double balance = 0.00;
 
     public FinAccountTests(String name) {
         super(name);
@@ -55,32 +54,32 @@ public class FinAccountTests extends TestCase {
 
     public void testCreateFinAccount() throws Exception {
         Map ctx = FastMap.newInstance();
+        ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("finAccountName", "Test Financial Account");
-        ctx.put("finAccountTypeId", "BALANCE_ACCOUNT");
+        ctx.put("finAccountTypeId", "BANK_ACCOUNT");
         ctx.put("userLogin", userLogin);
         Map resp = dispatcher.runSync("createFinAccount", ctx);
-        finAccountId = (String) resp.get("finAccountId");
-        assertNotNull(finAccountId);
+        assertEquals("Service result success", ModelService.RESPOND_SUCCESS, resp.get(ModelService.RESPONSE_MESSAGE));        
     }
 
     public void testDeposit() throws Exception {
         Map ctx = FastMap.newInstance();
-        ctx.put("finAccountId", finAccountId);
+        ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("amount", new Double(100.00));
         ctx.put("userLogin", userLogin);
         Map resp = dispatcher.runSync("finAccountDeposit", ctx);
-        balance = ((Double) resp.get("balance")).doubleValue();
+        Double balance = ((Double) resp.get("balance")).doubleValue();
         assertEquals(balance, 100.00, 0.0);
     }
 
     public void testWithdraw() throws Exception {
         Map ctx = FastMap.newInstance();
-        ctx.put("finAccountId", finAccountId);
+        ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("amount", new Double(50.00));
         ctx.put("userLogin", userLogin);
         Map resp = dispatcher.runSync("finAccountWithdraw", ctx);
         Double previousBalance = (Double) resp.get("previousBalance");
-        balance = ((Double) resp.get("balance")).doubleValue();
+        Double balance = ((Double) resp.get("balance")).doubleValue();
         assertEquals((balance + 50.00), previousBalance.doubleValue(), 0.0);
     }
 }
