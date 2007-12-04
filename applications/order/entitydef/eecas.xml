@@ -41,6 +41,7 @@ under the License.
 
     <eca entity="OrderPaymentPreference" operation="create-store" event="return">
         <condition field-name="orderPaymentPreferenceId" operator="is-not-empty"/>
+        <condition field-name="statusId" operator="is-not-empty"/>
         <action service="changeOrderPaymentStatus" mode="sync"/>
     </eca>
 </entity-eca>
