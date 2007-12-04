@@ -181,6 +181,14 @@ under the License.
     </service>
 
     <!-- Payment Auth/Capture Services -->
+    <service name="manualForcedCcAuthTransaction" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processManualCcAuth" auth="true">
+        <description>Direct link to payment processors to force manual CC authorizations; not logged in system</description>
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="false"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="securityCode" type="String" mode="IN" optional="true"/>
+        <attribute name="amount" type="Double" mode="IN" optional="false"/>
+    </service>
     <service name="manualForcedCcTransaction" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processManualCcTx" auth="true">
         <description>Direct link to payment processors to force manual transactions; not logged in system</description>
