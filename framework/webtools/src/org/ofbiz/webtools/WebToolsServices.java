@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.TreeSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.io.File;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -50,6 +51,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilProperties.XmlResourceBundle;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilDateTime;
@@ -67,6 +69,7 @@ import org.ofbiz.entity.model.ModelFieldType;
 import org.ofbiz.entity.model.ModelIndex;
 import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -605,18 +608,19 @@ public class WebToolsServices {
      * */
     public static Map getEntityRefData(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
-        Map resultMap = ServiceUtil.returnSuccess();
+        Locale locale = (Locale) context.get("locale");
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        Map<String, Object> resultMap = ServiceUtil.returnSuccess();
         
         ModelReader reader = delegator.getModelReader();
-        Map packages = new HashMap();
-        TreeSet packageNames = new TreeSet();
-        TreeSet tableNames = new TreeSet();
+        Map<String, Object> packages = new HashMap<String, Object>();
+        TreeSet<String> packageNames = new TreeSet<String>();
+        TreeSet<String> tableNames = new TreeSet<String>();
         
         //put the entityNames TreeSets in a HashMap by packageName
         try {
             Collection ec = reader.getEntityNames();
             resultMap.put("numberOfEntities", ec.size());
-            TreeSet entityNames = new TreeSet(ec);
             Iterator ecIter = ec.iterator();
             while (ecIter.hasNext()) {
                 String eName = (String) ecIter.next();
@@ -625,9 +629,9 @@ public class WebToolsServices {
                 if (UtilValidate.isNotEmpty(ent.getPlainTableName())) {
                     tableNames.add(ent.getPlainTableName());
                 }
-                TreeSet entities = (TreeSet) packages.get(ent.getPackageName());
+                TreeSet<String> entities = (TreeSet) packages.get(ent.getPackageName());
                 if (entities == null) {
-                    entities = new TreeSet();
+                    entities = new TreeSet<String>();
                     packages.put(ent.getPackageName(), entities);
                     packageNames.add(ent.getPackageName());
                 }
@@ -638,35 +642,59 @@ public class WebToolsServices {
         }
         
         String search = (String) context.get("search");
-        List packagesList = new ArrayList();
+        List<Map<String, Object>> packagesList = new ArrayList<Map<String, Object>>();
         Iterator piter = packageNames.iterator();
         try {
             while (piter.hasNext()) {
-                Map packageMap = new HashMap();
+                Map<String, Object> packageMap = new HashMap<String, Object>();
                 String pName = (String) piter.next();
                 TreeSet entities = (TreeSet) packages.get(pName);
-                List entitiesList = new ArrayList();
-                Iterator i = entities.iterator();
-                while (i.hasNext()) {
-                    Map entityMap = new HashMap();
-                    String entityName = (String) i.next();
+                List<Map<String, Object>> entitiesList = new ArrayList<Map<String, Object>>();
+                Iterator e = entities.iterator();
+                while (e.hasNext()) {
+                    Map<String, Object> entityMap = new HashMap<String, Object>();
+                    String entityName = (String) e.next();
                     String helperName = delegator.getEntityHelperName(entityName);
                     String groupName = delegator.getEntityGroupName(entityName);
                     if (search == null || entityName.toLowerCase().indexOf(search.toLowerCase()) != -1) {
                         ModelEntity entity = reader.getModelEntity(entityName);
+                        ResourceBundle bundle = null;
+                        if (UtilValidate.isNotEmpty(entity.getDefaultResourceName())) {
+                            try {
+                                bundle = XmlResourceBundle.getBundle(entity.getDefaultResourceName(), locale, loader);
+                            } catch (Exception exception) {
+                                Debug.logInfo(exception.getMessage(), module);
+                            }
+                        }
 
                         // fields list
-                        List javaNameList = new ArrayList();
-                        TreeSet ufields = new TreeSet();
-                        for (int y = 0; y < entity.getFieldsSize(); y++) {
-                            Map javaNameMap = new HashMap();
-                            ModelField field = entity.getField(y);
+                        List<Map<String, Object>> javaNameList = new ArrayList<Map<String, Object>>();
+                        for (Iterator f = entity.getFieldsIterator(); f.hasNext();) {
+                            Map<String, Object> javaNameMap = new HashMap<String, Object>();
+                            ModelField field = (ModelField) f.next();
                             ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
-                            String javaName = null;
                             javaNameMap.put("isPk", field.getIsPk());
                             javaNameMap.put("name", field.getName());
                             javaNameMap.put("colName", field.getColName());
-                            javaNameMap.put("description", field.getDescription());
+                            String fieldDescription = null;
+                            if (bundle != null) {
+                                try {
+                                fieldDescription = bundle.getString("FieldDescription." + entity.getEntityName() + "." + field.getName());
+                                } catch (Exception exception) {}
+                            }
+                            if (UtilValidate.isEmpty(fieldDescription)) {
+                                fieldDescription = field.getDescription();
+                            }
+                            if (UtilValidate.isEmpty(fieldDescription) && bundle != null) {
+                                try {
+                                fieldDescription = bundle.getString("FieldDescription." + field.getName());
+                                } catch (Exception exception) {}
+                            }
+                            if (UtilValidate.isEmpty(fieldDescription)) {
+                                fieldDescription = ModelUtil.javaNameToDbName(field.getName()).toLowerCase();
+                                fieldDescription = ModelUtil.upperFirstChar(fieldDescription.replace('_', ' '));
+                            }
+                            javaNameMap.put("description", fieldDescription);
                             javaNameMap.put("type", (field.getType()) != null ? field.getType() : null);
                             javaNameMap.put("javaType", (field.getType() != null && type != null) ? type.getJavaType() : "Undefined");
                             javaNameMap.put("sqlType", (type != null && type.getSqlType() != null) ? type.getSqlType() : "Undefined");
@@ -674,13 +702,13 @@ public class WebToolsServices {
                         }
 
                         // relations list
-                        List relationsList = new ArrayList();
+                        List<Map<String, Object>> relationsList = new ArrayList<Map<String, Object>>();
                         for (int r = 0; r < entity.getRelationsSize(); r++) {
-                            Map relationMap = new HashMap();
+                            Map<String, Object> relationMap = new HashMap<String, Object>();
                             ModelRelation relation = entity.getRelation(r);
-                            List keysList = new ArrayList();
+                            List<Map<String, Object>> keysList = new ArrayList<Map<String, Object>>();
                             for (int km = 0; km < relation.getKeyMapsSize(); km++) {
-                                Map keysMap = new HashMap();
+                                Map<String, Object> keysMap = new HashMap<String, Object>();
                                 ModelKeyMap keyMap = relation.getKeyMap(km);
                                 String fieldName = null;
                                 String relFieldName = null;
@@ -707,16 +735,16 @@ public class WebToolsServices {
                         }
 
                         // index list
-                        List indexList = new ArrayList();
+                        List<Map<String, Object>> indexList = new ArrayList<Map<String, Object>>();
                         for (int r = 0; r < entity.getIndexesSize(); r++) {
-                            List fieldNameList = new ArrayList();
+                            List<String> fieldNameList = new ArrayList<String>();
                             
                             ModelIndex index = entity.getIndex(r);
                             for (Iterator fieldIterator = index.getIndexFieldsIterator(); fieldIterator.hasNext();) {
                                 fieldNameList.add((String) fieldIterator.next());
                             }
                             
-                            Map indexMap = new HashMap();
+                            Map<String, Object> indexMap = new HashMap<String, Object>();
                             indexMap.put("name", index.getName());
                             indexMap.put("description", index.getDescription());
                             indexMap.put("fieldNameList", fieldNameList);
