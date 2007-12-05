@@ -141,4 +141,16 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
 		<attribute name="itemIndex" type="String" mode="OUT" optional="true"/>
     </service>
+
+    <service name="resetShipGroupItems" engine="java" auth="false"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="resetShipGroupItems">
+        <description>Reset the ship Groups in the cart and put the items in default group</description>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="prepareVendorShipGroups" engine="java" auth="false"
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="prepareVendorShipGroups">
+        <description>Split the default shipgroup to individual shipgroups that are unique to a vendor</description>
+        <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+    </service>
 </services>

@@ -30,6 +30,7 @@ import java.sql.Timestamp;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -41,8 +42,10 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
@@ -833,6 +836,81 @@ public class ShoppingCartServices {
                 result.put("itemIndex", String.valueOf(itemIndex));
             }
         }
+        return result;
+    }
+    
+    public static Map resetShipGroupItems(DispatchContext dctx, Map context) {
+        Map result = ServiceUtil.returnSuccess();
+        ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
+        Iterator sciIter = cart.iterator();
+        while (sciIter.hasNext()) {
+            ShoppingCartItem item = (ShoppingCartItem) sciIter.next();
+            cart.clearItemShipInfo(item);
+            cart.setItemShipGroupQty(item, item.getQuantity(), 0);
+        }
+        return result;
+    }
+    
+    public static Map prepareVendorShipGroups(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+        ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
+        Map result = ServiceUtil.returnSuccess();
+        try {
+            Map resp = dispatcher.runSync("resetShipGroupItems", context);
+            if (ServiceUtil.isError(resp)) {
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e.toString(), module);
+            return ServiceUtil.returnError(e.toString());
+        }
+        Map vendorMap = FastMap.newInstance();
+        Iterator sciIter = cart.iterator();
+        while (sciIter.hasNext()) {
+            ShoppingCartItem item = (ShoppingCartItem) sciIter.next();
+            GenericValue vendorProduct = null;
+            String productId = item.getParentProductId();
+            if (productId == null) {
+                productId = item.getProductId();
+            }
+            int index = 0;
+            try {
+                vendorProduct = EntityUtil.getFirst(delegator.findByAnd("VendorProduct", UtilMisc.toMap("productId", productId, "productStoreGroupId", "_NA_")));
+            } catch (GenericEntityException e) {
+                Debug.logError(e.toString(), module);
+            }
+            
+            if (UtilValidate.isEmpty(vendorProduct)) {
+                if (vendorMap.containsKey("_NA_")) {
+                    index = ((Integer) vendorMap.get("_NA_")).intValue();
+                    cart.positionItemToGroup(item, item.getQuantity(), 0, index, true);
+                } else {
+                    index = cart.addShipInfo();
+                    vendorMap.put("_NA_", index);
+                    
+                    ShoppingCart.CartShipInfo info = cart.getShipInfo(index);
+                    info.setVendorPartyId("_NA_");
+                    info.setShipGroupSeqId(UtilFormatOut.formatPaddedNumber(index, 5));
+                    cart.positionItemToGroup(item, item.getQuantity(), 0, index, true);
+                }
+            }
+            if (UtilValidate.isNotEmpty(vendorProduct)) {
+                String vendorPartyId = vendorProduct.getString("vendorPartyId");
+                if (vendorMap.containsKey(vendorPartyId)) {
+                    index = ((Integer) vendorMap.get(vendorPartyId)).intValue();
+                    cart.positionItemToGroup(item, item.getQuantity(), 0, index, true);
+                } else {
+                    index = cart.addShipInfo();
+                    vendorMap.put(vendorPartyId, index);
+                    
+                    ShoppingCart.CartShipInfo info = cart.getShipInfo(index);
+                    info.setVendorPartyId(vendorPartyId);
+                    info.setShipGroupSeqId(UtilFormatOut.formatPaddedNumber(index, 5));
+                    cart.positionItemToGroup(item, item.getQuantity(), 0, index, true);
+                }
+            }
+        }        
         return result;
     }
 }
