@@ -157,18 +157,5 @@ under the License.
         <condition field-name="productTypeId" operator="equals" value="ASSET_USAGE"/>
         <action service="createFixedAssetAndLinkToProduct" mode="sync"/>
     </eca>
-    
-    <!--creating inventory item detail when unitCost is not empty and recieptId is  empty-->
-    <eca service="createInventoryItemDetail" event="commit">
-        <condition field-name="unitCost" operator="is-not-empty"/>        
-        <condition field-name="receiptId" operator="is-empty"/>
-        <action service="createAcctgTransForInventoryItemCostChange" mode="sync"/>
-    </eca>
-
-    <!-- attempt to create AcctgTrans Physical Inventory Variance when Physical InventoryAndVariance is created-->
-    <eca service="createPhysicalInventoryAndVariance" event="commit">
-        <condition field-name="physicalInventoryId" operator="is-not-empty"/>
-        <action service="createAcctgTransForPhysicalInventoryVariance" mode="sync"/>
-    </eca>
-    
+   
 </service-eca>
