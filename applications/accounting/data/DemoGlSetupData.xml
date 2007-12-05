@@ -37,6 +37,7 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="214000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="500000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="514000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="515000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="625000" fromDate="2001-01-01 00:00:00.0"/>
     
     <!-- Default mapping between account types and account ids -->
