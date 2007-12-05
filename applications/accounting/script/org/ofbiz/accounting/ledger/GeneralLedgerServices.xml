@@ -227,10 +227,23 @@ under the License.
     
     <!-- ========= GlReconciliationEntry methods ========= -->
     <simple-method method-name="createGlReconciliationEntry" short-description="Add Entry To GlReconciliation">
+        <!-- first of all, make sure that the AcctgTransEntry is not already reconciled -->
+        <entity-one entity-name="AcctgTransEntry" value-name="acctgTransEntry"/>
+        <if-compare field-name="acctgTransEntry.reconcileStatusId" operator="equals" value="AES_RECONCILED">
+            <add-error><fail-message message="The accounting transaction entry ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} is already reconciled: cannot reconcile."/></add-error>
+            <check-errors/>
+        </if-compare>
         <make-value entity-name="GlReconciliationEntry" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
+
+        <!-- update the status of the AcctgTransEntry to reconciled -->
+        <set field="updateAcctgTransEntryInMap.acctgTransId" from-field="parameters.acctgTransId"/>
+        <set field="updateAcctgTransEntryInMap.acctgTransEntrySeqId" from-field="parameters.acctgTransEntrySeqId"/>
+        <set field="updateAcctgTransEntryInMap.acctgTransEntrySeqId" value="AES_RECONCILED"/>
+        <call-service service-name="updateAcctgTransEntry" in-map-name="updateAcctgTransEntryInMap"/>
+        <check-errors/>
 
         <!-- when changing entries, also update the last modified info for the GlReconciliation -->
         <call-simple-method method-name="updateGlReconciliationLastModified"/>
