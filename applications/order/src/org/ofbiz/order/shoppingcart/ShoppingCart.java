@@ -3494,7 +3494,7 @@ public class ShoppingCart implements Serializable {
                 inf.amount = new Double(remainingAmount.doubleValue());
                 remainingAmount = BigDecimal.ZERO;
             }
-            allOpPrefs.addAll(inf.makeOrderPaymentInfos(this.getDelegator()));
+            allOpPrefs.addAll(inf.makeOrderPaymentInfos(this.getDelegator(), this));
         }
         return allOpPrefs;
     }
@@ -4065,6 +4065,7 @@ public class ShoppingCart implements Serializable {
         public double shipEstimate = 0.00;
         public Timestamp shipBeforeDate = null;
         public Timestamp shipAfterDate = null;
+        public String shipGroupSeqId = null;
 
         public String getOrderTypeId() { return orderTypeId; }
         public String getContactMechId() { return internalContactMechId; }
@@ -4075,9 +4076,11 @@ public class ShoppingCart implements Serializable {
         public String getCarrierPartyId() { return carrierPartyId; }
         public String getSupplierPartyId() { return supplierPartyId; }
         public String getShipmentMethodTypeId() { return shipmentMethodTypeId; }
+        public double getShipEstimate() { return shipEstimate; }
+        public String getShipGroupSeqId() { return shipGroupSeqId; }
 
         public List makeItemShipGroupAndAssoc(GenericDelegator delegator, ShoppingCart cart, long groupIndex) {
-            String shipGroupSeqId = UtilFormatOut.formatPaddedNumber(groupIndex, 5);
+            shipGroupSeqId = UtilFormatOut.formatPaddedNumber(groupIndex, 5);
             List values = new LinkedList();
             
             // create order contact mech for shipping address
@@ -4275,6 +4278,17 @@ public class ShoppingCart implements Serializable {
 
             return taxTotal.doubleValue();
         }
+        
+        public double getTotal() {
+            BigDecimal shipItemTotal = ZERO;
+            Iterator iter = shipItemInfo.values().iterator();
+            while (iter.hasNext()) {
+                CartShipItemInfo info = (CartShipItemInfo) iter.next();
+                shipItemTotal = shipItemTotal.add(new BigDecimal(info.getItemSubTotal()));
+            }
+
+            return shipItemTotal.doubleValue();
+        }
 
         public static class CartShipItemInfo implements Serializable {
             public List itemTaxAdj = new LinkedList();
@@ -4298,6 +4312,10 @@ public class ShoppingCart implements Serializable {
             
             public double getItemQuantity() {
                 return this.quantity;
+            }
+            
+            public double getItemSubTotal() {
+                return item.getItemSubTotal(quantity);
             }
         }
     }
@@ -4370,7 +4388,8 @@ public class ShoppingCart implements Serializable {
             return postalAddress;
         }
 
-        public List makeOrderPaymentInfos(GenericDelegator delegator) {
+        public List makeOrderPaymentInfos(GenericDelegator delegator, ShoppingCart cart) {
+            BigDecimal maxAmount = ZERO;
             GenericValue valueObj = this.getValueObject(delegator);
             List values = new LinkedList();
             if (valueObj != null) {
@@ -4393,39 +4412,93 @@ public class ShoppingCart implements Serializable {
                         values.add(orderCm);
                     }
                 }
-
-                BigDecimal amountBd = new BigDecimal(amount);
-                amountBd = amountBd.setScale(scale, rounding);
                 
-                // create the OrderPaymentPreference record
-                GenericValue opp = delegator.makeValue("OrderPaymentPreference");
-                opp.set("paymentMethodTypeId", valueObj.getString("paymentMethodTypeId"));
-                opp.set("presentFlag", isPresent ? "Y" : "N");
-                opp.set("overflowFlag", overflow ? "Y" : "N");
-                opp.set("paymentMethodId", paymentMethodId);
-                opp.set("finAccountId", finAccountId);
-                opp.set("billingPostalCode", postalCode);
-                opp.set("maxAmount", amountBd);
-                if (refNum != null) {
-                    opp.set("manualRefNum", refNum[0]);
-                    opp.set("manualAuthCode", refNum[1]);
+                GenericValue productStore = null;
+                try {
+                    productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", cart.getProductStoreId()));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e.toString(), module);
                 }
-                if (securityCode != null) {
-                    opp.set("securityCode", securityCode);
+                String splitPayPrefPerShpGrp = productStore.getString("splitPayPrefPerShpGrp");
+                if (splitPayPrefPerShpGrp == null) {
+                    splitPayPrefPerShpGrp = "N";
                 }
-                if (paymentMethodId != null || "FIN_ACCOUNT".equals(paymentMethodTypeId)) {
-                    opp.set("statusId", "PAYMENT_NOT_AUTH");
-                } else if (paymentMethodTypeId != null) {
-                    // external payment method types require notification when received
-                    // internal payment method types are assumed to be in-hand
-                    if (paymentMethodTypeId.startsWith("EXT_")) {
-                        opp.set("statusId", "PAYMENT_NOT_RECEIVED");
-                    } else {
-                        opp.set("statusId", "PAYMENT_RECEIVED");
+                if ("Y".equals(splitPayPrefPerShpGrp) && cart.paymentInfo.size() > 1) {
+                    throw new GeneralRuntimeException("Split Payment Preference per Ship Group does not yet support multiple Payment Methods");
+                }
+                if ("Y".equals(splitPayPrefPerShpGrp)  && cart.paymentInfo.size() == 1) {
+                    Iterator shipIter = cart.getShipGroups().iterator();
+                    while (shipIter.hasNext()) {
+                        CartShipInfo csi = (CartShipInfo) shipIter.next();
+                        maxAmount = new BigDecimal(csi.getTotal()).add(new BigDecimal(cart.getOrderOtherAdjustmentTotal() / cart.getShipGroupSize())).add(new BigDecimal(csi.getShipEstimate()));
+                        maxAmount = maxAmount.setScale(scale, rounding);
+                        
+                        // create the OrderPaymentPreference record
+                        GenericValue opp = delegator.makeValue("OrderPaymentPreference");
+                        opp.set("paymentMethodTypeId", valueObj.getString("paymentMethodTypeId"));
+                        opp.set("presentFlag", isPresent ? "Y" : "N");
+                        opp.set("overflowFlag", overflow ? "Y" : "N");
+                        opp.set("paymentMethodId", paymentMethodId);
+                        opp.set("finAccountId", finAccountId);
+                        opp.set("billingPostalCode", postalCode);
+                        opp.set("maxAmount", maxAmount);
+                        opp.set("shipGroupSeqId", csi.getShipGroupSeqId());
+                        if (refNum != null) {
+                            opp.set("manualRefNum", refNum[0]);
+                            opp.set("manualAuthCode", refNum[1]);
+                        }
+                        if (securityCode != null) {
+                            opp.set("securityCode", securityCode);
+                        }
+                        if (paymentMethodId != null || "FIN_ACCOUNT".equals(paymentMethodTypeId)) {
+                            opp.set("statusId", "PAYMENT_NOT_AUTH");
+                        } else if (paymentMethodTypeId != null) {
+                            // external payment method types require notification when received
+                            // internal payment method types are assumed to be in-hand
+                            if (paymentMethodTypeId.startsWith("EXT_")) {
+                                opp.set("statusId", "PAYMENT_NOT_RECEIVED");
+                            } else {
+                                opp.set("statusId", "PAYMENT_RECEIVED");
+                            }
+                        }
+                        Debug.log("ShipGroup [" + csi.getShipGroupSeqId() +"]", module);
+                        Debug.log("Creating OrderPaymentPreference - " + opp, module);
+                        values.add(opp);
                     }
+                } else if ("N".equals(splitPayPrefPerShpGrp)) {
+                    maxAmount.add(new BigDecimal(amount));
+                    maxAmount = maxAmount.setScale(scale, rounding);
+                    
+                    // create the OrderPaymentPreference record
+                    GenericValue opp = delegator.makeValue("OrderPaymentPreference");
+                    opp.set("paymentMethodTypeId", valueObj.getString("paymentMethodTypeId"));
+                    opp.set("presentFlag", isPresent ? "Y" : "N");
+                    opp.set("overflowFlag", overflow ? "Y" : "N");
+                    opp.set("paymentMethodId", paymentMethodId);
+                    opp.set("finAccountId", finAccountId);
+                    opp.set("billingPostalCode", postalCode);
+                    opp.set("maxAmount", maxAmount);
+                    if (refNum != null) {
+                        opp.set("manualRefNum", refNum[0]);
+                        opp.set("manualAuthCode", refNum[1]);
+                    }
+                    if (securityCode != null) {
+                        opp.set("securityCode", securityCode);
+                    }
+                    if (paymentMethodId != null || "FIN_ACCOUNT".equals(paymentMethodTypeId)) {
+                        opp.set("statusId", "PAYMENT_NOT_AUTH");
+                    } else if (paymentMethodTypeId != null) {
+                        // external payment method types require notification when received
+                        // internal payment method types are assumed to be in-hand
+                        if (paymentMethodTypeId.startsWith("EXT_")) {
+                            opp.set("statusId", "PAYMENT_NOT_RECEIVED");
+                        } else {
+                            opp.set("statusId", "PAYMENT_RECEIVED");
+                        }
+                    }
+                    Debug.log("Creating OrderPaymentPreference - " + opp, module);
+                    values.add(opp);
                 }
-                Debug.log("Creating OrderPaymentPreference - " + opp, module);
-                values.add(opp);
             }
 
             return values;
