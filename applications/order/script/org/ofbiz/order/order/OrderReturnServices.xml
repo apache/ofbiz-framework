@@ -769,7 +769,7 @@ under the License.
 
             <set from-field="returnId" field="balanceItemCtx.returnId"/>
             <set field="balanceItemCtx.returnItemSeqId" value="_NA_"/>
-            <set from-field="availableReturnTotal" field="balanceItemCtx.amount" />
+            <set from-field="availableReturnTotal" field="balanceItemCtx.amount" type="Double"/>
             <log level="warning" message="Creating a balance adjustment of [${availableReturnTotal}] for return [${returnId}]"/>
 
             <!-- create the balance adjustment return item -->
