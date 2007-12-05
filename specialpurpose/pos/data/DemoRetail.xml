@@ -70,7 +70,7 @@
 
     <ProductStoreCatalog productStoreId="9100" prodCatalogId="DemoCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
 
-    <Facility facilityId="MyRetailStore" productStoreId="9100" />
+    <Facility facilityId="MyRetailStore" productStoreId="9100" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM"/>
 
     <!-- Use these SKUs in the POS terminal -->
     <GoodIdentification goodIdentificationTypeId="SKU" productId="GZ-1000" idValue="12345" lastUpdatedStamp="2005-07-12 06:31:15.251" lastUpdatedTxStamp="2005-07-12 06:31:14.897" createdStamp="2005-07-12 06:31:15.251" createdTxStamp="2005-07-12 06:31:14.897"/>
