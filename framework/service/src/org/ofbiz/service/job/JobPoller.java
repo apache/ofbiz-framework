@@ -167,8 +167,12 @@ public class JobPoller implements Runnable {
      */
     public Job next() {
         if (run.size() > 0) {
+        	// NOTE: this syncrhonized isn't really necessary as the only method that calls it is already synchronized (the JobInvoker.run method), so this is here as an added protection especially for the case where it might be used differently in the future
         	synchronized (run) {
-        		return run.remove(0);
+        		// make sure the size is still greater than zero
+                if (run.size() > 0) {
+                	return run.remove(0);
+                }
         	}
         }
         return null;
