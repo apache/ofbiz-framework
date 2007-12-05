@@ -1554,6 +1554,7 @@ public class ProductionRunServices {
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
                     serviceContext.clear();
+                    serviceContext.put("userLogin", userLogin);
                     serviceContext.put("workEffortId", productionRunId);
                     serviceContext.put("inventoryItemId", inventoryItemId);
                     resultService = dispatcher.runSync("createWorkEffortInventoryProduced", serviceContext);
@@ -1589,6 +1590,7 @@ public class ProductionRunServices {
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
                 serviceContext.clear();
+                serviceContext.put("userLogin", userLogin);
                 serviceContext.put("workEffortId", productionRunId);
                 serviceContext.put("inventoryItemId", inventoryItemId);
                 resultService = dispatcher.runSync("createWorkEffortInventoryProduced", serviceContext);
@@ -1677,6 +1679,7 @@ public class ProductionRunServices {
                     serviceContext.put("userLogin", userLogin);
                     resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
                     serviceContext.clear();
+                    serviceContext.put("userLogin", userLogin);
                     serviceContext.put("workEffortId", productionRunTaskId);
                     serviceContext.put("inventoryItemId", inventoryItemId);
                     resultService = dispatcher.runSync("createWorkEffortInventoryProduced", serviceContext);
@@ -1713,6 +1716,7 @@ public class ProductionRunServices {
                 serviceContext.put("userLogin", userLogin);
                 resultService = dispatcher.runSync("createInventoryItemDetail", serviceContext);
                 serviceContext.clear();
+                serviceContext.put("userLogin", userLogin);
                 serviceContext.put("workEffortId", productionRunTaskId);
                 serviceContext.put("inventoryItemId", inventoryItemId);
                 resultService = dispatcher.runSync("createWorkEffortInventoryProduced", serviceContext);
