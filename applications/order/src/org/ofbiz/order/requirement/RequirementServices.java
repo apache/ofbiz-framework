@@ -280,13 +280,8 @@ public class RequirementServices {
                 if (ServiceUtil.isError(results)) return results;
                 double atp = ((Double) results.get("availableToPromiseTotal")).doubleValue(); // safe since this is a required OUT param
 
-                // the minimum stock is an upper bound, therefore we either require up to the minimum stock or the input required quantity, whichever is less
-                double shortfall = minimumStock - atp;
-                double required = Math.min(ordered, shortfall);
-                if (required <= 0.0) continue;
-
                 // count all current requirements for this product
-                double requirementQty = 0.0;
+                double pendingRequirements = 0.0;
                 List conditions = UtilMisc.toList(
                         new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
                         new EntityExpr("productId", EntityOperator.EQUALS, product.get("productId")),
@@ -297,11 +292,12 @@ public class RequirementServices {
                 List requirements = delegator.findByAnd("Requirement", conditions);
                 for (Iterator riter = requirements.iterator(); riter.hasNext(); ) {
                     GenericValue requirement = (GenericValue) riter.next();
-                    requirementQty += (requirement.get("quantity") == null ? 0.0 : requirement.getDouble("quantity").doubleValue());
+                    pendingRequirements += (requirement.get("quantity") == null ? 0.0 : requirement.getDouble("quantity").doubleValue());
                 }
 
-                // if we the existing requirements are not enough, then create a new requirement for the difference
-                required -= requirementQty;
+                // the minimum stock is an upper bound, therefore we either require up to the minimum stock or the input required quantity, whichever is less
+                double shortfall = minimumStock - atp - pendingRequirements;
+                double required = Math.min(ordered, shortfall);
                 if (required <= 0.0) continue;
 
                 Map input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", new Double(required), "requirementTypeId", "PRODUCT_REQUIREMENT");
