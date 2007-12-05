@@ -4066,6 +4066,7 @@ public class ShoppingCart implements Serializable {
         public Timestamp shipBeforeDate = null;
         public Timestamp shipAfterDate = null;
         public String shipGroupSeqId = null;
+        public String vendorPartyId = null;
 
         public String getOrderTypeId() { return orderTypeId; }
         public String getContactMechId() { return internalContactMechId; }
@@ -4078,6 +4079,13 @@ public class ShoppingCart implements Serializable {
         public String getShipmentMethodTypeId() { return shipmentMethodTypeId; }
         public double getShipEstimate() { return shipEstimate; }
         public String getShipGroupSeqId() { return shipGroupSeqId; }
+        public void setShipGroupSeqId(String shipGroupSeqId) {
+            this.shipGroupSeqId = shipGroupSeqId;
+        }
+        public String getVendorPartyId() { return vendorPartyId;}
+        public void setVendorPartyId(String vendorPartyId) {
+            this.vendorPartyId = vendorPartyId;
+        }
 
         public List makeItemShipGroupAndAssoc(GenericDelegator delegator, ShoppingCart cart, long groupIndex) {
             shipGroupSeqId = UtilFormatOut.formatPaddedNumber(groupIndex, 5);
@@ -4103,6 +4111,7 @@ public class ShoppingCart implements Serializable {
             shipGroup.set("maySplit", maySplit);
             shipGroup.set("isGift", isGift);
             shipGroup.set("shipGroupSeqId", shipGroupSeqId);
+            shipGroup.set("vendorPartyId", vendorPartyId);
             
             // use the cart's default ship before and after dates here
             if ((shipBeforeDate == null) && (cart.getDefaultShipBeforeDate() != null)) {
