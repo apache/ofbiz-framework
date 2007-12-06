@@ -501,7 +501,7 @@ public class ManagerEvents {
 
                     if ("CASH".equals(pmt)) {
                         cashTotal += amt.doubleValue();
-                    } else  if ("CHECK".equals(pmt)) {
+                    } else  if ("PERSONAL_CHECK".equals(pmt)) {
                         checkTotal += amt.doubleValue();
                     } else if ("GIFT_CARD".equals(pmt)) {
                         gcTotal += amt.doubleValue();
