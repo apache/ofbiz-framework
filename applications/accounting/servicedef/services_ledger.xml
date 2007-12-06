@@ -417,4 +417,12 @@ under the License.
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
 
+    <!-- An automatic GL Acct transaction service triggered when inventory is issued for fixed asset maintenance-->
+    <service name="createAcctgTransForFixedAssetMaintIssuance" engine="simple" auth="true"
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForFixedAssetMaintIssuance">
+        <description>Create an accounting transaction for inventory that is issued for fixed asset maintenance (Type: INVENTORY D: INVENTORY_ACCOUNT, C: FIXED_ASSET_MAINT)</description>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
+    </service>
+
 </services>

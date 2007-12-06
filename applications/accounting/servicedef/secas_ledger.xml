@@ -78,4 +78,10 @@ under the License.
         <action service="createAcctgTransForPhysicalInventoryVariance" mode="sync"/>
     </eca>
 
+    <!--create the accounting transactions when Fixed AssetMaint Issuance issues Inventory for fixed asset maintenance-->
+    <eca service="createItemIssuance" event="commit">
+        <condition field-name="fixedAssetId" operator="is-not-empty"/>
+        <action service="createAcctgTransForFixedAssetMaintIssuance" mode="sync"/>
+    </eca>
+
 </service-eca>
