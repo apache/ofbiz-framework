@@ -2113,6 +2113,17 @@ public class ProductionRunServices {
         String facilityId = (String)context.get("facilityId");
         String orderId = (String)context.get("orderId");
         String orderItemSeqId = (String)context.get("orderItemSeqId");
+        
+        // Check if the order is to be immediately fulfilled, in which case the inventory
+        // hasn't been reserved and ATP not yet decreased
+        boolean isImmediatelyFulfilled = false;
+        try {
+            GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            GenericValue productStore = delegator.getRelatedOne("ProductStore", order);
+            isImmediatelyFulfilled = "Y".equals(productStore.getString("isImmediatelyFulfilled"));
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Error creating a production run for marketing package for order [" + orderId + " " + orderItemSeqId + "]: " + e.getMessage());
+        }
 
         GenericValue orderItem = null;
         try {
@@ -2135,7 +2146,11 @@ public class ProductionRunServices {
             if (tmpResults.get("availableToPromiseTotal") != null) {
                 existingAtp = ((Double) tmpResults.get("availableToPromiseTotal")).doubleValue();
             }
-
+            // if the order is immediately fulfilled, adjust the atp to compensate for it not reserved
+            if (isImmediatelyFulfilled) {
+                existingAtp -= orderItem.getDouble("quantity");
+            }
+            
             if (Debug.verboseOn()) { Debug.logVerbose("Order item [" + orderItem + "] Existing ATP = [" + existingAtp + "]", module); } 
             // we only need to produce more marketing packages if there isn't enough in stock.
             if (existingAtp < 0.0) {
