@@ -1596,6 +1596,7 @@ under the License.
     <request-map uri="FinancialSummaryReportOptions"><security https="true" auth="true"/><response name="success" type="view" value="FinancialSummaryReportOptions"/></request-map>
     <request-map uri="SalesInvoiceByProductCategorySummary"><security https="true" auth="true"/><response name="success" type="view" value="SalesInvoiceByProductCategorySummary"/></request-map>
     <request-map uri="TrialBalance"><security https="true" auth="true"/><response name="success" type="view" value="TrialBalance"/></request-map>
+    <request-map uri="TransactionTotals"><security https="true" auth="true"/><response name="success" type="view" value="TransactionTotals"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -1777,6 +1778,7 @@ under the License.
     <view-map name="FinancialSummaryReportOptions" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#FinancialSummaryReportOptions"/>
     <view-map name="SalesInvoiceByProductCategorySummary" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#SalesInvoiceByProductCategorySummary"/>
     <view-map name="TrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalance"/>
+    <view-map name="TransactionTotals" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotals"/>
     
     <!-- Assignment Mappings -->
     <view-map name="EditPartyFixedAssetAssignments" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditPartyFixedAssetAssignments"/>
