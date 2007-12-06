@@ -196,7 +196,8 @@ under the License.
     <screen name="TrialBalance">
         <section>
             <actions>
-                <set field="tabButtonItem" value="PartyAccountsSummary"/>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="TrialBalance"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
                     <field-map field-name="partyId" env-name="organizationPartyId"/>
@@ -217,15 +218,32 @@ under the License.
                 <set field="parameters.creditTotal" value="0" type="Double"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head2" text="${uiLabelMap.AccountingTrialBalance}"/>
                         </container>
-                        <container>
-                            <label style="head3" text="${uiLabelMap.CommonFor}: ${organizationPartyId}"/>
-                        </container>
                         <include-form name="TrialBalanceList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- TODO: this is just a placeholder: the report is not still implemented -->
+    <screen name="TransactionTotals">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="TransactionTotals"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head2" text="${uiLabelMap.AccountingTransactionTotals}"/>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

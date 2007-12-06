@@ -430,8 +430,20 @@ under the License.
         <menu-item name="FindAcctgTransEntries" title="${uiLabelMap.AccountingAcctgTransEntries}">
             <link target="FindAcctgTransEntries?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
+        <menu-item name="OrganizationAccountingReports" title="${uiLabelMap.AccountingReports}">
+            <link target="TrialBalance?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
         <menu-item name="ChecksTabButton" title="${uiLabelMap.AccountingChecks}">
             <link target="listChecksToPrint?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+    </menu>
+    <menu name="OrganizationAccountingReportsTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="TrialBalance" default-selected-style="selected"
+        menu-container-style="button-bar tab-bar" type="simple">
+        <menu-item name="TrialBalance" title="${uiLabelMap.AccountingTrialBalance}">
+            <link target="TrialBalance?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="TransactionTotals" title="${uiLabelMap.AccountingTransactionTotals}">
+            <link target="TransactionTotals?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
     <menu name="PartyAdminTabBar" default-menu-item-name="PartyAcctgPreference" default-selected-style="selected"
