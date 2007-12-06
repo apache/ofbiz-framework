@@ -940,4 +940,51 @@ under the License.
         </call-service>
         <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>        
     </simple-method>
+
+    <!-- Service for the automatic creation of accounting transaction for inventory that is issued for fixed asset maintenance -->
+    <simple-method method-name="createAcctgTransForFixedAssetMaintIssuance" short-description="Create an accounting transaction for inventory that is issued for fixed asset maintenance (Type: INVENTORY D: INVENTORY_ACCOUNT, C: FIXED_ASSET_MAINT)">
+        <!-- retrieve ledger rounding properties -->
+        <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
+        
+        <entity-one entity-name="ItemIssuance" value-name="itemIssuance"/>
+        <get-related-one value-name="itemIssuance" relation-name="InventoryItem" to-value-name="inventoryItem"/>
+
+        <calculate field-name="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+            <calcop operator="multiply">
+                <calcop operator="get" field-name="itemIssuance.quantity"/>
+                <calcop operator="get" field-name="inventoryItem.unitCost"/>
+            </calcop>
+        </calculate>
+        
+        <!-- prepare the double posting (D/C) entries (AcctgTransEntry) -->
+        <!-- Credit -->
+        <make-value entity-name="AcctgTransEntry" value-name="creditEntry"/>
+        <set field="creditEntry.debitCreditFlag" value="C"/>
+        <set field="creditEntry.glAccountTypeId" value="INVENTORY_ACCOUNT"/>
+        <set field="creditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <set field="creditEntry.productId" from-field="inventoryItem.productId"/>
+        <set field="creditEntry.origAmount" from-field="origAmount"/>
+        <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
+        <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+        <!-- Debit -->
+        <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
+        <set field="debitEntry.debitCreditFlag" value="D"/>
+        <set field="debitEntry.glAccountTypeId" value="FIXED_ASSET_MAINT"/>
+        <set field="debitEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <set field="debitEntry.productId" from-field="inventoryItem.productId"/>
+        <set field="debitEntry.origAmount" from-field="origAmount"/>
+        <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
+        <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+        <!-- Set header fields (AcctgTrans) -->
+        <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INVENTORY"/>
+        <set field="createAcctgTransAndEntriesInMap.fixedAssetId" from-field="itemIssuance.fixedAssetId"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
+        <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
+            <result-to-field result-name="acctgTransId"/>
+        </call-service>
+        <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>        
+    </simple-method>
+    
 </simple-methods>
