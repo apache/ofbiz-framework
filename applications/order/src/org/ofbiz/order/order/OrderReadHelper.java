@@ -2513,9 +2513,9 @@ public class OrderReadHelper {
         Iterator itemIter = UtilMisc.toIterator(orderItems);
 
         while (itemIter != null && itemIter.hasNext()) {
-            result = result.add(getOrderItemAdjustmentsTotal((GenericValue) itemIter.next(), adjustments, includeOther, includeTax, includeShipping)).setScale(scale, rounding);
+            result = result.add(getOrderItemAdjustmentsTotal((GenericValue) itemIter.next(), adjustments, includeOther, includeTax, includeShipping));
         }
-        return result;
+        return result.setScale(scale, rounding);
     }
 
     /** The passed adjustments can be all adjustments for the order, ie for all line items */
