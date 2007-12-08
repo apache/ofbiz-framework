@@ -247,6 +247,7 @@
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="layoutSettings.documentTitle" from-field="uiLabelMap.FixedAssetMaintWorkEffortName"/>
 
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
@@ -263,9 +264,13 @@
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/printFixedAssetMaint.bsh"/>
             </actions>
             <widgets>
-                <platform-specific>
-                    <html><html-template location="component://assetmaint/webapp/assetmaint/assetmaint/printFixedAssetMaint.fo.ftl"/></html>
-                </platform-specific>
+                <decorator-screen name="GlobalFoDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://assetmaint/webapp/assetmaint/assetmaint/printFixedAssetMaint.fo.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
