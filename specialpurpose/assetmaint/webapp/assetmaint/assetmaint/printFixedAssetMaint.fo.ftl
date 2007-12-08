@@ -16,29 +16,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-  <fo:layout-master-set>
-    <fo:simple-page-master master-name="simple-portrait"
-      page-width="8.5in" page-height="11in"
-      margin-top="0.3in" margin-bottom="0.3in"
-      margin-left="0.4in" margin-right="0.3in">
-    <fo:region-body margin-top="1in" margin-bottom="0.5in"/>
-    <fo:region-before extent="1in"/>
-    <fo:region-after extent="0.5in" />
-    </fo:simple-page-master>
-  </fo:layout-master-set>
-
-  <fo:page-sequence master-reference="simple-portrait" font-size="12pt">
+<#escape x as x?xml>
   <fo:flow flow-name="xsl-region-body">
   
   <#-- Print FixedAsset Information -->
-  <fo:table table-layout="fixed" border-style="solid" border-width="1pt">
-    <fo:table-column column-width="1.5in"/>
-    <fo:table-column column-width="6.5in"/>
+  <fo:table table-layout="fixed" width="100%" border-style="solid" border-collapse="collapse" border-width="1pt">
+    <fo:table-column column-width="20%"/>
+    <fo:table-column column-width="80%"/>
     <fo:table-body>
       <fo:table-row>
-        <fo:table-cell><fo:block number-columns-spanned="2"  font-weight="bold">${uiLabelMap.AccountingFixedAsset}</fo:block></fo:table-cell>
+        <fo:table-cell number-columns-spanned="2"><fo:block font-weight="bold">${uiLabelMap.AccountingFixedAsset}</fo:block></fo:table-cell>
       </fo:table-row>
       <#if fixedAsset?has_content>
         <fo:table-row>
@@ -81,12 +68,12 @@ under the License.
   <#-- End Print FixedAsset Information -->
   
   <#-- Start Print FixedAsset Maintenance Information -->
-  <fo:table table-layout="fixed"  border-style="solid" border-width="1pt">
-    <fo:table-column column-width="1.5in"/>
-    <fo:table-column column-width="6.5in"/>
+  <fo:table table-layout="fixed" width="100%" border-style="solid" border-collapse="collapse" border-width="1pt">
+    <fo:table-column column-width="20%"/>
+    <fo:table-column column-width="80%"/>
     <fo:table-body>
       <fo:table-row>
-        <fo:table-cell><fo:block number-columns-spanned="2" font-weight="bold">${uiLabelMap.AccountingFixedAssetMaint}</fo:block></fo:table-cell>
+        <fo:table-cell number-columns-spanned="2"><fo:block font-weight="bold">${uiLabelMap.AccountingFixedAssetMaint}</fo:block></fo:table-cell>
       </fo:table-row>
       <#if fixedAssetMaint?has_content>
         <fo:table-row>
@@ -125,14 +112,14 @@ under the License.
 <#-- End Print FixedAsset Maintenance Information -->
   
 <#-- Start Print Maintenance Schedule Information -->
-  <fo:table table-layout="fixed"  border-style="solid" border-width="1pt">
-    <fo:table-column column-width="2in"/>
-    <fo:table-column column-width="2in"/>
-    <fo:table-column column-width="2in"/>
-    <fo:table-column column-width="2in"/>
+  <fo:table table-layout="fixed" width="100%" border-style="solid" border-collapse="collapse" border-width="1pt">
+    <fo:table-column column-width="25%"/>
+    <fo:table-column column-width="25%"/>
+    <fo:table-column column-width="25%"/>
+    <fo:table-column column-width="25%"/>
     <fo:table-body>
       <fo:table-row>
-        <fo:table-cell number-columns-spanned="4" ><fo:block number-columns-spanned="4" font-weight="bold">${uiLabelMap.WorkEffortSummary}</fo:block></fo:table-cell>
+        <fo:table-cell number-columns-spanned="4" ><fo:block font-weight="bold">${uiLabelMap.WorkEffortSummary}</fo:block></fo:table-cell>
       </fo:table-row>
       <#if scheduleWorkEffort?has_content>
         <fo:table-row>
@@ -140,11 +127,15 @@ under the License.
             <#if scheduleWorkEffort.actualStartDate?has_content>
               <#assign actualStartDate = scheduleWorkEffort.get("actualStartDate")>
                 <fo:table-cell><fo:block>${actualStartDate?string.short}</fo:block></fo:table-cell>
+            <#else>
+                <fo:table-cell><fo:block></fo:block></fo:table-cell>
             </#if>
           <fo:table-cell><fo:block>${uiLabelMap.WorkEffortActualCompletionDate}</fo:block></fo:table-cell>
             <#if scheduleWorkEffort.actualCompletionDate?has_content>
               <#assign actualCompletionDate = scheduleWorkEffort.get("actualCompletionDate")>
               <fo:table-cell><fo:block>${actualCompletionDate?string.short}</fo:block></fo:table-cell>
+            <#else>
+                <fo:table-cell><fo:block></fo:block></fo:table-cell>
             </#if>
         </fo:table-row>
         <#assign workEffortPurposeType = scheduleWorkEffort.getRelatedOne("WorkEffortPurposeType")?if_exists>
@@ -168,9 +159,9 @@ under the License.
 <#-- End Print Maintenance Schedule Information -->
 
   <#if itemIssuanceList?has_content>
-    <fo:table table-layout="fixed"  border-spacing="3pt" border-style="solid" border-width="1pt">
-      <fo:table-column column-width="6.5in"/>
-      <fo:table-column column-width="1.5in"/>
+    <fo:table table-layout="fixed" width="100%" border-style="solid" border-collapse="collapse" border-width="1pt">
+      <fo:table-column column-width="20%"/>
+      <fo:table-column column-width="80%"/>
       <fo:table-header>
         <fo:table-row>
           <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.FixedAssetMaintItemIssuance}</fo:block></fo:table-cell>
@@ -197,8 +188,8 @@ under the License.
   </#if>
 
   <#if notes?has_content>
-    <fo:table table-layout="fixed"   border-spacing="3pt" border-style="solid" border-width="1pt">
-      <fo:table-column column-width="8in"/>
+    <fo:table table-layout="fixed" width="100%" border-style="solid" border-collapse="collapse" border-width="1pt">
+      <fo:table-column column-width="100%"/>
       <fo:table-header>
         <fo:table-row>
           <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.WorkEffortNotes}</fo:block></fo:table-cell>
@@ -221,6 +212,6 @@ under the License.
   </#if>
 
   </fo:flow>
-  </fo:page-sequence>
-</fo:root>
+</#escape>
+
 
