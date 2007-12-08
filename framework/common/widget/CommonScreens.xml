@@ -232,6 +232,26 @@ under the License.
         </section>
     </screen>
 
+    <!-- Decorator for xsl-fo rendering -->
+    <screen name="GlobalFoDecorator">
+        <section>
+            <actions>
+                <set field="layoutSettings.commonHeaderImageUrl" value="/images/ofbiz_logo.jpg"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://common/webcommon/includes/fo/start.fo.ftl"/>
+                        <html-template location="component://common/webcommon/includes/fo/basic-header.fo.ftl"/>
+                        <html-template location="component://common/webcommon/includes/fo/basic-footer.fo.ftl"/>
+                    </html>
+                </platform-specific>
+                <decorator-section-include name="body"/>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/fo/end.fo.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
     <!-- Default "error" page for XSL-FO based output. -->
     <screen name="FoError">
         <section>
