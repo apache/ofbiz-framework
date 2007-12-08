@@ -171,13 +171,17 @@ public class UspsServices {
             UtilXml.addChildElementValue(packageElement, "Pounds", df.format(weightPounds), requestDocument);
             UtilXml.addChildElementValue(packageElement, "Ounces", df.format(weightOunces), requestDocument);
 
-            // TODO: handle other container types, package sizes, and machinabile packages
-            UtilXml.addChildElementValue(packageElement, "Container", "None", requestDocument);
+            // TODO: handle other container types, package sizes, and machinable packages
+            // IMPORTANT: Express or Priority Mail will fail if you supply a Container tag: you will get a message like
+            // Invalid container type. Valid container types for Priority Mail are Flat Rate Envelope and Flat Rate Box.
+            if ("Parcel".equalsIgnoreCase(serviceCode)) {
+                UtilXml.addChildElementValue(packageElement, "Container", "None", requestDocument);
+            }
             UtilXml.addChildElementValue(packageElement, "Size", "Regular", requestDocument);
             UtilXml.addChildElementValue(packageElement, "Machinable", "False", requestDocument);
         }
 
-        // send the request
+        // send the request                                                                ÷
         Document responseDocument = null;
         try {
             responseDocument = sendUspsRequest("RateV2", requestDocument);
