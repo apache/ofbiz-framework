@@ -21,6 +21,7 @@ package org.ofbiz.widget.screen;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,23 +41,22 @@ import org.w3c.dom.Element;
 import freemarker.template.TemplateException;
 
 /**
- * Widget Library - Screen model HTML class
+ * Widget Library - Screen model HTML class.
  */
+@SuppressWarnings("serial")
 public class HtmlWidget extends ModelScreenWidget {
     public static final String module = HtmlWidget.class.getName();
     
-    protected ModelScreenWidget childWidget;
+    protected List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>();
     
     public HtmlWidget(ModelScreen modelScreen, Element htmlElement) {
         super(modelScreen, htmlElement);
-        List childElementList = UtilXml.childElementList(htmlElement);
-        Iterator childElementIter = childElementList.iterator();
-        while (childElementIter.hasNext()) {
-            Element childElement = (Element) childElementIter.next();
+        List<? extends Element> childElementList = UtilXml.childElementList(htmlElement);
+        for (Element childElement : childElementList) {
             if ("html-template".equals(childElement.getNodeName())) {
-                this.childWidget = new HtmlTemplate(modelScreen, childElement);
+                this.subWidgets.add(new HtmlTemplate(modelScreen, childElement));
             } else if ("html-template-decorator".equals(childElement.getNodeName())) {
-                this.childWidget = new HtmlTemplateDecorator(modelScreen, childElement);
+                this.subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
             } else {
                 throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: " + childElement.getNodeName());
             }
@@ -64,11 +64,18 @@ public class HtmlWidget extends ModelScreenWidget {
     }
 
     public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
-        childWidget.renderWidgetString(writer, context, screenStringRenderer);
+        for (ModelScreenWidget subWidget : subWidgets) {
+            subWidget.renderWidgetString(writer, context, screenStringRenderer);
+        }
     }
 
     public String rawString() {
-        return "<html-widget>" + (this.childWidget==null?"":this.childWidget.rawString());
+        StringBuffer buffer = new StringBuffer("<html-widget>");
+        for (ModelScreenWidget subWidget : subWidgets) {
+            buffer.append(subWidget.rawString());
+        }
+        buffer.append("</html-widget>");
+        return buffer.toString();
     }
     
     public static void renderHtmlTemplate(Writer writer, FlexibleStringExpander locationExdr, Map context) {
