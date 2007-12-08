@@ -313,13 +313,6 @@ under the License.
         <attribute name="inventoryItemDetailSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
-    <!-- DEPRECATED: use createAcctgTransForSalesShipmentIssuance instead -->
-    <service name="createAcctgTransForSalesShipment" engine="simple"  auth="true"
-        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForSalesShipment">
-        <description>Create accounting transactions for issuances for a sales shipment (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT)</description>
-        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
-        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
-    </service>
     <service name="createAcctgTransForShipmentReceipt" engine="simple"  auth="true"
         location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForShipmentReceipt">
         <description>Create an accounting transactions for a shipment receipt (D: INVENTORY_ACCOUNT, C: UNINVOICED_SHIP_RCPT or COGS_ACCOUNT for returns)</description>
