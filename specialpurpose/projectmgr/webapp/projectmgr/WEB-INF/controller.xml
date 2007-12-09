@@ -294,6 +294,12 @@
         <response name="success" type="view" value="EditTimeEntries"/>
         <response name="error" type="view" value="EditTimeEntries"/>
     </request-map>
+    <request-map uri="updateMyTimesheet">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateTimeEntryByWorkeffort"/>
+        <response name="success" type="view" value="MyTimesheets"/>
+        <response name="error" type="view" value="MyTimesheets"/>
+    </request-map>
     <request-map uri="updateTimeEntry">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimeEntry"/>

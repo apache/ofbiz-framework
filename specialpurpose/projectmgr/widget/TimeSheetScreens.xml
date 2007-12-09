@@ -45,7 +45,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="EditTimeSheet">
+    <screen name="EditTimeSheet1">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindTimesheet"/>
@@ -63,6 +63,38 @@ under the License.
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditTimesheet} # ${timesheet.timesheetId}</label></container>                                
                                     <container style="screenlet-body"> 
                                         <include-form name="EditTimesheet" location="component://workeffort/widget/TimesheetForms.xml"/>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="MyTimesheets">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindTimesheet"/>
+                <set field="tabButtonItem" value="edittimesheet"/>
+                <set field="labelTitleProperty" value="PageTitleAddTimesheet"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonMyTimeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                  
+                        <section>          
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="EditWeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleMyTimesheets} # ${timesheet.timesheetId}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="ListTimeSheets" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                                     </container>
                                 </container>
                             </widgets>
@@ -98,96 +130,6 @@ under the License.
                                 <include-form name="AddTimesheetEntry" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                             </container>
                         </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="MyTimesheets">
-        <section>
-            <actions>
-                <set field="headerItem" value="mytime"/>
-                <set field="titleProperty" value="WorkEffortMyTimesheets"/>
-                
-                <set field="queryString" from-field="result.queryString"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
-                <entity-condition entity-name="Timesheet" list-name="currentTimesheetList">
-                    <condition-list combine="and">
-                        <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
-                        <condition-expr field-name="fromDate" operator="less-equals" env-name="nowTimestamp"/>
-                        <condition-list combine="or">
-                            <condition-expr field-name="thruDate" operator="greater-equals" env-name="nowTimestamp"/>
-                            <condition-expr field-name="thruDate" env-name="null"/>
-                        </condition-list>
-                    </condition-list>
-                </entity-condition>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container><label text="${uiLabelMap.WorkEffortMyCurrentTimesheets}" style="head2"/></container>
-                        <container>
-                            <link text="${uiLabelMap.PageTitleCreateWeekTimesheet}" target="createTimesheetForThisWeek?partyId=${userLogin.partyId}" style="buttontext"/>
-                            <link text="${uiLabelMap.TimesheetCreate}" target="EditTimesheet?partyId=${userLogin.partyId}" style="buttontext"/>
-                        </container>
-                        <iterate-section entry-name="currentTimesheet" list-name="currentTimesheetList">
-                            <section>
-                                <actions>
-                                    <entity-condition entity-name="TimeEntry" list-name="currentTimeEntryList">
-                                        <condition-list combine="and">
-                                            <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
-                                            <condition-expr field-name="timesheetId" env-name="currentTimesheet.timesheetId"/>
-                                        </condition-list>
-                                    </entity-condition>
-                                </actions>
-                                <widgets>
-                                    <container>
-                                        <label style="tableheadtext" text="${uiLabelMap.Timesheet}: ${currentTimesheet.fromDate} ${uiLabelMap.CommonThru} ${currentTimesheet.thruDate} ${currentTimesheet.comments}"/>
-                                        <link target="EditTimesheet?timesheetId=${currentTimesheet.timesheetId}" text="${currentTimesheet.timesheetId}" style="buttontext"></link>
-                                    </container>
-                                    <iterate-section entry-name="currentTimeEntry" list-name="currentTimeEntryList">
-                                        <section>
-                                            <actions>
-                                                <entity-one entity-name="RateType" value-name="currentRateType" auto-field-map="false">
-                                                    <field-map field-name="rateTypeId" env-name="currentTimeEntry.rateTypeId"/>
-                                                </entity-one>
-                                            </actions>
-                                            <widgets>
-                                                <container>
-                                                    <label style="tabletext" text="${uiLabelMap.TimesheetTimeEntry} ${uiLabelMap.CommonFor} ${currentTimeEntry.fromDate} "/>
-                                                    <label style="tableheadtext" text="${currentTimeEntry.hours} ${uiLabelMap.TimesheetHours} "/>
-                                                    <label style="tabletext" text="${currentTimeEntry.comments} [${currentRateType.description}]"/>
-                                                    <section>
-                                                        <condition><not><if-empty field-name="currentTimeEntry.workEffortId"/></not></condition>
-                                                        <widgets><link target="WorkEffortSummary?workEffortId=${currentTimeEntry.workEffortId}" text="${uiLabelMap.WorkEffortWorkEffort}: ${currentTimeEntry.workEffortId}" style="linktext"/></widgets>
-                                                    </section>
-                                                </container>
-                                            </widgets>
-                                        </section>
-                                    </iterate-section>
-                                    <section>
-                                        <condition><if-compare-field field-name="parameters.showQuickEntry" operator="equals" to-field-name="currentTimesheet.timesheetId"/></condition>
-                                        <widgets>
-                                            <include-form name="QuickCreateTimeEntry" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
-                                        </widgets>
-                                        <fail-widgets>
-                                            <container>
-                                                <link target="MyTimesheets?showQuickEntry=${currentTimesheet.timesheetId}" text="${uiLabelMap.TimesheetQuickTimeEntry}" style="buttontext"></link>
-                                                <link target="EditTimesheetEntries?timesheetId=${currentTimesheet.timesheetId}" text="${uiLabelMap.TimesheetTimeEntries}" style="buttontext"></link>
-                                            </container>
-                                        </fail-widgets>
-                                    </section>
-                                </widgets>
-                            </section>
-                        </iterate-section>
-                        
-                        <!-- createQuickTimeEntry -->
-                        
-                        <container><label text="${uiLabelMap.WorkEffortMyRates}" style="head2"/></container>
-                        <include-form name="ListMyRates" location="component://workeffort/widget/TimesheetForms.xml"/>
-                        <container><label text="${uiLabelMap.WorkEffortMyTimesheets}" style="head2"/></container>
-                        <include-form name="ListMyTimesheets" location="component://workeffort/widget/TimesheetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

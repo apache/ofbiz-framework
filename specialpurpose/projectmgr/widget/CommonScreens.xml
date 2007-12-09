@@ -188,7 +188,31 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="CommonMyTimeDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="mytime"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="CommonCalendarDecorator">
         <section>
             <actions>

@@ -1,0 +1,167 @@
+/*
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+  
+import java.util.*;
+import java.lang.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.*;
+import java.sql.Timestamp;
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
+timesheetId = parameters.get("timesheetId");
+userLogin = parameters.get("userLogin");
+delegator = parameters.get("delegator");
+locale = parameters.get("locale");
+timeZone = parameters.get("timeZone");
+
+// show the requested timesheet, otherwise the current , if not exist create
+timesheet = null;
+if (timesheetId != null) {
+        timesheet = delegator.findByPrimaryKey("Timesheet", UtilMisc.toMap("timesheetId", timesheetId));
+    } else { 
+        start = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp());
+        timesheets = delegator.findByAnd("Timesheet", 
+            UtilMisc.toMap("partyId", userLogin.getString("partyId"), "fromDate", start));
+        if (!UtilValidate.isEmpty(timesheets)) {
+            timesheet = timesheets.get(0);
+        } else {
+            result = dispatcher.runSync("createTimesheetForThisWeek", 
+                UtilMisc.toMap("userLogin", userLogin, "partyId", userLogin.getString("partyId")));
+            timesheet = delegator.findByPrimaryKey("Timesheet", UtilMisc.toMap("timesheetId", result.get("timesheetId")));
+        }
+}
+
+context.put("timesheet", timesheet);
+context.put("weekNumber", UtilDateTime.weekNumber(timesheet.getTimestamp("fromDate")));
+
+entries = new LinkedList(); 
+timeEntries = timesheet.getRelated("TimeEntry", UtilMisc.toList("workEffortId", "fromDate"));
+te = timeEntries.iterator();
+lastWorkEffortId = null;
+entry = FastMap.newInstance();
+taskTotal = 0.00;
+day0Total = 0.00; day1Total=0.00;day2Total=0.00; day3Total=0.00;day4Total=0.00;day5Total=0.00;day6Total=0.00;
+pHours = 0.00;
+timeEntry = null;
+while(te.hasNext()) {
+    timeEntry = te.next();
+    
+    if (lastWorkEffortId != null && !lastWorkEffortId.equals(timeEntry.getString("workEffortId"))) {
+        entry.put("total", taskTotal);
+        // get the planned number of hours
+        plannedHours = timeEntry.getRelatedOne("WorkEffort").getRelated("WorkEffortSkillStandard");
+        ph = plannedHours.iterator();
+        pHours = 0.00;
+        while(ph.hasNext()) {
+            plannedHour = ph.next();
+            if (plannedHour.get("estimatedDuration") != null) {
+                pHours += plannedHour.get("estimatedDuration");
+            }
+        }
+        entry.put("plannedHours", pHours);
+        entries.add(entry);
+        taskTotal = 0.00;
+        entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
+    }
+    if (UtilValidate.isNotEmpty(timeEntry.get("workEffortId"))) {
+        workEffort = timeEntry.getRelatedOne("WorkEffort");
+        entry.put("workEffortId", workEffort.getString("workEffortId"));    
+        entry.put("workEffortName", workEffort.getString("workEffortName"));    
+    }
+    entry.put("timesheetId", timesheet.get("timesheetId"));
+    if (timeEntry.get("hours") != null) {
+        dayNumber = (timeEntry.get("fromDate").getTime() - timesheet.getTimestamp("fromDate").getTime()) / (24*60*60*1000);
+        hours = timeEntry.getDouble("hours").doubleValue();
+        entry.put(String.valueOf(dayNumber), hours);
+        if (dayNumber == 0) day0Total += hours;
+        if (dayNumber == 1) day1Total += hours;
+        if (dayNumber == 2) day2Total += hours;
+        if (dayNumber == 3) day3Total += hours;
+        if (dayNumber == 4) day4Total += hours;
+        if (dayNumber == 5) day5Total += hours;
+        if (dayNumber == 6) day6Total += hours;
+        taskTotal += hours;
+    } 
+    lastWorkEffortId = timeEntry.getString("workEffortId");
+}
+if (lastWorkEffortId != null) {
+        plannedHours = timeEntry.getRelatedOne("WorkEffort").getRelated("WorkEffortSkillStandard");
+        ph = plannedHours.iterator();
+        pHours = 0.00;
+        while(ph.hasNext()) {
+            plannedHour = ph.next();
+            if (plannedHour.get("estimatedDuration") != null) {
+                pHours += plannedHour.get("estimatedDuration");
+            }
+        }
+    entry.put("plannedHours", pHours);
+    entry.put("total", taskTotal);
+    entries.add(entry);
+    }
+for (c=0; c < 3; c++) { // add 5 empty lines 
+    entries.add(UtilMisc.toMap("timesheetId", timesheet.get("timesheetId")));
+}
+if (lastWorkEffortId != null) {
+    entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
+    entry.put("0", day0Total);
+    entry.put("1", day1Total);
+    entry.put("2", day2Total);
+    entry.put("3", day3Total);
+    entry.put("4", day4Total);
+    entry.put("5", day5Total);
+    entry.put("6", day6Total);
+    entry.put("workEffortId", "Totals");
+    entry.put("total", day0Total+day1Total+day2Total+day3Total+day4Total+day5Total+day6Total);
+        Debug.logInfo("=====" + entry, "");
+    entries.add(entry);
+}
+context.put("timeEntries", entries);
+   
+
+timesheetsDb = delegator.findByAnd("Timesheet", 
+            UtilMisc.toMap("partyId", userLogin.getString("partyId")), 
+            UtilMisc.toList("fromDate DESC"));
+timesheets = new LinkedList(); 
+ts = timesheetsDb.iterator();
+while(ts.hasNext()) {
+    timesheetDb = ts.next();
+    timesheet = FastMap.newInstance();
+    timesheet.putAll(timesheetDb);
+    entries = timesheetDb.getRelated("TimeEntry");
+    te = entries.iterator();
+    hours = 0.00;
+    while(te.hasNext()) {
+        timeEntry = te.next();
+        if (timeEntry.get("hours") != null) {
+            hours += timeEntry.getDouble("hours").doubleValue();
+        }
+    }
+    timesheet.put("weekNumber", UtilDateTime.weekNumber(timesheetDb.getTimestamp("fromDate")));
+    timesheet.put("hours", hours);
+    timesheets.add(timesheet);
+}
+context.put("timesheets", timesheets);
+ 

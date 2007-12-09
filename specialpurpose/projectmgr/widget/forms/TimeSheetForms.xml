@@ -19,7 +19,42 @@
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="EditWeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true" 
+        separate-columns="true" target="updateMyTimesheet">
+        <field name="timesheetId"><hidden/></field>
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProjectAndPhaseAndTask" description="${workEffortName} -- ${phaseName} -- ${projectName}">
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="0" parameter-name="hoursDay0" title="Sun"><text size="5"/></field>
+        <field name="1" parameter-name="hoursDay1" title="Mon"><text size="5"/></field>
+        <field name="2" parameter-name="hoursDay2" title="Tue"><text size="5"/></field>
+        <field name="3" parameter-name="hoursDay3" title="Wen"><text size="5"/></field>
+        <field name="4" parameter-name="hoursDay4" title="Thu"><text size="5"/></field>
+        <field name="5" parameter-name="hoursDay5" title="Fri"><text size="5"/></field>
+        <field name="6" parameter-name="hoursDay6" title="Sat"><text size="5"/></field>
+        <field name="total" title="Act Total"><display/></field>
+        <field name="plannedHours" title="Plan.Hrs"><display/></field>
+        <field name="update"><submit button-type="button"/></field>
+        <field name="_rowSubmit"><hidden value="Y"/></field>
+    </form>
 
+    <form name="ListTimeSheets" type="list" list-name="timesheets" paginate-target="EditTimesheet">
+        <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${timesheetId}" target="MyTimesheets?timesheetId=${timesheetId}"/>
+        </field>
+        <field name="weekNumber"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
+        <field name="hours"><display/></field>
+        <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
+    </form>
     <form name="ListFindTimeSheet" type="list" list-name="timeSheetList" paginate-target="FindTimeSheet">
         <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${timesheetId}" target="EditTimeSheet?timesheetId=${timesheetId}"/>
@@ -34,7 +69,7 @@
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-
+    
     <form name="AddTimesheetEntry" type="single" target="createTimesheetEntry" title="">
         <auto-fields-service service-name="createTimeEntry"/>
         
