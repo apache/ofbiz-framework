@@ -39,8 +39,8 @@ under the License.
         // function passing selected value to calling window
         function set_value(value) {
                 if (!obj_caller) return;
-                window.close();
                 obj_caller.target.value = value;
+                window.close();
         }
         // function passing selected value to calling window
         function set_values(value, value2) {

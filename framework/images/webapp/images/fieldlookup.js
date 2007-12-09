@@ -79,7 +79,7 @@ function fieldLookup2(obj_target, obj_target2) {
 }
 
 function lookup_popup1 (view_name, form_name, viewWidth, viewheight) {
-	var obj_lookupwindow = window.open(view_name + '?formName=' + form_name + '&id=' + this.id,'FieldLookup', 'width='+viewWidth+',height='+viewheight+',scrollbars=yes,status=no,resizable=yes,top='+my+',left='+mx+',dependent=yes,alwaysRaised=yes');
+	var obj_lookupwindow = window.open(view_name + '?formName=' + form_name + '&id=' + this.id,'_blank', 'width='+viewWidth+',height='+viewheight+',scrollbars=yes,status=no,resizable=yes,top='+my+',left='+mx+',dependent=yes,alwaysRaised=yes');
 	obj_lookupwindow.opener = window;
 	obj_lookupwindow.focus();
 }
@@ -96,7 +96,7 @@ function lookup_popup2 (view_name) {
     if (view_name.indexOf("?") >= 0) {
         sep = "&";
     }
-	var obj_lookupwindow = window.open(view_name + sep + 'id=' + this.id + argString,'FieldLookup', 'width=700,height=550,scrollbars=yes,status=no,resizable=yes,top='+my+',left='+mx+',dependent=yes,alwaysRaised=yes');
+	var obj_lookupwindow = window.open(view_name + sep + 'id=' + this.id + argString,'_blank', 'width=700,height=550,scrollbars=yes,status=no,resizable=yes,top='+my+',left='+mx+',dependent=yes,alwaysRaised=yes');
 	obj_lookupwindow.opener = window;
 	obj_lookupwindow.focus();
 }
@@ -104,4 +104,5 @@ function lookup_error (str_message) {
 	alert (str_message);
 	return null;
 }
+
 
