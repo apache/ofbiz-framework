@@ -75,6 +75,14 @@ public class UtilDateTime {
         return thru != null ? thru.getTime() - from.getTime() : 0;
     }
 
+    public static int getIntervalInDays(Timestamp from, Timestamp thru) {
+        return thru != null ? (int) (thru.getTime() - from.getTime()) / (24*60*60*1000) : 0;
+    }
+
+    public static Timestamp addDaysToTimestamp(Timestamp start, int days) {
+        return new Timestamp(start.getTime() + (24*60*60*1000*days));
+    }
+
     public static double getInterval(Timestamp from, Timestamp thru) {
         return thru != null ? thru.getTime() - from.getTime() + (thru.getNanos() - from.getNanos()) / 1000000 : 0;
     }
