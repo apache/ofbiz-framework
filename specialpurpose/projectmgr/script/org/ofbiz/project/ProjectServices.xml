@@ -20,7 +20,74 @@
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+ 
     
+    <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffort and timesheetId ">
+        <if-empty field-name="parameters.workEffortId">
+            <return/>
+        </if-empty>
+        <if-compare field-name="parameters.workEffortId" operator="equals" value="Totals">
+            <return/>
+        </if-compare>
+        <entity-one entity-name="Timesheet" value-name="timesheet"/>
+        
+        <entity-and entity-name="ProjectAndPhaseAndTask" list-name="projects">
+            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+        </entity-and>
+        <if-not-empty field-name="project">
+            <first-from-list entry-name="projects" list-name="project"/>
+        </if-not-empty>
+        
+        <get-related value-name="timesheet" relation-name="TimeEntry" list-name="timeEntries"/>
+        
+        <!-- update existing entries -->
+        <set field="hours" value="0" type="Double"/>
+        <if-not-empty field-name="timeEntries">
+            <iterate entry-name="timeEntry" list-name="timeEntries">
+                <if-compare-field field-name="timeEntry.workEffortId" operator="equals" to-field-name="parameters.workEffortId">
+                    <!-- check if the entry does not contain any hours, then delete -->
+                    <if-empty field-name="timeEntry.hours">
+                        <set  from-field="timeEntry.timeEntryId" field="teDelMap.timeEntryId"/> 
+                        <call-service service-name="deleteTimeEntry" in-map-name="teDelMap"/>
+                        <else>
+                            <!-- translate the date into the daynumber -->
+                            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field-name="dayNumber">
+                                <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
+                                <field field-name="timeEntry.fromDate" type="java.sql.Timestamp"/>
+                            </call-class-method>
+                            <!-- get the related field -->
+                            <if-not-empty field-name="parameters.hoursDay${dayNumber}">
+                                <set field="hours" from-field="parameters.hoursDay${dayNumber}"/>
+                                <else>
+                                    <set field="hours" value="0"/>
+                                </else>
+                            </if-not-empty>
+                            <set field="parameters.hoursDay${dayNumber}" value="-1"/>
+                            <call-simple-method method-name="updateTimeEntry"/>                        
+                        </else>
+                    </if-empty>
+                </if-compare-field>
+            </iterate>
+        </if-not-empty>
+        
+        <!-- process not yet done fields -->
+        <loop count="7" field="dayNr">
+            <if-not-empty field-name="parameters.hoursDay${dayNr}">
+                <set field="hours" from-field="parameters.hoursDay${dayNr}"/>
+                <else>
+                    <set field="hours" value="0"/>
+                </else>
+            </if-not-empty>
+            <set field="hours" from-field="parameters.hoursDay${dayNr}"/>
+            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="fromDate">
+                <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
+                <field field-name="dayNr" type="int"/>
+            </call-class-method>
+            <call-simple-method method-name="updateTimeEntry"/>                        
+        </loop>
+        
+    </simple-method>          
+
     <simple-method method-name="getProject" short-description="get Project information" login-required="true">
         <!-- get the phase seq id -->
         <if-empty field-name="parameters.projectId">
@@ -321,7 +388,7 @@
         <!-- input is 'lowInfo' map output is 'highInfo map -->
         <!-- hoursPartyId: if provided only the hours of that party -->
         
-        <!-- add the estimated hours together -->
+        <!-- add the planned hours together -->
         <get-related value-name="lowInfo" relation-name="WorkEffortSkillStandard" list-name="estimates"/>
         <iterate entry-name="estimate" list-name="estimates">
             <if-not-empty field-name="estimate.estimatedDuration">
@@ -336,13 +403,14 @@
         <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="actuals"/>
         <iterate entry-name="actual" list-name="actuals">
             <if-not-empty field-name="actual.hours">
+                <get-related-one value-name="actual" relation-name="Timesheet" to-value-name="timesheet"/>
                 <if>
                     <condition>
                         <or>
                             <if-empty field-name="hoursPartyId"/>
                             <and>
                                 <not><if-empty field-name="hoursPartyId"/></not>
-                                <if-compare-field field-name="actuals.partyId" operator="equals" to-field-name="hoursPartyId"/>
+                                <if-compare-field field-name="timeSheet.partyId" operator="equals" to-field-name="hoursPartyId"/>
                             </and>
                         </or>
                     </condition>
@@ -375,4 +443,31 @@
             </else>
         </if-not-empty> 
     </simple-method>    
+
+    <simple-method method-name="updateTimeEntry" short-description="">
+        <if-compare field-name="hours" value="-1" operator="equals">
+            <return/>
+        </if-compare>
+        <if-not-empty field-name="timeEntry.timeEntryId">
+            <if-compare field-name="hours" operator="equals" value="0">
+                <set  field="teDelMap.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                <call-service service-name="deleteTimeEntry" in-map-name="teDelMap"/>
+                <else>
+                    <clear-field field-name="teUpdMap"/>
+                    <set field="teUpdMap.hours" from-field="hours"/>
+                    <set field="teUpdMap.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                    <call-service service-name="updateTimeEntry" in-map-name="teUpdMap"/>
+                </else>
+            </if-compare>
+            <else>
+                <if-compare field-name="hours" operator="not-equals" value="0">
+                    <set-service-fields service-name="createTimeEntry" map-name="parameters" to-map-name="teCreMap"/>
+                    <set field="teCreMap.hours" from-field="hours"/>
+                    <set field="teCreMap.fromDate" from-field="fromDate"/>
+                    <call-service service-name="createTimeEntry" in-map-name="teCreMap"/>
+                </if-compare>
+            </else>            
+        </if-not-empty>
+    </simple-method>
+
 </simple-methods>

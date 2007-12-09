@@ -88,4 +88,41 @@ under the License.
       <key-map field-name="workEffortId"/>
     </relation>
   </view-entity>
+  
+  <view-entity entity-name="TimesheetAndTimeEntry"
+    package-name="org.ofbiz.workeffort.project"
+    title="Time entry for Timesheets, time entries always have a timesheet and are always for one day only and recording the hours for one person which is defined on the timesheet. A timesheet will always have at least one time entry.">
+    <member-entity entity-alias="TS" entity-name="Timesheet"/>
+    <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+    <alias-all entity-alias="TS">
+      <exclude field="clientPartyId"/>
+      <exclude field="comments"/>
+    </alias-all>
+    <alias-all entity-alias="TE">
+      <exclude field="partyId"/>
+      <exclude field="thruDate"/>
+      <exclude field="fromDate"/>
+      <exclude field="comments"/>
+    </alias-all>
+    <alias entity-alias="TE" field="fromDate" name="activityDate"/>
+    <alias entity-alias="TE" field="comments" name="entryComments"/>
+    <alias entity-alias="TS" field="comments" name="sheetComments"/>
+    <view-link entity-alias="TS" rel-entity-alias="TE" rel-optional="true">
+      <key-map field-name="timesheetId"/>
+    </view-link>
+    <relation type="one" rel-entity-name="WorkEffort">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="one" rel-entity-name="Invoice">
+      <key-map field-name="invoiceId"/>
+    </relation>
+    <relation type="one" rel-entity-name="InvoiceItem">
+      <key-map field-name="invoiceId"/>
+      <key-map field-name="invoiceItemSeqId"/>
+    </relation>
+    <relation type="one" rel-entity-name="RateType">
+      <key-map field-name="rateTypeId"/>
+    </relation>
+  </view-entity>
+  
   </entitymodel>
