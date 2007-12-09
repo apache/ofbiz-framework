@@ -147,13 +147,23 @@ under the License.
         <description>Simple remove service</description>
         <auto-attributes entity-name="ReturnAdjustment" include="pk" mode="IN" optional="false"/>        
     </service>
+    <service name="createReturnAndItemOrAdjustment" engine="simple" location="org/ofbiz/order/order/OrderReturnServices.xml"
+                 invoke="createReturnAndItemOrAdjustment">
+        <description>If returnId is null, create a return; then create Return Item or Adjustment based on the parameters passed in</description>
+        <auto-attributes mode="IN" include="nonpk" entity-name="ReturnHeader" optional="true"/>
+        <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
+        <auto-attributes mode="IN" include="all" entity-name="ReturnItem" optional="true"/>
+        <attribute name="returnAdjustmentId" type="String" mode="OUT" optional="true"/>
+        <attribute name="returnItemSeqId" type="String" mode="OUT" optional="true"/>
+        <attribute name="returnId" type="String" mode="OUT" optional="true"/>
+    </service>
     <service name="createReturnItemOrAdjustment" engine="java"
              location="org.ofbiz.order.order.OrderReturnServices" invoke="createReturnItemOrAdjustment">
         <description>create Return Item or Adjustment based on the parameters passed in</description>
         <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
         <auto-attributes mode="IN" include="all" entity-name="ReturnItem" optional="true"/>
         <attribute name="returnAdjustmentId" type="String" mode="OUT" optional="true"/>
-        <attribute name="returnItemSeqId" type="String" mode="OUT" optional="true"/>                
+        <attribute name="returnItemSeqId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="updateReturnItemOrAdjustment" engine="java"
              location="org.ofbiz.order.order.OrderReturnServices" invoke="updateReturnItemOrAdjustment">

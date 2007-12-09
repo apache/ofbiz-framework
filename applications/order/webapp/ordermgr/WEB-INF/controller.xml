@@ -908,15 +908,9 @@ under the License.
     </request-map>
     <request-map uri="makeQuickReturn">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createReturnHeader"/>
-        <response name="success" type="request" value="setQuickReturnItems"/>
-        <response name="error" type="view" value="returnhead"/>
-    </request-map>
-    <request-map uri="setQuickReturnItems">
-        <security https="true" auth="true" direct-request="false"/>
-        <event type="service-multi" invoke="createReturnItemOrAdjustment"/>
+        <event type="service-multi" invoke="createReturnAndItemOrAdjustment"/>
         <response name="success" type="view" value="returnitems"/>
-        <response name="error" type="view" value="returnhead"/>
+        <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="quickRefundOrder">
         <security https="true" auth="true"/>

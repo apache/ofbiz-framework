@@ -794,6 +794,26 @@ under the License.
         <field-to-result field-name="returnId"/>
     </simple-method>
 
+    <simple-method method-name="createReturnAndItemOrAdjustment" short-description="If returnId is null, create a return; then create Return Item or Adjustment based on the parameters passed in">
+        <if-empty field-name="parameters.returnId">
+            <set-service-fields service-name="createReturnHeader" map-name="parameters" to-map-name="returnHeaderInMap"/>
+            <call-service service-name="createReturnHeader" in-map-name="returnHeaderInMap">
+                <result-to-field result-name="returnId" field-name="returnId"/>
+            </call-service>
+            <check-errors/>
+            <set field="parameters.returnId" from-field="returnId"/>
+            <field-to-result field-name="returnId" result-name="returnId"/>
+        </if-empty>
+        <set-service-fields service-name="createReturnItemOrAdjustment" map-name="parameters" to-map-name="createReturnItemOrAdjustmentInMap"/>
+        <call-service service-name="createReturnItemOrAdjustment" in-map-name="createReturnItemOrAdjustmentInMap">
+            <result-to-field result-name="returnAdjustmentId" field-name="returnAdjustmentId"/>
+            <result-to-field result-name="returnItemSeqId" field-name="returnItemSeqId"/>
+        </call-service>
+        <check-errors/>
+        <field-to-result field-name="returnAdjustmentId" result-name="returnAdjustmentId"/>
+        <field-to-result field-name="returnItemSeqId" result-name="returnItemSeqId"/>
+    </simple-method>
+
     <simple-method method-name="createReturnItemBilling" short-description="Create a ReturnItemBilling">
         <make-value entity-name="ReturnItemBilling" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
