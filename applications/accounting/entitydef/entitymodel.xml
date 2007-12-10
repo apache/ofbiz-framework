@@ -396,6 +396,7 @@ under the License.
         <field name="finAccountAuthId" type="id-ne"/>
         <field name="finAccountId" type="id-ne"/>
         <field name="amount" type="currency-amount"/>
+        <field name="currencyUomId" type="id-ne"/>
         <field name="authorizationDate" type="date-time"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
