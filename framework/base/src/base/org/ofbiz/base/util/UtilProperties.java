@@ -592,7 +592,7 @@ public class UtilProperties implements java.io.Serializable {
      */
     public static Locale getFallbackLocale() {
         if (fallbackLocale == null) {
-            synchronized (UtilResourceBundle.class) {
+            synchronized (UtilProperties.class) {
                 if (fallbackLocale == null) {
                     String locale = getPropertyValue("general", "locale.properties.fallback");
                     if (UtilValidate.isNotEmpty(locale)) {
@@ -611,7 +611,7 @@ public class UtilProperties implements java.io.Serializable {
      * is ordered most-specific to least-specific. Example:
      * <code>localeToCandidateList(Locale.US)</code> would return
      * a list containing <code>en_US</code> and <code>en</code>.
-     * @return A list of default candidate locales.
+     * @return A list of candidate locales.
      */
     public static List<Locale> localeToCandidateList(Locale locale) {
         List<Locale> localeList = FastList.newInstance();
