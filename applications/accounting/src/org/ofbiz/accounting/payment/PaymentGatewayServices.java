@@ -2309,10 +2309,18 @@ public class PaymentGatewayServices {
             }
         }
 
-        // handle the (reverse) payment
         Boolean refundResult = (Boolean) context.get("refundResult");
         if (refundResult != null && refundResult.booleanValue()) {
-            // create a payment record
+
+            // mark the preference as refunded
+            paymentPref.set("statusId", "PAYMENT_REFUNDED");
+            try {
+                paymentPref.store();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+
+            // handle the (reverse) payment
             Map paymentCtx = UtilMisc.toMap("paymentTypeId", "CUSTOMER_REFUND");
             paymentCtx.put("paymentMethodTypeId", paymentPref.get("paymentMethodTypeId"));
             paymentCtx.put("paymentMethodId", paymentPref.get("paymentMethodId"));

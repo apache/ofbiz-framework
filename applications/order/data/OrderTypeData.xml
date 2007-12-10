@@ -147,6 +147,7 @@ under the License.
     <StatusItem description="Authorized" sequenceId="02" statusCode="AUTHORIZED" statusId="PAYMENT_AUTHORIZED" statusTypeId="PAYMENT_PREF_STATUS"/>
     <StatusItem description="Settled" sequenceId="03" statusCode="SETTLED" statusId="PAYMENT_SETTLED" statusTypeId="PAYMENT_PREF_STATUS"/>
     <StatusItem description="Declined" sequenceId="04" statusCode="DECLINED" statusId="PAYMENT_DECLINED" statusTypeId="PAYMENT_PREF_STATUS"/>
+    <StatusItem description="Refunded" sequenceId="05" statusCode="REFUNDED" statusId="PAYMENT_REFUNDED" statusTypeId="PAYMENT_PREF_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PAYMENT_CANCELLED" statusTypeId="PAYMENT_PREF_STATUS"/>
     <StatusValidChange condition="" statusId="PAYMENT_NOT_RECEIVED" statusIdTo="PAYMENT_RECEIVED" transitionName="Payment Received"/>
     <StatusValidChange condition="" statusId="PAYMENT_NOT_RECEIVED" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
@@ -154,6 +155,7 @@ under the License.
     <StatusValidChange condition="" statusId="PAYMENT_NOT_AUTH" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
     <StatusValidChange condition="" statusId="PAYMENT_AUTHORIZED" statusIdTo="PAYMENT_SETTLED" transitionName="Payment Settled"/>
     <StatusValidChange condition="" statusId="PAYMENT_AUTHORIZED" statusIdTo="PAYMENT_CANCELLED" transitionName="Payment Cancelled"/>
+    <StatusValidChange condition="" statusId="PAYMENT_SETTLED" statusIdTo="PAYMENT_REFUNDED" transitionName="Payment Refunded"/>
 
     <!-- order delivery schedule status -->
     <StatusType description="Order Delivery Schedule" hasTable="N" parentTypeId="" statusTypeId="ORDER_DEL_SCH"/>
