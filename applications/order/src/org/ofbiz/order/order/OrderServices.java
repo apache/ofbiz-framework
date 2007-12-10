@@ -3405,6 +3405,7 @@ public class OrderServices {
             exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
             exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_DECLINED"));
             exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_SETTLED"));
+            exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_REFUNDED"));
             EntityCondition cond = new EntityConditionList(exprs, EntityOperator.AND);
             paymentPrefsToCancel = delegator.findByCondition("OrderPaymentPreference", cond, null, null);
         } catch (GenericEntityException e) {
