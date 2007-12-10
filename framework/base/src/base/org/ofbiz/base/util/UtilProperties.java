@@ -21,6 +21,7 @@ package org.ofbiz.base.util;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Enumeration;
+import java.util.InvalidPropertiesFormatException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -29,14 +30,16 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.IOException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javolution.util.FastMap;
+import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
@@ -49,6 +52,7 @@ import org.ofbiz.base.util.cache.UtilCache;
  * Generic Property Accessor with Cache - Utilities for working with properties files
  *
  */
+@SuppressWarnings("serial")
 public class UtilProperties implements java.io.Serializable {
 
     public static final String module = UtilProperties.class.getName();
@@ -67,7 +71,7 @@ public class UtilProperties implements java.io.Serializable {
     /** An instance of the generic cache for storing the ResourceBundle
      *  corresponding to each properties file keyed by a String for the resource location and the locale
      */
-    protected static UtilCache<String, ResourceBundleMapWrapper.InternalRbmWrapper> bundleLocaleCache = new UtilCache<String, ResourceBundleMapWrapper.InternalRbmWrapper>("properties.UtilPropertiesBundleLocaleCache");
+    protected static UtilCache<String, ResourceBundle> bundleLocaleCache = new UtilCache<String, ResourceBundle>("properties.UtilPropertiesBundleLocaleCache");
 
 
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
@@ -492,26 +496,23 @@ public class UtilProperties implements java.io.Serializable {
 
     public static ResourceBundleMapWrapper.InternalRbmWrapper getInternalRbmWrapper(String resource, Locale locale) {
         String resourceCacheKey = resource + "_" + locale.toString();
-        ResourceBundleMapWrapper.InternalRbmWrapper bundleMap = bundleLocaleCache.get(resourceCacheKey);
-        if (bundleMap == null) {
-            synchronized (UtilProperties.class) {
-                bundleMap = bundleLocaleCache.get(resourceCacheKey);
-                if (bundleMap == null) {
-                    ResourceBundle bundle = getBaseResourceBundle(resource, locale);
+        ResourceBundle bundle = bundleLocaleCache.get(resourceCacheKey);
+        if (bundle == null) {
+            synchronized (bundleLocaleCache) {
+                bundle = bundleLocaleCache.get(resourceCacheKey);
+                if (bundle == null) {
+                    bundle = getBaseResourceBundle(resource, locale);
                     if (bundle == null) {
                         throw new IllegalArgumentException("Could not find resource bundle [" + resource + "] in the locale [" + locale + "]");
                     }
-                    bundleMap = new ResourceBundleMapWrapper.InternalRbmWrapper(bundle);
-                    if (bundleMap != null) {
-                        // TODO: Make this smarter by checking the Locale of the ResourceBundle -
-                        // there might be an instance of this bundle already in the cache.
-                        // See http://java.sun.com/j2se/1.4.2/docs/api/java/util/ResourceBundle.html#getLocale()
-                        bundleLocaleCache.put(resourceCacheKey, bundleMap);
-                    }
+                    // TODO: Make this smarter by checking the Locale of the ResourceBundle -
+                    // there might be an instance of this bundle already in the cache.
+                    // See http://java.sun.com/j2se/1.4.2/docs/api/java/util/ResourceBundle.html#getLocale()
+                    bundleLocaleCache.put(resourceCacheKey, bundle);
                 }
             }
         }
-        return bundleMap;
+        return new ResourceBundleMapWrapper.InternalRbmWrapper(bundle);
     }
 
     protected static Set<String> resourceNotFoundMessagesShown = FastSet.newInstance();
@@ -522,7 +523,7 @@ public class UtilProperties implements java.io.Serializable {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         ResourceBundle bundle = null;
         try {
-            bundle = XmlResourceBundle.getBundle(resource, locale, loader);
+            bundle = UtilResourceBundle.getBundle(resource, locale, loader);
         } catch (MissingResourceException e) {
             String resourceFullName = resource + "_" + locale.toString();
             if (!resourceNotFoundMessagesShown.contains(resourceFullName)) {
@@ -543,75 +544,220 @@ public class UtilProperties implements java.io.Serializable {
         return bundle;
     }
 
-    /** Returns the specified resource/properties file
-     *
-     * NOTE: This is NOT fully implemented yet to fulfill all of the requirements
-     *  for i18n messages. Do NOT use.
-     *
-     * To be used in an i18n context this still needs to be extended quite
-     *  a bit. The behavior needed is that for each getMessage the most specific
-     *  locale (with fname_en_US for instance) is searched first, then the next
-     *  less specific (fname_en for instance), then without the locale if it is
-     *  still not found (plain fname for example, not that these examples would
-     *  have .properties appended to them).
-     * This would be accomplished by returning the following structure:
-     *    1. Get "fname" FlexibleProperties object
-     *    2. Get the "fname_en" FlexibleProperties object and if the "fname" one
-     *      is not null, set it as the default/parent of the "fname_en" object
-     *    3. Get the "fname_en_US" FlexibleProperties object and if the
-     *      "fname_en" one is not null, set it as the default/parent of the
-     *      "fname_en_US" object; if the "fname_en" one is null, but the "fname"
-     *      one is not, set the "fname" object as the default/parent of the
-     *      "fname_en_US" object
-     * Then return the fname_en_US object if not null, else the fname_en, else the fname.
-     *
-     * To make this all more fun, the default locale should be the parent of
-     *  the "fname" object in this example so that there is an even higher
-     *  chance of finding something for each request.
-     *
-     * For efficiency all of these should be cached indendependently so the same
-     *  instance can be shared, speeding up loading time/efficiency.
-     *
-     * All of this should work with the setDefaultProperties method of the
-     *  FlexibleProperties class, but it should be tested and updated as
-     *  necessary. It's a bit tricky, so chances are it won't work as desired...
-     *
+    /** Returns the specified resource/properties file.<p>Note that this method
+     * will return a Properties instance for the specified locale <em>only</em> -
+     * if you need <a href="http://www.w3.org/International/">I18n</a> properties, then use
+     * <a href="#getResourceBundle(java.lang.String,%20java.util.Locale)">
+     * getResourceBundle(String resource, Locale locale)</a>. This method is
+     * intended to be used primarily by the UtilProperties class.</p>
      * @param resource The name of the resource - can be a file, class, or URL
-     * @param locale The locale that the given resource will correspond to
-     * @return The Properties class
+     * @param locale The desired locale
+     * @return The Properties instance, or null if no matching properties are found
      */
     public static Properties getProperties(String resource, Locale locale) {
-        if (resource == null || resource.length() <= 0) return null;
-        if (locale == null) locale = Locale.getDefault();
-
-        String localeString = locale.toString();
-        String resourceLocale = resource + "_" + localeString;
-        FlexibleProperties properties = resourceCache.get(resourceLocale);
-
-        if (properties == null) {
-            try {
-                URL url = UtilURL.fromResource(resourceLocale);
-                if (url == null) {
-                    properties = (FlexibleProperties) getProperties(resource);
-                } else {
-                    properties = FlexibleProperties.makeFlexibleProperties(url);
-                }
-            } catch (MissingResourceException e) {
-                Debug.log(e.getMessage(), module);
-            }
-            resourceCache.put(resourceLocale, properties);
+        if (UtilValidate.isEmpty(resource)) {
+            throw new IllegalArgumentException("resource cannot be null or empty");
         }
-
-        if (properties == null)
-            Debug.logInfo("[UtilProperties.getProperties] could not find resource: " + resource + ", locale: " + locale, module);
-
+        if (locale == null) {
+            throw new IllegalArgumentException("locale cannot be null");
+        }
+        Properties properties = null;
+        URL url = resolvePropertiesUrl(resource, locale);
+        if (url != null) {
+            try {
+                properties = new ExtendedProperties(url, locale);
+            } catch (Exception e) {
+                if (UtilValidate.isNotEmpty(e.getMessage())) {
+                    Debug.log(e.getMessage(), module);
+                }
+                properties = null;
+            }
+        }
+        if (UtilValidate.isNotEmpty(properties)) {
+            Debug.logInfo("Loaded " + properties.size() + " properties for: " + resource + " (" + locale + ")", module);
+        }
         return properties;
     }
-    
-    /**
-     * Custom ResourceBundle class. This class reads XML properties files and supports
-     * the OFBiz <code>component://</code> location protocol.<p>The format of the XML
-     * properties file is:<br /><br /><code>
+
+    // ========= Classes and Methods for expanded Properties file support ========== //
+
+    public static final Locale LOCALE_ROOT = new Locale("", "", "");
+
+    protected static Locale fallbackLocale = null;
+    /** Returns the configured fallback locale. UtilProperties uses this locale
+     * to resolve locale-specific XML properties.<p>The fallback locale can be
+     * configured using the <code>locale.properties.fallback</code> property in
+     * <code>general.properties</code>.
+     * @return The configured fallback locale
+     */
+    public static Locale getFallbackLocale() {
+        if (fallbackLocale == null) {
+            synchronized (UtilResourceBundle.class) {
+                if (fallbackLocale == null) {
+                    String locale = getPropertyValue("general", "locale.properties.fallback");
+                    if (UtilValidate.isNotEmpty(locale)) {
+                        fallbackLocale = UtilMisc.parseLocale(locale);
+                    }
+                    if (fallbackLocale == null) {
+                        fallbackLocale = UtilMisc.parseLocale("en");
+                    }
+                }
+            }
+        }
+        return fallbackLocale;
+    }
+
+    /** Converts a Locale instance to a candidate Locale list. The list
+     * is ordered most-specific to least-specific. Example:
+     * <code>localeToCandidateList(Locale.US)</code> would return
+     * a list containing <code>en_US</code> and <code>en</code>.
+     * @return A list of default candidate locales.
+     */
+    public static List<Locale> localeToCandidateList(Locale locale) {
+        List<Locale> localeList = FastList.newInstance();
+        localeList.add(locale);
+        String localeString = locale.toString();
+        int pos = localeString.lastIndexOf("_", localeString.length());
+        while (pos != -1) {
+            localeString = localeString.substring(0, pos);
+            localeList.add(new Locale(localeString));
+            pos = localeString.lastIndexOf("_", localeString.length());
+        }
+        return localeList;
+    }
+
+    protected static Set<Locale> defaultCandidateLocales = null;
+    /** Returns the default candidate Locale list. The list is populated
+     * with the JVM's default locale, the OFBiz fallback locale, and
+     * the <code>LOCALE_ROOT</code> (empty) locale - in that order.
+     * @return A list of default candidate locales.
+     */
+    public static Set<Locale> getDefaultCandidateLocales() {
+        if (defaultCandidateLocales == null) {
+            synchronized (UtilProperties.class) {
+                if (defaultCandidateLocales == null) {
+                    defaultCandidateLocales = FastSet.newInstance();
+                    defaultCandidateLocales.addAll(localeToCandidateList(Locale.getDefault()));
+                    // Change to Locale.ROOT in Java 6
+                    defaultCandidateLocales.add(LOCALE_ROOT);
+                    defaultCandidateLocales.addAll(localeToCandidateList(getFallbackLocale()));
+                }
+            }
+        }
+        return defaultCandidateLocales;
+    }
+
+    /** Returns a list of candidate locales based on a supplied locale.
+     * The returned list consists of the supplied locale and the
+     * <a href="#getDefaultCandidateLocales()">default candidate locales</a>
+     * - in that order.
+     * @param locale The desired locale
+     * @return A list of candidate locales
+     */
+    public static List<Locale> getCandidateLocales(Locale locale) {
+        // Java 6 conformance
+        if (LOCALE_ROOT.equals(locale)) {
+            return UtilMisc.toList(locale);
+        }
+        Set<Locale> localeSet = FastSet.newInstance();
+        localeSet.addAll(localeToCandidateList(locale));
+        localeSet.addAll(getDefaultCandidateLocales());
+        List<Locale> localeList = FastList.newInstance();
+        localeList.addAll(localeSet);
+        return localeList;
+    }
+
+    /** Create a localized resource name based on a resource name and
+     * a locale.
+     * @param resource The desired resource
+     * @param locale The desired locale
+     * @return Localized resource name
+     */
+    public static String createResourceName(String resource, Locale locale) {
+        if (locale == null) {
+            return resource;
+        }
+        String resourceName = resource;
+        if (UtilValidate.isNotEmpty(locale.toString())) {
+            resourceName = resourceName + "_" + locale;
+        }
+        return resourceName;
+    }
+
+    protected static Set<String> propertiesNotFound = FastSet.newInstance();
+    /** Resolve a properties file URL.
+     * <p>This method uses the following strategy:<br />
+     * <ul>
+     * <li>Locate the XML file specified in <code>resource (MyProps.xml)</code></li>
+     * <li>Locate the file that starts with the name specified in
+     * <code>resource</code> and ends with the locale's string and
+     * <code>.xml (MyProps_en.xml)</code></li>
+     * <li>Locate the file that starts with the name specified in
+     * <code>resource</code> and ends with the locale's string and
+     * <code>.properties (MyProps_en.properties)</code></li>
+     * <li>Locate the file that starts with the name specified in
+     * <code>resource and ends with the locale's string (MyProps_en)</code></li>
+     * </ul>
+     * <br />
+     * The <code>component://</code> protocol is supported in the
+     * <code>resource</code> parameter.
+     * </p>
+     * 
+     * @param resource The resource to resolve
+     * @param locale The desired locale
+     * @return A URL instance or null if not found.
+     */
+    public static URL resolvePropertiesUrl(String resource, Locale locale) {
+        if (UtilValidate.isEmpty(resource)) {
+            throw new IllegalArgumentException("resource cannot be null or empty");
+        }
+        if (locale == null) {
+            throw new IllegalArgumentException("locale cannot be null");
+        }
+        String resourceName = createResourceName(resource, locale);
+        if (propertiesNotFound.contains(resourceName)) {
+            return null;
+        }
+        URL url = null;
+        try {
+            // Check for complete URL first
+            if (resource.endsWith(".xml")) {
+                url = FlexibleLocation.resolveLocation(resource);
+                if (url != null) {
+                    return url;
+                }
+            }
+            // Check for XML properties file next
+            url = FlexibleLocation.resolveLocation(resourceName + ".xml");
+            if (url != null) {
+                return url;
+            }
+            // Check for *.properties file
+            url = FlexibleLocation.resolveLocation(resourceName + ".properties");
+            if (url != null) {
+                return url;
+            }
+            url = FlexibleLocation.resolveLocation(resourceName);
+            if (url != null) {
+                return url;
+            }
+        } catch (Exception e) {
+            Debug.logInfo("Properties resolver: invalid URL - " + e.getMessage(), module);
+        }
+        if (propertiesNotFound.size() <= 300) {
+            // Sanity check - list could get quite large
+            propertiesNotFound.add(resourceName);
+        }
+        return null;
+    }
+
+    /** Convert XML property file to Properties instance. This method will convert
+     * both the Java XML properties file format and the OFBiz custom XML
+     * properties file format.
+     * <p>
+     * The format of the custom XML properties file is:<br />
+     * <br />
+     * <code>
      * &lt;resource&gt;<br />
      * &nbsp;&lt;property key="key"&gt;<br />
      * &nbsp;&nbsp;&lt;value xml:lang="locale 1"&gt;Some value&lt;/value&gt<br />
@@ -619,29 +765,80 @@ public class UtilProperties implements java.io.Serializable {
      * &nbsp;&nbsp;...<br />
      * &nbsp;&lt;/property&gt;<br />
      * &nbsp;...<br />
-     * &lt;/resource&gt;<br /><br /></code>
-     * where <em>"locale 1", "locale 2"</em> are valid Locale strings.</p>
+     * &lt;/resource&gt;<br /><br /></code> where <em>"locale 1", "locale 2"</em> are valid Locale strings.
+     * </p>
+     * 
+     * @param in XML file InputStream
+     * @param locale The desired locale
+     * @param properties Optional Properties object to populate
+     * @return Properties instance or null if not found
      */
-    public static class XmlResourceBundle extends ResourceBundle {
-        protected Map<String, Object> propertyMap = null;
-        protected String locale = null;
+    public static Properties xmlToProperties(InputStream in, Locale locale, Properties properties) throws IOException, InvalidPropertiesFormatException {
+        if (in == null) {
+            throw new IllegalArgumentException("InputStream cannot be null");
+        }
+        Document doc = null;
+        try {
+            // set validation true when we have a DTD for the custom XML format
+            doc = UtilXml.readXmlDocument(in, false, "XML Properties file");
+            in.close();
+        } catch (Exception e) {
+            in.close();
+            return null;
+        }
+        Element resourceElement = doc.getDocumentElement();
+        List<? extends Element> propertyList = UtilXml.childElementList(resourceElement, "property");
+        if (UtilValidate.isNotEmpty(propertyList)) {
+            // Custom XML properties file format
+            if (locale == null) {
+                throw new IllegalArgumentException("locale cannot be null");
+            }
+            String localeString = locale.toString();
+            for (Iterator<? extends Element> p = propertyList.iterator(); p.hasNext();) {
+                Element property = p.next();
+                Element value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
+                if (value != null) {
+                    if (properties == null) {
+                        properties = new Properties();
+                    }
+                    properties.put(property.getAttribute("key"), UtilXml.elementValue(value));
+                }
+            }
+            return properties;
+        }
+        propertyList = UtilXml.childElementList(resourceElement, "entry");
+        if (UtilValidate.isEmpty(propertyList)) {
+            throw new InvalidPropertiesFormatException("XML properties file invalid or empty");
+        }
+        // Java XML properties file format
+        for (Iterator<? extends Element> p = propertyList.iterator(); p.hasNext();) {
+            Element property = p.next();
+            String value = UtilXml.elementValue(property);
+            if (value != null) {
+                if (properties == null) {
+                    properties = new Properties();
+                }
+                properties.put(property.getAttribute("key"), value);
+            }
+        }
+        return properties;
+    }
 
-        protected XmlResourceBundle() {}
+    /** Custom ResourceBundle class. This class extends ResourceBundle
+     * to add support for the OFBiz custom XML properties file format.
+     */
+    public static class UtilResourceBundle extends ResourceBundle {
+        protected Properties properties = null;
+        protected Locale locale = null;
+
+        protected UtilResourceBundle() {}
         
-        public XmlResourceBundle(Map<String, Object> propertyMap, String locale, ResourceBundle parent) {
-            this.propertyMap = propertyMap;
+        public UtilResourceBundle(Properties properties, Locale locale, ResourceBundle parent) {
+            this.properties = properties;
             this.locale = locale;
-            this.parent = parent;
+            setParent(parent);
         }
 
-        /**
-         * Get ResourceBundle. <p>This method override behaves differently than the
-         * ResourceBundle method. The method calls ResourceBundle.getBundle(...) first
-         * - to preserve the original behavior. If null is returned, then the method
-         * attempts to get an XML resource. The resource search starts with the
-         * specified locale, then the system locale, and finally the locale specified
-         * in the general.properties <code>locale.properties.fallback</code> property.</p>
-         */
         public static ResourceBundle getBundle(String resource, Locale locale, ClassLoader loader) throws MissingResourceException {
             ResourceBundle bundle = null;
             try {
@@ -652,107 +849,81 @@ public class UtilProperties implements java.io.Serializable {
             if (bundle != null) {
                 return bundle;
             }
-            try {
-                URL url = FlexibleLocation.resolveLocation(resource, loader);
-                if (url == null) {
-                    url = FlexibleLocation.resolveLocation(resource + ".xml");
-                }
-                if (url != null) {
-                    Document doc = UtilXml.readXmlDocument(url);
-                    bundle = createBundle(doc, locale.toString());
-                    if (bundle == null && !Locale.getDefault().toString().equals(locale.toString())) {
-                        bundle = createBundle(doc, Locale.getDefault().toString());
+            double startTime = System.currentTimeMillis();
+            FastList<Locale> candidateLocales = (FastList<Locale>) getCandidateLocales(locale);
+            ResourceBundle parentBundle = null;
+            synchronized (bundleLocaleCache) {
+                while (candidateLocales.size() > 0) {
+                    Locale candidateLocale = candidateLocales.removeLast();
+                    // ResourceBundles are connected together as a singly-linked list
+                    String parentName = createResourceName(resource, candidateLocale);
+                    ResourceBundle lookupBundle = bundleLocaleCache.get(parentName);
+                    if (lookupBundle == null) {
+                        Properties newProps = getProperties(resource, candidateLocale);
+                        if (UtilValidate.isNotEmpty(newProps)) {
+                            bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
+                            bundleLocaleCache.put(parentName, bundle);
+                            parentBundle = bundle;
+                        }
+                    } else {
+                        parentBundle = bundle;
+                        bundle = lookupBundle;
                     }
-                    if (bundle == null && !getFallbackLocale().toString().equals(locale.toString())) {
-                        bundle = createBundle(doc, getFallbackLocale().toString());
-                    }
                 }
-            } catch (Exception e) {
-                throw new MissingResourceException(e.getMessage(), null, null);
             }
+            double totalTime = System.currentTimeMillis() - startTime;
             if (bundle == null) {
-                throw new MissingResourceException("Resource " + resource + " not found", null, null);
+                throw new MissingResourceException("Resource " + resource + ", locale " + locale + " not found", null, null);
             }
+            Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime + " mS", module);
             return bundle;
         }
         
-        /**
-         * Creates a new XmlResourceBundle.
-         * @param doc The XML Document instance to search
-         * @param localeString
-         * @return new ResourceBundle, or null if no matching resource found
-         * @throws Exception Invalid properties XML file
-         */
-        protected static ResourceBundle createBundle(Document doc, String localeString) throws Exception {
-            Map<String, Object> propertyMap = null;
-            Element resourceElement = doc.getDocumentElement();
-            List propertyList = UtilXml.childElementList(resourceElement, "property");
-            if (propertyList == null) {
-                throw new Exception("XML properties file invalid or empty");
-            }
-            int pos = 0;
-            while (pos != -1) {
-                for (Iterator p = propertyList.iterator(); p.hasNext();) {
-                    Element property = (Element) p.next();
-                    Element value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
-                    if (value != null) {
-                        if (propertyMap == null) {
-                            propertyMap = FastMap.newInstance();
-                        }
-                        propertyMap.put(property.getAttribute("key"), UtilXml.elementValue(value));
-                    }
-                }
-                if (propertyMap != null) {
-                    return new XmlResourceBundle(propertyMap, localeString, null);
-                }
-                pos = localeString.lastIndexOf("_", localeString.length());
-                if (pos != -1) {
-                    localeString = localeString.substring(0, pos);
-                }
-            }
-            return null;
-        }
-        
         public Locale getLocale() {
-            return UtilMisc.ensureLocale(this.locale);
+            return this.locale;
         }
         
         protected Object handleGetObject(String key) {
-            Object obj = propertyMap.get(key);
-            if (obj == null && this.parent != null) {
-                obj = parent.getObject(key);
-            }
-            return obj;
+            return properties.get(key);
         }
         
-        public Enumeration getKeys() {
-            return new Enumeration() {
-                Iterator i = propertyMap.keySet().iterator();
+        public Enumeration<String> getKeys() {
+            return new Enumeration<String>() {
+                Iterator i = properties.keySet().iterator();
                 public boolean hasMoreElements() {
                     return (i.hasNext());
                 }
-                public Object nextElement() {
-                    return i.next();
+                public String nextElement() {
+                    return (String) i.next();
                 }
             };
         }
 
-        protected static Locale fallbackLocale = null;
-        public static Locale getFallbackLocale() {
-            if (fallbackLocale == null) {
-                synchronized (XmlResourceBundle.class) {
-                    if (fallbackLocale == null) {
-                        String locale = UtilProperties.getPropertyValue("general", "locale.properties.fallback");
-                        if (UtilValidate.isNotEmpty(locale)) {
-                            fallbackLocale = UtilMisc.parseLocale(locale);
-                        }
-                        if (fallbackLocale == null) {
-                            fallbackLocale = UtilMisc.parseLocale("en");
-                        }
-                    }
-                }
+    }
+
+    /** Custom Properties class. Extended from Properties to add support
+     * for the OFBiz custom XML file format.
+     */
+    @SuppressWarnings("serial")
+    public static class ExtendedProperties extends Properties {
+        public ExtendedProperties() {
+            super();
+        }
+        public ExtendedProperties(Properties defaults) {
+            super(defaults);
+        }
+        public ExtendedProperties(URL url, Locale locale) throws IOException, InvalidPropertiesFormatException {
+            InputStream in = new BufferedInputStream(url.openStream());
+            if (url.getFile().endsWith(".xml")) {
+                xmlToProperties(in, locale, this);
+            } else {
+                load(in);
             }
-            return fallbackLocale;
+            in.close();
+        }
+        public void loadFromXML(InputStream in) throws IOException, InvalidPropertiesFormatException {
+            xmlToProperties(in, null, this);
+            in.close();
         }
     }
 }

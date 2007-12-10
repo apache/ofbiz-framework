@@ -31,8 +31,6 @@ under the License.
     </property>
     <property key="ExampleCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="ro">Part of the Open For Business Family of Open Source Software</value>
     </property>
     <property key="ExampleExampleId">
         <value xml:lang="en">Example ID</value>
@@ -77,17 +75,13 @@ under the License.
     <property key="ExampleExplicitOption">
         <value xml:lang="en">Explicit Option</value>
         <value xml:lang="it">Opzione Esplicita</value>
-        <value xml:lang="ro">Explicit Option</value>
     </property>
     <property key="ExampleFormWidgetExamples">
         <value xml:lang="en">Form Widget Examples</value>
-        <value xml:lang="it">Form Widget Examples</value>
-        <value xml:lang="ro">Form Widget Examples</value>
     </property>
     <property key="ExampleMainPage">
         <value xml:lang="en">Example Main Page</value>
         <value xml:lang="it">Pagina Principale Esempi</value>
-        <value xml:lang="ro">Example Main Page</value>
     </property>
     <property key="ExampleMessage">
         <value xml:lang="en">For something interesting make sure you are logged in, try username:admin, password:ofbiz.</value>
@@ -106,8 +100,6 @@ under the License.
     </property>
     <property key="ExampleOriginalExample">
         <value xml:lang="en">Original Example</value>
-        <value xml:lang="it">Original Example</value>
-        <value xml:lang="ro">Original Example</value>
     </property>
     <property key="ExampleErrorNoExampleStatusValidChange">
         <value xml:lang="en">Error: status change from [${lookedUpValue.statusId}] to [${parameters.statusId}] is not allowed.</value>
@@ -138,8 +130,6 @@ under the License.
     </property>
     <property key="PageTitleFormWidgetExamples">
         <value xml:lang="en">Form Widget Examples</value>
-        <value xml:lang="it">Form Widget Examples</value>
-        <value xml:lang="ro">Form Widget Examples</value>
     </property>
     <property key="PageTitleEditExample">
         <value xml:lang="en">Edit Example</value>
@@ -211,11 +201,9 @@ under the License.
     <property key="FormFieldTitle_anotherDate">
         <value xml:lang="en">Another Date</value>
         <value xml:lang="it">Altra Data</value>
-        <value xml:lang="ro">Another Date</value>
     </property>   
     <property key="FormFieldTitle_anotherText">
         <value xml:lang="en">Another Text</value>
         <value xml:lang="it">Altro Testo</value>
-        <value xml:lang="ro">Another Text</value>
     </property>
 </resource>

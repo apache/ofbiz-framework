@@ -51,7 +51,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilProperties.XmlResourceBundle;
+import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilDateTime;
@@ -661,7 +661,7 @@ public class WebToolsServices {
                         ResourceBundle bundle = null;
                         if (UtilValidate.isNotEmpty(entity.getDefaultResourceName())) {
                             try {
-                                bundle = XmlResourceBundle.getBundle(entity.getDefaultResourceName(), locale, loader);
+                                bundle = UtilResourceBundle.getBundle(entity.getDefaultResourceName(), locale, loader);
                             } catch (Exception exception) {
                                 Debug.logInfo(exception.getMessage(), module);
                             }
