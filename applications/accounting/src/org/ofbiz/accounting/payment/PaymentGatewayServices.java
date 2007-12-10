@@ -677,7 +677,6 @@ public class PaymentGatewayServices {
         try {
             // get the valid payment prefs
             List othExpr = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EFT_ACCOUNT"));
-            othExpr.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "CREDIT_CARD"));
             othExpr.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "GIFT_CARD"));
             othExpr.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "FIN_ACCOUNT"));
             EntityCondition con1 = new EntityConditionList(othExpr, EntityJoinOperator.OR);
