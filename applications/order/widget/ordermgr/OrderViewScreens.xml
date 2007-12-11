@@ -313,26 +313,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="ManageOrdersFromEbay">
-        <section>
-            <actions>
-                <set field="titleProperty" value="OrderImportOrdersSearchFromEbay"/>
-                <set field="orderList" from-field="parameters.orderList"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonOrderViewDecorator">
-                    <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.OrderImportOrdersSearchFromEbay}</label>
-                        </container>
-                        <include-form name="ManageOrdersFromEbay" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
-                        <container>
-                            <label style="head1">${uiLabelMap.OrderImportOrdersFromEbay}</label>
-                        </container>
-                        <include-form name="ListOrdersFromEbay" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 </screens>

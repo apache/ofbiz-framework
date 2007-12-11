@@ -39,7 +39,6 @@ under the License.
       <li class="head3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
       <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
       <li><a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}">${uiLabelMap.PartyFindParty}</a></li>
-      <li><a href="<@ofbizUrl>ManageOrdersFromEbay</@ofbizUrl>">${uiLabelMap.OrderImportOrdersFromEbay}</a></li>
     </ul>
     <br class="clear"/>
   </div>

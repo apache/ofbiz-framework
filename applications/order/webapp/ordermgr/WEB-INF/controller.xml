@@ -1477,33 +1477,6 @@ under the License.
         <response name="success" type="view" value="LookupProductCategory"/>
     </request-map>
     
-    <request-map uri="ManageOrdersFromEbay">
-        <response name="success" type="view" value="ManageOrdersFromEbay"/>
-        <response name="failure" type="view" value="ManageOrdersFromEbay"/>
-    </request-map>
-    
-    <request-map uri="ImportOrdersSearchFromEbay">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="importOrdersSearchFromEbay"/>
-        <response name="success" type="view" value="ManageOrdersFromEbay"/>
-        <response name="failure" type="view" value="ManageOrdersFromEbay"/>
-    </request-map>
-    
-    <request-map uri="ImportOrderFromEbay">
-        <security https="true" auth="true"/>
-        <event type="service-multi" path="" invoke="importOrderFromEbay"/>
-        <response name="success" type="view" value="ManageOrdersFromEbay"/>
-        <response name="error" type="view" value="ManageOrdersFromEbay"/>
-        <response name="failure" type="view" value="ManageOrdersFromEbay"/>
-    </request-map>
-    
-    <request-map uri="setEbayOrderToComplete">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="setEbayOrderToComplete"/>
-        <response name="success" type="view" value="ManageOrdersFromEbay"/>
-        <response name="failure" type="view" value="ManageOrdersFromEbay"/>
-    </request-map>
-    
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the 
@@ -1681,7 +1654,5 @@ under the License.
     <view-map name="ShipGroupsPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#ShipGroupsPDF" content-type="application/pdf" encoding="none"/>
 
     <view-map name="SendConfirmationMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderConfirmation"/>
-    <view-map name="ManageOrdersFromEbay" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ManageOrdersFromEbay"/>
-    <view-map name="ListOrdersFromEbay" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ListOrdersFromEbay"/>
     <!-- end of view mappings -->
 </site-conf>
