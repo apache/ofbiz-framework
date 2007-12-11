@@ -24,6 +24,7 @@ under the License.
     <!-- create the accounting transactions for a sales shipment issuance every time the inventory is issued to the shipment -->
     <eca service="createItemIssuance" event="commit">
         <condition field-name="shipmentId" operator="is-not-empty"/>
+        <condition field-name="inventoryItemId" operator="is-not-empty"/>
         <action service="createAcctgTransForSalesShipmentIssuance" mode="sync"/>
     </eca>
 
