@@ -1154,31 +1154,6 @@ under the License.
         <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <!-- Products Export Services -->    
-    <service name="exportToEbay" engine="java"
-             location="org.ofbiz.product.product.ProductsExportToEbay" invoke="exportToEbay" auth="true">
-        <description>Export products to eBay</description>
-        <attribute type="List" mode="IN" name="selectResult" optional="false"/>
-        <attribute type="String" mode="IN" name="country" optional="false"/>
-        <attribute type="String" mode="IN" name="location" optional="false"/>
-        <attribute type="String" mode="IN" name="ebayCategory" optional="false"/>
-        <attribute type="String" mode="IN" name="paymentPayPal" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentVisaMC" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentAmEx" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentDiscover" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentCCAccepted" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentCashInPerson" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentCashOnPickup" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentCOD" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentCODPrePayDelivery" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentMOCC" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentMoneyXferAccepted" optional="true"/>
-        <attribute type="String" mode="IN" name="paymentPersonalCheck" optional="true"/>
-        <attribute type="String" mode="IN" name="payPalEmail" optional="true"/>
-        <attribute type="String" mode="IN" name="listingDuration" optional="false"/>
-        <attribute type="String" mode="IN" name="startPrice" optional="false"/>
-        <attribute type="String" mode="IN" name="quantity" optional="false"/>
-    </service>
     
     <!--VendorProduct Services -->
     <service name="createVendorProduct" engine="simple" default-entity-name="VendorProduct"

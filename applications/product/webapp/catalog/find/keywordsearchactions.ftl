@@ -113,8 +113,5 @@ ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVi
 <hr class="sepbar"/>
 <div class="tabletext">
   <b>${uiLabelMap.ProductSearchExportProductList}:</b> <a href="<@ofbizUrl>searchExportProductList?clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchExport}</a>
-  <#if productIds?has_content>
-    <a href="javascript:exportToeBay();" class="buttontext">${uiLabelMap.ProductExportToeBay}</a>
-  </#if>
 </div>
 </#if>
