@@ -22,5 +22,5 @@ under the License.
 
 <div class='tabContainer'>
     <a href="<@ofbizUrl>RunMrp</@ofbizUrl>" class="${selectedClassMap.RunMrp?default(unselectedClassName)}">${uiLabelMap.ManufacturingRunMrp}</a>
-    <a href="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>" class="${selectedClassMap.findInventoryEventPlan?default(unselectedClassName)}">${uiLabelMap.ManufacturingInventoryEventPlanned}</a>
+    <a href="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>" class="${selectedClassMap.findInventoryEventPlan?default(unselectedClassName)}">${uiLabelMap.ManufacturingMrpLog}</a>
 </div>

@@ -29,60 +29,58 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
-/**
- * InventoryEventPlannedServices - InventoryEventPlanned related Services
- *
- */
+
 public class InventoryEventPlannedServices {
     
     public static final String module = InventoryEventPlannedServices.class.getName();
    
     /**
      *
-     *  Create an InventoryEventPlanned.
-     *  Make an update if a record exist with same key,  (adding the eventQuantity to the exiting record)
+     *  Create an MrpEvent.
+     *  Make an update if a record exist with same key,  (adding the event quantity to the exiting record)
      *
      * @param ctx
-     * @param context: a map containing the parameters used to create an InventoryEventPlanned (see the servcie definition)
+     * @param context: a map containing the parameters used to create an MrpEvent
      * @return result: a map with service status
      */
-    public static Map createInventoryEventPlanned(DispatchContext ctx, Map context) {
+    public static Map createMrpEvent(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
-        Map parameters = UtilMisc.toMap("productId", context.get("productId"),
+        Map parameters = UtilMisc.toMap("mrpId", context.get("mrpId"),
+                                        "productId", context.get("productId"),
                                         "eventDate", context.get("eventDate"),
-                                        "inventoryEventPlanTypeId", context.get("inventoryEventPlanTypeId"));
-        Double quantity = (Double)context.get("eventQuantity");
-        GenericValue inventoryEventPlanned = null;
+                                        "mrpEventTypeId", context.get("mrpEventTypeId"));
+        Double quantity = (Double)context.get("quantity");
+        GenericValue mrpEvent = null;
         try {
-            createOrUpdateInventoryEventPlanned(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), false, delegator);
+            createOrUpdateMrpEvent(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
-            Debug.logError(e,"Error : delegator.findByPrimaryKey(\"InventoryEventPlanned\", parameters =)"+parameters, module);
+            Debug.logError(e,"Error : delegator.findByPrimaryKey(\"MrpEvent\", parameters =)"+parameters, module);
             return ServiceUtil.returnError("Problem, on database access, for more detail look at the log");
         }
         return ServiceUtil.returnSuccess();
     }
 
-    public static void createOrUpdateInventoryEventPlanned(Map inventoryEventPlannedKeyMap, Double newQuantity, String facilityId, String eventName, boolean isLate, GenericDelegator delegator) throws GenericEntityException {
-        GenericValue inventoryEventPlanned = null;
-        inventoryEventPlanned = delegator.findByPrimaryKey("InventoryEventPlanned", inventoryEventPlannedKeyMap);
-        if (inventoryEventPlanned == null) {
-            inventoryEventPlanned = delegator.makeValue("InventoryEventPlanned", inventoryEventPlannedKeyMap);
-            inventoryEventPlanned.put("eventQuantity", newQuantity);
-            inventoryEventPlanned.put("eventName", eventName);
-            inventoryEventPlanned.put("facilityId", facilityId);
-            inventoryEventPlanned.put("isLate", (isLate? "Y": "N"));
-            inventoryEventPlanned.create();
+    public static void createOrUpdateMrpEvent(Map mrpEventKeyMap, Double newQuantity, String facilityId, String eventName, boolean isLate, GenericDelegator delegator) throws GenericEntityException {
+        GenericValue mrpEvent = null;
+        mrpEvent = delegator.findByPrimaryKey("MrpEvent", mrpEventKeyMap);
+        if (mrpEvent == null) {
+            mrpEvent = delegator.makeValue("MrpEvent", mrpEventKeyMap);
+            mrpEvent.put("quantity", newQuantity);
+            mrpEvent.put("eventName", eventName);
+            mrpEvent.put("facilityId", facilityId);
+            mrpEvent.put("isLate", (isLate? "Y": "N"));
+            mrpEvent.create();
         } else {
-            double qties = newQuantity.doubleValue() + ((Double)inventoryEventPlanned.get("eventQuantity")).doubleValue();
-            inventoryEventPlanned.put("eventQuantity", new Double(qties));
+            double qties = newQuantity.doubleValue() + ((Double)mrpEvent.get("quantity")).doubleValue();
+            mrpEvent.put("quantity", new Double(qties));
             if (!UtilValidate.isEmpty(eventName)) {
-                String existingEventName = inventoryEventPlanned.getString("eventName");
-                inventoryEventPlanned.put("eventName", (UtilValidate.isEmpty(existingEventName)? eventName: existingEventName + ", " + eventName));
+                String existingEventName = mrpEvent.getString("eventName");
+                mrpEvent.put("eventName", (UtilValidate.isEmpty(existingEventName)? eventName: existingEventName + ", " + eventName));
             }
             if (isLate) {
-                inventoryEventPlanned.put("isLate", "Y");
+                mrpEvent.put("isLate", "Y");
             }
-            inventoryEventPlanned.store();
+            mrpEvent.store();
         }
     }
 }

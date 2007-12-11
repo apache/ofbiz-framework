@@ -32,7 +32,6 @@ import org.ofbiz.base.util.Debug;
 GenericDelegator delegator = request.getAttribute("delegator");
 LocalDispatcher dispatcher = request.getAttribute("dispatcher");
 
-//get the inventory (inventoryEventPlanned)
 productId = request.getParameter("productId");
 
 // get the lookup flag
@@ -65,14 +64,14 @@ if (lookupFlag != null) {
         if ( productId.length() > 0)
         andExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
     } 
-    andExprs.add(new EntityExpr("inventoryEventPlanTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
-    andExprs.add(new EntityExpr("inventoryEventPlanTypeId", EntityOperator.NOT_EQUAL, "ERROR"));
+    andExprs.add(new EntityExpr("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
+    andExprs.add(new EntityExpr("mrpEventTypeId", EntityOperator.NOT_EQUAL, "ERROR"));
 
     mainCond = new EntityConditionList(andExprs, EntityOperator.AND); 
     
     if ( mainCond != null) {
     // do the lookup
-        inventoryList = delegator.findByCondition("InventoryEventPlanned", mainCond, null, UtilMisc.toList("productId", "eventDate"));
+        inventoryList = delegator.findByCondition("MrpEvent", mainCond, null, UtilMisc.toList("productId", "eventDate"));
     }
     
     context.put("inventoryList", inventoryList);

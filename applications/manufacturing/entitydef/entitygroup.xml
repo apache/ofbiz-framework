@@ -40,9 +40,9 @@ under the License.
   <!-- org.ofbiz.manufacturing.mrp -->
   <!-- ========================================================= -->
 
-    <entity-group group="org.ofbiz" entity="InventoryEventPlanned" />
-    <entity-group group="org.ofbiz" entity="InventoryEventPlannedType" />
-    <entity-group group="org.ofbiz" entity="MrpInventoryEventPlanned" />
+    <entity-group group="org.ofbiz" entity="MrpEvent" />
+    <entity-group group="org.ofbiz" entity="MrpEventType" />
+    <entity-group group="org.ofbiz" entity="MrpEventView" />
 
 </entitygroup>
 
