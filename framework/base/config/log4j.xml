@@ -126,6 +126,17 @@
         </layout>
     </appender>
 
+    <!-- special fop log -->
+    <appender name="fop-log" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="5000KB" />
+        <param name="maxBackupIndex" value="10" />
+        <param name="File" value="runtime/logs/fop.log" />
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+        </layout>
+    </appender>
+
     <!-- log4j category -->
     <category name="org.apache.log4j">
         <priority value="warn"/>
@@ -141,6 +152,12 @@
     <category name="org.apache.geronimo.transaction">
         <priority value="warn"/>
         <appender-ref ref="minerva-log"/>
+    </category>
+
+    <!-- fop rendering logging -->
+    <category name="org.apache.fop">
+        <priority value="info"/>
+        <appender-ref ref="fop-log"/>
     </category>
 
     <!-- root logger -->
