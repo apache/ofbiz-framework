@@ -2580,6 +2580,7 @@ under the License.
                     <xs:enumeration value="in"/>
                     <xs:enumeration value="between"/>
                     <xs:enumeration value="like"/>
+                    <xs:enumeration value="not-like"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
