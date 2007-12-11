@@ -62,11 +62,6 @@ under the License.
     function toggle(e) {
         e.checked = !e.checked;
     }
-
-    function exportToeBay() {
-        document.products.action="<@ofbizUrl>ProductsExportToEbay</@ofbizUrl>";
-        document.products.submit();
-    }
 </script>
 
 <table border="0" width="100%" cellpadding="2">

@@ -2444,18 +2444,6 @@ under the License.
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>      
 
-     <request-map uri="ProductsExportToEbay">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ProductsExportToEbay"/>
-    </request-map>
-    
-    <request-map uri="PostProductsToEbay">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="exportToEbay"/>
-        <response name="success" type="view" value="ProductsExportToEbay"/>
-        <response name="error" type="view" value="ProductsExportToEbay"/>
-    </request-map>
-    
     <!-- ================ Vendor Product Requests ================= -->
     <request-map uri="EditVendorProduct">
         <security https="true" auth="true"/>
@@ -2608,8 +2596,6 @@ under the License.
     <view-map name="ListQuantityBreaks" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListQuantityBreaks"/>
     <view-map name="ListShipmentMethodTypes" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentMethodTypes"/>
     <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
-
-    <view-map name="ProductsExportToEbay" type="screen" page="component://product/widget/catalog/FindScreens.xml#ProductsExportToEbay"/>
    
     <!-- Lookup request mappings -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
