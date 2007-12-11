@@ -81,4 +81,4 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="!${canImportOrder}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}" widget-style="smallSubmit"><submit/></field>
     </form>
-</forms>		
+</forms>
