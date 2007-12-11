@@ -33,7 +33,7 @@ under the License.
     <ProductPrice productId="HD4GB_BRAND" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="420" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
     <ProductPrice productId="ETH_BRAND" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="18" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
     <ProductPrice productId="MOD_BRAND" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="15" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
-    
+   
     <ProductConfigItem configItemId="IT0000" configItemTypeId="SINGLE" configItemName="RAM (brand)" description="Select the memory configuration:"/>
     <ProductConfigItem configItemId="IT0001" configItemTypeId="SINGLE" configItemName="HD (brand)" description="Select the Hard Disk:"/>
     <ProductConfigItem configItemId="IT0002" configItemTypeId="MULTIPLE" configItemName="PCI slot" description="Select the PCI cards:"/>
@@ -52,8 +52,8 @@ under the License.
     <ProductConfigProduct configItemId="IT0002" configOptionId="OP004" productId="ETH_BRAND" quantity="1"/>
     <ProductConfigProduct configItemId="IT0002" configOptionId="OP005" productId="MOD_BRAND" quantity="1"/>
     
-    <ProductConfig productId="PC001" configItemId="IT0000" sequenceNum="10" fromDate="2004-08-20 12:59:26.209" configTypeId="QUESTION" isMandatory="Y"/>
-    <ProductConfig productId="PC001" configItemId="IT0001" sequenceNum="20" fromDate="2004-08-20 12:59:26.209" description="1st Hard Disk drive" configTypeId="QUESTION" isMandatory="Y"/>
+    <ProductConfig productId="PC001" configItemId="IT0000" sequenceNum="10" fromDate="2004-08-20 12:59:26.209" configTypeId="QUESTION" defaultConfigOptionId="OP001" isMandatory="Y"/>
+    <ProductConfig productId="PC001" configItemId="IT0001" sequenceNum="20" fromDate="2004-08-20 12:59:26.209" description="1st Hard Disk drive" defaultConfigOptionId="OP003" configTypeId="QUESTION" isMandatory="Y"/>
     <ProductConfig productId="PC001" configItemId="IT0001" sequenceNum="30" fromDate="2004-08-20 12:59:26.209" description="2nd Hard Disk drive" configTypeId="QUESTION" isMandatory="N"/>
     <ProductConfig productId="PC001" configItemId="IT0002" sequenceNum="40" fromDate="2004-08-20 12:59:26.209" configTypeId="QUESTION" isMandatory="N"/>
     

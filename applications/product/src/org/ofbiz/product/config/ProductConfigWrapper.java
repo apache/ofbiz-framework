@@ -125,8 +125,11 @@ public class ProductConfigWrapper implements Serializable {
         for (int i = 0; i < questions.size(); i++) {
             ConfigItem ci = (ConfigItem)questions.get(i);
             if (ci.isMandatory()) {
-                if (ci.getOptions().size() > 0) {
-                    ConfigOption co = (ConfigOption)ci.getOptions().get(0);
+                ConfigOption co = ci.getDefault();
+                if(co != null){
+                    co.setSelected(true);
+                }else if (ci.getOptions().size() > 0) {
+                    co = (ConfigOption)ci.getOptions().get(0);
                     co.setSelected(true);
                 }
             }
@@ -303,7 +306,7 @@ public class ProductConfigWrapper implements Serializable {
         public List getOptions() {
             return options;
         }
-        
+                
         public String getQuestion() {
             String question = "";
             if (UtilValidate.isNotEmpty(configItemAssoc.getString("description"))) {
@@ -350,6 +353,19 @@ public class ProductConfigWrapper implements Serializable {
                 ConfigOption oneOption = (ConfigOption)availOptions.next();
                 if (oneOption.isSelected()) {
                     return oneOption;
+                }
+            }
+            return null;
+        }
+        
+        public ConfigOption getDefault(){
+            String defaultConfigOptionId = configItemAssoc.getString("defaultConfigOptionId");
+            if(UtilValidate.isNotEmpty(defaultConfigOptionId)){
+                for(ConfigOption oneOption : (List<ConfigOption>)getOptions()) {
+                    String currentConfigOptionId = oneOption.getId();
+                    if (defaultConfigOptionId.compareToIgnoreCase(currentConfigOptionId) == 0  ){
+                        return oneOption;
+                    }
                 }
             }
             return null;
@@ -436,6 +452,10 @@ public class ProductConfigWrapper implements Serializable {
 
         public String getDescription() {
             return (configOption.getString("description") != null? configOption.getString("description"): "no description");
+        }
+        
+        public String getId(){
+            return configOption.getString("configOptionId");
         }
         
         public double getPrice() {
