@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="ManageOrdersFromEbay" type="single" target="ImportOrdersSearchFromEbay">
+        <field name="productStoreId">
+            <drop-down>
+                <entity-options entity-name="ProductStore" description="${storeName}" key-field-name="productStoreId">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.getDayStart(org.ofbiz.base.util.UtilDateTime.nowTimestamp())}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.getDayEnd(org.ofbiz.base.util.UtilDateTime.nowTimestamp())}"/></field>
+        <field name="submitButton" title="${uiLabelMap.EbayImportOrdersSearchFromEbay}"><submit button-type="button"/></field>
+    </form>
+    <form name="ListOrdersFromEbay" type="multi" use-row-submit="true" list-name="orderList" target="ImportOrderFromEbay">
+        <row-actions>
+            <set field="canImportOrder" value="${bsh: org.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.ofbiz.base.util.UtilValidate.isEmpty(errorMessage)}" type="Boolean"/>
+            <set field="allowProductIdChange" value="${bsh: org.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.ofbiz.base.util.UtilValidate.isNotEmpty(errorMessage)}" type="Boolean"/>
+        </row-actions>
+        <field name="productStoreId"><hidden/></field>
+        <field name="externalId" title="${uiLabelMap.EbayImportEbayItem}"><display/></field>
+        <field name="transactionId"><display/></field>
+        <field name="orderId"><hyperlink target="orderview?orderId=${orderId}" description="${orderId}"/></field>
+        <field name="createdDate"><display/></field>
+        <!--
+        <field name="productId" use-when="!${allowProductIdChange}"><display/></field>
+        <field name="productId" use-when="${allowProductIdChange}"><lookup target-form-name="LookupProduct"/></field>
+        -->
+        <field name="productId"><display/></field>
+        <field name="productName" entry-name="productId"><display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/></field>
+        <field name="title"><display/></field>
+        <field name="quantityPurchased"><display/></field>
+        <field name="transactionPrice"><display/></field>
+        <field name="salesTaxAmount"><display/></field>
+        <field name="salesTaxPercent"><hidden/></field>
+        <field name="shippingServiceCost"><display/></field>
+        <field name="shippingTotalAdditionalCost"><display/></field>
+        <field name="amountPaid"><display/></field>
+        <field name="paidTime"><display/></field>
+        <field name="shippedTime"><display/></field>
+        <field name="paymentMethodUsed"><display/></field>
+        <field name="shippingService"><display/></field>
+        <field name="listingStatus"><display/></field>
+        <field name="eBayPaymentStatus"><display/></field>
+        <field name="checkoutStatus"><display/></field>
+        <field name="completeStatus"><display/></field>
+        <field name="buyerName"><display/></field>
+        <field name="shippingAddressStreet"><hidden/></field>
+        <field name="emailBuyer"><display/></field>
+        <field name="shippingAddressStreet2"><hidden/></field>
+        <field name="shippingAddressPhone"><hidden/></field>
+        <field name="shippingAddressStreet"><hidden/></field>
+        <field name="shippingAddressStreet1"><hidden/></field>
+        <field name="shippingAddressStreet2"><hidden/></field>
+        <field name="shippingAddressPostalCode"><hidden/></field>
+        <field name="shippingAddressCountry"><hidden/></field>
+        <field name="shippingAddressStateOrProvince"><hidden/></field>
+        <field name="shippingAddressCityName"><hidden/></field>
+        <field name="errorMessage"><display/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="${canImportOrder}"><check/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="!${canImportOrder}"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}" widget-style="smallSubmit"><submit/></field>
+    </form>
+</forms>		
