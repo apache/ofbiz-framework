@@ -28,4 +28,5 @@
     <load-component component-location="oagis"/>
     <load-component component-location="bi"/>
     <load-component component-location="googlebase"/>
+    <load-component component-location="ebay"/>
 </component-loader>
