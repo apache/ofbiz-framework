@@ -150,8 +150,8 @@ under the License.
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="partyId"><display/></field>
-        <field name="workEffortId" position="2"><display/></field>
-        <field name="shipmentId" position="2"><display/></field>
+        <field name="workEffortId"><display/></field>
+        <field name="shipmentId"><display/></field>
         <field name="verify" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.AccountingVerifyTransaction}" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y" also-hidden="false"/>
         </field>
