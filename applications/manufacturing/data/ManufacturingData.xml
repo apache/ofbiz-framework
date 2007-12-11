@@ -19,16 +19,17 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="INITIAL_QOH" description="Initial QOH" inOut="+"/>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="MRP_REQUIREMENT" description="Mrp requirement" inOut="-"/>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="MANUF_ORDER_RECP" description="Manufacturing Order receipt" inOut="+"/>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="MANUF_ORDER_REQ" description="Manufacturing Order requirement" inOut="-"/>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="PROP_MANUF_O_RECP" description="Proposed Manufacturing Order receipt" inOut="+"/>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="PUR_ORDER_RECP" description="Purchase Order receipt" inOut="+"/>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="PROD_REQ_RECP" description="Product Requirement Receipt" inOut="+"/>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="PROP_PUR_O_RECP" description="Proposed Purchase Order receipt" inOut="+"/>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="SALES_ORDER_SHIP" description="Sales order shipment" inOut="-"/>
-    <InventoryEventPlannedType inventoryEventPlanTypeId="ERROR" description="Error"/>
+    <MrpEventType mrpEventTypeId="INITIAL_QOH" description="Initial QOH"/>
+    <MrpEventType mrpEventTypeId="MRP_REQUIREMENT" description="Mrp requirement"/>
+    <MrpEventType mrpEventTypeId="MANUF_ORDER_RECP" description="Manufacturing Order receipt"/>
+    <MrpEventType mrpEventTypeId="MANUF_ORDER_REQ" description="Manufacturing Order requirement"/>
+    <MrpEventType mrpEventTypeId="PROP_MANUF_O_RECP" description="Proposed Manufacturing Order receipt"/>
+    <MrpEventType mrpEventTypeId="PUR_ORDER_RECP" description="Purchase Order receipt"/>
+    <MrpEventType mrpEventTypeId="PROD_REQ_RECP" description="Product Requirement Receipt"/>
+    <MrpEventType mrpEventTypeId="PROP_PUR_O_RECP" description="Proposed Purchase Order receipt"/>
+    <MrpEventType mrpEventTypeId="SALES_ORDER_SHIP" description="Sales order shipment"/>
+    <MrpEventType mrpEventTypeId="ERROR" description="Error"/>
+
     <TechDataCalendarWeek calendarWeekId="SUPPLIER" description="8hours/days, currently the Re-Order Process convert day to mms with 8h/days" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
     <TechDataCalendar calendarId="SUPPLIER" description="Calendar used for Re-Order date calculation for bought product" calendarWeekId="SUPPLIER"/>
     <TechDataCalendarWeek calendarWeekId="DEFAULT" description="8hours/days" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>

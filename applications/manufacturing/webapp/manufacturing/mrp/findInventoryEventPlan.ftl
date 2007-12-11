@@ -153,8 +153,8 @@ document.lookupinventory.productId.focus();
             </#if>
             <#if ! product.equals( productTmp )>
                 <#assign quantityAvailableAtDate = 0>
-                <#assign errorEvents = delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "ERROR", "productId", inven.productId))>
-                <#assign qohEvents = delegator.findByAnd("InventoryEventPlanned", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryEventPlanTypeId", "INITIAL_QOH", "productId", inven.productId))>
+                <#assign errorEvents = delegator.findByAnd("MrpEvent", Static["org.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "ERROR", "productId", inven.productId))>
+                <#assign qohEvents = delegator.findByAnd("MrpEvent", Static["org.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "INITIAL_QOH", "productId", inven.productId))>
                 <#assign additionalErrorMessage = "">
                 <#assign initialQohEvent = null>
                 <#assign productFacility = null>
@@ -162,8 +162,8 @@ document.lookupinventory.productId.focus();
                     <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(qohEvents)>
                 </#if>
                 <#if initialQohEvent != null>
-                    <#if initialQohEvent.eventQuantity?has_content>
-                        <#assign quantityAvailableAtDate = initialQohEvent.eventQuantity>
+                    <#if initialQohEvent.quantity?has_content>
+                        <#assign quantityAvailableAtDate = initialQohEvent.quantity>
                     </#if>
                     <#if initialQohEvent.facilityId?has_content>
                         <#assign productFacility = delegator.findByPrimaryKey("ProductFacility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", initialQohEvent.facilityId, "productId", inven.productId))?if_exists>
@@ -206,16 +206,16 @@ document.lookupinventory.productId.focus();
                 </tr>
                 </#list>
             </#if>
-            <#assign quantityAvailableAtDate = quantityAvailableAtDate?default(0) + inven.getDouble("eventQuantity")>
+            <#assign quantityAvailableAtDate = quantityAvailableAtDate?default(0) + inven.getDouble("quantity")>
             <#assign productTmp = product>
-            <#assign inventoryEventPlannedType = inven.getRelatedOne("InventoryEventPlannedType")>
+            <#assign MrpEventType = inven.getRelatedOne("MrpEventType")>
             <tr class="${rowClass}">
-              <td>${inventoryEventPlannedType.get("description",locale)}</td>
+              <td>${MrpEventType.get("description",locale)}</td>
               <td>&nbsp</td>
               <td>${inven.eventName?if_exists}</td>
               <td><font <#if inven.isLate?default("N") == "Y">color='red'</#if>>${inven.getString("eventDate")}</font></td>
               <td>&nbsp</td>
-              <td align="right">${inven.getString("eventQuantity")}</td>
+              <td align="right">${inven.getString("quantity")}</td>
               <td align="right">${quantityAvailableAtDate?if_exists}</td>
             </tr>
             <#assign count=count+1>

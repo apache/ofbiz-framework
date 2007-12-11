@@ -35,17 +35,12 @@ under the License.
         <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
         <attribute name="msgResult" type="List" mode="OUT" optional="false"/>
     </service>
-    <service name="initInventoryEventPlanned" engine="java"
-            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="initInventoryEventPlanned" auth="true" use-transaction="false">
-        <description>Initialize the table "InventoryEventPlanned"</description>
+    <service name="initMrpEvents" engine="java"
+            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="initMrpEvents" auth="true" use-transaction="false">
+        <description>Initialize data for the MRP</description>
+        <attribute name="mrpId" type="String" mode="IN" optional="false"/>
         <attribute name="reInitialize" type="Boolean" mode="IN" optional="false"/>
         <attribute name="defaultYearsOffset" type="Integer" mode="IN" optional="true"/>
-    </service>
-    <service name="listProductForMrp" engine="java"
-            location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="listProductForMrp" auth="true">
-        <description>List the products for the MRP"</description>
-        <attribute name="billOfMaterialLevel" type="Long" mode="IN" optional="false"/>
-        <attribute name="listInventoryEventForMrp" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="findProductMrpQoh" engine="java"
             location="org.ofbiz.manufacturing.mrp.MrpServices" invoke="findProductMrpQoh" auth="true">
@@ -53,13 +48,14 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="Double" mode="OUT" optional="false"/>
     </service>
-    <service name="createInventoryEventPlanned" engine="java"
-            location="org.ofbiz.manufacturing.mrp.InventoryEventPlannedServices" invoke="createInventoryEventPlanned" auth="false">
-        <description>create an createInventoryEventPlanned record in the database</description>
+    <service name="createMrpEvent" engine="java"
+            location="org.ofbiz.manufacturing.mrp.InventoryEventPlannedServices" invoke="createMrpEvent" auth="false">
+        <description>create an MrpEvent</description>
+        <attribute name="mrpId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="eventDate" type="Timestamp" mode="IN" optional="false"/>
-        <attribute name="inventoryEventPlanTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="eventQuantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="mrpEventTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="eventName" type="String" mode="IN" optional="true"/>
     </service>
