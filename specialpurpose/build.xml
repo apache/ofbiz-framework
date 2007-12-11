@@ -20,7 +20,7 @@
 
 <project name="OFBiz Special Purpose Applications Build" default="build" basedir=".">
     <filelist id="application-builds" dir="."
-        files="pos/build.xml, hhfacility/build.xml, assetmaint/build.xml, oagis/build.xml, bi/build.xml, googlebase/build.xml"/>
+        files="pos/build.xml, hhfacility/build.xml, assetmaint/build.xml, oagis/build.xml, bi/build.xml, googlebase/build.xml, ebay/build.xml"/>
 
     <!-- ================================================================== -->
     <!-- Removes all created files and directories                          -->
