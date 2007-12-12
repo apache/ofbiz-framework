@@ -281,51 +281,62 @@ under the License.
             <if-empty field-name="partyRole">
                 <log level="warning" message="The party with id [${acctgTransEntry.organizationPartyId}] is not an internal organization; the following accounting transaction will be ignored: ${acctgTransEntry}"/>
             <else>
-                <!-- if the amount field is empty, then determine it from the origAmount and origCurrencyUomId fields:
-                     if origCurrencyUomId is different from the base currency of the organization, then the amount value will be converted -->
-                <if-empty field-name="acctgTransEntry.amount">
-                    <if-not-empty field-name="acctgTransEntry.origAmount">
-                        <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" use-cache="true" auto-field-map="false">
-                            <field-map field-name="partyId" env-name="acctgTransEntry.organizationPartyId"/>
-                        </entity-one>
-                        <if-empty field-name="acctgTransEntry.origCurrencyUomId">
-                            <set field="acctgTransEntry.origCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                        </if-empty>
-                        <set field="acctgTransEntry.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                        <if-compare-field field-name="acctgTransEntry.origCurrencyUomId" operator="not-equals" to-field-name="acctgTransEntry.currencyUomId">
-                            <clear-field field-name="convertUomInMap"/>
-                            <set field="convertUomInMap.originalValue" from-field="acctgTransEntry.origAmount"/>
-                            <set field="convertUomInMap.uomId" from-field="acctgTransEntry.origCurrencyUomId"/>
-                            <set field="convertUomInMap.uomIdTo" from-field="acctgTransEntry.currencyUomId"/>
-                            <!-- TODO: set the optional asOfDate input parameter -->
-                            <call-service service-name="convertUom" in-map-name="convertUomInMap">
-                                <result-to-field result-name="convertedValue" field-name="acctgTransEntry.amount"/>
-                            </call-service>
-                        <else>
-                            <set field="acctgTransEntry.amount" from-field="acctgTransEntry.origAmount"/>
-                        </else>
-                        </if-compare-field>
-                    </if-not-empty>
+                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" use-cache="true" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="acctgTransEntry.organizationPartyId"/>
+                </entity-one>
+                <if-empty field-name="partyAcctgPreference">
+                    <log level="warning" message="The internal organization with id [${acctgTransEntry.organizationPartyId}] has no PartyAcctgPreference setting; the following accounting transaction will be ignored: ${acctgTransEntry}"/>
+                <else>
+                    <!-- if the amount field is empty, then determine it from the origAmount and origCurrencyUomId fields:
+                         if origCurrencyUomId is different from the base currency of the organization, then the amount value will be converted -->
+                    <if-empty field-name="acctgTransEntry.amount">
+                        <if-not-empty field-name="acctgTransEntry.origAmount">
+                            <if-empty field-name="acctgTransEntry.origCurrencyUomId">
+                                <set field="acctgTransEntry.origCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                            </if-empty>
+                            <set field="acctgTransEntry.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                            <if-compare-field field-name="acctgTransEntry.origCurrencyUomId" operator="not-equals" to-field-name="acctgTransEntry.currencyUomId">
+                                <clear-field field-name="convertUomInMap"/>
+                                <set field="convertUomInMap.originalValue" from-field="acctgTransEntry.origAmount"/>
+                                <set field="convertUomInMap.uomId" from-field="acctgTransEntry.origCurrencyUomId"/>
+                                <set field="convertUomInMap.uomIdTo" from-field="acctgTransEntry.currencyUomId"/>
+                                <!-- TODO: set the optional asOfDate input parameter -->
+                                <call-service service-name="convertUom" in-map-name="convertUomInMap">
+                                    <result-to-field result-name="convertedValue" field-name="acctgTransEntry.amount"/>
+                                </call-service>
+                            <else>
+                                <set field="acctgTransEntry.amount" from-field="acctgTransEntry.origAmount"/>
+                            </else>
+                            </if-compare-field>
+                        </if-not-empty>
+                    </if-empty>
+                    <!-- if the glAccountId is empty, but we have a glAccountTypeId, then we will determine the
+                         correct glAccountId from the gl setup settings -->
+                    <if-empty field-name="acctgTransEntry.glAccountId">
+                        <clear-field field-name="getGlAccountFromAccountTypeInMap"/>
+                        <set field="getGlAccountFromAccountTypeInMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
+                        <set field="getGlAccountFromAccountTypeInMap.acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                        <set field="getGlAccountFromAccountTypeInMap.glAccountTypeId" from-field="acctgTransEntry.glAccountTypeId"/>
+                        <set field="getGlAccountFromAccountTypeInMap.debitCreditFlag" from-field="acctgTransEntry.debitCreditFlag"/>
+                        <set field="getGlAccountFromAccountTypeInMap.productId" from-field="acctgTransEntry.productId"/>
+                        <set field="getGlAccountFromAccountTypeInMap.invoiceId" from-field="parameters.invoiceId"/>
+                        <set field="getGlAccountFromAccountTypeInMap.paymentId" from-field="parameters.paymentId"/>
+                        <call-service service-name="getGlAccountFromAccountType" in-map-name="getGlAccountFromAccountTypeInMap">
+                            <result-to-field result-name="glAccountId" field-name="acctgTransEntry.glAccountId"/>
+                        </call-service>
+                    </if-empty>
+                    <if-empty field-name="acctgTransEntry.origAmount">
+                        <set field="acctgTransEntry.origAmount" from-field="acctgTransEntry.amount"/>
+                    </if-empty>
+                    <entity-one entity-name="GlAccountType" value-name="glAccountType" use-cache="true" auto-field-map="false">
+                        <field-map field-name="glAccountTypeId" env-name="acctgTransEntry.glAccountTypeId"/>
+                    </entity-one>
+                    <if-empty field-name="glAccountType">
+                        <clear-field field-name="acctgTransEntry.glAccountTypeId"/>
+                    </if-empty>
+                    <set field="normalizedAcctgTransEntries[]" from-field="acctgTransEntry"/>
+                </else>
                 </if-empty>
-                <!-- if the glAccountId is empty, but we have a glAccountTypeId, then we will determine the
-                     correct glAccountId from the gl setup settings -->
-                <if-empty field-name="acctgTransEntry.glAccountId">
-                    <clear-field field-name="getGlAccountFromAccountTypeInMap"/>
-                    <set field="getGlAccountFromAccountTypeInMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
-                    <set field="getGlAccountFromAccountTypeInMap.acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
-                    <set field="getGlAccountFromAccountTypeInMap.glAccountTypeId" from-field="acctgTransEntry.glAccountTypeId"/>
-                    <set field="getGlAccountFromAccountTypeInMap.debitCreditFlag" from-field="acctgTransEntry.debitCreditFlag"/>
-                    <set field="getGlAccountFromAccountTypeInMap.productId" from-field="acctgTransEntry.productId"/>
-                    <set field="getGlAccountFromAccountTypeInMap.invoiceId" from-field="parameters.invoiceId"/>
-                    <set field="getGlAccountFromAccountTypeInMap.paymentId" from-field="parameters.paymentId"/>
-                    <call-service service-name="getGlAccountFromAccountType" in-map-name="getGlAccountFromAccountTypeInMap">
-                        <result-to-field result-name="glAccountId" field-name="acctgTransEntry.glAccountId"/>
-                    </call-service>
-                </if-empty>
-                <if-empty field-name="acctgTransEntry.origAmount">
-                    <set field="acctgTransEntry.origAmount" from-field="acctgTransEntry.amount"/>
-                </if-empty>
-                <set field="normalizedAcctgTransEntries[]" from-field="acctgTransEntry"/>
             </else>
             </if-empty>
         </iterate>
@@ -470,7 +481,7 @@ under the License.
                         </and>
                     </or>
                     <not><if-empty field-name="parameters.invoiceId"/></not>
-                    <not><if-empty field-name="parameters.acctgTransTypeId"/></not>
+                    <not><if-empty field-name="parameters.glAccountTypeId"/></not>
                 </and>
             </condition>
             <then>
@@ -485,7 +496,7 @@ under the License.
                     </if-not-empty>
                 </if-not-empty>
                 <entity-one entity-name="InvoiceItemTypeGlAccount" value-name="invoiceItemTypeGlAccount">
-                    <field-map field-name="invoiceItemTypeId" env-name="parameters.acctgTransTypeId"/>
+                    <field-map field-name="invoiceItemTypeId" env-name="parameters.glAccountTypeId"/>
                     <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
                 </entity-one>
                 <if-not-empty field-name="invoiceItemTypeGlAccount.glAccountId">
@@ -493,7 +504,7 @@ under the License.
                     <return/>
                 </if-not-empty>
                 <entity-one entity-name="InvoiceItemType" value-name="invoiceItemType">
-                    <field-map field-name="invoiceItemTypeId" env-name="parameters.acctgTransTypeId"/>
+                    <field-map field-name="invoiceItemTypeId" env-name="parameters.glAccountTypeId"/>
                 </entity-one>
                 <if-not-empty field-name="invoiceItemType.defaultGlAccountId">
                     <field-to-result field-name="invoiceItemType.defaultGlAccountId" result-name="glAccountId"/>
@@ -828,6 +839,7 @@ under the License.
         <set field="debitEntry.origCurrencyUomId" from-field="facility.currencyUomId"/>        
         <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
         <!-- Set header fields (AcctgTrans) -->
+        <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.workEffortId" from-field="parameters.workEffortId"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="MANUFACTURING"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
