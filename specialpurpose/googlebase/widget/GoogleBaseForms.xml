@@ -27,6 +27,7 @@ under the License.
                 <option key="US" description="${uiLabelMap.GoogleBaseExportCountryCodeUS}"/>
                 <option key="GB" description="${uiLabelMap.GoogleBaseExportCountryCodeGB}"/>
                 <option key="DE" description="${uiLabelMap.GoogleBaseExportCountryCodeDE}"/>
+                <option key="IT" description="${uiLabelMap.GoogleBaseExportCountryCodeIT}"/>
             </drop-down>
         </field>
         <field name="webSiteUrl"><text size="50" maxlength="250"/></field>
