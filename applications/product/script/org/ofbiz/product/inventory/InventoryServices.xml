@@ -293,7 +293,6 @@ under the License.
 
         <set field="inventoryItem.availableToPromiseTotal" from-field="inventoryItemDetailSummary.availableToPromiseTotal"/>
         <set field="inventoryItem.quantityOnHandTotal" from-field="inventoryItemDetailSummary.quantityOnHandTotal"/>
-        <set field="inventoryItem.unitCost" from-field="inventoryItemDetailSummary.unitCostTotal"/>
         <store-value value-name="inventoryItem"/>
     </simple-method>
 
