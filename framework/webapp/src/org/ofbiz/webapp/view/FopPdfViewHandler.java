@@ -20,10 +20,14 @@ package org.ofbiz.webapp.view;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -53,8 +57,10 @@ public class FopPdfViewHandler extends JPublishViewHandler {
         
         // render the byte array
         ByteArrayOutputStream out = null;
+        Reader reader = new StringReader(writer.toString());
+        Source src = new StreamSource(reader);
         try {
-            out = FopRenderer.render(writer);
+            ApacheFopWorker.transform(src, out, null, contentType);
         } catch (GeneralException e) {
             throw new ViewHandlerException(e.getMessage(), e.getNested());
         }

@@ -20,34 +20,18 @@ package org.ofbiz.widget.fo;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.taglib.ContentUrlTag;
-import org.ofbiz.widget.WidgetContentWorker;
+import org.ofbiz.widget.html.HtmlWidgetRenderer;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
-import org.ofbiz.service.LocalDispatcher;
-import javolution.util.FastMap;
 
 /**
  * Widget Library - HTML Form Renderer implementation
  */
-public class FoScreenRenderer implements ScreenStringRenderer {
+public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenStringRenderer {
 
     public static final String module = FoScreenRenderer.class.getName();
 
@@ -63,10 +47,10 @@ public class FoScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderSectionBegin(Writer writer, Map context, ModelScreenWidget.Section section) throws IOException {
-        // do nothing, this is just a place holder container for HTML
+        renderBeginningBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
     public void renderSectionEnd(Writer writer, Map context, ModelScreenWidget.Section section) throws IOException {
-        // do nothing, this is just a place holder container for HTML
+        renderEndingBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
 
     public void renderContainerBegin(Writer writer, Map context, ModelScreenWidget.Container container) throws IOException {
@@ -141,10 +125,5 @@ public class FoScreenRenderer implements ScreenStringRenderer {
 
     public void renderSubContentEnd(Writer writer, Map context, ModelScreenWidget.SubContent content) throws IOException {
         // TODO: not implemented
-    }
-
-    public void appendWhitespace(Writer writer) throws IOException {
-        // appending line ends for now, but this could be replaced with a simple space or something
-        writer.write("\r\n");
     }
 }

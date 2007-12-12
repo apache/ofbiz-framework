@@ -36,7 +36,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.mail.MimeMessageWrapper;
-import org.ofbiz.webapp.view.ApacheFopFactory;
+import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
@@ -355,26 +355,18 @@ public class EmailServices {
                 }
                 */
 
-                // create the in/output stream for the generation
+                // create the input stream for the generation
+                StreamSource src = new StreamSource(new StringReader(writer.toString()));
+
+                // create the output stream for the generation
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 
-                FopFactory fopFactory = ApacheFopFactory.instance();
-                Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, baos);
-                TransformerFactory transFactory = TransformerFactory.newInstance();
-                Transformer transformer = transFactory.newTransformer();
+                Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
+                ApacheFopWorker.transform(src, null, fop);
 
-                Reader reader = new StringReader(writer.toString());
-                Source src = new StreamSource(reader);
-                Result res = new SAXResult(fop.getDefaultHandler());
-                
-                // Start XSLT transformation and FOP processing
-                transformer.transform(src, res);
                 // and generate the PDF
                 baos.flush();
                 baos.close();
-
-                // We don't want to cache the images that get loaded by the FOP engine
-                fopFactory.getImageFactory().clearCaches();
 
                 // store in the list of maps for sendmail....
                 List bodyParts = FastList.newInstance();
@@ -397,12 +389,6 @@ public class EmailServices {
             } catch (FOPException fe) {
                 String errMsg = "Error rendering PDF attachment for email: " + fe.toString();
                 Debug.logError(fe, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-            } catch (TransformerConfigurationException tce) {
-                String errMsg = "FOP TransformerConfiguration Exception: " + tce.toString();
-                return ServiceUtil.returnError(errMsg);
-            } catch (TransformerException te) {
-                String errMsg = "FOP transform failed: " + te.toString();
                 return ServiceUtil.returnError(errMsg);
             } catch (SAXException se) {
                 String errMsg = "Error rendering PDF attachment for email: " + se.toString();

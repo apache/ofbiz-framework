@@ -20,13 +20,12 @@ package org.ofbiz.example;
 
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.view.ApacheFopFactory;
+import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
@@ -51,14 +50,6 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.Sides;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
 public class ExamplePrintServices {
@@ -98,46 +89,16 @@ public class ExamplePrintServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        String reportXmlDocument = reportWriter.toString();
+        // set the input source (XSL-FO) and generate the PDF
+        StreamSource src = new StreamSource(new StringReader(reportWriter.toString()));
 
-        // create the in/output stream for the generation
+        // create the output stream for the generation
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        
-        
-        FopFactory fopFactory;
+
         try {
-            fopFactory = ApacheFopFactory.instance();
-            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
-            TransformerFactory transFactory = TransformerFactory.newInstance();
-            Transformer transformer = transFactory.newTransformer();
-
-            // set the input source (XSL-FO) and generate the PDF
-            Reader reader = new StringReader(reportXmlDocument);
-            Source src = new StreamSource(reader);
-            
-            // load the FOP driver
-
-            // Get handler that is used in the generation process
-            Result res = new SAXResult(fop.getDefaultHandler());
-            
-            // read the XSL-FO XML into the W3 Document
-            
-            // Start XSLT transformation and FOP processing
-            transformer.transform(src, res);
-            // and generate the PDF
-            // We don't want to cache the images that get loaded by the FOP engine
-            fopFactory.getImageFactory().clearCaches();
-            
+            Fop fop = ApacheFopWorker.createFopInstance(out, MimeConstants.MIME_PDF);
+            ApacheFopWorker.transform(src, null, fop);
         } catch (FOPException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TransformerConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TransformerFactoryConfigurationError e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TransformerException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
