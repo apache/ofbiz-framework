@@ -43,6 +43,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -738,9 +739,15 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnError("Could not find OrderHeader with ID [" + orderId + "]");
             }
             
+            List validStores = StringUtil.split(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Order.ValidProductStores"), ",");
+            if (UtilValidate.isNotEmpty(validStores)) {
+                if (!validStores.contains(orderHeader.getString("productStoreId"))) {
+                    return ServiceUtil.returnSuccess("Order [" + orderId + "] placed is not for valid Store(s)");
+                }
+            }    
             String orderStatusId = orderHeader.getString("statusId");
             if (!"ORDER_APPROVED".equals(orderStatusId)) {
-                return ServiceUtil.returnError("OrderHeader not in the approved status (ORDER_APPROVED) with ID [" + orderId + "], is in the [" + orderStatusId + "] status");
+                return ServiceUtil.returnSuccess("OrderHeader not in the approved status (ORDER_APPROVED) with ID [" + orderId + "], is in the [" + orderStatusId + "] status");
             }
             if (!"SALES_ORDER".equals(orderHeader.getString("orderTypeId"))) {
                 return ServiceUtil.returnError("OrderHeader not a sales order (SALES_ORDER) with ID [" + orderId + "]");
