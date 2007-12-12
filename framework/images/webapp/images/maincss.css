@@ -1205,6 +1205,15 @@ font-weight: bold;
 padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
+.screenlet-title-bar .head4 {
+background: none;
+border-left: 0.1em solid #5f9fcf;
+color: #ffffff;
+font-size: 1.1em;
+font-weight: bold;
+padding: 0.1em 0.5em 0.2em 0.5em;
+}
+
 .screenlet-title-bar ul h1,
 .screenlet-title-bar ul h2,
 .screenlet-title-bar ul h3,
@@ -1256,6 +1265,11 @@ color: #CCCCCC;
 .screenlet-title-bar ul .head1:hover,
 .screenlet-title-bar ul .head2:hover,
 .screenlet-title-bar ul .head3:hover {
+background-color: #000099;
+background-image: url(/images/gradient_sub_uns.gif);
+}
+
+.screenlet-title-bar .head4:hover {
 background-color: #000099;
 background-image: url(/images/gradient_sub_uns.gif);
 }
