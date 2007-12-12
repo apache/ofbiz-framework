@@ -107,24 +107,26 @@ under the License.
 
         <!-- before getting going, see if there are any validation issues so far -->
         <check-errors/>
-        
+
         <loop count="${loops}" field="currentLoop">
             <log level="info" message="receiveInventoryProduct Looping and creating inventory info - ${currentLoop}"/>
             
             <!-- if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns); if not create one -->
             <clear-field field-name="serviceInMap"/>
+<!--
             <if-empty field-name="parameters.inventoryItemId">
+-->
                 <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
                 <call-service service-name="createInventoryItem" in-map-name="serviceInMap">
                     <result-to-field result-name="inventoryItemId" field-name="parameters.inventoryItemId"/>
                 </call-service>
-
+<!--
                 <else>
                     <set-service-fields service-name="updateInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
                     <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
                 </else>
             </if-empty>
-            
+-->            
             <!-- do this only for non-serialized inventory -->
             <if-compare value="SERIALIZED_INV_ITEM" operator="not-equals" field-name="parameters.inventoryItemTypeId">
                 <clear-field field-name="serviceInMap"/>
