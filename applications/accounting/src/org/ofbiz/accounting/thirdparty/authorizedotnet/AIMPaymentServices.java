@@ -641,10 +641,10 @@ public class AIMPaymentServices {
         results.put("captureResult", new Boolean(captureResult.booleanValue()));
         results.put("captureFlag",ar.getReasonCode());
         results.put("captureMessage",ar.getReasonText());
+        results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
 
         if(captureResult.booleanValue()) { //passed
             results.put("captureCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
-            results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
             results.put("captureAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
         } else {
             results.put("captureAmount", new Double("0.00"));
