@@ -704,11 +704,11 @@ public class AIMPaymentServices {
         results.put("captureResult", new Boolean(authResult.booleanValue()));
         results.put("captureFlag",ar.getReasonCode());
         results.put("captureMessage",ar.getReasonText());
+        results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
 
         if(authResult.booleanValue()) { //passed
             results.put("authCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
             results.put("authRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
-            results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
             results.put("cvCode", ar.getResponseField(AuthorizeResponse.CID_RESPONSE_CODE));
             results.put("avsCode", ar.getResponseField(AuthorizeResponse.AVS_RESULT_CODE));
             results.put("processAmount", new Double(ar.getResponseField(AuthorizeResponse.AMOUNT)));
