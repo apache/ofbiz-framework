@@ -40,6 +40,7 @@ import org.ofbiz.common.KeywordSearchUtil;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityConditionParam;
@@ -68,6 +69,7 @@ public class ProductSearch {
 
     public static final String module = ProductSearch.class.getName();
     public static final String resource = "ProductUiLabels";
+    public static final String resourceCommon = "CommonUiLabels";
 
     public static ArrayList parametricKeywordSearch(Map featureIdByType, String keywordsString, GenericDelegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         Set featureIdSet = FastSet.newInstance();
@@ -1710,6 +1712,96 @@ public class ProductSearch {
         public boolean equals(Object obj) {
             ProductSearchConstraint psc = (ProductSearchConstraint) obj;
             if (psc instanceof AvailabilityDateConstraint) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    
+    public static class GoodIdentificationConstraint extends ProductSearchConstraint {
+        public static final String constraintName = "GoodIdentification";
+        protected String goodIdentificationTypeId;
+        protected String goodIdentificationValue;
+        protected Boolean include;
+
+        public GoodIdentificationConstraint(String goodIdentificationTypeId, String goodIdentificationValue, Boolean include) {
+            this.goodIdentificationTypeId = goodIdentificationTypeId;
+            this.goodIdentificationValue = goodIdentificationValue;
+            this.include = include;
+        }
+
+        public void addConstraint(ProductSearchContext productSearchContext) {
+            if (UtilValidate.isNotEmpty(goodIdentificationTypeId) || 
+                UtilValidate.isNotEmpty(goodIdentificationValue) || 
+                UtilValidate.isNotEmpty(include)) {
+                
+                // make index based values and increment
+                String entityAlias = "GI" + productSearchContext.index;
+                String prefix = "gi" + productSearchContext.index;
+                productSearchContext.index++;
+
+                
+                EntityComparisonOperator operator = EntityOperator.EQUALS;
+                
+                if (UtilValidate.isNotEmpty(include) && include == Boolean.FALSE) {
+                    operator = EntityOperator.NOT_EQUAL;
+                }
+                
+                productSearchContext.dynamicViewEntity.addMemberEntity(entityAlias, "GoodIdentification");
+                
+                if (UtilValidate.isNotEmpty(goodIdentificationTypeId)) {
+                    productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "GoodIdentificationTypeId", "goodIdentificationTypeId", null, null, null, null);
+                    productSearchContext.entityConditionList.add(new EntityExpr(prefix + "GoodIdentificationTypeId", operator, goodIdentificationTypeId));
+                }
+                
+                if (UtilValidate.isNotEmpty(goodIdentificationValue)) {
+                    productSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "GoodIdentificationValue", "idValue", null, null, null, null);
+                    productSearchContext.entityConditionList.add(new EntityExpr(prefix + "GoodIdentificationValue", operator, goodIdentificationValue));
+                }
+                
+                productSearchContext.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+                
+                productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", 
+                        UtilMisc.toMap("constraintName", constraintName, "infoString", "goodIdentificationTypeId [" + this.goodIdentificationTypeId + "] goodIdentificationValue [" + this.goodIdentificationValue + "] include [" + this.include + "]")));
+            }
+        }
+
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            if (UtilValidate.isEmpty(goodIdentificationTypeId) &&
+                UtilValidate.isEmpty(goodIdentificationValue) && 
+                UtilValidate.isEmpty(include)) {
+                return null;
+            }
+            
+            StringBuffer msgBuf = new StringBuffer();
+            
+            if (UtilValidate.isNotEmpty(include) && include == Boolean.FALSE) {
+                msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonExclude", locale));
+                msgBuf.append(" ");
+            } else {
+                msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonInclude", locale));
+                msgBuf.append(" ");
+            }
+            
+            if (UtilValidate.isNotEmpty(goodIdentificationTypeId)) {
+                msgBuf.append(UtilProperties.getMessage(resource, "ProductIdType", locale));
+                msgBuf.append(": ");
+                msgBuf.append(goodIdentificationTypeId);
+                msgBuf.append(" ");
+            }
+            
+            if (UtilValidate.isNotEmpty(goodIdentificationValue)) {
+                msgBuf.append(UtilProperties.getMessage(resource, "ProductIdValue", locale));
+                msgBuf.append(" ");
+                msgBuf.append(goodIdentificationValue);
+            }
+            return msgBuf.toString();
+        }
+
+        public boolean equals(Object obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof GoodIdentificationConstraint) {
                 return true;
             } else {
                 return false;
