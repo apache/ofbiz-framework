@@ -258,10 +258,13 @@ under the License.
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="logoImageUrl" value="/images/ofbiz_logo.jpg"/>
-                <!--<set field="defaultFontFamily" value="Arial"/>-->
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/error.fo.ftl"/></html></platform-specific>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+<!--                <platform-specific><html><html-template location="component://common/webcommon/error.fo.ftl"/></html></platform-specific> -->
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
