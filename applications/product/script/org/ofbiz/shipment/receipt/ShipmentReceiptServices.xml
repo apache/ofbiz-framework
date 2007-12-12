@@ -132,6 +132,7 @@ under the License.
             <if-compare value="SERIALIZED_INV_ITEM" operator="not-equals" field-name="parameters.inventoryItemTypeId">
                 <clear-field field-name="serviceInMap"/>
                 <set-service-fields service-name="createInventoryItemDetail" map-name="parameters" to-map-name="serviceInMap"/>
+                <set field="serviceInMap.inventoryItemId" from-field="currentInventoryItemId"/>
                 <call-service service-name="createInventoryItemDetail" in-map-name="serviceInMap">
                     <result-to-field result-name="inventoryItemDetailSeqId" field-name="parameters.inventoryItemDetailSeqId"/>
                 </call-service>
@@ -139,6 +140,7 @@ under the License.
             
             <clear-field field-name="serviceInMap"/>
             <set-service-fields service-name="createShipmentReceipt" map-name="parameters" to-map-name="serviceInMap"/>
+            <set field="serviceInMap.inventoryItemId" from-field="currentInventoryItemId"/>
             <call-service service-name="createShipmentReceipt" in-map-name="serviceInMap"/>
             
             <!-- update serialized items to AVAILABLE (only if this is not a return), which then triggers other SECA chains -->
@@ -173,6 +175,7 @@ under the License.
             
             <clear-field field-name="serviceInMap"/>
             <set-service-fields service-name="balanceInventoryItems" map-name="parameters" to-map-name="serviceInMap"/>
+            <set field="serviceInMap.inventoryItemId" from-field="currentInventoryItemId"/>
             <call-service service-name="balanceInventoryItems" in-map-name="serviceInMap"/>
 
             <set field="successMessageList[]" value="Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${currentInventoryItemId}"/>
