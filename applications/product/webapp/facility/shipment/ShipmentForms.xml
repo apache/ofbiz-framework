@@ -180,6 +180,7 @@ under the License.
     <form name="findOrderItems" type="single" target="EditShipmentPlan" title="">
         <field name="action"><hidden value="search"/></field>
         <field name="shipmentId"><hidden/></field>
+        <field name="shipGroupSeqId"><hidden/></field>
         <field name="orderId" title="${uiLabelMap.ProductOrderId}">
             <lookup target-form-name="LookupOrderHeaderAndShipInfo"/>
         </field>

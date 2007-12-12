@@ -26,6 +26,7 @@ delegator = request.getAttribute("delegator");
 
 shipmentId = request.getParameter("shipmentId");
 orderId = request.getParameter("orderId");
+shipGroupSeqId = request.getParameter("shipGroupSeqId");
 
 if (UtilValidate.isEmpty(shipmentId)) {
     shipmentId = context.get("shipmentId");
@@ -39,16 +40,20 @@ if (UtilValidate.isNotEmpty(shipmentId)) {
 
 
 // **************************************
-// Order Items are searched and put in orderItems
+// Order Items are searched also by shipGroupSeqId and put in orderItemShipGroupAssocs
 // **************************************
-orderItems = null;
+orderItemShipGroupAssocs = null;
 // **************************************
 // Search method: search by productId
 // **************************************
 if (UtilValidate.isNotEmpty(action) && UtilValidate.isNotEmpty(orderId)) {
     orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
     if (orderHeader != null && orderHeader.getString("orderTypeId").equals("SALES_ORDER")) {
-        orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+        if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
+            orderItemShipGroupAssocs = delegator.findByAnd("OrderItemShipGroupAssoc", UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId));
+        } else {
+            orderItemShipGroupAssocs = delegator.findByAnd("OrderItemShipGroupAssoc", UtilMisc.toMap("orderId", orderId));
+        }
     }
 }
 
@@ -188,21 +193,22 @@ listShipmentPlanForm.putInContext("shipmentPlan", rows);
 // ShipmentPlan add form
 // **************************************
 addRows = new ArrayList();
-if (orderItems != null) {
-    orderItemsIt = orderItems.iterator();
-    while (orderItemsIt.hasNext()) {
-        oneOrderItem = orderItemsIt.next();
+if (orderItemShipGroupAssocs != null) {
+    orderItemShipGroupAssocIt = orderItemShipGroupAssocs.iterator();
+    while (orderItemShipGroupAssocIt.hasNext()) {
+        orderItemShipGroupAssoc = orderItemShipGroupAssocIt.next();
+        orderItem = orderItemShipGroupAssoc.getRelatedOne("OrderItem");
         oneRow = new HashMap();
         oneRow.put("shipmentId", shipmentId);
-        oneRow.put("orderId", oneOrderItem.getString("orderId"));
-        oneRow.put("orderItemSeqId", oneOrderItem.getString("orderItemSeqId"));
-        oneRow.put("productId", oneOrderItem.getString("productId"));
-        orderedQuantity = oneOrderItem.getDouble("quantity");
-        oneRow.put("orderedQuantity", oneOrderItem.getString("quantity"));
+        oneRow.put("orderId", orderItem.getString("orderId"));
+        oneRow.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
+        oneRow.put("productId", orderItem.getString("productId"));
+        orderedQuantity = orderItem.getDouble("quantity");
+        oneRow.put("orderedQuantity", orderItem.getString("quantity"));
         // Total quantity issued
         issuedQuantity = 0.0;
         qtyIssuedInShipment = new HashMap();
-        issuances = oneOrderItem.getRelated("ItemIssuance");
+        issuances = orderItem.getRelated("ItemIssuance");
         issuancesIt = issuances.iterator();
         while (issuancesIt.hasNext()) {
             issuance = issuancesIt.next();
@@ -220,7 +226,7 @@ if (orderItems != null) {
         oneRow.put("issuedQuantity", issuedQuantity);
         // Total quantity planned not issued
         plannedQuantity = 0.0;
-        plans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("orderId", oneOrderItem.getString("orderId"), "orderItemSeqId", oneOrderItem.getString("orderItemSeqId")));
+        plans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")));
         plansIt = plans.iterator();
         while (plansIt.hasNext()) {
             plan = plansIt.next();
@@ -235,7 +241,7 @@ if (orderItems != null) {
         oneRow.put("quantity", planQuantity);
         // Planned (unitary) Weight and Volume
         weight = new Double(0);
-        product = oneOrderItem.getRelatedOne("Product");
+        product = orderItem.getRelatedOne("Product");
         if (product.getDouble("weight") != null) {
             weight = product.getDouble("weight");
         }
@@ -278,6 +284,9 @@ HtmlFormWrapper findOrderItemsForm = new HtmlFormWrapper("component://product/we
 findOrderItemsForm.putInContext("shipmentId", shipmentId);
 if (shipment != null && shipment.get("primaryOrderId") != null) {
     findOrderItemsForm.putInContext("orderId", shipment.getString("primaryOrderId"));
+    if (UtilValidate.isNotEmpty(shipment.get("primaryShipGroupSeqId"))) {
+        findOrderItemsForm.putInContext("shipGroupSeqId", shipment.getString("primaryShipGroupSeqId"));
+    }
 }
 
 HtmlFormWrapper shipmentPlanToOrderItemsForm = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "shipmentPlanToOrderItems", request, response);
