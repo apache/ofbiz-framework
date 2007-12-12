@@ -548,7 +548,7 @@ public class ProductSearchSession {
             ProductSearchOptions.setTopProductCategoryId(prioritizeCategoryId, session);
             constraintsChanged = true;
         }
-
+        
         // if there is another category, add a constraint for it
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID"))) {
             String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID");
@@ -768,6 +768,22 @@ public class ProductSearchSession {
 
         if ("true".equalsIgnoreCase((String) parameters.get("AVAILABILITY_FILTER"))) {
             searchAddConstraint(new ProductSearch.AvailabilityDateConstraint(), session);
+            constraintsChanged = true;
+        }
+        
+        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE")) ||
+            UtilValidate.isNotEmpty((String) parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
+            String include = (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_INCL");
+            if (UtilValidate.isEmpty(include)) {
+                include = "Y";
+            }
+            Boolean inc =  Boolean.TRUE;
+            if ("N".equalsIgnoreCase(include)) {
+                inc =  Boolean.FALSE;
+            }
+            
+            searchAddConstraint(new ProductSearch.GoodIdentificationConstraint((String)parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"), 
+                                (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"), inc), session);
             constraintsChanged = true;
         }
 
