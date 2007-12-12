@@ -113,20 +113,21 @@ under the License.
             
             <!-- if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns); if not create one -->
             <clear-field field-name="serviceInMap"/>
-<!--
+            <clear-field field-name="currentInventoryItemId"/>
+            
             <if-empty field-name="parameters.inventoryItemId">
--->
                 <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
                 <call-service service-name="createInventoryItem" in-map-name="serviceInMap">
-                    <result-to-field result-name="inventoryItemId" field-name="parameters.inventoryItemId"/>
+                    <result-to-field result-name="inventoryItemId" field-name="currentInventoryItemId"/>
                 </call-service>
-<!--
+                
                 <else>
                     <set-service-fields service-name="updateInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
                     <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
+                    <set field="currentInventoryItemId" from-field="parameters.inventoryItemId"/>
                 </else>
             </if-empty>
--->            
+
             <!-- do this only for non-serialized inventory -->
             <if-compare value="SERIALIZED_INV_ITEM" operator="not-equals" field-name="parameters.inventoryItemTypeId">
                 <clear-field field-name="serviceInMap"/>
@@ -162,7 +163,7 @@ under the License.
                         </condition>
                         <then>
                             <clear-field field-name="serviceInMap"/>
-                            <set field="serviceInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
+                            <set field="serviceInMap.inventoryItemId" from-field="currentInventoryItemId"/>
                             <set field="serviceInMap.statusId" value="INV_AVAILABLE"/> <!-- XXX set to returned instead -->
                             <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
                         </then>
@@ -174,10 +175,10 @@ under the License.
             <set-service-fields service-name="balanceInventoryItems" map-name="parameters" to-map-name="serviceInMap"/>
             <call-service service-name="balanceInventoryItems" in-map-name="serviceInMap"/>
 
-            <set field="successMessageList[]" value="Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${parameters.inventoryItemId}"/>
+            <set field="successMessageList[]" value="Received ${parameters.quantityAccepted} of ${parameters.productId} in inventory item ${currentInventoryItemId}"/>
         </loop>
         <!-- return the last inventory item received -->
-        <field-to-result field-name="parameters.inventoryItemId" result-name="inventoryItemId"/>
+        <field-to-result field-name="currentInventoryItemId" result-name="inventoryItemId"/>
     </simple-method>
 
     <simple-method method-name="quickReceiveReturn" short-description="Quick Receive Entire Return">
@@ -230,7 +231,9 @@ under the License.
                         <result-to-field result-name="shipmentItemSeqId"/>
                     </call-service>
                 </iterate>
-                <iterate entry-name="returnItem" list-name="returnItems">                    
+                <iterate entry-name="returnItem" list-name="returnItems">
+                    <clear-field field-name="receiveCtx"/>
+                                        
                     <if-empty field-name="expectedItemStatus" map-name="returnItem">
                         <set value="INV_RETURNED" field="returnItem.expectedItemStatus" type="String"/>
                     </if-empty>
