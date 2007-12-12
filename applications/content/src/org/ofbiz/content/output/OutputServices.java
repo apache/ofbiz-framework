@@ -31,7 +31,7 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.view.ApacheFopFactory;
+import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.ofbiz.widget.fo.FoFormRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
@@ -126,26 +126,17 @@ public class OutputServices {
             screensAtt.getContext().put("formStringRenderer", foFormRenderer);
             screensAtt.render(screenLocation);
 
-            // create the in/output stream for the generation
+            // create the input stream for the generation
+            StreamSource src = new StreamSource(new StringReader(writer.toString()));
+
+            // create the output stream for the generation
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            
+            Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
+            ApacheFopWorker.transform(src, null, fop);
 
-            FopFactory fopFactory = ApacheFopFactory.instance();
-            Fop fop = fopFactory.newFop(contentType, baos);
-            TransformerFactory transFactory = TransformerFactory.newInstance();
-            Transformer transformer = transFactory.newTransformer();
-
-            Reader reader = new StringReader(writer.toString());
-            Source src = new StreamSource(reader);
-            Result res = new SAXResult(fop.getDefaultHandler());
-
-            // Start XSLT transformation and FOP processing
-            transformer.transform(src, res);
-            // and generate the stream
             baos.flush();
             baos.close();
-
-            // We don't want to cache the images that get loaded by the FOP engine
-            fopFactory.getImageFactory().clearCaches();
 
             // Print is sent
             DocFlavor psInFormat = new DocFlavor.INPUT_STREAM(printerContentType);
@@ -209,12 +200,6 @@ public class OutputServices {
             String errMsg = "Error rendering [" + contentType + "]: " + fe.toString();
             Debug.logError(fe, errMsg, module);
             return ServiceUtil.returnError(errMsg);
-        } catch (TransformerConfigurationException tce) {
-            String errMsg = "FOP TransformerConfiguration Exception: " + tce.toString();
-            return ServiceUtil.returnError(errMsg);
-        } catch (TransformerException te) {
-            String errMsg = "FOP transform failed: " + te.toString();
-            return ServiceUtil.returnError(errMsg);
         } catch (SAXException se) {
             String errMsg = "Error rendering [" + contentType + "]: " + se.toString();
             Debug.logError(se, errMsg, module);
@@ -258,26 +243,17 @@ public class OutputServices {
             screensAtt.getContext().put("formStringRenderer", foFormRenderer);
             screensAtt.render(screenLocation);
 
-            // create the in/output stream for the generation
+            // create the input stream for the generation
+            StreamSource src = new StreamSource(new StringReader(writer.toString()));
+
+            // create the output stream for the generation
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            
+            Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
+            ApacheFopWorker.transform(src, null, fop);
 
-            FopFactory fopFactory = ApacheFopFactory.instance();
-            Fop fop = fopFactory.newFop(contentType, baos);
-            TransformerFactory transFactory = TransformerFactory.newInstance();
-            Transformer transformer = transFactory.newTransformer();
-
-            Reader reader = new StringReader(writer.toString());
-            Source src = new StreamSource(reader);
-            Result res = new SAXResult(fop.getDefaultHandler());
-
-            // Start XSLT transformation and FOP processing
-            transformer.transform(src, res);
-            // and generate the stream
             baos.flush();
             baos.close();
-
-            // We don't want to cache the images that get loaded by the FOP engine
-            fopFactory.getImageFactory().clearCaches();
 
             fileName += UtilDateTime.nowAsString();
             if ("application/pdf".equals(contentType)) {
@@ -307,12 +283,6 @@ public class OutputServices {
         } catch (FOPException fe) {
             String errMsg = "Error rendering [" + contentType + "]: " + fe.toString();
             Debug.logError(fe, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
-        } catch (TransformerConfigurationException tce) {
-            String errMsg = "FOP TransformerConfiguration Exception: " + tce.toString();
-            return ServiceUtil.returnError(errMsg);
-        } catch (TransformerException te) {
-            String errMsg = "FOP transform failed: " + te.toString();
             return ServiceUtil.returnError(errMsg);
         } catch (SAXException se) {
             String errMsg = "Error rendering [" + contentType + "]: " + se.toString();

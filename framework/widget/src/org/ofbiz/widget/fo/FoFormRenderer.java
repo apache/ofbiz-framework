@@ -48,13 +48,14 @@ import org.ofbiz.widget.form.ModelFormField.SubmitField;
 import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
+import org.ofbiz.widget.html.HtmlWidgetRenderer;
 
 
 /**
  * Widget Library - FO Form Renderer implementation
  *
  */
-public class FoFormRenderer implements FormStringRenderer {
+public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRenderer {
 
     public static final String module = FoFormRenderer.class.getName();
     
@@ -66,12 +67,6 @@ public class FoFormRenderer implements FormStringRenderer {
     public FoFormRenderer(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
-    }
-
-    public void appendWhitespace(StringBuffer buffer) {
-        // appending line ends for now, but this could be replaced with a simple space or something
-        buffer.append("\r\n");
-        //buffer.append(' ');
     }
 
     private void makeBlockString(StringBuffer buffer, String widgetStyle, String text) {
@@ -88,31 +83,31 @@ public class FoFormRenderer implements FormStringRenderer {
     public void renderDisplayField(StringBuffer buffer, Map context, DisplayField displayField) {
         ModelFormField modelFormField = displayField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), displayField.getDescription(context));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderHyperlinkField(StringBuffer buffer, Map context, HyperlinkField hyperlinkField) {
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderTextField(StringBuffer buffer, Map context, TextField textField) {
         ModelFormField modelFormField = textField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderTextareaField(StringBuffer buffer, Map context, TextareaField textareaField) {
         ModelFormField modelFormField = textareaField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textareaField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderDateTimeField(StringBuffer buffer, Map context, DateTimeField dateTimeField) {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateTimeField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderDropDownField(StringBuffer buffer, Map context, DropDownField dropDownField) {
@@ -140,7 +135,7 @@ public class FoFormRenderer implements FormStringRenderer {
                 }
             }
         }
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderCheckField(StringBuffer buffer, Map context, CheckField checkField) {
@@ -174,12 +169,15 @@ public class FoFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+        renderBeginningBoundaryComment(buffer, "Form Widget", modelForm);
     }
 
     public void renderFormClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+        renderEndingBoundaryComment(buffer, "Form Widget", modelForm);
     }
 
     public void renderMultiFormClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+        renderEndingBoundaryComment(buffer, "Form Widget", modelForm);
     }
 
     public void renderFormatListWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
@@ -198,28 +196,28 @@ public class FoFormRenderer implements FormStringRenderer {
                 buffer.append(FoScreenRenderer.getFoStyle(areaStyle));
             }
             buffer.append("/>");
-            this.appendWhitespace(buffer);
+            appendWhitespace(buffer);
         }
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatListWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("</fo:table-body>");
         buffer.append("</fo:table>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatHeaderRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("<fo:table-header>");
         buffer.append("<fo:table-row>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatHeaderRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("</fo:table-row>");
         buffer.append("</fo:table-header>");
         buffer.append("<fo:table-body>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
@@ -232,23 +230,23 @@ public class FoFormRenderer implements FormStringRenderer {
         buffer.append("font-weight=\"bold\" text-align=\"center\" border=\"solid black\" padding=\"2pt\"");
         buffer.append(">");
         buffer.append("<fo:block>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatHeaderRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
         buffer.append("</fo:block>");
         buffer.append("</fo:table-cell>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatHeaderRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("<fo:table-cell>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatHeaderRowFormCellClose(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("</fo:table-cell>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatHeaderRowFormCellTitleSeparator(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) {
@@ -256,12 +254,12 @@ public class FoFormRenderer implements FormStringRenderer {
 
     public void renderFormatItemRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("<fo:table-row>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatItemRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("</fo:table-row>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
@@ -277,62 +275,62 @@ public class FoFormRenderer implements FormStringRenderer {
         }
         buffer.append(FoScreenRenderer.getFoStyle(areaStyle));
         buffer.append(">");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatItemRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
         buffer.append("</fo:table-cell>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatItemRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("<fo:table-cell>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatItemRowFormCellClose(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("</fo:table-cell>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     // TODO: multi columns (position attribute) in single forms are still not implemented
     public void renderFormatSingleWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("<fo:table>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
         buffer.append("<fo:table-column column-width=\"2in\"/>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
         buffer.append("<fo:table-column/>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
         buffer.append("<fo:table-body>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
     public void renderFormatSingleWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("</fo:table-body>");
         buffer.append("</fo:table>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatFieldRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("<fo:table-row>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatFieldRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
         buffer.append("</fo:table-row>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
 
     public void renderFormatFieldRowTitleCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField) {
         buffer.append("<fo:table-cell font-weight=\"bold\" text-align=\"right\" padding=\"3pt\">");
         buffer.append("<fo:block>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatFieldRowTitleCellClose(StringBuffer buffer, Map context, ModelFormField modelFormField) {
         buffer.append("</fo:block>");
         buffer.append("</fo:table-cell>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatFieldRowSpacerCell(StringBuffer buffer, Map context, ModelFormField modelFormField) {
@@ -340,12 +338,12 @@ public class FoFormRenderer implements FormStringRenderer {
 
     public void renderFormatFieldRowWidgetCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) {
         buffer.append("<fo:table-cell text-align=\"left\" padding=\"2pt\" padding-left=\"5pt\">");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatFieldRowWidgetCellClose(StringBuffer buffer, Map context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) {
         buffer.append("</fo:table-cell>");
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderFormatEmptySpace(StringBuffer buffer, Map context, ModelForm modelForm) {
@@ -355,25 +353,25 @@ public class FoFormRenderer implements FormStringRenderer {
     public void renderTextFindField(StringBuffer buffer, Map context, TextFindField textFindField) {
         ModelFormField modelFormField = textFindField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textFindField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderRangeFindField(StringBuffer buffer, Map context, RangeFindField rangeFindField) {
         ModelFormField modelFormField = rangeFindField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, rangeFindField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderDateFindField(StringBuffer buffer, Map context, DateFindField dateFindField) {
         ModelFormField modelFormField = dateFindField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateFindField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderLookupField(StringBuffer buffer, Map context, LookupField lookupField) {
         ModelFormField modelFormField = lookupField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, lookupField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderNextPrev(StringBuffer buffer, Map context, ModelForm modelForm) {
@@ -382,7 +380,7 @@ public class FoFormRenderer implements FormStringRenderer {
     public void renderFileField(StringBuffer buffer, Map context, FileField textField) {
         ModelFormField modelFormField = textField.getModelFormField();
         this.makeBlockString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        appendWhitespace(buffer);
     }
 
     public void renderPasswordField(StringBuffer buffer, Map context, PasswordField passwordField) {

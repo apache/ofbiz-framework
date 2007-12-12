@@ -18,11 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.webapp.view;
 
-import org.apache.fop.apps.FopFactory;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.webapp.view.ApacheFopWorker;
 
-import java.io.File;
+import org.apache.fop.apps.FopFactory;
 
 /**
  * Apache FOP Factory used to provide a singleton instance of the FopFactory.  Best pratices recommended
@@ -34,34 +32,8 @@ public class ApacheFopFactory {
 
     public static final String module = ApacheFopFactory.class.getName();
     
-    private static final FopFactory fopFactory;
-
-    static {
-        // Create the factory
-        fopFactory = FopFactory.newInstance();
-
-        // Limit the validation for backwards compatibility
-        fopFactory.setStrictValidation(false);
-        
-        try {
-            String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path", "framework/webapp/config");
-            File userConfigFile = new File(fopPath + "/fop.xconf");
-            fopFactory.setUserConfig(userConfigFile);
-            String fopFontBaseUrl = fopFactory.getFontBaseURL();
-            if (fopFontBaseUrl == null) {
-                String ofbizHome = System.getProperty("ofbiz.home");
-                fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url",
-                                    "file:///" + ofbizHome + "/framework/webapp/config/");
-                fopFactory.setFontBaseURL(fopFontBaseUrl);
-            }
-            Debug.logInfo("FOP-FontBaseURL: " + fopFontBaseUrl, module);
-        } catch (Exception e) {
-            Debug.logWarning("Error reading FOP configuration", module);
-        }
-    }
-
+    /** @deprecated use ApacheFopWorker.getFactoryInstance() */
     public static FopFactory instance() {
-        return fopFactory;
+        return ApacheFopWorker.getFactoryInstance();
     }
-
 }
