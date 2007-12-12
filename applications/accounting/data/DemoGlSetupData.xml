@@ -141,6 +141,8 @@ under the License.
     <PaymentMethodType paymentMethodTypeId="EXT_PAYPAL" glAccountId="122000"/>
     <PaymentMethodType paymentMethodTypeId="EXT_WORLDPAY" glAccountId="122000"/>
 
+    <CostComponentCalc costComponentCalcId="EXAMPLE_COST" costGlAccountTypeId="OPERATING_EXPENSE"/>
+
     <!-- General Ledger Setup for the "Company" organization for "Company" -->
     
     <!-- GL journal for suspended transactions (failed post) -->
@@ -165,6 +167,8 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="122300" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="122500" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="140000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="141000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="142000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="210000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="213000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="213200" fromDate="2001-01-01 00:00:00.0"/>
@@ -187,6 +191,7 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="514000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="515000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="516100" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="600000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="601300" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="601400" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="625000" fromDate="2001-01-01 00:00:00.0"/>
@@ -200,6 +205,8 @@ under the License.
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INTRSTINC_RECEIVABLE" glAccountId="121800"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_XFER_OUT" glAccountId="125000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="RAWMAT_INVENTORY" glAccountId="141000"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="WIP_INVENTORY" glAccountId="142000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="PREPAID_EXPENSES" glAccountId="150000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="CUSTOMER_CREDIT" glAccountId="213000"/>
@@ -210,6 +217,7 @@ under the License.
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="SALES_ACCOUNT" glAccountId="400000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INV_ADJ_VAL" glAccountId="515000"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="OPERATING_EXPENSE" glAccountId="600000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="TAX_ACCOUNT" glAccountId="900000"/>
 
     <!-- mappings for payments -->
