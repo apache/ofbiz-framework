@@ -485,7 +485,7 @@ public class PriceServices {
         List orderItemPriceInfos = FastList.newInstance();
         if (defaultPriceValue != null) {
             // If a price calc formula (service) is specified, then use it to get the unit price
-            if (UtilValidate.isNotEmpty(defaultPriceValue.getString("customPriceCalcService"))) {
+            if ("ProductPrice".equals(defaultPriceValue.getEntityName()) && UtilValidate.isNotEmpty(defaultPriceValue.getString("customPriceCalcService"))) {
                 GenericValue customMethod = null;
                 try {
                     customMethod = defaultPriceValue.getRelatedOne("CustomMethod");

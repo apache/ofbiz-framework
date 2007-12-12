@@ -181,7 +181,7 @@ public class UspsServices {
             UtilXml.addChildElementValue(packageElement, "Machinable", "False", requestDocument);
         }
 
-        // send the request                                                                ÷
+        // send the request
         Document responseDocument = null;
         try {
             responseDocument = sendUspsRequest("RateV2", requestDocument);
