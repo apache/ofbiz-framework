@@ -157,6 +157,7 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="111100" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="112000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="120000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="125000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="121800" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="122000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="122100" fromDate="2001-01-01 00:00:00.0"/>
@@ -170,6 +171,7 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="213300" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="213500" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="214000" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="215000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="221100" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="224100" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="400000" fromDate="2001-01-01 00:00:00.0"/>
@@ -196,12 +198,14 @@ under the License.
     <!-- Default mapping between account types and account ids -->
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INTRSTINC_RECEIVABLE" glAccountId="121800"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_XFER_OUT" glAccountId="125000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_ACCOUNT" glAccountId="140000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="PREPAID_EXPENSES" glAccountId="150000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="ACCOUNTS_PAYABLE" glAccountId="210000"/>
-    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="UNINVOICED_SHIP_RCPT" glAccountId="214000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="CUSTOMER_CREDIT" glAccountId="213000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="CUSTOMER_DEPOSIT" glAccountId="213300"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="UNINVOICED_SHIP_RCPT" glAccountId="214000"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_XFER_IN" glAccountId="215000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COMMISSIONS_PAYABLE" glAccountId="221100"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="SALES_ACCOUNT" glAccountId="400000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000"/>
