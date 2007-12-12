@@ -54,7 +54,7 @@ under the License.
     <view-map name="main" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#advancedsearch"/>
     <view-map name="advancedsearch" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#advancedsearch"/>
     <view-map name="keywordsearch" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#keywordsearch"/>
-    
+    <view-map name="EditProduct" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#EditProduct"/>
     <view-map name="ProductsExportToGoogle" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#ProductsExportToGoogle"/>
     <!-- end of view mappings -->
 </site-conf>

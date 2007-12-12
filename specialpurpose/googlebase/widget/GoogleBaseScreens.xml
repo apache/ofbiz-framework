@@ -74,11 +74,61 @@ under the License.
         </section>
     </screen>
     
+    <screen name="CommonProductDecorator">
+        <section>
+            <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                
+                <set field="productId" from-field="parameters.productId"/>                
+                <entity-one entity-name="Product" value-name="product"/>
+                <set field="productName" from-field="product.productName"/>                
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for GOOGLEBASE, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="GOOGLEBASE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field-name="productId"/></not></condition>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/catalog/product/ProductTabBar.ftl"/></html>
+                                        </platform-specific>
+                                        <container>
+                                            <label style="head1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
+                                            <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content"/>
+                                        </container>
+                                        
+                                        <!-- add Create Product and View Product (in ecommerce) links -->
+                                        <container style="button-bar">
+                                            <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
+                                            <link target="CreateVirtualWithVariantsForm" text="${uiLabelMap.ProductNewVirtualProduct}" style="buttontext"/>
+                                            <link target="/ecommerce/control/product?product_id=${productId}" url-mode="inter-app" text="${uiLabelMap.ProductProductPage}" style="buttontext"/>
+                                            <link target="ProductBarCode.pdf?productId=${productId}&amp;productName=${productName}" target-window="_blank" text="${uiLabelMap.ProductBarcode}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="advancedsearch">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleAdvancedSearch"/>
-
                 <entity-condition entity-name="ProductCategory" list-name="productCategories">
                     <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
                     <order-by field-name="description"/>
@@ -130,13 +180,47 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.PageTitleGoogleBaseProductsExportToGoogle}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleGoogleBaseProductsExportToGoogle}"></label>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ProductsExportToGoogle" location="component://googlebase/widget/GoogleBaseForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ProductsExportToGoogle" location="component://googlebase/widget/GoogleBaseForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>  
+    </screen>
+    <screen name="EditProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProduct"/>
+                <set field="tabButtonItem" value="EditProduct"/>
+                <set field="labelTitleProperty" value="ProductProduct"/>
+    
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                        
+                        <!-- include the duplicate product form template -->
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/product/EditProductDupForm.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
     </screen>
 </screens>
