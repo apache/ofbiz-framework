@@ -46,6 +46,9 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_opportunity.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
+    
+    <test-suite loader="main" location="testdef/OrderTest.xml"/>
+    
     <webapp name="order"
         title="Order"
         server="default-server"
