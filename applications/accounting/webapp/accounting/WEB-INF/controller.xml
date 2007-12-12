@@ -1609,6 +1609,7 @@ under the License.
     <view-map name="EditBillingAccountTerms" type="screen" page="component://accounting/widget/BillingAccountScreens.xml#EditBillingAccountTerms"/>
     <view-map name="BillingAccountInvoices" type="screen" page="component://accounting/widget/BillingAccountScreens.xml#BillingAccountInvoices"/>
     <view-map name="BillingAccountPayments" type="screen" page="component://accounting/widget/BillingAccountScreens.xml#BillingAccountPayments"/>
+    <view-map name="BillingAccountOrders" type="screen" page="component://accounting/widget/BillingAccountScreens.xml#BillingAccountOrders"/>
     
     <!-- Invoice -->
     <view-map name="invoiceOverview" type="screen" page="component://accounting/widget/InvoiceScreens.xml#invoiceOverview"/>
