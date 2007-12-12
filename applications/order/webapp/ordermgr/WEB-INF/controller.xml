@@ -493,6 +493,12 @@ under the License.
         <response name="success" type="request" value="addFromShoppingList"/>
         <response name="error" type="view" value="checkinits"/>
     </request-map>
+    <request-map uri="addItemToShoppingList">
+        <security auth="true" https="true"/>
+        <event type="service" path="" invoke="createShoppingListItem"/>
+        <response name="success" type="view" value="editShoppingList"/>
+        <response name="error" type="view" value="editShoppingList"/>
+    </request-map>
     <request-map uri="loadCartFromShoppingList">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="loadCartFromShoppingList"/>

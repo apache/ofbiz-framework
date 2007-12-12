@@ -103,14 +103,18 @@ if (shoppingListId != null) {
                 price = calcPriceOutMap.get("price");
                 totalPrice = price * shoppingListItem.getDouble("quantity");
                 // similar code at ShoppingCartItem.java getRentalAdjustment
-                if ("ASSET_USAGE".equals(product.getString("productTypeId")))     {
+                if ("ASSET_USAGE".equals(product.getString("productTypeId"))) {
                     persons = shoppingListItem.getDouble("reservPersons");
-                    reservNthPPPerc = product.get("reservNthPPPerc").doubleValue();
-                    reserv2ndPPPerc = product.get("reserv2ndPPPerc").doubleValue();
+                    if (UtilValidate.isNotEmpty(product.get("reservNthPPPerc"))) {
+                        reservNthPPPerc = product.get("reservNthPPPerc").doubleValue();                
+                    }
+                    if (UtilValidate.isNotEmpty(product.get("reserv2ndPPPerc"))) {
+                        reserv2ndPPPerc = product.get("reserv2ndPPPerc").doubleValue();                 
+                    }
                     if (persons == null) persons = 0;
                     rentalValue = 0;
-                    if (persons > 1)    {
-                        if (persons > 2 ) {
+                    if (persons > 1) {
+                        if (persons > 2) {
                             persons -= 2; 
                             if(reservNthPPPerc != null && reservNthPPPerc > 0) 
                                 rentalValue = persons * reservNthPPPerc;

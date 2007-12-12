@@ -44,6 +44,8 @@ under the License.
                       <#list shoppingLists as shoppingList>
                         <option value='${shoppingList.shoppingListId}'>${shoppingList.getString("listName")}</option>
                       </#list>
+                        <option value="">---</option>
+                        <option value="">${uiLabelMap.EcommerceNewShoppingList}</option>
                     </select>
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceAddtoShoppingList}"/>
                     </div>

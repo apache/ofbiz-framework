@@ -331,7 +331,7 @@ function submitForm(form, mode, value) {
                       <input type="radio" name="checkOutPaymentId" value="EXT_COD" <#if "EXT_COD" == checkOutPaymentId>checked="checked"</#if>/>
                     </td>
                     <td width="50%">
-                      <span class="tabletext">${uiLabelMap.FormFieldTitle_paymentCOD}</span>
+                      <span class="tabletext">${uiLabelMap.OrderCOD}</span>
                     </td>
                   </tr>
                   </#if>
