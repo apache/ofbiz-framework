@@ -25,6 +25,7 @@
         <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
         <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProject"/></menu-item>
+        <menu-item name="resources" title="${uiLabelMap.ProjectMgrResources}"><link target="FindResource"/></menu-item>
         <menu-item name="timesheet" title="${uiLabelMap.Timesheet}"><link target="FindTimeSheet?findAll=N"/></menu-item>
         <menu-item name="SkillType" title="${uiLabelMap.ProjectMgrSkillType}"><link target="findSkillTypes"/></menu-item>
         <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>

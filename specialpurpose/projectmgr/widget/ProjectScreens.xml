@@ -49,6 +49,49 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="FindResource">
+        <section>            
+            <actions>
+                <set field="titleProperty" value="PageTitleFindResource"/>
+                <set field="labelTitleProperty" value="ProjectMgrResourceName"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-and entity-name="PartyRoleDetailAndPartyDetail" list-name="resources">
+                    <field-map field-name="parentTypeId" value="PROJECT_TEAM"/>
+                    <order-by field-name="roleTypeId"/>
+                    <order-by field-name="lastName"/>
+                    <order-by field-name="groupName"/>
+                </entity-and>
+            </actions>                                                
+            <widgets>  
+                <decorator-screen name="CommonResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                                                
+                        <section>                                                        
+                            <widgets>
+                                <!--container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleFindResource}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                    <include-form name="FindResource" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                    </container>                                                                             
+                                    </container-->                                                                             
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleListResources}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="ListResources" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddResource}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="AddResource" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                    </container>
+                                </container>
+                            </widgets>                            
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="FindProject">
         <section>            
             <actions>
