@@ -696,10 +696,18 @@ under the License.
                     <if-empty field-name="found">
                         <if-compare-field field-name="telephone.contactMechPurposeTypeId" to-field-name="type" operator="equals">
                             <set field="found" value="notImportant"/>
-                            <field-to-result map-name="telephone" field-name="countryCode"/>
-                            <field-to-result map-name="telephone" field-name="areaCode"/>
-                            <field-to-result map-name="telephone" field-name="contactNumber"/>
-                            <field-to-result map-name="telephone" field-name="extension"/>
+                            <if-not-empty field-name="telephone.countryCode">
+                                <field-to-result map-name="telephone" field-name="countryCode"/>
+                            </if-not-empty>
+                            <if-not-empty field-name="telephone.areaCode">
+                                <field-to-result map-name="telephone" field-name="areaCode"/>
+                            </if-not-empty>
+                            <if-not-empty field-name="telephone.contactNumber">
+                                <field-to-result map-name="telephone" field-name="contactNumber"/>
+                            </if-not-empty>
+                            <if-not-empty field-name="telephone.extension">
+                                <field-to-result map-name="telephone" field-name="extension"/>
+                            </if-not-empty>
                             <field-to-result map-name="telephone" field-name="contactMechPurposeTypeId"/>
                         </if-compare-field>
                     </if-empty>
@@ -709,10 +717,18 @@ under the License.
                 <find-by-and entity-name="PartyAndContactMech" map-name="findMap" list-name="telephoneAll1"/>
                 <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2"/>
                 <first-from-list entry-name="telephone" list-name="telephoneAll2"/>
-                <field-to-result map-name="telephone" field-name="tnCountryCode" result-name="countryCode"/>
-                <field-to-result map-name="telephone" field-name="tnAreaCode" result-name="areaCode"/>
-                <field-to-result map-name="telephone" field-name="tnContactNumber" result-name="contactNumber"/>
-                <field-to-result map-name="telephone" field-name="extension"/>
+                <if-not-empty field-name="telephone.tnCountryCode">
+                    <field-to-result map-name="telephone" field-name="tnCountryCode" result-name="countryCode"/>
+                </if-not-empty>
+                <if-not-empty field-name="telephone.tnAreaCode">
+                    <field-to-result map-name="telephone" field-name="tnAreaCode" result-name="areaCode"/>
+                </if-not-empty>
+                <if-not-empty field-name="telephone.tnContactNumber">
+                    <field-to-result map-name="telephone" field-name="tnContactNumber" result-name="contactNumber"/>
+                </if-not-empty>
+                <if-not-empty field-name="telephone.extension">
+                    <field-to-result map-name="telephone" field-name="extension"/>
+                </if-not-empty>
             </else>
         </if-not-empty>
     </simple-method>
