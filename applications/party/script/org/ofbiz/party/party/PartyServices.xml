@@ -713,7 +713,6 @@ under the License.
                 <field-to-result map-name="telephone" field-name="tnAreaCode" result-name="areaCode"/>
                 <field-to-result map-name="telephone" field-name="tnContactNumber" result-name="contactNumber"/>
                 <field-to-result map-name="telephone" field-name="extension"/>
-                <field-to-result map-name="telephone" field-name="contactMechPurposeTypeId"/>
             </else>
         </if-not-empty>
     </simple-method>
