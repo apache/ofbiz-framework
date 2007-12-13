@@ -300,7 +300,7 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateSkillType"/>        
         <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><display/></field>
-        <field name="description" title="${uiLabelMap.CommomDescription}"/>
+        <field name="description" title="${uiLabelMap.CommonDescription}"/>
         <field name="submitButton" title="Update" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteSkillType?skillTypeId=${skillTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
