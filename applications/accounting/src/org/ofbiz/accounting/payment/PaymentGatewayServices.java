@@ -1989,7 +1989,8 @@ public class PaymentGatewayServices {
         Double amount = (Double) context.get("captureAmount");
         String serviceType = (String) context.get("serviceTypeEnum");
         String currencyUomId = (String) context.get("currencyUomId");
-        
+        boolean captureSuccessful = ((Boolean) context.get("captureResult")).booleanValue();
+
         String paymentMethodTypeId = paymentPreference.getString("paymentMethodTypeId");
 
         if (UtilValidate.isEmpty(serviceType)) {
@@ -2005,7 +2006,13 @@ public class PaymentGatewayServices {
         }
 
         // update the status and maxAmount
-        paymentPreference.set("statusId", ("EXT_BILLACT".equals(paymentMethodTypeId)? "PAYMENT_RECEIVED": "PAYMENT_SETTLED"));
+        String prefStatusId;
+        if (captureSuccessful) {
+            prefStatusId = "EXT_BILLACT".equals(paymentMethodTypeId) ? "PAYMENT_RECEIVED": "PAYMENT_SETTLED";
+        } else {
+            prefStatusId = "PAYMENT_DECLINED";
+        }
+        paymentPreference.set("statusId", prefStatusId);
         paymentPreference.set("maxAmount", amount);
         try {
             paymentPreference.store();
