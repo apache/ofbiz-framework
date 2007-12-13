@@ -669,7 +669,55 @@ under the License.
         <first-from-list entry-name="emailAddress" list-name="emailAddresses"/>
         <field-to-result field-name="emailAddress.infoString" result-name="emailAddress"/>
     </simple-method>
-
+    
+    <simple-method method-name="getPartyTelephone" short-description="Get the telephone number of the party">
+        <set field="findMap.partyId" from-field="parameters.partyId"/>
+        <if-empty field-name="parameters.contactMechPurposeTypeId">
+            <!-- search in this order if not provided-->
+            <set field="type" value="PRIMARY_PHONE"/><field-to-list field-name="type" list-name="types"/>
+            <set field="type" value="PHONE_MOBILE"/><field-to-list field-name="type" list-name="types"/>
+            <set field="type" value="PHONE_WORK"/><field-to-list field-name="type" list-name="types"/>
+            <set field="type" value="PHONE_QUICK"/><field-to-list field-name="type" list-name="types"/>
+            <set field="type" value="PHONE_HOME"/><field-to-list field-name="type" list-name="types"/>
+            <set field="type" value="PHONE_BILLING"/><field-to-list field-name="type" list-name="types"/>
+            <set field="type" value="PHONE_SHIPPING"/><field-to-list field-name="type" list-name="types"/>
+            <set field="type" value="PHONE_SHIP_ORIG"/><field-to-list field-name="type" list-name="types"/>
+            <else>
+                <set field="type" from-field="parameters.contactMechPurposeTypeId"/><field-to-list field-name="type" list-name="types"/>
+            </else>
+        </if-empty>
+        <set field="findMap.contactMechTypeId" value="TELECOM_NUMBER"/>
+        <find-by-and entity-name="PartyContactDetailByPurpose" map-name="findMap" list-name="telephoneAll1"></find-by-and>
+        <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
+        <filter-list-by-date list-name="telephoneAll2" to-list-name="telephoneAll3"/>
+        <if-not-empty field-name="telephoneAll3">
+            <iterate entry-name="type" list-name="types">
+                <iterate entry-name="telephone" list-name="telephoneAll3">
+                    <if-empty field-name="found">
+                        <if-compare-field field-name="telephone.contactMechPurposeTypeId" to-field-name="type" operator="equals">
+                            <set field="found" value="notImportant"/>
+                            <field-to-result map-name="telephone" field-name="countryCode"/>
+                            <field-to-result map-name="telephone" field-name="areaCode"/>
+                            <field-to-result map-name="telephone" field-name="contactNumber"/>
+                            <field-to-result map-name="telephone" field-name="extension"/>
+                            <field-to-result map-name="telephone" field-name="contactMechPurposeTypeId"/>
+                        </if-compare-field>
+                    </if-empty>
+                </iterate>
+            </iterate>
+            <else>
+                <find-by-and entity-name="PartyAndContactMech" map-name="findMap" list-name="telephoneAll1"/>
+                <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2"/>
+                <first-from-list entry-name="telephone" list-name="telephoneAll2"/>
+                <field-to-result map-name="telephone" field-name="tnCountryCode" result-name="countryCode"/>
+                <field-to-result map-name="telephone" field-name="tnAreaCode" result-name="areaCode"/>
+                <field-to-result map-name="telephone" field-name="tnContactNumber" result-name="contactNumber"/>
+                <field-to-result map-name="telephone" field-name="extension"/>
+                <field-to-result map-name="telephone" field-name="contactMechPurposeTypeId"/>
+            </else>
+        </if-not-empty>
+    </simple-method>
+    
     <!-- address match map -->
     <simple-method method-name="createAddressMatchMap" short-description="create a AddressMatchMap">
         <call-object-method obj-field-name="mapValue" obj-map-name="parameters" method-name="toUpperCase" ret-field-name="mapValue" ret-map-name="parameters"/>
