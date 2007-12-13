@@ -956,7 +956,7 @@ public class OagisInventoryServices {
                                     
                                     GenericValue inventoryItem = EntityUtil.getFirst(inventoryItemsBySerialNumber);
                                     if (inventoryItem != null) {
-                                        localRipCtx.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
+                                        localRipCtx.put("currentInventoryItemId", inventoryItem.getString("inventoryItemId"));
                                     }
 
                                     Map ripResult = dispatcher.runSync("receiveInventoryProduct", localRipCtx);

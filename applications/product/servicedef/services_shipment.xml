@@ -544,7 +544,8 @@ under the License.
         <attribute name="inventoryItemDetailSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
         <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="inventoryItemId" type="String" mode="INOUT" optional="true"><!-- allow this to be passed in to update an existing InventoryItem, and all else is the same; if not passed in a new one will be created --></attribute>        
+        <attribute name="currentInventoryItemId" type="String" mode="IN" optional="true"><!-- allow this to be passed in to update an existing InventoryItem, and all else is the same; if not passed in a new one will be created --></attribute>        
+        <attribute name="inventoryItemId" type="String" mode="OUT" optional="true"></attribute>        
         <override name="quantityAccepted" optional="false"/>
         <override name="quantityRejected" optional="false"/>
         <override name="inventoryItemTypeId" optional="false"/>
