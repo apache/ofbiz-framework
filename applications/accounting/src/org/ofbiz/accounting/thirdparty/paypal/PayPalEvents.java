@@ -185,7 +185,11 @@ public class PayPalEvents {
                
         // get the confirm URL
         String confirmUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.confirm");
-        if (confirmUrl == null) {
+        
+        // get the redirect URL
+        String redirectUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.redirect");
+               
+        if (confirmUrl == null || redirectUrl == null) {
             Debug.logError("Payment properties is not configured properly, no confirm URL defined!", module);
             request.setAttribute("_ERROR_MESSAGE_", "PayPal has not been configured, please contact customer service.");
             return "error";
@@ -200,7 +204,7 @@ public class PayPalEvents {
 
         try {
             String str = UtilHttp.urlEncodeArgs(parametersMap);
-            URL u = new URL("http://www.paypal.com/cgi-bin/webscr");
+            URL u = new URL(redirectUrl);
             URLConnection uc = u.openConnection();
             uc.setDoOutput(true);
             uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -278,7 +282,7 @@ public class PayPalEvents {
         String paymentStatus = request.getParameter("payment_status");
 
         // attempt to start a transaction
-        boolean okay = false;
+        boolean okay = true;
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
@@ -423,6 +427,8 @@ public class PayPalEvents {
         paymentPreference.set("maxAmount", new Double(paymentAmount));
         if (paymentStatus.equals("Completed")) {
             paymentPreference.set("statusId", "PAYMENT_RECEIVED");
+        } else if (paymentStatus.equals("Pending")) {
+            paymentPreference.set("statusId", "PAYMENT_NOT_RECEIVED");
         } else {
             paymentPreference.set("statusId", "PAYMENT_CANCELLED");
         }
@@ -449,6 +455,13 @@ public class PayPalEvents {
         response.set("transactionDate", authDate);
         toStore.add(response);
 
+        try {
+            delegator.storeAll(toStore);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot set payment preference/payment info", module);
+            return false;
+        } 
+        
         // create a payment record too
         Map results = null;
         try {
@@ -466,12 +479,6 @@ public class PayPalEvents {
             return false;
         }
 
-        try {
-            delegator.storeAll(toStore);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Cannot set payment preference/payment info", module);
-            return false;
-        } 
         return true;             
     }
 
