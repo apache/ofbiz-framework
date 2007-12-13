@@ -307,6 +307,69 @@
         </if-not-empty>
     </simple-method>
     
+    <simple-method method-name="getTasksByParties" short-description="get task information by party member" login-required="true">
+        <!-- get the list of tasks optionaly selected for a party -->
+        <if-empty field-name="parameters.partyId">
+            <set field="parameters.partyId" value="%"/>
+        </if-empty>
+        <if-empty field-name="parameters.workEffortId">
+            <set field="parameters.workEffortId" value="%"/>
+        </if-empty>
+        <entity-condition entity-name="WorkEffortPartyAssignment" list-name="tasks">
+            <condition-list combine="and">
+                <condition-expr field-name="partyId" operator="like" env-name="parameters.partyId"/>
+                <condition-expr field-name="workEffortId" operator="like" env-name="parameters.workEffortId"/>
+            </condition-list>
+            <order-by field-name="workEffortId"/>
+            <order-by field-name="partyId"/>
+        </entity-condition>
+        <if-not-empty field-name="tasks">
+            <iterate entry-name="task" list-name="tasks">
+                <if>
+                    <condition >
+                        <and>
+                            <not>
+                                <if-empty field-name="taskParty"/>
+                            </not>
+                            <if-compare-field field-name="task.partyId" operator="not-equals" to-field-name="taskParty.partyId"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <field-to-list field-name="taskParty" list-name="taskParties"/>
+                        <clear-field field-name="taskParty"/>
+                    </then>
+                </if>
+                
+                <if-empty field-name="taskParty">
+                    <set field="taskParty.partyId" from-field="task.partyId"/>
+                    <entity-one entity-name="PartyNameView" value-name="partyNameView">
+                        <field-map field-name="partyId" env-name="task.partyId"/>
+                    </entity-one>
+                    <if-not-empty field-name="partyNameView">
+                        <set field="taskParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName}${partyNameView.groupName}"/>
+                    </if-not-empty>
+                    <set field="taskParty.roleTypeId" from-field="task.roleTypeId"/>
+                    <set field="taskParty.fromDate" from-field="task.fromDate"/>
+                    <set field="taskParty.thruDate" from-field="task.thruDate"/>
+                </if-empty>
+                
+                <!-- get the planned hours -->
+                <set field="lowInfo" from-field="task"/>
+                <set field="hoursPartyId" from-field="task.partyId"/>
+                <call-simple-method method-name="getHours"/>
+                <set field="taskParty.plannedHours" from-field="highInfo.plannedHours"/>                    
+                <set field="taskParty.actualHours" from-field="highInfo.actualHours"/>                    
+                
+            </iterate>
+            <if-not-empty field-name="taskParty">
+                <field-to-list field-name="taskParty" list-name="taskParties"/>
+            </if-not-empty>
+            <if-not-empty field-name="taskParties">
+                <field-to-result field-name="taskParties"/>                                                                                       
+            </if-not-empty>
+        </if-not-empty>
+    </simple-method>
+    
     <!-- Internal functions  -->
     <simple-method method-name="combineInfo" short-description="combine lower level status, dates of tasks.">
         <!-- in/output highInfo infoMap -->

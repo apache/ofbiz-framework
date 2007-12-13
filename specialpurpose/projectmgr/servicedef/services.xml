@@ -73,4 +73,12 @@ under the License.
         <attribute name="projectParties" type="List" mode="OUT" optional="true"/>
     </service>
     
+    <service name="getTasksByParties" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getTasksByParties">
+        <description>Get project information by party</description>
+        <attribute name="workEffortId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="taskParties" type="List" mode="OUT" optional="true"/>
+    </service>
+    
 </services>
