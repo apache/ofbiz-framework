@@ -31,6 +31,9 @@
         <menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item>
         <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
         
+        <menu-item name="help" title="Help" align-style="col-right">
+            <link target="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Role?decorator=printable" url-mode="plain" target-window="new"/>
+        </menu-item>
         <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
