@@ -63,6 +63,37 @@
         </field>
         <field name="add"><submit/></field>
     </form>
+    <form name="FindResource" type="single" target="FindResource">
+        <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}"><text/></field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="ListResources" type="list" list-name="resources" paginate-target="FindResource">
+        <row-actions>
+            <service service-name="getPartyEmail" result-map-name="emailResult"/>
+            <service service-name="getPartyTelephone" result-map-name="telResult"/>
+        </row-actions>
+        <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${personalTitle} ${lastName},${firstName} ${middleName} ${groupName}" target="viewprofile?partyId=${partyId}"/>
+        </field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
+        <field name="emailAddess"><hyperlink target="/partymgr/control/EditCommunicationEvent?partyIdFrom=${userLogin.partyId}&amp;partyIdTo=${partyId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;contactMechIdTo=${contactMechId}&amp;contactMechTypeId=EMAIL_ADDRESS" description="${emailResult.emailAddress}" target-type="inter-app"/></field>
+        <field use-when="telResult.get(&quot;extension&quot;)!=null" name="telephone"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber} Ext:${telResult.extension}"/></field>
+        <field use-when="telResult.get(&quot;extension&quot;)==null" name="telephone"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}"/></field>
+        <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="removeResource?partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonRemove}"/></field>
+    </form>                                         
+    <form name="AddResource" type="single" target="addResource">
+        <field name="PartyId" parameter-name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="addButton" ><submit/></field>
+    </form>
     <form name="FindProject" type="single" target="FindProject">
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
         <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}"><text/></field>
