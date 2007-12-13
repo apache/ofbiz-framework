@@ -112,7 +112,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListPartySkills"/>
     </request-map>
-    <request-map uri="EditPartySkills">
+    <request-map uri="EditPartySkill">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartySkills"/>
     </request-map>

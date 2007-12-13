@@ -93,8 +93,9 @@ under the License.
         </field>
     </form>      
     <form name="EditPartySkill" type="single" target="updatePartySkill" title="createPartySkill" default-map-name="partySkill">        
+        <alt-target use-when="partySkill==null" target="createPartySkill"/>
         <auto-fields-service service-name="createPartySkill"/>
-        <field name="partyId" title="partyId"><hidden/></field>        
+        <field name="partyId" title="partyId"><text/></field>        
         <field name="skillTypeId" title="skillType Id" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" key-field-name="skillTypeId" entity-name="SkillType">
