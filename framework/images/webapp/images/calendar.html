@@ -40,7 +40,12 @@ var re_id = new RegExp('id=(\\d+)');
 var num_id = (re_id.exec(String(window.location))
 	? new Number(RegExp.$1) : 0);
 var obj_caller = (window.opener ? window.opener.calendars[num_id] : null);
-
+// Change background color
+var bkColor = "yellow";
+function setSourceColor(src){
+if(src != null)
+ src.style.backgroundColor = bkColor;
+}
 if (obj_caller && obj_caller.year_scroll) {
 	// get same date in the previous year
 	var dt_prev_year = new Date(dt_current);
@@ -87,6 +92,7 @@ function set_datetime(n_datetime, b_close) {
 			? obj_caller.gen_tsmp(dt_datetime)
 			: obj_caller.gen_date(dt_datetime)
 		);
+        setSourceColor(obj_caller.target);
 		window.close();
 	}
 	else obj_caller.popup(dt_datetime.valueOf());
