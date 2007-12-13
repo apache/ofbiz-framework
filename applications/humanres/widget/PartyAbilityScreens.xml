@@ -65,6 +65,26 @@
             </widgets>
         </section>
     </screen>
+    <screen name="ListPartySkills">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="boxoutside">
+                            <container style="screenlet-header">
+                                <label style="boxhead">${uiLabelMap.HumanResListPartySkill}</label>
+                            </container>                            
+                        </container>
+                        <label>&lt;br/&gt;</label>
+                        <container>
+                            <link target="EditPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
+                        </container>
+                        <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditPartyResume">
         <section>            
             <actions>
@@ -131,6 +151,7 @@
                 <set field="headerItem" value="PartyReview"/>
                 <set field="tabButtonItem" value="EditPartySkill"/>                
                 <set field="partyId" from-field="parameters.employeePartyId"/>
+                <entity-one entity-name="PartySkill" value-name="partySkill"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
