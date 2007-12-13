@@ -35,10 +35,15 @@ under the License.
         if (obj_caller == null) 
             obj_caller = window.opener;
         
-        
+        var bkColor = "yellow";
+        function setSourceColor(src){
+        if(src != null)
+             src.style.backgroundColor = bkColor;
+        }
         // function passing selected value to calling window
         function set_value(value) {
                 if (!obj_caller) return;
+                setSourceColor(obj_caller.target);
                 obj_caller.target.value = value;
                 window.close();
         }
@@ -47,6 +52,7 @@ under the License.
                 set_value(value);
                 if (!obj_caller.target2) return;
                 if (obj_caller.target2 == null) return;
+                setSourceColor(obj_caller.target2);
                 obj_caller.target2.value = value2;
         }
         function set_multivalues(value) {
@@ -56,6 +62,8 @@ under the License.
              
     		if (arguments.length > 2 ) {
         		for(var i=1; i < arguments.length; i=i+2) {
+                    evalString = "setSourceColor(thisForm." + arguments[i] + ")";
+                    eval(evalString); 
         			evalString = "thisForm." + arguments[i] + ".value='" + arguments[i+1] + "'";
         			eval(evalString);
         		}
