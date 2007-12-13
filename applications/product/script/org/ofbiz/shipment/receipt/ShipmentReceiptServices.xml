@@ -88,13 +88,13 @@ under the License.
                     <and>
                         <or>
                             <not><if-empty field-name="parameters.serialNumber"/></not>
-                            <not><if-empty field-name="parameters.inventoryItemId"/></not>
+                            <not><if-empty field-name="parameters.currentInventoryItemId"/></not>
                         </or>
                         <if-compare field-name="parameters.quantityAccepted" operator="greater" value="1" type="Double"/>         
                     </and>
                 </condition>
                 <then>
-                    <add-error><fail-message message="Tried to receive a serialized inventory item with serialNumber [${parameters.serialNumber}] or inventoryItemId [${parameters.inventoryItemId}] passed in and quantityAccepted [${parameters.quantityAccepted}] was greater than 1; we don't know what to do with that!"/></add-error>
+                    <add-error><fail-message message="Tried to receive a serialized inventory item with serialNumber [${parameters.serialNumber}] or inventoryItemId [${parameters.currentInventoryItemId}] passed in and quantityAccepted [${parameters.quantityAccepted}] was greater than 1; we don't know what to do with that!"/></add-error>
                 </then>
             </if>
             
@@ -115,7 +115,7 @@ under the License.
             <clear-field field-name="serviceInMap"/>
             <clear-field field-name="currentInventoryItemId"/>
             
-            <if-empty field-name="parameters.inventoryItemId">
+            <if-empty field-name="parameters.currentInventoryItemId">
                 <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
                 <call-service service-name="createInventoryItem" in-map-name="serviceInMap">
                     <result-to-field result-name="inventoryItemId" field-name="currentInventoryItemId"/>
@@ -124,7 +124,7 @@ under the License.
                 <else>
                     <set-service-fields service-name="updateInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
                     <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
-                    <set field="currentInventoryItemId" from-field="parameters.inventoryItemId"/>
+                    <set field="currentInventoryItemId" from-field="parameters.currentInventoryItemId"/>
                 </else>
             </if-empty>
 
@@ -276,14 +276,11 @@ under the License.
                         <set from-field="returnItem.returnQuantity" field="receiveCtx.quantityAccepted"/>
                         <set from-field="returnHeader.destinationFacilityId" field="receiveCtx.facilityId"/>
                         <!-- important: associate ShipmentReceipt with return shipment created -->
-                        <set from-field="shipmentId" field="receiveCtx.shipmentId"/>  
+                        <set field="receiveCtx.shipmentId" from-field="shipmentId"/>  
 
-                        <set value="Returned Item RA# ${returnItem.returnId}" field="receiveCtx.comments"/>
-                        <set from-field="nowTimestamp" field="receiveCtx.datetimeReceived"/>
-
-                        <calculate field-name="quantityRejected" map-name="receiveCtx" type="Double">
-                            <number value="0"/>
-                        </calculate>
+                        <set field="receiveCtx.comments" value="Returned Item RA# ${returnItem.returnId}"/>
+                        <set field="receiveCtx.datetimeReceived" from-field="nowTimestamp"/>
+                        <set field="receiveCtx.quantityRejected" value="0" type="Double"/>
 
                         <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx"/>
                     <else>
