@@ -283,6 +283,12 @@ under the License.
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="removeSalInvoiceItemTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;invoiceItemTypeId=${invoiceItemTypeId}" description="${remove}"/></field>
     </form>
     <form name="AddSalInvoiceItemTypeGlAssignment" type="single" target="addSalInvoiceItemTypeGlAssignment">
+        <actions>
+            <entity-one entity-name="GlAccountClass" value-name="revenueGlAccountClass">
+                <field-map field-name="glAccountClassId" value="REVENUE"/>
+            </entity-one>
+            <set field="revenueAccountClassIds" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.getDescendantGlAccountClassIds(revenueGlAccountClass)}" type="List"/>
+        </actions>
         <auto-fields-service service-name="addInvoiceItemTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId">
@@ -297,7 +303,7 @@ under the License.
             <drop-down>
                 <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName}[${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
-                    <entity-constraint name="glAccountClassId" operator="equals" value="REVENUE"></entity-constraint>
+                    <entity-constraint name="glAccountClassId" operator="in" env-name="revenueAccountClassIds"></entity-constraint>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -320,6 +326,12 @@ under the License.
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="removePurInvoiceItemTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;invoiceItemTypeId=${invoiceItemTypeId}" description="${remove}"/></field>
     </form>
     <form name="AddPurInvoiceItemTypeGlAssignment" type="single" target="addPurInvoiceItemTypeGlAssignment">
+        <actions>
+            <entity-one entity-name="GlAccountClass" value-name="expenseGlAccountClass">
+                <field-map field-name="glAccountClassId" value="EXPENSE"/>
+            </entity-one>
+            <set field="expenseAccountClassIds" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.getDescendantGlAccountClassIds(expenseGlAccountClass)}" type="List"/>
+        </actions>
         <auto-fields-service service-name="addInvoiceItemTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId" title="Purchase invoice Item Type">
@@ -332,14 +344,13 @@ under the License.
         </field>
         <field name="glAccountId" title="Override Expense Gl Account Id">
             <drop-down>
-                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName}[${glAccountId}]">
+                <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
-                    <entity-constraint name="glAccountClassId" operator="equals" value="EXPENSE"></entity-constraint>
+                    <entity-constraint name="glAccountClassId" operator="in" env-name="expenseAccountClassIds"></entity-constraint>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     
@@ -437,6 +448,7 @@ under the License.
         <field name="parentPeriodId">
           <display-entity entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName} ${uiLabelMap.CommonFrom} ${fromDate} ${uiLabelMap.CommonTo} ${thruDate}"/>
         </field>
+        <field name="close" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="closeFinancialTimePeriod?organizationPartyId=${organizationPartyId}&amp;customTimePeriodId=${customTimePeriodId}" description="Close"/></field>
     </form>
     <form name="CreateTimePeriod" type="single" title="" target="createCustomTimePeriod">
         <auto-fields-service service-name="createCustomTimePeriod"/>
