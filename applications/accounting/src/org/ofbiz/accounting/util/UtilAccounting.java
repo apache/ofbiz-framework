@@ -19,12 +19,18 @@
 
 package org.ofbiz.accounting.util;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.ofbiz.accounting.AccountingException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+
+import javolution.util.FastList;
+
 
 public class UtilAccounting {
 
@@ -93,17 +99,35 @@ public class UtilAccounting {
      */
     public static Double getNetBalance(GenericValue account, String debugModule) {
         try {
-            GenericValue glAccount = account.getRelatedOne("GlAccount");
-            double balance = 0.0;
-            if (isDebitAccount(glAccount)) {
-                balance = account.getDouble("postedDebits").doubleValue() - account.getDouble("postedCredits").doubleValue();
-            } else if (isCreditAccount(glAccount)) {
-                balance = account.getDouble("postedCredits").doubleValue() - account.getDouble("postedDebits").doubleValue();
-            }
-            return new Double(balance);    
+            return getNetBalance(account);
         } catch (GenericEntityException ex) {
             Debug.logError(ex.getMessage(), debugModule);
             return null;
+        }
+    }
+    public static Double getNetBalance(GenericValue account) throws GenericEntityException {
+        GenericValue glAccount = account.getRelatedOne("GlAccount");
+        double balance = 0.0;
+        if (isDebitAccount(glAccount)) {
+            balance = account.getDouble("postedDebits").doubleValue() - account.getDouble("postedCredits").doubleValue();
+        } else if (isCreditAccount(glAccount)) {
+            balance = account.getDouble("postedCredits").doubleValue() - account.getDouble("postedDebits").doubleValue();
+        }
+        return new Double(balance);    
+    }
+
+    public static List getDescendantGlAccountClassIds(GenericValue glAccountClass) throws GenericEntityException {
+        List glAccountClassIds = FastList.newInstance();
+        getGlAccountClassChildren(glAccountClass, glAccountClassIds);
+        return glAccountClassIds;
+    }
+    private static void getGlAccountClassChildren(GenericValue glAccountClass, List glAccountClassIds) throws GenericEntityException {
+        glAccountClassIds.add(glAccountClass.getString("glAccountClassId"));
+        List glAccountClassChildren = glAccountClass.getRelatedCache("ChildGlAccountClass");
+        Iterator glAccountClassChildrenIt = glAccountClassChildren.iterator();
+        while (glAccountClassChildrenIt.hasNext()) {
+            GenericValue glAccountClassChild = (GenericValue) glAccountClassChildrenIt.next();
+            getGlAccountClassChildren(glAccountClassChild, glAccountClassIds);
         }
     }
 
