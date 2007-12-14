@@ -29,15 +29,6 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="activeApp" value="ebay" global="true"/>
-
-                <!-- The two default (global) stylesheets are added to the list
-                     of stylesheets to the first and second position -->
-                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <!-- The default (global) java scripts -->
-                <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
-
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.EbayCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.EbayApplication" global="true"/>
                 <set field="applicationMenuName" value="EbayAppBar" global="true"/>
@@ -49,10 +40,9 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonFindDecorator">
+    <screen name="permission-decorator">
         <section>
             <actions>
-                <set field="headerItem" value="Ebay"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -78,7 +68,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleAdvancedSearch"/>
-
+                <set field="headerItem" value="export"/>
                 <entity-condition entity-name="ProductCategory" list-name="productCategories">
                     <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
                     <order-by field-name="description"/>
@@ -89,7 +79,7 @@ under the License.
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFindDecorator">
+                <decorator-screen name="permission-decorator">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/find/advancedsearch.ftl"/></html>
@@ -104,10 +94,11 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
+                <set field="headerItem" value="export"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFindDecorator">
+                <decorator-screen name="permission-decorator">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/find/keywordsearch.ftl"/></html>
@@ -124,7 +115,7 @@ under the License.
     <screen name="ProductsExportToEbay">
         <section>
             <actions>
-                <set field="headerItem" value="ebay"/>
+                <set field="headerItem" value="export"/>
                 <set field="titleProperty" value="PageTitleEbayProductsExportToEbay"/>
                 <set field="selectResult" from-field="parameters.selectResult"/>
                 <entity-condition entity-name="Geo" list-name="countries">
@@ -134,7 +125,7 @@ under the License.
                 <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/productsExportToEbay.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.PageTitleEbayProductsExportToEbay}</label>
@@ -150,10 +141,11 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="EbayImportOrdersFromEbay"/>
+                <set field="headerItem" value="importOrders"/>
                 <set field="orderList" from-field="parameters.orderList"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator">
+                <decorator-screen name="permission-decorator">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.EbayImportOrdersSearchFromEbay}</label>
