@@ -20,29 +20,37 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListCostComponentCalc" type="list" title="" list-name="allCostComponentCalcs">
+    <form name="ListCostComponentCalc" type="list" list-name="allCostComponentCalcs" use-row-submit="true" target="updateCostComponentCalc">
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
-        <field name="costComponentCalcId" widget-style="buttontext">
-            <hyperlink target="EditCostCalcs?costComponentCalcId=${costComponentCalcId}" description="${costComponentCalcId}" also-hidden="false"/>
+        <field name="costComponentCalcId" widget-style="buttontext"></field>
+        <field name="costGlAccountTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+            </drop-down>
         </field>
-        <field name="costGlAccountTypeId"><hidden/></field>
-        <field name="offsettingGlAccountTypeId"><hidden/></field>
-        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
-            <display-entity entity-name="Uom" key-field-name="uomId"/>
+        <field name="offsettingGlAccountTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+            </drop-down>
         </field>
-        <field name="costCustomMethodId">
-            <display-entity entity-name="CustomMethod" key-field-name="customMethodId"/>
-        </field>
-        <field name="removeCostComponentCalc" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeCostComponentCalc?costComponentCalcId=${costComponentCalcId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        <field name="updateCostComponentCalc" title="${uiLabelMap.CommonUpdate}"><submit/></field>        
+        <field name="costCustomMethodId"><display-entity entity-name="CustomMethod" key-field-name="customMethodId" description="${description}"/></field>        
+        <field name="deleteCostComponentCalc" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteCostComponentCalc?costComponentCalcId=${costComponentCalcId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditCostComponentCalc" type="single" target="updateCostComponentCalc" title="" default-map-name="costComponentCalc">
-        <alt-target use-when="costComponentCalc==null" target="createCostComponentCalc"/>
-        <auto-fields-entity entity-name="CostComponentCalc" default-field-type="edit"/>
-        <field name="costComponentCalcId"><display/></field>
-        <field name="costGlAccountTypeId"><hidden/></field>
-        <field name="offsettingGlAccountTypeId"><hidden/></field>
+    <form name="AddCostComponentCalc" type="single" target="createCostComponentCalc">
+        <auto-fields-service service-name="createCostComponentCalc"/>
+        <field name="costGlAccountTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="offsettingGlAccountTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+            </drop-down>
+        </field>
         <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
@@ -55,7 +63,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="CustomMethod" key-field-name="customMethodId" description="${description}">
                     <entity-constraint name="customMethodTypeId" operator="equals" value="COST_FORMULA"/>
-                </entity-options>
+                </entity-options>        
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">

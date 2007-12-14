@@ -1563,6 +1563,30 @@ under the License.
         <response name="error" type="view" value="EditPartyFixedAssetAssignments"/>
     </request-map>
     
+    <!--=================Cost calculation request===============-->
+    <request-map uri="EditCostCalcs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCostCalcs"/>
+    </request-map>
+    <request-map uri="createCostComponentCalc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCostComponentCalc"/>
+        <response name="success" type="view" value="EditCostCalcs"/>
+        <response name="error" type="view" value="EditCostCalcs"/>
+    </request-map>
+    <request-map uri="updateCostComponentCalc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCostComponentCalc"/>
+        <response name="success" type="view" value="EditCostCalcs"/>
+        <response name="error" type="view" value="EditCostCalcs"/>
+    </request-map>
+    <request-map uri="deleteCostComponentCalc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCostComponentCalc"/>
+        <response name="success" type="view" value="EditCostCalcs"/>
+        <response name="error" type="view" value="EditCostCalcs"/>
+    </request-map>
+    
     <!-- ================ Entity Lookup Requests ================= -->
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
@@ -1789,6 +1813,9 @@ under the License.
     
     <!-- Assignment Mappings -->
     <view-map name="EditPartyFixedAssetAssignments" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditPartyFixedAssetAssignments"/>
-
+    
+    <!-- Cost request mapping-->
+    <view-map name="EditCostCalcs" type="screen" page="component://accounting/widget/CostScreens.xml#EditCostCalcs"/>
+    
     <!-- end of view mappings -->
 </site-conf>
