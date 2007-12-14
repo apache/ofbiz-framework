@@ -274,6 +274,35 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
+    <screen name="Main">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                        <label style="head1" text="Introduction to the Project Manager Application"/>
+                        </container>
+                        <container>
+                            <label >
+                                This application id currently under development and could use your help.
+                                The system has the following supporting documents:
+                            </label>
+                        </container>
+                        <container>
+                            <link  text="A development document." target="http://docs.ofbiz.org/display/OFBIZ/Complete+the+implementation+of+the+ProjectMgr+component." url-mode="plain" target-window="new"/>
+                        </container>
+                        <container>
+                            <link text="A user document" target="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Role" url-mode="plain" target-window="new1"></link>
+                        </container>
+                        <container>
+                                <link text="An issue system for fault reports and change requests" target="https://issues.apache.org/jira/browse/OFBIZ/component/12312073" target-window="new2" url-mode="plain"/>
+                        </container>
+                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>

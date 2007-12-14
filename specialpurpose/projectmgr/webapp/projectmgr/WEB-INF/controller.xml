@@ -413,7 +413,7 @@
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="main" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
+    <view-map name="main" type="screen" page="component://projectmgr/widget/CommonScreens.xml#Main"/>
     <view-map name="ganttChart" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ganttChart"/>    
     <view-map name="ListSubProjects" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ListSubProjects"/>    
     <view-map name="FindResource" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindResource"/>    
