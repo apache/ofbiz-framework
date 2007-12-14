@@ -1149,6 +1149,12 @@ under the License.
         <response name="success" type="view" value="TimePeriods"/>
         <response name="error" type="view" value="TimePeriods"/>
     </request-map>
+    <request-map uri="closeFinancialTimePeriod">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="closeFinancialTimePeriod"/>
+        <response name="success" type="view" value="TimePeriods"/>
+        <response name="error" type="view" value="TimePeriods"/>
+    </request-map>
     <request-map uri="PartyAcctgPreference">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PartyAcctgPreference"/>

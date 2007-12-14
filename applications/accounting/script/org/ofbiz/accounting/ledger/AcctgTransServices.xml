@@ -240,7 +240,10 @@ under the License.
         <!-- DONE with initial tests/checks, see if we are good to go or not... -->
 
         <if-compare field-name="parameters.verifyOnly" operator="equals" value="Y">
-            <check-errors/>
+            <if-not-empty field-name="error_list">
+                <field-to-result field-name="error_list" result-name="successMessageList"/>
+            </if-not-empty>
+            <return/>
         <else>
             <!-- if there are errors and we have an error journal assign to the journal and return -->
             <if-not-empty field-name="error_list">
@@ -254,8 +257,9 @@ under the License.
                     <else>
                         <!-- assign the transaction to the error journal -->
                         <set field="acctgTrans.glJournalId" from-field="partyAcctgPreference.errorGlJournalId"/>
-                        <!-- FIXME: we should probably store the journal id in each one of the AcctgTransEntry records-->
                         <store-value value-name="acctgTrans"/>
+                        <set field="warningMessage[]" value="The accounting transaction [${acctgTrans.acctgTransId}] has been posted to the Error Journal [${partyAcctgPreference.errorGlJournalId}]."/>
+                        <field-to-result field-name="warningMessage" result-name="successMessageList"/>
                         <return/>
                     </else>
                     </if-empty>

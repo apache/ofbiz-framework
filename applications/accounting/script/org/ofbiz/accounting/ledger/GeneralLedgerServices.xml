@@ -532,6 +532,300 @@ under the License.
         </if-empty>
     </simple-method>
 
+    <simple-method method-name="closeFinancialTimePeriod" short-description="Close a financial CustomTimePeriod">
+        <entity-one entity-name="CustomTimePeriod" value-name="customTimePeriod"/>
+        <set field="openTimePeriodCondition.isClosed" value="N"/>
+        <get-related value-name="customTimePeriod" relation-name="ChildCustomTimePeriod" list-name="openChildTimePeriods" map-name="openTimePeriodCondition"/>
+        <iterate list-name="openChildTimePeriods" entry-name="openChildTimePeriod">
+            <add-error><fail-message message="Cannot close time period [${customTimePeriod.customTimePeriodId}] because the child time period ${openChildTimePeriod.periodName} [${openChildTimePeriod.customTimePeriodId}] is not closed."/></add-error>
+        </iterate>
+        <check-errors/>
+        <!-- retrieve the last closed date for the same type of time period -->
+        <set field="findLastClosedDateInMap.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+        <set field="findLastClosedDateInMap.periodTypeId" from-field="customTimePeriod.periodTypeId"/>
+        <call-service service-name="findLastClosedDate" in-map-name="findLastClosedDateInMap">
+            <result-to-field result-name="lastClosedDate"/>
+            <result-to-field result-name="lastClosedTimePeriod"/>
+        </call-service>
+        <if-empty field-name="lastClosedDate">
+            <add-error><fail-message message="Unable to find a last closed date for time period [${customTimePeriod.customTimePeriodId}] of type [${customTimePeriod.customTimePeriodId}] for organization [${customTimePeriod.organizationPartyId}]"/></add-error>
+        </if-empty>
+        <check-errors/>
+        <entity-one entity-name="GlAccountClass" value-name="expenseGlAccountClass">
+            <field-map field-name="glAccountClassId" value="EXPENSE"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="expenseAccountClassIds">
+            <field field-name="expenseGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-one entity-name="GlAccountClass" value-name="revenueGlAccountClass">
+            <field-map field-name="glAccountClassId" value="REVENUE"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="revenueAccountClassIds">
+            <field field-name="revenueGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-one entity-name="GlAccountClass" value-name="incomeGlAccountClass">
+            <field-map field-name="glAccountClassId" value="INCOME"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="incomeAccountClassIds">
+            <field field-name="incomeGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-one entity-name="GlAccountClass" value-name="assetGlAccountClass">
+            <field-map field-name="glAccountClassId" value="ASSET"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="assetAccountClassIds">
+            <field field-name="assetGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-one entity-name="GlAccountClass" value-name="liabilityGlAccountClass">
+            <field-map field-name="glAccountClassId" value="LIABILITY"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="liabilityAccountClassIds">
+            <field field-name="liabilityGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-one entity-name="GlAccountClass" value-name="equityGlAccountClass">
+            <field-map field-name="glAccountClassId" value="EQUITY"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="equityAccountClassIds">
+            <field field-name="equityGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        
+        <!-- Compute the total posted amount of the period -->
+        <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransAndEntries">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" env-name="customTimePeriod.organizationPartyId"/>
+                <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                <condition-expr field-name="glFiscalTypeId" operator="equals" value="ACTUAL"/>
+                <condition-expr field-name="transactionDate" operator="greater-equals" env-name="lastClosedDate"/>
+                <condition-expr field-name="transactionDate" operator="less" env-name="customTimePeriod.thruDate"/> <!-- FIXME: Date to Timestamp -->
+                <condition-expr field-name="acctgTransTypeId" operator="not-equals" value="PERIOD_CLOSING"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="expenseAccountClassIds"/>
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="revenueAccountClassIds"/>
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="incomeAccountClassIds"/>
+                </condition-list>
+            </condition-list>
+            <order-by field-name="acctgTransId"/>
+            <order-by field-name="acctgTransEntrySeqId"/>
+        </entity-condition>
+        <set field="totalAmount" value="0.0" type="Double"/>
+        <iterate list-name="acctgTransAndEntries" entry-name="acctgTransAndEntry">
+            <get-related-one value-name="acctgTransAndEntry" relation-name="GlAccount" to-value-name="glAccount"/>
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field-name="isCreditAccount">
+                <field field-name="glAccount" type="GenericValue"/>
+            </call-class-method>
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isDebitAccount" ret-field-name="isDebitAccount">
+                <field field-name="glAccount" type="GenericValue"/>
+            </call-class-method>
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field-name="isExpenseAccount">
+                <field field-name="glAccount" type="GenericValue"/>
+            </call-class-method>
+            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
+                            <if-compare field-name="isCreditAccount" operator="equals" value="true" type="Boolean"/>
+                        </and>
+                        <and>
+                            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
+                            <if-compare field-name="isDebitAccount" operator="equals" value="true" type="Boolean"/>
+                        </and>
+                    </or>
+                </condition>
+                <then>
+                    <calculate field-name="amount">
+                        <calcop field-name="amount" operator="negative"/>
+                    </calculate>
+                </then>
+            </if>
+            <if-compare field-name="isExpenseAccount" operator="equals" value="true" type="Boolean">
+                <calculate field-name="amount">
+                    <calcop field-name="amount" operator="negative"/>
+                </calculate>
+            </if-compare>
+            <calculate field-name="totalAmount" type="Double">
+                <calcop field-name="totalAmount" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+            </calculate>
+        </iterate>
+        <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" use-cache="true" auto-field-map="false">
+            <field-map field-name="partyId" env-name="customTimePeriod.organizationPartyId"/>
+        </entity-one>
+        <!-- get the profit and loss gl account id -->
+        <entity-one entity-name="GlAccountTypeDefault" value-name="profitLossAccount" use-cache="true">
+            <field-map field-name="organizationPartyId" env-name="customTimePeriod.organizationPartyId"/>
+            <field-map field-name="glAccountTypeId" value="PROFIT_LOSS_ACCOUNT"/>
+        </entity-one>
+        <entity-one entity-name="GlAccountHistory" value-name="profitLossAccountHistory">
+            <field-map field-name="organizationPartyId" env-name="customTimePeriod.organizationPartyId"/>
+            <field-map field-name="customTimePeriodId" env-name="customTimePeriod.customTimePeriodId"/>
+            <field-map field-name="glAccountId" env-name="profitLossAccount.glAccountId"/>
+        </entity-one>
+        <if-not-empty field-name="profitLossAccountHistory">
+            <!-- already posted: verify if numbers match -->
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getNetBalance" ret-field-name="postedBalance">
+                <field field-name="profitLossAccountHistory" type="GenericValue"/>
+            </call-class-method>
+            <if-compare-field field-name="postedBalance" operator="not-equals" to-field-name="totalAmount" type="Double">
+                <add-error><fail-message message="There is already a posted balance [${postedBalance}] that doesn't match with the current one [${totalAmount}]."/></add-error>
+            </if-compare-field>
+            <check-errors/>
+        <else>
+            <make-value entity-name="AcctgTransEntry" value-name="creditEntry"/>
+            <set field="creditEntry.debitCreditFlag" value="C"/>
+            <set field="creditEntry.glAccountTypeId" value="RETAINED_EARNINGS"/>
+            <set field="creditEntry.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+            <set field="creditEntry.origAmount" from-field="totalAmount"/>
+            <set field="creditEntry.origCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+            <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
+            <set field="debitEntry.debitCreditFlag" value="D"/>
+            <set field="debitEntry.glAccountTypeId" value="PROFIT_LOSS_ACCOUNT"/>
+            <set field="debitEntry.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+            <set field="debitEntry.origAmount" from-field="totalAmount"/>
+            <set field="debitEntry.origCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+            <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+
+            <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
+            <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="PERIOD_CLOSING"/>
+            <set field="createAcctgTransAndEntriesInMap.transactionDate" from-field="customTimePeriod.thruDate"/> <!-- FIXME -->
+            <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
+            <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
+                <result-to-field result-name="acctgTransId"/>
+            </call-service>
+        </else>
+        </if-not-empty>
+        <entity-and entity-name="GlAccountHistory" list-name="glAccountHistories">
+            <field-map field-name="organizationPartyId" env-name="customTimePeriod.organizationPartyId"/>
+            <field-map field-name="customTimePeriodId" env-name="customTimePeriod.customTimePeriodId"/>
+        </entity-and>
+        <iterate list-name="glAccountHistories" entry-name="glAccountHistory">
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getNetBalance" ret-field-name="endingBalance">
+                <field field-name="glAccountHistory" type="GenericValue"/>
+            </call-class-method>
+            <set field="glAccountHistory.endingBalance" from-field="endingBalance" type="Double"/>
+            <store-value value-name="glAccountHistory"/>
+        </iterate>
+        <if-not-empty field-name="lastClosedTimePeriod">
+            <entity-condition entity-name="GlAccountAndHistory" list-name="lastPeriodGlAccountAndHistories">
+                <condition-list combine="and">
+                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="customTimePeriod.organizationPartyId"/>
+                    <condition-expr field-name="customTimePeriodId" operator="equals" env-name="lastClosedTimePeriod.customTimePeriodId"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="glAccountClassId" operator="in" env-name="assetAccountClassIds"/>
+                        <condition-expr field-name="glAccountClassId" operator="in" env-name="liabilityAccountClassIds"/>
+                        <condition-expr field-name="glAccountClassId" operator="in" env-name="equityAccountClassIds"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="glAccountId"/>
+            </entity-condition>
+            <iterate list-name="lastPeriodGlAccountAndHistories" entry-name="lastPeriodGlAccountAndHistory">
+                <get-related-one value-name="lastPeriodGlAccountAndHistory" relation-name="GlAccountHistory" to-value-name="lastPeriodGlAccountHistory"/>
+                <entity-one entity-name="GlAccountHistory" value-name="thisPeriodGlAccountHistory" auto-field-map="false">
+                    <field-map field-name="organizationPartyId" env-name="customTimePeriod.organizationPartyId"/>
+                    <field-map field-name="customTimePeriodId" env-name="customTimePeriod.customTimePeriodId"/>
+                    <field-map field-name="glAccountId" env-name="lastPeriodGlAccountHistory.glAccountId"/>
+                </entity-one>
+                <if-empty field-name="thisPeriodGlAccountHistory">
+                    <make-value entity-name="GlAccountHistory" value-name="thisPeriodGlAccountHistory"/>
+                    <set field="thisPeriodGlAccountHistory.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
+                    <set field="thisPeriodGlAccountHistory.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+                    <set field="thisPeriodGlAccountHistory.glAccountId" from-field="lastPeriodGlAccountHistory.glAccountId"/>
+                    <set field="thisPeriodGlAccountHistory.postedDebits" value="0.0" type="Double"/>
+                    <set field="thisPeriodGlAccountHistory.postedCredits" value="0.0" type="Double"/>
+                    <set field="thisPeriodGlAccountHistory.endingBalance" from-field="lastPeriodGlAccountHistory.endingBalance" type="Double"/>
+                    <create-value value-name="thisPeriodGlAccountHistory"/>
+                <else>
+                    <calculate field-name="thisPeriodGlAccountHistory.endingBalance" type="Double">
+                        <calcop field-name="thisPeriodGlAccountHistory.endingBalance" operator="add"><calcop field-name="lastPeriodGlAccountHistory.endingBalance" operator="get"/></calcop>
+                    </calculate>
+                    <store-value value-name="thisPeriodGlAccountHistory"/>
+                </else>
+                </if-empty>
+            </iterate>
+        </if-not-empty>
+
+        <!-- Initialize the accounts for the new fiscal period -->
+        <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccountOrganizationAndClassList">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" env-name="customTimePeriod.organizationPartyId"/>
+                <condition-expr field-name="postedBalance" operator="not-equals" value="0.0"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="expenseAccountClassIds"/>
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="revenueAccountClassIds"/>
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="incomeAccountClassIds"/>
+                </condition-list>
+            </condition-list>
+        </entity-condition>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <iterate list-name="glAccountOrganizationAndClassList" entry-name="glAccountOrganizationAndClass">
+            <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransAndEntries">
+                <condition-list combine="and">
+                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="customTimePeriod.organizationPartyId"/>
+                    <condition-expr field-name="glAccountId" operator="equals" env-name="glAccountOrganizationAndClass.glAccountId"/>
+                    <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                    <condition-expr field-name="glFiscalTypeId" operator="equals" value="ACTUAL"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" env-name="customTimePeriod.thruDate"/> <!-- FIXME: Date to Timestamp -->
+                    <condition-expr field-name="transactionDate" operator="less" env-name="nowTimestamp"/>
+                    <condition-expr field-name="acctgTransTypeId" operator="not-equals" value="PERIOD_CLOSING"/>
+                </condition-list>
+                <order-by field-name="acctgTransId"/>
+                <order-by field-name="acctgTransEntrySeqId"/>
+            </entity-condition>
+
+            <set field="newPostedBalance" value="0.0" type="Double"/>
+            <iterate list-name="acctgTransAndEntries" entry-name="acctgTransAndEntry">
+                <get-related-one value-name="acctgTransAndEntry" relation-name="GlAccount" to-value-name="glAccount"/>
+                <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field-name="isCreditAccount">
+                    <field field-name="glAccount" type="GenericValue"/>
+                </call-class-method>
+                <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isDebitAccount" ret-field-name="isDebitAccount">
+                    <field field-name="glAccount" type="GenericValue"/>
+                </call-class-method>
+                <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field-name="isExpenseAccount">
+                    <field field-name="glAccount" type="GenericValue"/>
+                </call-class-method>
+                <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+                <if>
+                    <condition>
+                        <or>
+                            <and>
+                                <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
+                                <if-compare field-name="isCreditAccount" operator="equals" value="true" type="Boolean"/>
+                            </and>
+                            <and>
+                                <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
+                                <if-compare field-name="isDebitAccount" operator="equals" value="true" type="Boolean"/>
+                            </and>
+                        </or>
+                    </condition>
+                    <then>
+                        <calculate field-name="amount">
+                            <calcop field-name="amount" operator="negative"/>
+                        </calculate>
+                    </then>
+                </if>
+                <if-compare field-name="isExpenseAccount" operator="equals" value="true" type="Boolean">
+                    <calculate field-name="amount">
+                        <calcop field-name="amount" operator="negative"/>
+                    </calculate>
+                </if-compare>
+                <calculate field-name="newPostedBalance" type="Double">
+                    <calcop field-name="newPostedBalance" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+                </calculate>
+            </iterate>
+
+            <set field="updateGlAccountOrganizationInMap.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+            <set field="updateGlAccountOrganizationInMap.glAccountId" from-field="glAccountOrganizationAndClass.glAccountId"/>
+            <set field="updateGlAccountOrganizationInMap.postedBalance" from-field="newPostedBalance" type="Double"/>
+            <call-service service-name="updateGlAccountOrganization" in-map-name="updateGlAccountOrganizationInMap"/>
+        </iterate>
+
+        <set field="updateCustomTimePeriodInMap.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
+        <set field="updateCustomTimePeriodInMap.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+        <set field="updateCustomTimePeriodInMap.isClosed" value="Y"/>
+        <call-service service-name="updateCustomTimePeriod" in-map-name="updateCustomTimePeriodInMap"/>
+    </simple-method>
+
     <!-- Services for the automatic creation of accounting transactions based on business transactions
          Typically, these services are triggered by SECAs -->
 

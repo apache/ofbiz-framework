@@ -280,6 +280,12 @@ under the License.
         <attribute name="verifyOnly" type="String" mode="IN" optional="true"/>
     </service>
 
+    <service name="closeFinancialTimePeriod" default-entity-name="CustomTimePeriod" engine="simple" 
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="closeFinancialTimePeriod" auth="true"> 
+        <description>Close a financial time period</description> 
+        <auto-attributes include="pk" mode="IN" optional="false"/> 
+    </service>
+
     <!-- Miscellaneous Ledger-related services -->
     <service name="getGlAccountFromAccountType" engine="simple" 
             location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getGlAccountFromAccountType" auth="true"> 
@@ -378,7 +384,7 @@ under the License.
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
-<!-- Service for the automatic creation of AcctgTransForPhysicalInventoryVariance, triggered by SECAs -->
+    <!-- Service for the automatic creation of AcctgTransForPhysicalInventoryVariance, triggered by SECAs -->
     <service name="createAcctgTransForPhysicalInventoryVariance" engine="simple"
                 location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForPhysicalInventoryVariance">
         <description>Create an AcctgEntry for Physical Inventory variance</description>

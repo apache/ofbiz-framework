@@ -53,23 +53,4 @@ under the License.
     <PartyGroup partyId="TESTING" groupName="Testing department"/>
     <PartyRole partyId="TESTING" roleTypeId="INTERNAL_ORGANIZATIO" lastUpdatedStamp="2004-03-27 09:37:41.142" lastUpdatedTxStamp="2004-03-27 09:37:41.142" createdStamp="2004-03-27 09:37:41.142" createdTxStamp="2004-03-27 09:37:41.142"/>
     
-    <!-- Some Sample Time Periods, a Year with Quarters and Months -->
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_YEAR" fromDate="2007-01-01" thruDate="2008-01-01" isClosed="N" periodNum="2007" periodName="Fiscal Year"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_QUARTER" fromDate="2007-01-01" thruDate="2007-04-01" isClosed="N" periodNum="1" periodName="Quarter"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_QUARTER" fromDate="2007-04-01" thruDate="2007-07-01" isClosed="N" periodNum="2" periodName="Quarter"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_QUARTER" fromDate="2007-07-01" thruDate="2007-10-01" isClosed="N" periodNum="3" periodName="Quarter"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_QUARTER" fromDate="2007-10-01" thruDate="2008-01-01" isClosed="N" periodNum="4" periodName="Quarter"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-01-01" thruDate="2007-02-01" isClosed="N" periodNum="1" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-02-01" thruDate="2007-03-01" isClosed="N" periodNum="2" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-03-01" thruDate="2007-04-01" isClosed="N" periodNum="3" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-04-01" thruDate="2007-05-01" isClosed="N" periodNum="4" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-05-01" thruDate="2007-06-01" isClosed="N" periodNum="5" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-06-01" thruDate="2007-07-01" isClosed="N" periodNum="6" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-07-01" thruDate="2007-08-01" isClosed="N" periodNum="7" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-08-01" thruDate="2007-09-01" isClosed="N" periodNum="8" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-09-01" thruDate="2007-10-01" isClosed="N" periodNum="9" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-10-01" thruDate="2007-11-01" isClosed="N" periodNum="10" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-11-01" thruDate="2007-12-01" isClosed="N" periodNum="11" periodName="Month"/>
-    <CustomTimePeriod organizationPartyId="Company" periodTypeId="FISCAL_MONTH" fromDate="2007-12-01" thruDate="2008-01-01" isClosed="N" periodNum="12" periodName="Month"/>
-
 </entity-engine-xml>
