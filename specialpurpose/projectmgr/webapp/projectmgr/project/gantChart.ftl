@@ -24,6 +24,7 @@ under the License.
 </header>
 <body>
 <script language="javascript" src="/projectmgr/js/gantt.js" type="text/javascript"></script>
+<div id="chartTest1"/>
 </body>
 </html>
 
