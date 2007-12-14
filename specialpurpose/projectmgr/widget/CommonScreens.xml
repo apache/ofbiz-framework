@@ -283,21 +283,27 @@ under the License.
                         <container>
                         <label style="head1" text="Introduction to the Project Manager Application"/>
                         </container>
-                        <container>
-                            <label >
-                                This application id currently under development and could use your help.
-                                The system has the following supporting documents:
-                            </label>
-                        </container>
-                        <container>
-                            <link  text="A development document." target="http://docs.ofbiz.org/display/OFBIZ/Complete+the+implementation+of+the+ProjectMgr+component." url-mode="plain" target-window="new"/>
-                        </container>
-                        <container>
-                            <link text="A user document" target="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Role" url-mode="plain" target-window="new1"></link>
-                        </container>
-                        <container>
-                                <link text="An issue system for fault reports and change requests" target="https://issues.apache.org/jira/browse/OFBIZ/component/12312073" target-window="new2" url-mode="plain"/>
-                        </container>
+                        <section>
+                            <actions>
+                                <set field="text1" value="The projectmanager supports the administration of projects, task assignment/reassignment with time registration and invoicing.
+                                    The component is under development and could use your help, either by programming (see the open issues) or with testing and suggestions with comments to the documents or with a new issue in Jira (see below)"/>
+                                <set field="text2" value="It is presently supported with the following documents:"/>
+                                <set field="link1Text" value="A development document."/>
+                                <set field="link1" value="http://docs.ofbiz.org/display/OFBIZ/Complete+the+implementation+of+the+ProjectMgr+component."/>
+                                <set field="link2Text" value="User document"/>
+                                <set field="link2" value="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Role"/>
+                                <set field="link3Text" value="A Jira issue system for fault reports and change requests"/>
+                                <set field="link3" value="https://issues.apache.org/jira/browse/OFBIZ/component/12312073"/>
+                                
+                            </actions>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://projectmgr/main.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
                         
                     </decorator-section>
                 </decorator-screen>
