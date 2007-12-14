@@ -125,7 +125,7 @@ under the License.
                 <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/productsExportToEbay.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="permission-decorator">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.PageTitleEbayProductsExportToEbay}</label>
