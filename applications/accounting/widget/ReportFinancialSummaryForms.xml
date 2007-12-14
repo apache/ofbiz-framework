@@ -73,9 +73,9 @@ under the License.
             <entity-one entity-name="GlAccount" value-name="glAccount">
                 <field-map field-name="glAccountId"/>
             </entity-one>
-            <set field="showDebit" value="${bsh:(postedBalance &gt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)) || (postedBalance &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount))}" type="Boolean"/>
-            <set field="showCredit" value="${bsh:(postedBalance &gt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount)) || (postedBalance &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount))}" type="Boolean"/>
-            <set field="absolutePostedBalance" value="${bsh:(postedBalance &gt; 0? postedBalance: (-1)*postedBalance)}" type="Double"/>
+            <set field="showDebit" value="${bsh:(postedBalance &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)) || (postedBalance &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount))}" type="Boolean"/>
+            <set field="showCredit" value="${bsh:(postedBalance &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount)) || (postedBalance &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount))}" type="Boolean"/>
+            <set field="absolutePostedBalance" value="${bsh:(postedBalance &gt;= 0? postedBalance: (-1)*postedBalance)}" type="Double"/>
             <set field="showTotals" value="${bsh:(isLastRow != null &amp;&amp; isLastRow==true)}" type="Boolean"/>
             <set field="debitTotal" from-field="parameters.debitTotal" type="Double"/>
             <set field="creditTotal" from-field="parameters.creditTotal" type="Double"/>

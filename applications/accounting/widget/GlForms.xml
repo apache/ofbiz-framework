@@ -465,7 +465,7 @@ under the License.
         <field name="acctgTransId"><hidden/></field>
         <field name="acctgTransEntrySeqId"><display/></field>     
         <field name="glAccountId">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
                     <entity-order-by field-name="description"/>
@@ -473,7 +473,7 @@ under the License.
             </drop-down>
         </field>
         <field name="acctgTransEntryTypeId" title="${uiLabelMap.AccountingTransactionEntryType}">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="AcctgTransEntryType" description="${description}">
                     <entity-order-by field-name="acctgTransEntryTypeId"/>
                 </entity-options>
