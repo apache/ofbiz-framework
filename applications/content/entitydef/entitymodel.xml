@@ -1214,7 +1214,7 @@ under the License.
       <field name="webPreferenceValue" type="long-varchar"/>
       <prim-key field="userLoginId"/>
       <prim-key field="partyId"/>
-      <prim-key field="visitorId"/>
+      <prim-key field="visitId"/>
       <prim-key field="webPreferenceTypeId"/>
       <relation type="one" fk-name="WEB_PREF_TYPE" rel-entity-name="WebPreferenceType">
         <key-map field-name="webPreferenceTypeId"/>
