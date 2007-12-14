@@ -1209,9 +1209,12 @@ under the License.
             title="Web User Preference Entity">
       <field name="userLoginId" type="id-vlong-ne"></field>
       <field name="partyId" type="id-ne"></field>
+      <field name="visitId" type="id-ne"><description>To be able to keep preferences for a non loggin in user for the current session</description></field>
       <field name="webPreferenceTypeId" type="id-ne"></field>
+      <field name="webPreferenceValue" type="long-varchar"/>
       <prim-key field="userLoginId"/>
       <prim-key field="partyId"/>
+      <prim-key field="visitorId"/>
       <prim-key field="webPreferenceTypeId"/>
       <relation type="one" fk-name="WEB_PREF_TYPE" rel-entity-name="WebPreferenceType">
         <key-map field-name="webPreferenceTypeId"/>
