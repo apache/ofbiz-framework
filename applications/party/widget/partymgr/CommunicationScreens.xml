@@ -453,7 +453,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-   <screen name="EditCommWorkEfforts">
+   <screen name="EditCommEventWorkEffort">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListCommWorkEfforts"/>
@@ -467,7 +467,7 @@ under the License.
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="head1" text="${uiLabelMap.PartyCommWorkEfforts}"/></container>
-                        <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditCommWorkEffort"/>
+                        <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="AddCommEventWorkEffort"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
