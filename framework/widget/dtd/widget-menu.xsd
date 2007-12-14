@@ -281,6 +281,7 @@ under the License.
                     <xs:enumeration value="BigDecimal"/>
                     <xs:enumeration value="Double"/>
                     <xs:enumeration value="Float"/>
+                    <xs:enumeration value="List"/>
                     <xs:enumeration value="Long"/>
                     <xs:enumeration value="Integer"/>
                     <xs:enumeration value="Date"/>
