@@ -1319,5 +1319,95 @@ under the License.
         </call-service>
         <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>        
     </simple-method>
-    
+    <simple-method method-name="createAcctgTransAndEntriesForIncomingPayment" short-description="Create an accounting transaction for an incoming payment" >
+        <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
+        <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
+          
+        <calculate field-name="amountAppliedTotal" type="BigDecimal"><number value="0"/></calculate>
+        <calculate field-name="diffAmount" type="BigDecimal"><number value="0"/></calculate>
+         
+        <entity-one entity-name="Payment" value-name="payment"/>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field-name="isReceiptValue">
+            <field field-name="payment" type="org.ofbiz.entity.GenericValue"/>
+        </call-class-method>
+     
+        <if-compare field-name="isReceiptValue" operator="equals" value="true" type="Boolean">
+            <set field="origCurrencyUomId" from-field="payment.currencyUomId"/>
+            <set field="organizationPartyId" from-field="payment.partyIdTo"/>
+            <set field="partyId" from-field="payment.partyIdFrom"/>
+            <set field="paymentId" from-field="payment.paymentId"/>
+         
+            <!-- Debit -->
+            <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
+            <set field="debitEntry.debitCreditFlag" value="D"/>
+            <!-- TODO --> 
+            <!--set field="debitEntry.glAccountTypeId" value=""/-->
+            <set field="debitEntry.origAmount" from-field="payment.amount"/> 
+            <set field="debitEntry.origCurrencyUomId" from-field="origCurrencyUomId"/>
+            <set field="debitEntry.organizationPartyId" from-field="organizationPartyId"/>
+            <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+         
+            <entity-one entity-name="PaymentGlAccountTypeMap" value-name="paymentGlAccountTypeMap">
+                <field-map field-name="paymentTypeId" env-name="payment.paymentTypeId"/>
+                <field-map field-name="organizationPartyId"/>
+            </entity-one>
+            <set field="creditGlAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId"/>
+            
+            <get-related value-name="payment" relation-name="PaymentApplication" list-name="paymentApplications"/>
+            <iterate list-name="paymentApplications" entry-name="paymentApplication">
+             
+                <!-- credit -->
+                <make-value entity-name="AcctgTransEntry" value-name="creditEntry"/>
+                <set field="creditEntry.debitCreditFlag" value="C"/>
+                <set field="creditEntry.origAmount" from-field="paymentApplication.amountApplied"/>
+                <set field="creditEntry.origCurrencyUomId" from-field="origCurrencyUomId"/>
+                <if-not-empty field-name="paymentApplication.overrideGlAccountId">
+                    <set field="creditEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>
+                <else>
+                    <set field="creditEntry.glAccountId" from-field="payment.overrideGlAccountId"/>                  
+                </else> 
+                </if-not-empty>
+                <set field="creditEntry.organizationPartyId" from-field="organizationPartyId"/>
+                <set field="creditEntry.glAccountTypeId" from-field="creditGlAccountTypeId"/>
+                <calculate field-name="amountAppliedTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                    <calcop operator="add">
+                        <calcop operator="get" field-name="amountAppliedTotal"/>
+                        <calcop operator="get" field-name="paymentApplication.amountApplied"/>
+                    </calcop>
+                </calculate>
+                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            </iterate>
+         
+            <calculate field-name="diffAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="subtract">
+                    <calcop operator="get" field-name="payment.amount"/>
+                    <calcop operator="get" field-name="amountAppliedTotal"/>
+                </calcop>
+            </calculate>
+            <if-compare field-name="diffAmount" operator="greater" value="0" type="BigDecimal">
+                <!-- credit for diff amount-->
+                <make-value entity-name="AcctgTransEntry" value-name="creditEntryWithDiffAmount"/> 
+                <set field="creditEntryWithDiffAmount.debitCreditFlag" value="C"/>
+                <set field="creditEntryWithDiffAmount.origAmount" from-field="diffAmount"/>
+                <set field="creditEntryWithDiffAmount.origCurrencyUomId" from-field="origCurrencyUomId"/>
+                <set field="creditEntryWithDiffAmount.glAccountId" from-field="payment.overrideGlAccountId"/>
+                <set field="creditEntryWithDiffAmount.glAccountTypeId" from-field="creditGlAccountTypeId"/>
+                <set field="creditEntryWithDiffAmount.organizationPartyId" from-field="organizationPartyId"/>
+                <set field="acctgTransEntries[]" from-field="creditEntryWithDiffAmount" type="Object"/>
+            </if-compare>
+         
+            <!-- Set header fields (AcctgTrans) -->        
+            <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
+            <set field="createAcctgTransAndEntriesInMap.partyId" from-field="partyId"/>
+            <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_TO_CUSTOMER"/>
+            <set field="createAcctgTransAndEntriesInMap.paymentId" from-field="paymentId"/>
+            <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INCOMING_PAYMENT"/>
+            <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
+            <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
+                <result-to-field result-name="acctgTransId"/>
+            </call-service>
+            <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>
+        </if-compare>      
+    </simple-method> 
 </simple-methods>

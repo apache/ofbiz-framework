@@ -417,7 +417,13 @@ under the License.
         <attribute name="oldOwnerPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
-
+    <!--AcctgTrans For Incoming Payment Service-->
+    <service name="createAcctgTransAndEntriesForIncomingPayment" engine="simple" auth="true"
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransAndEntriesForIncomingPayment">
+        <description>Create an accounting transaction for an incoming payment</description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
+    </service> 
     <!-- An automatic GL Acct transaction service triggered when inventory is issued for fixed asset maintenance-->
     <service name="createAcctgTransForFixedAssetMaintIssuance" engine="simple" auth="true"
         location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForFixedAssetMaintIssuance">
