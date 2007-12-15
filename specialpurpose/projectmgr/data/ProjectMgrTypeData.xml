@@ -23,6 +23,7 @@ under the License.
     <RoleType description="Client Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_MANAGER"/>
     <RoleType description="Client Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_ANALYST"/>
     <RoleType description="Provider Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_MANAGER"/>
+    <RoleType description="Provider Accounting" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ACCOUNTING"/>
     <RoleType description="Provider Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ANALYST"/>
     <RoleType description="Provider Validator" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_VALIDATOR"/>
     <RoleType description="Provider Functional Implementer" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PRVDER_FUNCTNAL_IMPL"/>

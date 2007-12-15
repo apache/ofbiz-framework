@@ -107,9 +107,9 @@
         <response name="success" type="view" value="FindProject"/>
         <response name="error" type="view" value="FindProject"/>
     </request-map>    
-    <request-map uri="FindTask">
+    <request-map uri="EditProjectTasks">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindTask"/>
+        <response name="success" type="view" value="EditProjectTasks"/>
     </request-map>
     <request-map uri="EditTask">
         <security https="true" auth="true"/>
@@ -124,8 +124,8 @@
     <request-map uri="createProjectTaskOrPhase">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
-        <response name="success" type="view" value="FindTask"/>
-        <response name="error" type="view" value="FindTask"/>
+        <response name="success" type="view" value="EditProjectTasks"/>
+        <response name="error" type="view" value="EditProjectTasks"/>
     </request-map>
     <request-map uri="createProjectPhase">
         <security https="true" auth="true"/>
@@ -154,8 +154,8 @@
     <request-map uri="updateProjectTaskOrPhase">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateWorkEffort"/>
-        <response name="success" type="view" value="FindTask"/>
-        <response name="error" type="view" value="FindTask"/>
+        <response name="success" type="view" value="EditProjectTasks"/>
+        <response name="error" type="view" value="EditProjectTasks"/>
     </request-map>
     <request-map uri="updateProjectPhase">
         <security https="true" auth="true"/>
@@ -166,8 +166,8 @@
     <request-map uri="deleteTask">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="view" value="FindTask"/>
-        <response name="error" type="view" value="FindTask"/>
+        <response name="success" type="view" value="EditProjectTasks"/>
+        <response name="error" type="view" value="EditProjectTasks"/>
     </request-map>    
     <request-map uri="EditTaskAndAssoc">
         <security https="true" auth="true"/>
@@ -177,14 +177,14 @@
     <request-map uri="createTaskAndAssoc">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
-        <response name="success" type="view" value="FindTask"/>
-        <response name="error" type="view" value="FindTask"/>
+        <response name="success" type="view" value="EditProjectTasks"/>
+        <response name="error" type="view" value="EditProjectTasks"/>
     </request-map>
     <request-map uri="updateTaskAndAssoc">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateWorkEffortAndAssoc"/>
-        <response name="success" type="view" value="FindTask"/>
-        <response name="error" type="view" value="FindTask"/>
+        <response name="success" type="view" value="EditProjectTasks"/>
+        <response name="error" type="view" value="EditProjectTasks"/>
     </request-map>
     <request-map uri="Dependencies">
         <security https="true" auth="true"/>
@@ -422,7 +422,7 @@
     <view-map name="EditWorkEffort" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
     <view-map name="ChildWorkEfforts" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ChildWorkEfforts"/>
     <view-map name="EditProjectAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectAndAssoc"/>
-    <view-map name="FindTask" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindTask"/>
+    <view-map name="EditProjectTasks" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectTasks"/>
     <view-map name="MyTasks" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
     <view-map name="EditTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTask"/>
     <view-map name="AddTaskAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddTaskAndAssoc"/>

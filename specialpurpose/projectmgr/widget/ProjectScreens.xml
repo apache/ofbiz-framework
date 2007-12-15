@@ -230,7 +230,7 @@ under the License.
         </section>
     </screen>        
     
-    <screen name="FindTask">
+    <screen name="EditProjectTasks">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditTask"/>
@@ -251,7 +251,7 @@ under the License.
                                 <label style="boxhead">${uiLabelMap.${titleProperty}}</label>
                             </container>                                
                             <container style="screenlet-body">                                                                 
-                                <include-form name="ListTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>                                     
+                                <include-form name="EditProjectTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>                                     
                             </container>                                      
                         </container>
                         <container style="lefthalf">
@@ -552,10 +552,25 @@ under the License.
     </screen>
     <screen name="ganttChart">
         <section>
+            <actions>
+                <set field="tabButtonItem" value="ganttchart"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GanttChart.bsh"/>
+            </actions>
             <widgets>
-                <platform-specific>
-                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/gantChart.ftl"/></html>
-                </platform-specific>
+                <label text="${project}"></label>
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.PageTitleProjectGanttChart}"/></container>
+                            <container style="screenlet-body">
+                                <platform-specific>
+                            <html><html-template location="component://projectmgr/webapp/projectmgr/project/gantChart.ftl"/></html>
+                        </platform-specific>
+                                </container>
+                            </container>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>

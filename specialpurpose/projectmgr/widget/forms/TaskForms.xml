@@ -178,7 +178,7 @@
         <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_DEPENDENCY"/></field>
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
-        <field name="workEffortToName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="workEffortToName" title="${uiLabelMap.CommonName}"><hyperlink target="Dependencies?workEffortId=${workEffortIdTo}" description="${workEffortToName}"/></field>
         <field name="workEffortToParentId" title="${uiLabelMap.ProjectMgrTaskPhase}"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/>/></field>        
         <field name="estimatedStartDate" entry-name="workEffortToEstimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/>/></field>
         <field name="estimatedCompletionDate"  entry-name="workEffortToEstimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>

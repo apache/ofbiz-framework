@@ -158,8 +158,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
    
- <!--================ Task Lists==============-->    
-    <form name="ListTasks" target="updateProjectTaskOrPhase" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTask">
+    <form name="EditProjectTasks" target="updateProjectTaskOrPhase" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTask">
         <row-actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="currentStatusId"/>
@@ -191,15 +190,9 @@
                 <option key="6"/><option key="7"/><option key="8"/><option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/>
             </drop-down>
         </field>      
-        <field use-when="actualStartDate!=null" name="StartDate" entry-name="actualStartDate" title="${uiLabelMap.WorkEffortStartDate}" parameter-name="actualStartDate"><date-time type="date"/></field>
-        <field use-when="actualStartDate==null" name="StartDate" entry-name="estimatedStartDate" title="${uiLabelMap.WorkEffortStartDate}" parameter-name="estimatedStartDate"><date-time type="date"/></field>
-        <field use-when="actualCompletionDate!=null" name="CompletionDate" entry-name="actualCompletionDate" title="${uiLabelMap.WorkEffortCompletionDate}" parameter-name="actualCompletionDate"><date-time type="date"/></field>
-        <field use-when="actualCompletionDate==null" name="CompletionDate" entry-name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortCompletionDate}" parameter-name="estimatedCompletionDate"><date-time type="date"/></field>
-        <!--field name="description" title="${uiLabelMap.CommonDescription}"><textarea cols="6"/></field-->
+        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><date-time type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <!--field name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ProjectMgrTimeEntries}" target="EditTimeEntries?workEffortId=${workEffortId}"/>
-        </field-->
     </form> 
     <form name="ListUnassignedTasks" target="updateTaskAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTask">
         <row-actions>
