@@ -29,6 +29,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 public class ShippingEstimateWrapper {
 
@@ -94,8 +95,10 @@ public class ShippingEstimateWrapper {
                         shippingMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingCmId, productStoreId,
                         shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal);
 
-                Double shippingTotal = (Double) estimateMap.get("shippingTotal");
-                shippingEstimates.put(shipMethod, shippingTotal);
+                if (!ServiceUtil.isError(estimateMap)) {
+                    Double shippingTotal = (Double) estimateMap.get("shippingTotal");
+                    shippingEstimates.put(shipMethod, shippingTotal);
+                }
             }
         }
     }

@@ -181,7 +181,7 @@ public class ShippingEvents {
                 shippingTotal += externalAmt.doubleValue();
             }
         } catch (GeneralException e) {
-            return ServiceUtil.returnSuccess(standardMessage);
+            return ServiceUtil.returnError(standardMessage);
         }
 
         // update the initial amount
@@ -194,7 +194,7 @@ public class ShippingEvents {
                 shippingTotal += genericAmt.doubleValue();
             }
         } catch (GeneralException e) {
-            return ServiceUtil.returnSuccess(standardMessage);
+            return ServiceUtil.returnError(standardMessage);
         }
 
         // return the totals
@@ -213,7 +213,7 @@ public class ShippingEvents {
             Debug.logError(e, "Shipment Service Error", module);
             throw new GeneralException();
         }
-        if (ServiceUtil.isError(genericEstimate)) {
+        if (ServiceUtil.isError(genericEstimate) || ServiceUtil.isFailure(genericEstimate)) {
             Debug.logError(ServiceUtil.getErrorMessage(genericEstimate), module);
             throw new GeneralException();
         } else if (ServiceUtil.isFailure(genericEstimate)) {
@@ -256,12 +256,16 @@ public class ShippingEvents {
                     Debug.logError(e, "Shipment Service Error", module);
                     throw new GeneralException(e);
                 }
-                if (!ServiceUtil.isError(serviceResp)) {
-                    externalShipAmt = (Double) serviceResp.get("shippingEstimateAmount");
-                } else {
+                if (ServiceUtil.isError(serviceResp)) {
                     String errMsg = "Error getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp); 
                     Debug.logError(errMsg, module);
                     throw new GeneralException(errMsg);
+                } else if (ServiceUtil.isFailure(serviceResp)) {
+                    String errMsg = "Failure getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp); 
+                    Debug.logError(errMsg, module);
+                    throw new GeneralException(errMsg);
+                } else {
+                    externalShipAmt = (Double) serviceResp.get("shippingEstimateAmount");
                 }
             }
         }
