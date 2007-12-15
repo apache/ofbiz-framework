@@ -19,11 +19,13 @@
 package org.ofbiz.guiapp.xui;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.LoginWorker;
 import org.ofbiz.entity.GenericDelegator;
@@ -43,7 +45,8 @@ public class XuiSession {
     protected XuiContainer container = null;
     protected Map attributes = new HashMap();
     protected String id = null;
-
+    protected final boolean IS_SAME_LOGIN = UtilProperties.propertyValueEqualsIgnoreCase("xui.properties", "isSameLogin", "true");
+    private Locale locale = (Locale) Locale.getDefault();
 
     public XuiSession(String id, GenericDelegator delegator, LocalDispatcher dispatcher, XuiContainer container) {
         this.id = id;
@@ -105,10 +108,10 @@ public class XuiSession {
     }
 
     public void login(String username, String password) throws UserLoginFailure {
-        // if already logged in; verify for lock
-        if (this.userLogin != null) {
-            if (!userLogin.getString("userLoginId").equals(username)) {
-                throw new UserLoginFailure("Username does not match already logged in user!");
+        // if already logged in; verify for lock. Depends on SAME_LOGIN, false by default
+        if (this.userLogin != null) {            
+            if (IS_SAME_LOGIN == true && !userLogin.getString("userLoginId").equals(username)) { 
+                throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "UsernameDoesNotMatchLoggedUser", locale));
             }
         }
         this.userLogin = this.checkLogin(username, password);
@@ -117,13 +120,13 @@ public class XuiSession {
     public GenericValue checkLogin(String username, String password) throws UserLoginFailure {
         // check the required parameters and objects
         if (dispatcher == null) {
-            throw new UserLoginFailure("Unable to log in; XUI not configured propertly");
+            throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "UnableToLogIn", locale));
         }
         if (UtilValidate.isEmpty(username)) {
-            throw new UserLoginFailure("Username is missing");
+            throw new UserLoginFailure(UtilProperties.getMessage("PartyUiLabels", "PartyUserNameMissing", locale));
         }
         if (UtilValidate.isEmpty(password)) {
-            throw new UserLoginFailure("Password is missing");
+            throw new UserLoginFailure(UtilProperties.getMessage("PartyUiLabels", "PartyPasswordMissing", locale));
         }
 
         // call the login service
@@ -134,7 +137,7 @@ public class XuiSession {
             Debug.logError(e, module);
             throw new UserLoginFailure(e);
         } catch (Throwable t) {
-            Debug.logError(t, "Thowable caught!", module);
+            Debug.logError(t, "Throwable caught!", module);
         }
 
         // check for errors
@@ -143,7 +146,7 @@ public class XuiSession {
         } else {
             GenericValue ul = (GenericValue) result.get("userLogin");
             if (ul == null) {
-                throw new UserLoginFailure("UserLogin return was not valid (null)");
+                throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "UserLoginNotValid", locale));
             }
             return ul;
         }
