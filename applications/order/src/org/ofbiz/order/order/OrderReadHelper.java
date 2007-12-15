@@ -2432,7 +2432,7 @@ public class OrderReadHelper {
                 // retrieve related work effort when required.
                 List WorkOrderItemFulfillments = null;
                 try {
-                    WorkOrderItemFulfillments = orderItem.getRelatedCache("WorkOrderItemFulfillment");
+                    WorkOrderItemFulfillments = orderItem.getDelegator().findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")));
                 } catch (GenericEntityException e) {}
                 Iterator iter = WorkOrderItemFulfillments.iterator();
                 if (iter.hasNext())    {
