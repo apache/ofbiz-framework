@@ -388,9 +388,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/> </field>
         <sort-order>
             <sort-field name="communicationEventId"/>
-            <banner left-text="${uiLabelMap.WorkEffortBanner1}"/>
+            <banner left-text="${uiLabelMap.WorkEffortBannerAddWorkEffortAndAssoc1}"/>
             <sort-field name="workEffortId"/>
-            <banner left-text="${uiLabelMap.WorkEffortBanner2}"/>
+            <banner left-text="${uiLabelMap.WorkEffortBannerAddWorkEffortAndAssoc2}"/>
         </sort-order>
     </form>
 
