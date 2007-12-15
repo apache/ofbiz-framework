@@ -231,7 +231,7 @@ public class PartyContentWrapper implements ContentWrapper {
     }
 
     public static List getPartyContentTextList(GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
-        List partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", party.getString("partyId"), "contentPurposeEnumId", partyContentTypeId), UtilMisc.toList("-fromDate"));
+        List partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", party.getString("partyId"), "partyContentTypeId", partyContentTypeId), UtilMisc.toList("-fromDate"));
         partyContentList = EntityUtil.filterByDate(partyContentList);
 
         List contentList = FastList.newInstance();
