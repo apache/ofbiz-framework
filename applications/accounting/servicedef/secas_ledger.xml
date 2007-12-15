@@ -77,5 +77,16 @@ under the License.
         <condition field-name="fixedAssetId" operator="is-not-empty"/>
         <action service="createAcctgTransForFixedAssetMaintIssuance" mode="sync"/>
     </eca>
-
+    <!--attempt to create AcctgTrans and Entries for Incoming Payment -->
+    <eca service="createPayment" event="commit">
+        <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
+        <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync"/>
+    </eca>
+    
+    <!--attempt to create AcctgTrans and Entries for Incoming when set PaymentStatus -->
+    <eca service="setPaymentStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="PMNT_RECEIVED"/>
+        <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync"/>
+    </eca> 
 </service-eca>
