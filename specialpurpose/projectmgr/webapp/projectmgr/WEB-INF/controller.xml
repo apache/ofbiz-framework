@@ -447,6 +447,6 @@
     <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
     <view-map name="EditWorkEffortNotes" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectNotes"/>
     <view-map name="EditTaskNotes" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskNotes"/>
-    <view-map name="taskView" type="screen" page="component://projectmgr/widget/TaskScreens.xml#TaskSummary"/>
+    <view-map name="taskView" type="screen" page="component://projectmgr/widget/TaskScreens.xml#TaskView"/>
     <!-- end of view mappings -->
 </site-conf>

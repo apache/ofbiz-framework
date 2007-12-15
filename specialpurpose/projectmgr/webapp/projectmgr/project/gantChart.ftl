@@ -298,6 +298,6 @@ function dateFormat(aDate, displayPat){
 <#if tasks?has_content>
 <br/><br/><br/><br/><br/><br/>
 	<#list tasks as taskNode>
-	<br/><br/>
+	<br/>
 	</#list>
 </#if>

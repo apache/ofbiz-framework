@@ -273,7 +273,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="TaskSummary">        
+    <screen name="TaskView">        
         <section>
             <actions>
                 <set field="tabButtonItem" value="taskView"/>

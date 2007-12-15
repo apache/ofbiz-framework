@@ -88,15 +88,36 @@
         
     </simple-method>          
 
-    <simple-method method-name="getProject" short-description="get Project information" login-required="true">
-        <!-- get the phase seq id -->
-        <if-empty field-name="parameters.projectId">
-            <return/>
+    <simple-method method-name="getProjectIdAndName" short-description="Get the projectId when a phase or task is provided." login-required="true">
+        <if-empty field-name="parameters.taskId">
+            <if-empty field-name="parameters.phaseId">
+                <return/>
+            </if-empty>
         </if-empty>
-        <entity-one entity-name="WorkEffort" value-name="project">
-            <field-map field-name="workEffortId" env-name="parameters.projectId"/>
-        </entity-one>
-        <set field="highInfo.projectId" from-field="project.workEffortId"/>
+        <if-not-empty field-name="parameters.taskId">
+            <entity-one entity-name="WorkEffort" value-name="task">
+                <field-map field-name="workEffortId" env-name="parameters.taskId"/>
+            </entity-one>
+            <get-related-one value-name="task" relation-name="ParentWorkEffort" to-value-name="phase"/>
+            <else>
+                <entity-one entity-name="WorkEffort" value-name="phase">
+                    <field-map field-name="workEffortId" env-name="parameters.phaseId"/>
+                </entity-one>
+            </else>
+        </if-not-empty>
+        <get-related-one value-name="phase" relation-name="ParentWorkEffort" to-value-name="project"/>
+        <field-to-result field-name="project.workEffortId" result-name="projectId"/>
+        <field-to-result field-name="project.workEffortName" result-name="projectName"/>
+    </simple-method>
+    
+    <simple-method method-name="getProject" short-description="get Project information" login-required="true">
+            <if-empty field-name="parameters.projectId">
+                <return/>
+            </if-empty>
+            <entity-one entity-name="WorkEffort" value-name="project">
+                <field-map field-name="workEffortId" env-name="parameters.projectId"/>
+            </entity-one>
+            <set field="highInfo.projectId" from-field="project.workEffortId"/>
         <set field="highInfo.projectName" from-field="project.workEffortName"/>
         <set field="highInfo.projectDescription" from-field="project.description"/>
         <set field="highInfo.currentStatusId" from-field="project.currentStatusId"/>
