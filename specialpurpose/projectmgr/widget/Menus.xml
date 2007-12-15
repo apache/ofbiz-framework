@@ -47,10 +47,11 @@
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
         </actions>
+        <menu-item name="ganttchart" title="${uiLabelMap.ProjectMgrGanttChart}"><link target="ganttChart?projectId=${projectId}"/></menu-item>
         <menu-item name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}"><link target="projectView?projectId=${projectId}"/></menu-item>
         <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditPoject}"><link target="EditProject?projectId=${projectId}"/></menu-item>
         <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}"><link target="FindPhase?projectId=${projectId}"/></menu-item>
-        <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask?projectId=${projectId}"/></menu-item>        
+        <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="EditProjectTasks?projectId=${projectId}"/></menu-item>        
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrParties}"><link target="ListWorkEffortPartyAssigns?projectId=${projectId}"/></menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditWorkEffortNotes?projectId=${projectId}"/></menu-item>
         <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="ListSubProjects?projectId=${projectId}"/></menu-item>

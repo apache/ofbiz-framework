@@ -379,7 +379,7 @@
             <if-empty field-name="highInfo.estimatedStartDate">
                 <set field="highInfo.estimatedStartDate" from-field="lowInfo.estimatedStartDate" />
                 <else>
-                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="estimatedStartDate" operator="less">
+                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="estimatedStartDate" operator="greater">
                         <set field="highInfo.estimatedStartDate" from-field="lowInfo.estimatedStartDate" />
                     </if-compare-field>
                 </else>
@@ -389,7 +389,7 @@
             <if-empty field-name="highInfo.estimatedCompletionDate">
                 <set field="highInfo.estimatedCompletionDate" from-field="lowInfo.estimatedCompletionDate" />
                 <else>
-                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="estimatedCompletionDate" operator="greater">
+                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="estimatedCompletionDate" operator="less">
                         <set field="highInfo.estimatedCompletionDate" from-field="lowInfo.estimatedCompletionDate" />
                     </if-compare-field>
                 </else>
@@ -443,7 +443,6 @@
         
         <!-- add the estimated/planned hours together -->
         <call-simple-method method-name="getHours"/>
-        
     </simple-method>
     
     <simple-method method-name="getHours" short-description="get the planned and estimated hours for a task">
