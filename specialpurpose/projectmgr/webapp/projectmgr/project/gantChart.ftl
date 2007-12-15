@@ -31,42 +31,6 @@ under the License.
 
             //  our sample data for our gantt chart.
 
-        var docData = null;
-        var xml = {
-            url: "/projectmgr/js/data.xml",
-            mimetype: "text/xml",
-            load: callBack,
-            error: function(type, error){
-                dojo.debug("type: " + type);
-                dojo.debug("error: " + error.message);
-            }
-        }
-        
-        dojo.io.bind(xml);
-
-/*
-    function xml2json(dataNode, json){
-        var taskNodes = dataNode.getDocumentElement();
-        // Convert the xml data to json
-        for(var i = 0; i < taskNodes.length; i++){
-            var taskNode = taskNodes.item(i);
-            if(taskNode.childNodes.length){
-                json.push({high: taskNode.attributes["end"], low: taskNode.attributes["start"], task: taskNode.attribute["label"], type: "p"});
-                //Recursive call to crawl the dom
-                xml2json(taskNode);
-            }else{
-                var dtStart = new Date(taskNode.attributes["start"]);
-                var dtEnd = new Date(taskNode.attributes["end"]);
-                json.push({high: dtEnd.getTime(), low: dtStart.getTime(), task: taskNode.attributes["label"], type: taskNode.attributes["type"]});
-            }
-        }
-        
-        return json;
-    }
-*/
-    function callBack(type, xmlDom, httpreq){
-        
-        var taskNodes = xmlDom.getElementsByTagName("task");
         var json = [];
 
         // Convert the database data to json
@@ -82,18 +46,6 @@ under the License.
 	        </#list>
         </#if>
 
-        // Convert the xml data to json
-/*        for(var i = 0; i < taskNodes.length; i++){
-            var taskNode = taskNodes.item(i);
-            var dtStart = new Date(taskNode.getAttribute("start"));
-            var dtEnd = new Date(taskNode.getAttribute("end"));
-            if(taskNode.childNodes.length){
-                json.push({high: dtEnd.getTime(), low: dtStart.getTime(), task: taskNode.getAttribute("label"), type: "p"});
-            }else{
-                json.push({high: dtEnd.getTime(), low: dtStart.getTime(), task: taskNode.getAttribute("label"), type: taskNode.getAttribute("type")});
-            }
-        }
-*/
             //Parameters
             var chartStart = new Date("${chartStart?string.short}");
             var dEnd = new Date("${chartEnd?string.short}");
@@ -208,27 +160,8 @@ under the License.
 
             });
             dojo.debug("--end callBack");
-    }           
+               
           dojo.event.connect(dojo, "loaded", "init")
-
-    function loadData(){
-        var xml = {
-            url: "/projectmgr/js/data.xml",
-            mimetype: "text/xml",
-            load: function(type, xmlDom, httpreq){ 
-                docData = xmlDom;
-                dojo.debug("load " + docData);
-                
-//              var params = new Array();
-//              var content = navTreeProc.getResultString(xmlDom, params, document);
-            },
-            error: function(type, error){ 
-                dojo.debug("type: " + type);
-                dojo.debug("error: " + error);
-            }
-        }
-        dojo.io.bind(xml);
-    }
 
     function customPlot(node, srcObject){
             //First solution for custom labels
@@ -358,7 +291,9 @@ function dateFormat(aDate, displayPat){
 }
 </script>
 
-<div id="chartTest1"/>
+<div id="chartTest1">
+<div id="plotLabels1"/>
+</div>
 <br/><br/>
 <#if tasks?has_content>
 <br/><br/><br/><br/><br/><br/>
