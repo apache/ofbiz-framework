@@ -125,7 +125,7 @@ under the License.
                     <field-map field-name="taskId" env-name="parameters.workEffortId"/>
                 </service>
                 <set field="projectId" from-field="result.projectId"/>
-                <set field="projectName" from-field="result.projectId"/>
+                <set field="projectName" from-field="result.projectName"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

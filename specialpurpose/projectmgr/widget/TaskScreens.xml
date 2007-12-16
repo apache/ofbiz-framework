@@ -245,6 +245,36 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditTaskPartyAssigns">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
+                <set field="tabButtonItem" value="parties"/>
+                <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+                <set field="inTask" value="notnull"/>
+            </actions>            
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleListPartyAssigns}</label></container>
+                            <container style="screenlet-body">
+                                <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            </container>
+                        </container> 
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddPartyAssign}</label></container>
+                            <container style="screenlet-body">       
+                                <include-form name="AddWorkEffortPartyAssign" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            </container>
+                        </container>        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditTaskNotes">
         <section>
             <actions>

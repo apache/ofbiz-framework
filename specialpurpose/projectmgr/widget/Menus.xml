@@ -52,7 +52,7 @@
         <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditPoject}"><link target="EditProject?projectId=${projectId}"/></menu-item>
         <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}"><link target="FindPhase?projectId=${projectId}"/></menu-item>
         <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="EditProjectTasks?projectId=${projectId}"/></menu-item>        
-        <menu-item name="parties" title="${uiLabelMap.ProjectMgrParties}"><link target="ListWorkEffortPartyAssigns?projectId=${projectId}"/></menu-item>
+        <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}"><link target="ListWorkEffortPartyAssigns?projectId=${projectId}"/></menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditWorkEffortNotes?projectId=${projectId}"/></menu-item>
         <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="ListSubProjects?projectId=${projectId}"/></menu-item>
         <!--menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildWorkEfforts?projectId=${projectId}&amp;trail=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item-->
@@ -61,6 +61,7 @@
         <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}"><link target="taskView?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="edittask" title="${uiLabelMap.ProjectMgrEditTask}"><link target="EditTask?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="dependencies" title="${uiLabelMap.ProjectMgrDependencies}"><link target="Dependencies?workEffortId=${workEffortId}"/></menu-item>
+        <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}"><link target="EditTaskPartyAssigns?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}"><link target="EditTaskSkills?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditTaskNotes?workEffortId=${workEffortId}"/></menu-item>
         <!--menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildTaskWorkEfforts?workEffortId=${workEffortId}&amp;trail=${workEffortId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item-->

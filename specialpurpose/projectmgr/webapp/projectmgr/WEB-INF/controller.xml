@@ -115,6 +115,16 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTask"/>
     </request-map>
+    <request-map uri="EditTaskPartyAssigns">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
+    <request-map uri="createTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+        <response name="error" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
     <request-map uri="createTask">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
@@ -292,11 +302,6 @@
         <response name="success" type="view" value="projectView"/>
         <response name="error" type="view" value="projectView"/>
     </request-map>
-    <request-map uri="ListWorkEffortPartyAssigns">
-        <security https="true" auth="true"/>        
-        <response name="success" type="view" value="ListWorkEffortPartyAssigns"/>
-        <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
-    </request-map>
     <request-map uri="EditTimeEntries">
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="EditTimeEntries"/>
@@ -429,6 +434,7 @@
     <view-map name="EditTaskAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskAndAssoc"/>
     <view-map name="Dependencies" type="screen" page="component://projectmgr/widget/TaskScreens.xml#Dependencies"/>
     <view-map name="EditTaskList" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskList"/>
+    <view-map name="EditTaskPartyAssigns" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskPartyAssigns"/>
     <view-map name="EditTaskListAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskListAndAssoc"/>
     <view-map name="ChildTaskWorkEfforts" type="screen" page="component://projectmgr/widget/TaskScreens.xml#ChildTaskWorkEfforts"/>
     <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectParties"/> 
