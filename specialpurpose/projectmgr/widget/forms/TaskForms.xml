@@ -262,7 +262,7 @@
         <field name="actualHours"><display/></field>
         <field name="createdDate"><display type="date"/></field>
     </form>                                         
-    <form name="EditWorkEffortPartyAssigns" target="deleteWorkEffortPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns">
+    <form name="EditWorkEffortPartyAssigns" target="deleteTaskPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns">
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignment">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
