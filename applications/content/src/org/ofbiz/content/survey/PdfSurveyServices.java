@@ -127,9 +127,9 @@ public class PdfSurveyServices {
                 } else if (type == AcroFields.FIELD_TYPE_LIST || type == AcroFields.FIELD_TYPE_COMBO) {
                     surveyQuestion.set("surveyQuestionTypeId", "OPTION");
                     // TODO: handle these specially with the acroFields.getListOptionDisplay (and getListOptionExport?)
-                    String[] listOptionDisplayArray = acroFields.getListOptionDisplay(fieldName);
+                    /*String[] listOptionDisplayArray = acroFields.getListOptionDisplay(fieldName);
                     String[] listOptionExportArray = acroFields.getListOptionExport(fieldName);
-                    Debug.logInfo("listOptionDisplayArray: " + listOptionDisplayArray + "; listOptionExportArray: " + listOptionExportArray, module);
+                    Debug.logInfo("listOptionDisplayArray: " + listOptionDisplayArray + "; listOptionExportArray: " + listOptionExportArray, module);*/
                 } else {
                     surveyQuestion.set("surveyQuestionTypeId", "TEXT_SHORT");
                     Debug.logWarning("Building Survey from PDF, fieldName=[" + fieldName + "]: don't know how to handle field type: " + type + "; defaulting to short text", module);

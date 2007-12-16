@@ -91,6 +91,8 @@ under the License.
     		<!-- JasperReports dependent files -->
             <exclude name="org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java"/>
             <exclude name="org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java"/>
+            <exclude name="org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java"/>
+            <exclude name="org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java"/>
             <!-- JPublish/EdenLib dependent files -->
             <exclude name="org/ofbiz/webapp/view/GenericViewRenderer.java"/>
             <exclude name="org/ofbiz/webapp/view/JPublishViewHandler.java"/>
