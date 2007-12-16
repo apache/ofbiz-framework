@@ -125,6 +125,12 @@
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
         <response name="error" type="view" value="EditTaskPartyAssigns"/>
     </request-map>
+    <request-map uri="updateTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+        <response name="error" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
     <request-map uri="createTask">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>

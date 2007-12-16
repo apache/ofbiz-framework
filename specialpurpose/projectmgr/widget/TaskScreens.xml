@@ -253,7 +253,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
-                <set field="inTask" value="notnull"/>
+                <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
             </actions>            
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -261,7 +261,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleListPartyAssigns}</label></container>
                             <container style="screenlet-body">
-                                <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                             </container>
                         </container> 
                         <container style="screenlet">
