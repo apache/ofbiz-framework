@@ -431,7 +431,7 @@
     <view-map name="EditTaskList" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskList"/>
     <view-map name="EditTaskListAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskListAndAssoc"/>
     <view-map name="ChildTaskWorkEfforts" type="screen" page="component://projectmgr/widget/TaskScreens.xml#ChildTaskWorkEfforts"/>
-    <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ListWorkEffortPartyAssigns"/> 
+    <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectParties"/> 
     <view-map name="FindPhase" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindPhase"/>
     <view-map name="EditProjectSkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectSkills"/>
     <view-map name="EditTaskSkills" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskSkills"/>
