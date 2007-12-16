@@ -274,11 +274,9 @@ under the License.
       <field name="quantityToProduce" type="floating-point"></field>
       <field name="quantityProduced" type="floating-point"></field>
       <field name="quantityRejected" type="floating-point"></field>
-      <field name="reservPersons" type="floating-point"></field>   <!-- the number of persons renting the attached asset -->
-      <!-- reservationSecondPersonPricePercentage: percentage of the end price for the 2nd person renting this asset connected to the workEfforty-->
-      <field name="reserv2ndPPPerc" type="floating-point"/>
-      <!-- reservationNthPersonPricePercentage: percentage of the end price for the Nth (2+) person renting this asset connected to the workEfforty-->
-      <field name="reservNthPPPerc" type="floating-point"/>      
+      <field name="reservPersons" type="floating-point"><description>the number of persons renting the attached asset</description></field>   
+      <field name="reserv2ndPPPerc" type="floating-point"><description>reservationSecondPersonPricePercentage: percentage of the end price for the 2nd person renting this asset connected to the workEffort</description></field>
+      <field name="reservNthPPPerc" type="floating-point"><description>reservationNthPersonPricePercentage: percentage of the end price for the Nth (2+) person renting this asset connected to the workEffort</description></field>      
       <field name="revisionNumber" type="numeric"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
