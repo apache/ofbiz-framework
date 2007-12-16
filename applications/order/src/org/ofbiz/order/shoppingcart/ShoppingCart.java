@@ -4475,7 +4475,7 @@ public class ShoppingCart implements Serializable {
                         values.add(opp);
                     }
                 } else if ("N".equals(splitPayPrefPerShpGrp)) {
-                    maxAmount.add(new BigDecimal(amount));
+                    maxAmount = maxAmount.add(new BigDecimal(amount));
                     maxAmount = maxAmount.setScale(scale, rounding);
                     
                     // create the OrderPaymentPreference record
