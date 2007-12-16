@@ -261,6 +261,12 @@ under the License.
         </if-compare-field>
         <store-value value-name="workEffortPartyAssignment"/>
     </simple-method>
+    <simple-method method-name="deletePartyToWorkEffortAssignment" short-description="Update WorkEffortPartyAssignment entity">
+        <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="del"/>
+        <now-date-to-env env-name="del.thruDate"/>
+        <log level="always" message="==========${del}"></log>
+        <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="del"/>       
+    </simple-method>
     <simple-method method-name="unassignPartyFromWorkEffort" short-description="Service that deletes a WorkEffortPartyAssignment entity">
         <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
         <remove-value value-name="workEffortPartyAssignment"/>
