@@ -1258,9 +1258,11 @@ public class ProductPromoWorker {
                 }
             }
 
-            if (quantityDesired == startingQuantity) {
-                // couldn't find any cart items to give a discount to, don't consider action run
+            if (quantityDesired == startingQuantity || quantityDesired > 0) {
+                // couldn't find any (or enough) cart items to give a discount to, don't consider action run
                 actionResultInfo.ranAction = false;
+                // clear out any action uses for this so they don't become part of anything else
+                cart.resetPromoRuleUse(productPromoAction.getString("productPromoId"), productPromoAction.getString("productPromoRuleId"));
             } else {
                 double totalAmount = getCartItemsUsedTotalAmount(cart, productPromoAction);
                 if (Debug.verboseOn()) Debug.logVerbose("Applying promo [" + productPromoAction.getPrimaryKey() + "]\n totalAmount=" + totalAmount + ", discountAmountTotal=" + discountAmountTotal, module);
