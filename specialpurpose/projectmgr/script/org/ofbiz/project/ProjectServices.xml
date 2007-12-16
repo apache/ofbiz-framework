@@ -20,7 +20,40 @@
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
- 
+
+    <simple-method method-name="projectScheduler" short-description="Project Schulers sets the planningdates according task requirements and available resources">
+        <!-- 
+                theory behind the program
+                - - - - - - - - - - - - - 
+                
+                Assumptions for tasks and resources
+                1. a workday has 8 hours
+                2. a workweek has 40 hours and 5 days
+                3. The default order of the Tasks is by name
+                4. The default order of the tasks can be modified by the priority
+                
+                The steps of the program are:
+                1. read all tasks into a list with the following fields:
+                    name, id, length in hours, sequence
+                    for critical path processing:
+                    * ES - Earliest Start time
+                    * EF - Earliest Finish time
+                    * LS - Latest Start time
+                    * LF - Latest Finish time
+                    
+                    EF = LF task is on the critical path
+                    
+                     
+                The program will allocate certain values for certain facts to indicate the importance
+                and add the values to the sequence field.
+                
+                order by name: 10 for every position
+                priority 1000 for every number
+                
+                The system will then sort the list by sequence and will insert the planned dates
+                according the startdate and sat and sundays.
+        -->
+    </simple-method>        
     
     <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffort and timesheetId ">
         <if-empty field-name="parameters.workEffortId">
