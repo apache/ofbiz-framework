@@ -119,4 +119,11 @@ under the License.
         <entity-one entity-name="CreditCardTypeGlAccount" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <!-- Updates a Payment Method Type default glAccountId -->
+    <simple-method method-name="updatePaymentMethodType" short-description="Updates a Payment Method Type default glAccountId">
+        <entity-one entity-name="PaymentMethodType" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>

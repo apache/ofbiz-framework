@@ -1609,6 +1609,19 @@ under the License.
         <response name="error" type="view" value="EditCostCalcs"/>
     </request-map>
     
+    <!-- payment method type requests -->
+    <request-map uri="editPaymentMethodType">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPaymentMethodType"/>
+    </request-map>
+    
+    <request-map uri="updatePaymentMethodType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentMethodType"/>
+        <response name="success" type="view" value="EditPaymentMethodType"/>
+        <response name="error" type="view" value="EditPaymentMethodType"/>         
+    </request-map>
+    
     <!-- ================ Entity Lookup Requests ================= -->
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
@@ -1840,6 +1853,9 @@ under the License.
     
     <!-- Cost request mapping-->
     <view-map name="EditCostCalcs" type="screen" page="component://accounting/widget/CostScreens.xml#EditCostCalcs"/>
+    
+    <!-- Payment Method Type   -->
+    <view-map name="EditPaymentMethodType" type="screen" page="component://accounting/widget/PaymentMethodTypeScreens.xml#EditPaymentMethodType"/>
     
     <!-- end of view mappings -->
 </site-conf>
