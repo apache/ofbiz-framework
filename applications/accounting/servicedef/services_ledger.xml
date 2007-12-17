@@ -264,6 +264,7 @@ under the License.
     <service name="calculateAcctgTransTrialBalance" default-entity-name="AcctgTrans" engine="simple"
             location="org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="calculateAcctgTransTrialBalance" auth="true">
         <description>Calculate Trial Balance for a AcctgTrans</description>
+        <permission-service service-name="acctgTransactionPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="debitTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="creditTotal" type="BigDecimal" mode="OUT" optional="false"/>

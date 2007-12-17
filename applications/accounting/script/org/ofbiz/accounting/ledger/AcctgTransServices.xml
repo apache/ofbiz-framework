@@ -97,10 +97,7 @@ under the License.
     </simple-method>
 
     <!-- AcctgTrans Trial Balance and Post routines -->
-    <simple-method method-name="calculateAcctgTransTrialBalance" short-description="Calculate Trial Balance for a AcctgTrans">
-        <check-permission permission="ACCTG" action="_ATX_CREATE"><fail-message message="Security Error: to run calculateAcctgTransTrialBalance you must have the ACCTG_ATX_CREATE or ACCTG_ATX_ADMIN permission"/></check-permission>
-        <check-errors/>
-       
+    <simple-method method-name="calculateAcctgTransTrialBalance" short-description="Calculate Trial Balance for a AcctgTrans">       
         <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
  
