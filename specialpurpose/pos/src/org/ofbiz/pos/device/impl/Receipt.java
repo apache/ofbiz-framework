@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 import jpos.JposException;
 import jpos.POSPrinter;
@@ -70,7 +71,8 @@ public class Receipt extends GenericDevice implements DialogCallback {
     protected int[] descLength = { 25, 25, 0 };
     protected int[] pridLength = { 25, 25, 0 };
     protected int[] infoLength = { 34, 34, 0 };
-
+    protected int[] configPaddingLength = { 2, 2, 2 };
+    protected String[] configPadding = { "  ", "  ", "  "};
     protected PosTransaction lastTransaction = null;
 
     public Receipt(String deviceName, int timeout) {
@@ -275,6 +277,17 @@ public class Receipt extends GenericDevice implements DialogCallback {
                         }
                     } else if ("#dateFormat".equals(code[0])) {
                         this.dateFmtStr[type] = code[1];
+                    } else if ("#configPadding.length".equals(code[0])) {
+                        try {
+                            this.configPaddingLength[type] = Integer.parseInt(code[1]);
+                            StringBuffer spaces = new StringBuffer();
+                            for (int i=0; i < this.configPaddingLength[type]; i+=1){
+                                spaces.append(" ");
+                            }
+                            this.configPadding[type] = spaces.toString();                            
+                        } catch (NumberFormatException e) {
+                            Debug.logWarning(e, module);
+                        }
                     }
                 } else if (line.trim().startsWith("[BEGIN ITEM LOOP]")) {
                     template[currentPart++] = buf.toString();
@@ -361,10 +374,44 @@ public class Receipt extends GenericDevice implements DialogCallback {
             if (toPrint.indexOf("\n") > -1) {
                 String[] lines = toPrint.split("\\n");
                 for (int x = 0; x < lines.length; x++) {
-                    this.println(lines[x]);
+                    String trimmed = lines[x].trim();
+                    if(trimmed.length()>1){  // if empty string don't println
+                        this.println(lines[x]);
+                    }
                 }
             } else {
                 this.println(toPrint);
+            }
+            
+            if(trans.isAggregatedItem(((String)expandMap.get("productId")).trim())){
+                List<Map> maps = trans.getItemConfigInfo(i);
+                for (Map map: maps){
+                    expandMap = this.makeCodeExpandMap(trans, type);
+                    expandMap.putAll(map);
+                    // adjust the padding
+                    expandMap.put("description",
+                        UtilFormatOut.padString(this.configPadding[type] + 
+                        (String) expandMap.get("description"), descLength[type], true, ' '));
+                    expandMap.put("productId", UtilFormatOut.padString((String) expandMap.get("productId"), pridLength[type], true, ' '));
+                    //expandMap.put("basePrice", UtilFormatOut.padString((String) expandMap.get("basePrice"), priceLength[type], false, ' '));
+                    expandMap.put("basePrice", UtilFormatOut.padString((String) " ", priceLength[type], false, ' '));
+                    expandMap.put("subtotal", UtilFormatOut.padString((String) expandMap.get("subtotal"), priceLength[type], false, ' '));
+                    //expandMap.put("quantity", UtilFormatOut.padString((String) expandMap.get("quantity"), qtyLength[type], false, ' '));
+                    expandMap.put("quantity", UtilFormatOut.padString((String) " ", qtyLength[type], false, ' '));
+                    expandMap.put("isTaxable", UtilFormatOut.padString((String) " ", priceLength[type], false, ' '));
+                    toPrint = FlexibleStringExpander.expandString(loopStr, expandMap);
+                    if (toPrint.indexOf("\n") > -1) {
+                        String[] lines = toPrint.split("\\n");
+                        for (int x = 0; x < lines.length; x++) {
+                            String trimmed = lines[x].trim();
+                            if(trimmed.length()>1){
+                                this.println(lines[x]);
+                            }
+                        }
+                    } else {
+                        this.println(toPrint);
+                    }
+                }
             }
         }
     }

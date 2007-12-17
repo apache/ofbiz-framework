@@ -80,6 +80,7 @@ under the License.
     <event button-name="menuClrDisc" class-name="org.ofbiz.pos.event.MenuEvents" method-name="clearDiscounts" disable-lock="false"/>
     <event button-name="menuSave" class-name="org.ofbiz.pos.event.MenuEvents" method-name="saveSale" disable-lock="false"/>
     <event button-name="menuLoad" class-name="org.ofbiz.pos.event.MenuEvents" method-name="loadSale" disable-lock="false"/>
+    <event button-name="menuConfigItem" class-name="org.ofbiz.pos.event.MenuEvents" method-name="configureItem" disable-lock="false"/>
 
     <!-- payment events -->
     <event button-name="payCash" class-name="org.ofbiz.pos.event.PaymentEvents" method-name="payCash" disable-lock="false"/>
