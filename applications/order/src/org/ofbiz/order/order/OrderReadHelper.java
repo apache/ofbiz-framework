@@ -212,19 +212,22 @@ public class OrderReadHelper {
         Iterator ppit = paymentPrefs.iterator();
         while (ppit.hasNext()) {
             GenericValue paymentPref = (GenericValue) ppit.next();
-            List paymentGatewayResponses = new ArrayList();
+            List payments = FastList.newInstance();
             try {
-                paymentGatewayResponses = paymentPref.getRelatedByAnd("PaymentGatewayResponse", UtilMisc.toMap("paymentServiceTypeEnumId","PRDS_PAY_CAPTURE"));
+                List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
+                                            new EntityExpr("statusId", EntityOperator.EQUALS, "PMNT_CONFIRMED"));
+                payments = paymentPref.getRelated("Payment");
+                payments = EntityUtil.filterByOr(payments, exprs);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
 
             BigDecimal chargedToPaymentPref = ZERO;
-            Iterator pgrit = paymentGatewayResponses.iterator();
-            while(pgrit.hasNext()) {
-                GenericValue paymentGatewayResponse = (GenericValue) pgrit.next();
-                if (paymentGatewayResponse.get("amount") != null) {
-                    chargedToPaymentPref = chargedToPaymentPref.add(paymentGatewayResponse.getBigDecimal("amount")).setScale(scale+1, rounding);
+            Iterator payit = payments.iterator();
+            while(payit.hasNext()) {
+                GenericValue payment = (GenericValue) payit.next();
+                if (payment.get("amount") != null) {
+                    chargedToPaymentPref = chargedToPaymentPref.add(payment.getBigDecimal("amount")).setScale(scale+1, rounding);
                 }
             }
 

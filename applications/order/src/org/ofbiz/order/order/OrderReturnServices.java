@@ -904,7 +904,9 @@ public class OrderReturnServices {
                 try {
                     orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
                     // sort these desending by maxAmount
-                    orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toMap("statusId", "PAYMENT_SETTLED"), UtilMisc.toList("-maxAmount"));
+                    orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("-maxAmount"));
+                    List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "PAYMENT_SETTLED"), new EntityExpr("statusId", EntityOperator.EQUALS, "PAYMENT_RECEIVED"));
+                    orderPayPrefs = EntityUtil.filterByOr(orderPayPrefs, exprs);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot get Order details for #" + orderId, module);
                     continue;
@@ -1050,7 +1052,26 @@ public class OrderReturnServices {
                                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
                                 }
                             } else {
-                                // TODO: handle manual refunds (accounts payable)
+                                // handle manual refunds
+                                try {
+                                    Map input = UtilMisc.toMap("userLogin", userLogin, "amount", new Double(amountLeftToRefund.doubleValue()), "statusId", "PMNT_NOT_PAID");
+                                    input.put("partyIdTo", returnHeader.get("fromPartyId"));
+                                    input.put("partyIdFrom", returnHeader.get("toPartyId"));
+                                    input.put("paymentTypeId", "CUSTOMER_REFUND");
+                                    input.put("paymentMethodId", orderPaymentPreference.get("paymentMethodId"));
+                                    input.put("paymentMethodTypeId", orderPaymentPreference.get("paymentMethodTypeId"));
+                                    input.put("paymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"));
+                                    
+                                    serviceResult = dispatcher.runSync("createPayment", input);
+
+                                    if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
+                                        Debug.logError("Error in refund payment: " + ServiceUtil.getErrorMessage(serviceResult), module);
+                                        continue;
+                                    }
+                                    paymentId = (String) serviceResult.get("paymentId");
+                                } catch (GenericServiceException e) {
+                                    return ServiceUtil.returnError(e.getMessage());
+                                }
                             }
 
                             // Fill out the data for the new ReturnItemResponse
@@ -1059,10 +1080,7 @@ public class OrderReturnServices {
                             response.put("responseAmount", new Double(amountToRefund.setScale(decimals, rounding).doubleValue()));
                             response.put("responseDate", now);
                             response.put("userLogin", userLogin);
-                            if (paymentId != null) {
-                                // A null payment ID means no electronic refund was available; manual refund needed
-                                response.put("paymentId", paymentId);
-                            }
+                            response.put("paymentId", paymentId);
                             if (paymentMethodTypeId.equals("EXT_BILLACT")) {
                                 response.put("billingAccountId", orderReadHelper.getBillingAccount().getString("billingAccountId"));
                             }
@@ -1121,31 +1139,6 @@ public class OrderReturnServices {
                             amountLeftToRefund = amountLeftToRefund.subtract(amountToRefund);
                         }
                     }                    
-                }
-
-                // OFBIZ-459:  Create a "filler" payment and return item response by hand for the remaining amount, note that this won't be applied to the invoice
-                if (amountLeftToRefund.compareTo(ZERO) == 1) {
-                    try {
-                        Map input = UtilMisc.toMap("userLogin", userLogin, "amount", new Double(amountLeftToRefund.doubleValue()), "statusId", "PMNT_NOT_PAID");
-                        input.put("partyIdTo", returnHeader.get("fromPartyId"));
-                        input.put("partyIdFrom", returnHeader.get("toPartyId"));
-                        input.put("paymentTypeId", "CUSTOMER_REFUND");
-                        if (UtilValidate.isNotEmpty(refundPaymentMethod)) {
-                            input.put("paymentMethodId", refundPaymentMethod.get("paymentMethodId"));
-                            input.put("paymentMethodTypeId", refundPaymentMethod.get("paymentMethodTypeId"));
-                        } else {
-                            Debug.logInfo("refundPaymentMethodId not configured in PartyAcctgPreference, not setting for remaining refund amount", module);
-                        }
-                        
-                        Map results = dispatcher.runSync("createPayment", input);
-                        if (ServiceUtil.isError(results)) return results;
-
-                        input = UtilMisc.toMap("userLogin", userLogin, "paymentId", results.get("paymentId"), "responseAmount", new Double(amountLeftToRefund.doubleValue()));
-                        results = dispatcher.runSync("createReturnItemResponse", input);
-                        if (ServiceUtil.isError(results)) return results;
-                    } catch (GenericServiceException e) {
-                        return ServiceUtil.returnError(e.getMessage());
-                    }
                 }
             }
         }
@@ -1989,7 +1982,7 @@ public class OrderReturnServices {
                     Debug.logError("Order [" + orderId + "] refund amount[ " + returnAmount + "] less than zero", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderReturnTotalCannotLessThanZero", locale));
                 }
-                OrderReadHelper helper = new OrderReadHelper(OrderReadHelper.getOrderHeader(delegator, orderId));
+                OrderReadHelper helper = new OrderReadHelper(delegator, orderId);
                 BigDecimal grandTotal = helper.getOrderGrandTotal();
                 if (returnAmount == null) {
                     Debug.logInfo("No returnAmount found for order:" + orderId, module);
