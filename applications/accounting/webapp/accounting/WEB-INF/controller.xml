@@ -277,6 +277,18 @@ under the License.
         <response name="error" type="view" value="invoiceOverview"/>
     </request-map>
     
+     <!-- Request EditInvoiceItemType -->
+    <request-map uri="editInvoiceItemType">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditInvoiceItemType"/>
+    </request-map>
+    <request-map uri="updateInvoiceItemType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateInvoiceItemType"/>
+        <response name="success" type="view" value="EditInvoiceItemType"/>
+        <response name="error" type="view" value="EditInvoiceItemType"/>
+    </request-map>
+    
     <!-- payment requests -->
     <request-map uri="findPayments">
         <security https="true" auth="true"/>
@@ -1688,6 +1700,7 @@ under the License.
     <view-map name="editInvoiceApplications" type="screen" page="component://accounting/widget/InvoiceScreens.xml#EditInvoiceApplications"/>
     <view-map name="invoiceRoles" type="screen" page="component://accounting/widget/InvoiceScreens.xml#InvoiceRoles"/>
     <view-map name="sendPerEmail" type="screen" page="component://accounting/widget/InvoiceScreens.xml#SendPerEmail"/>
+    <view-map name="EditInvoiceItemType" type="screen" page="component://accounting/widget/InvoiceItemTypeScreens.xml#EditInvoiceItemType"/>
     
     <!-- Payment -->
     <view-map name="findPayments" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindPayments"/>
