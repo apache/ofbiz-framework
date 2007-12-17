@@ -231,6 +231,8 @@ under the License.
                                 <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
+                                <include-menu name="MyTimeSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                <label style="head2" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

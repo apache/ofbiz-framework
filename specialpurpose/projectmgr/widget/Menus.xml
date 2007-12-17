@@ -77,4 +77,15 @@
             <link target="EditTimesheetEntries?timesheetId=${timesheetId}"/>
         </menu-item>
     </menu>
+    <menu name="MyTimeSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
+        <menu-item name="StatustoComplete" title="${uiLabelMap.CommonStatustoComplete}" >
+            <condition>
+                <and>
+                    <not><if-empty field-name="timesheet"/></not>
+                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                </and>
+            </condition>
+            <link target="StatustoComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+        </menu-item>
+    </menu>
 </menus>

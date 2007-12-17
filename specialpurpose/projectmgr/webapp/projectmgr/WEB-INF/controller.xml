@@ -427,6 +427,12 @@
         <response name="success" type="view" value="taskView"/>
         <response name="error" type="view" value="taskView"/>
     </request-map>
+    <request-map uri="StatustoComplete">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTimesheet"/>
+        <response name="success" type="view" value="MyTimesheets"/>
+        <response name="error" type="view" value="MyTimesheets"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
