@@ -21,7 +21,7 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="projectScheduler" short-description="Project Schulers sets the planningdates according task requirements and available resources">
+    <simple-method method-name="scheduleProject" short-description="Project Schulers sets the planningdates according task requirements and available resources">
         <!-- 
                 theory behind the program
                 - - - - - - - - - - - - - 
@@ -53,6 +53,74 @@
                 The system will then sort the list by sequence and will insert the planned dates
                 according the startdate and sat and sundays.
         -->
+        
+        <!-- constants -->
+        <set field="nameOrder" value="10" type="Integer"/>
+        
+        <!-- create the tasklist -->
+        <field-to-result map-name="parameters" field-name="projectId"/>
+        <entity-one entity-name="WorkEffort" value-name="project">
+            <field-map field-name="workEffortId" env-name="parameters.projectId"/>
+        </entity-one>
+        <set field="seq" value="0" type="Double"/>
+        <string-to-list string="workEffortName" list-name="order"/>  
+        <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases" order-by-list-name="order"/>
+        <iterate entry-name="phase" list-name="phases">
+            <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks" order-by-list-name="order"/>
+            <iterate entry-name="task" list-name="tasks">
+                <clear-field field-name="t"/>
+                <set field="t.workEffortId" from-field="task.workEffortId"/>
+                <set field="t.seq" from-field="seq"/>
+                <calculate field-name="seq">
+                    <calcop operator="get" field-name="seq"/>
+                    <calcop operator="add" field-name="nameOrder"/>
+                </calculate>
+                <!-- get estimated hours -->
+                <get-related value-name="task" relation-name="WorkEffortSkillStandard" list-name="estimates"/>
+                <set field="total" value="0" type="Double"/>
+                <iterate entry-name="estimate" list-name="estimates">
+                    <calculate field-name="total">
+                        <calcop operator="get" field-name="total"/>
+                        <calcop operator="add" field-name="estimate.estimatedDuration"></calcop>
+                    </calculate>
+                </iterate>
+                <if-compare field-name="total" operator="not-equals" value="0">
+                    <calculate field-name="t.estimatedDays">
+                        <calcop operator="divide" field-name="total">
+                            <number value="8"/>
+                        </calcop>
+                    </calculate>
+                    <else>
+                        <set field="t.estimatedDays" value="1" type="Double"/>
+                    </else>
+                </if-compare>
+                <field-to-list field-name="t" list-name="taskList"/>
+            </iterate>
+        </iterate>       
+
+        <!-- rearrange according dependencies which override the default sequence-->
+        <!-- to be added -->
+
+
+        <!-- order the list-->        
+        <order-map-list list-name="taskList">
+            <order-by field-name="seq"/>
+        </order-map-list> 
+        
+        <now-timestamp-to-env env-name="currentDate"/>
+        <!-- iterate through the sorted list and set estimated start and end dates -->
+        <iterate entry-name="listItem" list-name="taskList">
+            <set field="listItem.estimatedStartDate" from-field="currentDate"/>
+            <calculate field-name="dayNbr"></calculate>
+            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="currentDate">
+                <field field-name="currentDate" type="java.sql.Timestamp"/>
+                <field field-name="listItem.estimatedDays" type="Double"/>
+            </call-class-method>
+            <set field="listItem.estimatedCompletionDate" from-field="currentDate"/>
+            <clear-field field-name="upd"/>
+            <set-service-fields service-name="updateWorkEffort" map-name="listItem" to-map-name="upd"/>
+            <call-service service-name="updateWorkEffort" in-map-name="upd"/>
+        </iterate>
     </simple-method>        
     
     <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffort and timesheetId ">

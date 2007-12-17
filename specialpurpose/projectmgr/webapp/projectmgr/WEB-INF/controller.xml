@@ -73,6 +73,12 @@
         <response name="success" type="view" value="FindProject"/>
         <response name="error" type="view" value="FindProject"/>
     </request-map>
+    <request-map uri="scheduleProject">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="scheduleProject"/>
+        <response name="success" type="view" value="ganttChart"/>
+        <response name="error" type="view" value="ganttChart"/>
+    </request-map>
     <request-map uri="FindResource">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindResource"/>

@@ -102,6 +102,7 @@ under the License.
                                     </condition>
                                     <widgets>                                        
                                         <include-menu name="ProjectTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                        <include-menu name="ProjectSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
                                         <label style="head1" text="${uiLabelMap.ProjectMgrProjectCurrent}: ${project.workEffortName}[${project.workEffortId}]"/>
                                     </widgets>
                                  </section>   

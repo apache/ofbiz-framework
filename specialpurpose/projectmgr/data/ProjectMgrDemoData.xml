@@ -23,16 +23,22 @@
     <!-- make sure they show up as resources -->
     <PartyRole partyId="DemoCustomer" roleTypeId="PROJECT_TEAM"/>
     <PartyRole partyId="admin" roleTypeId="PROJECT_TEAM"/>
-    
-    <!-- Demo project, phases and tasks -->
+
+    <!-- some skills required. -->
+    <SkillType skillTypeId="9000" description="Computer language Java"/>
+    <!-- Demo project, phases and tasks with estimated time-->
     <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PUBLIC" workEffortName="Demo Project" revisionNumber="1"/> 
     <WorkEffort workEffortId="9001" workEffortTypeId="PHASE" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 16:45:14.226" workEffortParentId="9000" workEffortName="phase1" revisionNumber="1" />
     <WorkEffort workEffortId="9002" workEffortTypeId="TASK" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9001" scopeEnumId="WES_PUBLIC" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1" />
+    <WorkEffortSkillStandard workEffortId="9002" skillTypeId="9000" estimatedDuration="16.0"/>
     <WorkEffort workEffortId="9003" workEffortTypeId="TASK" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 16:45:29.453" workEffortParentId="9001" scopeEnumId="WES_PUBLIC" workEffortName="task2" estimatedStartDate="2007-12-05 00:00:00.0" estimatedCompletionDate="2007-12-16 00:00:00.0" revisionNumber="1" />
+    <WorkEffortSkillStandard workEffortId="9003" skillTypeId="9000" estimatedDuration="24.0"/>
     <WorkEffort workEffortId="9004" workEffortTypeId="PHASE" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 16:45:35.939" workEffortParentId="9000" workEffortName="phase2" revisionNumber="1"/>
     <WorkEffort workEffortId="9005" workEffortTypeId="TASK" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 16:45:50.84" workEffortParentId="9004" scopeEnumId="WES_PUBLIC" workEffortName="task3" estimatedStartDate="2007-12-16 00:00:00.0" estimatedCompletionDate="2007-12-17 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortSkillStandard workEffortId="9005" skillTypeId="9000" estimatedDuration="32.0"/>
     <WorkEffort workEffortId="9006" workEffortTypeId="TASK" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 16:45:58.857" workEffortParentId="9004" scopeEnumId="WES_PUBLIC" workEffortName="task4" estimatedStartDate="2007-12-18 00:00:00.0" estimatedCompletionDate="2007-12-20 00:00:00.0" revisionNumber="1"/>
-
+    <WorkEffortSkillStandard workEffortId="9002" skillTypeId="9000" estimatedDuration="40.0"/>
+    
     <!-- task dependencies -->
     <WorkEffortAssoc workEffortIdFrom="9002" workEffortIdTo="9003" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="9003" workEffortIdTo="9005" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>

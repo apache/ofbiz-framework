@@ -147,7 +147,7 @@ under the License.
             
             // Create the Chart and add the PlotArea
             var chart = new dojo.charting.Chart(null, "Test chart", "This is a potential description");
-            chart.addPlotArea({ x:5,y:60, plotArea:pa2 }); // position of the chart on screen
+            chart.addPlotArea({ x:5,y:100, plotArea:pa2 }); // position of the chart on screen
             
 
             dojo.addOnLoad(function(){

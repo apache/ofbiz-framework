@@ -43,6 +43,12 @@ under the License.
         <attribute name="projectInfo" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
     
+    <service name="scheduleProject" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="scheduleProject">
+        <description>(re) calculate the estimated start and enddates of tasks within a project</description>
+        <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
+    </service>
+    
     <service name="getProjectIdAndName" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectIdAndName">
         <description>Get the projectId and Name when a phase or task is provided.</description>

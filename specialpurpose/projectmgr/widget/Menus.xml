@@ -32,7 +32,7 @@
         <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
         
         <menu-item name="help" title="Help" align-style="col-right">
-            <link target="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Role?decorator=printable" url-mode="plain" target-window="new"/>
+            <link target="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Application+Roles?decorator=printable" url-mode="plain" target-window="new"/>
         </menu-item>
         <menu-item name="Logout" title="Logout" align-style="col-right" widget-style="headerButtonRight" selected-style="headerButtonRightSelected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
@@ -56,6 +56,27 @@
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditWorkEffortNotes?projectId=${projectId}"/></menu-item>
         <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="ListSubProjects?projectId=${projectId}"/></menu-item>
         <!--menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildWorkEfforts?projectId=${projectId}&amp;trail=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item-->
+    </menu>
+    <menu name="ProjectSubTabBar" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <actions>
+            <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+        </actions>
+        <menu-item name="newProject" title="${uiLabelMap.ProjectMgrNewProject}">
+            <condition>
+                <not>
+                    <if-empty field-name="project"/>
+                </not>
+            </condition>
+            <link target="EditProject"></link>
+        </menu-item>
+        <menu-item name="schedule" title="${uiLabelMap.ProjectMgrSchedule}">
+            <condition>
+                <not>
+                    <if-empty field-name="project"/>
+                </not>
+            </condition>
+            <link target="scheduleProject?projectId=${projectId}"></link>
+        </menu-item>
     </menu>
     <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}"><link target="taskView?workEffortId=${workEffortId}"/></menu-item>
