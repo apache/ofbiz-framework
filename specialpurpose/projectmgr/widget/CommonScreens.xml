@@ -297,7 +297,7 @@ under the License.
                                 <set field="link1Text" value="A development document."/>
                                 <set field="link1" value="http://docs.ofbiz.org/display/OFBIZ/Complete+the+implementation+of+the+ProjectMgr+component."/>
                                 <set field="link2Text" value="User document"/>
-                                <set field="link2" value="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Role"/>
+                                <set field="link2" value="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Application+Roles"/>
                                 <set field="link3Text" value="A Jira issue system for fault reports and change requests"/>
                                 <set field="link3" value="https://issues.apache.org/jira/browse/OFBIZ/component/12312073"/>
                                 
