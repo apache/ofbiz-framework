@@ -90,7 +90,7 @@ under the License.
 
                 <set field="mainAcctgTransEntry.debitCreditFlag" value="D"/>
                 <set field="offsetAcctgTransEntry.debitCreditFlag" value="C"/>
-                <set field="createAcctgTransAndEntriesMap.acctgTransTypeId" value="RECEIPT_ACCTG_TRANS"/>
+                <set field="createAcctgTransAndEntriesMap.acctgTransTypeId" value="RECEIPT"/>
             </then>
             <else-if>
                 <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>

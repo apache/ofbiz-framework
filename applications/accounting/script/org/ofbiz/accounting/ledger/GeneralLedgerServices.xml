@@ -391,7 +391,7 @@ under the License.
 
     <simple-method method-name="getGlAccountFromAccountType" short-description="Look up a GlAccountId from GlAccountTypeId">
         <!-- if this is an inventory variance then the glAccountTypeId contains the varianceReasonId; the value is used to lookup the account id in the VarianceReasonGlAccount entity -->
-        <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="ITEM_VARIANCE_ACCTG_">
+        <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="ITEM_VARIANCE">
             <entity-one entity-name="VarianceReasonGlAccount" value-name="varianceReasonGlAccount">
                 <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
                 <field-map field-name="varianceReasonId" env-name="parameters.glAccountTypeId"/>
@@ -1037,7 +1037,7 @@ under the License.
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
         <set field="createAcctgTransAndEntriesInMap.physicalInventoryId" from-field="parameters.physicalInventoryId"/>
-        <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="ITEM_VARIANCE_ACCTG_"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="ITEM_VARIANCE"/>
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
             <result-to-field result-name="acctgTransId"/>
         </call-service>

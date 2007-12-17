@@ -39,7 +39,7 @@ under the License.
                             <widgets>
                                 <container style="lefthalf">
                                     <container>
-                                        <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES_ACCTG_TRANS" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext"/>
+                                        <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext"/>
                                     </container>
                                     <container>
                                         <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext"/>
