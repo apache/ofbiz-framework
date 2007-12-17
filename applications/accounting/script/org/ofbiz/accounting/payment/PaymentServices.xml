@@ -244,7 +244,12 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getInvoicePaymentInfoList" short-description="Create a list with information on payment due dates and amounts for the invoice">
-        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <if-empty field-name="parameters.invoice">
+            <entity-one entity-name="Invoice" value-name="invoice"/>
+        <else>
+            <set field="invoice" from-field="parameters.invoice"/>
+        </else>
+        </if-empty>
         <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceTotalBd" ret-field-name="invoiceTotalAmount">
             <field field-name="invoice" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
@@ -342,6 +347,45 @@ under the License.
             </then>
         </if>
         <field-to-result field-name="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
+    </simple-method>
+
+    <simple-method method-name="getInvoicePaymentInfoListByDueDateOffset" short-description="Select a list with information on payment due dates and amounts for invoices.">
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="asOfDate">
+            <field field-name="nowTimestamp" type="Timestamp"/>
+            <field field-name="parameters.daysOffset" type="Long"/>
+        </call-class-method>
+        <entity-condition entity-name="Invoice" list-name="invoices">
+            <condition-list combine="and">
+                <condition-expr field-name="invoiceTypeId" operator="equals" env-name="parameters.invoiceTypeId"/>
+                <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
+                <condition-expr field-name="partyIdFrom" operator="equals" env-name="parameters.partyIdFrom" ignore-if-empty="true"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_CANCELLED"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_PAID"/>
+            </condition-list>
+            <order-by field-name="invoiceDate"/>
+        </entity-condition>
+        <iterate list-name="invoices" entry-name="invoice">
+            <clear-field field-name="getInvoicePaymentInfoListInMap"/>
+            <set field="getInvoicePaymentInfoListInMap.invoice" from-field="invoice"/>
+            <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListInMap">
+                <result-to-field field-name="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
+            </call-service>
+            <iterate list-name="invoicePaymentInfoList" entry-name="invoicePaymentInfo">
+                <if>
+                    <condition>
+                        <and>
+                            <if-compare field-name="invoicePaymentInfo.outstandingAmount" operator="greater" value="0.0" type="BigDecimal"/>
+                            <if-compare-field field-name="invoicePaymentInfo.dueDate" operator="less" to-field-name="asOfDate" type="Timestamp"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <set field="selectedInvoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
+                    </then>
+                </if>
+            </iterate>
+        </iterate>
+        <field-to-result field-name="selectedInvoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
     </simple-method>
 
 </simple-methods>
