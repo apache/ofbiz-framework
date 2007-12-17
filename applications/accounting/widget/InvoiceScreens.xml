@@ -158,7 +158,6 @@ under the License.
                 <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(invoice)}"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceAppliedBd(invoice)}"/>
-                
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
@@ -178,6 +177,7 @@ under the License.
                                 <include-form name="ListInvoiceStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 <container><label style="head1" text="${uiLabelMap.PartyTerms}"/></container>
                                 <include-form name="ListInvoiceTerms" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                <include-form name="ListInvoicePaymentInfo" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 <container><label style="head1" text="${uiLabelMap.AccountingAppliedPayments}: ${appliedAmount?currency(${invoice.currencyUomId})}, ${uiLabelMap.AccountingOpenPayments}: ${notAppliedAmount?currency(${invoice.currencyUomId})}"/></container>
                                 <container><link target="editInvoiceApplications?invoiceId=${invoiceId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/></container>
                                 <include-form name="ListInvoiceApplications" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
@@ -198,6 +198,7 @@ under the License.
                                 <include-form name="ListInvoiceStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 <container><label style="head1" text="${uiLabelMap.PartyTerms}"/></container>
                                 <include-form name="ListInvoiceTerms" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                <include-form name="ListInvoicePaymentInfo" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 <container><label style="head1" text="${uiLabelMap.AccountingAppliedPayments}: ${appliedAmount?currency(${invoice.currencyUomId})}, ${uiLabelMap.AccountingOpenPayments}: ${notAppliedAmount?currency(${invoice.currencyUomId})}"/></container>
                                 <include-form name="ListInvoiceApplications" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 <container><label style="head1" text="${uiLabelMap.AccountingInvoiceItems}"/></container>

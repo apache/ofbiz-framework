@@ -478,7 +478,7 @@ public class GiftCertificateServices {
             if (availableBalance.compareTo(amountBd) > -1) {
                 Timestamp thruDate = null;
                 if (giftCertSettings.getLong("authValidDays") != null) {
-                    thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), giftCertSettings.getLong("authValidDays").intValue());
+                    thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), giftCertSettings.getLong("authValidDays"));
                 }
                 Map tmpResult = dispatcher.runSync("createFinAccountAuth", UtilMisc.<String, Object>toMap("finAccountId", finAccountId, "amount", amount, "currencyUomId", currency,
                         "thruDate", thruDate, "userLogin", userLogin));

@@ -242,4 +242,106 @@ under the License.
         <field-to-result field-name="paymentId" result-name="paymentId"/>
         <field-to-result field-name="paymentApplicationId" result-name="paymentApplicationId"/>
     </simple-method>
+
+    <simple-method method-name="getInvoicePaymentInfoList" short-description="Create a list with information on payment due dates and amounts for the invoice">
+        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceTotalBd" ret-field-name="invoiceTotalAmount">
+            <field field-name="invoice" type="org.ofbiz.entity.GenericValue"/>
+        </call-class-method>
+        <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceAppliedBd" ret-field-name="invoiceTotalAmountPaid">
+            <field field-name="invoice" type="org.ofbiz.entity.GenericValue"/>
+        </call-class-method>
+        <get-related relation-name="InvoiceTerm" value-name="invoice" list-name="invoiceTerms"/>
+        <set field="remainingAppliedAmount" from-field="invoiceTotalAmountPaid" type="BigDecimal"/>
+        <set field="computedTotalAmount" value="0.0" type="BigDecimal"/>
+        <iterate list-name="invoiceTerms" entry-name="invoiceTerm">
+            <get-related-one relation-name="TermType" value-name="invoiceTerm" to-value-name="termType" use-cache="true"/>
+            <if-compare field-name="termType.parentTypeId" operator="equals" value="FIN_PAYMENT_TERM">
+                <clear-field field-name="invoicePaymentInfo"/>
+                <set field="invoicePaymentInfo.invoiceId" from-field="invoice.invoiceId"/>
+                <set field="invoicePaymentInfo.invoiceTermId" from-field="invoiceTerm.invoiceTermId"/>
+                <set field="invoicePaymentInfo.termTypeId" from-field="invoiceTerm.termTypeId"/>
+                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="invoicePaymentInfo.dueDate">
+                    <field field-name="invoice.invoiceDate" type="Timestamp"/>
+                    <field field-name="invoiceTerm.termDays" type="Long"/>
+                </call-class-method>
+                <calculate field-name="invoiceTermAmount" type="BigDecimal">
+                    <calcop field-name="invoiceTotalAmount" operator="multiply">
+                        <calcop field-name="invoiceTerm.termValue" operator="get"/>
+                    </calcop>
+                </calculate>
+                <calculate field-name="invoiceTermAmount" type="BigDecimal">
+                    <calcop field-name="invoiceTermAmount" operator="divide">
+                        <number value="100"/>
+                    </calcop>
+                </calculate>
+                <set field="invoicePaymentInfo.amount" from-field="invoiceTermAmount"/>
+                <calculate field-name="computedTotalAmount" type="BigDecimal">
+                    <calcop field-name="computedTotalAmount" operator="add">
+                        <calcop field-name="invoicePaymentInfo.amount" operator="get"/>
+                    </calcop>
+                </calculate>
+                <if-compare-field field-name="remainingAppliedAmount" operator="greater-equals" to-field-name="invoiceTermAmount" type="BigDecimal">
+                    <set field="invoicePaymentInfo.paidAmount" from-field="invoiceTermAmount" type="BigDecimal"/>
+                    <calculate field-name="remainingAppliedAmount" type="BigDecimal">
+                        <calcop field-name="remainingAppliedAmount" operator="subtract">
+                            <calcop field-name="invoiceTermAmount" operator="get"/>
+                        </calcop>
+                    </calculate>
+                <else>
+                    <set field="invoicePaymentInfo.paidAmount" from-field="remainingAppliedAmount" type="BigDecimal"/>
+                    <set field="" from-field="remainingAppliedAmount" type="BigDecimal"/>
+                    <set field="remainingAppliedAmount" value="0.0" type="BigDecimal"/>
+                </else>
+                </if-compare-field>
+                <calculate field-name="invoicePaymentInfo.outstandingAmount" type="BigDecimal">
+                    <calcop field-name="invoicePaymentInfo.amount" operator="subtract">
+                        <calcop field-name="invoicePaymentInfo.paidAmount" operator="get"/>
+                    </calcop>
+                </calculate>
+                <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
+            </if-compare>
+        </iterate>
+        <if>
+            <condition>
+                <or>
+                    <if-compare field-name="remainingAppliedAmount" operator="greater" value="0.0" type="BigDecimal"/>
+                    <if-compare-field field-name="computedTotalAmount" operator="less" to-field-name="invoiceTotalAmount" type="BigDecimal"/>
+                </or>
+            </condition>
+            <then>
+                <clear-field field-name="invoicePaymentInfo"/>
+                <set field="andMap.termTypeId" value="FIN_PAYMENT_TERM"/>
+                <filter-list-by-and list-name="invoiceTerms" map-name="andMap"/>
+                <first-from-list list-name="invoiceTerms" entry-name="invoiceTerm"/>
+                <if-not-empty field-name="invoiceTerm">
+                    <set field="invoicePaymentInfo.termTypeId" from-field="invoiceTerm.termTypeId"/>
+                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="invoicePaymentInfo.dueDate">
+                        <field field-name="invoice.invoiceDate" type="Timestamp"/>
+                        <field field-name="invoiceTerm.termDays" type="Long"/>
+                    </call-class-method>
+                <else>
+                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="invoicePaymentInfo.dueDate">
+                        <field field-name="invoice.invoiceDate" type="Timestamp"/>
+                    </call-class-method>
+                </else>
+                </if-not-empty>
+                <set field="invoicePaymentInfo.invoiceId" from-field="invoice.invoiceId"/>
+                <calculate field-name="invoicePaymentInfo.amount" type="BigDecimal">
+                    <calcop field-name="invoiceTotalAmount" operator="subtract">
+                        <calcop field-name="computedTotalAmount" operator="get"/>
+                    </calcop>
+                </calculate>
+                <set field="invoicePaymentInfo.paidAmount" from-field="remainingAppliedAmount" type="BigDecimal"/>
+                <calculate field-name="invoicePaymentInfo.outstandingAmount" type="BigDecimal">
+                    <calcop field-name="invoicePaymentInfo.amount" operator="subtract">
+                        <calcop field-name="invoicePaymentInfo.paidAmount" operator="get"/>
+                    </calcop>
+                </calculate>
+                <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
+            </then>
+        </if>
+        <field-to-result field-name="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
+    </simple-method>
+
 </simple-methods>

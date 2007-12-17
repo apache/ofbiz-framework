@@ -821,7 +821,7 @@ public class OrderReturnServices {
 
             // if there is a storeCreditValidDays, set the thruDate to (nowTimestamp + storeCreditValidDays + end of day)
             Timestamp thruDate = null;
-            if (storeCreditValidDays != null) thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), storeCreditValidDays.intValue());
+            if (storeCreditValidDays != null) thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), storeCreditValidDays);
 
             // create the billing account
             Map input = UtilMisc.toMap("accountLimit", new Double(0.00), "description", "Credit Account for Return #" + returnHeader.get("returnId"), "userLogin", userLogin);
