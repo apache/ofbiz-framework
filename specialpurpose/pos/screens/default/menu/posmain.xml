@@ -24,7 +24,7 @@ under the License.
         <Button name="menuMain" x="102" y="0" w="100" h="60" style="posButton" content="MAIN" alignment="Center"/>
         <Button name="menuMgr" x="204" y="0" w="100" h="60" style="posButton" content="MGR" alignment="Center"/>
         <Button name="menuPromo" x="306" y="0" w="100" h="60" style="posButton" content="PROMO" alignment="Center"/>
-        <Button name="" x="408" y="0" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="menuConfigItem" x="408" y="0" w="100" h="60" style="posButton" content="CONFIG_ITEM" alignment="Center"/>
         <Button name="menuPay" x="510" y="0" w="100" h="60" style="posButton" content="PAY" alignment="Center"/>
 
         <!-- line 2 -->
@@ -57,7 +57,7 @@ under the License.
         <Button name="SKU.GZ-8544" x="204" y="248" w="100" h="60" style="skuButtonGizmo" content="GZ-8544" alignment="Center"/>
         <Button name="SKU.GZ-9290" x="306" y="248" w="100" h="60" style="skuButtonGizmo" content="GZ-9290" alignment="Center"/>
         <Button name="SKU.WG-1111" x="408" y="248" w="100" h="60" style="skuButtonWidget" content="WG-1111" alignment="Center"/>
-        <Button name="" x="510" y="248" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="SKU.PC001" x="510" y="248" w="100" h="60" style="skuButtonConfigurableItem" content="CONFIG PC" alignment="Center"/>
 
         <!-- line 6 -->
         <!--Button name="testAlert" x="0" y="310" w="100" h="60" style="posButton" content="TEST ALERT" alignment="Center"/-->

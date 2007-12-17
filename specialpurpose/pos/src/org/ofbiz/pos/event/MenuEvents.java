@@ -35,6 +35,8 @@ import org.ofbiz.pos.component.Journal;
 import org.ofbiz.pos.screen.SelectProduct;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.pos.screen.ConfigureItem;
+import org.ofbiz.product.config.ProductConfigWrapper;
 
 public class MenuEvents {
 
@@ -178,10 +180,31 @@ public class MenuEvents {
                 pos.showDialog("dialog/error/producterror");
             }
 
+            // Check for Aggregated item
+            boolean aggregatedItem = false;
+            ProductConfigWrapper pcw = null;
+            try {
+                aggregatedItem = trans.isAggregatedItem(productId);
+                if(aggregatedItem){
+                    pcw = trans.getProductConfigWrapper(productId);
+                    pcw.setDefaultConfig();
+                    ConfigureItem configureItem = new ConfigureItem(pcw, trans, pos);
+                    pcw = configureItem.openDlg();
+                    configureItem = null;
+                }
+            }catch(Exception e){
+                Debug.logError(e, module);
+                pos.showDialog("dialog/error/producterror");                
+            }
+                        
             // add the item to the cart; report any errors to the user
             if (productId != null) {
                 try {
-                    trans.addItem(productId, quantity);
+                    if(!aggregatedItem){
+                        trans.addItem(productId, quantity);                    
+                    }else{
+                        trans.addItem(productId, pcw);
+                    }
                 } catch (CartItemModifyException e) {
                     Debug.logError(e, module);
                     pos.showDialog("dialog/error/producterror");
@@ -387,4 +410,37 @@ public class MenuEvents {
         Journal journal = pos.getJournal();
         return journal.getSelectedSku();
     }
+
+    public static void configureItem(PosScreen pos) {
+        PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
+        Journal journal = pos.getJournal();
+        String index = journal.getSelectedIdx();
+        String productId = journal.getSelectedSku();
+        //trans.configureItem(index, pos);
+               
+        boolean aggregatedItem = false;
+        ProductConfigWrapper pcw = null;
+        try {
+            aggregatedItem = trans.isAggregatedItem(productId);
+            if(aggregatedItem){
+                pcw = trans.getProductConfigWrapper(productId, index);
+                ConfigureItem configureItem = new ConfigureItem(pcw, trans, pos);
+                pcw = configureItem.openDlg();
+                configureItem = null;
+                trans.modifyConfig(productId, pcw, index);
+            }else{
+                pos.showDialog("dialog/error/itemnotconfigurable");
+            }
+        }catch(Exception e){
+            Debug.logError(e, module);
+            pos.showDialog("dialog/error/producterror");                
+        }
+        
+        trans.calcTax();
+        pos.refresh();
+        
+        return;
+    }
+
+    
 }

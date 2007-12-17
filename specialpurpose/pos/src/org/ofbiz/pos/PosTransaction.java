@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ArrayList;
+//import javax.swing.SwingWorker;
 
 import net.xoetrope.xui.data.XModel;
 import net.xoetrope.xui.helper.SwingWorker;
@@ -57,6 +59,8 @@ import org.ofbiz.pos.device.DeviceLoader;
 import org.ofbiz.pos.screen.LoadSale;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.screen.SaveSale;
+import org.ofbiz.product.config.ProductConfigWrapper;
+import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -237,6 +241,34 @@ public class PosTransaction implements Serializable {
         return itemInfo;
     }
 
+    public List getItemConfigInfo(int index) {
+        List<Map> list = new ArrayList<Map>();
+        // I think I need to initialize the list in a special way
+        // to use foreach in receipt.java
+
+        ShoppingCartItem item = cart.findCartItem(index);
+        if(this.isAggregatedItem(item.getProductId())){
+            ProductConfigWrapper pcw = null;
+            pcw = item.getConfigWrapper();
+            List selected = pcw.getSelectedOptions();
+            Iterator iter = selected.iterator();
+            while(iter.hasNext()){
+                ConfigOption configoption = (ConfigOption)iter.next();
+                Map itemInfo = new HashMap();
+                if (configoption.isSelected()){
+                    itemInfo.put("productId", "");
+                    itemInfo.put("sku", "");
+                    itemInfo.put("description", configoption.getDescription());
+                    itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
+                    itemInfo.put("basePrice", UtilFormatOut.formatPrice(configoption.getPrice()));
+                    itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
+                    list.add(itemInfo);
+                }
+            }
+        }
+        return list;
+    }
+
     public Map getPaymentInfo(int index) {
         ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(index);
         GenericValue infValue = inf.getValueObject(session.getDelegator());
@@ -350,19 +382,134 @@ public class PosTransaction implements Serializable {
         }
     }
 
+    public boolean isAggregatedItem(String productId){
+        trace("is Aggregated Item", productId);
+        try {
+            GenericDelegator delegator = cart.getDelegator();
+            GenericValue product = null;
+            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            if ("AGGREGATED".equals(product.getString("productTypeId"))) {
+                return true;
+            }
+        } catch (GenericEntityException e){
+            trace("item lookup error", e);
+            Debug.logError(e, module);
+        } catch (Exception e){
+            trace("general exception", e);
+            Debug.logError(e, module);
+        }        
+        return false;
+    }
+
+    public ProductConfigWrapper getProductConfigWrapper(String productId){
+        //Get a PCW for a new product
+        trace("get Product Config Wrapper", productId);
+        ProductConfigWrapper pcw = null;
+        try {
+            GenericDelegator delegator = cart.getDelegator();
+            pcw = new ProductConfigWrapper(delegator, session.getDispatcher(), 
+                    productId, null, null, null, null, null, null);            
+        } catch (ItemNotFoundException e) {
+            trace("item not found", e);
+            //throw e;
+        } catch (CartItemModifyException e) {
+            trace("add item error", e);
+            //throw e;
+        }catch (GenericEntityException e){
+            trace("item lookup error", e);
+            Debug.logError(e, module);
+        } catch (Exception e){
+            trace("general exception", e);
+            Debug.logError(e, module);
+        } 
+        return pcw;
+    }
+
+    public ProductConfigWrapper getProductConfigWrapper(String productId, String cartIndex ){
+        // Get a PCW for a pre-configured product
+         trace("get Product Config Wrapper", productId + "/" + cartIndex );
+         ProductConfigWrapper pcw = null;
+         try {
+            int index = Integer.parseInt(cartIndex);
+            ShoppingCartItem product = cart.findCartItem(index);
+            GenericDelegator delegator = cart.getDelegator();
+            pcw = product.getConfigWrapper();
+        } catch (Exception e){
+            trace("general exception", e);
+            Debug.logError(e, module);
+        }         
+        return pcw;
+    }
+    
     public void addItem(String productId, double quantity) throws CartItemModifyException, ItemNotFoundException {
         trace("add item", productId + "/" + quantity);
         try {
-            cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, null, null, null, null, null, session.getDispatcher());
+            GenericDelegator delegator = cart.getDelegator();
+            GenericValue product = null;
+            ProductConfigWrapper pcw = null;
+            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            if ("AGGREGATED".equals(product.getString("productTypeId"))) {
+                // if it's an aggregated item, load the configwrapper and set to defaults
+                pcw = new ProductConfigWrapper(delegator, session.getDispatcher(), productId, null, null, null, null, null, null);
+                pcw.setDefaultConfig();
+            }
+            //cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, null, null, null, null, null, session.getDispatcher());
+            cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, null, pcw, null, null, null, session.getDispatcher());
         } catch (ItemNotFoundException e) {
             trace("item not found", e);
             throw e;
         } catch (CartItemModifyException e) {
             trace("add item error", e);
             throw e;
+        }catch (GenericEntityException e){
+            trace("item lookup error", e);
+            Debug.logError(e, module);
+        } catch (Exception e){
+            trace("general exception", e);
+            Debug.logError(e, module);
         }
     }
 
+    public void addItem(String productId, ProductConfigWrapper pcw) 
+        throws ItemNotFoundException, CartItemModifyException {
+        trace("add item with ProductConfigWrapper", productId );
+        try {
+            cart.addOrIncreaseItem(productId, null, 1, null, null, null, null, null, null, null, null, pcw, null, null, null, session.getDispatcher());
+        } catch (ItemNotFoundException e) {
+            trace("item not found", e);
+            throw e;
+        } catch (CartItemModifyException e) {
+            trace("add item error", e);
+            throw e;
+        } catch (Exception e){
+            trace("general exception", e);
+            Debug.logError(e, module);
+        }
+    }
+
+    public void modifyConfig(String productId, ProductConfigWrapper pcw, String cartIndex) 
+        throws CartItemModifyException, ItemNotFoundException {
+        trace("modify item config", cartIndex );
+        try {   
+            int cartIndexInt = Integer.parseInt(cartIndex);
+            ShoppingCartItem cartItem = cart.findCartItem(cartIndexInt);
+            double quantity = cartItem.getQuantity();
+            cart.removeCartItem(cartIndexInt, session.getDispatcher());
+            cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, null, pcw, null, null, null, session.getDispatcher());
+        } catch (CartItemModifyException e) {
+            Debug.logError(e, module);
+            trace("void or add item error", productId, e);
+            throw e;
+        } catch (ItemNotFoundException e) {
+            trace("item not found", e);
+            throw e;
+        } catch (Exception e){
+            trace("general exception", e);
+            Debug.logError(e, module);
+        }
+        return;
+    }
+    
     public void modifyQty(String productId, double quantity) throws CartItemModifyException {
         trace("modify item quantity", productId + "/" + quantity);
         ShoppingCartItem item = cart.findCartItem(productId, null, null, null, 0.00);
@@ -719,6 +866,28 @@ public class PosTransaction implements Serializable {
                 Journal.appendNode(line, "td", "qty", UtilFormatOut.formatQuantity(quantity));
                 Journal.appendNode(line, "td", "price", UtilFormatOut.formatPrice(subTotal));
                 Journal.appendNode(line, "td", "index", Integer.toString(cart.getItemIndex(item)));
+
+                if (this.isAggregatedItem(item.getProductId())){
+                    // put alterations here
+                    ProductConfigWrapper pcw = null;
+                    // product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+                    // pcw = new ProductConfigWrapper(delegator, session.getDispatcher(), productId, null, null, null, null, null, null);
+                    pcw = item.getConfigWrapper();
+                    List selected = pcw.getSelectedOptions();
+                    Iterator iter = selected.iterator();
+                    while(iter.hasNext()){
+                        ConfigOption configoption = (ConfigOption)iter.next();
+                        if (configoption.isSelected()){
+                            XModel option = Journal.appendNode(model, "tr", "", "");
+                            Journal.appendNode(option, "td", "sku", "");
+                            Journal.appendNode(option, "td", "desc", configoption.getDescription());
+                            Journal.appendNode(option, "td", "qty", "");
+                            Journal.appendNode(option, "td", "price", UtilFormatOut.formatPrice(configoption.getPrice()));
+                            Journal.appendNode(option, "td", "index", Integer.toString(cart.getItemIndex(item)));
+                        }
+                    }
+                }
+                  
                 if (adjustment != 0) {
                     // append the promo info
                     XModel promo = Journal.appendNode(model, "tr", "", "");
@@ -921,6 +1090,27 @@ public class PosTransaction implements Serializable {
             pos.showDialog("dialog/error/nosales");
         }
     }
+
+/*    public void configureItem(String cartIndex, PosScreen pos) {
+         trace("configure item", cartIndex);
+         try {
+            int index = Integer.parseInt(cartIndex);
+            ShoppingCartItem product = cart.findCartItem(index);
+            GenericDelegator delegator = cart.getDelegator();
+            ProductConfigWrapper pcw = null;
+            pcw = product.getConfigWrapper();
+            if(pcw != null) {
+                ConfigureItem configItem = new ConfigureItem(cartIndex, pcw, this, pos);
+                configItem.openDlg();
+            }
+            else {
+                pos.showDialog("dialog/error/itemnotconfigurable");
+            }
+        } catch (Exception e){
+            trace("general exception", e);
+            Debug.logError(e, module);
+        }         
+    }  */
 
     public List createShoppingLists() {
         List shoppingLists = null;

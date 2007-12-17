@@ -157,6 +157,15 @@ under the License.
         <font_weight value="1"/>
         <font_italic value="0"/>
     </style>
+    <style name="skuButtonConfigurableItem">
+        <color_back value="daa520"/>
+        <color_fore value="000000"/>
+        <font_face value="verdana"/>
+        <font_size value="14"/>
+        <font_weight value="1"/>
+        <font_italic value="0"/>
+    </style>
+
 
     <!-- embedded POS [menu] button styles (required but can be customized) -->
     <style name="posButton">
