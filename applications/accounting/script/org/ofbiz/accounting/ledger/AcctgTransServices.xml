@@ -98,7 +98,7 @@ under the License.
 
     <!-- AcctgTrans Trial Balance and Post routines -->
     <simple-method method-name="calculateAcctgTransTrialBalance" short-description="Calculate Trial Balance for a AcctgTrans">
-        <check-permission permission="ACCOUNTING" action="_ATX_CREATE"><fail-message message="Security Error: to run calculateAcctgTransTrialBalance you must have the ACCOUNTING_ATX_CREATE or ACCOUNTING_ADMIN permission"/></check-permission>
+        <check-permission permission="ACCTG" action="_ATX_CREATE"><fail-message message="Security Error: to run calculateAcctgTransTrialBalance you must have the ACCTG_ATX_CREATE or ACCTG_ATX_ADMIN permission"/></check-permission>
         <check-errors/>
        
         <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
