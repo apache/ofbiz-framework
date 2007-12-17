@@ -237,7 +237,7 @@ public class InvoiceServices {
             Long orderTermNetDays = orh.getOrderTermNetDays();
             Timestamp dueDate = null;
             if (orderTermNetDays != null) {
-                dueDate = UtilDateTime.getDayEnd(invoiceDate, orderTermNetDays.intValue());
+                dueDate = UtilDateTime.getDayEnd(invoiceDate, orderTermNetDays);
             }
             
             // create the invoice record
@@ -934,7 +934,7 @@ public class InvoiceServices {
                 createInvoiceContext.put("invoiceDate", now);
                 // if there were days associated with the commission agreement, then set a dueDate for the invoice.
                 if (days != null) {
-                    createInvoiceContext.put("dueDate", UtilDateTime.getDayEnd(now, days.intValue()));
+                    createInvoiceContext.put("dueDate", UtilDateTime.getDayEnd(now, days));
                 }
                 createInvoiceContext.put("invoiceTypeId", invoiceType);
                 // start with INVOICE_IN_PROCESS, in the INVOICE_READY we can't change the invoice (or shouldn't be able to...)

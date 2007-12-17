@@ -125,4 +125,11 @@ under the License.
         <override name="statusId" optional="false"/>
         <override name="amount" optional="false"/>
     </service>
+
+    <service name="getInvoicePaymentInfoList" engine="simple"
+            location="org/ofbiz/accounting/payment/PaymentServices.xml" invoke="getInvoicePaymentInfoList" auth="true">
+        <description>Create a list with information on payment due dates and amounts for the invoice</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoicePaymentInfoList" type="List" mode="OUT" optional="false"/>
+    </service>
 </services>

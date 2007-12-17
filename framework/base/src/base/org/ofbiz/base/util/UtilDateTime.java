@@ -227,10 +227,10 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp) {
-        return getDayEnd(stamp, 0);
+        return getDayEnd(stamp, new Long(0));
     }
 
-    public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp, int daysLater) {
+    public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp, Long daysLater) {
         return getDayEnd(stamp, daysLater, getDefaultTimeZone(), Locale.getDefault());
     }
 
@@ -804,13 +804,13 @@ public class UtilDateTime {
     }
 
     public static Timestamp getDayEnd(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        return getDayEnd(stamp, 0, timeZone, locale);
+        return getDayEnd(stamp, new Long(0), timeZone, locale);
     }
 
-    public static Timestamp getDayEnd(Timestamp stamp, int daysLater, TimeZone timeZone, Locale locale) {
+    public static Timestamp getDayEnd(Timestamp stamp, Long daysLater, TimeZone timeZone, Locale locale) {
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
-        tempCal.add(Calendar.DAY_OF_MONTH, daysLater);
+        tempCal.add(Calendar.DAY_OF_MONTH, daysLater.intValue());
         Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
         retStamp.setNanos(999999999);
         return retStamp;

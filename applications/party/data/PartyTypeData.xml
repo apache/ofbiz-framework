@@ -325,6 +325,9 @@ under the License.
 
     <TermType description="Financial" hasTable="N" parentTypeId="" termTypeId="FINANCIAL_TERM"/>
     <TermType description="Payment (net days)" hasTable="N" parentTypeId="FINANCIAL_TERM" termTypeId="FIN_PAYMENT_TERM"/>
+    <TermType description="Payment net days, part 1" hasTable="N" parentTypeId="FIN_PAYMENT_TERM" termTypeId="FIN_PAY_NETDAYS_1"/>
+    <TermType description="Payment net days, part 2" hasTable="N" parentTypeId="FIN_PAYMENT_TERM" termTypeId="FIN_PAY_NETDAYS_2"/>
+    <TermType description="Payment net days, part 3" hasTable="N" parentTypeId="FIN_PAYMENT_TERM" termTypeId="FIN_PAY_NETDAYS_3"/>
     <TermType description="Payment (discounted if paid within specified days)" hasTable="N" parentTypeId="FINANCIAL_TERM" termTypeId="FIN_PAYMENT_DISC"/>
     <TermType description="Payment (due on specified day of month)" hasTable="N" parentTypeId="FINANCIAL_TERM" termTypeId="FIN_PAYMENT_FIXDAY"/>
     <TermType description="Late Fee (percent)" hasTable="N" parentTypeId="FINANCIAL_TERM" termTypeId="FIN_LATE_FEE_TERM"/>

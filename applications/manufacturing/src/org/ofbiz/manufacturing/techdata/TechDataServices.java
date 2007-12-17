@@ -456,7 +456,7 @@ public class TechDataServices {
         Time startTime = (Time) position.get("startTime");
         int moveDay = ((Integer) position.get("moveDay")).intValue();
         Double capacity = (Double) position.get("capacity");
-        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayEnd(dateFrom,moveDay);
+        dateTo = (moveDay == 0) ? dateFrom : UtilDateTime.getDayEnd(dateFrom, new Long(moveDay));
         Timestamp endAvailablePeriod = new Timestamp(UtilDateTime.getDayStart(dateTo).getTime() + startTime.getTime() + capacity.longValue() + cDateTrav.get(Calendar.ZONE_OFFSET) + cDateTrav.get(Calendar.DST_OFFSET));
         if (dateTo.after(endAvailablePeriod) ) {
             dateTo = endAvailablePeriod;

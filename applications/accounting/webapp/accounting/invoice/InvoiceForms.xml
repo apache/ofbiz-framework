@@ -467,4 +467,20 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
+
+    <form name="ListInvoicePaymentInfo" type="list" list-name="invoicePaymentInfoList">
+        <actions>
+            <service service-name="getInvoicePaymentInfoList" result-map-list-name="invoicePaymentInfoList">
+                <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
+            </service>
+        </actions>
+        <field name="invoiceId"><hidden/></field>
+        <field name="termTypeId">
+            <display-entity entity-name="TermType" description="${description}"/>
+        </field>
+        <field name="dueDate"><display/></field>
+        <field name="amount"><display/></field>
+        <field name="paidAmount"><display/></field>
+        <field name="outstandingAmount"><display/></field>
+    </form>
 </forms>
