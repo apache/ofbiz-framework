@@ -75,7 +75,7 @@
         <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${personalTitle} ${lastName},${firstName} ${middleName} ${groupName}" target="viewprofile?partyId=${partyId}"/>
         </field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
+        <field name="roleTypeId"><hidden/></field>
         <field name="emailAddess"><hyperlink target="/partymgr/control/EditCommunicationEvent?partyIdFrom=${userLogin.partyId}&amp;partyIdTo=${partyId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;contactMechIdTo=${contactMechId}&amp;contactMechTypeId=EMAIL_ADDRESS" description="${emailResult.emailAddress}" target-type="inter-app"/></field>
         <field use-when="telResult.get(&quot;extension&quot;)!=null" name="telephone"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber} Ext:${telResult.extension}"/></field>
         <field use-when="telResult.get(&quot;extension&quot;)==null" name="telephone"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}"/></field>
@@ -84,14 +84,7 @@
     </form>                                         
     <form name="AddResource" type="single" target="addResource">
         <field name="PartyId" parameter-name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId">
-            <drop-down>
-                <entity-options entity-name="RoleType" description="${description}">
-                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="roleTypeId"><hidden value="PROJECT_TEAM"/></field>
         <field name="addButton" ><submit/></field>
     </form>
     <form name="FindProject" type="single" target="FindProject">
@@ -310,10 +303,20 @@
         <field name="projectId"><hidden/></field>
         <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
-        <field entry-name="xx" name="partyId">
+        <field use-when="workEffortId==projectId" entry-name="xx" name="partyId"><!-- project level -->
             <drop-down>
-                <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                    <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="lastName"/>
+                    <entity-order-by field-name="groupName"/>
+                    <entity-order-by field-name="roleTypeId"/>
+                </entity-options>        
+            </drop-down>
+        </field>
+        <field use-when="workEffortId!=projectId" entry-name="xx" name="partyId"><!-- task level -->
+            <drop-down>
+                <entity-options entity-name="WorkEffortPartyAssignView" filter-by-date="true" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                    <entity-constraint name="workEffortId" env-name="projectId"/>
                     <entity-order-by field-name="lastName"/>
                     <entity-order-by field-name="groupName"/>
                     <entity-order-by field-name="roleTypeId"/>

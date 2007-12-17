@@ -55,9 +55,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindResource"/>
                 <set field="labelTitleProperty" value="ProjectMgrResourceName"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <entity-and entity-name="PartyRoleDetailAndPartyDetail" list-name="resources">
-                    <field-map field-name="parentTypeId" value="PROJECT_TEAM"/>
-                    <order-by field-name="roleTypeId"/>
+                <entity-and entity-name="PartyRoleAndPartyDetail" list-name="resources">
+                    <field-map field-name="roleTypeId" value="PROJECT_TEAM"/>
                     <order-by field-name="lastName"/>
                     <order-by field-name="groupName"/>
                 </entity-and>
