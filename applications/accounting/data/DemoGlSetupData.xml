@@ -123,23 +123,23 @@ under the License.
     <InvoiceItemType invoiceItemTypeId="COMM_INV_ITEM" defaultGlAccountId="601300"/>
     <InvoiceItemType invoiceItemTypeId="COMM_INV_ADJ" defaultGlAccountId="601400"/>
 
-    <PaymentMethodType paymentMethodTypeId="CREDIT_CARD" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="GIFT_CARD" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="GIFT_CERTIFICATE" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="CASH" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="EFT_ACCOUNT" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="FIN_ACCOUNT" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="PERSONAL_CHECK" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="COMPANY_CHECK" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="CERTIFIED_CHECK" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="MONEY_ORDER" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="COMPANY_ACCOUNT" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="EXT_BILLACT" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="EXT_COD" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="EXT_EBAY" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="EXT_OFFLINE" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="EXT_PAYPAL" glAccountId="122000"/>
-    <PaymentMethodType paymentMethodTypeId="EXT_WORLDPAY" glAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="CREDIT_CARD" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="GIFT_CARD" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="GIFT_CERTIFICATE" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="CASH" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="EFT_ACCOUNT" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="FIN_ACCOUNT" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="PERSONAL_CHECK" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="COMPANY_CHECK" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="CERTIFIED_CHECK" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="MONEY_ORDER" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="COMPANY_ACCOUNT" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="EXT_BILLACT" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="EXT_COD" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="EXT_EBAY" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="EXT_OFFLINE" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="EXT_PAYPAL" defaultGlAccountId="122000"/>
+    <PaymentMethodType paymentMethodTypeId="EXT_WORLDPAY" defaultGlAccountId="122000"/>
 
     <CostComponentCalc costComponentCalcId="EXAMPLE_COST" costGlAccountTypeId="OPERATING_EXPENSE"/>
 
