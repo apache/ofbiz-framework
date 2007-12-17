@@ -331,6 +331,7 @@ under the License.
                                     </container> 
                                 </container>
                                 <container style="righthalf">
+                                    <include-screen name="TaskTeamInfo"/>
                                     <include-screen name="NoteInfo"/>
                                 </container>
                             </widgets>
@@ -384,4 +385,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="TaskTeamInfo">      
+        <section>        
+            <actions>                      
+                <service service-name="getTasksByParties" result-map-name="result">
+                    <field-map field-name="workEffortId" env-name="workEffortId"/>                  
+                </service>
+                <set field="taskParties" from-field="result.taskParties"/>     
+            </actions>           
+            <widgets> 
+                <container style="screenlet">
+                    <container style="screenlet-title-bar">
+                        <label style="boxhead" text="">${uiLabelMap.TaskTeam}</label>
+                    </container>
+                    <container style="screenlet-body">
+                        <include-form name="ListTaskParties" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                    </container>
+                </container>                
+            </widgets>
+        </section>
+    </screen>     
 </screens>

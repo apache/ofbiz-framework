@@ -403,6 +403,7 @@
                         <set field="taskParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName}${partyNameView.groupName}"/>
                     </if-not-empty>
                     <set field="taskParty.roleTypeId" from-field="task.roleTypeId"/>
+                    <set field="taskParty.statusId" from-field="task.statusId"/>
                     <set field="taskParty.fromDate" from-field="task.fromDate"/>
                     <set field="taskParty.thruDate" from-field="task.thruDate"/>
                 </if-empty>
@@ -410,6 +411,7 @@
                 <!-- get the planned hours -->
                 <set field="lowInfo" from-field="task"/>
                 <set field="hoursPartyId" from-field="task.partyId"/>
+                <get-related-one value-name="task" relation-name="WorkEffort" to-value-name="lowInfo"/>
                 <call-simple-method method-name="getHours"/>
                 <set field="taskParty.plannedHours" from-field="highInfo.plannedHours"/>                    
                 <set field="taskParty.actualHours" from-field="highInfo.actualHours"/>                    

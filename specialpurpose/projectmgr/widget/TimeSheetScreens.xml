@@ -45,7 +45,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="EditTimeSheet1">
+    <screen name="EditTimeSheet">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindTimesheet"/>
@@ -72,6 +72,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
     <screen name="MyTimesheets">
         <section>
             <actions>

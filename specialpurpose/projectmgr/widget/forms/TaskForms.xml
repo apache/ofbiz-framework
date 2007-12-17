@@ -285,4 +285,15 @@
         <field name="deleteButton" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="complete"><hyperlink description="set to Complete" target="updateTaskPartyAssign?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=CAL_COMPLETED&amp;thruDate=${nowDate}"/></field>
     </form>
+    <form name="ListTaskParties" type="list" list-name="taskParties">   
+        <field name="partyId" title="${uiLabelMap.CommonName}">
+            <hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyName}"/>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}"><display-entity entity-name="RoleType" description="${description}"/></field>        
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>        
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
+        <field name="plannedHours"><display/></field>
+        <field name="actualHours"><display/></field> 
+    </form>  
 </forms>
