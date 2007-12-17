@@ -93,7 +93,7 @@ under the License.
                                     </container>
                                 </container>
                                 <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleMyTimesheets} # ${timesheet.timesheetId}</label></container>                                
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleMyTimesheets}</label></container>                                
                                     <container style="screenlet-body"> 
                                         <include-form name="ListTimeSheets" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                                     </container>

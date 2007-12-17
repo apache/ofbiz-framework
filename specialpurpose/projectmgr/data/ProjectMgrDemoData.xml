@@ -10,7 +10,7 @@
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
-    <PartyRole partyId="DemoEmployee1" roleTypeId="PROVIDER_MANAGER"/>
+    <PartyRole partyId="DemoEmployee1" roleTypeId="PROJECT_TEAM"/>
     <!-- Demo Employee2 -->
     <Party partyId="DemoEmployee2" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoEmployee2" firstName="Jo" lastName="Analist" />
@@ -19,9 +19,10 @@
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
-    <PartyRole partyId="DemoEmployee2" roleTypeId="PROVIDER_ANALYST"/>
-    <!-- Demo customer -->
-    <PartyRole partyId="DemoCustomer" roleTypeId="CLIENT_MANAGER"/>
+    <PartyRole partyId="DemoEmployee2" roleTypeId="PROJECT_TEAM"/>
+    <!-- make sure they show up as resources -->
+    <PartyRole partyId="DemoCustomer" roleTypeId="PROJECT_TEAM"/>
+    <PartyRole partyId="admin" roleTypeId="PROJECT_TEAM"/>
     
     <!-- Demo project, phases and tasks -->
     <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PUBLIC" workEffortName="Demo Project" revisionNumber="1"/> 

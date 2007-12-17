@@ -254,6 +254,10 @@ under the License.
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
                 <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
+                <service service-name="getProjectIdAndName" result-map-name="result">
+                    <field-map field-name="taskId" env-name="parameters.workEffortId"/>
+                </service>
+                <set field="projectId" from-field="result.projectId"/>
             </actions>            
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
