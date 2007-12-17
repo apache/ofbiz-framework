@@ -23,8 +23,8 @@ under the License.
     <AcctgTransType acctgTransTypeId="DEPRECIATION" description="Depreciation" hasTable="Y" parentTypeId="INTERNAL_ACCTG_TRANS"/>
     <AcctgTransType acctgTransTypeId="CAPITALIZATION" description="Capitalization" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
     <AcctgTransType acctgTransTypeId="INVENTORY" description="Inventory" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
-    <AcctgTransType acctgTransTypeId="ITEM_VARIANCE_ACCTG_" description="Item Variance" hasTable="Y" parentTypeId="INTERNAL_ACCTG_TRANS"/>
-    <AcctgTransType acctgTransTypeId="OTHER_INTERNAL_ACCTG" description="Other Internal" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="ITEM_VARIANCE" description="Inventory Item Variance" hasTable="Y" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="OTHER_INTERNAL" description="Other Internal" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
     <AcctgTransType acctgTransTypeId="PERIOD_CLOSING" description="Period Closing" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
 
     <AcctgTransType acctgTransTypeId="EXTERNAL_ACCTG_TRANS" description="External" hasTable="Y" parentTypeId=""/>
@@ -34,22 +34,23 @@ under the License.
     <AcctgTransType acctgTransTypeId="CREDIT_MEMO" description="Credit Memo" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/>
     <AcctgTransType acctgTransTypeId="NOTE" description="Note" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/>
     <AcctgTransType acctgTransTypeId="OTHER_OBLIGATION" description="Other Obligation" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/>
-    <AcctgTransType acctgTransTypeId="SALES_ACCTG_TRANS" description="Sales" hasTable="Y" parentTypeId="OBLIGATION_ACCTG_TRA"/>
+    <AcctgTransType acctgTransTypeId="SALES" description="Sales" hasTable="Y" parentTypeId="OBLIGATION_ACCTG_TRA"/>
     <AcctgTransType acctgTransTypeId="TAX_DUE" description="Tax Due" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/>
 
     <AcctgTransType acctgTransTypeId="PAYMENT_ACCTG_TRANS" description="Payment" hasTable="Y" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
-    <AcctgTransType acctgTransTypeId="DISBURSEMENT_ACCTG_T" description="Disbursement" hasTable="N" parentTypeId="PAYMENT_ACCTG_TRANS"/>
-    <AcctgTransType acctgTransTypeId="RECEIPT_ACCTG_TRANS" description="Receipt" hasTable="N" parentTypeId="PAYMENT_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="DISBURSEMENT" description="Disbursement" hasTable="N" parentTypeId="PAYMENT_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="RECEIPT" description="Receipt" hasTable="N" parentTypeId="PAYMENT_ACCTG_TRANS"/>
 
     <AcctgTransType acctgTransTypeId="INVENTORY_RETURN" description="Inventory from Return" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
 
-    <AcctgTransType acctgTransTypeId="SALES_SHIPMENT" parentTypeId="" hasTable="N" description="Sales Shipment"/>
-    <AcctgTransType acctgTransTypeId="SALES_INVOICE" parentTypeId="" hasTable="N" description="Sales Invoice"/>
-    <AcctgTransType acctgTransTypeId="PURCHASE_INVOICE" parentTypeId="" hasTable="N" description="Purchase Invoice"/>
-    <AcctgTransType acctgTransTypeId="SHIPMENT_RECEIPT" parentTypeId="" hasTable="N" description="Shipment Receipt"/>
-    <AcctgTransType acctgTransTypeId="MANUFACTURING" parentTypeId="" hasTable="N" description="Manufacturing"/>
+    <AcctgTransType acctgTransTypeId="SALES_INVOICE" description="Sales Invoice" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/><!-- FIXME: replace with "SALES" -->
+    <AcctgTransType acctgTransTypeId="PURCHASE_INVOICE" description="Purchase Invoice" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/><!-- FIXME: replace with "SALES" -->
+    <AcctgTransType acctgTransTypeId="SALES_SHIPMENT" description="Sales Shipment" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="SHIPMENT_RECEIPT" description="Shipment Receipt" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="MANUFACTURING" description="Manufacturing" hasTable="N" parentTypeId=""/>
 
-    <AcctgTransType acctgTransTypeId="INCOMING_PAYMENT" description="Incoming Payment" hasTable="N" parentTypeId=""/>
+    <AcctgTransType acctgTransTypeId="INCOMING_PAYMENT" description="Incoming Payment" hasTable="N" parentTypeId=""/><!-- FIXME: replace with "RECEIPT" -->
+    <AcctgTransType acctgTransTypeId="OUTGOING_PAYMENT" description="Outgoing Payment" hasTable="N" parentTypeId=""/><!-- FIXME: replace with "DISBURSEMENT" -->
 
     <AcctgTransEntryType acctgTransEntryTypeId="_NA_" description="Not Applicable" hasTable="N" parentTypeId=""/>
 
