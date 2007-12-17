@@ -33,19 +33,22 @@ LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher"
 projectId = parameters.get("projectId");
 userLogin = session.getAttribute("userLogin");
 
+
 ganttList = new LinkedList(); // resulting list
 
 //project info
 result = dispatcher.runSync("getProject", UtilMisc.toMap("projectId", projectId, "userLogin", userLogin));
 project = result.get("projectInfo");
-if (project.get("startDate") != null) 
+if (project != null && project.get("startDate") != null) 
     context.put("chartStart",project.get("startDate"));
 else
     context.put("chartStart", UtilDateTime.nowTimestamp()); // default todays date
-if (project.get("completionDate") != null )         
+if (project != null && project.get("completionDate") != null )         
     context.put("chartEnd",project.get("completionDate"));
 else
     context.put("chartEnd", UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 14)); // default 14 days long
+
+if (project == null) return;
 
 // phase list
 result = dispatcher.runSync("getProjectPhaseList", UtilMisc.toMap("userLogin", userLogin, "projectId", projectId));
