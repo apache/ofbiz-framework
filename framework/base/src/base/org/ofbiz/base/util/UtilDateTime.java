@@ -83,6 +83,10 @@ public class UtilDateTime {
         return new Timestamp(start.getTime() + (24*60*60*1000*days));
     }
 
+    public static Timestamp addDaysToTimestamp(Timestamp start, Double days) {
+        return new Timestamp(start.getTime() + ((int) (24*60*60*1000*days)));
+    }
+
     public static double getInterval(Timestamp from, Timestamp thru) {
         return thru != null ? thru.getTime() - from.getTime() + (thru.getNanos() - from.getNanos()) / 1000000 : 0;
     }
