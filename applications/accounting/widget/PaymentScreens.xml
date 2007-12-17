@@ -32,7 +32,11 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="newPayment" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingPayment}" style="buttontext"/></container>
+                        <container>
+                            <link target="newPayment" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.AccountingPayment}" style="buttontext"/>
+                            <link target="FindSalesInvoicesByDueDate" text="Find Sales Invoices By Due Date" style="buttontext"/>
+                            <link target="FindPurchaseInvoicesByDueDate" text="Find Purchase Invoices By Due Date" style="buttontext"/>
+                        </container>
                         <container><label style="head1" text="${uiLabelMap.AccountingFindPayments}"/></container>
                         <include-form name="FindPayments" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                         <include-form name="ListPayments"  location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
@@ -383,4 +387,64 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="FindSalesInvoicesByDueDate">
+        <section>
+            <actions>
+                <set field="title" value="Find Invoices By Due Date"/>
+                <set field="titleProperty" value="PageTitleFindInvoicesByDueDate"/>
+                <set field="headerItem" value="payments"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <set field="invoicePaymentInfoList" from-field="parameters.invoicePaymentInfoList" type="List"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1" text="Sales Invoices"/></container>
+                        <include-form name="FindSalesInvoicesByDueDate" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="invoicePaymentInfoList"/></not>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListInvoicesByDueDate"  location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindPurchaseInvoicesByDueDate">
+        <section>
+            <actions>
+                <set field="title" value="Find Invoices By Due Date"/>
+                <set field="titleProperty" value="PageTitleFindInvoicesByDueDate"/>
+                <set field="headerItem" value="payments"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <set field="invoicePaymentInfoList" from-field="parameters.invoicePaymentInfoList" type="List"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="head1" text="Purchase Invoices"/></container>
+                        <include-form name="FindPurchaseInvoicesByDueDate" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="invoicePaymentInfoList"/></not>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListInvoicesByDueDate" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

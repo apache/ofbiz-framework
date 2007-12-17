@@ -343,6 +343,28 @@ under the License.
         <response name="success" type="view" value="ListChecksToSend"/>
         <response name="error" type="view" value="ListChecksToSend"/>
     </request-map>
+
+    <request-map uri="FindSalesInvoicesByDueDate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindSalesInvoicesByDueDate"/>
+    </request-map>
+    <request-map uri="findSalesInvoicesByDueDate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getInvoicePaymentInfoListByDueDateOffset"/>
+        <response name="success" type="view" value="FindSalesInvoicesByDueDate"/>
+        <response name="error" type="view" value="FindSalesInvoicesByDueDate"/>
+    </request-map>
+    <request-map uri="FindPurchaseInvoicesByDueDate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindPurchaseInvoicesByDueDate"/>
+    </request-map>
+    <request-map uri="findPurchaseInvoicesByDueDate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getInvoicePaymentInfoListByDueDateOffset"/>
+        <response name="success" type="view" value="FindPurchaseInvoicesByDueDate"/>
+        <response name="error" type="view" value="FindPurchaseInvoicesByDueDate"/>
+    </request-map>
+
     <!-- transaction page requests -->
     <request-map uri="FindGatewayResponses">
         <security https="true" auth="true"/>
@@ -1662,7 +1684,9 @@ under the License.
     <view-map name="editPaymentApplications" type="screen" page="component://accounting/widget/PaymentScreens.xml#EditPaymentApplications"/>
     <view-map name="ManualTransaction" type="screen" page="component://accounting/widget/PaymentScreens.xml#ManualTransaction"/>
     <view-map name="PrintChecks" type="screenfop" page="component://accounting/widget/PaymentScreens.xml#PrintChecks" content-type="application/pdf" encoding="none"/>
-    
+    <view-map name="FindSalesInvoicesByDueDate" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindSalesInvoicesByDueDate"/>
+    <view-map name="FindPurchaseInvoicesByDueDate" type="screen" page="component://accounting/widget/PaymentScreens.xml#FindPurchaseInvoicesByDueDate"/>
+
     <!-- Party Accounts -->
     <view-map name="PartyAccountsSummary" type="screen" page="component://accounting/widget/GlScreens.xml#PartyAccountsSummary"/>
     <view-map name="FindAcctgTrans" type="screen" page="component://accounting/widget/GlScreens.xml#FindAcctgTrans"/>
