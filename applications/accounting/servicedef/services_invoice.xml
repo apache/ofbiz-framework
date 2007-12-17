@@ -267,4 +267,11 @@ under the License.
         <description>Accounting Invoice Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
+    <!-- Update InvoiceItemType -->
+    <service name="updateInvoiceItemType" engine="simple" default-entity-name="InvoiceItemType"
+        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItemType">
+        <description>Update Invoice Item Type Record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
 </services>

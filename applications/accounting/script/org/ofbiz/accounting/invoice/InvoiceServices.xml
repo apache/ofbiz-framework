@@ -506,4 +506,10 @@ under the License.
         <create-value value-name="invoiceContactMech"/>
         <field-to-result field-name="contactMechId" map-name="invoiceContactMech"/>
     </simple-method>
+    
+    <simple-method method-name="updateInvoiceItemType"  short-description="Updates a InvoiceItemType Record">
+        <entity-one entity-name="InvoiceItemType" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+   </simple-method>
 </simple-methods>
