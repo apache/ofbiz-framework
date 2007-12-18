@@ -318,6 +318,12 @@ under the License.
         <response name="success" type="view" value="jobList"/>
         <response name="error" type="view" value="jobList"/>
     </request-map>
+    <request-map uri="resetJob">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="resetScheduledJob"/>
+        <response name="success" type="view" value="jobList"/>
+        <response name="error" type="view" value="jobList"/>
+    </request-map>
     <request-map uri="scheduleJob">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="scheduleJob"/>
