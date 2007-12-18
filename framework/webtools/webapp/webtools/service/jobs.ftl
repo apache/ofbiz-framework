@@ -25,6 +25,7 @@ under the License.
     <tr class="header-row">
       <td>${uiLabelMap.WebtoolsJob}</td>
       <td>${uiLabelMap.CommonId}</td>
+      <td>${uiLabelMap.CommonStatus}</td>
       <td>${uiLabelMap.WebtoolsPool}</td>
       <td>${uiLabelMap.WebtoolsRunTime}</td>
       <td>${uiLabelMap.CommonStartDateTime}</td>
@@ -34,9 +35,11 @@ under the License.
     </tr>
     <#assign alt_row = false>
     <#list jobs as job>
+      <#assign statusItem = job.getRelatedOne("StatusItem")?if_exists/>
       <tr<#if alt_row> class="alternate-row"</#if>>
         <td>${job.jobName?if_exists}&nbsp;</td>
         <td>${job.jobId?if_exists}&nbsp;</td>
+        <td>${(statusItem.description)?if_exists}</td>
         <td>${job.poolId?if_exists}&nbsp;</td>
         <td>${job.runTime?if_exists}&nbsp;</td>
         <td>${job.startDateTime?if_exists}&nbsp;</td>
