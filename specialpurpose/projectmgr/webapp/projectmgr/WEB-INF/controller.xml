@@ -57,19 +57,25 @@
     </request-map>
     <request-map uri="createProject">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffort"/>
-        <response name="success" type="request-redirect" value="EditProject"/>
+        <event type="service" invoke="createProject"/>
+        <response name="success" type="request-redirect" value="projectView"/>
         <response name="error" type="view" value="EditProject"/>
     </request-map>
     <request-map uri="updateProject">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateWorkEffort"/>
-        <response name="success" type="view" value="EditProject"/>
+        <response name="success" type="view" value="projectView"/>
         <response name="error" type="view" value="EditProject"/>
     </request-map>
     <request-map uri="copyProject">
         <security https="true" auth="true"/>
         <event type="service" invoke="copyProject"/>
+        <response name="success" type="view" value="projectView"/>
+        <response name="error" type="view" value="projectView"/>
+    </request-map>
+    <request-map uri="copyProjectToTemplate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="copyProjectToTemplate"/>
         <response name="success" type="view" value="projectView"/>
         <response name="error" type="view" value="projectView"/>
     </request-map>

@@ -85,6 +85,14 @@
             </condition>
             <link target="scheduleProject?projectId=${projectId}"></link>
         </menu-item>
+        <menu-item name="copyProjectToTemplate" title="${uiLabelMap.ProjectMgrSaveAsTemplate}">
+            <condition>
+                <not>
+                    <if-empty field-name="project"/>
+                </not>
+            </condition>
+            <link target="copyProjectToTemplate?projectId=${projectId}"></link>
+        </menu-item>
     </menu>
     <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}"><link target="taskView?workEffortId=${workEffortId}"/></menu-item>
