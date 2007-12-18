@@ -53,6 +53,15 @@ under the License.
         <auto-attributes entity-name="JobSandbox" include="pk" mode="IN" optional="false"/>        
     </service>
 
+    <service name="resetScheduledJob" engine="java"
+            location="org.ofbiz.service.ServiceUtil" invoke="resetJob" auth="true">
+        <description>Resets a stale job so it can be re-run</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="SERVICE_INVOKE_ANY"/>
+        </required-permissions>
+        <auto-attributes entity-name="JobSandbox" include="pk" mode="IN" optional="false"/>
+    </service>
+
     <!-- Service Engine Interfaces -->
     <service name="permissionInterface" engine="interface">
         <description>Interface to describe base parameters for Permission Services</description>
