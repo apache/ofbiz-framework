@@ -296,4 +296,16 @@
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field> 
     </form>  
+    <form name="ListWorkEffortRequests" type="list">
+        <actions>
+            <entity-and entity-name="WorkEffortCustRequestView">
+                <field-map field-name="workEffortId"/>
+            </entity-and>
+        </actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="custRequestId" widget-style="buttontext"><hyperlink description="${custRequestId}" target="/projectmgr/control/ViewRequest?custRequestId=${custRequestId}" target-type="inter-app"/></field>
+        <field name="description"><display/></field>
+        <field name="custRequestTypeDescription"><display/></field>
+        <field name="statusItemDescription"><display/></field>
+    </form>              
 </forms>
