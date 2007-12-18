@@ -337,6 +337,7 @@ under the License.
                                 <container style="righthalf">
                                     <include-screen name="TaskTeamInfo"/>
                                     <include-screen name="NoteInfo"/>
+                                    <include-screen name="ListWorkEffortRequests"/>
                                 </container>
                             </widgets>
                         </section>
@@ -408,5 +409,21 @@ under the License.
                 </container>                
             </widgets>
         </section>
-    </screen>     
+    </screen>
+    <screen name="ListWorkEffortRequests">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="taskView"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <container style="screenlet">
+                    <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.PageTitleRequestList}"/></container>
+                    <container style="screenlet-body">
+                        <include-form name="ListWorkEffortRequests" location="component://projectmgr/widget/forms/TaskForms.xml"/>                  
+                    </container>              
+                </container>
+            </widgets>
+        </section>
+    </screen>          
 </screens>
