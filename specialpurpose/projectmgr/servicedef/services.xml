@@ -42,6 +42,12 @@ under the License.
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="projectInfo" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
+
+    <service name="copyProject" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="copyProject">
+        <description>Copy a project planning data but ignore the actual data.</description>
+        <attribute name="projectId" type="String" mode="INOUT" optional="false"/>
+    </service>
     
     <service name="scheduleProject" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="scheduleProject">

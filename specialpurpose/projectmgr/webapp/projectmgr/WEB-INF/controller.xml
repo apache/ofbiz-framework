@@ -67,6 +67,12 @@
         <response name="success" type="view" value="EditProject"/>
         <response name="error" type="view" value="EditProject"/>
     </request-map>
+    <request-map uri="copyProject">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="copyProject"/>
+        <response name="success" type="view" value="projectView"/>
+        <response name="error" type="view" value="projectView"/>
+    </request-map>
     <request-map uri="deleteProject">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteWorkEffort"/>

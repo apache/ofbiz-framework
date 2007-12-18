@@ -211,6 +211,62 @@
         <field-to-result field-name="project.workEffortName" result-name="projectName"/>
     </simple-method>
     
+    <simple-method method-name="copyProject" short-description="copy a project with related phases and tasks however no actual data">
+        <entity-one entity-name="WorkEffort" value-name="project">
+            <field-map field-name="workEffortId" env-name="parameters.projectId"/>
+        </entity-one> 
+        
+        <if-empty field-name="project">
+            <field-to-result map-name="parameters" field-name="projectId"/>
+            <add-error error-list-name="error_list"><fail-message message="Project: ${parameters.projectId} not found"/></add-error>
+        </if-empty>
+        
+        <set field="newProject.workEffortName" from-field="project.workEffortName"/>
+        <set field="newProject.workEffortTypeId" from-field="project.workEffortTypeId"/>
+        <set field="newProject.currentStatusId" value="CAL_ACCEPTED"/>            
+        <call-service service-name="createWorkEffort" in-map-name="newProject">
+            <result-to-field result-name="workEffortId" field-name="newProjectId"/>
+        </call-service> 
+        
+        <!-- copy assigned parties -->
+        <get-related value-name="project" relation-name="WorkEffortPartyAssignment" list-name="parties"/>
+        <iterate entry-name="party" list-name="parties">
+            <set field="pa.workEffortId" from-field="newProjectId"/>            
+            <set field="pa.partyId" from-field="party.partyId"/>
+            <set field="pa.roleTypeId" from-field="party.roleTypeId"/>
+            <set field="pa.statusId" value="CAL_ACCEPTED"/>            
+            <call-service service-name="assignPartyToWorkEffort" in-map-name="pa"/>
+        </iterate>
+        
+        <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
+        <if-not-empty field-name="phases">
+            <iterate entry-name="phase" list-name="phases">
+                <clear-field field-name="newPhase"/>
+                <set field="newPhase.workEffortName" from-field="phase.workEffortName"/>
+                <set field="newPhase.workEffortTypeId" from-field="phase.workEffortTypeId"/>
+                <set field="newPhase.workEffortParentId" from-field="newProjectId"/>
+                <set field="newPhase.currentStatusId" value="CAL_ACCEPTED"/>            
+                <call-service service-name="createWorkEffort" in-map-name="newPhase">
+                    <result-to-field result-name="workEffortId" field-name="newPhaseId"/>
+                </call-service> 
+                
+                <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
+                <if-not-empty field-name="tasks">
+                    <iterate entry-name="task" list-name="tasks">
+                        <clear-field field-name="newTask"/>
+                        <set field="newTask.workEffortName" from-field="task.workEffortName"/>
+                        <set field="newTask.workEffortTypeId" from-field="task.workEffortTypeId"/>
+                        <set field="newTask.priority" from-field="task.priority"/>
+                        <set field="newTask.workEffortParentId" from-field="newPhaseId"/>
+                        <set field="newTask.currentStatusId" value="CAL_ACCEPTED"/>            
+                        <call-service service-name="createWorkEffort" in-map-name="newTask"/>
+                    </iterate>
+                </if-not-empty>
+            </iterate>
+        </if-not-empty>
+        <field-to-result field-name="newProjectId" result-name="projectId"/>
+    </simple-method>
+    
     <simple-method method-name="getProject" short-description="get Project information" login-required="true">
             <if-empty field-name="parameters.projectId">
                 <return/>
