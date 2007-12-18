@@ -376,7 +376,15 @@ public class AIMPaymentServices {
     }
 
     private static boolean isTestMode() {
-         return ("TRUE".equals((String) AIMProperties.get("testReq"))); 
+       boolean ret = true;
+        String testReq = (String)AIMProperties.get("testReq");
+        if(testReq != null) {
+            if(testReq.equals("TRUE"))
+                ret = true;
+            else
+                ret = false;
+        }
+        return ret;
     }
 
     private static String getVersion() {
