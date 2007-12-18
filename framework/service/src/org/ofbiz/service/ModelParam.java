@@ -200,7 +200,12 @@ public class ModelParam implements Serializable {
             return "dateTime";
         } else if (ObjectType.instanceOf(java.util.Date.class, this.type)) {
             return "dateTime";
+        } else if (ObjectType.instanceOf(java.lang.Long.class, this.type)) {
+            return "unsignedInt";
+        } else if (ObjectType.instanceOf(java.sql.Timestamp.class, this.type)) {
+            return "string";
         }
+
         // TODO add array support (maybe even convert List objects); add GenericValue/Map support
         throw new WSDLException(WSDLException.OTHER_ERROR, "Service cannot be described with WSDL (" + this.name + " / " + this.type + ")");
     }
