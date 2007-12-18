@@ -67,6 +67,8 @@ under the License.
             <input type="hidden" name="transactionType" value="${currentTx.enumId}">
           <#else>
             <select name="transactionType" onchange="javascript:document.manualTxForm.submit();">
+            <#-- the select one option is so the list will fire on any seletion -->
+              <option value="Select one">${uiLabelMap.CommonSelectOne}</option>
               <#list paymentSettings as setting>
                 <option value="${setting.enumId}">${setting.get("description",locale)}</option>
               </#list>
