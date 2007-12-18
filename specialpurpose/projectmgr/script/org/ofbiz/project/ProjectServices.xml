@@ -211,6 +211,24 @@
         <field-to-result field-name="project.workEffortName" result-name="projectName"/>
     </simple-method>
     
+    <simple-method method-name="createProject" short-description="if templateId is present copy a project from a template">
+        <if-not-empty field-name="parameters.templateId">
+            <set field="parameters.projectId" from-field="parameters.templateId"/>
+            <call-simple-method method-name="copyProject"/>
+            <else>
+                <set-service-fields service-name="createWorkEffort" map-name="parameters" to-map-name="parm"/>
+                <call-service service-name="createWorkEffort" in-map-name="parm">
+                    <result-to-result result-name="workEffortId"/>
+                </call-service>
+            </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="copyProjectToTemplate" short-description="copy a project to a workeffortType starting with 'template'">
+        <set field="toTemplate" value="dummy"/>
+        <call-simple-method method-name="copyProject"/>
+    </simple-method>
+    
     <simple-method method-name="copyProject" short-description="copy a project with related phases and tasks however no actual data">
         <entity-one entity-name="WorkEffort" value-name="project">
             <field-map field-name="workEffortId" env-name="parameters.projectId"/>
@@ -220,9 +238,18 @@
             <field-to-result map-name="parameters" field-name="projectId"/>
             <add-error error-list-name="error_list"><fail-message message="Project: ${parameters.projectId} not found"/></add-error>
         </if-empty>
-        
-        <set field="newProject.workEffortName" from-field="project.workEffortName"/>
-        <set field="newProject.workEffortTypeId" from-field="project.workEffortTypeId"/>
+        <if-not-empty field-name="parameters.workEffortName">
+            <set field="newProject.workEffortName" from-field="parameters.workEffortName"/>
+            <else>
+                <set field="newProject.workEffortName" from-field="project.workEffortName"/>
+            </else>
+        </if-not-empty>
+        <if-not-empty field-name="toTemplate">
+            <set field="newProject.workEffortTypeId" value="PROJECT_TEMPLATE"/>
+            <else>
+                <set field="newProject.workEffortTypeId" value="PROJECT"/>
+            </else>            
+        </if-not-empty>
         <set field="newProject.currentStatusId" value="CAL_ACCEPTED"/>            
         <call-service service-name="createWorkEffort" in-map-name="newProject">
             <result-to-field result-name="workEffortId" field-name="newProjectId"/>
@@ -242,8 +269,13 @@
         <if-not-empty field-name="phases">
             <iterate entry-name="phase" list-name="phases">
                 <clear-field field-name="newPhase"/>
+                <if-not-empty field-name="toTemplate">
+                    <set field="newPhase.workEffortTypeId" value="PHASE_TEMPLATE"/>
+                    <else>
+                        <set field="newPhase.workEffortTypeId" value="PHASE"/>
+                    </else>            
+                </if-not-empty>
                 <set field="newPhase.workEffortName" from-field="phase.workEffortName"/>
-                <set field="newPhase.workEffortTypeId" from-field="phase.workEffortTypeId"/>
                 <set field="newPhase.workEffortParentId" from-field="newProjectId"/>
                 <set field="newPhase.currentStatusId" value="CAL_ACCEPTED"/>            
                 <call-service service-name="createWorkEffort" in-map-name="newPhase">
@@ -254,8 +286,13 @@
                 <if-not-empty field-name="tasks">
                     <iterate entry-name="task" list-name="tasks">
                         <clear-field field-name="newTask"/>
+                        <if-not-empty field-name="toTemplate">
+                            <set field="newTask.workEffortTypeId" value="TASK_TEMPLATE"/>
+                            <else>
+                                <set field="newTask.workEffortTypeId" value="TASK"/>
+                            </else>            
+                        </if-not-empty>
                         <set field="newTask.workEffortName" from-field="task.workEffortName"/>
-                        <set field="newTask.workEffortTypeId" from-field="task.workEffortTypeId"/>
                         <set field="newTask.priority" from-field="task.priority"/>
                         <set field="newTask.workEffortParentId" from-field="newPhaseId"/>
                         <set field="newTask.currentStatusId" value="CAL_ACCEPTED"/>            

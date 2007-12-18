@@ -28,4 +28,10 @@ under the License.
     <RoleType description="Provider Validator" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_VALIDATOR"/>
     <RoleType description="Provider Functional Implementer" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PRVDER_FUNCTNAL_IMPL"/>
     <RoleType description="Provider Test Implementer" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PRVDER_TEST_IMPL"/>
+    
+    <!-- to be able to store project templates -->
+    <WorkEffortType workEffortTypeId="TEMPLATE" description="Template"/>
+    <WorkEffortType workEffortTypeId="PROJECT_TEMPLATE" parentTypeId="TEMPLATE" description="Project Template"/>
+    <WorkEffortType workEffortTypeId="PHASE_TEMPLATE" parentTypeId="TEMPLATE" description="Project Phase Template"/>
+    <WorkEffortType workEffortTypeId="TASK_TEMPLATE" parentTypeId="TEMPLATE" description="Project Task Template"/>
 </entity-engine-xml>
