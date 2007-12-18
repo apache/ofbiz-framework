@@ -379,10 +379,11 @@ public class AIMPaymentServices {
        boolean ret = true;
         String testReq = (String)AIMProperties.get("testReq");
         if(testReq != null) {
-            if(testReq.equals("TRUE"))
+            if(testReq.toUpperCase().equals("TRUE")) {
                 ret = true;
-            else
+            } else {
                 ret = false;
+            }
         }
         return ret;
     }
