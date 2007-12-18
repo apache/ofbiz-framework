@@ -210,7 +210,7 @@ public class JobInvoker implements Runnable {
 
             if (job == null) {
                 try {
-                    wait(wait);
+                    java.lang.Thread.sleep(wait);
                 } catch (InterruptedException ie) {
                     Debug.logError(ie, "JobInvoker.run() : InterruptedException", module);
                     stop();
