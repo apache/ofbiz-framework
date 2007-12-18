@@ -36,8 +36,16 @@ under the License.
         // Convert the database data to json
         <#if tasks?has_content>
 	        <#list tasks as taskNode>
-	            var dtStart = new Date("${taskNode.estimatedStartDate?string.short}");
-	            var dtEnd = new Date("${taskNode.estimatedCompletionDate?string.short}");
+                <#if taskNode.estimatedStartDate?exists>
+                   var dtStart = new Date("${taskNode.estimatedStartDate?string.short}");
+                   <#else>
+                   var dtStart = new Date("${chartStart?string.short}");
+                </#if>
+                <#if taskNode.estimatedCompletionDate?exists>
+                    var dtEnd = new Date("${taskNode.estimatedCompletionDate?string.short}");
+                   <#else>
+                   var dtEnd = new Date("${chartEnd?string.short}");
+                </#if>
 	            <#if taskNode.phaseName?exists>
 	                json.push({high: dtEnd.getTime(), low: dtStart.getTime(), task: "${taskNode.phaseName}", type: "p"});
 	            <#elseif taskNode.workEffortName?exists>
