@@ -69,6 +69,14 @@
             </condition>
             <link target="EditProject"></link>
         </menu-item>
+        <menu-item name="copyProject" title="${uiLabelMap.ProjectMgrCopyProject}">
+            <condition>
+                <not>
+                    <if-empty field-name="project"/>
+                </not>
+            </condition>
+            <link target="copyProject?projectId=${projectId}"></link>
+        </menu-item>
         <menu-item name="schedule" title="${uiLabelMap.ProjectMgrSchedule}">
             <condition>
                 <not>
