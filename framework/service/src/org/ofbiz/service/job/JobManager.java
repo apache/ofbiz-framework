@@ -398,7 +398,7 @@ public class JobManager {
             jobName = Long.toString((new Date().getTime()));
         }
         Map<String, Object> jFields = UtilMisc.<String, Object>toMap("jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
-                "serviceName", serviceName, "recurrenceInfoId", infoId, "runtimeDataId", dataId);
+                "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", dataId);
 
         // set the pool ID
         if (poolName != null && poolName.length() > 0) {
@@ -414,7 +414,7 @@ public class JobManager {
         jFields.put("maxRetry", Long.valueOf(maxRetry));
 
         // create the value and store
-        GenericValue jobV = null;
+        GenericValue jobV;
         try {
             jobV = delegator.makeValue("JobSandbox", jFields);
             delegator.createSetNextSeqId(jobV);

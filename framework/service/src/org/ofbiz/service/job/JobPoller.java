@@ -88,10 +88,12 @@ public class JobPoller implements Runnable {
             try {
                 // grab a list of jobs to run.
                 List<Job> pollList = jm.poll();
+                //Debug.logInfo("Received poll list from JobManager [" + pollList.size() + "]", module);
 
                 for (Job job : pollList) {
                     if (job.isValid()) {
                         queueNow(job);
+                        //Debug.logInfo("Job [" + job.getJobId() + "] is queued", module);
                     }
                 }
                 // NOTE: using sleep instead of wait for stricter locking
