@@ -87,11 +87,17 @@ under the License.
     <screen name="MyTasks">
         <section>            
             <actions>
-                <set field="titleProperty" value="PageTitleFindTask"/>
+                <set field="titleProperty" value="PageTitleMyTask"/>
                 <set field="headerItem" value="mytasks"/>
-                <set field="labelTitleProperty" value="ProjectMgrTaskName"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/Dependencies"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/MyTasks.bsh"/>
+                <set field="labelTitleProperty" value="ProjectMgrMyTasks"/>
+                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="workEffortTypeId" value="TASK"/>
+                </entity-and>
+                <entity-one entity-name="WorkEffort" value-name="task">
+                    <field-map field-name="workEffortId" value="dummy"/>
+                </entity-one>
+                <set field="myTask" value="notNull"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -99,13 +105,29 @@ under the License.
                         <section>                                                        
                             <widgets>
                                 <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleFindTask}</label></container>                                
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTaskAssignedToMe}</label></container>                                
                                     <container style="screenlet-body"> 
-                                        <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                        <include-form name="MyTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="lefthalf">
+                                    
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAssignATaskToMe}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="AddMyTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                     </container>
                                 </container>                                                                             
-                                <container style="button-bar"><link target="EditTask?workEffortTypeId=Task" text="${uiLabelMap.ProjectMgrNewTask}" style="buttontext"/></container>
-                                <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                </container>
+                                <container style="righthalf">
+                                    
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAddNewTask}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </container>
+                                </container>                                                                             
+                                </container>                                                                             
                             </widgets>                            
                         </section>
                     </decorator-section>

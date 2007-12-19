@@ -143,11 +143,29 @@
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
         <response name="error" type="view" value="EditTaskPartyAssigns"/>
     </request-map>
+    <request-map uri="assignPartyToWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="view" value="MyTasks"/>
+        <response name="error" type="view" value="MyTasks"/>
+    </request-map>
+    <request-map uri="addMyTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="view" value="MyTasks"/>
+        <response name="error" type="view" value="MyTasks"/>
+    </request-map>
     <request-map uri="updateTaskPartyAssign">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
         <response name="error" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
+    <request-map uri="updateMyTasks">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
+        <response name="success" type="view" value="MyTasks"/>
+        <response name="error" type="view" value="MyTasks"/>
     </request-map>
     <request-map uri="deleteTaskPartyAssign">
         <security https="true" auth="true"/>
@@ -160,6 +178,12 @@
         <event type="service" invoke="createWorkEffort"/>
         <response name="success" type="view" value="EditTask"/>
         <response name="error" type="view" value="EditTask"/>
+    </request-map>
+    <request-map uri="createMyTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortAndPartyAssign"/>
+        <response name="success" type="view" value="MyTasks"/>
+        <response name="error" type="view" value="MyTasks"/>
     </request-map>
     <request-map uri="createProjectTaskOrPhase">
         <security https="true" auth="true"/>
