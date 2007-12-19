@@ -97,6 +97,17 @@ public class JobInvoker implements Runnable {
     }
 
     /**
+     * Gets the remaining time this thread has before it is killed
+     * @return Time in millis remaining
+     */
+    public long getTimeRemaining() {
+        long now = UtilDateTime.nowTimestamp().getTime();
+        long time = getTime();
+        long ttl = getTTL();
+        return (time + ttl) - now;
+    }
+
+    /**
      * Gets the time when this thread was created.
      * @return Time in milliseconds when this was created.
      */
