@@ -51,7 +51,7 @@ under the License.
         </#if>
         </td>
         <td class="button-col">
-          <#if (job.statusId?has_content && job.statusId == 'SERVICE_RUNNING')>
+          <#if (job.statusId?has_content && (job.statusId == 'SERVICE_RUNNING' || job.statusId == 'SERVICE_QUEUED'))>
             <a href="<@ofbizUrl>resetJob?jobId=${job.jobId}</@ofbizUrl>">${uiLabelMap.WebtoolsResetJob}</a>
           <#elseif (!job.statusId?has_content || job.statusId == 'SERVICE_PENDING')>
             <a href="<@ofbizUrl>cancelJob?jobId=${job.jobId}</@ofbizUrl>">${uiLabelMap.WebtoolsCancelJob}</a>

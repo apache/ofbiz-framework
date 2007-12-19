@@ -30,6 +30,8 @@ under the License.
     <td>${uiLabelMap.CommonStatus}</td>
     <td>${uiLabelMap.WebtoolsJob}</td>
     <td>${uiLabelMap.WebtoolsService}</td>
+    <td>${uiLabelMap.WebtoolsUsage}</td>
+    <td>${uiLabelMap.WebtoolsTTL} (ms)</td>
     <td>${uiLabelMap.CommonTime} (ms)</td>
   </tr>
   <#list threads as thread>
@@ -38,6 +40,8 @@ under the License.
     <td>${thread.status?if_exists}</td>
     <td>${thread.jobName?default("[${uiLabelMap.CommonNone}]")}</td>
     <td>${thread.serviceName?default("[${uiLabelMap.CommonNone}]")}</td>
+    <td>${thread.usage?if_exists}</td>
+    <td>${thread.ttl?if_exists}</td>
     <td>${thread.runTime?if_exists}</td>
   </tr>
   </#list>
