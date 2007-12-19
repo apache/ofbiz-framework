@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<classpath>
+<classpath>  
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="src" path="framework/testtools/src"/>
   <classpathentry kind="src" path="specialpurpose/oagis/src"/>
@@ -32,7 +32,7 @@
   <classpathentry kind="src" path="framework/security/src"/>
   <classpathentry kind="src" path="framework/service/src"/>
   <classpathentry excluding="org/enhydra/|org/ofbiz/" kind="src" path="framework/shark/src"/>
-  <classpathentry excluding="org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java|org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java|org/ofbiz/webapp/view/FopPdfViewHandler.java|org/ofbiz/webapp/view/GenericViewRenderer.java|org/ofbiz/webapp/view/JPublishViewHandler.java|org/ofbiz/webapp/view/JPublishWrapper.java|org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java|org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java" kind="src" path="framework/webapp/src"/>
+  <classpathentry excluding="org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java|org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java|org/ofbiz/webapp/view/FopPdfViewHandler.java|org/ofbiz/webapp/view/GenericViewRenderer.java|org/ofbiz/webapp/view/JPublishViewHandler.java|org/ofbiz/webapp/view/JPublishWrapper.java|org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java|org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java|org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java|org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java" kind="src" path="framework/webapp/src"/>
   <classpathentry kind="src" path="framework/webtools/src"/>
   <classpathentry kind="src" path="framework/widget/src"/>
   <classpathentry kind="src" path="framework/workflow/src"/>    
