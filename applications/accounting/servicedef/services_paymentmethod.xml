@@ -630,6 +630,11 @@ under the License.
         <description>Test Credit Card Refund Processing: always approve the refund request</description>
         <implements service="paymentRefundInterface"/>
     </service>
+    <service name="testCCRefundFailure" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="testRefundFailure">
+        <description>Credit Card Test Refund Failure</description>
+        <implements service="paymentRefundInterface"/>
+    </service>
 
     <!-- Test GiftCard Services -->
     <service name="alwaysApproveGCProcessor" engine="java"
