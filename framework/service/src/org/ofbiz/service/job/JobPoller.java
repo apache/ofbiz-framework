@@ -128,8 +128,10 @@ public class JobPoller implements Runnable {
             stateMap.put("threadId", invoker.getThreadId());
             stateMap.put("jobName", invoker.getJobName());
             stateMap.put("serviceName", invoker.getServiceName());
-            stateMap.put("runTime", Long.valueOf(invoker.getCurrentRuntime()));
-            stateMap.put("status", Integer.valueOf(invoker.getCurrentStatus()));
+            stateMap.put("usage", invoker.getUsage());
+            stateMap.put("ttl", invoker.getTimeRemaining());
+            stateMap.put("runTime", invoker.getCurrentRuntime());
+            stateMap.put("status", invoker.getCurrentStatus());
             stateList.add(stateMap);
         }
         return stateList;
@@ -210,13 +212,20 @@ public class JobPoller implements Runnable {
      * Removes a thread from the pool.
      * @param invoker The invoker to remove.
      */
-    public synchronized void removeThread(JobInvoker invoker) {
-        pool.remove(invoker);
-        invoker.stop();
-        if (pool.size() < minThreads()) {
-            for (int i = 0; i < minThreads() - pool.size(); i++) {
-                JobInvoker iv = new JobInvoker(this, invokerWaitTime());
-                pool.add(iv);
+    public void removeThread(JobInvoker invoker) {
+        if (pool != null) {
+            synchronized (pool) {
+                pool.remove(invoker);
+                invoker.stop();
+            }
+        }
+
+        if (pool != null && pool.size() < minThreads()) {
+            synchronized (pool) {
+                for (int i = 0; i < minThreads() - pool.size(); i++) {
+                    JobInvoker iv = new JobInvoker(this, invokerWaitTime());
+                    pool.add(iv);
+                }
             }
         }
     }
