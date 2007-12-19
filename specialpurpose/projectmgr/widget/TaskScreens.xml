@@ -100,7 +100,7 @@ under the License.
                 <set field="myTask" value="notNull"/>
             </actions>                                                
             <widgets>  
-                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonMyTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                                                
                         <section>                                                        
                             <widgets>
