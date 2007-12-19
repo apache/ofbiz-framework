@@ -51,7 +51,7 @@ public class AIMPaymentServices {
 
     // The number of days in the time limit when one can safely consider an unsettled
     // transaction to be still valid
-    private static int TIME_LIMIT_VERIFICATION_DAYS = 120;
+    private static final int TIME_LIMIT_VERIFICATION_DAYS = 120;
 
     private static Properties AIMProperties = null;
 
@@ -78,11 +78,9 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(respMsg != null) {
-            if(respMsg.equals(ModelService.RESPOND_ERROR)) {
-                results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
-                return results;
-            }
+        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            return results;
         }
 
         Map reply = processCard(request, props);
@@ -128,11 +126,9 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(respMsg != null) {
-            if(respMsg.equals(ModelService.RESPOND_ERROR)) {
-                results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
-                return results;
-            }
+        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            return results;
         }
 
         Map reply = processCard(request, props);
@@ -177,11 +173,9 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(respMsg != null) {
-            if(respMsg.equals(ModelService.RESPOND_ERROR)) {
-                results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
-                return results;
-            }
+        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            return results;
         }
 
         Map reply = processCard(request, props);
@@ -226,7 +220,9 @@ public class AIMPaymentServices {
 
                 if (authAmount == refundAmount) {
                     reply = voidTransaction(authTransaction, context);
-                    if (ServiceUtil.isError(reply)) return reply;
+                    if (ServiceUtil.isError(reply)) {
+                        return reply;
+                    }
                     
                     results = ServiceUtil.returnSuccess();
                     results.putAll( processRefundTransResult(reply) );
@@ -259,7 +255,9 @@ public class AIMPaymentServices {
         }
 
         Map reply = voidTransaction(authTransaction, context);
-        if (ServiceUtil.isError(reply)) return reply;
+        if (ServiceUtil.isError(reply)) {
+            return reply;
+        }
 
         Map results = ServiceUtil.returnSuccess();
         results.putAll( processReleaseTransResult(reply) );
@@ -280,11 +278,9 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(respMsg != null) {
-            if(respMsg.equals(ModelService.RESPOND_ERROR)) {
-                results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
-                return results;
-            }
+        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            return results;
         }
 
         return processCard(request, props);
@@ -312,11 +308,9 @@ public class AIMPaymentServices {
 
         Map validateResults = validateRequest(context,props,request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
-        if(respMsg != null) {
-            if(respMsg.equals(ModelService.RESPOND_ERROR)) {
-                results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
-                return results;
-            }
+        if(ModelService.RESPOND_ERROR.equals(respMsg)) {
+            results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
+            return results;
         }
 
         Map reply = processCard(request, props);
@@ -376,22 +370,11 @@ public class AIMPaymentServices {
     }
 
     private static boolean isTestMode() {
-       boolean ret = true;
-        String testReq = (String)AIMProperties.get("testReq");
-        if(testReq != null) {
-            if(testReq.toUpperCase().equals("TRUE")) {
-                ret = true;
-            } else {
-                ret = false;
-            }
-        }
-        return ret;
+        return "true".equalsIgnoreCase((String)AIMProperties.get("testReq"));
     }
 
     private static String getVersion() {
-        String ver = (String)AIMProperties.get("ver");
-        return ver;
-
+        return (String)AIMProperties.get("ver");         
     }
 
     private static Properties buildAIMProperties(Map context) {
@@ -452,13 +435,17 @@ public class AIMPaymentServices {
         props.put("password", password);
         props.put("trankey", tranKey);
 
-        if (cc != null)
+        if (cc != null) {
             props.put("cardtype", (String)cc.get("cardType"));
+        }
 
-        if (AIMProperties == null)
+        if (AIMProperties == null) {
             AIMProperties = props;
+        }
 
-        if (isTestMode()) { Debug.logInfo("Created Authorize.Net properties file: " + props.toString(),module); }
+        if (isTestMode()) { 
+            Debug.logInfo("Created Authorize.Net properties file: " + props.toString(),module); 
+        }
 
         return props;
 
@@ -467,8 +454,9 @@ public class AIMPaymentServices {
     private static void buildMerchantInfo(Map params, Properties props, Map AIMRequest) {
         AIMRequest.put("x_Login", props.getProperty("login"));
         String trankey = props.getProperty("trankey");
-        if (trankey != null && trankey.length() > 0)
+        if (trankey != null && trankey.length() > 0) {
             AIMRequest.put("x_Tran_Key",props.getProperty("trankey"));
+        }
         AIMRequest.put("x_Password",props.getProperty("password"));
         AIMRequest.put("x_Version", props.getProperty("ver"));
     }
@@ -531,8 +519,9 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Email_Customer", props.getProperty("emailCustomer"));
         AIMRequest.put("x_Email_Merchant", props.getProperty("emailMerchant"));
 
-        if (ea != null)
+        if (ea != null) {
             AIMRequest.put("x_Email",UtilFormatOut.checkNull(ea.getString("infoString")));
+        }
     }
 
     private static void buildInvoiceInfo(Map params, Properties props, Map AIMRequest) {
