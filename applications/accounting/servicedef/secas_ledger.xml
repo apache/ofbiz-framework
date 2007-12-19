@@ -78,11 +78,12 @@ under the License.
         <action service="createAcctgTransForFixedAssetMaintIssuance" mode="sync"/>
     </eca>
     <!--attempt to create AcctgTrans and Entries for Incoming Payment -->
+    <!-- Uncomment this entry if GL data is setup. 
     <eca service="createPayment" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
         <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync"/>
     </eca>
-    
+     -->
     <!--attempt to create AcctgTrans and Entries for Incoming when set PaymentStatus -->
     <eca service="setPaymentStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
