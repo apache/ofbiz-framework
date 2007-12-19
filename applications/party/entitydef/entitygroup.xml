@@ -116,6 +116,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="PartyContentDetail" />
     <entity-group group="org.ofbiz" entity="PartyContentType" />    
     <entity-group group="org.ofbiz" entity="PartyDataSource" />
+    <entity-group group="org.ofbiz" entity="PartyDetailAndWorkEffortAssign"/>
     <entity-group group="org.ofbiz" entity="PartyGroup" />
     <entity-group group="org.ofbiz" entity="PartyIcsAvsOverride" />
     <entity-group group="org.ofbiz" entity="PartyInvitation" />

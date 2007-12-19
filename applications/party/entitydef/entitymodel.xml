@@ -1447,7 +1447,41 @@ under the License.
         <key-map field-name="userLoginId"/>
       </relation>
     </view-entity>
-    <view-entity entity-name="UserLoginAndPartyDetails"
+  <view-entity entity-name="PartyDetailAndWorkEffortAssign"
+    package-name="org.ofbiz.party.party"
+    title="View to show the party assignment names for a workeffort with the partyStatus and AssignStatus">
+    <member-entity entity-alias="PTY" entity-name="Party"/>
+    <member-entity entity-alias="WEF" entity-name="WorkEffortPartyAssignment"/>
+    <member-entity entity-alias="PER" entity-name="Person"/>
+    <member-entity entity-alias="PGR" entity-name="PartyGroup"/>
+    <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+    <alias entity-alias="PTY" name="partyId"/>
+    <alias entity-alias="PTY" name="partyTypeId"/>
+    <alias entity-alias="PTY" field="statusId" name="partyStatusId"/>
+    <alias entity-alias="WE" name="workEffortTypeId"/>
+    <alias entity-alias="WEF" name="workEffortId"/>
+    <alias entity-alias="WEF" name="fromDate"/>
+    <alias entity-alias="WEF" name="thruDate"/>
+    <alias entity-alias="WEF" name="roleTypeId"/>
+    <alias entity-alias="WEF" name="statusId"/>
+    <alias entity-alias="PER" name="firstName"/>
+    <alias entity-alias="PER" name="middleName"/>
+    <alias entity-alias="PER" name="lastName"/>
+    <alias entity-alias="PGR" name="groupName"/>
+    <view-link entity-alias="WEF" rel-entity-alias="PTY">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="WEF" rel-entity-alias="WE">
+      <key-map field-name="workEffortId"/>
+    </view-link>
+    <view-link entity-alias="PTY" rel-entity-alias="PER" rel-optional="true">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="PTY" rel-entity-alias="PGR" rel-optional="true">
+      <key-map field-name="partyId"/>
+    </view-link>
+  </view-entity>
+  <view-entity entity-name="UserLoginAndPartyDetails"
             package-name="org.ofbiz.party.party"
             title="UserLogin, Party, Person and PartyGroup">
       <member-entity entity-alias="ULN" entity-name="UserLogin"/>
