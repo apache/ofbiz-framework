@@ -27,7 +27,8 @@
     <!-- some skills required. -->
     <SkillType skillTypeId="9000" description="Computer language Java"/>
     <!-- Demo project, phases and tasks with estimated time-->
-    <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PUBLIC" workEffortName="Demo Project" revisionNumber="1"/> 
+    <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PUBLIC" workEffortName="Demo Project" revisionNumber="1"/>
+    <WorkEffortPartyAssignment  workEffortId="9000" partyId="admin" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
     <WorkEffort workEffortId="9001" workEffortTypeId="PHASE" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 16:45:14.226" workEffortParentId="9000" workEffortName="phase1" revisionNumber="1" />
     <WorkEffort workEffortId="9002" workEffortTypeId="TASK" currentStatusId="CAL_ACCEPTED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9001" scopeEnumId="WES_PUBLIC" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1" />
     <WorkEffortSkillStandard workEffortId="9002" skillTypeId="9000" estimatedDuration="16.0"/>
