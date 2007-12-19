@@ -37,11 +37,27 @@ under the License.
         </auto-attributes>
     </service>
     <service name="createWorkEffort" default-entity-name="WorkEffort" engine="simple"
-            location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffort">
+        location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffort">
         <description>Create a WorkEffort Entity</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <implements service="interfaceWorkEffort"/>        
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="requirementId" type="String" mode="IN" optional="true"/>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
+        <override name="workEffortTypeId" optional="false"/>
+        <override name="workEffortName" optional="false"/>
+        <override name="currentStatusId" optional="false"/>
+    </service>
+    <service name="createWorkEffortAndPartyAssign" default-entity-name="WorkEffort" engine="simple"
+        location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortAndPartyAssign">
+        <description>Create a WorkEffort Entity and assign to a party</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
+        <implements service="interfaceWorkEffort"/>        
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>

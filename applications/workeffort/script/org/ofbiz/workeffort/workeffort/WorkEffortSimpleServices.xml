@@ -18,9 +18,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-        
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
+    <simple-method method-name="createWorkEffortAndPartyAssign" short-description="Create Work Effort and assign to a party with a role">
+        <set-service-fields service-name="createWorkEffort" map-name="parameters" to-map-name="create"/>
+        <call-service service-name="createWorkEffort" in-map-name="create">
+            <result-to-field result-name="workEffortId"/>
+        </call-service>        
+        <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="assign"/>
+        <set field="assign.workEffortId" from-field="workEffortId"/>
+        <call-service service-name="assignPartyToWorkEffort" in-map-name="assign"/>
+        <field-to-result field-name="workEffortId"/>
+    </simple-method>
+                                        
     <simple-method method-name="createWorkEffort" short-description="Create Work Effort">
         <make-value value-name="newEntity" entity-name="WorkEffort"/>
         <if-empty field-name="parameters.workEffortId">
