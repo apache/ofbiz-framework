@@ -27,10 +27,11 @@
                 - - - - - - - - - - - - - 
                 
                 Assumptions for tasks and resources
-                1. a workday has 8 hours
-                2. a workweek has 40 hours and 5 days
-                3. The default order of the Tasks is by name
-                4. The default order of the tasks can be modified by the priority
+                1. a workday has 8 hours.
+                2. a workweek has 40 hours and 5 days.
+                3. The default order of the Tasks is by name.
+                4. The default order of the tasks can be modified by the priority.
+                5. The default order can be changed by the workeffortassociation.
                 
                 The steps of the program are:
                 1. read all tasks into a list with the following fields:
@@ -447,16 +448,16 @@
         <entity-one entity-name="WorkEffort" value-name="lowInfo">
             <field-map field-name="workEffortId" env-name="parameters.taskId"/>
         </entity-one>
-        <set field="highInfo.taskId" from-field="lowInfo.worEffortId"/>
+        <set field="highInfo.taskId" from-field="lowInfo.workEffortId"/>
         <set field="highInfo.taskName" from-field="lowInfo.workEffortName"/>
         <set field="highInfo.taskDescription" from-field="lowInfo.description"/>
         <set field="highInfo.scopeEnumId" from-field="lowInfo.scopeEnumId"/>
         <call-simple-method method-name="combineInfo"/>
+        <call-simple-method method-name="getHours"/>
         <clear-field field-name="highInfo.sequenceId"/>
         <set field="highInfo.statusId" from-field="lowInfo.currentStatusId"/>
         <field-to-result field-name="highInfo" result-name="taskInfo"/>
-        <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
-        <field-to-result field-name="parameters.taskId" result-name="taskId"/>        
+        <call-simple-method method-name="getProjectIdAndName"/>
     </simple-method>
 
     <simple-method method-name="getProjectsByParties" short-description="get Project information by party member" login-required="true">
@@ -662,19 +663,24 @@
         <call-simple-method method-name="getHours"/>
     </simple-method>
     
-    <simple-method method-name="getHours" short-description="get the planned and estimated hours for a task">
+    <simple-method method-name="getHours" 
+        short-description="get the planned and estimated hours for a task and add to the highInfo map">
         
         <!-- input is 'lowInfo' map output is 'highInfo map -->
         <!-- hoursPartyId: if provided only the hours of that party -->
-        
         <!-- add the planned hours together -->
         <get-related value-name="lowInfo" relation-name="WorkEffortSkillStandard" list-name="estimates"/>
         <iterate entry-name="estimate" list-name="estimates">
             <if-not-empty field-name="estimate.estimatedDuration">
-                <calculate field-name="highInfo.plannedHours">
-                    <calcop operator="get" field-name="highInfo.hours"></calcop>
-                    <calcop operator="add" field-name="estimate.estimatedDuration"/>
-                </calculate>
+                <if-not-empty field-name="highInfo.plannedHours">
+                    <calculate field-name="highInfo.plannedHours">
+                        <calcop operator="get" field-name="highInfo.plannedHours"></calcop>
+                        <calcop operator="add" field-name="estimate.estimatedDuration"/>
+                    </calculate>
+                    <else>
+                        <set field="highInfo.plannedHours" from-field="estimate.estimatedDuration"/>
+                    </else>
+                </if-not-empty>
             </if-not-empty>
         </iterate>
         
@@ -686,18 +692,23 @@
                 <if>
                     <condition>
                         <or>
-                            <if-empty field-name="hoursPartyId"/>
+                            <if-empty field-name="parameters.hoursPartyId"/>
                             <and>
-                                <not><if-empty field-name="hoursPartyId"/></not>
-                                <if-compare-field field-name="timeSheet.partyId" operator="equals" to-field-name="hoursPartyId"/>
+                                <not><if-empty field-name="parameters.hoursPartyId"/></not>
+                                <if-compare-field field-name="timesheet.partyId" operator="equals" to-field-name="parameters.hoursPartyId"/>
                             </and>
                         </or>
                     </condition>
                     <then>
-                        <calculate field-name="highInfo.actualHours">
-                            <calcop operator="get" field-name="highInfo.actualHours"/>
-                            <calcop operator="add" field-name="actual.hours"></calcop>
-                        </calculate>
+                        <if-not-empty field-name="highInfo.actualHours">
+                            <calculate field-name="highInfo.actualHours">
+                                <calcop operator="get" field-name="highInfo.actualHours"/>
+                                <calcop operator="add" field-name="actual.hours"></calcop>
+                            </calculate>
+                            <else>
+                                <set field="highInfo.actualHours" from-field="actual.hours"/>
+                            </else>                            
+                        </if-not-empty>
                     </then>
                 </if>
             </if-not-empty>

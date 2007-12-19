@@ -43,7 +43,7 @@ under the License.
         <attribute name="projectInfo" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
     
-    <service name="createProject" engine="simple"
+    <service name="createProject" engine="simple" default-entity-name="WorkEffort"
         location="org/ofbiz/project/ProjectServices.xml" invoke="createProject">
         <description>Copy a project planning from a template.</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
@@ -104,8 +104,10 @@ under the License.
     <service name="getProjectTask" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectTask">
         <description>Get project task information and related timesheet info.</description>
+        <attribute name="hoursPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="taskId" type="String" mode="INOUT" optional="true"/>
         <attribute name="projectId" type="String" mode="OUT" optional="true"/>
+        <attribute name="projectName" type="String" mode="OUT" optional="true"/>
         <attribute name="taskInfo" type="Map" mode="OUT" optional="true"/>
     </service>
     

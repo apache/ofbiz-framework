@@ -25,6 +25,7 @@
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectAndPhaseAndTask" description="${workEffortName} -- ${phaseName} -- ${projectName}">
+                    <entity-constraint name="workEffortTypeId" operator="not-equals" value="TASK_TEMPLATE"/>
                     <entity-order-by field-name="projectName"/>
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>
