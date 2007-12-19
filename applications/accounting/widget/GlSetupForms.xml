@@ -397,10 +397,17 @@ under the License.
                 <order-by field-name="paymentMethodTypeId"/>
             </entity-condition>
         </actions>
+        <row-actions>
+            <entity-one entity-name="PaymentMethodType" value-name="paymentMethodType"/>
+            <set field="defaultGlAccountId" value="${paymentMethodType.defaultGlAccountId}"/>
+            <entity-one entity-name="GlAccount" value-name="glAccount"/>
+            <set field="description" value="${glAccount.description}"/>
+        </row-actions>
         <auto-fields-entity entity-name="PaymentMethodTypeGlAccount" default-field-type="display"/>
         <field name="paymentMethodTypeId"><display-entity entity-name="PaymentMethodType" description="${description}"/></field>
         <field name="glAccountId"><display-entity entity-name="GlAccount" description="${accountName}[${glAccountId}]"/></field>
         <field name="organizationPartyId"><hidden/></field>
+        <field name="defaultGlAccountId"><display description="${defaultGlAccountId} : ${description}"/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="removePaymentMethodTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;paymentMethodTypeId=${paymentMethodTypeId}" description="Remove"/></field>
     </form>
     
