@@ -465,5 +465,47 @@ public class StringUtil {
     public static String htmlSpecialChars(String html) {
         return htmlSpecialChars(html, true, true, true);
     }    
-    
+
+    /**
+     * Remove/collapse multiple newline characters
+     *
+     * @param String string to collapse newlines in
+     * @return String
+     */
+    public static String collapseNewlines(String str) {
+        return collapseCharacter(str, '\n');
+    }
+
+    /**
+     * Remove/collapse multiple spaces
+     *
+     * @param String string to collapse spaces in
+     * @return String
+     */
+    public static String collapseSpaces(String str) {
+        return collapseCharacter(str, ' ');
+    }
+
+    /**
+     * Remove/collapse multiple characters
+     *
+     * @param String string to collapse characters in
+     * @param char character to collapse
+     * @return String
+     */
+    public static String collapseCharacter(String str, char c) {
+        StringBuffer sb = new StringBuffer();
+        char last = str.charAt(0);
+
+        for (int i = 0; i < str.length(); i++) {
+            char current = str.charAt(i);
+            if (i == 0 || current != c || last != c) {
+                sb.append(current);
+                last = current;
+            }
+        }
+
+        return sb.toString();
+    }
+
 }
