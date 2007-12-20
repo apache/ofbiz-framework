@@ -126,5 +126,16 @@ under the License.
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="taskParties" type="List" mode="OUT" optional="true"/>
     </service>
+
+    <service name="updateMyTaskAssigment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="updateMyTaskAssigment">
+        <description>Update a WorkEffortPartyAssignment Entity</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true">
+            <exclude field-name="statusDateTime"/>
+        </auto-attributes>
+        <attribute name="newRoleTypeId" type="String" mode="IN"/>
+    </service>
     
 </services>

@@ -163,7 +163,7 @@
     </request-map>
     <request-map uri="updateMyTasks">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
+        <event type="service" invoke="updateMyTaskAssigment"/>
         <response name="success" type="view" value="MyTasks"/>
         <response name="error" type="view" value="MyTasks"/>
     </request-map>
