@@ -90,7 +90,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleMyTask"/>
                 <set field="headerItem" value="mytasks"/>
                 <set field="labelTitleProperty" value="ProjectMgrMyTasks"/>
-                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks">
+                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="workEffortTypeId" value="TASK"/>
                 </entity-and>

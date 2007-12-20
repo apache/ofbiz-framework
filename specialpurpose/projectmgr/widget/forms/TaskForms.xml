@@ -212,9 +212,10 @@
         <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}" red-when="before-now"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
-        <field name="roleTypeId">
+        <field name="roleTypeId"><hidden/></field>
+        <field name="newRoleTypeId" title="${uiLabelMap.PartyRole}">
             <drop-down>
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>        

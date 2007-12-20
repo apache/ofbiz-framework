@@ -759,5 +759,52 @@
             </else>            
         </if-not-empty>
     </simple-method>
+    <simple-method method-name="updateMyTaskAssigment" short-description="Update the workEffortPartyAssigment, if required create a new one by re-assigment">
+        <log level="always" message="==========party:${parameters.partyId} userloginparty:${userLogin.partyId}"></log>
+        <if-compare-field field-name="parameters.partyId" to-field-name="userLogin.partyId" operator="equals">
+            <if-compare field-name="parameters.statusId" value="CAL_COMPLETED" operator="equals">
+                <now-timestamp-to-env env-name="upd.thruDate"/>
+            </if-compare>
+            <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="upd"/>
+            <set field="upd.roleTypeId" from-field="parameters.newRoleTypeId"/>
+            <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="upd"/>
+            <else>
+                <!-- reassignment to other person -->
+                <!-- check if new person is part of the project -->
+                <set field="getProjectId.taskId" from-field="parameters.workEffortId"/>
+                <call-service service-name="getProjectIdAndName" in-map-name="getProjectId">
+                    <result-to-field result-name="projectId" field-name="findAssign.workEffortId"/>
+                </call-service>
+                <set field="findAssign.partyId" from-field="parameters.partyId"/>
+                <log level="always" message="====== find new Party:${findAssign}"></log>
+                <find-by-and entity-name="WorkEffortPartyAssignment" map-name="findAssign" list-name="assignments"/>
+                <filter-list-by-date list-name="assignments" to-list-name="validAssignments"/>
+                <set field="findValidAssign.partyId" from-field="parameters.partyId"/>
+                <filter-list-by-and list-name="validAssignments" map-name="findValidAssign" to-list-name="isValid"/>
+                <if-not-empty field-name="isValid">
+                    <!-- person is valid.
+                        so end old entry and .....-->
+                    <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="endAssign"/>
+                    <set field="endAssign.partyId" from-field="userLogin.partyId"/>
+                    <now-timestamp-to-env env-name="endAssign.thruDate"/>
+                    <log level="always" message="==========endAssign, workEffort:${endAssign.workEffortId} "></log>
+                    <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="endAssign"/>
+                    <!-- ...create new one  -->
+                    <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="createAssign"/>
+                    <now-timestamp-to-env env-name="createAssign.fromDate"/>
+                    <set field="createAssign.roleTypeId" from-field="parameters.newRoleTypeId"/>
+                    <set field="statusId" value="PRTYASGN_ASSIGNED"/>
+                    <call-service service-name="assignPartyToWorkEffort" in-map-name="createAssign"/>
+                    <else>
+                        <!-- person Id not valid, issue error and exit -->
+                        <add-error><fail-message message="New party not member of this project"/></add-error>
+                        <return response-code="error"/>
+                    </else>
+                </if-not-empty>
+                
+            </else>
+        </if-compare-field>
+    </simple-method>
+    
 
 </simple-methods>

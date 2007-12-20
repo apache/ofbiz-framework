@@ -34,4 +34,14 @@ under the License.
     <WorkEffortType workEffortTypeId="PROJECT_TEMPLATE" parentTypeId="TEMPLATE" description="Project Template"/>
     <WorkEffortType workEffortTypeId="PHASE_TEMPLATE" parentTypeId="TEMPLATE" description="Project Phase Template"/>
     <WorkEffortType workEffortTypeId="TASK_TEMPLATE" parentTypeId="TEMPLATE" description="Project Task Template"/>
+    
+    <!-- some skills required. -->
+    <SkillType skillTypeId="9000" description="Java/BSH"/>
+    <SkillType skillTypeId="9001" description="Mini Language"/>
+    <SkillType skillTypeId="9002" description="HTML/FTL"/>
+    <SkillType skillTypeId="9003" description="Javascript/Dojo"/>
+    <SkillType skillTypeId="9004" description="Screens/forms"/>
+    <SkillType skillTypeId="9005" description="OFBiz Installation"/>
+    <SkillType skillTypeId="_NA_" description="Not Applicable"/>
+    
 </entity-engine-xml>
