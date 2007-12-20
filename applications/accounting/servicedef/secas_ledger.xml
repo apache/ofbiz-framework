@@ -97,5 +97,14 @@ under the License.
         <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_PAID"/>
         <action service="createAcctgTransForPurchaseInvoice" mode="sync"/>
     </eca>
+
+    <!-- attemp to create AcctgTrans for Sales Invoice -->        
+    <eca service="setInvoiceStatus" event="commit">
+        <condition field-name="invoiceId" operator="is-not-empty"/>
+        <condition field-name="statusId" operator="equals" value="INVOICE_READY"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_READY"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_PAID"/>
+        <action service="createAcctgTransForSalesInvoice" mode="sync"/>
+    </eca>     
     
 </service-eca>
