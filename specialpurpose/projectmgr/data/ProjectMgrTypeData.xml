@@ -47,10 +47,10 @@ under the License.
     
     <StatusType description="Project" statusTypeId="PROJECT" hasTable="N" parentTypeId=""/>
     <StatusType description="Project Task" statusTypeId="PROJECT_TASK_STATUS" hasTable="N" parentTypeId="PROJECT"/>
-    <StatusType description="Project Assignment" statusTypeId="PROJECT_ASSIGN_STATUS" hasTable="N" parentTypeId="PROJECT"/>
+    <StatusType description="Project Assignment" statusTypeId="PROJECT_ASSGN_STATUS" hasTable="N" parentTypeId="PROJECT"/>
 
-    <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="PAS_ASSIGNED" statusTypeId="PROJECT_ASSIGN_STATUS"/>
-    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="PAS_COMPLETED" statusTypeId="PROJECT_ASSIGN_STATUS"/>
+    <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="PAS_ASSIGNED" statusTypeId="PROJECT_ASSGN_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="PAS_COMPLETED" statusTypeId="PROJECT_ASSGN_STATUS"/>
     <StatusValidChange condition="" statusId="PAS_ASSIGNED" statusIdTo="PAS_COMPLETED" transitionName="Assignment Complete"/>
     
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PTS_CREATED" statusTypeId="PROJECT_TASK_STATUS"/>
