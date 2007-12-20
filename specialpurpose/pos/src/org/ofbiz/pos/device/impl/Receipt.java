@@ -109,7 +109,11 @@ public class Receipt extends GenericDevice implements DialogCallback {
         }
     }
 
-    public void printReport(PosTransaction trans, String resource, Map context) {
+    public synchronized void printReport(PosTransaction trans, String resource, Map context) {
+        try {
+            ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_TRANSACTION);
+        } catch (Exception e) {
+        }
         Debug.log("Print Report Requested", module);
         String[] report = this.readReportTemplate(resource);
 
@@ -123,6 +127,10 @@ public class Receipt extends GenericDevice implements DialogCallback {
             this.println();
             this.println();
             this.println(PAPER_CUT);
+        }
+        try {
+            ((POSPrinter) control).transactionPrint(POSPrinterConst.PTR_S_RECEIPT, POSPrinterConst.PTR_TP_NORMAL);
+        } catch (Exception e) {
         }
     }
 
