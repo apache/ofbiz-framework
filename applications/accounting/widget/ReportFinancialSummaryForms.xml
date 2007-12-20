@@ -93,4 +93,30 @@ under the License.
         <field name="debit" entry-name="parameters.debitTotal" use-when="showTotals" widget-area-style="viewManyTR1"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="credit" entry-name="creditTotal" use-when="showTotals" widget-area-style="viewManyTR1"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+
+    <form name="IncomeStatementParameters" type="single" target="prepareIncomeStatement">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="glFiscalTypeId">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="IncomeStatementList" type="list" list-name="glAccountTotalsList">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-name="glAccount">
+                <field-map field-name="glAccountId"/>
+            </entity-one>
+        </row-actions>
+        <field name="glAccountId">
+            <hyperlink target="FindAcctgTransEntries?glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/>
+        </field>
+        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
 </forms>

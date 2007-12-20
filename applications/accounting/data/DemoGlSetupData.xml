@@ -261,6 +261,12 @@ under the License.
     <CreditCardTypeGlAccount organizationPartyId="Company" cardType="CCT_AMERICANEXPRESS" glAccountId="122100"/>
     <CreditCardTypeGlAccount organizationPartyId="Company" cardType="CCT_DINERSCLUB" glAccountId="122100"/>
     <CreditCardTypeGlAccount organizationPartyId="Company" cardType="CCT_DISCOVER" glAccountId="122200"/>
+    <!-- The following ones are required until the issue OFBIZ-1524 is resolved -->
+    <CreditCardTypeGlAccount organizationPartyId="Company" cardType="Visa" glAccountId="122300"/>
+    <CreditCardTypeGlAccount organizationPartyId="Company" cardType="MasterCard" glAccountId="122300"/>
+    <CreditCardTypeGlAccount organizationPartyId="Company" cardType="AmericanExpress" glAccountId="122100"/>
+    <CreditCardTypeGlAccount organizationPartyId="Company" cardType="DinersClub" glAccountId="122100"/>
+    <CreditCardTypeGlAccount organizationPartyId="Company" cardType="Discover" glAccountId="122200"/>
     <!--
     No need to load these if they are set with the 122000 account (the default for the CREDIT_CARD payment method type)
     <CreditCardTypeGlAccount organizationPartyId="Company" cardType="CCT_ENROUTE" glAccountId="122000"/>

@@ -442,6 +442,9 @@ under the License.
         <menu-item name="TrialBalance" title="${uiLabelMap.AccountingTrialBalance}">
             <link target="TrialBalance?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
+        <menu-item name="IncomeStatement" title="${uiLabelMap.AccountingIncomeStatement}">
+            <link target="IncomeStatement?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
         <menu-item name="TransactionTotals" title="${uiLabelMap.AccountingTransactionTotals}">
             <link target="TransactionTotals?organizationPartyId=${organizationPartyId}"/>
         </menu-item>

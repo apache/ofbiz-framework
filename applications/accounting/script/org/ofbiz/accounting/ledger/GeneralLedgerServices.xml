@@ -826,6 +826,103 @@ under the License.
         <call-service service-name="updateCustomTimePeriod" in-map-name="updateCustomTimePeriodInMap"/>
     </simple-method>
 
+    <simple-method method-name="prepareIncomeStatement" short-description="Close a financial CustomTimePeriod">
+        <entity-one entity-name="GlAccountClass" value-name="expenseGlAccountClass">
+            <field-map field-name="glAccountClassId" value="EXPENSE"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="expenseAccountClassIds">
+            <field field-name="expenseGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-one entity-name="GlAccountClass" value-name="revenueGlAccountClass">
+            <field-map field-name="glAccountClassId" value="REVENUE"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="revenueAccountClassIds">
+            <field field-name="revenueGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-one entity-name="GlAccountClass" value-name="incomeGlAccountClass">
+            <field-map field-name="glAccountClassId" value="INCOME"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="incomeAccountClassIds">
+            <field field-name="incomeGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransAndEntries">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId"/>
+                <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate"/>
+                <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate"/> <!-- FIXME: Date to Timestamp -->
+                <condition-expr field-name="acctgTransTypeId" operator="not-equals" value="PERIOD_CLOSING"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="expenseAccountClassIds"/>
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="revenueAccountClassIds"/>
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="incomeAccountClassIds"/>
+                </condition-list>
+            </condition-list>
+            <order-by field-name="acctgTransId"/>
+            <order-by field-name="acctgTransEntrySeqId"/>
+        </entity-condition>
+        <set field="totalNetIncome" value="0.0" type="Double"/>
+        <iterate list-name="acctgTransAndEntries" entry-name="acctgTransAndEntry">
+            <get-related-one value-name="acctgTransAndEntry" relation-name="GlAccount" to-value-name="glAccount"/>
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isCreditAccount" ret-field-name="isCreditAccount">
+                <field field-name="glAccount" type="GenericValue"/>
+            </call-class-method>
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isDebitAccount" ret-field-name="isDebitAccount">
+                <field field-name="glAccount" type="GenericValue"/>
+            </call-class-method>
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isExpenseAccount" ret-field-name="isExpenseAccount">
+                <field field-name="glAccount" type="GenericValue"/>
+            </call-class-method>
+            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
+                            <if-compare field-name="isCreditAccount" operator="equals" value="true" type="Boolean"/>
+                        </and>
+                        <and>
+                            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
+                            <if-compare field-name="isDebitAccount" operator="equals" value="true" type="Boolean"/>
+                        </and>
+                    </or>
+                </condition>
+                <then>
+                    <calculate field-name="amount">
+                        <calcop field-name="amount" operator="negative"/>
+                    </calculate>
+                </then>
+            </if>
+            <if-compare field-name="isExpenseAccount" operator="equals" value="true" type="Boolean">
+                <calculate field-name="amount">
+                    <calcop field-name="amount" operator="negative"/>
+                </calculate>
+            </if-compare>
+            <calculate field-name="totalNetIncome" type="Double">
+                <calcop field-name="totalNetIncome" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+            </calculate>
+            <if-empty field-name="glAccountTotalsMap.${glAccount.glAccountId}">
+                <set field="glAccountTotalsMap.${glAccount.glAccountId}" value="0.0" type="Double"/>
+            </if-empty>
+            <calculate field-name="glAccountTotalsMap.${glAccount.glAccountId}" type="Double">
+                <calcop field-name="glAccountTotalsMap.${glAccount.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+            </calculate>
+        </iterate>
+        <iterate-map map-name="glAccountTotalsMap" key-name="glAccountId" value-name="totalAmount">
+            <clear-field field-name="glAccountTotalMap"/>
+            <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
+            <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="glAccountTotalsList[]" from-field="glAccountTotalMap"/>
+        </iterate-map>
+        <set field="orderByList[]" value="glAccountId"/>
+        <order-value-list list-name="glAccountTotalsList" order-by-list-name="orderByList"/>
+
+        <field-to-result field-name="totalNetIncome" result-name="totalNetIncome"/>
+        <field-to-result field-name="glAccountTotalsMap" result-name="glAccountTotalsMap"/>
+        <field-to-result field-name="glAccountTotalsList" result-name="glAccountTotalsList"/>
+    </simple-method>
+
     <!-- Services for the automatic creation of accounting transactions based on business transactions
          Typically, these services are triggered by SECAs -->
 
@@ -884,7 +981,7 @@ under the License.
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
             <result-to-field result-name="acctgTransId"/>
         </call-service>
-        <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>        
+        <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>
     </simple-method>
 
     <simple-method method-name="createAcctgTransForShipmentReceipt" short-description="Create an accounting transactions for a shipment receipt (D: INVENTORY_ACCOUNT, C: UNINVOICED_SHIP_RCPT or COGS_ACCOUNT for returns)">

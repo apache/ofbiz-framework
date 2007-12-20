@@ -230,6 +230,43 @@ under the License.
         </section>
     </screen>
 
+    <screen name="IncomeStatement">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="IncomeStatement"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                </entity-one>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                <set field="glAccountTotalsList" from-field="parameters.glAccountTotalsList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head2" text="${uiLabelMap.AccountingIncomeStatement}"/>
+                        </container>
+                        <include-form name="IncomeStatementParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="parameters.totalNetIncome"/></not>
+                            </condition>
+                            <widgets>
+                                <include-form name="IncomeStatementList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                <container>
+                                    <label style="head3" text="${uiLabelMap.AccountingNetIncome}: ${parameters.totalNetIncome}"/>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <!-- TODO: this is just a placeholder: the report is not still implemented -->
     <screen name="TransactionTotals">
         <section>
