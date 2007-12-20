@@ -760,7 +760,6 @@
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateMyTaskAssigment" short-description="Update the workEffortPartyAssigment, if required create a new one by re-assigment">
-        <log level="always" message="==========party:${parameters.partyId} userloginparty:${userLogin.partyId}"></log>
         <if-compare-field field-name="parameters.partyId" to-field-name="userLogin.partyId" operator="equals">
             <if-compare field-name="parameters.statusId" value="CAL_COMPLETED" operator="equals">
                 <now-timestamp-to-env env-name="upd.thruDate"/>
@@ -776,7 +775,6 @@
                     <result-to-field result-name="projectId" field-name="findAssign.workEffortId"/>
                 </call-service>
                 <set field="findAssign.partyId" from-field="parameters.partyId"/>
-                <log level="always" message="====== find new Party:${findAssign}"></log>
                 <find-by-and entity-name="WorkEffortPartyAssignment" map-name="findAssign" list-name="assignments"/>
                 <filter-list-by-date list-name="assignments" to-list-name="validAssignments"/>
                 <set field="findValidAssign.partyId" from-field="parameters.partyId"/>
@@ -787,7 +785,6 @@
                     <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="endAssign"/>
                     <set field="endAssign.partyId" from-field="userLogin.partyId"/>
                     <now-timestamp-to-env env-name="endAssign.thruDate"/>
-                    <log level="always" message="==========endAssign, workEffort:${endAssign.workEffortId} "></log>
                     <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="endAssign"/>
                     <!-- ...create new one  -->
                     <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="createAssign"/>

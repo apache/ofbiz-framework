@@ -135,7 +135,6 @@ if (lastWorkEffortId != null) {
     entry.put("6", day6Total);
     entry.put("workEffortId", "Totals");
     entry.put("total", day0Total+day1Total+day2Total+day3Total+day4Total+day5Total+day6Total);
-        Debug.logInfo("=====" + entry, "");
     entries.add(entry);
 }
 context.put("timeEntries", entries);
