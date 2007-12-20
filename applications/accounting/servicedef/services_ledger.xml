@@ -287,6 +287,18 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/> 
     </service>
 
+    <service name="prepareIncomeStatement" engine="simple" 
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="prepareIncomeStatement" auth="true">
+        <description>Prepare the data for the income statement</description>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="glFiscalTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="totalNetIncome" type="Double" mode="OUT" optional="false"/>
+        <attribute name="glAccountTotalsMap" type="Map" mode="OUT" optional="true"/>
+        <attribute name="glAccountTotalsList" type="List" mode="OUT" optional="true"/>
+    </service>
+
     <!-- Miscellaneous Ledger-related services -->
     <service name="getGlAccountFromAccountType" engine="simple" 
             location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="getGlAccountFromAccountType" auth="true"> 
