@@ -23,6 +23,7 @@ under the License.
     <screen name="Dependencies">
         <section>
             <actions>
+                <set field="headerItem" value="task"/>
                 <set field="titleProperty" value="PageTitleDependencies"/>                
                 <set field="tabButtonItem" value="dependencies"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
@@ -135,9 +136,45 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="FindTask">
+        <section>            
+            <actions>
+                <set field="titleProperty" value="PageTitleFindTask"/>
+                <set field="headerItem" value="task"/>
+                <set field="labelTitleProperty" value="ProjectMgrMyTasks"/>
+                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="workEffortTypeId" value="TASK"/>
+                </entity-and>
+                <entity-one entity-name="WorkEffort" value-name="task">
+                    <field-map field-name="workEffortId" value="dummy"/>
+                </entity-one>
+                <set field="myTask" value="notNull"/>
+            </actions>                                                
+            <widgets>  
+                <decorator-screen name="CommonMyTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                                                
+                        <section>                                                        
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleFindTask}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                        <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </container>
+                                </container>
+                                                                                
+                            </widgets>                            
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditTask">
         <section>
             <actions>
+                <set field="headerItem" value="task"/>
                 <set field="titleProperty" value="PageTitleEditTaskList"/>
                 <set field="tabButtonItem" value="edittask"/>                
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
@@ -191,6 +228,7 @@ under the License.
    <screen name="EditTaskSkills">
         <section>
             <actions>
+                <set field="headerItem" value="task"/>
                 <set field="titleProperty" value="PageTitleEditSkill"/>
                 <set field="tabButtonItem" value="projectskills"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
@@ -270,6 +308,7 @@ under the License.
     <screen name="EditTaskPartyAssigns">
         <section>
             <actions>
+                <set field="headerItem" value="task"/>
                 <set field="titleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="tabButtonItem" value="parties"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
@@ -332,6 +371,7 @@ under the License.
     <screen name="TaskView">        
         <section>
             <actions>
+                <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="projectId" from-field="parameters.workEffortId"/>

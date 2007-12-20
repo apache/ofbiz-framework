@@ -22,6 +22,7 @@ under the License.
     <RoleType description="Project Team" hasTable="N" parentTypeId="" roleTypeId="PROJECT_TEAM"/>
     <RoleType description="Client Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_MANAGER"/>
     <RoleType description="Client Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_ANALYST"/>
+    <RoleType description="Client Billing" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_BILLING"/>
     <RoleType description="Provider Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_MANAGER"/>
     <RoleType description="Provider Accounting" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ACCOUNTING"/>
     <RoleType description="Provider Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ANALYST"/>
@@ -43,5 +44,22 @@ under the License.
     <SkillType skillTypeId="9004" description="Screens/forms"/>
     <SkillType skillTypeId="9005" description="OFBiz Installation"/>
     <SkillType skillTypeId="_NA_" description="Not Applicable"/>
+    
+    <StatusType description="Project" statusTypeId="PROJECT" hasTable="N" parentTypeId=""/>
+    <StatusType description="Project Task" statusTypeId="PROJECT_TASK_STATUS" hasTable="N" parentTypeId="PROJECT"/>
+    <StatusType description="Project Assignment" statusTypeId="PROJECT_ASSIGN_STATUS" hasTable="N" parentTypeId="PROJECT"/>
+
+    <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="PAS_ASSIGNED" statusTypeId="PROJECT_ASSIGN_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="PAS_COMPLETED" statusTypeId="PROJECT_ASSIGN_STATUS"/>
+    <StatusValidChange condition="" statusId="PAS_ASSIGNED" statusIdTo="PAS_COMPLETED" transitionName="Assignment Complete"/>
+    
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PTS_CREATED" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="PTS_COMPLETED" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="On Hold" sequenceId="07" statusCode="ON_HOLD" statusId="PTS_ON_HOLD" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="09" statusCode="CANCELLED" statusId="PTS_CANCELLED" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusValidChange condition="" statusId="PTS_CREATED" statusIdTo="PTS_COMPLETED" transitionName="Task Complete"/>
+    <StatusValidChange condition="" statusId="PTS_CREATED" statusIdTo="PTS_ON_HOLD" transitionName="Task On Hold"/>
+    <StatusValidChange condition="" statusId="PTS_CREATED" statusIdTo="PTS_CANCELLED" transitionName="Task On Hold"/>
+    <StatusValidChange condition="" statusId="PTS_ON_HOLD" statusIdTo="PTS_CREATED" transitionName="Activated"/>
     
 </entity-engine-xml>

@@ -475,6 +475,10 @@
         <response name="success" type="view" value="MyTimesheets"/>
         <response name="error" type="view" value="MyTimesheets"/>
     </request-map>
+    <request-map uri="FindTask">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="FindTask"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -489,6 +493,7 @@
     <view-map name="EditProjectAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectAndAssoc"/>
     <view-map name="EditProjectTasks" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectTasks"/>
     <view-map name="MyTasks" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
+    <view-map name="FindTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTask"/>
     <view-map name="EditTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTask"/>
     <view-map name="AddTaskAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddTaskAndAssoc"/>
     <view-map name="EditTaskAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskAndAssoc"/>

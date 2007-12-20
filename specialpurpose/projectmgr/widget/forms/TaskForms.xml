@@ -169,23 +169,44 @@
         <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    
-    <form name="FindTask" type="single" target="MyTasks">
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
-        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}"><text/></field>
+    <form name="FindTask" type="single" target="FindTask" >
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="hideSearch"><hidden value="Y"/></field>
+        <field name="workEffortTypeId"><hidden value="TASK"/></field>
+        <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskId}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="projectName"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
-    <form name="ListTasks" type="list" list-name="tasks" paginate-target="Dependencies">
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/>
+    <form name="ListTasks" type="list" separate-columns="true" title="Project List" list-name="listIt"  paginate-target="FindTask">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="ProjectAndPhaseAndTask"/>
+                <field-map field-name="orderBy" value="lastStatusUpdate"/>
+            </service>
+        </actions>
+        <row-actions>
+            <service service-name="getProjectTask" result-map-name="result">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+                <field-map field-name="hoursPartyId" env-name="userLogin.partyId"/>
+            </service>
+            <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
+            <set field="actualHours" from-field="result.taskInfo.actualHours"/>
+        </row-actions>
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortName}[${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/>
         </field>
-        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${projectId}" description="${projectName}[${projectId}]"/></field>
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
+        </field>
         <field name="priority"><display/></field>
-        <field use-when="actualStartDate!=null" name="startDate" entry-name="actualStartDate" title="${uiLabelMap.WorkEffortStartDate}" parameter-name="actualStartDate"><display type="date"/></field>
-        <field use-when="actualStartDate==null" name="startDate" entry-name="estimatedStartDate" title="${uiLabelMap.WorkEffortStartDate}" parameter-name="estimatedStartDate" red-when="before-now"><display type="date"/></field>
-        <field use-when="actualCompletionDate!=null" name="completionDate" entry-name="actualCompletionDate" title="${uiLabelMap.WorkEffortCompletionDate}" parameter-name="actualCompletionDate"><display type="date"/></field>
-        <field use-when="actualCompletionDate==null" name="completionDate" entry-name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortCompletionDate}" parameter-name="estimatedCompletionDate" red-when="before-now"><display type="date"/></field>
+        <field name="description"><display/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" red-when="before-now"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.ProjectMgrWorkEffortActualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.ProjectMgrWorkEffortActualCompletionDate}" red-when="before-now"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
         <field name="createdDate"><display type="date"/></field>
