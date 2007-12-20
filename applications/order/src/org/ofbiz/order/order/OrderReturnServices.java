@@ -1023,7 +1023,7 @@ public class OrderReturnServices {
                             BigDecimal amountToRefund = orderPaymentPreferenceAvailable.min(amountLeftToRefund);
 
                             String paymentId = null;
-
+                            String returnItemStatusId = "RETURN_COMPLETED";  // generally, the return item will be considered complete after this
                             // Call the refund service to refund the payment
                             if (electronicTypes.contains(paymentMethodTypeId)) {
                                 try {
@@ -1069,6 +1069,7 @@ public class OrderReturnServices {
                                         continue;
                                     }
                                     paymentId = (String) serviceResult.get("paymentId");
+                                    returnItemStatusId = "RETURN_MAN_REFUND";    // however, in this case we hsould flag it as a manual refund
                                 } catch (GenericServiceException e) {
                                     return ServiceUtil.returnError(e.getMessage());
                                 }
@@ -1101,7 +1102,7 @@ public class OrderReturnServices {
                             while (itemsIter.hasNext()) {
                                 GenericValue item = (GenericValue) itemsIter.next();
                                 item.set("returnItemResponseId", responseId);
-                                item.set("statusId", "RETURN_COMPLETED");
+                                item.set("statusId", returnItemStatusId); 
 
                                 // Create the status history
                                 String returnStatusId = delegator.getNextSeqId("ReturnStatus");
