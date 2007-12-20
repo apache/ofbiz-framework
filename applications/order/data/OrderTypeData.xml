@@ -178,6 +178,7 @@ under the License.
     <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="RETURN_ACCEPTED" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Received" sequenceId="03" statusCode="RECEIVED" statusId="RETURN_RECEIVED" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="RETURN_COMPLETED" statusTypeId="ORDER_RETURN_STTS"/>
+    <StatusItem description="Manual Refund Required" sequenceId="11" statusCode="MANUAL_REFUND" statusId="RETURN_MAN_REFUND" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="RETURN_CANCELLED" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusValidChange condition="" statusId="RETURN_REQUESTED" statusIdTo="RETURN_ACCEPTED" transitionName="Requested Return Accepted"/>
     <StatusValidChange condition="" statusId="RETURN_REQUESTED" statusIdTo="RETURN_CANCELLED" transitionName="Requested Return Cancelled"/>
@@ -185,6 +186,7 @@ under the License.
     <StatusValidChange condition="" statusId="RETURN_ACCEPTED" statusIdTo="RETURN_CANCELLED" transitionName="Accepted Return Cancelled"/>
     <StatusValidChange condition="" statusId="RETURN_RECEIVED" statusIdTo="RETURN_COMPLETED" transitionName="Received Return Completed"/>
     <StatusValidChange condition="" statusId="RETURN_RECEIVED" statusIdTo="RETURN_CANCELLED" transitionName="Received Return Cancelled"/>
+    <StatusValidChange condition="" statusId="RETURN_RECEIVED" statusIdTo="RETURN_MAN_REFUND" transitionName="Received Return Requires Manual Refund"/>
 
     <!-- CustRequest statuses -->
     <StatusType description="Custom Request Status" hasTable="N" parentTypeId="" statusTypeId="CUSTREQ_STTS"/>
