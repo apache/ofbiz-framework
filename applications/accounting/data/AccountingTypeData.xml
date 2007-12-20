@@ -162,6 +162,63 @@ under the License.
     <!-- These classes are used to classify gl accounts for financial statement purposes: balance sheet, income statement, cash flow statement,
         statement of shareholders' equity.  We could get fancier with different types of accounts: Investments vs PP&E, classes of equity, 
         classes of debt, etc. over time -->
+    <!--
+        
+        DEBIT
+            |___> NON_POSTING
+            |
+            |___> DISTRIBUTION
+            |               |___> RETURN_OF_CAPITAL
+            |               |
+            |               |___> DIVIDEND
+            |
+            |___> ASSET
+            |         |_________> LONGTERM_ASSET
+            |         |                       |____> ACCUM_DEPRECIATION
+            |         |                       |
+            |         |                       |____> ACCUM_AMORTIZATION
+            |         |
+            |         |_________> CURRENT_ASSET
+            |                                 |____> CASH_EQUIVALENT
+            |                                 |
+            |                                 |____> INVENTORY_ASSET
+            |
+            |___> EXPENSE
+                      |_________> CASH_EXPENSE
+                      |                       |____> INTEREST_EXPENSE
+                      |                       |
+                      |                       |____> COGS_EXPENSE
+                      |                       |
+                      |                       |____> SGA_EXPENSE
+                      |
+                      |_________> NON_CASH_EXPENSE
+                                              |____> DEPRECIATION
+                                              |
+                                              |____> AMORTIZATION
+                                              |
+                                              |____> INVENTORY_ADJUST
+
+        CREDIT
+            |___> REVENUE
+            |
+            |___> INCOME
+            |          |_______> CASH_INCOME
+            |          |
+            |          |_______> NON_CASH_INCOME
+            |
+            |___> EQUITY
+            |         |_________> OWNERS_EQUITY
+            |         |
+            |         |_________> RETAINED_EARNINGS
+            |
+            |___> LIABILITY
+                      |_________> CURRENT_LIABILITY
+                      |
+                      |_________> LONGTERM_LIABILITY
+        
+        RESOURCE
+
+    -->
     <GlAccountClass description="Debit" glAccountClassId="DEBIT" parentClassId=""/>
     <GlAccountClass description="Credit" glAccountClassId="CREDIT" parentClassId=""/>
     <GlAccountClass description="Resource" glAccountClassId="RESOURCE" parentClassId=""/>
