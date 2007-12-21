@@ -902,21 +902,35 @@ under the License.
             <calculate field-name="totalNetIncome" type="Double">
                 <calcop field-name="totalNetIncome" operator="add"><calcop field-name="amount" operator="get"/></calcop>
             </calculate>
-            <if-empty field-name="glAccountTotalsMap.${glAccount.glAccountId}">
-                <set field="glAccountTotalsMap.${glAccount.glAccountId}" value="0.0" type="Double"/>
-            </if-empty>
-            <calculate field-name="glAccountTotalsMap.${glAccount.glAccountId}" type="Double">
-                <calcop field-name="glAccountTotalsMap.${glAccount.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
-            </calculate>
+            <if-compare field-name="isExpenseAccount" operator="equals" value="true" type="Boolean">
+                <if-empty field-name="glAccountTotalsExpenseMap.${glAccount.glAccountId}">
+                    <set field="glAccountTotalsExpenseMap.${glAccount.glAccountId}" value="0.0" type="Double"/>
+                </if-empty>
+                <calculate field-name="glAccountTotalsExpenseMap.${glAccount.glAccountId}" type="Double">
+                    <calcop field-name="glAccountTotalsExpenseMap.${glAccount.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+                </calculate>
+            <else>
+                <if-empty field-name="glAccountTotalsProfitMap.${glAccount.glAccountId}">
+                    <set field="glAccountTotalsProfitMap.${glAccount.glAccountId}" value="0.0" type="Double"/>
+                </if-empty>
+                <calculate field-name="glAccountTotalsProfitMap.${glAccount.glAccountId}" type="Double">
+                    <calcop field-name="glAccountTotalsProfitMap.${glAccount.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+                </calculate>
+            </else>
+            </if-compare>
         </iterate>
-        <iterate-map map-name="glAccountTotalsMap" key-name="glAccountId" value-name="totalAmount">
+        <iterate-map map-name="glAccountTotalsProfitMap" key-name="glAccountId" value-name="totalAmount">
             <clear-field field-name="glAccountTotalMap"/>
             <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
             <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
             <set field="glAccountTotalsList[]" from-field="glAccountTotalMap"/>
         </iterate-map>
-        <set field="orderByList[]" value="glAccountId"/>
-        <order-value-list list-name="glAccountTotalsList" order-by-list-name="orderByList"/>
+        <iterate-map map-name="glAccountTotalsExpenseMap" key-name="glAccountId" value-name="totalAmount">
+            <clear-field field-name="glAccountTotalMap"/>
+            <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
+            <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="glAccountTotalsList[]" from-field="glAccountTotalMap"/>
+        </iterate-map>
 
         <field-to-result field-name="totalNetIncome" result-name="totalNetIncome"/>
         <field-to-result field-name="glAccountTotalsMap" result-name="glAccountTotalsMap"/>
@@ -1660,6 +1674,7 @@ under the License.
                     <set field="creditEntry.partyId" from-field="invoiceItem.taxAuthPartyId"/>
                     <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
                 </if-not-empty>
+                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
             </iterate>        
            
             <!-- Debit -->
@@ -1671,7 +1686,6 @@ under the License.
             <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
             <set field="debitEntry.partyId" from-field="invoice.partyId"/>
             <set field="debitEntry.roleTypeId" value="BILL_TO_CUSTOMER"/>
-            <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
             <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="SALES_INVOICE"/>
