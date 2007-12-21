@@ -24,7 +24,6 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilMisc;
@@ -108,8 +107,6 @@ public class PreferenceWorker {
     public static Map checkPermission(DispatchContext ctx, Map context) {
         boolean hasPermission = false;
         String mainAction = (String) context.get("mainAction");
-        Debug.logInfo("mainAction = " + mainAction, module);
-        Debug.logInfo("userLoginId = " + context.get("userLoginId"), module);
         if ("VIEW".equals(mainAction)) {
             if (DEFAULT_UID.equals(context.get("userLoginId"))) {
                 hasPermission = true;
