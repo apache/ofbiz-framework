@@ -242,8 +242,23 @@ under the License.
         <field position="1" name="partyIdFrom" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)"><lookup target-form-name="LookupPartyName"/></field>
         <field position="1" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)"><display description="${invoice.partyId}"/></field>
         <field position="1" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="1" name="roleTypeId">
+        <field position="1" name="roleTypeId" use-when="invoice!=null&amp;&amp;invoice.getString(&quot;invoiceTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)">
             <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType">
+                    <entity-constraint name="parentTypeId" operator="equals" value="CUSTOMER"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+                <entity-options description="${description}" entity-name="RoleType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field position="1" name="roleTypeId" use-when="invoice!=null&amp;&amp;invoice.getString(&quot;invoiceTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType">
+                    <entity-constraint name="parentTypeId" operator="equals" value="VENDOR"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
                 <entity-options description="${description}" entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
