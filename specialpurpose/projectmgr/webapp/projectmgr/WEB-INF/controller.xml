@@ -137,6 +137,11 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
     </request-map>
+    <request-map uri="setTaskStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="taskView"/>
+    </request-map>
     <request-map uri="createTaskPartyAssign">
         <security https="true" auth="true"/>
         <event type="service" invoke="assignPartyToWorkEffort"/>
