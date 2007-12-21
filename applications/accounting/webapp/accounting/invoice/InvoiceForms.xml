@@ -275,7 +275,7 @@ under the License.
         </field>
         <field position="1" name="invoiceMessage"><text size="100"/></field>
         <!--field position="2" name="invoiceAmount" use-when="invoiceId!=null"><display/></field-->
-        <field position="1" name="updateButton" widget-style="smallSubmit">
+        <field position="1" name="updateButton" widget-style="smallSubmit" use-when="invoice!=null&amp;&amp;invoice.getString(&quot;statusId&quot;).equals(&quot;INVOICE_IN_PROCESS&quot;)">
             <submit button-type="button"/>
         </field>
     </form>
