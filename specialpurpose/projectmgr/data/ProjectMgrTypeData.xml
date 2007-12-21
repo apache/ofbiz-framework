@@ -54,7 +54,10 @@ under the License.
     <StatusValidChange condition="" statusId="PAS_ASSIGNED" statusIdTo="PAS_COMPLETED" transitionName="Assignment Complete"/>
     
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PTS_CREATED" statusTypeId="PROJECT_TASK_STATUS"/>
-    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="PTS_COMPLETED" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="Unassigned" sequenceId="02" statusCode="CREATED" statusId="PTS_CREATED_UA" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="Assigned" sequenceId="03" statusCode="CREATED" statusId="PTS_CREATED_AS" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="In Progress" sequenceId="04" statusCode="CREATED" statusId="PTS_CREATED_IP" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="Completed" sequenceId="05" statusCode="COMPLETED" statusId="PTS_COMPLETED" statusTypeId="PROJECT_TASK_STATUS"/>
     <StatusItem description="On Hold" sequenceId="07" statusCode="ON_HOLD" statusId="PTS_ON_HOLD" statusTypeId="PROJECT_TASK_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="09" statusCode="CANCELLED" statusId="PTS_CANCELLED" statusTypeId="PROJECT_TASK_STATUS"/>
     <StatusValidChange condition="" statusId="PTS_CREATED" statusIdTo="PTS_COMPLETED" transitionName="Task Complete"/>
