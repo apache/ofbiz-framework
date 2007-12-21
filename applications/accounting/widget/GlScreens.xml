@@ -113,10 +113,24 @@ under the License.
                         <include-form name="FindAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
                         <section>
                             <condition>
-                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                                <and>
+                                    <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                                    <if-compare field-name="parameters.reportType" operator="equals" value="byAccount"/>
+                                </and>
                             </condition>
                             <widgets>
-                                <include-form name="ListFindAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                <include-form name="ListFindAcctgTransEntriesByAccount" location="component://accounting/widget/GlForms.xml"/>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                                    <if-compare field-name="parameters.reportType" operator="equals" value="byDate"/>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListFindAcctgTransEntriesByDate" location="component://accounting/widget/GlForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
