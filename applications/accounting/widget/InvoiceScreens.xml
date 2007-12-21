@@ -119,9 +119,15 @@ under the License.
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
+                            <condition>
+                                <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
+                            </condition>
                             <widgets>
                                 <include-form name="EditInvoice" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                             </widgets>
+                            <fail-widgets>
+                                <include-form name="invoiceHeader" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
