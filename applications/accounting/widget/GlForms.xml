@@ -211,9 +211,15 @@ under the License.
         <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
         <field name="performSearch"><hidden value="Y"/></field> 
+        <field name="reportType">
+            <drop-down allow-empty="false">
+                <option description="${uiLabelMap.AccountingByAccount}" key="byAccount"/>
+                <option description="${uiLabelMap.AccountingByDate}" key="byDate"/>
+            </drop-down>
+        </field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListFindAcctgTransEntries" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList">
+    <form name="ListFindAcctgTransEntriesByAccount" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList">
         <actions>
             <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransEntryList">
                 <condition-list>
@@ -283,6 +289,73 @@ under the License.
         <field name="postedDate" position="2"><display/></field>
         <field name="debitCreditFlag" position="2"><display/></field>
         <field name="amount" position="2"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="ListFindAcctgTransEntriesByDate" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList">
+        <actions>
+            <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransEntryList">
+                <condition-list>
+                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <condition-expr field-name="glAccountId" operator="equals" env-name="parameters.glAccountId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransTypeId" operator="equals" env-name="parameters.acctgTransTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId" ignore-if-empty="true"/>
+                    <condition-expr field-name="glJournalId" operator="equals" env-name="parameters.glJournalId" ignore-if-empty="true"/>
+                    <condition-expr field-name="isPosted" operator="equals" env-name="parameters.isPosted" ignore-if-empty="true"/>
+                    <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
+                    <condition-expr field-name="invoiceId" operator="equals" env-name="parameters.invoiceId" ignore-if-empty="true"/>
+                    <condition-expr field-name="paymentId" operator="equals" env-name="parameters.paymentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="productId" operator="equals" env-name="parameters.productId" ignore-if-empty="true"/>
+                    <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId" ignore-if-empty="true"/>
+                    <condition-expr field-name="shipmentId" operator="equals" env-name="parameters.shipmentId" ignore-if-empty="true"/>
+                    <condition-expr field-name="acctgTransId" operator="equals" env-name="parameters.acctgTransId" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
+                </condition-list>
+                <order-by field-name="-transactionDate"/>
+            </entity-condition>
+        </actions>
+        
+        <field name="transactionDate"><display/></field>
+        <field name="acctgTransId" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
+        </field>
+        <field name="acctgTransEntrySeqId" widget-style="buttontext"><display/></field>
+        <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
+        <field name="glFiscalTypeId"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
+        <field name="glAccountId"><display/></field>
+        <field name="glAccountDescription" title="${uiLabelMap.CommonDescription}">
+            <display description="${accountCode} ${accountName}"/>
+        </field>
+        <field name="glAccountClassId" widget-area-style="viewManyTR1">
+            <display-entity entity-name="GlAccountClass" />
+        </field>
+        <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
+        </field>
+        <field name="invoiceId" use-when="invoiceId==null"><display/></field>
+        <field name="paymentId" use-when="paymentId!=null">
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
+        </field>
+        <field name="paymentId" use-when="paymentId==null"><display/></field>
+        <field name="workEffortId" use-when="workEffortId!=null">
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/> 
+        </field>
+        <field name="workEffortId" use-when="workEffortId==null"><display/></field>
+        <field name="shipmentId" use-when="shipmentId!=null">
+            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
+        </field>
+        <field name="shipmentId" use-when="shipmentId==null"><display/></field>
+        <field name="partyId" use-when="partyId!=null">
+            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"/>
+        </field>
+        <field name="partyId" use-when="partyId==null"><display/></field>
+        <field name="productId" use-when="productId!=null">
+            <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app"/>
+        </field>
+        <field name="productId" use-when="productId==null"><display/></field>
+        <field name="isPosted"><display/></field>
+        <field name="postedDate"><display/></field>
+        <field name="debitCreditFlag"><display/></field>
+        <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="CreateAcctgTransAndEntries" type="single" target="quickCreateAcctgTransAndEntries" title="">
