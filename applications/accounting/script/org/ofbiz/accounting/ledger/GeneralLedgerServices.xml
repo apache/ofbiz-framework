@@ -1675,7 +1675,7 @@ under the License.
             <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="SALES_INVOICE"/>
-            <!--set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="parameters.invoiceId"/-->
+            <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="parameters.invoiceId"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
             <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
                 <result-to-field result-name="acctgTransId"/>
