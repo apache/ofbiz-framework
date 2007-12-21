@@ -20,8 +20,8 @@
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-
-    <simple-method method-name="scheduleProject" short-description="Project Schulers sets the planningdates according task requirements and available resources">
+    
+    <simple-method method-name="scheduleProject" short-description="Project Scheduler sets the planningdates according task requirements and available resources">
         <!-- 
                 theory behind the program
                 - - - - - - - - - - - - - 
@@ -251,7 +251,7 @@
                 <set field="newProject.workEffortTypeId" value="PROJECT"/>
             </else>            
         </if-not-empty>
-        <set field="newProject.currentStatusId" value="CAL_ACCEPTED"/>            
+        <set field="newProject.currentStatusId" value="_NA_"/>            
         <call-service service-name="createWorkEffort" in-map-name="newProject">
             <result-to-field result-name="workEffortId" field-name="newProjectId"/>
         </call-service> 
@@ -262,7 +262,7 @@
             <set field="pa.workEffortId" from-field="newProjectId"/>            
             <set field="pa.partyId" from-field="party.partyId"/>
             <set field="pa.roleTypeId" from-field="party.roleTypeId"/>
-            <set field="pa.statusId" value="CAL_ACCEPTED"/>            
+            <set field="pa.statusId" value="PAS_ASSIGNED"/>            
             <call-service service-name="assignPartyToWorkEffort" in-map-name="pa"/>
         </iterate>
         
@@ -278,7 +278,7 @@
                 </if-not-empty>
                 <set field="newPhase.workEffortName" from-field="phase.workEffortName"/>
                 <set field="newPhase.workEffortParentId" from-field="newProjectId"/>
-                <set field="newPhase.currentStatusId" value="CAL_ACCEPTED"/>            
+                <set field="newPhase.currentStatusId" value="_NA_"/>            
                 <call-service service-name="createWorkEffort" in-map-name="newPhase">
                     <result-to-field result-name="workEffortId" field-name="newPhaseId"/>
                 </call-service> 
@@ -296,7 +296,7 @@
                         <set field="newTask.workEffortName" from-field="task.workEffortName"/>
                         <set field="newTask.priority" from-field="task.priority"/>
                         <set field="newTask.workEffortParentId" from-field="newPhaseId"/>
-                        <set field="newTask.currentStatusId" value="CAL_ACCEPTED"/>            
+                        <set field="newTask.currentStatusId" value="PTS_CREATED"/>            
                         <call-service service-name="createWorkEffort" in-map-name="newTask"/>
                     </iterate>
                 </if-not-empty>
@@ -306,30 +306,21 @@
     </simple-method>
     
     <simple-method method-name="getProject" short-description="get Project information" login-required="true">
-            <if-empty field-name="parameters.projectId">
-                <return/>
-            </if-empty>
-            <entity-one entity-name="WorkEffort" value-name="project">
-                <field-map field-name="workEffortId" env-name="parameters.projectId"/>
-            </entity-one>
-            <set field="highInfo.projectId" from-field="project.workEffortId"/>
+        <if-empty field-name="parameters.projectId">
+            <return/>
+        </if-empty>
+        <entity-one entity-name="WorkEffort" value-name="project">
+            <field-map field-name="workEffortId" env-name="parameters.projectId"/>
+        </entity-one>
+        <set field="highInfo.projectId" from-field="project.workEffortId"/>
         <set field="highInfo.projectName" from-field="project.workEffortName"/>
         <set field="highInfo.projectDescription" from-field="project.description"/>
-        <set field="highInfo.currentStatusId" from-field="project.currentStatusId"/>
         <set field="highInfo.scopeEnumId" from-field="project.scopeEnumId"/>
         <entity-one entity-name="StatusItem" value-name="highSeq">
             <field-map field-name="statusId" env-name="project.currentStatusId"/>
         </entity-one>
-        <set field="highInfo.sequenceId" from-field="highSeq.sequenceId"/>
-        <set field="highInfo.statusDescription" from-field="highSeq.description"/>
         <set field="highInfo.createdDate" from-field="project.createdDate"/>
-        <if-not-empty field-name="project.workEffortParentId">
-            <entity-one entity-name="WorkEffort" value-name="parentProject">
-                <field-map field-name="workEffortId" env-name="project.workEffortParentId"/>
-            </entity-one>
-            <set field="highInfo.parentProjectName" from-field="parentProject.workEffortName"/> 
-            <set field="highInfo.parentProjectId" from-field="parentProject.workEffortId"/> 
-        </if-not-empty>
+        <set field="highInfo.parentProjectId" from-field="parentProject.workEffortId"/> 
         <!-- loop through the related phases and tasks -->
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
         <iterate entry-name="phase" list-name="phases">
@@ -342,12 +333,10 @@
         <!-- translate squenceId back into statusId -->
         <entity-and entity-name="StatusItem" list-name="statusses">
             <field-map field-name="sequenceId" env-name="highInfo.sequenceId"/>
-            <field-map field-name="statusTypeId" value="TASK_STATUS"/>
+            <field-map field-name="statusTypeId" value="PROJECT_TASK_STATUS"/>
         </entity-and>
         <first-from-list entry-name="status" list-name="statusses"/>
-        <clear-field field-name="highInfo.sequenceId"/>
-        <set field="highInfo.statusId" from-field="status.statusId"/>
-        
+        <set field="highInfo.currentStatusId" from-field="status.statusId"/>
         <call-simple-method method-name="createDates"/>
         
         <!-- results -->
@@ -387,7 +376,7 @@
             <!-- translate squenceId back into statusId -->
             <entity-and entity-name="StatusItem" list-name="statusses">
                 <field-map field-name="sequenceId" env-name="highInfo.sequenceId"/>
-                <field-map field-name="statusTypeId" value="TASK_STATUS"/>
+                <field-map field-name="statusTypeId" value="PROJECT_TASK_STATUS"/>
             </entity-and>
             <first-from-list entry-name="status" list-name="statusses"/>
             <clear-field field-name="highInfo.sequenceId"/>
@@ -408,33 +397,24 @@
             <field-map field-name="projectId" env-name="parameters.projectId"/>
         </entity-and>        
         
-        <iterate entry-name="task" list-name="tasks">
-            
-            <!-- merge estimated and actual dates -->
+        <iterate entry-name="lowInfo" list-name="tasks">
             <if-empty field-name="savePhaseName">
-                <set field="savePhaseName" from-field="task.phaseName"/>
-                <set field="highInfo.phaseName" from-field="task.phaseName"/>
+                <set field="savePhaseName" from-field="lowInfo.phaseName"/>
+                <set field="highInfo.phaseName" from-field="lowInfo.phaseName"/>
                 <else>
-                    <if-compare-field field-name="task.phaseName" operator="not-equals" to-field-name="savePhaseName">
-                        <set field="highInfo.phaseName" from-field="task.phaseName"/>
-                        <set field="savePhaseName" from-field="task.phaseName"/>
+                    <if-compare-field field-name="lowInfo.phaseName" operator="not-equals" to-field-name="savePhaseName">
+                        <set field="highInfo.phaseName" from-field="lowInfo.phaseName"/>
+                        <set field="savePhaseName" from-field="lowInfo.phaseName"/>
                     </if-compare-field>
                 </else>
             </if-empty>
-            <set field="highInfo.phaseId" from-field="task.phaseId"/>
-            <set field="highInfo.workEffortId" from-field="task.workEffortId"/>
-            <set field="highInfo.workEffortName" from-field="task.workEffortName"/>
-            <set field="highInfo.workEffortDescription" from-field="workEffortDescription"/>
-            <set field="highInfo.currentStatusId" from-field="task.currentStatusId"/>
-            <set field="highInfo.scopeEnumId" from-field="task.scopeEnumId"/>
-            <set field="highInfo.priority" from-field="task.priority"/>
-            <set field="highInfo.estimatedStartDate" from-field="task.estimatedStartDate"/>
-            <set field="highInfo.estimatedCompletionDate" from-field="task.estimatedCompletionDate"/>
-            <set field="highInfo.actualStartDate" from-field="task.actualStartDate"/>
-            <set field="highInfo.actualCompletionDate" from-field="task.actualCompletionDate"/>
+            <call-simple-method method-name="combineInfo"/>
+            <clear-field field-name="highInfo.sequenceId"/>
+            <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
             <call-simple-method method-name="createDates"/>
-            <set field="lowInfo" from-field="task"/>
             <call-simple-method method-name="getHours"/>
+            <set field="highInfo.workEffortId" from-field="lowInfo.workEffortId"/>
+            <set field="highInfo.workEffortName" from-field="lowInfo.workEffortName"/>
             <field-to-list field-name="highInfo" list-name="taskList"/>
             <clear-field field-name="highInfo"/>
         </iterate>
@@ -455,7 +435,7 @@
         <call-simple-method method-name="combineInfo"/>
         <call-simple-method method-name="getHours"/>
         <clear-field field-name="highInfo.sequenceId"/>
-        <set field="highInfo.statusId" from-field="lowInfo.currentStatusId"/>
+        <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
         <field-to-result field-name="highInfo" result-name="taskInfo"/>
         <call-simple-method method-name="getProjectIdAndName"/>
     </simple-method>
@@ -646,6 +626,25 @@
             </if-empty>
         </if-not-empty>
         
+        <!-- if lowlevel type equals TASK then get create the status first -->
+        <if-compare field-name="lowInfo.workEffortTypeId" value="TASK" operator="equals">
+            <if-compare field-name="lowInfo.currentStatusId" value="PTS_CREATED" operator="equals">
+                <get-related value-name="lowInfo" relation-name="WorkEffortPartyAssignment" list-name="assigns"/>
+                <if-empty field-name="assigns">
+                    <set field="lowInfo.currentStatusId" value="PTS_CREATED_UA"/>
+                    <else>
+                        <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="entries"/>
+                        <if-empty field-name="entries">
+                            <set field="lowInfo.currentStatusId" value="PTS_CREATED_AS"/>
+                            <else>
+                                <set field="lowInfo.currentStatusId" value="PTS_CREATED_IP"/>
+                            </else>
+                        </if-empty>
+                    </else>
+                </if-empty>
+            </if-compare>
+        </if-compare>        
+        
         <!-- get the status from the lowerlevel tasks follow the sequence in the StatusItem entity and use the lowest-->
         <entity-one entity-name="StatusItem" value-name="status">
             <field-map field-name="statusId" env-name="lowInfo.currentStatusId"/>
@@ -653,7 +652,7 @@
         <if-empty field-name="highInfo.sequenceId">
             <set field="highInfo.sequenceId" from-field="status.sequenceId"/>
             <else>
-                <if-compare-field field-name="highInfo.sequenceId" operator="greater" to-field-name="status.sequenceId">
+                <if-compare-field field-name="highInfo.sequenceId" operator="less" to-field-name="status.sequenceId">
                     <set field="highInfo.sequenceId" from-field="status.sequenceId"/>
                 </if-compare-field>
             </else>
@@ -759,9 +758,10 @@
             </else>            
         </if-not-empty>
     </simple-method>
+    
     <simple-method method-name="updateMyTaskAssigment" short-description="Update the workEffortPartyAssigment, if required create a new one by re-assigment">
         <if-compare-field field-name="parameters.partyId" to-field-name="userLogin.partyId" operator="equals">
-            <if-compare field-name="parameters.statusId" value="CAL_COMPLETED" operator="equals">
+            <if-compare field-name="parameters.statusId" value="PAS_COMPLETED" operator="equals">
                 <now-timestamp-to-env env-name="upd.thruDate"/>
             </if-compare>
             <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="upd"/>
@@ -803,5 +803,4 @@
         </if-compare-field>
     </simple-method>
     
-
 </simple-methods>

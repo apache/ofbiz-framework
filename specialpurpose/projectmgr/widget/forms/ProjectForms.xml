@@ -113,9 +113,14 @@
     </form>                                        	
     <form name="ProjectInfo" type="single" default-map-name="project" paginate-target="FindProject">
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><display/></field>
-        <field name="statusDescription" title="${uiLabelMap.CommonStatus}"><display/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
-        <field name="parentProjectName" title="${uiLabelMap.ProjectMgrParentProjectName}"><hyperlink target="projectView?projectId=${project.parentProjectId}" description="${project.parentProjectName}"/></field>
+        <field name="parentProjectId" title="${uiLabelMap.ProjectMgrParentProjectName}">
+            <display-entity entity-name="WorkEffort" description="${workEffortName} ${workEffortId}" key-field-name="workEffortId">
+                <sub-hyperlink target="projectView?projectId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
