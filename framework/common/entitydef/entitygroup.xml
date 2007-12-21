@@ -100,5 +100,15 @@ under the License.
     <entity-group group="org.ofbiz" entity="UomConversion" />
     <entity-group group="org.ofbiz" entity="UomConversionDated" />
     <entity-group group="org.ofbiz" entity="UomType" />
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.common.preferences -->
+  <!-- ========================================================= -->
+
+    <entity-group group="org.ofbiz" entity="UserPreference" />
+    <entity-group group="org.ofbiz" entity="UserPrefGroupType" />
+
 </entitygroup>
+
+
 

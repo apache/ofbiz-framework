@@ -31,4 +31,8 @@
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_VIEW"/>
 
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="COMMON_VIEW"/>
+
+    <!-- User preferences security -->
+    <SecurityPermission description="User preferences admin" permissionId="USERPREF_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="USERPREF_ADMIN"/>
 </entity-engine-xml>

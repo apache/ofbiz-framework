@@ -1,0 +1,266 @@
+/*******************************************************************************
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *******************************************************************************/
+package org.ofbiz.common.preferences;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javolution.util.FastMap;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.security.Security;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.ServiceUtil;
+
+/**
+ * User preference worker methods.
+ */
+public class PreferenceWorker {
+    public static final String module = PreferenceWorker.class.getName();
+    /**
+     * User preference administrator permission. Currently set to "USERPREF_ADMIN".
+     */
+    public static final String ADMIN_PERMISSION = "USERPREF_ADMIN";
+
+    /**
+     * Default userLoginId. Currently set to "DEFAULT_USER_PREFS". This userLoginId is used to
+     * retrieve preferences when the user is not logged in.
+     */
+    public static final String DEFAULT_UID = "DEFAULT_USER_PREFS";
+
+    /**
+     * Add a UserPreference GenericValue to a Map.
+     * @param rec GenericValue to convert
+     * @param userPrefMap user preference Map
+     * @throws GeneralException
+     * @return user preference map
+     */
+    public static Map<Object, Object> addPrefToMap(GenericValue rec, Map<Object, Object> userPrefMap) throws GeneralException {
+        String prefDataType = rec.getString("userPrefDataType");
+        if (UtilValidate.isEmpty(prefDataType)) {
+            // default to String
+            userPrefMap.put(rec.getString("userPrefTypeId"), rec.getString("userPrefValue"));
+        } else {
+            userPrefMap.put(rec.getString("userPrefTypeId"), ObjectType.simpleTypeConvert(rec.get("userPrefValue"), prefDataType, null, null, false));
+        }
+        return userPrefMap;
+    }
+
+    /**
+     * Checks preference copy permissions. Returns hasPermission=true if permission
+     * is granted.
+     * <p>Users can copy from any set of preferences to their own preferences.
+     * Copying to another user's preferences requires <a href="#ADMIN_PERMISSION">ADMIN_PERMISSION</a>
+     * permission.</p>
+     * @param ctx The DispatchContext that this service is operating in.
+     * @param context Map containing the input arguments.
+     * @return Map with the result of the service, the output parameters.
+     */
+    public static Map checkCopyPermission(DispatchContext ctx, Map context) {
+        boolean hasPermission = false;
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (userLogin != null) {
+            String userLoginId = userLogin.getString("userLoginId");
+            String userLoginIdArg = (String) context.get("userLoginId");
+            if (userLoginId.equals(userLoginIdArg)) {
+                // users can copy to their own preferences
+                hasPermission = true;
+            } else {
+                Security security = ctx.getSecurity();
+                hasPermission = security.hasPermission(ADMIN_PERMISSION, userLogin);
+            }
+        }
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("hasPermission", new Boolean(hasPermission));
+        return result;
+    }
+
+    /**
+     * Checks preference get/set permissions. Returns hasPermission=true if 
+     * permission is granted.
+     * <p>This method is a simple wrapper around the isValidxxxId methods.</p>
+     * @param ctx The DispatchContext that this service is operating in.
+     * @param context Map containing the input arguments.
+     * @return Map with the result of the service, the output parameters.
+     */
+    public static Map checkPermission(DispatchContext ctx, Map context) {
+        boolean hasPermission = false;
+        String mainAction = (String) context.get("mainAction");
+        Debug.logInfo("mainAction = " + mainAction, module);
+        Debug.logInfo("userLoginId = " + context.get("userLoginId"), module);
+        if ("VIEW".equals(mainAction)) {
+            if (DEFAULT_UID.equals(context.get("userLoginId"))) {
+                hasPermission = true;
+            } else {
+                hasPermission = isValidGetId(ctx, context);
+            }
+        } else if ("CREATE~UPDATE~DELETE".contains(mainAction)) {
+            hasPermission = isValidSetId(ctx, context);
+        } else {
+            hasPermission = false;
+        }
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("hasPermission", new Boolean(hasPermission));
+        return result;
+    }
+
+    /**
+     * Convert a UserPreference GenericValue to a userPrefMap.
+     * @param rec GenericValue to convert
+     * @throws GeneralException
+     * @return user preference map
+     */
+    public static Map createUserPrefMap(GenericValue rec) throws GeneralException {
+        return addPrefToMap(rec, FastMap.newInstance());
+    }
+
+    /**
+     * Convert a List of UserPreference GenericValues to a userPrefMap.
+     * @param recList List of GenericValues to convert
+     * @throws GeneralException
+     * @return user preference map
+     */
+    public static Map<Object, Object> createUserPrefMap(List recList) throws GeneralException {
+        Map<Object, Object> userPrefMap = FastMap.newInstance();
+        if (recList != null) {
+            for (Iterator i = recList.iterator(); i.hasNext();) {
+                addPrefToMap((GenericValue) i.next(), userPrefMap);
+            }
+        }
+        return userPrefMap;
+    }
+
+    /**
+     * Gets a valid userLoginId parameter from the context Map.
+     * <p>This method searches the context Map for a userLoginId key. If none is
+     * found, the method attempts to get the current user's userLoginId. If the user
+     * isn't logged in, then the method returns <a href="#DEFAULT_UID">DEFAULT_UID</a>
+     * if returnDefault is set to true, otherwise the method returns a null or empty string.</p>
+     * 
+     * @param context Map containing the input arguments.
+     * @param returnDefault return <a href="#DEFAULT_UID">DEFAULT_UID</a> if no userLoginId is found.
+     * @return userLoginId String
+     */
+    public static String getUserLoginId(Map context, boolean returnDefault) {
+        String userLoginId = (String) context.get("userLoginId");
+        if (UtilValidate.isEmpty(userLoginId)) {
+            GenericValue userLogin = (GenericValue) context.get("userLogin");
+            if (userLogin != null) {
+                userLoginId = userLogin.getString("userLoginId");
+            }
+        }
+        if (UtilValidate.isEmpty(userLoginId) && returnDefault) {
+            userLoginId = DEFAULT_UID;
+        }
+        return userLoginId;
+    }
+
+    /**
+     * Checks for valid userLoginId to get preferences. Returns true if valid.
+     * <p>This method applies a small rule set to determine if user preferences
+     * can be retrieved by the current user:
+     * <ul>
+     * <li>If the user isn't logged in, then the method returns true</li>
+     * <li>If the user is logged in and the userLoginId specified in the context Map
+     * matches the user's userLoginId, then the method returns true.</li>
+     * <li>If the user is logged in and the userLoginId specified in the context Map
+     * is different than the user's userLoginId, then a security permission check is performed.
+     * If the user has the <a href="#ADMIN_PERMISSION">ADMIN_PERMISSION</a> permission then the
+     *  method returns true.</li>
+     * </ul></p>
+     * 
+     * @param ctx The DispatchContext that this service is operating in.
+     * @param context Map containing the input arguments.
+     * @return true if the userLoginId arguments are valid
+     */
+    public static boolean isValidGetId(DispatchContext ctx, Map context) {
+        String currentUserLoginId = null;
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (userLogin == null) {
+            currentUserLoginId = DEFAULT_UID;
+        } else {
+            currentUserLoginId = userLogin.getString("userLoginId");
+        }
+        String userLoginIdArg = (String) context.get("userLoginId");
+        if (!currentUserLoginId.equals(DEFAULT_UID) && !currentUserLoginId.equals(userLoginIdArg)
+                && userLoginIdArg != null) {
+            Security security = ctx.getSecurity();
+            return security.hasPermission(ADMIN_PERMISSION, userLogin);
+        }
+        return true;
+    }
+
+    /**
+     * Checks for valid userLoginId to set preferences. Returns true if valid.
+     * <p>This method applies a small rule set to determine if user preferences
+     * can be set by the current user:
+     * <ul>
+     * <li>If the user isn't logged in, then the method returns false</li>
+     * <li>If the user is logged in and the userLoginId specified in the context Map
+     * matches the user's userLoginId, then the method returns true.</li>
+     * <li>If the user is logged in and the userLoginId specified in the context Map
+     * is different than the user's userLoginId, then a security permission check is performed.
+     * If the user has the <a href="#ADMIN_PERMISSION">ADMIN_PERMISSION</a>
+     * permission then the method returns true.</li>
+     * </ul></p>
+     * @param ctx The DispatchContext that this service is operating in.
+     * @param context Map containing the input arguments.
+     * @return true if arguments are valid
+     */
+    public static boolean isValidSetId(DispatchContext ctx, Map context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (userLogin == null) {
+            return false;
+        }
+        String currentUserLoginId = userLogin.getString("userLoginId");
+        String userLoginIdArg = (String) context.get("userLoginId");
+        if (!currentUserLoginId.equals(userLoginIdArg) && userLoginIdArg != null) {
+            Security security = ctx.getSecurity();
+            return security.hasPermission(ADMIN_PERMISSION, userLogin);
+        }
+        return true;
+    }
+
+    /**
+     * Creates a field Map to be used in GenericValue create or store methods.
+     * @param userLoginId The user's login ID
+     * @param userPrefTypeId The preference ID
+     * @param userPrefGroupId The preference group ID (may be null or empty)
+     * @param userPrefValue The preference value (will be converted to java.lang.String data type)
+     * @throws GeneralException
+     * @return field map
+     */
+    public static Map<String, Object> toFieldMap(String userLoginId, String userPrefTypeId, String userPrefGroupId, Object userPrefValue) throws GeneralException {
+        Map<String, Object> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId, "userPrefValue", ObjectType.simpleTypeConvert(userPrefValue, "String", null, null, false));
+        if (UtilValidate.isNotEmpty(userPrefGroupId)) {
+            fieldMap.put("userPrefGroupId", userPrefGroupId);
+        }
+        String valueDataType = userPrefValue.getClass().getName();
+        if (!"java.lang.String".equals(valueDataType)) {
+            fieldMap.put("userPrefDataType", valueDataType);
+        }
+        return fieldMap;
+    }
+}

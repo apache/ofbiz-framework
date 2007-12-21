@@ -87,4 +87,7 @@ under the License.
     <UomType description="Energy" hasTable="N" parentTypeId="" uomTypeId="ENERGY_MEASURE"/>
     <UomType description="Temperature" hasTable="N" parentTypeId="" uomTypeId="TEMP_MEASURE"/>
     <UomType description="Other" hasTable="N" parentTypeId="" uomTypeId="OTHER_MEASURE"/>
+
+    <!-- User preferences seed data -->
+    <UserPrefGroupType userPrefGroupId="GLOBAL_PREFERENCES" description="Global preferences"/>
 </entity-engine-xml>
