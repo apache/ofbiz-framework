@@ -416,4 +416,66 @@ under the License.
         <attribute name="entryLink" type="String" mode="IN" optional="false"/>        
         <attribute name="wireFeed" type="com.sun.syndication.feed.WireFeed" mode="OUT" optional="false"/>
     </service>
+
+    <!-- User preferences services -->    
+    <service name="copyUserPrefGroup" engine="java"
+            location="org.ofbiz.common.preferences.PreferenceServices" invoke="copyUserPreferenceGroup" auth="true" use-transaction="true">
+        <description>Copies the preferences from one userLoginId and preference group to another.
+            If no userLoginId is specified, preferences are copied to current user's preferences.</description>
+        <permission-service service-name="preferenceCopyPermission"/>
+        <attribute name="fromUserLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="userPrefGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="getUserPreference" engine="java"
+            location="org.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreference">
+        <description>Gets a single user preference.</description>
+        <permission-service service-name="preferenceGetSetPermission" main-action="VIEW"/>
+        <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="userPrefGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="userPrefMap" type="Map" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getUserPreferenceGroup" engine="java"
+            location="org.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreferenceGroup">
+        <description>Gets a group of user preferences.</description>
+        <permission-service service-name="preferenceGetSetPermission" main-action="VIEW"/>
+        <attribute name="userPrefGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+        <attribute name="userPrefMap" type="Map" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="setUserPreference" engine="java"
+            location="org.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreference" auth="true">
+        <description>Sets a single user preference.</description>
+        <permission-service service-name="preferenceGetSetPermission" main-action="CREATE"/>
+        <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="userPrefValue" type="String" mode="IN" optional="false"/>
+        <attribute name="userPrefGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="setUserPreferenceGroup" engine="java"
+            location="org.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreferenceGroup" auth="true">
+        <description>Sets a group of user preferences.</description>
+        <permission-service service-name="preferenceGetSetPermission" main-action="CREATE"/>
+        <attribute name="userPrefMap" type="Map" mode="IN" optional="false"/>
+        <attribute name="userPrefGroupId" type="String" mode="IN" optional="false"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="preferenceGetSetPermission" engine="java"
+            location="org.ofbiz.common.preferences.PreferenceWorker" invoke="checkPermission">
+        <description>User preference get/set permission checking.</description>
+        <implements service="permissionInterface"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="preferenceCopyPermission" engine="java"
+            location="org.ofbiz.common.preferences.PreferenceWorker" invoke="checkCopyPermission">
+        <description>User preference copy permission checking.</description>
+        <implements service="permissionInterface"/>
+    </service>
 </services>

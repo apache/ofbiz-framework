@@ -483,4 +483,35 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="uomTypeId"/>
       </relation>
     </entity>
+
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.common.user -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="UserPreference"
+            package-name="org.ofbiz.common.user"
+            title="Application preferences for a given userLogin.">
+      <description>The UserPreference entity contains one entry per preference per
+          userLogin. User preferences are stored as key/value pairs (userPrefTypeId/userPrefValue).
+          All values are stored as strings. Value strings can be converted to
+          other data types by specifying a java data type in the userPrefDataType field.
+      </description>
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="userPrefTypeId" type="id-ne"><description>A unique identifier for this preference</description></field>
+      <field name="userPrefGroupId" type="id-long"><description>Used to assemble groups of preferences</description></field>
+      <field name="userPrefValue" type="value"><description>Contains the value of this preference</description></field>
+      <field name="userPrefDataType" type="id-long"><description>The java data type of this preference (empty = java.lang.String)</description></field>
+    </entity>
+
+    <entity entity-name="UserPrefGroupType"
+            package-name="org.ofbiz.common.user"
+            title="Defines a group of User Preferences">
+      <description>The UserPrefGroupType entity contains one entry per preference
+          group type.
+      </description>
+      <field name="userPrefGroupId" type="id-long-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="userPrefGroupId"/>
+    </entity>
+
 </entitymodel>

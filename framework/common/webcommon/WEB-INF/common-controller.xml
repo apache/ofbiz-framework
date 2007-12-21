@@ -92,6 +92,14 @@ under the License.
         <response name="success" type="view" value="LookupTimezones" />
     </request-map>
 
+    <!-- User preference mapping -->
+    <request-map uri="setUserPreference">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreference"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
