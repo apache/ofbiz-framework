@@ -181,6 +181,7 @@
             </service>
             <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
             <set field="actualHours" from-field="result.taskInfo.actualHours"/>
+            <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
         </row-actions>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}[${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/>
@@ -188,15 +189,14 @@
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"></display-entity>/></field>
         <field name="priority"><display/></field>
-        <field name="description"><display/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" red-when="before-now"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.ProjectMgrWorkEffortActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.ProjectMgrWorkEffortActualCompletionDate}" red-when="before-now"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
-        <field name="createdDate"><display type="date"/></field>
     </form>
     <form name="MyTasks" type="list" list-name="tasks" paginate-target="MyTasks" target="updateMyTasks">
         <row-actions>
