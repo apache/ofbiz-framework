@@ -187,6 +187,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
+                                    <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=N&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
+                                    <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=Y&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
                                     <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                                     <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
                                 </container>

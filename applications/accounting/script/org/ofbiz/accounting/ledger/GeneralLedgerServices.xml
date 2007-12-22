@@ -1795,4 +1795,43 @@ under the License.
         </if-compare>
     </simple-method>
     
+    <!--service to clone an existing accounting transaction and its entries-->
+    <simple-method method-name="copyAcctgTransAndEntries" short-description="copy AcctgTransAndEntries">
+        <entity-one entity-name="AcctgTrans" value-name="acctgTrans">
+            <field-map field-name="acctgTransId" env-name="parameters.fromAcctgTransId"/>
+        </entity-one>
+        <!--Cloning AcctgTrans-->
+        <clone-value value-name="acctgTrans" new-value-name="newAcctgTrans"/>
+        <set-service-fields to-map-name="createAcctgTransInMap" service-name="createAcctgTrans" map-name="newAcctgTrans"/>
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <set field="createAcctgTransInMap.transactionDate" from-field="nowTimestamp"/>
+        <set field="createAcctgTransInMap.isPosted" value="N"/>
+        <set field="originalAcctgTransId" from-field="parameters.fromAcctgTransId"/>
+        <field-to-result field-name="originalAcctgTransId" result-name="acctgTransId"/>        
+        
+        <clear-field field-name="acctgTransId" map-name="newAcctgTrans"/>
+        <call-service service-name="createAcctgTrans" in-map-name="createAcctgTransInMap">
+            <result-to-field result-name="acctgTransId" map-name="newAcctgTrans"/>
+        </call-service>
+        <get-related list-name="acctgTransEntries" relation-name="AcctgTransEntry" value-name="acctgTrans"/>
+        <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
+            <!--Cloning AcctgTransEntry-->
+            <clone-value value-name="acctgTransEntry" new-value-name="newAcctgTransEntry"/>
+            <set-service-fields to-map-name="createAcctgTransAndEntryInMap" service-name="createAcctgTransEntry" map-name="newAcctgTransEntry"/>
+            <set field="createAcctgTransAndEntryInMap.acctgTransId" from-field="newAcctgTrans.acctgTransId"/>
+            <if-compare field-name="parameters.revert" operator="equals" value="Y">
+                <if-compare field-name="newAcctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <set field="createAcctgTransAndEntryInMap.debitCreditFlag" value="C"/>
+                </if-compare>
+                <if-compare field-name="newAcctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                    <set field="createAcctgTransAndEntryInMap.debitCreditFlag" value="D"/>
+                </if-compare>
+            <else>
+                <set field="createAcctgTransAndEntryInMap.debitCreditFlag" from-field="newAcctgTransEntry.debitCreditFlag"/>
+            </else>
+            </if-compare>
+            <call-service service-name="createAcctgTransEntry" in-map-name="createAcctgTransAndEntryInMap"/>
+        </iterate>
+    </simple-method>
+    
 </simple-methods>

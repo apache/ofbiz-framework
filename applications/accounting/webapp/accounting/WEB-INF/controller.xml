@@ -500,6 +500,13 @@ under the License.
         <response name="success" type="view" value="EditAcctgTrans"/>
         <response name="error" type="view" value="NewAcctgTrans"/>
     </request-map>
+    
+    <request-map uri="copyAcctgTransAndEntries">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="copyAcctgTransAndEntries"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+        <response name="error" type="view" value="EditAcctgTrans"/>
+    </request-map>
 
     <!-- GlAccount requests -->
     <request-map uri="AssignGlAccount">
