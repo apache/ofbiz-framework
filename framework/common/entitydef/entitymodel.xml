@@ -501,6 +501,8 @@ under the License.
       <field name="userPrefGroupId" type="id-long"><description>Used to assemble groups of preferences</description></field>
       <field name="userPrefValue" type="value"><description>Contains the value of this preference</description></field>
       <field name="userPrefDataType" type="id-long"><description>The java data type of this preference (empty = java.lang.String)</description></field>
+      <prim-key field="userLoginId"/>
+      <prim-key field="userPrefTypeId"/>
     </entity>
 
     <entity entity-name="UserPrefGroupType"
