@@ -54,13 +54,12 @@ under the License.
                                         </container>
                                     </widgets>
                                 </section>
-
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>            
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -113,14 +112,51 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
-                        <include-form name="UpdateCategoryContentAssoc" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductUpdateCategoryContentAssoc}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="UpdateCategoryContentAssoc" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
 
-                        <container><label text="${uiLabelMap.ProductAddProductCategoryContentFromDate}" style="head2"/></container>
-                        <include-form name="PrepareAddCategoryContentAssoc" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
-
-                        <container><label text="${uiLabelMap.ProductAddContentCategory}" style="head2"/></container>
-                        <include-form name="AddCategoryContentAssoc" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
-
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductAddProductCategoryContentFromDate}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="PrepareAddCategoryContentAssoc" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductAddContentCategory}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="AddCategoryContentAssoc" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/category/EditCategoryContent.ftl"/></html>
                         </platform-specific>
@@ -155,9 +191,51 @@ under the License.
                             <condition><not><if-empty field-name="contentId"/></not></condition>
                             <widgets><link target="/content/control/gotoContent?contentId=${contentId}" text="${uiLabelMap.ContentContent} ${uiLabelMap.CommonPage}" url-mode="inter-app" style="buttontext"/></widgets>
                         </section>
-                        <include-form name="EditCategoryContentSimpleText" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
-                        <include-form name="ListAssociatedContentInfos" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                        <include-form name="CreateSimpleTextContentForAlternateLocale" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                        
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditCategoryContentSimpleText" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductListAssociatedContentInfos}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListAssociatedContentInfos" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="CreateSimpleTextContentForAlternateLocale" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -328,7 +406,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditCategoryAttributes"/>
                 <set field="headerItem" value="category"/>
                 <set field="tabButtonItem" value="EditCategoryAttributes"/>
-                <set field="labelTitleProperty" value="CategoryAttributes"/>
+                <set field="labelTitleProperty" value="ProductCategoryAttributes"/>
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-name="productCategory"/>
                 <entity-condition entity-name="ProductCategoryAttribute" list-name="categoryAttributes">
@@ -338,8 +416,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
-                        <include-form name="CreateProductCategoryAttribute" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
-                        <include-form name="EditProductCategoryAttributes" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleCreateCategoryAttributes}"></label>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="CreateProductCategoryAttribute" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditCategoryAttributes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditProductCategoryAttributes" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -408,8 +512,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
                     <decorator-section name="body">
-                        <include-form name="ListProductCategoryLinks" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
-                        <include-form name="AddProductCategoryLink" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductCategoryLink}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListProductCategoryLinks" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleCreateProductCategoryLink}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="AddProductCategoryLink" location="component://product/webapp/catalog/category/CategoryForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
