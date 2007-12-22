@@ -51,6 +51,7 @@ public class PromoEvents {
                     pos.showDialog("dialog/error/exception", result);
                     input.clearFunction("PROMOCODE");
                 } else {
+                    input.clearFunction("PROMOCODE");
                     NavagationEvents.showPosScreen(pos);
                     pos.refresh();
                 }

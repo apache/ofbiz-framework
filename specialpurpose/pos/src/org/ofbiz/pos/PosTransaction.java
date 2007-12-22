@@ -1242,6 +1242,8 @@ public class PosTransaction implements Serializable {
 
     public String addProductPromoCode(String code, PosScreen pos) {
         LocalDispatcher dispatcher = session.getDispatcher();
-        return cart.addProductPromoCode(code, dispatcher);
+        String result = cart.addProductPromoCode(code, dispatcher);
+        calcTax();
+        return result;
     }
 }
