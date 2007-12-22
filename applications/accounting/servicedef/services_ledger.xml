@@ -470,4 +470,13 @@ under the License.
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
     
+    <!--A service to clone an existing accounting transaction and its entries (AcctgTrans and AcctgTransEntry) -->
+    <service name="copyAcctgTransAndEntries" engine="simple"  auth="true"
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="copyAcctgTransAndEntries">
+        <description>Create an Acctg Trans And Entry(Duplicate or revert)</description>
+        <attribute name="fromAcctgTransId" type="String" mode="IN" optional="false"/>
+        <attribute name="revert" type="String" mode="IN" optional="true"/>
+        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
+    </service>
+    
 </services>
