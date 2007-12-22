@@ -18,78 +18,100 @@ under the License.
 -->
 
 <#if productCategoryId?exists && productCategory?exists>    
-    <table border="1" cellpadding="2" cellspacing="0">
-    <tr>
-        <td><div class="tabletext"><b>${uiLabelMap.ProductCatalogNameId}</b></div></td>
-        <td><div class="tabletext"><b>${uiLabelMap.CommonType}</b></div></td>
-        <td><div class="tabletext"><b>${uiLabelMap.CommonFromDateTime}</b></div></td>
-        <td align="center"><div class="tabletext"><b>${uiLabelMap.ProductThruDateTimeSequence}</b></div></td>
-        <td><div class="tabletext"><b>&nbsp;</b></div></td>
-    </tr>
-    <#assign line = 0>
-    <#list prodCatalogCategories as prodCatalogCategory>
-    <#assign line = line + 1>
-    <#assign prodCatalog = prodCatalogCategory.getRelatedOne("ProdCatalog")>
-    <#assign curProdCatalogCategoryType = prodCatalogCategory.getRelatedOneCache("ProdCatalogCategoryType")>
-    <tr valign="middle">
-        <td><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${(prodCatalogCategory.prodCatalogId)?if_exists}</@ofbizUrl>" class="buttontext"><#if prodCatalog?exists>${(prodCatalog.catalogName)?if_exists}</#if> [${(prodCatalogCategory.prodCatalogId)?if_exists}]</a></td>
-        <td>
-            <div class="tabletext">${(curProdCatalogCategoryType.get("description",locale))?default(prodCatalogCategory.prodCatalogCategoryTypeId)}</div>
-        </td>
-        <#assign hasntStarted = false>
-        <#if (prodCatalogCategory.getTimestamp("fromDate"))?exists && nowTimestamp.before(prodCatalogCategory.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
-        <td><div class="tabletext"<#if hasntStarted> style="color: red;"</#if>>${(prodCatalogCategory.fromDate)?if_exists}</div></td>
-        <td align="center">
-            <form method="post" action="<@ofbizUrl>category_updateProductCategoryToProdCatalog</@ofbizUrl>" name="lineForm${line}">
-                <#assign hasExpired = false>
-                <#if (prodCatalogCategory.getTimestamp("thruDate"))?exists && nowTimestamp.after(prodCatalogCategory.getTimestamp("thruDate"))> <#assign hasExpired = true></#if>
-                <input type="hidden" name="prodCatalogId" value="${(prodCatalogCategory.prodCatalogId)?if_exists}"/>
-                <input type="hidden" name="productCategoryId" value="${(prodCatalogCategory.productCategoryId)?if_exists}"/>
-                <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
-                <input type="hidden" name="fromDate" value="${(prodCatalogCategory.fromDate)?if_exists}"/>
-                <input type="text" size="25" name="thruDate" value="${(prodCatalogCategory.thruDate)?if_exists}" class="inputBox" style="<#if (hasExpired) >color: red;</#if>"/>
-                <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(prodCatalogCategory.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
-                <input type="text" size="5" name="sequenceNum" value="${(prodCatalogCategory.sequenceNum)?if_exists}" class="inputBox"/>
-                <#-- the prodCatalogCategoryTypeId field is now part of the PK, so it can't be changed, must be re-created
-                <select name="prodCatalogCategoryTypeId" size="1" class="selectBox">
-                    <#if (prodCatalogCategory.prodCatalogCategoryTypeId)?exists>
-                        <option value="${prodCatalogCategory.prodCatalogCategoryTypeId}"><#if curProdCatalogCategoryType?exists>${(curProdCatalogCategoryType.description)?if_exists}<#else> [${(prodCatalogCategory.prodCatalogCategoryTypeId)}]</#if></option>
-                        <option value="${prodCatalogCategory.prodCatalogCategoryTypeId}"></option>
-                    <#else>
-                        <option value="">&nbsp;</option>
-                    </#if>
-                    <#list prodCatalogCategoryTypes as prodCatalogCategoryType>
-                    <option value="${(prodCatalogCategoryType.prodCatalogCategoryTypeId)?if_exists}">${(prodCatalogCategoryType.get("description",locale))?if_exists}</option>
-                    </#list>
-                </select> -->
-                <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;"/>
-            </form>
-        </td>
-        <td align="center">
-        <a href="<@ofbizUrl>category_removeProductCategoryFromProdCatalog?prodCatalogId=${(prodCatalogCategory.prodCatalogId)?if_exists}&productCategoryId=${(prodCatalogCategory.productCategoryId)?if_exists}&prodCatalogCategoryTypeId=${(prodCatalogCategory.prodCatalogCategoryTypeId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(prodCatalogCategory.getTimestamp("fromDate").toString())}</@ofbizUrl>" class="buttontext">
-        [${uiLabelMap.CommonDelete}]</a>
-        </td>
-    </tr>
-    </#list>
-    </table>
-    <br/>
-    <form method="post" action="<@ofbizUrl>category_addProductCategoryToProdCatalog</@ofbizUrl>" style="margin: 0;" name="addNewForm">
-    <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}"/>
-    
-    <h2>${uiLabelMap.ProductAddCatalogProductCategory}:</h2>
-    <br/>
-    <select name="prodCatalogId" class="selectBox">
-    <#list prodCatalogs as prodCatalog>
-        <option value="${(prodCatalog.prodCatalogId)?if_exists}">${(prodCatalog.catalogName)?if_exists} [${(prodCatalog.prodCatalogId)?if_exists}]</option>
-    </#list>
-    </select>
-        <select name="prodCatalogCategoryTypeId" size="1" class="selectBox">
-            <#list prodCatalogCategoryTypes as prodCatalogCategoryType>
-            <option value="${(prodCatalogCategoryType.prodCatalogCategoryTypeId)?if_exists}">${(prodCatalogCategoryType.get("description",locale))?if_exists}</option>
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.PageTitleEditCategoryProductCatalogs}</h3>
+    </div>
+    <div class="screenlet">
+        <div class="screenlet-body">
+            <table cellspacing="0" class="basic-table">
+            <tr class="header-row">
+                <td><b>${uiLabelMap.ProductCatalogNameId}</b></td>
+                <td><b>${uiLabelMap.CommonType}</b></td>
+                <td><b>${uiLabelMap.CommonFromDateTime}</b></td>
+                <td align="center"><b>${uiLabelMap.ProductThruDateTimeSequence}</b></td>
+                <td><b>&nbsp;</b></td>
+            </tr>
+            <#assign line = 0>
+            <#assign rowClass = "2">
+            <#list prodCatalogCategories as prodCatalogCategory>
+            <#assign line = line + 1>
+            <#assign prodCatalog = prodCatalogCategory.getRelatedOne("ProdCatalog")>
+            <#assign curProdCatalogCategoryType = prodCatalogCategory.getRelatedOneCache("ProdCatalogCategoryType")>
+            <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                <td><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${(prodCatalogCategory.prodCatalogId)?if_exists}</@ofbizUrl>" class="buttontext"><#if prodCatalog?exists>${(prodCatalog.catalogName)?if_exists}</#if> [${(prodCatalogCategory.prodCatalogId)?if_exists}]</a></td>
+                <td>
+                    ${(curProdCatalogCategoryType.get("description",locale))?default(prodCatalogCategory.prodCatalogCategoryTypeId)}
+                </td>
+                <#assign hasntStarted = false>
+                <#if (prodCatalogCategory.getTimestamp("fromDate"))?exists && nowTimestamp.before(prodCatalogCategory.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
+                <td><div class="tabletext"<#if hasntStarted> style="color: red;"</#if>>${(prodCatalogCategory.fromDate)?if_exists}</div></td>
+                <td align="center">
+                    <form method="post" action="<@ofbizUrl>category_updateProductCategoryToProdCatalog</@ofbizUrl>" name="lineForm${line}">
+                        <#assign hasExpired = false>
+                        <#if (prodCatalogCategory.getTimestamp("thruDate"))?exists && nowTimestamp.after(prodCatalogCategory.getTimestamp("thruDate"))> <#assign hasExpired = true></#if>
+                        <input type="hidden" name="prodCatalogId" value="${(prodCatalogCategory.prodCatalogId)?if_exists}"/>
+                        <input type="hidden" name="productCategoryId" value="${(prodCatalogCategory.productCategoryId)?if_exists}"/>
+                        <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
+                        <input type="hidden" name="fromDate" value="${(prodCatalogCategory.fromDate)?if_exists}"/>
+                        <input type="text" size="25" name="thruDate" value="${(prodCatalogCategory.thruDate)?if_exists}" class="inputBox" style="<#if (hasExpired) >color: red;</#if>"/>
+                        <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(prodCatalogCategory.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
+                        <input type="text" size="5" name="sequenceNum" value="${(prodCatalogCategory.sequenceNum)?if_exists}" class="inputBox"/>
+                        <#-- the prodCatalogCategoryTypeId field is now part of the PK, so it can't be changed, must be re-created
+                        <select name="prodCatalogCategoryTypeId" size="1" class="selectBox">
+                            <#if (prodCatalogCategory.prodCatalogCategoryTypeId)?exists>
+                                <option value="${prodCatalogCategory.prodCatalogCategoryTypeId}"><#if curProdCatalogCategoryType?exists>${(curProdCatalogCategoryType.description)?if_exists}<#else> [${(prodCatalogCategory.prodCatalogCategoryTypeId)}]</#if></option>
+                                <option value="${prodCatalogCategory.prodCatalogCategoryTypeId}"></option>
+                            <#else>
+                                <option value="">&nbsp;</option>
+                            </#if>
+                            <#list prodCatalogCategoryTypes as prodCatalogCategoryType>
+                            <option value="${(prodCatalogCategoryType.prodCatalogCategoryTypeId)?if_exists}">${(prodCatalogCategoryType.get("description",locale))?if_exists}</option>
+                            </#list>
+                        </select> -->
+                        <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
+                    </form>
+                </td>
+                <td align="center">
+                <a href="<@ofbizUrl>category_removeProductCategoryFromProdCatalog?prodCatalogId=${(prodCatalogCategory.prodCatalogId)?if_exists}&productCategoryId=${(prodCatalogCategory.productCategoryId)?if_exists}&prodCatalogCategoryTypeId=${(prodCatalogCategory.prodCatalogCategoryTypeId)?if_exists}&fromDate=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(prodCatalogCategory.getTimestamp("fromDate").toString())}</@ofbizUrl>" class="buttontext">
+                ${uiLabelMap.CommonDelete}</a>
+                </td>
+            </tr>
+            <#-- toggle the row color -->
+            <#if rowClass == "2">
+                <#assign rowClass = "1">
+            <#else>
+                <#assign rowClass = "2">
+            </#if>
             </#list>
-        </select>
-    <input type="text" size="25" name="fromDate" class="inputBox"/>
-    <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
-    <input type="submit" value="${uiLabelMap.CommonAdd}"/>
-    </form>
+            </table>
+            <br/>
+        </div>
+    </div>
+    <div class="screenlet">
+        <div class="screenlet-title-bar">
+            <h3>${uiLabelMap.ProductAddCatalogProductCategory}</h3>
+        </div>
+        <div class="screenlet-body">
+            <table cellspacing="0" class="basic-table">
+                <tr><td>
+                    <form method="post" action="<@ofbizUrl>category_addProductCategoryToProdCatalog</@ofbizUrl>" style="margin: 0;" name="addNewForm">
+                        <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}"/>
+                        <select name="prodCatalogId" class="selectBox">
+                        <#list prodCatalogs as prodCatalog>
+                            <option value="${(prodCatalog.prodCatalogId)?if_exists}">${(prodCatalog.catalogName)?if_exists} [${(prodCatalog.prodCatalogId)?if_exists}]</option>
+                        </#list>
+                        </select>
+                        <select name="prodCatalogCategoryTypeId" size="1" class="selectBox">
+                        <#list prodCatalogCategoryTypes as prodCatalogCategoryType>
+                            <option value="${(prodCatalogCategoryType.prodCatalogCategoryTypeId)?if_exists}">${(prodCatalogCategoryType.get("description",locale))?if_exists}</option>
+                        </#list>
+                        </select>
+                        <input type="text" size="25" name="fromDate" class="inputBox"/>
+                        <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
+                        <input type="submit" value="${uiLabelMap.CommonAdd}"/>
+                    </form>
+                </td></tr>
+            </table>
+        </div>
+    </div>
 </#if>

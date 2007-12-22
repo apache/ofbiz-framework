@@ -20,110 +20,115 @@ under the License.
 <#if productCategoryId?has_content>
     <a href="<@ofbizUrl>EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductBackToEditCategory}]</a>
 </#if>
-
-<h1>
-    ${uiLabelMap.ProductCheckingForExistingProductInCategory} <#if (productCategory.description)?has_content>"${productCategory.description}"</#if> [${uiLabelMap.CommonId}:${productCategoryId?if_exists}]
-
-    <#if productFeatureAndTypeDatas?has_content>
-       ${uiLabelMap.CommonWhere }
-        <#list productFeatureAndTypeDatas as productFeatureAndTypeData>
-            <#assign productFeatureType = productFeatureAndTypeData.productFeatureType>
-            <#assign productFeature = productFeatureAndTypeData.productFeature>
-            ${productFeatureType.description} = ${productFeature.description}
-            <#if productFeatureAndTypeData_has_next>,${uiLabelMap.CommonAnd} </#if>
-        </#list>
-    </#if>
-</h1>
-
-<#if products?has_content>
-    <table cellpadding="1" cellspacing="0" border="1">
-        <tr>
-            <td><div class="tableheadtext">${uiLabelMap.ProductInternalName}</div></td>
-            <td><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
-            <td width="10%">&nbsp;</td>
-        </tr>
-    <#list products as product>
-        <tr>
-            <td><div class="tabletext">${product.internalName?default("-no internal name-")} [${product.productId}]</div></td>
-            <td><div class="tabletext">${product.productName?default("-no name-")} [${product.productId}]</div></td>
-            <td width="10%"><a href="<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductThisIsIt}]</a></td>
-        </tr>
-    </#list>
-    </table>
-<#else>
-    <h3>&nbsp;${uiLabelMap.ProductNoExistingProductsFound}.</h3>
-</#if>
-
-<br/>
-
-<form name="createProductInCategoryForm" method="post" action="<@ofbizUrl>createProductInCategory</@ofbizUrl>" style="margin: 0;">
-    <input type="hidden" name="productCategoryId" value="${productCategoryId}">
-    <table cellpadding="1" cellspacing="0" border="1">
-        <#list productFeatureAndTypeDatas?if_exists as productFeatureAndTypeData>
-            <#assign productFeatureType = productFeatureAndTypeData.productFeatureType>
-            <#assign productFeature = productFeatureAndTypeData.productFeature>
-            <#assign productFeatureTypeId = productFeatureType.productFeatureTypeId>
-            <input type="hidden" name="pft_${productFeatureType.productFeatureTypeId}" value="${productFeature.productFeatureId}"/>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <table>
             <tr>
-                <td width="15%">
-                    <div class="tabletext">${productFeatureType.description}</div>
-                </td>
-                <td>
-                    <div class="tabletext">
-                        ${productFeature.description}
-                        <#if requestParameters["pftsel_" + productFeatureTypeId]?exists>
-                            <input type="hidden" name="pftsel_${productFeatureTypeId}" value="Y"/>
-                            [${uiLabelMap.ProductSelectable}]
-                        <#else>
-                            <input type="hidden" name="pftsel_${productFeatureTypeId}" value="N"/>
-                            [${uiLabelMap.ProductStandard}]
-                        </#if>
-                    </div>
+                <td style="head3">
+                    <b>${uiLabelMap.ProductCheckingForExistingProductInCategory} <#if (productCategory.description)?has_content>"${productCategory.description}"</#if> [${uiLabelMap.CommonId}:${productCategoryId?if_exists}]</b>
+                    <#if productFeatureAndTypeDatas?has_content>
+                    ${uiLabelMap.CommonWhere }
+                        <#list productFeatureAndTypeDatas as productFeatureAndTypeData>
+                            <#assign productFeatureType = productFeatureAndTypeData.productFeatureType>
+                            <#assign productFeature = productFeatureAndTypeData.productFeature>
+                            ${productFeatureType.description} = ${productFeature.description}
+                            <#if productFeatureAndTypeData_has_next>,${uiLabelMap.CommonAnd} </#if>
+                        </#list>
+                    </#if>
                 </td>
             </tr>
+        </table>
+    </div>
+    <div class="screenlet-body">
+        <#if products?has_content>
+        <table cellspacing="0" class="basic-table">    
+            <tr>
+                <td><div class="tableheadtext">${uiLabelMap.ProductInternalName}</div></td>
+                <td><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
+                <td width="10%">&nbsp;</td>
+            </tr>
+            <#list products as product>
+            <tr>
+                <td><div class="tabletext">${product.internalName?default("-no internal name-")} [${product.productId}]</div></td>
+                <td><div class="tabletext">${product.productName?default("-no name-")} [${product.productId}]</div></td>
+                <td width="10%"><a href="<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductThisIsIt}]</a></td>
+            </tr>
         </#list>
-        <tr>
-            <td width="15%"><div class="tabletext">${uiLabelMap.ProductInternalName}:</div></td>
-            <td>
-                <input type="hidden" name="internalName" value="${requestParameters.internalName?if_exists}"/>
-                <div class="tabletext">&nbsp;${requestParameters.internalName?default("&nbsp;")}</div>
-            </td>
-        </tr>
-        <tr>
-            <td width="15%"><div class="tabletext">${uiLabelMap.ProductProductName}:</div></td>
-            <td>
-                <input type="hidden" name="productName" value="${requestParameters.productName?if_exists}"/>
-                <div class="tabletext">&nbsp;${requestParameters.productName?default("&nbsp;")}</div>
-            </td>
-        </tr>
-        <tr>
-            <td width="15%"><div class="tabletext">${uiLabelMap.ProductShortDescription}:</div></td>
-            <td>
-                <input type="hidden" name="description" value="${requestParameters.description?if_exists}"/>
-                <div class="tabletext">&nbsp;${requestParameters.description?default("&nbsp;")}</div>
-            </td>
-        </tr>
-        <tr>
-            <td width="15%"><div class="tabletext">${uiLabelMap.ProductDefaultPrice}:</div></td>
-            <td>
-                <input type="hidden" name="defaultPrice" value="${requestParameters.defaultPrice?if_exists}"/>
-                <div class="tabletext">&nbsp;${requestParameters.defaultPrice?default("&nbsp;")}</div>
-            </td>
-        </tr>
-        <tr>
-            <td width="15%"><div class="tabletext">${uiLabelMap.ProductAverageCost}:</div></td>
-            <td>
-                <input type="hidden" name="averageCost" value="${requestParameters.averageCost?if_exists}"/>
-                <div class="tabletext">&nbsp;${requestParameters.averageCost?default("&nbsp;")}</div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <div class="tabletext">
-                    ${uiLabelMap.ProductNewProductId}: <input type="text" name="productId" value="" class="inputBox"/>
-                    <input type="submit" value="${uiLabelMap.ProductCreateNewProduct}" class="smallSubmit"/>
-                </div>
-            </td>
-        </tr>
-    </table>
-</form>
+        </table>
+        <#else>
+            <div class="head3">&nbsp;${uiLabelMap.ProductNoExistingProductsFound}.</div>
+        </#if>
+    </div>
+    <br/>
+    <div class="screenlet-body">
+        <form name="createProductInCategoryForm" method="post" action="<@ofbizUrl>createProductInCategory</@ofbizUrl>" style="margin: 0;">
+            <input type="hidden" name="productCategoryId" value="${productCategoryId}">
+            <table cellspacing="0" class="basic-table">    
+                <#list productFeatureAndTypeDatas?if_exists as productFeatureAndTypeData>
+                <#assign productFeatureType = productFeatureAndTypeData.productFeatureType>
+                <#assign productFeature = productFeatureAndTypeData.productFeature>
+                <#assign productFeatureTypeId = productFeatureType.productFeatureTypeId>
+                <input type="hidden" name="pft_${productFeatureType.productFeatureTypeId}" value="${productFeature.productFeatureId}"/>
+                <tr>
+                    <td width="15%">${productFeatureType.description}</td>
+                    <td>
+                        <div>
+                            ${productFeature.description}
+                            <#if requestParameters["pftsel_" + productFeatureTypeId]?exists>
+                                <input type="hidden" name="pftsel_${productFeatureTypeId}" value="Y"/>
+                                [${uiLabelMap.ProductSelectable}]
+                            <#else>
+                                <input type="hidden" name="pftsel_${productFeatureTypeId}" value="N"/>
+                                [${uiLabelMap.ProductStandard}]
+                            </#if>
+                        </div>
+                    </td>
+                </tr>
+                </#list>
+                <tr>
+                    <td width="15%">${uiLabelMap.ProductInternalName}:</td>
+                    <td>
+                        <input type="hidden" name="internalName" value="${requestParameters.internalName?if_exists}"/>
+                        <div>&nbsp;${requestParameters.internalName?default("&nbsp;")}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="15%">${uiLabelMap.ProductProductName}:</td>
+                    <td>
+                        <input type="hidden" name="productName" value="${requestParameters.productName?if_exists}"/>
+                        <div>&nbsp;${requestParameters.productName?default("&nbsp;")}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="15%">${uiLabelMap.ProductShortDescription}:</td>
+                    <td>
+                        <input type="hidden" name="description" value="${requestParameters.description?if_exists}"/>
+                        <div>&nbsp;${requestParameters.description?default("&nbsp;")}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="15%">${uiLabelMap.ProductDefaultPrice}:</td>
+                    <td>
+                        <input type="hidden" name="defaultPrice" value="${requestParameters.defaultPrice?if_exists}"/>
+                        <div>&nbsp;${requestParameters.defaultPrice?default("&nbsp;")}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="15%">${uiLabelMap.ProductAverageCost}:</td>
+                    <td>
+                        <input type="hidden" name="averageCost" value="${requestParameters.averageCost?if_exists}"/>
+                        <div>&nbsp;${requestParameters.averageCost?default("&nbsp;")}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div>
+                            ${uiLabelMap.ProductNewProductId}: <input type="text" name="productId" value="" class="inputBox"/>
+                            <input type="submit" value="${uiLabelMap.ProductCreateNewProduct}" class="smallSubmit"/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
