@@ -105,6 +105,19 @@ under the License.
         <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_READY"/>
         <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_PAID"/>
         <action service="createAcctgTransForSalesInvoice" mode="sync"/>
+    </eca>
+    
+    <!--attempt to create AcctgTrans and Entries for Outgoing Payment -->
+    <eca service="createPayment" event="commit">
+        <condition field-name="statusId" operator="equals" value="PMNT_SENT"/>
+        <action service="createAcctgTransAndEntriesForOutgoingPayment" mode="sync"/>
+    </eca>
+    
+    <!--attempt to create AcctgTrans and Entries for Outgoing when set PaymentStatus -->
+    <eca service="setPaymentStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="PMNT_SENT"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="PMNT_SENT"/>
+        <action service="createAcctgTransAndEntriesForOutgoingPayment" mode="sync"/>
     </eca>     
     
 </service-eca>
