@@ -1513,6 +1513,62 @@ public class ProductSearch {
         }
     }
 
+    public static class StoreGroupPriceConstraint extends ProductSearchConstraint {
+        public static final String constraintName = "StoreGroupPrice";
+        protected String productStoreGroupId;
+        protected String productPriceTypeId;
+        protected String currencyUomId;
+
+        public StoreGroupPriceConstraint(String productStoreGroupId, String productPriceTypeId, String currencyUomId) {
+            this.productStoreGroupId = productStoreGroupId;
+            this.productPriceTypeId = productPriceTypeId == null ? "LIST_PRICE" : productPriceTypeId;
+            this.currencyUomId = currencyUomId;
+        }
+
+        public void addConstraint(ProductSearchContext context) {
+            String entityAlias = "PSPP" + context.index;
+            String prefix = "PSPP" + context.index;
+            context.dynamicViewEntity.addMemberEntity(entityAlias, "ProductPrice");
+
+            context.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPriceTypeId", "productPriceTypeId", null, null, null, null);
+            context.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductPricePurposeId", "productPricePurposeId", null, null, null, null);
+            context.dynamicViewEntity.addAlias(entityAlias, prefix + "CurrencyUomId", "currencyUomId", null, null, null, null);
+            context.dynamicViewEntity.addAlias(entityAlias, prefix + "ProductStoreGroupId", "productStoreGroupId", null, null, null, null);
+            context.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
+            context.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
+
+            context.dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
+
+            context.entityConditionList.add(new EntityExpr(prefix + "ProductPriceTypeId", EntityOperator.EQUALS, productPriceTypeId));
+            context.entityConditionList.add(new EntityExpr(prefix + "ProductPricePurposeId", EntityOperator.EQUALS, "PURCHASE"));
+            context.entityConditionList.add(new EntityExpr(prefix + "CurrencyUomId", EntityOperator.EQUALS, currencyUomId));
+            context.entityConditionList.add(new EntityExpr(prefix + "ProductStoreGroupId", EntityOperator.EQUALS, productStoreGroupId));
+            context.entityConditionList.add(new EntityExpr(new EntityExpr(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr(prefix + "ThruDate", EntityOperator.GREATER_THAN, context.nowTimestamp)));
+            context.entityConditionList.add(new EntityExpr(prefix + "FromDate", EntityOperator.LESS_THAN, context.nowTimestamp));
+        }
+
+        public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
+            StringBuffer buff = new StringBuffer();
+            buff.append("Product Store Mandatory Price Constraint: ");
+            buff.append("Product Store Group ["+productStoreGroupId+"], ");
+            buff.append("Product Price Type ["+productPriceTypeId+"], ");
+            buff.append("Currency ["+currencyUomId+"].");
+            return buff.toString();
+        }
+
+        public boolean equals(Object o) {
+            if (o instanceof StoreGroupPriceConstraint) {
+                StoreGroupPriceConstraint other = (StoreGroupPriceConstraint) o;
+                if (other.productStoreGroupId.equals(productStoreGroupId) &&
+                       other.productPriceTypeId.equals(productPriceTypeId) &&
+                       other.currencyUomId.equals(currencyUomId)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
     public static class ListPriceRangeConstraint extends ProductSearchConstraint {
         public static final String constraintName = "ListPriceRange";
         protected Double lowPrice;
