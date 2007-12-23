@@ -381,18 +381,15 @@ public class ProductServices {
             if (product.get("isVariant") != null && product.getString("isVariant").equalsIgnoreCase("Y")) {
                 List c = product.getRelatedByAndCache("AssocProductAssoc",
                         UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
+                //if (Debug.infoOn()) Debug.logInfo("Found related: " + c, module);
+                c = EntityUtil.filterByDate(c);
+                //if (Debug.infoOn()) Debug.logInfo("Found Filtered related: " + c, module);
+                if (c.size() > 0) {
+                    GenericValue asV = (GenericValue) c.iterator().next();
 
-                if (c != null) {
-                    //if (Debug.infoOn()) Debug.logInfo("Found related: " + c, module);
-                    c = EntityUtil.filterByDate(c, true);
-                    //if (Debug.infoOn()) Debug.logInfo("Found Filtered related: " + c, module);
-                    if (c.size() > 0) {
-                        GenericValue asV = (GenericValue) c.iterator().next();
-
-                        //if (Debug.infoOn()) Debug.logInfo("ASV: " + asV, module);
-                        mainProduct = asV.getRelatedOneCache("MainProduct");
-                        //if (Debug.infoOn()) Debug.logInfo("Main product = " + mainProduct, module);
-                    }
+                    //if (Debug.infoOn()) Debug.logInfo("ASV: " + asV, module);
+                    mainProduct = asV.getRelatedOneCache("MainProduct");
+                    //if (Debug.infoOn()) Debug.logInfo("Main product = " + mainProduct, module);
                 }
             }
             result.put("product", mainProduct);
@@ -469,7 +466,7 @@ public class ProductServices {
                 productAssocs = product.getRelatedCache("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", type), UtilMisc.toList("sequenceNum"));
             }
             // filter the list by date
-            productAssocs = EntityUtil.filterByDate(productAssocs, true);
+            productAssocs = EntityUtil.filterByDate(productAssocs);
             // first check to see if there is a view allow category and if these producta are in it...
             if (checkViewAllow && prodCatalogId != null && productAssocs != null && productAssocs.size() > 0) {
                 String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);

@@ -102,6 +102,7 @@ public class AgreementServices {
                 List productAssocs = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap(
                         "productIdTo", productId,
                         "productAssocTypeId", "PRODUCT_VARIANT"));
+                productAssocs = EntityUtil.filterByDate(productAssocs);
                 if (productAssocs.size() > 0) {
                     GenericEntity productAssoc = EntityUtil.getFirst(productAssocs);
                     agreementItems = delegator.findByAndCache("AgreementItemAndProductAppl", UtilMisc.toMap(

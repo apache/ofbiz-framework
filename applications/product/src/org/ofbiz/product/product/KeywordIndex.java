@@ -150,9 +150,11 @@ public class KeywordIndex {
         // Variant Product IDs
         if ("Y".equals(product.getString("isVirtual"))) {
             if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"))) {
-                Iterator variantProductAssocs = UtilMisc.toIterator(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
-                while (variantProductAssocs != null && variantProductAssocs.hasNext()) {
-                    GenericValue variantProductAssoc = (GenericValue) variantProductAssocs.next();
+                List variantProductAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
+                variantProductAssocs = EntityUtil.filterByDate(variantProductAssocs);
+                Iterator variantProductAssocsIt = variantProductAssocs.iterator();
+                while (variantProductAssocsIt.hasNext()) {
+                    GenericValue variantProductAssoc = (GenericValue) variantProductAssocsIt.next();
                     int weight = 1;
                     try {
                         weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"));

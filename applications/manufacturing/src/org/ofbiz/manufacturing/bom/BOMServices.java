@@ -35,6 +35,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -140,25 +141,24 @@ public class BOMServices {
             // If the product is a variant of a virtual, then the billOfMaterialLevel cannot be 
             // lower than the billOfMaterialLevel of the virtual product.
             List virtualProducts = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
-            if (virtualProducts != null) {
-                int virtualMaxDepth = 0;
-                Iterator virtualProductsIt = virtualProducts.iterator();
-                while (virtualProductsIt.hasNext()) {
-                    int virtualDepth = 0;
-                    GenericValue oneVirtualProductAssoc = (GenericValue)virtualProductsIt.next();
-                    GenericValue virtualProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVirtualProductAssoc.getString("productId")));
-                    if (virtualProduct.get("billOfMaterialLevel") != null) {
-                        virtualDepth = virtualProduct.getLong("billOfMaterialLevel").intValue();
-                    } else {
-                        virtualDepth = 0;
-                    }
-                    if (virtualDepth > virtualMaxDepth) {
-                        virtualMaxDepth = virtualDepth;
-                    }
+            virtualProducts = EntityUtil.filterByDate(virtualProducts);
+            int virtualMaxDepth = 0;
+            Iterator virtualProductsIt = virtualProducts.iterator();
+            while (virtualProductsIt.hasNext()) {
+                int virtualDepth = 0;
+                GenericValue oneVirtualProductAssoc = (GenericValue)virtualProductsIt.next();
+                GenericValue virtualProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVirtualProductAssoc.getString("productId")));
+                if (virtualProduct.get("billOfMaterialLevel") != null) {
+                    virtualDepth = virtualProduct.getLong("billOfMaterialLevel").intValue();
+                } else {
+                    virtualDepth = 0;
                 }
-                if (virtualMaxDepth > llc.intValue()) {
-                    llc = new Long(virtualMaxDepth);
+                if (virtualDepth > virtualMaxDepth) {
+                    virtualMaxDepth = virtualDepth;
                 }
+            }
+            if (virtualMaxDepth > llc.intValue()) {
+                llc = new Long(virtualMaxDepth);
             }
             product.set("billOfMaterialLevel", llc);
             product.store();
@@ -182,14 +182,13 @@ public class BOMServices {
             }
             if (alsoVariants.booleanValue()) {
                 List variantProducts = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
-                if (variantProducts != null) {
-                    Iterator variantProductsIt = variantProducts.iterator();
-                    while (variantProductsIt.hasNext()) {
-                        GenericValue oneVariantProductAssoc = (GenericValue)variantProductsIt.next();
-                        GenericValue variantProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVariantProductAssoc.getString("productId")));
-                        variantProduct.set("billOfMaterialLevel", llc);
-                        variantProduct.store();
-                    }
+                variantProducts = EntityUtil.filterByDate(variantProducts, true);
+                Iterator variantProductsIt = variantProducts.iterator();
+                while (variantProductsIt.hasNext()) {
+                    GenericValue oneVariantProductAssoc = (GenericValue)variantProductsIt.next();
+                    GenericValue variantProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVariantProductAssoc.getString("productId")));
+                    variantProduct.set("billOfMaterialLevel", llc);
+                    variantProduct.store();
                 }
             }
         } catch (Exception e) {

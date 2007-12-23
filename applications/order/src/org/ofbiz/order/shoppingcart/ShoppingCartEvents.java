@@ -414,29 +414,28 @@ public class ShoppingCartEvents {
                         new EntityExpr(new EntityExpr("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, new EntityExpr("productIdTo", EntityOperator.EQUALS, productId)),
                         new EntityExpr("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
                 productAssocs = delegator.findByCondition("ProductAssoc", cond, null, null);
+                productAssocs = EntityUtil.filterByDate(productAssocs);
                 List productList = FastList.newInstance();
-                if (productAssocs != null) {
-                    Iterator iter = productAssocs.iterator();
-                    while (iter.hasNext()) {
-                        GenericValue productAssoc = (GenericValue) iter.next();
-                        if (productId.equals(productAssoc.getString("productId"))) {
-                            productList.add(productAssoc.getString("productIdTo"));
-                            continue;
-                        }
-                        if (productId.equals(productAssoc.getString("productIdTo"))) {
-                            productList.add(productAssoc.getString("productId"));
-                            continue;
-                        }
-                    }    
-                    Iterator sciIter = cart.iterator();
-                    while (sciIter.hasNext()) {
-                        ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
-                        if (productList.contains(sci.getProductId())) {
-                            try {
-                                cart.removeCartItem(sci, dispatcher);
-                            } catch (CartItemModifyException e) {
-                                Debug.logError(e.getMessage(), module);
-                            }
+                Iterator iter = productAssocs.iterator();
+                while (iter.hasNext()) {
+                    GenericValue productAssoc = (GenericValue) iter.next();
+                    if (productId.equals(productAssoc.getString("productId"))) {
+                        productList.add(productAssoc.getString("productIdTo"));
+                        continue;
+                    }
+                    if (productId.equals(productAssoc.getString("productIdTo"))) {
+                        productList.add(productAssoc.getString("productId"));
+                        continue;
+                    }
+                }    
+                Iterator sciIter = cart.iterator();
+                while (sciIter.hasNext()) {
+                    ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
+                    if (productList.contains(sci.getProductId())) {
+                        try {
+                            cart.removeCartItem(sci, dispatcher);
+                        } catch (CartItemModifyException e) {
+                            Debug.logError(e.getMessage(), module);
                         }
                     }
                 }

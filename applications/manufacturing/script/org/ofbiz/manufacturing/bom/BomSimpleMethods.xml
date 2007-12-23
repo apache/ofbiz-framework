@@ -51,6 +51,7 @@ under the License.
         <make-value value-name="lookupMap" entity-name="ProductAssoc"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
         <find-by-and entity-name="ProductAssoc" map-name="lookupMap" list-name="assocs"/>
+        <filter-list-by-date list-name="assocs"/>
         <iterate entry-name="assoc" list-name="assocs">
             <set-service-fields service-name="createBOMAssoc" map-name="assoc" to-map-name="context"/>
             <set field="context.productId" from-field="parameters.copyToProductId"/>

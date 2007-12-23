@@ -189,7 +189,7 @@ public class ProductWorker {
     public static List getVariantVirtualAssocs(GenericValue variantProduct) throws GenericEntityException {
         if (variantProduct != null && "Y".equals(variantProduct.getString("isVariant"))) {
             List productAssocs = EntityUtil.filterByDate(variantProduct.getRelatedByAndCache("AssocProductAssoc", 
-                    UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT")), true);
+                    UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT")));
             return productAssocs;
         }
         return null;
@@ -278,10 +278,10 @@ public class ProductWorker {
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_OBSOLESCENCE"));
 
             // since ProductAssoc records have a fromDate and thruDate, we can filter by now so that only assocs in the date range are included
-            upgradeProducts = EntityUtil.filterByDate(upgradeProducts, true);
-            complementProducts = EntityUtil.filterByDate(complementProducts, true);
-            obsolescenceProducts = EntityUtil.filterByDate(obsolescenceProducts, true);
-            obsoleteByProducts = EntityUtil.filterByDate(obsoleteByProducts, true);
+            upgradeProducts = EntityUtil.filterByDate(upgradeProducts);
+            complementProducts = EntityUtil.filterByDate(complementProducts);
+            obsolescenceProducts = EntityUtil.filterByDate(obsolescenceProducts);
+            obsoleteByProducts = EntityUtil.filterByDate(obsoleteByProducts);
 
             if (upgradeProducts != null && upgradeProducts.size() > 0)
                 pageContext.setAttribute(assocPrefix + "upgrade", upgradeProducts);
@@ -657,13 +657,13 @@ public class ProductWorker {
 
         try {
             List virtualProductAssocs = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("-fromDate"));
-            virtualProductAssocs = EntityUtil.filterByDate(virtualProductAssocs, true);
-            if (virtualProductAssocs == null || virtualProductAssocs.size() == 0) {
+            virtualProductAssocs = EntityUtil.filterByDate(virtualProductAssocs);
+            if (UtilValidate.isEmpty(virtualProductAssocs)) {
                 //okay, not a variant, try a UNIQUE_ITEM
                 virtualProductAssocs = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "UNIQUE_ITEM"), UtilMisc.toList("-fromDate"));
-                virtualProductAssocs = EntityUtil.filterByDate(virtualProductAssocs, true);
+                virtualProductAssocs = EntityUtil.filterByDate(virtualProductAssocs);
             }
-            if (virtualProductAssocs != null && virtualProductAssocs.size() > 0) {
+            if (UtilValidate.isNotEmpty(virtualProductAssocs)) {
                 //found one, set this first as the parent product
                 GenericValue productAssoc = EntityUtil.getFirst(virtualProductAssocs);
                 _parentProduct = productAssoc.getRelatedOneCache("MainProduct");
@@ -826,7 +826,7 @@ public class ProductWorker {
 
         // find associated refurb items, we want serial number for main item or any refurb items too
         List refubProductAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", 
-                UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_REFURB")), true);
+                UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_REFURB")));
         Iterator refubProductAssocIter = refubProductAssocs.iterator();
         while (refubProductAssocIter.hasNext()) {
             GenericValue refubProductAssoc = (GenericValue) refubProductAssocIter.next();
@@ -835,7 +835,7 @@ public class ProductWorker {
         
         // see if this is a refurb productId to, and find product(s) it is a refurb of
         List refubProductToAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", 
-                UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_REFURB")), true);
+                UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_REFURB")));
         Iterator refubProductToAssocIter = refubProductToAssocs.iterator();
         while (refubProductToAssocIter.hasNext()) {
             GenericValue refubProductToAssoc = (GenericValue) refubProductToAssocIter.next();
