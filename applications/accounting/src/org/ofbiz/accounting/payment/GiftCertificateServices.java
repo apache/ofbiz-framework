@@ -124,8 +124,11 @@ public class GiftCertificateServices {
             }
             
             // create the initial (deposit) transaction
-            refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, initialAmount,
-                    productStoreId, partyId, currencyUom, deposit, finAccountId);
+            // do something tricky here: run as the "system" user 
+            // that can actually create a financial account transaction
+            GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            refNum = createTransaction(delegator, dispatcher, permUserLogin, initialAmount,
+                                    productStoreId, partyId, currencyUom, deposit, finAccountId);
 
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
