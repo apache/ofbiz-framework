@@ -142,6 +142,7 @@ under the License.
 
             <!-- get all productAssocs, then get the actual product to update -->
             <find-by-and entity-name="ProductAssoc" map-name="variantProductAssocMap" list-name="variantProductAssocs"/>
+            <filter-list-by-date list-name="variantProductAssocs"/>
             <iterate entry-name="variantProductAssoc" list-name="variantProductAssocs">
                 <clear-field field-name="variantProduct"/>
                 <entity-one entity-name="Product" value-name="variantProduct" auto-field-map="false">
@@ -593,6 +594,7 @@ under the License.
         <set from-field="parameters.virtualProductId" field="variantsFindContext.productId"/>
         <set value="PRODUCT_VARIANT" field="variantsFindContext.productAssocTypeId"/>
         <find-by-and entity-name="ProductAssoc" map-name="variantsFindContext" list-name="variants"/>
+        <filter-list-by-date list-name="variants"/>
         <iterate entry-name="newProduct" list-name="variants">
             <set from-field="newProduct.productIdTo" field="productVariantContext.productId"/>
             <!-- if requested, duplicate related data -->

@@ -60,7 +60,7 @@ public class ProductUtilServices {
     public static final String module = ProductUtilServices.class.getName();
     public static final String resource = "ProductUiLabels";
 
-    /** First expirt all ProductAssocs for all disc variants, then disc all virtuals that have all expired variant ProductAssocs */
+    /** First expire all ProductAssocs for all disc variants, then disc all virtuals that have all expired variant ProductAssocs */
     public static Map discVirtualsWithDiscVariants(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -83,7 +83,7 @@ public class ProductUtilServices {
                     continue;
                 }
                 List passocList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", virtualProductId, "productIdTo", productOne.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"));
-                passocList = EntityUtil.filterByDate(passocList, nowTimestamp);
+                passocList = EntityUtil.filterByDate(passocList);
                 if (passocList.size() > 0) {
                     Iterator passocIter = passocList.iterator();
                     while (passocIter.hasNext()) {
@@ -110,7 +110,7 @@ public class ProductUtilServices {
             int numSoFar = 0;
             while ((product = (GenericValue) eli.next()) != null) {
                 List passocList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", product.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"));
-                passocList = EntityUtil.filterByDate(passocList, nowTimestamp);
+                passocList = EntityUtil.filterByDate(passocList);
                 if (passocList.size() == 0) {
                     product.set("salesDiscontinuationDate", nowTimestamp);
 
@@ -269,6 +269,7 @@ public class ProductUtilServices {
 
                 String productId = value.getString("productId");
                 List paList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
+                paList = EntityUtil.filterByDate(paList);
                 // verify the query; tested on a bunch, looks good
                 if (paList.size() != 1) {
                     Debug.logInfo("Virtual product with ID " + productId + " should have 1 assoc, has " + paList.size(), module);
@@ -305,7 +306,7 @@ public class ProductUtilServices {
                 // has only one valid variant
                 String productId = value.getString("productId");
 
-                List paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")), nowTimestamp);
+                List paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
 
                 // verify the query; tested on a bunch, looks good
                 if (paList.size() != 1) {
@@ -357,7 +358,7 @@ public class ProductUtilServices {
             GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
             Debug.logInfo("Processing virtual product with one variant with ID: " + productId + " and name: " + product.getString("internalName"), module);
 
-            List paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")), nowTimestamp);
+            List paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
             if (paList.size() > 1) {
                 Map messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource,"productutilservices.found_more_than_one_valid_variant_for_virtual_ID", messageMap, locale);
@@ -523,7 +524,7 @@ public class ProductUtilServices {
 
                 if ("Y".equals(product.getString("isVirtual"))) {
                     // find the first variant, use it's ID for the names...
-                    List productAssocList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")), nowTimestamp);
+                    List productAssocList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
                     if (productAssocList.size() > 0) {
                         GenericValue productAssoc = EntityUtil.getFirst(productAssocList);
                         smallMap.put("productId", productAssoc.get("productIdTo"));

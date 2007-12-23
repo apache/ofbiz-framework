@@ -1104,7 +1104,7 @@ public class ProductPromoWorker {
                     }
                     if ("Y".equals(product.getString("isVirtual"))) {
                         List productAssocs = EntityUtil.filterByDate(product.getRelatedCache("MainProductAssoc", 
-                                UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum")), true);
+                                UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum")));
                         Iterator productAssocIter = productAssocs.iterator();
                         while (productAssocIter.hasNext()) {
                             GenericValue productAssoc = (GenericValue) productAssocIter.next();

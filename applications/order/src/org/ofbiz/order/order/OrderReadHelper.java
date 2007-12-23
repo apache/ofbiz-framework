@@ -1181,9 +1181,7 @@ public class OrderReadHelper {
                     GenericValue virtual = null;
                     try {
                         List virtuals = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", product.getString("productId"), "productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("-fromDate"));
-                        if (virtuals != null) {
-                            virtuals = EntityUtil.filterByDate(virtuals);
-                        }
+                        virtuals = EntityUtil.filterByDate(virtuals);
                         virtual = EntityUtil.getFirst(virtuals);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Problem getting virtual product");

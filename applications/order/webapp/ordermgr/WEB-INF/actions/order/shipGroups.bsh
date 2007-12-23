@@ -39,7 +39,7 @@ context.put("shipGroups", shipGroups);
 FastList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType) {
     sublines = FastList.newInstance();
     associations = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", assocType));
-    associations = EntityUtil.filterByDate( associations );
+    associations = EntityUtil.filterByDate(associations);
     for (iter = associations.iterator(); iter.hasNext(); ) {
         association = iter.next();
         line = FastMap.newInstance();

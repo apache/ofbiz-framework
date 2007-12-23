@@ -129,18 +129,16 @@ public class BOMTree {
         // product is variant).
         if (!hasBom(product, inDate)) {
             List virtualProducts = product.getRelatedByAnd("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
-            if (virtualProducts != null && virtualProducts.size() > 0) {
-                virtualProducts = EntityUtil.filterByDate(virtualProducts, inDate);
-                if (virtualProducts != null && virtualProducts.size() > 0) {
-                    GenericValue virtualProduct = (GenericValue)virtualProducts.get(0);
-                    // If the virtual product is manufactured as a different product,
-                    // load the new product
-                    productIdForRules = virtualProduct.getString("productId");
-                    manufacturedAsProduct = manufacturedAsProduct(virtualProduct.getString("productId"), inDate);
-                    product = delegator.findByPrimaryKey("Product", 
-                                                UtilMisc.toMap("productId", 
-                                                (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): virtualProduct.get("productId"))));
-                }
+            virtualProducts = EntityUtil.filterByDate(virtualProducts, inDate);
+            GenericValue virtualProduct = EntityUtil.getFirst(virtualProducts);
+            if (virtualProduct != null) {
+                // If the virtual product is manufactured as a different product,
+                // load the new product
+                productIdForRules = virtualProduct.getString("productId");
+                manufacturedAsProduct = manufacturedAsProduct(virtualProduct.getString("productId"), inDate);
+                product = delegator.findByPrimaryKey("Product", 
+                        UtilMisc.toMap("productId", 
+                                (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): virtualProduct.get("productId"))));
             }
         }
         if (product == null) return;
@@ -173,8 +171,8 @@ public class BOMTree {
                                          "productAssocTypeId", "PRODUCT_MANUFACTURED"));
         manufacturedAsProducts = EntityUtil.filterByDate(manufacturedAsProducts, inDate);
         GenericValue manufacturedAsProduct = null;
-        if (manufacturedAsProducts != null && manufacturedAsProducts.size() > 0) {
-            manufacturedAsProduct = (GenericValue)manufacturedAsProducts.get(0);
+        if (UtilValidate.isNotEmpty(manufacturedAsProducts)) {
+            manufacturedAsProduct = EntityUtil.getFirst(manufacturedAsProducts);
         }
         return manufacturedAsProduct;
     }
@@ -182,7 +180,7 @@ public class BOMTree {
     private boolean hasBom(GenericValue product, Date inDate) throws GenericEntityException {
         List children = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", bomTypeId));
         children = EntityUtil.filterByDate(children, inDate);
-        return (children != null && children.size() > 0);
+        return UtilValidate.isNotEmpty(children);
     }
 
     /** It tells if the current (in-memory) tree representing

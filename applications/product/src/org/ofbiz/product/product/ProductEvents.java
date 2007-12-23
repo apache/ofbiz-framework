@@ -685,6 +685,7 @@ public class ProductEvents {
                             boolean foundFeatureOnVariant = false;
                             // get/check all the variants
                             List variantAssocs = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
+                            variantAssocs = EntityUtil.filterByDate(variantAssocs);
                             List variants = EntityUtil.getRelated("AssocProduct", variantAssocs);
                             Iterator variantIter = variants.iterator();
                             while (!foundFeatureOnVariant && variantIter.hasNext()) {
@@ -771,6 +772,7 @@ public class ProductEvents {
             GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
             // get all the variants
             List variantAssocs = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
+            variantAssocs = EntityUtil.filterByDate(variantAssocs);
             List variants = EntityUtil.getRelated("AssocProduct", variantAssocs);
             Iterator variantIter = variants.iterator();
             while (variantIter.hasNext()) {

@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -137,37 +138,35 @@ public class ProductFeatureServices {
              * see if it has every single feature in the list of productFeatureAppls as a STANDARD_FEATURE.  If so, then 
              * it qualifies and add it to the list of existingVariantProductIds.
              */
-            List productAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")), true);
-            if (productAssocs != null && productAssocs.size() > 0) {
-                Iterator productAssocIter = productAssocs.iterator();
-                while (productAssocIter.hasNext()) {
-                    GenericEntity productAssoc = (GenericEntity) productAssocIter.next();
-                    
-                    //for each associated product, if it has all standard features, display it's productId
-                    boolean hasAllFeatures = true;
-                    Iterator curProductFeatureAndApplIter = curProductFeatureAndAppls.iterator();
-                    while (curProductFeatureAndApplIter.hasNext()) {
-                        String productFeatureAndAppl = (String) curProductFeatureAndApplIter.next();
-                        Map findByMap = UtilMisc.toMap("productId", productAssoc.getString("productIdTo"), 
-                                "productFeatureId", productFeatureAndAppl,
-                                "productFeatureApplTypeId", "STANDARD_FEATURE");
+            List productAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
+            Iterator productAssocIter = productAssocs.iterator();
+            while (productAssocIter.hasNext()) {
+                GenericEntity productAssoc = (GenericEntity) productAssocIter.next();
 
-                        //Debug.log("Using findByMap: " + findByMap);
+                //for each associated product, if it has all standard features, display it's productId
+                boolean hasAllFeatures = true;
+                Iterator curProductFeatureAndApplIter = curProductFeatureAndAppls.iterator();
+                while (curProductFeatureAndApplIter.hasNext()) {
+                    String productFeatureAndAppl = (String) curProductFeatureAndApplIter.next();
+                    Map findByMap = UtilMisc.toMap("productId", productAssoc.getString("productIdTo"), 
+                            "productFeatureId", productFeatureAndAppl,
+                            "productFeatureApplTypeId", "STANDARD_FEATURE");
 
-                        List standardProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAppl", findByMap), true);
-                        if (standardProductFeatureAndAppls == null || standardProductFeatureAndAppls.size() == 0) {
-                            // Debug.log("Does NOT have this standard feature");
-                            hasAllFeatures = false;
-                            break;
-                        } else {
-                            // Debug.log("DOES have this standard feature");
-                        }
+                    //Debug.log("Using findByMap: " + findByMap);
+
+                    List standardProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAppl", findByMap));
+                    if (UtilValidate.isEmpty(standardProductFeatureAndAppls)) {
+                        // Debug.log("Does NOT have this standard feature");
+                        hasAllFeatures = false;
+                        break;
+                    } else {
+                        // Debug.log("DOES have this standard feature");
                     }
+                }
 
-                    if (hasAllFeatures) {
-                        // add to list of existing variants: productId=productAssoc.productIdTo
-                        existingVariantProductIds.add(productAssoc.get("productIdTo"));
-                    }
+                if (hasAllFeatures) {
+                    // add to list of existing variants: productId=productAssoc.productIdTo
+                    existingVariantProductIds.add(productAssoc.get("productIdTo"));
                 }
             }
             results = ServiceUtil.returnSuccess();

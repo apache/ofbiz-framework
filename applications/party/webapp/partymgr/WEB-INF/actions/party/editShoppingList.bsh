@@ -99,6 +99,7 @@ if (shoppingListId != null) {
                 productVariantAssocs = null;
                 if ("Y".equals(product.getString("isVirtual"))) {
                     productVariantAssocs = product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum"));
+                    productVariantAssocs = EntityUtil.filterByDate(productVariantAssocs);
                 }
 
                 shoppingListItemData.put("shoppingListItem", shoppingListItem);

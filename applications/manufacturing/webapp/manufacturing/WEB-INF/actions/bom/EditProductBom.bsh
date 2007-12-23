@@ -50,7 +50,7 @@ if (productAssocTypeId != null) context.put("productAssocTypeId", productAssocTy
 String fromDateStr = request.getParameter("fromDate");
 
 Timestamp fromDate = null;
-if (fromDateStr != null && fromDateStr.length() > 0) fromDate = Timestamp.valueOf(fromDateStr);
+if (UtilValidate.isNotEmpty(fromDateStr)) fromDate = Timestamp.valueOf(fromDateStr);
 if (fromDate == null) fromDate = (Timestamp)request.getAttribute("ProductAssocCreateFromDate");
 if (fromDate != null) context.put("fromDate", fromDate);
 

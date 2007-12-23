@@ -70,7 +70,7 @@ public class ProductDisplayWorker {
                 // Collection upgradeProducts = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productId", item.getProductId(), "productAssocTypeId", "PRODUCT_UPGRADE"), null);
                 List complementProducts = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productId", item.getProductId(), "productAssocTypeId", "PRODUCT_COMPLEMENT"), null);
                 // since ProductAssoc records have a fromDate and thruDate, we can filter by now so that only assocs in the date range are included
-                complementProducts = EntityUtil.filterByDate(complementProducts, true);
+                complementProducts = EntityUtil.filterByDate(complementProducts);
                 
                 List productsCategories = delegator.findByAndCache("ProductCategoryMember", UtilMisc.toMap("productId", item.getProductId()), null);
                 productsCategories = EntityUtil.filterByDate(productsCategories, true);
