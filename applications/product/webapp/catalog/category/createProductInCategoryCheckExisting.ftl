@@ -22,41 +22,37 @@ under the License.
 </#if>
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <table>
-            <tr>
-                <td style="head3">
-                    <b>${uiLabelMap.ProductCheckingForExistingProductInCategory} <#if (productCategory.description)?has_content>"${productCategory.description}"</#if> [${uiLabelMap.CommonId}:${productCategoryId?if_exists}]</b>
-                    <#if productFeatureAndTypeDatas?has_content>
-                    ${uiLabelMap.CommonWhere }
-                        <#list productFeatureAndTypeDatas as productFeatureAndTypeData>
-                            <#assign productFeatureType = productFeatureAndTypeData.productFeatureType>
-                            <#assign productFeature = productFeatureAndTypeData.productFeature>
-                            ${productFeatureType.description} = ${productFeature.description}
-                            <#if productFeatureAndTypeData_has_next>,${uiLabelMap.CommonAnd} </#if>
-                        </#list>
-                    </#if>
-                </td>
-            </tr>
-        </table>
+        <h3>
+            <b>${uiLabelMap.ProductCheckingForExistingProductInCategory} <#if (productCategory.description)?has_content>"${productCategory.description}"</#if> [${uiLabelMap.CommonId}:${productCategoryId?if_exists}]</b>
+            <#if productFeatureAndTypeDatas?has_content>
+            ${uiLabelMap.CommonWhere }
+                <#list productFeatureAndTypeDatas as productFeatureAndTypeData>
+                    <#assign productFeatureType = productFeatureAndTypeData.productFeatureType>
+                    <#assign productFeature = productFeatureAndTypeData.productFeature>
+                    ${productFeatureType.description} = ${productFeature.description}
+                    <#if productFeatureAndTypeData_has_next>,${uiLabelMap.CommonAnd} </#if>
+                </#list>
+            </#if>
+        </h3>
     </div>
     <div class="screenlet-body">
         <#if products?has_content>
         <table cellspacing="0" class="basic-table">    
             <tr>
-                <td><div class="tableheadtext">${uiLabelMap.ProductInternalName}</div></td>
-                <td><div class="tableheadtext">${uiLabelMap.ProductProductName}</div></td>
+                <td>${uiLabelMap.ProductInternalName}</td>
+                <td>${uiLabelMap.ProductProductName}</td>
                 <td width="10%">&nbsp;</td>
             </tr>
             <#list products as product>
             <tr>
-                <td><div class="tabletext">${product.internalName?default("-no internal name-")} [${product.productId}]</div></td>
-                <td><div class="tabletext">${product.productName?default("-no name-")} [${product.productId}]</div></td>
+                <td>${product.internalName?default("-no internal name-")} [${product.productId}]</td>
+                <td>${product.productName?default("-no name-")} [${product.productId}]</td>
                 <td width="10%"><a href="<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductThisIsIt}]</a></td>
             </tr>
         </#list>
         </table>
         <#else>
-            <div class="head3">&nbsp;${uiLabelMap.ProductNoExistingProductsFound}.</div>
+            <h3>&nbsp;${uiLabelMap.ProductNoExistingProductsFound}.</h3>
         </#if>
     </div>
     <br/>
@@ -123,7 +119,7 @@ under the License.
                 <tr>
                     <td colspan="3">
                         <div>
-                            ${uiLabelMap.ProductNewProductId}: <input type="text" name="productId" value="" class="inputBox"/>
+                            ${uiLabelMap.ProductNewProductId}: <input type="text" name="productId" value=""/>
                             <input type="submit" value="${uiLabelMap.ProductCreateNewProduct}" class="smallSubmit"/>
                         </div>
                     </td>

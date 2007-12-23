@@ -37,9 +37,22 @@ under the License.
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                           <label style="head1">${uiLabelMap.ProductCatalog}</label><label style="head2"> ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                           <label style="head1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                         </container>
-                        <include-form name="EditProdCatalog" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductCatalog}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditProdCatalog" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -72,11 +85,36 @@ under the License.
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                           <label style="head1">${uiLabelMap.ProductCategories}</label><label style="head2"> ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                           <label style="head1">${uiLabelMap.ProductCategories} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                         </container>
-                        <include-form name="EditProdCatalogCategories" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
-                        <label style="head2">${uiLabelMap.ProductAddCatalogProdCat}</label>
-                        <include-form name="addProductCategoryToProdCatalog" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductCatalogCategories}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditProdCatalogCategories" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductAddCatalogProdCat}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="addProductCategoryToProdCatalog" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -105,10 +143,36 @@ under the License.
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                           <label style="head1">${uiLabelMap.PartyParties}</label><label style="head2"> ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                           <label style="head1">${uiLabelMap.PartyParties} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                         </container>
-                        <include-form name="UpdateProdCatalogToParty" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
-                        <include-form name="AddProdCatalogToParty" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductCatalogParties}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="UpdateProdCatalogToParty" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddProductCatalogParties}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="AddProdCatalogToParty" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -137,10 +201,36 @@ under the License.
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                           <label style="head1">${uiLabelMap.ProductStores}</label><label style="head2"> ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                           <label style="head1">${uiLabelMap.ProductStores} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                         </container>
-                        <include-form name="UpdateProductStoreCatalog" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
-                        <include-form name="CreateProductStoreCatalog" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductCatalogStores}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="UpdateProductStoreCatalog" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddProductCatalogStores}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="CreateProductStoreCatalog" location="component://product/webapp/catalog/catalog/ProdCatalogForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -149,7 +239,6 @@ under the License.
     <screen name="FindProdCatalog">
         <section>
             <actions>
-                <set field="title" value="Find Product Catalog"/>
                 <set field="titleProperty" value="PageTitleEditFindProductCatalog"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
@@ -159,7 +248,7 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for CATALOG, _VIEW permission -->
@@ -181,4 +270,3 @@ under the License.
         </section>
     </screen>
 </screens>
-    

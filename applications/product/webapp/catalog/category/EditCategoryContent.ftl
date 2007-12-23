@@ -16,7 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<hr class="sepbar"/>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductOverrideSimpleFields}</h3>
@@ -28,7 +27,7 @@ under the License.
                     <td width="26%" align="right" class="label"><input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">${uiLabelMap.ProductProductCategoryType}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
-                        <select name="productCategoryTypeId" size="1" class="selectBox">
+                        <select name="productCategoryTypeId" size="1">
                         <option value="">&nbsp;</option>
                         <#list productCategoryTypes as productCategoryTypeData>
                             <option <#if productCategory?has_content><#if productCategory.productCategoryTypeId==productCategoryTypeData.productCategoryTypeId> selected</#if></#if> value="${productCategoryTypeData.productCategoryTypeId}">${productCategoryTypeData.get("description",locale)}</option>
@@ -39,29 +38,29 @@ under the License.
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductName}</td>
                     <td>&nbsp;</td>
-                    <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60" class="inputBox"/></td>
+                    <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60"/></td>
                 </tr>
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductDescription}</td>
                     <td>&nbsp;</td>
                     <td width="74%" colspan="4" valign="top">
-                        <textarea class="textAreaBox" name="description" cols="60" rows="2">${(productCategory.description)?if_exists}</textarea>
+                        <textarea name="description" cols="60" rows="2">${(productCategory.description)?if_exists}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td width="26%" align="right" valign="top" class="label">${uiLabelMap.ProductLongDescription}</td>
                     <td>&nbsp;</td>
                     <td width="74%" colspan="4" valign="top">
-                        <textarea class="textAreaBox" name="longDescription" cols="60" rows="7">${(productCategory.longDescription)?if_exists}</textarea>
+                        <textarea name="longDescription" cols="60" rows="7">${(productCategory.longDescription)?if_exists}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductDetailScreen}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
-                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen?if_exists}"</#if> name="detailScreen" size="60" maxlength="250" class="inputBox">
+                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen?if_exists}"</#if> name="detailScreen" size="60" maxlength="250">
                         <br/>
-                        <span class="tabletext">${uiLabelMap.ProductDefaultsTo} &quot;categorydetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#categorydetail&quot;</span>
+                        <span class="tooltip">${uiLabelMap.ProductDefaultsTo} &quot;categorydetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#categorydetail&quot;</span>
                     </td>
                 </tr>
                 <tr>
@@ -73,4 +72,3 @@ under the License.
         </form>
     </div>
 </div>
-<hr class="sepbar"/>

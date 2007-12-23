@@ -68,15 +68,15 @@ under the License.
                                 </#if>
                                <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>" class="buttontext"><#if product?exists>${(product.internalName)?if_exists}</#if> [${(productCategoryMember.productId)?if_exists}]</a>
                             </td>
-                            <td><div class="tabletext"<#if hasntStarted> style="color: red;"</#if>>${(productCategoryMember.fromDate)?if_exists}</div></td>
+                            <td <#if hasntStarted> style="color: red;"</#if>>${(productCategoryMember.fromDate)?if_exists}</td>
                             <td align="center">
                                 <input type="hidden" name="productId${suffix}" value="${(productCategoryMember.productId)?if_exists}">
                                 <input type="hidden" name="productCategoryId${suffix}" value="${(productCategoryMember.productCategoryId)?if_exists}">
                                 <input type="hidden" name="fromDate${suffix}" value="${(productCategoryMember.fromDate)?if_exists}">
-                                <input type="text" size="25" name="thruDate${suffix}" value="${(productCategoryMember.thruDate)?if_exists}" class="inputBox" <#if hasExpired>style="color: red;"</#if>>
+                                <input type="text" size="25" name="thruDate${suffix}" value="${(productCategoryMember.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if>>
                                 <a href="javascript:call_cal(document.updateCategoryProductForm.thruDate${suffix}, '${(productCategoryMember.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-                                <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)?if_exists}" class="inputBox">
-                                <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)?if_exists}" class="inputBox">
+                                <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)?if_exists}">
+                                <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)?if_exists}">
                                 <br/>
                                 <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)?if_exists}</textarea>        
                             </td>
@@ -131,10 +131,10 @@ under the License.
                 <form method="post" action="<@ofbizUrl>addCategoryProductMember</@ofbizUrl>" style="margin: 0;" name="addProductCategoryMemberForm">
                     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
-                    <div class="tabletext">
-                        <span class="label">${uiLabelMap.ProductProductId}</span> <input type="text" size="20" name="productId" class="inputBox">
+                    <div>
+                        <span class="label">${uiLabelMap.ProductProductId}</span> <input type="text" size="20" name="productId">
                         <a href="javascript:call_fieldlookup2(document.addProductCategoryMemberForm.productId, 'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"></a>
-                        <span class="label">${uiLabelMap.CommonFromDate}</span> <input type="text" size="22" name="fromDate" class="inputBox">
+                        <span class="label">${uiLabelMap.CommonFromDate}</span> <input type="text" size="22" name="fromDate">
                         <a href="javascript:call_cal(document.addProductCategoryMemberForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                           <br/>
                           <span class="label">${uiLabelMap.CommonComments}</span> <textarea name="comments" rows="2" cols="40"></textarea>        
@@ -155,16 +155,16 @@ under the License.
                 <form method="post" action="<@ofbizUrl>copyCategoryProductMembers</@ofbizUrl>" style="margin: 0;" name="copyCategoryProductMembersForm">
                     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
-                    <div class="tabletext">
+                    <div>
                         <span class="label">${uiLabelMap.ProductTargetProductCategory}</span>
-                        <input type="text" class="inputBox" name="productCategoryIdTo" size="20" maxlength="20"/>
+                        <input type="text" name="productCategoryIdTo" size="20" maxlength="20"/>
                         <a href="javascript:call_fieldlookup2(document.copyCategoryProductMembersForm.productCategoryIdTo,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                         <br/>
-                        <span class="label">${uiLabelMap.ProductOptionalFilterWithDate}</span> <input type="text" size="20" name="validDate" class="inputBox">
+                        <span class="label">${uiLabelMap.ProductOptionalFilterWithDate}</span> <input type="text" size="20" name="validDate">
                         <a href="javascript:call_cal(document.copyCategoryProductMembersForm.validDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                         <br/>
                         <span class="label">${uiLabelMap.ProductIncludeSubCategories}?</span>
-                        <select name="recurse" class="selectBox">
+                        <select name="recurse">
                             <option value="N">${uiLabelMap.CommonN}</option>
                             <option value="Y">${uiLabelMap.CommonY}</option>
                         </select>
@@ -185,8 +185,8 @@ under the License.
                 <form method="post" action="<@ofbizUrl>expireAllCategoryProductMembers</@ofbizUrl>" style="margin: 0;" name="expireAllCategoryProductMembersForm">
                     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
-                    <div class="tabletext">
-                        <span class="label">${uiLabelMap.ProductOptionalExpirationDate}</span> <input type="text" size="20" name="thruDate" class="inputBox">
+                    <div>
+                        <span class="label">${uiLabelMap.ProductOptionalExpirationDate}</span> <input type="text" size="20" name="thruDate">
                         <a href="javascript:call_cal(document.expireAllCategoryProductMembersForm.thruDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                         &nbsp;&nbsp;<input type="submit" value="${uiLabelMap.CommonExpireAll}">
                     </div>
@@ -205,8 +205,8 @@ under the License.
                 <form method="post" action="<@ofbizUrl>removeExpiredCategoryProductMembers</@ofbizUrl>" style="margin: 0;" name="removeExpiredCategoryProductMembersForm">
                     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
-                    <div class="tabletext">
-                        <span class="label">${uiLabelMap.ProductOptionalExpiredBeforeDate}</span> <input type="text" size="20" name="validDate" class="inputBox">
+                    <div>
+                        <span class="label">${uiLabelMap.ProductOptionalExpiredBeforeDate}</span> <input type="text" size="20" name="validDate">
                         <a href="javascript:call_cal(document.removeExpiredCategoryProductMembersForm.validDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                         &nbsp;&nbsp;<input type="submit" value="${uiLabelMap.CommonRemoveExpired}">
                     </div>

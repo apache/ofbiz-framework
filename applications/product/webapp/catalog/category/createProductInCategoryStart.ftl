@@ -24,9 +24,7 @@ under the License.
 </#if>
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <table>
-            <tr><td style="head3"><b>&nbsp;</b></td></tr>
-        </table>
+        <h3><b>&nbsp;</b></h3>
     </div>
     <div class="screenlet-body">    
         <form name="createProductInCategoryCheckExistingForm" method="post" action="<@ofbizUrl>createProductInCategoryCheckExisting</@ofbizUrl>" style="margin: 0;">
@@ -40,7 +38,7 @@ under the License.
                     <td width="15%">${productFeatureType.description}:</td>
                     <td>
                         <div>
-                            <select class="selectBox" name="pft_${productFeatureTypeId}">
+                            <select name="pft_${productFeatureTypeId}">
                                 <option value="">- ${uiLabelMap.CommonNone} -</option>
                                 <#list productFeatures as productFeature>
                                     <option value="${productFeature.productFeatureId}">${productFeature.description}</option>
@@ -53,23 +51,23 @@ under the License.
                 </#list>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductInternalName}:</td>
-                    <td><input type="text" name="internalName" size="30" maxlength="60" class="inputBox"/></td>
+                    <td><input type="text" name="internalName" size="30" maxlength="60"/></td>
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductProductName}:</td>
-                    <td><input type="text" name="productName" size="30" maxlength="60" class="inputBox"/></td>
+                    <td><input type="text" name="productName" size="30" maxlength="60"/></td>
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductShortDescription}:</td>
-                    <td><input type="text" name="description" size="60" maxlength="250" class="inputBox"/></td>
+                    <td><input type="text" name="description" size="60" maxlength="250"/></td>
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductDefaultPrice}:</td>
-                    <td><input type="text" name="defaultPrice" size="8" class="inputBox"/></td>
+                    <td><input type="text" name="defaultPrice" size="8"/></td>
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductAverageCost}:</td>
-                    <td><input type="text" name="averageCost" size="8" class="inputBox"/></td>
+                    <td><input type="text" name="averageCost" size="8"/></td>
                 </tr>
                 <tr>
                     <td colspan="3">
