@@ -26,12 +26,12 @@ function insertImageName(type,nameValue) {
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.ProductResultOfImageUpload}</h3>
             <#if !(clientFileName?has_content)>
-                <div class='tabletext'>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
+                <div>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
             <#else>
-                <div class='tabletext'>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName?if_exists}</b></div>
-                <div class='tabletext'>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse?if_exists}</b></div>
-                <div class='tabletext'>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
-                <div class='tabletext'>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
+                <div>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName?if_exists}</b></div>
+                <div>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse?if_exists}</b></div>
+                <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
+                <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
             </#if>
         </div>        
     </div>
@@ -49,7 +49,7 @@ function insertImageName(type,nameValue) {
                         <td align="right" class="label">${uiLabelMap.ProductProductCategoryId}</td>
                         <td>&nbsp;</td>
                         <td>
-                            <input type="text" name="productCategoryId" size="20" maxlength="40" value="${productCategoryId}" class="inputBox"/>
+                            <input type="text" name="productCategoryId" size="20" maxlength="40" value="${productCategoryId}"/>
                         </td>
                     </tr>
     <#else>
@@ -63,7 +63,7 @@ function insertImageName(type,nameValue) {
                         <td align="right" class="label">${uiLabelMap.ProductProductCategoryId}</td>
                         <td>&nbsp;</td>
                         <td>
-                            <input type="text" name="productCategoryId" size="20" maxlength="40" value="" class="inputBox"/>
+                            <input type="text" name="productCategoryId" size="20" maxlength="40" value=""/>
                         </td>
                     </tr>
     </#if>
@@ -87,7 +87,7 @@ function insertImageName(type,nameValue) {
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductProductCategoryType}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
-                        <select name="productCategoryTypeId" size="1" class="selectBox">
+                        <select name="productCategoryTypeId" size="1">
                         <#list productCategoryTypes as productCategoryTypeData>
                         <option <#if ((productCategory?has_content) && (productCategory.productCategoryTypeId==productCategoryTypeData.productCategoryTypeId)) || (productCategoryTypeData.productCategoryTypeId=="CATALOG_CATEGORY")>selected="selected"</#if> value="${productCategoryTypeData.productCategoryTypeId}">${productCategoryTypeData.get("description",locale)}</option>
                         </#list>
@@ -97,12 +97,12 @@ function insertImageName(type,nameValue) {
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductName}</td>
                     <td>&nbsp;</td>
-                    <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60" class="inputBox"/></td>
+                    <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60"/></td>
                 </tr>
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductDescription}</td>
                     <td>&nbsp;</td>
-                    <td width="74%"><textarea class="textAreaBox" name="description" cols="60" rows="2"><#if productCategory?has_content>${(productCategory.description)?if_exists}</#if></textarea></td>
+                    <td width="74%"><textarea name="description" cols="60" rows="2"><#if productCategory?has_content>${(productCategory.description)?if_exists}</#if></textarea></td>
                 </tr>
                 <tr>
                     <td width="20%" align="right" valign="top" class="label">
@@ -113,13 +113,13 @@ function insertImageName(type,nameValue) {
                     </td>
                     <td>&nbsp;</td>
                     <td width="80%" colspan="4" valign="top">
-                        <input type="text" class="inputBox" name="categoryImageUrl" value="${(productCategory.categoryImageUrl)?default('')}" size="60" maxlength="255"/>
+                        <input type="text" name="categoryImageUrl" value="${(productCategory.categoryImageUrl)?default('')}" size="60" maxlength="255"/>
                         <#if productCategory?has_content>
                             <div>
-                            <span class="tabletext">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
-                            <a href="javascript:insertImageName('category','${imageNameCategory}.jpg');" class="buttontext">[.jpg]</a>
-                            <a href="javascript:insertImageName('category','${imageNameCategory}.gif');" class="buttontext">[.gif]</a>
-                            <a href="javascript:insertImageName('category','');" class="buttontext">[${uiLabelMap.CommonClear}]</a>
+                            ${uiLabelMap.ProductInsertDefaultImageUrl}: 
+                            <a href="javascript:insertImageName('category','${imageNameCategory}.jpg');" class="buttontext">.jpg</a>
+                            <a href="javascript:insertImageName('category','${imageNameCategory}.gif');" class="buttontext">.gif</a>
+                            <a href="javascript:insertImageName('category','');" class="buttontext">${uiLabelMap.CommonClear}</a>
                             </div>
                         </#if>
                     </td>
@@ -133,13 +133,13 @@ function insertImageName(type,nameValue) {
                     </td>
                     <td>&nbsp;</td>
                     <td width="80%" colspan="4" valign="top">
-                        <input type="text" class="inputBox" name="linkOneImageUrl" value="${(productCategory.linkOneImageUrl)?default('')}" size="60" maxlength="255"/>
+                        <input type="text" name="linkOneImageUrl" value="${(productCategory.linkOneImageUrl)?default('')}" size="60" maxlength="255"/>
                         <#if productCategory?has_content>
                             <div>
-                                <span class="tabletext">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
-                                <a href="javascript:insertImageName('linkOne','${imageNameLinkOne}.jpg');" class="buttontext">[.jpg]</a>
-                                <a href="javascript:insertImageName('linkOne','${imageNameLinkOne}.gif');" class="buttontext">[.gif]</a>
-                                <a href="javascript:insertImageName('linkOne','');" class="buttontext">[${uiLabelMap.CommonClear}]</a>
+                                ${uiLabelMap.ProductInsertDefaultImageUrl}: 
+                                <a href="javascript:insertImageName('linkOne','${imageNameLinkOne}.jpg');" class="buttontext">.jpg</a>
+                                <a href="javascript:insertImageName('linkOne','${imageNameLinkOne}.gif');" class="buttontext">.gif</a>
+                                <a href="javascript:insertImageName('linkOne','');" class="buttontext">${uiLabelMap.CommonClear}</a>
                             </div>
                         </#if>
                     </td>
@@ -153,13 +153,13 @@ function insertImageName(type,nameValue) {
                     </td>
                     <td>&nbsp;</td>
                     <td width="80%" colspan="4" valign="top">
-                        <input type="text" class="inputBox" name="linkTwoImageUrl" value="${(productCategory.linkTwoImageUrl)?default('')}" size="60" maxlength="255"/>
+                        <input type="text" name="linkTwoImageUrl" value="${(productCategory.linkTwoImageUrl)?default('')}" size="60" maxlength="255"/>
                         <#if productCategory?has_content>
                             <div>
-                                <span class="tabletext">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
-                                <a href="javascript:insertImageName('linkTwo','${imageNameLinkTwo}.jpg');" class="buttontext">[.jpg]</a>
-                                <a href="javascript:insertImageName('linkTwo','${imageNameLinkTwo}.gif');" class="buttontext">[.gif]</a>
-                                <a href="javascript:insertImageName('linkTwo','');" class="buttontext">[${uiLabelMap.CommonClear}]</a>
+                                ${uiLabelMap.ProductInsertDefaultImageUrl}: 
+                                <a href="javascript:insertImageName('linkTwo','${imageNameLinkTwo}.jpg');" class="buttontext">.jpg</a>
+                                <a href="javascript:insertImageName('linkTwo','${imageNameLinkTwo}.gif');" class="buttontext">.gif</a>
+                                <a href="javascript:insertImageName('linkTwo','');" class="buttontext">${uiLabelMap.CommonClear}</a>
                             </div>
                         </#if>
                     </td>
@@ -168,21 +168,21 @@ function insertImageName(type,nameValue) {
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductDetailScreen}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
-                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen?if_exists}"</#if> name="detailScreen" size="60" maxlength="250" class="inputBox"/>
-                        <br/><span class="tabletext">${uiLabelMap.ProductDefaultsTo} &quot;categorydetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#categorydetail&quot;</span>
+                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen?if_exists}"</#if> name="detailScreen" size="60" maxlength="250"/>
+                        <br/><span class="tooltip">${uiLabelMap.ProductDefaultsTo} &quot;categorydetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#categorydetail&quot;</span>
                     </td>
                 </tr>
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductPrimaryParentCategory}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
-                        <input type="text" class="inputBox" name="primaryParentCategoryId" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
+                        <input type="text" name="primaryParentCategoryId" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
                         <a href="javascript:call_fieldlookup2(document.productCategoryForm.primaryParentCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">&nbsp;</td>
-                    <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;"/></td>
+                    <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}"/></td>
                 </tr>
             </table>
         </form>
@@ -203,7 +203,7 @@ function insertImageName(type,nameValue) {
             <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId?if_exists}&amp;upload_file_type=category</@ofbizUrl>" name="imageUploadForm">
                 <table cellspacing="0" class="basic-table">
                     <tr><td>
-                        <input type="file" class="inputBox" size="50" name="fname"/>
+                        <input type="file" size="50" name="fname"/>
                         <br/>
                         <span>
                             <input class="radioButton" type="radio" name="upload_file_type_bogus" value="category" checked="checked" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=category</@ofbizUrl>");'/>${uiLabelMap.ProductCategoryImageUrl}
@@ -224,10 +224,10 @@ function insertImageName(type,nameValue) {
             <form action="/catalog/control/DuplicateProductCategory" method="post" style="margin: 0;">
                 <table cellspacing="0" class="basic-table">                
                     <tr><td>
-                        <span class="tabletext">${uiLabelMap.ProductDuplicateProductCategorySelected}:</span>
+                        ${uiLabelMap.ProductDuplicateProductCategorySelected}:
                         <input type=hidden name="oldProductCategoryId" value="${productCategoryId}"/>
                         <div>
-                            <input type="text" class="inputBox" size="20" maxlength="20" name="productCategoryId"/>&nbsp;<input type=submit class="smallSubmit" value="${uiLabelMap.CommonGo}"/>
+                            <input type="text" size="20" maxlength="20" name="productCategoryId"/>&nbsp;<input type=submit class="smallSubmit" value="${uiLabelMap.CommonGo}"/>
                         </div>
                         <div>
                             <b>${uiLabelMap.CommonDuplicate}:</b>

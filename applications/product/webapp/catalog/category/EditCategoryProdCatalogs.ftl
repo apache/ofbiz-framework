@@ -44,7 +44,7 @@ under the License.
                 </td>
                 <#assign hasntStarted = false>
                 <#if (prodCatalogCategory.getTimestamp("fromDate"))?exists && nowTimestamp.before(prodCatalogCategory.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
-                <td><div class="tabletext"<#if hasntStarted> style="color: red;"</#if>>${(prodCatalogCategory.fromDate)?if_exists}</div></td>
+                <td <#if hasntStarted> style="color: red;"</#if>>${(prodCatalogCategory.fromDate)?if_exists}</td>
                 <td align="center">
                     <form method="post" action="<@ofbizUrl>category_updateProductCategoryToProdCatalog</@ofbizUrl>" name="lineForm${line}">
                         <#assign hasExpired = false>
@@ -53,11 +53,11 @@ under the License.
                         <input type="hidden" name="productCategoryId" value="${(prodCatalogCategory.productCategoryId)?if_exists}"/>
                         <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
                         <input type="hidden" name="fromDate" value="${(prodCatalogCategory.fromDate)?if_exists}"/>
-                        <input type="text" size="25" name="thruDate" value="${(prodCatalogCategory.thruDate)?if_exists}" class="inputBox" style="<#if (hasExpired) >color: red;</#if>"/>
+                        <input type="text" size="25" name="thruDate" value="${(prodCatalogCategory.thruDate)?if_exists}" style="<#if (hasExpired) >color: red;</#if>"/>
                         <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(prodCatalogCategory.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
-                        <input type="text" size="5" name="sequenceNum" value="${(prodCatalogCategory.sequenceNum)?if_exists}" class="inputBox"/>
+                        <input type="text" size="5" name="sequenceNum" value="${(prodCatalogCategory.sequenceNum)?if_exists}"/>
                         <#-- the prodCatalogCategoryTypeId field is now part of the PK, so it can't be changed, must be re-created
-                        <select name="prodCatalogCategoryTypeId" size="1" class="selectBox">
+                        <select name="prodCatalogCategoryTypeId" size="1">
                             <#if (prodCatalogCategory.prodCatalogCategoryTypeId)?exists>
                                 <option value="${prodCatalogCategory.prodCatalogCategoryTypeId}"><#if curProdCatalogCategoryType?exists>${(curProdCatalogCategoryType.description)?if_exists}<#else> [${(prodCatalogCategory.prodCatalogCategoryTypeId)}]</#if></option>
                                 <option value="${prodCatalogCategory.prodCatalogCategoryTypeId}"></option>
@@ -96,17 +96,17 @@ under the License.
                 <tr><td>
                     <form method="post" action="<@ofbizUrl>category_addProductCategoryToProdCatalog</@ofbizUrl>" style="margin: 0;" name="addNewForm">
                         <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}"/>
-                        <select name="prodCatalogId" class="selectBox">
+                        <select name="prodCatalogId">
                         <#list prodCatalogs as prodCatalog>
                             <option value="${(prodCatalog.prodCatalogId)?if_exists}">${(prodCatalog.catalogName)?if_exists} [${(prodCatalog.prodCatalogId)?if_exists}]</option>
                         </#list>
                         </select>
-                        <select name="prodCatalogCategoryTypeId" size="1" class="selectBox">
+                        <select name="prodCatalogCategoryTypeId" size="1">
                         <#list prodCatalogCategoryTypes as prodCatalogCategoryType>
                             <option value="${(prodCatalogCategoryType.prodCatalogCategoryTypeId)?if_exists}">${(prodCatalogCategoryType.get("description",locale))?if_exists}</option>
                         </#list>
                         </select>
-                        <input type="text" size="25" name="fromDate" class="inputBox"/>
+                        <input type="text" size="25" name="fromDate"/>
                         <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
                         <input type="submit" value="${uiLabelMap.CommonAdd}"/>
                     </form>

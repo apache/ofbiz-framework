@@ -38,10 +38,10 @@ under the License.
 
     <!-- Product Category Content Forms  -->
     <form name="AddCategoryContentAssoc" type="single" target="addContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" header-row-style="header-row" default-table-style="basic-table">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductCategoryContent"/>
         <field name="productCategoryId" map-name="productCategory"><hidden/></field>
-        <field name="prodCatContentTypeId" widget-style="selectBox">
+        <field name="prodCatContentTypeId">
             <drop-down>
                 <entity-options entity-name="ProductCategoryContentType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -54,7 +54,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productId"><hidden/></field>
         <field name="productCategoryId" map-name="productCategory"><hidden/></field>
-        <field name="prodCatContentTypeId" widget-style="selectBox">
+        <field name="prodCatContentTypeId">
             <drop-down>
                 <entity-options entity-name="ProductCategoryContentType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -67,7 +67,7 @@ under the License.
     <form name="UpdateCategoryContentAssoc" type="list" target="updateContentToCategory" title="" list-name="productCategoryContentList"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productCategoryId"><hidden/></field>
-        <field name="contentId" title="${uiLabelMap.ProductContent}" widget-style="tabletext">
+        <field name="contentId" title="${uiLabelMap.ProductContent}">
             <display-entity entity-name="Content" description="${description}" also-hidden="true">
                 <sub-hyperlink target="EditCategoryContentContent?productCategoryId=${productCategoryId}&amp;contentId=${contentId}&amp;prodCatContentTypeId=${prodCatContentTypeId}&amp;fromDate=${fromDate}" description="${contentId}" link-style="buttontext"/>
             </display-entity>
@@ -102,14 +102,14 @@ under the License.
         <auto-fields-entity entity-name="ProductCategoryContent"/>
 
         <field use-when="content==null" name="contentId"><ignored/></field>
-        <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="categoryContentData" widget-style="tabletext"><display/></field>
+        <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="categoryContentData"><display/></field>
         <field name="fromDate" use-when="contentId==null" title="${uiLabelMap.CommonFromDate}*" ><date-time/></field>
         <field name="fromDate" use-when="contentId!=null" title="${uiLabelMap.CommonFromDate}" ><display/></field>
 
-        <field name="prodCatContentTypeId" widget-style="tabletext"><display-entity entity-name="ProductCategoryContentType" also-hidden="true"/></field>
+        <field name="prodCatContentTypeId"><display-entity entity-name="ProductCategoryContentType" also-hidden="true"/></field>
         <field name="description" map-name="content"><text size="40"/></field>
         <field name="localeString" map-name="content"><text size="40"/></field>
-        <field name="text" map-name="textDataMap" widget-style="textAreaBox"><textarea cols="80" rows="10"/></field>
+        <field name="text" map-name="textDataMap"><textarea cols="80" rows="10"/></field>
         <field name="textDataResourceId" map-name="textDataMap"><hidden/></field>
         <field name="useCountLimit"><hidden/></field>
         <field name="purchaseThruDate"><hidden/></field>
