@@ -33,11 +33,11 @@ under the License.
         <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId"><text size="20" maxlength="20"/></field>
 
         <field name="siteName"><text size="30" maxlength="60"/></field>
-        <field name="enableHttps" widget-style="selectBox">
+        <field name="enableHttps">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         
-        <field name="productStoreId" widget-style="selectBox">
+        <field name="productStoreId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStore" description="${storeName}">
                     <entity-order-by field-name="storeName"/>
@@ -45,7 +45,7 @@ under the License.
                 <sub-hyperlink use-when="&quot;${webSite.productStoreId}&quot;.length()>0" link-style="buttontext" target-type="inter-app" target="/catalog/control/EditProductStore?productStoreId=${webSite.productStoreId}" description="${uiLabelMap.ContentEditProductStore}"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     <form name="ListWebSites" target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true">
         <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
@@ -79,7 +79,7 @@ under the License.
         </field>
         <field name="fromDate"><display/></field>
 
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="RemoveWebSiteContent?webSiteId=${webSiteId}&amp;contentId=${contentId}&amp;webSiteContentTypeId=${webSiteContentTypeId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
@@ -98,14 +98,14 @@ under the License.
         <auto-fields-service service-name="createWebSiteContent"/>
         <field name="webSiteId" map-name="webSite"><display also-hidden="true"/></field>
         <field name="contentId" title="Content Id"><lookup target-form-name="LookupContent"/></field>
-        <field name="webSiteContentTypeId" widget-style="selectBox">
+        <field name="webSiteContentTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WebSiteContentType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
     <!-- WebSite Role Forms -->
@@ -113,14 +113,14 @@ under the License.
         <auto-fields-service service-name="createWebSiteRole"/>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="webSiteId" map-name="webSite"><hidden/></field>
-        <field name="roleTypeId" widget-style="selectBox">
+        <field name="roleTypeId">
             <drop-down no-current-selected-key="_NA_">
                 <entity-options entity-name="RoleType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateWebSiteRole" type="list" target="updateWebSiteRole" title="" list-name="webSiteRoleDatas">
         <auto-fields-service service-name="updateWebSiteRole" map-name="webSiteRole"/>
@@ -130,12 +130,12 @@ under the License.
             <hyperlink target-type="inter-app" target="/partymgr/control/viewprofile?partyId=${webSiteRole.partyId}"
                 description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName} ${person.suffix} ${partyGroup.groupName} [${webSiteRole.partyId}]"/>
         </field>
-        <field name="roleTypeId" widget-style="tabletext">
+        <field name="roleTypeId">
             <display description="${roleType.description}"/>
         </field>
         <field name="fromDate" widget-style="tabletext"><display/></field>
         <field name="thruDate"></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeWebSiteRole?webSiteId=${webSiteRole.webSiteId}&amp;partyId=${webSiteRole.partyId}&amp;roleTypeId=${webSiteRole.roleTypeId}&amp;fromDate=${webSiteRole.fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
@@ -143,13 +143,13 @@ under the License.
     </form>
     <form name="AutoCreateWebsiteContent" type="single" target="autoCreateWebSiteContent" title="">
         <field name="webSiteId"><hidden/></field>
-        <field name="webSiteContentTypeId" widget-style="tabletext">
+        <field name="webSiteContentTypeId">
             <check all-checked="false">
                 <entity-options entity-name="WebSiteContentType" description="${description}">
                     <entity-order-by field-name="description"/>    
                 </entity-options>
             </check>
         </field>        
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 </forms>
