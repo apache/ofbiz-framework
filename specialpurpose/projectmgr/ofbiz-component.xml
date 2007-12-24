@@ -32,6 +32,7 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/ProjectMgrDemoData.xml"/>
     
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     
     <webapp name="projectmgr"
         title="Project"

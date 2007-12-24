@@ -234,7 +234,7 @@
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down>
                 <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
+                    <entity-constraint name="statusTypeId" value="PROJECT_ASSGN_STATUS"/>
                 </entity-options>
             </drop-down>
         </field>
