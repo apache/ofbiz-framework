@@ -25,13 +25,11 @@
         <!-- 
                 theory behind the program
                 - - - - - - - - - - - - - 
-                
+                (program under development)
                 Assumptions for tasks and resources
                 1. a workday has 8 hours.
                 2. a workweek has 40 hours and 5 days.
-                3. The default order of the Tasks is by name.
-                4. The default order of the tasks can be modified by the priority.
-                5. The default order can be changed by the workeffortassociation.
+                3. The order of the execution of the tasks is set by the workeffortassociation.
                 
                 The steps of the program are:
                 1. read all tasks into a list with the following fields:
@@ -44,15 +42,13 @@
                     
                     EF = LF task is on the critical path
                     
-                     
-                The program will allocate certain values for certain facts to indicate the importance
-                and add the values to the sequence field.
+                2. define the length of every task: skillstandard duration/persons or when zero
+                    default od a task is 3 days.
+
+                3. define the order of execution according tha workeffortAssociation
+                4. set the planned start and end date when no actual dates set yet.
+                5. store the start/end dates.
                 
-                order by name: 10 for every position
-                priority 1000 for every number
-                
-                The system will then sort the list by sequence and will insert the planned dates
-                according the startdate and sat and sundays.
         -->
         
         <!-- constants -->
@@ -136,9 +132,37 @@
         <entity-and entity-name="ProjectAndPhaseAndTask" list-name="projects">
             <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
         </entity-and>
-        <if-not-empty field-name="project">
-            <first-from-list entry-name="projects" list-name="project"/>
+        <if-not-empty field-name="projects">
+            <first-from-list entry-name="project" list-name="projects"/>
+            <else>
+                <add-error><fail-message message="WorkEffort: ${parameters.workEffortId} could not be found"/></add-error>
+                <check-errors/>
+            </else>
         </if-not-empty>
+        
+        <!-- check if party part of this project -->
+        <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true">
+            <field-map field-name="workEffortId" env-name="project.projectId"/>
+            <field-map field-name="partyId" env-name="timesheet.partyId"/>
+        </entity-and>
+        <if-empty field-name="projectAssigns">
+            <add-error><fail-message message="Party: ${timesheet.partyId} is not part of project: ${project.projectName} withe task: ${project.workEffortName}"/></add-error>
+            <check-errors/>
+        </if-empty>
+
+        <!-- check if party assigned to task, when not add with roletype of project -->
+        <entity-and entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
+            <field-map field-name="workEffortId" env-name="project.workEffortId"/>
+            <field-map field-name="partyId" env-name="timesheet.partyId"/>
+        </entity-and>
+        <if-empty field-name="assigns">
+            <first-from-list entry-name="projectAssign" list-name="projectAssigns"/>
+            <set field="addAssign.workEffortId" from-field="project.workEffortId"/>
+            <set field="addAssign.partyId" from-field="timesheet.partyId"/>
+            <set field="addAssign.roleTypeId" from-field="projectAssign.roleTypeId"/>
+            <set field="addAssign.statusId" value="PAS_ASSIGNED" />
+            <call-service service-name="assignPartyToWorkEffort" in-map-name="addAssign"/>
+        </if-empty>
         
         <get-related value-name="timesheet" relation-name="TimeEntry" list-name="timeEntries"/>
         

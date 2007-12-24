@@ -144,7 +144,17 @@ under the License.
                                     </condition>
                                     <widgets>                                        
                                         <include-menu name="TaskTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                                        <include-menu name="TaskSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                        <section>
+                                            <condition>
+                                                <or>
+                                                    <if-compare field-name="tabButtonItem" operator="equals" value="taskView"/>
+                                                    <if-compare field-name="tabButtonItem" operator="equals" value="edittask"/>
+                                                </or>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="TaskSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                            </widgets>
+                                        </section>
                                         <label style="head1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] Project: ${projectName}"/>
                                         <link style="head1" text="[${projectId}]" target="projectView?projectId=${projectId}"/>
                                     </widgets>                                    
