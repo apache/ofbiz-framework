@@ -30,6 +30,7 @@
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
+                <sub-hyperlink target="taskView?workEffortId=${workEffortId}" link-style="buttontext" description="${workEffortId}"/>
             </drop-down>
         </field>
         <field name="0" parameter-name="hoursDay0" title="Sun"><text size="5"/></field>

@@ -21,6 +21,8 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
+    <simple-method method-name="" short-description=""></simple-method>
+    
     <simple-method method-name="scheduleProject" short-description="Project Scheduler sets the planningdates according task requirements and available resources">
         <!-- 
                 theory behind the program
@@ -162,6 +164,13 @@
             <set field="addAssign.roleTypeId" from-field="projectAssign.roleTypeId"/>
             <set field="addAssign.statusId" value="PAS_ASSIGNED" />
             <call-service service-name="assignPartyToWorkEffort" in-map-name="addAssign"/>
+        </if-empty>
+        
+        <!-- check if the actual start date is set, when not set it to todays date -->
+        <if-empty field-name="project.actualStartDate">
+            <now-date-to-env env-name="updTask.actualStartDate"/>
+            <set field="updTask.workEffortId" from-field="parameters.workEffortId"/>
+            <call-service service-name="updateWorkEffort" in-map-name="updTask"/>
         </if-empty>
         
         <get-related value-name="timesheet" relation-name="TimeEntry" list-name="timeEntries"/>

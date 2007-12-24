@@ -72,16 +72,19 @@ while(te.hasNext()) {
     if (lastWorkEffortId != null && !lastWorkEffortId.equals(timeEntry.getString("workEffortId"))) {
         entry.put("total", taskTotal);
         // get the planned number of hours
-        plannedHours = timeEntry.getRelatedOne("WorkEffort").getRelated("WorkEffortSkillStandard");
-        ph = plannedHours.iterator();
-        pHours = 0.00;
-        while(ph.hasNext()) {
-            plannedHour = ph.next();
-            if (plannedHour.get("estimatedDuration") != null) {
-                pHours += plannedHour.get("estimatedDuration");
-            }
+        entryWorkEffort = timeEntry.getRelatedOne("WorkEffort");
+        if (entryWorkEffort != null) {
+        	plannedHours = entryWorkEffort.getRelated("WorkEffortSkillStandard");
+	        ph = plannedHours.iterator();
+	        pHours = 0.00;
+	        while(ph.hasNext()) {
+	            plannedHour = ph.next();
+	            if (plannedHour.get("estimatedDuration") != null) {
+	                pHours += plannedHour.get("estimatedDuration");
+	            }
+	        }
+	        entry.put("plannedHours", pHours);
         }
-        entry.put("plannedHours", pHours);
         entries.add(entry);
         taskTotal = 0.00;
         entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
