@@ -18,10 +18,27 @@
     under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
-    <simple-method method-name="" short-description=""></simple-method>
+    <simple-method method-name="updateTaskStatus" 
+        short-description="Check partyassignements on a task, if all completes set task status to completed and set actual completiondate to now">
+        <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignments" filter-by-date="true">
+            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+        </entity-and>
+        <!-- check if all open assignments were completed -->
+        <iterate entry-name="assignment" list-name="assignments">
+            <if-compare field-name="assignment.statusId" value="PAS_COMPLETED" operator="not-equals">
+                <set field="status" value="notcomplete"/>
+            </if-compare>
+        </iterate>
+        <if-empty field-name="status">
+            <set field="inMap.workEffortId" from-field="parameters.workEffortId"/>
+            <set field="inMap.currentStatusId" value="PTS_COMPLETED"/>
+            <now-timestamp-to-env env-name="inMap.actualCompletionDate"/>
+            <call-service service-name="updateWorkEffort" in-map-name="inMap"/>
+        </if-empty>
+    </simple-method>
     
     <simple-method method-name="scheduleProject" short-description="Project Scheduler sets the planningdates according task requirements and available resources">
         <!-- 
@@ -792,14 +809,23 @@
         </if-not-empty>
     </simple-method>
     
-    <simple-method method-name="updateMyTaskAssigment" short-description="Update the workEffortPartyAssigment, if required create a new one by re-assigment">
+    <simple-method method-name="updateMyTaskAssigment" 
+        short-description="Update my workEffortPartyAssigment, if required create a new one by re-assigment">
         <if-compare-field field-name="parameters.partyId" to-field-name="userLogin.partyId" operator="equals">
-            <if-compare field-name="parameters.statusId" value="PAS_COMPLETED" operator="equals">
-                <now-timestamp-to-env env-name="upd.thruDate"/>
-            </if-compare>
-            <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="upd"/>
-            <set field="upd.roleTypeId" from-field="parameters.newRoleTypeId"/>
-            <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="upd"/>
+            <!-- check if roleType changed if yes delete old and create new assign-->
+            <if-compare-field field-name="parameters.roleTypeId" operator="not-equals" to-field-name="parameters.oldRoleTypeId">
+                <set-service-fields service-name="deletePartyToWorkEffortAssignment" map-name="parameters" to-map-name="upd"/>
+                <set field="upd.roleTypeId" from-field="parameters.oldRoleTypeId"/>
+                <call-service service-name="deletePartyToWorkEffortAssignment" in-map-name="upd"/>
+                <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="upd"/>
+                <clear-field field-name="upd.fromDate"/>
+                <call-service service-name="assignPartyToWorkEffort" in-map-name="upd"/>
+                <else>
+                    <!-- simply update status -->
+                    <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="upd"/>
+                    <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="upd"/>
+                </else>
+            </if-compare-field>
             <else>
                 <!-- reassignment to other person -->
                 <!-- check if new person is part of the project -->

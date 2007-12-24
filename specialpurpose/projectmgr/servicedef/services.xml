@@ -22,6 +22,12 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Project Manager service definitions.</description>
 
+    <service name="updateTaskStatus" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="updateTaskStatus">
+        <description>Update task status if required</description>
+        <attribute name="workEffortId" type="String" mode="IN"/>
+    </service>
+
     <service name="updateTimeEntryByWorkeffort" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="updateTimeEntryByWorkeffort">
         <description>Update workeffort by workeffort and timesheetId </description>
@@ -135,7 +141,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true">
             <exclude field-name="statusDateTime"/>
         </auto-attributes>
-        <attribute name="newRoleTypeId" type="String" mode="IN"/>
+        <attribute name="oldRoleTypeId" type="String" mode="IN"/>
     </service>
     
 </services>

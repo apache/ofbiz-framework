@@ -212,7 +212,8 @@
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/>
         </field>
-        <field name="projectName"><display/></field>
+        <field name="projectName" title="${uiLabelMap.CommonStatus}"><display/></field>
+        <field name="currentStatusId" ><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority"><display/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" red-when="before-now"><display type="date"/></field>
@@ -220,10 +221,10 @@
         <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}" red-when="before-now"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
-        <field name="roleTypeId"><hidden/></field>
-        <field name="newRoleTypeId" title="${uiLabelMap.PartyRole}">
+        <field name="oldRoleTypeId"><hidden value="${roleTypeId}"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRole}">
             <drop-down>
-                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" description="${description}">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>        
@@ -250,12 +251,13 @@
     </form>
     <form name="AddMyTask" type="single" target="addMyTask">
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
-        <field name="statusId"><hidden value="PTS_CREATED"/></field>
+        <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down>
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} (${phaseName}-${projectName})">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
                     <entity-constraint name="workEffortTypeId" value="TASK"/>
+                    <entity-constraint name="currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </entity-options>                
             </drop-down>
         </field>

@@ -20,5 +20,11 @@ under the License.
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
-   
+        
+        <!-- update task status, actual completion date when all assignments complete -->
+        <eca service="updatePartyToWorkEffortAssignment" event="commit">
+                <condition field-name="statusId" operator="equals" value="PAS_COMPLETED"/>
+                <action service="updateTaskStatus" mode="sync"/>
+        </eca>    
+        
 </service-eca>
