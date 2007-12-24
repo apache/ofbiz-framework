@@ -94,6 +94,11 @@ under the License.
                 <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="workEffortTypeId" value="TASK"/>
+                    <field-map field-name="statusId" value="PAS_ASSIGNED"/>
+                </entity-and>
+                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="projects" filter-by-date="true">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="workEffortTypeId" value="PROJECT"/>
                 </entity-and>
                 <entity-one entity-name="WorkEffort" value-name="task">
                     <field-map field-name="workEffortId" value="dummy"/>
@@ -108,11 +113,26 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTaskAssignedToMe}</label></container>                                
                                     <container style="screenlet-body"> 
-                                        <include-form name="MyTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                        <section>
+                                            <condition>
+                                                <not><if-empty field-name="tasks"/></not>                                        
+                                            </condition>
+                                            <widgets>
+                                                <include-form name="MyTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <label style="head3" text="Currently no 'open' tasks are assigned to you.&lt;br/&gt; Add an existing or a new task to a project you are member of."></label>
+                                            </fail-widgets>
+                                        </section>
                                     </container>
                                 </container>
+                                <!--container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleMemberOfProjects}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                    </container>
+                                </container-->
                                 <container style="lefthalf">
-                                    
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAssignATaskToMe}</label></container>                                
                                     <container style="screenlet-body"> 
