@@ -1044,6 +1044,24 @@ public class ShoppingCartItem implements java.io.Serializable {
                     this.setDisplayPrice(this.basePrice);
                     this.orderItemPriceInfos = (List) priceResult.get("orderItemPriceInfos");
                 } else {
+                    if (productId != null) {
+                        String productStoreId = cart.getProductStoreId();
+                        List productSurvey = ProductStoreWorker.getProductSurveys(delegator, productStoreId, productId, "CART_ADD", parentProductId);
+                        if (UtilValidate.isNotEmpty(productSurvey) && UtilValidate.isNotEmpty(attributes)) {
+                            List surveyResponses = (List) attributes.get("surveyResponses");
+                            if (UtilValidate.isNotEmpty(surveyResponses)) {
+                                Iterator surveyItr = surveyResponses.iterator();
+                                while(surveyItr.hasNext()) {
+                                    String surveyResponseId = (String)surveyItr.next();
+                                    // TODO: implement multiple survey per product
+                                    if (UtilValidate.isNotEmpty(surveyResponseId)) {
+                                        priceContext.put("surveyResponseId", surveyResponseId);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     priceContext.put("prodCatalogId", this.getProdCatalogId());
                     priceContext.put("webSiteId", cart.getWebSiteId());
                     priceContext.put("productStoreId", cart.getProductStoreId());
