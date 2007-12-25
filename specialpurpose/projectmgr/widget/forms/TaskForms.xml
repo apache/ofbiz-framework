@@ -325,7 +325,7 @@
         <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_DEPENDENCY"/></field>
         <field name="relatedTasks" parameter-name="workEffortIdFrom">
             <drop-down>
-                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="workEffortId" description="${phaseName} -- ${workEffortName}">
+                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="workEffortId" description="${workEffortName} -- ${phaseName}">
                     <entity-constraint name="projectId" value="${projectId}"/>
                     <entity-constraint name="workEffortId" operator="not-equals" env-name="workEffortId"/>
                     <entity-order-by field-name="phaseName"/>
@@ -341,7 +341,7 @@
         <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_DEPENDENCY"/></field>
         <field name="relatedTasks" parameter-name="workEffortIdTo">
             <drop-down>
-                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="workEffortId" description="${phaseName} -- ${workEffortName}">
+                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="workEffortId" description="${workEffortName} -- ${phaseName}">
                     <entity-constraint name="projectId" value="${projectId}"/>
                     <entity-constraint name="workEffortId" operator="not-equals" env-name="workEffortId"/>
                     <entity-order-by field-name="phaseName"/>
