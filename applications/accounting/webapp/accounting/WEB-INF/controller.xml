@@ -1676,6 +1676,12 @@ under the License.
         <response name="success" type="view" value="PrintCheckPDF"/>
     </request-map>
     
+    <!--Global GL Settings -->
+    <request-map uri="globalGLSettings">
+        <security auth="true" https="true"/>
+        <response type="view" name="success" value="FindGlobalGlAccount"/>
+    </request-map>
+    
     <!-- ================ Financial Summary Report requests ================== -->
     <request-map uri="FinancialSummaryReportOptions"><security https="true" auth="true"/><response name="success" type="view" value="FinancialSummaryReportOptions"/></request-map>
     <request-map uri="SalesInvoiceByProductCategorySummary"><security https="true" auth="true"/><response name="success" type="view" value="SalesInvoiceByProductCategorySummary"/></request-map>

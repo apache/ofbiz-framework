@@ -25,7 +25,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleInvoiceItemType"/>
-                <set field="headerItem" value="InvoiceItemTypes"/>
+                <set field="tabButtonItem" value="InvoiceItemTypes"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
                 <entity-condition entity-name="InvoiceItemType" list-name="invoiceItemTypes">
@@ -33,7 +33,7 @@ under the License.
                 </entity-condition>    
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="head1">${uiLabelMap.AccountingListInvoiceItemType}</label></container>
                         <include-form name="ListInvoiceItemType" location="component://accounting/widget/InvoiceItemTypeForms.xml"/>

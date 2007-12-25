@@ -515,5 +515,20 @@ under the License.
             <link target="listChecksToSend?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
+    
+    <menu name="GlobalGLSettingMenus" selected-menuitem-context-field-name="tabButtonItem" default-menu-item-name="chartofaccounts" default-selected-style="tabButtonSelected">
+        <menu-item name="Chartofaccounts" title="${uiLabelMap.AccountingChartOfAcctsMenu}">
+            <link target="FindGlobalGlAccount"/>
+        </menu-item>        
+        <menu-item name="Costs" title="${uiLabelMap.ManufacturingCostCalcs}">
+            <link target="EditCostCalcs"/>
+        </menu-item>  
+        <menu-item name="PaymentMethodTypes" title="${uiLabelMap.AccountingPaymentMethodType}">
+            <link target="editPaymentMethodType"/>
+        </menu-item> 
+        <menu-item name="InvoiceItemTypes" title="${uiLabelMap.AccountingInvoiceItemType}">
+            <link target="editInvoiceItemType"/>
+        </menu-item>    
+    </menu>
 </menus>
     

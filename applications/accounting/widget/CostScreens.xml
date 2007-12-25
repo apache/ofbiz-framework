@@ -26,8 +26,8 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
                 
                 <set field="title" value="Edit cost component calc information"/>
+                <set field="tabButtonItem" value="Costs"/>
                 <set field="titleProperty" value="PageTitleEditCostCalcs"/>
-                <set field="headerItem" value="costs"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
@@ -35,7 +35,7 @@ under the License.
                 <entity-one entity-name="CostComponentCalc" value-name="costComponentCalc"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
                             <label style="head1">${uiLabelMap.ManufacturingManageCostComponentCalc}</label>
