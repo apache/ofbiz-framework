@@ -27,7 +27,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleDependencies"/>                
                 <set field="tabButtonItem" value="dependencies"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
+                <service service-name="getProjectIdAndName" result-map-name="result">
+                    <field-map field-name="taskId" env-name="parameters.workEffortId"/>
+                </service>
+                <set field="projectId" from-field="result.projectId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -44,7 +47,7 @@ under the License.
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksBefore}</label></container>                                
                                             <container style="screenlet-body"> 
-                                                <include-form name="Dependencies" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                <include-form name="DependenciesBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                             </container>
                                         </container>
                                         <container style="screenlet">
@@ -68,7 +71,7 @@ under the License.
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksAfter}</label></container>                                
                                             <container style="screenlet-body"> 
-                                                <include-form name="Dependencies" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                <include-form name="DependenciesAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                             </container>
                                         </container>
                                         <container style="screenlet">

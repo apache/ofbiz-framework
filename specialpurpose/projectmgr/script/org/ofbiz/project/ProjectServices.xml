@@ -540,6 +540,7 @@
         <set field="highInfo.taskName" from-field="lowInfo.workEffortName"/>
         <set field="highInfo.taskDescription" from-field="lowInfo.description"/>
         <set field="highInfo.scopeEnumId" from-field="lowInfo.scopeEnumId"/>
+        <set field="highInfo.workEffortParentId" from-field="lowInfo.workEffortParentId"/>
         <call-simple-method method-name="combineInfo"/>
         <call-simple-method method-name="getHours"/>
         <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
