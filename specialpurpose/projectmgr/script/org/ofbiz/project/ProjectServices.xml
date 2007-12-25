@@ -21,6 +21,59 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
+    <simple-method method-name="updateMyTaskAssigment" 
+        short-description="Update my workEffortPartyAssigment, if required create a new one by re-assigment">
+        <if-compare-field field-name="parameters.partyId" to-field-name="userLogin.partyId" operator="equals">
+            <!-- check if roleType changed if yes delete old and create new assign-->
+            <if-compare-field field-name="parameters.roleTypeId" operator="not-equals" to-field-name="parameters.oldRoleTypeId">
+                <set-service-fields service-name="deletePartyToWorkEffortAssignment" map-name="parameters" to-map-name="upd"/>
+                <set field="upd.roleTypeId" from-field="parameters.oldRoleTypeId"/>
+                <call-service service-name="deletePartyToWorkEffortAssignment" in-map-name="upd"/>
+                <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="upd"/>
+                <clear-field field-name="upd.fromDate"/>
+                <call-service service-name="assignPartyToWorkEffort" in-map-name="upd"/>
+                <else>
+                    <!-- simply update status -->
+                    <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="upd"/>
+                    <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="upd"/>
+                </else>
+            </if-compare-field>
+            <else>
+                <!-- reassignment to other person -->
+                <!-- check if new person is part of the project -->
+                <set field="getProjectId.taskId" from-field="parameters.workEffortId"/>
+                <call-service service-name="getProjectIdAndName" in-map-name="getProjectId">
+                    <result-to-field result-name="projectId" field-name="findAssign.workEffortId"/>
+                </call-service>
+                <set field="findAssign.partyId" from-field="parameters.partyId"/>
+                <find-by-and entity-name="WorkEffortPartyAssignment" map-name="findAssign" list-name="assignments"/>
+                <filter-list-by-date list-name="assignments" to-list-name="validAssignments"/>
+                <set field="findValidAssign.partyId" from-field="parameters.partyId"/>
+                <filter-list-by-and list-name="validAssignments" map-name="findValidAssign" to-list-name="isValid"/>
+                <if-not-empty field-name="isValid">
+                    <!-- person is valid.
+                        so end old entry and .....-->
+                    <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="endAssign"/>
+                    <set field="endAssign.partyId" from-field="userLogin.partyId"/>
+                    <now-timestamp-to-env env-name="endAssign.thruDate"/>
+                    <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="endAssign"/>
+                    <!-- ...create new one  -->
+                    <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="createAssign"/>
+                    <now-timestamp-to-env env-name="createAssign.fromDate"/>
+                    <set field="createAssign.roleTypeId" from-field="parameters.newRoleTypeId"/>
+                    <set field="statusId" value="PRTYASGN_ASSIGNED"/>
+                    <call-service service-name="assignPartyToWorkEffort" in-map-name="createAssign"/>
+                    <else>
+                        <!-- person Id not valid, issue error and exit -->
+                        <add-error><fail-message message="New party not member of this project"/></add-error>
+                        <return response-code="error"/>
+                    </else>
+                </if-not-empty>
+                
+            </else>
+        </if-compare-field>
+    </simple-method>
+
     <simple-method method-name="updateTaskStatus" 
         short-description="Check partyassignements on a task, if all completes set task status to completed and set actual completiondate to now">
         <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignments" filter-by-date="true">
@@ -376,6 +429,11 @@
         <iterate entry-name="phase" list-name="phases">
             <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
             <iterate entry-name="lowInfo" list-name="tasks">
+                <if-compare field-name="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
+                    <if-compare field-name="lowInfo.currentStatusId" value="PTS_CANCELLED" operator="not-equals">
+                        <set field="allTaskStatus" value="notComplete"/>
+                    </if-compare>
+                </if-compare>
                 <call-simple-method method-name="combineInfo"/>
             </iterate>
         </iterate>
@@ -387,6 +445,24 @@
         </entity-and>
         <first-from-list entry-name="status" list-name="statusses"/>
         <set field="highInfo.currentStatusId" from-field="status.statusId"/>
+        
+        <if>
+            <condition>
+                <and>
+                    <or>
+                        <if-compare field-name="highInfo.currentStatusId" value="PTS_COMPLETED" operator="equals"/>
+                        <if-compare field-name="highInfo.currentStatusId" value="PTS_ON_HOLD" operator="equals"/>
+                    </or>
+                    <not>
+                        <if-empty field-name="allTaskStatus"/>
+                    </not>
+                </and>
+            </condition>
+            <then>
+                <set field="highInfo.currentStatusId" value="PTS_CREATED_IP"/>
+            </then>
+        </if>
+        
         <call-simple-method method-name="createDates"/>
         
         <!-- results -->
@@ -418,11 +494,17 @@
             <!-- loop through the related tasks and combine information -->
             <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
             <iterate entry-name="lowInfo" list-name="tasks">
+                <if-compare field-name="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
+                    <if-compare field-name="lowInfo.currentStatusId" value="PTS_CANCELLED" operator="not-equals">
+                        <set field="allTaskStatus" value="notComplete"/>
+                    </if-compare>
+                </if-compare>
                 <call-simple-method method-name="combineInfo"/>
             </iterate>
             
             <!-- merge estimated and actual dates -->
             <call-simple-method method-name="createDates"/>
+            
             <!-- translate squenceId back into statusId -->
             <entity-and entity-name="StatusItem" list-name="statusses">
                 <field-map field-name="sequenceId" env-name="highInfo.sequenceId"/>
@@ -430,7 +512,26 @@
             </entity-and>
             <first-from-list entry-name="status" list-name="statusses"/>
             <clear-field field-name="highInfo.sequenceId"/>
-            <set field="highInfo.statusId" from-field="status.statusId"/>
+            <set field="highInfo.currentStatusId" from-field="status.statusId"/>
+            
+            <!-- however the status 'completed' can only be 'completed' when all related tasks are completed -->
+            <if>
+                <condition>
+                    <and>
+                        <or>
+                            <if-compare field-name="highInfo.currentStatusId" value="PTS_COMPLETED" operator="equals"/>
+                            <if-compare field-name="highInfo.currentStatusId" value="PTS_ON_HOLD" operator="equals"/>
+                        </or>
+                        <not>
+                            <if-empty field-name="allTaskStatus"/>
+                        </not>
+                    </and>
+                </condition>
+                <then>
+                    <set field="highInfo.currentStatusId" value="PTS_CREATED_IP"/>
+                </then>
+            </if>
+            
             <field-to-list field-name="highInfo" list-name="phaseList"/>
         </iterate>
         
@@ -695,7 +796,8 @@
             </if-compare>
         </if-compare>        
         
-        <!-- get the status from the lowerlevel tasks follow the sequence in the StatusItem entity and use the lowest-->
+        <!-- get the status from the lowerlevel tasks follow the sequence in the StatusItem entity and use the highest until 'completed'
+         after that all tasks need to me completed until a phase is completed, all phases need to be completed until the project is completed-->
         <entity-one entity-name="StatusItem" value-name="status">
             <field-map field-name="statusId" env-name="lowInfo.currentStatusId"/>
         </entity-one>
@@ -808,58 +910,5 @@
             </else>            
         </if-not-empty>
     </simple-method>
-    
-    <simple-method method-name="updateMyTaskAssigment" 
-        short-description="Update my workEffortPartyAssigment, if required create a new one by re-assigment">
-        <if-compare-field field-name="parameters.partyId" to-field-name="userLogin.partyId" operator="equals">
-            <!-- check if roleType changed if yes delete old and create new assign-->
-            <if-compare-field field-name="parameters.roleTypeId" operator="not-equals" to-field-name="parameters.oldRoleTypeId">
-                <set-service-fields service-name="deletePartyToWorkEffortAssignment" map-name="parameters" to-map-name="upd"/>
-                <set field="upd.roleTypeId" from-field="parameters.oldRoleTypeId"/>
-                <call-service service-name="deletePartyToWorkEffortAssignment" in-map-name="upd"/>
-                <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="upd"/>
-                <clear-field field-name="upd.fromDate"/>
-                <call-service service-name="assignPartyToWorkEffort" in-map-name="upd"/>
-                <else>
-                    <!-- simply update status -->
-                    <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="upd"/>
-                    <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="upd"/>
-                </else>
-            </if-compare-field>
-            <else>
-                <!-- reassignment to other person -->
-                <!-- check if new person is part of the project -->
-                <set field="getProjectId.taskId" from-field="parameters.workEffortId"/>
-                <call-service service-name="getProjectIdAndName" in-map-name="getProjectId">
-                    <result-to-field result-name="projectId" field-name="findAssign.workEffortId"/>
-                </call-service>
-                <set field="findAssign.partyId" from-field="parameters.partyId"/>
-                <find-by-and entity-name="WorkEffortPartyAssignment" map-name="findAssign" list-name="assignments"/>
-                <filter-list-by-date list-name="assignments" to-list-name="validAssignments"/>
-                <set field="findValidAssign.partyId" from-field="parameters.partyId"/>
-                <filter-list-by-and list-name="validAssignments" map-name="findValidAssign" to-list-name="isValid"/>
-                <if-not-empty field-name="isValid">
-                    <!-- person is valid.
-                        so end old entry and .....-->
-                    <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="endAssign"/>
-                    <set field="endAssign.partyId" from-field="userLogin.partyId"/>
-                    <now-timestamp-to-env env-name="endAssign.thruDate"/>
-                    <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="endAssign"/>
-                    <!-- ...create new one  -->
-                    <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="createAssign"/>
-                    <now-timestamp-to-env env-name="createAssign.fromDate"/>
-                    <set field="createAssign.roleTypeId" from-field="parameters.newRoleTypeId"/>
-                    <set field="statusId" value="PRTYASGN_ASSIGNED"/>
-                    <call-service service-name="assignPartyToWorkEffort" in-map-name="createAssign"/>
-                    <else>
-                        <!-- person Id not valid, issue error and exit -->
-                        <add-error><fail-message message="New party not member of this project"/></add-error>
-                        <return response-code="error"/>
-                    </else>
-                </if-not-empty>
-                
-            </else>
-        </if-compare-field>
-    </simple-method>
-    
+   
 </simple-methods>
