@@ -102,10 +102,10 @@
                 1. a workday has 8 hours.
                 2. a workweek has 40 hours and 5 days.
                 3. The order of the execution of the tasks is set by the workeffortassociation.
+                4. The default start of the project is today
                 
                 The steps of the program are:
-                1. read all tasks into a list with the following fields:
-                    name, id, length in hours, sequence
+                1. read all tasks  and check if there are predesessors, when not set he estimated dates
                     for critical path processing:
                     * ES - Earliest Start time
                     * EF - Earliest Finish time
@@ -114,82 +114,39 @@
                     
                     EF = LF task is on the critical path
                     
-                2. define the length of every task: skillstandard duration/persons or when zero
-                    default od a task is 3 days.
-
-                3. define the order of execution according tha workeffortAssociation
-                4. set the planned start and end date when no actual dates set yet.
-                5. store the start/end dates.
-                
+                2. call a recursive java function to set all the dependant tasks.                 
         -->
         
-        <!-- constants -->
-        <set field="nameOrder" value="10" type="Integer"/>
+        <field-to-result map-name="parameters" field-name="projectId"/>
         
         <!-- create the tasklist -->
-        <field-to-result map-name="parameters" field-name="projectId"/>
         <entity-one entity-name="WorkEffort" value-name="project">
             <field-map field-name="workEffortId" env-name="parameters.projectId"/>
         </entity-one>
-        <set field="seq" value="0" type="Double"/>
-        <string-to-list string="workEffortName" list-name="order"/>  
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases" order-by-list-name="order"/>
         <iterate entry-name="phase" list-name="phases">
             <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks" order-by-list-name="order"/>
             <iterate entry-name="task" list-name="tasks">
-                <clear-field field-name="t"/>
-                <set field="t.workEffortId" from-field="task.workEffortId"/>
-                <set field="t.seq" from-field="seq"/>
-                <calculate field-name="seq">
-                    <calcop operator="get" field-name="seq"/>
-                    <calcop operator="add" field-name="nameOrder"/>
-                </calculate>
-                <!-- get estimated hours -->
-                <get-related value-name="task" relation-name="WorkEffortSkillStandard" list-name="estimates"/>
-                <set field="total" value="0" type="Double"/>
-                <iterate entry-name="estimate" list-name="estimates">
-                    <calculate field-name="total">
-                        <calcop operator="get" field-name="total"/>
-                        <calcop operator="add" field-name="estimate.estimatedDuration"></calcop>
-                    </calculate>
-                </iterate>
-                <if-compare field-name="total" operator="not-equals" value="0">
-                    <calculate field-name="t.estimatedDays">
-                        <calcop operator="divide" field-name="total">
-                            <number value="8"/>
-                        </calcop>
-                    </calculate>
-                    <else>
-                        <set field="t.estimatedDays" value="1" type="Double"/>
-                    </else>
-                </if-compare>
-                <field-to-list field-name="t" list-name="taskList"/>
+                <get-related value-name="task" relation-name="ToWorkEffortAssoc" list-name="t.prevTasks"/>
+                <if-empty field-name="t.prevTasks">
+                    <!-- no predecessors so i can set the dates -->
+                    <now-timestamp-to-env env-name="upd.estimatedStartDate"/>
+                    <now-timestamp-to-env env-name="currentDate"/>
+                    <call-class-method class-name="org.ofbiz.project.Various" method-name="calculateCompletionDate" ret-field-name="upd.estimatedCompletionDate">
+                        <field field-name="task" type="org.ofbiz.entity.GenericValue"/>
+                        <field field-name="currentDate" type="java.sql.Timestamp"/>
+                    </call-class-method>
+                    <set field="upd.workEffortId" from-field="task.workEffortId"/>
+                    <call-service service-name="updateWorkEffort" in-map-name="upd"/>
+                    <entity-one entity-name="WorkEffort" value-name="newTask">
+                        <field-map field-name="workEffortId" env-name="task.workEffortId"/>
+                    </entity-one>
+                    <call-class-method class-name="org.ofbiz.project.Various" method-name="setDatesFollowingTasks">
+                        <field field-name="newTask" type="org.ofbiz.entity.GenericValue"/>
+                    </call-class-method>
+                </if-empty>
             </iterate>
         </iterate>       
-
-        <!-- rearrange according dependencies which override the default sequence-->
-        <!-- to be added -->
-
-
-        <!-- order the list-->        
-        <order-map-list list-name="taskList">
-            <order-by field-name="seq"/>
-        </order-map-list> 
-        
-        <now-timestamp-to-env env-name="currentDate"/>
-        <!-- iterate through the sorted list and set estimated start and end dates -->
-        <iterate entry-name="listItem" list-name="taskList">
-            <set field="listItem.estimatedStartDate" from-field="currentDate"/>
-            <calculate field-name="dayNbr"></calculate>
-            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="currentDate">
-                <field field-name="currentDate" type="java.sql.Timestamp"/>
-                <field field-name="listItem.estimatedDays" type="Double"/>
-            </call-class-method>
-            <set field="listItem.estimatedCompletionDate" from-field="currentDate"/>
-            <clear-field field-name="upd"/>
-            <set-service-fields service-name="updateWorkEffort" map-name="listItem" to-map-name="upd"/>
-            <call-service service-name="updateWorkEffort" in-map-name="upd"/>
-        </iterate>
     </simple-method>        
     
     <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffort and timesheetId ">

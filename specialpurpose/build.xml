@@ -20,7 +20,7 @@
 
 <project name="OFBiz Special Purpose Applications Build" default="build" basedir=".">
     <filelist id="application-builds" dir="."
-        files="pos/build.xml, hhfacility/build.xml, assetmaint/build.xml, oagis/build.xml, bi/build.xml, googlebase/build.xml, ebay/build.xml"/>
+        files="pos/build.xml, hhfacility/build.xml, assetmaint/build.xml, oagis/build.xml, bi/build.xml, googlebase/build.xml, ebay/build.xml, projectmgr/build.xml"/>
 
     <!-- ================================================================== -->
     <!-- Removes all created files and directories                          -->
@@ -50,7 +50,7 @@
             <filelist refid="application-builds"/>
         </subant>
         <delete file="ofbiz.jar"/>
-        <echo message="[clean] ========== Done Cleaning Applications =========="/>
+        <echo message="[clean] ========== Done Cleaning Special purpose =========="/>
     </target>
 
     <!-- ================================================================== -->
@@ -58,13 +58,13 @@
     <!-- ================================================================== -->
 
     <target name="build" depends="">
-        <echo message="[build] ========== Start Building Applications (Compile) =========="/>
+        <echo message="[build] ========== Start Building Special Purpose (Compile) =========="/>
 
         <subant inheritall="false">
             <filelist refid="application-builds"/>
         </subant>
 
-        <echo message="[build] ========== Done Building Applications (Compile) =========="/>
+        <echo message="[build] ========== Done Building Special Purpose (Compile) =========="/>
     </target>
 
     <!-- ================================================================== -->
@@ -72,12 +72,12 @@
     <!-- ================================================================== -->
 
     <target name="docs" depends="">
-        <echo message="[docs] ========== Start Building Applications (JavaDoc) =========="/>
+        <echo message="[docs] ========== Start Building Special Purpose (JavaDoc) =========="/>
 
         <subant target="docs">
             <filelist refid="application-builds"/>
         </subant>
 
-        <echo message="[docs] ========== Done Building Applications (JavaDocs) =========="/>
+        <echo message="[docs] ========== Done Building Special Purpose (JavaDocs) =========="/>
     </target>
 </project>
