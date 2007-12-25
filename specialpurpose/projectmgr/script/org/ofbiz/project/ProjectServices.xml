@@ -585,7 +585,6 @@
         <set field="highInfo.scopeEnumId" from-field="lowInfo.scopeEnumId"/>
         <call-simple-method method-name="combineInfo"/>
         <call-simple-method method-name="getHours"/>
-        <clear-field field-name="highInfo.sequenceId"/>
         <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
         <field-to-result field-name="highInfo" result-name="taskInfo"/>
         <call-simple-method method-name="getProjectIdAndName"/>
@@ -796,8 +795,6 @@
             </if-compare>
         </if-compare>        
         
-        <!-- get the status from the lowerlevel tasks follow the sequence in the StatusItem entity and use the highest until 'completed'
-         after that all tasks need to me completed until a phase is completed, all phases need to be completed until the project is completed-->
         <entity-one entity-name="StatusItem" value-name="status">
             <field-map field-name="statusId" env-name="lowInfo.currentStatusId"/>
         </entity-one>
