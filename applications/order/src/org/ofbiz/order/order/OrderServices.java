@@ -1380,6 +1380,9 @@ public class OrderServices {
 
                     // shipping amount
                     BigDecimal orderShipping = OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true);
+                    
+                    //promotions amount
+                    BigDecimal orderPromotions = OrderReadHelper.calcOrderPromoAdjustmentsBd(allAdjustments);
 
                     // build up the list of tax calc service parameters
                     for (int i = 0; i < validOrderItems.size(); i++) {
@@ -1441,6 +1444,7 @@ public class OrderServices {
                     Map serviceContext = UtilMisc.toMap("productStoreId", orh.getProductStoreId(), "itemProductList", products, "itemAmountList", amounts,
                         "itemShippingList", shipAmts, "itemPriceList", itPrices, "orderShippingAmount", orderShipping);
                     serviceContext.put("shippingAddress", shippingAddress);
+                    serviceContext.put("orderPromotionsAmount", orderPromotions);
                     if (orh.getBillToParty() != null) serviceContext.put("billToPartyId", orh.getBillToParty().getString("partyId"));
 
                     // invoke the calcTax service

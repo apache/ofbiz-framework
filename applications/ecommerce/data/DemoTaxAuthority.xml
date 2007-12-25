@@ -65,7 +65,7 @@ under the License.
     <TaxAuthorityCategory taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" productCategoryId="20111"/> <!-- Micro Widgets, a category to be used to test categorized rates -->
     <!-- taxAuthorityRateSeqId left blank to be auto-sequenced during the EE XML import -->
     <TaxAuthorityRateProduct taxAuthorityRateSeqId="9000" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9000"
-        productCategoryId="" titleTransferEnumId="" minItemPrice="25.00" minPurchase="0.00" taxShipping="N" taxPercentage="1" 
+        productCategoryId="" titleTransferEnumId="" minItemPrice="25.00" minPurchase="0.00" taxShipping="N" taxPercentage="1" taxPromotions="N"
         fromDate="2001-05-13 00:00:00.001" thruDate="" description="1% OFB _NA_ Tax"/>
         
     <!-- USA TaxAuthority defs -->
@@ -76,28 +76,28 @@ under the License.
     <TaxAuthorityGlAccount taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" organizationPartyId="Company" glAccountId="224106"/>
     <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="CA" toTaxAuthPartyId="CA_BOE" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
     <TaxAuthorityRateProduct taxAuthorityRateSeqId="9001" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9000"
-        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" 
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" taxPromotions="N"
         fromDate="2001-05-13 00:00:00.001" thruDate="" description="California State Sales Tax"/>
     
     <TaxAuthority taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" includeTaxInPrice="N"/>
     <TaxAuthorityGlAccount taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" organizationPartyId="Company" glAccountId="224140"/>
     <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="NY" toTaxAuthPartyId="NY_DTF" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
     <TaxAuthorityRateProduct taxAuthorityRateSeqId="9002" taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9000"
-        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.25" 
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.25" taxPromotions="N" 
         fromDate="2001-05-13 00:00:00.001" thruDate="" description="New York State Sales Tax"/>
     
     <TaxAuthority taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" includeTaxInPrice="N"/>
     <TaxAuthorityGlAccount taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" organizationPartyId="Company" glAccountId="224151"/>
     <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="TX" toTaxAuthPartyId="TX_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
     <TaxAuthorityRateProduct taxAuthorityRateSeqId="9003" taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9000"
-        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" 
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" taxPromotions="N" 
         fromDate="2001-05-13 00:00:00.001" thruDate="" description="Texas State Sales Tax"/>
     
     <TaxAuthority taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" includeTaxInPrice="N"/>
     <TaxAuthorityGlAccount taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" organizationPartyId="Company" glAccountId="224153"/>
     <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="UT" toTaxAuthPartyId="UT_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
     <TaxAuthorityRateProduct taxAuthorityRateSeqId="9004" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9000"
-        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.75" 
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.75" taxPromotions="N" 
         fromDate="2001-05-13 00:00:00.001" thruDate="" description="Utah State Sales Tax"/>
     <!-- An example county; there is some zip code data for testing this; note this is ONLY test data, there isn't really extra sales tax for this county -->
     <TaxAuthority taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" includeTaxInPrice="N"/>

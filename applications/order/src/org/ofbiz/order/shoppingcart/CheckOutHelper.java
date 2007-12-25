@@ -43,6 +43,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
+import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
@@ -798,6 +799,10 @@ public class CheckOutHelper {
             price.add(i, new BigDecimal(cartItem.getBasePrice()));
             shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
         }
+        
+        //add promotion adjustments
+        List allAdjustments = cart.getAdjustments();
+        BigDecimal orderPromoAmt = OrderReadHelper.calcOrderPromoAdjustmentsBd(allAdjustments);
 
         BigDecimal shipAmount = new BigDecimal(csi.shipEstimate);
         if (shipAddress == null) {
@@ -826,6 +831,7 @@ public class CheckOutHelper {
         serviceContext.put("itemShippingList", shipAmt);
         serviceContext.put("orderShippingAmount", shipAmount);
         serviceContext.put("shippingAddress", shipAddress);
+        serviceContext.put("orderPromotionsAmount", orderPromoAmt);
 
         return serviceContext;
     }

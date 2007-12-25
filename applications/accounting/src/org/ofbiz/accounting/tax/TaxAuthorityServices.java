@@ -99,7 +99,7 @@ public class TaxAuthorityServices {
                     throw new IllegalArgumentException("Could not find any Tax Authories for store with ID [" + productStoreId + "] for tax calculation; the store settings may need to be corrected.");
                 }
                 
-                List taxAdustmentList = getTaxAdjustments(delegator, product, productStore, null, billToPartyId, taxAuthoritySet, basePrice, amount, shippingPrice);
+                List taxAdustmentList = getTaxAdjustments(delegator, product, productStore, null, billToPartyId, taxAuthoritySet, basePrice, amount, shippingPrice, ZERO_BASE);
                 if (taxAdustmentList.size() == 0) {
                     // this is something that happens every so often for different products and such, so don't blow up on it...
                     Debug.logWarning("Could not find any Tax Authories Rate Rules for store with ID [" + productStoreId + "], productId [" + productId + "], basePrice [" + basePrice + "], amount [" + amount + "], for tax calculation; the store settings may need to be corrected.", module);
@@ -143,6 +143,7 @@ public class TaxAuthorityServices {
         List itemPriceList = (List) context.get("itemPriceList");
         List itemShippingList = (List) context.get("itemShippingList");
         BigDecimal orderShippingAmount = (BigDecimal) context.get("orderShippingAmount");
+        BigDecimal orderPromotionsAmount = (BigDecimal) context.get("orderPromotionsAmount");
         GenericValue shippingAddress = (GenericValue) context.get("shippingAddress");
 
         if (shippingAddress == null || (shippingAddress.get("countryGeoId") == null && shippingAddress.get("stateProvinceGeoId") == null && shippingAddress.get("postalCodeGeoId") == null)) {
@@ -178,13 +179,17 @@ public class TaxAuthorityServices {
             BigDecimal shippingAmount = (BigDecimal) itemShippingList.get(i);
             List taxList = null;
             if (shippingAddress != null) {
-                taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, taxAuthoritySet, itemPrice, itemAmount, shippingAmount);
+                taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, taxAuthoritySet, itemPrice, itemAmount, shippingAmount, ZERO_BASE);
             }
             // this is an add and not an addAll because we want a List of Lists of GenericValues, one List of Adjustments per item
             itemAdjustments.add(taxList);
         }
         if (orderShippingAmount.doubleValue() > 0) {
-            List taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId, taxAuthoritySet, ZERO_BASE, ZERO_BASE, orderShippingAmount);
+            List taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId, taxAuthoritySet, ZERO_BASE, ZERO_BASE, orderShippingAmount, ZERO_BASE);
+            orderAdjustments.addAll(taxList);
+        }
+        if(orderPromotionsAmount!=null && orderPromotionsAmount.doubleValue() != 0){
+            List taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId, taxAuthoritySet, ZERO_BASE, ZERO_BASE, ZERO_BASE, orderPromotionsAmount);
             orderAdjustments.addAll(taxList);
         }
 
@@ -225,7 +230,7 @@ public class TaxAuthorityServices {
         //Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }
 
-    private static List getTaxAdjustments(GenericDelegator delegator, GenericValue product, GenericValue productStore, String payToPartyId, String billToPartyId, Set taxAuthoritySet, BigDecimal itemPrice, BigDecimal itemAmount, BigDecimal shippingAmount) {
+    private static List getTaxAdjustments(GenericDelegator delegator, GenericValue product, GenericValue productStore, String payToPartyId, String billToPartyId, Set taxAuthoritySet, BigDecimal itemPrice, BigDecimal itemAmount, BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         List adjustments = FastList.newInstance();
 
@@ -322,6 +327,9 @@ public class TaxAuthorityServices {
                 }
                 if (shippingAmount != null && taxAuthorityRateProduct != null && (taxAuthorityRateProduct.get("taxShipping") == null || (taxAuthorityRateProduct.get("taxShipping") != null && taxAuthorityRateProduct.getBoolean("taxShipping").booleanValue()))) {
                     taxable = taxable.add(shippingAmount);
+                }
+                if (orderPromotionsAmount != null && taxAuthorityRateProduct != null && (taxAuthorityRateProduct.get("taxPromotions") == null || (taxAuthorityRateProduct.get("taxPromotions") != null && taxAuthorityRateProduct.getBoolean("taxPromotions").booleanValue()))) {
+                    taxable = taxable.add(orderPromotionsAmount);
                 }
                 
                 if (taxable.doubleValue() == 0) {
