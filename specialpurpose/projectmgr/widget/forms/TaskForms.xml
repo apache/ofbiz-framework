@@ -204,10 +204,12 @@
                 <field-map field-name="taskId" env-name="workEffortId"/>
                 <field-map field-name="hoursPartyId" env-name="userLogin.partyId"/>
             </service>
-            <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
-            <set field="actualHours" from-field="result.taskInfo.actualHours"/>
+            <set field="task" from-field="result.taskInfo"/>
+            <set field="plannedHours" from-field="task.plannedHours"/>
+            <set field="actualHours" from-field="task.actualHours"/>
             <set field="projectId" from-field="result.projectId"/>
             <set field="projectName" from-field="result.projectName"/>
+            <set field="currentStatusId" from-field="task.currentStatusId"/>
         </row-actions>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/>
