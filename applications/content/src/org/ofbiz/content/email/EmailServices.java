@@ -18,8 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.content.email;
 
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
@@ -83,8 +85,12 @@ public class EmailServices {
 
         results.put("partyId", partyId);
         results.put("subject", subject);
-        if (UtilValidate.isNotEmpty(body)) results.put("body", body);
-        if (UtilValidate.isNotEmpty(bodyParts)) results.put("bodyParts", bodyParts);
+        if (UtilValidate.isNotEmpty(body)) {
+            results.put("body", body);
+        }
+        if (UtilValidate.isNotEmpty(bodyParts)) {
+            results.put("bodyParts", bodyParts);
+        }
         results.put("userLogin", userLogin);
 
         // first check to see if sending mail is enabled
@@ -102,7 +108,7 @@ public class EmailServices {
         String redirectAddress = UtilProperties.getPropertyValue("general.properties", "mail.notifications.redirectTo");
         if (UtilValidate.isNotEmpty(redirectAddress)) {
             String originalRecipients = " [To: " + sendTo + ", Cc: " + sendCc + ", Bcc: " + sendBcc + "]";
-            subject = subject + originalRecipients;
+            subject += originalRecipients;
             sendTo = redirectAddress;
             sendCc = null;
             sendBcc = null;
@@ -110,6 +116,10 @@ public class EmailServices {
 
         String sendFrom = (String) context.get("sendFrom");
         String sendType = (String) context.get("sendType");
+        String port = (String) context.get("port");
+        String socketFactoryClass = (String) context.get("socketFactoryClass");
+        String socketFactoryPort  = (String) context.get("socketFactoryPort");
+        String socketFactoryFallback  = (String) context.get("socketFactoryFallback");
         String sendVia = (String) context.get("sendVia");
         String authUser = (String) context.get("authUser");
         String authPass = (String) context.get("authPass");
@@ -121,27 +131,38 @@ public class EmailServices {
         // define some default
         if (sendType == null || sendType.equals("mail.smtp.host")) {
             sendType = "mail.smtp.host";
-            if (sendVia == null || sendVia.length() == 0) {
+            if (UtilValidate.isEmpty(sendVia)) {
                 sendVia = UtilProperties.getPropertyValue("general.properties", "mail.smtp.relay.host", "localhost");
             }
-            if (authUser == null || authUser.length() == 0) {
+            if (UtilValidate.isEmpty(authUser)) {
                 authUser = UtilProperties.getPropertyValue("general.properties", "mail.smtp.auth.user");
             }
-            if (authPass == null || authPass.length() == 0) {
+            if (UtilValidate.isEmpty(authPass)) {
                 authPass = UtilProperties.getPropertyValue("general.properties", "mail.smtp.auth.password");
             }
-            if (authUser != null && authUser.length() > 0) {
+            if (UtilValidate.isNotEmpty(authUser)) {
                 useSmtpAuth = true;
             }
+            if (UtilValidate.isEmpty(port)) {
+                port = UtilProperties.getPropertyValue("general.properties", "mail.smtp.port");
+            }
+            if (UtilValidate.isEmpty(socketFactoryPort)) {
+                socketFactoryPort = UtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.port");
+            }
+            if (UtilValidate.isEmpty(socketFactoryClass)) {
+                socketFactoryClass = UtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.class");
+            }                
+            if (UtilValidate.isEmpty(socketFactoryFallback)) {
+                socketFactoryFallback = UtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.fallback", "false");
+            }                                        
         } else if (sendVia == null) {
             return ServiceUtil.returnError("Parameter sendVia is required when sendType is not mail.smtp.host");
         }
 
-
         if (contentType == null) {
             contentType = "text/html";
         }
-
+        
         if (UtilValidate.isNotEmpty(bodyParts)) {
             contentType = "multipart/mixed";
         }
@@ -150,6 +171,19 @@ public class EmailServices {
         try {
             Properties props = System.getProperties();
             props.put(sendType, sendVia);
+            if (UtilValidate.isNotEmpty(port)) {
+                props.put("mail.smtp.port", port);
+            }
+            if (UtilValidate.isNotEmpty(socketFactoryPort)) {
+                props.put("mail.smtp.socketFactory.port", socketFactoryPort);                
+            }                        
+            if (UtilValidate.isNotEmpty(socketFactoryClass)) {
+                props.put("mail.smtp.socketFactory.class", socketFactoryClass);
+                Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            }
+            if (UtilValidate.isNotEmpty(socketFactoryFallback)) {
+                props.put("mail.smtp.socketFactory.fallback", socketFactoryFallback);
+            }
             if (useSmtpAuth) {
                 props.put("mail.smtp.auth", "true");
             }
@@ -550,7 +584,9 @@ public class EmailServices {
         Map map = null;
         Map result = null;
         
-        if (addresses == null) return null;
+        if (addresses == null) {
+            return null;
+        }
         
         if (addresses.length > 0) {
             Address addr = addresses[0];
@@ -628,7 +664,9 @@ public class EmailServices {
                 String thisContentTypeRaw = part.getContentType();
                 String content = null;
                 int idx2 = thisContentTypeRaw.indexOf(";");
-                if (idx2 == -1) idx2 = thisContentTypeRaw.length();
+                if (idx2 == -1) {
+                    idx2 = thisContentTypeRaw.length();
+                }
                 String thisContentType = thisContentTypeRaw.substring(0, idx2);
                 if (thisContentType == null || thisContentType.equals("")) thisContentType = "text/html";
                 String disposition = part.getDisposition();
@@ -753,7 +791,7 @@ public class EmailServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
-            if (commEvents != null && commEvents.size() > 0) {
+            if (!commEvents.isEmpty()) {
                 Debug.logInfo("Ignoring Duplicate Email: " + aboutThisEmail, module);
                 return ServiceUtil.returnSuccess(" Message Ignored: deplicate messageId");
             } else {
@@ -764,7 +802,7 @@ public class EmailServices {
             List allResults = getListOfParyInfoFromEmailAddresses(addressesTo, addressesCC, addressesBCC, userLogin, dispatcher);
             Iterator itr = allResults.iterator();
             //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
-            if ((allResults != null) && (allResults.size() > 0)) {
+            if (!allResults.isEmpty()) {
                 Map firstAddressTo = (Map) itr.next();
                 partyIdTo = (String)firstAddressTo.get("partyId");
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
@@ -788,7 +826,9 @@ public class EmailServices {
             }
             if (userLogin.get("partyId") == null && partyIdTo != null) { 
                 int ch = 0;
-                for (ch=partyIdTo.length(); ch > 0 && Character.isDigit(partyIdTo.charAt(ch-1)); ch--);
+                for (ch=partyIdTo.length(); ch > 0 && Character.isDigit(partyIdTo.charAt(ch-1)); ch--) {
+                    ;
+                }
                 userLogin.put("partyId", partyIdTo.substring(0,ch)); //allow services to be called to have prefix
             }
             
