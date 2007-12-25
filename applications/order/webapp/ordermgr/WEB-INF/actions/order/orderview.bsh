@@ -28,6 +28,7 @@ import org.ofbiz.base.util.collections.*;
 import org.ofbiz.order.order.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.inventory.InventoryWorker;
+import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.accounting.payment.*;
 
 orderId = parameters.get("orderId");
@@ -378,6 +379,20 @@ if (orderHeader != null) {
         returnableItems = returnableItemServiceMap.get("returnableItems");
     }
     context.put("returnableItems", returnableItems);
+    
+    // get the catalogIds for appending items
+    if ("SALES_ORDER".equals(orderType)) {
+        catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, partyId);
+    } else {
+        catalogCol = CatalogWorker.getAllCatalogIds(request);
+    }
+    if (catalogCol != null && catalogCol.size() > 0) {
+        currentCatalogId = (String) catalogCol.get(0);
+        currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId);
+        context.put("catalogCol", catalogCol);
+        context.put("currentCatalogId", currentCatalogId);
+        context.put("currentCatalogName", currentCatalogName);
+    }    
 }
 
 if (orderHeader != null) {

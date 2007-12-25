@@ -24,9 +24,17 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>appendItemToOrder?${paramString}</@ofbizUrl>" name="appendItemForm">
-            <#-- TODO: Presently, this is the ofbiz way of getting the prodCatalog, which is not generic. Replace with a selecatble list defaulting to this instead -->
-            <input type="hidden" name="prodCatalogId" value="${Static["org.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)?if_exists}"/>
             <table class="basic-table" cellspacing="0">
+                <tr>
+                  <td class="label">${uiLabelMap.ProductChooseCatalog} :</td>
+                  <td><select name='prodCatalogId' class='selectBox'>
+                    <#list catalogCol as catalogId>
+                      <#assign thisCatalogName = Static["org.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
+                      <option value='${catalogId}'>${thisCatalogName}</option>
+                    </#list>
+                  </select>
+                  </td>
+                </tr>
                 <tr>
                   <td class="label">${uiLabelMap.ProductProductId} :</td>
                   <td><input type="text" size="25" name="productId" value="${requestParameters.productId?if_exists}"/>
