@@ -35,6 +35,7 @@ under the License.
         <attribute name="itemPriceList" type="java.util.List" mode="IN" optional="false"><!-- List of BigDecimals --></attribute>
         <attribute name="itemShippingList" type="java.util.List" mode="IN" optional="true"><!-- List of BigDecimals --></attribute>
         <attribute name="orderShippingAmount" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="orderPromotionsAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="shippingAddress" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="orderAdjustments" type="java.util.List" mode="OUT" optional="false"><!-- List of GenericValues (OrderAdjustment) --></attribute>
         <attribute name="itemAdjustments" type="java.util.List" mode="OUT" optional="false"><!-- List of Lists of GenericValues (OrderAdjustment), one List of Adjustments per item --></attribute>

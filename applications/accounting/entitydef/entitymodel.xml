@@ -3044,6 +3044,7 @@ under the License.
         <field name="minPurchase" type="currency-amount"></field>
         <field name="taxShipping" type="indicator"></field>
         <field name="taxPercentage" type="floating-point"></field>
+        <field name="taxPromotions" type="indicator"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <field name="description" type="description"></field>

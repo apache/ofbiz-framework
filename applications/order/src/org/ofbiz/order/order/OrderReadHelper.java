@@ -2467,6 +2467,26 @@ public class OrderReadHelper {
         // add tax and shipping to subtotal
         return getOrderItemSubTotal(orderItem, adjustments).add(getOrderItemAdjustmentsTotal(orderItem, adjustments, false, true, true));
     }
+    
+    public static BigDecimal calcOrderPromoAdjustmentsBd(List allOrderAdjustments) {
+        BigDecimal promoAdjTotal = ZERO;
+        
+        List promoAdjustments = EntityUtil.filterByAnd(allOrderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT"));
+        
+        if(!promoAdjustments.isEmpty()){
+            
+            Iterator promoAdjIter = promoAdjustments.iterator();
+            while(promoAdjIter.hasNext()){
+                GenericValue promoAdjustment = (GenericValue) promoAdjIter.next();
+                
+                if (promoAdjustment != null) {
+                    BigDecimal amount = promoAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding); 
+                    promoAdjTotal = promoAdjTotal.add(amount);
+                }
+            }
+        }
+        return promoAdjTotal.setScale(scale, rounding);
+    }
 
     public static Double getWorkEffortRentalLenght(GenericValue workEffort){
         Double length = null;
