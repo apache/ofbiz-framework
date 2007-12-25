@@ -48,12 +48,21 @@ if (UtilValidate.isNotEmpty(productStoreId)) {
         if ("PURCHASE_ORDER".equals(shoppingCart.getOrderType())) {
             // the agreement for a PO is from customer to payToParty (ie, us)
             agreements = delegator.findByAndCache("Agreement", UtilMisc.toMap("partyIdTo", partyId, "partyIdFrom", payToPartyId));
+            catalogCol = CatalogWorker.getAllCatalogIds(request);
         } else {
             // the agreement for a sales order is from us to the customer
             agreements = delegator.findByAndCache("Agreement", UtilMisc.toMap("partyIdTo", payToPartyId, "partyIdFrom", partyId));
+            catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, partyId);
         }
         if (agreements != null && agreements.size() > 0) {
             context.put("agreements", agreements);
+        }
+        if (catalogCol != null && catalogCol.size() > 0) {
+            currentCatalogId = (String) catalogCol.get(0);
+            currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId);
+            context.put("catalogCol", catalogCol);
+            context.put("currentCatalogId", currentCatalogId);
+            context.put("currentCatalogName", currentCatalogName);
         }
     }
 }

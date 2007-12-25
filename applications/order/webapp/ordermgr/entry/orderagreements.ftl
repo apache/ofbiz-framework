@@ -105,6 +105,24 @@ under the License.
       <tr>
         <td>&nbsp;</td>
         <td class="tableheadtext" align="right">
+          ${uiLabelMap.ProductChooseCatalog}
+        </td>
+        <td>&nbsp;</td>
+        <td align="left">
+           <select name='CURRENT_CATALOG_ID' class='selectBox'>
+            <option value='${currentCatalogId}'>${currentCatalogName}</option>
+            <option value='${currentCatalogId}'></option>
+            <#list catalogCol as catalogId>
+              <#assign thisCatalogName = Static["org.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
+              <option value='${catalogId}'>${thisCatalogName}</option>
+            </#list>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>&nbsp;</td>
+        <td class="tableheadtext" align="right">
           ${uiLabelMap.WorkEffortWorkEffortId}
         </td>
         <td>&nbsp;</td>
