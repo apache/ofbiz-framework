@@ -325,9 +325,10 @@ under the License.
                         </container>
                         <section>
                             <actions>
-                                <set field="text1" value="The projectmanager supports the administration of projects, task assignment/reassignment with time registration and invoicing.
-                                    The component is under development and could use your help, either by programming (see the open issues) or with testing and suggestions with comments to the documents or with a new issue in Jira (see below)"/>
-                                <set field="text2" value="It is presently supported with the following documents:"/>
+                                <set field="text1" value="The projectmanager supports the administration/sheduling of projects, task assignment/re-assignment with time registration and invoicing.
+                                    For comments and requirements please add this to the documents below or open an issue in Jira.&lt;br/&gt;&lt;br/&gt;
+                                    The current status of the component is documented in the development document below." />
+                                <set field="text2" value="The following documents/systems are available:"/>
                                 <set field="link1Text" value="A development document."/>
                                 <set field="link1" value="http://docs.ofbiz.org/display/OFBIZ/Complete+the+implementation+of+the+ProjectMgr+component."/>
                                 <set field="link2Text" value="User document"/>
