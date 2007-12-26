@@ -55,6 +55,10 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProject"/>
     </request-map>
+    <request-map uri="projectBilling">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="projectBilling"/>
+    </request-map>
     <request-map uri="createProject">
         <security https="true" auth="true"/>
         <event type="service" invoke="createProject"/>
@@ -493,6 +497,7 @@
     <view-map name="FindResource" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindResource"/>    
     <view-map name="FindProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProject"/>    
     <view-map name="EditProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
+    <view-map name="projectBilling" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#projectBilling"/>
     <view-map name="EditWorkEffort" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
     <view-map name="ChildWorkEfforts" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ChildWorkEfforts"/>
     <view-map name="EditProjectAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectAndAssoc"/>

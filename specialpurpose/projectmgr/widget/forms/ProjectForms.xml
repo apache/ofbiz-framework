@@ -99,6 +99,16 @@
         <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}"><text/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
+    <form name="hoursNotYetBilled" type="list" list-name="entryList">
+        <actions>
+            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/hoursNotYetBilled.bsh"/>
+        </actions>
+        <field name="workEffortName"><display/></field>
+        <field name="phaseName"><display/></field>
+        <field name="hours"><display/></field>
+        <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}"/></field>
+        <field name="fromDate"><display type="date"/></field>
+    </form>
     <form name="ListProjects" type="list" list-name="projects" paginate-target="FindProject">
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>

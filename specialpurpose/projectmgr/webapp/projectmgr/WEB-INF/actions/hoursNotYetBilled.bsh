@@ -1,0 +1,69 @@
+/*
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+  
+import java.util.*;
+import java.lang.*;
+import java.util.Iterator;
+import javolution.util.FastMap;
+import java.math.BigDecimal;
+
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+
+
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.condition.*;
+import java.sql.Timestamp;
+
+projectId = parameters.get("projectId");
+
+// get all tasks from the project, get related time entries and checked if not invoiced
+List entryList = new LinkedList();
+entries = delegator.findByAnd("ProjectAndPhaseAndTask", UtilMisc.toMap("projectId", projectId), UtilMisc.toList("phaseName", "workEffortName"));
+t = entries.iterator();
+while (t.hasNext()) {
+	entry = t.next();
+	entryItems = entry.getRelated("TimeEntry");
+	e = entryItems.iterator();
+	while (e.hasNext()) {
+		entryItem = e.next();
+		if (entryItem.getString("invoiceId") == null) {
+			timesheet = entryItem.getRelatedOne("Timesheet");
+			if (timesheet.getString("statusId").equals("TIMESHEET_COMPLETED")) {
+				Map all = FastMap.newInstance();
+				all.put("workEffortName", entry.getString("workEffortName"));
+				all.put("workEffortId", entry.getString("workEffortId"));
+				all.put("phaseName", entry.getString("phaseName"));
+				all.put("phaseId", entry.getString("phaseId"));
+				all.put("partyId", timesheet.getString("partyId"));
+				all.put("hours", entryItem.getDouble("hours"));
+				all.put("fromDate", entryItem.getTimestamp("fromDate"));
+				entryList.add(all);
+			}
+		}
+	} 
+}
+context.put("entryList", entryList); 
