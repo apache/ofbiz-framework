@@ -424,6 +424,12 @@ under the License.
         <menu-item name="PartyAccountsSummary" title="${uiLabelMap.AcctgPartyGlJournalSummary}">
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
+        <menu-item name="AccountReconciliation" title="${uiLabelMap.AccountingAcctRecon}">
+            <link target="findGlAccountReconciliation?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
+        <menu-item name="AccountReconciliations" title="${uiLabelMap.AccountingAcctRecons}">
+            <link target="findGlAccountReconciliations?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
         <menu-item name="FindAcctgTrans" title="${uiLabelMap.AccountingAcctgTranss}">
             <link target="FindAcctgTrans?organizationPartyId=${organizationPartyId}"/>
         </menu-item>

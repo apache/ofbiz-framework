@@ -635,4 +635,98 @@ under the License.
         </field>
         <field name="createButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="FindGlAccountReconciliation" type="single" title="" target="findGlAccountReconciliation">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="glAccountId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="performSearch"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
+    <form name="ListGlAccountReconciliation" type="multi" use-row-submit="true" target="EditGlReconciliation?organizationPartyId=${organizationPartyId}&amp;tabButtonItem=AccountReconciliation">
+        <actions>
+            <entity-condition entity-name="AcctgTransEntry">
+                <condition-list>
+                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                    <condition-expr field-name="reconcileStatusId" operator="equals" value="AES_NOT_RECONCILED"/>
+                    <condition-expr field-name="glAccountId" operator="equals" value="${glAccountId}"/>
+                </condition-list>
+                <order-by field-name="-lastUpdatedStamp"/>
+            </entity-condition>
+        </actions>
+       
+        <field name="acctgTransId"><display/></field>
+        <field name="acctgTransEntrySeqId"><display/></field>
+        <field name="glAccountId"><display/></field>
+        <field name="partyId"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="organizationPartyId"><display/></field>
+        <field name="amount"><display/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="submitButton" title="${uiLabelMap.AccountingCreateAcctRecons}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
+    <form name="EditGlReconciliation" type="single" target="updateGlReconciliation?tabButtonItem=${tabButtonItem}" default-map-name="glReconciliation">
+        <auto-fields-service service-name="updateGlReconciliation"/>
+        <field name="glReconciliationId"><display/></field>
+        <field name="glReconciliationName"><text/></field>
+        <field name="description"><text/></field>
+        <field name="glAccountId"><display/></field>
+        <field name="reconciledDate"><date-time/></field>
+        <field name="organizationPartyId"><display/></field>
+        <field name="reconciledBalance"><display/></field>
+        <field use-when="glReconciliationId!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
+    </form>
+    <form name="ListGlReconciliationEntries" type="list" use-row-submit="true">
+        <actions>
+            <entity-condition entity-name="GlReconciliationEntry">
+                <condition-list>
+                    <condition-expr field-name="glReconciliationId" env-name="glReconciliationId"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <field name="glReconciliationId"><display/></field>
+        <field name="acctgTransId"><display/></field>
+        <field name="acctgTransEntrySeqId"><display/></field>
+        <field name="reconciledAmount"><display/></field>
+        <field name="lastUpdatedStamp"><display/></field>
+    </form>
+    <form name="FindGlAccountReconciliations" type="single" title="" target="findGlAccountReconciliations">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="glAccountId" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}" key-field-name="glAccountId">
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="performSearch"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
+    <form name="ListGlAccountReconciliations" type="list" default-entity-name="GlReconciliation">
+        <actions>
+            <entity-condition entity-name="GlReconciliation">
+                <condition-list>
+                    <condition-expr field-name="glAccountId"  operator="equals" value="${glAccountId}"/>
+                    <condition-expr field-name="reconciledDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-empty="true"/>
+                    <condition-expr field-name="reconciledDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <field name="glReconciliationId">
+            <hyperlink also-hidden="false" description="${glReconciliationId}" target="EditGlReconciliations?glReconciliationId=${glReconciliationId}&amp;organizationPartyId=${organizationPartyId}&amp;tabButtonItem=AccountReconciliations"/>
+        </field>
+        <field name="glReconciliationName"><display/></field>
+        <field name="description"><display/></field>
+        <field name="createdByUserLogin"><display/></field>
+        <field name="lastModifiedByUserLogin"><display/></field>
+        <field name="glAccountId"><display/></field>
+        <field name="organizationPartyId"><display/></field>
+        <field name="reconciledBalance"><display/></field>
+    </form>
 </forms>
