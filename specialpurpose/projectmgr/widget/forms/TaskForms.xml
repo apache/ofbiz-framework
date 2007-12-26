@@ -22,6 +22,12 @@
         >
     
     <form name="EditTask" type="single" target="updateTask" default-map-name="task">
+        <actions>
+            <service service-name="getProjectTask" result-map-name="result">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
+            <set field="statusId" from-field="result.taskInfo.currentStatusId"/>
+        </actions>
         <alt-target use-when="myTask!=null" target="createMyTask"/>
         <alt-target use-when="task==null" target="createTask"/>
         <field use-when="myTask!=null" name="partyId"><hidden value="${userLogin.partyId}"/></field>
@@ -64,8 +70,8 @@
             </drop-down>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field use-when="myTask==null" name="currentStatusId"><hidden value="PTS_CREATED"/></field>
-        <field use-when="myTask!=null" name="statusId"><hidden/></field>
+        <field use-when="myTask!=null||task==null" name="currentStatusId"><hidden value="PTS_CREATED"/></field>
+        <field use-when="task!=null" name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}">
             <drop-down allow-empty="true" current="selected">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/> 

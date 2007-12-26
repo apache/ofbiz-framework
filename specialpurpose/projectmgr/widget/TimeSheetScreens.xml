@@ -84,12 +84,15 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMyTimeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                  
-                        <section>          
+                        <section>
+                            <condition>
+                                <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                            </condition>          
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber}</label></container>                                
                                     <container style="screenlet-body"> 
-                                        <include-form name="EditWeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                        <include-form name="WeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                                     </container>
                                 </container>
                                 <container style="screenlet">
@@ -99,6 +102,20 @@ under the License.
                                     </container>
                                 </container>
                             </widgets>
+                            <fail-widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="EditWeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleMyTimesheets} # ${timesheet.timesheetId}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="ListTimeSheets" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                    </container>
+                                </container>
+                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
