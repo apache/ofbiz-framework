@@ -151,6 +151,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="projectBilling">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProjectBilling"/>
+                <set field="tabButtonItem" value="billing"/>                
+                <set field="labelTitleProperty" value="PageTitleProjectBilling"/>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">  
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleHoursNotYetBilled} ${uiLabelMap.CommonInformation}</label></container>                                
+                            <container style="screenlet-body"> 
+                                <include-form name="hoursNotYetBilled" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     
     <screen name="ChildWorkEfforts">
         <section>
