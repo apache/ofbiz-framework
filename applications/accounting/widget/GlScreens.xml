@@ -335,5 +335,95 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="FindGlAccountReconciliation">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingAcctRecon"/>
+                <set field="tabButtonItem" value="AccountReconciliation"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="glAccountId" from-field="parameters.glAccountId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="body">
+                                <include-form name="FindGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                            </container>
+                        </container>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditGlReconciliation">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingEditAcctRecon"/>
+                <set field="tabButtonItem" from-field="parameters.tabButtonItem" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="glReconciliationId" from-field="parameters.glReconciliationId" global="true"/>
+                <entity-one entity-name="GlReconciliation" value-name="glReconciliation"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="body">
+                                        <include-form name="EditGlReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <widgets>
+                                <include-form name="ListGlReconciliationEntries" location="component://accounting/widget/GlForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindGlAccountReconciliations">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AccountingAcctRecons"/>
+                <set field="tabButtonItem" value="AccountReconciliations"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
+                <set field="glAccountId" from-field="parameters.glAccountId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="body">
+                                <include-form name="FindGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
+                            </container>
+                        </container>
+                        <section>
+                            <condition>
+                                <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
 

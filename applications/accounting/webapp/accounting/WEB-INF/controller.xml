@@ -1445,6 +1445,33 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewGlReconciliation"/>
     </request-map>
+    
+    <request-map uri="findGlAccountReconciliation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindGlAccountReconciliation"/>
+        <response type="view" name="error"  value="FindGlAccountReconciliation"/>     
+    </request-map>
+    <request-map uri="EditGlReconciliation">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.accounting.ReconcileEvents" invoke="createReconcileAccount"/>
+        <response name="success" type="view" value="EditGlReconciliation"/>
+        <response name="error" type="view" value="FindGlAccountReconciliation"/>
+    </request-map>
+    <request-map uri="EditGlReconciliations">
+        <security https="true" auth="true"/>
+        <response type="view" name="success" value="EditGlReconciliation"/>   
+    </request-map>
+    <request-map uri="updateGlReconciliation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGlReconciliation"/>
+        <response type="view" name="success" value="EditGlReconciliation"/>
+    </request-map>
+    <request-map uri="findGlAccountReconciliations">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindGlAccountReconciliations"/>
+        <response type="view" name="error"  value="FindGlAccountReconciliations"/>     
+    </request-map>
+    
     <!-- ================ check requests ================= -->
     <request-map uri="listChecksToPrint">
         <security https="true" auth="true"/>
@@ -1751,7 +1778,10 @@ under the License.
     <view-map name="ListGlAccountsExport" type="screenxml" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountsExport" content-type="text/xml"/>
     <view-map name="GlAccountNavigate" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#GlAccountNavigate"/>
     <view-map name="AssignGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#AssignGlAccount"/>
- 
+    <view-map name="FindGlAccountReconciliation" type="screen" page="component://accounting/widget/GlScreens.xml#FindGlAccountReconciliation"/>   
+    <view-map name="FindGlAccountReconciliations" type="screen" page="component://accounting/widget/GlScreens.xml#FindGlAccountReconciliations"/>   
+    <view-map name="EditGlReconciliation" type="screen" page="component://accounting/widget/GlScreens.xml#EditGlReconciliation"/>   
+    
     <view-map name="EditGlobalGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#AddGlAccount"/>
     <!-- NOTE/TODO: these 2 appear to never have been implemented all the way, just request and view defs so far... -->
     <view-map name="EditGlobalGlAccountOrganizations" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#EditGlobalGlAccountOrganizations"/>

@@ -241,7 +241,8 @@ under the License.
         <!-- update the status of the AcctgTransEntry to reconciled -->
         <set field="updateAcctgTransEntryInMap.acctgTransId" from-field="parameters.acctgTransId"/>
         <set field="updateAcctgTransEntryInMap.acctgTransEntrySeqId" from-field="parameters.acctgTransEntrySeqId"/>
-        <set field="updateAcctgTransEntryInMap.acctgTransEntrySeqId" value="AES_RECONCILED"/>
+        <set field="updateAcctgTransEntryInMap.reconcileStatusId" value="AES_RECONCILED"/>
+        <set field="updateAcctgTransEntryInMap.amount" from-field="parameters.reconciledAmount"/>
         <call-service service-name="updateAcctgTransEntry" in-map-name="updateAcctgTransEntryInMap"/>
         <check-errors/>
 
