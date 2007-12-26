@@ -270,6 +270,8 @@
         <get-related-one value-name="phase" relation-name="ParentWorkEffort" to-value-name="project"/>
         <field-to-result field-name="project.workEffortId" result-name="projectId"/>
         <field-to-result field-name="project.workEffortName" result-name="projectName"/>
+        <field-to-result field-name="phase.workEffortId" result-name="phaseId"/>
+        <field-to-result field-name="phase.workEffortName" result-name="phaseName"/>
     </simple-method>
     
     <simple-method method-name="createProject" short-description="if templateId is present copy a project from a template">
@@ -545,7 +547,6 @@
         <call-simple-method method-name="getHours"/>
         <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
         <field-to-result field-name="highInfo" result-name="taskInfo"/>
-        <call-simple-method method-name="getProjectIdAndName"/>
     </simple-method>
 
     <simple-method method-name="getProjectsByParties" short-description="get Project information by party member" login-required="true">

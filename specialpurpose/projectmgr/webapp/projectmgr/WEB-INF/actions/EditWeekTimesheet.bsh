@@ -92,7 +92,12 @@ while(te.hasNext()) {
     if (UtilValidate.isNotEmpty(timeEntry.get("workEffortId"))) {
         workEffort = timeEntry.getRelatedOne("WorkEffort");
         entry.put("workEffortId", workEffort.getString("workEffortId"));    
-        entry.put("workEffortName", workEffort.getString("workEffortName"));    
+        entry.put("workEffortName", workEffort.getString("workEffortName")); 
+        result = dispatcher.runSync("getProjectIdAndName", UtilMisc.toMap("userLogin", parameters.get("userLogin"),"taskId",timeEntry.getString("workEffortId")));
+            entry.put("phaseId",result.get("phaseId"));    
+            entry.put("phaseName",result.get("phaseName"));  
+            entry.put("projectId",result.get("projectId"));  
+            entry.put("projectName",result.get("projectName"));    
     }
     entry.put("timesheetId", timesheet.get("timesheetId"));
     if (timeEntry.get("hours") != null) {
@@ -124,8 +129,10 @@ if (lastWorkEffortId != null) {
     entry.put("total", taskTotal);
     entries.add(entry);
     }
-for (c=0; c < 3; c++) { // add 5 empty lines 
-    entries.add(UtilMisc.toMap("timesheetId", timesheet.get("timesheetId")));
+if (!timesheet.getString("statusId").equals("TIMESHEET_COMPLETED")) {
+	for (c=0; c < 3; c++) { // add 5 empty lines 
+	    entries.add(UtilMisc.toMap("timesheetId", timesheet.get("timesheetId")));
+	}
 }
 if (lastWorkEffortId != null) {
     entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));

@@ -91,6 +91,8 @@ under the License.
         <attribute name="phaseId" type="String" mode="IN" optional="true"/>
         <attribute name="projectId" type="String" mode="OUT" optional="true"/>
         <attribute name="projectName" type="String" mode="OUT" optional="true"/>
+        <attribute name="phaseId" type="String" mode="OUT" optional="true"/>
+        <attribute name="phaseName" type="String" mode="OUT" optional="true"/>
     </service>
     
     <service name="getProjectPhaseList" engine="simple"

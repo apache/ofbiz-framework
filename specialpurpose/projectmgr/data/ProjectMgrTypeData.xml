@@ -27,8 +27,8 @@ under the License.
     <RoleType description="Provider Accounting" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ACCOUNTING"/>
     <RoleType description="Provider Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ANALYST"/>
     <RoleType description="Provider Validator" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_VALIDATOR"/>
-    <RoleType description="Provider Functional Implementer" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PRVDER_FUNCTNAL_IMPL"/>
-    <RoleType description="Provider Test Implementer" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PRVDER_TEST_IMPL"/>
+    <RoleType description="Provider Func. Impl" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_FUNCTIONAL"/>
+    <RoleType description="Provider Tester" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_TESTER"/>
     
     <!-- to be able to store project templates -->
     <WorkEffortType workEffortTypeId="TEMPLATE" description="Template"/>
@@ -41,7 +41,7 @@ under the License.
     <SkillType skillTypeId="9001" description="Mini Language"/>
     <SkillType skillTypeId="9002" description="HTML/FTL"/>
     <SkillType skillTypeId="9003" description="Javascript/Dojo"/>
-    <SkillType skillTypeId="9004" description="Screens/forms"/>
+    <SkillType skillTypeId="9004" description="Screens/Forms"/>
     <SkillType skillTypeId="9005" description="OFBiz Installation"/>
     <SkillType skillTypeId="_NA_" description="Not Applicable"/>
     
