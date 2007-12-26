@@ -165,11 +165,13 @@
    
     <form name="EditProjectTasks" target="updateProjectTaskOrPhase" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTask">
         <row-actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="currentStatusId"/>
-            </entity-one>
+            <service service-name="getProjectTask" result-map-name="result">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
+            <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
         </row-actions>
-        <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
+        <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="projectId"><hidden/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
@@ -179,14 +181,6 @@
                     <entity-constraint name="workEffortParentId" value="${projectId}"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>        
-            </drop-down>
-        </field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="false" current-description="${currentStatus.description}">
-                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
-                    <entity-constraint name="statusId" env-name="currentStatusId"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
             </drop-down>
         </field>
         <field name="priority" title="${uiLabelMap.CommonPriority}" widget-style="selectBox">
