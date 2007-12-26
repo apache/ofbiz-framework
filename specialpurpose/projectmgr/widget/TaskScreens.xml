@@ -418,6 +418,8 @@ under the License.
                                             <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>                  
                                         </container>
                                     </container> 
+                                    <include-screen name="taskBefore"/>
+                                    <include-screen name="taskAfter"/>
                                 </container>
                                 <container style="righthalf">
                                     <include-screen name="TaskTeamInfo"/>
@@ -510,5 +512,41 @@ under the License.
                 </container>
             </widgets>
         </section>
-    </screen>          
+    </screen>
+    <screen name="taskBefore">
+        <section>
+            <actions>
+                <entity-and entity-name="WorkEffortAssocView" list-name="depList" filter-by-date="true">
+                    <field-map field-name="workEffortIdTo" env-name="parameters.workEffortId"/>
+                    <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <container style="screenlet">
+                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksBefore}</label></container>                                
+                    <container style="screenlet-body"> 
+                        <include-form name="TaskBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                    </container>
+                </container>
+            </widgets>
+        </section>
+    </screen>  
+    <screen name="taskAfter">
+        <section>
+            <actions>
+                <entity-and entity-name="WorkEffortAssocView" list-name="depList" filter-by-date="true">
+                    <field-map field-name="workEffortIdFrom" env-name="parameters.workEffortId"/>
+                    <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <container style="screenlet">
+                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksAfter}</label></container>                                
+                    <container style="screenlet-body"> 
+                        <include-form name="TaskAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                    </container>
+                </container>
+            </widgets>
+        </section>
+    </screen>                  
 </screens>
