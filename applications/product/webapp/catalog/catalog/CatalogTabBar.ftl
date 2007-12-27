@@ -17,13 +17,17 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign unselectedClassName = "">
+<#assign selectedClassMap = {page.tabButtonItem?default("void") : "selected"}>
 <#if prodCatalogId?exists>
-    <div class="tabContainer">
-        <a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.ProductCatalog?default(unselectedClassName)}">${uiLabelMap.ProductCatalog}</a>
-        <a href="<@ofbizUrl>EditProdCatalogStores?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.ProductStores?default(unselectedClassName)}">${uiLabelMap.ProductStores}</a>
-        <a href="<@ofbizUrl>EditProdCatalogParties?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.PartyParties?default(unselectedClassName)}">${uiLabelMap.PartyParties}</a>
-        <a href="<@ofbizUrl>EditProdCatalogCategories?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.ProductCategories?default(unselectedClassName)}">${uiLabelMap.ProductCategories}</a>
+    <br/>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.ProductCatalog?default(unselectedClassName)}">${uiLabelMap.ProductCatalog}</a></li>
+            <li><a href="<@ofbizUrl>EditProdCatalogStores?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.ProductStores?default(unselectedClassName)}">${uiLabelMap.ProductStores}</a></li>
+            <li><a href="<@ofbizUrl>EditProdCatalogParties?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.PartyParties?default(unselectedClassName)}">${uiLabelMap.PartyParties}</a></li>
+            <li><a href="<@ofbizUrl>EditProdCatalogCategories?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.ProductCategories?default(unselectedClassName)}">${uiLabelMap.ProductCategories}</a></li>
+        </ul>
+        <br/>
     </div>
 </#if>

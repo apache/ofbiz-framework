@@ -16,25 +16,33 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<h1>${uiLabelMap.ProductProductCatalogsList}</h1>
-<div><a href="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductCreateNewProdCatalog}]</a></div>
-<br/>
-<table border="1" cellpadding="2" cellspacing="0">
-  <tr>
-    <td><div class="tabletext"><b>${uiLabelMap.ProductCatalogNameId}</b></div></td>    
-    <td><div class="tabletext"><b>${uiLabelMap.ProductUseQuickAdd}?</b></div></td>
-    <td><div class="tabletext">&nbsp;</div></td>
-  </tr>
-<#list prodCatalogs as prodCatalog>
-  <tr valign="middle">
-    <td><div class="tabletext">&nbsp;<a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalog.prodCatalogId}</@ofbizUrl>" class="buttontext">${prodCatalog.catalogName} [${prodCatalog.prodCatalogId}]</a></div></td>   
-    <td><div class="tabletext">&nbsp;${prodCatalog.useQuickAdd?if_exists}</div></td>
-    <td>
-      <a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalog.prodCatalogId}</@ofbizUrl>" class="buttontext">
-      [${uiLabelMap.CommonEdit}]</a>
-    </td>
-  </tr>
-</#list>
-</table>
-<br/>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductProductCatalogsList}</h3>
+    </div>
+    <div class="screenlet-body">
+        <table cellspacing="0" class="basic-table">
+          <tr class="header-row">
+            <td><b>${uiLabelMap.ProductCatalogNameId}</b></td>    
+            <td><b>${uiLabelMap.ProductUseQuickAdd}?</b></td>
+            <td><b>&nbsp;</b></td>
+          </tr>
+        <#assign rowClass = "2">
+        <#list prodCatalogs as prodCatalog>
+          <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+            <td><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalog.prodCatalogId}</@ofbizUrl>" class="buttontext">${prodCatalog.catalogName} [${prodCatalog.prodCatalogId}]</a></td>   
+            <td>${prodCatalog.useQuickAdd?if_exists}</td>
+            <td>
+              <a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalog.prodCatalogId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
+            </td>
+          </tr>
+          <#-- toggle the row color -->
+          <#if rowClass == "2">
+            <#assign rowClass = "1">
+          <#else>
+            <#assign rowClass = "2">
+          </#if> 
+        </#list>
+        </table>
+    </div>
+</div>
