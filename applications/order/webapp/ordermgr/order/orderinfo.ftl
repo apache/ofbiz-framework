@@ -23,7 +23,8 @@ under the License.
             <#if orderHeader.externalId?has_content>
                <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
             </#if>
-            <li class="head3">&nbsp;${uiLabelMap.OrderOrder}&nbsp;#<a href="<@ofbizUrl>/orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder?if_exists} ${uiLabelMap.CommonInformation} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
+            <#assign orderType = orderHeader.getRelatedOne("OrderType")/>
+            <li class="head3">&nbsp;${orderType?if_exists.get("description", locale)?default(uiLabelMap.OrderOrder)}&nbsp;#<a href="<@ofbizUrl>/orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder?if_exists} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
                        
             <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
                 <li><a href="<@ofbizUrl>changeOrderStatus/orderview?statusId=ORDER_APPROVED&amp;setItemStatus=Y&amp;${paramString}</@ofbizUrl>">${uiLabelMap.OrderApproveOrder}</a></li>
