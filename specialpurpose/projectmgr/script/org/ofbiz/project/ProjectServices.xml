@@ -378,6 +378,7 @@
         <set field="highInfo.projectName" from-field="project.workEffortName"/>
         <set field="highInfo.projectDescription" from-field="project.description"/>
         <set field="highInfo.scopeEnumId" from-field="project.scopeEnumId"/>
+        <set field="highInfo.createdStamp" from-field="project.createdStamp"/>
         <entity-one entity-name="StatusItem" value-name="highSeq">
             <field-map field-name="statusId" env-name="project.currentStatusId"/>
         </entity-one>

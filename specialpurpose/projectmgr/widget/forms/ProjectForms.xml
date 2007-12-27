@@ -94,9 +94,10 @@
         <field name="roleTypeId"><hidden value="PROJECT_TEAM"/></field>
         <field name="addButton" ><submit/></field>
     </form>
-    <form name="FindProject" type="single" target="FindProject">
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
-        <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}"><text/></field>
+    <form name="FindProject" type="single" target="FindProject" title="Find and List Project">
+        <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}"><text-find size="25"></text-find></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><text-find size="25"></text-find></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"  /></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
     <form name="hoursNotYetBilled" type="list" list-name="entryList">
@@ -110,16 +111,21 @@
         <field name="fromDate"><display type="date"/></field>
     </form>
     <form name="ListProjects" type="list" list-name="projects" paginate-target="FindProject">
+        <field name="projectId" title="${uiLabelMap.ProjectMgrWorkEffortId}"  widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${projectId}" target="projectView?projectId=${projectId}"/>
+        </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>
-        <field name="statusDescription" title="${uiLabelMap.CommonStatus}"><display/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
-        <field name="startDate" title="${uiLabelMap.WorkEffortStartDate}"><display type="date"/></field>
-        <field name="completionDate" title="${uiLabelMap.WorkEffortCompletionDate}"><display type="date"/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
-        <field name="createdDate"><display type="date"/></field>
+        <field name="createdStamp"><display type="date"/></field>
     </form>                                        	
     <form name="ProjectInfo" type="single" default-map-name="project" paginate-target="FindProject">
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><display/></field>
