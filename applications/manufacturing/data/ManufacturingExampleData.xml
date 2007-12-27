@@ -29,7 +29,10 @@ under the License.
     <TechDataCalendarWeek calendarWeekId="DEMO_WEEK" description="Demo calendar week of 8hours/days 5days/week starting at 8h30 from monday to friday" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
     <TechDataCalendar calendarId="DEMO_CALENDAR" description="Demo Workcenter Calendar" calendarWeekId="DEMO_WEEK"/>
     <TechDataCalendarExcDay calendarId="DEMO_CALENDAR" exceptionDateStartTime="2004-12-24 00:01:00.0" exceptionCapacity="0" description="Christmas Day"/>
-
+    
     <FixedAsset fixedAssetId="DEMO_MACHINE_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Machine Group"/>
     <FixedAsset fixedAssetId="DEMO_MACHINE" fixedAssetName="Demo Machine" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DEMO_MACHINE_GROUP" calendarId="DEMO_CALENDAR"/>
+    
+    <FixedAsset fixedAssetId="DEMO_FOOD_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Food Group"/>
+    <FixedAsset fixedAssetId="DEMO_FOOD" fixedAssetName="Demo Food" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DEMO_FOOD_GROUP" calendarId="DEMO_CALENDAR"/>
 </entity-engine-xml>

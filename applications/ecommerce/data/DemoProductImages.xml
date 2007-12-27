@@ -36,4 +36,5 @@ under the License.
   <Product productId="PC001" smallImageUrl="/images/products/small/gis_computer_glen_rolla.png" largeImageUrl="/images/products/large/gis_computer_glen_rolla.png"/>
   <Product productId="GC-001" smallImageUrl="/images/products/small/certificate.png" largeImageUrl="/images/products/large/certificate.png"/>
   <Product productId="GC-002" smallImageUrl="/images/products/small/certificate.png" largeImageUrl="/images/products/large/certificate.png"/>
+  <Product productId="ENCHILADAS" smallImageUrl="/images/products/small/borsa_estiva_architetto.png" largeImageUrl="/images/products/large/borsa_estiva_architetto.png"/>
 </entity-engine-xml> 
