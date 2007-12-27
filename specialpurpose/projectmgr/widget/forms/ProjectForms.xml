@@ -33,7 +33,7 @@
         <field name="workEffortId"><hidden value="${projectId}"/></field>
         <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}*"><text/></field>
         <field name="projectDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field use-when="project!=null" name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field use-when="project!=null" name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field use-when="project==null" name="currentStatusId"><hidden value="_NA_"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
