@@ -68,7 +68,8 @@ public class ScreenFopViewHandler implements ViewHandler {
             screens.getContext().put("formStringRenderer", new FoFormRenderer(request, response));
             screens.render(page);
         } catch (Exception e) {
-            throw createException("Problems with the response writer/output stream", e, request, response);
+            renderError("Problems with the response writer/output stream", e, request, response);
+            return;
         }
 
         // set the input source (XSL-FO) and generate the output stream of contentType
@@ -84,7 +85,8 @@ public class ScreenFopViewHandler implements ViewHandler {
             Fop fop = ApacheFopWorker.createFopInstance(out, contentType);
             ApacheFopWorker.transform(src, null, fop);
         } catch (Exception e) {
-            throw createException("Unable to transform FO file", e, request, response);
+            renderError("Unable to transform FO file", e, request, response);
+            return;
         }
         // set the content type and length
         response.setContentType(contentType);
@@ -95,25 +97,25 @@ public class ScreenFopViewHandler implements ViewHandler {
             out.writeTo(response.getOutputStream());
             response.getOutputStream().flush();
         } catch (IOException e) {
-            throw createException("Unable write to browser OutputStream", e, request, response);
+            renderError("Unable to write to OutputStream", e, request, response);
         }
     }
 
-    protected ViewHandlerException createException(String msg, Exception e, HttpServletRequest request, HttpServletResponse response) {
+    protected void renderError(String msg, Exception e, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         Debug.logError(msg + ": " + e, module);
         try {
             Writer writer = new StringWriter();
             ScreenRenderer screens = new ScreenRenderer(writer, null, new HtmlScreenRenderer());
             screens.populateContextForRequest(request, response, servletContext);
-            screens.getContext().put("errorMessage", e.toString());
+            screens.getContext().put("errorMessage", msg + ": " + e);
             screens.render(DEFAULT_ERROR_TEMPLATE);
             response.setContentType("text/html");
-            response.getOutputStream().write(writer.toString().getBytes());
+            response.getWriter().write(writer.toString());
             writer.close();
         } catch (Exception x) {
             Debug.logError("Multiple errors rendering FOP", module);
+            throw new ViewHandlerException("Multiple errors rendering FOP", x);
         }
-        return new ViewHandlerException(msg, e);
     }
 
 }
