@@ -884,7 +884,7 @@ public class CheckOutEvents {
         boolean requireOptions = true;
         boolean requireShipGroups = false;
         boolean requirePayment = !cart.getOrderType().equals("PURCHASE_ORDER");
-        boolean requireTerm = cart.getOrderType().equals("PURCHASE_ORDER");
+        boolean requireTerm = true;
         boolean requireAdditionalParty = isAnonymousCheckout;
         boolean isSingleUsePayment = true;
         // these options are not available to anonymous shoppers (security)
@@ -945,8 +945,7 @@ public class CheckOutEvents {
                 if (requireCustomer && (customerPartyId == null || customerPartyId.equals("_NA_"))) {
                     return "customer";
                 }
-            }
-            else if (currProcess.equals("shipping")) {
+            } else if (currProcess.equals("shipping")) {
                 if (requireShipping) {
                     if (requireNewShippingAddress) {
                         return "shippingAddress";
@@ -954,35 +953,29 @@ public class CheckOutEvents {
                         return "shipping";
                     }
                 }
-            }
-            else if (currProcess.equals("shipGroups")) {
+            } else if (currProcess.equals("shipGroups")) {
                 if (requireShipGroups) {
                     return "shipGroups";
                 }
-            }
-            else if (currProcess.equals("options")) {
+            } else if (currProcess.equals("options")) {
                 if (requireOptions && !shippingOptionsSet) {
                     return "options";
                 }
-            }
-            else if (currProcess.equals("term")) {
+            } else if (currProcess.equals("term")) {
                 if (requireTerm && !cart.isOrderTermSet()) {
                     return "term";
                 }
-            }
-            else if (currProcess.equals("payment")) {
+            } else if (currProcess.equals("payment")) {
                 List paymentMethodIds = cart.getPaymentMethodIds();
                 List paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
                 if (requirePayment && (paymentMethodIds == null || paymentMethodIds.size() == 0) && (paymentMethodTypeIds == null || paymentMethodTypeIds.size() == 0)) {
                     return "payment";
                 }
-            }
-            else if (currProcess.equals("addparty")) {
+            } else if (currProcess.equals("addparty")) {
                 if (requireAdditionalParty && cart.getAttribute("addpty") == null) {
                     return "addparty";
                 }
-            }
-            else if (currProcess.equals("paysplit")) {
+            } else if (currProcess.equals("paysplit")) {
                 if (isSingleUsePayment) {
                     return "paysplit";
                 }
