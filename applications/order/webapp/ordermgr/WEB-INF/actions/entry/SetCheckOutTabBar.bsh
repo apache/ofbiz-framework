@@ -62,6 +62,7 @@ if (shoppingCart.getShipGroupSize() > 1) {
 }
 addStep("CommonOptions", "/setOptions");
 if ("SALES_ORDER".equals(shoppingCart.getOrderType())) {
+    addStep("OrderOrderTerms", "/setOrderTerm");
     addStep("AccountingPayment", "/setBilling");
 }
 addStep("PartyParties", "/setAdditionalParty");
