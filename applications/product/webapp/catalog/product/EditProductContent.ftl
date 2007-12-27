@@ -29,127 +29,123 @@ under the License.
     <#if fileType?has_content>
         <h3>${uiLabelMap.ProductResultOfImageUpload}</h3>
         <#if !(clientFileName?has_content)>
-            <div class='tabletext'>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
+            <div>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
         <#else>
-            <div class='tabletext'>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName?if_exists}</b></div>
-            <div class='tabletext'>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse?if_exists}</b></div>
-            <div class='tabletext'>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
-            <div class='tabletext'>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
+            <div>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName?if_exists}</b></div>
+            <div>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse?if_exists}</b></div>
+            <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
+            <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
         </#if>
     <br/>
     </#if>
-
-    <hr class="sepbar"/>
-    
-    <h2>${uiLabelMap.ProductOverrideSimpleFields}</h2>
     <form action="<@ofbizUrl>updateProductContent</@ofbizUrl>" method="post" style="margin: 0;" name="productForm">
-    <table border="0" cellpadding="2" cellspacing="0">
+    <table cellspacing="0" class="basic-table">
     <input type="hidden" name="productId" value="${productId?if_exists}">
     <tr>
-        <td width="20%" align="right" valign="top"><div class="tabletext"><b>${uiLabelMap.ProductProductName}</b></div></td>
+        <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductProductName}</b></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-            <input type="text" class="inputBox" name="productName" value="${(product.productName?html)?if_exists}" size="30" maxlength="60">
+            <input type="text" name="productName" value="${(product.productName?html)?if_exists}" size="30" maxlength="60">
         </td>
     </tr>        
     <tr>
-        <td width="20%" align="right" valign="top"><div class="tabletext"><b>${uiLabelMap.ProductProductDescription}</b></div></td>
+        <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductProductDescription}</b></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-            <textarea class="textAreaBox" name="description" cols="60" rows="2">${(product.description)?if_exists}</textarea>
+            <textarea name="description" cols="60" rows="2">${(product.description)?if_exists}</textarea>
         </td>
     </tr>        
     <tr>
-        <td width="20%" align="right" valign="top"><div class="tabletext"><b>${uiLabelMap.ProductLongDescription}</b></div></td>
+        <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductLongDescription}</b></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-            <textarea class="textAreaBox dojo-ResizableTextArea" name="longDescription" cols="60" rows="7">${(product.longDescription)?if_exists}</textarea>
+            <textarea class="dojo-ResizableTextArea" name="longDescription" cols="60" rows="7">${(product.longDescription)?if_exists}</textarea>
         </td>
     </tr>        
     <tr>
-        <td width="20%" align="right" valign="top"><div class="tabletext"><b>${uiLabelMap.ProductDetailScreen}</b></div></td>
+        <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductDetailScreen}</b></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-            <input type="text" class="inputBox" name="detailScreen" value="${(product.detailScreen)?if_exists}" size="60" maxlength="250">
-            <br/><span class="tabletext">${uiLabelMap.ProductIfNotSpecifiedDefaultsIsProductdetail} &quot;productdetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#productdetail&quot;</span>
+            <input type="text" name="detailScreen" value="${(product.detailScreen)?if_exists}" size="60" maxlength="250">
+            <br/><span class="tooltip">${uiLabelMap.ProductIfNotSpecifiedDefaultsIsProductdetail} &quot;productdetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#productdetail&quot;</span>
         </td>
     </tr>        
     <tr>
         <td width="20%" align="right" valign="top">
-            <div class="tabletext"><b>${uiLabelMap.ProductSmallImage}</b></div>
+            <div><b>${uiLabelMap.ProductSmallImage}</b></div>
             <#if (product.smallImageUrl)?exists>
                 <a href="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Small Image" src="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40"></a>
             </#if>
         </td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-        <input type="text" class="inputBox" name="smallImageUrl" value="${(product.smallImageUrl)?default('')}" size="60" maxlength="255">
+        <input type="text" name="smallImageUrl" value="${(product.smallImageUrl)?default('')}" size="60" maxlength="255">
         <#if productId?has_content>
             <div>
-            <span class="tabletext">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
-            <a href="javascript:insertImageName('small','${imageNameSmall}.jpg');" class="buttontext">[.jpg]</a>
-            <a href="javascript:insertImageName('small','${imageNameSmall}.gif');" class="buttontext">[.gif]</a>
-            <a href="javascript:insertImageName('small','');" class="buttontext">[${uiLabelMap.CommonClear}]</a>
+            <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
+            <a href="javascript:insertImageName('small','${imageNameSmall}.jpg');" class="buttontext">.jpg</a>
+            <a href="javascript:insertImageName('small','${imageNameSmall}.gif');" class="buttontext">.gif</a>
+            <a href="javascript:insertImageName('small','');" class="buttontext">${uiLabelMap.CommonClear}</a>
             </div>
         </#if>
         </td>
     </tr>
     <tr>
         <td width="20%" align="right" valign="top">
-            <div class="tabletext"><b>${uiLabelMap.ProductMediumImage}</b></div>
+            <div><b>${uiLabelMap.ProductMediumImage}</b></div>
             <#if (product.mediumImageUrl)?exists>
                 <a href="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Medium Image" src="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" height="40" width="40"></a>
             </#if>
         </td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-        <input type="text" class="inputBox" name="mediumImageUrl" value="${(product.mediumImageUrl)?default('')}" size="60" maxlength="255">
+        <input type="text" name="mediumImageUrl" value="${(product.mediumImageUrl)?default('')}" size="60" maxlength="255">
         <#if productId?has_content>
             <div>
-            <span class="tabletext">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
-            <a href="javascript:insertImageName('medium','${imageNameMedium}.jpg');" class="buttontext">[.jpg]</a>
-            <a href="javascript:insertImageName('medium','${imageNameMedium}.gif');" class="buttontext">[.gif]</a>
-            <a href="javascript:insertImageName('medium','');" class="buttontext">[${uiLabelMap.CommonClear}]</a>
+            <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
+            <a href="javascript:insertImageName('medium','${imageNameMedium}.jpg');" class="buttontext">.jpg</a>
+            <a href="javascript:insertImageName('medium','${imageNameMedium}.gif');" class="buttontext">.gif</a>
+            <a href="javascript:insertImageName('medium','');" class="buttontext">${uiLabelMap.CommonClear}</a>
             </div>
         </#if>
         </td>
     </tr>
     <tr>
         <td width="20%" align="right" valign="top">
-            <div class="tabletext"><b>${uiLabelMap.ProductLargeImage}</b></div>
+            <div><b>${uiLabelMap.ProductLargeImage}</b></div>
             <#if (product.largeImageUrl)?exists>
                 <a href="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Large Image" src="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" height="40" width="40"></a>
             </#if>
         </td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-        <input type="text" class="inputBox" name="largeImageUrl" value="${(product.largeImageUrl)?default('')}" size="60" maxlength="255">
+        <input type="text" name="largeImageUrl" value="${(product.largeImageUrl)?default('')}" size="60" maxlength="255">
         <#if productId?has_content>
             <div>
-            <span class="tabletext">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
-            <a href="javascript:insertImageName('large','${imageNameLarge}.jpg');" class="buttontext">[.jpg]</a>
-            <a href="javascript:insertImageName('large','${imageNameLarge}.gif');" class="buttontext">[.gif]</a>
-            <a href="javascript:insertImageName('large','');" class="buttontext">[${uiLabelMap.CommonClear}]</a>
+            <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
+            <a href="javascript:insertImageName('large','${imageNameLarge}.jpg');" class="buttontext">.jpg</a>
+            <a href="javascript:insertImageName('large','${imageNameLarge}.gif');" class="buttontext">.gif</a>
+            <a href="javascript:insertImageName('large','');" class="buttontext">${uiLabelMap.CommonClear}</a>
             </div>
         </#if>
         </td>
     </tr>
     <tr>
         <td width="20%" align="right" valign="top">
-            <div class="tabletext"><b>${uiLabelMap.ProductDetailImage}</b></div>
+            <div><b>${uiLabelMap.ProductDetailImage}</b></div>
             <#if (product.detailImageUrl)?exists>
                 <a href="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Detail Image" src="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" height="40" width="40"></a>
             </#if>
         </td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
-        <input type="text" class="inputBox" name="detailImageUrl" value="${(product.detailImageUrl)?default('')}" size="60" maxlength="255">
+        <input type="text" name="detailImageUrl" value="${(product.detailImageUrl)?default('')}" size="60" maxlength="255">
         <#if productId?has_content>
             <div>
-            <span class="tabletext">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
-            <a href="javascript:insertImageName('detail','${imageNameDetail}.jpg');" class="buttontext">[.jpg]</a>
-            <a href="javascript:insertImageName('detail','${imageNameDetail}.gif');" class="buttontext">[.gif]</a>
-            <a href="javascript:insertImageName('detail','');" class="buttontext">[${uiLabelMap.CommonClear}]</a>
+            <span>${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
+            <a href="javascript:insertImageName('detail','${imageNameDetail}.jpg');" class="buttontext">.jpg</a>
+            <a href="javascript:insertImageName('detail','${imageNameDetail}.gif');" class="buttontext">.gif</a>
+            <a href="javascript:insertImageName('detail','');" class="buttontext">${uiLabelMap.CommonClear}</a>
             </div>
         </#if>
         </td>
@@ -162,7 +158,7 @@ under the License.
     </table>
     </form>
 
-    <hr class="sepbar"/>
+    <hr/>
 
     <script language="JavaScript" type="text/javascript">
         function setUploadUrl(newUrl) {
@@ -172,9 +168,9 @@ under the License.
     </script>
     <h3>${uiLabelMap.ProductUploadImage}</h3>
     <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>" name="imageUploadForm">
-        <input type="file" class="inputBox" size="50" name="fname">
+        <input type="file" size="50" name="fname">
         <br/>
-        <span class="tabletext">
+        <span>
             <input class="radioButton" type="radio" name="upload_file_type_bogus" value="small" checked onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>");'>${uiLabelMap.CommonSmall}
             <input class="radioButton" type="radio" name="upload_file_type_bogus" value="medium" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=medium</@ofbizUrl>");'>${uiLabelMap.CommonMedium}
             <input class="radioButton" type="radio" name="upload_file_type_bogus" value="large"onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=large</@ofbizUrl>");'>${uiLabelMap.CommonLarge}

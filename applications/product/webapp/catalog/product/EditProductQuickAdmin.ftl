@@ -65,10 +65,10 @@ function doPublish() {
         <#if (product.isVirtual)?if_exists == "Y">
             <input type="hidden" name="isVirtual" value="Y"/>
         </#if>
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <tr>
-                <td><span class="head2">[${productId?if_exists}]</span></td>
-                <td><input type="text" class="inputBox" name="productName" size="40" maxlength="40" value="${product.productName?if_exists}"/></td>
+                <td><h2>${productId?if_exists}<h2></td>
+                <td><input type="text" name="productName" size="40" maxlength="40" value="${product.productName?if_exists}"/></td>
                 <td><input type="submit" value="${uiLabelMap.UpdateName}"/></td>
             </tr>
         </table>
@@ -76,14 +76,14 @@ function doPublish() {
 
     <!-- ***************************************************** Selectable features section -->
     <#if (product.isVirtual)?if_exists == "Y">
-        <hr/>
+        <br/>
         <form action="<@ofbizUrl>EditProductQuickAdmin</@ofbizUrl>" method="post" style="margin: 0;" name="selectableFeatureTypeSelector">
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <tr>
-                <td colspan="2"><span class="head2">${uiLabelMap.SelectableFeatures}</span></td>
+                <td colspan="2"><h2>${uiLabelMap.SelectableFeatures}</h2></td>
                 <td colspan="2">${uiLabelMap.CommonType}
-                    <select name="productFeatureTypeId" onchange="javascript:document.selectableFeatureTypeSelector.submit();" class="selectBox">
+                    <select name="productFeatureTypeId" onchange="javascript:document.selectableFeatureTypeSelector.submit();">
                         <option value="~~any~~">${uiLabelMap.AnyFeatureType}</option>
                         <#list featureTypes as featureType>
                             <#if (featureType.productFeatureTypeId)?if_exists == (productFeatureTypeId)?if_exists>
@@ -101,7 +101,7 @@ function doPublish() {
         <form action="<@ofbizUrl>updateProductQuickAdminSelFeat</@ofbizUrl>" method="post" style="margin: 0;" name="selectableFeature">
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
         <input type="hidden" name="productFeatureTypeId" value="${(productFeatureTypeId)?if_exists}"/>
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <tr>
                 <td>${uiLabelMap.ProductProductId}</td>
                 <td>&nbsp;</td>
@@ -119,7 +119,7 @@ function doPublish() {
                 <td nowrap><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">[${assocProduct.productId?if_exists}]</a></td>
                 <td width="100%"><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${assocProduct.internalName?if_exists}</a></td>
                 <td colspan="2">
-                    <input class="inputBox" name="description${idx}" size="70" maxlength="100" value="${selFeatureDesc[assocProduct.productId]?if_exists}"/>
+                    <input name="description${idx}" size="70" maxlength="100" value="${selFeatureDesc[assocProduct.productId]?if_exists}"/>
                 </td>
                 <#assign checked=""/>
                 <#if ((assocProduct.smallImageUrl?if_exists != "") && (assocProduct.smallImageUrl?if_exists == product.smallImageUrl?if_exists) &&
@@ -135,7 +135,7 @@ function doPublish() {
             <tr>
                 <td colspan="2">&nbsp;</td>
                 <td>
-                    <table border="0" cellpadding="0" cellspacing="0" class="tabletext">
+                    <table cellspacing="0" class="basic-table">
                         <#list selectableFeatureTypes as selectableFeatureType>
                         <tr><td><a class="buttontext" href="javascript:removeSelectable('${(selectableFeatureType.get("description",locale))?if_exists}','${selectableFeatureType.productFeatureTypeId}','${product.productId}')">[x]</a>
                             <a class="buttontext" href="<@ofbizUrl>EditProductQuickAdmin?productFeatureTypeId=${(selectableFeatureType.productFeatureTypeId)?if_exists}&amp;productId=${product.productId?if_exists}</@ofbizUrl>">${(selectableFeatureType.get("description",locale))?if_exists}</a></td></tr>
@@ -143,21 +143,21 @@ function doPublish() {
                     </table>
                 </td>
                 <td align="right">
-                    <table border="0" cellpadding="0" cellspacing="0" class="tabletext">
+                    <table cellspacing="0" class="basic-table">
                         <tr><td align="right"><input name="applyToAll" type="submit" value="${uiLabelMap.AddSelectableFeature}"/></td></tr>
                     </table>
                 </td>
             </tr>
             </table>
         </form>
-        <hr/>
+        <br/>
     </#if>
     <#if (product.isVariant)?if_exists == "Y">
         <form action="<@ofbizUrl>updateProductQuickAdminDistFeat</@ofbizUrl>" method="post" style="margin: 0;" name="distFeature">
             <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
-            <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+            <table cellspacing="0" class="basic-table">
             <tr>
-                <td colspan="3"><span class="head2">${uiLabelMap.DistinguishingFeatures}</span></td>
+                <td colspan="3"><h2>${uiLabelMap.DistinguishingFeatures}</h2></td>
             </tr>
             <tr>
                 <td>${uiLabelMap.ProductProductId}</td>
@@ -180,16 +180,16 @@ function doPublish() {
 
 
     <!-- ***************************************************** Shipping dimensions section -->
-    <hr/>
+    <br/>
     <form action="<@ofbizUrl>updateProductQuickAdminShipping</@ofbizUrl>" method="post" style="margin: 0;" name="updateShipping">
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
         <input type="hidden" name="heightUomId" value="LEN_in"/>
         <input type="hidden" name="widthUomId" value="LEN_in"/>
         <input type="hidden" name="depthUomId" value="LEN_in"/>
         <input type="hidden" name="weightUomId" value="WT_oz"/>
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <tr>
-                <td colspan=2><span class="head2">${uiLabelMap.ShippingDimensionsAndWeights}</span></td>
+                <td colspan=2><h2>${uiLabelMap.ShippingDimensionsAndWeights}</h2></td>
                 <td>${uiLabelMap.ProductProductHeight}</td>
                 <td>${uiLabelMap.ProductProductWidth}</td>
                 <td>${uiLabelMap.ProductProductDepth}</td>
@@ -210,14 +210,14 @@ function doPublish() {
                     <td nowrap>[${assocProduct.productId?if_exists}]</td>
                     <td width="100%">${assocProduct.internalName?if_exists}</td>
                     <input type="hidden" name="productId${idx}" value="${assocProduct.productId?if_exists}"/>
-                    <td><input class="inputBox" name="productHeight${idx}" size="6" maxlength="20" value="${assocProduct.productHeight?if_exists}"/></td>
-                    <td><input class="inputBox" name="productWidth${idx}" size="6" maxlength="20" value="${assocProduct.productWidth?if_exists}"/></td>
-                    <td><input class="inputBox" name="productDepth${idx}" size="6" maxlength="20" value="${assocProduct.productDepth?if_exists}"/></td>
-                    <td><input class="inputBox" name="weight${idx}" size="6" maxlength="20" value="${assocProduct.weight?if_exists}"/></td>
-                    <td><input class="inputBox" name="~floz${idx}" size="6" maxlength="20" value="${featureFloz.get(assocProduct.productId)?if_exists}"/></td>
-                    <td><input class="inputBox" name="~ml${idx}" size="6" maxlength="20" value="${featureMl.get(assocProduct.productId)?if_exists}"/></td>
-                    <td><input class="inputBox" name="~ntwt${idx}" size="6" maxlength="20" value="${featureNtwt.get(assocProduct.productId)?if_exists}"/></td>
-                    <td><input class="inputBox" name="~grams${idx}" size="6" maxlength="20" value="${featureGrams.get(assocProduct.productId)?if_exists}"/></td>
+                    <td><input name="productHeight${idx}" size="6" maxlength="20" value="${assocProduct.productHeight?if_exists}"/></td>
+                    <td><input name="productWidth${idx}" size="6" maxlength="20" value="${assocProduct.productWidth?if_exists}"/></td>
+                    <td><input name="productDepth${idx}" size="6" maxlength="20" value="${assocProduct.productDepth?if_exists}"/></td>
+                    <td><input name="weight${idx}" size="6" maxlength="20" value="${assocProduct.weight?if_exists}"/></td>
+                    <td><input name="~floz${idx}" size="6" maxlength="20" value="${featureFloz.get(assocProduct.productId)?if_exists}"/></td>
+                    <td><input name="~ml${idx}" size="6" maxlength="20" value="${featureMl.get(assocProduct.productId)?if_exists}"/></td>
+                    <td><input name="~ntwt${idx}" size="6" maxlength="20" value="${featureNtwt.get(assocProduct.productId)?if_exists}"/></td>
+                    <td><input name="~grams${idx}" size="6" maxlength="20" value="${featureGrams.get(assocProduct.productId)?if_exists}"/></td>
                     <td><a class="buttontext" href="<@ofbizUrl>EditProductFeatures?productId=${assocProduct.productId}</@ofbizUrl>">[${featureHazmat.get(assocProduct.productId)?if_exists}]</a></td>
                     <td><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${featureSalesThru.get(assocProduct.productId)?if_exists}</a></td>
                     <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${assocProduct.productId}</@ofbizUrl>">${featureThruDate.get(assocProduct.productId)?if_exists}</a></td>
@@ -230,16 +230,16 @@ function doPublish() {
             </tr>
     <#else>
             <tr>
-                <td>[${productId?if_exists}]</td>
+                <td>${productId?if_exists}</td>
                 <td>${product.internalName?if_exists}</td>
-                <td><input class="inputBox" name="productHeight" size="6" maxlength="20" value="${product.productHeight?if_exists}"></td>
-                <td><input class="inputBox" name="productWidth" size="6" maxlength="20" value="${product.productWidth?if_exists}"></td>
-                <td><input class="inputBox" name="productDepth" size="6" maxlength="20" value="${product.productDepth?if_exists}"></td>
-                <td><input class="inputBox" name="weight" size="6" maxlength="20" value="${product.weight?if_exists}"></td>
-                <td><input class="inputBox" name="~floz" size="6" maxlength="20" value="${floz?if_exists}"></td>
-                <td><input class="inputBox" name="~ml" size="6" maxlength="20" value="${ml?if_exists}"></td>
-                <td><input class="inputBox" name="~ntwt" size="6" maxlength="20" value="${ntwt?if_exists}"></td>
-                <td><input class="inputBox" name="~grams" size="6" maxlength="20" value="${grams?if_exists}"></td>
+                <td><input name="productHeight" size="6" maxlength="20" value="${product.productHeight?if_exists}"></td>
+                <td><input name="productWidth" size="6" maxlength="20" value="${product.productWidth?if_exists}"></td>
+                <td><input name="productDepth" size="6" maxlength="20" value="${product.productDepth?if_exists}"></td>
+                <td><input name="weight" size="6" maxlength="20" value="${product.weight?if_exists}"></td>
+                <td><input name="~floz" size="6" maxlength="20" value="${floz?if_exists}"></td>
+                <td><input name="~ml" size="6" maxlength="20" value="${ml?if_exists}"></td>
+                <td><input name="~ntwt" size="6" maxlength="20" value="${ntwt?if_exists}"></td>
+                <td><input name="~grams" size="6" maxlength="20" value="${grams?if_exists}"></td>
                 <td><a class="buttontext" href="<@ofbizUrl>EditProductFeatures?productId=${product.productId}</@ofbizUrl>">[${hazmat?if_exists}]</a></td>
                 <td><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>">${salesthru?if_exists}</a></td>
                 <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${product.productId}</@ofbizUrl>">${thrudate?if_exists}</a></td>
@@ -254,23 +254,23 @@ function doPublish() {
     <!--  **************************************************** end - Shipping dimensions section -->
 
     <!--  **************************************************** Standard Features section -->
-    <hr/>
-    <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+    <br/>
+    <table cellspacing="0" class="basic-table">
     <tr>
     <td>
         <form method="post" action="<@ofbizUrl>quickAdminApplyFeatureToProduct</@ofbizUrl>" style="margin: 0;" name="addFeatureById">
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
         <input type="hidden" name="productFeatureApplTypeId" value="STANDARD_FEATURE"/>
         <input type="hidden" name="fromDate" value="${nowTimestampString}"/>
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <tr>
-                <td colspan=2><span class="head2">${uiLabelMap.StandardFeatures}</span></td>
+                <td colspan=2><h2>${uiLabelMap.StandardFeatures}</h2></td>
             </tr>
             <#list addedFeatureTypeIds as addedFeatureTypeId>
                 <tr>
                     <td align="right">${addedFeatureTypes.get(addedFeatureTypeId).description}</td>
                     <td>
-                        <select name="productFeatureId" class="selectBox">
+                        <select name="productFeatureId">
                             <option value="~~any~~">${uiLabelMap.AnyFeatureType}</option>
                         <#list featuresByType.get(addedFeatureTypeId) as feature>
                             <option value="${feature.getString("productFeatureId")}">${feature.description}</option>
@@ -286,7 +286,7 @@ function doPublish() {
     </td>
     <td width="20">&nbsp;</td>
     <td valign="top">
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <#list standardFeatureAppls as standardFeatureAppl>
                 <#assign featureId = standardFeatureAppl.productFeatureId/>
                 <tr>
@@ -299,15 +299,15 @@ function doPublish() {
     </td>
     </tr>
     </table>
-    <hr/>
+    <br/>
         <form action="<@ofbizUrl>EditProductQuickAdmin</@ofbizUrl>">
         <input type="hidden" name="productFeatureTypeId" value="${(productFeatureTypeId)?if_exists}"/>
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <tr>
                 <td align="right">${uiLabelMap.FeatureTypes}</td>
                 <td>
-                    <select multiple name="addFeatureTypeId" class="selectBox">
+                    <select multiple name="addFeatureTypeId">
                         <#list featureTypes as featureType>
                             <option value="${featureType.productFeatureTypeId?if_exists}">${featureType.get("description",locale)?if_exists}
                         </#list>
@@ -320,18 +320,18 @@ function doPublish() {
     <!--  **************************************************** end - Standard Features section -->
 
     <!--  **************************************************** Categories section -->
-    <hr/>
+    <br/>
     <form action="<@ofbizUrl>quickAdminAddCategories</@ofbizUrl>">
     <input type="hidden" name="fromDate" value="${nowTimestampString}"/>
     <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
-    <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+    <table cellspacing="0" class="basic-table">
     <tr>
     <td>
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <tr>
                 <td align="right">${uiLabelMap.Categories}</td>
                 <td>
-                    <select multiple="true" name="categoryId" class="selectBox">
+                    <select multiple="true" name="categoryId">
                         <#list allCategories as category>
                             <option value="${category.productCategoryId?if_exists}">${category.description?if_exists} [${category.productCategoryId}]</option>
                         </#list>
@@ -340,7 +340,7 @@ function doPublish() {
             </tr>
         </table>
     <td valign="top">
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <#list productCategoryMembers as prodCatMemb>
                 <#assign prodCat = prodCatMemb.getRelatedOne("ProductCategory")/>
                 <tr>
@@ -360,13 +360,13 @@ function doPublish() {
     <!--  **************************************************** end - Categories section -->
 
     <!--  **************************************************** publish section -->
-    <hr/>
+    <br/>
     <#if (showPublish == "true")>
         <form action="<@ofbizUrl>quickAdminAddCategories</@ofbizUrl>" name="publish">
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
         <input type="hidden" name="categoryId" value="${allCategoryId?if_exists}"/>
-        <input type="text" size="25" name="fromDate" class="inputBox"/>
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <input type="text" size="25" name="fromDate"/>
+        <table cellspacing="0" class="basic-table">
             <tr>
                 <td>
                     <a href="javascript:call_cal(document.publish.fromDate,'${nowTimestampString}');">
@@ -383,10 +383,10 @@ function doPublish() {
         <form action="<@ofbizUrl>quickAdminUnPublish</@ofbizUrl>" name="unpublish">
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
         <input type="hidden" name="productCategoryId" value="${allCategoryId?if_exists}"/>
-        <table border="0" cellpadding="2" cellspacing="0" class="tabletext">
+        <table cellspacing="0" class="basic-table">
             <tr>
                 <td>
-                    <input type="text" size="25" name="thruDate" class="inputBox"/>
+                    <input type="text" size="25" name="thruDate"/>
                     <a href="javascript:call_cal(document.unpublish.thruDate,'${nowTimestampString}');">
                         <img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/>
                     </a>
