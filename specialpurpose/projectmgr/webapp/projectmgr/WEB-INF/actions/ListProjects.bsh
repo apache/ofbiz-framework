@@ -44,7 +44,8 @@ EntityOperator checkCondition(String condition){
 
 LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 fromDate = parameters.get("fromDate");
-projectId = parameters.get("projectId"); // if provided only give subprojects of a certain main project
+projectId = parameters.get("projectId"); 
+subProjects = parameters.get("subProjects"); //  if provided only give subprojects of a certain main project
 projectName = parameters.get("projectName");
 
 projectId_op = parameters.get("projectId_op");
@@ -56,15 +57,22 @@ if (!UtilValidate.isEmpty(fromDate)) {
     conditions.add(new EntityExpr("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate + " 00:00:00.0"));
     }
 
-if (!UtilValidate.isEmpty(projectId)) {
-	if(!UtilValidate.isEmpty(projectId_op)){
-		if( projectId_op.equals("contains") || projectId_op.equals("like") ) {
-    		conditions.add(new EntityExpr("workEffortId", EntityOperator.LIKE, "%"+projectId+"%"));
-    	}else{
-    		conditions.add(new EntityExpr("workEffortId", checkCondition(projectId_op), projectId));
-    	}
-    }
+
+if (subProjects != null) {
+    conditions.add(new EntityExpr("workEffortParentId", EntityOperator.EQUALS, projectId));
+    conditions.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"));
+} else {
+	if (!UtilValidate.isEmpty(projectId)) {
+		if(!UtilValidate.isEmpty(projectId_op)){
+			if( projectId_op.equals("contains") || projectId_op.equals("like") ) {
+	    		conditions.add(new EntityExpr("workEffortId", EntityOperator.LIKE, "%"+projectId+"%"));
+	    	}else{
+	    		conditions.add(new EntityExpr("workEffortId", checkCondition(projectId_op), projectId));
+	    	}
+	    }
+	}
 }
+
 
 if (!UtilValidate.isEmpty(projectName)) {
 	if(!UtilValidate.isEmpty(projectName_op)) {
