@@ -55,7 +55,7 @@
         <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}"><link target="EditProjectTasks?projectId=${projectId}"/></menu-item>        
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}"><link target="ListWorkEffortPartyAssigns?projectId=${projectId}"/></menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditWorkEffortNotes?projectId=${projectId}"/></menu-item>
-        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="ListSubProjects?projectId=${projectId}"/></menu-item>
+        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}"><link target="ListSubProjects?projectId=${projectId}&amp;subProjects=true"/></menu-item>
         <menu-item name="billing" title="${uiLabelMap.ProjectMgrBilling}"><link target="projectBilling?projectId=${projectId}"/></menu-item>
         <!--menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildWorkEfforts?projectId=${projectId}&amp;trail=${workEffortId}&amp;workEffortTypeId=PROJECT&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item-->
     </menu>
