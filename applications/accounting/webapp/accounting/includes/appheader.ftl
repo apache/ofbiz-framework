@@ -33,8 +33,8 @@ under the License.
     <li<#if selected == "TaxAuthorities"> class="selected"</#if>><a href="<@ofbizUrl>FindTaxAuthority</@ofbizUrl>">${uiLabelMap.AccountingTaxAuthorities}</a></li>
     <li<#if selected == "agreement"> class="selected"</#if>><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreements}</a></li>
     <li<#if selected == "ListFixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>
-    <li<#if selected == "companies"> class="selected"</#if>><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>">${uiLabelMap.AccountingGeneralLedger}</a></li>
     <li<#if selected == "GlobalGLSettings"> class="selected"</#if>><a href="<@ofbizUrl>globalGLSettings</@ofbizUrl>">${uiLabelMap.AccountingGlobalGLSettings}</a></li>    
+    <li<#if selected == "companies"> class="selected"</#if>><a href="<@ofbizUrl>ListCompanies</@ofbizUrl>">${uiLabelMap.AccountingGeneralLedger}</a></li>
     <#if userLogin?has_content>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
