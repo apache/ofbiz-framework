@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditProductSimpleTest" type="single" target="updateProduct" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProduct" map-name="product"/>
     </form>
     <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
@@ -429,7 +429,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="PrepareAddProductContentAssoc" type="single" target="prepareAddContentToProduct" title="${uiLabelMap.ProductAddProductContentFromDate}"
-         header-row-style="header-row" default-table-style="basic-table">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productId" map-name="product"><hidden/></field>
         <field name="productContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}">
             <drop-down>
@@ -442,7 +442,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.ProductPrepareCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductContentAssoc" type="list" target="updateContentToProduct" title="" list-name="productContentDatas"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <!-- each entry in the list will be a Map with the entries: productContent and content -->
         <auto-fields-service service-name="updateProductContent" map-name="productContent"/>
         <field name="productId"><hidden/></field>
@@ -463,7 +463,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="ListAssociatedContentInfos" type="list" title="" list-name="contentInfos">
+    <form name="ListAssociatedContentInfos" type="list" title="" list-name="contentInfos"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="ContentAssocDataResourceViewTo" list-name="contentInfos">
                 <field-map field-name="contentIdStart" env-name="contentId"/>
@@ -488,14 +489,16 @@ under the License.
                 description="${contentId}" also-hidden="false"/>
         </field>
     </form>
-    <form name="CreateSimpleTextContentForAlternateLocale" type="single" target="createSimpleTextContentForAlternateLocale" title="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}">
+    <form name="CreateSimpleTextContentForAlternateLocale" type="single" target="createSimpleTextContentForAlternateLocale" title="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productId"><hidden/></field>
         <field name="mainContentId" entry-name="contentId"><hidden/></field>
         <field name="localeString"><text/></field>
         <field name="text"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-    <form name="EditProductContentEmail" type="single" target="updateEmailContentForProduct" title="${uiLabelMap.ProductUpdateEmailContentProduct}">
+    <form name="EditProductContentEmail" type="single" target="updateEmailContentForProduct" title="${uiLabelMap.ProductUpdateEmailContentProduct}"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="contentId==null" target="createEmailContentForProduct"/>
         <auto-fields-entity entity-name="ProductContent" map-name="productContentData"/>
          <field name="fromDate" title="${uiLabelMap.CommonFromDate}" ></field>
@@ -555,7 +558,8 @@ under the License.
         <field use-when="contentId == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditProductContentExternal" type="single" target="updateExternalContentForProduct" title="${uiLabelMap.ProductUpdateExternalContentProduct}">
+    <form name="EditProductContentExternal" type="single" target="updateExternalContentForProduct" title="${uiLabelMap.ProductUpdateExternalContentProduct}"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="contentId==null" target="createExternalContentForProduct"/>
         <auto-fields-entity entity-name="ProductContent" map-name="productContentData"/>
         <field name="description" title="${uiLabelMap.ProductDescription}" map-name="content"><text size="40"/></field>
@@ -569,7 +573,8 @@ under the License.
         <field use-when="contentId == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditProductContentSimpleText" type="single" target="updateSimpleTextContentForProduct" title="${uiLabelMap.ProductUpdateSimpleTextContentProduct}">
+    <form name="EditProductContentSimpleText" type="single" target="updateSimpleTextContentForProduct" title="${uiLabelMap.ProductUpdateSimpleTextContentProduct}"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="contentId==null" target="createSimpleTextContentForProduct"/>
         <auto-fields-entity entity-name="ProductContent" map-name="productContentData"/>
         <field name="fromDate" use-when="contentId==null" title="${uiLabelMap.CommonFromDate}*" ><date-time/></field>
@@ -706,7 +711,7 @@ under the License.
 
     <!-- ProductConfig -->
     <form name="AddProductConfig" type="single" target="createProductConfig" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductConfig" map-name=""/>
         <field name="productId"><hidden value="${productId}"/></field>
         <field name="configTypeId">
@@ -725,7 +730,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductConfig" type="list" target="updateProductConfig" title="" list-name="productConfigs"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="ViewProductManufacturing">
         <auto-fields-service service-name="updateProductConfig" map-name="productConfig"/>
         <field name="productId"><hidden/></field>
         <!-- TODO: get descriptions from IDs <display description="${roleType.description}"/> -->
@@ -750,7 +755,7 @@ under the License.
 
     <!-- form for AssetUsage (rental) parameters -->
     <form name="EditProductAssetUsage" type="single" target="updateProductAssetUsage" title="" default-map-name="product"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
 
         <alt-target use-when="product==null" target="createProduct"/>
         <field name="productId"><hidden/></field>
@@ -764,7 +769,7 @@ under the License.
 
     <!-- linked fixed assets -->
     <form name="ListProductFixedAssets" type="list" list-name="fixedAssetProducts" target="updateFixedAssetProduct"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" >
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="ViewProductManufacturing">
 
         <!-- <display-entity entity-name="FixedAsset" description="${fixedAssetName}[${fixedAssetId}]"/> -->
 
@@ -774,18 +779,18 @@ under the License.
         <field name="del" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" separate-column="false"> 
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removeFixedAssetProduct?fixedAssetId=${fixedAssetId}&amp;productId=${productId}&amp;fixedAssetProductTypeId=${fixedAssetProductTypeId}&amp;fromDate=${fromDate}"/>
         </field>
-        <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAsset}[${uiLabelMap.AccountingFixedAssetId}]" widget-style="buttontext" > 
-            <display-entity entity-name="FixedAsset" description="${fixedAssetName}[${fixedAssetId}]"/>
+        <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAsset} [${uiLabelMap.AccountingFixedAssetId}]" widget-style="buttontext" > 
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]"/>
         </field>
-        <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}" widget-style="tabletext"><display-entity entity-name="FixedAssetProductType"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" widget-style="inputBox"> <display/> </field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}" widget-style="inputBox"> <display/></field>
+        <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}"><display-entity entity-name="FixedAssetProductType"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"> <display/> </field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"> <display/></field>
         <field name="productId"> <hidden/> </field>
     </form>
 
     <!-- create a fixed Asset link on a product -->
     <form name="addFixedAssetProduct" type="single" target="addFixedAssetProduct" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
 
         <field name="productId"><hidden/></field>
         <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAssetId}" ><lookup target-form-name="LookupFixedAsset"/></field>
@@ -817,7 +822,7 @@ under the License.
     </form>
 
     <form name="showFixedAssetProduct" type="single" default-map-name="fixedAssetProduct" target="updFixedAssetProduct" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="fixedAssetId==null" target="addFixedAssetProduct"/>
 
         <field use-when="fixedAssetId!=null" name="fixedAssetId" title="${uiLabelMap.AccountingFixedAssetId}" > <display-entity entity-name="FixedAsset" description="${fixedAssetName}[${fixedAssetId}]"/></field>
@@ -857,8 +862,7 @@ under the License.
     </form>
 
     <form name="ListProductAssocs" type="list" use-row-submit="true"  title="" list-name="productAssocs" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="EditProductAssoc">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductAssoc">
         <auto-fields-entity entity-name="ProductAssoc" default-field-type="display"/>
         <field name="productId"><hidden/></field>
         <field name="productIdTo" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
@@ -867,8 +871,7 @@ under the License.
 
     </form>
     <form name="ListProductAssocsTo" type="list" use-row-submit="true" title="" list-name="productAssocsTo"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="EditProductAssoc">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductAssoc">
         <auto-fields-entity entity-name="ProductAssoc" default-field-type="display"/>
         <field name="productIdTo"><hidden/></field>
         <field name="productId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
