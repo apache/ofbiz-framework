@@ -22,10 +22,10 @@ under the License.
   </div>   
   <div class="screenlet-body">
     <#list searchConstraintStrings as searchConstraintString>
-      <div class="tabletext">&nbsp;<a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
+      <div>&nbsp;<a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
     </#list>
-    <div class="tabletext">${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
-    <div class="tabletext"><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine} ${uiLabelMap.CommonSearch}</a></div>
+    <span class="label">${uiLabelMap.CommonSortedBy}:</span>${searchSortOrderString}
+    <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine} ${uiLabelMap.CommonSearch}</a></div>
     
     <#if !productIds?has_content>
       <br/><h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
@@ -67,7 +67,7 @@ under the License.
         }
     </script>
     
-    <table border="0" width="100%" cellpadding="2">
+    <table cellspacing="0" class="basic-table">
         <tr>
           <td align="left"><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"> <b>${uiLabelMap.ProductProduct}</b></td>
           <td align="right">
@@ -89,25 +89,33 @@ under the License.
             </b>
           </td>
         </tr>
-        <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+        <tr><td colspan="2"><hr/></td></tr>
     </table>
     
     <form method="post" name="products">
-      <table width="100%" cellpadding="0" cellspacing="0">
+      <table cellspacing="0" class="basic-table">
         <#assign listIndex = lowIndex>
+        <#assign rowClass = "2">
         <#list productIds as productId><#-- note that there is no boundary range because that is being done before the list is put in the content -->
           <#assign product = delegator.findByPrimaryKey("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productId))>
-          <tr>
+          <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
             <td>
               <input type="checkbox" name="selectResult" value="${productId}" onchange="checkProductToBagTextArea(this, '${productId}');"/>
               <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">[${productId}] ${(product.internalName)?if_exists}</a>
             </td>
           </tr>
+          <#-- toggle the row color -->
+          <#if rowClass == "2">
+            <#assign rowClass = "1">
+          <#else>
+            <#assign rowClass = "2">
+          </#if> 
         </#list>
       </table>
     <form>
     
-    <table border="0" width="100%" cellpadding="2">
+    <table cellspacing="0" class="basic-table">
+        <tr><td colspan="2"><hr/></td></tr>
         <tr>
           <td align="right">
             <b>

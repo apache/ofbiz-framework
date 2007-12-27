@@ -38,21 +38,21 @@ under the License.
                     <a href='<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>' class='buttontext'>
                       ${product.internalName?default("${uiLabelMap.CommonNo} ${uiLabelMap.ProductInternalName}")}
                     </a>
-                    <div class='tabletext'>
+                    <div>
                       <b>${product.productId}</b>
                     </div>
                   </div>
               </#list>
               <#if (listSize > viewSize)>
                   <div>
-                    <div class='tabletext'>NOTE: Only showing the first ${viewSize} of ${listSize} products. To view the rest, use the Products tab for this category.</div>
+                    <div>NOTE: Only showing the first ${viewSize} of ${listSize} products. To view the rest, use the Products tab for this category.</div>
                   </div>
               </#if>
           <#else>
-            <div class='tabletext'>${uiLabelMap.ProductNoProductsInCategory}.</div>
+            <div>${uiLabelMap.ProductNoProductsInCategory}.</div>
           </#if>
         <#else>
-            <div class='tabletext'>${uiLabelMap.ProductNoCategorySpecified}.</div>
+            <div>${uiLabelMap.ProductNoCategorySpecified}.</div>
         </#if>
     </div>
 </#if>

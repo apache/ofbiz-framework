@@ -46,35 +46,43 @@ under the License.
     <div class="screenlet-body">
         <div>
             <form name="keywordsearchform" method="post" action="<@ofbizUrl>keywordsearch?VIEW_SIZE=25&PAGING=Y</@ofbizUrl>" style="margin: 0;">
-              <div class="tabletext">${uiLabelMap.ProductKeywords}: <input type="text" class="inputBox" name="SEARCH_STRING" size="20" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}"/></div>
-              <div class="tabletext">
+              <span class="label">${uiLabelMap.ProductKeywords}:</span><input type="text" class="inputBox" name="SEARCH_STRING" size="20" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}"/>
+              <span class="label">
                 ${uiLabelMap.ProductCategoryId}:
-                <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="15" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/><a href="javascript:call_fieldlookup2(document.keywordsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
-              </div>
-              <div class="tabletext">
-                ${uiLabelMap.CommonNoContains}<input type="checkbox" name="SEARCH_CONTAINS" value="N" <#if requestParameters.SEARCH_CONTAINS?if_exists == "N">checked="checked"</#if>/>
-                ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if requestParameters.SEARCH_OPERATOR?if_exists != "AND">checked="checked"</#if>/>
-                ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if requestParameters.SEARCH_OPERATOR?if_exists == "AND">checked="checked"</#if>/>
-                &nbsp;<a href="javascript:document.keywordsearchform.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
-              </div>
+              </span>
+              <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="15" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/><a href="javascript:call_fieldlookup2(document.keywordsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+              <span class="label">
+                ${uiLabelMap.CommonNoContains}
+              </span>
+              <input type="checkbox" name="SEARCH_CONTAINS" value="N" <#if requestParameters.SEARCH_CONTAINS?if_exists == "N">checked="checked"</#if>/>
+              <span class="label">
+                ${uiLabelMap.CommonAny}
+              </span>
+              <input type="radio" name="SEARCH_OPERATOR" value="OR" <#if requestParameters.SEARCH_OPERATOR?if_exists != "AND">checked="checked"</#if>/>
+              <span class="label">  
+                ${uiLabelMap.CommonAll}
+              </span>
+              <input type="radio" name="SEARCH_OPERATOR" value="AND" <#if requestParameters.SEARCH_OPERATOR?if_exists == "AND">checked="checked"</#if>/>
+              &nbsp;
+              <a href="javascript:document.keywordsearchform.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
             </form>
         </div>
         <div>
             <form name="advancedsearchform" method="post" action="<@ofbizUrl>advancedsearch</@ofbizUrl>" style="margin: 0;">
-              <div class="tabletext">
+              <span class="label">
                 ${uiLabelMap.ProductCategoryId}:
-                <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="15" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/><a href="javascript:call_fieldlookup2(document.advancedsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
-              </div>
-              <div class="tabletext">
+              </span>
+              <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="15" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/><a href="javascript:call_fieldlookup2(document.advancedsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+              <div>
                 <a href="javascript:document.advancedsearchform.submit()" class="buttontext">${uiLabelMap.ProductAdvancedSearch}</a>
               </div>
             </form>
         </div>
         <div>
             <form name="productjumpform" method="post" action="<@ofbizUrl>EditProduct</@ofbizUrl>" style="margin: 0;">
-                <input type="text" class="inputBox" name="productId" size="10" maxlength="20" value="${requestParameters.productId?if_exists}"/>
+                <input type="text" name="productId" size="10" maxlength="20" value="${requestParameters.productId?if_exists}"/>
                 <a href="javascript:call_fieldlookup2(document.productjumpform.productId,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
-                <select class="selectBox" name="DUMMYPAGE" onchange="submitProductJump()" style="width: 110px;">
+                <select name="DUMMYPAGE" onchange="submitProductJump()">
                     <option value="<@ofbizUrl>EditProduct</@ofbizUrl>">-${uiLabelMap.ProductProductJump}-</option>
                     <option value="<@ofbizUrl>EditProductQuickAdmin</@ofbizUrl>">${uiLabelMap.ProductQuickAdmin}</option>
                     <option value="<@ofbizUrl>EditProduct</@ofbizUrl>">${uiLabelMap.ProductProduct}</option>
