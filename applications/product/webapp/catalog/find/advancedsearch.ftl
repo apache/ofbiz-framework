@@ -24,7 +24,7 @@ under the License.
     <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
       <input type="hidden" name="VIEW_SIZE" value="25"/>
       <input type="hidden" name="PAGING" value="Y"/>
-      <table border="0" width="100%">
+      <table cellspacing="0" class="basic-table">
         <#if searchCategory?has_content>
             <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
             <tr>
@@ -32,7 +32,7 @@ under the License.
                 ${uiLabelMap.ProductCategory}:
               </td>
               <td valign="middle">
-                <div class="tabletext">
+                <div>
                   <b>"${(searchCategory.description)?if_exists}" [${(searchCategory.productCategoryId)?if_exists}]</b> ${uiLabelMap.ProductIncludeSubCategories}?
                   ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked/>
                   ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="N"/>
@@ -45,8 +45,8 @@ under the License.
                  ${uiLabelMap.ProductCatalog}:
                </td>
                <td valign="middle">
-                 <div class="tabletext">
-                    <select class="selectBox" name="SEARCH_CATALOG_ID">
+                 <div>
+                    <select name="SEARCH_CATALOG_ID">
                       <option value="">- ${uiLabelMap.ProductAnyCatalog} -</option>
                       <#list prodCatalogs as prodCatalog>
                         <#assign displayDesc = prodCatalog.catalogName?default("${uiLabelMap.ProductNoDescription}")>
@@ -64,8 +64,8 @@ under the License.
                 ${uiLabelMap.ProductCategory}:
               </td>
               <td valign="middle">
-                <div class="tabletext">
-                  <input type="text" class="inputBox" name="SEARCH_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
+                <div>
+                  <input type="text" name="SEARCH_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
                   <a href="javascript:call_fieldlookup2(document.advtokeywordsearchform.SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                   ${uiLabelMap.ProductIncludeSubCategories}?
                   ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked="checked"/>
@@ -82,8 +82,8 @@ under the License.
             ${uiLabelMap.ProductKeywords}:
           </td>
           <td valign="middle">
-            <div class="tabletext">
-              <input type="text" class="inputBox" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}"/>&nbsp;
+            <div>
+              <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}"/>&nbsp;
               ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked</#if>/>
               ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked</#if>/>
             </div>
@@ -95,19 +95,19 @@ under the License.
           </td>
           <td valign="middle">
             <div>
-              <input type="text" class="inputBox" name="SEARCH_PROD_FEAT_CAT1" size="15" value="${requestParameters.SEARCH_PROD_FEAT_CAT1?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_PROD_FEAT_CAT1" size="15" value="${requestParameters.SEARCH_PROD_FEAT_CAT1?if_exists}"/>&nbsp;
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC1" value="" checked="checked"/>
                   ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC1" value="Y"/>
                   ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC1" value="N"/>
             </div>
             <div>
-              <input type="text" class="inputBox" name="SEARCH_PROD_FEAT_CAT2" size="15" value="${requestParameters.SEARCH_PROD_FEAT_CAT2?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_PROD_FEAT_CAT2" size="15" value="${requestParameters.SEARCH_PROD_FEAT_CAT2?if_exists}"/>&nbsp;
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC2" value="" checked="checked"/>
                   ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC2" value="Y"/>
                   ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC2" value="N"/>
             </div>
             <div>
-              <input type="text" class="inputBox" name="SEARCH_PROD_FEAT_CAT3" size="15" value="${requestParameters.SEARCH_PROD_FEAT_CAT3?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_PROD_FEAT_CAT3" size="15" value="${requestParameters.SEARCH_PROD_FEAT_CAT3?if_exists}"/>&nbsp;
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC3" value="" checked="checked"/>
                   ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC3" value="Y"/>
                   ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_PROD_FEAT_CAT_EXC3" value="N"/>
@@ -120,19 +120,19 @@ under the License.
           </td>
           <td valign="middle">
             <div>
-              <input type="text" class="inputBox" name="SEARCH_PROD_FEAT_GRP1" size="15" value="${requestParameters.SEARCH_PROD_FEAT_GRP1?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_PROD_FEAT_GRP1" size="15" value="${requestParameters.SEARCH_PROD_FEAT_GRP1?if_exists}"/>&nbsp;
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_PROD_FEAT_GRP_EXC1" value="" checked="checked"/>
                   ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_PROD_FEAT_GRP_EXC1" value="Y"/>
                   ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_PROD_FEAT_GRP_EXC1" value="N"/>
             </div>
             <div>
-              <input type="text" class="inputBox" name="SEARCH_PROD_FEAT_GRP2" size="15" value="${requestParameters.SEARCH_PROD_FEAT_GRP2?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_PROD_FEAT_GRP2" size="15" value="${requestParameters.SEARCH_PROD_FEAT_GRP2?if_exists}"/>&nbsp;
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_PROD_FEAT_GRP_EXC2" value="" checked="checked"/>
                   ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_PROD_FEAT_GRP_EXC2" value="Y"/>
                   ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_PROD_FEAT_GRP_EXC2" value="N"/>
             </div>
             <div>
-              <input type="text" class="inputBox" name="SEARCH_PROD_FEAT_GRP3" size="15" value="${requestParameters.SEARCH_PROD_FEAT_GRP3?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_PROD_FEAT_GRP3" size="15" value="${requestParameters.SEARCH_PROD_FEAT_GRP3?if_exists}"/>&nbsp;
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_PROD_FEAT_GRP_EXC3" value="" checked="checked"/>
                   ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_PROD_FEAT_GRP_EXC3" value="Y"/>
                   ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_PROD_FEAT_GRP_EXC3" value="N"/>
@@ -146,19 +146,19 @@ under the License.
           </td>
           <td valign="middle">
             <div>
-              <input type="text" class="inputBox" name="SEARCH_FEAT1" size="15" value="${requestParameters.SEARCH_FEAT1?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_FEAT1" size="15" value="${requestParameters.SEARCH_FEAT1?if_exists}"/>&nbsp;
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_FEAT_EXC1" value="" checked="checked"/>
                   ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_FEAT_EXC1" value="Y"/>
                   ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_FEAT_EXC1" value="N"/>
             </div>
             <div>
-              <input type="text" class="inputBox" name="SEARCH_FEAT2" size="15" value="${requestParameters.SEARCH_FEAT2?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_FEAT2" size="15" value="${requestParameters.SEARCH_FEAT2?if_exists}"/>&nbsp;
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_FEAT_EXC2" value="" checked="checked"/>
                   ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_FEAT_EXC2" value="Y"/>
                   ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_FEAT_EXC2" value="N"/>
             </div>
             <div>
-              <input type="text" class="inputBox" name="SEARCH_FEAT3" size="15" value="${requestParameters.SEARCH_FEAT3?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_FEAT3" size="15" value="${requestParameters.SEARCH_FEAT3?if_exists}"/>&nbsp;
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_FEAT_EXC3" value="" checked="checked"/>
                   ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_FEAT_EXC3" value="Y"/>
                   ${uiLabelMap.CommonAlwaysInclude}<input type="radio" name="SEARCH_FEAT_EXC3" value="N"/>
@@ -171,8 +171,8 @@ under the License.
           </td>
           <td valign="middle">
             <div>
-              <input type="text" class="inputBox" name="LIST_PRICE_LOW" size="8" value="${requestParameters.LIST_PRICE_LOW?if_exists}"/>&nbsp;
-              <input type="text" class="inputBox" name="LIST_PRICE_HIGH" size="8" value="${requestParameters.LIST_PRICE_HIGH?if_exists}"/>&nbsp;
+              <input type="text" name="LIST_PRICE_LOW" size="8" value="${requestParameters.LIST_PRICE_LOW?if_exists}"/>&nbsp;
+              <input type="text" name="LIST_PRICE_HIGH" size="8" value="${requestParameters.LIST_PRICE_HIGH?if_exists}"/>&nbsp;
             </div>  
           </td>
         </tr>
@@ -185,8 +185,8 @@ under the License.
               ${(productFeatureType.get("description",locale))?if_exists}:
             </td>
             <td valign="middle">
-              <div class="tabletext">
-                <select class="selectBox" name="pft_${productFeatureTypeId}">
+              <div>
+                <select name="pft_${productFeatureTypeId}">
                   <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
                   <#list productFeatures as productFeature>
                   <option value="${productFeature.productFeatureId}">${productFeature.description?default("${uiLabelMap.ProductNoDescription}")} [${productFeature.productFeatureId}]</option>
@@ -201,8 +201,8 @@ under the License.
             ${uiLabelMap.ProductSupplier}:
           </td>
           <td valign="middle">
-            <div class="tabletext">
-              <select name="SEARCH_SUPPLIER_ID" class="selectBox">
+            <div>
+              <select name="SEARCH_SUPPLIER_ID">
                 <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
                 <#list supplerPartyRoleAndPartyDetails as supplerPartyRoleAndPartyDetail>
                   <option value="${supplerPartyRoleAndPartyDetail.partyId}">${supplerPartyRoleAndPartyDetail.groupName?if_exists} ${supplerPartyRoleAndPartyDetail.firstName?if_exists} ${supplerPartyRoleAndPartyDetail.lastName?if_exists} [${supplerPartyRoleAndPartyDetail.partyId}]</option>
@@ -216,8 +216,8 @@ under the License.
             ${uiLabelMap.CommonSortedBy}:
           </td>
           <td valign="middle">
-            <div class="tabletext">
-              <select name="sortOrder" class="selectBox">
+            <div>
+              <select name="sortOrder">
                 <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevancy}</option>
                 <option value="SortProductField:productName">${uiLabelMap.ProductProductName}</option>
                 <option value="SortProductField:internalName">${uiLabelMap.ProductInternalName}</option>
@@ -240,16 +240,16 @@ under the License.
             ${uiLabelMap.ProductPrioritizeProductsinCategory}:
           </td>
           <td valign="middle">
-            <input type="text" class="inputBox" name="PRIORITIZE_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.PRIORITIZE_CATEGORY_ID?if_exists}"/>
+            <input type="text" name="PRIORITIZE_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.PRIORITIZE_CATEGORY_ID?if_exists}"/>
             <a href="javascript:call_fieldlookup2(document.advtokeywordsearchform.PRIORITIZE_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
           </td>
         </tr>
         <tr>
           <td class="label">
-            ${uiLabelMap.ProductGoodIdentificationType}
+            ${uiLabelMap.ProductGoodIdentificationType}:
           </td>
           <td>
-            <select name="SEARCH_GOOD_IDENTIFICATION_TYPE" class="selectBox">
+            <select name="SEARCH_GOOD_IDENTIFICATION_TYPE">
               <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
               <#list goodIdentificationTypes as goodIdentificationType>
               <option value="${goodIdentificationType.goodIdentificationTypeId}">${goodIdentificationType.get("description")?if_exists}</option>
@@ -259,25 +259,25 @@ under the License.
         </tr>
         <tr>
           <td class="label">
-            ${uiLabelMap.ProductGoodIdentificationValue}
+            ${uiLabelMap.ProductGoodIdentificationValue}:
           </td>
           <td>
-            <input type="text" class="inputBox" name="SEARCH_GOOD_IDENTIFICATION_VALUE" size="60" maxlength="60" value="${requestParameters.SEARCH_GOOD_IDENTIFICATION_VALUE?if_exists}"/>
+            <input type="text" name="SEARCH_GOOD_IDENTIFICATION_VALUE" size="60" maxlength="60" value="${requestParameters.SEARCH_GOOD_IDENTIFICATION_VALUE?if_exists}"/>
             ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_GOOD_IDENTIFICATION_INCL" value="Y" checked="checked"/>
             ${uiLabelMap.CommonExclude}<input type="radio" name="SEARCH_GOOD_IDENTIFICATION_INCL" value="N"/>
           </td>
         </tr>
         <#if searchConstraintStrings?has_content>
           <tr>
-            <td align="right" valign="top">
-              <div class="tabletext">${uiLabelMap.ProductLastSearch}</div>
+            <td align="right" valign="top" class="label">
+              ${uiLabelMap.ProductLastSearch}
             </td>
             <td valign="top">
                 <#list searchConstraintStrings as searchConstraintString>
-                    <div class="tabletext">&nbsp;-&nbsp;${searchConstraintString}</div>
+                    <div>&nbsp;-&nbsp;${searchConstraintString}</div>
                 </#list>
-                <div class="tabletext">${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
-                <div class="tabletext">
+                <span class="label">${uiLabelMap.CommonSortedBy}:</span>${searchSortOrderString}
+                <div>
                   ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked"/>
                   ${uiLabelMap.ProductRefineSearch}<input type="radio" name="clearSearch" value="N"/>
                 </div>
