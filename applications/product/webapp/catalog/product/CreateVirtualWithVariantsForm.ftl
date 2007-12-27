@@ -16,21 +16,25 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<div class="tabletext"><b>${uiLabelMap.ProductQuickCreateVirtualFromVariants}</b></div>
-<form action="<@ofbizUrl>quickCreateVirtualWithVariants</@ofbizUrl>" method="post" style="margin: 0;" name="quickCreateVirtualWithVariants">
-    <div>
-        <span class="tabletext">${uiLabelMap.ProductVariantProductIds}:</span>
-        <textarea name="variantProductIdsBag" rows="6" cols="20"></textarea>
-    </div>
-    <div>
-        <span class="tabletext">Hazmat:</span>
-        <select name="productFeatureIdOne">
-            <option value="">- ${uiLabelMap.CommonNone} -</option>
-            <#list hazmatFeatures as hazmatFeature>
-                <option value="${hazmatFeature.productFeatureId}">${hazmatFeature.description}</option>
-            </#list>
-        </select>
-        <input type="submit" value="${uiLabelMap.ProductCreateVirtualProduct}"/>
-    </div>
-</form>
+<table cellspacing="0" class="basic-table">
+    <form action="<@ofbizUrl>quickCreateVirtualWithVariants</@ofbizUrl>" method="post" name="quickCreateVirtualWithVariants">
+    <tr class="header-row">
+        <td><b>${uiLabelMap.ProductQuickCreateVirtualFromVariants}</b></td>
+    </tr>
+    <tr>
+        <td>
+            <br/>
+            <span class="label">${uiLabelMap.ProductVariantProductIds}:</span>
+            <textarea name="variantProductIdsBag" rows="6" cols="20"></textarea>
+            <span class="label">Hazmat:</span>
+            <select name="productFeatureIdOne">
+                <option value="">- ${uiLabelMap.CommonNone} -</option>
+                <#list hazmatFeatures as hazmatFeature>
+                    <option value="${hazmatFeature.productFeatureId}">${hazmatFeature.description}</option>
+                </#list>
+            </select>
+            <input type="submit" value="${uiLabelMap.ProductCreateVirtualProduct}"/>
+        </td>
+    </tr>
+    </form>
+</table>

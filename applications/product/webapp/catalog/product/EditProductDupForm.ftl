@@ -16,56 +16,60 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-    <#if productId?exists>
-        <hr class="sepbar"/>
-        <h2>${uiLabelMap.ProductDuplicateProduct}</h2>
-        <form action="<@ofbizUrl>DuplicateProduct</@ofbizUrl>" method="post" style="margin: 0;">
-            <input type="hidden" name="oldProductId" value="${productId}"/>
-            <div>
-                <span class="tabletext">${uiLabelMap.ProductDuplicateRemoveSelectedWithNewId}:</span>
-                <input type="text" class="inputBox" size="20" maxlength="20" name="productId"/>&nbsp;<input type="submit" class="smallSubmit" value="${uiLabelMap.CommonDuplicate}!"/>
-            </div>
-            <div class="tabletext">
-                <b>${uiLabelMap.CommonDuplicate}:</b>
-                ${uiLabelMap.ProductPrices}&nbsp;<input type="checkbox" class="checkBox" name="duplicatePrices" value="Y" checked="checked"/>
-                ${uiLabelMap.CommonId}&nbsp;<input type="checkbox" class="checkBox" name="duplicateIDs" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" class="checkBox" name="duplicateContent" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductCategoryMembers}&nbsp;<input type="checkbox" class="checkBox" name="duplicateCategoryMembers" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductAssocs}&nbsp;<input type="checkbox" class="checkBox" name="duplicateAssocs" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductAttributes}&nbsp;<input type="checkbox" class="checkBox" name="duplicateAttributes" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductFeatureAppls}&nbsp;<input type="checkbox" class="checkBox" name="duplicateFeatureAppls" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductInventoryItems}&nbsp;<input type="checkbox" class="checkBox" name="duplicateInventoryItems" value="Y"/>
-            </div>
-            <div class="tabletext">
-                <b>${uiLabelMap.CommonRemove}:</b>
-                ${uiLabelMap.ProductPrices}&nbsp;<input type="checkbox" class="checkBox" name="removePrices" value="Y"/>
-                ${uiLabelMap.CommonId}&nbsp;<input type="checkbox" class="checkBox" name="removeIDs" value="Y"/>
-                ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" class="checkBox" name="removeContent" value="Y"/>
-                ${uiLabelMap.ProductCategoryMembers}&nbsp;<input type="checkbox" class="checkBox" name="removeCategoryMembers" value="Y"/>
-                ${uiLabelMap.ProductAssocs}&nbsp;<input type="checkbox" class="checkBox" name="removeAssocs" value="Y"/>
-                ${uiLabelMap.ProductAttributes}&nbsp;<input type="checkbox" class="checkBox" name="removeAttributes" value="Y"/>
-                ${uiLabelMap.ProductFeatureAppls}&nbsp;<input type="checkbox" class="checkBox" name="removeFeatureAppls" value="Y"/>
-                ${uiLabelMap.ProductInventoryItems}&nbsp;<input type="checkbox" class="checkBox" name="removeInventoryItems" value="Y"/>
-            </div>
-        </form>
-        <#if product?exists && product.isVirtual?if_exists == "Y">
-        <hr class="sepbar"/>
-        <h2>${uiLabelMap.ProductUpdateProductVariants}</h2>
-        <form action="<@ofbizUrl>UpdateProductVariants?productId=${productId}</@ofbizUrl>" method="post" style="margin: 0;">
-            <input type="hidden" name="virtualProductId" value="${productId}"/>
-            <div class="tabletext">
-                <b>${uiLabelMap.ProductUpdateProductVariants}:</b>
-                ${uiLabelMap.ProductRemoveBefore}&nbsp;<input type="checkbox" class="checkBox" name="removeBefore" value="Y"/>
-                ${uiLabelMap.ProductPrices}&nbsp;<input type="checkbox" class="checkBox" name="duplicatePrices" value="Y" checked="checked"/>
-                ${uiLabelMap.CommonId}&nbsp;<input type="checkbox" class="checkBox" name="duplicateIDs" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" class="checkBox" name="duplicateContent" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductCategoryMembers}&nbsp;<input type="checkbox" class="checkBox" name="duplicateCategoryMembers" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductAttributes}&nbsp;<input type="checkbox" class="checkBox" name="duplicateAttributes" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductFacilities}&nbsp;<input type="checkbox" class="checkBox" name="duplicateFacilities" value="Y" checked="checked"/>
-                ${uiLabelMap.ProductLocations}&nbsp;<input type="checkbox" class="checkBox" name="duplicateLocations" value="Y" checked="checked"/>
-            </div>
-            <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonGo}"/>
-        </form>
-        </#if>
-        <br/>
-    </#if>
+<#if productId?exists>
+    <div class="screenlet">
+        <div class="screenlet-title-bar">
+            <h3>${uiLabelMap.ProductDuplicateProduct}</h3>
+        </div>
+        <div class="screenlet-body">
+            <form action="<@ofbizUrl>DuplicateProduct</@ofbizUrl>" method="post" style="margin: 0;">
+                <input type="hidden" name="oldProductId" value="${productId}"/>
+                <div>
+                    <span>${uiLabelMap.ProductDuplicateRemoveSelectedWithNewId}:</span>
+                    <input type="text" size="20" maxlength="20" name="productId"/>&nbsp;<input type="submit" class="smallSubmit" value="${uiLabelMap.CommonDuplicate}!"/>
+                </div>
+                <div>
+                    <b>${uiLabelMap.CommonDuplicate}:</b>
+                    ${uiLabelMap.ProductPrices}&nbsp;<input type="checkbox" class="checkBox" name="duplicatePrices" value="Y" checked="checked"/>
+                    ${uiLabelMap.CommonId}&nbsp;<input type="checkbox" class="checkBox" name="duplicateIDs" value="Y" checked="checked"/>
+                    ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" class="checkBox" name="duplicateContent" value="Y" checked="checked"/>
+                    ${uiLabelMap.ProductCategoryMembers}&nbsp;<input type="checkbox" class="checkBox" name="duplicateCategoryMembers" value="Y" checked="checked"/>
+                    ${uiLabelMap.ProductAssocs}&nbsp;<input type="checkbox" class="checkBox" name="duplicateAssocs" value="Y" checked="checked"/>
+                    ${uiLabelMap.ProductAttributes}&nbsp;<input type="checkbox" class="checkBox" name="duplicateAttributes" value="Y" checked="checked"/>
+                    ${uiLabelMap.ProductFeatureAppls}&nbsp;<input type="checkbox" class="checkBox" name="duplicateFeatureAppls" value="Y" checked="checked"/>
+                    ${uiLabelMap.ProductInventoryItems}&nbsp;<input type="checkbox" class="checkBox" name="duplicateInventoryItems" value="Y"/>
+                </div>
+                <div>
+                    <b>${uiLabelMap.CommonRemove}:</b>
+                    ${uiLabelMap.ProductPrices}&nbsp;<input type="checkbox" class="checkBox" name="removePrices" value="Y"/>
+                    ${uiLabelMap.CommonId}&nbsp;<input type="checkbox" class="checkBox" name="removeIDs" value="Y"/>
+                    ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" class="checkBox" name="removeContent" value="Y"/>
+                    ${uiLabelMap.ProductCategoryMembers}&nbsp;<input type="checkbox" class="checkBox" name="removeCategoryMembers" value="Y"/>
+                    ${uiLabelMap.ProductAssocs}&nbsp;<input type="checkbox" class="checkBox" name="removeAssocs" value="Y"/>
+                    ${uiLabelMap.ProductAttributes}&nbsp;<input type="checkbox" class="checkBox" name="removeAttributes" value="Y"/>
+                    ${uiLabelMap.ProductFeatureAppls}&nbsp;<input type="checkbox" class="checkBox" name="removeFeatureAppls" value="Y"/>
+                    ${uiLabelMap.ProductInventoryItems}&nbsp;<input type="checkbox" class="checkBox" name="removeInventoryItems" value="Y"/>
+                </div>
+            </form>
+            <#if product?exists && product.isVirtual?if_exists == "Y">
+                <h2>${uiLabelMap.ProductUpdateProductVariants}</h2>
+                <form action="<@ofbizUrl>UpdateProductVariants?productId=${productId}</@ofbizUrl>" method="post" style="margin: 0;">
+                    <input type="hidden" name="virtualProductId" value="${productId}"/>
+                    <div>
+                        <b>${uiLabelMap.ProductUpdateProductVariants}:</b>
+                        ${uiLabelMap.ProductRemoveBefore}&nbsp;<input type="checkbox" class="checkBox" name="removeBefore" value="Y"/>
+                        ${uiLabelMap.ProductPrices}&nbsp;<input type="checkbox" class="checkBox" name="duplicatePrices" value="Y" checked="checked"/>
+                        ${uiLabelMap.CommonId}&nbsp;<input type="checkbox" class="checkBox" name="duplicateIDs" value="Y" checked="checked"/>
+                        ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" class="checkBox" name="duplicateContent" value="Y" checked="checked"/>
+                        ${uiLabelMap.ProductCategoryMembers}&nbsp;<input type="checkbox" class="checkBox" name="duplicateCategoryMembers" value="Y" checked="checked"/>
+                        ${uiLabelMap.ProductAttributes}&nbsp;<input type="checkbox" class="checkBox" name="duplicateAttributes" value="Y" checked="checked"/>
+                        ${uiLabelMap.ProductFacilities}&nbsp;<input type="checkbox" class="checkBox" name="duplicateFacilities" value="Y" checked="checked"/>
+                        ${uiLabelMap.ProductLocations}&nbsp;<input type="checkbox" class="checkBox" name="duplicateLocations" value="Y" checked="checked"/>
+                    </div>
+                    <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonGo}"/>
+                </form>
+            </#if>
+            <br/>
+        </div>
+    </div>
+</#if>

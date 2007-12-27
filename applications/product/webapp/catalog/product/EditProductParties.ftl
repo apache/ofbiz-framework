@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#if productId?exists && product?exists>    
-  <table class="basic-table" cellspacing="0">
+  <table cellspacing="0" class="basic-table">
     <tr class="header-row">
       <td>${uiLabelMap.PartyPartyId}</td>
       <td>${uiLabelMap.PartyRole}</td>
@@ -27,10 +27,11 @@ under the License.
       <td>&nbsp;</td>
     </tr>
     <#assign line = 0>
+    <#assign rowClass = "2">
     <#list productRoles as productRole>
       <#assign line = line + 1>
       <#assign curRoleType = productRole.getRelatedOneCache("RoleType")>
-      <tr>
+      <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
         <td><a href="/partymgr/control/viewprofile?party_id=${(productRole.partyId)?if_exists}" target="_blank" class="buttontext">${(productRole.partyId)?if_exists}</a></td>
         <td>${(curRoleType.get("description",locale))?if_exists}</td>
         <#assign hasntStarted = false>
@@ -54,6 +55,12 @@ under the License.
           ${uiLabelMap.CommonDelete}</a>
         </td>
       </tr>
+      <#-- toggle the row color -->
+      <#if rowClass == "2">
+          <#assign rowClass = "1">
+      <#else>
+          <#assign rowClass = "2">
+      </#if>
     </#list>
   </table>
   <br/>

@@ -25,30 +25,30 @@ under the License.
         <auto-fields-service service-name="updateProduct" map-name="product"/>
     </form>
     <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
-        default-title-style="tableheadtext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
 
         <alt-target use-when="product==null" target="createProduct"/>
 
         <field use-when="product==null" name="isCreate"><hidden value="true"/></field>
 
-        <field use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="&amp;nbsp;${uiLabelMap.ProductNotModificationRecreatingProduct}" widget-style="tabletext"><display/></field>
+        <field use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="&amp;nbsp;${uiLabelMap.ProductNotModificationRecreatingProduct}"><display/></field>
         <field use-when="product==null&amp;&amp;productId==null" name="productId" title="${uiLabelMap.ProductProductId}"><text size="20" maxlength="20"/></field>
         <field use-when="product==null&amp;&amp;productId!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotFindProductId} [${productId}]"><text size="20" maxlength="20"/></field>
 
-        <field position="1" name="isVirtual" title="${uiLabelMap.ProductVirtualProduct}" widget-style="selectBox">
+        <field position="1" name="isVirtual" title="${uiLabelMap.ProductVirtualProduct}">
             <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
-        <field position="2" name="isVariant" title="${uiLabelMap.ProductVariantProduct}" widget-style="selectBox">
+        <field position="2" name="isVariant" title="${uiLabelMap.ProductVariantProduct}">
             <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
-        <field name="productTypeId" title="${uiLabelMap.ProductProductType}" widget-style="selectBox">
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down no-current-selected-key="FINISHED_GOOD">
                 <entity-options entity-name="ProductType" description="${description}"> <!-- [${productTypeId}] -->
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}" widget-style="selectBox">
+        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductCategoryAndMember" key-field-name="productCategoryId" description="${categoryName} [${productCategoryId}]">
                     <entity-constraint name="productId" env-name="product.productId"/>
@@ -65,7 +65,7 @@ under the License.
         <field position="1" name="introductionDate" title="${uiLabelMap.CommonIntroductionDate}" red-when="after-now"><date-time/></field>
         <field position="2" name="salesDiscontinuationDate" title="${uiLabelMap.ProductSalesThruDate}" red-when="before-now"><date-time/></field>
         <field position="1" name="supportDiscontinuationDate" title="${uiLabelMap.ProductSupportThruDate}" red-when="before-now"><date-time/></field>
-        <field position="2" name="salesDiscWhenNotAvail" title="${uiLabelMap.ProductSalesDiscontinuationNotAvailable}" widget-style="selectBox">
+        <field position="2" name="salesDiscWhenNotAvail" title="${uiLabelMap.ProductSalesDiscontinuationNotAvailable}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
 
@@ -78,7 +78,7 @@ under the License.
             </drop-down>
         </field>
 
-        <field position="1" name="requireInventory" title="${uiLabelMap.ProductRequireInventory}" widget-style="selectBox" tooltip="${uiLabelMap.ProductInventoryRequiredProduct}">
+        <field position="1" name="requireInventory" title="${uiLabelMap.ProductRequireInventory}" tooltip="${uiLabelMap.ProductInventoryRequiredProduct}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field position="2" name="inventoryMessage" title="${uiLabelMap.ProductInventoryMessage}"><text size="20" maxlength="255"/></field>
@@ -93,7 +93,7 @@ under the License.
         </field>
         <field position="2" title="${uiLabelMap.ProductRating}" name="productRating"><text size="10" maxlength="20"/></field>
 
-        <field position="1" name="requireAmount" title="${uiLabelMap.ProductRequireAmount}" widget-style="selectBox" tooltip="${uiLabelMap.ProductRequireCustomerAmount}">
+        <field position="1" name="requireAmount" title="${uiLabelMap.ProductRequireAmount}" tooltip="${uiLabelMap.ProductRequireCustomerAmount}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field position="2" name="amountUomTypeId" title="${uiLabelMap.ProductAmountUomTypeId}">
@@ -156,38 +156,38 @@ under the License.
         </field>
         <field position="1" name="piecesIncluded" title="${uiLabelMap.ProductPiecesIncluded}"><text size="10" maxlength="20"/></field>
 
-        <field position="1" name="returnable" title="${uiLabelMap.ProductReturnable}" widget-style="selectBox">
+        <field position="1" name="returnable" title="${uiLabelMap.ProductReturnable}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field position="2" name="includeInPromotions" title="${uiLabelMap.ProductIncludePromotions}" widget-style="selectBox">
+        <field position="2" name="includeInPromotions" title="${uiLabelMap.ProductIncludePromotions}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
 
-        <field position="1" name="taxable" title="${uiLabelMap.ProductTaxable}" widget-style="selectBox">
+        <field position="1" name="taxable" title="${uiLabelMap.ProductTaxable}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field position="2" name="taxCategory" title="${uiLabelMap.ProductTaxCategory}"><text size="10" maxlength="20"/></field>
         <field position="1" name="taxVatCode" title="${uiLabelMap.ProductTaxVatCode}" ><text size="10" maxlength="20"/></field>
         <field position="2" name="taxDutyCode" title="${uiLabelMap.ProductTaxDutyCode}" ><text size="10" maxlength="20"/></field>
 
-        <field position="1" name="chargeShipping" title="${uiLabelMap.ProductChargeShipping}" widget-style="selectBox">
+        <field position="1" name="chargeShipping" title="${uiLabelMap.ProductChargeShipping}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field position="2" name="autoCreateKeywords" title="${uiLabelMap.ProductAutoCreateKeywords}" widget-style="selectBox">
+        <field position="2" name="autoCreateKeywords" title="${uiLabelMap.ProductAutoCreateKeywords}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
 
-        <field position="1" name="inShippingBox" title="${uiLabelMap.ProductShippingBox}" widget-style="selectBox">
+        <field position="1" name="inShippingBox" title="${uiLabelMap.ProductShippingBox}">
             <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
 
-        <field name="contentInfoText" title="${uiLabelMap.ProductContentInfoText}" widget-style="tabletext">
+        <field name="contentInfoText" title="${uiLabelMap.ProductContentInfoText}" widget-style="tooltip">
             <display description="${uiLabelMap.ProductNoteForContentOptions}" also-hidden="false"/>
         </field>
         <!-- These go on the Content tab-button page
         <field name="productName"><text size="30" maxlength="60"/></field>
-        <field name="description" widget-style="textAreaBox"><textarea cols="60" rows="2"/></field>
-        <field name="longDescription" widget-style="textAreaBox"><textarea cols="60" rows="3"/></field>
+        <field name="description"><textarea cols="60" rows="2"/></field>
+        <field name="longDescription"><textarea cols="60" rows="3"/></field>
         <field name="smallImageUrl"><text size="60" maxlength="255"/></field>
         <field name="mediumImageUrl"><text size="60" maxlength="255"/></field>
         <field name="largeImageUrl"><text size="60" maxlength="255"/></field>
@@ -197,33 +197,33 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.ProductUpdateProduct}" use-when="product!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.ProductCreateProduct}" use-when="product==null" widget-style="smallSubmit"><submit button-type="button"/></field>
 
-        <field use-when="product!=null" position="1" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:" widget-style="tabletext">
+        <field use-when="product!=null" position="1" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${product.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${product.lastModifiedDate}" also-hidden="false"/>
         </field>
-        <field use-when="product!=null" position="2" name="createdByText" title="${uiLabelMap.ProductCreatedBy}:" widget-style="tabletext">
+        <field use-when="product!=null" position="2" name="createdByText" title="${uiLabelMap.ProductCreatedBy}:">
             <display description="[${product.createdByUserLogin}] ${uiLabelMap.CommonOn} ${product.createdDate}" also-hidden="false"/>
         </field>
     </form>
     <!-- ProductPrice -->
     <form name="AddProductPrice" type="single" target="createProductPrice" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductPrice"/>
         <field name="productId"><hidden/></field>
-        <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}" widget-style="selectBox">
+        <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}">
             <drop-down allow-empty="false" no-current-selected-key="DEFAULT_PRICE">
                 <entity-options entity-name="ProductPriceType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}" widget-style="selectBox">
+        <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}">
             <drop-down allow-empty="false" no-current-selected-key="PURCHASE">
                 <entity-options entity-name="ProductPricePurpose" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}" widget-style="selectBox">
+        <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -231,14 +231,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="productStoreGroupId" title="${uiLabelMap.ProductProductStoreGroupId}" widget-style="selectBox">
+        <field name="productStoreGroupId" title="${uiLabelMap.ProductProductStoreGroupId}">
             <drop-down allow-empty="false" no-current-selected-key="_NA_">
                 <entity-options entity-name="ProductStoreGroup" description="${productStoreGroupName}">
                     <entity-order-by field-name="productStoreGroupName"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="termUomId" widget-style="selectBox">
+        <field name="termUomId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="UomAndType" key-field-name="uomId" description="${typeDescription}: ${description} (${abbreviation})">
                     <entity-constraint name="uomTypeId" operator="not-equals" value="CURRENCY_MEASURE"/>
@@ -256,7 +256,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductPrice" type="list" target="updateProductPrice" title="" list-name="productPrices">
+    <form name="UpdateProductPrice" type="list" target="updateProductPrice" title="" list-name="productPrices"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductPrice" map-name="productPrice"/>
         <field name="productId"><hidden/></field>
         <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}"><display-entity entity-name="ProductPriceType"/></field>
@@ -295,7 +296,7 @@ under the License.
 
     <!-- ProductPaymentMethodType -->
     <form name="AddProductPaymentMethodType" type="single" target="createProductPaymentMethodType" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductPaymentMethodType"/>
         <field name="productId"><hidden/></field>
         <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}" widget-style="smallSelect">
@@ -315,12 +316,12 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductPaymentMethodType" type="list" target="updateProductPaymentMethodType" title="" list-name="productPaymentMethodTypes"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductPaymentMethodType" map-name="productPrice"/>
         <field name="productId"><hidden/></field>
-        <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}" widget-style="tabletext"><display-entity entity-name="ProductPricePurpose"/></field>
-        <field name="paymentMethodTypeId" widget-style="tabletext"><display-entity entity-name="PaymentMethodType"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
+        <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ProductPricePurpose"/></field>
+        <field name="paymentMethodTypeId"><display-entity entity-name="PaymentMethodType"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -331,7 +332,7 @@ under the License.
 
     <!-- ProductCategoryMember -->
     <form name="AddProductCategoryMember" type="single" target="addProductToCategory" title="${uiLabelMap.ProductAddProductCategoryMemberFromDate}:"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="safeAddProductToCategory"/>
         <field name="productId" title="${uiLabelMap.ProductProductId}" map-name="product"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}"><lookup target-form-name="LookupProductCategory"></lookup></field>
@@ -343,16 +344,16 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductCategoryMemeber" type="list" target="updateProductToCategory" title="" list-name="productCategoryMembers"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductToCategory"/>
         <field name="productId"><hidden/></field>
-        <field name="productCategoryId" title="${uiLabelMap.ProductCategory_Id}" widget-style="tabletext">
+        <field name="productCategoryId" title="${uiLabelMap.ProductCategory_Id}">
             <display-entity entity-name="ProductCategory" also-hidden="true" description="${description}">
                 <sub-hyperlink target="EditCategory?productCategoryId=${productCategoryId}" 
                         description="${productCategoryId}" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
         <field name="sequenceNum" title="${uiLabelMap.ProductSequenceNum}" ></field>
         <field name="quantity" title="${uiLabelMap.ProductQuantity}" ></field>
@@ -365,7 +366,8 @@ under the License.
     </form>
 
     <!-- ProductContent -->
-    <form name="ListProductContentInfos" type="list" title="" list-name="productContent">
+    <form name="ListProductContentInfos" type="list" title="" list-name="productContent"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="editProductContentInfo" title="${uiLabelMap.ProductContent}" widget-style="buttontext">
             <hyperlink target="EditProductContentContent?productId=${productId}&amp;contentId=${contentId}&amp;productContentTypeId=${productContentTypeId}&amp;fromDate=${fromDate}"
                 description="${description} [${contentId}]" also-hidden="false"/>
@@ -392,11 +394,11 @@ under the License.
     </form>
     
     <form name="AddProductContentAssoc" type="single" target="addContentToProduct" title="${uiLabelMap.ProductAddProductContentFromDate}" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductContent"/>
         <field name="productId" title="${uiLabelMap.ProductProductId}" map-name="product"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContentId}"><lookup target-form-name="LookupContent"/></field>
-        <field name="productContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}" widget-style="selectBox">
+        <field name="productContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}">
             <drop-down>
                 <entity-options entity-name="ProductContentType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -409,7 +411,7 @@ under the License.
         <field name="purchaseThruDate" title="${uiLabelMap.ProductPurchaseThruDate}"></field>
         <field name="useCountLimit" title="${uiLabelMap.ProductUseCountLimit}"></field>
         <field name="useTime" title="${uiLabelMap.ProductUseTime}"></field>
-        <field name="useTimeUomId" title="${uiLabelMap.ProductUseTimeUom}" widget-style="selectBox">
+        <field name="useTimeUomId" title="${uiLabelMap.ProductUseTimeUom}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
@@ -427,9 +429,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="PrepareAddProductContentAssoc" type="single" target="prepareAddContentToProduct" title="${uiLabelMap.ProductAddProductContentFromDate}"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+         header-row-style="header-row" default-table-style="basic-table">
         <field name="productId" map-name="product"><hidden/></field>
-        <field name="productContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}" widget-style="selectBox">
+        <field name="productContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}">
             <drop-down>
                 <entity-options entity-name="ProductContentType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -448,7 +450,7 @@ under the License.
             <hyperlink target="EditProductContentContent?productId=${productContent.productId}&amp;contentId=${productContent.contentId}"
                 description="${content.description} [${productContent.contentId}]"/>
         </field>
-        <field name="productContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}" widget-style="selectBox">
+        <field name="productContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}">
             <drop-down>
                 <entity-options entity-name="ProductContentType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -502,7 +504,7 @@ under the License.
         <field name="purchaseThruDate" title="${uiLabelMap.ProductPurchaseThruDate}"></field>
         <field name="useCountLimit" title="${uiLabelMap.ProductUseCountLimit}"></field>
         <field name="useTime" title="${uiLabelMap.ProductUseTime}"></field>
-        <field name="useTimeUomId" title="${uiLabelMap.ProductUseTimeUom}" widget-style="selectBox">
+        <field name="useTimeUomId" title="${uiLabelMap.ProductUseTimeUom}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
@@ -513,8 +515,8 @@ under the License.
         <field name="useRoleTypeId" title="${uiLabelMap.ProductUseRole}"></field>
         <field name="description" title="${uiLabelMap.ProductDescription}" map-name="content"><text size="40"/></field>
         <field name="subject" title="${uiLabelMap.ProductSubject}" map-name="emailData"><text size="40"/></field>
-        <field name="plainBody" title="${uiLabelMap.ContentPlainBody}" widget-style="textAreaBox" map-name="emailData"><textarea cols="60" rows="7"/></field>
-        <field name="htmlBody" title="${uiLabelMap.ContentHtmlBody}" widget-style="textAreaBox" map-name="emailData"><textarea cols="60" rows="7"/></field>
+        <field name="plainBody" title="${uiLabelMap.ContentPlainBody}" map-name="emailData"><textarea cols="60" rows="7"/></field>
+        <field name="htmlBody" title="${uiLabelMap.ContentHtmlBody}" map-name="emailData"><textarea cols="60" rows="7"/></field>
         <field use-when="contentId == null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductOptional}"><text maxlength="20"/></field>
         <field use-when="contentId != null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" ><display/></field>
         <field name="productId"><hidden/></field>
@@ -534,7 +536,7 @@ under the License.
         <field name="purchaseThruDate" title="${uiLabelMap.ProductPurchaseThruDate}"></field>
         <field name="useCountLimit" title="${uiLabelMap.ProductUseCountLimit}"></field>
         <field name="useTime" title="${uiLabelMap.ProductUseTime}"></field>
-        <field name="useTimeUomId" title="${uiLabelMap.ProductUseTimeUom}" widget-style="selectBox">
+        <field name="useTimeUomId" title="${uiLabelMap.ProductUseTimeUom}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
@@ -577,7 +579,7 @@ under the License.
         <field name="localeString" title="${uiLabelMap.ProductLocaleString}" map-name="content"><text size="40"/></field>
         <field use-when="contentId == null" name="contentId"><ignored/></field>
         <field use-when="contentId != null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" ><display/></field>
-        <field name="text" title="${uiLabelMap.ProductText}*" map-name="textData" widget-style="textAreaBox dojo-ResizableTextArea" ><textarea cols="80" rows="20"/></field>
+        <field name="text" title="${uiLabelMap.ProductText}*" map-name="textData" widget-style="dojo-ResizableTextArea"><textarea cols="80" rows="20"/></field>
         <field name="textDataResourceId" title="${uiLabelMap.ProductTextDataResourceId}" map-name="textData"><hidden/></field>
         <field name="useTime"><hidden/></field>
         <field name="useTimeUomId"><hidden/></field>
@@ -592,7 +594,8 @@ under the License.
     </form>
 
     <!-- SupplierProduct -->
-    <form name="AddSupplierProduct" type="single" target="updateSupplierProduct" title="" default-map-name="supplierProduct">
+    <form name="AddSupplierProduct" type="single" target="updateSupplierProduct" title="" default-map-name="supplierProduct"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="supplierProduct==null" target="createSupplierProduct"/>
         <auto-fields-service service-name="updateSupplierProduct" map-name=""/>
         <!-- productId, partyId, and availableFromDate, minimumOrderQuantity, currencyUomId are primary keys of SupplierProduct and should not be updatable, so we use use-when to change the behavior of the form
@@ -666,9 +669,9 @@ under the License.
         <field use-when="supplierProduct != null" name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
     <form name="ListSupplierProducts" type="list" target="updateSupplierProduct" title="" list-name="productSuppliers"
-        default-title-style="boxhead" default-widget-style="tabletext" default-tooltip-style="tabletext" default-table-style="boxoutside" even-row-style="viewManyTR2" odd-row-style="viewManyTR1" header-row-style="boxtop">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <!--<auto-fields-service service-name="updateSupplierProduct"/>-->
-        <field name="partyId" title="${uiLabelMap.ProductSupplier}" widget-style="tabletext"
+        <field name="partyId" title="${uiLabelMap.ProductSupplier}"
             header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=partyId" header-link-style="buttontext">
             <display-entity entity-name="PartyNameView" also-hidden="true" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
@@ -706,13 +709,13 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <auto-fields-service service-name="createProductConfig" map-name=""/>
         <field name="productId"><hidden value="${productId}"/></field>
-        <field name="configTypeId" widget-style="selectBox">
+        <field name="configTypeId">
             <drop-down allow-empty="false">
                 <option key="STANDARD" description="${uiLabelMap.ProductStandard}" />
                 <option key="QUESTION" description="${uiLabelMap.ProductQuestion}"/>
             </drop-down>
         </field>
-        <field name="configItemId" title="${uiLabelMap.ProductConfigItem}" widget-style="selectBox">
+        <field name="configItemId" title="${uiLabelMap.ProductConfigItem}">
             <drop-down>
                 <entity-options entity-name="ProductConfigItem" description="${configItemName} [${configItemId}] (${description})"> <!-- [${productTypeId}] -->
                     <entity-order-by field-name="configItemName"/>
@@ -726,17 +729,17 @@ under the License.
         <auto-fields-service service-name="updateProductConfig" map-name="productConfig"/>
         <field name="productId"><hidden/></field>
         <!-- TODO: get descriptions from IDs <display description="${roleType.description}"/> -->
-        <field name="sequenceNum" widget-style="tabletext"><display/></field>
-        <field name="configItemId" title="${uiLabelMap.ProductConfigItem}" widget-style="tabletext">
+        <field name="sequenceNum"><display/></field>
+        <field name="configItemId" title="${uiLabelMap.ProductConfigItem}">
             <display-entity entity-name="ProductConfigItem" key-field-name="configItemId" description="${configItemName} [${configItemId}] (${description})"/>
         </field>
-        <field name="configTypeId" widget-style="selectBox">
+        <field name="configTypeId">
             <drop-down allow-empty="false">
                 <option key="STANDARD" description="${uiLabelMap.ProductStandard}" />
                 <option key="QUESTION" description="${uiLabelMap.ProductQuestion}"/>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -786,7 +789,7 @@ under the License.
 
         <field name="productId"><hidden/></field>
         <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAssetId}" ><lookup target-form-name="LookupFixedAsset"/></field>
-        <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}" widget-style="selectBox">
+        <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="FixedAssetProductType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -802,7 +805,7 @@ under the License.
 
         <field name="quantity" title="${uiLabelMap.CommonQuantity}"><text maxlength="5" size="5"/></field>
 
-        <field name="quantityUomId" title="${uiLabelMap.CommonUom}" widget-style="selectBox">
+        <field name="quantityUomId" title="${uiLabelMap.CommonUom}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -826,7 +829,7 @@ under the License.
 
         <field name="productId"><hidden/></field>
         <field use-when="fixedAssetId!=null" name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}"><display-entity entity-name="FixedAssetProductType"/></field>
-        <field use-when="fixedAssetId==null" name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}" widget-style="selectBox">
+        <field use-when="fixedAssetId==null" name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="FixedAssetProductType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -842,7 +845,7 @@ under the License.
 
         <field name="quantity" title="${uiLabelMap.CommonQuantity}"><text maxlength="5" size="5"/></field>
 
-        <field name="quantityUomId" title="${uiLabelMap.CommonUom}" widget-style="selectBox">
+        <field name="quantityUomId" title="${uiLabelMap.CommonUom}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -874,8 +877,7 @@ under the License.
     </form>
 
     <form name="ListProductComponents" type="list" use-row-submit="true" title="" list-name="components"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="ViewProductManufacturing">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="ViewProductManufacturing">
         <auto-fields-entity entity-name="ProductAssoc" default-field-type="display"/>
         <field name="productId"><hidden/></field>
         <field name="productAssocTypeId"><hidden/></field>
@@ -890,8 +892,7 @@ under the License.
         </field>
     </form>
     <form name="ListProductParents" type="list" use-row-submit="true" title="" list-name="parents" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="ViewProductManufacturing">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="ViewProductManufacturing">
         <auto-fields-entity entity-name="ProductAssoc" default-field-type="display"/>
         <field name="productIdTo"><hidden/></field>
         <field name="productAssocTypeId"><hidden/></field>
@@ -909,8 +910,7 @@ under the License.
         </field>
     </form>
     <form name="ListProductRoutings" type="list" use-row-submit="true" title="" list-name="routings" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="ViewProductManufacturing">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="ViewProductManufacturing">
         <auto-fields-entity entity-name="WorkEffortGoodStandard" default-field-type="display"/>
         <field name="productId"><hidden/></field>
         <field name="workEffortGoodStdTypeId"><hidden/></field>
@@ -924,8 +924,7 @@ under the License.
     </form>
 
     <form name="ListCostComponents" type="list" title="" list-name="costs" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="EditProductCosts">
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductCosts">
         <auto-fields-entity entity-name="CostComponent" default-field-type="display"/>
         <field name="cost">
             <display/>
@@ -934,7 +933,7 @@ under the License.
             <hyperlink also-hidden="false" description="${costComponentId}" target="EditProductCosts?productId=${productId}&amp;productCostComponentId=${costComponentId}"/>
         </field>
         <field name="productId"><hidden value="${productId}"/></field>
-        <field name="costComponentTypeId" widget-style="tabletext">
+        <field name="costComponentTypeId">
             <display-entity entity-name="CostComponentType"/>
         </field>
         <field name="deleteCostComponent" entry-name="costComponentId" widget-style="buttontext">
@@ -942,20 +941,20 @@ under the License.
         </field>
     </form>
     <form name="EditCostComponent" type="single" target="createCostComponent" title="" default-map-name="costComponent"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="costComponent!=null" target="updateCostComponent"/>
         <auto-fields-service service-name="createCostComponent"/>
         <field name="productId"><hidden/></field>
         <field name="costComponentId" use-when="costComponent!=null"><display/></field>
         <field name="costComponentId" use-when="costComponent==null"><hidden/></field>
-        <field name="costComponentTypeId" widget-style="selectBox">
+        <field name="costComponentTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="CostComponentType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="costUomId" title="${uiLabelMap.CommonCurrency}" widget-style="selectBox">
+        <field name="costUomId" title="${uiLabelMap.CommonCurrency}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -967,15 +966,15 @@ under the License.
     </form>
 
     <form name="CalculateProductCosts" type="single" target="calculateProductCosts" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="calculateProductCosts" map-name=""/>
         <field name="productId"><hidden value="${productId}"/></field>
-        <field name="costComponentTypePrefix" widget-style="selectBox">
+        <field name="costComponentTypePrefix">
             <drop-down allow-empty="false">
                 <option key="EST_STD" description="${uiLabelMap.ProductEstimatedCosts}"/>
             </drop-down>
         </field>
-        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}" widget-style="selectBox">
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]">
                     <entity-constraint name="uomTypeId" value="CURRENCY_MEASURE"/>
@@ -987,7 +986,7 @@ under the License.
     </form>
 
     <form name="OutstandingPurchaseOrders" type="list" list-name="purchaseOrders" 
-        default-title-style="tableheadtext" default-widget-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="orderDate"><display/></field>
         <field name="orderId"><hyperlink also-hidden="false" description="${orderId}" target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app"/></field>
         <field name="orderItemSeqId"><display/></field>
@@ -1000,11 +999,11 @@ under the License.
 
     <!-- create ProductMaint-->
     <form name="AddProductMaint" type="single"  target="createProductMaint" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductMaint" /> 
         <field name="productId"><hidden/></field>
         <field name="productMaintSeqId"><ignored/></field>
-        <field name="productMaintTypeId" widget-style="selectBox">
+        <field name="productMaintTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProductMaintType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -1012,14 +1011,14 @@ under the License.
             </drop-down>
         </field>
         <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
-        <field name="intervalUomId" widget-style="selectBox">
+        <field name="intervalUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
                     <entity-order-by field-name="description"/>
                 </entity-options> 
             </drop-down>
         </field>
-        <field name="intervalMeterTypeId" widget-style="selectBox">
+        <field name="intervalMeterTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProductMeterType" description="${description}" key-field-name="productMeterTypeId">
                     <entity-order-by field-name="description"/>
@@ -1029,7 +1028,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListProductMaints" type="list" list-name="productMaints" target="updateProductMaint"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductMaint">
                 <condition-expr field-name="productId" env-name="productId"/>
@@ -1047,7 +1046,7 @@ under the License.
         </field>
         <field name="maintName"><text size="20" /></field> 
         <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
-        <field name="intervalUomId" widget-style="selectBox">
+        <field name="intervalUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
                     <entity-order-by field-name="description"/>
@@ -1071,7 +1070,7 @@ under the License.
     
     <!-- create and update a ProductMeter -->
     <form name="AddProductMeter" type="single" target="createProductMeter" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductMeter" /> 
         <field name="productId"><hidden/></field>
         <field name="productMeterTypeId">
@@ -1081,7 +1080,7 @@ under the License.
                 </entity-options> 
             </drop-down>
         </field>
-        <field name="meterUomId" widget-style="selectBox">
+        <field name="meterUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
                     <entity-order-by field-name="description"/>
@@ -1092,7 +1091,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListProductMeters" type="list" list-name="productMeters" target="updateProductMeter"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductMeter">
                 <condition-expr field-name="productId" env-name="productId"/>
@@ -1103,7 +1102,7 @@ under the License.
         <field name="productMeterTypeId">
             <display-entity entity-name="ProductMeterType"/>
         </field>
-        <field name="meterUomId" widget-style="selectBox">
+        <field name="meterUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
                     <entity-order-by field-name="description"/>
@@ -1119,7 +1118,8 @@ under the License.
     </form>
 
     <!-- create and update a ProductGeo -->
-    <form name="AddProductGeo" type="single" target="createProductGeo" title="">
+    <form name="AddProductGeo" type="single" target="createProductGeo" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductGeo" />
         <field name="productId"><hidden/></field>
         <field name="geoId">
@@ -1141,7 +1141,8 @@ under the License.
         <field name="description"><text size="20" /></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    <form name="ListProductGeos" type="list" list-name="productGeos" target="updateProductGeo">
+    <form name="ListProductGeos" type="list" list-name="productGeos" target="updateProductGeo"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductGeo">
                 <condition-expr field-name="productId" env-name="productId"/>
@@ -1167,10 +1168,10 @@ under the License.
     </form>
 
     <form name="AddProductFeatureApplAttr" type="single" target="createProductFeatureApplAttr" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductFeatureApplAttr" /> 
         <field name="productId"><hidden/></field>
-        <field name="productFeatureId" widget-style="selectBox">
+        <field name="productFeatureId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProductFeatureAndAppl" description="${description} [${productFeatureId}]" key-field-name="productFeatureId">
                     <entity-constraint name="productId" env-name="productId"/>
@@ -1183,7 +1184,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListProductFeatureApplAttrs" type="list" list-name="productFeatureApplAttrs" target="EditProductFeatureAppl"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductFeatureApplAttr" list-name="productFeatureApplAttrs">
                 <condition-expr field-name="productId" env-name="productId"/>
@@ -1202,7 +1203,7 @@ under the License.
 
     <!-- ProductSubscriptionResource -->
     <form name="ListProductSubscriptionResources" type="list" list-name="productSubscriptionResources" target="updateProductSubscriptionResource"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductSubscriptionResource">
                 <condition-expr field-name="productId" env-name="productId"/>
@@ -1212,14 +1213,14 @@ under the License.
         <auto-fields-service service-name="updateProductSubscriptionResource"/>
         
         <field name="productId"><hidden/></field>
-        <field name="subscriptionResourceId" widget-style="tabletext">
+        <field name="subscriptionResourceId">
             <display-entity entity-name="SubscriptionResource" description="${description}">
                 <sub-hyperlink target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}" description="${subscriptionResourceId}" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="fromDate"><display/></field>
         
-        <field name="useTimeUomId" widget-style="selectBox">
+        <field name="useTimeUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
@@ -1227,7 +1228,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="useRoleTypeId" widget-style="selectBox">
+        <field name="useRoleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
@@ -1242,11 +1243,11 @@ under the License.
         </field>
     </form>
     <form name="AddProductSubscriptionResource" type="single" target="createProductSubscriptionResource"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductSubscriptionResource"/>
         
         <field name="productId"><hidden/></field>
-        <field name="subscriptionResourceId" widget-style="selectBox">
+        <field name="subscriptionResourceId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="SubscriptionResource" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -1254,7 +1255,7 @@ under the License.
             </drop-down>
         </field>
         
-        <field name="useTimeUomId" widget-style="selectBox">
+        <field name="useTimeUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
@@ -1262,7 +1263,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="useRoleTypeId" widget-style="selectBox">
+        <field name="useRoleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
@@ -1274,7 +1275,7 @@ under the License.
     </form>
 
     <form name="ListPurchaseAgreements" type="list" list-name="purchaseAgreements"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="agreementId" widget-style="buttontext">
             <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app" 
                 description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
@@ -1288,7 +1289,7 @@ under the License.
         <field name="price"><display/></field>
     </form>
     <form name="ListSalesAgreements" type="list" list-name="salesAgreements"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="agreementId" widget-style="buttontext">
             <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app" 
                 description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
@@ -1302,7 +1303,7 @@ under the License.
         <field name="price"><display/></field>
     </form>
     <form name="ListProductAgreements" type="list" list-name="productAgreements"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" >
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="agreementId" widget-style="buttontext">
             <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app" 
                 description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
@@ -1318,7 +1319,7 @@ under the License.
 
     <!-- ProductWorkEfforts forms -->
     <form name="AddProductWorkEffort" target="createWorkEffortGoodStandard" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWorkEffortGoodStandard"/>
         <field name="productId"><hidden value="${parameters.productId}"/></field>
         <field name="workEffortId">
@@ -1342,21 +1343,21 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListProductWorkEfforts" type="list" target="updateWorkEffortGoodStandard" list-name="productWorkEfforts" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list-name="productWorkEfforts">
                 <field-map env-name="productId" field-name="productId" />
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit" />
-        <field name="workEffortId" widget-style="tabletext">
+        <field name="workEffortId">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}" also-hidden="true">
                 <sub-hyperlink target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext" target-type="inter-app"/>
             </display-entity>
         </field>
-        <field name="workEffortGoodStdTypeId" widget-style="tabletext"><display-entity entity-name="WorkEffortGoodStandardType" description="${description}"/></field>
-        <field name="productId" widget-style="tabletext"><hidden/></field>
-        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="workEffortGoodStdTypeId"><display-entity entity-name="WorkEffortGoodStandardType" description="${description}"/></field>
+        <field name="productId"><hidden/></field>
+        <field name="fromDate"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
@@ -1371,7 +1372,8 @@ under the License.
         </field>
     </form>
 
-    <form name="UpdateProductFacilities" type="list" target="updateProductFacility" title="" list-name="productFacilities">
+    <form name="UpdateProductFacilities" type="list" target="updateProductFacility" title="" list-name="productFacilities"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductFacility"/>
         <field name="productId"><hidden/></field>
         <field name="facilityId">
@@ -1383,7 +1385,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddProductFacility" target="createProductFacility" title="" type="single">
+    <form name="AddProductFacility" target="createProductFacility" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductFacility"/>
         <field name="productId"><hidden/></field>
         <field name="facilityId">
@@ -1396,7 +1399,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
-    <form name="UpdateProductFacilityLocations" type="list" target="updateProductFacilityLocation" title="" list-name="productFacilityLocations">
+    <form name="UpdateProductFacilityLocations" type="list" target="updateProductFacilityLocation" title="" list-name="productFacilityLocations"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <row-actions>
             <entity-one entity-name="FacilityLocation" value-name="facilityLocation">
                 <field-map field-name="facilityId"/>
@@ -1422,7 +1426,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddProductFacilityLocation" target="createProductFacilityLocation" title="" type="single">
+    <form name="AddProductFacilityLocation" target="createProductFacilityLocation" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductFacilityLocation"/>
         <field name="productId"><hidden/></field>
         <field name="facilityId">
@@ -1438,7 +1443,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <!-- ProductIDs -->
-    <form name="AddProductGoodIdentification" type="single" target="createGoodIdentification" title="">
+    <form name="AddProductGoodIdentification" type="single" target="createGoodIdentification" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createGoodIdentification"/>
         <field name="productId"><hidden/></field>
         <field name="goodIdentificationTypeId" title="${uiLabelMap.ProductIdType}">
@@ -1450,7 +1456,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductGoodIdentifications" type="list" target="updateGoodIdentification" title="" list-name="goodIdentifications">
+    <form name="UpdateProductGoodIdentifications" type="list" target="updateGoodIdentification" title="" list-name="goodIdentifications"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateGoodIdentification" map-name="updateGoodIdentification"/>
         <field name="goodIdentificationTypeId" title="${uiLabelMap.ProductIdType}"><display-entity entity-name="GoodIdentificationType"/></field>
         <field name="productId"><hidden/></field>
@@ -1462,27 +1469,31 @@ under the License.
         </field>
     </form>
     <!-- ProductKeywords -->
-    <form name="AddProductKeyword" type="single" target="createProductKeyword" title=""> 
+    <form name="AddProductKeyword" type="single" target="createProductKeyword" title=""
+        header-row-style="header-row" default-table-style="basic-table"> 
         <auto-fields-service service-name="createProductKeyword"/>
         <field name="productId"><hidden/></field>
-        <field name="relevancyWeight" title="${uiLabelMap.Weight}"><text default-value="1"/></field>
+        <field name="relevancyWeight"><text default-value="1"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductKeyword" type="list" target="deleteProductKeyword" title="" list-name="productKeywords">
+    <form name="UpdateProductKeyword" type="list" target="deleteProductKeyword" title="" list-name="productKeywords"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductKeyword" default-field-type="display"/>
         <field name="productId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonDelete}"><submit button-type="button"/></field>
     </form>
     <!-- ProductAttribute -->
-    <form name="AddProductAttribute" type="single" target="createProductAttribute" title="">
+    <form name="AddProductAttribute" type="single" target="createProductAttribute" title=""
+        header-row-style="header-row" default-table-style="basic-table"> 
         <auto-fields-service service-name="createProductAttribute"/>
         <field name="productId"><hidden/></field>
-        <field name="attrName" title="${uiLabelMap.AttributeName}"></field>
+        <field name="attrName"></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductAttribute" type="list" target="updateProductAttribute" title="" list-name="productAttributes">
+    <form name="UpdateProductAttribute" type="list" target="updateProductAttribute" title="" list-name="productAttributes"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductAttribute" map-name="updateProductAttribute"/>
-        <field name="attrName" title="${uiLabelMap.AttributeName}"><display/></field>
+        <field name="attrName"><display/></field>
         <field name="productId"><hidden/></field>
         <field name="attrType"><text/></field>
         <field name="attrValue"><text/></field>
@@ -1493,7 +1504,8 @@ under the License.
         </field>
     </form>
     <!-- GlAccount-->
-    <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" title="">
+    <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" title=""
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductGlAccount" list-name="productGlAccounts">
                 <condition-expr field-name="productId" env-name="productId"/>
@@ -1517,7 +1529,8 @@ under the License.
             <hyperlink target="deleteProductGlAccount?productId=${productId}&amp;organizationPartyId=${organizationPartyId}&amp;glAccountTypeId=${glAccountTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>  
-    <form name="AddProductGlAccount" type="single" target="createProductGlAccount" title="">      
+    <form name="AddProductGlAccount" type="single" target="createProductGlAccount" title=""
+        header-row-style="header-row" default-table-style="basic-table">     
         <field name="productId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
             <drop-down allow-empty="false">                
@@ -1541,7 +1554,8 @@ under the License.
     </form>
     
     <!-- Vendor Product-->
-    <form name="ListVendorProducts" type="list" list-name="vendorProductList" target="deleteVendorProduct" paginate-target="EditVendorProduct">
+    <form name="ListVendorProducts" type="list" list-name="vendorProductList" target="deleteVendorProduct" paginate-target="EditVendorProduct"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productId"><hidden/></field>
         <field name="vendorPartyId"><display/></field>
         <field name="productStoreGroupId"><display/></field>
@@ -1549,7 +1563,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditVendorProduct" type="single" target="createVendorProduct">
+    <form name="EditVendorProduct" type="single" target="createVendorProduct"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productId"><hidden/></field>
         <field name="vendorPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="productStoreGroupId">
