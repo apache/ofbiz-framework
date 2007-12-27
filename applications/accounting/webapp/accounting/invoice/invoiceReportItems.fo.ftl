@@ -100,7 +100,7 @@ under the License.
                 -->
                 <fo:table-row height="14px">
                     <fo:table-cell number-columns-spanned="6">
-                            <fo:block><#-- blank line --></fo:block>
+                            <fo:block></fo:block>
                        </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row height="14px">
@@ -112,7 +112,7 @@ under the License.
             </#if>
                 <fo:table-row height="7px">
                     <fo:table-cell number-columns-spanned="6">
-                        <fo:block><#-- blank line --></fo:block>
+                        <fo:block></fo:block>
                     </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row height="14px" space-start=".15in">
@@ -145,6 +145,7 @@ under the License.
         <#-- the grand total -->
         <fo:table-row>
            <fo:table-cell number-columns-spanned="3">
+              <fo:block/>
            </fo:table-cell>
            <fo:table-cell>
               <fo:block font-weight="bold">${uiLabelMap.AccountingTotalCapital}</fo:block>
@@ -155,10 +156,12 @@ under the License.
         </fo:table-row>
         <fo:table-row height="7px">
            <fo:table-cell>
+              <fo:block/>
            </fo:table-cell>
         </fo:table-row>
         <fo:table-row height="14px">
            <fo:table-cell number-columns-spanned="3">
+              <fo:block/>
            </fo:table-cell>
            <fo:table-cell number-columns-spanned="2">
               <fo:block>${uiLabelMap.AccountingTotalExclTax}</fo:block>
@@ -172,7 +175,7 @@ under the License.
     </fo:table-body>        
  </fo:table>
 
- <!-- a block with the invoice message-->
+ <#-- a block with the invoice message-->
  <#if invoice.invoiceMessage?has_content><fo:block>${invoice.invoiceMessage}</fo:block></#if>
  <fo:block></fo:block>
  <fo:block id="theEnd"/>  <#-- marks the end of the pages and used to identify page-number at the end -->
