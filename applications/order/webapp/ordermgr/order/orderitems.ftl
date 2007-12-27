@@ -485,8 +485,8 @@ under the License.
                 </#list>
               </#if>
 
-               <#-- now show item issuances (inventory item) per line item -->
-               <#if itemIssuances?has_content>
+              <#-- now show item issuances (inventory item) per line item -->
+              <#if itemIssuances?has_content>
                 <#list itemIssuances as itemIssuance>
                   <tr>
                     <td align="right" colspan="2">
@@ -508,6 +508,31 @@ under the License.
                   </tr>
                 </#list>
               </#if>
+
+              <#-- now show shipment receipts per line item -->
+              <#assign shipmentReceipts = orderItem.getRelated("ShipmentReceipt")?if_exists>
+              <#if shipmentReceipts?has_content>
+                <#list shipmentReceipts as shipmentReceipt>
+                  <tr>
+                    <td align="right" colspan="2">
+                      <div class="tabletext" style="font-size: xx-small;">
+                        <#if shipmentReceipt.shipmentId?has_content>
+                          <b><i>${uiLabelMap.OrderShipmentReceived}</i>:</b>
+                          <a target="facility" href="/facility/control/ViewShipment?shipmentId=${shipmentReceipt.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId?if_exists}
+                        </#if>
+                          &nbsp;${shipmentReceipt.datetimeReceived}&nbsp;
+                          <b><i>${uiLabelMap.FacilityInventory}</i>:</b>
+                          <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${shipmentReceipt.inventoryItemId}</a>
+                      </div>
+                    </td>
+                    <td align="center">
+                      <div class="tabletext" style="font-size: xx-small;">${shipmentReceipt.quantityAccepted?string.number}&nbsp;/&nbsp;${shipmentReceipt.quantityRejected?default(0)?string.number}</div>
+                    </td>
+                    <td colspan="4">&nbsp;</td>
+                  </tr>
+                </#list>
+              </#if>
+
             </#list>
           </#if>
           <tr><td colspan="7"><hr class="sepbar"/></td></tr>
