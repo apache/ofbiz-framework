@@ -29,9 +29,26 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 import java.sql.Timestamp;
 
+
+EntityOperator checkCondition(String condition){
+      
+        switch (condition) {
+            case "equals": return EntityOperator.EQUALS; break;
+            case "like": return EntityOperator.LIKE; break;
+            case "contains": return EntityOperator.LIKE; break;
+            case "empty":  return EntityOperator.NOT; break;
+            case "notEqual": return EntityOperator.NOT_EQUAL; break;
+            default: return EntityOperator.EQUALS;break;
+        }
+}
+
 LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 fromDate = parameters.get("fromDate");
 projectId = parameters.get("projectId"); // if provided only give subprojects of a certain main project
+projectName = parameters.get("projectName");
+
+projectId_op = parameters.get("projectId_op");
+projectName_op = parameters.get("projectName_op");
 
 conditions = UtilMisc.toList(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"));
 
@@ -40,14 +57,30 @@ if (!UtilValidate.isEmpty(fromDate)) {
     }
 
 if (!UtilValidate.isEmpty(projectId)) {
-    conditions.add(new EntityExpr("workEffortParentId", EntityOperator.EQUALS, projectId));
+	if(!UtilValidate.isEmpty(projectId_op)){
+		if( projectId_op.equals("contains") || projectId_op.equals("like") ) {
+    		conditions.add(new EntityExpr("workEffortId", EntityOperator.LIKE, "%"+projectId+"%"));
+    	}else{
+    		conditions.add(new EntityExpr("workEffortId", checkCondition(projectId_op), projectId));
+    	}
     }
+}
 
+if (!UtilValidate.isEmpty(projectName)) {
+	if(!UtilValidate.isEmpty(projectName_op)) {
+		if( projectName_op.equals("contains") || projectName_op.equals("like") ) {
+			conditions.add(new EntityExpr("workEffortName", EntityOperator.LIKE, "%"+projectName+"%"));
+		}else{
+			conditions.add(new EntityExpr("workEffortName", checkCondition(projectName_op), projectName));
+		}
+ 	}
+}
+    
 allConditions = new EntityConditionList( conditions, EntityOperator.AND );
 orderBy = UtilMisc.toList("createdStamp DESC");
-
 projects = new LinkedList();
 listProjects = delegator.findByConditionCache("WorkEffort", allConditions, UtilMisc.toList("workEffortId"), orderBy);
+
 if (!UtilValidate.isEmpty(listProjects)) {
     itr = listProjects.iterator();
             while (itr.hasNext()) {
@@ -57,3 +90,6 @@ if (!UtilValidate.isEmpty(listProjects)) {
     }
     context.put("projects", projects);
 }
+
+
+
