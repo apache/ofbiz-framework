@@ -239,7 +239,7 @@ under the License.
     <screen name="FindProdCatalog">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditFindProductCatalog"/>
+                <set field="titleProperty" value="PageTitleFindProductCatalog"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
 
