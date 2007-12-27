@@ -504,9 +504,22 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/QuickAddVariants.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductQuickAdmin}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/catalog/product/QuickAddVariants.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -724,55 +737,41 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-compare field-name="product.isVirtual" operator="equals" type="String" value="Y"/>
-                            </condition>
-                            <widgets>
-                                <container style="screenlet-title-bar">
-                                    <container style="head4">
-                                        <label text="${uiLabelMap.ProductVariantProductInventorySummary}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>
-                                            <platform-specific>
-                                                <html><html-template location="component://product/webapp/catalog/product/EditVirtualProductInventory.ftl"/></html>
-                                            </platform-specific>
-                                        </widgets>
-                                    </section>
-                                </container>
-                            </widgets>
-                            <fail-widgets>
-                                <container style="screenlet-title-bar">
-                                    <container style="head4">
-                                        <label text="${uiLabelMap.ProductInventorySummary}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>
-                                            <platform-specific>
-                                                <html><html-template location="component://product/webapp/catalog/product/EditProductInventoryItems.ftl"/></html>
-                                            </platform-specific>
-                                        </widgets>
-                                    </section>
-                                </container>
-                                <container style="screenlet-title-bar">
-                                    <container style="head4">
-                                        <label text="${uiLabelMap.ProductOutstandingPurchaseOrders}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>
-                                            <include-form name="OutstandingPurchaseOrders" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container>
-                            </fail-widgets>
-                        </section>
+                   		<container style="screenlet">
+	                   		<container style="screenlet-title-bar">
+		                        <container style="head4">
+		                            <section>
+		                                <condition>
+		                                    <if-compare field-name="product.isVirtual" operator="equals" type="String" value="Y"/>
+		                                </condition>
+		                                <widgets>
+			                            	<label text="${uiLabelMap.ProductVariantProductInventorySummary}"/>
+			                            </widgets>
+			                            <fail-widgets>
+			                            	<label text="${uiLabelMap.ProductInventorySummary}"/>
+			                            </fail-widgets>
+		                            </section>
+		                        </container>
+	                        </container>
+	                        <container style="screenlet-body">
+		                        <section>
+		                            <condition>
+		                                <if-compare field-name="product.isVirtual" operator="equals" type="String" value="Y"/>
+		                            </condition>
+		                            <widgets>
+		                                <platform-specific>
+		                                    <html><html-template location="component://product/webapp/catalog/product/EditVirtualProductInventory.ftl"/></html>
+		                                </platform-specific>
+		                            </widgets>
+		                            <fail-widgets>
+		                                <platform-specific>
+                                            <html><html-template location="component://product/webapp/catalog/product/EditProductInventoryItems.ftl"/></html>
+                                        </platform-specific>
+	                                    <include-form name="OutstandingPurchaseOrders" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+		                            </fail-widgets>
+		                        </section>
+                        	</container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
