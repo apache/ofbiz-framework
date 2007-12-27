@@ -37,9 +37,9 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.GenericServiceException;
 
-public class ReconcileEvents {
-	
-public static final String module = ReconcileEvents.class.getName();
+public class GlEvents {
+    
+public static final String module = GlEvents.class.getName();
 public static String createReconcileAccount(HttpServletRequest request,HttpServletResponse response) {
     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
     final GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
@@ -73,7 +73,7 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
             if (UtilValidate.isNotEmpty(acctgTransEntries)) {
                 Iterator acctgTransEntryItr = acctgTransEntries.iterator();
                 while (acctgTransEntryItr.hasNext()) {  //calculate amount for each AcctgTransEntry according to glAccountId based on debit and credit
-      	            acctgTransEntry = (GenericValue) acctgTransEntryItr.next();
+                    acctgTransEntry = (GenericValue) acctgTransEntryItr.next();
                     debitCreditFlag = (String) acctgTransEntry.getString("debitCreditFlag");
                     if ("D".equalsIgnoreCase(debitCreditFlag)) {
                         amount += acctgTransEntry.getDouble("amount"); //for debit
@@ -85,20 +85,20 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
             reconciledBalance += amount;  //total balance per glAccountId
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-        	return "error";
+            return "error";
         }
         
     }
     Map fieldMap = UtilMisc.toMap("glReconciliationName", "Reconciliation at date " + UtilDateTime.nowTimestamp(), "glAccountId", glAccountId, "organizationPartyId", organizationPartyId, "reconciledDate", UtilDateTime.nowTimestamp(), "reconciledBalance", new Double(reconciledBalance), "userLogin", userLogin);
     Map glReconResult = null;
     try {
-    	glReconResult = dispatcher.runSync("createGlReconciliation", fieldMap); //create GlReconciliation for the glAccountId
+        glReconResult = dispatcher.runSync("createGlReconciliation", fieldMap); //create GlReconciliation for the glAccountId
         if (ServiceUtil.isError(glReconResult)) {
             return "error";
          }
     } catch (GenericServiceException e) {
         Debug.logError(e, module);
-    	return "error";
+        return "error";
     }
     String glReconciliationId = (String) glReconResult.get("glReconciliationId");
     String reconciledAmount;
@@ -123,19 +123,19 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
                     Map glReconEntryMap = UtilMisc.toMap("glReconciliationId", glReconciliationId, "acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId, "reconciledAmount", reconciledAmount, "userLogin", userLogin);
                     Map glReconEntryResult = null;
                     try {
-                    	glReconEntryResult = dispatcher.runSync("createGlReconciliationEntry", glReconEntryMap);
+                        glReconEntryResult = dispatcher.runSync("createGlReconciliationEntry", glReconEntryMap);
                         if (ServiceUtil.isError(glReconEntryResult)) {
                             return "error";
                         }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
-                    	return "error";
+                        return "error";
                     }
                 }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-        	return "error";
+            return "error";
         }
     }
     ctx.put("glReconciliationId", glReconciliationId);
