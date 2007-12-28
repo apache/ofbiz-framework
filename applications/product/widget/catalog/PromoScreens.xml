@@ -79,20 +79,43 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.ProductProductPromotionsList}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductPromotionCode}"/>
+                                </container>
+                            </container>
+                            <container>
+                                <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
+                            </container>
+                            <container>
+                                <label style="label">${uiLabelMap.CommonView}</label>
+                                <link target="FindProductPromo" text="${uiLabelMap.CommonAll}" style="buttontext"/>
+                                <link target="FindProductPromo?userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
+                                <link target="FindProductPromo?userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="GoToProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <container>
-                            <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
-                        </container>
-                        <container>
-                            <label style="head3">${uiLabelMap.CommonView}</label>
-                            <link target="FindProductPromo" text="${uiLabelMap.CommonAll}" style="buttontext"/>
-                            <link target="FindProductPromo?userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
-                            <link target="FindProductPromo?userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
-                        </container>
-                        <include-form name="GoToProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
-                        <include-form name="ListProductPromos" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductProductPromotionsList}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListProductPromos" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                           </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -112,7 +135,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
-                        <include-form name="EditProductPromo" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductPromos}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditProductPromo" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                           </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -260,7 +296,20 @@ under the License.
                                 </container>
                             </fail-widgets>
                         </section>
-                        <include-form name="ListProductPromoCodes" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindProductPromotionCode}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListProductPromoCodes" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                           </container>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/promo/FindProductPromoCode.ftl"/></html>
                         </platform-specific>
@@ -283,9 +332,22 @@ under the License.
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
                         <container>
-                            <link target="EditProductPromoCode" text="[${uiLabelMap.ProductNewPromotionCode}]" style="buttontext"/>
+                            <link target="EditProductPromoCode" text="${uiLabelMap.ProductNewPromotionCode}" style="buttontext"/>
                         </container>
-                        <include-form name="EditProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductPromotionCode}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditProductPromoCode" location="component://product/webapp/catalog/promo/PromoForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                           </container>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/promo/EditProductPromoCode.ftl"/></html>
                         </platform-specific>

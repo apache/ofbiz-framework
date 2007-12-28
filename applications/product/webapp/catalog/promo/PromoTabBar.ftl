@@ -17,14 +17,17 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-
+<#assign unselectedClassName = "">
+<#assign selectedClassMap = {page.tabButtonItem?default("void") : "selected"}>
 <#if productPromoId?has_content>
-    <div class='tabContainer'>
-        <a href="<@ofbizUrl>EditProductPromo?productPromoId=${productPromoId}</@ofbizUrl>" class="${selectedClassMap.EditProductPromo?default(unselectedClassName)}">${uiLabelMap.ProductPromotion}</a>
-        <a href="<@ofbizUrl>EditProductPromoRules?productPromoId=${productPromoId}</@ofbizUrl>" class="${selectedClassMap.EditProductPromoRules?default(unselectedClassName)}">${uiLabelMap.ProductRules}</a>
-        <a href="<@ofbizUrl>EditProductPromoStores?productPromoId=${productPromoId}</@ofbizUrl>" class="${selectedClassMap.EditProductPromoStores?default(unselectedClassName)}">${uiLabelMap.ProductStores}</a>
-        <a href="<@ofbizUrl>FindProductPromoCode?productPromoId=${productPromoId}</@ofbizUrl>" class="${selectedClassMap.FindProductPromoCode?default(unselectedClassName)}">${uiLabelMap.ProductPromotionCode}</a>
+    <br/>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li><a href="<@ofbizUrl>EditProductPromo?productPromoId=${productPromoId}</@ofbizUrl>" class="${selectedClassMap.EditProductPromo?default(unselectedClassName)}">${uiLabelMap.ProductPromotion}</a></li>
+            <li><a href="<@ofbizUrl>EditProductPromoRules?productPromoId=${productPromoId}</@ofbizUrl>" class="${selectedClassMap.EditProductPromoRules?default(unselectedClassName)}">${uiLabelMap.ProductRules}</a></li>
+            <li><a href="<@ofbizUrl>EditProductPromoStores?productPromoId=${productPromoId}</@ofbizUrl>" class="${selectedClassMap.EditProductPromoStores?default(unselectedClassName)}">${uiLabelMap.ProductStores}</a></li>
+            <li><a href="<@ofbizUrl>FindProductPromoCode?productPromoId=${productPromoId}</@ofbizUrl>" class="${selectedClassMap.FindProductPromoCode?default(unselectedClassName)}">${uiLabelMap.ProductPromotionCode}</a></li>
+        </ul>
     </div>
+<br/>
 </#if>
