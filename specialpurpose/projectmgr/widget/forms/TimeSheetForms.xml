@@ -72,6 +72,12 @@
         </field>
     </form>
     
+    <form name="AddWeeklyTimesheet" type="single" target="createWeeklyTimesheet" title="">
+        <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
+        <field entry-name="dummy" name="requiredDate"><date-time type="date"/></field>
+        <field name="addButton"><submit/></field>
+    </form>
+    
     <form name="AddTimesheetEntry" type="single" target="createTimesheetEntry" title="">
         <auto-fields-service service-name="createTimeEntry"/>
         

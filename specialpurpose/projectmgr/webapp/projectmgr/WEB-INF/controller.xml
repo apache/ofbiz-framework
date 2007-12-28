@@ -365,6 +365,12 @@
         <response name="success" type="view" value="projectView"/>
         <response name="error" type="view" value="projectView"/>
     </request-map>
+    <request-map uri="createWeeklyTimesheet">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTimesheetForThisWeek"/>
+        <response name="success" type="view" value="MyTimesheets"/>
+        <response name="error" type="view" value="MyTimesheets"/>
+    </request-map>
     <request-map uri="EditTimeEntries">
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="EditTimeEntries"/>
