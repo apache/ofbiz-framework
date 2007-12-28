@@ -287,9 +287,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/> 
     </service>
 
+    <!-- Financial Reports -->
     <service name="prepareIncomeStatement" engine="simple" 
         location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="prepareIncomeStatement" auth="true">
-        <description>Prepare the data for the income statement</description>
+        <description>Prepare the data for the Income Statement</description>
         <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
@@ -297,6 +298,16 @@ under the License.
         <attribute name="totalNetIncome" type="Double" mode="OUT" optional="false"/>
         <attribute name="glAccountTotalsMap" type="Map" mode="OUT" optional="true"/>
         <attribute name="glAccountTotalsList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="prepareBalanceSheet" engine="simple" 
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="prepareBalanceSheet" auth="true">
+        <description>Prepare the data for the Balance Sheet</description>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="glFiscalTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="assetBalancesList" type="List" mode="OUT" optional="true"/>
+        <attribute name="liabilityBalancesList" type="List" mode="OUT" optional="true"/>
+        <attribute name="equityBalancesList" type="List" mode="OUT" optional="true"/>
     </service>
 
     <!-- Miscellaneous Ledger-related services -->

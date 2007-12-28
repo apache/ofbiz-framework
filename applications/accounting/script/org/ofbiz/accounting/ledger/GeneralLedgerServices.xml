@@ -827,7 +827,7 @@ under the License.
         <call-service service-name="updateCustomTimePeriod" in-map-name="updateCustomTimePeriodInMap"/>
     </simple-method>
 
-    <simple-method method-name="prepareIncomeStatement" short-description="Close a financial CustomTimePeriod">
+    <simple-method method-name="prepareIncomeStatement" short-description="Prepare data for the Income Statement">
         <entity-one entity-name="GlAccountClass" value-name="expenseGlAccountClass">
             <field-map field-name="glAccountClassId" value="EXPENSE"/>
         </entity-one>
@@ -936,6 +936,202 @@ under the License.
         <field-to-result field-name="totalNetIncome" result-name="totalNetIncome"/>
         <field-to-result field-name="glAccountTotalsMap" result-name="glAccountTotalsMap"/>
         <field-to-result field-name="glAccountTotalsList" result-name="glAccountTotalsList"/>
+    </simple-method>
+
+    <simple-method method-name="prepareBalanceSheet" short-description="Prepare data for the Balance Sheet">
+        <entity-one entity-name="GlAccountClass" value-name="assetGlAccountClass">
+            <field-map field-name="glAccountClassId" value="ASSET"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="assetAccountClassIds">
+            <field field-name="assetGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-one entity-name="GlAccountClass" value-name="liabilityGlAccountClass">
+            <field-map field-name="glAccountClassId" value="LIABILITY"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="liabilityAccountClassIds">
+            <field field-name="liabilityGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+        <entity-one entity-name="GlAccountClass" value-name="equityGlAccountClass">
+            <field-map field-name="glAccountClassId" value="EQUITY"/>
+        </entity-one>
+        <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field-name="equityAccountClassIds">
+            <field field-name="equityGlAccountClass" type="GenericValue"/>
+        </call-class-method>
+
+        <!-- retrieve the last closed date for the same type of time period -->
+        <set field="findLastClosedDateInMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="findLastClosedDateInMap.findDate" from-field="parameters.thruDate"/>
+        <call-service service-name="findLastClosedDate" in-map-name="findLastClosedDateInMap">
+            <result-to-field result-name="lastClosedDate"/>
+            <result-to-field result-name="lastClosedTimePeriod"/>
+        </call-service>
+        <if-empty field-name="lastClosedDate">
+            <add-error><fail-message message="Unable to find a last closed date for time period for organization [${customTimePeriod.organizationPartyId}]"/></add-error>
+        </if-empty>
+        <check-errors/>
+
+        <if-not-empty field-name="lastClosedTimePeriod">
+            <entity-condition entity-name="GlAccountAndHistory" list-name="glAccountAndHistories">
+                <condition-list combine="and">
+                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                    <condition-expr field-name="customTimePeriodId" operator="equals" env-name="lastClosedTimePeriod.customTimePeriodId"/>
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="assetAccountClassIds"/>
+                </condition-list>
+                <order-by field-name="glAccountId"/>
+            </entity-condition>
+            <iterate list-name="glAccountAndHistories" entry-name="glAccountAndHistory">
+                <set field="glAccountTotalsAssetMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance" type="Double"/>
+            </iterate>
+            <entity-condition entity-name="GlAccountAndHistory" list-name="glAccountAndHistories">
+                <condition-list combine="and">
+                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                    <condition-expr field-name="customTimePeriodId" operator="equals" env-name="lastClosedTimePeriod.customTimePeriodId"/>
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="liabilityAccountClassIds"/>
+                </condition-list>
+                <order-by field-name="glAccountId"/>
+            </entity-condition>
+            <iterate list-name="glAccountAndHistories" entry-name="glAccountAndHistory">
+                <set field="glAccountTotalsLiabilityMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance" type="Double"/>
+            </iterate>
+            <entity-condition entity-name="GlAccountAndHistory" list-name="glAccountAndHistories">
+                <condition-list combine="and">
+                    <condition-expr field-name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                    <condition-expr field-name="customTimePeriodId" operator="equals" env-name="lastClosedTimePeriod.customTimePeriodId"/>
+                    <condition-expr field-name="glAccountClassId" operator="in" env-name="equityAccountClassIds"/>
+                </condition-list>
+                <order-by field-name="glAccountId"/>
+            </entity-condition>
+            <iterate list-name="glAccountAndHistories" entry-name="glAccountAndHistory">
+                <set field="glAccountTotalsEquityMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance" type="Double"/>
+            </iterate>
+        </if-not-empty>
+
+        <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransAndEntries">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId"/>
+                <condition-expr field-name="transactionDate" operator="greater-equals" env-name="lastClosedDate"/>
+                <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate"/> <!-- FIXME: Date to Timestamp -->
+                <condition-expr field-name="acctgTransTypeId" operator="not-equals" value="PERIOD_CLOSING"/>
+                <condition-expr field-name="glAccountClassId" operator="in" env-name="assetAccountClassIds"/>
+            </condition-list>
+            <order-by field-name="acctgTransId"/>
+            <order-by field-name="acctgTransEntrySeqId"/>
+        </entity-condition>
+        <iterate list-name="acctgTransAndEntries" entry-name="acctgTransAndEntry">
+            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C">
+                <calculate field-name="amount">
+                    <calcop field-name="amount" operator="negative"/>
+                </calculate>
+            </if-compare>
+            <if-empty field-name="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}">
+                <set field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="Double"/>
+            </if-empty>
+            <calculate field-name="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" type="Double">
+                <calcop field-name="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+            </calculate>
+        </iterate>
+        <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransAndEntries">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId"/>
+                <condition-expr field-name="transactionDate" operator="greater-equals" env-name="lastClosedDate"/>
+                <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate"/> <!-- FIXME: Date to Timestamp -->
+                <condition-expr field-name="acctgTransTypeId" operator="not-equals" value="PERIOD_CLOSING"/>
+                <condition-expr field-name="glAccountClassId" operator="in" env-name="liabilityAccountClassIds"/>
+            </condition-list>
+            <order-by field-name="acctgTransId"/>
+            <order-by field-name="acctgTransEntrySeqId"/>
+        </entity-condition>
+        <iterate list-name="acctgTransAndEntries" entry-name="acctgTransAndEntry">
+            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
+                <calculate field-name="amount">
+                    <calcop field-name="amount" operator="negative"/>
+                </calculate>
+            </if-compare>
+            <if-empty field-name="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}">
+                <set field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="Double"/>
+            </if-empty>
+            <calculate field-name="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" type="Double">
+                <calcop field-name="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+            </calculate>
+        </iterate>
+        <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransAndEntries">
+            <condition-list combine="and">
+                <condition-expr field-name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
+                <condition-expr field-name="isPosted" operator="equals" value="Y"/>
+                <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId"/>
+                <condition-expr field-name="transactionDate" operator="greater-equals" env-name="lastClosedDate"/>
+                <condition-expr field-name="transactionDate" operator="less" env-name="parameters.thruDate"/> <!-- FIXME: Date to Timestamp -->
+                <condition-expr field-name="acctgTransTypeId" operator="not-equals" value="PERIOD_CLOSING"/>
+                <condition-expr field-name="glAccountClassId" operator="in" env-name="equityAccountClassIds"/>
+            </condition-list>
+            <order-by field-name="acctgTransId"/>
+            <order-by field-name="acctgTransEntrySeqId"/>
+        </entity-condition>
+        <iterate list-name="acctgTransAndEntries" entry-name="acctgTransAndEntry">
+            <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
+            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
+                <calculate field-name="amount">
+                    <calcop field-name="amount" operator="negative"/>
+                </calculate>
+            </if-compare>
+            <if-empty field-name="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}">
+                <set field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="Double"/>
+            </if-empty>
+            <calculate field-name="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" type="Double">
+                <calcop field-name="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+            </calculate>
+        </iterate>
+
+        <!-- retrieve the last closed date for the same type of time period -->
+        <set field="prepareIncomeStatementInMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="prepareIncomeStatementInMap.glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+        <set field="prepareIncomeStatementInMap.fromDate" from-field="lastClosedDate"/>
+        <set field="prepareIncomeStatementInMap.thruDate" from-field="parameters.thruDate"/>
+        <call-service service-name="prepareIncomeStatement" in-map-name="prepareIncomeStatementInMap">
+            <result-to-field result-name="totalNetIncome"/>
+        </call-service>
+        <!-- get the retained earnings account -->
+        <entity-one entity-name="GlAccountTypeDefault" value-name="retainedEarningsAccount" use-cache="true">
+            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+            <field-map field-name="glAccountTypeId" value="RETAINED_EARNINGS"/>
+        </entity-one>
+        <if-not-empty field-name="retainedEarningsAccount">
+            <if-empty field-name="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}">
+                <set field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" value="0.0" type="Double"/>
+            </if-empty>
+            <calculate field-name="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" type="Double">
+                <calcop field-name="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" operator="add"><calcop field-name="totalNetIncome" operator="get"/></calcop>
+            </calculate>
+        </if-not-empty>
+
+        <iterate-map map-name="glAccountTotalsAssetMap" key-name="glAccountId" value-name="totalAmount">
+            <clear-field field-name="glAccountTotalMap"/>
+            <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
+            <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="assetBalancesList[]" from-field="glAccountTotalMap"/>
+        </iterate-map>
+        <iterate-map map-name="glAccountTotalsLiabilityMap" key-name="glAccountId" value-name="totalAmount">
+            <clear-field field-name="glAccountTotalMap"/>
+            <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
+            <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="liabilityBalancesList[]" from-field="glAccountTotalMap"/>
+        </iterate-map>
+        <iterate-map map-name="glAccountTotalsEquityMap" key-name="glAccountId" value-name="totalAmount">
+            <clear-field field-name="glAccountTotalMap"/>
+            <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
+            <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="equityBalancesList[]" from-field="glAccountTotalMap"/>
+        </iterate-map>
+
+        <field-to-result field-name="assetBalancesList" result-name="equityBalancesList"/>
+        <field-to-result field-name="liabilityBalancesList" result-name="equityBalancesList"/>
+        <field-to-result field-name="equityBalancesList" result-name="equityBalancesList"/>
     </simple-method>
 
     <!-- Services for the automatic creation of accounting transactions based on business transactions
