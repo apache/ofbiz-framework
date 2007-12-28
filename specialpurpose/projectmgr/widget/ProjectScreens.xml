@@ -440,7 +440,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.${titleProperty}}</label></container>
                                     <container style="screenlet-body">
-                                        <include-form name="ListProjectSkills" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                        <include-form name="EditProjectSkills" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                     </container>
                                 </container>    
                                 <platform-specific>
