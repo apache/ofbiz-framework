@@ -119,4 +119,52 @@ under the License.
         </field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+
+    <form name="BalanceSheetParameters" type="single" target="prepareBalanceSheet">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="glFiscalTypeId">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="BalanceSheetAssetList" type="list" list-name="assetBalancesList">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-name="glAccount">
+                <field-map field-name="glAccountId"/>
+            </entity-one>
+        </row-actions>
+        <field name="glAccountId">
+            <hyperlink target="FindAcctgTransEntries?glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/>
+        </field>
+        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="BalanceSheetLiabilityList" type="list" list-name="liabilityBalancesList">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-name="glAccount">
+                <field-map field-name="glAccountId"/>
+            </entity-one>
+        </row-actions>
+        <field name="glAccountId">
+            <hyperlink target="FindAcctgTransEntries?glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/>
+        </field>
+        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+    <form name="BalanceSheetEquityList" type="list" list-name="equityBalancesList">
+        <row-actions>
+            <entity-one entity-name="GlAccount" value-name="glAccount">
+                <field-map field-name="glAccountId"/>
+            </entity-one>
+        </row-actions>
+        <field name="glAccountId">
+            <hyperlink target="FindAcctgTransEntries?glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}"/>
+        </field>
+        <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+
 </forms>
