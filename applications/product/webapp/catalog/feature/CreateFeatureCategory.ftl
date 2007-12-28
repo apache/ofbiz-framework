@@ -17,17 +17,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<form method="post" action="<@ofbizUrl>/CreateFeatureCategory</@ofbizUrl>" style="margin: 0;">
-  <h2>${uiLabelMap.ProductCreateAProductFeatureCategory}:</h2>
+<form method="post" action="<@ofbizUrl>/CreateFeatureCategory</@ofbizUrl>">
   <br/>
-  <table>
+  <table cellspacing="0" class="basic-table">
     <tr>
-      <td><div class="tabletext">${uiLabelMap.CommonDescription}:</div></td>
-      <td><input type="text" class="inputBox" size="30" name="description" value=""></td>
+      <td class="label">${uiLabelMap.CommonDescription}:</td>
+      <td><input type="text" size="30" name="description" value=""></td>
     </tr>
     <tr>
-      <td><div class="tabletext">${uiLabelMap.ProductParentCategory}:</div></td>
-      <td><select name="parentCategoryId" size="1" class="selectbox">
+      <td class="label">${uiLabelMap.ProductParentCategory}:</td>
+      <td><select name="parentCategoryId" size="1">
         <option value="">&nbsp;</option>
         <#list productFeatureCategories as productFeatureCategory>
           <option value="${productFeatureCategory.productFeatureCategoryId}">${productFeatureCategory.description?if_exists} [${productFeatureCategory.productFeatureCategoryId}]</option>

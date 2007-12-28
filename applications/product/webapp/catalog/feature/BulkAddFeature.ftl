@@ -16,37 +16,50 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<h1>${uiLabelMap.ProductAddProductFeatureInBulk} ${uiLabelMap.CommonFor} ${featureCategory.description}</h1>
-
-<table border="1" cellpadding='2' cellspacing='0'>
-  <form method='POST' action='<@ofbizUrl>BulkAddProductFeatures</@ofbizUrl>' name="selectAllForm">
-  <input type="hidden" name="_useRowSubmit" value="Y">
-  <input type="hidden" name="_checkGlobalScope" value="N">
-  <input type="hidden" name="productFeatureCategoryId" value="${productFeatureCategoryId}">
-  <tr class='viewOneTR1'>
-    <td><div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div></td>
-    <td><div class="tabletext"><b>${uiLabelMap.ProductFeatureType}</b></div></td>
-    <td><div class="tabletext"><b>${uiLabelMap.ProductIdSeqNum}</b></div></td>
-    <td><div class="tabletext"><b>${uiLabelMap.ProductIdCode}</b></div></td>
-    <td><div class="tabletext"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="Y" checked="checked" onclick="javascript:toggleAll(this, 'selectAllForm');"></div></td>
-  </tr>
-<#list 0..featureNum-1 as feature>
-  <tr valign="middle" class='viewOneTR1'>
-      <td><input type="text" class='inputBox' size='15' name="description_o_${feature_index}"></td>
-      <td><select name='productFeatureTypeId_o_${feature_index}' size="1" class='selectBox'>
-        <#list productFeatureTypes as productFeatureType>
-          <option value='${productFeatureType.productFeatureTypeId}'>${productFeatureType.get("description",locale)?if_exists}</option>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductAddProductFeatureInBulk} ${uiLabelMap.CommonFor} ${featureCategory.description}</h3>
+    </div>
+    <div class="screenlet-body">
+        <table cellspacing="0" class="basic-table">
+          <form method='POST' action='<@ofbizUrl>BulkAddProductFeatures</@ofbizUrl>' name="selectAllForm">
+          <input type="hidden" name="_useRowSubmit" value="Y">
+          <input type="hidden" name="_checkGlobalScope" value="N">
+          <input type="hidden" name="productFeatureCategoryId" value="${productFeatureCategoryId}">
+          <tr class="header-row">
+            <td><b>${uiLabelMap.CommonDescription}</b></td>
+            <td><b>${uiLabelMap.ProductFeatureType}</b></td>
+            <td><b>${uiLabelMap.ProductIdSeqNum}</b></td>
+            <td><b>${uiLabelMap.ProductIdCode}</b></td>
+            <td align="right"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="Y" checked="checked" onclick="javascript:toggleAll(this, 'selectAllForm');"></td>
+          </tr>
+        <#assign rowClass = "2">
+        <#list 0..featureNum-1 as feature>
+          <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+              <td><input type="text" size='15' name="description_o_${feature_index}"></td>
+              <td><select name='productFeatureTypeId_o_${feature_index}' size="1">
+                  <#list productFeatureTypes as productFeatureType>
+                  <option value='${productFeatureType.productFeatureTypeId}'>${productFeatureType.get("description",locale)?if_exists}</option>
+                  </#list>
+                  </select>
+                  <input name='productFeatureCategoryId_o_${feature_index}' type="hidden" value="${productFeatureCategoryId}">
+              </td>
+              <td><input type="text" size='5' name="defaultSequenceNum_o_${feature_index}""></td>
+              <td><input type="text" size='5' name="idCode_o_${feature_index}"></td>
+              <td align="right"><input type="checkbox" name="_rowSubmit_o_${feature_index}" value="Y" checked="checked" onclick="javascript:checkToggle(this, 'selectAllForm');"></td>
+          </tr>
+          <#-- toggle the row color -->
+          <#if rowClass == "2">
+            <#assign rowClass = "1">
+          <#else>
+            <#assign rowClass = "2">
+          </#if> 
         </#list>
-      </select></td>
-      <input name='productFeatureCategoryId_o_${feature_index}' type="hidden" value="${productFeatureCategoryId}">
-      <td><input type="text" class='inputBox' size='5' name="defaultSequenceNum_o_${feature_index}""></td>
-      <td><input type="text" class='inputBox' size='5' name="idCode_o_${feature_index}"></td>
-      <td align="right"><input type="checkbox" name="_rowSubmit_o_${feature_index}" value="Y" checked="checked" onclick="javascript:checkToggle(this, 'selectAllForm');"></td>
-  </tr>
+        <input type="hidden" name="_rowCount" value="${featureNum}">
+        <tr><td colspan="11" align="center"><input type="submit" value='${uiLabelMap.CommonCreate}'/></td></tr>
+        </form>
+        </table>
+    </div>
+</div>
 
-</#list>
-<input type="hidden" name="_rowCount" value="${featureNum}">
-<tr><td colspan="11" align="center"><input type="submit" value='${uiLabelMap.CommonCreate}'/></td></tr>
-</form>
-</table>
+

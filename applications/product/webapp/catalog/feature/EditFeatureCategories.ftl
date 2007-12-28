@@ -17,36 +17,33 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>${uiLabelMap.ProductProductFeatureCategories}</h1>
-
 <br/>
 
-<form method="post" action="<@ofbizUrl>EditFeature</@ofbizUrl>" style="margin: 0;">
-  <h2>${uiLabelMap.ProductEditFeatureId} :</h2>
-  <input type="text" class="inputBox" size="12" name="productFeatureId" value=""/>
+<form method="post" action="<@ofbizUrl>EditFeature</@ofbizUrl>">
+  <input type="text" size="12" name="productFeatureId" value=""/>
   <input type="submit" value="${uiLabelMap.CommonEdit}"/>
 </form>
 
 <br/>
 
-<table border="1" cellpadding="2" cellspacing="0">
-  <tr>
-    <td><div class="tabletext"><b>${uiLabelMap.CommonId}</b></div></td>
-    <td><div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div></td>
-    <td><div class="tabletext"><b>${uiLabelMap.ProductParentCategory}</b></div></td>
-    <td><div class="tabletext">&nbsp;</div></td>
-    <td><div class="tabletext">&nbsp;</div></td>
+<table cellspacing="0" class="basic-table">
+  <tr class="header-row">
+    <td><b>${uiLabelMap.CommonId}</b></td>
+    <td><b>${uiLabelMap.CommonDescription}</b></td>
+    <td><b>${uiLabelMap.ProductParentCategory}</b></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
   </tr>
 
-
+<#assign rowClass = "2">
 <#list productFeatureCategories as productFeatureCategory>
-  <tr valign="middle">
+  <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
     <form method="post" action="<@ofbizUrl>UpdateFeatureCategory</@ofbizUrl>">
     <input type="hidden" name="productFeatureCategoryId" value="${productFeatureCategory.productFeatureCategoryId}">
     <td><a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeatureCategory.productFeatureCategoryId}</@ofbizUrl>" class="buttontext">${productFeatureCategory.productFeatureCategoryId}</a></td>
-    <td><input type="text" class="inputBox" size="30" name="description" value="${productFeatureCategory.description?if_exists}"></td>
+    <td><input type="text" size="30" name="description" value="${productFeatureCategory.description?if_exists}"></td>
     <td>
-      <select name="parentCategoryId" size="1" class="selectBox">
+      <select name="parentCategoryId" size="1">
         ${productFeatureCategory}
         <#assign curProdFeatCat = productFeatureCategory.getRelatedOne("ParentProductFeatureCategory")?if_exists>
         <#if curProdFeatCat?has_content>
@@ -58,11 +55,15 @@ under the License.
           </#list>
       </select>
     </td>
-    <td><INPUT type="submit" value="${uiLabelMap.CommonUpdate}"></td>
-    <td><a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeatureCategory.productFeatureCategoryId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonEdit}]</a></td>
+    <td><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
+    <td><a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeatureCategory.productFeatureCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductProductFeatureMaintenance}</a></td>
     </form>
   </tr>
+  <#-- toggle the row color -->
+  <#if rowClass == "2">
+    <#assign rowClass = "1">
+  <#else>
+    <#assign rowClass = "2">
+  </#if> 
 </#list>
 </table>
-<br/>
-
