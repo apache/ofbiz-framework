@@ -176,21 +176,29 @@
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" value="ProjectAndPhaseAndTask"/>
-                <field-map field-name="orderBy" value="lastStatusUpdate"/>
+                <field-map field-name="entityName" value="WorkEffort"/>
+                <field-map field-name="orderBy" value="lastUpdatedStamp DESC"/>
             </service>
         </actions>
         <row-actions>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortId"/>
-                <field-map field-name="hoursPartyId" env-name="userLogin.partyId"/>
             </service>
             <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
-            <set field="actualHours" from-field="result.taskInfo.actualHours"/>
+            <set field="actualHours" from-field="result.taskInfo.actualTotalHours"/>
             <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
+            <service service-name="getProjectIdAndName" result-map-name="resultProject">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
+            <set field="projectName" from-field="resultProject.projectName"/>
+            <set field="projectId" from-field="resultProject.projectId"/>
+            <set field="phaseName" from-field="resultProject.phaseName"/>
         </row-actions>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}[${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/>
+        </field>
+        <field name="resultProject.phaseName" title="${uiLabelMap.ProjectMgrPhaseName}">
+            <hyperlink also-hidden="false" description="${phaseName}" target="FindPhase?projectId=${projectId}"/>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
@@ -201,8 +209,8 @@
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" red-when="before-now"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.ProjectMgrWorkEffortActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.ProjectMgrWorkEffortActualCompletionDate}" red-when="before-now"><display type="date"/></field>
-        <field name="plannedHours"><display/></field>
-        <field name="actualHours"><display/></field>
+        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
+        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
     </form>
     <form name="MyTasks" type="list" list-name="tasks" paginate-target="MyTasks" target="updateMyTasks">
         <row-actions>
