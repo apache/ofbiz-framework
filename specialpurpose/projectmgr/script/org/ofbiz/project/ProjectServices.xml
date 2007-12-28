@@ -395,6 +395,7 @@
                     </if-compare>
                 </if-compare>
                 <call-simple-method method-name="combineInfo"/>
+                <call-simple-method method-name="getHours"/>
             </iterate>
         </iterate>
         
@@ -767,8 +768,6 @@
             </else>
         </if-empty>
         
-        <!-- add the estimated/planned hours together -->
-        <call-simple-method method-name="getHours"/>
     </simple-method>
     
     <simple-method method-name="getHours" 
@@ -791,7 +790,6 @@
                 </if-not-empty>
             </if-not-empty>
         </iterate>
-        
         <!-- get the actual hours -->
         <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="actuals"/>
         <iterate entry-name="actual" list-name="actuals">
