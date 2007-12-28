@@ -261,7 +261,6 @@ under the License.
         <description>Create a MimeTypeHtmlTemplate</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true"/>
     </service>
     <service name="updateMimeTypeHtmlTemplate" engine="simple" default-entity-name="MimeTypeHtmlTemplate" auth="true"
             location="org/ofbiz/content/data/DataServices.xml" invoke="updateMimeTypeHtmlTemplate">
