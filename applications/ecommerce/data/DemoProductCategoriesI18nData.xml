@@ -251,4 +251,23 @@
 
     <ContentAssoc contentId="CPC-100DESCEN" contentIdTo="CPC-100DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
     <ContentAssoc contentId="CPC-100DESCEN" contentIdTo="CPC-100DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
+
+    <!-- Configurables Foods category -->
+    <DataResource dataResourceId="DRFOOD-001DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DRFOOD-001DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>    
+    <DataResource dataResourceId="DRFOOD-001DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+
+    <ElectronicText dataResourceId="DRFOOD-001DESCFR" textData="Nourriture configurables"/>
+    <ElectronicText dataResourceId="DRFOOD-001DESCIT" textData="Nutrimento configurabili"/>
+    <ElectronicText dataResourceId="DRFOOD-001DESCEN" textData="Configurables Foods"/>
+
+    <Content contentId="CFOOD-001DESCFR" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCFR" description="DESCRIPTION FR Nourriture configurables" localeString="fr" />
+    <Content contentId="CFOOD-001DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCIT" description="DESCRIPTION IT Nutrimento configurabili" localeString="it" />
+    <Content contentId="CFOOD-001DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCEN" description="DESCRIPTION EN Configurables Foods" localeString="en"/>
+
+    <ProductCategoryContent productCategoryId="FOOD-001" contentId="CFOOD-001DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2007-12-28 00:00:00.0"/>
+    
+    <ContentAssoc contentId="CFOOD-001DESCEN" contentIdTo="CFOOD-001DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2007-12-28 00:00:00.0"/>
+    <ContentAssoc contentId="CFOOD-001DESCEN" contentIdTo="CFOOD-001DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2007-12-28 00:00:00.0"/>
+        
 </entity-engine-xml>
