@@ -16,178 +16,196 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<h1>${uiLabelMap.ProductGlobalPriceRule}</h1>
-<a href="<@ofbizUrl>FindProductPriceRules</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductFindRule}]</a>
-
-<br/>
-
-<table border="1" width="100%" cellpadding="2" cellspacing="0">
-  <tr>
-    <td width="10%"><div class="tabletext"><b>${uiLabelMap.ProductRuleId}</b></div></td>
-    <td width="80%"><div class="tabletext"><b>${uiLabelMap.ProductRuleNameFromDateThruDate}</b></div></td>
-    <td width="10%"><div class="tabletext"><b>&nbsp;</b></div></td>
-  </tr>
-
-<#if productPriceRule?exists>
-  <#assign productPriceConds = productPriceRule.getRelated("ProductPriceCond")>
-  <#assign productPriceActions = productPriceRule.getRelated("ProductPriceAction")>
-  <tr valign="middle">
-    <td><div class="tabletext"><b>${productPriceRule.productPriceRuleId}</b></div></td>
-    <td align="left">
-        <FORM method="post" action="<@ofbizUrl>updateProductPriceRule</@ofbizUrl>" name="updateProductPriceRule">
-            <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
-            <input type="text" size="15" name="ruleName" value="${productPriceRule.ruleName}" class="inputBox">
-            <input type="text" size="15" name="description" value="${productPriceRule.description?if_exists}" class="inputBox">
-            <input type="text" size="22" name="fromDate" value="${productPriceRule.fromDate?if_exists}" class="inputBox"><a href="javascript:call_cal(document.updateProductPriceRule.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
-            <input type="text" size="22" name="thruDate" value="${productPriceRule.thruDate?if_exists}" class="inputBox"><a href="javascript:call_cal(document.updateProductPriceRule.thruDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
-            &nbsp;&nbsp;
-            <#assign saleRule = productPriceRule.isSale?exists && productPriceRule.isSale == "Y">
-            <span class="tabletext"><b>${uiLabelMap.ProductNotifySale}:</b>&nbsp;
-            <input type="radio" class="radioButton" name="isSale" value="Y" <#if saleRule>CHECKED</#if>>${uiLabelMap.CommonYes}&nbsp;
-            <input type="radio" name="isSale" value="N" <#if !saleRule>CHECKED</#if>>${uiLabelMap.CommonNo}</span>
-            &nbsp;&nbsp;
-            <INPUT type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
-        </FORM>
-    </td>
-    <td align="center">&nbsp;
-      <#if !productPriceConds?has_content && !productPriceActions?has_content>
-          <a href="<@ofbizUrl>deleteProductPriceRule?productPriceRuleId=${productPriceRule.productPriceRuleId}</@ofbizUrl>" class="buttontext">
-          [${uiLabelMap.CommonDelete}]</a>
-      </#if>
-    </td>
-  </tr>
-  <tr valign="top">
-    <td align="right"><div class="tabletext">${uiLabelMap.ProductConditions}:</div></td>
-    <td align="left" colspan="2">
-        <table border="1" width="100%" cellpadding="2" cellspacing="0">
-          <tr>
-            <td width="5%"><div class="tabletext"><b>${uiLabelMap.ProductSeqId}</b></div></td>
-            <td width="85%"><div class="tabletext"><b>${uiLabelMap.ProductInputOperatorValue}</b></div></td>
-            <td width="10%"><div class="tabletext"><b>&nbsp;</b></div></td>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductGlobalPriceRule}</h3>
+    </div>
+    <div class="screenlet-body">  
+        <a href="<@ofbizUrl>FindProductPriceRules</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductFindRule}</a>
+        <table cellspacing="0" class="basic-table">
+          <tr class="header-row">
+            <td width="10%"><b>${uiLabelMap.ProductRuleId}</b></td>
+            <td width="80%"><b>${uiLabelMap.ProductRuleNameFromDateThruDate}</b></td>
+            <td width="10%"><b>&nbsp;</b></td>
           </tr>
-          <#assign maxCondSeqId = 1>
-          <#list productPriceConds as productPriceCond>
-              <tr>
-                <#-- if cur seq id is a number and is greater than max, set new max for input box prefill below -->
-                <#assign curCondSeqId = productPriceCond.productPriceCondSeqId?number>
-                <#if (curCondSeqId >= maxCondSeqId)><#assign maxCondSeqId = curCondSeqId + 1></#if>
-                <td><div class="tabletext"><b>${productPriceCond.productPriceCondSeqId}</b></div></td>
-                <td align="left">
-                    <FORM method="post" action="<@ofbizUrl>updateProductPriceCond</@ofbizUrl>">
-                        <input type="hidden" name="productPriceRuleId" value="${productPriceCond.productPriceRuleId}"/>
-                        <input type="hidden" name="productPriceCondSeqId" value="${productPriceCond.productPriceCondSeqId}"/>
-                        <select name="inputParamEnumId" size="1" class="selectBox">
-                            <#if productPriceCond.inputParamEnumId?has_content>
-                              <#assign inputParamEnum = productPriceCond.getRelatedOneCache("InputParamEnumeration")?if_exists>
-                              <option value="${productPriceCond.inputParamEnumId}"><#if inputParamEnum?exists>${inputParamEnum.get("description",locale)}<#else>[${productPriceCond.inputParamEnumId}]</#if></option>
-                              <option value="${productPriceCond.inputParamEnumId}">&nbsp;</option>
-                            <#else>
-                              <option value="">&nbsp;</option>
-                            </#if>
-                            <#list inputParamEnums as inputParamEnum>
-                              <option value="${inputParamEnum.enumId}">${inputParamEnum.get("description",locale)}<#--[${inputParamEnum.enumId}]--></option>
-                            </#list>
-                        </select>
-                        <select name="operatorEnumId" size="1" class="selectBox">
-                            <#if productPriceCond.operatorEnumId?has_content>
-                              <#assign operatorEnum = productPriceCond.getRelatedOneCache("OperatorEnumeration")?if_exists>
-                              <option value="${productPriceCond.operatorEnumId}"><#if operatorEnum?exists>${operatorEnum.get("description",locale)}<#else>[${productPriceCond.operatorEnumId}]</#if></option>
-                              <option value="${productPriceCond.operatorEnumId}">&nbsp;</option>
-                            <#else>
-                              <option value="">&nbsp;</option>
-                            </#if>
-                            <#list condOperEnums as condOperEnum>
-                              <option value="${condOperEnum.enumId}">${condOperEnum.get("description",locale)}<#--[${condOperEnum.enumId}]--></option>
-                            </#list>
-                        </select>
-                        <input type="text" size="20" name="condValue" value="${productPriceCond.condValue?if_exists}" class="inputBox">
-                        <INPUT type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
-                    </FORM>
-                </td>
-                <td align="center">
-                  <a href="<@ofbizUrl>deleteProductPriceCond?productPriceRuleId=${productPriceCond.productPriceRuleId}&productPriceCondSeqId=${productPriceCond.productPriceCondSeqId}</@ofbizUrl>" class="buttontext">
-                  [${uiLabelMap.CommonDelete}]</a>
-                </td>
-              </tr>
-          </#list>
-          <tr>
-            <td align="left" colspan="3">
-                <FORM method="post" action="<@ofbizUrl>createProductPriceCond</@ofbizUrl>">
+        <#if productPriceRule?exists>
+          <#assign productPriceConds = productPriceRule.getRelated("ProductPriceCond")>
+          <#assign productPriceActions = productPriceRule.getRelated("ProductPriceAction")>
+          <tr valign="middle">
+            <td class="label"><b>${productPriceRule.productPriceRuleId}</b></td>
+            <td align="left">
+                <form method="post" action="<@ofbizUrl>updateProductPriceRule</@ofbizUrl>" name="updateProductPriceRule">
                     <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
-                    <span class="tabletext"><b>${uiLabelMap.CommonNew}:</b>&nbsp;</span>
-                    <select name="inputParamEnumId" size="1" class="selectBox">
-                        <#list inputParamEnums as inputParamEnum>
-                          <option value="${inputParamEnum.enumId}">${inputParamEnum.get("description",locale)}<#--[${inputParamEnum.enumId}]--></option>
-                        </#list>
-                    </select>
-                    <select name="operatorEnumId" size="1" class="selectBox">
-                        <#list condOperEnums as condOperEnum>
-                          <option value="${condOperEnum.enumId}">${condOperEnum.get("description",locale)}<#--[${condOperEnum.enumId}]--></option>
-                        </#list>
-                    </select>
-                    <input type="text" size="20" name="condValue" class="inputBox">
-                    <INPUT type="submit" value="${uiLabelMap.CommonCreate}" style="font-size: x-small;">
-                </FORM>
+                    <input type="text" size="15" name="ruleName" value="${productPriceRule.ruleName}">
+                    <input type="text" size="15" name="description" value="${productPriceRule.description?if_exists}">
+                    <input type="text" size="22" name="fromDate" value="${productPriceRule.fromDate?if_exists}"><a href="javascript:call_cal(document.updateProductPriceRule.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
+                    <input type="text" size="22" name="thruDate" value="${productPriceRule.thruDate?if_exists}"><a href="javascript:call_cal(document.updateProductPriceRule.thruDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
+                    &nbsp;&nbsp;
+                    <#assign saleRule = productPriceRule.isSale?exists && productPriceRule.isSale == "Y">
+                    <div>
+                    <span class="label"><b>${uiLabelMap.ProductNotifySale}</b></span>&nbsp;
+                    <input type="radio" class="radioButton" name="isSale" value="Y" <#if saleRule>CHECKED</#if>>${uiLabelMap.CommonYes}&nbsp;
+                    <input type="radio" name="isSale" value="N" <#if !saleRule>CHECKED</#if>>${uiLabelMap.CommonNo}
+                    &nbsp;&nbsp;
+                    <input type="submit" value="${uiLabelMap.CommonUpdate}">
+                    </div>
+                </form>
+            </td>
+            <td align="center">&nbsp;
+              <#if !productPriceConds?has_content && !productPriceActions?has_content>
+                  <a href="<@ofbizUrl>deleteProductPriceRule?productPriceRuleId=${productPriceRule.productPriceRuleId}</@ofbizUrl>" class="buttontext">
+                  ${uiLabelMap.CommonDelete}</a>
+              </#if>
             </td>
           </tr>
-        </table>
-    </td>
-  </tr>
-  <tr valign="top">
-    <td align="right"><div class="tabletext">${uiLabelMap.ProductActions}:</div></td>
-    <td align="left" colspan="2">
-        <table border="1" width="100%" cellpadding="2" cellspacing="0">
-          <tr>
-            <td width="5%"><div class="tabletext"><b>${uiLabelMap.ProductSeqId}</b></div></td>
-            <td width="85%"><div class="tabletext"><b>${uiLabelMap.ProductActionTypeAmount}</b></div></td>
-            <td width="10%"><div class="tabletext"><b>&nbsp;</b></div></td>
-          </tr>
-          <#list productPriceActions as productPriceAction>
-              <tr>
-                <td><div class="tabletext"><b>${productPriceAction.productPriceActionSeqId}</b></div></td>
-                <td align="left">
-                    <FORM method="post" action="<@ofbizUrl>updateProductPriceAction</@ofbizUrl>">
-                        <input type="hidden" name="productPriceRuleId" value="${productPriceAction.productPriceRuleId}">
-                        <input type="hidden" name="productPriceActionSeqId" value="${productPriceAction.productPriceActionSeqId}">
-                        <select name="productPriceActionTypeId" size="1" class="selectBox">
-                            <#if productPriceAction.productPriceActionTypeId?has_content>
-                              <#assign productPriceActionType = productPriceAction.getRelatedOneCache("ProductPriceActionType")>
-                              <option value="${productPriceAction.productPriceActionTypeId}"><#if productPriceActionType?exists>${productPriceActionType.get("description",locale)}<#else>[${productPriceAction.productPriceActionTypeId}]</#if></option>
-                              <option value="${productPriceAction.productPriceActionTypeId}">&nbsp;</option>
-                            <#else>
-                              <option value="">&nbsp;</option>
-                            </#if>
-                            <#list productPriceActionTypes as productPriceActionType>
-                              <option value="${productPriceActionType.productPriceActionTypeId}">${productPriceActionType.get("description",locale)}<#--[${productPriceActionType.productPriceActionTypeId}]--></option>
-                            </#list>
-                        </select>
-                        <input type="text" size="8" name="amount" value="${productPriceAction.amount?if_exists}" class="inputBox">
-                        <INPUT type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
-                    </FORM>
-                </td>
-                <td align="center">
-                  <a href="<@ofbizUrl>deleteProductPriceAction?productPriceRuleId=${productPriceAction.productPriceRuleId}&productPriceActionSeqId=${productPriceAction.productPriceActionSeqId}</@ofbizUrl>" class="buttontext">
-                  [${uiLabelMap.CommonDelete}]</a>
-                </td>
-              </tr>
-          </#list>
-          <tr>
-            <td align="left" colspan="3">
-                <FORM method="post" action="<@ofbizUrl>createProductPriceAction</@ofbizUrl>">
-                    <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
-                    <span class="tabletext"><b>${uiLabelMap.CommonNew}:</b>&nbsp;</span>
-                    <select name="productPriceActionTypeId" size="1" class="selectBox">
-                        <#list productPriceActionTypes as productPriceActionType>
-                          <option value="${productPriceActionType.productPriceActionTypeId}">${productPriceActionType.get("description",locale)}<#--[${productPriceActionType.productPriceActionTypeId}]--></option>
-                        </#list>
-                    </select>
-                    <input type="text" size="8" name="amount" class="inputBox">
-                    <INPUT type="submit" value="${uiLabelMap.CommonCreate}" style="font-size: x-small;">
-                </FORM>
+          <tr valign="top">
+            <td align="right" class="label">${uiLabelMap.ProductConditions}</td>
+            <td align="left" colspan="2">
+                <table cellspacing="0" class="basic-table">
+                  <tr class="header-row">
+                    <td width="5%"><b>${uiLabelMap.ProductSeqId}</b></td>
+                    <td width="85%"><b>${uiLabelMap.ProductInputOperatorValue}</b></td>
+                    <td width="10%"><b>&nbsp;</b></td>
+                  </tr>
+                  <#assign maxCondSeqId = 1>
+                  <#assign rowClass = "2">
+                  <#list productPriceConds as productPriceCond>
+                      <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                        <#-- if cur seq id is a number and is greater than max, set new max for input box prefill below -->
+                        <#assign curCondSeqId = productPriceCond.productPriceCondSeqId?number>
+                        <#if (curCondSeqId >= maxCondSeqId)><#assign maxCondSeqId = curCondSeqId + 1></#if>
+                        <td><div class="tabletext"><b>${productPriceCond.productPriceCondSeqId}</b></div></td>
+                        <td align="left">
+                            <form method="post" action="<@ofbizUrl>updateProductPriceCond</@ofbizUrl>">
+                                <input type="hidden" name="productPriceRuleId" value="${productPriceCond.productPriceRuleId}"/>
+                                <input type="hidden" name="productPriceCondSeqId" value="${productPriceCond.productPriceCondSeqId}"/>
+                                <select name="inputParamEnumId" size="1">
+                                    <#if productPriceCond.inputParamEnumId?has_content>
+                                      <#assign inputParamEnum = productPriceCond.getRelatedOneCache("InputParamEnumeration")?if_exists>
+                                      <option value="${productPriceCond.inputParamEnumId}"><#if inputParamEnum?exists>${inputParamEnum.get("description",locale)}<#else>[${productPriceCond.inputParamEnumId}]</#if></option>
+                                      <option value="${productPriceCond.inputParamEnumId}">&nbsp;</option>
+                                    <#else>
+                                      <option value="">&nbsp;</option>
+                                    </#if>
+                                    <#list inputParamEnums as inputParamEnum>
+                                      <option value="${inputParamEnum.enumId}">${inputParamEnum.get("description",locale)}<#--[${inputParamEnum.enumId}]--></option>
+                                    </#list>
+                                </select>
+                                <select name="operatorEnumId" size="1">
+                                    <#if productPriceCond.operatorEnumId?has_content>
+                                      <#assign operatorEnum = productPriceCond.getRelatedOneCache("OperatorEnumeration")?if_exists>
+                                      <option value="${productPriceCond.operatorEnumId}"><#if operatorEnum?exists>${operatorEnum.get("description",locale)}<#else>[${productPriceCond.operatorEnumId}]</#if></option>
+                                      <option value="${productPriceCond.operatorEnumId}">&nbsp;</option>
+                                    <#else>
+                                      <option value="">&nbsp;</option>
+                                    </#if>
+                                    <#list condOperEnums as condOperEnum>
+                                      <option value="${condOperEnum.enumId}">${condOperEnum.get("description",locale)}<#--[${condOperEnum.enumId}]--></option>
+                                    </#list>
+                                </select>
+                                <input type="text" size="20" name="condValue" value="${productPriceCond.condValue?if_exists}">
+                                <input type="submit" value="${uiLabelMap.CommonUpdate}">
+                            </form>
+                        </td>
+                        <td align="center">
+                          <a href="<@ofbizUrl>deleteProductPriceCond?productPriceRuleId=${productPriceCond.productPriceRuleId}&productPriceCondSeqId=${productPriceCond.productPriceCondSeqId}</@ofbizUrl>" class="buttontext">
+                          ${uiLabelMap.CommonDelete}</a>
+                        </td>
+                      </tr>
+                      <#-- toggle the row color -->
+                      <#if rowClass == "2">
+                        <#assign rowClass = "1">
+                      <#else>
+                        <#assign rowClass = "2">
+                      </#if> 
+                  </#list>
+                  <tr>
+                    <td align="left" colspan="3">
+                        <form method="post" action="<@ofbizUrl>createProductPriceCond</@ofbizUrl>">
+                            <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
+                            <span class="label"><b>${uiLabelMap.CommonNew}</b>&nbsp;</span>
+                            <select name="inputParamEnumId" size="1">
+                                <#list inputParamEnums as inputParamEnum>
+                                  <option value="${inputParamEnum.enumId}">${inputParamEnum.get("description",locale)}<#--[${inputParamEnum.enumId}]--></option>
+                                </#list>
+                            </select>
+                            <select name="operatorEnumId" size="1">
+                                <#list condOperEnums as condOperEnum>
+                                  <option value="${condOperEnum.enumId}">${condOperEnum.get("description",locale)}<#--[${condOperEnum.enumId}]--></option>
+                                </#list>
+                            </select>
+                            <input type="text" size="20" name="condValue">
+                            <input type="submit" value="${uiLabelMap.CommonCreate}">
+                        </form>
+                    </td>
+                  </tr>
+                </table>
             </td>
           </tr>
+          <tr valign="top">
+            <td align="right" class="label">${uiLabelMap.ProductActions}</td>
+            <td align="left" colspan="2">
+                <table cellspacing="0" class="basic-table">
+                  <tr class="header-row">
+                    <td width="5%"><b>${uiLabelMap.ProductSeqId}</b></td>
+                    <td width="85%"><b>${uiLabelMap.ProductActionTypeAmount}</b></td>
+                    <td width="10%"><b>&nbsp;</b></td>
+                  </tr>
+                  <#assign rowClass = "2">
+                  <#list productPriceActions as productPriceAction>
+                      <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                        <td class="label"><b>${productPriceAction.productPriceActionSeqId}</b></td>
+                        <td align="left">
+                            <form method="post" action="<@ofbizUrl>updateProductPriceAction</@ofbizUrl>">
+                                <input type="hidden" name="productPriceRuleId" value="${productPriceAction.productPriceRuleId}">
+                                <input type="hidden" name="productPriceActionSeqId" value="${productPriceAction.productPriceActionSeqId}">
+                                <select name="productPriceActionTypeId" size="1">
+                                    <#if productPriceAction.productPriceActionTypeId?has_content>
+                                      <#assign productPriceActionType = productPriceAction.getRelatedOneCache("ProductPriceActionType")>
+                                      <option value="${productPriceAction.productPriceActionTypeId}"><#if productPriceActionType?exists>${productPriceActionType.get("description",locale)}<#else>[${productPriceAction.productPriceActionTypeId}]</#if></option>
+                                      <option value="${productPriceAction.productPriceActionTypeId}">&nbsp;</option>
+                                    <#else>
+                                      <option value="">&nbsp;</option>
+                                    </#if>
+                                    <#list productPriceActionTypes as productPriceActionType>
+                                      <option value="${productPriceActionType.productPriceActionTypeId}">${productPriceActionType.get("description",locale)}<#--[${productPriceActionType.productPriceActionTypeId}]--></option>
+                                    </#list>
+                                </select>
+                                <input type="text" size="8" name="amount" value="${productPriceAction.amount?if_exists}">
+                                <input type="submit" value="${uiLabelMap.CommonUpdate}">
+                            </form>
+                        </td>
+                        <td align="center">
+                          <a href="<@ofbizUrl>deleteProductPriceAction?productPriceRuleId=${productPriceAction.productPriceRuleId}&productPriceActionSeqId=${productPriceAction.productPriceActionSeqId}</@ofbizUrl>" class="buttontext">
+                          ${uiLabelMap.CommonDelete}</a>
+                        </td>
+                      </tr>
+                      <#-- toggle the row color -->
+                      <#if rowClass == "2">
+                        <#assign rowClass = "1">
+                      <#else>
+                        <#assign rowClass = "2">
+                      </#if> 
+                  </#list>
+                  <tr>
+                    <td align="left" colspan="3">
+                        <form method="post" action="<@ofbizUrl>createProductPriceAction</@ofbizUrl>">
+                            <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
+                            <span class="label"><b>${uiLabelMap.CommonNew}</b>&nbsp;</span>
+                            <select name="productPriceActionTypeId" size="1">
+                                <#list productPriceActionTypes as productPriceActionType>
+                                  <option value="${productPriceActionType.productPriceActionTypeId}">${productPriceActionType.get("description",locale)}<#--[${productPriceActionType.productPriceActionTypeId}]--></option>
+                                </#list>
+                            </select>
+                            <input type="text" size="8" name="amount">
+                            <input type="submit" value="${uiLabelMap.CommonCreate}">
+                        </form>
+                    </td>
+                  </tr>
+                </table>
+            </td>
+          </tr>
+        </#if>
         </table>
-    </td>
-  </tr>
-</#if>
-</table>
+    </div>
+</div>
