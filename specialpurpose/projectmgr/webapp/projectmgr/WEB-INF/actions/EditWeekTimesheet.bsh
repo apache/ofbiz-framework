@@ -66,13 +66,17 @@ taskTotal = 0.00;
 day0Total = 0.00; day1Total=0.00;day2Total=0.00; day3Total=0.00;day4Total=0.00;day5Total=0.00;day6Total=0.00;
 pHours = 0.00;
 timeEntry = null;
+lastTimeEntry = null;
 while(te.hasNext()) {
+	if (timeEntry!=void) {
+		lastTimeEntry = timeEntry;
+	} 
     timeEntry = te.next();
     
     if (lastWorkEffortId != null && !lastWorkEffortId.equals(timeEntry.getString("workEffortId"))) {
         entry.put("total", taskTotal);
         // get the planned number of hours
-        entryWorkEffort = timeEntry.getRelatedOne("WorkEffort");
+        entryWorkEffort = lastTimeEntry.getRelatedOne("WorkEffort");
         if (entryWorkEffort != null) {
         	plannedHours = entryWorkEffort.getRelated("WorkEffortSkillStandard");
 	        ph = plannedHours.iterator();
