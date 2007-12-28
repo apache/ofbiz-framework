@@ -83,15 +83,15 @@ under the License.
     
     <ProductConfigItem configItemId="TEXMEX0000" configItemTypeId="SINGLE" configItemName="Enchiladas type" description="Select cheese or beef (default to cheese):"/>
     <ProductConfigItem configItemId="TEXMEX0001" configItemTypeId="MULTIPLE" configItemName="Peppers" description="Add jalapenos :"/>
-  
+
+    <ProductConfigOption configItemId="TEXMEX0000" configOptionId="OP010" configOptionName="OPT001" description="Cheese enchiladas" sequenceNum="10"/>
+    <ProductConfigOption configItemId="TEXMEX0000" configOptionId="OP011" configOptionName="OPT002" description="Fajita beef" sequenceNum="20"/>
+    <ProductConfigOption configItemId="TEXMEX0001" configOptionId="OP012" configOptionName="OPT001" description="Jalapenos" sequenceNum="10"/>
+          
     <ProductConfigProduct configItemId="TEXMEX0000" configOptionId="OP010" productId="ENCHILADAS" quantity="1"/>
     <ProductConfigProduct configItemId="TEXMEX0000" configOptionId="OP011" productId="FAJITA_BEEF" quantity="1"/>
     <ProductConfigProduct configItemId="TEXMEX0001" configOptionId="OP012" productId="JALAPENOS" quantity="1"/>
     
-    <ProductConfigOption configItemId="TEXMEX0000" configOptionId="OP010" configOptionName="OPT001" description="Cheese enchiladas" sequenceNum="10"/>
-    <ProductConfigOption configItemId="TEXMEX0000" configOptionId="OP011" configOptionName="OPT002" description="Fajita beef" sequenceNum="20"/>
-    <ProductConfigOption configItemId="TEXMEX0001" configOptionId="OP012" configOptionName="OPT001" description="Jalapenos" sequenceNum="10"/>
-
     <ProductConfig productId="ENCHILADAS" configItemId="TEXMEX0000" sequenceNum="10" fromDate="2004-08-20 12:59:26.209" description="Enchiladas type" defaultConfigOptionId="OP010" configTypeId="QUESTION" isMandatory="Y"/>
     <ProductConfig productId="ENCHILADAS" configItemId="TEXMEX0001" sequenceNum="20" fromDate="2004-08-20 12:59:26.209" description="Peppers" configTypeId="QUESTION" isMandatory="N"/>
     
