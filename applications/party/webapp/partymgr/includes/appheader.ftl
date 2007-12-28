@@ -36,6 +36,7 @@ under the License.
       <li<#if selected == "security"> class="selected"</#if>><a href="<@ofbizUrl>FindSecurityGroup</@ofbizUrl>">${uiLabelMap.CommonSecurity}</a></li>
     </#if>
     <li<#if selected == "addrmap"> class="selected"</#if>><a href="<@ofbizUrl>addressMatchMap</@ofbizUrl>">${uiLabelMap.PageTitleAddressMatchMap}</a></li>
+    <li<#if selected == "partyinv"> class="selected"</#if>><a href="<@ofbizUrl>partyInvitation</@ofbizUrl>">${uiLabelMap.PartyInvitation}</a></li>
     <#if userLogin?has_content>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
