@@ -281,10 +281,9 @@
         <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
-        <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
     </form>
-    <form name="ListProjectSkills" type="list" target="updateProjectSkillStandard" list-name="workEffortSkillStandardList" paginate-target="EditProjectSkills">
+    <form name="EditProjectSkills" type="list" target="updateProjectSkillStandard" list-name="workEffortSkillStandardList" paginate-target="EditProjectSkills">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}">
             <display-entity entity-name="WorkEffort" description="${workEffortName} ${workEffortId}">
                 <sub-hyperlink target="EditProject?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/>
