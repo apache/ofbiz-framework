@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,7 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditProductFeature" type="single" target="updateProductFeature" title="" default-map-name="productFeature"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         
         <alt-target use-when="productFeature==null" target="createProductFeature"/>
         
@@ -32,7 +32,7 @@
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="productFeature==null&amp;&amp;productFeatureId==null" name="productFeatureId" title="${uiLabelMap.ProductFeatureId}"><ignored/></field>
 
-        <field name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}" widget-style="selectBox">
+        <field name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}">
             <drop-down>
                 <entity-options entity-name="ProductFeatureType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -40,7 +40,7 @@
             </drop-down>
         </field>
 
-        <field name="productFeatureCategoryId" title="${uiLabelMap.ProductFeatureCategory}" widget-style="selectBox">
+        <field name="productFeatureCategoryId" title="${uiLabelMap.ProductFeatureCategory}">
             <drop-down>
                 <entity-options entity-name="ProductFeatureCategory" description="${description} [${productFeatureCategoryId}]">
                     <entity-order-by field-name="description"/>
@@ -64,7 +64,7 @@
     </form>
 
     <form name="CreateSupplierProductFeature" type="single" target="createSupplierProductFeature" title="" default-map-name="productFeature"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createSupplierProductFeature" default-field-type="edit"/>
         <field name="partyId" title="${uiLabelMap.ProductSuppliers}">
             <drop-down allow-empty="false">
@@ -85,10 +85,10 @@
         <field name="submitForm" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
     <form name="EditSupplierProductFeatures" type="list" target="updateSupplierProductFeature" title="" list-name="supplierProductFeatures"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateSupplierProductFeature" default-field-type="display"/>
         <field name="productFeatureId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.ProductSuppliers}" widget-style="tabletext">
+        <field name="partyId" title="${uiLabelMap.ProductSuppliers}">
             <display-entity entity-name="PartyGroup" description="${groupName}"/>
         </field>
 
@@ -106,9 +106,8 @@
         </field>
     </form>
 
-    <form name="ListFeatureTypes" list-name="featureTypes" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="EditFeatureTypes">
+    <form name="ListFeatureTypes" list-name="featureTypes" target="" title="" type="list" paginate-target="EditFeatureTypes"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductFeatureType" default-field-type="display"/>
         <field name="productFeatureTypeId"><hidden/></field>
         <field name="parentTypeId"><hidden/></field>
@@ -121,12 +120,12 @@
         </field>
     </form>
     <form name="EditFeatureType" type="single" target="updateProductFeatureType" title="" default-map-name="productFeatureType"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productFeatureType==null" target="createProductFeatureType"/>
         <auto-fields-entity entity-name="ProductFeatureType"/>
         <field use-when="productFeatureType!=null" name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}"><display/></field>
         <field use-when="productFeatureType==null&amp;&amp;productFeatureTypeId!=null" name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}" tooltip="${uiLabelMap.ProductCouldNotFindProductFeatureType} [${productFeatureTypeId}]"><text size="20" maxlength="20"/></field>
-        <field name="parentTypeId" title="${uiLabelMap.ProductParentType}" widget-style="selectBox">
+        <field name="parentTypeId" title="${uiLabelMap.ProductParentType}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductFeatureType" key-field-name="productFeatureTypeId" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -137,7 +136,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListFeatureGroupAppls" type="multi" use-row-submit="false" list-name="productFeatureGroupAndAppls" target="UpdateProductFeatureGroupAppl?productFeatureGroupId=${productFeatureGroupId}" title=""
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="productFeatureId" title="${uiLabelMap.CommonId}"><display/></field>
@@ -157,15 +156,15 @@
         </field>
     </form>
     <form name="QuickApplyFeatureToGroup" type="single" target="CreateProductFeatureGroupAppl" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="productFeatureId" title="${uiLabelMap.ProductFeatureId}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ApplyFeatureCategoryToGroup" type="single" target="EditFeatureGroupAppls"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" title="">
+    <form name="ApplyFeatureCategoryToGroup" type="single" target="EditFeatureGroupAppls" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="productFeatureCategoryId">
             <drop-down>
@@ -177,7 +176,7 @@
         </field>
     </form>
     <form name="ApplyFeaturesFromCategoryToGroup" type="multi" use-row-submit="true" list-name="productFeatures" target="ApplyFeaturesFromCategoryToGroup?productFeatureGroupId=${productFeatureGroupId}" title=""
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="productFeatureId" title="${uiLabelMap.CommonId}"><display/></field>
         <field name="productFeatureTypeId" title="${uiLabelMap.CommonType}">
@@ -192,4 +191,3 @@
         </field>
     </form>
 </forms>
-

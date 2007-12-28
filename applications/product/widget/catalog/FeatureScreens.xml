@@ -59,7 +59,6 @@
     <screen name="EditFeature">
         <section>
             <actions>
-                <set field="title" value="Edit Feature"/>
                 <set field="titleProperty" value="PageTitleEditFeature"/>
                 <set field="headerItem" value="featurecats"/>
     
@@ -71,10 +70,20 @@
                 <!--<decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">-->
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.ProductEditFeature} : ${productFeature.description}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductEditFeature} : ${productFeature.description}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="EditProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/feature/EditFeature.ftl"/></html>
                         </platform-specific>
@@ -86,7 +95,6 @@
     <screen name="EditFeatureTypes">
         <section>
             <actions>
-                <set field="title" value="Edit Feature Types"/>
                 <set field="titleProperty" value="PageTitleEditFeatureTypes"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureType"/>
@@ -100,7 +108,20 @@
                         <container>
                             <link target="EditFeatureType" text="${uiLabelMap.ProductNewFeatureType}" style="buttontext"/>
                         </container>
-                        <include-form name="ListFeatureTypes" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditFeatureTypes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListFeatureTypes" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -109,8 +130,7 @@
     <screen name="EditFeatureType">
         <section>
             <actions>
-                <set field="title" value="Edit Feature Type"/>
-                <set field="titleProperty" value="PageTitleEditFeature"/>
+                <set field="titleProperty" value="PageTitleEditFeatureType"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureType"/>
     
@@ -120,7 +140,20 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <include-form name="EditFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditFeatureType}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -129,7 +162,6 @@
     <screen name="EditFeatureCategories">
         <section>
             <actions>
-                <set field="title" value="Edit Feature Categories"/>
                 <set field="titleProperty" value="PageTitleEditProductFeatureCategories"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureCategory"/>
@@ -139,12 +171,38 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/feature/CreateFeatureCategory.ftl"/></html>
-                        </platform-specific>
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/feature/EditFeatureCategories.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductCreateAProductFeatureCategory}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/catalog/feature/CreateFeatureCategory.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductEditFeatureId}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/catalog/feature/EditFeatureCategories.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -153,7 +211,6 @@
     <screen name="EditFeatureCategoryFeatures">
         <section>
             <actions>
-                <set field="title" value="Edit Feature Category Features"/>
                 <set field="titleProperty" value="PageTitleEditFeatureCategoryFeatures"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureCategory"/>
@@ -176,7 +233,6 @@
     <screen name="EditFeatureGroups">
         <section>
             <actions>
-                <set field="title" value="Edit Feature Groups"/>
                 <set field="titleProperty" value="PageTitleEditProductFeatureGroups"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureGroup"/>
@@ -188,8 +244,7 @@
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/feature/EditFeatureGroups.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
+                        </platform-specific>                    </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
@@ -197,7 +252,6 @@
     <screen name="EditFeatureGroupAppls">
         <section>
             <actions>
-                <set field="title" value="Product Feature Group Applications"/>
                 <set field="titleProperty" value="ProductEditFeatureGroupAppls"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureGroup"/>
@@ -220,19 +274,49 @@
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.${titleProperty}}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductEditFeatureGroupAppls}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListFeatureGroupAppls" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ListFeatureGroupAppls" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                        <container>
-                            <label style="head2">${uiLabelMap.ProductQuickApplyFeature}:</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductQuickApplyFeature}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="QuickApplyFeatureToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="QuickApplyFeatureToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                        <container>
-                            <label style="head2">${uiLabelMap.ProductApplyFeaturesFromCategory}:</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductApplyFeaturesFromCategory}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ApplyFeatureCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                        <include-form name="ApplyFeaturesFromCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ApplyFeatureCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
-                        <include-form name="ApplyFeaturesFromCategoryToGroup" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -241,7 +325,6 @@
     <screen name="QuickAddProductFeatures">
         <section>
             <actions>
-                <set field="title" value="Bulk Feature Category Features"/>
                 <set field="titleProperty" value="ProductAddProductFeatureInBulk"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="featureNum" from-field="parameters.featureNum" type="Integer"/>

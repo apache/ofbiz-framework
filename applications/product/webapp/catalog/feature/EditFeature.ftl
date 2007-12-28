@@ -16,14 +16,24 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<hr/>
-<h1>${uiLabelMap.ProductSupplierSpecificFeatureInformation}</h1>
-<#if editSupplierFeaturesForm?has_content>
-${editSupplierFeaturesForm.renderFormString()}
-</#if>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductSupplierSpecificFeatureInformation}</h3>
+    </div>
+    <#if editSupplierFeaturesForm?has_content>
+        <div class="screenlet-body">
+            ${editSupplierFeaturesForm.renderFormString()}
+        </div>
+    </#if>
+</div>
 <br/>
-<h2>${uiLabelMap.ProductCreateInformationNewSupplier}</h2>
-<#if createSupplierFeatureForm?has_content>
-${createSupplierFeatureForm.renderFormString()}
-</#if>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductCreateInformationNewSupplier}</h3>
+    </div>
+    <#if createSupplierFeatureForm?has_content>
+        <div class="screenlet-body">
+            ${createSupplierFeatureForm.renderFormString()}
+        </div>
+    </#if>
+</div>
