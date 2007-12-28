@@ -41,14 +41,25 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="timesheet"/>
         <store-value value-name="timesheet"/>
     </simple-method>
+    <simple-method method-name="updateTimesheetToInProcess" short-description="Updates the Timesheet status back to in process to be able to correct errors">
+        <entity-one entity-name="Timesheet" value-name="timesheet"/>
+        <set field="timesheet.statusId" value="TIMESHEET_IN_PROCESS"/>
+        <store-value value-name="timesheet"/>
+    </simple-method>
     <simple-method method-name="deleteTimesheet" short-description="Delete Timesheet">
         <call-simple-method method-name="checkTimesheetStatus"/>
         <remove-value value-name="timesheet"/>
     </simple-method>
-    <simple-method method-name="createTimesheetForThisWeek" short-description="Create Timesheet For This Week">
+    <simple-method method-name="createTimesheetForThisWeek" short-description="Create Timesheet For This Week of no date provided, otherwise for a specific week">
         <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
         <check-errors/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <if-empty field-name="parameters.requiredDate">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <else>
+                <set field="nowTimestamp" from-field="parameters.requiredDate"/>
+            </else>            
+        </if-empty>
+        <log level="always" message="===========creating a timesheet for ${nowTimestamp}"/>
         <set-service-fields service-name="createTimesheet" map-name="parameters" to-map-name="createTimesheetParams"/>
         <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekStart" ret-field-name="createTimesheetParams.fromDate">
             <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
