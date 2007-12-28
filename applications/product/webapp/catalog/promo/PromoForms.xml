@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListProductPromos" type="list" title="" list-name="productPromos">
+    <form name="ListProductPromos" type="list" title="" list-name="productPromos"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productPromoId" widget-style="buttontext">
             <hyperlink target="EditProductPromo?productPromoId=${productPromoId}"
                 description="${productPromoId}" also-hidden="false"/>
@@ -30,11 +31,13 @@ under the License.
         <field name="requireCode"><display/></field>
         <field name="createdDate"><display/></field>
     </form>
-    <form name="GoToProductPromoCode" type="single" target="EditProductPromoCode" title="">
+    <form name="GoToProductPromoCode" type="single" target="EditProductPromoCode" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productPromoCodeId"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonEdit}"><submit button-type="button"/></field>
     </form>
-    <form name="EditProductPromo" type="single" target="updateProductPromo" title="" default-map-name="productPromo">
+    <form name="EditProductPromo" type="single" target="updateProductPromo" title="" default-map-name="productPromo"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productPromo==null" target="createProductPromo"/>
         <auto-fields-service service-name="updateProductPromo" map-name=""/>
 
@@ -64,7 +67,8 @@ under the License.
             <display description="[${productPromo.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromo.createdDate}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditProductPromoCode" type="single" target="updateProductPromoCode" title="" default-map-name="productPromoCode">        
+    <form name="EditProductPromoCode" type="single" target="updateProductPromoCode" title="" default-map-name="productPromoCode"
+        header-row-style="header-row" default-table-style="basic-table">        
         <alt-target use-when="productPromoCode==null" target="createProductPromoCode"/>
         <auto-fields-service service-name="updateProductPromoCode" map-name=""/>
 
@@ -97,7 +101,8 @@ under the License.
         </field>
     </form>
     
-    <form name="ListProductPromoCodes" type="list" title="" list-name="productPromoCodes">
+    <form name="ListProductPromoCodes" type="list" title="" list-name="productPromoCodes"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductPromoCode" default-field-type="display"/>
         <field name="productPromoId"><hidden/></field>
         <field name="productPromoCodeId" widget-style="buttontext">
