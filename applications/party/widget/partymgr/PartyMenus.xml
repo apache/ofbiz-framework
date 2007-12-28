@@ -80,5 +80,18 @@ under the License.
             <link target="NewEmployee"/>
         </menu-item>
     </menu>
+ 
+    <menu name="PartyInvitationTabBar" default-selected-style="selected" type="simple"
+            menu-container-style="button-bar button-style-1" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="EditPartyInvitation" title="${uiLabelMap.PartyInvitation}">
+            <link target="editPartyInvitation?partyInvitationId=${partyInvitationId}"/>
+        </menu-item>
+        <menu-item name="PartyInvitationGroupAssocs" title="${uiLabelMap.PartyInvitationGroupAssoc}">
+            <link target="PartyInvitationGroupAssocs?partyInvitationId=${partyInvitationId}"/>
+        </menu-item>
+        <menu-item name="PartyInvitationRoleAssocs" title="${uiLabelMap.PartyInvitationRoleAssoc}">
+            <link target="PartyInvitationRoleAssocs?partyInvitationId=${partyInvitationId}"/>
+        </menu-item>
+    </menu>
 
 </menus>

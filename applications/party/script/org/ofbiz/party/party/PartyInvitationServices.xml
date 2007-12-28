@@ -26,6 +26,12 @@ under the License.
         <make-value entity-name="PartyInvitation" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="PartyInvitation" env-name="newEntity.partyInvitationId"/>
         <field-to-result field-name="newEntity.partyInvitationId" result-name="partyInvitationId"/>
+        <if-not-empty field-name="parameters.partyId">
+            <entity-one entity-name="Person" value-name="person" auto-field-map="false">
+                <field-map field-name="partyId" env-name="parameters.partyId"/>
+            </entity-one>
+            <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
+        </if-not-empty>
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.lastInviteDate"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -33,6 +39,12 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePartyInvitation" short-description="Update a PartyInvitation">
         <entity-one entity-name="PartyInvitation" value-name="lookedUpValue"/>
+        <if-not-empty field-name="parameters.partyId">
+            <entity-one entity-name="Person" value-name="person" auto-field-map="false">
+                <field-map field-name="partyId" env-name="parameters.partyId"/>
+            </entity-one>
+            <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
+        </if-not-empty>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>

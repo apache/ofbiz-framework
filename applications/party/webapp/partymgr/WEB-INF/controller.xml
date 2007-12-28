@@ -49,6 +49,60 @@ under the License.
     <request-map uri="EditPartyRelationships"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRelationships"/></request-map>
     <request-map uri="viewroles"><security https="true" auth="true"/><response name="success" type="view" value="viewroles"/></request-map>
     <request-map uri="linkparty"><security https="true" auth="true"/><response name="success" type="view" value="linkparty"/></request-map>
+    <request-map uri="partyInvitation"><security https="true" auth="true"/><response name="success" type="view" value="partyInvitation"/></request-map>
+    <request-map uri="editPartyInvitation"><security https="true" auth="true"/><response name="success" type="view" value="editPartyInvitation"/></request-map>
+    <request-map uri="PartyInvitationGroupAssocs"><security https="true" auth="true"/><response name="success" type="view" value="PartyInvitationGroupAssocs"/></request-map>
+    <request-map uri="PartyInvitationRoleAssocs"><security https="true" auth="true"/><response name="success" type="view" value="PartyInvitationRoleAssocs"/></request-map>
+ <!--Party Invitation Services-->
+    <request-map uri="createPartyInvitation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyInvitation"/>
+        <response name="success" type="view" value="editPartyInvitation"/>
+        <response name="error" type="view" value="editPartyInvitation"/>
+    </request-map>
+    
+    <request-map uri="updatePartyInvitation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyInvitation"/>
+        <response name="success" type="view" value="editPartyInvitation"/>
+        <response name="error" type="view" value="editPartyInvitation"/>
+    </request-map>
+    
+    <request-map uri="deletePartyInvitation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyInvitation"/>
+        <response name="success" type="view" value="partyInvitation"/>
+        <response name="error" type="view" value="partyInvitation"/>
+    </request-map>
+ <!--Party Invitation Group/Role Assoc Services-->
+    <request-map uri="createPartyInvitationGroupAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyInvitationGroupAssoc"/>
+        <response name="success" type="view" value="PartyInvitationGroupAssocs"/>
+        <response name="error" type="view" value="PartyInvitationGroupAssocs"/>
+    </request-map>
+ 
+    <request-map uri="createPartyInvitationRoleAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyInvitationRoleAssoc"/>
+        <response name="success" type="view" value="PartyInvitationRoleAssocs"/>
+        <response name="error" type="view" value="PartyInvitationRoleAssocs"/>
+    </request-map>
+ 
+    <request-map uri="deletePartyInvitationGroupAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyInvitationGroupAssoc"/>
+        <response name="success" type="view" value="PartyInvitationGroupAssocs"/>
+        <response name="error" type="view" value="PartyInvitationGroupAssocs"/>
+    </request-map>
+ 
+    <request-map uri="deletePartyInvitationRoleAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyInvitationRoleAssoc"/>
+        <response name="success" type="view" value="PartyInvitationRoleAssocs"/>
+        <response name="error" type="view" value="PartyInvitationRoleAssocs"/>
+    </request-map>
+ <!--Party Invitation Group/Role Assoc Services End-->   
     <request-map uri="setPartyLink">
         <security https="true" auth="true"/>
         <event type="service" invoke="linkPartyRecord"/>
@@ -994,6 +1048,10 @@ under the License.
     <view-map name="AddressMatchMap" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#AddressMatchMap"/>
     <view-map name="FindAddressMatch" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#FindAddressMatch"/>
     <view-map name="EditPartyContents" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyContents"/>
-    <view-map name="editCarrierAccount" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#editCarrierAccount"/>
+    <view-map name="editCarrierAccount" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#editCarrierAccount"/> 
+    <view-map name="partyInvitation" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#FindPartyInvitations"/> 
+    <view-map name="editPartyInvitation" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitation"/>
+    <view-map name="PartyInvitationGroupAssocs" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitationsGroupAssocs"/>
+    <view-map name="PartyInvitationRoleAssocs" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitationsRoleAssocs"/>
     <!-- end of view mappings -->
 </site-conf>
