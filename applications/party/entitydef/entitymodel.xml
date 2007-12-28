@@ -1783,7 +1783,7 @@ under the License.
         <relation type="one" rel-entity-name="RoleType">
             <key-map field-name="roleTypeId"/>
         </relation>
-        <relation type="one" rel-entity-name="PartyInvitation">
+        <relation type="one" rel-entity-name="PartyInvitation" fk-name="PTYINVROLE_PTYINV">
             <key-map field-name="partyInvitationId"/>
         </relation>
     </entity>
