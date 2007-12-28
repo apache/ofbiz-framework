@@ -819,6 +819,16 @@
                         </if-not-empty>
                     </then>
                 </if>
+                <!-- keep also a general total for the actual hours of all participants -->
+                <if-not-empty field-name="highInfo.actualTotalHours">
+                    <calculate field-name="highInfo.actualTotalHours">
+                        <calcop operator="get" field-name="highInfo.actualTotalHours"/>
+                        <calcop operator="add" field-name="actual.hours"></calcop>
+                    </calculate>
+                    <else>
+                        <set field="highInfo.actualTotalHours" from-field="actual.hours"/>
+                    </else>                            
+                </if-not-empty>
             </if-not-empty>
         </iterate>
     </simple-method>

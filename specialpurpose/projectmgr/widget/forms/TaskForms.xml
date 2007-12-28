@@ -357,9 +357,9 @@
         </field>
         <field name="add"><submit/></field>
     </form>
-    <form name="ListTaskSkills" type="list" target="updateTaskSkillStandard" list-name="workEffortSkillStandards" paginate-target="EditTaskSkills">
+    <form name="ListTaskSkills" type="list" target="updateTaskSkillStandard" list-name="workEffortSkillStandards" paginate-target="EditTaskSkills" separate-columns="true">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}">
-            <display-entity entity-name="WorkEffort" description="${workEffortName} ${workEffortId}">
+            <display-entity entity-name="WorkEffort" description="${workEffortName}">
                 <sub-hyperlink target="EditTask?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/>
             </display-entity>
         </field>
