@@ -95,8 +95,8 @@
         <field name="addButton" ><submit/></field>
     </form>
     <form name="FindProject" type="single" target="FindProject" title="Find and List Project">
-        <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}"><text-find size="25"></text-find></field>
-        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><text-find size="25"></text-find></field>
+        <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><text-find size="25" default-option="contains"></text-find></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"  /></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
