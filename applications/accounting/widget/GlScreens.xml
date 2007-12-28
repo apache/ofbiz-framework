@@ -53,12 +53,10 @@ under the License.
                                         <link target="TrialBalance?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext"/>
                                     </container>
                                     <container>
-                                        <link text="${uiLabelMap.AccountingIncomeStatement}" style="buttontextdisabled"/>
-                                        <!--<link target="IncomeStatement?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext"/>-->
+                                        <link target="IncomeStatement?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext"/>
                                     </container>
                                     <container>
-                                        <link text="${uiLabelMap.AccountingBalanceSheet}" style="buttontextdisabled"/>
-                                        <!--<link target="BalanceSheet?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext"/>-->
+                                        <link target="BalanceSheet?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext"/>
                                     </container>
                                 </container>
                             </widgets>

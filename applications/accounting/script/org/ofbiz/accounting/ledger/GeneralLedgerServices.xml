@@ -1129,8 +1129,8 @@ under the License.
             <set field="equityBalancesList[]" from-field="glAccountTotalMap"/>
         </iterate-map>
 
-        <field-to-result field-name="assetBalancesList" result-name="equityBalancesList"/>
-        <field-to-result field-name="liabilityBalancesList" result-name="equityBalancesList"/>
+        <field-to-result field-name="assetBalancesList" result-name="assetBalancesList"/>
+        <field-to-result field-name="liabilityBalancesList" result-name="liabilityBalancesList"/>
         <field-to-result field-name="equityBalancesList" result-name="equityBalancesList"/>
     </simple-method>
 

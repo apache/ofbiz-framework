@@ -184,6 +184,7 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="224151" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="224153" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="224209" fromDate="2001-01-01 00:00:00.0"/>
+    <GlAccountOrganization organizationPartyId="Company" glAccountId="336000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="400000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="401000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="409000" fromDate="2001-01-01 00:00:00.0"/>
@@ -220,6 +221,7 @@ under the License.
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="UNINVOICED_SHIP_RCPT" glAccountId="214000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INVENTORY_XFER_IN" glAccountId="215000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COMMISSIONS_PAYABLE" glAccountId="221100"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="RETAINED_EARNINGS" glAccountId="336000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="SALES_ACCOUNT" glAccountId="400000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INV_ADJ_VAL" glAccountId="515000"/>
