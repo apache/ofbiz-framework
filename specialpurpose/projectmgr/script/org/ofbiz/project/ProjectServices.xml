@@ -105,6 +105,7 @@
                 2. a workweek has 40 hours and 5 days.
                 3. The order of the execution of the tasks is set by the workeffortassociation.
                 4. The default start of the project is today
+                5. default length of a task is 3 day if not planned hours entered
                 
                 The steps of the program are:
                 1. read all tasks  and check if there are predesessors, when not set he estimated dates

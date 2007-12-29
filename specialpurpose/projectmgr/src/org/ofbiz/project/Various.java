@@ -71,11 +71,16 @@ public class Various {
     			if (standard.getDouble("estimatedNumPeople") == null) {
     				standard.put("estimatedNumPeople", new Double("1"));
     			}
-    			plannedHours += standard.getDouble("estimatedDuration") / standard.getDouble("estimatedNumPeople");
+    			if (standard.get("estimatedDuration") != null) {
+    				plannedHours += standard.getDouble("estimatedDuration").doubleValue() / standard.getDouble("estimatedNumPeople").doubleValue();
+    			}
     		}
 
     	} catch (GenericEntityException e) {
     		Debug.logError("Could not updte task: " + e.getMessage(), module);
+    	}
+    	if (plannedHours == 0.00) {
+    		plannedHours = new Double("24.00");
     	}
     	return UtilDateTime.addDaysToTimestamp(startDate, plannedHours / 8); 
     }
