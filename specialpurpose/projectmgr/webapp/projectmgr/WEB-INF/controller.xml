@@ -368,8 +368,8 @@
     <request-map uri="createWeeklyTimesheet">
         <security https="true" auth="true"/>
         <event type="service" invoke="createTimesheetForThisWeek"/>
-        <response name="success" type="view" value="ShowTimesheet"/>
-        <response name="error" type="view" value="ShowTimesheet"/>
+        <response name="success" type="view" value="Timesheet"/>
+        <response name="error" type="view" value="Timesheet"/>
     </request-map>
     <request-map uri="addWeeklyTimesheet">
         <security https="true" auth="true"/>
@@ -379,8 +379,13 @@
     <request-map uri="createMyWeeklyTimesheet">
         <security https="true" auth="true"/>
         <event type="service" invoke="createTimesheetForThisWeek"/>
-        <response name="success" type="view" value="MyTimesheets"/>
-        <response name="error" type="view" value="MyTimesheets"/>
+        <response name="success" type="view" value="MyTimesheet"/>
+        <response name="error" type="view" value="MyTimesheet"/>
+    </request-map>
+    <request-map uri="MyTimesheet">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="MyTimesheet"/>
+        <response name="error" type="view" value="MyTimesheet"/>
     </request-map>
     <request-map uri="EditTimeEntries">
         <security https="true" auth="true"/>        
@@ -396,8 +401,8 @@
     <request-map uri="updateMyTimesheet">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateTimeEntryByWorkeffort"/>
-        <response name="success" type="view" value="MyTimesheets"/>
-        <response name="error" type="view" value="MyTimesheets"/>
+        <response name="success" type="view" value="MyTimesheet"/>
+        <response name="error" type="view" value="MyTimesheet"/>
     </request-map>
     <request-map uri="updateTimeEntry">
         <security https="true" auth="true"/>
@@ -495,38 +500,38 @@
         <response name="success" type="view" value="taskView"/>
         <response name="error" type="view" value="taskView"/>
     </request-map>
-    <request-map uri="StatustoComplete">
+    <request-map uri="MyStatustoComplete">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheet"/>
-        <response name="success" type="view" value="MyTimesheets"/>
-        <response name="error" type="view" value="MyTimesheets"/>
+        <response name="success" type="view" value="MyTimesheet"/>
+        <response name="error" type="view" value="MyTimesheet"/>
     </request-map>
-    <request-map uri="TimesheetToComplete">
+    <request-map uri="StatusToComplete">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheet"/>
-        <response name="success" type="view" value="ShowTimesheet"/>
-        <response name="error" type="view" value="ShowTimesheet"/>
+        <response name="success" type="view" value="Timesheet"/>
+        <response name="error" type="view" value="Timesheet"/>
     </request-map>
     <request-map uri="FindTask">
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="FindTask"/>
     </request-map>
-    <request-map uri="ShowTimesheet">
+    <request-map uri="Timesheet">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ShowTimesheet"/>
-        <response name="error" type="view" value="ShowTimesheet"/>
+        <response name="success" type="view" value="Timesheet"/>
+        <response name="error" type="view" value="Timesheet"/>
     </request-map>
     <request-map uri="TimeSheetStatustoComplete">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheet"/>
-        <response name="success" type="view" value="ShowTimesheet"/>
-        <response name="error" type="view" value="ShowTimesheet"/>
+        <response name="success" type="view" value="Timesheet"/>
+        <response name="error" type="view" value="Timesheet"/>
     </request-map>
     <request-map uri="TimeSheetStatustoProgress">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheetToInProcess"/>
-        <response name="success" type="view" value="ShowTimesheet"/>
-        <response name="error" type="view" value="ShowTimesheet"/>
+        <response name="success" type="view" value="Timesheet"/>
+        <response name="error" type="view" value="Timesheet"/>
     </request-map>
     <!-- end of request mappings -->
 
@@ -564,12 +569,12 @@
     <view-map name="addWeeklyTimesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#addWeeklyTimesheet"/>
     <view-map name="EditTimesheetEntries" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimeSheetEntries"/>
     <view-map name="EditTimesheetRoles" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimesheetRoles"/>
-    <view-map name="MyTimesheets" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#MyTimesheets"/>
+    <view-map name="MyTimesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#MyTimesheet"/>
     <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditSkillTypes"/>
     <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
     <view-map name="EditWorkEffortNotes" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectNotes"/>
     <view-map name="EditTaskNotes" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskNotes"/>
     <view-map name="taskView" type="screen" page="component://projectmgr/widget/TaskScreens.xml#TaskView"/>
-    <view-map name="ShowTimesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#ShowTimesheet"/>
+    <view-map name="Timesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#Timesheet"/>
     <!-- end of view mappings -->
 </site-conf>
