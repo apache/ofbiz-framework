@@ -59,7 +59,7 @@
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
             <hyperlink target="TimesheetToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
-                description="${uiLabelMap.CommonStatustoComplete}" also-hidden="false"/>
+                description="${bsh:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?&quot;To complete&quot;:&quot;&quot;}" also-hidden="false"/>
         </field>
     </form>
     <form name="FindTimeSheet" target="FindTimeSheet" title="" type="single">
@@ -104,7 +104,7 @@
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
             <hyperlink target="TimesheetToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
-                description="${uiLabelMap.CommonStatustoComplete}" also-hidden="false"/>
+                description="${bsh:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?&quot;To complete&quot;:&quot;&quot;}" also-hidden="false"/>
         </field>
     </form>
     
