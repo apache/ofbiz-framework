@@ -85,12 +85,7 @@ under the License.
                                 <include-form name="AddWeeklyTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                             </container>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTimesheets} ${uiLabelMap.CommonOf} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} </label></container>                                
-                            <container style="screenlet-body"> 
-                                <include-form name="ListTimeSheets" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
-                            </container>
-                        </container>
+                        <include-screen name="ListTimesheets"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -185,12 +180,7 @@ under the License.
                                 <include-form name="AddMyWeeklyTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                             </container>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleMyTimesheets}</label></container>                                
-                            <container style="screenlet-body"> 
-                                <include-form name="ListTimeSheets" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
-                            </container>
-                        </container>
+                        <include-screen name="ListTimesheets"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -255,6 +245,18 @@ under the License.
                         </container>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListTimesheets">
+        <section>
+            <widgets>
+                <container style="screenlet">
+                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTimesheets} ${uiLabelMap.CommonOf} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} </label></container>                                
+                    <container style="screenlet-body"> 
+                        <include-form name="ListTimeSheets" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                    </container>
+                </container>
             </widgets>
         </section>
     </screen>
