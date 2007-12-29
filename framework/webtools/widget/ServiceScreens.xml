@@ -75,17 +75,26 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleJobList"/>
                 <set field="tabButtonItem" value="JobList"/>
-                <entity-condition entity-name="JobSandbox" list-name="jobs">
-                    <order-by field-name="-runTime"/>
-                    <!--<limit-range start="0" size="100"/>-->
-                </entity-condition>
+                <!--<limit-range start="0" size="100"/>-->
+                <service service-name="jobList" auto-field-map="parameters"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/service/jobs.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <include-menu location="component://webtools/widget/WebToolsMenus.xml" name="FindJobsTitleBar"/>
+                            <container style="screenlet-body">
+                                <include-form name="findJob" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <label style="head3">${uiLabelMap.PageTitleJobList}</label>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="JobList" location="component://webtools/webapp/webtools/service/ServiceForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

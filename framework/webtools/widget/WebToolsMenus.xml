@@ -19,7 +19,7 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+ xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
     <menu name="WebtoolsAppBar" default-menu-item-name="main" default-selected-style="selected" selected-menuitem-context-field-name="appButtonItem"
         menu-id="app-navigation" type="simple">
@@ -33,6 +33,26 @@ under the License.
         <menu-item name="stats" title="Statistics"><link target="StatsSinceStart"/></menu-item>
     </menu>
     
+    <menu name="FindJobsTitleBar" type="simple" menu-container-style="screenlet-title-bar">
+        <menu-item name="screenletTitle" align-style="head3">
+            <link text="${uiLabelMap.PageTitleFindJob}"/>
+        </menu-item>
+        <menu-item name="hideFields" title="${uiLabelMap.CommonHideFields}">
+            <condition>
+                <or>
+                    <if-compare value="N" field-name="parameters.hideFields" operator="equals" type="String"></if-compare>
+                    <if-empty field-name="parameters.hideFields"/>
+                </or>
+            </condition>
+            <link target="jobList?hideFields=Y&amp;${paramList}"/>
+        </menu-item>
+        <menu-item name="showFields" title="${uiLabelMap.CommonShowLookupFields}">
+            <condition>
+                <if-compare value="Y" field-name="parameters.hideFields" operator="equals" type="String"></if-compare>
+            </condition>
+            <link target="jobList?hideFields=N&amp;${paramList}"/>
+        </menu-item>
+    </menu>
 
 </menus>
     

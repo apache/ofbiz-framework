@@ -101,4 +101,23 @@ under the License.
           if the user has the ENTITY_MAINT permission.</description>
         <implements service="permissionInterface"/>
     </service>
+    <service name="jobList" engine="java"
+            location="org.ofbiz.webtools.WebToolsServices" invoke="findJobs" auth="true" use-transaction="false">
+        <description>Find Jobs</description>
+        <attribute name="serviceName" type="String" mode="IN" optional="true"/>
+        <attribute name="VIEW_INDEX" type="String" mode="IN" optional="true"/>
+        <attribute name="VIEW_SIZE" type="String" mode="IN" optional="true"/>
+        <attribute name="showAll" type="String" mode="IN" optional="true"/>
+        <attribute name="lookupFlag" type="String" mode="IN" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="viewIndex" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="lowIndex" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="highIndex" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="paramList" type="String" mode="OUT" optional="false"/>
+        <attribute name="jobs" type="List" mode="OUT" optional="false"/>        
+        <attribute name="jobListSize" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="filterJobsWithPendingStatus" type="String" mode="INOUT" optional="true"/>
+        <attribute name="filterJobsWithRunningStatus" type="String" mode="INOUT" optional="true"/>
+        <attribute name="filterJobsWithFinishedStatus" type="String" mode="INOUT" optional="true"/>
+    </service>
 </services>

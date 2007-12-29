@@ -71,6 +71,11 @@ import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.model.ModelViewEntity;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
@@ -795,5 +800,124 @@ public class WebToolsServices {
             resultMap.put("hasPermission", false);
         }
         return resultMap;
+    }
+    
+    public static Map findJobs(DispatchContext dctx, Map context) {
+        Map result = ServiceUtil.returnSuccess();
+        GenericDelegator delegator = dctx.getDelegator();
+        String serviceName = (String) context.get("serviceName");
+        
+        // set the page parameters
+        int viewIndex = 0;
+        try {
+            viewIndex = Integer.parseInt((String) context.get("VIEW_INDEX"));
+        } catch (Exception e) {
+            viewIndex = 0;
+        }
+        result.put("viewIndex", new Integer(viewIndex));
+
+        int viewSize = 20;
+        try {
+            viewSize = Integer.parseInt((String) context.get("VIEW_SIZE"));
+        } catch (Exception e) {
+            viewSize = 20;
+        }
+        result.put("viewSize", new Integer(viewSize));
+        
+//      get the lookup flag
+        String lookupFlag = (String) context.get("lookupFlag");
+        
+        // list to hold the parameters
+        List paramList = FastList.newInstance();
+        List conditions = FastList.newInstance();
+        List jobList = null;
+        int jobListSize = 0;
+        int lowIndex = 0;
+        int highIndex = 0;
+        EntityListIterator eli = null;
+                
+        if ("Y".equals(lookupFlag)) {
+            String showAll = (context.get("showAll") != null ? (String) context.get("showAll") : "N");
+            paramList.add("showAll=" + showAll);
+            paramList.add("lookupFlag=" + lookupFlag);
+            if (UtilValidate.isNotEmpty(serviceName)) {
+                paramList.add("serviceName=" + serviceName);
+                conditions.add(new EntityExpr("serviceName", true, EntityOperator.LIKE, "%"+serviceName+"%", true));
+            }
+            List filterExprs = FastList.newInstance();
+            String filterJobPending = (String) context.get("filterJobsWithPendingStatus");
+            String filterJobRunning = (String) context.get("filterJobsWithRunningStatus");
+            String filterJobFinished = (String) context.get("filterJobsWithFinishedStatus");
+            
+            if (filterJobPending == null) {
+            filterJobPending = "N";
+            }
+            if (filterJobRunning == null) {
+            filterJobRunning = "N";
+            }
+            if (filterJobFinished == null) {
+                filterJobFinished = "N";
+            }
+            if ("Y".equals(filterJobPending)) {
+                paramList.add("filterJobsWithPendingStatus=Y");
+                filterExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "SERVICE_PENDING"));
+                result.put("filterJobsWithPendingStatus", filterJobPending);
+            }
+            if ("Y".equals(filterJobRunning)) {
+                paramList.add("filterJobsWithRunningStatus=Y");
+                filterExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
+                result.put("filterJobsWithRunningStatus", filterJobRunning);
+            }
+            if ("Y".equals(filterJobFinished)) {
+                paramList.add("filterJobsWithFinishedStatus=Y");
+                filterExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "SERVICE_FINISHED"));
+                result.put("filterJobsWithFinishedStatus", filterJobFinished);
+            }
+            if (filterExprs.size() > 0) {
+                conditions.add(new EntityConditionList(filterExprs, EntityOperator.OR));
+            } 
+            // set distinct on so we only get one row per job
+            EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+            List orderBy = UtilMisc.toList("serviceName");
+            EntityCondition cond = null;
+            if (conditions.size() > 0) {
+                cond = new EntityConditionList(conditions, EntityOperator.AND);
+            }
+            if (cond != null || "Y".equals(showAll)) {
+                try {
+                    eli = delegator.findListIteratorByCondition("JobSandbox", cond, null, null, orderBy, findOpts);
+              
+                    // get the indexes for the partial list
+                    lowIndex = viewIndex * viewSize + 1;
+                    highIndex = (viewIndex + 1) * viewSize;
+                
+                    // get the partial list for this page
+                    jobList = eli.getPartialList(lowIndex, viewSize);
+              
+                    // attempt to get the full size
+                    eli.last();
+                    jobListSize = eli.currentIndex();
+                    if (highIndex > jobListSize) {
+                        highIndex = jobListSize;
+                    }
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    String errMsg = "Failure in job find operation, rolling back transaction: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                }
+            } else {
+                jobListSize = 0;
+            }
+        }
+       //  create the result map
+       if (jobList == null) jobList = FastList.newInstance();
+       String paramString = StringUtil.join(paramList, "&amp;");
+       result.put("paramList", (paramString != null ? paramString: ""));
+       result.put("lowIndex", new Integer(lowIndex));
+       result.put("highIndex", new Integer(highIndex));
+       result.put("jobs", jobList);
+       result.put("jobListSize", new Integer(jobListSize));
+       return result;
     }
 }
