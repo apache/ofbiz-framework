@@ -18,7 +18,7 @@ under the License.
 -->
 <#assign selected = page.tabButtonItem?default("void")>
 
-<div class="button-bar button-style-1">
+<div class="button-bar tab-bar">
   <ul>
     <li<#if selected = "ServiceList"> class="selected"</#if>><a href="<@ofbizUrl>serviceList</@ofbizUrl>">${uiLabelMap.WebtoolsServiceList}</a></li>
     <li<#if selected = "JobList"> class="selected"</#if>><a href="<@ofbizUrl>jobList</@ofbizUrl>">${uiLabelMap.WebtoolsJobList}</a></li>

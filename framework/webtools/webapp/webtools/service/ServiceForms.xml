@@ -51,4 +51,40 @@ under the License.
         <field name="_RUN_SYNC_"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field> 
     </form>
+	
+    <form name="findJob" type="single" target="jobList?hideFields=Y&amp;lookupFlag=Y" list-name="jobs">
+        <!--field name="lookupFlag"><hidden value="Y"/></field-->
+        <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}"><text/></field>
+        <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
+        <field name="filterJobsWithRunningStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsRunningStatus}"><check/></field>
+        <field name="filterJobsWithRunningStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsRunningStatus}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
+        <field name="filterJobsWithPendingStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsPendingStatus}"><check/></field>
+        <field name="filterJobsWithPendingStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsPendingStatus}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
+        <field name="filterJobsWithFinishedStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsFinishedStatus}"><check/></field>
+        <field name="filterJobsWithFinishedStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsFinishedStatus}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
+        <field name="" widget-style="buttontext">
+            <hyperlink target="jobList?showAll=Y&amp;hideFields=Y&amp;lookupFlag=Y" description="${uiLabelMap.CommonShowAllRecords}"/>
+        </field>
+        <field name="" widget-style="buttontext" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
+    </form>
+	
+    <form name="JobList" title="" target="" type="list" list-name="jobs"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        paginate-target="jobList" override-list-size="${jobListSize}">
+        <field name="jobName" title="${uiLabelMap.WebtoolsJob}"><display/></field>
+        <field name="jobId" title="${uiLabelMap.CommonId}"><display/></field>
+        <field name="poolId" title="${uiLabelMap.WebtoolsPool}"><display/></field>
+        <field name="runTime" title="${uiLabelMap.WebtoolsRunTime}"><display/></field>
+        <field name="startDateTime" title="${uiLabelMap.CommonStartDateTime}"><display/></field>
+        <field name="serviceName" title="${uiLabelMap.WebtoolsService}">
+            <hyperlink also-hidden="false" description="${serviceName}" target="availableServices?sel_service_name=${serviceName}"/>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="cancelDateTime" title="${uiLabelMap.CommonEndDateTime}"><display/></field>
+        <field name="cancelButton" title="" use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob?jobId=${jobId}"/>
+        </field>
+    </form>
 </forms>
