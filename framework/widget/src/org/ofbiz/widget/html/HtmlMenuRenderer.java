@@ -356,16 +356,21 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
     public void renderLink(StringBuffer buffer, Map context, ModelMenuItem.Link link) {
-        // open tag
-        buffer.append("<a");
-        String id = link.getId(context);
-        if (UtilValidate.isNotEmpty(id)) {
-            buffer.append(" id=\"");
-            buffer.append(id);
-            buffer.append("\"");
-        }
-        
         ModelMenuItem menuItem = link.getLinkMenuItem();
+        String target = link.getTarget(context);
+        if (menuItem.getDisabled()) {
+            target = null;
+        }
+        if (UtilValidate.isNotEmpty(target)) {
+            // open tag
+            buffer.append("<a");
+            String id = link.getId(context);
+            if (UtilValidate.isNotEmpty(id)) {
+                buffer.append(" id=\"");
+                buffer.append(id);
+                buffer.append("\"");
+            }
+        
 /*
         boolean isSelected = menuItem.isSelected(context);
         
@@ -392,22 +397,17 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
 */
         String name = link.getName(context);
-        if (UtilValidate.isNotEmpty(name)) {
-            buffer.append(" name=\"");
-            buffer.append(name);
-            buffer.append("\"");
-        }
-        String targetWindow = link.getTargetWindow(context);
-        if (UtilValidate.isNotEmpty(targetWindow)) {
-            buffer.append(" target=\"");
-            buffer.append(targetWindow);
-            buffer.append("\"");
-        }
-        String target = link.getTarget(context);
-        if (menuItem.getDisabled()) {
-            target = null;
-        }
-        if (UtilValidate.isNotEmpty(target)) {
+            if (UtilValidate.isNotEmpty(name)) {
+                buffer.append(" name=\"");
+                buffer.append(name);
+                buffer.append("\"");
+            }
+            String targetWindow = link.getTargetWindow(context);
+            if (UtilValidate.isNotEmpty(targetWindow)) {
+                buffer.append(" target=\"");
+                buffer.append(targetWindow);
+                buffer.append("\"");
+            }
             buffer.append(" href=\"");
             String urlMode = link.getUrlMode();
             String prefix = link.getPrefix(context);
@@ -427,7 +427,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 } else {
                     buffer.append(target);
                 }
-            } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
+            } else if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 StringBuffer newURL = new StringBuffer();
                 ContentUrlTag.appendContentPrefix(req, newURL);
                 newURL.append(target);
@@ -435,10 +435,8 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             } else {
                 buffer.append(target);
             }
-
-            buffer.append("\"");
+            buffer.append("\">");
         }
-        buffer.append(">");
         
         // the text
         Image img = link.getImage();
@@ -447,8 +445,10 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         else
             renderImage(buffer, context, img);
         
-        // close tag
-        buffer.append("</a>");
+        if (UtilValidate.isNotEmpty(target)) {
+            // close tag
+            buffer.append("</a>");
+        }
     }
 
     public void renderImage(StringBuffer buffer, Map context, ModelMenuItem.Image image) {
