@@ -71,7 +71,6 @@ under the License.
     </form>
 	
     <form name="JobList" title="" target="" type="list" list-name="jobs"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
         paginate-target="jobList" override-list-size="${jobListSize}">
         <field name="jobName" title="${uiLabelMap.WebtoolsJob}"><display/></field>
         <field name="jobId" title="${uiLabelMap.CommonId}"><display/></field>
