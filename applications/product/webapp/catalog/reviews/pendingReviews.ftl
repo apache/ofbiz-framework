@@ -16,73 +16,85 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<h1>${uiLabelMap.ProductReviewsPendingApproval}</h1>
-<br/>
-
-<#if !pendingReviews?has_content>
-  <h3>${uiLabelMap.CommonNo} ${uiLabelMap.ProductReviewsPendingApproval}</h3>
-</#if>
-
-<#list pendingReviews as review>
-  <form name="prr_${review.productReviewId}" method="post" action="<@ofbizUrl>updateProductReview</@ofbizUrl>">
-    <input type="hidden" name="productReviewId" value="${review.productReviewId}">
-    <table border="0" cellpadding="2">
-      <#assign postedUserLogin = review.getRelatedOne("UserLogin")>
-      <#assign postedPerson = postedUserLogin.getRelatedOne("Person")>
-      <tr>
-        <td colspan="2"><hr class="sepbar"></td>
-      </tr>
-      <tr>
-        <td><div class="tableheadtext">${uiLabelMap.CommonPostedDate}:</div></td>
-        <td><div class="tabletext">${review.postedDateTime?if_exists}</div></td>
-      </tr>
-      <tr>
-        <td><div class="tableheadtext">${uiLabelMap.CommonPostedBy}:</div>
-        <td><div class="tabletext">${postedPerson.firstName} ${postedPerson.lastName}</div></td>
-      </tr>
-      <tr>
-        <td><div class="tableheadtext">${uiLabelMap.ProductRating}:</div>
-        <td>
-          <input type="text" name="productRating" class="textBox" size="5" value="${review.productRating?if_exists?string}">
-        </td>
-      </tr>
-      <tr>
-        <td><div class="tableheadtext">${uiLabelMap.CommonIsAnonymous}:</div></td>
-        <td>
-          <div class="tabletext">
-            <select name="postedAnonymous" class="selectBox">
-              <#if (((review.postedAnonymous)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
-              <#if (((review.postedAnonymous)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
-              <option></option>
-              <option value="N">${uiLabelMap.CommonN}</option>
-			  <option value="Y">${uiLabelMap.CommonY}</option>
-            </select>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><div class="tableheadtext">${uiLabelMap.CommonStatus}:</div></td>
-        <td>
-          <div class="tabletext">
-            <select name="statusId" class="selectBox">
-              <option value="PRR_PENDING">${uiLabelMap.PendingReviewPendingApproval}</option>
-              <option value="PRR_APPROVED">${uiLabelMap.PendingReviewApprove}</option>
-              <option value="PRR_DELETED">${uiLabelMap.PendingReviewDelete}</option>
-            </select>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><div class="tableheadtext">${uiLabelMap.ProductReviews}:</div>
-        <td>
-          <textarea class="textAreaBox" name="productReview" rows="5" cols="40" wrap="hard">${review.productReview?if_exists}</textarea>
-        </td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td><input type="submit" value="${uiLabelMap.CommonSave}">
-      </tr>
-    </table>
-  </form>
-</#list>
+<script language="JavaScript" type="text/javascript">
+    function changeReviewStatus(statusId) {
+        document.selectAllForm.statusId.value = statusId;
+        document.selectAllForm.submit();
+    }
+</script>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductReviewsPendingApproval}</h3>
+    </div>
+    <div class="screenlet-body"> 
+        <#if !pendingReviews?has_content>
+            <h3>${uiLabelMap.ProductReviewsNoPendingApproval}</h3>
+        <#else>
+            <form method='POST' action='<@ofbizUrl>updateProductReview</@ofbizUrl>' name="selectAllForm">
+                <input type="hidden" name="_useRowSubmit" value="Y">
+                <input type="hidden" name="_checkGlobalScope" value="Y">
+                <input type="hidden" name="statusId" value="">
+                <div align="right">
+                    <input type="button" value="${uiLabelMap.CommonUpdate}" onClick="javascript:changeReviewStatus('PRR_PENDING')">
+                    <input type="button" value="${uiLabelMap.PendingReviewUpdateAndApprove}" onClick="javascript:changeReviewStatus('PRR_APPROVED')">
+                    <input type="button" value="${uiLabelMap.CommonDelete}" onClick="javascript:changeReviewStatus('PRR_DELETED')">
+                </div>
+                <table cellspacing="0" class="basic-table">
+                  <tr class="header-row">
+                    <td><b>${uiLabelMap.PendingReviewDate}</b></td>
+                    <td><b>${uiLabelMap.PendingReviewBy}</b></td>
+                    <td><b>${uiLabelMap.CommonIsAnonymous}</b></td>
+                    <td><b>${uiLabelMap.ProductProductId}</b></td>
+                    <td><b>${uiLabelMap.ProductRating}</b></td>
+                    <td><b>${uiLabelMap.CommonStatus}</b></td>
+                    <td><b>${uiLabelMap.ProductReviews}</b></td>
+                    <td align="right">
+                        <span class="label">${uiLabelMap.CommonAll}</span>
+                        <input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');">
+                    </td>
+                  </tr>
+                <#assign rowCount = 0>
+                <#assign rowClass = "2">
+                <#list pendingReviews as review>
+                <#assign postedUserLogin = review.getRelatedOne("UserLogin")>
+                <#assign postedPerson = postedUserLogin.getRelatedOne("Person")>
+                  <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                      <td>
+                          <input type="hidden" name="productReviewId_o_${rowCount}" value="${review.productReviewId}">
+                          ${review.postedDateTime?if_exists}
+                      </td>
+                      <td>${postedPerson.firstName} ${postedPerson.lastName}</td>
+                      <td>
+                          <select name='postedAnonymous_o_${rowCount}'>
+                              <option>${review.postedAnonymous?default("N")}</option>
+                              <option value="${review.postedAnonymous?default("N")}">----</option>
+                              <option value="N">${uiLabelMap.CommonN}</option>
+                              <option value="Y">${uiLabelMap.CommonY}</option>
+                          </select>
+                      </td>
+                      <td>${review.getRelatedOne("Product").internalName}<br/><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${review.productId}</@ofbizUrl>">${review.productId}</a></td>
+                      <td>
+                          <input type="text" size='3' name="productRating_o_${rowCount}" value="${review.productRating?if_exists?string}">
+                      </td>
+                      <td>${review.getRelatedOne("StatusItem").get("description", locale)}</td>
+                      <td>
+                         <textarea name="productReview_o_${rowCount}" rows="5" cols="30" wrap="hard">${review.productReview?if_exists}</textarea>
+                      </td>
+                      <td align="right">
+                        <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');">
+                      </td>
+                  </tr>
+                <#assign rowCount = rowCount + 1>
+                <#-- toggle the row color -->
+                <#if rowClass == "2">
+                    <#assign rowClass = "1">
+                <#else>
+                    <#assign rowClass = "2">
+                </#if> 
+                </#list>
+                <input type="hidden" name="_rowCount" value="${rowCount}">
+                </table>
+            </form>
+        </#if>
+    </div>
+</div>
