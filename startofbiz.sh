@@ -32,7 +32,7 @@ rm -f $OFBIZ_LOG
 ADMIN="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
 #DEBUG="-Dsun.rmi.server.exceptionTrace=true"
 #RMIIF="-Djava.rmi.server.hostname=<set your IP address here>"
-MEMIF="-Xms128M -Xmx256M"
+MEMIF="-Xms256M -Xmx512M"
 LANGUAGE="-Duser.language=en"
 VMARGS="$MEMIF $DEBUG $RMIIF $ADMIN $LANGUAGE"
 
