@@ -27,7 +27,7 @@
         <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProject"/></menu-item>
         <menu-item name="task" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask"/></menu-item>
         <menu-item name="resources" title="${uiLabelMap.ProjectMgrResources}"><link target="FindResource"/></menu-item>
-        <menu-item name="timesheet" title="${uiLabelMap.Timesheet}"><link target="FindTimeSheet?findAll=N"/></menu-item>
+        <menu-item name="timesheet" title="${uiLabelMap.Timesheet}"><link target="FindTimeSheet"/></menu-item>
         <menu-item name="SkillType" title="${uiLabelMap.ProjectMgrSkillType}"><link target="findSkillTypes"/></menu-item>
         <!--menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item-->
         <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
@@ -172,15 +172,35 @@
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_CANCELLED"/>
         </menu-item>
     </menu>
-    <menu name="TimesheetTabBar" menu-container-style="button-bar tab-bar" default-menu-item-name="edittimesheet" default-selected-style="selected">
-        <menu-item name="edittimesheet" title="${uiLabelMap.TimesheetTimsheetEdit}">
-            <link target="EditTimeSheet?timesheetId=${timesheetId}"/>
+    <menu name="TimesheetTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+        <menu-item name="findtimesheet" title="${uiLabelMap.CommonFind}">
+            <link target="FindTimeSheet"/>
         </menu-item>
-        <menu-item name="TimesheetRoles" title="${uiLabelMap.PartyParties}">
-            <link target="EditTimesheetRoles?timesheetId=${timesheetId}"/>
+        <menu-item name="addTimesheet" title="${uiLabelMap.CommonAdd}">
+            <link target="addWeeklyTimesheet"/>
         </menu-item>
-        <menu-item name="TimesheetEntries" title="${uiLabelMap.CommonEntries}">
-            <link target="EditTimesheetEntries?timesheetId=${timesheetId}"/>
+    </menu>
+    <menu name="TimesheetSubTabBar" menu-container-style="button-bar button-style-2" default-menu-item-name="StatustoProgress">  
+        <menu-item name="addTimesheet" title="${uiLabelMap.CommonNew}">
+            <link target="addWeeklyTimesheet"/>
+        </menu-item>
+        <menu-item name="TimeSheetStatustoComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="timesheet"/></not>
+                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                </and>
+            </condition>
+            <link target="TimeSheetStatustoComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+        </menu-item>
+        <menu-item name="TimeSheetStatustoProgress" title="Set status to In Progress">
+            <condition>
+                <and>
+                    <not><if-empty field-name="timesheet"/></not>
+                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="TimeSheetStatustoProgress?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_IN_PROCESS"/>
         </menu-item>
     </menu>
     <menu name="MyTimeSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  

@@ -24,13 +24,14 @@
         <field name="timesheetId"><hidden/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ProjectAndPhaseAndTask" description="${workEffortName} -- ${phaseName} -- ${projectName}">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} -- ${phaseName} -- ${projectName}">
                     <entity-constraint name="workEffortTypeId" operator="not-equals" value="TASK_TEMPLATE"/>
+                    <entity-constraint name="partyId" env-name="timesheet.partyId"/>
                     <entity-order-by field-name="projectName"/>
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
-                <sub-hyperlink target="taskView?workEffortId=${workEffortId}" link-style="buttontext" description="${workEffortId}"/>
+                <sub-hyperlink target="taskView?workEffortId=${workEffortId}" link-style="buttontext" description="${bsh:workEffortId!=&quot;Totals&quot;?workEffortId:void}"/>
             </drop-down>
         </field>
         <field name="0" parameter-name="hoursDay0" title="Sun"><text size="5"/></field>
@@ -56,24 +57,73 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="hours"><display/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
-    </form>
-    <form name="ListFindTimeSheet" type="list" list-name="timeSheetList" paginate-target="FindTimeSheet">
-        <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${timesheetId}" target="EditTimeSheet?timesheetId=${timesheetId}"/>
+        <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
+            <hyperlink target="TimesheetToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
+                description="${uiLabelMap.CommonStatustoComplete}" also-hidden="false"/>
         </field>
-        <field name="partyId" title="${uiLabelMap.PartyParty}"><display/></field>
-        <field name="clientPartyId" title="${uiLabelMap.FormFieldTitle_clientPartyId}"><display/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
+    </form>
+    <form name="FindTimeSheet" target="FindTimeSheet" title="" type="single">
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="newTimesheetId" parameter-name="timesheetId"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="comments"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName}">
+                    <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="lastName"/>
+                    <entity-order-by field-name="groupName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" value="TIMESHEET_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-find /></field>
+        <field name="${uiLabelMap.CommonFind}" title="${uiLabelMap.CommonFind}"><submit/></field>    
+    </form>
+    <form name="ListFindTimeSheet" type="list" list-name="listIt" paginate-target="FindTimeSheet">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Timesheet"/>
+                <field-map field-name="orderBy" value="fromDate DESC"/>
+            </service>
+        </actions>
+        <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${timesheetId}" target="ShowTimesheet?timesheetId=${timesheetId}"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteTimeSheet?timesheetId=${timesheetId}&amp;findAll=Y"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
+            <hyperlink target="TimesheetToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
+                description="${uiLabelMap.CommonStatustoComplete}" also-hidden="false"/>
         </field>
     </form>
     
-    <form name="AddWeeklyTimesheet" type="single" target="createWeeklyTimesheet" title="">
+    <form name="AddMyWeeklyTimesheet" type="single" target="createMyWeeklyTimesheet" title="">
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
+        <field entry-name="dummy" name="requiredDate"><date-time type="date"/></field>
+        <field name="addButton"><submit/></field>
+    </form>
+    
+    <form name="AddWeeklyTimesheet" type="single" target="createWeeklyTimesheet" title="">
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName}">
+                    <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="lastName"/>
+                    <entity-order-by field-name="groupName"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field entry-name="dummy" name="requiredDate"><date-time type="date"/></field>
         <field name="addButton"><submit/></field>
     </form>

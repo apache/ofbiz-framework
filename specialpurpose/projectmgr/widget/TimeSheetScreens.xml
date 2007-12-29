@@ -26,20 +26,71 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindTimeSheet"/>
                 <set field="headerItem" value="timesheet"/>
                 <set field="labelTitleProperty" value="ProjectMgrFindTimeSheet"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListTimeSheetByDateRange.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>                        
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/listTimeSheetByDateRange.ftl"/></html>
-                                </platform-specific>
-                                <container style="button-bar"><link target="EditTimeSheet" text="${uiLabelMap.TimesheetCreate}" style="buttontext"/></container>
-                                <include-form name="ListFindTimeSheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">Find TimeSheet</label></container>
+                                    <container style="screenlet-body">
+                                        <include-form name="FindTimeSheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">TimeSheet Listing</label></container>
+                                    <container style="screenlet-body">
+                                        <include-form name="ListFindTimeSheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                    </container>                            
+                                </container>
                             </widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ShowTimesheet">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindTimeSheet"/>
+                <set field="headerItem" value="timesheet"/>
+                <set field="tabButtonItem" value="editTimesheet"/>
+                <set field="labelTitleProperty" value="ProjectMgrTimeSheetMyTime"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                  
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber}</label></container>                                
+                            <container style="screenlet-body"> 
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                                    </condition>          
+                                    <widgets>
+                                        <include-form name="WeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <include-form name="EditWeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                    </fail-widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddATimesheet}</label></container>                                
+                            <container style="screenlet-body"> 
+                                <include-form name="AddWeeklyTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTimesheets} ${uiLabelMap.CommonOf} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} </label></container>                                
+                            <container style="screenlet-body"> 
+                                <include-form name="ListTimeSheets" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -63,6 +114,34 @@ under the License.
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditTimesheet} # ${timesheet.timesheetId}</label></container>                                
                                     <container style="screenlet-body"> 
                                         <include-form name="EditTimesheet" location="component://workeffort/widget/TimesheetForms.xml"/>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="addWeeklyTimesheet">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindTimesheet"/>
+                <set field="headerItem" value="timesheet"/>
+                <set field="tabButtonItem" value="addtimesheet"/>
+                <set field="labelTitleProperty" value="PageTitleAddTimesheet"/>
+                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                  
+                        <section>          
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddTimesheet}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="AddWeeklyTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                                     </container>
                                 </container>
                             </widgets>
@@ -103,11 +182,11 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddATimesheet}</label></container>                                
                             <container style="screenlet-body"> 
-                                <include-form name="AddWeeklyTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
-                                </container>
+                                <include-form name="AddMyWeeklyTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                            </container>
                         </container>
                         <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleMyTimesheets} # ${timesheet.timesheetId}</label></container>                                
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleMyTimesheets}</label></container>                                
                             <container style="screenlet-body"> 
                                 <include-form name="ListTimeSheets" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
                             </container>
