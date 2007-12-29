@@ -53,11 +53,17 @@ if (timesheetId != null) {
         if (!UtilValidate.isEmpty(timesheets)) {
             timesheet = timesheets.get(0);
         } else {
-            result = dispatcher.runSync("createTimesheetForThisWeek", 
-                UtilMisc.toMap("userLogin", userLogin, "partyId", partyId));
-            timesheet = delegator.findByPrimaryKey("Timesheet", UtilMisc.toMap("timesheetId", result.get("timesheetId")));
+            if (security.hasPermission("WORKEFFORTMGR_CREATE", session)) {
+            	result = dispatcher.runSync("createTimesheetForThisWeek", 
+                	UtilMisc.toMap("userLogin", userLogin, "partyId", partyId));
+                }
+            if (result != void && result.get("timesheetId") != null) {
+            	timesheet = delegator.findByPrimaryKey("Timesheet", UtilMisc.toMap("timesheetId", result.get("timesheetId")));
+            }
         }
 }
+
+if (timesheet == null) return;
 
 context.put("timesheet", timesheet);
 context.put("weekNumber", UtilDateTime.weekNumber(timesheet.getTimestamp("fromDate")));
