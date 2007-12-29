@@ -1906,7 +1906,7 @@ under the License.
             <field field-name="payment" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
         
-        <if-compare value="true" field-name="isDisbursement" operator="equals">
+        <if-compare value="true" field-name="isDisbursement" operator="equals" type="Boolean">
             <set field="organizationPartyId" from-field="payment.partyIdFrom"/>
             <set field="partyId" from-field="payment.partyIdTo"/>
             <set field="roleTypeId" value="BILL_FROM_VENDOR"/>
@@ -1930,11 +1930,6 @@ under the License.
             <entity-and entity-name="PaymentApplication" list-name="paymentApplications">
                 <field-map field-name="paymentId" env-name="payment.paymentId"/> 
             </entity-and>
-            <entity-one entity-name="TaxAuthorityGlAccount" value-name="taxAuthorityGlAccount">
-                <field-map field-name="organizationPartyId" value="organizationPartyId" />
-                <field-map field-name="taxAuthGeoId" env-name="paymentApplications.taxAuthGeoId"/>
-                <field-map field-name="taxAuthPartyId" value="partyId"/>
-            </entity-one>         
             <iterate list-name="paymentApplications" entry-name="paymentApplication">
                 <!-- Debit -->
                 <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
@@ -1947,6 +1942,11 @@ under the License.
                     <set field="debitEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>   
                 <else>
                     <if-not-empty field-name="paymentApplication.taxAuthGeoId">
+                        <entity-one entity-name="TaxAuthorityGlAccount" value-name="taxAuthorityGlAccount">
+                            <field-map field-name="organizationPartyId" env-name="organizationPartyId" />
+                            <field-map field-name="taxAuthGeoId" env-name="paymentApplication.taxAuthGeoId"/>
+                            <field-map field-name="taxAuthPartyId" env-name="partyId"/>
+                        </entity-one>
                         <set field="debitEntry.glAccountId" from-field="taxAuthorityGlAccount.glAccountId"/> 
                     <else>
                         <set field="debitEntry.glAccountId" from-field="payment.overrideGlAccountId"/>   
@@ -1956,7 +1956,7 @@ under the License.
                 </if-not-empty>
                 <calculate field-name="amountAppliedTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="add">
-                        <calcop operator="get" field-name="amountAppliedTotal "/>
+                        <calcop operator="get" field-name="amountAppliedTotal"/>
                         <calcop operator="get" field-name="paymentApplication.amountApplied"/>
                     </calcop>
                 </calculate>
@@ -1968,7 +1968,7 @@ under the License.
                     <calcop operator="get" field-name="amountAppliedTotal"/>
                 </calcop>
             </calculate>
-            <if-compare field-name="amount" operator="greater" value="0">
+            <if-compare field-name="amount" operator="greater" value="0" type="BigDecimal">
                 <make-value entity-name="AcctgTransEntry" value-name="debitEntryWithDiffAmount"/>
                 <set field="debitEntryWithDiffAmount.debitCreditFlag" value="D"/>
                 <set field="debitEntryWithDiffAmount.origAmount" from-field="amount"/>
