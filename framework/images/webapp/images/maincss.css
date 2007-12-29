@@ -1184,6 +1184,9 @@ color: #ffffff;
 height: 1%; /* IE fix */
 }
 
+.screenlet-title-bar .head1,
+.screenlet-title-bar .head2,
+.screenlet-title-bar .head3,
 .screenlet-title-bar h1,
 .screenlet-title-bar h2,
 .screenlet-title-bar h3 {
