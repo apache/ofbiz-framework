@@ -51,7 +51,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="ShowTimesheet">
+    <screen name="Timesheet">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindTimeSheet"/>
@@ -147,13 +147,14 @@ under the License.
         </section>
     </screen>
     
-    <screen name="MyTimesheets">
+    <screen name="MyTimesheet">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindTimesheet"/>
                 <set field="tabButtonItem" value="edittimesheet"/>
                 <set field="labelTitleProperty" value="PageTitleAddTimesheet"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
+                <set field="my" value="My"/><!-- change link in list -->
             </actions>
             <widgets>
                 <decorator-screen name="CommonMyTimeDecorator" location="${parameters.mainDecoratorLocation}">

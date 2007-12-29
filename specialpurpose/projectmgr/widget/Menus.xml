@@ -23,7 +23,7 @@
     <menu name="ProjectMgrAppBar" default-menu-item-name="task" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.ProjectManagerApplication}" menu-container-style="button-bar tab-bar">
     
         <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
-        <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheets"/></menu-item>
+        <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheet"/></menu-item>
         <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProject"/></menu-item>
         <menu-item name="task" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask"/></menu-item>
         <menu-item name="resources" title="${uiLabelMap.ProjectMgrResources}"><link target="FindResource"/></menu-item>

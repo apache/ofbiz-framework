@@ -47,9 +47,9 @@
         <field name="_rowSubmit"><hidden value="Y"/></field>
     </form>
 
-    <form name="ListTimeSheets" type="list" list-name="timesheets" paginate-target="EditTimesheet">
+    <form name="ListTimeSheets" type="list" list-name="timesheets" paginate-target="FindTimeSheet">
         <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${timesheetId}" target="MyTimesheets?timesheetId=${timesheetId}"/>
+            <hyperlink also-hidden="false" description="${timesheetId}" target="${my}Timesheet?timesheetId=${timesheetId}"/>
         </field>
         <field name="weekNumber"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
@@ -58,7 +58,7 @@
         <field name="hours"><display/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="TimesheetToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
+            <hyperlink target="${my}StatusToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
                 description="${bsh:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?&quot;To complete&quot;:&quot;&quot;}" also-hidden="false"/>
         </field>
     </form>
@@ -83,7 +83,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate"><date-find /></field>
+        <field name="fromDate"><date-find/></field>
         <field name="${uiLabelMap.CommonFind}" title="${uiLabelMap.CommonFind}"><submit/></field>    
     </form>
     <form name="ListFindTimeSheet" type="list" list-name="listIt" paginate-target="FindTimeSheet">
@@ -95,7 +95,7 @@
             </service>
         </actions>
         <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${timesheetId}" target="ShowTimesheet?timesheetId=${timesheetId}"/>
+            <hyperlink also-hidden="false" description="${timesheetId}" target="Timesheet?timesheetId=${timesheetId}"/>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
@@ -116,7 +116,7 @@
     
     <form name="AddWeeklyTimesheet" type="single" target="createWeeklyTimesheet" title="">
         <field name="partyId" title="${uiLabelMap.PartyParty}">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="true" no-current-selected-key="${timesheet.partyId}">
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName}">
                     <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="lastName"/>
