@@ -57,9 +57,9 @@ public class TaxAuthorityServices {
     public static final BigDecimal ZERO_BASE = BigDecimal.ZERO; 
     public static final BigDecimal ONE_BASE = BigDecimal.ONE; 
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000"); 
-    public static int salestaxFinalDecimals=UtilNumber.getBigDecimalScale("salestax.final.decimals");
-    public static int salestaxCalcDecimals=UtilNumber.getBigDecimalScale("salestax.calc.decimals");
-    public static int salestaxRounding=UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
+    public static int salestaxFinalDecimals = UtilNumber.getBigDecimalScale("salestax.final.decimals");
+    public static int salestaxCalcDecimals = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
+    public static int salestaxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
 
     public static Map rateProductTaxCalcForDisplay(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -184,11 +184,11 @@ public class TaxAuthorityServices {
             // this is an add and not an addAll because we want a List of Lists of GenericValues, one List of Adjustments per item
             itemAdjustments.add(taxList);
         }
-        if (orderShippingAmount.doubleValue() > 0) {
+        if (orderShippingAmount != null && orderShippingAmount.compareTo(BigDecimal.ZERO) > 0) {
             List taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId, taxAuthoritySet, ZERO_BASE, ZERO_BASE, orderShippingAmount, ZERO_BASE);
             orderAdjustments.addAll(taxList);
         }
-        if(orderPromotionsAmount!=null && orderPromotionsAmount.doubleValue() != 0){
+        if (orderPromotionsAmount != null && orderPromotionsAmount.compareTo(BigDecimal.ZERO) != 0){
             List taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId, taxAuthoritySet, ZERO_BASE, ZERO_BASE, ZERO_BASE, orderPromotionsAmount);
             orderAdjustments.addAll(taxList);
         }
@@ -332,7 +332,7 @@ public class TaxAuthorityServices {
                     taxable = taxable.add(orderPromotionsAmount);
                 }
                 
-                if (taxable.doubleValue() == 0) {
+                if (taxable.compareTo(BigDecimal.ZERO) == 0) {
                     // this should make it less confusing if the taxable flag on the product is not Y/true, and there is no shipping and such
                     continue;
                 }
