@@ -223,6 +223,9 @@ under the License.
                 <set field="headerItem" value="timesheet"/>
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
                 <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="PartyNameView" value-name="partyName">
+                    <field-map field-name="partyId" env-name="timesheet.partyId"/>
+                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -232,14 +235,9 @@ under the License.
                                 <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <section>
-                                    <condition><not><if-empty field-name="timesheetId"/></not></condition>
-                                    <widgets>
-                                        <include-menu name="TimesheetTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                                        <container><label style="head1">${uiLabelMap.TimesheetTimesheetId}: ${timesheetId}</label></container>
-                                    </widgets>
-                                </section>
-                                
+                                <!--include-menu name="TimesheetTabBar" location="component://projectmgr/widget/Menus.xml"/-->
+                                <include-menu name="TimesheetSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                                <container><label style="head1">${uiLabelMap.TimesheetTimesheetId}: ${timesheetId} ${uiLabelMap.CommonFrom}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${timesheet.partyId}]</label></container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

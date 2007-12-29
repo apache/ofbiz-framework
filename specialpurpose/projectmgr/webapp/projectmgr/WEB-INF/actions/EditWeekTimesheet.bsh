@@ -31,25 +31,30 @@ import java.sql.Timestamp;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-timesheetId = parameters.get("timesheetId");
-userLogin = parameters.get("userLogin");
 delegator = parameters.get("delegator");
 locale = parameters.get("locale");
 timeZone = parameters.get("timeZone");
 
+partyId = parameters.get("partyId");
+if (partyId == null) {
+	partyId = parameters.get("userLogin").getString("partyId");
+}
+
 // show the requested timesheet, otherwise the current , if not exist create
 timesheet = null;
+timesheetId = parameters.get("timesheetId");
 if (timesheetId != null) {
         timesheet = delegator.findByPrimaryKey("Timesheet", UtilMisc.toMap("timesheetId", timesheetId));
+        partyId = timesheet.getString("partyId"); // use the party from this timesheet
     } else { 
         start = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp());
         timesheets = delegator.findByAnd("Timesheet", 
-            UtilMisc.toMap("partyId", userLogin.getString("partyId"), "fromDate", start));
+            UtilMisc.toMap("partyId", partyId, "fromDate", start));
         if (!UtilValidate.isEmpty(timesheets)) {
             timesheet = timesheets.get(0);
         } else {
             result = dispatcher.runSync("createTimesheetForThisWeek", 
-                UtilMisc.toMap("userLogin", userLogin, "partyId", userLogin.getString("partyId")));
+                UtilMisc.toMap("userLogin", userLogin, "partyId", partyId));
             timesheet = delegator.findByPrimaryKey("Timesheet", UtilMisc.toMap("timesheetId", result.get("timesheetId")));
         }
 }
@@ -153,9 +158,9 @@ if (lastWorkEffortId != null) {
 }
 context.put("timeEntries", entries);
    
-
+// get all timesheets of this user, including the planned hours
 timesheetsDb = delegator.findByAnd("Timesheet", 
-            UtilMisc.toMap("partyId", userLogin.getString("partyId")), 
+            UtilMisc.toMap("partyId", partyId), 
             UtilMisc.toList("fromDate DESC"));
 timesheets = new LinkedList(); 
 ts = timesheetsDb.iterator();
@@ -177,4 +182,9 @@ while(ts.hasNext()) {
     timesheets.add(timesheet);
 }
 context.put("timesheets", timesheets);
+
+// get the user names
+context.put("partyNameView", delegator.findByPrimaryKey("PartyNameView", UtilMisc.toMap("partyId", partyId))); 
+
+
  
