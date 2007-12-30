@@ -30,6 +30,7 @@ under the License.
       <li<#if selected == "stats"> class="selected"</#if>><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>">${uiLabelMap.WebtoolsStatsSinceServerStart}</a></li>
       <li<#if selected == "jobs"> class="selected"</#if>><a href="<@ofbizUrl>jobList</@ofbizUrl>">${uiLabelMap.WebtoolsJobList}</a></li>
       <li<#if selected == "cache"> class="selected"</#if>><a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>">${uiLabelMap.WebtoolsCacheMaintenance}</a></li>
+      <li<#if selected == "logging"> class="selected"</#if>><a href="<@ofbizUrl>LogView</@ofbizUrl>">${uiLabelMap.WebtoolsLogging}</a></li>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
       <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>

@@ -339,15 +339,11 @@ under the License.
                 <set field="packagesList" from-field="result.packagesList"/>
             </actions>
             <widgets> 
-                <section>
-                    <widgets>
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://webtools/webapp/webtools/entity/EntityRefReport.fo.ftl"/>
-                            </html>
-                        </platform-specific>
-                    </widgets>
-                </section>                               
+                <platform-specific>
+                    <html>
+                        <html-template location="component://webtools/webapp/webtools/entity/EntityRefReport.fo.ftl"/>
+                    </html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>
@@ -431,4 +427,5 @@ under the License.
         </section>
     </screen>
 </screens>
+
 

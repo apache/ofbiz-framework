@@ -54,5 +54,15 @@ under the License.
         </menu-item>
     </menu>
 
+    <menu name="LoggingTabBar" type="simple" menu-container-style="button-bar tab-bar"
+        default-selected-style="selected" selected-menuitem-context-field-name="logMenuItem">
+        <menu-item name="viewLog" title="${uiLabelMap.WebtoolsViewLog}">
+            <link target="LogView"/>
+        </menu-item>
+        <menu-item name="logConfiguration" title="${uiLabelMap.PageTitleLogConfiguration}">
+            <link target="LogConfiguration"/>
+        </menu-item>
+    </menu>
+
 </menus>
     
