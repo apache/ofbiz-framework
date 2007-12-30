@@ -67,6 +67,6 @@ under the License.
     <field name="additivity" title="${uiLabelMap.WebtoolsLoggerAdditivity}">
       <check/>
     </field>
-    <field name="rowSubmit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
+    <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
   </form>
 </forms>
