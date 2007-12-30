@@ -31,23 +31,64 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="CATALOG" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
-                                <container>
-                                    <link target="EditSubscription" text="${uiLabelMap.ProductNewSubscription}" style="buttontext"/>
-                                    <link target="FindSubscriptionResource" text="${uiLabelMap.PageTitleFindSubscriptionResource}" style="buttontext"/>
+                        <container style="screenlet">
+                               <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <section>
+                                        <condition>
+                                            <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                        </condition>
+                                        <widgets>
+                                            <label text="${uiLabelMap.PageTitleFindSubscription}"/>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <label>${uiLabelMap.SubscriptionViewPermissionError}</label>
+                                        </fail-widgets>
+                                    </section>
                                 </container>
-                                <include-form name="FindSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
-                                <include-form name="ListFindSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="head3">${uiLabelMap.SubscriptionViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <condition>
+                                        <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                            <link target="EditSubscription" text="${uiLabelMap.ProductNewSubscription}" style="buttontext"/>
+                                            <link target="FindSubscriptionResource" text="${uiLabelMap.PageTitleFindSubscriptionResource}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="FindSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                               <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <section>
+                                        <condition>
+                                            <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                        </condition>
+                                        <widgets>
+                                            <label text="${uiLabelMap.PageTitleFindSubscription}"/>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <label>${uiLabelMap.SubscriptionViewPermissionError}</label>
+                                        </fail-widgets>
+                                    </section>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <condition>
+                                        <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                    </condition>
+                                    <widgets>
+                                        <include-form name="ListFindSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -77,10 +118,9 @@ under the License.
                                     <widgets>
                                         <include-menu name="EditSubscription" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
                                         <container><link target="EditSubscription" text="${uiLabelMap.ProductNewSubscription}" style="buttontext"/></container>
-                                        <container><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} [${subscriptionId}]</label></container>
+                                        <container><label style="head1">${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} [${subscriptionId}]</label></container>
                                     </widgets>
                                 </section>
-
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -104,7 +144,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSubscriptionDecorator">
                     <decorator-section name="body">
-                        <include-form name="EditSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditSubscription}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditSubscription" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -125,8 +178,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSubscriptionDecorator">
                     <decorator-section name="body">
-                        <include-form name="EditSubscriptionAttributes" location="component://product/widget/catalog/SubscriptionForms.xml"/>
-                        <include-form name="AddSubscriptionAttribute" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditSubscriptionAttributes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditSubscriptionAttributes" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddSubscriptionAttributes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="AddSubscriptionAttribute" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -144,19 +223,34 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="CATALOG" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
-                                <container><link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/></container>
-                                <include-form name="ListSubscriptionResources" location="component://product/widget/catalog/SubscriptionForms.xml"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="head3">${uiLabelMap.SubscriptionResourceViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
+                        <container style="screenlet">
+                               <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <section>
+                                        <condition>
+                                            <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                        </condition>
+                                        <widgets>
+                                            <label text="${uiLabelMap.PageTitleFindSubscriptionResource}"/>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <label>${uiLabelMap.SubscriptionResourceViewPermissionError}</label>
+                                        </fail-widgets>
+                                    </section>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <condition>
+                                        <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                    </condition>
+                                    <widgets>
+                                        <container><link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/></container>
+                                        <include-form name="ListSubscriptionResources" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -216,7 +310,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSubscriptionResourceDecorator">
                     <decorator-section name="body">
-                        <include-form name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditSubscriptionResource}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -233,8 +340,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSubscriptionResourceDecorator">
                     <decorator-section name="body">
-                        <include-form name="ListSubscriptionResourceProducts" location="component://product/widget/catalog/SubscriptionForms.xml"/>
-                        <include-form name="AddSubscriptionResourceProduct" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditSubscriptionResourceProducts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListSubscriptionResourceProducts" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddSubscriptionResourceProducts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="AddSubscriptionResourceProduct" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -253,10 +386,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSubscriptionDecorator">
                     <decorator-section name="body">
-                        <include-form name="listSubscriptionCommEvent"
-                            location="component://product/widget/catalog/SubscriptionForms.xml" />
-                        <include-form name="createSubscriptionCommEvent"
-                            location="component://product/widget/catalog/SubscriptionForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditSubscriptionCommEvent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="listSubscriptionCommEvent" location="component://product/widget/catalog/SubscriptionForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddSubscriptionCommEvent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="createSubscriptionCommEvent" location="component://product/widget/catalog/SubscriptionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

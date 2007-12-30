@@ -20,10 +20,8 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
-    <menu name="EditSubscription" default-title-style="tabButton" default-selected-style="tabButtonSelected"
-            default-tooltip-style="tabletext" default-widget-style="tabButton"
-            selected-menuitem-context-field-name="tabButtonItem"
-            orientation="horizontal" title="" type="simple">
+    <menu name="EditSubscription" default-selected-style="selected" type="simple" 
+        menu-container-style="button-bar button-style-1">
         <menu-item name="EditSubscription" title="${uiLabelMap.ProductSubscription}">
             <link target="EditSubscription?subscriptionId=${subscriptionId}"/>
         </menu-item>
@@ -35,10 +33,8 @@ under the License.
             <link target="EditSubscriptionCommEvent?subscriptionId=${subscriptionId}"/>
         </menu-item>
     </menu>
-    <menu name="EditSubscriptionResource" default-title-style="tabButton" default-selected-style="tabButtonSelected"
-            default-tooltip-style="tabletext" default-widget-style="tabButton"
-            selected-menuitem-context-field-name="tabButtonItem"
-            orientation="horizontal" title="" type="simple">
+    <menu name="EditSubscriptionResource" default-selected-style="selected" type="simple"
+        menu-container-style="button-bar button-style-1">>
         <menu-item name="EditSubscriptionResource" title="${uiLabelMap.ProductSubscriptionResource}">
             <link target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}"/>
         </menu-item>
