@@ -22,7 +22,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- QuantityBreak forms -->
     <form name="ListQuantityBreaks" target="" title="" type="list"  list-name="quantityBreaks"
-        paginate-target="ListQuantityBreaks">
+        paginate-target="ListQuantityBreaks" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="QuantityBreak" default-field-type="display"/>
         <field name="quantityBreakId" widget-style="buttontext">
             <hyperlink target="ListQuantityBreaks?quantityBreakId=${quantityBreakId}" description="${quantityBreakId}" also-hidden="false"/>
@@ -32,7 +32,8 @@
             <hyperlink target="deleteQuantityBreak?quantityBreakId=${quantityBreakId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditQuantityBreak" type="single" target="createQuantityBreak" title="" default-map-name="quantityBreak">
+    <form name="EditQuantityBreak" type="single" target="createQuantityBreak" title="" default-map-name="quantityBreak"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="quantityBreak!=null" target="updateQuantityBreak"/>
         <auto-fields-entity entity-name="QuantityBreak" default-field-type="edit"/>
         <field name="quantityBreakId"><hidden/></field>
@@ -46,7 +47,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListShipmentMethodTypes" target="" title="" type="list"  list-name="shipmentMethodTypes"
-        paginate-target="ListQuantityBreaks">
+        paginate-target="ListQuantityBreaks" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentMethodType" default-field-type="display"/>
         <field name="shipmentMethodTypeId" widget-style="buttontext">
             <hyperlink target="ListShipmentMethodTypes?shipmentMethodTypeId=${shipmentMethodTypeId}" description="${shipmentMethodTypeId}" also-hidden="false"/>
@@ -55,25 +56,27 @@
             <hyperlink target="deleteShipmentMethodType?shipmentMethodTypeId=${shipmentMethodTypeId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditShipmentMethodType" type="single" target="createShipmentMethodType" title="" default-map-name="shipmentMethodType">
+    <form name="EditShipmentMethodType" type="single" target="createShipmentMethodType" title="" default-map-name="shipmentMethodType"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="shipmentMethodType!=null" target="updateShipmentMethodType"/>
         <auto-fields-service service-name="createShipmentMethodType" default-field-type="edit"/>
         <field name="shipmentMethodTypeId" use-when="shipmentMethodType!=null"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListCarrierShipmentMethods" target="" title="" type="list"  list-name="carrierShipmentMethods"
-        paginate-target="ListQuantityBreaks">
+        paginate-target="ListQuantityBreaks" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="CarrierShipmentMethod" default-field-type="display"/>
         <field name="shipmentMethodTypeId"><display-entity also-hidden="false" entity-name="ShipmentMethodType"/></field>
         <field name="roleTypeId"><display-entity also-hidden="false" entity-name="RoleType"/></field>
-        <field name="editLink" widget-style="buttontext">
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="ListCarrierShipmentMethods?shipmentMethodTypeId=${shipmentMethodTypeId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteCarrierShipmentMethod?shipmentMethodTypeId=${shipmentMethodTypeId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditCarrierShipmentMethod" type="single" target="createCarrierShipmentMethod" title="" default-map-name="carrierShipmentMethod">
+    <form name="EditCarrierShipmentMethod" type="single" target="createCarrierShipmentMethod" title="" default-map-name="carrierShipmentMethod"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="carrierShipmentMethod!=null" target="updateCarrierShipmentMethod"/>
         <auto-fields-service service-name="createCarrierShipmentMethod" default-field-type="edit"/>
         <field name="shipmentMethodTypeId" use-when="carrierShipmentMethod==null">

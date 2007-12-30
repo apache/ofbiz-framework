@@ -16,10 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-<div class="tabContainer">
-  <a href="<@ofbizUrl>ListShipmentMethodTypes</@ofbizUrl>" class="${selectedClassMap.ListShipmentMethodTypes?default(unselectedClassName)}">${uiLabelMap.ProductShipmentMethodTypes}</a>
-  <a href="<@ofbizUrl>ListQuantityBreaks</@ofbizUrl>" class="${selectedClassMap.ListQuantityBreaks?default(unselectedClassName)}">${uiLabelMap.ProductQuantityBreaks}</a>
-  <a href="<@ofbizUrl>ListCarrierShipmentMethods</@ofbizUrl>" class="${selectedClassMap.ListCarrierShipmentMethods?default(unselectedClassName)}">${uiLabelMap.ProductCarrierShipmentMethods}</a>
+<#assign unselectedClassName = "">
+<#assign selectedClassMap = {page.tabButtonItem?default("void") : "selected"}>
+<br/>
+<div class="button-bar tab-bar">
+    <ul>
+        <li><a href="<@ofbizUrl>ListShipmentMethodTypes</@ofbizUrl>" class="${selectedClassMap.ListShipmentMethodTypes?default(unselectedClassName)}">${uiLabelMap.ProductShipmentMethodTypes}</a></li>
+        <li><a href="<@ofbizUrl>ListQuantityBreaks</@ofbizUrl>" class="${selectedClassMap.ListQuantityBreaks?default(unselectedClassName)}">${uiLabelMap.ProductQuantityBreaks}</a></li>
+        <li><a href="<@ofbizUrl>ListCarrierShipmentMethods</@ofbizUrl>" class="${selectedClassMap.ListCarrierShipmentMethods?default(unselectedClassName)}">${uiLabelMap.ProductCarrierShipmentMethods}</a></li>
+    </ul>
+    <br/>
 </div>
