@@ -95,7 +95,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
-                        <include-form name="EditProductConfigItem" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditConfigItem}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditProductConfigItem" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -133,18 +146,31 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template-decorator location="component://product/webapp/catalog/config/EditProductConfigOptions.ftl">
-                                    <html-template-decorator-section name="CreateConfigOptionForm">
-                                        <include-form name="CreateConfigOption" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
-                                    </html-template-decorator-section>
-                                    <html-template-decorator-section name="CreateConfigProductForm">
-                                        <include-form name="CreateProductConfigProduct" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
-                                    </html-template-decorator-section>
-                                </html-template-decorator>
-                            </html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditConfigOptions}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html>
+                                                <html-template-decorator location="component://product/webapp/catalog/config/EditProductConfigOptions.ftl">
+                                                    <html-template-decorator-section name="CreateConfigOptionForm">
+                                                        <include-form name="CreateConfigOption" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                                                    </html-template-decorator-section>
+                                                    <html-template-decorator-section name="CreateConfigProductForm">
+                                                        <include-form name="CreateProductConfigProduct" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
+                                                    </html-template-decorator-section>
+                                                </html-template-decorator>
+                                            </html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
