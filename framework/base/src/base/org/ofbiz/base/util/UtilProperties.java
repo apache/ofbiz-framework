@@ -48,31 +48,31 @@ import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.cache.UtilCache;
 
-/**
- * Generic Property Accessor with Cache - Utilities for working with properties files
- *
+/** Generic Property Accessor with Cache - Utilities for working with properties files.
+ * <p>UtilProperties divides properties files into two classes: non-locale-specific -
+ * which are used for application parameters, configuration settings, etc; and
+ * locale-specific - which are used for UI labels, system messages, etc. Each class
+ * of properties files is kept in its own cache.</p>
+ * <p>The locale-specific class of properties files can be in any one of three
+ * formats: the standard text-based key=value format (*.properties file), the Java
+ * XML properties format, and the OFBiz-specific XML file format
+ * (see the <a href="#toProperties(java.io.InputStream,%20java.util.Locale,%20java.util.Properties)">toProperties</a>
+ * method).</p>
  */
 @SuppressWarnings("serial")
 public class UtilProperties implements java.io.Serializable {
 
     public static final String module = UtilProperties.class.getName();
 
-    /** An instance of the generic cache for storing the FlexibleProperties
-     *  corresponding to each properties file keyed by a String for the resource location.
-     * This will be used for both non-locale and locale keyed FexibleProperties instances.
+    /** An instance of the generic cache for storing the non-locale-specific properties.
+     *  Each FlexibleProperties instance is keyed by the resource String.
      */
     protected static UtilCache<String, FlexibleProperties> resourceCache = new UtilCache<String, FlexibleProperties>("properties.UtilPropertiesResourceCache");
 
-    /** An instance of the generic cache for storing the FlexibleProperties
-     *  corresponding to each properties file keyed by a URL object
+    /** An instance of the generic cache for storing the non-locale-specific properties.
+     *  Each FlexibleProperties instance is keyed by the file's URL.
      */
     protected static UtilCache<String, FlexibleProperties> urlCache = new UtilCache<String, FlexibleProperties>("properties.UtilPropertiesUrlCache");
-
-    /** An instance of the generic cache for storing the ResourceBundle
-     *  corresponding to each properties file keyed by a String for the resource location and the locale
-     */
-    protected static UtilCache<String, ResourceBundle> bundleLocaleCache = new UtilCache<String, ResourceBundle>("properties.UtilPropertiesBundleLocaleCache");
-
 
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
      * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
@@ -366,13 +366,8 @@ public class UtilProperties implements java.io.Serializable {
 
     // ========= Locale & Resource Based Methods ==========
 
-    /** Returns the value of the specified property name from the specified resource/properties file corresponding to the given locale.
-     *  <br/>
-     *  <br/> Two reasons why we do not use the FlexibleProperties class for this:
-     *  <ul>
-     *    <li>Doesn't support flexible locale based naming: try fname_locale (5 letter), then fname_locale (2 letter lang only), then fname</li>
-     *    <li>Does not support parent properties/bundles so that if the fname_locale5 file doesn't have it then fname_locale2 is tried, then the fname bundle</li>
-     *  </ul>
+    /** Returns the value of the specified property name from the specified
+     *  resource/properties file corresponding to the given locale.
      * @param resource The name of the resource - can be a file, class, or URL
      * @param name The name of the property in the properties file
      * @param locale The locale that the given resource will correspond to
@@ -382,16 +377,11 @@ public class UtilProperties implements java.io.Serializable {
         if (resource == null || resource.length() <= 0) return "";
         if (name == null || name.length() <= 0) return "";
 
-        Map<String, Object> bundle = getResourceBundleMap(resource, locale);
+        ResourceBundle bundle = getResourceBundle(resource, locale);
 
         if (bundle == null) return "";
 
-        String value = null;
-        try {
-            value = (String)bundle.get(name);
-        } catch (Exception e) {
-            Debug.log(e.getMessage(), module);
-        }
+        String value = (String) bundle.getString(name);
         return value == null ? "" : value.trim();
     }
 
@@ -466,82 +456,46 @@ public class UtilProperties implements java.io.Serializable {
         return getMessage(resource, name, UtilGenerics.toMap(String.class, context), locale);
     }
 
+    protected static Set<String> resourceNotFoundMessagesShown = FastSet.newInstance();
     /** Returns the specified resource/properties file as a ResourceBundle
      * @param resource The name of the resource - can be a file, class, or URL
      * @param locale The locale that the given resource will correspond to
      * @return The ResourceBundle
      */
     public static ResourceBundle getResourceBundle(String resource, Locale locale) {
-        ResourceBundleMapWrapper.InternalRbmWrapper bundleMap = getInternalRbmWrapper(resource, locale);
-        if (bundleMap == null) {
-            return null;
+        if (UtilValidate.isEmpty(resource)) {
+            throw new IllegalArgumentException("resource cannot be null or empty");
         }
-        ResourceBundle theBundle = bundleMap.getResourceBundle();
-        return theBundle;
+        if (locale == null) {
+            throw new IllegalArgumentException("locale cannot be null");
+        }
+        ResourceBundle bundle = null;
+        try {
+            bundle = UtilResourceBundle.getBundle(resource, locale, (ClassLoader) null);
+        } catch (MissingResourceException e) {
+            String resourceCacheKey = resource + "_" + locale.toString();
+            if (!resourceNotFoundMessagesShown.contains(resourceCacheKey)) {
+                resourceNotFoundMessagesShown.add(resourceCacheKey);
+                Debug.log("[UtilProperties.getPropertyValue] could not find resource: " + resource + " for locale " + locale.toString(), module);
+            }
+            throw new IllegalArgumentException("Could not find resource bundle [" + resource + "] in the locale [" + locale.toString() + "]");
+        }
+        return bundle;
     }
 
-    /** Returns the specified resource/properties file as a Map with the original ResourceBundle in the Map under the key _RESOURCE_BUNDLE_
+    /** Returns the specified resource/properties file as a Map with the original
+     *  ResourceBundle in the Map under the key _RESOURCE_BUNDLE_
      * @param resource The name of the resource - can be a file, class, or URL
      * @param locale The locale that the given resource will correspond to
      * @return Map containing all entries in The ResourceBundle
      */
     public static Map<String, Object> getResourceBundleMap(String resource, Locale locale) {
-        if (locale == null) {
-            throw new IllegalArgumentException("Locale cannot be null");
-        }
-
-        ResourceBundleMapWrapper.InternalRbmWrapper bundleMap = getInternalRbmWrapper(resource, locale);
-        return new ResourceBundleMapWrapper(bundleMap);
+        return new ResourceBundleMapWrapper(getInternalRbmWrapper(resource, locale));
     }
 
     public static ResourceBundleMapWrapper.InternalRbmWrapper getInternalRbmWrapper(String resource, Locale locale) {
-        String resourceCacheKey = resource + "_" + locale.toString();
-        ResourceBundle bundle = bundleLocaleCache.get(resourceCacheKey);
-        if (bundle == null) {
-            synchronized (bundleLocaleCache) {
-                bundle = bundleLocaleCache.get(resourceCacheKey);
-                if (bundle == null) {
-                    bundle = getBaseResourceBundle(resource, locale);
-                    if (bundle == null) {
-                        throw new IllegalArgumentException("Could not find resource bundle [" + resource + "] in the locale [" + locale + "]");
-                    }
-                    // TODO: Make this smarter by checking the Locale of the ResourceBundle -
-                    // there might be an instance of this bundle already in the cache.
-                    // See http://java.sun.com/j2se/1.4.2/docs/api/java/util/ResourceBundle.html#getLocale()
-                    bundleLocaleCache.put(resourceCacheKey, bundle);
-                }
-            }
-        }
+        ResourceBundle bundle = getResourceBundle(resource, locale);
         return new ResourceBundleMapWrapper.InternalRbmWrapper(bundle);
-    }
-
-    protected static Set<String> resourceNotFoundMessagesShown = FastSet.newInstance();
-    protected static ResourceBundle getBaseResourceBundle(String resource, Locale locale) {
-        if (resource == null || resource.length() <= 0) return null;
-        if (locale == null) locale = Locale.getDefault();
-
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        ResourceBundle bundle = null;
-        try {
-            bundle = UtilResourceBundle.getBundle(resource, locale, loader);
-        } catch (MissingResourceException e) {
-            String resourceFullName = resource + "_" + locale.toString();
-            if (!resourceNotFoundMessagesShown.contains(resourceFullName)) {
-                resourceNotFoundMessagesShown.add(resourceFullName);
-                Debug.log("[UtilProperties.getPropertyValue] could not find resource: " + resource + " for locale " + locale.toString() + ": " + e.toString(), module);
-                return null;
-            }
-        }
-        if (bundle == null) {
-            String resourceFullName = resource + "_" + locale.toString();
-            if (!resourceNotFoundMessagesShown.contains(resourceFullName)) {
-                resourceNotFoundMessagesShown.add(resourceFullName);
-                Debug.log("[UtilProperties.getPropertyValue] could not find resource: " + resource + " for locale " + locale.toString(), module);
-                return null;
-            }
-        }
-
-        return bundle;
     }
 
     /** Returns the specified resource/properties file.<p>Note that this method
@@ -711,9 +665,6 @@ public class UtilProperties implements java.io.Serializable {
         if (UtilValidate.isEmpty(resource)) {
             throw new IllegalArgumentException("resource cannot be null or empty");
         }
-        if (locale == null) {
-            throw new IllegalArgumentException("locale cannot be null");
-        }
         String resourceName = createResourceName(resource, locale);
         if (propertiesNotFound.contains(resourceName)) {
             return null;
@@ -794,8 +745,7 @@ public class UtilProperties implements java.io.Serializable {
                 throw new IllegalArgumentException("locale cannot be null");
             }
             String localeString = locale.toString();
-            for (Iterator<? extends Element> p = propertyList.iterator(); p.hasNext();) {
-                Element property = p.next();
+            for (Element property : propertyList) {
                 Element value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
                 if (value != null) {
                     if (properties == null) {
@@ -811,8 +761,7 @@ public class UtilProperties implements java.io.Serializable {
             throw new InvalidPropertiesFormatException("XML properties file invalid or empty");
         }
         // Java XML properties file format
-        for (Iterator<? extends Element> p = propertyList.iterator(); p.hasNext();) {
-            Element property = p.next();
+        for (Element property : propertyList) {
             String value = UtilXml.elementValue(property);
             if (value != null) {
                 if (properties == null) {
@@ -825,9 +774,11 @@ public class UtilProperties implements java.io.Serializable {
     }
 
     /** Custom ResourceBundle class. This class extends ResourceBundle
-     * to add support for the OFBiz custom XML properties file format.
+     * to add custom bundle caching code and support for the OFBiz custom XML
+     * properties file format.
      */
     public static class UtilResourceBundle extends ResourceBundle {
+        protected static UtilCache<String, ResourceBundle> bundleCache = new UtilCache<String, ResourceBundle>("properties.UtilPropertiesBundleCache");
         protected Properties properties = null;
         protected Locale locale = null;
 
@@ -840,42 +791,41 @@ public class UtilProperties implements java.io.Serializable {
         }
 
         public static ResourceBundle getBundle(String resource, Locale locale, ClassLoader loader) throws MissingResourceException {
-            ResourceBundle bundle = null;
-            try {
-                bundle = ResourceBundle.getBundle(resource, locale, loader);
-            } catch (MissingResourceException e) {
-                // do nothing
-            }
-            if (bundle != null) {
-                return bundle;
-            }
-            double startTime = System.currentTimeMillis();
-            FastList<Locale> candidateLocales = (FastList<Locale>) getCandidateLocales(locale);
-            ResourceBundle parentBundle = null;
-            synchronized (bundleLocaleCache) {
-                while (candidateLocales.size() > 0) {
-                    Locale candidateLocale = candidateLocales.removeLast();
-                    // ResourceBundles are connected together as a singly-linked list
-                    String parentName = createResourceName(resource, candidateLocale);
-                    ResourceBundle lookupBundle = bundleLocaleCache.get(parentName);
-                    if (lookupBundle == null) {
-                        Properties newProps = getProperties(resource, candidateLocale);
-                        if (UtilValidate.isNotEmpty(newProps)) {
-                            bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
-                            bundleLocaleCache.put(parentName, bundle);
-                            parentBundle = bundle;
-                        }
-                    } else {
-                        parentBundle = bundle;
-                        bundle = lookupBundle;
+            String resourceName = createResourceName(resource, locale);
+            ResourceBundle bundle = bundleCache.get(resourceName);
+            if (bundle == null) {
+                synchronized (bundleCache) {
+                    if (bundle != null) {
+                        return bundle;
                     }
+                    double startTime = System.currentTimeMillis();
+                    FastList<Locale> candidateLocales = (FastList<Locale>) getCandidateLocales(locale);
+                    ResourceBundle parentBundle = null;
+                    while (candidateLocales.size() > 0) {
+                        Locale candidateLocale = candidateLocales.removeLast();
+                        // ResourceBundles are connected together as a singly-linked list
+                        String parentName = createResourceName(resource, candidateLocale);
+                        ResourceBundle lookupBundle = bundleCache.get(parentName);
+                        if (lookupBundle == null) {
+                            Properties newProps = getProperties(resource, candidateLocale);
+                            if (UtilValidate.isNotEmpty(newProps)) {
+                                bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
+                                bundleCache.put(parentName, bundle);
+                                parentBundle = bundle;
+                            }
+                        } else {
+                            parentBundle = bundle;
+                            bundle = lookupBundle;
+                        }
+                    }
+                    if (bundle == null) {
+                        throw new MissingResourceException("Resource " + resource + ", locale " + locale + " not found", null, null);
+                    }
+                    double totalTime = System.currentTimeMillis() - startTime;
+                    Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime + " mS", module);
+                    bundleCache.put(resourceName, bundle);
                 }
             }
-            double totalTime = System.currentTimeMillis() - startTime;
-            if (bundle == null) {
-                throw new MissingResourceException("Resource " + resource + ", locale " + locale + " not found", null, null);
-            }
-            Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime + " mS", module);
             return bundle;
         }
         
