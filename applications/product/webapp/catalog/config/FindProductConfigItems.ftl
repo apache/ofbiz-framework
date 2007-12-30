@@ -16,16 +16,10 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <#if itemsList?exists>
-<table border="0" width="100%" cellspacing="0" cellpadding="0" class="boxoutside">
-  <tr>
-    <td width="100%">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
-        <tr>
-          <td width="50%"><div class="boxhead">${uiLabelMap.ProductConfigItem} ${uiLabelMap.CommonFound}</div></td>
-          <td width="50%">
-            <div class="boxhead" align="right">
+    <div class="screenlet">
+        <div class="screenlet-title-bar">
+            <div class="boxhead-right">
               <#if 0 < itemsList?size>
                 <#if 0 < viewIndex>
                   <a href="<@ofbizUrl>FindProductConfigItems?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a>
@@ -43,48 +37,47 @@ under the License.
               </#if>
               &nbsp;
             </div>
-          </td>
-        </tr>
-      </table>
-      <div class="tabletext"><a href="<@ofbizUrl>EditProductConfigItem</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonCreateNew} ${uiLabelMap.ProductConfigItem}]</a></div>
-      <br/>
-      <table width="100%" border="0" cellspacing="0" cellpadding="2" class="boxbottom">
-        <tr>
-          <td align="left"><div class="tableheadtext">${uiLabelMap.ProductConfigItem}</div></td>
-          <td align="left"><div class="tableheadtext">${uiLabelMap.CommonType}</div></td>
-          <td align="left"><div class="tableheadtext">${uiLabelMap.CommonDescription}</div></td>
-          <td><div class="tableheadtext">&nbsp;</div></td>
-        </tr>
-        <tr>
-          <td colspan="10"><hr class="sepbar"></td>
-        </tr>
-        <#if itemsList?has_content>
-          <#assign rowClass = "viewManyTR2">
-          <#list itemsList[lowIndex..highIndex-1] as item>
-            <tr class="${rowClass}">
-              <td><div class="tabletext">${item.configItemId} - ${item.configItemName?default("")}</div></td>
-              <td><div class="tabletext">
-                <#if item.configItemTypeId?if_exists == "SINGLE">${uiLabelMap.ProductSingleChoice}<#else>${uiLabelMap.ProductMultiChoice}</#if>
-              </div></td>
-              <td><div class="tabletext">${item.description?default("No Description")}</div></td>
-              <td align="right">
-                <a href="<@ofbizUrl>EditProductConfigItem?configItemId=${item.configItemId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
-              </td>
-            </tr>
-            <#-- toggle the row color -->
-            <#if rowClass == "viewManyTR2">
-              <#assign rowClass = "viewManyTR1">
-            <#else>
-              <#assign rowClass = "viewManyTR2">
-            </#if>
-          </#list>          
-        <#else>
-          <tr>
-            <td colspan="4"><h3>${uiLabelMap.CommonNo} ${uiLabelMap.ProductConfigItems} ${uiLabelMap.CommonFound}.</h3></td>
-          </tr>        
-        </#if>
-      </table>
-    </td>
-  </tr>
-</table>
+            <div class="boxhead-left">
+              &nbsp;${uiLabelMap.PageTitleFindConfigItems}
+            </div>
+            <div class="boxhead-fill">&nbsp;</div>
+        </div>
+        <div class="screenlet-body"> 
+            <a href="<@ofbizUrl>EditProductConfigItem</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew} ${uiLabelMap.ProductConfigItem}</a>
+              <br/>
+            <table cellspacing="0" class="basic-table">
+              <tr class="header-row">
+                <td align="left">${uiLabelMap.ProductConfigItem}</td>
+                <td align="left">${uiLabelMap.CommonType}</td>
+                <td align="left">${uiLabelMap.CommonDescription}</td>
+                <td>&nbsp;</td>
+              </tr>
+              <#if itemsList?has_content>
+                <#assign rowClass = "2">
+                <#list itemsList[lowIndex..highIndex-1] as item>
+                  <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                    <td>${item.configItemId} - ${item.configItemName?default("")}</td>
+                    <td>
+                      <#if item.configItemTypeId?if_exists == "SINGLE">${uiLabelMap.ProductSingleChoice}<#else>${uiLabelMap.ProductMultiChoice}</#if>
+                    </td>
+                    <td>${item.description?default("No Description")}</td>
+                    <td align="right">
+                      <a href="<@ofbizUrl>EditProductConfigItem?configItemId=${item.configItemId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
+                    </td>
+                  </tr>
+                  <#-- toggle the row color -->
+                  <#if rowClass == "2">
+                      <#assign rowClass = "1">
+                  <#else>
+                      <#assign rowClass = "2">
+                  </#if>
+                </#list>          
+              <#else>
+                <tr>
+                  <td colspan="4"><h3>${uiLabelMap.CommonNo} ${uiLabelMap.ProductConfigItems} ${uiLabelMap.CommonFound}.</h3></td>
+                </tr>        
+              </#if>
+            </table>
+        </div>
+    </div>
 </#if>

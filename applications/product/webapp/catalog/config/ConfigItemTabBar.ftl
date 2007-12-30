@@ -17,13 +17,17 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign unselectedClassName = "">
+<#assign selectedClassMap = {page.tabButtonItem?default("void") : "selected"}>
 
 <#if configItemId?has_content>
-  <div class='tabContainer'>
-    <a href="<@ofbizUrl>EditProductConfigItem?configItemId=${configItemId}</@ofbizUrl>" class="${selectedClassMap.EditProductConfigItem?default(unselectedClassName)}">${uiLabelMap.ProductConfigItem}</a>
-    <a href="<@ofbizUrl>EditProductConfigOptions?configItemId=${configItemId}</@ofbizUrl>" class="${selectedClassMap.EditProductConfigOptions?default(unselectedClassName)}">${uiLabelMap.ProductConfigOptions}</a>
-    <a href="<@ofbizUrl>EditProductConfigItemContent?configItemId=${configItemId}</@ofbizUrl>" class="${selectedClassMap.EditProductConfigItemContent?default(unselectedClassName)}">${uiLabelMap.ProductContent}</a>
-  </div>
+    <br/>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li><a href="<@ofbizUrl>EditProductConfigItem?configItemId=${configItemId}</@ofbizUrl>" class="${selectedClassMap.EditProductConfigItem?default(unselectedClassName)}">${uiLabelMap.ProductConfigItem}</a></li>
+            <li><a href="<@ofbizUrl>EditProductConfigOptions?configItemId=${configItemId}</@ofbizUrl>" class="${selectedClassMap.EditProductConfigOptions?default(unselectedClassName)}">${uiLabelMap.ProductConfigOptions}</a></li>
+            <li><a href="<@ofbizUrl>EditProductConfigItemContent?configItemId=${configItemId}</@ofbizUrl>" class="${selectedClassMap.EditProductConfigItemContent?default(unselectedClassName)}">${uiLabelMap.ProductContent}</a></li>
+        </ul>
+        <br/>
+    </div>
 </#if>
