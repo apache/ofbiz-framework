@@ -23,7 +23,7 @@ under the License.
 
     <!-- Subscription Forms -->
     <form name="FindSubscription" default-map-name="subscription" target="FindSubscription" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Subscription" default-field-type="find"/>
         
         <field name="subscriptionResourceId" widget-style="selectBox">
@@ -70,7 +70,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListFindSubscription" target="" type="list" list-name="listIt"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
+        odd-row-style="alternate-row" default-table-style="basic-table"
         paginate-target="FindSubscription" paginate="true">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt" result-map-name="performFindResult">
@@ -125,7 +125,7 @@ under the License.
         </field>
     </form>
     <form name="EditSubscription" type="single" target="updateSubscription" default-map-name="subscription"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="subscription==null" target="createSubscription"/>
         <auto-fields-service service-name="updateSubscription"/>
  
@@ -208,7 +208,7 @@ under the License.
 
     <!-- SubscriptionResource Forms -->
     <form name="ListSubscriptionResources" type="list" list-name="examples" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        odd-row-style="alternate-row" default-table-style="basic-table"
         paginate-target="FindSubscriptionResource">
         <actions>
             <entity-condition entity-name="SubscriptionResource">
@@ -236,7 +236,7 @@ under the License.
         </field>
     </form>
     <form name="EditSubscriptionResource" type="single" target="updateSubscriptionResource" default-map-name="subscriptionResource"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="subscriptionResource==null" target="createSubscriptionResource"/>
         <auto-fields-service service-name="updateSubscriptionResource"/>
         
@@ -261,7 +261,7 @@ under the License.
     
     <!-- ProductSubscriptionResource -->
     <form name="ListSubscriptionResourceProducts" type="list"  list-name="productSubscriptionResource"  target="updateProductSubscriptionResourceSr"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="ProductSubscriptionResource">
                 <condition-expr field-name="subscriptionResourceId" env-name="subscriptionResourceId"/>
@@ -296,7 +296,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddSubscriptionResourceProduct" type="single" target="createProductSubscriptionResourceSr" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductSubscriptionResource"/>
         
         <field name="subscriptionResourceId"><hidden/></field>
@@ -320,22 +320,22 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="EditSubscriptionAttributes" type="list"  list-name="subscriptionAttributes"  target="UpdateSubscriptionAttribute"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateSubscriptionAttribute"/>
         
         <field name="subscriptionId"><hidden/></field>
-        <field name="updateButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddSubscriptionAttribute" type="single" target="UpdateSubscriptionAttribute"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateSubscriptionAttribute"/>
         <field name="subscriptionId"><hidden/></field>
-        <field name="addButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
     <!-- Subscription Communication Event  -->
     <form name="listSubscriptionCommEvent" type="list"  list-name="subscriptionCommEvent"  target="ListSubscriptionCommEvent"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="SubscriptionAndCommEvent">
                 <condition-expr field-name="subscriptionId" env-name="subscriptionId"/>
@@ -346,7 +346,7 @@ under the License.
         <field name="communicationEventId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app"/>
         </field>
-		<field name="partyIdFrom">
+        <field name="partyIdFrom">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
         </field>
         <field name="partyIdTo">
@@ -365,7 +365,7 @@ under the License.
         </field>
     </form>
     <form name="createSubscriptionCommEvent" type="single" target="createSubscriptionCommEvent" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createSubscriptionCommEvent"/>
         <field name="subscriptionId"><hidden value="${parameters.subscriptionId}"/></field>
         <field name="communicationEventId">
