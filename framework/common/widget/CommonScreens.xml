@@ -139,7 +139,17 @@ under the License.
                 </container>
                 
                 <!-- render footer -->
-                <platform-specific><html><html-template location="component://common/webcommon/includes/footer.ftl"/></html></platform-specific>
+                <section>
+                    <condition>
+                        <if-empty field-name="applicationFooterTemplate"/>
+                    </condition>
+                    <widgets>
+                        <platform-specific><html><html-template location="component://common/webcommon/includes/footer.ftl"/></html></platform-specific>
+                    </widgets>
+                    <fail-widgets>
+                         <platform-specific><html><html-template location="${applicationFooterTemplate}"/></html></platform-specific>
+                    </fail-widgets>
+                </section>
             </widgets>
         </section>
     </screen>
