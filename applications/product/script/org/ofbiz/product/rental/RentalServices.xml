@@ -45,18 +45,18 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getProductFirstRelatedFixedAsset" 
-    		short-description="Most rental products are associated with one fixed asset only,
-    							 this service will return the first genericValue fixedAsset">
+            short-description="Most rental products are associated with one fixed asset only,
+                                 this service will return the first genericValue fixedAsset">
         <check-permission permission="CATALOG" action="_VIEW"><fail-message message="Security Error: to run getProductFirstRelatedFixedAsset you must have the CATALOG_VIEW or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-		<entity-one entity-name="Product" value-name="product"/>
-		<get-related relation-name="FixedAssetProduct" value-name="product" list-name="productFixedAssets"/>
-		<if-not-empty field-name="productFixedAssets">
-		    <first-from-list list-name="productFixedAssets" entry-name="productFixedAsset"/>
-  		    <field-to-result field-name="productFixedAsset.fixedAssetId" result-name="fixedAssetId"/>
-		</if-not-empty>
-		<field-to-result field-name="parameters.productId" result-name="productId"/>
+        <entity-one entity-name="Product" value-name="product"/>
+        <get-related relation-name="FixedAssetProduct" value-name="product" list-name="productFixedAssets"/>
+        <if-not-empty field-name="productFixedAssets">
+            <first-from-list list-name="productFixedAssets" entry-name="productFixedAsset"/>
+              <field-to-result field-name="productFixedAsset.fixedAssetId" result-name="fixedAssetId"/>
+        </if-not-empty>
+        <field-to-result field-name="parameters.productId" result-name="productId"/>
     </simple-method>
 
 </simple-methods>
