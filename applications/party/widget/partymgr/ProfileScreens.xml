@@ -188,8 +188,8 @@
                     </condition>
                     <widgets>
                         <container id="fin-account-summary" style="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/>
+                            <container style="screenlet-title-bar">
+                                <label style="head3" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/>
                             </container>
                             <container style="screenlet-body">
                                 <iterate-section entry-name="ownedFinAccount" list-name="ownedFinAccountList">

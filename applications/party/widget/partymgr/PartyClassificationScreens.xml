@@ -36,9 +36,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet" id="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.PartyClassifications}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <label style="head3" text="${uiLabelMap.PartyClassifications}"/>
                             </container>
                             <container style="screenlet-body">
                                 <include-form name="ListPartyClassifications" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
@@ -65,9 +65,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet" id="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.PartyClassificationGroups}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <label style="head3" text="${uiLabelMap.PartyClassificationGroups}"/>
                             </container>
                             <container style="screenlet-body">
                                 <platform-specific>
@@ -97,9 +97,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet" id="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.PartyClassificationGroups}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <label style="head3" text="${uiLabelMap.PartyClassificationGroups}"/>
                             </container>
                             <container><link target="EditPartyClassificationGroup" style="smallSubmit" text="${uiLabelMap.PartyCreateNewPartyClassificationGroup}"></link></container>
                             <container style="screenlet-body">
@@ -127,9 +127,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet" id="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.PartyClassificationGroup}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <label style="head3" text="${uiLabelMap.PartyClassificationGroup}"/>
                             </container>
                             <container style="screenlet-body">
                                 <platform-specific>

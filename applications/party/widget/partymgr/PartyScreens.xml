@@ -211,8 +211,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="screenlet">
-                                    <container style="screenlet-header">
-                                        <label style="boxhead" text="${uiLabelMap.PartyNewRelationshipType}"/>
+                                    <container style="screenlet-title-bar">
+                                        <label style="head3" text="${uiLabelMap.PartyNewRelationshipType}"/>
                                     </container>
                                     <container style="screenlet-body">
                                         <include-form name="AddPartyRelationshipType" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -243,8 +243,8 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.PartyVendorInformation}"/>
+                            <container style="screenlet-title-bar">
+                                <label style="head3" text="${uiLabelMap.PartyVendorInformation}"/>
                             </container>
                             <container style="screenlet-body">
                                 <include-form name="EditVendor" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -274,8 +274,8 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.PartyAttribute}"/>
+                            <container style="screenlet-title-bar">
+                                <label style="head3" text="${uiLabelMap.PartyAttribute}"/>
                             </container>
                             <container style="screenlet-body">
                                 <include-form name="EditPartyAttribute" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -550,8 +550,8 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead" text="${uiLabelMap.PartySegmentRoles}"/>
+                            <container style="screenlet-title-bar">
+                                <label style="head3" text="${uiLabelMap.PartySegmentRoles}"/>
                             </container>
                             <container style="screenlet-body">
                                 <include-form name="ListSegmentRoles" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -761,9 +761,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="boxoutside">
+                        <container style="screenlet">
                             <container style="screenlet-title-bar">                        
-                                <label style="boxhead">${uiLabelMap.PartyShipperAccount}</label>                                
+                                <label style="head3">${uiLabelMap.PartyShipperAccount}</label>                                
                             </container>
                             <include-form name="EditCarrierAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                         </container>

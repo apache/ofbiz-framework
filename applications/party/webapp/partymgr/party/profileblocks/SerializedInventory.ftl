@@ -18,8 +18,8 @@ under the License.
 -->
 
 <div id="serialized-inventory-summary" class="screenlet">
-    <div class="screenlet-header">
-        <span class="boxhead">${uiLabelMap.ProductSerializedInventorySummary}</span>
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductSerializedInventorySummary}</h3>
     </div>
     <div class="screenlet-body">
         <table id="serialized-inventory" class="basic-table" cellspacing="0" cellpadding="2">
