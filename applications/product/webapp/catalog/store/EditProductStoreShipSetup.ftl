@@ -16,27 +16,26 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <form name="addscarr" method="post" action="<@ofbizUrl>prepareCreateShipMeth</@ofbizUrl>">
-<input type="hidden" name="newShipMethod" value="Y"/>
-<input type="hidden" name="productStoreId" value="${productStoreId}"/>
-<table cellspacing="2" cellpadding="2">
-    <tr>
-      <td align="right"><b>${uiLabelMap.ProductCarrierShipmentMethod}</b></td>
-      <td>
-        <select name="carrierShipmentString">
-          <option>${uiLabelMap.ProductSelectOne}</option>
-          <#list carrierShipmentMethods as shipmentMethod>
-            <option value="${shipmentMethod.partyId}|${shipmentMethod.roleTypeId}|${shipmentMethod.shipmentMethodTypeId}">${shipmentMethod.shipmentMethodTypeId} (${shipmentMethod.partyId}/${shipmentMethod.roleTypeId})</option>
-          </#list>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>
-        <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/>
-      </td>
-    </tr>
-</table>
+    <input type="hidden" name="newShipMethod" value="Y"/>
+    <input type="hidden" name="productStoreId" value="${productStoreId}"/>
+    <table cellspacing="0" class="basic-table">
+        <tr>
+          <td align="right" class="label">${uiLabelMap.ProductCarrierShipmentMethod}</td>
+          <td>
+            <select name="carrierShipmentString">
+              <option>${uiLabelMap.ProductSelectOne}</option>
+              <#list carrierShipmentMethods as shipmentMethod>
+                <option value="${shipmentMethod.partyId}|${shipmentMethod.roleTypeId}|${shipmentMethod.shipmentMethodTypeId}">${shipmentMethod.shipmentMethodTypeId} (${shipmentMethod.partyId}/${shipmentMethod.roleTypeId})</option>
+              </#list>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/>
+          </td>
+        </tr>
+    </table>
 </form>

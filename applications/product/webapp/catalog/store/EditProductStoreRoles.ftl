@@ -16,73 +16,89 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-  <#if !requestParameters.showAll?exists>
-    <a href="<@ofbizUrl>EditProductStoreRoles?productStoreId=${productStoreId}&showAll=Y</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductShowAll}]</a>
-  <#else>
-    <a href="<@ofbizUrl>EditProductStoreRoles?productStoreId=${productStoreId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductShowActive}]</a>
-  </#if>
-  <br/>
-  
-  <table border="1" cellpadding="2" cellspacing="0">
-    <tr>
-      <td><span class="tableheadtext">${uiLabelMap.PartyParty}</span></td>
-      <td><span class="tableheadtext">${uiLabelMap.PartyRole}</span></td>
-      <td><span class="tableheadtext">${uiLabelMap.CommonFromDate}</span></td>
-      <td><span class="tableheadtext">${uiLabelMap.CommonThruDate}</span></td>
-      <td>&nbsp;</td>
-    </tr>
-    <#if productStoreRoles?has_content>
-      <#list productStoreRoles as role>
-        <#assign roleType = role.getRelatedOne("RoleType")>
-        <tr> 
-          <td><a href="/partymgr/control/viewprofile?partyId=${role.partyId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${role.partyId}</a></td>
-          <td><span class="tabletext">${roleType.get("description",locale)}</span></td>
-          <td><span class="tabletext">${role.fromDate?string}</span></td>
-          <td><span class="tabletext">${role.thruDate?default("${uiLabelMap.CommonNA}")?string?if_exists}</span></td>
-          <#if role.thruDate?exists>
-            <td>&nbsp;</td>
-          <#else>
-            <td align="center">
-              <a href="<@ofbizUrl>storeRemoveRole?productStoreId=${productStoreId}&partyId=${role.partyId}&roleTypeId=${role.roleTypeId}&fromDate=${role.fromDate}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonDelete}]</a>
-            </td>
-          </#if>
-        </tr>
-      </#list>
-    </#if>
-  </table>
-  
-  <br/>
-  <h2>${uiLabelMap.ProductCreateProductStoreRole}:</h2>
-  <form name="addProductStoreRole" action="<@ofbizUrl>storeCreateRole</@ofbizUrl>" method="post">
-    <input type="hidden" name="productStoreId" value="${productStoreId}">
-    <table cellspacing="2" cellpadding="2">
-      <tr>
-        <td><span class="tableheadtext">${uiLabelMap.PartyRoleType}</span></td>
-        <td>
-          <select class="selectBox" name="roleTypeId">
-            <#list roleTypes as roleType>
-              <option value="${roleType.roleTypeId}">${roleType.get("description",locale)}</option>
-            </#list>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td><span class="tableheadtext">${uiLabelMap.PartyParty}</span></td>
-        <td>
-          <input type="text" class="inputBox" name="partyId" size="20">
-          <a href="javascript:call_fieldlookup2(document.addProductStoreRole.partyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
-        </td>
-      </tr>
-      <tr>
-        <td><span class="tableheadtext">${uiLabelMap.CommonFromDate}</span></td>
-        <td>
-          <input type="text" class="inputBox" name="fromDate" size="25">
-          <a href="javascript:call_cal(document.addProductStoreRole.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>                   
-        </td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"></td>
-      </tr>
-    </table>
-  </form>
+<#if !requestParameters.showAll?exists>
+    <a href="<@ofbizUrl>EditProductStoreRoles?productStoreId=${productStoreId}&showAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductShowAll}</a>
+<#else>
+    <a href="<@ofbizUrl>EditProductStoreRoles?productStoreId=${productStoreId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductShowActive}</a>
+</#if>  
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.PageTitleEditProductStoreRoles}</h3>
+    </div>
+    <div class="screenlet-body"> 
+        <table cellspacing="0" class="basic-table">
+            <tr class="header-row">
+              <td><b>${uiLabelMap.PartyParty}</b></td>
+              <td><b>${uiLabelMap.PartyRole}</b></td>
+              <td><b>${uiLabelMap.CommonFromDate}</b></td>
+              <td><b>${uiLabelMap.CommonThruDate}</b></td>
+              <td><b>&nbsp;</b></td>
+            </tr>
+            <#if productStoreRoles?has_content>
+              <#assign rowClass = "2">
+              <#list productStoreRoles as role>
+              <#assign roleType = role.getRelatedOne("RoleType")>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                  <td><a href="/partymgr/control/viewprofile?partyId=${role.partyId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${role.partyId}</a></td>
+                  <td>${roleType.get("description",locale)}</td>
+                  <td>${role.fromDate?string}</td>
+                  <td>${role.thruDate?default("${uiLabelMap.CommonNA}")?string?if_exists}</td>
+                  <#if role.thruDate?exists>
+                    <td>&nbsp;</td>
+                  <#else>
+                    <td align="center">
+                      <a href="<@ofbizUrl>storeRemoveRole?productStoreId=${productStoreId}&partyId=${role.partyId}&roleTypeId=${role.roleTypeId}&fromDate=${role.fromDate}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                    </td>
+                  </#if>
+                </tr>
+                <#-- toggle the row color -->
+                <#if rowClass == "2">
+                    <#assign rowClass = "1">
+                <#else>
+                    <#assign rowClass = "2">
+                </#if>
+              </#list>
+            </#if>
+        </table>
+    </div>
+</div>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductCreateProductStoreRole}</h3>
+    </div>
+    <div class="screenlet-body"> 
+        <form name="addProductStoreRole" action="<@ofbizUrl>storeCreateRole</@ofbizUrl>" method="post">
+            <input type="hidden" name="productStoreId" value="${productStoreId}">
+            <table cellspacing="0" class="basic-table">
+              <tr>
+                <td class="label">${uiLabelMap.PartyRoleType}</td>
+                <td>
+                  <select class="selectBox" name="roleTypeId">
+                    <#list roleTypes as roleType>
+                      <option value="${roleType.roleTypeId}">${roleType.get("description",locale)}</option>
+                    </#list>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="label">${uiLabelMap.PartyParty}</td>
+                <td>
+                  <input type="text" name="partyId" size="20">
+                  <a href="javascript:call_fieldlookup2(document.addProductStoreRole.partyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+                </td>
+              </tr>
+              <tr>
+                <td class="label">${uiLabelMap.CommonFromDate}</td>
+                <td>
+                  <input type="text" name="fromDate" size="25">
+                  <a href="javascript:call_cal(document.addProductStoreRole.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>                   
+                </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"></td>
+              </tr>
+            </table>
+        </form>
+    </div>
+</div>
