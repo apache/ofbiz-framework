@@ -285,7 +285,7 @@ under the License.
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
-        <field name="price" title-area-style="tableheadmedium" widget-area-style="tabletextright"><display/></field>
+        <field name="price" title-area-style="tableheadmedium" widget-area-style="align-text"><display/></field>
     </form>
     <form name="ListAgreementItemSupplierProductsForReport" list-name="agreementProducts" target="" title="" type="list">
         <field name="productId" title-area-style="tableheadmedium"><display/></field>
@@ -293,7 +293,7 @@ under the License.
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
-        <field name="lastPrice" title-area-style="tableheadmedium" widget-area-style="tabletextright"><display/></field>
+        <field name="lastPrice" title-area-style="tableheadmedium" widget-area-style="align-text"><display/></field>
     </form>
     <form name="EditAgreementItemProduct" type="single" target="updateAgreementItemProduct" title="" default-map-name="agreementProductAppl">
         <alt-target use-when="agreementProductAppl==null" target="createAgreementItemProduct"/>
