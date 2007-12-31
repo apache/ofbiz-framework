@@ -39,7 +39,7 @@ if (shipment != null) {
                 while (shipmentPackagesIter.hasNext()) {
                     shipmentPackage = shipmentPackagesIter.next();
                     shipmentItemsDatas = new LinkedList();
-                    shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, UtilMisc.toList("shipmentItemSeqId"));		            
+                    shipmentPackageContents = shipmentPackage.getRelated("ShipmentPackageContent", null, UtilMisc.toList("shipmentItemSeqId"));                    
                     if (shipmentPackageContents != null && shipmentPackageContents.size() > 0) {
                         shipmentPackageContentsIter = shipmentPackageContents.iterator();
                         while (shipmentPackageContentsIter.hasNext()) {

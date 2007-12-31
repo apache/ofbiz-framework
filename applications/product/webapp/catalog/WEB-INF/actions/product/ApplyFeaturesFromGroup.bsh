@@ -32,9 +32,9 @@ if ((productFeatureGroupId != null) && !(productFeatureGroupId.equals(""))) {
     productFeatures = new LinkedList();
     productFeatureGroupAppls = productFeatureGroup.getRelated("ProductFeatureGroupAppl", UtilMisc.toList("sequenceNum"));
     for (pFGAi = productFeatureGroupAppls.iterator(); pFGAi.hasNext(); ) {
-    	productFeatureGroupAppl = (GenericEntity)pFGAi.next();
-    	productFeature = (GenericEntity)productFeatureGroupAppl.getRelatedOne("ProductFeature");
-    	productFeature.set("defaultSequenceNum", productFeatureGroupAppl.getLong("sequenceNum"));
+        productFeatureGroupAppl = (GenericEntity)pFGAi.next();
+        productFeature = (GenericEntity)productFeatureGroupAppl.getRelatedOne("ProductFeature");
+        productFeature.set("defaultSequenceNum", productFeatureGroupAppl.getLong("sequenceNum"));
         productFeatures.add(productFeature);
     }
     context.put("productFeatureGroup", productFeatureGroup);
