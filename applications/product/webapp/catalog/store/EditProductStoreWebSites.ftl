@@ -16,36 +16,54 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<table border="1" cellpadding="2" cellspacing="0">
-    <tr>
-      <td><span class="tableheadtext">${uiLabelMap.ProductWebSiteId}</span></td>
-      <td><span class="tableheadtext">${uiLabelMap.ProductHost}</span></td>
-      <td><span class="tableheadtext">${uiLabelMap.ProductPort}</span></td>
-      <td>&nbsp;</td>
-    </tr>
-    <#if storeWebSites?has_content>
-      <#list storeWebSites as webSite>
-        <tr> 
-          <td><a href="/content/control/EditWebSite?webSiteId=${webSite.webSiteId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${webSite.siteName} [${webSite.webSiteId}]</a></td>
-          <td><span class="tabletext">${webSite.httpHost?default('&nbsp;')}</span></td>
-          <td><span class="tabletext">${webSite.httpPort?default('&nbsp;')}</span></td>
-          <td align="center">
-            <a href="<@ofbizUrl>storeUpdateWebSite?viewProductStoreId=${productStoreId}&productStoreId=&webSiteId=${webSite.webSiteId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonDelete}]</a>
-          </td>
-        </tr>
-      </#list>
-    </#if>
-</table>
-  
-  <br/>
-<h2>${uiLabelMap.ProductSetStoreOnWebSite}:</h2>
-<form name="addWebSite" action="<@ofbizUrl>storeUpdateWebSite</@ofbizUrl>" method="post">
-    <input type="hidden" name="viewProductStoreId" value="${productStoreId}">
-    <input type="hidden" name="productStoreId" value="${productStoreId}">
-    <select class="selectBox" name="webSiteId">
-      <#list webSites as webSite>
-        <option value="${webSite.webSiteId}">${webSite.siteName} [${webSite.webSiteId}]</option>
-      </#list>
-    </select>
-    <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}">
-</form>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.PageTitleEditProductStoreWebSites}</h3>
+    </div>
+    <div class="screenlet-body"> 
+        <table cellspacing="0" class="basic-table">
+            <tr class="header-row">
+              <td>${uiLabelMap.ProductWebSiteId}</td>
+              <td>${uiLabelMap.ProductHost}</td>
+              <td>${uiLabelMap.ProductPort}</td>
+              <td>&nbsp;</td>
+            </tr>
+            <#if storeWebSites?has_content>
+              <#assign rowClass = "2">
+              <#list storeWebSites as webSite>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                  <td><a href="/content/control/EditWebSite?webSiteId=${webSite.webSiteId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${webSite.siteName} [${webSite.webSiteId}]</a></td>
+                  <td>${webSite.httpHost?default('&nbsp;')}</td>
+                  <td>${webSite.httpPort?default('&nbsp;')}</td>
+                  <td align="center">
+                    <a href="<@ofbizUrl>storeUpdateWebSite?viewProductStoreId=${productStoreId}&productStoreId=&webSiteId=${webSite.webSiteId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                  </td>
+                </tr>
+                <#-- toggle the row color -->
+                <#if rowClass == "2">
+                    <#assign rowClass = "1">
+                <#else>
+                    <#assign rowClass = "2">
+                </#if> 
+              </#list>
+            </#if>
+        </table>
+    </div>
+</div>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductSetStoreOnWebSite}</h3>
+    </div>
+    <div class="screenlet-body">
+        <form name="addWebSite" action="<@ofbizUrl>storeUpdateWebSite</@ofbizUrl>" method="post">
+            <input type="hidden" name="viewProductStoreId" value="${productStoreId}">
+            <input type="hidden" name="productStoreId" value="${productStoreId}">
+            <select class="selectBox" name="webSiteId">
+              <#list webSites as webSite>
+                <option value="${webSite.webSiteId}">${webSite.siteName} [${webSite.webSiteId}]</option>
+              </#list>
+            </select>
+            <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}">
+        </form>
+    </div>
+</div>
