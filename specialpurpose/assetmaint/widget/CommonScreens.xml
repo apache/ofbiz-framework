@@ -31,15 +31,6 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="activeApp" value="assetmaint" global="true"/>
                 <set field="appheaderTemplate" value="component://assetmaint/webapp/assetmaint/includes/appbar.ftl" global="true"/>
-
-                <!-- The two default (global) stylesheets are added to the list
-                     of stylesheets to the first and second position -->
-                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <!-- The default (global) java scripts -->
-                <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
-
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.AssetMaintCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AssetMaintCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
@@ -62,10 +53,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <or>
-                                    <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
-                                    <if-has-permission permission="ASSETMAINT_ADMIN"/>
-                                </or>
+                                <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -100,10 +88,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <or>
-                                    <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
-                                    <if-has-permission permission="ASSETMAINT_ADMIN"/>
-                                </or>
+                                <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -140,10 +125,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <or>
-                                    <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
-                                    <if-has-permission permission="ASSETMAINT_ADMIN"/>
-                                </or>
+                                <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <section>

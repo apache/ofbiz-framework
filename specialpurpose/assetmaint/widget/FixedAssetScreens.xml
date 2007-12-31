@@ -34,8 +34,8 @@
                             <link target="EditFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
                         </container>
                         <container style="screenlet">
-                           <container style="screenlet-header">
-                              <label style="boxhead">${uiLabelMap.AccountingFixedAssets}</label>
+                           <container style="screenlet-title-bar">
+                              <label style="head3">${uiLabelMap.AccountingFixedAssets}</label>
                            </container>
                            <container style="screenlet-body">
                               <include-form name="FindFixedAssets" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
@@ -52,11 +52,13 @@
     <screen name="EditFixedAsset">
         <section>
             <actions>
-                <set field="titleProperty" value="AccountingEditFixedAsset" />
                 <set field="labelTitleProperty" value="AccountingEditFixedAsset" />
                 <set field="tabButtonItem" value="EditFixedAsset" />
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId" />
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset" />
+                <property-map resource="AssetMaintUiLabels" map-name="uiLabelMap"/>
+                <set field="fixedAssetName" from-field="fixedAsset.fixedAssetName" default-value="${uiLabelMap.AccountingNewFixedAsset}"/>
+                <set field="title" value="${uiLabelMap.AccountingEditFixedAsset}: ${fixedAssetName}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
@@ -68,8 +70,8 @@
                                     <link target="EditFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext" />
                                 </container>
                                 <container style="screenlet">
-                                    <container style="screenlet-header">
-                                        <label style="boxhead">${uiLabelMap.AccountingEditFixedAsset}</label>
+                                    <container style="screenlet-title-bar">
+                                        <label style="head3">${uiLabelMap.AccountingEditFixedAsset}</label>
                                     </container>
                                     <container style="screenlet-body">
                                         <include-form name="EditFixedAsset" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
@@ -79,8 +81,8 @@
                             <fail-widgets>
                                 <container style="button-bar"><label/></container>
                                 <container style="screenlet">
-                                    <container style="screenlet-header">
-                                        <label style="boxhead">${uiLabelMap.AccountingNewFixedAsset}</label>
+                                    <container style="screenlet-title-bar">
+                                        <label style="head3">${uiLabelMap.AccountingNewFixedAsset}</label>
                                     </container>
                                     <container style="screenlet-body">
                                         <include-form name="EditFixedAsset" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
@@ -154,11 +156,12 @@
         <section>
             <actions>
                 <set field="layoutSettings.styleSheets[]" value="/images/calendarstyles.css" global="true"/>
-                <set field="titleProperty" value="AssetMaintMaintenanceCalendar"/>
                 <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
                 <set field="labelTitleProperty" value="AssetMaintMaintenanceCalendar"/>
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/viewCalendar.bsh"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+                <property-map resource="AssetMaintUiLabels" map-name="uiLabelMap"/>
+                <set field="title" value="${uiLabelMap.AssetMaintMaintenanceCalendar}: ${fixedAsset.fixedAssetName}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
