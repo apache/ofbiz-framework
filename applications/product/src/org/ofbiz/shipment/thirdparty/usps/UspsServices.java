@@ -1363,7 +1363,7 @@ public class UspsServices {
         Debug.logInfo("USPS response: " + responseString, module);
         
         if (UtilValidate.isEmpty(responseString)) {
-        	return null;
+            return null;
         }
  
         Document responseDocument = null;
