@@ -157,9 +157,6 @@ under the License.
     </tr>
     </table>
     </form>
-
-    <hr/>
-
     <script language="JavaScript" type="text/javascript">
         function setUploadUrl(newUrl) {
         var toExec = 'document.imageUploadForm.action="' + newUrl + '";';
@@ -168,14 +165,19 @@ under the License.
     </script>
     <h3>${uiLabelMap.ProductUploadImage}</h3>
     <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>" name="imageUploadForm">
-        <input type="file" size="50" name="fname">
-        <br/>
-        <span>
-            <input class="radioButton" type="radio" name="upload_file_type_bogus" value="small" checked onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>");'>${uiLabelMap.CommonSmall}
-            <input class="radioButton" type="radio" name="upload_file_type_bogus" value="medium" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=medium</@ofbizUrl>");'>${uiLabelMap.CommonMedium}
-            <input class="radioButton" type="radio" name="upload_file_type_bogus" value="large"onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=large</@ofbizUrl>");'>${uiLabelMap.CommonLarge}
-            <input class="radioButton" type="radio" name="upload_file_type_bogus" value="detail" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=detail</@ofbizUrl>");'>${uiLabelMap.CommonDetail}
-        </span>
-        <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}">
+        <table cellspacing="0" class="basic-table">
+            <tr>
+                <td width="20%" align="right" valign="top">    
+                    <input type="file" size="50" name="fname">
+                <td>&nbsp;</td>
+                <td width="80%" colspan="4" valign="top">
+                    <input class="radioButton" type="radio" name="upload_file_type_bogus" value="small" checked onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=small</@ofbizUrl>");'>${uiLabelMap.CommonSmall}
+                    <input class="radioButton" type="radio" name="upload_file_type_bogus" value="medium" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=medium</@ofbizUrl>");'>${uiLabelMap.CommonMedium}
+                    <input class="radioButton" type="radio" name="upload_file_type_bogus" value="large"onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=large</@ofbizUrl>");'>${uiLabelMap.CommonLarge}
+                    <input class="radioButton" type="radio" name="upload_file_type_bogus" value="detail" onclick='setUploadUrl("<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=detail</@ofbizUrl>");'>${uiLabelMap.CommonDetail}
+                    <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}">
+                </td>
+            </tr>
+        </table>
     </form>
 </#if>

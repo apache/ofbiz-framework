@@ -26,19 +26,19 @@ under the License.
         <#if (listSize > 0)>
             <div class="boxhead-right">
                 <#if (viewIndex > 1)>
-                    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="lightbuttontext">${uiLabelMap.CommonPrevious}</a> |
+                    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a> |
                 </#if>
-                ${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
+                <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
                 <#if (listSize > highIndex)>
-                    | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="lightbuttontext">${uiLabelMap.CommonNext}</a>
-                </#if>
+                    | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
+                </#if>                
+                &nbsp;
             </div>
             <div class="boxhead-left">
-                <h3>${uiLabelMap.PageTitleEditCategoryProducts}<h3>
+                ${uiLabelMap.PageTitleEditCategoryProducts}
             </div>
             <div class="boxhead-fill">&nbsp;</div>
         </#if>
-        <br/>      
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">        
@@ -106,19 +106,19 @@ under the License.
         <#if (listSize > 0)>
             <div class="boxhead-right">
                 <#if (viewIndex > 1)>
-                    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="lightbuttontext">${uiLabelMap.CommonPrevious}</a> |
+                    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a> |
                 </#if>
-                ${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
+                <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
                 <#if (listSize > highIndex)>
-                    | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="lightbuttontext">${uiLabelMap.CommonNext}</a>
-                </#if>
+                    | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
+                </#if>                
+                &nbsp;
             </div>
             <div class="boxhead-left">
-                <h3>${uiLabelMap.PageTitleEditCategoryProducts}<h3>
+                ${uiLabelMap.PageTitleEditCategoryProducts}
             </div>
             <div class="boxhead-fill">&nbsp;</div>
-        </#if>
-        <br/>      
+        </#if>     
     </div>        
 </div>
 <div class="screenlet">

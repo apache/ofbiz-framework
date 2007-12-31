@@ -16,31 +16,38 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<table cellspacing="0" class="basic-table">
-    <tr class="header-row">
-        <td>${uiLabelMap.ProductProductId}</td>
-            <#list featureTypeIds as featureTypeId>
-                <#assign featureType = delegator.findByPrimaryKey("ProductFeatureType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", featureTypeId))>
-                <td>${featureType.description}&nbsp;</td>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <h3>${uiLabelMap.ProductInventorySummary}</h3>
+    </div>
+    <div class="screenlet-body">
+        <table cellspacing="0" class="basic-table">
+            <tr class="header-row">
+                <td>${uiLabelMap.ProductProductId}</td>
+                    <#list featureTypeIds as featureTypeId>
+                        <#assign featureType = delegator.findByPrimaryKey("ProductFeatureType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", featureTypeId))>
+                        <td>${featureType.description}&nbsp;</td>
+                    </#list>
+                <td>${uiLabelMap.ProductQoh}</td>
+                <td>${uiLabelMap.ProductAtp}</td>
+            </tr>
+            <#assign rowClass = "2">
+            <#list variantInventorySummaries as variantSummary>
+            <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                <td><a href="/catalog/control/EditProductInventoryItems?productId=${variantSummary.productId}" class="buttontext">${variantSummary.productId}</a></td>
+                    <#list featureTypeIds as featureTypeId>
+                        <td>${(variantSummary[featureTypeId].description)?default(featureTypeId)}</td>
+                    </#list>
+                <td>${variantSummary.quantityOnHandTotal}</td>
+                <td>${variantSummary.availableToPromiseTotal}</td>
+            </tr>
+            <#-- toggle the row color -->
+            <#if rowClass == "2">
+                <#assign rowClass = "1">
+            <#else>
+                <#assign rowClass = "2">
+            </#if>
             </#list>
-        <td>${uiLabelMap.ProductQoh}</td>
-        <td>${uiLabelMap.ProductAtp}</td>
-    </tr>
-    <#assign rowClass = "2">
-    <#list variantInventorySummaries as variantSummary>
-    <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-        <td><a href="/catalog/control/EditProductInventoryItems?productId=${variantSummary.productId}" class="buttontext">${variantSummary.productId}</a></td>
-            <#list featureTypeIds as featureTypeId>
-                <td>${(variantSummary[featureTypeId].description)?default(featureTypeId)}</td>
-            </#list>
-        <td>${variantSummary.quantityOnHandTotal}</td>
-        <td>${variantSummary.availableToPromiseTotal}</td>
-    </tr>
-    <#-- toggle the row color -->
-    <#if rowClass == "2">
-        <#assign rowClass = "1">
-    <#else>
-        <#assign rowClass = "2">
-    </#if>
-    </#list>
-</table>
+        </table>
+    </div>
+</div>
