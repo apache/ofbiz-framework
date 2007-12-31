@@ -32,8 +32,8 @@
                     <decorator-section name="body">
                         <container style="button-bar"><link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
                         <container style="screenlet">
-                            <container style="screenlet-header">
-                                <label style="boxhead">${uiLabelMap.PageTitleFindFixedAssetMaints}</label>
+                            <container style="screenlet-title-bar">
+                                <label style="head3">${uiLabelMap.PageTitleFindFixedAssetMaints}</label>
                             </container>
                             <container style="screenlet-body">
                                 <include-form name="FindFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
@@ -49,7 +49,6 @@
     <screen name="EditFixedAssetMaint">
         <section>
             <actions>
-                <set field="titleProperty" value="AccountingFixedAssetMaint"/>
                 <set field="labelTitleProperty" value="AccountingFixedAssetMaint"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaint"/>
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/editMaint.bsh"/>
@@ -66,6 +65,8 @@
                 <entity-and entity-name="WorkEffortPartyAssignView" list-name="relatedPartyAssigns">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap"/>
+                <set field="title" value="${uiLabelMap.AccountingFixedAssetMaint}: ${fixedAsset.fixedAssetName}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
@@ -78,8 +79,8 @@
                                     <link target="printFixedAssetMaint.pdf?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                                 </container>
                                 <container style="screenlet">
-                                    <container style="screenlet-header">
-                                        <label style="boxhead">${uiLabelMap.AccountingNewFixedAssetMaint}</label>
+                                    <container style="screenlet-title-bar">
+                                        <label style="head3">${uiLabelMap.FixedAssetMaintWorkEffortName}</label>
                                     </container>
                                     <container style="screenlet-body">
                                         <include-form name="EditFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
@@ -89,8 +90,8 @@
                             <fail-widgets>
                                 <container style="button-bar"><label/></container>
                                 <container style="screenlet">
-                                    <container style="screenlet-header">
-                                        <label style="boxhead">${uiLabelMap.AccountingNewFixedAssetMaint}</label>
+                                    <container style="screenlet-title-bar">
+                                        <label style="head3">${uiLabelMap.AccountingNewFixedAssetMaint}</label>
                                     </container>
                                     <container style="screenlet-body">
                                         <include-form name="EditFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
