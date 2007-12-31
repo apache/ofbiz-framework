@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -864,6 +863,12 @@ public class UtilDateTime {
         return retStamp;
     }
 
+    public static Timestamp getMonthEnd(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.getActualMaximum(Calendar.DAY_OF_MONTH), 0, 0, 0);
+        return getDayEnd(new Timestamp(tempCal.getTimeInMillis()), timeZone, locale);
+    }
+
     public static Timestamp getYearStart(Timestamp stamp, TimeZone timeZone, Locale locale) {
         return getYearStart(stamp, 0, 0, 0, timeZone, locale);
     }
@@ -890,6 +895,12 @@ public class UtilDateTime {
         Timestamp retStamp = new Timestamp(tempCal.getTimeInMillis());
         retStamp.setNanos(0);
         return retStamp;
+    }
+
+    public static Timestamp getYearEnd(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar tempCal = toCalendar(stamp, timeZone, locale);
+        tempCal.set(tempCal.get(Calendar.YEAR), tempCal.getActualMaximum(Calendar.MONTH) + 1, 0, 0, 0, 0);
+        return getMonthEnd(new Timestamp(tempCal.getTimeInMillis()), timeZone, locale);
     }
 
     public static int weekNumber(Timestamp stamp, TimeZone timeZone, Locale locale) {
