@@ -299,7 +299,7 @@ under the License.
        <field name="description"><text size="30"/></field>
        <!--field name="overrideGlAccountId"><text size="10"/></field-->
        <field name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="7"/></field>
-       <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>  <!-- this should not look like something you can modify, hence "tabletext" -->
+       <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>  <!-- this should not look like something you can modify, hence display -->
        <field name="uomId"><hidden/></field>
        <field name="taxableFlag"><hidden/></field>
        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>

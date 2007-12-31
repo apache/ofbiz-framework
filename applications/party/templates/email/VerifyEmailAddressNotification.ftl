@@ -25,7 +25,7 @@ under the License.
     </head>
     <body>
         <h1>${title}</h1>                
-        <p class="tabletext">Thank you for registering. Please click the link below to complete your registration.</p>
+        <p>Thank you for registering. Please click the link below to complete your registration.</p>
         <br><br>
         <a href="${baseUrl}/cmssite/cms/verifyEmailAddress?verifyHash=${parameters.verifyHash}">www.cmssite.com/cms/registration.html</a>
     </body>
