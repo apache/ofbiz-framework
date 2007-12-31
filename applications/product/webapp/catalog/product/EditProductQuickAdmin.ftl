@@ -119,7 +119,7 @@ function doPublish() {
                 <td nowrap><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${assocProduct.productId?if_exists}</a></td>
                 <td width="100%"><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${assocProduct.internalName?if_exists}</a></td>
                 <td colspan="2">
-                    <input name="description${idx}" size="70" maxlength="100" value="${selFeatureDesc[assocProduct.productId]?if_exists}"/>
+                    <input type="text" name="description${idx}" size="70" maxlength="100" value="${selFeatureDesc[assocProduct.productId]?if_exists}"/>
                 </td>
                 <#assign checked=""/>
                 <#if ((assocProduct.smallImageUrl?if_exists != "") && (assocProduct.smallImageUrl?if_exists == product.smallImageUrl?if_exists) &&
@@ -223,14 +223,14 @@ function doPublish() {
             <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <td nowrap>${assocProduct.productId?if_exists}</td>
                 <td width="100%">${assocProduct.internalName?if_exists}<input type="hidden" name="productId${idx}" value="${assocProduct.productId?if_exists}"/></td>
-                <td><input name="productHeight${idx}" size="6" maxlength="20" value="${assocProduct.productHeight?if_exists}"/></td>
-                <td><input name="productWidth${idx}" size="6" maxlength="20" value="${assocProduct.productWidth?if_exists}"/></td>
-                <td><input name="productDepth${idx}" size="6" maxlength="20" value="${assocProduct.productDepth?if_exists}"/></td>
-                <td><input name="weight${idx}" size="6" maxlength="20" value="${assocProduct.weight?if_exists}"/></td>
-                <td><input name="~floz${idx}" size="6" maxlength="20" value="${featureFloz.get(assocProduct.productId)?if_exists}"/></td>
-                <td><input name="~ml${idx}" size="6" maxlength="20" value="${featureMl.get(assocProduct.productId)?if_exists}"/></td>
-                <td><input name="~ntwt${idx}" size="6" maxlength="20" value="${featureNtwt.get(assocProduct.productId)?if_exists}"/></td>
-                <td><input name="~grams${idx}" size="6" maxlength="20" value="${featureGrams.get(assocProduct.productId)?if_exists}"/></td>
+                <td><input type="text" name="productHeight${idx}" size="6" maxlength="20" value="${assocProduct.productHeight?if_exists}"/></td>
+                <td><input type="text" name="productWidth${idx}" size="6" maxlength="20" value="${assocProduct.productWidth?if_exists}"/></td>
+                <td><input type="text" name="productDepth${idx}" size="6" maxlength="20" value="${assocProduct.productDepth?if_exists}"/></td>
+                <td><input type="text" name="weight${idx}" size="6" maxlength="20" value="${assocProduct.weight?if_exists}"/></td>
+                <td><input type="text" name="~floz${idx}" size="6" maxlength="20" value="${featureFloz.get(assocProduct.productId)?if_exists}"/></td>
+                <td><input type="text" name="~ml${idx}" size="6" maxlength="20" value="${featureMl.get(assocProduct.productId)?if_exists}"/></td>
+                <td><input type="text" name="~ntwt${idx}" size="6" maxlength="20" value="${featureNtwt.get(assocProduct.productId)?if_exists}"/></td>
+                <td><input type="text" name="~grams${idx}" size="6" maxlength="20" value="${featureGrams.get(assocProduct.productId)?if_exists}"/></td>
                 <td><a class="buttontext" href="<@ofbizUrl>EditProductFeatures?productId=${assocProduct.productId}</@ofbizUrl>">${featureHazmat.get(assocProduct.productId)?if_exists}</a></td>
                 <td><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${featureSalesThru.get(assocProduct.productId)?if_exists}</a></td>
                 <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${assocProduct.productId}</@ofbizUrl>">${featureThruDate.get(assocProduct.productId)?if_exists}</a></td>
@@ -251,14 +251,14 @@ function doPublish() {
             <tr>
                 <td>${productId?if_exists}</td>
                 <td>${product.internalName?if_exists}</td>
-                <td><input name="productHeight" size="6" maxlength="20" value="${product.productHeight?if_exists}"></td>
-                <td><input name="productWidth" size="6" maxlength="20" value="${product.productWidth?if_exists}"></td>
-                <td><input name="productDepth" size="6" maxlength="20" value="${product.productDepth?if_exists}"></td>
-                <td><input name="weight" size="6" maxlength="20" value="${product.weight?if_exists}"></td>
-                <td><input name="~floz" size="6" maxlength="20" value="${floz?if_exists}"></td>
-                <td><input name="~ml" size="6" maxlength="20" value="${ml?if_exists}"></td>
-                <td><input name="~ntwt" size="6" maxlength="20" value="${ntwt?if_exists}"></td>
-                <td><input name="~grams" size="6" maxlength="20" value="${grams?if_exists}"></td>
+                <td><input type="text" name="productHeight" size="6" maxlength="20" value="${product.productHeight?if_exists}"></td>
+                <td><input type="text" name="productWidth" size="6" maxlength="20" value="${product.productWidth?if_exists}"></td>
+                <td><input type="text" name="productDepth" size="6" maxlength="20" value="${product.productDepth?if_exists}"></td>
+                <td><input type="text" name="weight" size="6" maxlength="20" value="${product.weight?if_exists}"></td>
+                <td><input type="text" name="~floz" size="6" maxlength="20" value="${floz?if_exists}"></td>
+                <td><input type="text" name="~ml" size="6" maxlength="20" value="${ml?if_exists}"></td>
+                <td><input type="text" name="~ntwt" size="6" maxlength="20" value="${ntwt?if_exists}"></td>
+                <td><input type="text" name="~grams" size="6" maxlength="20" value="${grams?if_exists}"></td>
                 <td><a class="buttontext" href="<@ofbizUrl>EditProductFeatures?productId=${product.productId}</@ofbizUrl>">${hazmat?if_exists}</a></td>
                 <td><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>">${salesthru?if_exists}</a></td>
                 <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${product.productId}</@ofbizUrl>">${thrudate?if_exists}</a></td>
