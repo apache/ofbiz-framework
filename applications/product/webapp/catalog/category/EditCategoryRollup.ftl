@@ -101,9 +101,6 @@ under the License.
         </table>
     </div>
 </div>
-<br/>
-<hr/>
-<br/>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductCategoryRollupChildCategories}</h3>
