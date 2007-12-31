@@ -78,10 +78,10 @@ public class ProductContentWrapper implements ContentWrapper {
     }
     
     public String get(String productContentTypeId) {
-    	if (this.product == null) {
-    		Debug.logWarning("Tried to get ProductContent for type [" + productContentTypeId + "] but the product field in the ProductContentWrapper is null", module);
-    		return null;
-    	}
+        if (this.product == null) {
+            Debug.logWarning("Tried to get ProductContent for type [" + productContentTypeId + "] but the product field in the ProductContentWrapper is null", module);
+            return null;
+        }
         return getProductContentAsText(this.product, productContentTypeId, locale, mimeTypeId, this.product.getDelegator(), dispatcher);
     }
     

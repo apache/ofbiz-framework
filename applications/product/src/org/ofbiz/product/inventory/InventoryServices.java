@@ -723,8 +723,8 @@ public class InventoryServices {
 
         // get a list of all available facilities for looping
         List facilities = null;
-	try {
-	    if (facilityId != null) {
+    try {
+        if (facilityId != null) {
                 facilities = delegator.findByAnd("Facility", UtilMisc.toMap("facilityId", facilityId)); 
             } else {
                 facilities = delegator.findAll("Facility");
