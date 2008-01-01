@@ -63,7 +63,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
@@ -91,7 +91,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -133,7 +133,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -177,7 +177,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
@@ -203,7 +203,7 @@ under the License.
                         <section>
                             <!-- do check for PartyAbility, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
@@ -232,7 +232,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <!--include-menu name="TimesheetTabBar" location="component://projectmgr/widget/Menus.xml"/-->
@@ -259,7 +259,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                    <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <include-menu name="MyTimeSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
@@ -284,7 +284,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
                             </condition>
                             <actions>
                                 <entity-condition entity-name="Facility" list-name="allFacilities">
