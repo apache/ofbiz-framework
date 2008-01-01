@@ -158,27 +158,21 @@
         <response name="success" type="view" value="MyTasks"/>
         <response name="error" type="view" value="MyTasks"/>
     </request-map>
-    <request-map uri="addMyTask">
+    <request-map uri="updateTaskAssigment">
         <security https="true" auth="true"/>
-        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <event type="service" invoke="updateTaskAssigment"/>
+        <response name="success" type="view" value="MyTasks"/>
+        <response name="error" type="view" value="MyTasks"/>
+    </request-map>
+    <request-map uri="addTaskAssigment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addTaskAssigment"/>
         <response name="success" type="view" value="MyTasks"/>
         <response name="error" type="view" value="MyTasks"/>
     </request-map>
     <request-map uri="updateTaskPartyAssign">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
-        <response name="success" type="view" value="EditTaskPartyAssigns"/>
-        <response name="error" type="view" value="EditTaskPartyAssigns"/>
-    </request-map>
-    <request-map uri="updateMyTasks">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateMyTaskAssigment"/>
-        <response name="success" type="view" value="MyTasks"/>
-        <response name="error" type="view" value="MyTasks"/>
-    </request-map>
-    <request-map uri="deleteTaskPartyAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deletePartyToWorkEffortAssignment"/>
+        <event type="service" invoke="updateTaskAssigment"/>
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
         <response name="error" type="view" value="EditTaskPartyAssigns"/>
     </request-map>
@@ -190,7 +184,7 @@
     </request-map>
     <request-map uri="createMyTask">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortAndPartyAssign"/>
+        <event type="service" invoke="createProjectTask"/>
         <response name="success" type="view" value="MyTasks"/>
         <response name="error" type="view" value="MyTasks"/>
     </request-map>

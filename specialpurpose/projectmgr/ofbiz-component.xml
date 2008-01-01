@@ -39,7 +39,7 @@ under the License.
         title="Project"
         server="default-server"
         location="webapp/projectmgr"
-        base-permission="OFBTOOLS,PROJECT"
+        base-permission="PROJECTMGR"
         mount-point="/projectmgr"
         app-bar-display="true"/>
 </ofbiz-component>

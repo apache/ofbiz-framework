@@ -20,11 +20,17 @@ under the License.
 
 <entity-engine-xml>
     <!-- Project Manager security -->
-    <SecurityPermission description="View operations in the Project Manager." permissionId="PROJECT_VIEW"/>
+    <SecurityPermission description="ALL operations in the Project Manager." permissionId="PROJECTMGR_ADMIN"/>
+    <SecurityPermission description="ALL operations in the project the user is member of" permissionId="PROJECTMGR_USER"/>
+    <SecurityPermission description="View operations in the Project Manager." permissionId="PROJECTMGR_VIEW"/>
 
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PROJECT_VIEW"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PROJECT_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PROJECT_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PROJECT_VIEW"/>
+    <!-- the system makes heavily use of the workeffort component, but NOT its security, in the workeffort component 
+        work is going on to move the security from the service program to the service definition level -->
+    <SecurityGroup description="Project User group, has only access to own projects." groupId="PROJECTUSER"/>
+    <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_USER"/>
+    <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_VIEW"/>
+    
+    <!-- allow the userlogin 'admin' full access -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PROJECTMGR_ADMIN"/>
 
 </entity-engine-xml>
