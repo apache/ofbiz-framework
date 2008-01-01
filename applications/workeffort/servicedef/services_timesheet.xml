@@ -28,6 +28,7 @@ under the License.
     <service name="createTimesheet" default-entity-name="Timesheet" engine="simple" auth="true"
         location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheet">
         <description>Creates Timesheet</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -84,6 +85,7 @@ under the License.
     <service name="addWorkEffortTimeToInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
         location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
         <description>Add WorkEffort Time to Invoice</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
