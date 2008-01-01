@@ -33,7 +33,7 @@ under the License.
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
-    <form name="EditExampleFeature" type="single" target="updateExampleFeature" title="" default-map-name="example">
+    <form name="EditExampleFeature" type="single" target="updateExampleFeature" title="" default-map-name="exampleFeature">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="example.statusId"/>
