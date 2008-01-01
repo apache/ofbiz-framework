@@ -23,9 +23,6 @@ under the License.
     
     <!-- Timesheet Services -->
     <simple-method method-name="createTimesheet" short-description="Create Timesheet">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
-        <check-errors/>
-        
         <make-value value-name="newEntity" entity-name="Timesheet"/>
         <sequenced-id-to-env sequence-name="Timesheet" env-name="newEntity.timesheetId"/>
         <field-to-result field-name="newEntity.timesheetId" result-name="timesheetId"/>
@@ -51,32 +48,26 @@ under the License.
         <remove-value value-name="timesheet"/>
     </simple-method>
     <simple-method method-name="createTimesheetForThisWeek" short-description="Create Timesheet For This Week of no date provided, otherwise for a specific week">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
-        <check-errors/>
         <if-empty field-name="parameters.requiredDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <else>
                 <set field="nowTimestamp" from-field="parameters.requiredDate"/>
             </else>            
         </if-empty>
-        <log level="always" message="===========creating a timesheet for ${nowTimestamp}"/>
-        <set-service-fields service-name="createTimesheet" map-name="parameters" to-map-name="createTimesheetParams"/>
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekStart" ret-field-name="createTimesheetParams.fromDate">
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekStart" ret-field-name="parameters.fromDate">
             <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
         </call-class-method>
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekEnd" ret-field-name="createTimesheetParams.thruDate">
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekEnd" ret-field-name="parameters.thruDate">
             <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
         </call-class-method>
         <!-- check if timesheet already exists -->
         <entity-and entity-name="Timesheet" list-name="timesheets">
-            <field-map field-name="partyId" env-name="createTimesheetParams.partyId"/>
-            <field-map field-name="fromDate" env-name="createTimesheetParams.fromDate"/>
-            <field-map field-name="thruDate" env-name="createTimesheetParams.thruDate"/>
+            <field-map field-name="partyId" env-name="parameters.partyId"/>
+            <field-map field-name="fromDate" env-name="parameters.fromDate"/>
+            <field-map field-name="thruDate" env-name="parameters.thruDate"/>
         </entity-and>
         <if-empty field-name="timesheets">
-            <call-service service-name="createTimesheet" in-map-name="createTimesheetParams">
-                <result-to-result result-name="timesheetId"/>
-            </call-service>
+                <call-simple-method method-name="createTimesheet"/>
             <else>
                 <add-error><fail-message message="Time sheet already exist, not created an other one."/></add-error>
                 <check-errors/>
