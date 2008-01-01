@@ -233,12 +233,13 @@
             <set field="phaseName" from-field="resultProject.phaseName"/>
         </row-actions>
         <field name="fromDate"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>
         <field name="oldRoleTypeId" parameter-name="roleTypeId"><hidden value="${roleTypeId}"/></field>
         <field name="oldPartyId" parameter-name="partyId"><hidden value="${partyId}"/></field>
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}" target="taskView?workEffortId=${workEffortId}"/>
         </field>
-        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${phaseName}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${projectId}" description="${projectName}"/></field>
         <field name="currentStatusId" ><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority"><display/></field>
@@ -265,6 +266,10 @@
                 </entity-options>    
             </drop-down>
         </field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="oldPartyId" parameter-name="partyId"><hidden value="${partyId}"/></field>
+        <field name="oldRoleTypeId" parameter-name="roleTypeId"><hidden value="${roleTypeId}"/></field>
+        <field name="fromDate"><hidden/></field>
         <field name="updateButton"><submit/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
         <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>

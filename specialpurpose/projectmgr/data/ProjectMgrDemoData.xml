@@ -5,7 +5,7 @@
     <!-- Demo Employee1 -->
     <Party partyId="DemoEmployee1" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoEmployee1" firstName="Peter" lastName="Manager" />
-    <UserLogin userLoginId="DemoEmployee1" partyId="DemoEmployee1" 	currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" enabled="Y" hasLoggedOut="Y"/>
+    <UserLogin userLoginId="DemoEmployee1" partyId="DemoEmployee1" 	enabled="Y" hasLoggedOut="Y"/>
     <PartyRole partyId="DemoEmployee1" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
@@ -15,7 +15,7 @@
     <!-- Demo Employee2 -->
     <Party partyId="DemoEmployee2" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoEmployee2" firstName="Jo" lastName="Analist" />
-    <UserLogin userLoginId="DemoEmployee2"  partyId="DemoEmployee2" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" enabled="Y" hasLoggedOut="Y"/>
+    <UserLogin userLoginId="DemoEmployee2"  partyId="DemoEmployee2" enabled="Y" hasLoggedOut="Y"/>
     <PartyRole partyId="DemoEmployee2" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
@@ -25,7 +25,7 @@
     <!-- Demo Customer1 -->
     <Party partyId="DemoCustomer1" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoCustomer1" firstName="Sam" lastName="Customer 1" />
-    <UserLogin userLoginId="DemoCustomer1"  partyId="DemoCustomer1" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" enabled="Y" hasLoggedOut="Y"/>
+    <UserLogin userLoginId="DemoCustomer1"  partyId="DemoCustomer1" enabled="Y" hasLoggedOut="Y"/>
     <PartyRole partyId="DemoCustomer1" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
@@ -35,7 +35,7 @@
     <!-- Demo Customer2 -->
     <Party partyId="DemoCustomer2" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoCustomer2" firstName="John" lastName="Customer 2"/>
-    <UserLogin userLoginId="DemoCustomer2"  partyId="DemoCustomer2" currentPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" enabled="Y" hasLoggedOut="Y"/>
+    <UserLogin userLoginId="DemoCustomer2"  partyId="DemoCustomer2" enabled="Y" hasLoggedOut="Y"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
@@ -53,7 +53,7 @@
     
     <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer1" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer2" fromDate="2000-01-01 00:00:00.0"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee1" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginAndSecurityGroup groupId="PROJECTADMIN" userLoginId="DemoEmployee1" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee2" fromDate="2000-01-01 00:00:00.0"/>
     
     <!-- First Demo project from customer 1, phases and tasks with estimated time-->

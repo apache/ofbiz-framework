@@ -21,6 +21,23 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
+    <simple-method method-name="createProject" short-description="Create a project">
+        <if-not-empty field-name="parameters.templateId">
+            <set field="parameters.projectId" from-field="parameters.templateId"/>
+            <call-simple-method method-name="copyProject"/>
+            <else>
+                <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+            </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="createProjectTask" short-description="Create a project task and optionally assign">
+        <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+        <if-not-empty field-name="parameters.partyId">
+            <call-simple-method method-name="addTaskAssignment"/>
+        </if-not-empty>
+    </simple-method>
+    
     <simple-method method-name="updateTaskAssigment" 
         short-description="Update task to resource assignment, if required create a new one by re-assigment">
         <field-to-result map-name="parameters" field-name="workEffortId"/>
@@ -43,13 +60,17 @@
             </condition>
             <then>
                 <!-- roleType and/or partyId changed: end old and create new assign-->
-                <set-service-fields service-name="deletePartyToWorkEffortAssignment" map-name="parameters" to-map-name="del"/>
-                <call-service service-name="deletePartyToWorkEffortAssignment" in-map-name="del"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+                <now-date-to-env env-name="workEffortPartyAssignment.thruDate"/>
+                <store-value value-name="workEffortPartyAssignment"/>
+                <!-- create a new one -->
+                <make-value value-name="newAssign" entity-name="WorkEffortPartyAssignment"/>
                 <set field="newAssign.workEffortId" from-field="parameters.workEffortId"/>
                 <set field="newAssign.partyId" from-field="parameters.newPartyId"/>
                 <set field="newAssign.roleTypeId" from-field="parameters.newRoleTypeId"/>
+                <now-date-to-env env-name="newAssign.fromDate"/>
                 <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
-                <call-service service-name="assignPartyToWorkEffort" in-map-name="newAssign"/>
+                <create-value value-name="newAssign"/>
             </then>
             <else>
                 <!-- status changed or assignment ended -->
@@ -61,15 +82,19 @@
                 </if-compare>
                 <set-nonpk-fields value-name="assignment" map-name="parameters"/>
                 <store-value value-name="assignment"/>
-                <call-simple-method method-name="updateTaskStatus"/>
+                <if-compare field-name="assignment.statusId" value="PAS_COMPLETED" operator="equals">
+                    <call-simple-method method-name="updateTaskStatus"/>
+                </if-compare>
             </else>
         </if>
     </simple-method>
     
     <simple-method method-name="addTaskAssigment" short-description="assign a party to a task">
-        <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="add"/>
-        <set field="add.statusId" value="PAS_ASSIGNED"/>
-        <call-service service-name="assignPartyToWorkEffort" in-map-name="add"/>
+        <make-value value-name="newAssign" entity-name="WorkEffortPartyAssignment"/>
+        <set-pk-fields value-name="newAssign" map-name="parameters"/>
+        <now-timestamp-to-env env-name="newAssign.fromDate"/>
+        <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
+        <create-value value-name="newAssign"/>
     </simple-method>
         
     <simple-method method-name="updateTaskStatus" 
@@ -277,19 +302,6 @@
         <field-to-result field-name="project.workEffortName" result-name="projectName"/>
         <field-to-result field-name="phase.workEffortId" result-name="phaseId"/>
         <field-to-result field-name="phase.workEffortName" result-name="phaseName"/>
-    </simple-method>
-    
-    <simple-method method-name="createProject" short-description="if templateId is present copy a project from a template">
-        <if-not-empty field-name="parameters.templateId">
-            <set field="parameters.projectId" from-field="parameters.templateId"/>
-            <call-simple-method method-name="copyProject"/>
-            <else>
-                <set-service-fields service-name="createWorkEffort" map-name="parameters" to-map-name="parm"/>
-                <call-service service-name="createWorkEffort" in-map-name="parm">
-                    <result-to-result result-name="workEffortId"/>
-                </call-service>
-            </else>
-        </if-not-empty>
     </simple-method>
     
     <simple-method method-name="copyProjectToTemplate" short-description="copy a project to a workeffortType starting with 'template'">

@@ -178,7 +178,7 @@
     </request-map>
     <request-map uri="createTask">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffort"/>
+        <event type="service" invoke="createProjectTask"/>
         <response name="success" type="view" value="EditTask"/>
         <response name="error" type="view" value="EditTask"/>
     </request-map>

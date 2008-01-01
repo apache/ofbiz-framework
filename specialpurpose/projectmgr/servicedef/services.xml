@@ -22,6 +22,18 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Project Manager service definitions.</description>
 
+    <service name="createProjectTimesheet" engine="simple" default-entity-name="Timesheet"
+        location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheetForThisWeek">
+        <description>Creates Timesheet for this week if no required date specified.</description>
+        <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="fromDate"/>
+            <exclude field-name="thruDate"/>
+        </auto-attributes>
+        <attribute name="requiredDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+
     <service name="projectMgrPermission" engine="simple"
         location="org/ofbiz/project/ProjectPermissionServices.xml" invoke="projectMgrPermission">
         <implements service="permissionInterface"/>
@@ -61,7 +73,7 @@ under the License.
     <service name="createProject" engine="simple" default-entity-name="WorkEffort"
         location="org/ofbiz/project/ProjectServices.xml" invoke="createProject">
         <description>Copy a project planning from a template.</description>
-        <permission-service service-name="projectPermission" main-action="CREATE"/>
+        <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <implements service="interfaceWorkEffort"/>        
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
@@ -76,7 +88,7 @@ under the License.
     </service>
     
     <service name="createProjectTask" engine="simple" default-entity-name="WorkEffort"
-        location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortAndPartyAssign">
+        location="org/ofbiz/project/ProjectServices.xml" invoke="createProjectTask">
         <description>Create a new task and optionally assign to a resource.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <implements service="interfaceWorkEffort"/>        
@@ -164,7 +176,7 @@ under the License.
     <service name="updateTaskAssigment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="updateTaskAssigment">
         <description>Update a WorkEffortPartyAssignment Entity, including set enddate and create new</description>
-        <permission-service service-name="projectMgrPermission" main-action="UPDATE" />
+        <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="INOUT"/>
         <attribute name="newPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN"/>
