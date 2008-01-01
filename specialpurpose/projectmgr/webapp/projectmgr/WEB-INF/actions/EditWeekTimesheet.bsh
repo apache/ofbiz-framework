@@ -53,8 +53,8 @@ if (timesheetId != null) {
         if (!UtilValidate.isEmpty(timesheets)) {
             timesheet = timesheets.get(0);
         } else {
-            if (security.hasPermission("WORKEFFORTMGR_CREATE", session) || security.hasPermission("WORKEFFORTMGR_ADMIN", session)) {
-            	result = dispatcher.runSync("createTimesheetForThisWeek", 
+            if (security.hasPermission("PROJECTMGR_VIEW", session) || security.hasPermission("PROJECTMGR_ADMIN", session)) {
+            	result = dispatcher.runSync("createProjectTimesheet", 
                 	UtilMisc.toMap("userLogin", userLogin, "partyId", partyId));
             } else {
             	request.setAttribute("errorMessageList", UtilMisc.toList("Unable to create timesheet, permission error"));

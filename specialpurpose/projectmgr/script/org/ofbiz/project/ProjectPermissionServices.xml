@@ -48,7 +48,15 @@
                 </if-compare>
             </else>
         </if-compare>      
+<log level="always" message="==============security: object: ${sec_object} action: ${mainAction}"></log>
+        <if-compare field-name="sec_object" value="TIMESHEET" operator="equals">
+            <if-compare field-name="mainAction" value="CREATE" operator="equals">
+                <field-to-result field-name="hasPermission"/>
+                <return/>
+            </if-compare>
+        </if-compare>
         
+
         <if-has-permission permission="PROJECTMGR" action="_VIEW">
             <if-has-permission permission="PROJECTMGR" action="_ROLE_">
                 <!-- object dependent checks here -->
