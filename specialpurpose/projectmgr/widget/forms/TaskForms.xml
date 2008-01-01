@@ -18,8 +18,8 @@
     under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        >
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     
     <form name="EditTask" type="single" target="updateTask" default-map-name="task">
         <actions>
@@ -30,9 +30,9 @@
         </actions>
         <alt-target use-when="myTask!=null" target="createMyTask"/>
         <alt-target use-when="task==null" target="createTask"/>
+        <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field use-when="myTask!=null" name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
-        <field name="DONE_PAGE"><hidden value="${donePage}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
         <field use-when="task!=null" name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="task==null" entry-name="dummy" name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
@@ -203,7 +203,7 @@
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"></display-entity>/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority"><display/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" red-when="before-now"><display type="date"/></field>
@@ -212,7 +212,7 @@
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
     </form>
-    <form name="MyTasks" type="list" list-name="tasks" paginate-target="MyTasks" target="updateMyTasks">
+    <form name="MyTasks" type="list" list-name="tasks" paginate-target="MyTasks" target="updateTaskAssigment">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortId"/>
@@ -224,21 +224,32 @@
             <set field="projectId" from-field="result.projectId"/>
             <set field="projectName" from-field="result.projectName"/>
             <set field="currentStatusId" from-field="task.currentStatusId"/>
+            <service service-name="getProjectIdAndName" result-map-name="resultProject">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
+            <set field="projectId" from-field="resultProject.projectId"/>
+            <set field="projectName" from-field="resultProject.projectName"/>
+            <set field="phaseId" from-field="resultProject.phaseId"/>
+            <set field="phaseName" from-field="resultProject.phaseName"/>
         </row-actions>
+        <field name="fromDate"><hidden/></field>
+        <field name="oldRoleTypeId" parameter-name="roleTypeId"><hidden value="${roleTypeId}"/></field>
+        <field name="oldPartyId" parameter-name="partyId"><hidden value="${partyId}"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/>
+            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView?workEffortId=${workEffortId}"/>
         </field>
-        <field name="projectName" title="${uiLabelMap.CommonStatus}"><display/></field>
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${projectId}" description="${projectName}"/></field>
         <field name="currentStatusId" ><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority"><display/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" red-when="before-now"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}" red-when="before-now"><display type="date"/></field>
-        <field name="plannedHours"><display/></field>
-        <field name="actualHours"><display/></field>
-        <field name="oldRoleTypeId"><hidden value="${roleTypeId}"/></field>
-        <field name="roleTypeId" title="${uiLabelMap.PartyRole}">
+        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
+        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}">
             <drop-down>
                 <entity-options entity-name="RoleType" description="${description}">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
@@ -246,16 +257,7 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field name="dummy" parameter-name="workEffortId"><hidden value="${workEffortId}"/></field>
-        <field name="fromDate"><hidden/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down>
-                <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="PROJECT_ASSGN_STATUS"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="partyId">
+        <field name="partyId" parameter-name="newPartyId">
             <drop-down>
                 <entity-options entity-name="PartyDetailAndWorkEffortAssign" description="${firstName} ${middleName} ${lastName}">
                     <entity-constraint name="workEffortId" env-name="projectId"/>
@@ -264,10 +266,11 @@
             </drop-down>
         </field>
         <field name="updateButton"><submit/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
+        <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
     </form>
-    <form name="AddMyTask" type="single" target="addMyTask">
+    <form name="assignTaskToMe" type="single" target="addTaskAssigment">
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
-        <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down>
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} (${phaseName}-${projectName})">

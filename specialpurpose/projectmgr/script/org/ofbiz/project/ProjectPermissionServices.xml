@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="projectMgrPermission" short-description="general service to check access to the project component">
+        <set field="primaryPermission" value="PROJECTMGR"/>
+        <set field="hasPermission" value="true" type="Boolean"/>
+        <if-has-permission permission="PROJECTMGR" action="_ADMIN">
+            <field-to-result field-name="hasPermission"/>
+            <return/>
+            <else>
+                <if-has-permission permission="PROJECTMGR" action="_VIEW">
+                    <if-has-permission permission="PROJECTMGR" action="_USER">
+                        <!-- object dependent checks here -->
+                        <if-compare field-name="sec_object" value="PROJECT" operator="not-equals">
+                            <!-- if not project check if member of task, when not get the projectId -->
+                            <if-compare field-name="sec_object" value="TASK" operator="equals">
+                                <!-- check if login party member of the task -->
+                                <set field="findRel.workEffortId" from-field="sec_id"/>
+                                <set field="findRel.partyId" from-field="userLogin.partyId"/>
+                                <find-by-and entity-name="WorkEffortPartyAssignment" map-name="findRel" list-name="assigns"/>
+                                <filter-list-by-date list-name="assigns" to-list-name="assignsFilt"/>
+                                <if-not-empty field-name="assignsFilt">
+                                    <field-to-result field-name="hasPermission"/>
+                                    <return/>
+                                </if-not-empty>
+                                <set field="getProj.workEffortId" from-field="sec_id"/>
+                                <else>
+                                    <set field="getProj.phaseId" from-field="sec_id"/>
+                                </else>
+                            </if-compare>
+                            <call-service service-name="getProjectIdAndName" in-map-name="getProj">
+                                <result-to-field result-name="projectId"/>
+                            </call-service>
+                        </if-compare>
+                        <!-- see if login party member of the project -->
+                        <set field="findRel.workEffortId" from-field="sec_id"/>
+                        <set field="findRel.partyId" from-field="userLogin.partyId"/>
+                        <find-by-and entity-name="WorkEffortPartyAssignment" map-name="findRel" list-name="assigns"/>
+                        <filter-list-by-date list-name="assigns" to-list-name="assignsFilt"/>
+                        <if-not-empty field-name="assignsFilt">
+                            <field-to-result field-name="hasPermission"/>
+                            <return/>
+                        </if-not-empty>
+                        <else>
+                            <if-compare field-name="sec_action" value="WRITE" operator="equals">
+                                <add-error>
+                                    <fail-property resource="ProjectMgrUiLabels" property="noAccess:NeedWriteOrUserAccess"/>
+                                </add-error>
+                            </if-compare>
+                        </else>    
+                    </if-has-permission>
+                </if-has-permission>
+            </else>
+        </if-has-permission>
+        <check-errors/>   
+        <field-to-result field-name="hasPermission"/>
+    </simple-method>
+    
+</simple-methods>
