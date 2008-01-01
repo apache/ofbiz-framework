@@ -74,7 +74,7 @@ under the License.
                         <#-- if cur seq id is a number and is greater than max, set new max for input box prefill below -->
                         <#assign curCondSeqId = productPriceCond.productPriceCondSeqId?number>
                         <#if (curCondSeqId >= maxCondSeqId)><#assign maxCondSeqId = curCondSeqId + 1></#if>
-                        <td><div class="tabletext"><b>${productPriceCond.productPriceCondSeqId}</b></div></td>
+                        <td><b>${productPriceCond.productPriceCondSeqId}</b></td>
                         <td align="left">
                             <form method="post" action="<@ofbizUrl>updateProductPriceCond</@ofbizUrl>">
                                 <input type="hidden" name="productPriceRuleId" value="${productPriceCond.productPriceRuleId}"/>

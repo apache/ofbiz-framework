@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="lookupProduct" target="LookupProduct" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden" /> -->
         <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find/></field>
@@ -44,9 +44,8 @@ under the License.
         <!-- NOTE DEJ20070829 not sure why this is here, but it doesn't seem applicable for a general product lookup, also doesn't handle case where isVariant is null <field name="isVariant"><hidden value="N"/></field> -->
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupProduct" list-name="listIt" title="" type="list"
-        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupProduct">
+    <form name="listLookupProduct" list-name="listIt" title="" type="list" paginate-target="LookupProduct"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -65,12 +64,11 @@ under the License.
     </form>
     
     <form name="lookupVirtualProduct" extends="lookupProduct" default-map-name= "inputFields" target="LookupVirtualProduct" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="isVirtual"><hidden value="Y"/></field>
     </form>
     <form name="listLookupVirtualProduct" list-name="listIt" title="" type="list" extends="listLookupProduct"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupVirtualProduct">
+        paginate-target="LookupVirtualProduct" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -86,7 +84,7 @@ under the License.
     </form>
 
     <form name="lookupProductAndPrice" target="LookupProductAndPrice" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden" /> -->
         <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
@@ -132,8 +130,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupProductAndPrice" list-name="listIt" title="" type="list"
-        default-title-style="tableheadtext"  default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupProductAndPrice">
+        paginate-target="LookupProductAndPrice" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -146,7 +143,7 @@ under the License.
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)"><display/></field>
         -->
-        <field name="productId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="productId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
@@ -155,13 +152,13 @@ under the License.
         <field name="price" title="${uiLabelMap.ProductPrice}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
-        <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
+        <field name="searchVariants" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
         </field>
     </form>
 
     <form name="lookupProductCategory" target="LookupProductCategory" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductCategory" default-field-type="find" />
         <field name="productCategoryTypeId">
             <drop-down allow-empty="true">
@@ -180,8 +177,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupProductCategory" list-name="listIt" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupProductCategory">
+        paginate-target="LookupProductCategory" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -201,7 +197,7 @@ under the License.
     </form>
     
     <form name="lookupProductFeature" target="LookupProductFeature" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductFeature" default-field-type="find" />
         <field name="productFeatureTypeId">
             <drop-down allow-empty="true">
@@ -221,9 +217,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupProductFeature" list-name="listIt" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupProductFeature">
+    <form name="listLookupProductFeature" list-name="listIt" title="" type="list" paginate-target="LookupProductFeature"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -237,7 +232,7 @@ under the License.
     </form>
 
     <form name="LookupProductStore" target="LookupProductStore" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <!-- <auto-fields-entity entity-name="ProductStore" default-field-type="find"/> -->
         
         <field name="productStoreId"><text-find/></field>
@@ -249,8 +244,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupProductStore" list-name="listIt" target="" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext"
-        paginate-target="LookupProductStore">
+        paginate-target="LookupProductStore" odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -260,7 +254,7 @@ under the License.
         
         <!-- <auto-fields-entity entity-name="ProductStore" default-field-type="display"/> -->
         
-        <field name="productStoreId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="productStoreId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${productStoreId}" target="javascript:set_value('${productStoreId}')"/>
         </field>
         <field name="primaryStoreGroupId"><display/></field>

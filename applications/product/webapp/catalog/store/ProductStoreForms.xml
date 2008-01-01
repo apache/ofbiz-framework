@@ -124,7 +124,7 @@
         </field>
 
         <!--
-        <field name="useQuickAdd" widget-style="selectBox" title="${uiLabelMap.ProductUseQuickAdd}">
+        <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         -->
@@ -318,7 +318,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductStoreCatalog"/>
         <field name="productStoreId" map-name="productStore"><hidden/></field>
-        <field name="prodCatalogId" title="${uiLabelMap.ProductCatalog}" widget-style="selectBox">
+        <field name="prodCatalogId" title="${uiLabelMap.ProductCatalog}">
             <drop-down>
                 <entity-options entity-name="ProdCatalog" description="${catalogName}">
                     <entity-order-by field-name="catalogName"/>
@@ -331,12 +331,12 @@
         odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductStoreCatalog"/>
         <field name="productStoreId"><hidden/></field>
-        <field name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}" widget-style="tabletext">
+        <field name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}">
             <display-entity entity-name="ProdCatalog" description="${catalogName}" also-hidden="true">
                 <sub-hyperlink target="EditProdCatalog?prodCatalogId=${prodCatalogId}" description="${prodCatalogId}" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}" widget-style="tabletext"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -349,7 +349,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductStoreEmailSetting"/>
         <field name="productStoreId" map-name="productStore"><hidden/></field>
-        <field name="emailType" title="${uiLabelMap.CommonEmailType}" widget-style="selectBox">
+        <field name="emailType" title="${uiLabelMap.CommonEmailType}">
             <drop-down>
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="PRDS_EMAIL"/>
@@ -367,7 +367,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductStoreEmailSetting"/>
         <field name="productStoreId"><hidden/></field>
-        <field name="emailType" title="${uiLabelMap.CommonEmailType}" widget-style="tabletext">
+        <field name="emailType" title="${uiLabelMap.CommonEmailType}">
             <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}" cache="true" also-hidden="true"/>
         </field>
         <field name="bodyScreenLocation" title="${uiLabelMap.ProductBodyScreenLocation}"></field>
@@ -385,7 +385,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductStoreKeywordOvrd"/>
         <field name="productStoreId" map-name="productStore"><hidden/></field>
-        <field name="targetTypeEnumId" title="${uiLabelMap.ProductTargetTypeEnumId}" widget-style="selectBox">
+        <field name="targetTypeEnumId" title="${uiLabelMap.ProductTargetTypeEnumId}">
             <drop-down>
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="KWOVRD_TRGT_TYPE"/>
@@ -401,7 +401,7 @@
         <field name="productStoreId"><hidden/></field>
         <field name="keyword" title="${uiLabelMap.ProductKeyword}"><display description="${keyword}"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display description="${fromDate}"/></field>
-        <field name="targetTypeEnumId" title="${uiLabelMap.ProductTargetType}" widget-style="selectBox">
+        <field name="targetTypeEnumId" title="${uiLabelMap.ProductTargetType}">
             <drop-down>
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="KWOVRD_TRGT_TYPE"/>

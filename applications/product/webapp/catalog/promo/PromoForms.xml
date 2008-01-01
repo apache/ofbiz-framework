@@ -46,24 +46,24 @@ under the License.
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="productPromo==null&amp;&amp;productPromoId==null" name="productPromoId" title="${uiLabelMap.ProductPromotion}"><ignored/></field>
 
-        <field name="promoText" title="${uiLabelMap.ProductPromoText}" widget-style="textAreaBox"><textarea cols="70" rows="5"/></field>
-        <field name="userEntered" title="${uiLabelMap.ProductPromoUserEntered}" widget-style="selectBox">
+        <field name="promoText" title="${uiLabelMap.ProductPromoText}"><textarea cols="70" rows="5"/></field>
+        <field name="userEntered" title="${uiLabelMap.ProductPromoUserEntered}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="showToCustomer" title="${uiLabelMap.ProductPromoShowToCustomer}" widget-style="selectBox">
+        <field name="showToCustomer" title="${uiLabelMap.ProductPromoShowToCustomer}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="requireCode" title="${uiLabelMap.ProductPromotionReqCode}" widget-style="selectBox">
+        <field name="requireCode" title="${uiLabelMap.ProductPromotionReqCode}">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
         <field name="overrideOrgPartyId"><lookup target-form-name="LookupPartyName"/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
-        <field use-when="productPromo!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:" widget-style="tabletext">
+        <field use-when="productPromo!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${productPromo.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${productPromo.lastModifiedDate}" also-hidden="false"/>
         </field>
-        <field use-when="productPromo!=null" name="createdByText" title="${uiLabelMap.ProductLastCreatedBy}:" widget-style="tabletext">
+        <field use-when="productPromo!=null" name="createdByText" title="${uiLabelMap.ProductLastCreatedBy}:">
             <display description="[${productPromo.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromo.createdDate}" also-hidden="false"/>
         </field>
     </form>
@@ -72,7 +72,7 @@ under the License.
         <alt-target use-when="productPromoCode==null" target="createProductPromoCode"/>
         <auto-fields-service service-name="updateProductPromoCode" map-name=""/>
 
-        <field name="productPromoId" widget-style="selectBox">
+        <field name="productPromoId">
             <drop-down>
                 <entity-options entity-name="ProductPromo" description="[${productPromoId}] ${promoName}">
                     <entity-order-by field-name="productPromoId"/>
@@ -84,19 +84,19 @@ under the License.
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="productPromoCode==null&amp;&amp;productPromoCodeId==null" name="productPromoCodeId" tooltip="${uiLabelMap.ProductPromoCodeBlank}"><text/></field>
 
-        <field name="userEntered" widget-style="selectBox">
+        <field name="userEntered">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="requireEmailOrParty" widget-style="selectBox">
+        <field name="requireEmailOrParty">
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
-        <field use-when="productPromoCode!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:" widget-style="tabletext">
+        <field use-when="productPromoCode!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${productPromoCode.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${productPromoCode.lastModifiedDate}" also-hidden="false"/>
         </field>
-        <field use-when="productPromoCode!=null" name="createdByText" title="${uiLabelMap.ProductCreatedBy}:" widget-style="tabletext">
+        <field use-when="productPromoCode!=null" name="createdByText" title="${uiLabelMap.ProductCreatedBy}:">
             <display description="[${productPromoCode.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromoCode.createdDate}" also-hidden="false"/>
         </field>
     </form>

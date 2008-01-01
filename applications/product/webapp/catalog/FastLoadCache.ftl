@@ -23,7 +23,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#list messageList as message>
-            <div class="tabletext">${message}</div>
+            <div>${message}</div>
         </#list>
     </div>
 </div>

@@ -31,7 +31,7 @@ under the License.
         <field use-when="configItem!=null" name="configItemId" title="${uiLabelMap.ProductConfigItem}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductConfigItems}"><display/></field>
         <field use-when="configItem==null&amp;&amp;configItemId!=null" name="configItemId" title="${uiLabelMap.ProductConfigItem}" tooltip="${uiLabelMap.ProductCouldNotFindProductConfigItemWithId} [${configItemId}]"><display description="" also-hidden="false"/></field>
         <field use-when="configItem==null&amp;&amp;configItemId==null" name="configItemId" title="${uiLabelMap.ProductConfigItem}"><ignored/></field>
-        <field name="configItemTypeId" title="${uiLabelMap.ProductConfigItem} ${uiLabelMap.CommonType}" widget-style="selectBox">
+        <field name="configItemTypeId" title="${uiLabelMap.ProductConfigItem} ${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
                 <option key="SINGLE" description="${uiLabelMap.ProductSingleChoice}"/>
                 <option key="MULTIPLE" description="${uiLabelMap.ProductMultiChoice}"/>
@@ -80,7 +80,7 @@ under the License.
         <auto-fields-entity entity-name="ProdConfItemContent"/>
         <field name="configItemId" title="${uiLabelMap.ProductConfigItemId}" map-name="productConfigItem"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContentId}" ></field>
-        <field name="confItemContentTypeId" title="${uiLabelMap.ProductProductConfigItemContentTypeId}" widget-style="selectBox">
+        <field name="confItemContentTypeId" title="${uiLabelMap.ProductProductConfigItemContentTypeId}">
             <drop-down>
                 <entity-options entity-name="ProdConfItemContentType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -98,7 +98,7 @@ under the License.
         <field name="fromDate"><ignored/></field>
         <field name="thruDate"><ignored/></field>
         <field name="configItemId" map-name="productConfigItem"><hidden/></field>
-        <field name="confItemContentTypeId" title="${uiLabelMap.ProductProductConfigItemContentTypeId}" widget-style="selectBox">
+        <field name="confItemContentTypeId" title="${uiLabelMap.ProductProductConfigItemContentTypeId}">
             <drop-down>
                 <entity-options entity-name="ProdConfItemContentType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -117,7 +117,7 @@ under the License.
             <hyperlink target="EditProductConfigItemContentContent?configItemId=${productContent.configItemId}&amp;contentId=${productContent.contentId}"
                 description="${content.description} [${productContent.contentId}]"/>
         </field>
-        <field name="confItemContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}" widget-style="selectBox">
+        <field name="confItemContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}">
             <drop-down>
                 <entity-options entity-name="ProdConfItemContentType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -140,7 +140,7 @@ under the License.
         <field name="localeString" title="${uiLabelMap.ProductLocaleString}" map-name="content"><text size="40"/></field>
         <field use-when="contentId == null" name="contentId"><ignored/></field>
         <field use-when="contentId != null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" ><display/></field>
-        <field name="text"  title="${uiLabelMap.ProductText}" map-name="textData" widget-style="textAreaBox" ><textarea cols="60" rows="7"/></field>
+        <field name="text"  title="${uiLabelMap.ProductText}" map-name="textData"><textarea cols="60" rows="7"/></field>
         <field name="textDataResourceId" title="${uiLabelMap.ProductTextDataResourceId}" map-name="textData"><hidden/></field>
         <field name="configItemId"><hidden/></field>
         <field name="confItemContentTypeId"><hidden/></field>

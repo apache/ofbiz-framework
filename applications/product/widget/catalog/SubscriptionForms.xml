@@ -26,14 +26,14 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Subscription" default-field-type="find"/>
         
-        <field name="subscriptionResourceId" widget-style="selectBox">
+        <field name="subscriptionResourceId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SubscriptionResource" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}" widget-style="selectBox">
+        <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SubscriptionType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -42,7 +42,7 @@ under the License.
         </field>
 
         <field name="originatedFromPartyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="originatedFromRoleTypeId" widget-style="selectBox">
+        <field name="originatedFromRoleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
@@ -51,7 +51,7 @@ under the License.
         </field>
         
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId" widget-style="selectBox">
+        <field name="roleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -129,18 +129,18 @@ under the License.
         <alt-target use-when="subscription==null" target="createSubscription"/>
         <auto-fields-service service-name="updateSubscription"/>
  
-        <field use-when="subscription!=null" name="subscriptionId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="subscription!=null" name="subscriptionId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="subscription==null&amp;&amp;subscriptionId==null" name="subscriptionId"><ignored/></field>
-        <field use-when="subscription==null&amp;&amp;subscriptionId!=null" name="subscriptionId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${subscriptionId}]" also-hidden="false"/></field>
+        <field use-when="subscription==null&amp;&amp;subscriptionId!=null" name="subscriptionId"><display description="${uiLabelMap.CommonCannotBeFound}: [${subscriptionId}]" also-hidden="false"/></field>
 
-        <field name="subscriptionResourceId" widget-style="selectBox">
+        <field name="subscriptionResourceId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="SubscriptionResource" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}" widget-style="selectBox">
+        <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SubscriptionType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -153,7 +153,7 @@ under the License.
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${subscription.originatedFromPartyId}" target-type="inter-app" description="${subscription.originatedFromPartyId}" link-style="buttontext"/>
             </lookup>
         </field>
-        <field name="originatedFromRoleTypeId" widget-style="selectBox">
+        <field name="originatedFromRoleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
@@ -166,7 +166,7 @@ under the License.
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${subscription.partyId}" target-type="inter-app" description="${subscription.partyId}" link-style="buttontext"/>
             </lookup>
         </field>
-        <field name="roleTypeId" widget-style="selectBox">
+        <field name="roleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -179,7 +179,7 @@ under the License.
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${subscription.partyNeedId}" target-type="inter-app" description="${subscription.partyId}" link-style="buttontext"/>
             </lookup>
         </field>
-        <field name="needTypeId" widget-style="selectBox">
+        <field name="needTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="NeedType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -240,15 +240,15 @@ under the License.
         <alt-target use-when="subscriptionResource==null" target="createSubscriptionResource"/>
         <auto-fields-service service-name="updateSubscriptionResource"/>
         
-        <field use-when="subscriptionResource!=null" name="subscriptionResourceId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="subscriptionResource!=null" name="subscriptionResourceId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="subscriptionResource==null&amp;&amp;subscriptionResourceId==null" name="subscriptionResourceId"><ignored/></field>
-        <field use-when="subscriptionResource==null&amp;&amp;subscriptionResourceId!=null" name="subscriptionResourceId" widget-style="tabletext"><display description="${uiLabelMap.CommonCannotBeFound}: [${subscriptionResourceId}]" also-hidden="false"/></field>
+        <field use-when="subscriptionResource==null&amp;&amp;subscriptionResourceId!=null" name="subscriptionResourceId"><display description="${uiLabelMap.CommonCannotBeFound}: [${subscriptionResourceId}]" also-hidden="false"/></field>
 
         <field name="parentResourceId"><ignored/></field>
         
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
         <field name="contentId"><lookup target-form-name="LookupContent"/></field>
-        <field name="webSiteId" widget-style="selectBox">
+        <field name="webSiteId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WebSite" description="${siteName} [${webSiteId}]">
                     <entity-order-by field-name="siteName"/>
@@ -272,8 +272,8 @@ under the License.
         <auto-fields-service service-name="updateProductSubscriptionResource"/>
         
         <field name="subscriptionResourceId"><hidden/></field>
-        <field name="productId" widget-style="tabletext"><display/></field>
-        <field name="useTimeUomId" widget-style="selectBox">
+        <field name="productId"><display/></field>
+        <field name="useTimeUomId">
             <drop-down>
                 <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
@@ -281,7 +281,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="useRoleTypeId" widget-style="selectBox">
+        <field name="useRoleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
@@ -301,7 +301,7 @@ under the License.
         
         <field name="subscriptionResourceId"><hidden/></field>
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
-        <field name="useTimeUomId" widget-style="selectBox">
+        <field name="useTimeUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
@@ -309,7 +309,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="useRoleTypeId" widget-style="selectBox">
+        <field name="useRoleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>

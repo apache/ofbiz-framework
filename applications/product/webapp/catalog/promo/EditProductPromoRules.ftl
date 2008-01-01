@@ -365,7 +365,7 @@ under the License.
                     <input type="hidden" name="productPromoRuleId" value="_NA_">
                     <input type="hidden" name="productPromoActionSeqId" value="_NA_">
                     <input type="hidden" name="productPromoCondSeqId" value="_NA_">
-                    <input type="text" class="inputBox" name="productCategoryId" size="20" maxlength="20"/>
+                    <input type="text" name="productCategoryId" size="20" maxlength="20"/>
                     <a href="javascript:call_fieldlookup2(document.createProductPromoCategoryPromotions.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                     <select name="productPromoApplEnumId">
                         <#list productPromoApplEnums as productPromoApplEnum>
