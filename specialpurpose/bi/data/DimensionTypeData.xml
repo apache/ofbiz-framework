@@ -25,7 +25,7 @@ under the License.
     <DateDimension dimensionId="_NF_" description="Date Not Found."/>
     <DateDimension dimensionId="_NA_" description="Date Not Set."/>
 
-    <ProductDimension dimensionId="_NF_" description="Product Not Found."/>
-    <ProductDimension dimensionId="_NA_" description="Product Not Set."/>
+    <ProductDimension dimensionId="_NF_"/>
+    <ProductDimension dimensionId="_NA_"/>
 
 </entity-engine-xml>
