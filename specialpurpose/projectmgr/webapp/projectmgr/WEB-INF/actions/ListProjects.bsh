@@ -47,14 +47,13 @@ fromDate = parameters.get("fromDate");
 projectId = parameters.get("projectId"); 
 subProjects = parameters.get("subProjects"); //  if provided only give subprojects of a certain main project
 projectName = parameters.get("projectName");
-
 projectId_op = parameters.get("projectId_op");
 projectName_op = parameters.get("projectName_op");
 
 conditions = UtilMisc.toList(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"));
 
 if (!UtilValidate.isEmpty(fromDate)) {
-    conditions.add(new EntityExpr("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate + " 00:00:00.0"));
+    conditions.add(new EntityExpr("lastStatusUpdate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate + " 00:00:00.0"));
     }
 
 
@@ -83,11 +82,19 @@ if (!UtilValidate.isEmpty(projectName)) {
 		}
  	}
 }
+
+
+entityName = "WorkEffort";
+if (security.hasPermission("PROJECTMGR_ROLE_VIEW", session)) {
+	conditions.add(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.getString("partyId")));
+	entityName = "WorkEffortAndPartyAssign";
+}
+
     
 allConditions = new EntityConditionList( conditions, EntityOperator.AND );
-orderBy = UtilMisc.toList("createdStamp DESC");
+orderBy = UtilMisc.toList("lastStatusUpdate DESC");
 projects = new LinkedList();
-listProjects = delegator.findByConditionCache("WorkEffort", allConditions, UtilMisc.toList("workEffortId"), orderBy);
+listProjects = delegator.findByConditionCache(entityName, allConditions, UtilMisc.toList("workEffortId"), orderBy);
 
 if (!UtilValidate.isEmpty(listProjects)) {
     itr = listProjects.iterator();

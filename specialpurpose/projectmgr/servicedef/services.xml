@@ -52,6 +52,7 @@ under the License.
     <service name="updateTimeEntryByWorkeffort" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="updateTimeEntryByWorkeffort">
         <description>Update workeffort by workeffort and timesheetId </description>
+        <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="timesheetId" type="String" mode="IN" optional="false"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/><!-- when empty will be ignored -->
         <attribute name="hoursDay0" type="Double" mode="IN" optional="true"/>
@@ -66,6 +67,7 @@ under the License.
     <service name="getProject" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProject">
         <description>Get project information and realated phase and task info.</description>
+        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="projectInfo" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
@@ -107,24 +109,28 @@ under the License.
     <service name="copyProject" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="copyProject">
         <description>Copy a project planning data but ignore the actual data.</description>
+        <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="false"/>
     </service>
     
     <service name="copyProjectToTemplate" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="copyProjectToTemplate">
         <description>Copy a project planning data to a template project.</description>
+        <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="false"/>
     </service>
     
     <service name="scheduleProject" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="scheduleProject">
         <description>(re) calculate the estimated start and enddates of tasks within a project</description>
+        <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
     </service>
     
     <service name="getProjectIdAndName" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectIdAndName">
         <description>Get the projectId and Name when a phase or task is provided.</description>
+        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="taskId" type="String" mode="IN" optional="true"/>
         <attribute name="phaseId" type="String" mode="IN" optional="true"/>
         <attribute name="projectId" type="String" mode="OUT" optional="true"/>
@@ -136,6 +142,7 @@ under the License.
     <service name="getProjectPhaseList" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectPhaseList">
         <description>Get project phase information and related task info.</description>
+        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="phaseList" type="List" mode="OUT" optional="true"/>
     </service>
@@ -143,6 +150,7 @@ under the License.
     <service name="getProjectTaskList" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectTaskList">
         <description>Get project phase information and related task info.</description>
+        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="taskList" type="List" mode="OUT" optional="true"/>
     </service>
@@ -150,6 +158,7 @@ under the License.
     <service name="getProjectTask" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectTask">
         <description>Get project task information and related timesheet info.</description>
+        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="hoursPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="taskId" type="String" mode="INOUT" optional="true"/>
         <attribute name="projectId" type="String" mode="OUT" optional="true"/>
@@ -160,6 +169,7 @@ under the License.
     <service name="getProjectsByParties" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectsByParties">
         <description>Get project information by party</description>
+        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>        
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="projectParties" type="List" mode="OUT" optional="true"/>
@@ -168,6 +178,7 @@ under the License.
     <service name="getTasksByParties" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getTasksByParties">
         <description>Get project information by party</description>
+        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="workEffortId" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="taskParties" type="List" mode="OUT" optional="true"/>
