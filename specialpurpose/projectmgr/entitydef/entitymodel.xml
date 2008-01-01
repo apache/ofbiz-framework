@@ -88,6 +88,45 @@ under the License.
     </relation>
   </view-entity>
   
+  <view-entity entity-name="ProjectAndPhaseAndTaskParty"
+    package-name="org.ofbiz.workeffort.project"
+    title="WorkEffort for use in party -> project -> phase -> task">
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+    <alias-all entity-alias="WEPA">
+      <exclude field="facilityId"/>
+      <exclude field="workEffortId"/>
+    </alias-all>
+    <alias-all entity-alias="WET"/>
+    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WET" rel-entity-alias="WEPA">
+      <key-map field-name="workEffortId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="PartyNameView">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="many" rel-entity-name="TimeEntry">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortSkillStandard">
+      <key-map field-name="workEffortId"/>
+    </relation>
+  </view-entity>
+  
   <view-entity entity-name="ProjectAndPhaseAndTask"
     package-name="org.ofbiz.workeffort.project"
     title="WorkEffort for use in project -> phase -> task">

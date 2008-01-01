@@ -26,6 +26,7 @@ under the License.
   <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="ProjectPartyAndPhaseAndTask"/>
+    <entity-group group="org.ofbiz" entity="ProjectAndPhaseAndTaskParty"/>
     <entity-group group="org.ofbiz" entity="ProjectPartyAndPhase"/>
     <entity-group group="org.ofbiz" entity="ProjectAndPhaseAndTask"/>
     <entity-group group="org.ofbiz" entity="TimesheetAndTimeEntry"/>

@@ -168,6 +168,15 @@
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskId}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="partyId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${middleName} ${lastName}">
+                    <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="lastName"/>
+                    <entity-order-by field-name="groupName"/>
+                </entity-options>    
+            </drop-down>
+        </field>
         <field name="projectName"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
@@ -176,28 +185,23 @@
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" value="WorkEffort"/>
-                <field-map field-name="orderBy" value="lastUpdatedStamp DESC"/>
+                <field-map field-name="entityName" value="${entityName}"/>
+                <field-map field-name="orderBy" value="lastStatusUpdate DESC"/>
             </service>
         </actions>
         <row-actions>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortId"/>
+                <field-map field-name="hoursPartyId" env-name="partyId"/>
             </service>
             <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
             <set field="actualHours" from-field="result.taskInfo.actualTotalHours"/>
             <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
-            <service service-name="getProjectIdAndName" result-map-name="resultProject">
-                <field-map field-name="taskId" env-name="workEffortId"/>
-            </service>
-            <set field="projectName" from-field="resultProject.projectName"/>
-            <set field="projectId" from-field="resultProject.projectId"/>
-            <set field="phaseName" from-field="resultProject.phaseName"/>
         </row-actions>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}[${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/>
         </field>
-        <field name="resultProject.phaseName" title="${uiLabelMap.ProjectMgrPhaseName}">
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}">
             <hyperlink also-hidden="false" description="${phaseName}" target="FindPhase?projectId=${projectId}"/>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">

@@ -164,15 +164,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindTask"/>
                 <set field="headerItem" value="task"/>
-                <set field="labelTitleProperty" value="ProjectMgrMyTasks"/>
-                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks">
-                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
-                    <field-map field-name="workEffortTypeId" value="TASK"/>
-                </entity-and>
-                <entity-one entity-name="WorkEffort" value-name="task">
-                    <field-map field-name="workEffortId" value="dummy"/>
-                </entity-one>
-                <set field="myTask" value="notNull"/>
+                <set field="labelTitleProperty" value="ProjectMgrListTasks"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonMyTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -183,7 +175,30 @@ under the License.
                                     <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleFindTask}</label></container>                                
                                     <container style="screenlet-body"> 
                                         <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                        <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                        <section>
+                                            <condition>
+                                                <if-empty field-name="parameters.partyId"/>
+                                            </condition>
+                                            <actions>
+                                                <set field="entityName" value="ProjectAndPhaseAndTask"/>
+                                            </actions>
+                                            <widgets>
+                                                <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                        <section>
+                                            <condition>
+                                                <not>
+                                                    <if-empty field-name="parameters.partyId"/>
+                                                </not>
+                                            </condition>
+                                            <actions>
+                                                <set field="entityName" value="ProjectAndPhaseAndTaskParty"/>
+                                            </actions>
+                                            <widgets>
+                                                <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </widgets>
+                                        </section>
                                     </container>
                                 </container>
                                                                                 
