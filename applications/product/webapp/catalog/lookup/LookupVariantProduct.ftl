@@ -16,21 +16,18 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-    
 <br/>
-<div class="tabletext">[${product.productId}] ${product.internalName}</div>
+<div class="label">[${product.productId}] ${product.internalName}</div>
 <br/>
 <#if searchFeatures?has_content>
-    <table border="1" cellpadding="2" cellspacing="0">
+    <table cellspacing="0" class="basic-table">
         <form method="post" action="<@ofbizUrl>LookupVariantProduct</@ofbizUrl>" name="selectAllForm">
         <input type="hidden" name="productId" value="${product.productId}">
         <#list searchFeatures as searchFeature>
             <tr>
-                <td><div class="tabletext"><b>${searchFeature.featureType}</b></div></td>
-                <td><div class="tabletext">
-                    <select name="${searchFeature.featureType}" class="selectBox">
+                <td class="label"><b>${searchFeature.featureType}</b></td>
+                <td><select name="${searchFeature.featureType}">
                     <#assign features = searchFeature.features>
                     <option value=""></option>
                     <#list features as feature>
@@ -41,7 +38,6 @@ under the License.
                         </#if>
                     </#list>
                     </select>
-                    </div>
                 </td>
             </tr>
         </#list>
@@ -56,27 +52,27 @@ under the License.
 </#if>
 <br/>
 <#if variantProducts?exists>
-    <table border="1" cellpadding="2" cellspacing="0">
-        <tr>
-            <th>&nbsp;</th>
-            <th><div class="tabletext">${uiLabelMap.ProductBrandName}</div></th>
-            <th><div class="tabletext">${uiLabelMap.ProductInternalName}</div></th>
+    <table cellspacing="0" class="basic-table">
+        <tr class="header-row">
+            <td><b>${uiLabelMap.ProductProductId}</b></td>
+            <td><b>${uiLabelMap.ProductBrandName}</b></td>
+            <td><b>${uiLabelMap.ProductInternalName}</b></td>
         </tr>
         <#list variantProducts as variant>
             <tr>
                 <td><a class="buttontext" href="javascript:set_value('${variant.productId}')">${variant.productId}</a></td>
-                <td><div class="tabletext">${variant.brandName?if_exists}</div></td>
-                <td><div class="tabletext">${variant.internalName?if_exists}</div></td>
+                <td>${variant.brandName?if_exists}</td>
+                <td>${variant.internalName?if_exists}</td>
             </tr>
         </#list>
     </table>
 </#if>
 <#if productFeatureIds?exists>
-    <table border="1" cellpadding="2" cellspacing="0">
+    <table cellspacing="0" class="basic-table">
         <form method="post" action="<@ofbizUrl>LookupVariantProduct</@ofbizUrl>" name="createNewVariant">
         <input type="hidden" name="productId" value="${product.productId}">
         <input type="hidden" name="productFeatureIds" value="${productFeatureIds}">
-        <input type="text" name="productVariantId" value="${productVariantId}" class="inputBox">
+        <input type="text" name="productVariantId" value="${productVariantId}">
         <input type="submit" value="${uiLabelMap.ProductQuickAddVariants}" class="smallSubmit">
         </form>
     </table>

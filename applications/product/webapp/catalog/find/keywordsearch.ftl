@@ -76,7 +76,7 @@ under the License.
               <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
             </#if>
             <#if 0 < listSize?int>
-              <span class="tabletext">${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
+              ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
             </#if>
             <#if highIndex?int < listSize?int>
               | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
@@ -123,7 +123,7 @@ under the License.
               <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex-1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
             </#if>
             <#if 0 < listSize?int>
-              <span class="tabletext">${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
+              ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
             </#if>
             <#if highIndex?int < listSize?int>
               | <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>

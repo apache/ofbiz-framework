@@ -37,8 +37,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupProduct}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -61,8 +74,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupVirtualProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupVirtualProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupProductVirtual}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupVirtualProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupVirtualProduct" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -87,9 +113,22 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/lookup/LookupVariantProduct.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupProductVariant}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/catalog/lookup/LookupVariantProduct.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -113,8 +152,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupProductAndPrice" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupProductAndPrice" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupProductPrice}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupProductAndPrice" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupProductAndPrice" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -137,8 +189,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupProductCategory" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
-                        <include-form name="listLookupProductCategory" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupProductCategory}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupProductCategory" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                                        <include-form name="listLookupProductCategory" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -161,8 +226,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupProductFeature" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
-                        <include-form name="listLookupProductFeature" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupProductFeature}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupProductFeature" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                                        <include-form name="listLookupProductFeature" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -189,8 +267,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="LookupProductStore" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
-                        <include-form name="listLookupProductStore" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupProductStore}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="LookupProductStore" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                                        <include-form name="listLookupProductStore" location="component://product/webapp/catalog/lookup/FieldLookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

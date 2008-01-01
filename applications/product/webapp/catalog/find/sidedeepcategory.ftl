@@ -73,7 +73,7 @@ under the License.
         <div style='margin-left: 10px;'>
         <#if currentTopCategory?exists>
           <#if curCategoryId?exists && curCategoryId == currentTopCategory.productCategoryId>
-            <div class='tabletext' style='text-indent: -10px;'><b>-&nbsp;${currentTopCategory.categoryName?default("No Name")} [${currentTopCategory.productCategoryId}]</b></div>
+            <div style='text-indent: -10px;'><b>-&nbsp;${currentTopCategory.categoryName?default("No Name")} [${currentTopCategory.productCategoryId}]</b></div>
           <#else>
             <div class='browsecategorytext'>-&nbsp;<a href="<@ofbizUrl>EditCategory?productCategoryId=${currentTopCategory.productCategoryId}</@ofbizUrl>" class='browsecategorybutton'>${currentTopCategory.categoryName?default(currentTopCategory.description)?if_exists} [${currentTopCategory.productCategoryId}]</a></div>
           </#if>

@@ -123,7 +123,7 @@ function insertImageName(size,nameValue) {
                     <input type="text" name="imageUrl" value="${(configItem.imageUrl)?default(imageNameSmall + '.jpg')}" size="60" maxlength="255">
                     <#if configItemId?has_content>
                         <div>
-                        <span class="tabletext">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
+                        <span class="label">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
                         <a href="javascript:insertImageName('small','${imageNameSmall}.jpg');" class="buttontext">.jpg</a>
                         <a href="javascript:insertImageName('small','${imageNameSmall}.gif');" class="buttontext">.gif</a>
                         <a href="javascript:insertImageName('small','');" class="buttontext">${uiLabelMap.CommonClear}</a>

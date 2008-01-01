@@ -683,11 +683,11 @@ under the License.
             </display-entity>
         </field>
         <field name="supplierProductId"><display/></field>
-        <field name="minimumOrderQuantity" title="${uiLabelMap.ProductMinimumOrderQuantity}" widget-area-style="tabletextright"
+        <field name="minimumOrderQuantity" title="${uiLabelMap.ProductMinimumOrderQuantity}"
             header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=minimumOrderQuantity" header-link-style="buttontext">
                 <display/>
         </field>
-        <field name="supplierPrefOrderId" widget-area-style="tabletextright"
+        <field name="supplierPrefOrderId" 
             header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=supplierPrefOrderId" header-link-style="buttontext">
                 <display-entity entity-name="SupplierPrefOrder"/>
         </field>
@@ -695,7 +695,7 @@ under the License.
         <field name="availableThruDate" title="${uiLabelMap.ProductAvailableThruDate}" red-when="before-now"><display/></field>
         <field name="quantityUomId"><display-entity entity-name="Uom" key-field-name="uomId"/></field>
         <field name="supplierCommissionPerc"><display/></field>
-        <field name="lastPrice" widget-area-style="tabletextright"
+        <field name="lastPrice" 
             header-link="EditProductSuppliers?productId=${productId}&amp;orderBy=lastPrice" header-link-style="buttontext">
                 <display type="currency" currency="${currencyUomId}"/>
         </field>

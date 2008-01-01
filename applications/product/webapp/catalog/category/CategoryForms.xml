@@ -51,7 +51,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="PrepareAddCategoryContentAssoc" type="single" target="prepareAddContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
-        header-row-style="header-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productId"><hidden/></field>
         <field name="productCategoryId" map-name="productCategory"><hidden/></field>
         <field name="prodCatContentTypeId">
@@ -65,7 +65,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.ProductPrepareCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="UpdateCategoryContentAssoc" type="list" target="updateContentToCategory" title="" list-name="productCategoryContentList"
-        header-row-style="header-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productCategoryId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContent}">
             <display-entity entity-name="Content" description="${description}" also-hidden="true">
@@ -97,7 +97,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditCategoryContentSimpleText" type="single" default-map-name="categoryContent" target="updateSimpleTextContentForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}">
+    <form name="EditCategoryContentSimpleText" type="single" default-map-name="categoryContent" target="updateSimpleTextContentForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="content==null" target="createSimpleTextContentForCategory"/>
         <auto-fields-entity entity-name="ProductCategoryContent"/>
 
@@ -118,7 +119,8 @@ under the License.
         <field use-when="content == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="content != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="CreateSimpleTextContentForAlternateLocale" type="single" target="createSimpleTextContentForAlternateLocaleInCategory" title="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}">
+    <form name="CreateSimpleTextContentForAlternateLocale" type="single" target="createSimpleTextContentForAlternateLocaleInCategory" title="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productCategoryId"><hidden/></field>
         <field name="mainContentId" entry-name="contentId"><hidden/></field>
         <field name="localeString"><text/></field>

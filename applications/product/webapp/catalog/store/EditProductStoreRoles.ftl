@@ -73,7 +73,7 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.PartyRoleType}</td>
                 <td>
-                  <select class="selectBox" name="roleTypeId">
+                  <select name="roleTypeId">
                     <#list roleTypes as roleType>
                       <option value="${roleType.roleTypeId}">${roleType.get("description",locale)}</option>
                     </#list>
