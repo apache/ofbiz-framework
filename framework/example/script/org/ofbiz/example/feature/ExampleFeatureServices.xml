@@ -23,7 +23,7 @@ under the License.
     <!-- ExampleFeature methods -->
     <simple-method method-name="createExampleFeature" short-description="create a ExampleFeature">
         <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels.xml" property="ExamplePermissionError"/></check-permission>
         <check-errors/>
         <make-value entity-name="ExampleFeature" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="ExampleFeature" env-name="newEntity.exampleFeatureId"/> <!-- get the next sequenced ID -->
@@ -33,7 +33,7 @@ under the License.
     </simple-method>   
     <simple-method method-name="updateExampleFeature" short-description="update a ExampleFeature">
         <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels.xml" property="ExamplePermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="ExampleFeature" value-name="lookedUpValue"/>
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
@@ -41,7 +41,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteExampleFeature" short-description="delete a ExampleFeature">
         <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels.xml" property="ExamplePermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="ExampleFeature" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -50,7 +50,7 @@ under the License.
     <!-- ExampleFeatureAppl methods -->
     <simple-method method-name="createExampleFeatureAppl" short-description="create a ExampleFeatureAppl">
         <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels.xml" property="ExamplePermissionError"/></check-permission>
         <check-errors/>
         <make-value entity-name="ExampleFeatureAppl" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -61,7 +61,7 @@ under the License.
     </simple-method>   
     <simple-method method-name="updateExampleFeatureAppl" short-description="update a ExampleFeatureAppl">
         <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels.xml" property="ExamplePermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="ExampleFeatureAppl" value-name="lookedUpValue"/>
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
@@ -69,7 +69,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteExampleFeatureAppl" short-description="delete a ExampleFeatureAppl">
         <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
+        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels.xml" property="ExamplePermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="ExampleFeatureAppl" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

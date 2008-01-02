@@ -670,7 +670,6 @@ public class UtilProperties implements java.io.Serializable {
         if (UtilValidate.isEmpty(resource)) {
             throw new IllegalArgumentException("resource cannot be null or empty");
         }
-        // This is for *.properties files only (not *.xml files)
         String resourceName = createResourceName(resource, locale);
         if (propertiesNotFound.contains(resourceName)) {
             return null;
@@ -678,14 +677,14 @@ public class UtilProperties implements java.io.Serializable {
         URL url = null;
         try {
             // Check for complete URL first
-            if (resource.endsWith(".xml")) {
+            if (resource.endsWith(".xml") || resource.endsWith(".properties")) {
                 url = FlexibleLocation.resolveLocation(resource);
                 if (url != null) {
                     return url;
                 }
             }
             // Check for XML properties file next
-            url = FlexibleLocation.resolveLocation(resource + ".xml");
+            url = FlexibleLocation.resolveLocation(resourceName + ".xml");
             if (url != null) {
                 return url;
             }
