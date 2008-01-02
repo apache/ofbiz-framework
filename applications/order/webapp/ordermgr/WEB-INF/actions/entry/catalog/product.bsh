@@ -35,6 +35,7 @@ requestParams = UtilHttp.getParameterMap(request);
 
 detailScreen = "productdetail";
 productId = requestParams.get("product_id");
+if (UtilValidate.isEmpty(productId)) productId = request.getAttribute("product_id");
 
 /*
  * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.

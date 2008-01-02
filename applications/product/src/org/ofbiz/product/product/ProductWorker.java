@@ -704,6 +704,32 @@ public class ProductWorker {
         return isPhysical;
     }
 
+    public static boolean isVirtual(GenericDelegator delegator, String productI) {
+        try {
+            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productI));
+            if (product != null) {
+                return "Y".equals(product.getString("isVirtual"));
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), module);
+        }
+
+        return false;
+    }
+
+    public static String getProductTypeId(GenericDelegator delegator, String productI) {
+        try {
+            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productI));
+            if (product != null) {
+                return product.getString("productTypeId");
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), module);
+        }
+
+        return null;
+    }
+    
     public static String findProductId(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
         // first lookup and see if this is the Product PK
         GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
