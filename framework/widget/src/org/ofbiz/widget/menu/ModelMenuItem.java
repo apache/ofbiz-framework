@@ -569,9 +569,14 @@ public class ModelMenuItem {
        return this.link;
     }
     
+    /** @deprecated use isSelected() */
     public boolean isSelected(Map context) {
         String currentMenuItemName = modelMenu.getSelectedMenuItemContextFieldName(context);
         return currentMenuItemName != null && currentMenuItemName.equals(this.name);
+    }
+
+    public boolean isSelected() {
+        return modelMenu.getCurrentMenuItemName() != null && modelMenu.getCurrentMenuItemName().equals(this.name);
     }
 
     public static class Link {
