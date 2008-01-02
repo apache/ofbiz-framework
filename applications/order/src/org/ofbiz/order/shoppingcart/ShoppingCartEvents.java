@@ -133,7 +133,6 @@ public class ShoppingCartEvents {
         Double reservLength = null;
         String reservPersonsStr = null;
         Double reservPersons = null;
-        String shipBeforeStr = null;
         String shipBeforeDateStr = null;
         String shipAfterDateStr = null;
         java.sql.Timestamp shipBeforeDate = null;
@@ -217,11 +216,19 @@ public class ShoppingCartEvents {
             ProductConfigWorker.fillProductConfigWrapper(configWrapper, request);
             if (!configWrapper.isCompleted()) {
                 // The configuration is not valid
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.productConfigurationIsNotValid", locale));
-                return "error";
+                request.setAttribute("product_id", productId);
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.configureProductBeforeAddingToCart", locale));
+                return "product";
             }
         }
-
+        
+        //Check for virtual products
+        if (ProductWorker.isVirtual(delegator, productId)) {
+            request.setAttribute("product_id", productId);
+            request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
+            return "product";
+        }
+        
         // get the override price
         if (paramMap.containsKey("PRICE")) {
             priceStr = (String) paramMap.remove("PRICE");
@@ -233,22 +240,24 @@ public class ShoppingCartEvents {
         }
 
         // get the renting data
-        if (paramMap.containsKey("reservStart")) {
-            reservStartStr = (String) paramMap.remove("reservStart");
-            if (reservStartStr.length() == 10) // only date provided, no time string?
-                    reservStartStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
-            if (reservStartStr.length() >0) {
-                try {
-                    reservStart = java.sql.Timestamp.valueOf(reservStartStr);
-                } catch (Exception e) {
-                    Debug.logWarning(e,"Problems parsing Reservation start string: "
-                                + reservStartStr, module);
-                    reservStart = null;
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource,"cart.addToCart.rental.startDate", locale));
-                    return "error";
+        if ("ASSET_USAGE".equals(ProductWorker.getProductTypeId(delegator, productId))) {
+            if (paramMap.containsKey("reservStart")) {
+                reservStartStr = (String) paramMap.remove("reservStart");
+                if (reservStartStr.length() == 10) // only date provided, no time string?
+                        reservStartStr += " 00:00:00.000000000"; // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
+                if (reservStartStr.length() >0) {
+                    try {
+                        reservStart = java.sql.Timestamp.valueOf(reservStartStr);
+                    } catch (Exception e) {
+                        Debug.logWarning(e,"Problems parsing Reservation start string: "
+                                    + reservStartStr, module);
+                        reservStart = null;
+                        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource,"cart.addToCart.rental.startDate", locale));
+                        return "error";
+                    }
                 }
+                else reservStart = null;
             }
-            else reservStart = null;
 
             if (paramMap.containsKey("reservEnd")) {
                 reservEndStr = (String) paramMap.remove("reservEnd");
@@ -267,11 +276,9 @@ public class ShoppingCartEvents {
                 else reservEnd = null;
             }
 
-            if (reservStart != null && reservEnd != null)	{
+            if (reservStart != null && reservEnd != null) {
             	reservLength = new Double(UtilDateTime.getInterval(reservStart,reservEnd)/86400000);
             }
-
-
 
             if (reservStart != null && paramMap.containsKey("reservLength")) {
                 reservLengthStr = (String) paramMap.remove("reservLength");
@@ -299,6 +306,14 @@ public class ShoppingCartEvents {
                     return "error";
                 }
             }
+            
+            //check for valid rental parameters
+            if (UtilValidate.isEmpty(reservStart) && UtilValidate.isEmpty(reservLength) && UtilValidate.isEmpty(reservPersons)) {
+                request.setAttribute("product_id", productId);
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
+                return "product";
+            }
+            
         }
 
         // get the quantity

@@ -417,13 +417,14 @@ under the License.
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCart"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="survey" type="view" value="survey"/>
+        <response name="product" type="view" value="product"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="additemsurvey">
         <security https="true" auth="true"/>
         <event type="service" invoke="createSurveyResponse"/>
         <response name="success" type="request" value="additem"/>
-        <response name="error" type="view" value="main"/>
+        <response name="error" type="view" value="orderentry"/>
     </request-map>
     <request-map uri="addRequirementsToCart">
         <security https="true" auth="true"/>

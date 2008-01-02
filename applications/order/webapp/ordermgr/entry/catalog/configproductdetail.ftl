@@ -328,8 +328,8 @@ ${virtualJavaScript?if_exists}
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
         <hr class="sepbar"/>
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
-          <input type="hidden" name="productId" value="${requestParameters.product_id}">
-          <input type="hidden" name="product_id" value="${requestParameters.product_id}">
+          <input type="hidden" name="productId" value="${product.productId}">
+          <input type="hidden" name="product_id" value="${product.productId}">
           <select name="shoppingListId" class="selectBox">
             <#if shoppingLists?has_content>
               <#list shoppingLists as shoppingList>
