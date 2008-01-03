@@ -74,6 +74,7 @@
             </then>
             <else>
                 <!-- status changed or assignment ended -->
+                <log level="always" message="=====get====parameters: ${parameters}"></log>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="assignment"/>
                 <if-compare field-name="parameters.statusId" value="PAS_ENDED" operator="equals">
                     <!-- special case to indicate end of assignment -->
@@ -111,10 +112,9 @@
             </iterate>
         </if-not-empty>
         <if-empty field-name="status">
-            <set field="inMap.workEffortId" from-field="parameters.workEffortId"/>
-            <set field="inMap.currentStatusId" value="PTS_COMPLETED"/>
-            <now-timestamp-to-env env-name="inMap.actualCompletionDate"/>
-            <call-service service-name="updateWorkEffort" in-map-name="inMap"/>
+            <now-timestamp-to-env env-name="parameters.actualCompletionDate"/>
+            <set field="parameters.currentStatusId" value="PTS_COMPLETED"/>
+            <call-simple-method method-name="updateWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         </if-empty>
     </simple-method>
     
