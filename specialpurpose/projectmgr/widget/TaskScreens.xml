@@ -135,23 +135,37 @@ under the License.
                                         <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                     </container>
                                 </container-->
-                                <container style="lefthalf">
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAssignATaskToMe}</label></container>                                
-                                    <container style="screenlet-body"> 
-                                        <include-form name="assignTaskToMe" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                    </container>
-                                </container>                                                                             
-                                </container>
-                                <container style="righthalf">
-                                    
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAddNewTask}</label></container>                                
-                                    <container style="screenlet-body"> 
-                                        <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                    </container>
-                                </container>                                                                             
-                                </container>                                                                             
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="projects"/></not>                                        
+                                    </condition>
+                                    <widgets>
+                                        <container style="lefthalf">
+                                            <container style="screenlet">
+                                                <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAssignATaskToMe}</label></container>                                
+                                                <container style="screenlet-body"> 
+                                                    <include-form name="assignTaskToMe" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                </container>
+                                            </container>                                                                             
+                                        </container>
+                                        <container style="righthalf">
+                                            <container style="screenlet">
+                                                <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAddNewTask}</label></container>                                
+                                                <container style="screenlet-body"> 
+                                                    <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                </container>
+                                            </container>                                                                             
+                                        </container>                                                                             
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="screenlet">
+                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAssignATaskToMe}</label></container>                                
+                                            <container style="screenlet-body"> 
+                                                <label style="head3" text="You are'nt member of any project, contact your project manager."></label>
+                                            </container>
+                                        </container>                                                                             
+                                    </fail-widgets>
+                                </section>
                             </widgets>                            
                         </section>
                     </decorator-section>

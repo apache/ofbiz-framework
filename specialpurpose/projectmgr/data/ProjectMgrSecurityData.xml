@@ -38,7 +38,6 @@ under the License.
     
     <SecurityGroup description="Project User group, has only access to own projects." groupId="PROJECTUSER"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_VIEW"/>
-    <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_TASK_CREATE"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_TIMESHEET_CREATE"/>
