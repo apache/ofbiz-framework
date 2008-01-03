@@ -34,7 +34,7 @@ under the License.
       <li<#if selected == "EditAgreementItem"> class="selected"</#if>><a href="<@ofbizUrl>EditAgreementItem?agreementId=${agreementItem.agreementId}&agreementItemSeqId=${agreementItem.agreementItemSeqId}</@ofbizUrl>">${uiLabelMap.AccountingAgreementItem}</a></li>
       <li<#if selected == "ListAgreementPromoAppls"> class="selected"</#if>><a href="<@ofbizUrl>ListAgreementPromoAppls?agreementId=${agreementItem.agreementId}&agreementItemSeqId=${agreementItem.agreementItemSeqId}</@ofbizUrl>">${uiLabelMap.AccountingAgreementPromoAppls}</a></li>
       <li<#if selected == "ListAgreementItemTerms"> class="selected"</#if>><a href="<@ofbizUrl>ListAgreementItemTerms?agreementId=${agreementItem.agreementId}&agreementItemSeqId=${agreementItem.agreementItemSeqId}</@ofbizUrl>">${uiLabelMap.AccountingAgreementItemTerms}</a></li>
-      <#if agreement.agreementTypeId == "PURCHASE_AGREEMENT">
+      <#if agreement.agreementTypeId?default("") == "PURCHASE_AGREEMENT">
         <li<#if selected == "ListAgreementItemSupplierProducts"> class="selected"</#if>><a href="<@ofbizUrl>ListAgreementItemSupplierProducts?agreementId=${agreementItem.agreementId}&agreementItemSeqId=${agreementItem.agreementItemSeqId}</@ofbizUrl>">${uiLabelMap.ProductProducts}</a></li>
       <#else>
         <li<#if selected == "ListAgreementItemProducts"> class="selected"</#if>><a href="<@ofbizUrl>ListAgreementItemProducts?agreementId=${agreementItem.agreementId}&agreementItemSeqId=${agreementItem.agreementItemSeqId}</@ofbizUrl>">${uiLabelMap.ProductProducts}</a></li>
