@@ -257,11 +257,11 @@
     <DataResource dataResourceId="DRFOOD-001DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>    
     <DataResource dataResourceId="DRFOOD-001DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
 
-    <ElectronicText dataResourceId="DRFOOD-001DESCFR" textData="Nourriture configurables"/>
+    <ElectronicText dataResourceId="DRFOOD-001DESCFR" textData="Nourriture à la carte"/>
     <ElectronicText dataResourceId="DRFOOD-001DESCIT" textData="Nutrimento configurabili"/>
     <ElectronicText dataResourceId="DRFOOD-001DESCEN" textData="Configurables Foods"/>
 
-    <Content contentId="CFOOD-001DESCFR" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCFR" description="DESCRIPTION FR Nourriture configurables" localeString="fr" />
+    <Content contentId="CFOOD-001DESCFR" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCFR" description="DESCRIPTION FR Nourriture à la carte" localeString="fr" />
     <Content contentId="CFOOD-001DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCIT" description="DESCRIPTION IT Nutrimento configurabili" localeString="it" />
     <Content contentId="CFOOD-001DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCEN" description="DESCRIPTION EN Configurables Foods" localeString="en"/>
 
