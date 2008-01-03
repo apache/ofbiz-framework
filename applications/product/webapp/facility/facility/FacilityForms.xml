@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindFacility" type="list" list-name="facilities">
+    <form name="FindFacility" type="list" list-name="facilities"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="facilityId" widget-style="buttontext">
             <hyperlink target="EditFacility?facilityId=${facilityId}" description="${facilityId}"/>
         </field>
@@ -35,7 +36,8 @@ under the License.
             <hyperlink target="EditFacility?facilityId=${facilityId}" description="${uiLabelMap.CommonEdit}"/>
         </field>
     </form>
-    <form name="SearchInventoryItemsParams" type="single" target="EditFacilityInventoryItems">
+    <form name="SearchInventoryItemsParams" type="single" target="EditFacilityInventoryItems"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
@@ -59,7 +61,7 @@ under the License.
         </field>
     </form>
     <form name="ListFacilityInventoryItems" type="list"  target="" title="" list-name="listIt" 
-        paginate-target="EditFacilityInventoryItems">
+        paginate-target="EditFacilityInventoryItems" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -70,12 +72,12 @@ under the License.
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" description="${inventoryItemId}"/>
         </field>
-        <field name="inventoryItemTypeId">
+        <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}">
             <display-entity entity-name="InventoryItemType"/>
         </field>
         <field name="statusId"><display/></field>
         <field name="datetimeReceived"><display/></field>
-        <field name="expireDate"><display/></field>
+        <field name="expireDate" title="${uiLabelMap.ProductExpireDate}"><display/></field>
         <field name="productId">
             <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/>
         </field>
@@ -86,37 +88,39 @@ under the License.
         <field name="enumId" entry-name="locationTypeEnumId" title="${uiLabelMap.CommonType}">
             <display-entity entity-name="Enumeration"/>
         </field>
-        <field name="lotId"><display/></field>
-        <field name="binNumber"><display/></field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}"><display/></field>
+        <field name="binNumber" title="${ProductBinNumber}"><display/></field>
         <field name="serialNumber"><display/></field>
         <field name="softIdentifier"><display/></field>
         <field name="quantityOnHandTotal"><display description="${availableToPromiseTotal} / ${quantityOnHandTotal}"/></field>
-        <field name="transfer" entry-name="inventoryItemId" widget-style="buttontext">
+        <field name="transfer" title="${uiLabelMap.ProductTransfer}" entry-name="inventoryItemId" widget-style="buttontext">
             <hyperlink target="TransferInventoryItem?facilityId=${facilityId}&amp;inventoryItemId=${inventoryItemId}" description="${uiLabelMap.ProductTransfer}"/>
         </field>
     </form>
     <form name="ListFacilityInventoryItemsNoLocations" type="list"  target="" title="" list-name="inventoryItems"
-         override-list-size="${inventoryItemsSize}" paginate-target="SearchInventoryItemsByLabels">
+         override-list-size="${inventoryItemsSize}" paginate-target="SearchInventoryItemsByLabels"
+         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" description="${inventoryItemId}"/>
         </field>
-        <field name="inventoryItemTypeId">
+        <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}">
             <display-entity entity-name="InventoryItemType"/>
         </field>
         <field name="statusId"><display/></field>
         <field name="datetimeReceived"><display/></field>
-        <field name="expireDate"><display/></field>
+        <field name="expireDate" title="${uiLabelMap.ProductExpireDate}"><display/></field>
         <field name="productId">
             <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/>
         </field>
-        <field name="lotId"><display/></field>
-        <field name="binNumber"><display/></field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}"><display/></field>
+        <field name="binNumber" title="${ProductBinNumber}"><display/></field>
         <field name="serialNumber"><display/></field>
         <field name="softIdentifier"><display/></field>
         <field name="quantityOnHandTotal"><display description="${availableToPromiseTotal} / ${quantityOnHandTotal}"/></field>
     </form>
 
-    <form name="SearchInventoryItemsDetailsParams" type="single" target="ViewFacilityInventoryItemsDetails">
+    <form name="SearchInventoryItemsDetailsParams" type="single" target="ViewFacilityInventoryItemsDetails"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
@@ -160,7 +164,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListFacilityInventoryItemsDetailsByItem" type="list" target="" title="" list-name="listIt">
+    <form name="ListFacilityInventoryItemsDetailsByItem" type="list" target="" title="" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -210,7 +215,8 @@ under the License.
         <field name="returnId" position="2"><display/></field>
         <field name="returnItemSeqId" position="2"><display/></field>
     </form>
-    <form name="ListFacilityInventoryItemsDetailsByProduct" type="list" target="" title="" list-name="listIt">
+    <form name="ListFacilityInventoryItemsDetailsByProduct" type="list" target="" title="" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -252,7 +258,8 @@ under the License.
         <field name="returnId" position="2"><display/></field>
         <field name="returnItemSeqId" position="2"><display/></field>
     </form>
-    <form name="ListFacilityInventoryItemsDetailsByDate" type="list" target="" title="" list-name="listIt">
+    <form name="ListFacilityInventoryItemsDetailsByDate" type="list" target="" title="" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -292,16 +299,16 @@ under the License.
     </form>
 
     <form name="FindFacilityInventoryByProduct" type="single" target="${facilityInventoryByProductScreen}" title="" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId"><hidden/></field>
         <field name="action"><hidden value="SEARCH"/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="inputBox">
+        <field name="productId" title="${uiLabelMap.ProductProductId}">
             <text/>
         </field>
-        <field name="internalName" title="${uiLabelMap.ProductInternalName}" widget-style="inputBox">
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}">
             <text/>
         </field>
-        <field name="productTypeId" title="${uiLabelMap.ProductProductType}" widget-style="selectBox">
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down allow-empty="true" no-current-selected-key="FINISHED_GOOD">
                 <entity-options entity-name="ProductType" description="${description}"> <!-- [${productTypeId}] -->
                     <entity-constraint name="isPhysical"  value="Y" operator="equals"/>
@@ -311,7 +318,7 @@ under the License.
             </drop-down>
         </field>
         <field name="searchInProductCategoryId" title="${uiLabelMap.ProductCategory}"><lookup target-form-name="LookupProductCategory"></lookup></field>
-        <field name="productSupplierId" title="${uiLabelMap.ProductSupplier}" widget-style="selectBox">
+        <field name="productSupplierId" title="${uiLabelMap.ProductSupplier}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
                     <entity-constraint name="roleTypeId"  value="SUPPLIER" operator="equals"/>
@@ -319,19 +326,19 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="offsetQOHQty" title="${uiLabelMap.ProductQtyOffsetQOHBelow}" widget-style="inputBox"><text/></field>
-        <field name="offsetATPQty" title="${uiLabelMap.ProductQtyOffsetATPBelow}" widget-style="inputBox"><text/></field>
-        <field name="productsSoldThruTimestamp" title="${uiLabelMap.ProductShowProductsSoldThruTimestamp}" widget-style="inputBox">
+        <field name="offsetQOHQty" title="${uiLabelMap.ProductQtyOffsetQOHBelow}"><text/></field>
+        <field name="offsetATPQty" title="${uiLabelMap.ProductQtyOffsetATPBelow}"><text/></field>
+        <field name="productsSoldThruTimestamp" title="${uiLabelMap.ProductShowProductsSoldThruTimestamp}">
             <date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
-        <field name="VIEW_SIZE" entry-name="viewSize" title="${uiLabelMap.ProductShowProductsPerPage}" widget-style="inputBox"><text/></field>
-        <field name="monthsInPastLimit" entry-name="monthsInPastLimit" title="monthsInPastLimit" widget-style="inputBox"><text/></field>
+        <field name="VIEW_SIZE" entry-name="viewSize" title="${uiLabelMap.ProductShowProductsPerPage}"><text/></field>
+        <field name="monthsInPastLimit" entry-name="monthsInPastLimit"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
     <form name="ListFacilityInventoryByProduct" type="list" target="" title="" list-name="inventoryByProduct" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         paginate-target="${facilityInventoryByProductScreen}" override-list-size="${overrideListSize}">
         <row-actions>
             <service service-name="getProductInventoryAndFacilitySummary" result-map-name="resultMap">
@@ -344,28 +351,28 @@ under the License.
         <field name="items" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink target="EditFacilityInventoryItems?productId=${productId}&amp;facilityId=${facilityId}" description="${productId}"/>     
         </field>
-        <field name="productId" title="${uiLabelMap.CommonDescription}" widget-area-style="tabletext">
+        <field name="productId" title="${uiLabelMap.CommonDescription}">
             <display-entity entity-name="Product" description="${internalName}">
                 <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${uiLabelMap.ProductCatalog}" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display description="${resultMap.totalAvailableToPromise}"/></field>
-        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display description="${resultMap.totalQuantityOnHand}"/></field>
-        <field name="quantityOnOrder" title="${uiLabelMap.ProductOrderedQuantity}"  widget-area-style="tabletextright"><display description="${resultMap.quantityOnOrder}"/></field>
-        <field name="minimumStock" title="${uiLabelMap.ProductMinimumStock}" widget-area-style="tabletextright"><display /></field>
-        <field name="reorderQuantity" title="${uiLabelMap.ProductReorderQuantity}" widget-area-style="tabletextright"><display/></field>
-        <field name="daysToShip" title="${uiLabelMap.ProductDaysToShip}" widget-area-style="tabletextright"><display/></field>
-        <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}" widget-area-style="tabletextright"><display description="${resultMap.offsetQOHQtyAvailable}"/></field>
-        <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}" widget-area-style="tabletextright"><display description="${resultMap.offsetATPQtyAvailable}"/></field>
-        <field name="usageQuantity" title="${uiLabelMap.ProductUsage}" widget-area-style="tabletextright"><display description="${resultMap.usageQuantity}"/></field>
-        <field name="defultPrice" title="Default Price" widget-area-style="tabletextright"><display description="${resultMap.defultPrice}"/></field>
-        <field name="listPrice" title="List Price" widget-area-style="tabletextright"><display description="${resultMap.listPrice}"/></field>
-        <field name="wholeSalePrice" title="Whole Sale Price" widget-area-style="tabletextright"><display description="${resultMap.wholeSalePrice}"/></field>
+        <field name="totalAvailableToPromise" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductAtp}"><display description="${resultMap.totalAvailableToPromise}"/></field>
+        <field name="totalQuantityOnHand" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductQoh}"><display description="${resultMap.totalQuantityOnHand}"/></field>
+        <field name="quantityOnOrder" title="${uiLabelMap.ProductOrderedQuantity}"><display description="${resultMap.quantityOnOrder}"/></field>
+        <field name="minimumStock" title="${uiLabelMap.ProductMinimumStock}"><display /></field>
+        <field name="reorderQuantity" title="${uiLabelMap.ProductReorderQuantity}"><display/></field>
+        <field name="daysToShip" title="${uiLabelMap.ProductDaysToShip}"><display/></field>
+        <field name="offsetQOHQtyAvailable" title="${uiLabelMap.ProductQtyOffsetQOH}"><display description="${resultMap.offsetQOHQtyAvailable}"/></field>
+        <field name="offsetATPQtyAvailable" title="${uiLabelMap.ProductQtyOffsetATP}"><display description="${resultMap.offsetATPQtyAvailable}"/></field>
+        <field name="usageQuantity" title="${uiLabelMap.ProductUsage}"><display description="${resultMap.usageQuantity}"/></field>
+        <field name="defaultPrice" title="${uiLabelMap.ProductDefaultPrice}"><display description="${resultMap.defultPrice}"/></field>
+        <field name="listPrice" title="${uiLabelMap.ProductListPrice}"><display description="${resultMap.listPrice}"/></field>
+        <field name="wholeSalePrice" title="${uiLabelMap.ProductWholeSalePrice}"><display description="${resultMap.wholeSalePrice}"/></field>
     </form>
 
     <!-- multi-form for list of packages ready to be weighted and scheduled for shipment -->
     <form name="SchedulingList" type="multi" use-row-submit="true" list-name="shipmentRouteSegments" title="${uiLabelMap.PageTitlePackageShipmentScheduling}" target="BatchScheduleShipmentRouteSegments?facilityId=${facilityId}"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
             <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}"/>
         </field>
@@ -401,7 +408,7 @@ under the License.
     <!-- multi-form to print confirmed shipping labels and to mark shipment route segments as accepted 
          (to see how this dual-action multi form works, see batchPrintMarkAsAccepted.ftl) -->
     <form name="Labels" type="multi" use-row-submit="true" list-name="shipmentPackageRouteSegments" title="" target="BatchPrintShippingLabels" separate-columns="true"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
             <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}"/>
         </field>
@@ -428,7 +435,7 @@ under the License.
     </form>
 
     <form name="FindPhysicalInventory" type="single" target="FindFacilityPhysicalInventory" title="" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId"><hidden/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="inputBox">
             <text/>
@@ -441,7 +448,7 @@ under the License.
         </field>
     </form>
     <form name="ListPhysicalInventory" type="multi" list-name="physicalInventory" target="createPhysicalVariances?facilityId=${parameters.facilityId}&amp;productId=${parameters.productId}&amp;internalName=${parameters.internalName}" use-row-submit="true"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext" separate-columns="true">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink description="${inventoryItemId}" target="EditInventoryItem?inventoryItemId=${inventoryItemId}"/>
         </field>
@@ -466,25 +473,27 @@ under the License.
         </field>
     </form>
     <!-- FacilityGroups -->
-    <form name="EditFacilityGroups" type="list" target="updateGroupToFacility" paginate-target="EditFacilityGroups" title="" list-name="facilityGroupMembers">
+    <form name="EditFacilityGroups" type="list" target="updateGroupToFacility" paginate-target="EditFacilityGroups" title="" list-name="facilityGroupMembers"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="FacilityGroupMember"/>
         <field name="facilityId"><hidden/></field>
-        <field name="facilityGroupId">
+        <field name="facilityGroupId" title="${uiLabelMap.ProductFacilityGroupId}">
             <display-entity entity-name="FacilityGroup" key-field-name="facilityGroupId" description="${facilityGroupName}">
                 <sub-hyperlink target="EditFacilityGroup?facilityGroupId=${facilityGroupId}" description="[${facilityGroupId}]"/>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeGroupFromFacility?facilityId=${facilityId}&amp;facilityGroupId=${facilityGroupId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="addGroupToFacility" type="single" target="addGroupToFacility" title="">
+    <form name="addGroupToFacility" type="single" target="addGroupToFacility" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FacilityGroupMember"/>
         <field name="facilityId"><hidden/></field>
-        <field name="facilityGroupId">
+        <field name="facilityGroupId" title="${uiLabelMap.ProductFacilityGroupId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="FacilityGroup" key-field-name="facilityGroupId" description="${facilityGroupName}"/>
             </drop-down>
@@ -492,7 +501,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     <!-- FacilityRoles -->
-    <form name="EditFacilityRoles" type="list" paginate-target="EditFacilityRoles" title="" list-name="facilityRoles">
+    <form name="EditFacilityRoles" type="list" paginate-target="EditFacilityRoles" title="" list-name="facilityRoles"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="FacilityRole" default-field-type="display"/>
         <field name="facilityId"><hidden/></field>
         <field name="partyId">
@@ -506,7 +516,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddPartyToFacility" type="single" target="addPartyToFacility" title="">
+    <form name="AddPartyToFacility" type="single" target="addPartyToFacility" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FacilityRole"/>
         <field name="facilityId"><hidden/></field>
         <field name="partyId">
@@ -520,7 +531,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     <form name="ListInventoryItemTotals" type="list" target="" title="" list-name="inventoryItemTotals" 
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         paginate-target="InventoryItemTotals" override-list-size="${overrideListSize}">
         
         <field name="inventoryItemGrandTotals"><hidden/></field>
@@ -532,14 +543,15 @@ under the License.
         <field name="totalCostPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}" widget-area-style="tabletextright"><display/></field>
         <field name="totalRetailPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}" widget-area-style="tabletextright"><display/></field>
     </form>
-    <form name="ListInventoryItemGrandTotals" type="list" list-name="inventoryItemGrandTotals">
+    <form name="ListInventoryItemGrandTotals" type="list" list-name="inventoryItemGrandTotals"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="qohGrandTotal" title="${uiLabelMap.ProductQoh} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}" widget-area-style="tabletextright"><display/></field>
         <field name="atpGrandTotal" title="${uiLabelMap.ProductAtp} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}" widget-area-style="tabletextright"><display/></field>
         <field name="totalCostPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}" widget-area-style="tabletextright"><display/></field>
         <field name="totalRetailPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}" widget-area-style="tabletextright"><display/></field>
     </form>
-    <form name="InventoryItemTotalsExport" type="list" list-name="inventoryItemTotals">
-        
+    <form name="InventoryItemTotalsExport" type="list" list-name="inventoryItemTotals" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">        
         <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
         <field name="separator0" title=","><display description=","/></field>
         <field name="quot0" title="&quot;"><display description="&quot;"/></field>
@@ -566,7 +578,8 @@ under the License.
         <field name="totalRetailPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}"><display/></field>
         <field name="quot11" title="&quot;"><display description="&quot;"/></field>
     </form>
-    <form name="InventoryItemGrandTotalsExport" type="list" list-name="inventoryItemGrandTotals">
+    <form name="InventoryItemGrandTotalsExport" type="list" list-name="inventoryItemGrandTotals"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="quot0" title="&quot;"><display description="&quot;"/></field>
         <field name="qohGrandTotal" title="${uiLabelMap.ProductQoh} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
         <field name="quot1" title="&quot;"><display description="&quot;"/></field>
@@ -584,7 +597,8 @@ under the License.
         <field name="quot7" title="&quot;"><display description="&quot;"/></field>
     </form>
 
-    <form name="ToFacilityTransfers" type="list"  target="" title="" list-name="toTransfers">
+    <form name="ToFacilityTransfers" type="list"  target="" title="" list-name="toTransfers"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="InventoryItem" value-name="inventoryItem">
                 <field-map field-name="inventoryItemId"/>
@@ -620,7 +634,8 @@ under the License.
             <display-entity entity-name="StatusItem"/>
         </field>
     </form>
-    <form name="FromFacilityTransfers" type="list" target="" title="" list-name="fromTransfers">
+    <form name="FromFacilityTransfers" type="list" target="" title="" list-name="fromTransfers"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="InventoryItem" value-name="inventoryItem">
                 <field-map field-name="inventoryItemId"/>
@@ -656,7 +671,8 @@ under the License.
         </field>
     </form>
 
-    <form name="FromFacilityTransfersComplete" type="multi" target="CompleteRequestedTransfers?completeRequested=true&amp;facilityId=${facilityId}" title="" list-name="fromTransfers">
+    <form name="FromFacilityTransfersComplete" type="multi" target="CompleteRequestedTransfers?completeRequested=true&amp;facilityId=${facilityId}" title="" list-name="fromTransfers"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="InventoryItem" value-name="inventoryItem">
                 <field-map field-name="inventoryItemId"/>
