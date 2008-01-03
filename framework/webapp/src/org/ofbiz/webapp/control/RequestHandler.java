@@ -908,9 +908,8 @@ public class RequestHandler implements Serializable {
     }
 
     public boolean trackStats(HttpServletRequest request) {
-        String appStats = context.getInitParameter("track-serverhit");
-        if (appStats != null && !"false".equalsIgnoreCase(appStats)) {
-            String uriString =  RequestHandler.getRequestUri(request.getPathInfo());
+        if (!"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"))) {
+            String uriString = RequestHandler.getRequestUri(request.getPathInfo());
             return !"false".equalsIgnoreCase(requestManager.getRequestAttribute(uriString, ConfigXMLReader.REQUEST_TRACK_STATS));
         } else {
             return false;
@@ -918,9 +917,8 @@ public class RequestHandler implements Serializable {
     }
 
     public boolean trackVisit(HttpServletRequest request) {
-        String appVisit = context.getInitParameter("track-visit");
-        if (appVisit != null && !"false".equalsIgnoreCase(appVisit)) {
-            String uriString =  RequestHandler.getRequestUri(request.getPathInfo());
+        if (!"false".equalsIgnoreCase(context.getInitParameter("track-visit"))) {
+            String uriString = RequestHandler.getRequestUri(request.getPathInfo());
             return !"false".equalsIgnoreCase(requestManager.getRequestAttribute(uriString, ConfigXMLReader.REQUEST_TRACK_VISIT));
         } else {
             return false;
