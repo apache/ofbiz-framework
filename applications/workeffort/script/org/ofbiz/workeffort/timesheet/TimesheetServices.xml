@@ -264,7 +264,6 @@ under the License.
     
     <!-- subroutines -->
     <simple-method method-name="checkTimesheetStatus" short-description="Check access and if the timesheet is in progress">
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
         <if>
             <condition>
                 <or>
