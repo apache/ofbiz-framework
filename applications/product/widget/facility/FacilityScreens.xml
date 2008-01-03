@@ -23,24 +23,35 @@ under the License.
     <screen name="FindFacility">
         <section>
             <actions>
+                <set field="titleProperty" value="ProductFacilitiesList"/>
                 <set field="headerItem" value="facility"/>
                 <entity-condition list-name="facilities" entity-name="Facility"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="head1">${uiLabelMap.ProductFacilitiesList}</label>
-                        <container>
-                            <link style="buttontext" target="EditFacility" text="${uiLabelMap.ProductCreateNewFacility}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductFacilitiesList}"/>
+                                </container>
+                            </container>
+                            <container>
+                                <link style="buttontext" target="EditFacility" text="${uiLabelMap.ProductCreateNewFacility}"/>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="FindFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="FindFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
-
     <screen name="EditFacility">
         <section>
             <actions>
@@ -58,18 +69,44 @@ under the License.
                     <widgets>
                         <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                             <decorator-section name="body">
-                                <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
-                                </platform-specific>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.ProductEditFacility}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <platform-specific>
+                                                    <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
+                                                </platform-specific>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>                                
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
                     <fail-widgets>
                         <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
-                                <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
-                                </platform-specific>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.ProductEditFacility}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <platform-specific>
+                                                    <html><html-template location="component://product/webapp/facility/facility/EditFacility.ftl"/></html>
+                                                </platform-specific>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </decorator-section>
                         </decorator-screen>
                     </fail-widgets>
@@ -139,9 +176,22 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/FindFacilityLocation.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindFacilityLocation}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/facility/facility/FindFacilityLocation.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -183,16 +233,28 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.ProductInventoryItemsFor}</label>
-                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
+                            <label style="head1">${uiLabelMap.ProductInventoryItemsFor} ${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
                         </container>
                         <container>
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
                             <link target="EditInventoryItem?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductCreateNewInventoryItemFacility}" style="buttontext"/>
                             <link target="SearchInventoryItemsByLabels?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductSearchInventoryItemsByLabels}" style="buttontext"/>
                         </container>
-                        <include-form name="SearchInventoryItemsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                        <include-form name="ListFacilityInventoryItems" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditFacilityInventoryItems}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="SearchInventoryItemsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                        <include-form name="ListFacilityInventoryItems" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -216,21 +278,30 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.ProductInventoryItemsFor}</label>
-                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
+                            <label style="head1">${uiLabelMap.ProductInventoryItemsFor} ${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
                         </container>
                         <container>
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
                             <link target="EditInventoryItem?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductCreateNewInventoryItemFacility}" style="buttontext"/>
                             <link target="EditFacilityInventoryItems?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductInventoryItems}" style="buttontext"/>
                         </container>
-                        <container>
-                            <label style="head2">${uiLabelMap.ProductSearchInventoryItemsByLabels}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductSearchInventoryItemsByLabels}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/facility/facility/searchInventoryItemsByLabelsForm.ftl"/></html>
+                                        </platform-specific>
+                                        <include-form name="ListFacilityInventoryItemsNoLocations" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/searchInventoryItemsByLabelsForm.ftl"/></html>
-                        </platform-specific>
-                        <include-form name="ListFacilityInventoryItemsNoLocations" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -239,7 +310,7 @@ under the License.
     <screen name="ViewFacilityInventoryByProduct">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditFacilityInventoryItems"/>
+                <set field="titleProperty" value="PageTitleFindFacilityInventoryItems"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
@@ -288,9 +359,21 @@ under the License.
                                 </widgets>
                             </section>
                         </container>
-
-                        <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                        <include-form name="ListFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindFacilityInventoryItems}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                        <include-form name="ListFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -556,10 +639,34 @@ under the License.
                             <label style="head1">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container><link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/></container>
-                        <container><label style="head2">${uiLabelMap.ProductGroupMemberMaintenance}</label></container>
-                        <include-form name="EditFacilityGroups" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                        <container><label style="head2">${uiLabelMap.ProductAddFacilityGroupMember}</label></container>
-                        <include-form name="addGroupToFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductGroupMemberMaintenance}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditFacilityGroups" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductAddFacilityGroupMember}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="addGroupToFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -587,10 +694,34 @@ under the License.
                             <label style="head1">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container><link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/></container>
-                        <container><label style="head2">${uiLabelMap.ProductFacilityRoleMemberMaintenance}</label></container>
-                        <include-form name="EditFacilityRoles" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                        <container><label style="head2">${uiLabelMap.ProductAddFacilityPartyRole}</label></container>
-                        <include-form name="AddPartyToFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductFacilityRoleMemberMaintenance}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditFacilityRoles" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductAddFacilityPartyRole}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="AddPartyToFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

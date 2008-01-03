@@ -78,7 +78,7 @@ under the License.
         <br/>
         <span class="head1">${uiLabelMap.CommonFound}:&nbsp;</span><span class="head2"><b>${foundLocations.size()}</b>&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [ID:${facilityId?if_exists}]</span>
         <br/>
-        <table class="basic-table hover-bar" cellspacing="0">
+        <table class="basic-table hover-bar hover-bar" cellspacing="0">
         <tr class="header-row">
             <td>${uiLabelMap.ProductFacility}</td>
             <td>${uiLabelMap.ProductLocationSeqId}</td>
@@ -90,10 +90,10 @@ under the License.
             <td>${uiLabelMap.ProductPosition}</td>
             <td>&nbsp;</td>
         </tr>
-        <#assign alt_row = false>
+        <#assign rowClass = "2">
         <#list foundLocations as location>
         <#assign locationTypeEnum = location.getRelatedOneCache("TypeEnumeration")?if_exists>
-        <tr<#if alt_row> class="alternate-row"</#if>>
+        <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
             <td><a href="<@ofbizUrl>EditFacility?facilityId=${(location.facilityId)?if_exists}</@ofbizUrl>">${(location.facilityId)?if_exists}</a></td>
             <td><a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${(location.locationSeqId)?if_exists}</a></td>
             <td>${(locationTypeEnum.get("description",locale))?default(location.locationTypeEnumId?if_exists)}</td>
@@ -110,7 +110,12 @@ under the License.
               <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${(location.facilityId)?if_exists}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
             </td>     
         </tr>
-        <#assign alt_row = !alt_row>
+        <#-- toggle the row color -->
+        <#if rowClass == "2">
+            <#assign rowClass = "1">
+        <#else>
+            <#assign rowClass = "2">
+        </#if>
         </#list>
         </table>
     </#if>

@@ -18,8 +18,7 @@ under the License.
 -->
 
 <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
-
-<span class="head1">${uiLabelMap.ProductFacility}</span> <span class='head2'>${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span>
+<span class="head1">${uiLabelMap.ProductFacility} ${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span>
 <br/>
 <div class="button-bar">
   <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" name="EditFacilityForm" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
