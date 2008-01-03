@@ -216,18 +216,18 @@
         </entity-and>
         <if-empty field-name="assigns">
             <first-from-list entry-name="projectAssign" list-name="projectAssigns"/>
-            <set field="addAssign.workEffortId" from-field="project.workEffortId"/>
-            <set field="addAssign.partyId" from-field="timesheet.partyId"/>
-            <set field="addAssign.roleTypeId" from-field="projectAssign.roleTypeId"/>
-            <set field="addAssign.statusId" value="PAS_ASSIGNED" />
-            <call-service service-name="assignPartyToWorkEffort" in-map-name="addAssign"/>
+            <set field="parameters.partyId" from-field="timesheet.partyId"/>
+            <set field="parameters.roleTypeId" from-field="projectAssign.roleTypeId"/>
+            <set field="parameters.statusId" value="PAS_ASSIGNED"/>
+            <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+            
         </if-empty>
         
         <!-- check if the actual start date is set, when not set it to todays date -->
         <if-empty field-name="project.actualStartDate">
-            <now-date-to-env env-name="updTask.actualStartDate"/>
-            <set field="updTask.workEffortId" from-field="parameters.workEffortId"/>
-            <call-service service-name="updateWorkEffort" in-map-name="updTask"/>
+            <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+            <now-timestamp-to-env env-name="workEffort.actualStartDate"/>
+            <store-value value-name="workEffort"/>
         </if-empty>
         
         <get-related value-name="timesheet" relation-name="TimeEntry" list-name="timeEntries"/>
@@ -239,8 +239,7 @@
                 <if-compare-field field-name="timeEntry.workEffortId" operator="equals" to-field-name="parameters.workEffortId">
                     <!-- check if the entry does not contain any hours, then delete -->
                     <if-empty field-name="timeEntry.hours">
-                        <set  from-field="timeEntry.timeEntryId" field="teDelMap.timeEntryId"/> 
-                        <call-service service-name="deleteTimeEntry" in-map-name="teDelMap"/>
+                        <remove-value value-name="timeEntry"/> 
                         <else>
                             <!-- translate the date into the daynumber -->
                             <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field-name="dayNumber">

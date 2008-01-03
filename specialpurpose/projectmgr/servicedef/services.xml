@@ -55,6 +55,7 @@ under the License.
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="timesheetId" type="String" mode="IN" optional="false"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/><!-- when empty will be ignored -->
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="hoursDay0" type="Double" mode="IN" optional="true"/>
         <attribute name="hoursDay1" type="Double" mode="IN" optional="true"/>
         <attribute name="hoursDay2" type="Double" mode="IN" optional="true"/>

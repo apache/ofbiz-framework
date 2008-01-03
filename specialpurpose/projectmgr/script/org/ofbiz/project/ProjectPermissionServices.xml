@@ -28,18 +28,17 @@
             <field-to-result field-name="hasPermission"/>
             <return/>
         </if-has-permission>
-        
         <!-- find object -->
-        <if-compare field-name="resourceDescription" value="Timesheet" operator="contains">
+        <if-compare field-name="parameters.resourceDescription" value="Timesheet" operator="contains">
             <set field="sec_object" value="TIMESHEET"/>
             <else>
-                <if-compare field-name="resourceDescription" value="Project" operator="contains">
+                <if-compare field-name="parameters.resourceDescription" value="Project" operator="contains">
                     <set field="sec_object" value="PROJECT"/>
                     <else>
-                        <if-compare field-name="resourceDescription" value="Phase" operator="contains">
+                        <if-compare field-name="parameters.resourceDescription" value="Phase" operator="contains">
                             <set field="sec_object" value="PHASE"/>
                             <else>
-                                <if-compare field-name="resourceDescription" value="Task" operator="contains">
+                                <if-compare field-name="parameters.resourceDescription" value="Task" operator="contains">
                                     <set field="sec_object" value="TASK"/>
                                 </if-compare>
                             </else>
@@ -48,7 +47,11 @@
                 </if-compare>
             </else>
         </if-compare>      
-<log level="always" message="==============security: object: ${sec_object} action: ${mainAction}"></log>
+        <log level="always" message="==============security: object: ${sec_object} action: ${parameters.mainAction}"></log>
+
+        <field-to-result field-name="hasPermission"/>
+        <return/><!-- temporary disable -->
+        
         <if-compare field-name="sec_object" value="TIMESHEET" operator="equals">
             <if-compare field-name="mainAction" value="CREATE" operator="equals">
                 <field-to-result field-name="hasPermission"/>
