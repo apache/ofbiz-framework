@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditInventoryItem" type="single" target="UpdateInventoryItem" title="">
+    <form name="EditInventoryItem" type="single" target="UpdateInventoryItem" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="inventoryItemTypeId" from-field="inventoryItem.inventoryItemTypeId"/>
             <set field="productId" from-field="inventoryItem.productId"/>
@@ -39,16 +40,16 @@ under the License.
         <field name="oldQuantityOnHand"><ignored/></field>
 
         <!-- custom formatted fields -->
-        <field use-when="inventoryItem!=null" name="inventoryItemId" tooltip="&amp;nbsp;${uiLabelMap.ProductNotModificationRecrationInventoryItem}"><display/></field>
+        <field use-when="inventoryItem!=null" name="inventoryItemId" tooltip="${uiLabelMap.ProductNotModificationRecrationInventoryItem}"><display/></field>
         <field use-when="inventoryItem==null" name="inventoryItemId"><text/></field>
-        <field name="inventoryItemTypeId">
+        <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="InventoryItemType" description="${description}" key-field-name="inventoryItemTypeId"/>
             </drop-down>
         </field>
         <field name="productId">
             <text>
-                <sub-hyperlink use-when="productId!=null" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="Edit Product [${productId}]"/>
+                <sub-hyperlink use-when="productId!=null" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${uiLabelMap.ProductEditProduct} [${productId}]"/>
             </text>
         </field> 
         <field name="statusId">
@@ -58,14 +59,18 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="expireDate" title="${uiLabelMap.ProductExpireDate}"/>
         <field name="facilityId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" description="${facilityName}" key-field-name="facilityId">
                     <entity-order-by field-name="facilityName"/>
                 </entity-options>
-                <sub-hyperlink use-when="facilityId!=null" target="EditFacility?facilityId=${facilityId}" description="Edit Facility [${facilityId}]"/>
+                <sub-hyperlink use-when="facilityId!=null" target="EditFacility?facilityId=${facilityId}" description="${uiLabelMap.ProductEditFacility} [${facilityId}]"/>
             </drop-down>                         
         </field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}"/>
+        <field name="uomId" title="${uiLabelMap.ProductUomId}"/>
+        <field name="binNumber" title="${uiLabelMap.ProductBinNumber}"/>        
         <field name="locationSeqId" title="${uiLabelMap.ProductFacilityLocation}">
             <lookup target-form-name="LookupFacilityLocation">
                 <sub-hyperlink use-when="locationSeqId!=null" target="EditFacilityLocation?facilityId=${facilityId}&amp;locationSeqId=${locationSeqId}"></sub-hyperlink>
@@ -83,16 +88,16 @@ under the License.
                 <display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/>
         </field>
         
-        <field use-when="inventoryItem!=null" name="submit" title="Update">
+        <field use-when="inventoryItem!=null" name="submit" title="${uiLabelMap.CommonUpdate}">
             <submit/>
         </field>
-        <field use-when="inventoryItem==null" name="submit" title="Create">
+        <field use-when="inventoryItem==null" name="submit" title="${uiLabelMap.CommonCreate}">
             <submit/>
         </field>
     </form>
 
     <form name="CreatePhysicalInventoryAndVariance" type="single" target="createPhysicalInventoryAndVariance" title=""
-            default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPhysicalInventoryAndVariance"/>
         <field name="physicalInventoryId"><ignored/></field>
         <field name="physicalInventoryDate"><ignored/></field>
@@ -110,7 +115,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ViewPhysicalInventoryAndVariance" type="list" target="" title="" list-name="physicalInventoryAndVarianceDatas"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="PhysicalInventoryAndVariance" map-name="physicalInventoryAndVariance" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="partyId"><display description="${person.firstName} ${person.lastName} ${partyGroup.groupName} [${physicalInventoryAndVariance.partyId}]"/></field>
@@ -118,7 +123,7 @@ under the License.
     </form>    
 
     <form name="ViewInventoryItemShipmentReceipts" type="list" target="" title="" list-name="shipmentReceiptList"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ShipmentReceipt" list-name="shipmentReceiptList">
                 <field-map field-name="inventoryItemId"/>
@@ -129,7 +134,7 @@ under the License.
     </form>    
     
     <form name="ListInventoryItemDetail" type="list" target="" title="" list-name="inventoryItemDetails"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InventoryItemDetail" map-name="inventoryItemDetail" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field> <!-- this field is redundant -->
         <field name="orderId" widget-style="buttontext">
@@ -144,7 +149,8 @@ under the License.
         <!-- workEffortId - not sure if it's better to show manufacturing or workeffort app
         itemIssuanceId, receiptId, physicalInventoryId - no natural screens to show these -->
     </form>
-    <form name="InventoryItemReservations" type="list" target="" title="" list-name="inventoryItemReservations">
+    <form name="InventoryItemReservations" type="list" target="" title="" list-name="inventoryItemReservations"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="OrderItemShipGrpInvRes" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
@@ -152,7 +158,8 @@ under the License.
         </field>
     </form>
     <!-- Inventory Item Labels -->
-    <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelApplFromItem" title="" list-name="inventoryItemLabelAppls">
+    <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelApplFromItem" title="" list-name="inventoryItemLabelAppls"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
         <field name="inventoryItemLabelId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}" description="${inventoryItemLabelId}" also-hidden="true"/>
@@ -168,7 +175,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddInventoryItemLabelAppl" type="single" target="createInventoryItemLabelApplFromItem" title="">
+    <form name="AddInventoryItemLabelAppl" type="single" target="createInventoryItemLabelApplFromItem" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createInventoryItemLabelAppl"/>
         <field name="facilityId"><hidden/></field>
         <field name="inventoryItemId"><hidden/></field>
