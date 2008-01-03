@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="AddInventoryItemLabelType" type="single" target="createInventoryItemLabelType" title="">
+    <form name="AddInventoryItemLabelType" type="single" target="createInventoryItemLabelType" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createInventoryItemLabelType"/>
         <field name="parentTypeId">
             <drop-down allow-empty="true">
@@ -34,7 +35,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateInventoryItemLabelTypes" type="list" target="updateInventoryItemLabelType" title="" list-name="inventoryItemLabelTypes">
+    <form name="UpdateInventoryItemLabelTypes" type="list" target="updateInventoryItemLabelType" title="" list-name="inventoryItemLabelTypes"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelType"/>
         <field name="inventoryItemLabelTypeId"><display/></field>
         <field name="parentTypeId">
@@ -50,7 +52,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="ListInventoryItemLabels" type="list" title="" list-name="inventoryItemLabels">
+    <form name="ListInventoryItemLabels" type="list" title="" list-name="inventoryItemLabels"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InventoryItemLabel" default-field-type="display"/>
         <field name="inventoryItemLabelId" widget-style="buttontext">
             <hyperlink target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}"
@@ -64,7 +67,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditInventoryItemLabel" type="single" target="createInventoryItemLabel" title="" default-map-name="inventoryItemLabel">
+    <form name="EditInventoryItemLabel" type="single" target="createInventoryItemLabel" title="" default-map-name="inventoryItemLabel"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="updateInventoryItemLabel" use-when="inventoryItemLabel!=null"/>
         <auto-fields-service service-name="createInventoryItemLabel" />
         <field name="inventoryItemLabelId" use-when="inventoryItemLabel!=null"><display/></field>
@@ -80,7 +84,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelAppl" title="" list-name="inventoryItemLabelAppls">
+    <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelAppl" title="" list-name="inventoryItemLabelAppls"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
         <field name="inventoryItemLabelId"><hidden/></field>
         <field name="inventoryItemLabelTypeId"><hidden/></field>
@@ -96,7 +101,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddInventoryItemLabelAppl" type="single" target="createInventoryItemLabelAppl" title="">
+    <form name="AddInventoryItemLabelAppl" type="single" target="createInventoryItemLabelAppl" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createInventoryItemLabelAppl"/>
         <field name="inventoryItemLabelId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
