@@ -93,7 +93,7 @@ under the License.
                 <if-has-permission permission="EXAMPLE" action="_VIEW"/>
             </condition>
             <actions>
-                <property-map resource="ExampleUiLabels.xml" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupExampleFeature}"/>				
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
