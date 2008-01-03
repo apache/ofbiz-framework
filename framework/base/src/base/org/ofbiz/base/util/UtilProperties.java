@@ -56,7 +56,7 @@ import org.ofbiz.base.util.cache.UtilCache;
  * <p>The locale-specific class of properties files can be in any one of three
  * formats: the standard text-based key=value format (*.properties file), the Java
  * XML properties format, and the OFBiz-specific XML file format
- * (see the <a href="#toProperties(java.io.InputStream,%20java.util.Locale,%20java.util.Properties)">toProperties</a>
+ * (see the <a href="#xmlToProperties(java.io.InputStream,%20java.util.Locale,%20java.util.Properties)">xmlToProperties</a>
  * method).</p>
  */
 @SuppressWarnings("serial")
@@ -477,7 +477,14 @@ public class UtilProperties implements java.io.Serializable {
         ResourceBundle bundle = null;
         try {
             bundle = UtilResourceBundle.getBundle(resource, locale, (ClassLoader) null);
-        } catch (MissingResourceException e) {
+        } catch (MissingResourceException e) {}
+        if (bundle == null && !resource.endsWith(".xml")) {
+            try {
+                // Try custom XML format
+                bundle = UtilResourceBundle.getBundle(resource + ".xml", locale, (ClassLoader) null);
+            } catch (MissingResourceException e) {}
+        }
+        if (bundle == null) {
             String resourceCacheKey = resource + "_" + locale.toString();
             if (!resourceNotFoundMessagesShown.contains(resourceCacheKey)) {
                 resourceNotFoundMessagesShown.add(resourceCacheKey);
