@@ -477,20 +477,13 @@ public class UtilProperties implements java.io.Serializable {
         ResourceBundle bundle = null;
         try {
             bundle = UtilResourceBundle.getBundle(resource, locale, (ClassLoader) null);
-        } catch (MissingResourceException e) {}
-        if (bundle == null && !resource.endsWith(".xml")) {
-            try {
-                // Try custom XML format
-                bundle = UtilResourceBundle.getBundle(resource + ".xml", locale, (ClassLoader) null);
-            } catch (MissingResourceException e) {}
-        }
-        if (bundle == null) {
-            String resourceCacheKey = resource + "_" + locale.toString();
+        } catch (MissingResourceException e) {
+            String resourceCacheKey = createResourceName(resource, locale, false);
             if (!resourceNotFoundMessagesShown.contains(resourceCacheKey)) {
                 resourceNotFoundMessagesShown.add(resourceCacheKey);
-                Debug.log("[UtilProperties.getPropertyValue] could not find resource: " + resource + " for locale " + locale.toString(), module);
+                Debug.log("[UtilProperties.getPropertyValue] could not find resource: " + resource + " for locale " + locale, module);
             }
-            throw new IllegalArgumentException("Could not find resource bundle [" + resource + "] in the locale [" + locale.toString() + "]");
+            throw new IllegalArgumentException("Could not find resource bundle [" + resource + "] in the locale [" + locale + "]");
         }
         return bundle;
     }
@@ -537,6 +530,19 @@ public class UtilProperties implements java.io.Serializable {
                     Debug.log(e.getMessage(), module);
                 }
                 properties = null;
+            }
+        }
+        if (UtilValidate.isEmpty(properties) && !resource.endsWith(".xml")) {
+            url = resolvePropertiesUrl(resource + ".xml", locale);
+            if (url != null) {
+                try {
+                    properties = new ExtendedProperties(url, locale);
+                } catch (Exception e) {
+                    if (UtilValidate.isNotEmpty(e.getMessage())) {
+                        Debug.log(e.getMessage(), module);
+                    }
+                    properties = null;
+                }
             }
         }
         if (UtilValidate.isNotEmpty(properties)) {
@@ -637,15 +643,22 @@ public class UtilProperties implements java.io.Serializable {
      * a locale.
      * @param resource The desired resource
      * @param locale The desired locale
+     * @param removeExtension Remove file extension from resource String
      * @return Localized resource name
      */
-    public static String createResourceName(String resource, Locale locale) {
-        if (locale == null) {
-            return resource;
-        }
+    public static String createResourceName(String resource, Locale locale, boolean removeExtension) {
         String resourceName = resource;
-        if (UtilValidate.isNotEmpty(locale.toString())) {
-            resourceName = resourceName + "_" + locale;
+        if (removeExtension) {
+            if (resourceName.endsWith(".xml")) {
+                resourceName = resourceName.replace(".xml", "");
+            } else if (resourceName.endsWith(".properties")) {
+                resourceName = resourceName.replace(".properties", "");
+            }
+        }
+        if (locale != null) {
+            if (UtilValidate.isNotEmpty(locale.toString())) {
+                resourceName = resourceName + "_" + locale;
+            }
         }
         return resourceName;
     }
@@ -677,7 +690,7 @@ public class UtilProperties implements java.io.Serializable {
         if (UtilValidate.isEmpty(resource)) {
             throw new IllegalArgumentException("resource cannot be null or empty");
         }
-        String resourceName = createResourceName(resource, locale);
+        String resourceName = createResourceName(resource, locale, false);
         if (propertiesNotFound.contains(resourceName)) {
             return null;
         }
@@ -803,7 +816,7 @@ public class UtilProperties implements java.io.Serializable {
         }
 
         public static ResourceBundle getBundle(String resource, Locale locale, ClassLoader loader) throws MissingResourceException {
-            String resourceName = createResourceName(resource, locale);
+            String resourceName = createResourceName(resource, locale, true);
             ResourceBundle bundle = bundleCache.get(resourceName);
             if (bundle == null) {
                 synchronized (bundleCache) {
@@ -816,7 +829,7 @@ public class UtilProperties implements java.io.Serializable {
                     while (candidateLocales.size() > 0) {
                         Locale candidateLocale = candidateLocales.removeLast();
                         // ResourceBundles are connected together as a singly-linked list
-                        String parentName = createResourceName(resource, candidateLocale);
+                        String parentName = createResourceName(resource, candidateLocale, true);
                         ResourceBundle lookupBundle = bundleCache.get(parentName);
                         if (lookupBundle == null) {
                             Properties newProps = getProperties(resource, candidateLocale);
