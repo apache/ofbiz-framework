@@ -23,25 +23,20 @@ under the License.
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
           <tr class="header-row">
-            <td><b>${uiLabelMap.ProductCatalogNameId}</b></td>    
-            <td><b>${uiLabelMap.ProductUseQuickAdd}?</b></td>
-            <td><b>&nbsp;</b></td>
+            <td>${uiLabelMap.ProductCatalogNameId}</td>    
+            <td>${uiLabelMap.ProductUseQuickAdd}?</td>
+            <td>&nbsp;</td>
           </tr>
-        <#assign rowClass = "2">
+        <#assign alt_row = false>
         <#list prodCatalogs as prodCatalog>
-          <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+          <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalog.prodCatalogId}</@ofbizUrl>" class="buttontext">${prodCatalog.catalogName} [${prodCatalog.prodCatalogId}]</a></td>   
             <td>${prodCatalog.useQuickAdd?if_exists}</td>
             <td>
               <a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalog.prodCatalogId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
             </td>
           </tr>
-          <#-- toggle the row color -->
-          <#if rowClass == "2">
-            <#assign rowClass = "1">
-          <#else>
-            <#assign rowClass = "2">
-          </#if> 
+          <#assign alt_row = !alt_row>
         </#list>
         </table>
     </div>
