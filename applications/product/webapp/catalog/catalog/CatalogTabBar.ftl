@@ -17,16 +17,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedClassName = "">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "selected"}>
+<#assign selected = tabButtonItem?default("void")>
 <#if prodCatalogId?exists>
     <br/>
     <div class="button-bar tab-bar">
         <ul>
-            <li><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.ProductCatalog?default(unselectedClassName)}">${uiLabelMap.ProductCatalog}</a></li>
-            <li><a href="<@ofbizUrl>EditProdCatalogStores?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.ProductStores?default(unselectedClassName)}">${uiLabelMap.ProductStores}</a></li>
-            <li><a href="<@ofbizUrl>EditProdCatalogParties?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.PartyParties?default(unselectedClassName)}">${uiLabelMap.PartyParties}</a></li>
-            <li><a href="<@ofbizUrl>EditProdCatalogCategories?prodCatalogId=${prodCatalogId}</@ofbizUrl>" class="${selectedClassMap.ProductCategories?default(unselectedClassName)}">${uiLabelMap.ProductCategories}</a></li>
+            <li<#if selected="ProductCatalog"> class="selected"</#if>><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalogId}</@ofbizUrl>">${uiLabelMap.ProductCatalog}</a></li>
+            <li<#if selected="ProductStores"> class="selected"</#if>><a href="<@ofbizUrl>EditProdCatalogStores?prodCatalogId=${prodCatalogId}</@ofbizUrl>">${uiLabelMap.ProductStores}</a></li>
+            <li<#if selected="PartyParties"> class="selected"</#if>><a href="<@ofbizUrl>EditProdCatalogParties?prodCatalogId=${prodCatalogId}</@ofbizUrl>">${uiLabelMap.PartyParties}</a></li>
+            <li<#if selected="ProductCategories"> class="selected"</#if>><a href="<@ofbizUrl>EditProdCatalogCategories?prodCatalogId=${prodCatalogId}</@ofbizUrl>">${uiLabelMap.ProductCategories}</a></li>
         </ul>
         <br/>
     </div>
