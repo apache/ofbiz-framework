@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="ListRequests" type="list" use-row-submit="true" title="" list-name="requests">
+        <row-actions>
+            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
+        </row-actions> 
+        <field name="custRequestName" widget-style="buttontext">
+            <hyperlink description="${custRequestName}[${custRequestId}]" target-type="inter-app" target="/projectmgr/control/ViewRequest?custRequestId=${custRequestId}"/>
+        </field>
+        <field name="workEffortId">
+            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortId}"/>
+        </field>
+        <field name="priority"><display/></field>
+        <field name="createdDate"><display type="date"/></field>
+        <field name="partyId"><display/></field>
+        <field name="statusId">
+            <display-entity also-hidden="false" entity-name="StatusItem"/>
+        </field>
+        <field name="description"><display/></field>
+        <field name="createTaskFromRequest" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target-type="inter-app" target="CreateTaskbyRequest?custRequestId=${custRequestId}"/>
+        </field>
+    </form>
+    <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        <alt-target use-when="custRequest==null" target="createrequest"/>
+        <auto-fields-service service-name="updateCustRequest" default-field-type="edit"/>
+        <field name="custRequestId"><hidden/></field>
+        <field name="custRequestName"/>
+        <field name="custRequestTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="CustRequestType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" widget-style="selectBox"><ignored/></field>
+        <field name="custRequestCategoryId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="CustRequestCategory" description="${description}"/>
+            </drop-down>
+        </field>
+        
+        <field use-when="custRequest==null" name="statusId" widget-style="selectBox">
+            <drop-down allow-empty="false" current="first-in-list">
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field use-when="custRequest!=null" name="statusId" widget-style="selectBox">
+            <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${custRequest.statusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="priority" widget-style="selectBox">
+            <drop-down allow-empty="false">
+                <option key="9"/>
+                <option key="8"/>
+                <option key="7"/>
+                <option key="6"/>
+                <option key="5"/>
+                <option key="4"/>
+                <option key="3"/>
+                <option key="2"/>
+                <option key="1"/>
+            </drop-down>
+        </field>
+        <field name="maximumAmountUomId" title="${uiLabelMap.CommonCurrency}"><ignored/></field>
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}"><ignored/></field>
+        <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><date-time type="timestamp"/></field>
+        <field name="responseRequiredDate"><date-time type="timestamp"/></field>
+        <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="fulfillContactMechId"><ignored/></field>
+        <field name="createdDate"><ignored/></field>
+        <field name="createdByUserLogin"><hidden/></field>
+        <field name="lastModifiedDate"><hidden/></field>
+        <field name="lastModifiedByUserLogin"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="RequestInfo" type="single" use-row-submit="true">
+        <actions>
+            <entity-one entity-name="CustRequestWorkEffort" value-name="custRequestWorkEffort">
+                <field-map field-name="workEffortId" env-name="workEffortId"/>
+            </entity-one>
+            <entity-one entity-name="WorkEffort" value-name="workEffort">
+                <field-map field-name="workEffortId" env-name="workEffortId"/>
+            </entity-one>
+            <service service-name="getProjectIdAndName" result-map-name="result">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
+            <set field="projectId" from-field="result.projectId"/>
+            <set field="projectName" from-field="result.projectName"/>
+            <set field="phaseId" from-field="result.phaseId"/>
+            <set field="phaseName" from-field="result.phaseName"/>
+        </actions>
+        <field name="custRequestType"><display description="${custRequest.custRequestTypeId}"/></field>
+        <field name="statusItem"><display description="${custRequest.statusId}"/></field>
+        <field name="fromPartyId"><display description="${custRequest.fromPartyId}"/></field>
+        <field name="custRequestName"><display description="${custRequest.custRequestName}"/></field>
+        <field name="description"><display description="${custRequest.description}"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
+            <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
+        </field>
+        <field name="phaseName"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
+        <field name="taskName">
+            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffort.workEffortName}"/>
+        </field>
+    </form>
+    <form name="RequestDateInfo" type="single">
+        <field name="RequestDate"><display description="${custRequest.custRequestDate}"/></field>
+        <field name="createdDate"><display description="${custRequest.createdDate}"/></field>
+        <field name="lastModifiedDate"><display description="${custRequest.lastModifiedDate}"/></field>
+    </form>
+    <form name="RequestRolesInfo" type="list">
+        <actions>
+            <entity-and entity-name="CustRequestRole">
+                <field-map field-name="custRequestId" env-name="custRequestId"/>
+            </entity-and>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="Person" value-name="person">
+                <field-map field-name="partyId" env-name="partyId"/>
+            </entity-one>
+        </row-actions>
+        <field name="partyId" widget-style="buttontext">
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile?partyId=${partyId}"/>
+        </field>
+        <field name="RequestTaker"><display description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName}"/></field>
+    </form>
+</forms>
+

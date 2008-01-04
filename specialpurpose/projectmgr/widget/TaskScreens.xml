@@ -578,4 +578,32 @@ under the License.
             </widgets>
         </section>
     </screen>                  
+    <screen name="CreateTaskbyRequest">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditTaskList"/>
+                <set field="tabButtonItem" value="edittask"/>                
+                <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>                
+                <entity-one entity-name="WorkEffort" value-name="task"/>    
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
+                </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>                                                       
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleCreateTaskbyRequest}</label></container>                                
+                                    <container style="screenlet-body"> 
+                                        <include-form name="createTaskbyRequest" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                        </container>         
+                                    </container>
+                                </widgets>                            
+                            </section>
+                        </decorator-section>
+                    </decorator-screen>
+                </widgets>
+            </section>
+    </screen>     
 </screens>

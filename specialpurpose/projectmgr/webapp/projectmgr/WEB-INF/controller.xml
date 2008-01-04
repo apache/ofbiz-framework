@@ -527,6 +527,30 @@
         <response name="success" type="view" value="Timesheet"/>
         <response name="error" type="view" value="Timesheet"/>
     </request-map>
+    <request-map uri="CreateTaskbyRequest">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateTaskbyRequest"/>
+        </request-map>
+    <request-map uri="CreateTaskbyRequests">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="request" value="createTaskListForms"/>
+        <response name="error" type="view" value="CreateTaskbyRequest"/>
+        </request-map>
+    <request-map uri="createTaskListForms">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortRequest"/>
+        <response name="success" type="view" value="RequestList"/>
+        <response name="error" type="view" value="RequestList"/>
+        </request-map>
+    <request-map uri="newrequest">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRequest"/>
+        </request-map>
+    <request-map uri="ViewRequest">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewRequest"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -570,5 +594,9 @@
     <view-map name="EditTaskNotes" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskNotes"/>
     <view-map name="taskView" type="screen" page="component://projectmgr/widget/TaskScreens.xml#TaskView"/>
     <view-map name="Timesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#Timesheet"/>
+    <view-map name="CreateTaskbyRequest" type="screen" page="component://projectmgr/widget/TaskScreens.xml#CreateTaskbyRequest"/>
+    <view-map name="RequestList" type="screen" page="component://projectmgr/widget/RequestScreens.xml#RequestList"/>
+    <view-map name="EditRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#EditRequest"/>
+    <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#ViewRequest"/>
     <!-- end of view mappings -->
 </site-conf>
