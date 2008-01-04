@@ -71,9 +71,7 @@ under the License.
     <screen name="LookupFixedAsset">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                </or>
+                <if-service-permission service-name="fixedAssetPermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
