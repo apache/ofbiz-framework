@@ -41,25 +41,25 @@ private static BigDecimal ZERO = BigDecimal.ZERO;
 private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 if (other != null && other.equalsIgnoreCase("y")) {
-	otherCurrency = null;
-	if ((invoice.getRelatedOne("InvoiceType")).getString("parentTypeId").equals("SALES_INVOICE")) 
-		otherCurrency = invoice.getRelatedOne("Party").getString("preferredCurrencyUomId");
-	else
-		otherCurrency = invoice.getRelatedOne("FromParty").getString("preferredCurrencyUomId");
-	
-	result = null;
-	if (otherCurrency != null && invoice.get("currencyUomId") != null && !otherCurrency.equals(invoice.getString("currencyUomId"))) {
-		result = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", invoice.getString("currencyUomId"), "uomIdTo", otherCurrency, "originalValue", 1.00, "asOfDate", invoice.getTimestamp("invoiceDate")));
-		
-		if (result.get("convertedValue") != null) {
-			conversionRate = new BigDecimal(result.get("convertedValue").doubleValue());		
-			invoice.put("invoiceMessage",
-				invoice.get("invoiceMessage") != null? 
-					invoice.getString("invoiceMessage").concat(" Converted from " + invoice.getString("currencyUomId") + " Rate: " + conversionRate.setScale(6, rounding).toString()) :
-					  "Converted from " + invoice.getString("currencyUomId") + " Rate: " + conversionRate.setScale(6, rounding).toString());
-			invoice.put("currencyUomId", otherCurrency);
-		}
-	}
+  otherCurrency = null;
+  if ((invoice.getRelatedOne("InvoiceType")).getString("parentTypeId").equals("SALES_INVOICE")) 
+    otherCurrency = invoice.getRelatedOne("Party").getString("preferredCurrencyUomId");
+  else
+    otherCurrency = invoice.getRelatedOne("FromParty").getString("preferredCurrencyUomId");
+  
+  result = null;
+  if (otherCurrency != null && invoice.get("currencyUomId") != null && !otherCurrency.equals(invoice.getString("currencyUomId"))) {
+    result = dispatcher.runSync("convertUom", UtilMisc.toMap("uomId", invoice.getString("currencyUomId"), "uomIdTo", otherCurrency, "originalValue", 1.00, "asOfDate", invoice.getTimestamp("invoiceDate")));
+    
+    if (result.get("convertedValue") != null) {
+      conversionRate = new BigDecimal(result.get("convertedValue").doubleValue());		
+      invoice.put("invoiceMessage",
+        invoice.get("invoiceMessage") != null? 
+          invoice.getString("invoiceMessage").concat(" Converted from " + invoice.getString("currencyUomId") + " Rate: " + conversionRate.setScale(6, rounding).toString()) :
+            "Converted from " + invoice.getString("currencyUomId") + " Rate: " + conversionRate.setScale(6, rounding).toString());
+      invoice.put("currencyUomId", otherCurrency);
+    }
+  }
 
 }
 
@@ -68,9 +68,9 @@ if (invoice != null) {
     invoiceItemsConv = FastList.newInstance();
     Iterator it = invoiceItems.iterator();
     while (it.hasNext()) {
-    	invoiceItem = it.next();
-    	invoiceItem.put("amount", new Double((invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding)).doubleValue()));
-    	invoiceItemsConv.add(invoiceItem);
+      invoiceItem = it.next();
+      invoiceItem.put("amount", new Double((invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding)).doubleValue()));
+      invoiceItemsConv.add(invoiceItem);
     }
     
 
@@ -98,7 +98,7 @@ if (invoice != null) {
     sendingParty = InvoiceWorker.getSendFromParty(invoice);
     context.put("sendingParty", sendingParty);
 
-                /*________________this snippet was added for adding Tax ID in invoice header if needed _________________
+                //*________________this snippet was added for adding Tax ID in invoice header if needed _________________
                 
                sendingTaxInfos=sendingParty.getRelated("PartyTaxAuthInfo");
                billingTaxInfos=billingParty.getRelated("PartyTaxAuthInfo");
@@ -123,7 +123,7 @@ if (invoice != null) {
                if (billingPartyTaxId != null ) {
                    context.put("billingPartyTaxId",billingPartyTaxId);
                }
-               ________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
+               //________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
    
 
     terms = invoice.getRelated("InvoiceTerm");

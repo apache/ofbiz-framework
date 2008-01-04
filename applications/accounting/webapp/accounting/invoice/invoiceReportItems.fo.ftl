@@ -120,10 +120,10 @@ under the License.
                         <fo:block> ${invoiceItem.invoiceItemSeqId} </fo:block>               
                     </fo:table-cell>    
                     <fo:table-cell>
-                        <fo:block text-align="center">${invoiceItem.productId?if_exists} </fo:block>               
+                        <fo:block text-align="left">${invoiceItem.productId?if_exists} </fo:block>               
                     </fo:table-cell>    
                     <fo:table-cell>
-                        <fo:block>${description?if_exists}</fo:block>               
+                        <fo:block text-align="right">${description?if_exists}</fo:block>               
                     </fo:table-cell>       
                       <fo:table-cell>
                         <fo:block text-align="center"> <#if invoiceItem.quantity?exists>${invoiceItem.quantity?string.number}</#if> </fo:block>               
