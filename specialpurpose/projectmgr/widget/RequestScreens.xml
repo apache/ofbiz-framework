@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="RequestList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortRequests"/>
+                <set field="tabButtonItem" value="requestlist"/>
+                <set field="headerItem" value="request"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-and entity-name="CustRequest" list-name="requests">
+                    <field-map field-name="statusId" value="CRQ_SUBMITTED"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head1">${uiLabelMap.WorkEffortMyRequestList}</label>
+                        </container>
+                        <container style="screenlet-body">
+                            <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                        </container>
+                        <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditRequest">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderRequest"/>
+                <set field="tabButtonItem" value="request"/>
+                <set field="headerItem" value="request"/>
+                
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                
+                <set field="statusId" from-field="custRequest.statusId"/>
+                <entity-one entity-name="StatusItem" value-name="currentStatus"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRequestDecorator">
+                    <decorator-section name="body">
+                        <include-form name="EditCustRequest" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonRequestDecorator">
+        <section>
+            <actions>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://projectmgr/webapp/projectmgr/RequestTabBar.ftl"/></html>
+                                </platform-specific>
+                                <container>
+                                    <label style="head1">[${uiLabelMap.CommonId}:${custRequest.custRequestId}] ${custRequest.custRequestName}</label>
+                                </container>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewRequest">
+        <section>
+            <actions>
+                <set field="MainColumnStyle" value="rightonly"/>
+                <set field="tabButtonItem" value="ViewRequest"/>
+                <set field="headerItem" value="request"/>
+                <set field="titleProperty" value="PageTitleViewRequest"/>
+                <set field="showRequestManagementLinks" value="Y"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <get-related-one value-name="custRequest" relation-name="CustRequestType" to-value-name="custRequestType"/>
+                <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
+                <get-related-one value-name="custRequest" relation-name="Uom" to-value-name="currency"/>
+                <get-related value-name="custRequest" relation-name="CustRequestWorkEffort" list-name="requestInfo"/>
+                <set field="orderBy[]" value="sequenceNum"/>
+                <get-related value-name="custRequest" relation-name="CustRequestRole" list-name="requestRoles"/>
+                <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="requestItems" order-by-list-name="orderBy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRequestDecorator">
+                    <decorator-section name="body">
+                        <include-screen name="ViewRequestTemplate"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewRequestTemplate">
+        <section>
+            <condition>
+                <not><if-empty field-name="custRequest"/></not>
+            </condition>
+            <widgets>
+                <include-screen name="ViewRequestInfo"/>
+            </widgets>
+            <fail-widgets>
+                <label style="head3">${uiLabelMap.OrderErrorRequestNotFound}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="ViewRequestInfo">
+        <section>
+            <widgets>
+                <container style="lefthalf">
+                    <include-screen name="requestInfo"/>
+                </container>
+                <container style="righthalf">
+                    <include-screen name="requestDate"/>
+                    <include-screen name="requestRoles"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="requestInfo">
+        <section>
+            <actions>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
+            </actions>
+                <widgets>
+                <container style="screenlet">
+                    <container style="screenlet-title-bar"><label style="boxhead" text="${custRequest.custRequestName} [${custRequestId}] ${uiLabelMap.CommonInformation}"/></container>
+                    <container style="screenlet-body">
+                        <include-form name="RequestInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
+                    </container>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="requestDate">
+        <section>
+            <widgets>
+                <container style="screenlet">
+                    <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.CommonDate}"/></container>
+                    <container style="screenlet-body">
+                        <include-form name="RequestDateInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
+                    </container>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="requestRoles">
+        <section>
+            <widgets>
+                <container style="screenlet">
+                    <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.OrderRequestRoles}"/></container>
+                    <container style="screenlet-body">
+                        <include-form name="RequestRolesInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
+                    </container>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+</screens>
+
