@@ -1265,6 +1265,22 @@ text-decoration: none;
 color: #CCCCCC;
 }
 
+.screenlet-title-bar ul .collapsed,
+.screenlet-title-bar ul .collapsed:hover {
+background: url(/images/expand.gif) no-repeat center center;
+border-left: none;
+min-height: 1em;
+min-width: 1em;
+}
+
+.screenlet-title-bar ul .expanded,
+.screenlet-title-bar ul .expanded:hover {
+background: url(/images/collapse.gif) no-repeat center center;
+border-left: none;
+min-height: 1em;
+min-width: 1em;
+}
+
 .screenlet-title-bar ul .head1:hover,
 .screenlet-title-bar ul .head2:hover,
 .screenlet-title-bar ul .head3:hover {
