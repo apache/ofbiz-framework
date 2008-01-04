@@ -40,7 +40,7 @@ under the License.
         <#if sendingPartyTaxId?exists>
         <fo:list-item>
             <fo:list-item-label>
-                <fo:block>Tax ID:</fo:block>
+                <fo:block>${uiLabelMap.PartyTaxId}:</fo:block>
             </fo:list-item-label>
             <fo:list-item-body start-indent="body-start()">
                 <fo:block>${sendingPartyTaxId}</fo:block>
