@@ -609,7 +609,7 @@ public class ModelForm extends ModelWidget {
                             if (UtilValidate.isNotEmpty(autoFieldsService.mapName)) {
                                 modelFormField.setMapName(autoFieldsService.mapName);
                             }
-
+                            modelFormField.setRequiredField(!modelParam.optional);
                             // continue to skip creating based on service param
                             continue;
                         }
@@ -631,6 +631,7 @@ public class ModelForm extends ModelWidget {
         newFormField.setServiceName(modelService.name);
         newFormField.setAttributeName(modelParam.name);
         newFormField.setTitle(modelParam.formLabel);
+        newFormField.setRequiredField(!modelParam.optional);
         newFormField.induceFieldInfoFromServiceParam(modelService, modelParam, defaultFieldType);
         newFormField.setPosition(defaultPosition);
         return this.addUpdateField(newFormField);
