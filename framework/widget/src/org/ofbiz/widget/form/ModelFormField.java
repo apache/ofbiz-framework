@@ -98,7 +98,7 @@ public class ModelFormField {
     protected FieldInfo fieldInfo = null;
     protected String idName;
     protected boolean separateColumn = false;
-    protected boolean requiredField = false;
+    protected Boolean requiredField = null;
     protected String headerLink;
     protected String headerLinkStyle;
 
@@ -135,7 +135,7 @@ public class ModelFormField {
         String sepColumns = fieldElement.getAttribute("separate-column");
         if (sepColumns != null && sepColumns.equalsIgnoreCase("true"))
             separateColumn = true;
-        this.requiredField = "true".equals(fieldElement.getAttribute("required-field"));
+        this.requiredField = fieldElement.hasAttribute("required-field") ? "true".equals(fieldElement.getAttribute("required-field")) : null;
         this.headerLink = fieldElement.getAttribute("header-link");
         this.headerLinkStyle = fieldElement.getAttribute("header-link-style");
 
@@ -234,6 +234,8 @@ public class ModelFormField {
             this.title = overrideFormField.title;
         if (overrideFormField.tooltip != null && !overrideFormField.tooltip.isEmpty())
             this.tooltip = overrideFormField.tooltip;
+        if (overrideFormField.requiredField != null)
+            this.requiredField = overrideFormField.requiredField;
 
         if (UtilValidate.isNotEmpty(overrideFormField.titleAreaStyle))
             this.titleAreaStyle = overrideFormField.titleAreaStyle;
@@ -1311,7 +1313,14 @@ public class ModelFormField {
      * @return
      */
     public boolean getRequiredField() {
-        return this.requiredField;
+        return this.requiredField != null ? this.requiredField : false;
+    }
+    
+    /**
+     * @param boolean
+     */
+    public void setRequiredField(boolean required) {
+        this.requiredField = required;
     }
     
     /**
