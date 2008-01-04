@@ -38,8 +38,13 @@ under the License.
     </#if>
     <#if layoutSettings.javaScripts?has_content>
         <#--layoutSettings.javaScripts is a list of java scripts. -->
+        <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
+        <#assign javaScriptsSet = Static["org.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
         <#list layoutSettings.javaScripts as javaScript>
-            <script language="javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
+            <#if javaScriptsSet.contains(javaScript)>
+                <#assign nothing = javaScriptsSet.remove(javaScript)/>
+                <script language="javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"/>
+            </#if>
         </#list>
     </#if>
     <#if layoutSettings.styleSheets?has_content>
