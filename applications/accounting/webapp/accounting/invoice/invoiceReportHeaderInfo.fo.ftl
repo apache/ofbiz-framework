@@ -39,7 +39,8 @@ under the License.
 
 <#if billingPartyTaxId?has_content>
   <fo:table-row>
-    <fo:table-cell><fo:block>Tax ID: ${billingPartyTaxId}</fo:block></fo:table-cell>
+    <fo:table-cell><fo:block>${uiLabelMap.PartyTaxId}:</fo:block></fo:table-cell>
+    <fo:table-cell><fo:block> ${billingPartyTaxId}</fo:block></fo:table-cell>
   </fo:table-row>
 </#if>
 
