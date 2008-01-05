@@ -16,12 +16,15 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign unselectedClassName = "buttontext">
-<#assign selectedClassMap = {page.scheduleTabButtonItem?default("void") : "buttontext"}>
+<#assign selected = scheduleTabButtonItem?default("void")>
 
 <#if facilityId?has_content>
-  <div class='tabContainer'>
-    <a href="<@ofbizUrl>ScheduleShipmentRouteSegment?facilityId=${facilityId}</@ofbizUrl>" class="${selectedClassMap.ScheduleTabButton?default(unselectedClassName)}">${uiLabelMap.ProductSchedule}</a>
-    <a href="<@ofbizUrl>Labels?facilityId=${facilityId}</@ofbizUrl>" class="${selectedClassMap.LabelsTabButton?default(unselectedClassName)}">${uiLabelMap.ProductLabels}</a>
-  </div>
+    <br/>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li<#if selected="ScheduleTabButton"> class="selected"</#if>><a href="<@ofbizUrl>ScheduleShipmentRouteSegment?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.ProductSchedule}</a></li>
+            <li<#if selected="LabelsTabButton"> class="selected"</#if>><a href="<@ofbizUrl>Labels?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.ProductLabels}</a></li>
+        </ul>
+        <br/>
+    </div>
 </#if>
