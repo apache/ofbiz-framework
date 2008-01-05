@@ -26,8 +26,8 @@ under the License.
     <!-- =========================================== -->
     
     <simple-method method-name="validateUserInfo" short-description="Validate User Information" login-required="false">
-        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security.properties" property="username.lowercase" default="false" field-name="username_lowercase"/>
+        <property-to-field resource="security.properties" property="password.lowercase" default="false" field-name="password_lowercase"/>
         <set field="default_user_password" value="ungssblepsswd" />
         <now-timestamp-to-env env-name="nowStamp"/>
 
