@@ -703,13 +703,13 @@ public class UtilProperties implements java.io.Serializable {
                     return url;
                 }
             }
-            // Check for XML properties file next
-            url = FlexibleLocation.resolveLocation(resourceName + ".xml");
+            // Check for *.properties file
+            url = FlexibleLocation.resolveLocation(resourceName + ".properties");
             if (url != null) {
                 return url;
             }
-            // Check for *.properties file
-            url = FlexibleLocation.resolveLocation(resourceName + ".properties");
+            // Check for XML properties file
+            url = FlexibleLocation.resolveLocation(resourceName + ".xml");
             if (url != null) {
                 return url;
             }

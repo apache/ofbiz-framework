@@ -35,8 +35,8 @@ under the License.
         <set field="require_login" value="false" />
         <set field="create_allow_password" value="true" />
 
-        <property-to-field resource="security.properties" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security.properties" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
 
         <now-timestamp-to-env env-name="nowStamp"/>
         <set field="parameters.roleTypeId" value="PROSPECT" />
@@ -49,8 +49,8 @@ under the License.
         <set field="require_login" value="true" />
         <set field="create_allow_password" value="true" />
 
-        <property-to-field resource="security.properties" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security.properties" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
 
         <now-timestamp-to-env env-name="nowStamp"/>
         <set field="parameters.roleTypeId" value="EMPLOYEE" />
@@ -58,8 +58,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createUser" short-description="Create User" login-required="false">
-        <property-to-field resource="security.properties" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security.properties" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
         <set field="default_user_password" value="ungssblepsswd" />
         <now-timestamp-to-env env-name="nowStamp"/>
 
@@ -311,7 +311,7 @@ under the License.
         <if-not-empty field-name="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
             <call-bsh><![CDATA[
-                boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
+                boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
                 if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
             ]]></call-bsh>
 
