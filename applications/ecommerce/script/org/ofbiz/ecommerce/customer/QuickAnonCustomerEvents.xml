@@ -26,8 +26,8 @@ under the License.
     <!-- =========================================== -->
     
     <simple-method method-name="validateUserInfo" short-description="Validate User Information" login-required="false">
-        <property-to-field resource="security.properties" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security.properties" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
         <set field="default_user_password" value="ungssblepsswd" />
         <now-timestamp-to-env env-name="nowStamp"/>
 
@@ -345,7 +345,7 @@ under the License.
         <if-not-empty field-name="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
             <call-bsh><![CDATA[
-                boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
+                boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
                 if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
             ]]></call-bsh>
             <!-- create the UserLogin manually to get around ordering and security constraints in the service -->

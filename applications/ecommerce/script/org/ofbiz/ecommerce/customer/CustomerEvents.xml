@@ -35,8 +35,8 @@ under the License.
             <set field="defaultPassword" value="ungssblepswd"/>
         </if-empty>
 
-        <property-to-field resource="security.properties" property="username.lowercase" default="false" field-name="username_lowercase"/>
-        <property-to-field resource="security.properties" property="password.lowercase" default="false" field-name="password_lowercase"/>
+        <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
 
         <now-timestamp-to-env env-name="nowStamp"/>
         <set value="CUSTOMER" field="parameters.roleTypeId"/>
