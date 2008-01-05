@@ -25,5 +25,14 @@ under the License.
 <#if shipmentId?has_content>
     <div><a href="<@ofbizUrl>ShipmentManifest.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.ProductGenerateShipmentManifestReport}</a></div>
 </#if>
-
-${editShipmentWrapper.renderFormString(context)}
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+        <ul>
+            <li class="head3">${uiLabelMap.ProductEditShipment}</li>
+        </ul>
+        <br class="clear"/>
+    </div>
+    <div class="screenlet-body">
+        ${editShipmentWrapper.renderFormString(context)}
+    </div>
+</div>

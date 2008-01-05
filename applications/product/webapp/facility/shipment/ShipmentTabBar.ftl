@@ -19,27 +19,28 @@ under the License.
 <#if requestAttributes.uiLabelMap?exists>
 <#assign uiLabelMap = requestAttributes.uiLabelMap>
 </#if>
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-
+<#assign selected = tabButtonItem?default("void")>
 <#if shipmentId?has_content>
-  <div class='tabContainer'>
-    <a href="<@ofbizUrl>ViewShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="${selectedClassMap.ViewShipment?default(unselectedClassName)}">${uiLabelMap.CommonView}</a>
-    <a href="<@ofbizUrl>EditShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="${selectedClassMap.EditShipment?default(unselectedClassName)}">${uiLabelMap.CommonEdit}</a>
-    <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='SALES_SHIPMENT'>
-      <a href="<@ofbizUrl>EditShipmentPlan?shipmentId=${shipmentId}</@ofbizUrl>" class="${selectedClassMap.EditShipmentPlan?default(unselectedClassName)}">${uiLabelMap.ProductShipmentPlan}</a>
-    </#if>
-    <a href="<@ofbizUrl>AddItemsFromOrder?shipmentId=${shipmentId}</@ofbizUrl>" class="${selectedClassMap.AddItemsFromOrder?default(unselectedClassName)}">${uiLabelMap.ProductOrderItems}</a>
-    <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT' && shipment.destinationFacilityId?exists>
-      <a href="<@ofbizUrl>ReceiveInventory?shipmentId=${shipmentId}&facilityId=${shipment.destinationFacilityId?if_exists}<#if shipment.primaryOrderId?exists>&purchaseOrderId=${shipment.primaryOrderId}</#if></@ofbizUrl>" class="${selectedClassMap.ReceiveInventory?default(unselectedClassName)}">${uiLabelMap.ProductReceiveInventory}</a>
-    </#if>
-    <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT' && shipment.destinationFacilityId?exists && shipment.primaryOrderId?exists>
-      <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId?if_exists}&purchaseOrderId=${shipment.primaryOrderId?if_exists}</@ofbizUrl>" class="${selectedClassMap.ProductReceiveInventoryAgainstPurchaseOrder?default(unselectedClassName)}">${uiLabelMap.ProductReceiveInventoryAgainstPO}</a>
-    </#if>
-    <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='SALES_SHIPMENT'>
-      <a href="<@ofbizUrl>EditShipmentItems?shipmentId=${shipmentId}</@ofbizUrl>" class="${selectedClassMap.EditShipmentItems?default(unselectedClassName)}">${uiLabelMap.ProductItems}</a>
-      <a href="<@ofbizUrl>EditShipmentPackages?shipmentId=${shipmentId}</@ofbizUrl>" class="${selectedClassMap.EditShipmentPackages?default(unselectedClassName)}">${uiLabelMap.ProductPackages}</a>
-      <a href="<@ofbizUrl>EditShipmentRouteSegments?shipmentId=${shipmentId}</@ofbizUrl>" class="${selectedClassMap.EditShipmentRouteSegments?default(unselectedClassName)}">${uiLabelMap.ProductRouteSegments}</a>
-    </#if>
-  </div>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li<#if selected="ViewShipment"> class="selected"</#if>><a href="<@ofbizUrl>ViewShipment?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.CommonView}</a></li>
+            <li<#if selected="EditShipment"> class="selected"</#if>><a href="<@ofbizUrl>EditShipment?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a></li>
+        <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='SALES_SHIPMENT'>
+            <li<#if selected="EditShipmentPlan"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentPlan?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductShipmentPlan}</a></li>
+        </#if>
+            <li<#if selected="AddItemsFromOrder"> class="selected"</#if>><a href="<@ofbizUrl>AddItemsFromOrder?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductOrderItems}</a></li>
+        <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT' && shipment.destinationFacilityId?exists>
+            <li<#if selected="ReceiveInventory"> class="selected"</#if>><a href="<@ofbizUrl>ReceiveInventory?shipmentId=${shipmentId}&facilityId=${shipment.destinationFacilityId?if_exists}<#if shipment.primaryOrderId?exists>&purchaseOrderId=${shipment.primaryOrderId}</#if></@ofbizUrl>">${uiLabelMap.ProductReceiveInventory}</a></li>
+        </#if>
+        <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT' && shipment.destinationFacilityId?exists && shipment.primaryOrderId?exists>
+            <li<#if selected="ReceiveInventoryAgainstPurchaseOrder"> class="selected"</#if>><a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId?if_exists}&purchaseOrderId=${shipment.primaryOrderId?if_exists}</@ofbizUrl>">${uiLabelMap.ProductReceiveInventoryAgainstPO}</a></li>
+        </#if>
+        <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='SALES_SHIPMENT'>
+            <li<#if selected="EditShipmentItems"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentItems?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductItems}</a></li>
+            <li<#if selected="EditShipmentPackages"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentPackages?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductPackages}</a></li>
+            <li<#if selected="EditShipmentRouteSegments"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentRouteSegments?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductRouteSegments}</a></li>
+        </#if>
+        </ul>
+        <br/>
+    </div>
 </#if>
