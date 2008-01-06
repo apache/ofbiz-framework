@@ -157,5 +157,9 @@ under the License.
         <condition field-name="productTypeId" operator="equals" value="ASSET_USAGE"/>
         <action service="createFixedAssetAndLinkToProduct" mode="sync"/>
     </eca>
+    <eca service="createPaymentApplication" event="commit">
+        <condition field-name="invoiceId" operator="is-not-empty" />
+        <action service="createAcctgTransAndEntriesForPaymentApplication" mode="sync"/>
+    </eca>
    
 </service-eca>
