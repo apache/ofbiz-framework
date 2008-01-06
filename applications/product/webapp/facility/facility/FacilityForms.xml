@@ -624,7 +624,7 @@ under the License.
         <field name="productId" entry-name="product.productId" widget-style="buttontext">
             <hyperlink target="/catalog/control/EditProduct?productId=${product.productId}" target-type="inter-app" description="${product.productId}"/>
         </field>
-        <field name="productName" entry-name="product.internalName"><display/></field>
+        <field name="productName" title="${uiLabelMap.ProductProductName}" entry-name="product.internalName"><display/></field>
         <field name="serialNumber" entry-name="inventoryItem.serialNumber"><display/></field>
         <field name="atpQoh" title="${uiLabelMap.ProductAtpQoh}"><display description="${inventoryItem.availableToPromiseTotal}/${inventoryItem.quantityOnHandTotal}"/></field>
         <field name="locationSeqIdTo"><display/></field>
@@ -660,7 +660,7 @@ under the License.
         <field name="productId" entry-name="product.productId" widget-style="buttontext">
             <hyperlink target="/catalog/control/EditProduct?productId=${product.productId}" target-type="inter-app" description="${product.productId}"/>
         </field>
-        <field name="productName" entry-name="product.internalName"><display/></field>
+        <field name="productName" title="${uiLabelMap.ProductProductName}" entry-name="product.internalName"><display/></field>
         <field name="serialNumber" entry-name="inventoryItem.serialNumber"><display/></field>
         <field name="atpQoh" title="${uiLabelMap.ProductAtpQoh}"><display description="${inventoryItem.availableToPromiseTotal}/${inventoryItem.quantityOnHandTotal}"/></field>
         <field name="locationSeqId"><display/></field>
@@ -697,7 +697,7 @@ under the License.
         <field name="productId" entry-name="product.productId" widget-style="buttontext">
             <hyperlink target="/catalog/control/EditProduct?productId=${product.productId}" target-type="inter-app" description="${product.productId}" also-hidden="false"/>
         </field>
-        <field name="productName" entry-name="product.internalName"><display also-hidden="false"/></field>
+        <field name="productName" title="${uiLabelMap.ProductProductName}" entry-name="product.internalName"><display also-hidden="false"/></field>
         <field name="serialNumber" entry-name="inventoryItem.serialNumber"><display also-hidden="false"/></field>
         <field name="atpQoh" title="${uiLabelMap.ProductAtpQoh}"><display description="${inventoryItem.availableToPromiseTotal}/${inventoryItem.quantityOnHandTotal}" also-hidden="false"/></field>
         <field name="locationSeqId"><display also-hidden="false"/></field>

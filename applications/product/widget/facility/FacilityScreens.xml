@@ -843,9 +843,23 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/EditContactMech.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditFacilityContactMech}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://product/webapp/facility/facility/EditContactMech.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>

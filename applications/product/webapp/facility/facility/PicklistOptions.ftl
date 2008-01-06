@@ -16,18 +16,20 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.ProductFindOrdersToPick}</div>
+    <div class="screenlet-title-bar">
+        <ul>
+            <li class="head3">${uiLabelMap.ProductFindOrdersToPick}</li>
+        </ul>
+        <br class="clear"/>
     </div>
     <div class="screenlet-body">
-        <table class="basic-table">
-            <tr>
-                <th>${uiLabelMap.ProductShipmentMethod}</th>
-                <th>${uiLabelMap.ProductReadyToPick}</th>
-                <th>${uiLabelMap.ProductNeedStockMove}</th>
-                <th>&nbsp;</th>
+        <table cellspacing="0" class="basic-table">
+            <tr class="header-row">
+                <td>${uiLabelMap.ProductShipmentMethod}</td>
+                <td>${uiLabelMap.ProductReadyToPick}</td>
+                <td>${uiLabelMap.ProductNeedStockMove}</td>
+                <td>&nbsp;</td>
             </tr>
             <#if rushOrderInfo?has_content>
                 <#assign orderReadyToPickInfoList = rushOrderInfo.orderReadyToPickInfoList?if_exists>
@@ -55,6 +57,7 @@ under the License.
             <#if pickMoveByShipmentMethodInfoList?has_content>
                 <#assign orderReadyToPickInfoListSizeTotal = 0>
                 <#assign orderNeedsStockMoveInfoListSizeTotal = 0>
+                <#assign alt_row = false>
                 <#list pickMoveByShipmentMethodInfoList as pickMoveByShipmentMethodInfo>
                     <#assign shipmentMethodType = pickMoveByShipmentMethodInfo.shipmentMethodType?if_exists>
                     <#assign orderReadyToPickInfoList = pickMoveByShipmentMethodInfo.orderReadyToPickInfoList?if_exists>
@@ -63,8 +66,8 @@ under the License.
                     <#assign orderNeedsStockMoveInfoListSize = (orderNeedsStockMoveInfoList.size())?default(0)>
                     <#assign orderReadyToPickInfoListSizeTotal = orderReadyToPickInfoListSizeTotal + orderReadyToPickInfoListSize>
                     <#assign orderNeedsStockMoveInfoListSizeTotal = orderNeedsStockMoveInfoListSizeTotal + orderNeedsStockMoveInfoListSize>
-                    <tr>
-                        <td><a href="<@ofbizUrl>PicklistOptions?viewDetail=${shipmentMethodType.shipmentMethodTypeId?if_exists}&facilityId=${facilityId?if_exists}</@ofbizUrl>" class="linktext"><#if shipmentMethodType?exists && shipmentMethodType?has_content>${shipmentMethodType.description}<#else>${groupName?if_exists}</#if></a></td>
+                    <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+                        <td><a href="<@ofbizUrl>PicklistOptions?viewDetail=${shipmentMethodType.shipmentMethodTypeId?if_exists}&facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext"><#if shipmentMethodType?exists && shipmentMethodType?has_content>${shipmentMethodType.description}<#else>${groupName?if_exists}</#if></a></td>
                         <td>${orderReadyToPickInfoListSize}</td>
                         <td>${orderNeedsStockMoveInfoListSize}</td>
                         <td>
@@ -80,7 +83,8 @@ under the License.
                                             <input type="hidden" name="orderIdList" value="${orderIdForPickList.orderHeader.orderId}"/>
                                         </#list>
                                     </#if>
-                                    ${uiLabelMap.ProductPickFirst}:<input type="text" size="4" name="maxNumberOfOrders" value="20"/>
+                                    <span class="label">${uiLabelMap.ProductPickFirst}</span>
+                                    <input type="text" size="4" name="maxNumberOfOrders" value="20"/>
                                     <input type="submit" value="${uiLabelMap.ProductCreatePicklist}"/>
                                 </form>
                             <#else>
@@ -88,6 +92,8 @@ under the License.
                             </#if>
                         </td>
                     </tr>
+                    <#-- toggle the row color -->
+                    <#assign alt_row = !alt_row>
                 </#list>
                 <tr>
                     <th>${uiLabelMap.CommonAllMethods}</div></th>
@@ -97,7 +103,8 @@ under the License.
                       <#if (orderReadyToPickInfoListSizeTotal > 0)>
                         <form method="post" action="<@ofbizUrl>createPicklistFromOrders</@ofbizUrl>">
                             <input type="hidden" name="facilityId" value="${facilityId}"/>
-                            ${uiLabelMap.ProductPickFirst}:<input type="text" size="4" name="maxNumberOfOrders" value="20"/>
+                            <span class="label">${uiLabelMap.ProductPickFirst}</span>
+                            <input type="text" size="4" name="maxNumberOfOrders" value="20"/>
                             <input type="submit" value="${uiLabelMap.ProductCreatePicklist}"/>
                         </form>
                       <#else>
@@ -125,21 +132,25 @@ under the License.
 
 <#if toPickList?has_content>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${shipmentMethodType.description?if_exists} ${uiLabelMap.ProductPickingDetail}</div>
+    <div class="screenlet-title-bar">
+        <ul>
+            <li class="head3">${shipmentMethodType.description?if_exists} ${uiLabelMap.ProductPickingDetail}</li>
+        </ul>
+        <br class="clear"/>
     </div>
     <div class="screenlet-body">
-        <table class="basic-table">
-            <tr>
-                <th>${uiLabelMap.ProductOrderId}</th>
-                <th>${uiLabelMap.FormFieldTitle_orderDate}</th>
-                <th>${uiLabelMap.ProductChannel}</th>
-                <th>${uiLabelMap.ProductOrderItem}</th>
-                <th>${uiLabelMap.ProductDescription}</th>
-                <th>${uiLabelMap.OrderShipGroup}</th>
-                <th>${uiLabelMap.ProductQuantity}</th>
-                <th>${uiLabelMap.ProductQuantityNotAvailable}</th>
+        <table cellspacing="0" class="basic-table">
+            <tr class="header-row">
+                <td>${uiLabelMap.ProductOrderId}</td>
+                <td>${uiLabelMap.FormFieldTitle_orderDate}</td>
+                <td>${uiLabelMap.ProductChannel}</td>
+                <td>${uiLabelMap.ProductOrderItem}</td>
+                <td>${uiLabelMap.ProductDescription}</td>
+                <td>${uiLabelMap.OrderShipGroup}</td>
+                <td>${uiLabelMap.ProductQuantity}</td>
+                <td>${uiLabelMap.ProductQuantityNotAvailable}</td>
             </tr>
+            <#assign alt_row = false>
             <#list toPickList as toPick>
                 <#assign oiasgal = toPick.orderItemShipGrpInvResList>
                 <#assign header = toPick.orderHeader>
@@ -148,15 +159,15 @@ under the License.
                 <#list oiasgal as oiasga>
                     <#assign orderProduct = oiasga.getRelatedOne("OrderItem").getRelatedOne("Product")?if_exists>
                     <#assign product = oiasga.getRelatedOne("InventoryItem").getRelatedOne("Product")?if_exists>
-                    <tr>
-                        <td><a href="/ordermgr/control/orderview?orderId=${oiasga.orderId}${externalKeyParam}" class="linktext" target="_blank">${oiasga.orderId}</a></td>
+                    <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+                        <td><a href="/ordermgr/control/orderview?orderId=${oiasga.orderId}${externalKeyParam}" class="buttontext" target="_blank">${oiasga.orderId}</a></td>
                         <td>${header.orderDate?string}</td>
                         <td>${(channel.description)?if_exists}</td>
                         <td>${oiasga.orderItemSeqId}</td>
                         <td>
-                            <a href="/catalog/control/EditProduct?productId=${orderProduct.productId?if_exists}${externalKeyParam}" class="linktext" target="_blank">${(orderProduct.internalName)?if_exists}</a>
+                            <a href="/catalog/control/EditProduct?productId=${orderProduct.productId?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${(orderProduct.internalName)?if_exists}</a>
                             <#if orderProduct.productId != product.productId>
-                                &nbsp;[<a href="/catalog/control/EditProduct?productId=${product.productId?if_exists}${externalKeyParam}" class="linktext" target="_blank">${(product.internalName)?if_exists}</a>]
+                                &nbsp;[<a href="/catalog/control/EditProduct?productId=${product.productId?if_exists}${externalKeyParam}" class="buttontext" target="_blank">${(product.internalName)?if_exists}</a>]
                             </#if>
                         </td>
                         <td>${oiasga.shipGroupSeqId}</td>
@@ -164,9 +175,8 @@ under the License.
                         <td>${oiasga.quantityNotAvailable?if_exists}</td>
                     </tr>
                 </#list>
-                <tr>
-                    <td colspan="8"><hr/></td>
-                </tr>
+                <#-- toggle the row color -->
+                <#assign alt_row = !alt_row>
             </#list>
         </table>
     </div>

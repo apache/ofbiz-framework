@@ -16,14 +16,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign selected = tabButtonItem?default("void")>
 
 <#if facilityGroupId?has_content>
-    <div class="tabContainer">
-        <a href="<@ofbizUrl>EditFacilityGroup?facilityGroupId=${facilityGroupId}</@ofbizUrl>" class="${selectedClassMap.EditFacilityGroup?default(unselectedClassName)}">${uiLabelMap.ProductFacilityGroup}</a>
-        <a href="<@ofbizUrl>EditFacilityGroupRollup?facilityGroupId=${facilityGroupId}</@ofbizUrl>" class="${selectedClassMap.EditFacilityGroupRollup?default(unselectedClassName)}">${uiLabelMap.ProductRollups}</a>
-        <a href="<@ofbizUrl>EditFacilityGroupMembers?facilityGroupId=${facilityGroupId}</@ofbizUrl>" class="${selectedClassMap.EditFacilityGroupMembers?default(unselectedClassName)}">${uiLabelMap.ProductFacilities}</a>
-        <a href="<@ofbizUrl>EditFacilityGroupRoles?facilityGroupId=${facilityGroupId}</@ofbizUrl>" class="${selectedClassMap.EditFacilityGroupRoles?default(unselectedClassName)}">${uiLabelMap.PartyRoles}</a>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li<#if selected="EditFacilityGroup"> class="selected"</#if>><a href="<@ofbizUrl>EditFacilityGroup?facilityGroupId=${facilityGroupId}</@ofbizUrl>">${uiLabelMap.ProductFacilityGroup}</a></li>
+            <li<#if selected="EditFacilityGroupRollup"> class="selected"</#if>><a href="<@ofbizUrl>EditFacilityGroupRollup?facilityGroupId=${facilityGroupId}</@ofbizUrl>">${uiLabelMap.ProductRollups}</a></li>
+            <li<#if selected="EditFacilityGroupMembers"> class="selected"</#if>><a href="<@ofbizUrl>EditFacilityGroupMembers?facilityGroupId=${facilityGroupId}</@ofbizUrl>">${uiLabelMap.ProductFacilities}</a></li>
+            <li<#if selected="EditFacilityGroupRoles"> class="selected"</#if>><a href="<@ofbizUrl>EditFacilityGroupRoles?facilityGroupId=${facilityGroupId}</@ofbizUrl>">${uiLabelMap.PartyRoles}</a></li>
+        </ul>
+        <br/>
     </div>
 </#if>
