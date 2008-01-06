@@ -1727,6 +1727,13 @@ under the License.
         <response name="success" type="view" value="BalanceSheet"/>
         <response name="error" type="view" value="BalanceSheet"/>         
     </request-map>
+    <request-map uri="ComparativeBalanceSheet"><security https="true" auth="true"/><response name="success" type="view" value="ComparativeBalanceSheet"/></request-map>
+    <request-map uri="prepareComparativeBalanceSheet">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="prepareComparativeBalanceSheet"/>
+        <response name="success" type="view" value="ComparativeBalanceSheet"/>
+        <response name="error" type="view" value="ComparativeBalanceSheet"/>         
+    </request-map>
     <request-map uri="TransactionTotals"><security https="true" auth="true"/><response name="success" type="view" value="TransactionTotals"/></request-map>
     <!-- end of request mappings -->
 
@@ -1918,6 +1925,7 @@ under the License.
     <view-map name="TrialBalance" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TrialBalance"/>
     <view-map name="IncomeStatement" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#IncomeStatement"/>
     <view-map name="BalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#BalanceSheet"/>
+    <view-map name="ComparativeBalanceSheet" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#ComparativeBalanceSheet"/>
     <view-map name="TransactionTotals" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#TransactionTotals"/>
     
     <!-- Assignment Mappings -->

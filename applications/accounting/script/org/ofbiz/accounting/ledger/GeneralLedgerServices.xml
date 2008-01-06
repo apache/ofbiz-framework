@@ -487,10 +487,18 @@ under the License.
             </condition>
             <then>
                 <if-not-empty field-name="parameters.productId">
-                    <entity-one entity-name="GlAccountTypeDefault" value-name="glAccountTypeDefault" use-cache="true">
-                        <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                        <field-map field-name="glAccountTypeId" value="SALES_ACCOUNT"/>
-                    </entity-one>
+                    <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE">
+                        <entity-one entity-name="GlAccountTypeDefault" value-name="glAccountTypeDefault" use-cache="true">
+                            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+                            <field-map field-name="glAccountTypeId" value="UNINVOICED_SHIP_RCPT"/>
+                        </entity-one>
+                    <else>
+                        <entity-one entity-name="GlAccountTypeDefault" value-name="glAccountTypeDefault" use-cache="true">
+                            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+                            <field-map field-name="glAccountTypeId" value="SALES_ACCOUNT"/>
+                        </entity-one>
+                    </else>
+                    </if-compare>
                     <if-not-empty field-name="glAccountTypeDefault.glAccountId">
                         <field-to-result field-name="glAccountTypeDefault.glAccountId" result-name="glAccountId"/>
                         <return/>
@@ -514,7 +522,6 @@ under the License.
                 <return/>
             </then>
         </if>
-
         <!-- if nothing found or if no such parameters were passed (lookedUpValue empty in both cases), try GlAccountTypeDefault -->
         <if-empty field-name="lookedUpValue.glAccountId">
             <entity-one entity-name="GlAccountTypeDefault" value-name="lookedUpValue" use-cache="true"/> 
@@ -1134,6 +1141,95 @@ under the License.
         <field-to-result field-name="equityBalancesList" result-name="equityBalancesList"/>
     </simple-method>
 
+    <simple-method method-name="prepareComparativeBalanceSheet" short-description="Prepare data for the Comparative Balance Sheet">
+        <set field="prepareBalanceSheetInMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="prepareBalanceSheetInMap.glFiscalTypeId" from-field="parameters.period1GlFiscalTypeId"/>
+        <set field="prepareBalanceSheetInMap.thruDate" from-field="parameters.period1ThruDate"/>
+        <call-service service-name="prepareBalanceSheet" in-map-name="prepareBalanceSheetInMap">
+            <result-to-field result-name="assetBalancesList" field-name="period1AssetBalancesList"/>
+            <result-to-field result-name="liabilityBalancesList" field-name="period1LiabilityBalancesList"/>
+            <result-to-field result-name="equityBalancesList" field-name="period1EquityBalancesList"/>
+        </call-service>
+        <set field="prepareBalanceSheetInMap.glFiscalTypeId" from-field="parameters.period2GlFiscalTypeId"/>
+        <set field="prepareBalanceSheetInMap.thruDate" from-field="parameters.period2ThruDate"/>
+        <call-service service-name="prepareBalanceSheet" in-map-name="prepareBalanceSheetInMap">
+            <result-to-field result-name="assetBalancesList" field-name="period2AssetBalancesList"/>
+            <result-to-field result-name="liabilityBalancesList" field-name="period2LiabilityBalancesList"/>
+            <result-to-field result-name="equityBalancesList" field-name="period2EquityBalancesList"/>
+        </call-service>
+
+        <iterate list-name="period2AssetBalancesList" entry-name="period2AssetBalance">
+            <set field="assetBalancesMap.${period2AssetBalance.glAccountId}" from-field="period2AssetBalance.totalAmount" type="Double"/>
+        </iterate>
+        <iterate list-name="period1AssetBalancesList" entry-name="period1AssetBalance">
+            <set field="amount" from-field="period1AssetBalance.totalAmount" type="Double"/>
+            <calculate field-name="amount">
+                <calcop field-name="amount" operator="negative"/>
+            </calculate>
+            <if-empty field-name="assetBalancesMap.${period1AssetBalance.glAccountId}">
+                <set field="assetBalancesMap.${period1AssetBalance.glAccountId}" value="0.0" type="Double"/>
+            </if-empty>
+            <calculate field-name="assetBalancesMap.${period1AssetBalance.glAccountId}" type="Double">
+                <calcop field-name="assetBalancesMap.${period1AssetBalance.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+            </calculate>
+        </iterate>
+
+        <iterate list-name="period2LiabilityBalancesList" entry-name="period2LiabilityBalance">
+            <set field="liabilityBalancesMap.${period2LiabilityBalance.glAccountId}" from-field="period2LiabilityBalance.totalAmount" type="Double"/>
+        </iterate>
+        <iterate list-name="period1LiabilityBalancesList" entry-name="period1LiabilityBalance">
+            <set field="amount" from-field="period1LiabilityBalance.totalAmount" type="Double"/>
+            <calculate field-name="amount">
+                <calcop field-name="amount" operator="negative"/>
+            </calculate>
+            <if-empty field-name="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}">
+                <set field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" value="0.0" type="Double"/>
+            </if-empty>
+            <calculate field-name="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" type="Double">
+                <calcop field-name="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+            </calculate>
+        </iterate>
+
+        <iterate list-name="period2EquityBalancesList" entry-name="period2EquityBalance">
+            <set field="equityBalancesMap.${period2EquityBalance.glAccountId}" from-field="period2EquityBalance.totalAmount" type="Double"/>
+        </iterate>
+        <iterate list-name="period1EquityBalancesList" entry-name="period1EquityBalance">
+            <set field="amount" from-field="period1EquityBalance.totalAmount" type="Double"/>
+            <calculate field-name="amount">
+                <calcop field-name="amount" operator="negative"/>
+            </calculate>
+            <if-empty field-name="equityBalancesMap.${period1EquityBalance.glAccountId}">
+                <set field="equityBalancesMap.${period1EquityBalance.glAccountId}" value="0.0" type="Double"/>
+            </if-empty>
+            <calculate field-name="equityBalancesMap.${period1EquityBalance.glAccountId}" type="Double">
+                <calcop field-name="equityBalancesMap.${period1EquityBalance.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
+            </calculate>
+        </iterate>
+
+        <iterate-map map-name="assetBalancesMap" key-name="glAccountId" value-name="totalAmount">
+            <clear-field field-name="glAccountTotalMap"/>
+            <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
+            <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="assetBalancesList[]" from-field="glAccountTotalMap"/>
+        </iterate-map>
+        <iterate-map map-name="liabilityBalancesMap" key-name="glAccountId" value-name="totalAmount">
+            <clear-field field-name="glAccountTotalMap"/>
+            <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
+            <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="liabilityBalancesList[]" from-field="glAccountTotalMap"/>
+        </iterate-map>
+        <iterate-map map-name="equityBalancesMap" key-name="glAccountId" value-name="totalAmount">
+            <clear-field field-name="glAccountTotalMap"/>
+            <set field="glAccountTotalMap.glAccountId" from-field="glAccountId"/>
+            <set field="glAccountTotalMap.totalAmount" from-field="totalAmount"/>
+            <set field="equityBalancesList[]" from-field="glAccountTotalMap"/>
+        </iterate-map>
+
+        <field-to-result field-name="assetBalancesList" result-name="assetBalancesList"/>
+        <field-to-result field-name="liabilityBalancesList" result-name="liabilityBalancesList"/>
+        <field-to-result field-name="equityBalancesList" result-name="equityBalancesList"/>
+    </simple-method>
+
     <!-- Services for the automatic creation of accounting transactions based on business transactions
          Typically, these services are triggered by SECAs -->
 
@@ -1727,12 +1823,13 @@ under the License.
         <property-to-field resource="arithmetic" property="ledger.rounding" field-name="roundingMode"/>
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
         <set field="totalAmountFromInvoice" type="BigDecimal" value="0"/>
-        <set field="amountFromOrder" type="BigDecimal" value="0"/>
         
         <entity-one entity-name="Invoice" value-name="invoice"/>
         <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE">
             <get-related value-name="invoice" relation-name="InvoiceItem" list-name="invoiceItems"/>
             <iterate list-name="invoiceItems" entry-name="invoiceItem">
+                <set field="amountFromOrder" type="BigDecimal" value="0"/>
+                <set field="amountFromInvoice" type="BigDecimal" value="0"/>
                 <if-empty field-name="invoiceItem.quantity">
                     <set field="invoiceItem.quantity" value="1"/>
                 </if-empty>
@@ -1819,6 +1916,7 @@ under the License.
             <!-- Set header fields (AcctgTrans) -->
             <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="PURCHASE_INVOICE"/>
+            <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="invoice.invoiceId"/>
             <set field="createAcctgTransAndEntriesInMap.partyId" from-field="invoice.partyIdFrom"/>
             <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_FROM_VENDOR"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>

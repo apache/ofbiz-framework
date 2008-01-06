@@ -132,6 +132,26 @@ under the License.
         </field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="ComparativeBalanceSheetParameters" type="single" target="prepareComparativeBalanceSheet">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="period1ThruDate"><date-time/></field>
+        <field name="period1GlFiscalTypeId">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="period2ThruDate"><date-time/></field>
+        <field name="period2GlFiscalTypeId">
+            <drop-down>
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                    <entity-order-by field-name="glFiscalTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 
     <form name="BalanceSheetAssetList" type="list" list-name="assetBalancesList">
         <row-actions>

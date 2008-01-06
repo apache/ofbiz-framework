@@ -454,6 +454,9 @@ under the License.
         <menu-item name="BalanceSheet" title="${uiLabelMap.AccountingBalanceSheet}">
             <link target="BalanceSheet?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
+        <menu-item name="ComparativeBalanceSheet" title="${uiLabelMap.AccountingComparativeBalanceSheet}">
+            <link target="ComparativeBalanceSheet?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
         <menu-item name="TransactionTotals" title="${uiLabelMap.AccountingTransactionTotals}">
             <link target="TransactionTotals?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
