@@ -599,7 +599,6 @@ under the License.
                                         </section>
                                     </container>
                                 </container>
-                                
                             </widgets>
                         </section>
                     </decorator-section>
@@ -624,10 +623,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head2" text="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>    
+                                    <widgets>
+                                        <include-form name="ListInventoryItemTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ListInventoryItemTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -648,10 +657,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head2" text="${uiLabelMap.ProductInventoryItemGrandTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductInventoryItemGrandTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>    
+                                    <widgets>
+                                        <include-form name="ListInventoryItemGrandTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ListInventoryItemGrandTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
