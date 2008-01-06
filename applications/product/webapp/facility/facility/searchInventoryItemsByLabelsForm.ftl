@@ -25,19 +25,22 @@ under the License.
     <#assign index = index + 1>
     <#assign labels = labelType.getRelated("InventoryItemLabel", Static["org.ofbiz.base.util.UtilMisc"].toList("inventoryItemLabelId"))>
     <tr>
-      <th>${labelType.description?if_exists} [${labelType.inventoryItemLabelTypeId}]</th>
       <td>
-      <select name="inventoryItemLabelId_${index}">
-        <option></option>
-        <#list labels as label>
-        <option value="${label.inventoryItemLabelId}" <#if parameters["inventoryItemLabelId_" + index]?has_content && parameters["inventoryItemLabelId_" + index] == label.inventoryItemLabelId>selected</#if>>${label.description?if_exists} [${label.inventoryItemLabelId}]</option>
-        </#list>
-      </select>
+          <div>
+          <span class="label">${labelType.description?if_exists} [${labelType.inventoryItemLabelTypeId}]</span>
+          &nbsp;
+          <select name="inventoryItemLabelId_${index}">
+            <option></option>
+            <#list labels as label>
+            <option value="${label.inventoryItemLabelId}" <#if parameters["inventoryItemLabelId_" + index]?has_content && parameters["inventoryItemLabelId_" + index] == label.inventoryItemLabelId>selected</#if>>${label.description?if_exists} [${label.inventoryItemLabelId}]</option>
+            </#list>
+          </select>
+          </div>
       </td>
     </tr>
   </#list>
   <tr>
-    <td colspan="2">
+    <td>
       <input type="submit" value="${uiLabelMap.CommonSubmit}"/>
     </td>
   </tr>

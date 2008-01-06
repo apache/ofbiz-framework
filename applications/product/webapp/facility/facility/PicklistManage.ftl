@@ -18,8 +18,11 @@ under the License.
 -->
 
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.ProductPicklistManage}</div>
+    <div class="screenlet-title-bar">
+        <ul>
+            <li class="head3">${uiLabelMap.ProductPicklistManage}</li>
+        </ul>
+        <br class="clear"/>
     </div>
     <div class="screenlet-body">
         <#if picklistInfoList?has_content>
@@ -27,13 +30,13 @@ under the License.
                 <#assign picklist = picklistInfo.picklist>
 
                 <#-- Picklist -->
-                <div class="tabletext">
-                    <b>${uiLabelMap.ProductPickList}</b> <span class="head2">${picklist.picklistId}</span>
-                    <b>${uiLabelMap.CommonDate}</b> ${picklist.picklistDate}
+                <div>
+                    <span class="label">${uiLabelMap.ProductPickList}</span> ${picklist.picklistId}
+                    <span class="label">${uiLabelMap.CommonDate}</span> ${picklist.picklistDate}
                     <form method="post" action="<@ofbizUrl>updatePicklist</@ofbizUrl>" style="display: inline;">
                         <input type="hidden" name="facilityId" value="${facilityId}"/>
                         <input type="hidden" name="picklistId" value="${picklist.picklistId}"/>
-                        <select name="statusId" class="smallSelect">
+                        <select name="statusId">
                             <option value="${picklistInfo.statusItem.statusId}" selected>${picklistInfo.statusItem.get("description",locale)}</option>
                             <option value="${picklistInfo.statusItem.statusId}">---</option>
                             <#list picklistInfo.statusValidChangeToDetailList as statusValidChangeToDetail>
@@ -42,31 +45,32 @@ under the License.
                         </select>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
                     </form>
-                    <b>${uiLabelMap.ProductCreatedModifiedBy}</b> ${picklist.createdByUserLogin}/${picklist.lastModifiedByUserLogin}
-                    <a href="<@ofbizUrl>PicklistReport.pdf?picklistId=${picklist.picklistId}</@ofbizUrl>" target="_blank" class="buttontext">[${uiLabelMap.ProductPick}/${uiLabelMap.ProductPacking} ${uiLabelMap.CommonReports}]</a>
+                    <span class="label">${uiLabelMap.ProductCreatedModifiedBy}</span> ${picklist.createdByUserLogin}/${picklist.lastModifiedByUserLogin}
+                    <a href="<@ofbizUrl>PicklistReport.pdf?picklistId=${picklist.picklistId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPick}/${uiLabelMap.ProductPacking} ${uiLabelMap.CommonReports}</a>
+                    <hr/>
                 </div>
                 <#if picklistInfo.shipmentMethodType?has_content>
-                    <div class="tabletext" style="margin-left: 15px;">
-                        <b>${uiLabelMap.CommonFor} ${uiLabelMap.ProductShipmentMethodType}</b> ${picklistInfo.shipmentMethodType.description?default(picklistInfo.shipmentMethodType.shipmentMethodTypeId)}
+                    <div style="margin-left: 15px;">
+                        <span class="label">${uiLabelMap.CommonFor} ${uiLabelMap.ProductShipmentMethodType}</span> ${picklistInfo.shipmentMethodType.description?default(picklistInfo.shipmentMethodType.shipmentMethodTypeId)}
                     </div>
                 </#if>
 
                 <#-- PicklistRole -->
                 <#list picklistInfo.picklistRoleInfoList?if_exists as picklistRoleInfo>
-                    <div class="tabletext" style="margin-left: 15px;">
-                        <b>${uiLabelMap.PartyParty}</b> ${picklistRoleInfo.partyNameView.firstName?if_exists} ${picklistRoleInfo.partyNameView.middleName?if_exists} ${picklistRoleInfo.partyNameView.lastName?if_exists} ${picklistRoleInfo.partyNameView.groupName?if_exists}
-                        <b>${uiLabelMap.PartyRole}</b> ${picklistRoleInfo.roleType.description}
-                        <b>${uiLabelMap.CommonFrom}</b> ${picklistRoleInfo.picklistRole.fromDate}
-                        <#if picklistRoleInfo.picklistRole.thruDate?exists><b>thru</b> ${picklistRoleInfo.picklistRole.thruDate}</#if>
+                    <div style="margin-left: 15px;">
+                        <span class="label">${uiLabelMap.PartyParty}</span> ${picklistRoleInfo.partyNameView.firstName?if_exists} ${picklistRoleInfo.partyNameView.middleName?if_exists} ${picklistRoleInfo.partyNameView.lastName?if_exists} ${picklistRoleInfo.partyNameView.groupName?if_exists}
+                        <span class="label">${uiLabelMap.PartyRole}</span> ${picklistRoleInfo.roleType.description}
+                        <span class="label">${uiLabelMap.CommonFrom}</span> ${picklistRoleInfo.picklistRole.fromDate}
+                        <#if picklistRoleInfo.picklistRole.thruDate?exists><span class="label">${uiLabelMap.CommonThru}</span> ${picklistRoleInfo.picklistRole.thruDate}</#if>
                     </div>
                 </#list>
-                <div class="tabletext" style="margin-left: 15px;">
-                    <b>${uiLabelMap.ProductAssignPicker}:</b>
+                <div style="margin-left: 15px;">
+                    <span class="label">${uiLabelMap.ProductAssignPicker}</span>
                     <form method="post" action="<@ofbizUrl>createPicklistRole</@ofbizUrl>" style="display: inline;">
                         <input type="hidden" name="facilityId" value="${facilityId}"/>
                         <input type="hidden" name="picklistId" value="${picklist.picklistId}"/>
                         <input type="hidden" name="roleTypeId" value="PICKER"/>
-                        <select name="partyId" class="smallSelect">
+                        <select name="partyId">
                             <#list partyRoleAndPartyDetailList as partyRoleAndPartyDetail>
                                 <option value="${partyRoleAndPartyDetail.partyId}">${partyRoleAndPartyDetail.firstName?if_exists} ${partyRoleAndPartyDetail.middleName?if_exists} ${partyRoleAndPartyDetail.lastName?if_exists} ${partyRoleAndPartyDetail.groupName?if_exists} [${partyRoleAndPartyDetail.partyId}]</option>
                             </#list>
@@ -77,33 +81,33 @@ under the License.
 
                 <#-- PicklistStatusHistory -->
                 <#list picklistInfo.picklistStatusHistoryInfoList?if_exists as picklistStatusHistoryInfo>
-                    <div class="tabletext" style="margin-left: 15px;">
-                        <b>${uiLabelMap.CommonStatus}</b> ${uiLabelMap.CommonChange} ${uiLabelMap.CommonFrom} ${picklistStatusHistoryInfo.statusItem.get("description",locale)}
+                    <div style="margin-left: 15px;">
+                        <span class="label">${uiLabelMap.CommonStatus}</span> ${uiLabelMap.CommonChange} ${uiLabelMap.CommonFrom} ${picklistStatusHistoryInfo.statusItem.get("description",locale)}
                         ${uiLabelMap.CommonTo} ${picklistStatusHistoryInfo.statusItemTo.description}
                         ${uiLabelMap.CommonOn} ${picklistStatusHistoryInfo.picklistStatusHistory.changeDate}
                         ${uiLabelMap.CommonBy} ${picklistStatusHistoryInfo.picklistStatusHistory.changeUserLoginId}
                     </div>
                 </#list>
-
+                <hr/>
                 <#-- PicklistBin -->
                 <#list picklistInfo.picklistBinInfoList?if_exists as picklistBinInfo>
                     <#assign isBinComplete = Static["org.ofbiz.shipment.picklist.PickListServices"].isBinComplete(delegator, picklistBinInfo.picklistBin.picklistBinId)/>
                     <#if (!isBinComplete)>
-                        <div class="tabletext" style="margin-left: 15px;">
-                            <b>${uiLabelMap.ProductBinNum}</b> ${picklistBinInfo.picklistBin.binLocationNumber}&nbsp;(${picklistBinInfo.picklistBin.picklistBinId})
-                            <#if picklistBinInfo.primaryOrderHeader?exists><b>${uiLabelMap.ProductPrimaryOrderId}</b> ${picklistBinInfo.primaryOrderHeader.orderId}</#if>
-                            <#if picklistBinInfo.primaryOrderItemShipGroup?exists><b>${uiLabelMap.ProductPrimaryShipGroupSeqId}</b> ${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}</#if>
+                        <div style="margin-left: 15px;">
+                            <span class="label">${uiLabelMap.ProductBinNum}</span> ${picklistBinInfo.picklistBin.binLocationNumber}&nbsp;(${picklistBinInfo.picklistBin.picklistBinId})
+                            <#if picklistBinInfo.primaryOrderHeader?exists><span class="label">${uiLabelMap.ProductPrimaryOrderId}</span> ${picklistBinInfo.primaryOrderHeader.orderId}</#if>
+                            <#if picklistBinInfo.primaryOrderItemShipGroup?exists><span class="label">${uiLabelMap.ProductPrimaryShipGroupSeqId}</span> ${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}</#if>
                             <#if !picklistBinInfo.picklistItemInfoList?has_content><a href="<@ofbizUrl>deletePicklistBin?picklistBinId=${picklistBinInfo.picklistBin.picklistBinId}&amp;facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></#if>
                         </div>
-                        <div class="tabletext" style="margin-left: 30px;">
-                            <b>${uiLabelMap.CommonUpdate} ${uiLabelMap.ProductBinNum}:</b>
+                        <div style="margin-left: 30px;">
+                            <span class="label">${uiLabelMap.CommonUpdate} ${uiLabelMap.ProductBinNum}</span>
                             <form method="post" action="<@ofbizUrl>updatePicklistBin</@ofbizUrl>" style="display: inline;">
                                 <input type="hidden" name="facilityId" value="${facilityId}"/>
                                 <input type="hidden" name="picklistBinId" value="${picklistBinInfo.picklistBin.picklistBinId}"/>
-                                ${uiLabelMap.ProductLocation}#:
+                                <span class="label">${uiLabelMap.ProductLocation}#</span>
                                 <input type"text" size="2" name="binLocationNumber" value="${picklistBinInfo.picklistBin.binLocationNumber}"/>
-                                ${uiLabelMap.PageTitlePickList}:
-                                <select name="picklistId" class="smallSelect">
+                                <span class="label">${uiLabelMap.PageTitlePickList}</span>
+                                <select name="picklistId">
                                     <#list picklistActiveList as picklistActive>
                                         <#assign picklistActiveStatusItem = picklistActive.getRelatedOneCache("StatusItem")>
                                         <option value="${picklistActive.picklistId}"<#if picklistActive.picklistId == picklist.picklistId> selected</#if>>${picklistActive.picklistId} [${uiLabelMap.CommonDate}:${picklistActive.picklistDate},${uiLabelMap.CommonStatus}:${picklistActiveStatusItem.get("description",locale)}]</option>
@@ -115,22 +119,21 @@ under the License.
                         <#if picklistBinInfo.picklistItemInfoList?has_content>
                             <div style="margin-left: 30px;">
                                 <table class="basic-table" cellspacing="0">
-                                    <tr>
-                                        <b>
-                                            <th>${uiLabelMap.ProductOrderId}</th>
-                                            <th>${uiLabelMap.OrderShipGroup}</th>
-                                            <th>${uiLabelMap.ProductOrderItem}</th>
-                                            <th>${uiLabelMap.ProductProduct}</th>
-                                            <th>${uiLabelMap.ProductInventoryItem}</th>
-                                            <th>${uiLabelMap.ProductLocation}</th>
-                                            <th>${uiLabelMap.ProductQuantity}</th>
-                                            <th>&nbsp;</th>
-                                        </b>
+                                    <tr class="header-row"
+                                        <td>${uiLabelMap.ProductOrderId}</td>
+                                        <td>${uiLabelMap.OrderShipGroup}</td>
+                                        <td>${uiLabelMap.ProductOrderItem}</td>
+                                        <td>${uiLabelMap.ProductProduct}</td>
+                                        <td>${uiLabelMap.ProductInventoryItem}</td>
+                                        <td>${uiLabelMap.ProductLocation}</td>
+                                        <td>${uiLabelMap.ProductQuantity}</td>
+                                        <td>&nbsp;</td>
                                     </tr>
+                                <#assign alt_row = false>
                                 <#list picklistBinInfo.picklistItemInfoList?if_exists as picklistItemInfo>
                                 <#assign picklistItem = picklistItemInfo.picklistItem>
                                 <#assign inventoryItemAndLocation = picklistItemInfo.inventoryItemAndLocation>
-                                    <tr>
+                                    <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                                         <td>${picklistItem.orderId}</td>
                                         <td>${picklistItem.shipGroupSeqId}</td>
                                         <td>${picklistItem.orderItemSeqId}</td>
@@ -151,15 +154,16 @@ under the License.
                                             </#list>
                                         </td>
                                     </tr>
+                                    <#-- toggle the row color -->
+                                    <#assign alt_row = !alt_row>
                                 </#list>
                                 </table>
                             </div>
                         </#if>
                     </#if>
                 </#list>
-
                 <#if picklistInfo_has_next>
-                   <hr class="sepbar"/>
+                   <hr/>
                 </#if>
             </#list>
         <#else/>

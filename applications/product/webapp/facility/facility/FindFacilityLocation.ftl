@@ -78,7 +78,7 @@ under the License.
         <br/>
         <span class="head1">${uiLabelMap.CommonFound}:&nbsp;</span><span class="head2"><b>${foundLocations.size()}</b>&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [ID:${facilityId?if_exists}]</span>
         <br/>
-        <table class="basic-table hover-bar hover-bar" cellspacing="0">
+        <table class="basic-table hover-bar" cellspacing="0">
         <tr class="header-row">
             <td>${uiLabelMap.ProductFacility}</td>
             <td>${uiLabelMap.ProductLocationSeqId}</td>
