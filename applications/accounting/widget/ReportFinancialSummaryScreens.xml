@@ -318,6 +318,57 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ComparativeBalanceSheet">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="OrganizationAccountingReports"/>
+                <set field="tabButtonItem2" value="ComparativeBalanceSheet"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="organizationPartyId"/>
+                </entity-one>
+                <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                <set field="assetBalancesList" from-field="parameters.assetBalancesList"/>
+                <set field="liabilityBalancesList" from-field="parameters.liabilityBalancesList"/>
+                <set field="equityBalancesList" from-field="parameters.equityBalancesList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="head2" text="${uiLabelMap.AccountingComparativeBalanceSheet}"/>
+                        </container>
+                        <include-form name="ComparativeBalanceSheetParameters" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        <section>
+                            <condition>
+                                <or>
+                                    <not><if-empty field-name="assetBalancesList"/></not>
+                                    <not><if-empty field-name="liabilityBalancesList"/></not>
+                                    <not><if-empty field-name="equityBalancesList"/></not>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <label style="head2" text="${uiLabelMap.AccountingAssets}"/>
+                                </container>
+                                <include-form name="BalanceSheetAssetList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                <container>
+                                    <label style="head2" text="${uiLabelMap.AccountingLiabilities}"/>
+                                </container>
+                                <include-form name="BalanceSheetLiabilityList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                <container>
+                                    <label style="head2" text="${uiLabelMap.AccountingEquities}"/>
+                                </container>
+                                <include-form name="BalanceSheetEquityList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <!-- TODO: this is just a placeholder: the report is not still implemented -->
     <screen name="TransactionTotals">
         <section>
