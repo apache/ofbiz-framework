@@ -50,8 +50,7 @@ under the License.
                 <option description="${uiLabelMap.CommonNo}" key="N"/>
                 <option description="${uiLabelMap.CommonYes}" key="Y"/>
             </drop-down>
-        </field> 
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName" size="20" maxlength="20"/></field>
+        </field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
         <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
@@ -72,7 +71,6 @@ under the License.
                     <condition-expr field-name="glFiscalTypeId" operator="equals" env-name="parameters.glFiscalTypeId" ignore-if-empty="true"/>
                     <condition-expr field-name="glJournalId" operator="equals" env-name="parameters.glJournalId" ignore-if-empty="true"/>
                     <condition-expr field-name="isPosted" operator="equals" env-name="parameters.isPosted" ignore-if-empty="true"/>
-                    <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
                     <condition-expr field-name="invoiceId" operator="equals" env-name="parameters.invoiceId" ignore-if-empty="true"/>
                     <condition-expr field-name="paymentId" operator="equals" env-name="parameters.paymentId" ignore-if-empty="true"/>
                     <condition-expr field-name="productId" operator="equals" env-name="parameters.productId" ignore-if-empty="true"/>
@@ -90,7 +88,6 @@ under the License.
                 <select-field field-name="paymentId"/>
                 <select-field field-name="workEffortId"/>
                 <select-field field-name="shipmentId"/>
-                <select-field field-name="partyId"/>
                 <select-field field-name="isPosted"/>
                 <select-field field-name="postedDate"/>
                 <order-by field-name="-transactionDate"/>
@@ -119,13 +116,6 @@ under the License.
             <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
         </field>
         <field name="shipmentId" use-when="shipmentId==null"><display/></field>
-        <field name="partyId" use-when="partyId!=null">
-            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"/>
-        </field>
-        <field name="partyName" entry-name="partyId" title="${uiLabelMap.PartyParty}">
-            <display-entity entity-name="PartyNameView" description="${groupName}${firstName} ${lastName}" key-field-name="partyId"/>
-        </field> 
-        <field name="partyId" use-when="partyId==null"><display/></field>
         <field name="isPosted"><display/></field>
         <field name="postedDate"><display/></field>
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="&quot;N&quot;.equals(isPosted)" widget-style="buttontext">
