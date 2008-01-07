@@ -21,94 +21,94 @@ under the License.
         <div class="boxhead">${uiLabelMap.OrderOrderQuoteId}&nbsp;${quote.quoteId}&nbsp;${uiLabelMap.CommonInformation}</div>
     </div>
     <div class="screenlet-body">
-        <table width="100%" border="0" cellpadding="1">
+        <table cellspacing="0" class="basic-table">
             <#-- quote header information -->
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonType}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonType}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${(quoteType.get("description",locale))?default(quote.quoteTypeId?if_exists)}</div>
+                    ${(quoteType.get("description",locale))?default(quote.quoteTypeId?if_exists)}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
 
             <#-- quote Channel information -->
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderSalesChannel}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.OrderSalesChannel}</div>
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${(salesChannel.get("description",locale))?default(quote.salesChannelEnumId?if_exists)}</div>
+                    ${(salesChannel.get("description",locale))?default(quote.salesChannelEnumId?if_exists)}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
 
             <#-- quote status information -->
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonStatus}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonStatus}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${(statusItem.get("description", locale))?default(quote.statusId?if_exists)}</div>
+                    ${(statusItem.get("description", locale))?default(quote.statusId?if_exists)}
                 </td>
             </tr>
             <#-- party -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.PartyPartyId}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.PartyPartyId}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${quote.partyId?if_exists}</div>
+                    ${quote.partyId?if_exists}
                 </td>
             </tr>
             <#-- quote name -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderOrderQuoteName}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.OrderOrderQuoteName}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${quote.quoteName?if_exists}</div>
+                    ${quote.quoteName?if_exists}
                 </td>
             </tr>
             <#-- quote description -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonDescription}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonDescription}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${quote.description?if_exists}</div>
+                    ${quote.description?if_exists}
                 </td>
             </tr>
             <#-- quote currency -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonCurrency}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonCurrency}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext"><#if currency?exists>${currency.get("description",locale)?default(quote.currencyUomId?if_exists)}</#if></div>
+                    <#if currency?exists>${currency.get("description",locale)?default(quote.currencyUomId?if_exists)}</#if>
                 </td>
             </tr>
             <#-- quote currency -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.ProductProductStore}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.ProductProductStore}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext"><#if store?exists>${store.storeName?default(quote.productStoreId?if_exists)}</#if></div>
+                    <#if store?exists>${store.storeName?default(quote.productStoreId?if_exists)}</#if>
                 </td>
             </tr>
         </table>

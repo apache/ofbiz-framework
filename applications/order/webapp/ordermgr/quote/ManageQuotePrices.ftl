@@ -16,10 +16,11 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<span class="label">${uiLabelMap.OrderOrderQuoteCoefficients}</span>
+<br/>
 <#list quoteCoefficients as quoteCoefficient>
-    <div class="tabletext">${quoteCoefficient.coeffName}:&nbsp;${quoteCoefficient.coeffValue}</div>
+    <div>${quoteCoefficient.coeffName}&nbsp;${quoteCoefficient.coeffValue}</div>
 </#list>
 <br/>
-<div class="tabletext">${uiLabelMap.CommonTotalCostMult}:&nbsp;${costMult}</div>
-<div class="tabletext">${uiLabelMap.CommonTotalCostToPriceMult}:&nbsp;${costToPriceMult}</div>
-<br/>
+<div><span class="label">${uiLabelMap.CommonTotalCostMult}</span>&nbsp;${costMult}</div>
+<div><span class="label">${uiLabelMap.CommonTotalCostToPriceMult}</span>&nbsp;${costToPriceMult}</div>

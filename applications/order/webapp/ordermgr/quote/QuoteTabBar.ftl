@@ -16,22 +16,24 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign selected = tabButtonItem?default("void")>
 
 <#if quote?has_content>
-    <div class='tabContainer'>
-        <a href="<@ofbizUrl>ViewQuote?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.ViewQuote?default(unselectedClassName)}">${uiLabelMap.OrderViewQuote}</a>
-        <a href="<@ofbizUrl>EditQuote?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.EditQuote?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuote}</a>
-        <a href="<@ofbizUrl>ListQuoteRoles?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.ListQuoteRoles?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuoteRoles}</a>
-        <a href="<@ofbizUrl>ListQuoteItems?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.ListQuoteItems?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuoteItems}</a>
-        <a href="<@ofbizUrl>ListQuoteAttributes?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.ListQuoteAttributes?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuoteAttributes}</a>
-        <#if security.hasEntityPermission("ORDERMGR", "_QUOTE_PRICE", session)>
-        <a href="<@ofbizUrl>ListQuoteCoefficients?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.ListQuoteCoefficients?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuoteCoefficients}</a>
-        <a href="<@ofbizUrl>ManageQuotePrices?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.ManageQuotePrices?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuotePrices}</a>
-        <a href="<@ofbizUrl>ListQuoteAdjustments?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.ListQuoteAdjustments?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuoteAdjustments}</a>
-        <a href="<@ofbizUrl>ViewQuoteProfit?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.ViewQuoteProfit?default(unselectedClassName)}">${uiLabelMap.OrderViewQuoteProfit}</a>
-        </#if>
-        <a href="<@ofbizUrl>ListQuoteWorkEfforts?quoteId=${quote.quoteId}</@ofbizUrl>" class="${selectedClassMap.QuoteWorkEfforts?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuoteWorkEfforts}</a>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li<#if selected="ViewQuote"> class="selected"</#if>><a href="<@ofbizUrl>ViewQuote?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderViewQuote}</a></li>
+            <li<#if selected="EditQuote"> class="selected"</#if>><a href="<@ofbizUrl>EditQuote?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderOrderQuote}</a></li>
+            <li<#if selected="ListQuoteRoles"> class="selected"</#if>><a href="<@ofbizUrl>ListQuoteRoles?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderOrderQuoteRoles}</a></li>
+            <li<#if selected="ListQuoteItems"> class="selected"</#if>><a href="<@ofbizUrl>ListQuoteItems?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderOrderQuoteItems}</a></li>
+            <li<#if selected="ListQuoteAttributes"> class="selected"</#if>><a href="<@ofbizUrl>ListQuoteAttributes?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderOrderQuoteAttributes}</a></li>
+            <#if security.hasEntityPermission("ORDERMGR", "_QUOTE_PRICE", session)>
+            <li<#if selected="ListQuoteCoefficients"> class="selected"</#if>><a href="<@ofbizUrl>ListQuoteCoefficients?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderOrderQuoteCoefficients}</a></li>
+            <li<#if selected="ManageQuotePrices"> class="selected"</#if>><a href="<@ofbizUrl>ManageQuotePrices?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderOrderQuotePrices}</a></li>
+            <li<#if selected="ListQuoteAdjustments"> class="selected"</#if>><a href="<@ofbizUrl>ListQuoteAdjustments?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderOrderQuoteAdjustments}</a></li>
+            <li<#if selected="ViewQuoteProfit"> class="selected"</#if>><a href="<@ofbizUrl>ViewQuoteProfit?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderViewQuoteProfit}</a></li>
+            </#if>
+            <li<#if selected="QuoteWorkEfforts"> class="selected"</#if>><a href="<@ofbizUrl>ListQuoteWorkEfforts?quoteId=${quote.quoteId}</@ofbizUrl>">${uiLabelMap.OrderOrderQuoteWorkEfforts}</a></li>
+        </ul>
+        <br/>
     </div>
 </#if>

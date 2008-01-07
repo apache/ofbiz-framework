@@ -17,10 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if quote?exists>
-<form action="<@ofbizUrl>copyQuote</@ofbizUrl>" method="post" style="margin: 0;">
+<form action="<@ofbizUrl>copyQuote</@ofbizUrl>" method="post">
     <input type="hidden" name="quoteId" value="${quoteId}"/>
-    <div class="tabletext">
-        <b>${uiLabelMap.OrderCopyQuote}:</b>
+    <div>
+        <span class="label">${uiLabelMap.OrderCopyQuote}</span>
         ${uiLabelMap.OrderOrderQuoteItems}&nbsp;<input type="checkbox" class="checkBox" name="copyQuoteItems" value="Y" checked/>
         ${uiLabelMap.OrderOrderQuoteAdjustments}&nbsp;<input type="checkbox" class="checkBox" name="copyQuoteAdjustments" value="Y" checked/>
         ${uiLabelMap.OrderOrderQuoteRoles}&nbsp;<input type="checkbox" class="checkBox" name="copyQuoteRoles" value="Y" checked/>

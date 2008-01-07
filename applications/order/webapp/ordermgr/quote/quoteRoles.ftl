@@ -21,21 +21,25 @@ under the License.
         <div class="boxhead">&nbsp;${uiLabelMap.OrderOrderQuoteRoles}</div>
     </div>
     <div class="screenlet-body">
-        <table width="100%" border="0" cellpadding="1">
+        <table cellspacing="0" class="basic-table">
+            <#assign row = 1>
             <#list quoteRoles as quoteRole>
                 <#assign roleType = quoteRole.getRelatedOne("RoleType")>
                 <#assign party = quoteRole.getRelatedOne("Party")>
                 <#assign rolePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", quoteRole.partyId, "compareDate", quote.issueDate, "userLogin", userLogin))/>
                 <tr>
-                    <td align="right" valign="top" width="15%">
-                        <div class="tabletext">&nbsp;<b>${roleType.get("description",locale)?if_exists}</b></div>
+                    <td align="right" valign="top" width="15%" class="label">
+                        &nbsp;${roleType.get("description",locale)?if_exists}
                     </td>
-                    <td width="5">&nbsp;</td>
+                    <td width="5%">&nbsp;</td>
                     <td align="left" valign="top" width="80%">
-                        <div class="tabletext">${rolePartyNameResult.fullName?default("Name Not Found")}</div>
+                        ${rolePartyNameResult.fullName?default("Name Not Found")}
                     </td>
                 </tr>
-                <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <#if quoteRoles.size() != row>
+                <tr><td colspan="3"><hr/></td></tr>
+            </#if>
+            <#assign row = row + 1>
             </#list>
         </table>
     </div>
