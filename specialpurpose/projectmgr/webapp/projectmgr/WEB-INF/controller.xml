@@ -551,9 +551,28 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewRequest"/>
     </request-map>
+    <!-- New request-map -->
+    <request-map uri="viewprofile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewprofile"/>
+    </request-map>
+    <request-map uri="listResourcesTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="listResourcesTask"/>
+        <response name="error" type="view" value="listResourcesTask"/>
+    </request-map>
+    <request-map uri="listResourcesProject">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="listResourcesProject"/>
+        <response name="error" type="view" value="listResourcesProject"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
+    <view-map name="viewprofile" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#viewprofile"/>
+    <view-map name="listResourcesTask" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesTask"/>
+    <view-map name="listResourcesProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesProject"/>
+    
     <view-map name="main" type="screen" page="component://projectmgr/widget/CommonScreens.xml#Main"/>
     <view-map name="ganttChart" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ganttChart"/>    
     <view-map name="ListSubProjects" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ListSubProjects"/>    
