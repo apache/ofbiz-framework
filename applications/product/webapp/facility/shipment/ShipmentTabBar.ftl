@@ -33,7 +33,7 @@ under the License.
             <li<#if selected="ReceiveInventory"> class="selected"</#if>><a href="<@ofbizUrl>ReceiveInventory?shipmentId=${shipmentId}&facilityId=${shipment.destinationFacilityId?if_exists}<#if shipment.primaryOrderId?exists>&purchaseOrderId=${shipment.primaryOrderId}</#if></@ofbizUrl>">${uiLabelMap.ProductReceiveInventory}</a></li>
         </#if>
         <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT' && shipment.destinationFacilityId?exists && shipment.primaryOrderId?exists>
-            <li<#if selected="ReceiveInventoryAgainstPurchaseOrder"> class="selected"</#if>><a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId?if_exists}&purchaseOrderId=${shipment.primaryOrderId?if_exists}</@ofbizUrl>">${uiLabelMap.ProductReceiveInventoryAgainstPO}</a></li>
+            <li<#if selected="ProductReceiveInventoryAgainstPO"> class="selected"</#if>><a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId?if_exists}&purchaseOrderId=${shipment.primaryOrderId?if_exists}</@ofbizUrl>">${uiLabelMap.ProductReceiveInventoryAgainstPO}</a></li>
         </#if>
         <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='SALES_SHIPMENT'>
             <li<#if selected="EditShipmentItems"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentItems?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductItems}</a></li>

@@ -53,14 +53,14 @@ under the License.
     <form name="lookupFacilityLocation" target="LookupFacilityLocation" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FacilityLocation" default-field-type="find"/>
-        <field name="facilityId" widget-style="selectBox">
+        <field name="facilityId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Facility" description="${facilityName}" key-field-name="facilityId">
                     <entity-order-by field-name="facilityName"/>
                 </entity-options> 
             </drop-down>
         </field>
-        <field name="locationTypeEnumId" widget-style="selectBox">
+        <field name="locationTypeEnumId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="FACLOC_TYPE"/>

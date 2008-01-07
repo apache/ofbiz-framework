@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
     
-    <span class="head1">${uiLabelMap.ProductFindLocationsFor}</span> <span class="head2"><#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span>
+    <h1>${uiLabelMap.ProductFindLocationsFor} <#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}:${facilityId?if_exists}]</h1>
     <br/>
     <div class="button-bar">
       <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
@@ -38,11 +38,9 @@ under the License.
             <td class="label">${uiLabelMap.ProductLocationSeqId}</td>
             <td>
                 <input type="text" name="locationSeqId" value="" size="19" maxlength="20">
-                <span class="tabletext">
-                    <a href="javascript:call_fieldlookup2(document.findFacilityLocation.locationSeqId,'LookupFacilityLocation<#if (facilityId?exists)>?facilityId=${facilityId}</#if>');">
-                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
-                    </a>
-                </span>
+                <a href="javascript:call_fieldlookup2(document.findFacilityLocation.locationSeqId,'LookupFacilityLocation<#if (facilityId?exists)>?facilityId=${facilityId}</#if>');">
+                    <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                </a>
             </td>
         </tr>
         <tr>
@@ -76,7 +74,7 @@ under the License.
     <#if foundLocations?exists>
         <#-- TODO: Put this in a screenlet - make it look more like the party find screen -->
         <br/>
-        <span class="head1">${uiLabelMap.CommonFound}:&nbsp;</span><span class="head2"><b>${foundLocations.size()}</b>&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [ID:${facilityId?if_exists}]</span>
+        <h1>${uiLabelMap.CommonFound}:&nbsp;${foundLocations.size()}&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [ID:${facilityId?if_exists}]</h1>
         <br/>
         <table class="basic-table hover-bar" cellspacing="0">
         <tr class="header-row">

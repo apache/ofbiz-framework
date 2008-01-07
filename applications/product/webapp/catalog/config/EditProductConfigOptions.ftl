@@ -54,7 +54,7 @@ under the License.
 
   <#if (configOption?has_content)>
     <br/>
-    <h1>${uiLabelMap.ProductComponents} - <span class="head2">${uiLabelMap.CommonId}: ${configOption.configOptionId?if_exists} - ${configOption.description?if_exists}</h1>
+    <h1>${uiLabelMap.ProductComponents} - ${uiLabelMap.CommonId}: ${configOption.configOptionId?if_exists} - ${configOption.description?if_exists}</h1>
     <table cellspacing="0" class="basic-table">
       <tr class="header-row">
         <td>${uiLabelMap.CommonSequenceNum}</td>

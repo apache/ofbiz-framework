@@ -109,7 +109,7 @@ under the License.
                                 <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId?if_exists}">
                                 <input type="hidden" name="locationSeqId_o_${rowCount}" value="${facilityLocationFrom.locationSeqId?if_exists}">
                                 <input type="hidden" name="targetLocationSeqId_o_${rowCount}" value="${facilityLocationTo.locationSeqId?if_exists}">
-                                <input type="text" class="inputBox" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}">
+                                <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}">
                             </td>
                             <td align="right">              
                                 <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');">

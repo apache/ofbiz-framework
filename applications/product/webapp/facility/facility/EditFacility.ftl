@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
-<span class="head1">${uiLabelMap.ProductFacility} ${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span>
+<h1>${uiLabelMap.ProductFacility} ${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</h1>
 <br/>
 <div class="button-bar">
   <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" name="EditFacilityForm" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
@@ -59,12 +59,10 @@ under the License.
   <tr>
     <td class="label">${uiLabelMap.ProductFacilityOwner}</td>
     <td>
-      <input type="text" class="inputBox" name="ownerPartyId" value="${facility.ownerPartyId?if_exists}"/>
-      <span class="tabletext">
-        <a href="javascript:call_fieldlookup2(document.EditFacilityForm.ownerPartyId,'LookupPartyName');">
-          <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+      <input type="text" name="ownerPartyId" value="${facility.ownerPartyId?if_exists}"/>
+      <a href="javascript:call_fieldlookup2(document.EditFacilityForm.ownerPartyId,'LookupPartyName');">
+        <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
       </a>
-    </span>
     </td>
   </tr>
   <tr>

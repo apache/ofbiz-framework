@@ -256,13 +256,26 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="head4">
-                                    <label text="${uiLabelMap.PageTitleEditFacilityInventoryItems}"/>
+                                    <label text="${uiLabelMap.PageTitleFindFacilityInventoryItems}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
                                         <include-form name="SearchInventoryItemsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindFacilityInventoryItems}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
                                         <include-form name="ListFacilityInventoryItems" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                     </widgets>
                                 </section>
@@ -375,18 +388,31 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="head4">
-                                    <label text="${uiLabelMap.PageTitleFindFacilityInventoryItems}"/>
+                                    <label text="${uiLabelMap.PageTitleFindFacilityInventoryItemsByProduct}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
                                         <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindFacilityInventoryItemsByProduct}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
                                         <include-form name="ListFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>     
                     </decorator-section>
                 </decorator-screen>
             </widgets>

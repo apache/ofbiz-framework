@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<span class="head1">${uiLabelMap.ProductFacility} ${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span>
+<h1>${uiLabelMap.ProductFacility} ${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</h1>
 <div class="button-bar">
   <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
   <#if facilityId?has_content>

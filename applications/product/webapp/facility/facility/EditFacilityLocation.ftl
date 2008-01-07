@@ -21,7 +21,7 @@ under the License.
         <h3>${uiLabelMap.PageTitleEditFacilityLocation}</h3>
     </div>
     <div class="screenlet-body"> 
-        <span class="head1">${uiLabelMap.ProductLocationFor}</span> <span class="head2"><#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}: ${facilityId?if_exists}]</span>
+        <h1>${uiLabelMap.ProductLocationFor} <#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}: ${facilityId?if_exists}]</h1>
         <div class="button-bar">
           <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
           <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacilityLocation}</a>

@@ -27,7 +27,7 @@ under the License.
     <div class="screenlet-body">
         <form name="additemsfromorder" action="<@ofbizUrl>AddItemsFromOrder</@ofbizUrl>">
             <input type="hidden" name="shipmentId" value="${shipmentId}"/>
-            <div class="tabletext">
+            <div>
                 <span class="label">${uiLabelMap.ProductOrderId}</span>
                 <input type="text" size="20" name="orderId" value="${orderId?if_exists}"/>
                 <span>

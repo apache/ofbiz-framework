@@ -179,7 +179,7 @@ under the License.
       <td width="26%" align="right" valign="top">${uiLabelMap.PartyCountry}</td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-        <select name="countryGeoId" class="selectBox">
+        <select name="countryGeoId">
           <option>${(mechMap.postalAddress.countryGeoId)?if_exists}</option>
           <option></option>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}

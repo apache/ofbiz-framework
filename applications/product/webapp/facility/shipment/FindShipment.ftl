@@ -151,18 +151,16 @@ function lookupShipments() {
         <ul>
             <li class="head3">${uiLabelMap.ProductShipmentsFound}</li>
             <#if 0 < shipmentList?size>             
+                <#if (shipmentList?size > highIndex)>
+                    <li><a class="nav-next" href="<@ofbizUrl>FindShipment?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}${paramList}&amp;lookupFlag=Y</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
+                <#else>
+                    <li class="disabled">${uiLabelMap.CommonNext}</li>
+                </#if>
+                <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${shipmentList?size}</li>
                 <#if (viewIndex > 1)>
-                    <li><a href="<@ofbizUrl>FindShipment?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}${paramList}&amp;lookupFlag=Y</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
+                    <li><a class="nav-previous" href="<@ofbizUrl>FindShipment?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}${paramList}&amp;lookupFlag=Y</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
                 <#else>
-                    <li>${uiLabelMap.CommonPrevious}</li>
-                </#if>
-                <#if (listSize > 0)>
-                    <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</li>
-                </#if>
-                <#if (listSize > highIndex)>
-                    <li><a href="<@ofbizUrl>FindShipment?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}${paramList}&amp;lookupFlag=Y</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
-                <#else>
-                    <li>${uiLabelMap.CommonNext}</li>
+                    <li class="disabled">${uiLabelMap.CommonPrevious}</li>
                 </#if>
             </#if>
         </ul>
