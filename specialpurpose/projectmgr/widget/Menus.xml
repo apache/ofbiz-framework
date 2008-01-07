@@ -336,4 +336,12 @@
             <link target="listResourcesTask?partyId=${partyId}"></link>
         </menu-item>
     </menu>
+    <menu name="RequestTabBar">
+        <menu-item name="viewRequest" title="${uiLabelMap.ProjectMgrView}">
+            <link target="ViewRequest?custRequestId?${parameters.custRequestId}"/>
+        </menu-item>
+        <menu-item name="editRequest" title="${uiLabelMap.ProjectMgrEdit}">
+            <link target="EditRequest?custRequestId?${parameters.custRequestId}"/>
+        </menu-item>
+    </menu>
 </menus>

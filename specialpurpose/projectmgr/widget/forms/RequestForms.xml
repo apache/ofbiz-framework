@@ -25,7 +25,7 @@ under the License.
             <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
         </row-actions> 
         <field name="custRequestName" widget-style="buttontext">
-            <hyperlink description="${custRequestName}[${custRequestId}]" target-type="inter-app" target="/projectmgr/control/ViewRequest?custRequestId=${custRequestId}"/>
+            <hyperlink description="${custRequestName}[${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/>
         </field>
         <field name="workEffortId">
             <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortId}"/>
@@ -38,7 +38,7 @@ under the License.
         </field>
         <field name="description"><display/></field>
         <field name="createTaskFromRequest" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target-type="inter-app" target="CreateTaskbyRequest?custRequestId=${custRequestId}"/>
+            <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="CreateTaskbyRequest?custRequestId=${custRequestId}"/>
         </field>
     </form>
     <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"
@@ -102,7 +102,7 @@ under the License.
         <field name="lastModifiedByUserLogin"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="RequestInfo" type="single" use-row-submit="true">
+    <form name="RequestInfo" type="single" use-row-submit="true" default-entity-name="CustRequest" default-map-name="custRequest">
         <actions>
             <entity-one entity-name="CustRequestWorkEffort" value-name="custRequestWorkEffort">
                 <field-map field-name="workEffortId" env-name="workEffortId"/>
@@ -118,11 +118,11 @@ under the License.
             <set field="phaseId" from-field="result.phaseId"/>
             <set field="phaseName" from-field="result.phaseName"/>
         </actions>
-        <field name="custRequestType"><display description="${custRequest.custRequestTypeId}"/></field>
-        <field name="statusItem"><display description="${custRequest.statusId}"/></field>
-        <field name="fromPartyId"><display description="${custRequest.fromPartyId}"/></field>
-        <field name="custRequestName"><display description="${custRequest.custRequestName}"/></field>
-        <field name="description"><display description="${custRequest.description}"/></field>
+        <field name="custRequestTypeId"><display-entity entity-name="CustRequestType" description="${description}"></display-entity></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"></display-entity></field>
+        <field name="fromPartyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId"></display-entity></field>
+        <field name="custRequestName"><display/></field>
+        <field name="description"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>
@@ -130,11 +130,9 @@ under the License.
         <field name="taskName">
             <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffort.workEffortName}"/>
         </field>
-    </form>
-    <form name="RequestDateInfo" type="single">
-        <field name="RequestDate"><display description="${custRequest.custRequestDate}"/></field>
-        <field name="createdDate"><display description="${custRequest.createdDate}"/></field>
-        <field name="lastModifiedDate"><display description="${custRequest.lastModifiedDate}"/></field>
+        <field name="RequestDate"><display type="date"/></field>
+        <field name="createdDate"><display type="date"/></field>
+        <field name="lastModifiedDate"><display type="date"/></field>
     </form>
     <form name="RequestRolesInfo" type="list">
         <actions>
