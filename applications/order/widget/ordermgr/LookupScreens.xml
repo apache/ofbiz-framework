@@ -37,8 +37,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupOrderHeader" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupOrderHeader" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupOrderHeader}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupOrderHeader" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupOrderHeader" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                                
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -62,8 +75,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupOrderHeaderAndShipInfo" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupOrderHeaderAndShipInfo" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupOrderHeaderAndShipInfo}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupOrderHeaderAndShipInfo" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupOrderHeaderAndShipInfo" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -88,8 +114,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupPurchaseOrderHeaderAndShipInfo" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupOrderHeaderAndShipInfo" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupPurchaseOrderHeaderAndShipInfo}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupPurchaseOrderHeaderAndShipInfo" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupOrderHeaderAndShipInfo" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -104,7 +143,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-				<property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupCustomerRequest}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -113,8 +152,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupCustRequest" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupCustRequest" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupCustomerRequest}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupCustRequest" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupCustRequest" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -138,8 +190,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupCustRequestItem" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupCustRequestItem" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupCustomerRequestItem}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupCustRequestItem" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupCustRequestItem" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                    
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -162,8 +227,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupQuote" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupQuote" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupQuote}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupQuote" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupQuote" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -187,8 +265,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupQuoteItem" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupQuoteItem" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupQuoteItem}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupQuoteItem" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupQuoteItem" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -211,8 +302,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupRequirement" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupRequirement" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupRequirement}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupRequirement" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupRequirement" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                    
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -235,8 +339,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupShoppingList" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupShoppingList" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupShoppingList}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupShoppingList" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupShoppingList" location="component://order/webapp/ordermgr/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
