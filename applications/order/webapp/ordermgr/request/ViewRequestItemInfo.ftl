@@ -22,33 +22,32 @@ under the License.
         <div class="boxhead">&nbsp; ${uiLabelMap.OrderRequestItems}</div>
     </div>
     <div class="screenlet-body">
-        <table width="100%" border="0" cellpadding="0">
-            <tr align="left" valign="bottom">
-                <td width="10%" align="left"><span class="tableheadtext"><b>${uiLabelMap.ProductItem}</b></span></td>
-                <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>
-                <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.ProductQuantity}</b></span></td>
-                <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderAmount}</b></span></td>
-                <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderRequestMaximumAmount}</b></span></td>
+        <table cellspacing="0" class="basic-table">
+            <tr align="left" valign="bottom" class="header-row">
+                <td width="10%" align="left">${uiLabelMap.ProductItem}</td>
+                <td width="35%" align="left">${uiLabelMap.EcommerceProduct}</td>
+                <td width="10%" align="right">${uiLabelMap.ProductQuantity}</td>
+                <td width="10%" align="right">${uiLabelMap.OrderAmount}</td>
+                <td width="10%" align="right">${uiLabelMap.OrderRequestMaximumAmount}</td>
                 <td width="5%" align="right">&nbsp;</td>
             </tr>
+            <#assign alt_row = false>
             <#list requestItems as requestItem>
                 <#if requestItem.productId?exists>
                     <#assign product = requestItem.getRelatedOne("Product")>
                 </#if>
-
-                <tr><td colspan="6"><hr class="sepbar"/></td></tr>
-                <tr>
+                <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td valign="top">
-                        <div class="tabletext" style="font-size: xx-small;">
-                        <#if showRequestManagementLinks?exists>
-                            <a href="<@ofbizUrl>EditRequestItem?custRequestId=${requestItem.custRequestId}&amp;custRequestItemSeqId=${requestItem.custRequestItemSeqId}</@ofbizUrl>" class="buttontext">${requestItem.custRequestItemSeqId}</a>
-                        <#else>
-                            ${requestItem.custRequestItemSeqId}
-                        </#if>
+                        <div>
+                            <#if showRequestManagementLinks?exists>
+                                <a href="<@ofbizUrl>EditRequestItem?custRequestId=${requestItem.custRequestId}&amp;custRequestItemSeqId=${requestItem.custRequestItemSeqId}</@ofbizUrl>" class="buttontext">${requestItem.custRequestItemSeqId}</a>
+                            <#else>
+                                ${requestItem.custRequestItemSeqId}
+                            </#if>
                         </div>
                     </td>
                     <td valign="top">
-                        <div class="tabletext">
+                        <div>
                             ${(product.internalName)?if_exists}&nbsp;
                             <#if showRequestManagementLinks?exists>
                                 <a href="/catalog/control/EditProduct?productId=${requestItem.productId?if_exists}" class="buttontext">${requestItem.productId?if_exists}</a>
@@ -57,10 +56,12 @@ under the License.
                             </#if>
                         </div>
                     </td>
-                    <td align="right" valign="top"><div class="tabletext">${requestItem.quantity?if_exists}</div></td>
-                    <td align="right" valign="top"><div class="tabletext">${requestItem.selectedAmount?if_exists}</div></td>
-                    <td align="right" valign="top"><div class="tabletext"><@ofbizCurrency amount=requestItem.maximumAmount isoCode=request.maximumAmountUomId/></div></td>
+                    <td align="right" valign="top">${requestItem.quantity?if_exists}</td>
+                    <td align="right" valign="top">${requestItem.selectedAmount?if_exists}</td>
+                    <td align="right" valign="top"><@ofbizCurrency amount=requestItem.maximumAmount isoCode=request.maximumAmountUomId/></td>
                 </tr>
+                <#-- toggle the row color -->
+                <#assign alt_row = !alt_row>
             </#list>
         </table>
     </div>

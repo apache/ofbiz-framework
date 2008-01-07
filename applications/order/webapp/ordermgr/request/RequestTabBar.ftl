@@ -16,26 +16,27 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign selected = tabButtonItem?default("void")>
 
 <#if custRequest?exists>
-<div class="tabContainer">
-  <a href="<@ofbizUrl>ViewRequest?custRequestId=${custRequest.custRequestId}</@ofbizUrl>" class="${selectedClassMap.ViewRequest?default(unselectedClassName)}">${uiLabelMap.OrderViewRequest}</a>
-  <a href="<@ofbizUrl>EditRequest?custRequestId=${custRequest.custRequestId}</@ofbizUrl>" class="${selectedClassMap.request?default(unselectedClassName)}">${uiLabelMap.OrderRequest}</a>
-  <a href="<@ofbizUrl>requestroles?custRequestId=${custRequest.custRequestId}</@ofbizUrl>" class="${selectedClassMap.requestroles?default(unselectedClassName)}">${uiLabelMap.OrderRequestRoles}</a>
-  <a href="<@ofbizUrl>requestitems?custRequestId=${custRequest.custRequestId}</@ofbizUrl>" class="${selectedClassMap.requestitems?default(unselectedClassName)}">${uiLabelMap.OrderRequestItems}</a>
-</div>
-<#if custRequestItem?exists>
-  <div class="tabContainer">
-    <a href="<@ofbizUrl>EditRequestItem?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitem?default(unselectedClassName)}">${uiLabelMap.OrderRequestItem}</a>
-    <a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitemnotes?default(unselectedClassName)}">${uiLabelMap.OrderNotes}</a>
-    <#if custRequest.custRequestTypeId = "RF_QUOTE">
-    <a href="<@ofbizUrl>RequestItemQuotes?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitemquotes?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuotes}</a>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li<#if selected="ViewRequest"> class="selected"</#if>><a href="<@ofbizUrl>ViewRequest?custRequestId=${custRequest.custRequestId}</@ofbizUrl>">${uiLabelMap.OrderViewRequest}</a></li>
+            <li<#if selected="request"> class="selected"</#if>><a href="<@ofbizUrl>EditRequest?custRequestId=${custRequest.custRequestId}</@ofbizUrl>">${uiLabelMap.OrderRequest}</a></li>
+            <li<#if selected="requestroles"> class="selected"</#if>><a href="<@ofbizUrl>requestroles?custRequestId=${custRequest.custRequestId}</@ofbizUrl>">${uiLabelMap.OrderRequestRoles}</a></li>
+            <li<#if selected="requestitems"> class="selected"</#if>><a href="<@ofbizUrl>requestitems?custRequestId=${custRequest.custRequestId}</@ofbizUrl>">${uiLabelMap.OrderRequestItems}</a></li>
+        </ul>
+        <br/>
+    </div>
+    <#if custRequestItem?exists>
+      <div class="tabContainer">
+        <a href="<@ofbizUrl>EditRequestItem?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitem?default(unselectedClassName)}">${uiLabelMap.OrderRequestItem}</a>
+        <a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitemnotes?default(unselectedClassName)}">${uiLabelMap.OrderNotes}</a>
+        <#if custRequest.custRequestTypeId = "RF_QUOTE">
+        <a href="<@ofbizUrl>RequestItemQuotes?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitemquotes?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuotes}</a>
+        </#if>
+        <a href="<@ofbizUrl>requestitemrequirements?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitemrequirements?default(unselectedClassName)}">${uiLabelMap.OrderRequirements}</a>
+        <a href="<@ofbizUrl>EditRequestItemWorkEfforts?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.EditRequestItemWorkEfforts?default(unselectedClassName)}">${uiLabelMap.WorkEffortWorkEfforts}</a>
+      </div>
     </#if>
-    <a href="<@ofbizUrl>requestitemrequirements?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitemrequirements?default(unselectedClassName)}">${uiLabelMap.OrderRequirements}</a>
-    <a href="<@ofbizUrl>EditRequestItemWorkEfforts?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.EditRequestItemWorkEfforts?default(unselectedClassName)}">${uiLabelMap.WorkEffortWorkEfforts}</a>
-  </div>
-</#if>
 </#if>

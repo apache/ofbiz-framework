@@ -18,11 +18,11 @@ under the License.
 -->
 
 <#if custRequestItem?exists>
-<form action="<@ofbizUrl>copyCustRequestItem</@ofbizUrl>" method="post" style="margin: 0;">
+<form action="<@ofbizUrl>copyCustRequestItem</@ofbizUrl>" method="post">
     <input type="hidden" name="custRequestId" value="${custRequestItem.custRequestId}"/>
     <input type="hidden" name="custRequestItemSeqId" value="${custRequestItem.custRequestItemSeqId}"/>
-    <div class="tabletext">
-        <b>${uiLabelMap.OrderCopyCustRequestItem}:</b>
+    <div>
+        <span class="label">${uiLabelMap.OrderCopyCustRequestItem}</span>
         ${uiLabelMap.OrderOrderQuoteItems}&nbsp;<input type="checkbox" class="checkBox" name="copyLinkedQuotes" value="Y"/>
     </div>
     <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonCopy}"/>

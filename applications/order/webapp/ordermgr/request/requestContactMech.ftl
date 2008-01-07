@@ -35,20 +35,19 @@ under the License.
         <div class="boxhead">&nbsp;${uiLabelMap.PartyContactInformation}</div>
     </div>
     <div class="screenlet-body">
-        <table width="100%" border="0" cellpadding="1">
+        <table cellspacing="0" class="basic-table">
             <tr>
-                <td align="right" valign="top" width="25%">
-                  <div class="tabletext">&nbsp;<b>${label?default(uiLabelMap.PartyUnknown)}</b></div>
+                <td align="right" valign="top" width="25%" class="label">
+                    &nbsp;${label?default(uiLabelMap.PartyUnknown)}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="70%">
-                    <div class="tabletext">
-
+                    <div>
                       <#if emailAddress?has_content>${emailAddress}</#if>
 
                       <#if postalAddress?has_content>
-                        <#if postalAddress.toName?has_content><b>${uiLabelMap.PartyAddrToName}:</b> ${postalAddress.toName}<br/></#if>
-                        <#if postalAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${postalAddress.attnName}<br/></#if>
+                        <#if postalAddress.toName?has_content><span class="label">${uiLabelMap.PartyAddrToName}</span>&nbsp;${postalAddress.toName}<br/></#if>
+                        <#if postalAddress.attnName?has_content><span class="label">${uiLabelMap.PartyAddrAttnName}</span>&nbsp;${postalAddress.attnName}<br/></#if>
                         ${postalAddress.address1?if_exists}<br/>
                         <#if postalAddress.address2?has_content>${postalAddress.address2}<br/></#if>
                         ${postalAddress.city?if_exists},
@@ -67,16 +66,14 @@ under the License.
                         ${telecomNumber.countryCode?if_exists}
                         <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode?default("000")}-</#if>${telecomNumber.contactNumber?default("000-0000")}
                         <#if (telecomNumber?has_content && !telecomNumber.countryCode?has_content) || telecomNumber.countryCode = "011">
-                          <a target="_blank" href="http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&telephone=${telecomNumber.contactNumber?if_exists}&btnsubmit.x=20&btnsubmit.y=8" class="linktext">(lookup:anywho.com)</a>
-                          <a target="_blank" href="http://whitepages.com/find_person_results.pl?fid=p&ac=${telecomNumber.areaCode?if_exists}&s=&p=${telecomNumber.contactNumber?if_exists}&pt=b&x=40&y=9" class="linktext">(lookup:whitepages.com)</a>
+                          <a target="_blank" href="http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode?if_exists}&telephone=${telecomNumber.contactNumber?if_exists}&btnsubmit.x=20&btnsubmit.y=8" class="buttontext">(lookup:anywho.com)</a>
+                          <a target="_blank" href="http://whitepages.com/find_person_results.pl?fid=p&ac=${telecomNumber.areaCode?if_exists}&s=&p=${telecomNumber.contactNumber?if_exists}&pt=b&x=40&y=9" class="buttontext">(lookup:whitepages.com)</a>
                         </#if>
                       </#if>
-
                     </div>
                 </td>
             </tr>
         </table>
     </div>
 </div>
-
 </#if>
