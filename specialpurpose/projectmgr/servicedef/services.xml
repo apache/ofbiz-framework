@@ -51,11 +51,12 @@ under the License.
     
     <service name="updateTimeEntryByWorkeffort" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="updateTimeEntryByWorkeffort">
-        <description>Update workeffort by workeffort and timesheetId </description>
+        <description>Update workeffort by workeffortId and timesheetId </description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
-        <attribute name="timesheetId" type="String" mode="IN" optional="false"/>
-        <attribute name="workEffortId" type="String" mode="IN" optional="true"/><!-- when empty will be ignored -->
-        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="timesheetId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="INOUT" optional="true"/><!-- when empty will be ignored -->
+        <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="hoursDay0" type="Double" mode="IN" optional="true"/>
         <attribute name="hoursDay1" type="Double" mode="IN" optional="true"/>
         <attribute name="hoursDay2" type="Double" mode="IN" optional="true"/>
@@ -63,6 +64,7 @@ under the License.
         <attribute name="hoursDay4" type="Double" mode="IN" optional="true"/>
         <attribute name="hoursDay5" type="Double" mode="IN" optional="true"/>
         <attribute name="hoursDay6" type="Double" mode="IN" optional="true"/>
+        <attribute name="checkComplete" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="getProject" engine="simple"

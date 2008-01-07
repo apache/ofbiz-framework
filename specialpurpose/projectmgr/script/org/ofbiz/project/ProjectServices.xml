@@ -74,8 +74,12 @@
             </then>
             <else>
                 <!-- status changed or assignment ended -->
-                <log level="always" message="=====get====parameters: ${parameters}"></log>
-                <entity-one entity-name="WorkEffortPartyAssignment" value-name="assignment"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-name="assignment">
+                    <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <field-map field-name="roleTypeId" env-name="parameters.roleTypeId"/>
+                    <field-map field-name="fromDate" env-name="parameters.fromDate"/>
+                </entity-one>
                 <if-compare field-name="parameters.statusId" value="PAS_ENDED" operator="equals">
                     <!-- special case to indicate end of assignment -->
                     <now-date-to-env env-name="assignment.thruDate"/>
@@ -187,6 +191,7 @@
             <return/>
         </if-compare>
         <entity-one entity-name="Timesheet" value-name="timesheet"/>
+        <field-to-result field-name="parameters.timesheetId" result-name="timesheetId"/>
         
         <entity-and entity-name="ProjectAndPhaseAndTask" list-name="projects">
             <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
@@ -214,13 +219,13 @@
             <field-map field-name="workEffortId" env-name="project.workEffortId"/>
             <field-map field-name="partyId" env-name="timesheet.partyId"/>
         </entity-and>
+        <!-- also needed for status update lateron -->
+        <set field="parameters.partyId" from-field="timesheet.partyId"/>
         <if-empty field-name="assigns">
             <first-from-list entry-name="projectAssign" list-name="projectAssigns"/>
-            <set field="parameters.partyId" from-field="timesheet.partyId"/>
             <set field="parameters.roleTypeId" from-field="projectAssign.roleTypeId"/>
             <set field="parameters.statusId" value="PAS_ASSIGNED"/>
             <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
-            
         </if-empty>
         
         <!-- check if the actual start date is set, when not set it to todays date -->
@@ -276,7 +281,13 @@
             </call-class-method>
             <call-simple-method method-name="updateTimeEntry"/>                        
         </loop>
-        
+        <if-compare field-name="parameters.checkComplete" value="Y" operator="equals">
+            <entity-one entity-name="WorkEffortPartyAssignment" value-name="alreadyAssign"/>
+            <if-compare field-name="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
+                <set field="parameters.statusId" value="PAS_COMPLETED"/>
+                <call-simple-method method-name="updateTaskAssigment"/>
+            </if-compare>
+        </if-compare>
     </simple-method>          
 
     <simple-method method-name="getProjectIdAndName" short-description="Get the projectId when a phase or task is provided." login-required="true">
