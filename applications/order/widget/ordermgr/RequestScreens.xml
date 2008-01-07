@@ -64,14 +64,37 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.OrderRequestList}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.OrderFindRequests}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="FindRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>                                        
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <container>
-                            <link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.OrderRequestList}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="FindRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                        <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -126,7 +149,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <include-form name="EditCustRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.OrderRequest}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditCustRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -147,8 +183,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <include-form name="ListRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                        <include-form name="EditRequestRole" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleRequestRoles}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>                                        
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditRequestRoles}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditRequestRole" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -173,10 +235,23 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <link target="requestitem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
-                        </container>
-                        <include-form name="ListRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleRequestItems}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="requestitem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -199,16 +274,26 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head2">[${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId}] ${custRequestItem.description}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="requestitem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="EditCustRequestItem" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                        <platform-specific>
+                                            <html><html-template location="component://order/webapp/ordermgr/request/CopyRequestItem.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <container>
-                            <link target="requestitem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
-                        </container>
-                        <include-form name="EditCustRequestItem" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/request/CopyRequestItem.ftl"/></html>
-                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -230,14 +315,24 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head2">[${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId}] ${custRequestItem.description}</label>
-                        </container>
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/request/requestitemnotes.ftl"/></html>
-                        </platform-specific>
-                        <include-form name="ListRequestItemNotes" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                        <include-form name="EditRequestItemNote" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://order/webapp/ordermgr/request/requestitemnotes.ftl"/></html>
+                                        </platform-specific>
+                                        <include-form name="ListRequestItemNotes" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                        <include-form name="EditRequestItemNote" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -261,14 +356,23 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head2">[${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId}] ${custRequestItem.description}</label>
-                        </container>
-                        <container>
-                            <link target="EditRequirement?custRequestId=${custRequestItem.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
-                        </container>
-
-                        <include-form name="ListRequestItemRequirements" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="EditRequirement?custRequestId=${custRequestItem.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListRequestItemRequirements" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -293,13 +397,23 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head2">[${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId}] ${custRequestItem.description}</label>
-                        </container>
-                        <platform-specific>
-                            <html><html-template location="component://order/webapp/ordermgr/request/QuoteLinks.ftl"/></html>
-                        </platform-specific>
-                        <include-form name="ListRequestQuoteItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://order/webapp/ordermgr/request/QuoteLinks.ftl"/></html>
+                                        </platform-specific>
+                                        <include-form name="ListRequestQuoteItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -326,10 +440,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head2">[${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId}] ${custRequestItem.description}</label>
-                        </container>
-                        <include-form name="EditQuoteItemForRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditQuoteItemForRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -355,10 +479,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head2">[${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId}] ${custRequestItem.description}</label>
-                        </container>
-                        <include-form name="CreateQuoteAndQuoteItemForRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="CreateQuoteAndQuoteItemForRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -386,14 +520,37 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head2">[${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId}] ${custRequestItem.description}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link  target="EditRequestItem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListCustRequestItemWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>                                        
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <container>
-                            <link  target="EditRequestItem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="PageTitleEditRequestItemWorkEffort"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>                                        
+                                        <include-form name="AddCustRequestItemWorkEffort" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ListCustRequestItemWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                        <include-form name="AddCustRequestItemWorkEffort" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

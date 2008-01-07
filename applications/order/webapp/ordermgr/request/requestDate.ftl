@@ -21,34 +21,34 @@ under the License.
         <div class="boxhead">&nbsp;${uiLabelMap.CommonDate}</div>
     </div>
     <div class="screenlet-body">
-        <table width="100%" border="0" cellpadding="1">
+        <table cellspacing="0" class="basic-table">
             <tr>
-                <td align="right" valign="top" width="25%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderRequestDate}</b></div>
+                <td align="right" valign="top" width="25%" class="label">
+                    &nbsp;${uiLabelMap.OrderRequestDate}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="70%">
-                    <div class="tabletext">${(custRequest.custRequestDate.toString())?if_exists}</div>
+                    ${(custRequest.custRequestDate.toString())?if_exists}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="25%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderRequestCreatedDate}</b></div>
+                <td align="right" valign="top" width="25%" class="label">
+                    &nbsp;${uiLabelMap.OrderRequestCreatedDate}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="70%">
-                    <div class="tabletext">${(custRequest.createdDate.toString())?if_exists}</div>
+                    ${(custRequest.createdDate.toString())?if_exists}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="25%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderRequestLastModifiedDate}</b></div>
+                <td align="right" valign="top" width="25%" class="label">
+                    &nbsp;${uiLabelMap.OrderRequestLastModifiedDate}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="70%">
-                    <div class="tabletext">${(custRequest.lastModifiedDate.toString())?if_exists}</div>
+                    ${(custRequest.lastModifiedDate.toString())?if_exists}
                 </td>
             </tr>
         </table>

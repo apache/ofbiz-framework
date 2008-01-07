@@ -21,81 +21,81 @@ under the License.
         <div class="boxhead">${uiLabelMap.OrderRequest}&nbsp;${custRequest.custRequestId}&nbsp;${uiLabelMap.CommonInformation}</div>
     </div>
     <div class="screenlet-body">
-        <table width="100%" border="0" cellpadding="1">
+        <table cellspacing="0" class="basic-table">
             <#-- request header information -->
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonType}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonType}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${(custRequestType.get("description",locale))?default(custRequest.custRequestTypeId?if_exists)}</div>
+                    ${(custRequestType.get("description",locale))?default(custRequest.custRequestTypeId?if_exists)}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
             <#-- request status information -->
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonStatus}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonStatus}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                     <div class="tabletext">${(statusItem.get("description", locale))?default(custRequest.statusId?if_exists)}</div>
+                    ${(statusItem.get("description", locale))?default(custRequest.statusId?if_exists)}
                 </td>
             </tr>
             <#-- party -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
             <tr>
-                 <td align="right" valign="top" width="15%">
-                     <div class="tabletext">&nbsp;<b>${uiLabelMap.PartyPartyId}</b></div>
+                 <td align="right" valign="top" width="15%" class="label">
+                     &nbsp;${uiLabelMap.PartyPartyId}
                  </td>
-                 <td width="5">&nbsp;</td>
+                 <td width="5%">&nbsp;</td>
                  <td align="left" valign="top" width="80%">
-                     <div class="tabletext">${custRequest.fromPartyId?if_exists}</div>
+                    ${custRequest.fromPartyId?if_exists}
                  </td>
             </tr>
             <#-- request name -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonName}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonName}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${custRequest.custRequestName?if_exists}</div>
+                    ${custRequest.custRequestName?if_exists}
                 </td>
             </tr>
             <#-- request description -->
             <tr><td colspan="7"><hr class="sepbar"/></td></tr>
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonDescription}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonDescription}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${custRequest.description?if_exists}</div>
+                    ${custRequest.description?if_exists}
                 </td>
             </tr>
             <#-- request currency -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonCurrency}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonCurrency}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext"><#if currency?exists>${currency.get("description", locale)?default(custRequest.maximumAmountUomId?if_exists)}</#if></div>
+                    <#if currency?exists>${currency.get("description", locale)?default(custRequest.maximumAmountUomId?if_exists)}</#if>
                 </td>
             </tr>
             <#-- request currency -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
             <tr>
-                <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.ProductProductStore}</b></div>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.ProductProductStore}
                 </td>
-                <td width="5">&nbsp;</td>
+                <td width="5%">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext"><#if store?exists>${store.storeName?default(custRequest.productStoreId?if_exists)}</#if></div>
+                    <#if store?exists>${store.storeName?default(custRequest.productStoreId?if_exists)}</#if>
                 </td>
             </tr>
         </table>
