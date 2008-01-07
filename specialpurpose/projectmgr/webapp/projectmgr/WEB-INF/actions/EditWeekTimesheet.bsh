@@ -82,14 +82,10 @@ day0Total = 0.00; day1Total=0.00;day2Total=0.00; day3Total=0.00;day4Total=0.00;d
 pHours = 0.00;
 timeEntry = null;
 lastTimeEntry = null;
-while(te.hasNext()) {
-	if (timeEntry!=void) {
-		lastTimeEntry = timeEntry;
-	} 
-    timeEntry = te.next();
-    
-    if (lastWorkEffortId != null && !lastWorkEffortId.equals(timeEntry.getString("workEffortId"))) {
-        entry.put("total", taskTotal);
+
+// retrieve work effort data when the workeffortId has changed.
+void retrieveWorkEffortData() {
+       entry.put("total", taskTotal);
         // get the planned number of hours
         entryWorkEffort = lastTimeEntry.getRelatedOne("WorkEffort");
         if (entryWorkEffort != null) {
@@ -103,10 +99,33 @@ while(te.hasNext()) {
 	            }
 	        }
 	        entry.put("plannedHours", pHours);
+	        
+	        // to be able to set the task to complete
+		    workEffortPartyAssigns = EntityUtil.filterByDate(entryWorkEffort.getRelatedByAnd("WorkEffortPartyAssignment", UtilMisc.toMap("partyId", partyId)));
+	        Debug.logInfo("======== list of assigns:" + workEffortPartyAssigns, "");    
+	        if (workEffortPartyAssigns != null) {
+	            workEffortPartyAssign = workEffortPartyAssigns.get(0);
+	            entry.put("fromDate", workEffortPartyAssign.getTimestamp("fromDate"));
+	            entry.put("roleTypeId", workEffortPartyAssign.getString("roleTypeId"));
+	            if (workEffortPartyAssign.getString("statusId").equals("PAS_COMPLETED")) {
+	                entry.put("checkComplete", "Y");
+	            }
+	        }
         }
         entries.add(entry);
         taskTotal = 0.00;
         entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
+}
+
+
+while(te.hasNext()) {
+	if (timeEntry!=void) {
+		lastTimeEntry = timeEntry;
+	} 
+    timeEntry = te.next();
+    
+    if (lastWorkEffortId != null && !lastWorkEffortId.equals(timeEntry.getString("workEffortId"))) {
+    	retrieveWorkEffortData();
     }
     if (UtilValidate.isNotEmpty(timeEntry.get("workEffortId"))) {
         workEffort = timeEntry.getRelatedOne("WorkEffort");
@@ -116,7 +135,7 @@ while(te.hasNext()) {
             entry.put("phaseId",result.get("phaseId"));    
             entry.put("phaseName",result.get("phaseName"));  
             entry.put("projectId",result.get("projectId"));  
-            entry.put("projectName",result.get("projectName"));    
+            entry.put("projectName",result.get("projectName"));   
     }
     entry.put("timesheetId", timesheet.get("timesheetId"));
     if (timeEntry.get("hours") != null) {
@@ -135,15 +154,7 @@ while(te.hasNext()) {
     lastWorkEffortId = timeEntry.getString("workEffortId");
 }
 if (lastWorkEffortId != null) {
-        plannedHours = timeEntry.getRelatedOne("WorkEffort").getRelated("WorkEffortSkillStandard");
-        ph = plannedHours.iterator();
-        pHours = 0.00;
-        while(ph.hasNext()) {
-            plannedHour = ph.next();
-            if (plannedHour.get("estimatedDuration") != null) {
-                pHours += plannedHour.get("estimatedDuration");
-            }
-        }
+   	retrieveWorkEffortData();
     entry.put("plannedHours", pHours);
     entry.put("total", taskTotal);
     entries.add(entry);

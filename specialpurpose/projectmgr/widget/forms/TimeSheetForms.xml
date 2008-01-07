@@ -22,6 +22,8 @@
     <form name="EditWeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true" 
         separate-columns="true" target="updateMyTimesheet">
         <field name="timesheetId"><hidden/></field>
+        <field name="roleTypeId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} -- ${phaseName} -- ${projectName}">
@@ -31,9 +33,10 @@
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
-                <sub-hyperlink target="taskView?workEffortId=${workEffortId}" link-style="buttontext" description="${bsh:workEffortId!=&quot;Totals&quot;?workEffortId:void}"/>
+                <sub-hyperlink target="taskView?workEffortId=${workEffortId}" link-style="buttontext" description="${bsh:workEffortId != void &amp;&amp; !workEffortId.equals(&quot;Totals&quot;) ? workEffortId : &quot;&quot;}"/>
             </drop-down>
         </field>
+        <field name="checkComplete"><check/></field>
         <field name="0" parameter-name="hoursDay0" title="Sun"><text size="5"/></field>
         <field name="1" parameter-name="hoursDay1" title="Mon"><text size="5"/></field>
         <field name="2" parameter-name="hoursDay2" title="Tue"><text size="5"/></field>
