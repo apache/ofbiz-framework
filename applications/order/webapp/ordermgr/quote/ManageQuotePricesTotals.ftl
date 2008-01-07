@@ -17,9 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <br/>
-<div class="tableheadtext">${uiLabelMap.CommonTotalCost}:</div>
-<div class="tabletext">${totalCost}</div>
-<div class="tableheadtext">${uiLabelMap.CommonTotalPrice}:</div>
-<div class="tabletext">${totalPrice}</div>
-<div class="tableheadtext">${uiLabelMap.CommonTotalCostMult}:</div>
-<div class="tabletext">${totalCostMult}</div>
+<div><span class="label">${uiLabelMap.CommonTotalCost}</span>&nbsp;${totalCost}</div>
+<div><span class="label">${uiLabelMap.CommonTotalPrice}</span>&nbsp;${totalPrice}</div>
+<div><span class="label">${uiLabelMap.CommonTotalCostMult}</span>&nbsp;${totalCostMult}</div>

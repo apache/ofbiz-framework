@@ -26,18 +26,19 @@ under the License.
         <div class="boxhead">&nbsp; ${uiLabelMap.OrderOrderQuoteItems}</div>
     </div>
     <div class="screenlet-body">
-        <table width="100%" border="0" cellpadding="0">
-            <tr align="left" valign="bottom">
-                <td width="10%" align="left"><span class="tableheadtext"><b>${uiLabelMap.ProductItem}</b></span></td>
-                <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>
-                <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.ProductQuantity}</b></span></td>
-                <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderAmount}</b></span></td>
-                <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderOrderQuoteUnitPrice}</b></span></td>
-                <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderAdjustments}</b></span></td>
-                <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.CommonSubtotal}</b></span></td>
+        <table cellspacing="0" class="basic-table">
+            <tr align="left" valign="bottom" class="header-row">
+                <td width="10%" align="left">${uiLabelMap.ProductItem}</td>
+                <td width="35%" align="left">${uiLabelMap.EcommerceProduct}</td>
+                <td width="10%" align="right">${uiLabelMap.ProductQuantity}</td>
+                <td width="10%" align="right">${uiLabelMap.OrderAmount}</td>
+                <td width="10%" align="right">${uiLabelMap.OrderOrderQuoteUnitPrice}</td>
+                <td width="10%" align="right">${uiLabelMap.OrderAdjustments}</td>
+                <td width="10%" align="right">${uiLabelMap.CommonSubtotal}</td>
                 <td width="5%" align="right">&nbsp;</td>
             </tr>
             <#assign totalQuoteAmount = 0.0>
+            <#assign alt_row = false>
             <#list quoteItems as quoteItem>
                 <#if quoteItem.productId?exists>
                     <#assign product = quoteItem.getRelatedOne("Product")>
@@ -50,11 +51,9 @@ under the License.
                 </#list>
                 <#assign totalQuoteItemAmount = quoteItemAmount + totalQuoteItemAdjustmentAmount>
                 <#assign totalQuoteAmount = totalQuoteAmount + totalQuoteItemAmount>
-
-                <tr><td colspan="10"><hr class="sepbar"/></td></tr>
-                <tr>
+                <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td valign="top">
-                        <div class="tabletext" style="font-size: xx-small;">
+                        <div>
                         <#if showQuoteManagementLinks?exists && quoteItem.isPromo?default("N") == "N">
                             <a href="<@ofbizUrl>EditQuoteItem?quoteId=${quoteItem.quoteId}&amp;quoteItemSeqId=${quoteItem.quoteItemSeqId}</@ofbizUrl>" class="buttontext">${quoteItem.quoteItemSeqId}</a>
                         <#else>
@@ -63,7 +62,7 @@ under the License.
                         </div>
                     </td>
                     <td valign="top">
-                        <div class="tabletext">
+                        <div>
                             ${(product.internalName)?if_exists}&nbsp;
                             <#if showQuoteManagementLinks?exists>
                                 <a href="/catalog/control/EditProduct?productId=${quoteItem.productId?if_exists}" class="buttontext">${quoteItem.productId?if_exists}</a>
@@ -72,49 +71,51 @@ under the License.
                             </#if>
                         </div>
                     </td>
-                    <td align="right" valign="top"><div class="tabletext">${quoteItem.quantity?if_exists}</div></td>
-                    <td align="right" valign="top"><div class="tabletext">${quoteItem.selectedAmount?if_exists}</div></td>
-                    <td align="right" valign="top"><div class="tabletext"><@ofbizCurrency amount=quoteItem.quoteUnitPrice isoCode=quote.currencyUomId/></div></td>
-                    <td align="right" valign="top"><div class="tabletext"><@ofbizCurrency amount=totalQuoteItemAdjustmentAmount isoCode=quote.currencyUomId/></div></td>                    
-                    <td align="right" valign="top"><div class="tabletext"><@ofbizCurrency amount=totalQuoteItemAmount isoCode=quote.currencyUomId/></div></td>                    
+                    <td align="right" valign="top">${quoteItem.quantity?if_exists}</td>
+                    <td align="right" valign="top">${quoteItem.selectedAmount?if_exists}</td>
+                    <td align="right" valign="top"><@ofbizCurrency amount=quoteItem.quoteUnitPrice isoCode=quote.currencyUomId/></td>
+                    <td align="right" valign="top"><@ofbizCurrency amount=totalQuoteItemAdjustmentAmount isoCode=quote.currencyUomId/></td>                    
+                    <td align="right" valign="top"><@ofbizCurrency amount=totalQuoteItemAmount isoCode=quote.currencyUomId/></td>                    
                 </tr>
                 <#-- now show adjustment details per line item -->
                 <#list quoteItemAdjustments as quoteItemAdjustment>
                     <#assign adjustmentType = quoteItemAdjustment.getRelatedOne("OrderAdjustmentType")>
                     <tr>
-                        <td align="right" colspan="5"><div class="tabletext" style="font-size: xx-small;"><b>${adjustmentType.get("description",locale)?if_exists}</b></div></td>
-                        <td align="right">
-                          <div class="tabletext" style="font-size: xx-small;"><@ofbizCurrency amount=quoteItemAdjustment.amount isoCode=quote.currencyUomId/></div>
-                        </td>
+                        <td align="right" colspan="5"><span class="label">${adjustmentType.get("description",locale)?if_exists}</span></td>
+                        <td align="right"><@ofbizCurrency amount=quoteItemAdjustment.amount isoCode=quote.currencyUomId/></td>
                         <td>&nbsp;</td>
                     </tr>
                 </#list>
+                <#-- toggle the row color -->
+                <#assign alt_row = !alt_row>
             </#list>
-
-            <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="10"><hr/></td></tr>
             <tr>
-                <td align="right" colspan="6"><div class="tabletext"><b>${uiLabelMap.CommonSubtotal}</b></div></td>
-                <td align="right"><div class="tabletext"><@ofbizCurrency amount=totalQuoteAmount isoCode=quote.currencyUomId/></div></td>
+                <td align="right" colspan="6" class="label">${uiLabelMap.CommonSubtotal}</td>
+                <td align="right"><@ofbizCurrency amount=totalQuoteAmount isoCode=quote.currencyUomId/></td>
             </tr>
-            <tr><td colspan="5"></td><td colspan="6"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="5"></td><td colspan="6"><hr/></td></tr>
             <#assign totalQuoteHeaderAdjustmentAmount = 0.0>
+            <#assign findAdjustment = false>
             <#list quoteAdjustments as quoteAdjustment>
                 <#assign adjustmentType = quoteAdjustment.getRelatedOne("OrderAdjustmentType")>
                 <#if !quoteAdjustment.quoteItemSeqId?exists>
                     <#assign totalQuoteHeaderAdjustmentAmount = quoteAdjustment.amount?default(0) + totalQuoteHeaderAdjustmentAmount>
                     <tr>
-                      <td align="right" colspan="6"><div class="tabletext"><b>${adjustmentType.get("description",locale)?if_exists}</b></div></td>
-                      <td align="right"><div class="tabletext"><@ofbizCurrency amount=quoteAdjustment.amount isoCode=quote.currencyUomId/></div></td>
+                      <td align="right" colspan="6"><span class="label">${adjustmentType.get("description",locale)?if_exists}</span></td>
+                      <td align="right"><@ofbizCurrency amount=quoteAdjustment.amount isoCode=quote.currencyUomId/></td>
                     </tr>
                 </#if>
+                <#assign findAdjustment = true>
             </#list>
             <#assign grandTotalQuoteAmount = totalQuoteAmount + totalQuoteHeaderAdjustmentAmount>
-
-            <tr><td colspan="5"></td><td colspan="6"><hr class="sepbar"/></td></tr>
+            <#if findAdjustment>
+            <tr><td colspan="5"></td><td colspan="6"><hr/></td></tr>
+            </#if>
             <tr>
-                <td align="right" colspan="6"><div class="tabletext"><b>${uiLabelMap.OrderGrandTotal}</b></div></td>
+                <td align="right" colspan="6" class="label">${uiLabelMap.OrderGrandTotal}</td>
                 <td align="right">
-                    <div class="tabletext"><@ofbizCurrency amount=grandTotalQuoteAmount isoCode=quote.currencyUomId/></div>
+                    <@ofbizCurrency amount=grandTotalQuoteAmount isoCode=quote.currencyUomId/>
                 </td>
             </tr>
         </table>

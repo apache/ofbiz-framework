@@ -20,7 +20,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ListQuoteWorkEfforts" separate-columns="true" title="" type="list"  target="ListQuoteWorkEfforts"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="QuoteWorkEffortView">
                 <field-map field-name="quoteId"/>
@@ -36,19 +36,19 @@ under the License.
         <field name="workEffortPurposeTypeId"><display-entity entity-name="WorkEffortPurposeType" description="${description}"/></field>
         <field name="actualStartDate"><display/></field>
         <field name="actualEndDate"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteQuoteWorkEffort?workEffortId=${workEffortId}&amp;quoteId=${quoteId}"/>
         </field>
     </form>
 
     <form name="AddQuoteWorkEffort" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml" target="/ordermgr/control/createQuoteWorkEffort" target-type="inter-app" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
 
         <field name="quoteId" map-name="parameters"><display/></field>
         <field name="workEffortId" use-when="workEffort==null&amp;&amp;workEffortId!=null">
             <lookup target-form-name="/workeffort/control/LookupWorkEffort"/>
         </field>
-        <field name="submitButton" title="[${uiLabelMap.CommonSave}]" widget-style="buttontext">
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext">
             <submit button-type="text-link"/>
         </field>
         <sort-order>
@@ -60,7 +60,7 @@ under the License.
     </form>
 
     <form name="EditQuoteWorkEffort" target="updateQuoteWorkEffort" title="" type="single" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext"  default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="quote.statusId"/>
@@ -69,7 +69,7 @@ under the License.
         <field name="quoteId" field-name="quoteId" map-name="parameters">
             <hidden/>
         </field>
-        <field name="submitButton" title="[${uiLabelMap.CommonSave}]" widget-style="buttontext">
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext">
             <submit button-type="text-link"/>
         </field>
     </form>

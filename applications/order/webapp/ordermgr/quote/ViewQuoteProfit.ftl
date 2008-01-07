@@ -16,16 +16,17 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<span class="label">${uiLabelMap.OrderOrderQuoteCoefficients}</span>
 <#list quoteCoefficients as quoteCoefficient>
-    <div class="tabletext">${quoteCoefficient.coeffName}:&nbsp;${quoteCoefficient.coeffValue}</div>
+    <div>${quoteCoefficient.coeffName}:&nbsp;${quoteCoefficient.coeffValue}</div>
 </#list>
 <br/>
-<div class="tableheadtext">${uiLabelMap.CommonTotalCostMult}:&nbsp;${costMult}</div>
-<div class="tableheadtext">${uiLabelMap.CommonTotalCostToPriceMult}:&nbsp;${costToPriceMult}</div>
+<div><span class="label">${uiLabelMap.CommonTotalCostMult}</span>&nbsp;${costMult}</div>
+<div><span class="label">${uiLabelMap.CommonTotalCostToPriceMult}</span>&nbsp;${costToPriceMult}</div>
 <br/>
-<div class="tableheadtext">${uiLabelMap.CommonTotalCost}:&nbsp;<@ofbizCurrency amount=totalCost isoCode=quote.currencyUomId/></div>
-<div class="tableheadtext">${uiLabelMap.CommonTotalAmount}:&nbsp;<@ofbizCurrency amount=totalPrice isoCode=quote.currencyUomId/></div>
+<div><span class="label">${uiLabelMap.CommonTotalCost}</span>&nbsp;<@ofbizCurrency amount=totalCost isoCode=quote.currencyUomId/></div>
+<div><span class="label">${uiLabelMap.CommonTotalAmount}</span>&nbsp;<@ofbizCurrency amount=totalPrice isoCode=quote.currencyUomId/></div>
 <br/>
-<div class="tableheadtext">${uiLabelMap.CommonTotalProfit}:&nbsp;<@ofbizCurrency amount=totalProfit isoCode=quote.currencyUomId/></div>
-<div class="tableheadtext">${uiLabelMap.CommonTotalPercProfit}:&nbsp;${totalPercProfit}%</div>
+<div><span class="label">${uiLabelMap.CommonTotalProfit}</span>&nbsp;<@ofbizCurrency amount=totalProfit isoCode=quote.currencyUomId/></div>
+<div><span class="label">${uiLabelMap.CommonTotalPercProfit}</span>&nbsp;${totalPercProfit}%</div>
 <br/>
