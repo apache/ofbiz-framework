@@ -24,7 +24,7 @@ function setWeight(weight) {
 </script>
 
 <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
-  <span class="head1">${uiLabelMap.ProductQuickShipOrderFrom}</span><span class='head2'>${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</span>
+  <h1>${uiLabelMap.ProductQuickShipOrderFrom} ${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</h1>
   <div class="button-bar">
     <a href="<@ofbizUrl>quickShipOrder?facilityId=${facilityId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNextShipment}</a>
     <#if shipment?has_content>
@@ -35,7 +35,7 @@ function setWeight(weight) {
   <#if shipment?exists>   
     <#if 1 < shipmentPackages.size()>
       <#-- multiple packages -->
-      <div class="tabletext"><font color="red">${uiLabelMap.ProductMorePackageFoundShipment}.</font></div>
+      <div><font color="red">${uiLabelMap.ProductMorePackageFoundShipment}.</font></div>
     <#else>
       <#-- single package -->            
       <#assign shipmentPackage = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentPackages))?if_exists>
@@ -44,7 +44,7 @@ function setWeight(weight) {
         <#if (0 < weight?double) && !requestParameters.reweigh?exists>
           <#if 1 < shipmentRoutes.size()>
             <#-- multiple routes -->
-            <div class="tabletext"><font color="red">${uiLabelMap.ProductMoreRouteSegmentFound}.</font></div>
+            <div><font color="red">${uiLabelMap.ProductMoreRouteSegmentFound}.</font></div>
           <#elseif !requestParameters.shipmentRouteSegmentId?exists || requestAttributes._ERROR_MESSAGE_?exists>
             <form name="routeForm" method="post" action="<@ofbizUrl>setQuickRouteInfo</@ofbizUrl>">
               <#assign shipmentRoute = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRoutes))?if_exists>
@@ -56,7 +56,7 @@ function setWeight(weight) {
               <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRoute.shipmentRouteSegmentId}"/>
               <table border="0" cellpadding="2" cellspacing="0">
                 <tr>
-                  <td width="20%" align="right"><b>${uiLabelMap.ProductCarrier}</b></td>
+                  <td width="20%" align="right"><span class="label">${uiLabelMap.ProductCarrier}</span></td>
                   <td>&nbsp;</td>
                   <td width="1%" align="left" nowrap>
                     <select name="carrierPartyId">
@@ -77,7 +77,7 @@ function setWeight(weight) {
                   </td>
                 </tr>              
                 <tr>
-                  <td width="20%" align="right"><b>${uiLabelMap.ProductShipMethod}</b></td>
+                  <td width="20%" align="right"><span class="label">${uiLabelMap.ProductShipMethod}</span></td>
                   <td>&nbsp;</td>
                   <td width="1%" align="left" nowrap>
                     <select name="shipmentMethodTypeId">
@@ -127,13 +127,13 @@ function setWeight(weight) {
             <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
             <input type="hidden" name="shipmentId" value="${shipmentPackage.shipmentId}"/>
             <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackage.shipmentPackageSeqId}"/>
-            <table border="0" cellpadding="2" cellspacing="0">
+            <table cellspacing="0" class="basic-table">
               <tr>
-                <td width="20%" align="right"><b>${uiLabelMap.ProductPackage} ${shipmentPackage.shipmentPackageSeqId} ${uiLabelMap.ProductWeight}</b></td>
+                <td width="20%" align="right"><span class="label">${uiLabelMap.ProductPackage}</span> ${shipmentPackage.shipmentPackageSeqId} ${uiLabelMap.ProductWeight}</td>
                 <td>&nbsp;</td>
                 <td width="80%" align="left">
                   <input type="text" name="weight">&nbsp;
-                  <select name="weightUomId" class="selectBox">
+                  <select name="weightUomId">
                     <#if weightUom?has_content>
                       <option value="${weightUom.uomId}">${weightUom.get("description",locale)}</option>
                       <option value="${weightUom.uomId}">---</option>
@@ -181,7 +181,7 @@ function setWeight(weight) {
       <input type="hidden" name="setPackedOnly" value="Y">
       <table border='0' cellpadding='2' cellspacing='0'>  
         <tr>        
-          <td width="25%" align='right'>${uiLabelMap.ProductOrderNumber}</td>
+          <td width="25%" align='right'><span class="label">${uiLabelMap.ProductOrderNumber}</span></td>
           <td width="1">&nbsp;</td>
           <td width="25%">
             <input type="text" name="orderId" size="20" maxlength="20" value="${requestParameters.orderId?if_exists}">          

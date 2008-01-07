@@ -177,20 +177,20 @@ under the License.
             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;inventoryItemId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(inventoryItemId)));}" type="Boolean"/>
         </row-actions>
 
-        <field name="inventoryItemId" widget-style="buttontext" position="1" use-when="showPosition1" widget-area-style="viewManyTR1">
+        <field name="inventoryItemId" widget-style="buttontext" position="1" use-when="showPosition1">
             <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" description="${inventoryItemId}"/>
         </field>
-        <field name="productId" position="1" use-when="showPosition1" widget-area-style="viewManyTR1" widget-style="buttontext">
+        <field name="productId" position="1" use-when="showPosition1" widget-style="buttontext">
             <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/>
         </field>
-        <field name="quantityOnHandTotal" position="1" use-when="showPosition1" widget-area-style="viewManyTR1">
+        <field name="quantityOnHandTotal" position="1" use-when="showPosition1">
             <display description="${quantityOnHandTotal}"/>
         </field>
-        <field name="availableToPromiseTotal" position="1" use-when="showPosition1" widget-area-style="viewManyTR1">
+        <field name="availableToPromiseTotal" position="1" use-when="showPosition1">
             <display description="${availableToPromiseTotal}"/>
         </field>
-        <field name="serialNumber" position="1" use-when="showPosition1" widget-area-style="viewManyTR1"><display/></field>
-        <field name="softIdentifier" position="1" use-when="showPosition1" widget-area-style="viewManyTR1"><display/></field>
+        <field name="serialNumber" position="1" use-when="showPosition1"><display/></field>
+        <field name="softIdentifier" position="1" use-when="showPosition1"><display/></field>
 
         <field name="inventoryItemDetailSeqId" position="2"><display/></field>
         <field name="effectiveDate" position="2"><display/></field>
@@ -228,7 +228,7 @@ under the License.
             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}" type="Boolean"/>
         </row-actions>
 
-        <field name="productId" position="1" use-when="showPosition1" widget-area-style="viewManyTR1" widget-style="buttontext">
+        <field name="productId" position="1" use-when="showPosition1" widget-style="buttontext">
             <hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/>
         </field>
 
@@ -437,10 +437,10 @@ under the License.
     <form name="FindPhysicalInventory" type="single" target="FindFacilityPhysicalInventory" title="" 
         header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="inputBox">
+        <field name="productId" title="${uiLabelMap.ProductProductId}">
             <text/>
         </field>
-        <field name="internalName" title="${uiLabelMap.ProductInternalName}" widget-style="inputBox">
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}">
             <text/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
@@ -536,19 +536,19 @@ under the License.
         
         <field name="inventoryItemGrandTotals"><hidden/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
-        <field name="quantityOnHand" title="${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display/></field>
-        <field name="availableToPromise" title="${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display/></field>
-        <field name="costPrice" title="${uiLabelMap.ProductCostPrice}" widget-area-style="tabletextright"><display/></field>
-        <field name="retailPrice" title="${uiLabelMap.ProductRetailPrice}" widget-area-style="tabletextright"><display/></field>
-        <field name="totalCostPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}" widget-area-style="tabletextright"><display/></field>
-        <field name="totalRetailPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}" widget-area-style="tabletextright"><display/></field>
+        <field name="quantityOnHand" title="${uiLabelMap.ProductQoh}"><display/></field>
+        <field name="availableToPromise" title="${uiLabelMap.ProductAtp}"><display/></field>
+        <field name="costPrice" title="${uiLabelMap.ProductCostPrice}"><display/></field>
+        <field name="retailPrice" title="${uiLabelMap.ProductRetailPrice}"><display/></field>
+        <field name="totalCostPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}"><display/></field>
+        <field name="totalRetailPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}"><display/></field>
     </form>
     <form name="ListInventoryItemGrandTotals" type="list" list-name="inventoryItemGrandTotals"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="qohGrandTotal" title="${uiLabelMap.ProductQoh} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}" widget-area-style="tabletextright"><display/></field>
-        <field name="atpGrandTotal" title="${uiLabelMap.ProductAtp} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}" widget-area-style="tabletextright"><display/></field>
-        <field name="totalCostPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}" widget-area-style="tabletextright"><display/></field>
-        <field name="totalRetailPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}" widget-area-style="tabletextright"><display/></field>
+        <field name="qohGrandTotal" title="${uiLabelMap.ProductQoh} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
+        <field name="atpGrandTotal" title="${uiLabelMap.ProductAtp} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
+        <field name="totalCostPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}"><display/></field>
+        <field name="totalRetailPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}"><display/></field>
     </form>
     <form name="InventoryItemTotalsExport" type="list" list-name="inventoryItemTotals" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">        

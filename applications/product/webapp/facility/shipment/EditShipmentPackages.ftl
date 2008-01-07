@@ -65,7 +65,7 @@ under the License.
                 </td>
                 <td>
                     <span class="label">${uiLabelMap.ProductShipmentBoxType}</span>
-                    <select name="shipmentBoxTypeId" class="selectBox">
+                    <select name="shipmentBoxTypeId">
                         <option value="">&nbsp;</option>
                         <#list boxTypes as boxType>
                             <option value="${boxType.shipmentBoxTypeId}" <#if shipmentPackage.shipmentBoxTypeId?exists && shipmentPackage.shipmentBoxTypeId == boxType.shipmentBoxTypeId>selected</#if>>${boxType.get("description",locale)}</option>

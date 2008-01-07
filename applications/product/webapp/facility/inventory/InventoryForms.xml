@@ -104,7 +104,7 @@ under the License.
         <field name="partyId"><ignored/></field>
         <field name="generalComments"><ignored/></field>
         <field name="inventoryItemId" map-name="inventoryItem"><hidden/></field>
-        <field name="varianceReasonId" widget-style="selectBox">
+        <field name="varianceReasonId">
             <drop-down>
                 <entity-options entity-name="VarianceReason" description="${description}">
                     <entity-order-by field-name="description"/>
