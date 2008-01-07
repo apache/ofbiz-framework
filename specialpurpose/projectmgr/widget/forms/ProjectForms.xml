@@ -406,4 +406,66 @@
         <field name="workEffortId"><hidden/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
     </form>
+    <form name="listResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask">
+        <row-actions>
+            <service service-name="getProjectTask" result-map-name="result">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
+            <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
+            <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
+            <set field="actualHours" from-field="result.taskInfo.actualHours"/>
+        </row-actions>
+        <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}" widget-style="buttontext">
+            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}[${workEffortId}]"/>
+        </field>
+        <field name="phaseName" title="phase name" widget-style="buttontext" widget-area-style="tabletextcenter">
+            <hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/>
+        </field>
+        <field name="projectName" title="project name" widget-style="buttontext">
+            <hyperlink target="projectView?projectId=${projectId}" description="${projectName}"/>
+        </field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="workEffortId"><hidden value="${workEffortId}"/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}" widget-area-style="tabletextcenter">
+            <display description="${priority}"/>
+        </field>      
+        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}" widget-area-style="tabletextcenter"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" widget-area-style="tabletextcenter"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.ProjectMgrWorkEffortActualStartDate}" widget-area-style="tabletextcenter"><display type="date"/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.ProjectMgrWorkEffortActualCompletionDate}" widget-area-style="tabletextcenter"><display type="date"/></field>
+        <field name="plannedHours" widget-area-style="tabletextcenter"><display/></field>
+        <field name="actualHours" widget-area-style="tabletextcenter"><display/></field>
+    </form>
+    <form name="listResourcesProjects" type="list" list-name="parties" default-title-style="tableheadtext">
+        <row-actions>
+            <service service-name="getProject" result-map-name="result">
+                <field-map field-name="projectId" env-name="workEffortId"/>
+            </service>
+            <set field="currentStatusId" from-field="result.projectInfo.currentStatusId"/>
+            <set field="Priority" from-field="result.projectInfo.priority"/>
+            <set field="plannedHours" from-field="result.projectInfo.plannedHours"/>
+            <set field="actualHours" from-field="result.projectInfo.actualHours"/>
+            <set field="CreatedStamp" from-field="result.projectInfo.createdStamp"/>
+            <set field="EstimatedStartDate" from-field="result.projectInfo.estimatedStartDate"/>
+            <set field="EstimatedCompletionDate" from-field="result.projectInfo.estimatedCompletionDate"/>
+            <set field="ActualStartDate" from-field="result.projectInfo.actualStartDate"/>
+            <set field="ActualCompletionDate" from-field="result.projectInfo.actualCompletionDate"/>
+        </row-actions>
+        <field entry-name="workEffortName" name="projectName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}" widget-style="buttontext">
+            <hyperlink target="projectView?projectId=${workEffortId}" description="${workEffortName}[${workEffortId}]"/>
+        </field> 
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="Priority" widget-area-style="tabletextcenter"><display description="${Priority}"/></field>
+        <field name="EstimatedStartDate" widget-area-style="tabletextcenter"><display type="date"/></field>
+        <field name="EstimatedCompletionDate" widget-area-style="tabletextcenter"><display  type="date"/></field>
+        <field name="ActualStartDate" title="startDate"><display type="date"/></field>
+        <field name="ActualCompletionDate" title="completionDate"><display type="date"/></field>
+        <field name="plannedHours" widget-area-style="tabletextcenter"><display/></field>
+        <field name="actualHours" widget-area-style="tabletextcenter"><display/></field>
+        <field name="CreatedStamp" title="CreatedStamp"><display type="date"/></field>
+    </form>
 </forms>

@@ -349,5 +349,53 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CommonListResourceDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="resources"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="Party" value-name="party"/>
+                <entity-one entity-name="Person" value-name="lookupPerson"/>
+                <entity-one entity-name="PartyGroup" value-name="lookupGroup"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for PARTYMGR, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field-name="partyId"/></not></condition>
+                                    <widgets>
+                                        <include-menu location="component://projectmgr/widget/Menus.xml" name="ResourcesTabBar"/>
+                                        <container>
+                                            <section>
+                                                <widgets>
+                                                    <label text="&amp;nbsp;&lt;br/&gt;"/>
+                                                    <label style="head1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName}"/>
+                                                </widgets>
+                                                <fail-widgets>
+                                                    <label style="head1" text="${uiLabelMap.PartyNewUser}"/>
+                                                </fail-widgets>
+                                            </section>
+                                            
+                                            <label style="head1" text="[${partyId}]"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>
