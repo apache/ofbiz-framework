@@ -53,7 +53,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderRequest"/>
-                <set field="tabButtonItem" value="request"/>
+                <set field="tabButtonItem" value="editRequest"/>
                 <set field="headerItem" value="request"/>
                 
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
@@ -63,32 +63,9 @@ under the License.
                 <entity-one entity-name="StatusItem" value-name="currentStatus"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonRequestDecorator">
+                <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="EditCustRequest" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="CommonRequestDecorator">
-        <section>
-            <actions>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/RequestTabBar.ftl"/></html>
-                                </platform-specific>
-                                <container>
-                                    <label style="head1">[${uiLabelMap.CommonId}:${custRequest.custRequestId}] ${custRequest.custRequestName}</label>
-                                </container>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -98,91 +75,34 @@ under the License.
         <section>
             <actions>
                 <set field="MainColumnStyle" value="rightonly"/>
-                <set field="tabButtonItem" value="ViewRequest"/>
+                <set field="tabButtonItem" value="viewRequest"/>
                 <set field="headerItem" value="request"/>
                 <set field="titleProperty" value="PageTitleViewRequest"/>
                 <set field="showRequestManagementLinks" value="Y"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <get-related-one value-name="custRequest" relation-name="CustRequestType" to-value-name="custRequestType"/>
-                <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
-                <get-related-one value-name="custRequest" relation-name="Uom" to-value-name="currency"/>
-                <get-related value-name="custRequest" relation-name="CustRequestWorkEffort" list-name="requestInfo"/>
-                <set field="orderBy[]" value="sequenceNum"/>
-                <get-related value-name="custRequest" relation-name="CustRequestRole" list-name="requestRoles"/>
-                <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="requestItems" order-by-list-name="orderBy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonRequestDecorator">
+                <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-screen name="ViewRequestTemplate"/>
+                        <container style="lefthalf">
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar"><label style="boxhead" text="${custRequest.custRequestName} [${custRequestId}] ${uiLabelMap.CommonInformation}"/></container>
+                                <container style="screenlet-body">
+                                    <include-form name="RequestInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
+                                </container>
+                            </container>
+                        </container>
+                        <container style="righthalf">
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.OrderRequestRoles}"/></container>
+                                <container style="screenlet-body">
+                                    <include-form name="RequestRolesInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
+                                </container>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="ViewRequestTemplate">
-        <section>
-            <condition>
-                <not><if-empty field-name="custRequest"/></not>
-            </condition>
-            <widgets>
-                <include-screen name="ViewRequestInfo"/>
-            </widgets>
-            <fail-widgets>
-                <label style="head3">${uiLabelMap.OrderErrorRequestNotFound}</label>
-            </fail-widgets>
-        </section>
-    </screen>
-    <screen name="ViewRequestInfo">
-        <section>
-            <widgets>
-                <container style="lefthalf">
-                    <include-screen name="requestInfo"/>
-                </container>
-                <container style="righthalf">
-                    <include-screen name="requestDate"/>
-                    <include-screen name="requestRoles"/>
-                </container>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requestInfo">
-        <section>
-            <actions>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
-            </actions>
-                <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar"><label style="boxhead" text="${custRequest.custRequestName} [${custRequestId}] ${uiLabelMap.CommonInformation}"/></container>
-                    <container style="screenlet-body">
-                        <include-form name="RequestInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
-                    </container>
-                </container>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requestDate">
-        <section>
-            <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.CommonDate}"/></container>
-                    <container style="screenlet-body">
-                        <include-form name="RequestDateInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
-                    </container>
-                </container>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requestRoles">
-        <section>
-            <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.OrderRequestRoles}"/></container>
-                    <container style="screenlet-body">
-                        <include-form name="RequestRolesInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
-                    </container>
-                </container>
             </widgets>
         </section>
     </screen>
