@@ -264,6 +264,12 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="defaultRate">
+            <drop-down no-current-selected-key="N">
+                <option key="N"/>
+                <option key="Y"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
 
