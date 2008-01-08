@@ -160,7 +160,7 @@ under the License.
                 <decorator-screen name="CommonMyTimeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                  
                         <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber}</label></container>                                
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber}</label></container>                                
                             <container style="screenlet-body"> 
                                 <section>
                                     <condition>
