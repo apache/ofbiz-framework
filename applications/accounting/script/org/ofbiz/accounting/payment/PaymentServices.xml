@@ -304,7 +304,6 @@ under the License.
                         <calcop field-name="invoicePaymentInfo.paidAmount" operator="get"/>
                     </calcop>
                 </calculate>
-                <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
             </if-compare>
         </iterate>
         <if>
@@ -343,9 +342,9 @@ under the License.
                         <calcop field-name="invoicePaymentInfo.paidAmount" operator="get"/>
                     </calcop>
                 </calculate>
-                <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
             </then>
         </if>
+        <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
         <field-to-result field-name="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
     </simple-method>
 
