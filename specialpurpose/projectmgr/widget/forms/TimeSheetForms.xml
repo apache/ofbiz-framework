@@ -231,15 +231,12 @@
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="WeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true" 
-        separate-columns="true" target="" >
+    <form name="WeekTimesheet" type="list" list-name="timeEntries" separate-columns="true">
         <field name="timesheetId"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}">
             <hyperlink target="taskView?workEffortId=${workEffortId} " description="${workEffortName}"/>
         </field>
-        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}">
-            <hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/>
-        </field>
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
             <hyperlink target="projectView?projectId=${projectId} " description="${projectName}"/>
         </field>
@@ -252,8 +249,6 @@
         <field name="6" parameter-name="hoursDay6" title="Sat"><display/></field>
         <field name="total" title="Act Total"><display/></field>
         <field name="plannedHours" title="Plan.Hrs"><display/></field>
-        <!--field name="update"><submit button-type="button"/></field-->
-        <!--field name="_rowSubmit"><hidden value="Y"/></field-->
     </form>   
     
 </forms>

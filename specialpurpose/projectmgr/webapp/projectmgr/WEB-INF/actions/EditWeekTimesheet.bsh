@@ -179,6 +179,7 @@ if (lastWorkEffortId != null) {
     entry.put("4", day4Total);
     entry.put("5", day5Total);
     entry.put("6", day6Total);
+    entry.put("phaseName", "Totals");
     entry.put("workEffortId", "Totals");
     entry.put("total", day0Total+day1Total+day2Total+day3Total+day4Total+day5Total+day6Total);
     entries.add(entry);

@@ -521,6 +521,12 @@
         <response name="success" type="view" value="Timesheet"/>
         <response name="error" type="view" value="Timesheet"/>
     </request-map>
+    <request-map uri="myTimeSheetStatustoComplete">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTimesheet"/>
+        <response name="success" type="view" value="MyTimesheet"/>
+        <response name="error" type="view" value="MyTimesheet"/>
+    </request-map>
     <request-map uri="TimeSheetStatustoProgress">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheetToInProcess"/>
