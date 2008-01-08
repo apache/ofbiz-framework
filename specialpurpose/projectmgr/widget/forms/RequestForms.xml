@@ -102,11 +102,8 @@ under the License.
         <field name="lastModifiedByUserLogin"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="RequestInfo" type="single" use-row-submit="true" default-entity-name="CustRequest" default-map-name="custRequest">
+    <form name="RequestInfo" type="single" default-entity-name="CustRequest" default-map-name="custRequest">
         <actions>
-            <entity-one entity-name="CustRequestWorkEffort" value-name="custRequestWorkEffort">
-                <field-map field-name="workEffortId" env-name="workEffortId"/>
-            </entity-one>
             <entity-one entity-name="WorkEffort" value-name="workEffort">
                 <field-map field-name="workEffortId" env-name="workEffortId"/>
             </entity-one>
@@ -118,15 +115,15 @@ under the License.
             <set field="phaseId" from-field="result.phaseId"/>
             <set field="phaseName" from-field="result.phaseName"/>
         </actions>
-        <field name="custRequestTypeId"><display-entity entity-name="CustRequestType" description="${description}"></display-entity></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"></display-entity></field>
+        <field name="custRequestTypeId"><display-entity entity-name="CustRequestType" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="fromPartyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId"></display-entity></field>
         <field name="custRequestName"><display/></field>
         <field name="description"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>
-        <field name="phaseName"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
+        <field name="phaseName"><display description="${result.phaseName}"/></field>
         <field name="taskName">
             <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffort.workEffortName}"/>
         </field>
