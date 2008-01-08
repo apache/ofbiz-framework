@@ -664,4 +664,44 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+    
+    <form name="ListTaxAuthorityGlAccounts" type="list" target="updateOrganizationTaxAuthorityGlAccount" list-name="taxAuthorityGlAccounts">
+        <auto-fields-service service-name="updateTaxAuthorityGlAccount" default-field-type="display"/>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="taxAuthGeoId" title="${uiLabelMap.AccountingTaxAuthorityGeo}">
+            <display-entity entity-name="Geo" key-field-name="geoId" description="[${geoId}] ${geoName}"/>
+        </field>
+        <field name="taxAuthPartyId" title="${uiLabelMap.AccountingTaxAuthorityParty}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile?partyId=${taxAuthPartyId}" target-type="inter-app" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
+            <drop-down allow-empty="false">                
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            </drop-down>
+        </field>     
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteOrganizationTaxAuthorityGlAccount?organizationPartyId=${organizationPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;taxAuthPartyId=${taxAuthPartyId}" description="${uiLabelMap.CommonDelete}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddTaxAuthorityGlAccount" type="list" target="createOrganizationTaxAuthorityGlAccount" list-name="taxAuthorityHavingNoGlAccountList">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="taxAuthGeoId" title="${uiLabelMap.AccountingTaxAuthorityGeo}">
+            <display-entity entity-name="Geo" key-field-name="geoId" description="[${geoId}] ${geoName}"/>
+        </field>
+        <field name="taxAuthPartyId" title="${uiLabelMap.AccountingTaxAuthorityParty}">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile?partyId=${taxAuthPartyId}" target-type="inter-app" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="glAccountId" title="${uiLabelMap.${uiLabelMap.AccountingGlAccountId}}">
+            <drop-down allow-empty="false">
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
 </forms>

@@ -1402,6 +1402,33 @@ under the License.
         <response name="error" type="view" value="EditVarianceReasonGlAccounts"/>
     </request-map> 
     
+    <!--  TaxAuthorityGlAccount Requests  -->
+    <request-map uri="editOrganizationTaxAuthorityGlAccount">
+         <security https="true" auth="true"/>
+         <response name="success" type="view" value="EditOrganizationTaxAuthorityGlAccounts"/>
+    </request-map> 
+    
+    <request-map uri="createOrganizationTaxAuthorityGlAccount">
+         <security https="true" auth="true"/>
+         <event type="service" invoke="createTaxAuthorityGlAccount"/>
+         <response name="success" type="view" value="EditOrganizationTaxAuthorityGlAccounts"/>
+         <response name="error" type="view" value="EditOrganizationTaxAuthorityGlAccounts"/>
+     </request-map>
+    
+    <request-map uri="updateOrganizationTaxAuthorityGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTaxAuthorityGlAccount"/>
+        <response name="success" type="view" value="EditOrganizationTaxAuthorityGlAccounts"/>
+        <response name="error" type="view" value="EditOrganizationTaxAuthorityGlAccounts"/>
+    </request-map>
+    
+    <request-map uri="deleteOrganizationTaxAuthorityGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteTaxAuthorityGlAccount"/>
+        <response name="success" type="view" value="EditOrganizationTaxAuthorityGlAccounts"/>
+        <response name="error" type="view" value="EditOrganizationTaxAuthorityGlAccounts"/>
+    </request-map>
+ 
     <!--request-uri CreditCardTypeGlAccount -->
     
     <request-map uri="editCreditCardTypeGlAccounts">
@@ -1881,6 +1908,7 @@ under the License.
     <view-map name="EditProductCategoryGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditProductCategoryGlAccounts"/>    
     <view-map name="EditVarianceReasonGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditVarianceReasonGlAccounts"/>
     <view-map name="EditCreditCardTypeGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditCreditCardTypeGlAccounts"/>
+    <view-map name="EditOrganizationTaxAuthorityGlAccounts" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditOrganizationTaxAuthorityGlAccounts"/>
         
     <!-- Manual Credit Card Transaction -->
     <view-map name="FindGatewayResponses" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses" type="screen"/>

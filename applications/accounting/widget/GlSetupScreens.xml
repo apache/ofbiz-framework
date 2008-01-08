@@ -510,5 +510,39 @@ under the License.
             </widgets>
         </section>
     </screen>
+   
+    <screen name="EditOrganizationTaxAuthorityGlAccounts">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleEditTaxAuthorityGlAccounts"/>
+                <set field="tabButtonItem" value="GlAccountAssignment"/>
+                <set field="tabButtonItem2" value="TaxAuthorityGlAccounts"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingEditTaxAuthorityGlAccounts}"/>                
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <entity-condition entity-name="TaxAuthorityGlAccount" list-name="taxAuthorityGlAccounts">
+                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                </entity-condition>
+                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
+                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                    <order-by field-name="accountCode"/>
+                </entity-condition>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/TaxAuthorityGlAccounts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <include-form name="ListTaxAuthorityGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container>
+                                <label style="head1">${uiLabelMap.AccountingAddTaxAuthorityGlAccount}</label>
+                            </container>
+                            <include-form name="AddTaxAuthorityGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>        
+            </widgets>    
+        </section>
+    </screen>
     
 </screens>
