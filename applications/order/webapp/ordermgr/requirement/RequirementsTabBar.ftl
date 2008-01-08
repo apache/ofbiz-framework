@@ -16,13 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<#assign selected = tabButtonItem?default("void")>
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-
-<div class='tabContainer'>
-    <a href="<@ofbizUrl>FindRequirements</@ofbizUrl>" class="${selectedClassMap.FindRequirements?default(unselectedClassName)}">${uiLabelMap.OrderRequirements}</a>
-    <a href="<@ofbizUrl>ApproveRequirements</@ofbizUrl>" class="${selectedClassMap.ApproveRequirements?default(unselectedClassName)}">${uiLabelMap.OrderApproveRequirements}</a>
-    <a href="<@ofbizUrl>ApprovedProductRequirementsByVendor</@ofbizUrl>" class="${selectedClassMap.ApprovedProductRequirementsByVendor?default(unselectedClassName)}">${uiLabelMap.OrderApprovedProductRequirementsByVendor}</a>
-    <a href="<@ofbizUrl>ApprovedProductRequirements</@ofbizUrl>" class="${selectedClassMap.ApprovedProductRequirements?default(unselectedClassName)}">${uiLabelMap.OrderApprovedProductRequirements}</a>
+<div class="button-bar tab-bar">
+    <ul>
+        <li<#if selected="FindRequirements"> class="selected"</#if>><a href="<@ofbizUrl>FindRequirements</@ofbizUrl>">${uiLabelMap.OrderRequirements}</a></li>
+        <li<#if selected="ApproveRequirements"> class="selected"</#if>><a href="<@ofbizUrl>ApproveRequirements</@ofbizUrl>">${uiLabelMap.OrderApproveRequirements}</a></li>
+        <li<#if selected="ApprovedProductRequirementsByVendor"> class="selected"</#if>><a href="<@ofbizUrl>ApprovedProductRequirementsByVendor</@ofbizUrl>">${uiLabelMap.OrderApprovedProductRequirementsByVendor}</a></li>
+        <li<#if selected="ApprovedProductRequirements"> class="selected"</#if>><a href="<@ofbizUrl>ApprovedProductRequirements</@ofbizUrl>">${uiLabelMap.OrderApprovedProductRequirements}</a></li>
+    </ul>
+    <br/>
 </div>

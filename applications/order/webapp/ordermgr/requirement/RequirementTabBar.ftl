@@ -16,15 +16,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<#assign selected = tabButtonItem?default("void")>
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
-
-<#if requirement?exists>
-<div class='tabContainer'>
-    <a href="<@ofbizUrl>EditRequirement?requirementId=${requirement.requirementId}</@ofbizUrl>" class="${selectedClassMap.EditRequirement?default(unselectedClassName)}">${uiLabelMap.OrderRequirement}</a>
-    <a href="<@ofbizUrl>ListRequirementCustRequests?requirementId=${requirement.requirementId}</@ofbizUrl>" class="${selectedClassMap.ListRequirementCustRequests?default(unselectedClassName)}">${uiLabelMap.OrderRequests}</a>
-    <a href="<@ofbizUrl>ListRequirementOrders?requirementId=${requirement.requirementId}</@ofbizUrl>" class="${selectedClassMap.ListRequirementOrdersTab?default(unselectedClassName)}">${uiLabelMap.OrderOrders}</a>
-    <a href="<@ofbizUrl>ListRequirementRoles?requirementId=${requirement.requirementId}</@ofbizUrl>" class="${selectedClassMap.ListRequirementRolesTab?default(unselectedClassName)}">${uiLabelMap.PartyRoles}</a>
-</div>
+<#if requirement?has_content>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li<#if selected="EditRequirement"> class="selected"</#if>><a href="<@ofbizUrl>EditRequirement?requirementId=${requirement.requirementId}</@ofbizUrl>">${uiLabelMap.OrderRequirement}</a></li>
+            <li<#if selected="ListRequirementCustRequests"> class="selected"</#if>><a href="<@ofbizUrl>ListRequirementCustRequests?requirementId=${requirement.requirementId}</@ofbizUrl>">${uiLabelMap.OrderRequests}</a></li>
+            <li<#if selected="ListRequirementOrdersTab"> class="selected"</#if>><a href="<@ofbizUrl>ListRequirementOrders?requirementId=${requirement.requirementId}</@ofbizUrl>">${uiLabelMap.OrderOrders}</a></li>
+            <li<#if selected="ListRequirementRolesTab"> class="selected"</#if>><a href="<@ofbizUrl>ListRequirementRoles?requirementId=${requirement.requirementId}</@ofbizUrl>">${uiLabelMap.PartyRoles}</a></li>
+        </ul>
+        <br/>
+    </div>
 </#if>
