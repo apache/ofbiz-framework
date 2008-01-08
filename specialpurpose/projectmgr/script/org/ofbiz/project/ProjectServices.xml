@@ -242,26 +242,28 @@
         <if-not-empty field-name="timeEntries">
             <iterate entry-name="timeEntry" list-name="timeEntries">
                 <if-compare-field field-name="timeEntry.workEffortId" operator="equals" to-field-name="parameters.workEffortId">
-                    <!-- check if the entry does not contain any hours, then delete -->
-                    <if-empty field-name="timeEntry.hours">
-                        <remove-value value-name="timeEntry"/> 
-                        <else>
-                            <!-- translate the date into the daynumber -->
-                            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field-name="dayNumber">
-                                <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
-                                <field field-name="timeEntry.fromDate" type="java.sql.Timestamp"/>
-                            </call-class-method>
-                            <!-- get the related field -->
-                            <if-not-empty field-name="parameters.hoursDay${dayNumber}">
-                                <set field="hours" from-field="parameters.hoursDay${dayNumber}"/>
-                                <else>
-                                    <set field="hours" value="0"/>
-                                </else>
-                            </if-not-empty>
-                            <set field="parameters.hoursDay${dayNumber}" value="-1"/>
-                            <call-simple-method method-name="updateTimeEntry"/>                        
-                        </else>
-                    </if-empty>
+                    <if-compare-field field-name="timeEntry.rateTypeId" operator="equals" to-field-name="parameters.rateTypeId">
+                        <!-- check if the entry does not contain any hours, then delete -->
+                        <if-empty field-name="timeEntry.hours">
+                            <remove-value value-name="timeEntry"/> 
+                            <else>
+                                <!-- translate the date into the daynumber -->
+                                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field-name="dayNumber">
+                                    <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
+                                    <field field-name="timeEntry.fromDate" type="java.sql.Timestamp"/>
+                                </call-class-method>
+                                <!-- get the related field -->
+                                <if-not-empty field-name="parameters.hoursDay${dayNumber}">
+                                    <set field="hours" from-field="parameters.hoursDay${dayNumber}"/>
+                                    <else>
+                                        <set field="hours" value="0"/>
+                                    </else>
+                                </if-not-empty>
+                                <call-simple-method method-name="updateTimeEntry"/>                        
+                                <set field="parameters.hoursDay${dayNumber}" value="-999999"/>
+                            </else>
+                        </if-empty>
+                    </if-compare-field>
                 </if-compare-field>
             </iterate>
         </if-not-empty>
@@ -269,18 +271,17 @@
         <!-- process not yet done fields -->
         <loop count="7" field="dayNr">
             <if-not-empty field-name="parameters.hoursDay${dayNr}">
-                <set field="hours" from-field="parameters.hoursDay${dayNr}"/>
-                <else>
-                    <set field="hours" value="0"/>
-                </else>
+                <if-compare field-name="parameters.hoursDay${dayNr}" value="-999999" operator="not-equals">
+                    <set field="hours" from-field="parameters.hoursDay${dayNr}"/>
+                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="fromDate">
+                        <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
+                        <field field-name="dayNr" type="int"/>
+                    </call-class-method>
+                    <call-simple-method method-name="updateTimeEntry"/>                        
+                </if-compare>
             </if-not-empty>
-            <set field="hours" from-field="parameters.hoursDay${dayNr}"/>
-            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="fromDate">
-                <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
-                <field field-name="dayNr" type="int"/>
-            </call-class-method>
-            <call-simple-method method-name="updateTimeEntry"/>                        
         </loop>
+        <!-- update the assignment status -->
         <if-compare field-name="parameters.checkComplete" value="Y" operator="equals">
             <entity-one entity-name="WorkEffortPartyAssignment" value-name="alreadyAssign"/>
             <if-compare field-name="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
@@ -908,7 +909,6 @@
             <else>
                 <if-compare field-name="hours" operator="not-equals" value="0">
                     <set-service-fields service-name="createTimeEntry" map-name="parameters" to-map-name="teCreMap"/>
-                    <set field="teCreMap.rateTypeId" from-field="parameters.rateTypeId"/>
                     <set field="teCreMap.hours" from-field="hours"/>
                     <set field="teCreMap.fromDate" from-field="fromDate"/>
                     <call-service service-name="createTimeEntry" in-map-name="teCreMap"/>
