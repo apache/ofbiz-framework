@@ -78,13 +78,13 @@ under the License.
             <tr>
               <#if !orderItem.productId?exists || orderItem.productId == "_?_">
                 <td valign="top">
-                  <b><div class="tabletext"> &gt;&gt; ${orderItem.itemDescription}</div></b>
+                  <b><div class="tabletext"> &gt;&gt; ${orderItem.itemDescription?default("")}</div></b>
                 </td>
               <#else>
                 <#assign product = orderItem.getRelatedOneCache("Product")?if_exists/> <#-- should always exist because of FK constraint, but just in case -->
                 <td valign="top">
                   <div class="tabletext">
-                    <a href="<@ofbizUrl>product?product_id=${orderItem.productId}</@ofbizUrl>" class="linktext">${orderItem.productId} - ${orderItem.itemDescription}</a>
+                    <a href="<@ofbizUrl>product?product_id=${orderItem.productId}</@ofbizUrl>" class="linktext">${orderItem.productId} - ${orderItem.itemDescription?default("")}</a>
                   </div>
                   <div class="tabletext" style="font-size: xx-small;">
                     <#if product?has_content>
