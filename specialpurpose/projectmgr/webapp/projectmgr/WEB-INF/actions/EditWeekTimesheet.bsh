@@ -73,19 +73,17 @@ context.put("timesheet", timesheet);
 context.put("weekNumber", UtilDateTime.weekNumber(timesheet.getTimestamp("fromDate")));
 
 entries = new LinkedList(); 
-timeEntries = timesheet.getRelated("TimeEntry", UtilMisc.toList("workEffortId", "fromDate"));
-te = timeEntries.iterator();
-lastWorkEffortId = null;
 entry = FastMap.newInstance();
 taskTotal = 0.00;
 day0Total = 0.00; day1Total=0.00;day2Total=0.00; day3Total=0.00;day4Total=0.00;day5Total=0.00;day6Total=0.00;
 pHours = 0.00;
 timeEntry = null;
 lastTimeEntry = null;
+lastWorkEffortId = null;
 
 // retrieve work effort data when the workeffortId has changed.
 void retrieveWorkEffortData() {
-       entry.put("total", taskTotal);
+
         // get the planned number of hours
         entryWorkEffort = lastTimeEntry.getRelatedOne("WorkEffort");
         if (entryWorkEffort != null) {
@@ -100,9 +98,8 @@ void retrieveWorkEffortData() {
 	        }
 	        entry.put("plannedHours", pHours);
 	        
-	        // to be able to set the task to complete
+	        // get party assignment data to be able to set the task to complete
 		    workEffortPartyAssigns = EntityUtil.filterByDate(entryWorkEffort.getRelatedByAnd("WorkEffortPartyAssignment", UtilMisc.toMap("partyId", partyId)));
-	        Debug.logInfo("======== list of assigns:" + workEffortPartyAssigns, "");    
 	        if (workEffortPartyAssigns != null) {
 	            workEffortPartyAssign = workEffortPartyAssigns.get(0);
 	            entry.put("fromDate", workEffortPartyAssign.getTimestamp("fromDate"));
@@ -111,14 +108,29 @@ void retrieveWorkEffortData() {
 	                entry.put("checkComplete", "Y");
 	            }
 	        }
+	        
+			// get project/phase information
+	        entry.put("workEffortId", entryWorkEffort.getString("workEffortId"));    
+	        entry.put("workEffortName", entryWorkEffort.getString("workEffortName")); 
+	        result = dispatcher.runSync("getProjectIdAndName", UtilMisc.toMap("userLogin", parameters.get("userLogin"),"taskId",entryWorkEffort.getString("workEffortId")));
+	            entry.put("phaseId",result.get("phaseId"));    
+	            entry.put("phaseName",result.get("phaseName"));  
+	            entry.put("projectId",result.get("projectId"));  
+	            entry.put("projectName",result.get("projectName"));   
+	    
         }
+    	entry.put("total", taskTotal);
+        entry.put("timesheetId", timesheet.get("timesheetId"));
         entries.add(entry);
+        // start new entry
         taskTotal = 0.00;
-        entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
+		entry = FastMap.newInstance();
 }
 
-
+timeEntries = timesheet.getRelated("TimeEntry", UtilMisc.toList("workEffortId", "fromDate"));
+te = timeEntries.iterator();
 while(te.hasNext()) {
+	// only fill lastTimeEntry when not the first time
 	if (timeEntry!=void) {
 		lastTimeEntry = timeEntry;
 	} 
@@ -127,16 +139,7 @@ while(te.hasNext()) {
     if (lastWorkEffortId != null && !lastWorkEffortId.equals(timeEntry.getString("workEffortId"))) {
     	retrieveWorkEffortData();
     }
-    if (UtilValidate.isNotEmpty(timeEntry.get("workEffortId"))) {
-        workEffort = timeEntry.getRelatedOne("WorkEffort");
-        entry.put("workEffortId", workEffort.getString("workEffortId"));    
-        entry.put("workEffortName", workEffort.getString("workEffortName")); 
-        result = dispatcher.runSync("getProjectIdAndName", UtilMisc.toMap("userLogin", parameters.get("userLogin"),"taskId",timeEntry.getString("workEffortId")));
-            entry.put("phaseId",result.get("phaseId"));    
-            entry.put("phaseName",result.get("phaseName"));  
-            entry.put("projectId",result.get("projectId"));  
-            entry.put("projectName",result.get("projectName"));   
-    }
+    
     entry.put("timesheetId", timesheet.get("timesheetId"));
     if (timeEntry.get("hours") != null) {
         dayNumber = (timeEntry.get("fromDate").getTime() - timesheet.getTimestamp("fromDate").getTime()) / (24*60*60*1000);
@@ -153,17 +156,20 @@ while(te.hasNext()) {
     } 
     lastWorkEffortId = timeEntry.getString("workEffortId");
 }
+
 if (lastWorkEffortId != null) {
+	lastTimeEntry = timeEntry;
    	retrieveWorkEffortData();
-    entry.put("plannedHours", pHours);
-    entry.put("total", taskTotal);
-    entries.add(entry);
     }
+    
+// add empty lines if timesheet not completed    
 if (!timesheet.getString("statusId").equals("TIMESHEET_COMPLETED")) {
 	for (c=0; c < 3; c++) { // add 5 empty lines 
 	    entries.add(UtilMisc.toMap("timesheetId", timesheet.get("timesheetId")));
 	}
 }
+
+// add the totals line if at least one entry
 if (lastWorkEffortId != null) {
     entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
     entry.put("0", day0Total);
@@ -178,7 +184,7 @@ if (lastWorkEffortId != null) {
     entries.add(entry);
 }
 context.put("timeEntries", entries);
-   
+
 // get all timesheets of this user, including the planned hours
 timesheetsDb = delegator.findByAnd("Timesheet", 
             UtilMisc.toMap("partyId", partyId), 
