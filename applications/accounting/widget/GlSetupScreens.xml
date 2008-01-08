@@ -522,6 +522,8 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 <entity-condition entity-name="TaxAuthorityGlAccount" list-name="taxAuthorityGlAccounts">
                     <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
+                    <order-by field-name="taxAuthGeoId"/>
+                    <order-by field-name="taxAuthPartyId"/>
                 </entity-condition>
                 <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
                     <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
