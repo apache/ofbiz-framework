@@ -64,7 +64,7 @@ under the License.
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                  
                         <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber}</label></container>                                
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTimesheet} # ${timesheet.timesheetId} week: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}</label></container>                                
                             <container style="screenlet-body"> 
                                 <section>
                                     <condition>
@@ -154,13 +154,13 @@ under the License.
                 <set field="tabButtonItem" value="edittimesheet"/>
                 <set field="labelTitleProperty" value="PageTitleAddTimesheet"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
-                <set field="my" value="My"/><!-- change link in list -->
+                <set field="my" value="My"/><!-- change link and target -->
             </actions>
             <widgets>
                 <decorator-screen name="CommonMyTimeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                  
                         <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber}</label></container>                                
+                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}</label></container>                                
                             <container style="screenlet-body"> 
                                 <section>
                                     <condition>

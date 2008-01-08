@@ -142,11 +142,6 @@ while(te.hasNext()) {
 	} 
     timeEntry = te.next();
     
-    // set the rate type to default if missing
-	if (timeEntry.getString("rateTypeId") == null) {
-		timeEntry.put("rateTypeId", context.get("defaultRateTypeId"));
-	}    
-	Debug.logInfo("bsh: workeffort:" + timeEntry.getString("workEffortId") + " ratetype: " + timeEntry.getString("rateTypeId"), "" ); 
     if (lastTimeEntry != null && 
     	(!lastTimeEntry.getString("workEffortId").equals(timeEntry.getString("workEffortId")) || 
     	!lastTimeEntry.getString("rateTypeId").equals(timeEntry.getString("rateTypeId")))) {
@@ -167,10 +162,9 @@ while(te.hasNext()) {
         taskTotal += hours;
     }
     entry.put("rateTypeId", timeEntry.get("rateTypeId"));
-    lastWorkEffortId = timeEntry.getString("workEffortId");
 }
 
-if (lastTimeEntry != null) {
+if (timeEntry != null) {
 	lastTimeEntry = timeEntry;
    	retrieveWorkEffortData();
     }
@@ -183,7 +177,7 @@ if (!timesheet.getString("statusId").equals("TIMESHEET_COMPLETED")) {
 }
 
 // add the totals line if at least one entry
-if (lastTimeEntry != null) {
+if (timeEntry != null) {
     entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
     entry.put("0", day0Total);
     entry.put("1", day1Total);
