@@ -222,19 +222,9 @@
                 <field-map field-name="taskId" env-name="workEffortId"/>
                 <field-map field-name="hoursPartyId" env-name="userLogin.partyId"/>
             </service>
-            <set field="task" from-field="result.taskInfo"/>
-            <set field="plannedHours" from-field="task.plannedHours"/>
-            <set field="actualHours" from-field="task.actualHours"/>
-            <set field="projectId" from-field="result.projectId"/>
-            <set field="projectName" from-field="result.projectName"/>
-            <set field="currentStatusId" from-field="task.currentStatusId"/>
             <service service-name="getProjectIdAndName" result-map-name="resultProject">
                 <field-map field-name="taskId" env-name="workEffortId"/>
             </service>
-            <set field="projectId" from-field="resultProject.projectId"/>
-            <set field="projectName" from-field="resultProject.projectName"/>
-            <set field="phaseId" from-field="resultProject.phaseId"/>
-            <set field="phaseName" from-field="resultProject.phaseName"/>
         </row-actions>
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
@@ -243,16 +233,16 @@
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}" target="taskView?workEffortId=${workEffortId}"/>
         </field>
-        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${phaseName}"/></field>
-        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${projectId}" description="${projectName}"/></field>
-        <field name="currentStatusId" ><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${resultProject.projectId}" description="${resultProject.projectName}"/></field>
+        <field entry-name="result.taskInfo.currentStatusId" name="currentStatusId" ><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority"><display/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" red-when="before-now"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}" red-when="before-now"><display type="date"/></field>
-        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
-        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field entry-name="result.taskInfo.plannedHours" name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
+        <field entry-name="result.taskInfo.actualHours" name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}">
             <drop-down>
