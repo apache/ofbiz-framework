@@ -21,15 +21,15 @@ under the License.
 <div><a href="<@ofbizUrl>returnMain</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderReturnCreate}</a></div>
 
 <br/>
-<table width="100%" border="0" cellpadding="0" cellspacing="0"> 
-  <tr>
-    <td><div class="tableheadtext">${uiLabelMap.OrderReturnId} #</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.FormFieldTitle_entryDate}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.PartyParty}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.FacilityFacility}</div></td>
-    <td><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>
+<table cellspacing="0" class="basic-table">
+  <tr class="header-row">
+    <td>${uiLabelMap.OrderReturnId} #</td>
+    <td>${uiLabelMap.FormFieldTitle_entryDate}</td>
+    <td>${uiLabelMap.PartyParty}</td>
+    <td>${uiLabelMap.FacilityFacility}</td>
+    <td>${uiLabelMap.CommonStatus}</td>
   </tr> 
-  <tr><td colspan="5"><hr class="sepbar"></td></tr>
+  <tr><td colspan="5"><hr></td></tr>
   <#list returnList as returnHeader>
   <#assign statusItem = returnHeader.getRelatedOne("StatusItem")>
   <#if returnHeader.destinationFacilityId?exists>
@@ -42,11 +42,11 @@ under the License.
       <#if returnHeader.fromPartyId?exists>
         <a href="${customerDetailLink}${returnHeader.fromPartyId}${externalKeyParam}" class='buttontext'>${returnHeader.fromPartyId}</a>
       <#else>
-        <span class="tabletext">${uiLabelMap.CommonNA}</span>
+        <span class="label">${uiLabelMap.CommonNA}</span>
       </#if>
     </td>
-    <td><div class="tabletext"><#if facility?exists>${facility.facilityName?default(facility.facilityId)}<#else>${uiLabelMap.CommonNone}</#if></div></td>
-    <td><div class="tabletext">${statusItem.get("description",locale)}</div></td>   
+    <td><#if facility?exists>${facility.facilityName?default(facility.facilityId)}<#else>${uiLabelMap.CommonNone}</#if></td>
+    <td>${statusItem.get("description",locale)}</td>   
   </tr>
   </#list>
 </table>

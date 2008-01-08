@@ -44,14 +44,24 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.OrderOrderReturns}</label>
-                        </container>
-                        <container>                            
-                            <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"></link>
-                        </container>
-                        <include-form name="FindReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
-                        <include-form name="ListReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindReturn}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>                            
+                                            <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"></link>
+                                        </container>
+                                        <include-form name="FindReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
+                                        <include-form name="ListReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                                                
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -67,11 +77,24 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://order/webapp/ordermgr/return/quickReturn.ftl"/>
-                            </html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindQuickReturn}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://order/webapp/ordermgr/return/quickReturn.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -82,16 +105,21 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleReturnHeader"/>
                 <set field="headerItem" value="return"/>
+                <set field="tabButtonItem" value="OrderReturnHeader"/>                
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/returnHeader.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://order/webapp/ordermgr/return/returnHeader.ftl"/>
-                            </html>
-                        </platform-specific>
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://order/webapp/ordermgr/return/returnHeader.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                        </section>                
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -107,11 +135,24 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://order/webapp/ordermgr/return/returnList.ftl"/>
-                            </html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleReturnList}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://order/webapp/ordermgr/return/returnList.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -122,16 +163,21 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleReturnItems"/>
                 <set field="headerItem" value="return"/>
+                <set field="tabButtonItem" value="OrderReturnItems"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/returnItems.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://order/webapp/ordermgr/return/returnItems.ftl"/>
-                            </html>
-                        </platform-specific>
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://order/webapp/ordermgr/return/returnItems.ftl"/>
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
