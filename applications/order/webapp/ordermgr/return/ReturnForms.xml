@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditReturn" type="single" target="updateReturnHeader" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="returnHeader==null" target="createReturnHeader"/>
         <auto-fields-service service-name="updateReturnHeader"/>
         <field use-when="returnHeader!=null" name="returnId" tooltip="This cannot be changed without re-creating the Return."><display/></field>
@@ -54,7 +54,7 @@ under the License.
     </form>
     
     <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="createReturnItem"/>
         <field name="itemDescription"><display/></field>
         <field name="returnId"><hidden/></field>
@@ -64,7 +64,7 @@ under the License.
     </form>
 
     <form name="FindReturns" type="single"  target="findreturn" title=""
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="returnId" title="${uiLabelMap.OrderReturnId}"><text-find/></field>
         <field name="fromPartyId" title="${uiLabelMap.OrderReturnFromParty}">
             <lookup target-form-name="LookupPartyName"/>
@@ -89,8 +89,7 @@ under the License.
     </form>
 
     <form name="ListReturns" type="list"  target="findreturn" title="" list-name="listIt"
-        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext"
-        paginate-target="findreturn">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="findreturn">
         <actions>
             <service service-name="performFind"  result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
@@ -116,5 +115,4 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
     </form>
-
 </forms>

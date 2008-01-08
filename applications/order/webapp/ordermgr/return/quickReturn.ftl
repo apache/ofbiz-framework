@@ -39,7 +39,7 @@ under the License.
           <#include "returnItemInc.ftl"/>
           <hr/>
           <h3>${uiLabelMap.FormFieldTitle_paymentMethodId}:</h3>
-          <table cellspacing="1" cellpadding="2" width="100%">
+          <table cellspacing="0" class="basic-table">
             <tr><td>
               <#if creditCardList?exists || eftAccountList?exists>
                 <select name='paymentMethodId'>
@@ -64,14 +64,14 @@ under the License.
               </#if>
             </td></tr>
           </table>
-          <table border="0" width="100%" cellpadding="2" cellspacing="0">
-            <tr><td colspan="8"><hr class="sepbar"></td></tr>
+          <table cellspacing="0" class="basic-table">
+            <tr><td colspan="8"><hr></td></tr>
             <tr>
-              <td colspan="8"><h3>${uiLabelMap.OrderReturnShipFromAddress}:</h3></td>
+              <td colspan="8"><h3>${uiLabelMap.OrderReturnShipFromAddress}</h3></td>
             </tr>
             <tr>
               <td colspan="8">
-                <table cellspacing="1" cellpadding="2" width="100%">
+                <table cellspacing="0" class="basic-table">
                   <#list shippingContactMechList as shippingContactMech>
                     <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                     <tr>
@@ -79,9 +79,9 @@ under the License.
                         <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"  <#if (shippingContactMechList?size == 1)>checked</#if>>
                       </td>
                       <td align="left" width="99%" valign="top" nowrap>
-                        <div class="tabletext">
-                          <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
-                          <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
+                        <div>
+                          <#if shippingAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${shippingAddress.toName}<br/></#if>
+                          <#if shippingAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span></b>&nbsp;${shippingAddress.attnName}<br/></#if>
                           <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>
                           <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>
                           <#if shippingAddress.city?has_content>${shippingAddress.city}</#if>
@@ -100,4 +100,3 @@ under the License.
         </form>
     </div>
 </div>
-    
