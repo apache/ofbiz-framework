@@ -37,6 +37,11 @@
             </drop-down>
         </field>
         <field name="checkComplete"><check/></field>
+        <field name="rateTypeId">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultRateTypeId}">
+                <entity-options entity-name="RateType" description="${description}"/>
+            </drop-down>
+        </field>
         <field name="0" parameter-name="hoursDay0" title="Sun"><text size="5"/></field>
         <field name="1" parameter-name="hoursDay1" title="Mon"><text size="5"/></field>
         <field name="2" parameter-name="hoursDay2" title="Tue"><text size="5"/></field>
@@ -240,6 +245,8 @@
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
             <hyperlink target="projectView?projectId=${projectId} " description="${projectName}"/>
         </field>
+        <field name="checkComplete"><display/></field>
+        <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
         <field name="0" parameter-name="hoursDay0" title="Sun"><display/></field>
         <field name="1" parameter-name="hoursDay1" title="Mon"><display/></field>
         <field name="2" parameter-name="hoursDay2" title="Tue"><display/></field>

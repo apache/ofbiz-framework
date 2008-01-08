@@ -65,7 +65,13 @@ if (timesheetId != null) {
         }
 }
 // get the user names
-context.put("partyNameView", delegator.findByPrimaryKey("PartyNameView", UtilMisc.toMap("partyId", partyId))); 
+context.put("partyNameView", delegator.findByPrimaryKey("PartyNameView", UtilMisc.toMap("partyId", partyId)));
+// get the default rate for this person
+rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", UtilMisc.toMap("partyId", partyId, "defaultRate", "Y")));
+if (UtilValidate.isNotEmpty(rateTypes)) {
+	rateType = rateTypes.get(0);
+	context.put("defaultRateTypeId", rateType.getString("rateTypeId"));
+} 
 
 if (timesheet == null) return;
 
@@ -116,8 +122,8 @@ void retrieveWorkEffortData() {
 	            entry.put("phaseId",result.get("phaseId"));    
 	            entry.put("phaseName",result.get("phaseName"));  
 	            entry.put("projectId",result.get("projectId"));  
-	            entry.put("projectName",result.get("projectName"));   
-	    
+	            entry.put("projectName",result.get("projectName"));  
+	            
         }
     	entry.put("total", taskTotal);
         entry.put("timesheetId", timesheet.get("timesheetId"));
@@ -140,7 +146,6 @@ while(te.hasNext()) {
     	retrieveWorkEffortData();
     }
     
-    entry.put("timesheetId", timesheet.get("timesheetId"));
     if (timeEntry.get("hours") != null) {
         dayNumber = (timeEntry.get("fromDate").getTime() - timesheet.getTimestamp("fromDate").getTime()) / (24*60*60*1000);
         hours = timeEntry.getDouble("hours").doubleValue();
@@ -153,7 +158,8 @@ while(te.hasNext()) {
         if (dayNumber == 5) day5Total += hours;
         if (dayNumber == 6) day6Total += hours;
         taskTotal += hours;
-    } 
+    }
+    entry.put("rateTypeId", timeEntry.get("rateTypeId"));
     lastWorkEffortId = timeEntry.getString("workEffortId");
 }
 

@@ -56,6 +56,7 @@ under the License.
         <attribute name="timesheetId" type="String" mode="INOUT" optional="true"/>
         <attribute name="workEffortId" type="String" mode="INOUT" optional="true"/><!-- when empty will be ignored -->
         <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
+        <attribute name="rateTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="hoursDay0" type="Double" mode="IN" optional="true"/>
         <attribute name="hoursDay1" type="Double" mode="IN" optional="true"/>
