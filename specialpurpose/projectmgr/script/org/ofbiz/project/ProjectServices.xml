@@ -184,15 +184,14 @@
     </simple-method>        
     
     <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffort and timesheetId ">
-        <log level="always" message="=====start:==rateType: ${parameters.rateTypeId}"></log>
+        <entity-one entity-name="Timesheet" value-name="timesheet"/>
+        <field-to-result field-name="parameters.timesheetId" result-name="timesheetId"/>
         <if-empty field-name="parameters.workEffortId">
             <return/>
         </if-empty>
         <if-compare field-name="parameters.workEffortId" operator="equals" value="Totals">
             <return/>
         </if-compare>
-        <entity-one entity-name="Timesheet" value-name="timesheet"/>
-        <field-to-result field-name="parameters.timesheetId" result-name="timesheetId"/>
         
         <entity-and entity-name="ProjectAndPhaseAndTask" list-name="projects">
             <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
@@ -900,7 +899,6 @@
                 <call-service service-name="deleteTimeEntry" in-map-name="teDelMap"/>
                 <else>
                     <clear-field field-name="teUpdMap"/>
-                    <log level="always" message="=====updtimeentry: ${parameters.rateTypeId}"></log>
                     <set field="teUpdMap.hours" from-field="hours"/>
                     <set field="teUpdMap.timeEntryId" from-field="timeEntry.timeEntryId"/>
                     <set field="teUpdMap.rateTypeId" from-field="parameters.rateTypeId"/>
