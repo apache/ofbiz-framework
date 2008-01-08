@@ -94,7 +94,7 @@
         </if>
     </simple-method>
     
-    <simple-method method-name="addTaskAssigment" short-description="assign a party to a task">
+    <simple-method method-name="addTaskAssignment" short-description="assign a party to a task">
         <make-value value-name="newAssign" entity-name="WorkEffortPartyAssignment"/>
         <set-pk-fields value-name="newAssign" map-name="parameters"/>
         <now-timestamp-to-env env-name="newAssign.fromDate"/>
