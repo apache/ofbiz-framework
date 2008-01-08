@@ -46,6 +46,7 @@ under the License.
             title="Party Rate Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="rateTypeId" type="id-ne"></field>
+      <field name="defaultRate" type="indicator"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="rate" type="currency-amount"></field>
