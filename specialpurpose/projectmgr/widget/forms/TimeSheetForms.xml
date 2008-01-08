@@ -20,8 +20,8 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditWeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true" 
-        separate-columns="true" target="updateMyTimesheet">
-        <field name="timesheetId"><hidden/></field>
+        separate-columns="true" target="update${my}Timesheet">
+        <field name="timesheetId"><hidden value="${parameters.timesheetId}"/></field>
         <field name="roleTypeId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">

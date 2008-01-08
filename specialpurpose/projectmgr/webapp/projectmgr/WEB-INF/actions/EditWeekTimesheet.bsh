@@ -43,6 +43,7 @@ if (partyId == null) {
 // show the requested timesheet, otherwise the current , if not exist create
 timesheet = null;
 timesheetId = parameters.get("timesheetId");
+Debug.logInfo("====editweek: " + partyId + " timesheetId: " + timesheetId, "");
 if (timesheetId != null) {
         timesheet = delegator.findByPrimaryKey("Timesheet", UtilMisc.toMap("timesheetId", timesheetId));
         partyId = timesheet.getString("partyId"); // use the party from this timesheet
@@ -85,7 +86,6 @@ day0Total = 0.00; day1Total=0.00;day2Total=0.00; day3Total=0.00;day4Total=0.00;d
 pHours = 0.00;
 timeEntry = null;
 lastTimeEntry = null;
-lastWorkEffortId = null;
 
 // retrieve work effort data when the workeffortId has changed.
 void retrieveWorkEffortData() {
@@ -133,7 +133,7 @@ void retrieveWorkEffortData() {
 		entry = FastMap.newInstance();
 }
 
-timeEntries = timesheet.getRelated("TimeEntry", UtilMisc.toList("workEffortId", "fromDate"));
+timeEntries = timesheet.getRelated("TimeEntry", UtilMisc.toList("workEffortId", "rateTypeId", "fromDate"));
 te = timeEntries.iterator();
 while(te.hasNext()) {
 	// only fill lastTimeEntry when not the first time
@@ -142,7 +142,14 @@ while(te.hasNext()) {
 	} 
     timeEntry = te.next();
     
-    if (lastWorkEffortId != null && !lastWorkEffortId.equals(timeEntry.getString("workEffortId"))) {
+    // set the rate type to default if missing
+	if (timeEntry.getString("rateTypeId") == null) {
+		timeEntry.put("rateTypeId", context.get("defaultRateTypeId"));
+	}    
+	Debug.logInfo("bsh: workeffort:" + timeEntry.getString("workEffortId") + " ratetype: " + timeEntry.getString("rateTypeId"), "" ); 
+    if (lastTimeEntry != null && 
+    	(!lastTimeEntry.getString("workEffortId").equals(timeEntry.getString("workEffortId")) || 
+    	!lastTimeEntry.getString("rateTypeId").equals(timeEntry.getString("rateTypeId")))) {
     	retrieveWorkEffortData();
     }
     
@@ -163,7 +170,7 @@ while(te.hasNext()) {
     lastWorkEffortId = timeEntry.getString("workEffortId");
 }
 
-if (lastWorkEffortId != null) {
+if (lastTimeEntry != null) {
 	lastTimeEntry = timeEntry;
    	retrieveWorkEffortData();
     }
@@ -176,7 +183,7 @@ if (!timesheet.getString("statusId").equals("TIMESHEET_COMPLETED")) {
 }
 
 // add the totals line if at least one entry
-if (lastWorkEffortId != null) {
+if (lastTimeEntry != null) {
     entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
     entry.put("0", day0Total);
     entry.put("1", day1Total);

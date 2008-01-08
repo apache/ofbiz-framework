@@ -398,6 +398,12 @@
         <response name="success" type="view" value="MyTimesheet"/>
         <response name="error" type="view" value="MyTimesheet"/>
     </request-map>
+    <request-map uri="updateTimesheet">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateTimeEntryByWorkeffort"/>
+        <response name="success" type="view" value="Timesheet"/>
+        <response name="error" type="view" value="Timesheet"/>
+    </request-map>
     <request-map uri="updateTimeEntry">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimeEntry"/>
@@ -425,12 +431,6 @@
         <event type="service" invoke="createTimesheets"/>
         <response name="success" type="view" value="FindTimeSheet"/>
         <response name="error" type="view" value="FindTimeSheet"/>
-    </request-map>
-    <request-map uri="updateTimeSheet">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateTimesheet"/>
-        <response name="success" type="view" value="EditTimeSheet"/>
-        <response name="error" type="view" value="EditTimeSheet"/>
     </request-map>
     <request-map uri="deleteTimeSheet">
         <security https="true" auth="true"/>
