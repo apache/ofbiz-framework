@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindRequirements" type="single" target="FindRequirements" title="">
+    <form name="FindRequirements" type="single" target="FindRequirements" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
@@ -52,7 +53,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListRequirements" type="list" target="" title="" list-name="listIt" paginate-target="FindRequirements">
+    <form name="ListRequirements" type="list" target="" title="" list-name="listIt" paginate-target="FindRequirements"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
@@ -99,7 +101,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteRequirement?requirementId=${requirementId}"/>
         </field>
     </form>
-    <form name="EditRequirement" type="single" target="updateRequirement" title="" default-map-name="requirement">
+    <form name="EditRequirement" type="single" target="updateRequirement" title="" default-map-name="requirement"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="requirement==null" target="createRequirement"/>
         <auto-fields-service service-name="updateRequirement" default-field-type="edit"/>
         <field name="requirementId"><hidden/></field>
@@ -129,7 +132,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListRequirementCustRequests" type="list" title="" list-name="requirementCustRequests" paginate-target="ListRequirementCustRequests">
+    <form name="ListRequirementCustRequests" type="list" title="" list-name="requirementCustRequests" paginate-target="ListRequirementCustRequests"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="RequirementCustRequest" default-field-type="display"/>
         <field name="requirementId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
@@ -141,14 +145,16 @@ under the License.
     </form>
 
     <!-- lists the orders associated with a requirement -->
-    <form name="ListRequirementOrders" type="list" title="" list-name="orderRequirements" paginate-target="ListRequirementOrders">
+    <form name="ListRequirementOrders" type="list" title="" list-name="orderRequirements" paginate-target="ListRequirementOrders"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="OrderRequirementCommitment" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
             <hyperlink description="${orderId}" target-type="inter-app" target="/ordermgr/control/orderview?orderId=${orderId}"/>
         </field>
     </form>
     <!-- lists the roles associated with a requirement -->
-    <form name="ListRequirementRoles" type="list" title="" list-name="requirementRoles" paginate-target="ListRequirementRoles">
+    <form name="ListRequirementRoles" type="list" title="" list-name="requirementRoles" paginate-target="ListRequirementRoles"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="RequirementRole" default-field-type="display"/>
         <field name="requirementId"><hidden/></field>
         <field name="editLink" widget-style="buttontext" title="${uiLabelMap.CommonEdit}">
@@ -158,7 +164,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeRequirementRole?requirementId=${requirementId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>
-    <form name="EditRequirementRole" type="single" target="updateRequirementRole" title="" default-map-name="requirementRole">
+    <form name="EditRequirementRole" type="single" target="updateRequirementRole" title="" default-map-name="requirementRole"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="requirementRole==null" target="createRequirementRole"/>
         <field name="requirementId"><hidden/></field>
         <field name="partyId" use-when="requirementRole!=null"><display/></field>
@@ -176,7 +183,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="FindNotApprovedRequirements" type="single" target="ApproveRequirements" title="">
+    <form name="FindNotApprovedRequirements" type="single" target="ApproveRequirements" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
@@ -200,7 +208,7 @@ under the License.
         </field>
     </form>
     <form name="ApproveRequirements" type="multi" use-row-submit="true" target="approveRequirements" title="" list-name="requirements"
-        paginate-target="ApproveRequirements">
+        paginate-target="ApproveRequirements" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="requirementId" widget-style="buttontext">
             <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
         </field>
@@ -219,7 +227,8 @@ under the License.
           <submit/>
         </field>
     </form>
-    <form name="FindApprovedProductRequirements" type="single" target="ApprovedProductRequirements" title="">
+    <form name="FindApprovedProductRequirements" type="single" target="ApprovedProductRequirements" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="showList"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="billToCustomerPartyId">
@@ -247,7 +256,8 @@ under the License.
         <field name="requirementByDate"><date-find type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ApprovedProductRequirementsList" type="list" title="" list-name="requirementsForSupplier" paginate-target="RequirementsForSupplier">
+    <form name="ApprovedProductRequirementsList" type="list" title="" list-name="requirementsForSupplier" paginate-target="RequirementsForSupplier"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="prepareFind" result-map-name="resultConditions">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
@@ -282,7 +292,7 @@ under the License.
         <field name="comments"><display/></field>
     </form>
     <form name="ApprovedProductRequirements" type="multi" use-row-submit="true" target="quickPurchaseOrderEntry" title="" list-name="requirementsForSupplier"
-        paginate-target="RequirementsForSupplier">
+        paginate-target="RequirementsForSupplier" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billToCustomerPartyId"><hidden value="${parameters.billToCustomerPartyId}"/></field>
         <field name="supplierPartyId"><hidden value="${parameters.partyId}"/></field>
         <field name="requirementId" widget-style="buttontext">
@@ -310,18 +320,20 @@ under the License.
         <field name="comments"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
     </form>
-    <form name="ApprovedProductRequirementsSubmit" type="single">
+    <form name="ApprovedProductRequirementsSubmit" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="submitButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.OrderInputQuickPurchaseOrder}" target="javascript:document.ApprovedProductRequirements.submit()"/>
         </field>
     </form>
-    <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport" target="ApprovedProductRequirements">
-        <field name="distinctProductCount" title="Number of Products"><display/></field>
+    <form name="ApprovedProductRequirementsSummary" type="single" default-map-name="quantityReport" target="ApprovedProductRequirements"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="distinctProductCount" title="${uiLabelMap.OrderRequirementNumberOfProducts}"><display/></field>
         <field name="quantityTotal"><display/></field>
         <field name="amountTotal"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
     <form name="ApprovedProductRequirementsByVendor" type="list" use-row-submit="true" list-name="requirements" target="ApprovedProductRequirements" separate-columns="true"
-        paginate-target="ApprovedProductRequirementsByVendor">
+        paginate-target="ApprovedProductRequirementsByVendor" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId">
             <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
         </field>
