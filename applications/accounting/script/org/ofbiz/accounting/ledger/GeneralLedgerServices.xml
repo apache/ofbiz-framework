@@ -2175,7 +2175,7 @@ under the License.
             <set field="creditEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
             <set field="creditEntry.origAmount" from-field="paymentApplication.amountApplied"/>
             <set field="creditEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
-            <set field="creditEntry.glAccountId" value="payment.overrideGlAccountId"/>
+            <set field="creditEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
             <set field="creditEntry.glAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId"/>
             <!-- Debit -->
             <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
