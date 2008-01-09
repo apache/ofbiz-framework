@@ -33,24 +33,28 @@ under the License.
     <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     
     <!-- Sub-Organizations -->
-    <Party partyId="MARKETING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-27 09:37:41.016" lastUpdatedTxStamp="2004-03-27 09:37:41.016" createdStamp="2004-03-27 09:37:41.016" createdTxStamp="2004-03-27 09:37:41.016"/>
+    <Party partyId="MARKETING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="MARKETING" groupName="Marketing department"/>
-    <PartyRole partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO" lastUpdatedStamp="2004-03-27 09:37:41.142" lastUpdatedTxStamp="2004-03-27 09:37:41.142" createdStamp="2004-03-27 09:37:41.142" createdTxStamp="2004-03-27 09:37:41.142"/>
-
-    <Party partyId="ACCOUNTING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-27 09:37:41.016" lastUpdatedTxStamp="2004-03-27 09:37:41.016" createdStamp="2004-03-27 09:37:41.016" createdTxStamp="2004-03-27 09:37:41.016"/>
-    <PartyGroup partyId="ACCOUNTING" groupName="Accounting department"/>
-    <PartyRole partyId="ACCOUNTING" roleTypeId="INTERNAL_ORGANIZATIO" lastUpdatedStamp="2004-03-27 09:37:41.142" lastUpdatedTxStamp="2004-03-27 09:37:41.142" createdStamp="2004-03-27 09:37:41.142" createdTxStamp="2004-03-27 09:37:41.142"/>
-
-    <Party partyId="SALES" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-27 09:37:41.016" lastUpdatedTxStamp="2004-03-27 09:37:41.016" createdStamp="2004-03-27 09:37:41.016" createdTxStamp="2004-03-27 09:37:41.016"/>
-    <PartyGroup partyId="SALES" groupName="Sales department"/>
-    <PartyRole partyId="SALES" roleTypeId="INTERNAL_ORGANIZATIO" lastUpdatedStamp="2004-03-27 09:37:41.142" lastUpdatedTxStamp="2004-03-27 09:37:41.142" createdStamp="2004-03-27 09:37:41.142" createdTxStamp="2004-03-27 09:37:41.142"/>
-
-    <Party partyId="DEV" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-27 09:37:41.016" lastUpdatedTxStamp="2004-03-27 09:37:41.016" createdStamp="2004-03-27 09:37:41.016" createdTxStamp="2004-03-27 09:37:41.016"/>
-    <PartyGroup partyId="DEV" groupName="Development department"/>
-    <PartyRole partyId="DEV" roleTypeId="INTERNAL_ORGANIZATIO" lastUpdatedStamp="2004-03-27 09:37:41.142" lastUpdatedTxStamp="2004-03-27 09:37:41.142" createdStamp="2004-03-27 09:37:41.142" createdTxStamp="2004-03-27 09:37:41.142"/>
-
-    <Party partyId="TESTING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-27 09:37:41.016" lastUpdatedTxStamp="2004-03-27 09:37:41.016" createdStamp="2004-03-27 09:37:41.016" createdTxStamp="2004-03-27 09:37:41.016"/>
-    <PartyGroup partyId="TESTING" groupName="Testing department"/>
-    <PartyRole partyId="TESTING" roleTypeId="INTERNAL_ORGANIZATIO" lastUpdatedStamp="2004-03-27 09:37:41.142" lastUpdatedTxStamp="2004-03-27 09:37:41.142" createdStamp="2004-03-27 09:37:41.142" createdTxStamp="2004-03-27 09:37:41.142"/>
+    <PartyRole partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="MARKETING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
     
+    <Party partyId="ACCOUNTING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="ACCOUNTING" groupName="Accounting department"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    
+    <Party partyId="SALES" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="SALES" groupName="Sales department"/>
+    <PartyRole partyId="SALES" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    
+    <Party partyId="DEV" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="DEV" groupName="Development department"/>
+    <PartyRole partyId="DEV" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="DEV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
+    
+    <Party partyId="TESTING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <PartyGroup partyId="TESTING" groupName="Testing department"/>
+    <PartyRole partyId="TESTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="TESTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 </entity-engine-xml>
