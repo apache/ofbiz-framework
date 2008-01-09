@@ -32,7 +32,7 @@ under the License.
         </field>
         <field name="priority"><display/></field>
         <field name="createdDate"><display type="date"/></field>
-        <field name="partyId"><display/></field>
+        <field name="fromPartyId"><display/></field>
         <field name="statusId">
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
@@ -125,7 +125,7 @@ under the License.
         <field name="taskName">
             <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffort.workEffortName}"/>
         </field>
-        <field name="RequestDate"><display type="date"/></field>
+        <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><display type="date"/></field>
         <field name="createdDate"><display type="date"/></field>
         <field name="lastModifiedDate"><display type="date"/></field>
     </form>
