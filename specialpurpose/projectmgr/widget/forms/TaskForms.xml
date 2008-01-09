@@ -289,48 +289,40 @@
     </form>
     <form name="DependenciesBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies">
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="result">
+            <service service-name="getProjectTask" result-map-name="r">
                 <field-map field-name="taskId" env-name="workEffortIdFrom"/>
             </service>
-            <set field="task" from-field="result.taskInfo"/>
-            <set field="currentStatusId" from-field="task.currentStatusId"/>
-            <set field="taskName" from-field="task.taskName"/>
-            <set field="workEffortParentId" from-field="task.workEffortParentId"/>
         </row-actions>
         <field name="workEffortIdTo"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
-        <field name="workEffortIdFrom" title="${uiLabelMap.CommonName}"><hyperlink target="Dependencies?workEffortId=${workEffortIdFrom}" description="${taskName}"/></field>
-        <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/></field>        
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
-        <field name="estimatedStartDate" entry-name="workEffortToEstimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
-        <field name="estimatedCompletionDate"  entry-name="workEffortToEstimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
-        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
-        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
+        <field name="workEffortIdFrom" title="${uiLabelMap.CommonName}"><hyperlink target="Dependencies?workEffortId=${workEffortIdFrom}" description="${r.taskInfo.taskName}"/></field>
+        <field name="workEffortParentId" entry-name="r.taskInfo.workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/></field>        
+        <field name="currentStatusId" entry-name="r.taskInfo.currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="estimatedStartDate" entry-name="r.taskInfo.estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate"  entry-name="r.taskInfo.estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
+        <field name="actualStartDate" entry-name="r.taskInfo.actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate"  entry-name="r.taskInfo.actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
         <field name="deleteButton"><submit button-type="button"/></field>
     </form>
     <form name="DependenciesAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies">
         <row-actions>
-            <service service-name="getProjectTask" result-map-name="result">
+            <service service-name="getProjectTask" result-map-name="r">
                 <field-map field-name="taskId" env-name="workEffortIdTo"/>
             </service>
-            <set field="task" from-field="result.taskInfo"/>
-            <set field="currentStatusId" from-field="task.currentStatusId"/>
-            <set field="taskName" from-field="task.taskName"/>
-            <set field="workEffortParentId" from-field="task.workEffortParentId"/>
         </row-actions>
         <field name="workEffortIdFrom"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
-        <field name="workEffortIdTo" title="${uiLabelMap.CommonName}"><hyperlink target="Dependencies?workEffortId=${workEffortIdTo}" description="${taskName}"/></field>
-        <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/></field>        
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
-        <field name="estimatedStartDate" entry-name="workEffortToEstimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
-        <field name="estimatedCompletionDate"  entry-name="workEffortToEstimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
-        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
-        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
+        <field name="workEffortIdTo" title="${uiLabelMap.CommonName}"><hyperlink target="Dependencies?workEffortId=${workEffortIdTo}" description="${r.taskInfo.taskName}"/></field>
+        <field name="workEffortParentId" entry-name="r.taskInfo.workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/></field>        
+        <field name="currentStatusId" entry-name="r.taskInfo.currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="estimatedStartDate" entry-name="r.taskInfo.estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate"  entry-name="r.taskInfo.estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
+        <field name="actualStartDate" entry-name="r.taskInfo.actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate"  entry-name="r.taskInfo.actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
         <field name="deleteButton"><submit button-type="button"/></field>
     </form>
     <form name="AddDependencyBefore" type="single" target="addDependency">
