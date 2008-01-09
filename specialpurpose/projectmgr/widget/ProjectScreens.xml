@@ -35,7 +35,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleListSubProjects}</label></container>
                             <container style="screenlet-body">
-                                <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                <include-form name="EditSubProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                             </container>         
                         </container>     
                         <container style="screenlet">

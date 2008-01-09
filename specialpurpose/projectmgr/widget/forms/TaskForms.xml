@@ -199,11 +199,9 @@
             <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
         </row-actions>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName}[${workEffortId}]" target="taskView?workEffortId=${workEffortId}"/>
+            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView?workEffortId=${workEffortId}"/>
         </field>
-        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}">
-            <hyperlink also-hidden="false" description="${phaseName}" target="FindPhase?projectId=${projectId}"/>
-        </field>
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>

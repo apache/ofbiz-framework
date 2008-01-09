@@ -80,7 +80,7 @@
             <service service-name="getPartyTelephone" result-map-name="telResult"/>
         </row-actions>
         <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${personalTitle} ${lastName},${firstName} ${middleName} ${groupName}" target="viewprofile?partyId=${partyId}"/>
+            <hyperlink also-hidden="false" description="${firstName} ${middleName} ${lastName} ${groupName}" target="viewprofile?partyId=${partyId}"/>
         </field>
         <field name="roleTypeId"><hidden/></field>
         <field name="emailAddess"><hyperlink target="/partymgr/control/EditCommunicationEvent?partyIdFrom=${userLogin.partyId}&amp;partyIdTo=${partyId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;contactMechIdTo=${contactMechId}&amp;contactMechTypeId=EMAIL_ADDRESS" description="${emailResult.emailAddress}" target-type="inter-app"/></field>
@@ -111,9 +111,6 @@
         <field name="fromDate"><display type="date"/></field>
     </form>
     <form name="ListProjects" type="list" list-name="projects" paginate-target="FindProject">
-        <field name="projectId" title="${uiLabelMap.ProjectMgrWorkEffortId}"  widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${projectId}" target="projectView?projectId=${projectId}"/>
-        </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>
@@ -127,6 +124,24 @@
         <field name="actualHours"><display/></field>
         <field name="createdStamp"><display type="date"/></field>
     </form>                                        	
+    <form name="EditSubProjects" list-name="projects" type="list" target="RemoveSubProject">
+        <field name="projectId"><hidden/></field>
+        <field name="workEffortParentId"><hidden value=""/></field>
+        <field name="workEffortId"><hidden value="${projectId}"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
+        </field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
+        <field name="plannedHours"><display/></field>
+        <field name="actualHours"><display/></field>
+        <field name="createdStamp"><display type="date"/></field>
+        <!--field name="removeButton"><submit/></field--><!-- TODO: difficult to clear the workEffortParentId field in the record have to find solution-->    
+    </form>
     <form name="ProjectInfo" type="single" default-map-name="project" paginate-target="FindProject">
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><display/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
@@ -264,8 +279,8 @@
     </form>
     <form name="ListTaskInfo" type="list" list-name="tasks">
         <field name="projectId"><hidden value="parameters.projectId"/></field>
-        <field name="phase"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
         <field name="task"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
+        <field name="phaseName"><display/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority"><display/></field>
         <field name="startDate"><display/></field>
@@ -276,7 +291,7 @@
     <form name="ListProjectParties" type="list" list-name="parties">
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
-            <hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyName}"/>
+            <hyperlink target="viewprofile?partyId=${partyId}" description="${partyName}"/>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
@@ -300,18 +315,14 @@
     </form>
     <form name="EditWorkEffortPartyAssigns" target="deleteWorkEffortPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns">
         <actions>
-            <entity-condition entity-name="WorkEffortPartyAssignment">
+            <entity-condition entity-name="WorkEffortPartyAssignView">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
                 <order-by field-name="roleTypeId"/>
             </entity-condition>
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="projectId"><hidden/></field>
-        <field name="partyId" widget-style="buttontext">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
-            </display-entity>
-        </field>
+        <field name="partyId" widget-style="buttontext"><hyperlink target="viewprofile?partyId=${partyId}" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <display-entity entity-name="RoleType"/>
         </field>

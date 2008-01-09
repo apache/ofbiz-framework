@@ -112,8 +112,6 @@ under the License.
             </service>
             <set field="projectId" from-field="result.projectId"/>
             <set field="projectName" from-field="result.projectName"/>
-            <set field="phaseId" from-field="result.phaseId"/>
-            <set field="phaseName" from-field="result.phaseName"/>
         </actions>
         <field name="custRequestTypeId"><display-entity entity-name="CustRequestType" description="${description}"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
