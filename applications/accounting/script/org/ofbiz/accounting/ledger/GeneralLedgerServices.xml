@@ -2135,15 +2135,15 @@ under the License.
             <field-map field-name="paymentApplicationId" env-name="parameters.paymentApplicationId"/>
         </entity-one>  
         <get-related-one value-name="paymentApplication" relation-name="Payment" to-value-name="payment"/>
-        <entity-one entity-name="PaymentGlAccountTypeMap" value-name="paymentGlAccountTypeMap">
-            <field-map field-name="paymentTypeId" env-name="payment.paymentTypeId"/>
-            <field-map field-name="organizationPartyId" env-name="payment.partyIdFrom"/>
-        </entity-one>
         <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field-name="isReceipt">
             <field field-name="payment" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
         <if-compare field-name="isReceipt" operator="equals" type="Boolean" value="true">
-        <!--Credit -->
+            <entity-one entity-name="PaymentGlAccountTypeMap" value-name="paymentGlAccountTypeMap">
+                <field-map field-name="paymentTypeId" env-name="payment.paymentTypeId"/>
+                <field-map field-name="organizationPartyId" env-name="payment.partyIdTo"/>
+            </entity-one>
+            <!--Credit -->
             <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
             <set field="debitEntry.organizationPartyId" from-field="payment.partyIdTo"/>
@@ -2152,7 +2152,7 @@ under the License.
             <set field="debitEntry.origAmount" from-field="paymentApplication.amountApplied"/>
             <set field="debitEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
             <set field="debitEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
-            <set field="debitEntry.glAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId "/>
+            <set field="debitEntry.glAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId"/>
             <!-- Debit -->
             <make-value entity-name="AcctgTransEntry" value-name="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -2163,6 +2163,10 @@ under the License.
             <set field="creditEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
             <set field="creditEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
         <else>
+            <entity-one entity-name="PaymentGlAccountTypeMap" value-name="paymentGlAccountTypeMap">
+                <field-map field-name="paymentTypeId" env-name="payment.paymentTypeId"/>
+                <field-map field-name="organizationPartyId" env-name="payment.partyIdFrom"/>
+            </entity-one>
             <!--Credit -->
             <make-value entity-name="AcctgTransEntry" value-name="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
