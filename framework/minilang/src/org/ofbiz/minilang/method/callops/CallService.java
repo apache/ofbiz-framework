@@ -222,10 +222,10 @@ public class CallService extends MethodOperation {
         if (locale != null) {
             inMap.put("locale", locale);
         }
-        
+
         try {
             if (UtilValidate.isEmpty(this.requireNewTransactionStr) && this.transactionTimeout < 0) {
-                result = methodContext.getDispatcher().runSync(this.serviceName, inMap);
+                result = methodContext.getDispatcher().runSync(serviceName, inMap);
             } else {
                 ModelService modelService = methodContext.getDispatcher().getDispatchContext().getModelService(serviceName);
                 boolean requireNewTransaction = modelService.requireNewTransaction;
@@ -236,7 +236,7 @@ public class CallService extends MethodOperation {
                 if (this.transactionTimeout >= 0) {
                     timeout = this.transactionTimeout;
                 }
-                result = methodContext.getDispatcher().runSync(this.serviceName, inMap, timeout, requireNewTransaction);
+                result = methodContext.getDispatcher().runSync(serviceName, inMap, timeout, requireNewTransaction);
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
