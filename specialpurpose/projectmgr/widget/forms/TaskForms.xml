@@ -501,7 +501,7 @@
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
         <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
         <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
-        <field name="taskDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="taskDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text default-value="${custRequest.description}"/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*" parameter-name="workEffortParentId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectAndPhaseAndTask" description="${projectName} : ${phaseName}">    
@@ -540,4 +540,16 @@
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><date-time type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>                            
+    <form name="CreateCustRequestWorkEffortByExistingTaskForm" type="single" target="createTaskListForms">
+        <field name="custRequestId"><hidden/></field>
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} (${phaseName}-${projectName})">
+                    <entity-constraint name="partyId" env-name="userLogin.partyId"/>
+                    <entity-constraint name="workEffortTypeId" value="TASK"/>
+                    </entity-options>                
+                </drop-down>
+            </field>
+        <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+    </form>    
 </forms>
