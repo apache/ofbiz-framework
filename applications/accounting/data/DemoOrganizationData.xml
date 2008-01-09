@@ -36,25 +36,30 @@ under the License.
     <Party partyId="MARKETING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="MARKETING" groupName="Marketing department"/>
     <PartyRole partyId="MARKETING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="MARKETING" roleTypeId="_NA_"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="MARKETING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
     
     <Party partyId="ACCOUNTING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="ACCOUNTING" groupName="Accounting department"/>
     <PartyRole partyId="ACCOUNTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="ACCOUNTING" roleTypeId="_NA_"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="ACCOUNTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
     
     <Party partyId="SALES" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="SALES" groupName="Sales department"/>
     <PartyRole partyId="SALES" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="SALES" roleTypeId="_NA_"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="SALES" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
     
     <Party partyId="DEV" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="DEV" groupName="Development department"/>
     <PartyRole partyId="DEV" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="DEV" roleTypeId="_NA_"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="DEV" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
     
     <Party partyId="TESTING" partyTypeId="PARTY_GROUP" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <PartyGroup partyId="TESTING" groupName="Testing department"/>
     <PartyRole partyId="TESTING" roleTypeId="INTERNAL_ORGANIZATIO"/>
+    <PartyRole partyId="TESTING" roleTypeId="_NA_"/>
     <PartyRelationship partyIdFrom="Company" partyIdTo="TESTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
 </entity-engine-xml>
