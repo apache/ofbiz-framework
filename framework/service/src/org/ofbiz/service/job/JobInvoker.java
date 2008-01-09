@@ -283,7 +283,7 @@ public class JobInvoker implements Runnable {
         try {
             ttl = Long.parseLong(ServiceConfigUtil.getElementAttr("thread-pool", "ttl"));
         } catch (NumberFormatException nfe) {
-            Debug.logError("Problems reading values from serviceengine.xml file [" + nfe.toString() + "]. Using defaults.", module);
+            Debug.logError("Problems reading value from attribute [ttl] of element [thread-pool] in serviceengine.xml file [" + nfe.toString() + "]. Using default (" + THREAD_TTL + ").", module);
         }
         return ttl;
     }
