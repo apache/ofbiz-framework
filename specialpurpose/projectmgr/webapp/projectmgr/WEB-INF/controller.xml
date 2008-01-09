@@ -47,6 +47,12 @@
         <response name="error" type="view" value="ListSubProjects"/>
         <response name="success" type="view" value="ListSubProjects"/>
     </request-map>
+    <request-map uri="RemoveSubProject">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="error" type="view" value="ListSubProjects"/>
+        <response name="success" type="view" value="ListSubProjects"/>
+    </request-map>
     <request-map uri="FindProject">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindProject"/>

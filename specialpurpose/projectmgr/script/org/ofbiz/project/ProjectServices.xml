@@ -495,6 +495,7 @@
                         </if-compare>
                     </if-compare>
                     <call-simple-method method-name="combineInfo"/>
+                    <call-simple-method method-name="getHours"/>
                 </iterate>
             </if-not-empty>
             
@@ -546,16 +547,7 @@
         </entity-and>        
         <if-not-empty field-name="tasks">
             <iterate entry-name="lowInfo" list-name="tasks">
-                <if-empty field-name="savePhaseName">
-                    <set field="savePhaseName" from-field="lowInfo.phaseName"/>
-                    <set field="highInfo.phaseName" from-field="lowInfo.phaseName"/>
-                    <else>
-                        <if-compare-field field-name="lowInfo.phaseName" operator="not-equals" to-field-name="savePhaseName">
-                            <set field="highInfo.phaseName" from-field="lowInfo.phaseName"/>
-                            <set field="savePhaseName" from-field="lowInfo.phaseName"/>
-                        </if-compare-field>
-                    </else>
-                </if-empty>
+                <set field="highInfo.phaseName" from-field="lowInfo.phaseName"/>
                 <call-simple-method method-name="combineInfo"/>
                 <clear-field field-name="highInfo.sequenceId"/>
                 <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
