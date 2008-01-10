@@ -374,7 +374,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
             // adjust the padding
             expandMap.put("description", UtilFormatOut.padString((String) expandMap.get("description"), descLength[type], true, ' '));
             expandMap.put("productId", UtilFormatOut.padString((String) expandMap.get("productId"), pridLength[type], true, ' '));
-            expandMap.put("basePrice", UtilFormatOut.padString((String) expandMap.get("basePrice"), priceLength[type], false, ' '));
+            expandMap.put("basePrice", UtilFormatOut.padString((String) expandMap.get("basePrice"), priceLength[type], false, ' '));            
             expandMap.put("subtotal", UtilFormatOut.padString((String) expandMap.get("subtotal"), priceLength[type], false, ' '));
             expandMap.put("quantity", UtilFormatOut.padString((String) expandMap.get("quantity"), qtyLength[type], false, ' '));
             expandMap.put("adjustments", UtilFormatOut.padString((String) expandMap.get("adjustments"), priceLength[type], false, ' '));
@@ -397,16 +397,11 @@ public class Receipt extends GenericDevice implements DialogCallback {
                     expandMap = this.makeCodeExpandMap(trans, type);
                     expandMap.putAll(map);
                     // adjust the padding
-                    expandMap.put("description",
-                        UtilFormatOut.padString(this.configPadding[type] + 
-                        (String) expandMap.get("description"), descLength[type], true, ' '));
+                    expandMap.put("configDescription",
+                        UtilFormatOut.padString(this.configPadding[type] + (String) expandMap.get("configDescription"), descLength[type], true, ' '));
                     expandMap.put("productId", UtilFormatOut.padString((String) expandMap.get("productId"), pridLength[type], true, ' '));
-                    //expandMap.put("basePrice", UtilFormatOut.padString((String) expandMap.get("basePrice"), priceLength[type], false, ' '));
-                    expandMap.put("basePrice", UtilFormatOut.padString((String) " ", priceLength[type], false, ' '));
-                    expandMap.put("subtotal", UtilFormatOut.padString((String) expandMap.get("subtotal"), priceLength[type], false, ' '));
-                    //expandMap.put("quantity", UtilFormatOut.padString((String) expandMap.get("quantity"), qtyLength[type], false, ' '));
-                    expandMap.put("quantity", UtilFormatOut.padString((String) " ", qtyLength[type], false, ' '));
-                    expandMap.put("isTaxable", UtilFormatOut.padString((String) " ", priceLength[type], false, ' '));
+                    expandMap.put("configBasePrice", UtilFormatOut.padString((String) expandMap.get("configBasePrice"), priceLength[type], false, ' '));
+                    expandMap.put("configQuantity", UtilFormatOut.padString((String) expandMap.get("configQuantity"), qtyLength[type], false, ' '));
                     toPrint = FlexibleStringExpander.expandString(loopStr, expandMap);
                     if (toPrint.indexOf("\n") > -1) {
                         String[] lines = toPrint.split("\\n");

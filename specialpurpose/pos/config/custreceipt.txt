@@ -36,6 +36,7 @@ DESC                              PRICE    QTY
 [BEGIN ITEM LOOP]
 ${productId} ${isTaxable}${basePrice} ${quantity}
 ${description} ${adjustments}
+${configDescription} ${configBasePrice} ${configQuantity}
 [END ITEM LOOP]
 
                          SALES TAX: ${taxTotal}
@@ -53,4 +54,5 @@ ${authInfoString}
 [ORDER BARCODE]
 
 ${CENTER}${DOUBLE_HEIGHT}${BOLD}THANK-YOU
+
 

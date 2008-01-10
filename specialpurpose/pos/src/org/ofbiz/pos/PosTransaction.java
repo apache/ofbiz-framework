@@ -232,12 +232,17 @@ public class PosTransaction implements Serializable {
         itemInfo.put("productId", item.getProductId());
         itemInfo.put("description", item.getDescription());
         itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
-        itemInfo.put("basePrice", UtilFormatOut.formatPrice(item.getBasePrice()));
         itemInfo.put("subtotal", UtilFormatOut.formatPrice(item.getItemSubTotal()));
         itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
         itemInfo.put("adjustments", item.getOtherAdjustments() != 0 ?
                 UtilFormatOut.formatPrice(item.getOtherAdjustments()) : "");
-
+        if (isAggregatedItem(item.getProductId())){
+            ProductConfigWrapper pcw = null;
+            pcw = item.getConfigWrapper();
+            itemInfo.put("basePrice", UtilFormatOut.formatPrice(pcw.getDefaultPrice()));
+        } else {
+            itemInfo.put("basePrice", UtilFormatOut.formatPrice(item.getBasePrice()));
+        }
         return itemInfo;
     }
 
@@ -255,13 +260,13 @@ public class PosTransaction implements Serializable {
             while(iter.hasNext()){
                 ConfigOption configoption = (ConfigOption)iter.next();
                 Map itemInfo = new HashMap();
-                if (configoption.isSelected()){
+                if (configoption.isSelected() && !configoption.isDefault()){
                     itemInfo.put("productId", "");
                     itemInfo.put("sku", "");
-                    itemInfo.put("description", configoption.getDescription());
-                    itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
-                    itemInfo.put("basePrice", UtilFormatOut.formatPrice(configoption.getPrice()));
-                    itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
+                    itemInfo.put("configDescription", configoption.getDescription());
+                    itemInfo.put("configQuantity", UtilFormatOut.formatQuantity(item.getQuantity()));
+                    itemInfo.put("configBasePrice", UtilFormatOut.formatPrice(configoption.getOffsetPrice()));
+                    //itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
                     list.add(itemInfo);
                 }
             }
