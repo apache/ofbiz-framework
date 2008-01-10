@@ -61,6 +61,7 @@ under the License.
             </#if>
             <li><a href="<@ofbizUrl>EditProductWorkEfforts?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductWorkEfforts?default(unselectedClassName)}">${uiLabelMap.WorkEffortWorkEffort}</a><li>
             <li><a href="<@ofbizUrl>EditProductParties?productId=${productId}</@ofbizUrl>" class="${selectedClassMap.EditProductParties?default(unselectedClassName)}">${uiLabelMap.PartyParties}</a><li>
-        </ul>    
+        </ul>
+      <br/>                
     </div>
 </#if>
