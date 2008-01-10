@@ -1416,7 +1416,7 @@ under the License.
             <calculate field-name="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="multiply">
                     <calcop operator="get" field-name="inventoryItemDetail.quantityOnHandDiff"/>
-                    <calcop operator="get" field-name="inventoryItem.unitCost "/>
+                    <calcop operator="get" field-name="inventoryItem.unitCost"/>
                 </calcop>
             </calculate>
             <!-- Credit Entries -->
@@ -1963,7 +1963,7 @@ under the License.
                 <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
                 <set field="creditEntry.productId" from-field="invoiceItem.productId"/>
                 <set field="creditEntry.origAmount" from-field="origAmount"/>
-                <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId "/>
+                <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
                 <set field="creditEntry.glAccountId" from-field="invoiceItem.overrideGlAccountId"/>
                 <if-not-empty field-name="invoiceItem.taxAuthPartyId">
                     <set field="creditEntry.partyId" from-field="invoiceItem.taxAuthPartyId"/>
