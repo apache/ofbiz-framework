@@ -942,6 +942,7 @@ public class EmailServices {
             } else {
                 commEventMap.put("statusId", "COM_UNKNOWN_PARTY");
             }
+            if (commNote.length() > 255) commNote = commNote.substring(0,255);
             
             if (!("".equals(commNote))) {
                 commEventMap.put("note", commNote);
