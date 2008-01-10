@@ -36,9 +36,13 @@ under the License.
     </div>
   </td>
   <td align="right" valign="middle" width="5%">
-    <div class="<#if price.isSale?exists && price.isSale>salePrice<#else>normalPrice</#if>">
-      <b><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></b>
-    </div>
+      <#if totalPrice?exists>
+        <div class="tabletext">${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
+      <#else> 
+        <div class="<#if price.isSale?exists && price.isSale>salePrice<#else>normalPrice</#if>">
+          <b><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></b>
+        </div>
+      </#if>
   </td>                                 
   <td align="right" valign="middle">
     <#-- check to see if introductionDate hasn't passed yet -->
@@ -57,4 +61,5 @@ under the License.
 <#else>
   <h1>${uiLabelMap.ProductErrorProductNotFound}.</h1>
 </#if>
+
 

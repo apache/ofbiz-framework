@@ -27,6 +27,7 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.service.*;
 import org.ofbiz.product.product.ProductContentWrapper;
+import org.ofbiz.product.config.ProductConfigWorker;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.order.shoppingcart.*;
@@ -50,6 +51,7 @@ context.put("nowTimestamp", UtilDateTime.nowTimestamp());
 context.remove("daysToShip");
 context.remove("averageRating");
 context.remove("numRatings");
+context.remove("totalPrice");
 
 if (product != null) {
     productId = product.get("productId");
@@ -114,6 +116,16 @@ if (product != null) {
 
         context.put("price", priceMap);
     }
+
+    // get aggregated product totalPrice
+    if ("AGGREGATED".equals(product.getString("productTypeId"))) {
+        configWrapper = ProductConfigWorker.getProductConfigWrapper(productId, cart.getCurrency(), request);
+        if (configWrapper != null) {
+            configWrapper.setDefaultConfig();
+            context.put("totalPrice",configWrapper.getTotalPrice());
+        }
+    }
+
     // get the product review(s)
     reviews = product.getRelatedCache("ProductReview", null, UtilMisc.toList("-postedDateTime"));
 }

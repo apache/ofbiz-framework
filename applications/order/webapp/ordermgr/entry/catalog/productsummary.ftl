@@ -108,6 +108,9 @@ under the License.
           </#if>
           <div class="tabletext">
               <b>${product.productId?if_exists}</b>
+                <#if totalPrice?exists>
+                  <div class="tabletext">${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
+                <#else>
                 <#if price.competitivePrice?exists && price.price?exists && price.price?double < price.competitivePrice?double>
                   ${uiLabelMap.ProductCompareAtPrice}: <span class='basePrice'><@ofbizCurrency amount=price.competitivePrice isoCode=price.currencyUsed/></span>
                 </#if>
@@ -130,6 +133,7 @@ under the License.
                   <#assign priceSaved = price.listPrice?double - price.price?double>
                   <#assign percentSaved = (priceSaved?double / price.listPrice?double) * 100>
                     ${uiLabelMap.EcommerceSave}: <span class="basePrice"><@ofbizCurrency amount=priceSaved isoCode=price.currencyUsed/> (${percentSaved?int}%)</span>
+                </#if>
                 </#if>
                 <#-- show price details ("showPriceDetails" field can be set in the screen definition) -->
                 <#if (showPriceDetails?exists && showPriceDetails?default("N") == "Y")>

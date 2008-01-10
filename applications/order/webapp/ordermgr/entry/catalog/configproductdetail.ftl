@@ -195,7 +195,7 @@ ${virtualJavaScript?if_exists}
               - if isSale show price with salePrice style and print "On Sale!"
       -->
       <#if totalPrice?exists>
-        <div class="tabletext">${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=price.currencyUsed/></span></div>
+        <div class="tabletext">${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
       <#else>
       <#if price.competitivePrice?exists && price.price?exists && price.price?double < price.competitivePrice?double>
         <div class="tabletext">${uiLabelMap.ProductCompareAtPrice}: <span class='basePrice'><@ofbizCurrency amount=price.competitivePrice isoCode=price.currencyUsed/></span></div>
