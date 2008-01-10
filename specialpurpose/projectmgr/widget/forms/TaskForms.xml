@@ -500,6 +500,7 @@
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
         <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
+        <field name="statusId"><hidden value="CRQ_ACCEPTED"/></field>
         <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field name="taskDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text default-value="${custRequest.description}"/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*" parameter-name="workEffortParentId">
@@ -542,6 +543,7 @@
     </form>                            
     <form name="CreateCustRequestWorkEffortByExistingTaskForm" type="single" target="createTaskListForms">
         <field name="custRequestId"><hidden/></field>
+        <field name="statusId"><hidden value="CRQ_ACCEPTED"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} (${phaseName}-${projectName})">
