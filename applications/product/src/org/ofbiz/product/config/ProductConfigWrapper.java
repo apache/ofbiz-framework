@@ -48,6 +48,7 @@ public class ProductConfigWrapper implements Serializable {
     protected GenericValue product = null; // the aggregated product
     protected double basePrice = 0.0;
     protected List questions = null; // ProductConfigs
+    protected double defaultPrice = 0.0;
     
     /** Creates a new instance of ProductConfigWrapper */
     public ProductConfigWrapper() {
@@ -60,6 +61,7 @@ public class ProductConfigWrapper implements Serializable {
     public ProductConfigWrapper(ProductConfigWrapper pcw) {
         product = GenericValue.create(pcw.product);
         basePrice = pcw.basePrice;
+        defaultPrice = pcw.defaultPrice;
         questions = new ArrayList();
         for (int i = 0; i < pcw.questions.size(); i++) {
             questions.add(new ConfigItem((ConfigItem)pcw.questions.get(i)));
@@ -100,10 +102,11 @@ public class ProductConfigWrapper implements Serializable {
                 List configOptions = delegator.findByAnd("ProductConfigOption", UtilMisc.toMap("configItemId", oneQuestion.getConfigItemAssoc().getString("configItemId")), UtilMisc.toList("sequenceNum"));
                 Iterator configOptionsIt = configOptions.iterator();
                 while (configOptionsIt.hasNext()) {
-                    ConfigOption option = new ConfigOption(delegator, dispatcher, (GenericValue)configOptionsIt.next(), catalogId, webSiteId, currencyUomId, autoUserLogin);
+                    ConfigOption option = new ConfigOption(delegator, dispatcher, (GenericValue)configOptionsIt.next(), oneQuestion, catalogId, webSiteId, currencyUomId, autoUserLogin);
                     oneQuestion.addOption(option);
                 }
             }
+            this.setDefaultPrice();
         }
     }
     
@@ -205,6 +208,18 @@ public class ProductConfigWrapper implements Serializable {
         }
         return selectedOptions;
     }
+
+    public List getDefaultOptions() {
+        List defaultOptions = new ArrayList();
+        for (int i = 0; i < questions.size(); i++) {
+            ConfigItem ci = (ConfigItem)questions.get(i);
+            ConfigOption co = ci.getDefault();
+            if (co != null){
+                defaultOptions.add(co);
+            }
+        }
+        return defaultOptions;
+    } 
     
     public double getTotalPrice() {
         double totalPrice = basePrice;
@@ -214,6 +229,20 @@ public class ProductConfigWrapper implements Serializable {
             totalPrice += oneOption.getPrice();
         }
         return totalPrice;
+    }
+
+    private void setDefaultPrice() {
+        double totalPrice = basePrice;
+        List options = getDefaultOptions();
+        for (int i = 0; i < options.size(); i++) {
+            ConfigOption oneOption = (ConfigOption)options.get(i);
+            totalPrice += oneOption.getPrice();
+        }
+        defaultPrice = totalPrice;
+    } 
+    
+    public double getDefaultPrice(){
+        return defaultPrice;
     }
     
     public boolean isCompleted() {
@@ -404,9 +433,11 @@ public class ProductConfigWrapper implements Serializable {
         GenericValue configOption = null;
         boolean selected = false;
         boolean available = true;
+        ConfigItem parentConfigItem = null;
         
-        public ConfigOption(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue option, String catalogId, String webSiteId, String currencyUomId, GenericValue autoUserLogin) throws Exception {
+        public ConfigOption(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue option, ConfigItem configItem, String catalogId, String webSiteId, String currencyUomId, GenericValue autoUserLogin) throws Exception {
             configOption = option;
+            parentConfigItem = configItem;
             componentList = option.getRelated("ConfigOptionProductConfigProduct");
             Iterator componentsIt = componentList.iterator();
             while (componentsIt.hasNext()) {
@@ -460,6 +491,23 @@ public class ProductConfigWrapper implements Serializable {
         
         public double getPrice() {
             return optionPrice;
+        }
+        
+        public double getOffsetPrice() {
+            ConfigOption defaultConfigOption = parentConfigItem.getDefault();
+            if (parentConfigItem.isSingleChoice() && UtilValidate.isNotEmpty(defaultConfigOption)){
+                return optionPrice - defaultConfigOption.getPrice();                                    
+            } else {  // can select multiple or no default; show full price
+                return optionPrice;
+            }
+        }
+        
+        public boolean isDefault() {
+            ConfigOption defaultConfigOption = parentConfigItem.getDefault();
+            if (this.equals(defaultConfigOption)) {
+                return true;
+            }
+            return false;
         }
         
         public boolean isSelected() {
