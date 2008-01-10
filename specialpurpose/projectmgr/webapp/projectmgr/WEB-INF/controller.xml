@@ -552,7 +552,7 @@
     <request-map uri="createTaskListForms">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffortRequest"/>
-        <response name="success" type="view" value="RequestList"/>
+        <response name="success" type="request" value="updaterequeststatus"/>
         <response name="error" type="view" value="RequestList"/>
         </request-map>
     <request-map uri="newrequest">
@@ -577,6 +577,12 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="listResourcesProject"/>
         <response name="error" type="view" value="listResourcesProject"/>
+    </request-map>
+    <request-map uri="updaterequeststatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCustRequest"/>
+        <response name="success" type="view" value="RequestList"/>
+        <response name="error" type="view" value="RequestList"/>
     </request-map>
     <!-- end of request mappings -->
 
