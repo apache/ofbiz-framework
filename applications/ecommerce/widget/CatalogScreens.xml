@@ -94,6 +94,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/miniproductsummary.bsh"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/catalog/minilastviewedproducts.ftl"/></html></platform-specific>

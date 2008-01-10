@@ -21,6 +21,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.service.*;
 import org.ofbiz.product.product.ProductContentWrapper;
+import org.ofbiz.product.config.ProductConfigWorker;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.order.shoppingcart.*;
@@ -32,6 +33,8 @@ webSiteId = CatalogWorker.getWebSiteId(request);
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 cart = ShoppingCartEvents.getCartObject(request);
+context.remove("totalPrice");
+
 
 if (optProductId != null) {    
     miniProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", optProductId));
@@ -53,6 +56,15 @@ if (miniProduct != null && productStoreId != null && prodCatalogId != null) {
 
     context.put("priceResult", priceResult);
 
+    // get aggregated product totalPrice
+    if ("AGGREGATED".equals(miniProduct.getString("productTypeId"))) {
+        configWrapper = ProductConfigWorker.getProductConfigWrapper(optProductId, cart.getCurrency(), request);
+        if (configWrapper != null) {
+            configWrapper.setDefaultConfig();
+            context.put("totalPrice",configWrapper.getTotalPrice());
+        }
+    }    
+    
     context.put("miniProduct", miniProduct);
     context.put("nowTimeLong", UtilDateTime.nowTimestamp().getTime());
 
@@ -62,5 +74,6 @@ if (miniProduct != null && productStoreId != null && prodCatalogId != null) {
     // make the miniProductContentWrapper
     ProductContentWrapper miniProductContentWrapper = new ProductContentWrapper(miniProduct, request);
     context.put("miniProductContentWrapper", miniProductContentWrapper);
+    
 }
 

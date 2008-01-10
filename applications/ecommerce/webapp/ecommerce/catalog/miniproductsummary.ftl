@@ -20,7 +20,13 @@ under the License.
     <a href="<@ofbizUrl>product/~product_id=${miniProduct.productId}</@ofbizUrl>" class="linktext">${miniProductContentWrapper.get("PRODUCT_NAME")?default("No Name Available")}</a>
     <div class="tabletext"><b>${miniProduct.productId}</b>
       <#if (priceResult.price?default(0) > 0 && miniProduct.requireAmount?default("N") == "N")>
-        <#if "Y" = miniProduct.isVirtual?if_exists> ${uiLabelMap.CommonFrom} </#if><b><span class="<#if priceResult.isSale>salePrice<#else>normalPrice</#if>"><@ofbizCurrency amount=priceResult.price isoCode=priceResult.currencyUsed/></span></b>
+        <#if "Y" = miniProduct.isVirtual?if_exists> ${uiLabelMap.CommonFrom} </#if>
+        <#if totalPrice?exists>
+          <div class="tabletext">${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
+        <#else>        
+          <b><span class="<#if priceResult.isSale>salePrice<#else>normalPrice</#if>">
+          <@ofbizCurrency amount=priceResult.price isoCode=priceResult.currencyUsed/></span></b>
+        </#if>
       </#if>
     </div>
 
