@@ -74,14 +74,26 @@ under the License.
             </else>
         </if-empty>
     </simple-method>
+    <simple-method method-name="checkProductFacilityRelatedPermission" short-description="ProductFacility Permission Checking Logic">
+         <if-empty field-name="mainAction">
+            <set field="mainAction" from-field="parameters.mainAction"/>
+            <if-empty field-name="mainAction">
+                <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionMainActionAttributeMissing"/></add-error>
+            </if-empty>
+        </if-empty>
+        <check-errors/>
+        <set field="resourceDescription" from-field="parameters.resourceDescription"/>
+        <if-empty field-name="resourceDescription">
+            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
+        </if-empty>
+        <set field="callingMethodName" from-field="resourceDescription" />
+        <set field="checkAction" from-field="mainAction" />
+        <set field="alternatePermissionRoot" value="FACILITY"/>
+        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+    </simple-method>
 
     <!-- InventoryItem methods -->
     <simple-method method-name="createInventoryItem" short-description="Create an InventoryItem">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <alt-permission permission="FACILITY" action="_CREATE"/>
-            <fail-message message="Security Error: to run createInventoryItem you must have the CATALOG_CREATE, CATALOG_ADMIN, FACILITY_CREATE, or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
 
         <make-value value-name="inventoryItem" entity-name="InventoryItem"/>
         <!-- TODO: make sure availableToPromiseTotal and quantityOnHandTotal are not changed -->
@@ -199,11 +211,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateInventoryItem" short-description="Update an InventoryItem">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <alt-permission permission="FACILITY" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateInventoryItem you must have the CATALOG_UPDATE, CATALOG_ADMIN, FACILITY_UPDATE, or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
 
         <make-value entity-name="InventoryItem" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
@@ -448,10 +455,6 @@ under the License.
 
 
     <simple-method method-name="createInventoryItemVariance" short-description="Create an InventoryItemVariance">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <alt-permission permission="FACILITY" action="_CREATE"/>
-            <fail-message message="Security Error: to run createInventoryItemVariance you must have the CATALOG_CREATE, CATALOG_ADMIN, FACILITY_CREATE, or FACILITY_ADMIN permission"/>
-        </check-permission>
 
         <!-- add changes to availableToPromise and quantityOnHand -->
         <make-value value-name="inventoryItemLookup" entity-name="InventoryItem"/>
@@ -481,11 +484,6 @@ under the License.
         <!-- TODO: make sure availableToPromise is never greater than the quantityOnHand? -->
     </simple-method>
     <simple-method method-name="createPhysicalInventory" short-description="Create a PhysicalInventory">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <alt-permission permission="FACILITY" action="_CREATE"/>
-            <fail-message message="Security Error: to run createPhysicalInventory you must have the CATALOG_CREATE, CATALOG_ADMIN, FACILITY_CREATE, or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
 
         <make-value value-name="newEntity" entity-name="PhysicalInventory"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -515,11 +513,6 @@ under the License.
 
     <!-- ProductFacility methods -->
     <simple-method method-name="createProductFacility" short-description="Create a ProductFacility">
-        <set value="createProductFacility" field="callingMethodName"/>
-        <set value="CREATE" field="checkAction"/>
-        <set value="FACILITY" field="alternatePermissionRoot"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
-        <check-errors/>
 
         <make-value value-name="newEntity" entity-name="ProductFacility"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -527,11 +520,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFacility" short-description="Update a ProductFacility">
-        <set value="updateProductFacility" field="callingMethodName"/>
-        <set value="UPDATE" field="checkAction"/>
-        <set value="FACILITY" field="alternatePermissionRoot"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
-        <check-errors/>
 
         <make-value entity-name="ProductFacility" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
@@ -540,11 +528,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductFacility" short-description="Delete a ProductFacility">
-        <set value="deleteProductFacility" field="callingMethodName"/>
-        <set value="DELETE" field="checkAction"/>
-        <set value="FACILITY" field="alternatePermissionRoot"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
-        <check-errors/>
 
         <make-value entity-name="ProductFacility" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
@@ -554,11 +537,6 @@ under the License.
 
     <!-- ProductFacilityLocation methods -->
     <simple-method method-name="createProductFacilityLocation" short-description="Create a ProductFacilityLocation">
-        <set value="createProductFacilityLocation" field="callingMethodName"/>
-        <set value="CREATE" field="checkAction"/>
-        <set value="FACILITY" field="alternatePermissionRoot"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
-        <check-errors/>
 
         <make-value value-name="newEntity" entity-name="ProductFacilityLocation"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -566,11 +544,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFacilityLocation" short-description="Update a ProductFacilityLocation">
-        <set value="updateProductFacilityLocation" field="callingMethodName"/>
-        <set value="UPDATE" field="checkAction"/>
-        <set value="FACILITY" field="alternatePermissionRoot"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
-        <check-errors/>
 
         <make-value entity-name="ProductFacilityLocation" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
@@ -579,11 +552,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductFacilityLocation" short-description="Delete a ProductFacilityLocation">
-        <set value="deleteProductFacilityLocation" field="callingMethodName"/>
-        <set value="DELETE" field="checkAction"/>
-        <set value="FACILITY" field="alternatePermissionRoot"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
-        <check-errors/>
 
         <make-value entity-name="ProductFacilityLocation" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
@@ -854,8 +822,6 @@ under the License.
 
     <!-- Inventory Transfer Services -->
     <simple-method method-name="createInventoryTransfer" short-description="Create an Inventory Transfer">
-        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run createInventoryTransfer you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
-        <check-errors/>
 
         <make-value value-name="newEntity" entity-name="InventoryTransfer"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -865,10 +831,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateInventoryTransfer" short-description="Update an Inventory Transfer">
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updateInventoryTransfer you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
 
         <set from-field="parameters.inventoryTransferId" field="lookupPKMap.inventoryTransferId"/>
         <find-by-primary-key entity-name="InventoryTransfer" map-name="lookupPKMap" value-name="inventoryTransfer"/>
@@ -892,8 +854,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInventoryTransfersForProduct" short-description="Create inventory transfers for the given product and quantity. Return the units not available for transfers.">
-        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run createInventoryTransfer you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
-        <check-errors/>
 
         <set from-field="parameters.productId" field="lookupFieldMap.productId"/>
         <set from-field="parameters.facilityId" field="lookupFieldMap.facilityId"/>

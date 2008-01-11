@@ -29,10 +29,21 @@ under the License.
         location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="facilityGenericPermission">
         <implements service="permissionInterface"/>
     </service>
+    <service name="checkFacilityRelatedPermission" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkFacilityRelatedPermission">
+        <description>Facility Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
+    <service name="checkProductFacilityRelatedPermission" engine="simple"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkProductFacilityRelatedPermission">
+        <description>ProductFacility Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
     <!-- Product Inventory Services -->
     <service name="createInventoryItem" default-entity-name="InventoryItem" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItem" auth="true">
         <description>Create an InventoryItem</description>
+        <permission-service service-name="checkFacilityRelatedPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="availableToPromiseTotal"/>
@@ -54,6 +65,7 @@ under the License.
     <service name="updateInventoryItem" default-entity-name="InventoryItem" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItem" auth="true">
         <description>Update an InventoryItem</description>
+        <permission-service service-name="checkFacilityRelatedPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="availableToPromiseTotal"/>
@@ -109,12 +121,14 @@ under the License.
     <service name="createInventoryItemVariance" default-entity-name="InventoryItemVariance" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemVariance" auth="true">
         <description>Create an InventoryItemVariance - note that the quantityOnHand and availableToPromise are relative and will be added to the corresponding value on the given InventoryItem</description>
+        <permission-service service-name="checkFacilityRelatedPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="createPhysicalInventory" default-entity-name="PhysicalInventory" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createPhysicalInventory" auth="true">
         <description>Create an PhysicalInventory</description>
+        <permission-service service-name="checkFacilityRelatedPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -358,6 +372,7 @@ under the License.
     <service name="createInventoryTransfer" engine="simple"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryTransfer" auth="true">
         <description>Create an inventory transfer.  Uses the prepareInventoryTransfer service; see comments there about transfer quantities and inventory items.</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceInventoryTransfer"/>
         <attribute name="xferQty" type="Double" mode="IN" optional="false"/>
         <attribute name="inventoryTransferId" type="String" mode="OUT" optional="false"/>
@@ -365,6 +380,7 @@ under the License.
     <service name="updateInventoryTransfer" engine="simple"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryTransfer" auth="true">
         <description>Update an inventory transfer record</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceInventoryTransfer"/>
         <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
     </service>
@@ -388,6 +404,7 @@ under the License.
     <service name="createInventoryTransfersForProduct" engine="simple"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryTransfersForProduct" auth="true">
         <description>Create inventory transfers for the given product and quantity. Return the units not available for transfers.</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="containerId" type="String" mode="IN" optional="true"/>
         <attribute name="facilityIdTo" type="String" mode="IN" optional="false"/>
@@ -421,36 +438,42 @@ under the License.
     <service name="createProductFacility" default-entity-name="ProductFacility" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createProductFacility" auth="true">
         <description>Create an ProductFacility</description>
+        <permission-service service-name="checkProductFacilityRelatedPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateProductFacility" default-entity-name="ProductFacility" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateProductFacility" auth="true">
         <description>Update an ProductFacility</description>
+        <permission-service service-name="checkProductFacilityRelatedPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductFacility" default-entity-name="ProductFacility" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteProductFacility" auth="true">
         <description>Delete an ProductFacility</description>
+        <permission-service service-name="checkProductFacilityRelatedPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createProductFacilityLocation" auth="true">
         <description>Create an ProductFacilityLocation</description>
+        <permission-service service-name="checkProductFacilityRelatedPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateProductFacilityLocation" auth="true">
         <description>Update an ProductFacilityLocation</description>
+        <permission-service service-name="checkProductFacilityRelatedPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductFacilityLocation" default-entity-name="ProductFacilityLocation" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="deleteProductFacilityLocation" auth="true">
         <description>Delete an ProductFacilityLocation</description>
+        <permission-service service-name="checkProductFacilityRelatedPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
