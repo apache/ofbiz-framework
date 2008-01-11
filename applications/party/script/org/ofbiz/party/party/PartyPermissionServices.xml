@@ -226,7 +226,11 @@ under the License.
         </if-compare>
     </simple-method>
     <simple-method method-name="partyCommunicationEventPermissionCheck" short-description="Communication Event permission logic">
-        <set field="primaryPermission" value="PARTYMGR_CME"/>
-        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        <set field="hasPermission" type="Boolean" value="false"/>
+        <call-simple-method method-name="partyIdPermissionCheck"/>        
+        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+            <set field="primaryPermission" value="PARTYMGR_CME"/>
+            <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        </if-compare>        
     </simple-method>
 </simple-methods>
