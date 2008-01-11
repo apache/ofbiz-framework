@@ -633,6 +633,7 @@ under the License.
     <service name="createCommunicationEvent" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEvent" auth="true">
         <description>Create a Communication Event</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="INOUT" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
@@ -641,12 +642,14 @@ under the License.
     <service name="updateCommunicationEvent" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="updateCommunicationEvent" auth="true">
         <description>Update a Communication Event</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteCommunicationEvent" engine="simple"
         location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="deleteCommunicationEvent" auth="true">
         <description>Delete a Communication Event, optionally delete the attached content and dataresource</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
         <attribute name="delContentDataResource" type="String" mode="IN" optional="true"/>
     </service>
@@ -654,29 +657,34 @@ under the License.
         location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="deleteCommunicationEventWorkEffort" auth="true">
         <description>Delete a Communication Event, optionally delete the attached content and dataresource
             and when this is the only communication event connected to a workeffort delete the workeffort too.</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
         <attribute name="delContentDataResource" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createCommunicationEventPurpose" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventPurpose" auth="true">
         <description>Create a Communication Event Purpose</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="CommunicationEventPurpose" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEventPurpose" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCommunicationEventPurpose" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventPurpose" auth="true">
         <description>Remove a Communication Event Purpose</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="CommunicationEventPurpose" include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createCommunicationEventRole" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventRole" auth="true">
         <description>Create a Communication Event Role</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEventRole" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeCommunicationEventRole" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventRole" auth="true">
         <description>Remove a Communication Event Role</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createCommEventWorkEffort" engine="simple" location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="makeCommunicationEventWorkEffort" auth="true"  >
@@ -990,5 +998,10 @@ under the License.
         </description>
         <implements service="permissionInterface"/>
         <attribute name="partyInvitationId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="partyCommunicationEventPermissionCheck" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyCommunicationEventPermissionCheck">
+        <description>Party CommunicationEvents Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
     </service>
 </services>

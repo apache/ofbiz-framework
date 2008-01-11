@@ -225,4 +225,8 @@ under the License.
             <field-to-result field-name="failMessage"/>
         </if-compare>
     </simple-method>
+    <simple-method method-name="partyCommunicationEventPermissionCheck" short-description="Communication Event permission logic">
+        <set field="primaryPermission" value="PARTYMGR_CME"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+    </simple-method>
 </simple-methods>

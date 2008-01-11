@@ -21,19 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent">
-        <if>
-            <condition>
-                <and>
-                    <if-compare-field field-name="parameters.partyIdFrom" operator="not-equals" to-field-name="userLogin.partyId"/>
-                    <if-compare-field field-name="parameters.partyIdTo" operator="not-equals" to-field-name="userLogin.partyId"/>
-                </and>
-            </condition>
-            <then>
-                <check-permission permission="PARTYMGR" action="_CME_CREATE">
-                    <fail-property resource="PartyUiLabels" property="PartyCreateCommunicationEventPermissionError"/>
-                </check-permission>
-            </then>
-        </if>
 
         <if-empty field-name="parameters.statusId">
             <set value="COM_ENTERED" field="parameters.statusId"/>     
@@ -68,20 +55,12 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateCommunicationEvent" short-description="Update a CommunicationEvent">
-        <check-permission permission="PARTYMGR" action="_CME_UPDATE">
-            <fail-property resource="PartyUiLabels" property="PartyUpdateCommunicationEventPermissionError"/>
-        </check-permission>
-        <check-errors/>
         
         <entity-one entity-name="CommunicationEvent" value-name="event"/>
         <set-nonpk-fields map-name="parameters" value-name="event"/>
         <store-value value-name="event"/>
     </simple-method>
     <simple-method method-name="deleteCommunicationEvent" short-description="Delete a CommunicationEvent">
-        <check-permission permission="PARTYMGR" action="_CME_DELETE">
-            <fail-property resource="PartyUiLabels" property="PartyUpdateCommunicationEventPermissionError"/>
-        </check-permission>
-        <check-errors/>
         
         <entity-one entity-name="CommunicationEvent" value-name="event"/>
         <!-- remove related links to content -->
@@ -119,10 +98,6 @@ under the License.
         <remove-value value-name="event"/>
     </simple-method>
     <simple-method method-name="deleteCommunicationEventWorkEffort" short-description="delete commEvent and workEffort">
-        <check-permission permission="PARTYMGR" action="_CME_DELETE">
-            <fail-property resource="PartyUiLabels" property="PartyUpdateCommunicationEventPermissionError"/>
-        </check-permission>
-        <check-errors/>
         
         <entity-one entity-name="CommunicationEvent" value-name="event"/>
         <!-- remove related workeffort when this is the only communicationevent connected to it -->
@@ -148,10 +123,6 @@ under the License.
     <!-- since these ancillary operations on communication event cause them to be updated,
         they will all use the CME_UPDATE permission -->
     <simple-method method-name="createCommunicationEventPurpose" short-description="Create a CommunicationEventPurpose">
-        <check-permission permission="PARTYMGR" action="_CME_UPDATE">
-            <fail-property resource="PartyUiLabels" property="PartyCreateCommunicationEventPurposePermissionError"/>
-        </check-permission>
-        <check-errors/>
         
         <make-value value-name="newEntity" entity-name="CommunicationEventPurpose"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -159,19 +130,11 @@ under the License.
         <create-value value-name="newEntity"/>    
     </simple-method>
     <simple-method method-name="removeCommunicationEventPurpose" short-description="Remove a CommunicationEventPurpose">
-        <check-permission permission="PARTYMGR" action="_CME_UPDATE">
-            <fail-property resource="PartyUiLabels" property="PartyRemoveCommunicationEventPurposePermissionError"/>
-        </check-permission>
-        <check-errors/>
         
         <entity-one entity-name="CommunicationEventPurpose" value-name="eventPurpose"/>        
         <remove-value value-name="eventPurpose"/>
     </simple-method>
     <simple-method method-name="createCommunicationEventRole" short-description="Create a CommunicationEventRole">
-        <check-permission permission="PARTYMGR" action="_CME_UPDATE">
-            <fail-property resource="PartyUiLabels" property="PartyCreateCommunicationEventRolePermissionError"/>
-        </check-permission>
-        <check-errors/>
         
         <make-value value-name="newEntity" entity-name="CommunicationEventRole"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -179,10 +142,6 @@ under the License.
         <create-value value-name="newEntity"/>    
     </simple-method>
     <simple-method method-name="removeCommunicationEventRole" short-description="Remove a CommunicationEventRole">
-        <check-permission permission="PARTYMGR" action="_CME_UPDATE">
-            <fail-property resource="PartyUiLabels" property="PartyRemoveCommunicationEventRolePermissionError"/>
-        </check-permission>
-        <check-errors/>
                 
         <entity-one entity-name="CommunicationEventRole" value-name="eventRole"/>        
         <remove-value value-name="eventRole"/>
