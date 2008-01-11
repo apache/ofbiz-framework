@@ -311,13 +311,8 @@ public class ProductServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         
-        if (sample == null || sample.size() == 0) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resource,"productservices.feature_sample_came_back_empty", locale));
-        } else {
-            result.put("variantSample", sample);
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-        }
+        result.put("variantSample", sample);
+        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
 
         return result;
     }

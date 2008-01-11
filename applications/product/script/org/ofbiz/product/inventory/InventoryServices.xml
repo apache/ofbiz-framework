@@ -389,6 +389,23 @@ under the License.
         <set from-field="parameters.productId" field="productIdMap.productId"/>
         <find-by-primary-key entity-name="Product" map-name="productIdMap" value-name="product"/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
+
+        <!-- if discontinueProductSales field is empty and the product is a variant, get the fieldcontent from the virtual product -->
+        <if-not-empty field-name="product">
+            <if-compare field-name="product.isVariant" value="Y" operator="equals">
+                <!-- retrieve related virtual product because also to be used later -->
+                <set field="getAssoc.productIdTo" from-field="product.productId"/>
+                <set field="getAssoc.productAssocTypeId" value="PRODUCT_VARIANT"/>
+                <find-by-and entity-name="ProductAssoc" map-name="getAssoc" list-name="assocs"/>
+                <filter-list-by-date list-name="assocs" to-list-name="assocsDate"/>
+                <first-from-list entry-name="assoc" list-name="assocsDate"/>
+                <get-related-one value-name="assoc" relation-name="MainProduct" to-value-name="virtProduct"/>
+                <if-empty field-name="product.salesDiscWhenNotAvail">
+                    <set field="product.salesDiscWhenNotAvail" from-field="virtProduct.salesDiscWhenNotAvail"/>
+                </if-empty>
+            </if-compare>
+        </if-not-empty>
+        
         <!-- before checking inventory availability see if the product is already discontinued, and discontinued in the past (if in the future, still check availability and discontinue now if necessary) -->
         <if>
             <condition>
@@ -410,6 +427,21 @@ under the License.
                     <set from-field="parameters.productId" field="discontinueProductSalesMap.productId"/>
                     <call-service service-name="discontinueProductSales" in-map-name="discontinueProductSalesMap"/>
                 </if-compare>
+                                
+                <!-- check if related virtual product has no variant left, if yes discontinue the virtual product too when salesDiscWhenNotAvail is 'Y'-->
+                <if-not-empty field-name="virtProduct">
+                    <if-compare field-name="virtProduct.salesDiscWhenNotAvail" operator="equals" value="Y">
+                        <set field="getFromAssoc.productId" from-field="virtProduct.productId"/>
+                        <set field="getFromAssoc.productAssocTypeId" value="PRODUCT_VARIANT"/>
+                        <find-by-and entity-name="ProductAssoc" map-name="getFromAssoc" list-name="assocs"/>
+                        <filter-list-by-date list-name="assocs" to-list-name="assocsDate"/>
+                        <if-empty field-name="assocsDate">
+                            <set from-field="virtProduct.productId" field="discontinueProductSalesMap.productId"/>
+                            <call-service service-name="discontinueProductSales" in-map-name="discontinueProductSalesMap"/>
+                        </if-empty>
+                    </if-compare>
+                </if-not-empty>
+                
             </then>
         </if>
     </simple-method>
