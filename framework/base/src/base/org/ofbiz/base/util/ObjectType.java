@@ -581,6 +581,14 @@ public class ObjectType {
                     // hack to mimic Timestamp.valueOf() method
                     if (str.length() > 0 && !str.contains(".")) {
                         str = str + ".0";
+                    } else {
+                        // DateFormat has a funny way of parsing milliseconds:
+                        // 00:00:00.2 parses to 00:00:00.002
+                        // so we'll add zeros to the end to get 00:00:00.200
+                        String[] timeSplit = str.split("[.]");
+                        if (timeSplit.length > 1 && timeSplit[1].length() < 3) {
+                            str = str + "000".substring(timeSplit[1].length());
+                        }
                     }
                 } else {
                     df = UtilDateTime.toDateTimeFormat(format, timeZone, null);
