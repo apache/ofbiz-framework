@@ -69,7 +69,7 @@ under the License.
         <attribute name="checkViewAllow" type="Boolean" mode="IN" optional="true"/>
         <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
         <attribute name="type" type="String" mode="IN"/>
-        <attribute name="assocProducts" type="java.util.Collection" mode="OUT"/>
+        <attribute name="assocProducts" type="java.util.Collection" mode="OUT" optional="true"/>
     </service>
     <service name="getProductFeatures" engine="java"
             location="org.ofbiz.product.product.ProductServices" invoke="prodGetFeatures">
