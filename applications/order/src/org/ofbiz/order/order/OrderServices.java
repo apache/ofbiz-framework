@@ -3574,6 +3574,13 @@ public class OrderServices {
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         String productStoreId = orh.getProductStoreId();
 
+        // check if order was already cancelled / rejected
+        GenericValue orderHeader = orh.getOrderHeader();
+        String orderStatus = orderHeader.getString("statusId");
+        if ("ORDER_CANCELLED".equals(orderStatus) || "ORDER_REJECTED".equals(orderStatus)) {
+            return ServiceUtil.returnSuccess();
+        }
+
         // process the payments
         if (!"PURCHASE_ORDER".equals(orh.getOrderTypeId())) {
             GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
