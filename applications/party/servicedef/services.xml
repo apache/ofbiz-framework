@@ -633,7 +633,7 @@ under the License.
     <service name="createCommunicationEvent" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEvent" auth="true">
         <description>Create a Communication Event</description>
-        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
+        <!-- permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/--><!-- allowed for him/herself see implementation -->
         <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="INOUT" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>

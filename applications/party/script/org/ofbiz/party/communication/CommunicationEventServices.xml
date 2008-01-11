@@ -21,7 +21,20 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent">
-
+        <if>
+            <condition>
+                <and>
+                    <if-compare-field field-name="parameters.partyIdFrom" operator="not-equals" to-field-name="userLogin.partyId"/>
+                    <if-compare-field field-name="parameters.partyIdTo" operator="not-equals" to-field-name="userLogin.partyId"/>
+                </and>
+            </condition>
+            <then>
+                <check-permission permission="PARTYMGR" action="_CME_CREATE">
+                    <fail-property resource="PartyUiLabels" property="PartyCreateCommunicationEventPermissionError"/>
+                </check-permission>
+            </then>
+        </if>
+        
         <if-empty field-name="parameters.statusId">
             <set value="COM_ENTERED" field="parameters.statusId"/>     
         </if-empty>
