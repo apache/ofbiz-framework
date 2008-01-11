@@ -21,9 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createProdCatalog" short-description="Create an ProdCatalog">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProdCatalog you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value value-name="newEntity" entity-name="ProdCatalog"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -31,23 +28,16 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProdCatalog" short-description="Update an ProdCatalog">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProdCatalog you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="ProdCatalog"  value-name="prodCatalog"/>
         <set-nonpk-fields map-name="parameters" value-name="prodCatalog"/>
         <store-value value-name="prodCatalog"/>
     </simple-method>
     <simple-method method-name="deleteProdCatalog" short-description="Delete an ProdCatalog">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProdCatalog you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="ProdCatalog"  value-name="prodCatalog"/>
         <remove-value value-name="prodCatalog"/>
     </simple-method>
 
     <simple-method method-name="addProductCategoryToProdCatalog" short-description="Add Category To ProdCatalog">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run addProductCategoryToProdCatalog you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <!-- Check that the ProductCategory exists -->
         <entity-one entity-name="ProductCategory" value-name="productCategory"/>
         <if-empty field-name="productCategory">
@@ -67,8 +57,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductCategoryToProdCatalog" short-description="Remove ContactMech From ProdCatalog">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductCategoryToProdCatalog you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-errors/>
 
         <make-value value-name="lookupPKMap" entity-name="ProdCatalogCategory"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
@@ -77,8 +65,6 @@ under the License.
         <store-value value-name="prodCatalogCategory"/>
     </simple-method>
     <simple-method method-name="removeProductCategoryFromProdCatalog" short-description="Remove ContactMech From ProdCatalog">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductCategoryFromProdCatalog you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-errors/>
 
         <make-value value-name="lookupPKMap" entity-name="ProdCatalogCategory"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
@@ -88,12 +74,6 @@ under the License.
 
     <!-- Party and Catalog services -->
     <simple-method method-name="addProdCatalogToParty" short-description="Add ProdCatalog To Party">
-        <check-permission permission="CATALOG" action="_CREATE">
-            <alt-permission permission="PARTYMGR" action="_CREATE"/>
-            <fail-message message="Security Error: to run addProdCatalogToParty you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-name="newEntity" entity-name="ProdCatalogRole"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -105,12 +85,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProdCatalogToParty" short-description="Update ProdCatalog To Party">
-        <check-permission permission="CATALOG" action="_UPDATE">
-            <alt-permission permission="PARTYMGR" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateProdCatalogToParty you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-name="lookupPKMap" entity-name="ProdCatalogRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -118,12 +92,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProdCatalogFromParty" short-description="Remove ProdCatalog From Party">
-        <check-permission permission="CATALOG" action="_DELETE">
-            <alt-permission permission="PARTYMGR" action="_DELETE"/>
-            <fail-message message="Security Error: to run removeProdCatalogFromParty you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-name="lookupPKMap" entity-name="ProdCatalogRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -531,4 +499,15 @@ under the License.
         </if-not-empty>   
         <field-to-result result-name="isExists" field-name="isExists"/>
     </simple-method>
+    
+    <simple-method method-name="catalogPermissionCheck" short-description="Catalog permission logic">
+        <set field="primaryPermission" value="CATALOG"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="prodCatalogToPartyPermissionCheck" short-description="ProdCatalogToParty permission logic">
+        <set field="altPermission" value="PARTYMGR"/>
+        <call-simple-method method-name="catalogPermissionCheck"/>
+    </simple-method>
+    
 </simple-methods>
