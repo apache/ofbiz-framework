@@ -225,6 +225,9 @@ under the License.
             <field-to-result field-name="failMessage"/>
         </if-compare>
     </simple-method>
+
+    <!-- Returns hasPermission=true if userLogin partyId equals partyIdFrom parameter OR
+         partyIdTo parameter OR user has one of the base PARTYMGR or PARTYMGR_CME CRUD+ADMIN permissions -->
     <simple-method method-name="partyCommunicationEventPermissionCheck" short-description="Communication Event permission logic">
         <if>
             <condition>
@@ -234,9 +237,13 @@ under the License.
                 </and>
             </condition>
             <then>
-                <set field="primaryPermission" value="PARTYMGR_CME"/>
-                <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                <set field="hasPermission" type="Boolean" value="true"/>
+                <field-to-result field-name="hasPermission"/>
             </then>
+            <else>
+                <set field="altPermission" value="PARTYMGR_CME"/>
+                <call-simple-method method-name="basePermissionCheck"/>
+            </else>
         </if>
     </simple-method>
 </simple-methods>
