@@ -345,4 +345,30 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- ===========Fixed Asset Depreciation Screen========== -->
+    <screen name="ShowFixedAssetDepreciation">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFixedAssetDepreciationReport"/>
+                <set field="tabButtonItem" value="FixedAssetDepreciation"/>
+                <set field="labelTitleProperty" value="PageTitleFixedAssetDepreciationReport"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="assetDepreciationTillDate" from-field="parameters.assetDepreciationTillDate"/>
+                <set field="assetNBVAfterDepreciation" from-field="parameters.assetNBVAfterDepreciation"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://accounting/webapp/accounting/fixedasset/DepreciationReport.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

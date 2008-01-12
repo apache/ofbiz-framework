@@ -629,6 +629,10 @@ under the License.
         <field name="serialNumber" type="long-varchar"></field>
         <field name="locatedAtFacilityId" type="id"></field>
         <field name="locatedAtLocationSeqId" type="id"></field>
+        <field name="salvageValue" type="currency-amount"/>
+        <field name="depreciation" type="currency-amount"/>
+        <field name="purchaseCost" type="currency-amount"/>
+        <field name="purchaseCostUomId" type="id"/>
         <prim-key field="fixedAssetId"/>
         <relation type="one" fk-name="FIXEDAST_TYPE" rel-entity-name="FixedAssetType">
             <key-map field-name="fixedAssetTypeId"/>
@@ -687,14 +691,14 @@ under the License.
     <entity entity-name="FixedAssetDepMethod"
             package-name="org.ofbiz.accounting.fixedasset"
             title="Fixed Asset Depreciation Method Entity">
-      <field name="depreciationMethodId" type="id-ne"></field>
+      <field name="depreciationCustomMethodId" type="id-ne"></field>
       <field name="fixedAssetId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <prim-key field="depreciationMethodId"/>
+      <prim-key field="depreciationCustomMethodId"/>
       <prim-key field="fixedAssetId"/>
-      <relation type="one" fk-name="FIXDAST_DM_DPMTH" rel-entity-name="DepreciationMethod">
-        <key-map field-name="depreciationMethodId"/>
+      <relation type="one" fk-name="FIXDAST_DM_CMET" rel-entity-name="CustomMethod">
+        <key-map field-name="depreciationCustomMethodId" rel-field-name="customMethodId"/>
       </relation>
       <relation type="one" fk-name="FIXDAST_DM_FXAST" rel-entity-name="FixedAsset">
         <key-map field-name="fixedAssetId"/>

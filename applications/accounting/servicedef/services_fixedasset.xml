@@ -298,10 +298,40 @@ under the License.
         <description>Delete Party to Fixed Asset</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
     <service name="fixedAssetPermissionCheck" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
         <description>Fixed Asset Permission Checking Logic</description>
         <implements service="permissionInterface"/>
+    </service>
+    
+    <!-- Fixed Asset Depreciation Services -->
+    <service name="fixedAssetDepCalcInterface" engine="interface">
+        <description>Interface to describe base parameters for Depreciation Calculation Services</description>
+        <attribute name="expEndOfLifeYear" type="Integer" mode="IN" optional="false"/>
+        <attribute name="assetAcquiredYear" type="Integer" mode="IN" optional="false"/>
+        <attribute name="purchaseCost" type="Double" mode="IN" optional="false"/>
+        <attribute name="salvageValue" type="Double" mode="IN" optional="false"/>
+        <attribute name="usageYears" type="Integer" mode="IN" optional="false"/>
+        <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="false"/>
+        <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="straightLineDepreciation" engine="simple" default-entity-name="FixedAsset"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="straightLineDepreciation" auth="true">
+        <description>Straight line depreciation service to Fixed Asset</description>
+        <implements service="fixedAssetDepCalcInterface"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="doubleDecliningBalanceDepreciation" engine="simple" default-entity-name="FixedAsset"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="doubleDecliningBalanceDepreciation" auth="true">
+        <description>Double declining balance depreciation service to Fixed Asset</description>
+        <implements service="fixedAssetDepCalcInterface"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="calculateFixedAssetDepreciation" engine="simple" default-entity-name="FixedAssetDepMethod"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="calculateFixedAssetDepreciation" auth="true">
+        <description>Select the depreciation method according to the entry in FixedAssetDepMethod</description>
+        <attribute name="fixedAssetId" type="String" mode="IN"/>
+        <attribute name="assetDepreciationTillDate" type="List" mode="OUT" optional="false"/>
+        <attribute name="assetNBVAfterDepreciation" type="List" mode="OUT" optional="false"/>
     </service>
 </services>
