@@ -585,5 +585,174 @@ under the License.
         <entity-one entity-name="PartyFixedAssetAssignment" value-name="newEntity"/>
         <remove-value value-name="newEntity"/>
     </simple-method>
-        
+     
+    <!-- ==============  Fixed Asset Depreciation methods  ============== -->   
+    <simple-method method-name="straightLineDepreciation" short-description="Calculate straight line depreciation to Fixed Asset[ (PC-SV)/expLife ]">
+        <set field="expEndOfLifeYear" from-field="parameters.expEndOfLifeYear" type="Integer"/>
+        <set field="assetAcquiredYear" from-field="parameters.assetAcquiredYear" type="Integer"/>
+        <set field="purchaseCost" from-field="parameters.purchaseCost" type="Double"/>
+        <set field="salvageValue" from-field="parameters.salvageValue" type="Double"/>
+        <call-object-method obj-field-name="parameters.usageYears" method-name="intValue" ret-field-name="intUsageYears"/>
+        <if-not-empty field-name="parameters.fixedAssetId">
+            <set field="depreciation" value="0.0" type="Double"/>
+            <!--FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired) -->
+            <calculate field-name="depreciation" decimal-scale="2" type="Double">
+                <calcop operator="divide">
+                    <calcop operator="subtract">
+                        <calcop operator="get" field-name="purchaseCost"/>
+                        <calcop operator="get" field-name="salvageValue"/>
+                    </calcop>
+                    <calcop operator="subtract">
+                        <calcop operator="get" field-name="expEndOfLifeYear"/>
+                        <calcop operator="get" field-name="assetAcquiredYear"/>
+                    </calcop>
+                </calcop>
+            </calculate>
+            <loop count="${intUsageYears}">
+                <calculate field-name="purchaseCost" type="Double">
+                    <calcop operator="subtract">
+                        <calcop operator="get" field-name="purchaseCost"/>
+                        <calcop operator="get" field-name="depreciation"/>
+                    </calcop>
+                </calculate>
+                <field-to-list list-name="assetDepreciationTillDate" field-name="depreciation"/>
+                <field-to-list list-name="assetNBVAfterDepreciation" field-name="purchaseCost"/>
+            </loop>
+        </if-not-empty>
+        <log level="info" message="Using straight line formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${depreciation}"/>
+        <field-to-result field-name="assetDepreciationTillDate"/>
+        <field-to-result field-name="assetNBVAfterDepreciation"/>
+    </simple-method>
+    
+    <simple-method method-name="doubleDecliningBalanceDepreciation" short-description="Calculate double declining balance depreciation to Fixed Asset">
+        <set field="expEndOfLifeYear" from-field="parameters.expEndOfLifeYear" type="Integer"/>
+        <set field="assetAcquiredYear" from-field="parameters.assetAcquiredYear" type="Integer"/>
+        <set field="purchaseCost" from-field="parameters.purchaseCost" type="Double"/>
+        <set field="salvageValue" from-field="parameters.salvageValue" type="Double"/>
+        <call-object-method obj-field-name="parameters.usageYears" method-name="intValue" ret-field-name="intUsageYears"/>
+        <if-not-empty field-name="parameters.fixedAssetId">
+            <loop count="${intUsageYears}">
+                <set field="depreciation" value="0.0" type="Double"/>
+                <!--FORMULA : depreciation = (NBV - salvageValue) * 2 / (expectedEndOfLife - dateAcquired) -->
+                <calculate field-name="depreciation" decimal-scale="2" type="Double">
+                    <calcop operator="multiply">
+                        <calcop operator="divide">
+                           <calcop operator="subtract">
+                                <calcop operator="get" field-name="purchaseCost"/>
+                                <calcop operator="get" field-name="salvageValue"/>
+                            </calcop>
+                            <calcop operator="subtract">
+                                <calcop operator="get" field-name="expEndOfLifeYear"/>
+                                <calcop operator="get" field-name="assetAcquiredYear"/>
+                            </calcop>
+                        </calcop>
+                        <number value="2"/>
+                    </calcop>
+                </calculate>
+                <calculate field-name="assetAcquiredYear">
+                    <calcop operator="add">
+                       <calcop operator="get" field-name="assetAcquiredYear"/>
+                       <number value="1"/>
+                    </calcop>
+                </calculate>
+                <calculate field-name="purchaseCost">
+                   <calcop operator="subtract">
+                       <calcop operator="get" field-name="purchaseCost"/>
+                       <calcop operator="get" field-name="depreciation"/>
+                    </calcop>
+                </calculate>
+                <field-to-list list-name="assetDepreciationTillDate" field-name="depreciation"/>
+                <field-to-list list-name="assetNBVAfterDepreciation" field-name="purchaseCost"/>
+            </loop>
+        </if-not-empty>
+        <log level="info" message="Using double decline formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${assetDepreciationTillDate}"/>
+        <field-to-result field-name="assetDepreciationTillDate"/>
+        <field-to-result field-name="assetNBVAfterDepreciation"/>
+    </simple-method>
+    
+    <simple-method method-name="calculateFixedAssetDepreciation" short-description="Service to calculate the yearly depreciation from dateAcquired year to current financial year">
+        <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+        <if-empty field-name="fixedAsset">
+            <add-error><fail-property resource="ManufacturingUiLabels" property="ManufacturingFixedAssetNotExist"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <set field="startIndex" value="0" type="Integer"/>
+        <set field="endIndex" value="4" type="Integer"/>
+
+        <!-- Extract asset end of life year from field expectedEndOfLife -->
+        <if-not-empty field-name="fixedAsset.expectedEndOfLife">
+            <set field="expectedEndOfLife" from-field="fixedAsset.expectedEndOfLife"/>
+            <to-string field-name="expectedEndOfLife"/>
+            <call-object-method method-name="substring" obj-field-name="expectedEndOfLife" ret-field-name="expEndOfLifeYear">
+                <field field-name="startIndex" type="int"/>
+                <field field-name="endIndex" type="int"/>
+            </call-object-method>
+        <else>
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingExpEndOfLifeIsEmpty"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+
+        <!-- Extract asset acquired year from field dateAcquired -->
+        <if-not-empty field-name="fixedAsset.dateAcquired">
+            <set field="dateAcquired" from-field="fixedAsset.dateAcquired"/>
+            <to-string field-name="dateAcquired"/>
+            <call-object-method method-name="substring" obj-field-name="dateAcquired" ret-field-name="assetAcquiredYear">
+                <field field-name="startIndex"  type="int"/>
+                <field field-name="endIndex" type="int"/>
+            </call-object-method>
+        <else>
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingDateAcquiredIsEmpty"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+
+        <!-- if any asset's salvage value is empty then set it by 0 -->
+        <if-empty field-name="fixedAsset.salvageValue">
+            <set field="salvageValue" value="0.0" type="Double"/>
+        <else>
+            <set field="salvageValue" from-field="fixedAsset.salvageValue"/>
+        </else>
+        </if-empty>
+
+        <!-- Get running year -->
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <to-string field-name="nowTimestamp"/>
+        <call-object-method method-name="substring" obj-field-name="nowTimestamp" ret-field-name="currentYear">
+            <field field-name="startIndex" type="int"/>
+            <field field-name="endIndex" type="int"/>
+        </call-object-method>
+
+        <!-- Calculate asset's total run in years -->
+        <calculate field-name="usageYears" type="Integer">
+            <calcop operator="subtract">
+               <calcop operator="get" field-name="currentYear"/>
+               <calcop operator="get" field-name="assetAcquiredYear"/>
+            </calcop>
+        </calculate>
+
+        <entity-and entity-name="FixedAssetDepMethod" list-name="fixedAssetDepMethods" filter-by-date="true">
+            <field-map field-name="fixedAssetId" env-name="parameters.fixedAssetId"/>
+        </entity-and>
+        <if-not-empty field-name="fixedAssetDepMethods">
+            <first-from-list list-name="fixedAssetDepMethods" entry-name="fixedAssetDepMethod"/>
+            <get-related-one relation-name="CustomMethod" value-name="fixedAssetDepMethod" to-value-name="customMethod"/>
+            <log level="info" message="Depreciation service name for the FixedAsset ${parameters.fixedAssetId} is ${customMethod.customMethodName}"/>
+            
+            <set field="serviceInMap.fixedAssetId" from-field="parameters.fixedAssetId"/>
+            <set field="serviceInMap.expEndOfLifeYear" from-field="expEndOfLifeYear" type="Integer"/>
+            <set field="serviceInMap.assetAcquiredYear" from-field="assetAcquiredYear" type="Integer"/>
+            <set field="serviceInMap.purchaseCost" from-field="fixedAsset.purchaseCost" type="Double"/>
+            <set field="serviceInMap.salvageValue" from-field="salvageValue" type="Double"/>
+            <set field="serviceInMap.usageYears" from-field="usageYears" type="Integer"/>
+            <call-service service-name="${customMethod.customMethodName}" in-map-name="serviceInMap">
+                <result-to-field result-name="assetDepreciationTillDate"/>
+                <result-to-field result-name="assetNBVAfterDepreciation"/>
+            </call-service>
+            <log level="info" message="Asset's depreciation calculated till date are ${assetDepreciationTillDate}"/>
+            <log level="info" message="Asset's Net Book Values (NBV) from acquired date after deducting depreciation are ${assetNBVAfterDepreciation}"/>
+            <field-to-result field-name="assetDepreciationTillDate"/>
+            <field-to-result field-name="assetNBVAfterDepreciation"/>
+        </if-not-empty>    
+    </simple-method>
 </simple-methods>

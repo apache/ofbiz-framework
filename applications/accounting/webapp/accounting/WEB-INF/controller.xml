@@ -1762,6 +1762,16 @@ under the License.
         <response name="error" type="view" value="ComparativeBalanceSheet"/>         
     </request-map>
     <request-map uri="TransactionTotals"><security https="true" auth="true"/><response name="success" type="view" value="TransactionTotals"/></request-map>
+
+
+    <!-- ================ Depreciation Calculation Report requests ================ -->
+    <request-map uri="showFixedAssetDepreciation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="calculateFixedAssetDepreciation"/>
+        <response name="success" type="view" value="ShowFixedAssetDepreciation"/>
+        <response name="error" type="view" value="ShowFixedAssetDepreciation"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -1861,6 +1871,9 @@ under the License.
     <view-map name="EditFixedAssetMaintMeters" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetMaintMeters"/>
     <view-map name="EditFixedAssetMaintOrders" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetMaintOrders"/>
 
+    <!-- Depreciation Calculation   -->
+    <view-map name="ShowFixedAssetDepreciation" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ShowFixedAssetDepreciation"/>
+   
     <!-- Agreement -->
     <view-map name="FindAgreement" type="screen" page="component://accounting/widget/AgreementScreens.xml#FindAgreement"/>
     <view-map name="EditAgreement" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreement"/>

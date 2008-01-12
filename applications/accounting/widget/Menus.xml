@@ -386,6 +386,10 @@ under the License.
         <menu-item name="EditPartyFixedAssetAssignments" title="${uiLabelMap.AccountingPartyFixedAssetAssignments}">
             <link target="EditPartyFixedAssetAssignments?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
+        <menu-item name="FixedAssetDepreciation" title="${uiLabelMap.AccountingFixedAssetDepreciation}">
+            <link target="showFixedAssetDepreciation?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+
     </menu>
     
     <menu name="FinAccountTabBar" default-menu-item-name="EditFinAccount" default-selected-style="selected"
