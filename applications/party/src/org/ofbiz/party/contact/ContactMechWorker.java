@@ -29,6 +29,9 @@ import java.util.Map;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -58,14 +61,14 @@ public class ContactMechWorker {
     }
     
     public static List getPartyContactMechValueMaps(GenericDelegator delegator, String partyId, boolean showOld, String contactMechTypeId) {
-        List partyContactMechValueMaps = new LinkedList();
+        List partyContactMechValueMaps = FastList.newInstance();
 
         Iterator allPartyContactMechs = null;
 
         try {
             List tempCol = delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", partyId));
             if(contactMechTypeId != null) {
-                List tempColTemp = new LinkedList();
+                List tempColTemp = FastList.newInstance();
                 for(Iterator iterator = tempCol.iterator(); iterator.hasNext();) {
                     GenericValue partyContactMech = (GenericValue) iterator.next();
                     GenericValue contactMech = delegator.getRelatedOne("ContactMech", partyContactMech);
@@ -92,7 +95,7 @@ public class ContactMechWorker {
                 Debug.logWarning(e, module);
             }
             if (contactMech != null) {
-                Map partyContactMechValueMap = new HashMap();
+                Map partyContactMechValueMap = FastMap.newInstance();
 
                 partyContactMechValueMaps.add(partyContactMechValueMap);
                 partyContactMechValueMap.put("contactMech", contactMech);
@@ -129,14 +132,14 @@ public class ContactMechWorker {
     }
     
     public static List getFacilityContactMechValueMaps(GenericDelegator delegator, String facilityId, boolean showOld, String contactMechTypeId) {
-        List facilityContactMechValueMaps = new LinkedList();
+        List facilityContactMechValueMaps = FastList.newInstance();
 
         Iterator allFacilityContactMechs = null;
 
         try {
             List tempCol = delegator.findByAnd("FacilityContactMech", UtilMisc.toMap("facilityId", facilityId));
             if(contactMechTypeId != null) {
-                List tempColTemp = new LinkedList();
+                List tempColTemp = FastList.newInstance();
                 for(Iterator iterator = tempCol.iterator(); iterator.hasNext();) {
                     GenericValue partyContactMech = (GenericValue) iterator.next();
                     GenericValue contactMech = delegator.getRelatedOne("ContactMech", partyContactMech);
@@ -163,7 +166,7 @@ public class ContactMechWorker {
                 Debug.logWarning(e, module);
             }
             if (contactMech != null) {
-                Map facilityContactMechValueMap = new HashMap();
+                Map facilityContactMechValueMap = FastMap.newInstance();
 
                 facilityContactMechValueMaps.add(facilityContactMechValueMap);
                 facilityContactMechValueMap.put("contactMech", contactMech);
@@ -208,7 +211,7 @@ public class ContactMechWorker {
         }
     }
     public static List getOrderContactMechValueMaps(GenericDelegator delegator, String orderId) {        
-        List orderContactMechValueMaps = new LinkedList();
+        List orderContactMechValueMaps = FastList.newInstance();
 
         Iterator allOrderContactMechs = null;
 
@@ -230,7 +233,7 @@ public class ContactMechWorker {
                 Debug.logWarning(e, module);
             }
             if (contactMech != null) {
-                Map orderContactMechValueMap = new HashMap();
+                Map orderContactMechValueMap = FastMap.newInstance();
 
                 orderContactMechValueMaps.add(orderContactMechValueMap);
                 orderContactMechValueMap.put("contactMech", contactMech);
@@ -266,7 +269,7 @@ public class ContactMechWorker {
     }
 
     public static Collection getWorkEffortContactMechValueMaps(GenericDelegator delegator, String workEffortId) {
-        Collection workEffortContactMechValueMaps = new LinkedList();
+        Collection workEffortContactMechValueMaps = FastList.newInstance();
 
         Iterator allWorkEffortContactMechs = null;
 
@@ -287,7 +290,7 @@ public class ContactMechWorker {
                 Debug.logWarning(e, module);
             }
             if (contactMech != null) {
-                Map workEffortContactMechValueMap = new HashMap();
+                Map workEffortContactMechValueMap = FastMap.newInstance();
 
                 workEffortContactMechValueMaps.add(workEffortContactMechValueMap);
                 workEffortContactMechValueMap.put("contactMech", contactMech);
@@ -391,7 +394,7 @@ public class ContactMechWorker {
                 Debug.logWarning(e, module);
             }
 
-            Collection purposeTypes = new LinkedList();
+            Collection purposeTypes = FastList.newInstance();
             Iterator typePurposes = null;
 
             try {
@@ -558,7 +561,7 @@ public class ContactMechWorker {
                 Debug.logWarning(e, module);
             }
 
-            Collection purposeTypes = new LinkedList();
+            Collection purposeTypes = FastList.newInstance();
             Iterator typePurposes = null;
 
             try {
@@ -648,18 +651,9 @@ public class ContactMechWorker {
         }
     }    
 
-    /** TO BE REMOVED (DEJ 20030221): This method was for use in a JSP and when they are removed this can be removed as well rather than being maintained, should be removed when eCommerce and party mgr and possible other places are converted to FTL */
-    public static void getPartyPostalAddresses(PageContext pageContext, String partyId, String curContactMechId, String postalAddressInfosAttr) {
-        ServletRequest request = pageContext.getRequest();
-        List postalAddressInfos = getPartyPostalAddresses(request, partyId, curContactMechId);
-        if (postalAddressInfos.size() > 0) {
-            pageContext.setAttribute(postalAddressInfosAttr, postalAddressInfos);
-        }
-    }
-    
     public static List getPartyPostalAddresses(ServletRequest request, String partyId, String curContactMechId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        List postalAddressInfos = new LinkedList();
+        List postalAddressInfos = FastList.newInstance();
 
         Iterator allPartyContactMechs = null;
 
@@ -678,7 +672,7 @@ public class ContactMechWorker {
                 Debug.logWarning(e, module);
             }
             if (contactMech != null && "POSTAL_ADDRESS".equals(contactMech.getString("contactMechTypeId")) && !contactMech.getString("contactMechId").equals(curContactMechId)) {
-                Map postalAddressInfo = new HashMap();
+                Map postalAddressInfo = FastMap.newInstance();
 
                 postalAddressInfos.add(postalAddressInfo);
                 postalAddressInfo.put("contactMech", contactMech);
@@ -705,7 +699,7 @@ public class ContactMechWorker {
 
     public static Map getCurrentPostalAddress(ServletRequest request, String partyId, String curContactMechId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         
         if (curContactMechId != null) {
             List partyContactMechs = null;
@@ -813,7 +807,7 @@ public class ContactMechWorker {
 
         // get all company addresses
         GenericDelegator delegator = postalAddress.getDelegator();
-        List postalAddresses = new LinkedList();
+        List postalAddresses = FastList.newInstance();
         try {
             List partyContactMechs = delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", companyPartyId));
             partyContactMechs = EntityUtil.filterByDate(partyContactMechs);
