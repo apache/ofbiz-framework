@@ -237,12 +237,12 @@ under the License.
                 </and>
             </condition>
             <then>
-                <set field="hasPermission" type="Boolean" value="true"/>
-                <field-to-result field-name="hasPermission"/>
-            </then>
-            <else>
                 <set field="altPermission" value="PARTYMGR_CME"/>
                 <call-simple-method method-name="basePermissionCheck"/>
+            </then>
+            <else>
+                <set field="hasPermission" type="Boolean" value="true"/>
+                <field-to-result field-name="hasPermission"/>
             </else>
         </if>
     </simple-method>
