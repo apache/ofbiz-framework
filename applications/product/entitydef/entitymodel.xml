@@ -2007,6 +2007,9 @@ under the License.
       <relation type="one-nofk" title="LastModifiedBy" rel-entity-name="UserLogin">
         <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
       </relation>
+      <relation type="one" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
     </view-entity>
     <entity entity-name="GoodIdentificationType"
             package-name="org.ofbiz.product.product"
