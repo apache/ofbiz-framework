@@ -192,9 +192,11 @@ public class CategoryWorker {
                         if (!isCategoryEmpty(cv)) {
                             //Debug.log("Child : " + cv.getString("productCategoryId") + " is not empty.", module);
                             categories.add(cv);
+                            categories.addAll(getRelatedCategoriesRet(request, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty));
                         }
                     } else {
                         categories.add(cv);
+                        categories.addAll(getRelatedCategoriesRet(request, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty));
                     }
                 }
             }
