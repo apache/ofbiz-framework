@@ -204,7 +204,7 @@ under the License.
                 <td <#if (assocFromProduct.getTimestamp("thruDate"))?exists && nowDate.after(assocFromProduct.getTimestamp("thruDate"))> style="color: red;"</#if>>
                 ${(assocFromProduct.thruDate)?if_exists}&nbsp;</td>
                 <td>&nbsp;${(assocFromProduct.sequenceNum)?if_exists}</td>
-                <td>&nbsp;${(assocFromProduct.quantity)?if_exists}<</td>
+                <td>&nbsp;${(assocFromProduct.quantity)?if_exists}</td>
                 <td><#if curProductAssocType?exists> ${(curProductAssocType.get("description",locale))?if_exists}<#else>${(assocFromProduct.productAssocTypeId)?if_exists}</#if></td>
                 <td>
                 <a href="<@ofbizUrl>UpdateProductAssoc?UPDATE_MODE=DELETE&productId=${productId}&PRODUCT_ID=${productId}&PRODUCT_ID_TO=${(assocFromProduct.productIdTo)?if_exists}&PRODUCT_ASSOC_TYPE_ID=${(assocFromProduct.productAssocTypeId)?if_exists}&FROM_DATE=${Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(assocFromProduct.getTimestamp("fromDate").toString())}&useValues=true</@ofbizUrl>" class="buttontext">
