@@ -1652,7 +1652,7 @@ public class PaymentGatewayServices {
         if (authResult != null) {
             processAuthResult(dctx, result, userLogin, paymentPreference);
             resultPassed = authResult.booleanValue();
-            authServiceType = ("PAYMENT_NOT_AUTH".equals(initialStatus)) ? AUTH_SERVICE_TYPE : REAUTH_SERVICE_TYPE;;
+            authServiceType = ("PAYMENT_NOT_AUTH".equals(initialStatus)) ? AUTH_SERVICE_TYPE : REAUTH_SERVICE_TYPE;
         }
         if (captureResult != null) {
             processCaptureResult(dctx, result, userLogin, paymentPreference, authServiceType);

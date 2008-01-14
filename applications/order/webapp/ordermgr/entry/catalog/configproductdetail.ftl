@@ -240,12 +240,14 @@ ${virtualJavaScript?if_exists}
         <div class="tabletext"><b>${uiLabelMap.ProductUsuallyShipsIn} <font color='red'>${daysToShip}</font> ${uiLabelMap.CommonDays}!<b></div>
       </#if>
 
-      <#-- tell a friend -->
-      <div class="tabletext">&nbsp;</div>
-      <div class="tabletext">
-        <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
-      </div>
-
+      <#-- show tell a friend details only in ecommerce application -->
+      <#if (isEcommerceScreen?exists && isEcommerceScreen?default("N") == "Y")>
+        <div class="tabletext">&nbsp;</div>
+        <div class="tabletext">
+          <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
+        </div>
+      </#if>
+     
       <#if disFeatureList?exists && 0 < disFeatureList.size()>
         <p>&nbsp;</p>
         <#list disFeatureList as currentFeature>
@@ -532,6 +534,7 @@ ${virtualJavaScript?if_exists}
   <tr><td colspan="2"><hr class='sepbar'></td></tr>
 
   <#-- Product Reviews -->
+  <#if (isEcommerceScreen?exists && isEcommerceScreen?default("N") == "Y")>
   <tr>
     <td colspan="2">
       <div class="tableheadtext">${uiLabelMap.EcommerceCustomerReviews}:</div>
@@ -587,11 +590,12 @@ ${virtualJavaScript?if_exists}
     </tr>
     <tr>
       <td colspan="2">
-        <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}!</a>
+        <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}</a>
       </td>
     </tr>
   </#if>
 </table>
+</#if>
 
 <#-- Upgrades/Up-Sell/Cross-Sell -->
   <#macro associated assocProducts beforeName showName afterName formNamePrefix targetRequestName>
