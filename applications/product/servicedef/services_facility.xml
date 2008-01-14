@@ -32,7 +32,6 @@ under the License.
     <service name="checkFacilityRelatedPermission" engine="simple"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkFacilityRelatedPermission">
         <description>Facility Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
     </service>
     <service name="checkProductFacilityRelatedPermission" engine="simple"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkProductFacilityRelatedPermission">
@@ -43,7 +42,7 @@ under the License.
     <service name="createInventoryItem" default-entity-name="InventoryItem" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItem" auth="true">
         <description>Create an InventoryItem</description>
-        <permission-service service-name="checkFacilityRelatedPermission" main-action="CREATE"/>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="availableToPromiseTotal"/>
@@ -65,7 +64,7 @@ under the License.
     <service name="updateInventoryItem" default-entity-name="InventoryItem" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateInventoryItem" auth="true">
         <description>Update an InventoryItem</description>
-        <permission-service service-name="checkFacilityRelatedPermission" main-action="UPDATE"/>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="availableToPromiseTotal"/>
@@ -121,14 +120,14 @@ under the License.
     <service name="createInventoryItemVariance" default-entity-name="InventoryItemVariance" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemVariance" auth="true">
         <description>Create an InventoryItemVariance - note that the quantityOnHand and availableToPromise are relative and will be added to the corresponding value on the given InventoryItem</description>
-        <permission-service service-name="checkFacilityRelatedPermission" main-action="CREATE"/>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="createPhysicalInventory" default-entity-name="PhysicalInventory" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createPhysicalInventory" auth="true">
         <description>Create an PhysicalInventory</description>
-        <permission-service service-name="checkFacilityRelatedPermission" main-action="CREATE"/>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
