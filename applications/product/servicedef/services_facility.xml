@@ -29,10 +29,6 @@ under the License.
         location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="facilityGenericPermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="checkFacilityRelatedPermission" engine="simple"
-            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkFacilityRelatedPermission">
-        <description>Facility Permission Checking Logic</description>
-    </service>
     <service name="checkProductFacilityRelatedPermission" engine="simple"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="checkProductFacilityRelatedPermission">
         <description>ProductFacility Permission Checking Logic</description>
