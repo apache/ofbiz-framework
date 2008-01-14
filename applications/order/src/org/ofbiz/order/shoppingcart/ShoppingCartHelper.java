@@ -955,7 +955,7 @@ public class ShoppingCartHelper {
                  // clear the existing order terms
                  cart.removeOrderTerms();
                  // set order terms based on agreement terms
-                 List agreementTerms = agreement.getRelated("AgreementTerm");
+                 List agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm"));
                  if (agreementTerms.size() > 0) {
                       for (int i = 0; agreementTerms.size() > i;i++) {
                            GenericValue agreementTerm = (GenericValue) agreementTerms.get(i);
