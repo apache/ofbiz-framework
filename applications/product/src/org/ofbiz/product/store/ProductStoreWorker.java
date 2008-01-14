@@ -690,7 +690,7 @@ public class ProductStoreWorker {
             return isInventoryAvailable;
 
         } else {
-            GenericValue product = productConfig.getProduct();;
+            GenericValue product = productConfig.getProduct();
             List productFacilities = null;
 
             try {

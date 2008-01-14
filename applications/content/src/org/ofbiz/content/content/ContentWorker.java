@@ -1603,7 +1603,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             String key = (String)it.next();
             if ("request response session".indexOf(key) < 0) {
                 Object obj = map.get(key);
-                s += spc + key + sep;;
+                s += spc + key + sep;
                 if (obj instanceof GenericValue) {
                     GenericValue gv = (GenericValue)obj;
                     GenericPK pk = gv.getPrimaryKey();

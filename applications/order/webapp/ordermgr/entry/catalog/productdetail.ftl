@@ -372,12 +372,14 @@ ${virtualJavaScript?if_exists}
         <div class="tabletext"><b>${uiLabelMap.ProductUsuallyShipsIn} <font color="red">${daysToShip}</font> ${uiLabelMap.CommonDays}!<b></div>
       </#if>
 
-      <#-- tell a friend -->
-      <div class="tabletext">&nbsp;</div>
-      <div class="tabletext">
-        <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
-      </div>
-      <br/>
+      <#-- show tell a friend details only in ecommerce application -->
+      <#if (isEcommerceScreen?exists && isEcommerceScreen?default("N") == "Y")>
+        <div class="tabletext">&nbsp;</div>
+        <div class="tabletext">
+          <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
+        </div>
+        <br/>
+      </#if>
 
       <#if disFeatureList?exists && 0 < disFeatureList.size()>
       <p>&nbsp;</p>
@@ -559,7 +561,8 @@ ${virtualJavaScript?if_exists}
   <#-- Any attributes/etc may go here -->
 
   <#-- Product Reviews -->
-  <div id="reviews">
+  <#if (isEcommerceScreen?exists && isEcommerceScreen?default("N") == "Y")>  
+    <div id="reviews">
       <div class="tableheadtext">${uiLabelMap.EcommerceCustomerReviews}:</div>
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
           <div class="tabletext">${uiLabelMap.EcommerceAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.EcommerceRatings})</#if></div>
@@ -600,11 +603,11 @@ ${virtualJavaScript?if_exists}
       <#else>
         <div class="tabletext">${uiLabelMap.ProductProductNotReviewedYet}.</div>
         <div>
-            <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}!</a>
+            <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}</a>
         </div>
       </#if>
-  </div>
-
+    </div>
+  </#if>
 <#-- Upgrades/Up-Sell/Cross-Sell -->
   <#macro associated assocProducts beforeName showName afterName formNamePrefix targetRequestName>
   <#assign targetRequest = "product">
