@@ -3578,7 +3578,7 @@ public class OrderServices {
         GenericValue orderHeader = orh.getOrderHeader();
         String orderStatus = orderHeader.getString("statusId");
         if ("ORDER_CANCELLED".equals(orderStatus) || "ORDER_REJECTED".equals(orderStatus)) {
-            return ServiceUtil.returnSuccess();
+            return ServiceUtil.returnFailure("ERROR: the Order status is "+orderStatus);
         }
 
         // process the payments
