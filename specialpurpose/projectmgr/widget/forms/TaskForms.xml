@@ -401,7 +401,7 @@
         <field name="actualHours"><display/></field>
         <field name="createdDate"><display type="date"/></field>
     </form>                                         
-    <form name="EditWorkEffortPartyAssigns" target="deleteTaskPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns">
+    <form name="EditWorkEffortPartyAssigns" target="deleteTaskPartyAssign" title="" type="list" paginate-target="EditTaskPartyAssigns">
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignment">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
@@ -446,7 +446,7 @@
         <field name="custRequestTypeDescription"><display/></field>
         <field name="statusItemDescription"><display/></field>
     </form> 
-    <form name="TaskBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies">
+    <form name="TaskBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="taskView">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortIdFrom"/>
@@ -468,7 +468,7 @@
         <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
     </form>
-    <form name="TaskAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies">
+    <form name="TaskAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="taskView">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortIdTo"/>

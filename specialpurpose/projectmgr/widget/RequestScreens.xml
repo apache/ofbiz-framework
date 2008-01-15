@@ -27,12 +27,9 @@ under the License.
                 <set field="tabButtonItem" value="requestlist"/>
                 <set field="headerItem" value="request"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="3"/>
 
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <entity-and entity-name="CustRequest" list-name="requests">
-                    <field-map field-name="statusId" value="CRQ_SUBMITTED"/>
-                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -43,7 +40,22 @@ under the License.
                         <container style="screenlet-body">
                             <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                         </container>
-                        <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                        <container style="screenlet-body">    
+                        <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.OrderRequestList}"/></container>
+                            <container style="screenlet">
+                                <container style="screenlet-body">
+                                    <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                </container>
+                            </container>
+                        </container>
+                        <container style="screenlet-body">
+                            <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.ProjectMgrRequestWorkEffortList}"/></container>
+                            <container style="screenlet">
+                                <container style="screenlet-body">
+                                    <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                </container>    
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -82,6 +94,8 @@ under the License.
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">

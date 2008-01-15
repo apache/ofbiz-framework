@@ -55,7 +55,7 @@
         <field name="_rowSubmit"><hidden value="Y"/></field>
     </form>
 
-    <form name="ListTimeSheets" type="list" list-name="timesheets" paginate-target="FindTimeSheet">
+    <form name="ListTimeSheets" type="list" list-name="timesheets" paginate-target="MyTimesheet">
         <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${timesheetId}" target="${my}Timesheet?timesheetId=${timesheetId}"/>
         </field>

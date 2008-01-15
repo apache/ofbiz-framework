@@ -21,14 +21,13 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListRequests" type="list" use-row-submit="true" title="" list-name="requests">
-        <row-actions>
-            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
-        </row-actions> 
+        <actions>
+            <entity-and entity-name="CustRequest" list-name="requests">
+                <field-map field-name="statusId" value="CRQ_SUBMITTED"/>
+                </entity-and>
+        </actions> 
         <field name="custRequestName" widget-style="buttontext">
             <hyperlink description="${custRequestName}[${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/>
-        </field>
-        <field name="workEffortId">
-            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortId}"/>
         </field>
         <field name="priority"><display/></field>
         <field name="createdDate"><display type="date"/></field>
@@ -144,6 +143,29 @@ under the License.
             <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile?partyId=${partyId}"/>
         </field>
         <field name="RequestTaker"><display description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName}"/></field>
+    </form>
+    <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="requests" paginate-target="requestlist">
+        <actions>
+            <entity-and entity-name="CustRequest" list-name="requests">
+                <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
+                </entity-and>
+        </actions>
+        <row-actions>
+            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
+        </row-actions> 
+        <field name="custRequestName" widget-style="buttontext">
+            <hyperlink description="${custRequestName}[${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/>
+        </field>
+        <field name="workEffortId">
+            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortId}"/>
+        </field>
+        <field name="priority"><display/></field>
+        <field name="createdDate"><display type="date"/></field>
+        <field name="fromPartyId"><display/></field>
+        <field name="statusId">
+            <display-entity also-hidden="false" entity-name="StatusItem"/>
+        </field>
+        <field name="description"><display/></field>
     </form>
 </forms>
 
