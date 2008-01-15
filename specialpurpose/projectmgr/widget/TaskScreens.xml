@@ -31,6 +31,8 @@ under the License.
                     <field-map field-name="taskId" env-name="parameters.workEffortId"/>
                 </service>
                 <set field="projectId" from-field="result.projectId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -107,6 +109,8 @@ under the License.
                     <field-map field-name="workEffortId" value="dummy"/>
                 </entity-one>
                 <set field="myTask" value="notNull"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonMyTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -179,6 +183,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindTask"/>
                 <set field="headerItem" value="task"/>
                 <set field="labelTitleProperty" value="ProjectMgrListTasks"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonMyTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -288,6 +294,8 @@ under the License.
                 <entity-and entity-name="WorkEffortSkillStandard" list-name="workEffortSkillStandards">
                     <field-map field-name="workEffortId" env-name="workEffortId"/>
                 </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -371,6 +379,8 @@ under the License.
                     <field-map field-name="taskId" env-name="parameters.workEffortId"/>
                 </service>
                 <set field="projectId" from-field="result.projectId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>            
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -401,6 +411,8 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListTaskNotes"/>
 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
@@ -513,6 +525,8 @@ under the License.
                     <field-map field-name="workEffortId" env-name="workEffortId"/>                  
                 </service>
                 <set field="taskParties" from-field="result.taskParties"/>     
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>           
             <widgets> 
                 <container style="screenlet">
@@ -531,6 +545,8 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <container style="screenlet">
@@ -549,6 +565,8 @@ under the License.
                     <field-map field-name="workEffortIdTo" env-name="parameters.workEffortId"/>
                     <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
                 </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <container style="screenlet">
@@ -567,6 +585,8 @@ under the License.
                     <field-map field-name="workEffortIdFrom" env-name="parameters.workEffortId"/>
                     <field-map field-name="workEffortAssocTypeId" value="WORK_EFF_DEPENDENCY"/>
                 </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <container style="screenlet">

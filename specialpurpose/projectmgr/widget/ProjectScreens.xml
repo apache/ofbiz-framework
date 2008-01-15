@@ -28,6 +28,8 @@ under the License.
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjects.bsh"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -60,6 +62,8 @@ under the License.
                     <order-by field-name="lastName"/>
                     <order-by field-name="groupName"/>
                 </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -99,6 +103,8 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjects.bsh"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -158,6 +164,8 @@ under the License.
                 <set field="tabButtonItem" value="billing"/>                
                 <set field="labelTitleProperty" value="PageTitleProjectBilling"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -263,6 +271,8 @@ under the License.
                     <order-by field-name="phaseName"/>
                     <order-by field-name="workEffortName"/>
                 </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -365,6 +375,8 @@ under the License.
                     <field-map field-name="projectId" env-name="projectId"/>
                 </service>
                 <set field="phases" from-field="result.phaseList"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -400,6 +412,8 @@ under the License.
                 <set field="workEffortId" from-field="parameters.projectId" default-value="parameters.workEffortId"/>
                 <set field="projectId" from-field="workEffortId"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>            
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -431,6 +445,8 @@ under the License.
                 <entity-and entity-name="WorkEffortSkillStandard" list-name="workEffortSkillStandardList">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -485,6 +501,8 @@ under the License.
                 <set field="tabButtonItem" value="tasks"/>
                 <set field="labelTitleProperty" value="PageTitleEditSkill"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -515,6 +533,8 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListProjectNotes"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="parameters.projectId" from-field="workEffortId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -600,6 +620,8 @@ under the License.
             <actions>
                 <set field="parameters.projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/FindProject.bsh"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>                
                 <container style="screenlet">
@@ -620,6 +642,8 @@ under the License.
                     <field-map field-name="projectId" env-name="projectId"/>
                 </service>
                 <set field="phases" from-field="result.phaseList"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>                
                 <container style="screenlet">
@@ -640,6 +664,8 @@ under the License.
                     <field-map field-name="projectId" env-name="projectId"/>
                 </service>
                 <set field="tasks" from-field="result.taskList"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>                
                 <container style="screenlet">
@@ -660,6 +686,8 @@ under the License.
                     <field-map field-name="projectId" env-name="projectId"/>
                 </service>
                 <set field="parties" from-field="result.projectParties"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>                
                 <container style="screenlet">
@@ -742,6 +770,8 @@ under the License.
                     <field-map field-name="partyId" env-name="parameters.partyId"/>
                     <order-by field-name="workEffortId"/>
                 </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>               
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -774,6 +804,8 @@ under the License.
                     <field-map field-name="partyId" env-name="parameters.partyId"/>
                     <order-by field-name="workEffortId"/>
                 </entity-and>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>   
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
