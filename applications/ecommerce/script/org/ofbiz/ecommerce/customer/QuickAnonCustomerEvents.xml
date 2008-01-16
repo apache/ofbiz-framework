@@ -212,66 +212,66 @@ under the License.
         <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId" />
 
         <!-- Create the Postal Address -->
-        <if-compare field-name="usePostalAddress_0" operator="equals" value="true">
-            <if-empty field-name="toName_0" map-name="parameters">
-                <set field="parameters.toName_0" value="${personContext.firstName} ${personContext.middleName} ${personContext.lastName}"  />
+        <if-compare field-name="shipToPostalAddress" operator="equals" value="true">
+            <if-empty field-name="shipToName" map-name="parameters">
+                <set field="parameters.shipToName" value="${personContext.firstName} ${personContext.middleName} ${personContext.lastName}"  />
             </if-empty>
-            <call-map-processor in-map-name="parameters" out-map-name="postalAddressContext_0">
+            <call-map-processor in-map-name="parameters" out-map-name="shippingAddressContext">
                 <simple-map-processor name="postalAddress">
                     <process field="roleTypeId"><copy/></process>
-                    <process field="toName_0"><copy to-field="toName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyToNameMissing"/></not-empty></process>
-                    <process field="attnName_0"><copy to-field="attnName"/></process>
-                    <process field="address1_0"><copy to-field="address1"/><not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1Missing"/></not-empty></process>
-                    <process field="address2_0"><copy to-field="address2"/></process>
-                    <process field="city_0"><copy to-field="city"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
-                    <process field="stateProvinceGeoId_0"><copy to-field="stateProvinceGeoId"/></process>
-                    <process field="postalCode_0"><copy to-field="postalCode"/><not-empty><fail-property resource="PartyUiLabels"  property="PartyPostalCodeMissing"/></not-empty></process>
-                    <process field="countryGeoId_0"><copy to-field="countryGeoId"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCountryMissing"/></not-empty></process>
-                    <process field="postalAddressAllowSol_0"><copy to-field="allowSolicitation"/></process>
+                    <process field="shipToName"><copy to-field="toName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyToNameMissing"/></not-empty></process>
+                    <process field="shipToAttnName"><copy to-field="attnName"/></process>
+                    <process field="shipToAddress1"><copy to-field="address1"/><not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1Missing"/></not-empty></process>
+                    <process field="shipToAddress2"><copy to-field="address2"/></process>
+                    <process field="shipToCity"><copy to-field="city"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
+                    <process field="shipToStateProvinceGeoId"><copy to-field="stateProvinceGeoId"/></process>
+                    <process field="shipToPostalCode"><copy to-field="postalCode"/><not-empty><fail-property resource="PartyUiLabels"  property="PartyPostalCodeMissing"/></not-empty></process>
+                    <process field="shipToCountryGeoId"><copy to-field="countryGeoId"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCountryMissing"/></not-empty></process>
+                    <process field="shipToPostalAddressAllowSol"><copy to-field="allowSolicitation"/></process>
                 </simple-map-processor>
             </call-map-processor>
-            <if-compare value="USA" operator="equals" field-name="countryGeoId_0" map-name="parameters">
-                <if-empty field-name="stateProvinceGeoId_0" map-name="parameters">
+            <if-compare value="USA" operator="equals" field-name="shipToCountryGeoId" map-name="parameters">
+                <if-empty field-name="shipToStateProvinceGeoId" map-name="parameters">
                     <set field="tempErrorMessage" value="State is missing, and is required for an address in the United States." />
                     <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
                 </if-empty>
             </if-compare>
-            <if-compare value="CAN" operator="equals" field-name="countryGeoId_0" map-name="parameters">
-                <if-empty field-name="stateProvinceGeoId_0" map-name="parameters">
+            <if-compare value="CAN" operator="equals" field-name="shipToCountryGeoId" map-name="parameters">
+                <if-empty field-name="shipToStateProvinceGeoId" map-name="parameters">
                     <set field="tempErrorMessage" value="State is missing, and is required for an address in Canada." />
                     <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
                 </if-empty>
             </if-compare>
         </if-compare>
         
-        <if-compare value="Y" field-name="parameters.usePostalAddress_0ForContactMechPurpose_1" operator="not-equals">
+        <if-compare value="Y" field-name="parameters.useShippingPostalAddressForBilling" operator="not-equals">
         <!-- Check the flag if Second Postal address is not same as First So create Another Postal Address -->
-            <if-compare field-name="usePostalAddress_1" operator="equals" value="true">
-                <if-empty field-name="toName_1" map-name="parameters">
-                    <set field="parameters.toName_1" value="${personContext.firstName} ${personContext.middleName} ${personContext.lastName}"  />
+            <if-compare field-name="billToPostalAddress" operator="equals" value="true">
+                <if-empty field-name="billToName" map-name="parameters">
+                    <set field="parameters.billToName" value="${personContext.firstName} ${personContext.middleName} ${personContext.lastName}"  />
                 </if-empty>
-                <call-map-processor in-map-name="parameters" out-map-name="postalAddressContext_1">
+                <call-map-processor in-map-name="parameters" out-map-name="billingAddressContext">
                     <simple-map-processor name="postalAddress">
                         <process field="roleTypeId"><copy/></process>
-                        <process field="toName_1"><copy to-field="toName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyToNameMissing"/></not-empty></process>
-                        <process field="attnName_1"><copy to-field="attnName"/></process>
-                        <process field="address1_1"><copy to-field="address1"/><not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1Missing"/></not-empty></process>
-                        <process field="address2_1"><copy to-field="address2"/></process>
-                        <process field="city_1"><copy to-field="city"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
-                        <process field="stateProvinceGeoId_1"><copy to-field="stateProvinceGeoId"/></process>
-                        <process field="postalCode_1"><copy to-field="postalCode"/><not-empty><fail-property resource="PartyUiLabels"  property="PartyPostalCodeMissing"/></not-empty></process>
-                        <process field="countryGeoId_1"><copy to-field="countryGeoId"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCountryMissing"/></not-empty></process>
-                        <process field="postalAddressAllowSol_1"><copy to-field="allowSolicitation"/></process>
+                        <process field="billToName"><copy to-field="toName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyToNameMissing"/></not-empty></process>
+                        <process field="billToAttnName"><copy to-field="attnName"/></process>
+                        <process field="billToAddress1"><copy to-field="address1"/><not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1Missing"/></not-empty></process>
+                        <process field="billToAddress2"><copy to-field="address2"/></process>
+                        <process field="billToCity"><copy to-field="city"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
+                        <process field="billToStateProvinceGeoId"><copy to-field="stateProvinceGeoId"/></process>
+                        <process field="billToPostalCode"><copy to-field="postalCode"/><not-empty><fail-property resource="PartyUiLabels"  property="PartyPostalCodeMissing"/></not-empty></process>
+                        <process field="billToCountryGeoId"><copy to-field="countryGeoId"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCountryMissing"/></not-empty></process>
+                        <process field="billToPostalAddressAllowSol"><copy to-field="allowSolicitation"/></process>
                     </simple-map-processor>
                 </call-map-processor>
-                <if-compare value="USA" operator="equals" field-name="countryGeoId_1" map-name="parameters">
-                    <if-empty field-name="stateProvinceGeoId_1" map-name="parameters">
+                <if-compare value="USA" operator="equals" field-name="billToCountryGeoId" map-name="parameters">
+                    <if-empty field-name="billToStateProvinceGeoId" map-name="parameters">
                         <set field="tempErrorMessage" value="State is missing, and is required for an address in the United States." />
                         <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
                     </if-empty>
                 </if-compare>
-                <if-compare value="CAN" operator="equals" field-name="countryGeoId_1" map-name="parameters">
-                    <if-empty field-name="stateProvinceGeoId_1" map-name="parameters">
+                <if-compare value="CAN" operator="equals" field-name="billToCountryGeoId" map-name="parameters">
+                    <if-empty field-name="billToStateProvinceGeoId" map-name="parameters">
                         <set field="tempErrorMessage" value="State is missing, and is required for an address in Canada." />
                         <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
                     </if-empty>
@@ -334,8 +334,8 @@ under the License.
         <set field="partyDataSource.partyId" from-field="partyId" />
         <set field="userLoginContext.partyId" from-field="partyId" />
         <set field="personContext.partyId" from-field="partyId" />
-        <set field="postalAddressContext_0.partyId" from-field="partyId" />
-        <set field="postalAddressContext_1.partyId" from-field="partyId" />
+        <set field="shippingAddressContext.partyId" from-field="partyId" />
+        <set field="billingAddressContext.partyId" from-field="partyId" />
         <set field="homePhoneContext.partyId" from-field="partyId" />
         <set field="workPhoneContext.partyId" from-field="partyId" />
         <set field="faxPhoneContext.partyId" from-field="partyId" />
@@ -356,40 +356,40 @@ under the License.
         <create-value value-name="partyDataSource"/>
         
         <!-- add contactMechPurposeTypeId for first Postal Address -->
-        <if-compare field-name="usePostalAddress_0" operator="equals" value="true">
-            <if-empty field-name="parameters.postalAddressContactMechId_0">
-                <set field="postalAddressContext_0.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId_0" default-value="SHIPPING_LOCATION"/>
-                <call-service service-name="createPartyPostalAddress" in-map-name="postalAddressContext_0">
-                    <result-to-field result-name="contactMechId" field-name="parameters.postalAddressContactMechId_0"/>
+        <if-compare field-name="shipToPostalAddress" operator="equals" value="true">
+            <if-empty field-name="parameters.shippingContactMechId">
+                <set field="shippingAddressContext.contactMechPurposeTypeId" from-field="parameters.shippingContactMechPurposeTypeId" default-value="SHIPPING_LOCATION"/>
+                <call-service service-name="createPartyPostalAddress" in-map-name="shippingAddressContext">
+                    <result-to-field result-name="contactMechId" field-name="parameters.shippingContactMechId"/>
                 </call-service>
-                <if-compare value="Y" field-name="parameters.usePostalAddress_0ForContactMechPurpose_1" operator="equals">
+                <if-compare value="Y" field-name="parameters.useShippingPostalAddressForBilling" operator="equals">
                     <set field="addressPurposeContext.partyId" from-field="partyId"/>
-                    <set field="addressPurposeContext.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId_1" default-value="BILLING_LOCATION"/>
-                    <set field="addressPurposeContext.contactMechId" from-field="parameters.postalAddressContactMechId_0"/>
+                    <set field="addressPurposeContext.contactMechPurposeTypeId" from-field="parameters.billingContactMechPurposeTypeId" default-value="BILLING_LOCATION"/>
+                    <set field="addressPurposeContext.contactMechId" from-field="parameters.shippingContactMechId"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
                 </if-compare>
             <else>
-                <set field="postalAddressContext_0.contactMechId" from-field="parameters.postalAddressContactMechId_0"/>
+                <set field="shippingAddressContext.contactMechId" from-field="parameters.shippingContactMechId"/>
                 <!-- call the update address service -->
-                <call-service service-name="updatePartyPostalAddress" in-map-name="postalAddressContext_0">
-                    <result-to-field result-name="contactMechId" field-name="parameters.postalAddressContactMechId_0"/>
+                <call-service service-name="updatePartyPostalAddress" in-map-name="shippingAddressContext">
+                    <result-to-field result-name="contactMechId" field-name="parameters.shippingContactMechId"/>
                 </call-service>    
             </else>
             </if-empty>
         </if-compare>
         
-        <if-compare value="Y" field-name="parameters.usePostalAddress_0ForContactMechPurpose_1" operator="not-equals">
-            <if-empty field-name="parameters.postalAddressContactMechId_1">
+        <if-compare value="Y" field-name="parameters.useShippingPostalAddressForBilling" operator="not-equals">
+            <if-empty field-name="parameters.billingContactMechId">
                 <!-- create the Billing location -->
-                <set field="postalAddressContext_1.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId_1" default-value="BILLING_LOCATION"/>
-                <call-service service-name="createPartyPostalAddress" in-map-name="postalAddressContext_1">
-                    <result-to-field result-name="contactMechId" field-name="parameters.postalAddressContactMechId_1"/>
+                <set field="billingAddressContext.contactMechPurposeTypeId" from-field="parameters.billingContactMechPurposeTypeId" default-value="BILLING_LOCATION"/>
+                <call-service service-name="createPartyPostalAddress" in-map-name="billingAddressContext">
+                    <result-to-field result-name="contactMechId" field-name="parameters.billingContactMechId"/>
                 </call-service>
             <else>
-                <set field="postalAddressContext_1.contactMechId" from-field="parameters.postalAddressContactMechId_1"/>
+                <set field="billingAddressContext.contactMechId" from-field="parameters.billingContactMechId"/>
                 <!-- call the update address service -->
-                <call-service service-name="updatePartyPostalAddress" in-map-name="postalAddressContext_1">
-                    <result-to-field result-name="contactMechId" field-name="parameters.postalAddressContactMechId_1"/>    
+                <call-service service-name="updatePartyPostalAddress" in-map-name="billingAddressContext">
+                    <result-to-field result-name="contactMechId" field-name="parameters.billingContactMechId"/>    
                 </call-service>    
             </else>
             </if-empty>
@@ -492,8 +492,8 @@ under the License.
         <set field="require_email" value="true" />
         <set field="require_phone" value="true" />
         <set field="require_login" value="false" />
-        <set field="usePostalAddress_0" value="true"/>
-        <set field="usePostalAddress_1" value="true"/>
+        <set field="shipToPostalAddress" value="true"/>
+        <set field="billToPostalAddress" value="true"/>
         <!-- this parameter must be set to true or the createUser method below will use a default password instead of the one entered by user -->
         <set field="create_allow_password" value="true" />
 
@@ -550,16 +550,16 @@ under the License.
         <if-not-empty field-name="cart">
             <call-object-method obj-field-name="cart" method-name="addContactMech">
                 <string value="SHIPPING_LOCATION"/>
-                <field field-name="parameters.postalAddressContactMechId_0"/>
+                <field field-name="parameters.shippingContactMechId"/>
             </call-object-method>
             <call-object-method obj-field-name="cart" method-name="setShippingContactMechId">
-                <field field-name="parameters.postalAddressContactMechId_0"/>
+                <field field-name="parameters.shippingContactMechId"/>
             </call-object-method>
         </if-not-empty>
         
         
-        <if-compare value="Y" field-name="parameters.usePostalAddress_0ForContactMechPurpose_1" operator="not-equals">
-           <field-to-session field-name="parameters.postalAddressContactMechId_1" session-name="billingContactMechId"></field-to-session>        
+        <if-compare value="Y" field-name="parameters.useShippingPostalAddressForBilling" operator="not-equals">
+           <field-to-session field-name="parameters.billingContactMechId" session-name="billingContactMechId"></field-to-session>        
         <else>
         <if-not-empty field-name="cart">
             <call-object-method obj-field-name="cart" method-name="getShippingContactMechId" ret-field-name="shippingContactMechId"/>

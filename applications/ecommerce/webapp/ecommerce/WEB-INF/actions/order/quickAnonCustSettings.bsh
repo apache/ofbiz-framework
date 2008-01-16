@@ -107,38 +107,37 @@ if (cart != null && cart.getShippingContactMechId() != null) {
        UtilMisc.toMap("partyId", cartPartyId, "contactMechId", shippingContactMechId)), true));
     parameters.put("shippingContactMechId", shippingPartyContactDetail.get("contactMechId"));
     context.put("callSubmitForm",true);
-    parameters.put("toName_0", shippingPartyContactDetail.get("toName"));
-    parameters.put("attnName_0", shippingPartyContactDetail.get("attnName"));
-    parameters.put("address1_0", shippingPartyContactDetail.get("address1"));
-    parameters.put("address2_0", shippingPartyContactDetail.get("address2"));
-    parameters.put("city_0", shippingPartyContactDetail.get("city"));
-    parameters.put("postalCode_0", shippingPartyContactDetail.get("postalCode"));
-    parameters.put("stateProvinceGeoId_0", shippingPartyContactDetail.get("stateProvinceGeoId"));
-    parameters.put("countryGeoId_0", shippingPartyContactDetail.get("countryGeoId"));
+    parameters.put("shipToName", shippingPartyContactDetail.get("toName")); 
+    parameters.put("shipToAttnName", shippingPartyContactDetail.get("attnName")); 
+    parameters.put("shipToAddress1", shippingPartyContactDetail.get("address1"));
+    parameters.put("shipToAddress2", shippingPartyContactDetail.get("address2"));
+    parameters.put("shipToCity", shippingPartyContactDetail.get("city"));
+    parameters.put("shipToPostalCode", shippingPartyContactDetail.get("postalCode")); 
+    parameters.put("shipToStateProvinceGeoId", shippingPartyContactDetail.get("stateProvinceGeoId"));  
+    parameters.put("shipToCountryGeoId", shippingPartyContactDetail.get("countryGeoId")); 
 } else {
     context.put("postalFields", UtilHttp.getParameterMap(request));
 }
-
 
 billingContactMechId = session.getAttribute("billingContactMechId");
 if(billingContactMechId != null){
     billPostalAddress = delegator.findByPrimaryKey("PostalAddress",UtilMisc.toMap("contactMechId",billingContactMechId));
     parameters.put("billingContactMechId", billPostalAddress.get("contactMechId"));
-    parameters.put("toName_1", billPostalAddress.get("toName"));
-    parameters.put("attnName_1", billPostalAddress.get("attnName"));
-    parameters.put("address1_1", billPostalAddress.get("address1"));
-    parameters.put("address2_1", billPostalAddress.get("address2"));
-    parameters.put("city_1", billPostalAddress.get("city"));
-    parameters.put("postalCode_1", billPostalAddress.get("postalCode"));
-    parameters.put("stateProvinceGeoId_1", billPostalAddress.get("stateProvinceGeoId"));
-    parameters.put("countryGeoId_1", billPostalAddress.get("countryGeoId"));
+    parameters.put("billToName", billPostalAddress.get("toName"));  
+    parameters.put("billToAttnName", billPostalAddress.get("attnName")); 
+    parameters.put("billToAddress1", billPostalAddress.get("address1")); 
+    parameters.put("billToAddress2", billPostalAddress.get("address2"));
+    parameters.put("billToCity", billPostalAddress.get("city"));   
+    parameters.put("billToPostalCode", billPostalAddress.get("postalCode"));  
+    parameters.put("billToStateProvinceGeoId", billPostalAddress.get("stateProvinceGeoId"));  
+    parameters.put("billToCountryGeoId", billPostalAddress.get("countryGeoId"));    
 }
 
 if(cart != null && cart.getShippingContactMechId() != null && shippingPartyContactDetail != null){
     shippingContactMechId = shippingPartyContactDetail.get("contactMechId");
     if(billingContactMechId != null && billingContactMechId.equals(shippingContactMechId)){
-        context.put("usePostalAddress_0ForContactMechPurpose_1","Y");
+        context.put("useShippingPostalAddressForBilling","Y"); 
     } 
 }
-parameters.put("contactMechPurposeTypeId_0", "SHIPPING_LOCATION");
-parameters.put("contactMechPurposeTypeId_1", "BILLING_LOCATION");
+parameters.put("shippingContactMechPurposeTypeId", "SHIPPING_LOCATION");
+parameters.put("billingContactMechPurposeTypeId", "BILLING_LOCATION");

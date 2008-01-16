@@ -18,34 +18,34 @@ under the License.
 -->
 <script language="JavaScript" type="text/javascript">
 function shipBillAddr() {
-    if (document.${parameters.formNameValue}.usePostalAddress_0ForContactMechPurpose_1.checked) {
-       document.${parameters.formNameValue}.toName_1.value = document.${parameters.formNameValue}.toName_0.value ;
-       document.${parameters.formNameValue}.attnName_1.value = document.${parameters.formNameValue}.attnName_0.value ;
-       document.${parameters.formNameValue}.address1_1.value = document.${parameters.formNameValue}.address1_0.value ;
-       document.${parameters.formNameValue}.address2_1.value = document.${parameters.formNameValue}.address2_0.value ;
-       document.${parameters.formNameValue}.city_1.value = document.${parameters.formNameValue}.city_0.value ;
-       document.${parameters.formNameValue}.stateProvinceGeoId_1.value = document.${parameters.formNameValue}.stateProvinceGeoId_0.value ;
-       document.${parameters.formNameValue}.postalCode_1.value = document.${parameters.formNameValue}.postalCode_0.value ;
-       document.${parameters.formNameValue}.countryGeoId_1.value = document.${parameters.formNameValue}.countryGeoId_0.value ;
+    if (document.${parameters.formNameValue}.useShippingPostalAddressForBilling.checked) {
+       document.${parameters.formNameValue}.billToName.value = document.${parameters.formNameValue}.shipToName.value;
+       document.${parameters.formNameValue}.billToAttnName.value = document.${parameters.formNameValue}.shipToAttnName.value;
+       document.${parameters.formNameValue}.billToAddress1.value = document.${parameters.formNameValue}.shipToAddress1.value;
+       document.${parameters.formNameValue}.billToAddress2.value = document.${parameters.formNameValue}.shipToAddress2.value;
+       document.${parameters.formNameValue}.billToCity.value = document.${parameters.formNameValue}.shipToCity.value;
+       document.${parameters.formNameValue}.billToStateProvinceGeoId.value = document.${parameters.formNameValue}.shipToStateProvinceGeoId.value;
+       document.${parameters.formNameValue}.billToPostalCode.value = document.${parameters.formNameValue}.shipToPostalCode.value;
+       document.${parameters.formNameValue}.billToCountryGeoId.value = document.${parameters.formNameValue}.shipToCountryGeoId.value;
        
-       document.${parameters.formNameValue}.toName_1.disabled = true;
-       document.${parameters.formNameValue}.attnName_1.disabled = true;
-       document.${parameters.formNameValue}.address1_1.disabled = true;
-       document.${parameters.formNameValue}.address2_1.disabled = true;
-       document.${parameters.formNameValue}.city_1.disabled = true;
-       document.${parameters.formNameValue}.stateProvinceGeoId_1.disabled = true;                                   
-       document.${parameters.formNameValue}.postalCode_1.disabled = true;
-       document.${parameters.formNameValue}.countryGeoId_1.disabled = true;                                   
+       document.${parameters.formNameValue}.billToName.disabled = true;
+       document.${parameters.formNameValue}.billToAttnName.disabled = true;
+       document.${parameters.formNameValue}.billToAddress1.disabled = true;
+       document.${parameters.formNameValue}.billToAddress2.disabled = true;
+       document.${parameters.formNameValue}.billToCity.disabled = true;
+       document.${parameters.formNameValue}.billToStateProvinceGeoId.disabled = true;                                   
+       document.${parameters.formNameValue}.billToPostalCode.disabled = true;
+       document.${parameters.formNameValue}.billToCountryGeoId.disabled = true;                                   
     } else {
-       document.${parameters.formNameValue}.toName_1.disabled = false;
-       document.${parameters.formNameValue}.attnName_1.disabled = false;
-       document.${parameters.formNameValue}.address1_1.disabled = false;
-       document.${parameters.formNameValue}.address2_1.disabled = false;
-       document.${parameters.formNameValue}.city_1.disabled = false;
-       document.${parameters.formNameValue}.stateProvinceGeoId_1.disabled = false;                                   
-       document.${parameters.formNameValue}.postalCode_1.disabled = false;
-       document.${parameters.formNameValue}.countryGeoId_1.disabled = false;                                   
-       document.${parameters.formNameValue}.postalAddressContactMechId_1.value = "";  
+       document.${parameters.formNameValue}.billToName.disabled = false;
+       document.${parameters.formNameValue}.billToAttnName.disabled = false;
+       document.${parameters.formNameValue}.billToAddress1.disabled = false;
+       document.${parameters.formNameValue}.billToAddress2.disabled = false;
+       document.${parameters.formNameValue}.billToCity.disabled = false;
+       document.${parameters.formNameValue}.billToStateProvinceGeoId.disabled = false;                                   
+       document.${parameters.formNameValue}.billToPostalCode.disabled = false;
+       document.${parameters.formNameValue}.billToCountryGeoId.disabled = false;                                   
+       document.${parameters.formNameValue}.billingContactMechId.value = "";  
     }
 }
 </script>
@@ -78,10 +78,10 @@ function shipBillAddr() {
   <div class="screenlet-body">
   <form name="${parameters.formNameValue}" method="post" action="<@ofbizUrl>quickAnonProcessCustomerSettings</@ofbizUrl>">
   <input type="hidden" name="partyId" value="${parameters.partyId?if_exists}"/>
-  <input type="hidden" name="postalAddressContactMechId_0" value="${parameters.shippingContactMechId?if_exists}"/>
-  <input type="hidden" name="postalAddressContactMechId_1" value="${parameters.billingContactMechId?if_exists}"/>
-  <input type="hidden" name="contactMechPurposeTypeId_0" value="${parameters.contactMechPurposeTypeId_0?if_exists}"/>
-  <input type="hidden" name="contactMechPurposeTypeId_1" value="${parameters.contactMechPurposeTypeId_1?if_exists}"/>
+  <input type="hidden" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
+  <input type="hidden" name="billingContactMechId" value="${parameters.billingContactMechId?if_exists}"/>
+  <input type="hidden" name="shippingContactMechPurposeTypeId" value="${parameters.shippingContactMechPurposeTypeId?if_exists}"/>
+  <input type="hidden" name="billingContactMechPurposeTypeId" value="${parameters.billingContactMechPurposeTypeId?if_exists}"/>
   
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
      <tr>
@@ -180,50 +180,50 @@ function shipBillAddr() {
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyToName}</div></td>
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
-                  <@fieldErrors fieldName="toName_0"/>
-                  <input type="text" class="inputBox" name="toName_0" value="${parameters.toName_0?if_exists}" size="30" maxlength="30"/>
+                  <@fieldErrors fieldName="shipToName"/>
+                  <input type="text" class="inputBox" name="shipToName" value="${parameters.shipToName?if_exists}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyAttentionName}</div></td>
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
-                  <@fieldErrors fieldName="attnName_0"/>
-                  <input type="text" class="inputBox" name="attnName_0" value="${parameters.attnName_0?if_exists}" size="30" maxlength="30"/>
+                  <@fieldErrors fieldName="shipToAttnName"/>
+                  <input type="text" class="inputBox" name="shipToAttnName" value="${parameters.shipToAttnName?if_exists}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine1}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="address1_0"/>
-                    <input type="text" class="inputBox" size="30" maxlength="30" name="address1_0" value="${parameters.address1_0?if_exists}">
+                    <@fieldErrors fieldName="shipToAddress1"/>
+                    <input type="text" class="inputBox" size="30" maxlength="30" name="shipToAddress1" value="${parameters.shipToAddress1?if_exists}">
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine2}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <input type="text" class="inputBox" size="30" maxlength="30" name="address2_0" value="${parameters.address2_0?if_exists}">
+                    <input type="text" class="inputBox" size="30" maxlength="30" name="shipToAddress2" value="${parameters.shipToAddress2?if_exists}">
                  </td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyCity}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="city_0"/>
-                    <input type="text" class="inputBox" size="30" maxlength="30" name="city_0" value="${parameters.city_0?if_exists}">
+                    <@fieldErrors fieldName="shipToCity"/>
+                    <input type="text" class="inputBox" size="30" maxlength="30" name="shipToCity" value="${parameters.shipToCity?if_exists}">
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyState}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="stateProvinceGeoId_0"/>
-                    <select name="stateProvinceGeoId_0" class="selectBox">
-                    <#if (parameters.stateProvinceGeoId_0)?exists>
-                       <option>${parameters.stateProvinceGeoId_0}</option>
-                       <option value="${parameters.stateProvinceGeoId_0}">---</option>
+                    <@fieldErrors fieldName="shipToStateProvinceGeoId"/>
+                    <select name="shipToStateProvinceGeoId" class="selectBox">
+                    <#if (parameters.shipToStateProvinceGeoId)?exists>
+                       <option>${parameters.shipToStateProvinceGeoId}</option>
+                       <option value="${parameters.shipToStateProvinceGeoId}">---</option>
                     <#else>
                        <option value="">${uiLabelMap.PartyNoState}</option>
                     </#if>
@@ -235,19 +235,19 @@ function shipBillAddr() {
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyZipCode}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="postalCode_0"/>
-                    <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode_0" value="${parameters.postalCode_0?if_exists}">
+                    <@fieldErrors fieldName="shipToPostalCode"/>
+                    <input type="text" class="inputBox" size="12" maxlength="10" name="shipToPostalCode" value="${parameters.shipToPostalCode?if_exists}">
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="countryGeoId_0"/>
-                    <select name="countryGeoId_0" class="selectBox">
-                    <#if (parameters.countryGeoId_0)?exists>
-                       <option>${parameters.countryGeoId_0}</option>
-                       <option value="${parameters.countryGeoId_0}">---</option>
+                    <@fieldErrors fieldName="shipToCountryGeoId"/>
+                    <select name="shipToCountryGeoId" class="selectBox">
+                    <#if (parameters.shipToCountryGeoId)?exists>
+                       <option>${parameters.shipToCountryGeoId}</option>
+                       <option value="${parameters.shipToCountryGeoId}">---</option>
                     </#if>
                        ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                     </select>
@@ -261,7 +261,7 @@ function shipBillAddr() {
               <tr>
                 <td align="center" valign="top" colspan="3">
                   <div class="tabletext">
-                    <input type="checkbox" name="usePostalAddress_0ForContactMechPurpose_1" value="Y" <#if usePostalAddress_0ForContactMechPurpose_1?exists>checked</#if>  onClick="javascript:shipBillAddr()"/>
+                    <input type="checkbox" name="useShippingPostalAddressForBilling" value="Y" <#if useShippingPostalAddressForBilling?exists>checked</#if>  onClick="javascript:shipBillAddr()"/>
                     ${uiLabelMap.FacilityBillingAddressSameShipping}
                   </div>
                 </td>
@@ -275,50 +275,50 @@ function shipBillAddr() {
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyToName}</div></td>
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
-                  <@fieldErrors fieldName="toName_1"/>
-                  <input type="text" class="inputBox" name="toName_1" value="${parameters.toName_1?if_exists}" size="30" maxlength="30"/>
+                  <@fieldErrors fieldName="billToName"/>
+                  <input type="text" class="inputBox" name="billToName" value="${parameters.billToName?if_exists}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyAttentionName}</div></td>
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
-                  <@fieldErrors fieldName="attnName_1"/>
-                  <input type="text" class="inputBox" name="attnName_1" value="${parameters.attnName_1?if_exists}" size="30" maxlength="30"/>
+                  <@fieldErrors fieldName="billToAttnName"/>
+                  <input type="text" class="inputBox" name="billToAttnName" value="${parameters.billToAttnName?if_exists}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine1}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="address1_1"/>
-                    <input type="text" class="inputBox" size="30" maxlength="30" name="address1_1" value="${parameters.address1_1?if_exists}">
+                    <@fieldErrors fieldName="billToAddress1"/>
+                    <input type="text" class="inputBox" size="30" maxlength="30" name="billToAddress1" value="${parameters.billToAddress1?if_exists}">
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine2}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <input type="text" class="inputBox" size="30" maxlength="30" name="address2_1" value="${parameters.address2_1?if_exists}">
+                    <input type="text" class="inputBox" size="30" maxlength="30" name="billToAddress2" value="${parameters.billToAddress2?if_exists}">
                  </td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyCity}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="city_1"/>
-                    <input type="text" class="inputBox" size="30" maxlength="30" name="city_1" value="${parameters.city_1?if_exists}">
+                    <@fieldErrors fieldName="billToCity"/>
+                    <input type="text" class="inputBox" size="30" maxlength="30" name="billToCity" value="${parameters.billToCity?if_exists}">
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyState}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="stateProvinceGeoId_1"/>
-                    <select name="stateProvinceGeoId_1" class="selectBox">
-                    <#if (parameters.stateProvinceGeoId_1)?exists>
-                       <option>${parameters.stateProvinceGeoId_1}</option>
-                       <option value="${parameters.stateProvinceGeoId_1}">---</option>
+                    <@fieldErrors fieldName="billToStateProvinceGeoId"/>
+                    <select name="billToStateProvinceGeoId" class="selectBox">
+                    <#if (parameters.billToStateProvinceGeoId)?exists>
+                       <option>${parameters.billToStateProvinceGeoId}</option>
+                       <option value="${parameters.billToStateProvinceGeoId}">---</option>
                     <#else>
                        <option value="">${uiLabelMap.PartyNoState}</option>
                     </#if>
@@ -330,19 +330,19 @@ function shipBillAddr() {
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyZipCode}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="postalCode_1"/>
-                    <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode_1" value="${parameters.postalCode_1?if_exists}">
+                    <@fieldErrors fieldName="billToPostalCode"/>
+                    <input type="text" class="inputBox" size="12" maxlength="10" name="billToPostalCode" value="${parameters.billToPostalCode?if_exists}">
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <@fieldErrors fieldName="countryGeoId_1"/>
-                    <select name="countryGeoId_1" class="selectBox">
-                    <#if (parameters.countryGeoId_1)?exists>
-                       <option>${parameters.countryGeoId_1}</option>
-                       <option value="${parameters.countryGeoId_1}">---</option>
+                    <@fieldErrors fieldName="billToCountryGeoId"/>
+                    <select name="billToCountryGeoId" class="selectBox">
+                    <#if (parameters.billToCountryGeoId)?exists>
+                       <option>${parameters.billToCountryGeoId}</option>
+                       <option value="${parameters.billToCountryGeoId}">---</option>
                     </#if>
                        ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                     </select>
