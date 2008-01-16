@@ -19,6 +19,7 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -101,7 +102,7 @@ public class HtmlFormWrapper {
         }
     }
     
-    public String renderFormString(Object contextStack) {
+    public String renderFormString(Object contextStack) throws IOException {
         if (contextStack instanceof MapStack) {
             return renderFormString((MapStack) contextStack);
         } else {
@@ -109,16 +110,16 @@ public class HtmlFormWrapper {
             return renderFormString();
         }
     }
-    public String renderFormString(MapStack contextStack) {
+    public String renderFormString(MapStack contextStack) throws IOException {
         // create a new context with the current context on the bottom
         contextStack.push(this.context);
-        StringBuffer buffer = new StringBuffer();
+        StringWriter buffer = new StringWriter();
         modelForm.renderFormString(buffer, contextStack, renderer);
         contextStack.pop();
         return buffer.toString();
     }
-    public String renderFormString() {
-        StringBuffer buffer = new StringBuffer();
+    public String renderFormString() throws IOException {
+        StringWriter buffer = new StringWriter();
         modelForm.renderFormString(buffer, context, renderer);
         return buffer.toString();
     }

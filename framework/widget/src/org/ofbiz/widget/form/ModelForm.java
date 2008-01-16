@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.widget.form;
 
+import java.io.IOException;
+import java.io.Writer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -674,7 +677,7 @@ public class ModelForm extends ModelWidget {
      * Renders this form to a String, i.e. in a text format, as defined with the
      * FormStringRenderer implementation.
      *
-     * @param buffer The StringBuffer that the form text will be written to
+     * @param writer The Writer that the form text will be written to
      * @param context Map containing the form context; the following are
      *   reserved words in this context: parameters (Map), isError (Boolean),
      *   itemIndex (Integer, for lists only, otherwise null), bshInterpreter,
@@ -685,7 +688,7 @@ public class ModelForm extends ModelWidget {
      *   different form elements; implementing your own makes it possible to
      *   use the same form definitions for many types of form UIs
      */
-    public void renderFormString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
+    public void renderFormString(Writer writer, Map context, FormStringRenderer formStringRenderer) throws IOException {
         ModelFormAction.runSubActions(this.actions, context);
         
         setWidgetBoundaryComments(context);
@@ -716,19 +719,20 @@ public class ModelForm extends ModelWidget {
        }
 
         if ("single".equals(this.type)) {
-            this.renderSingleFormString(buffer, context, formStringRenderer, positions);
+            this.renderSingleFormString(writer, context, formStringRenderer, positions);
         } else if ("list".equals(this.type)) {
-            this.renderListFormString(buffer, context, formStringRenderer, positions);
+            this.renderListFormString(writer, context, formStringRenderer, positions);
         } else if ("multi".equals(this.type)) {
-            this.renderMultiFormString(buffer, context, formStringRenderer, positions);
+            this.renderMultiFormString(writer, context, formStringRenderer, positions);
         } else if ("upload".equals(this.type)) {
-            this.renderSingleFormString(buffer, context, formStringRenderer, positions);
+            this.renderSingleFormString(writer, context, formStringRenderer, positions);
         } else {
             throw new IllegalArgumentException("The type " + this.getType() + " is not supported for form with name " + this.getName());
         }
     }
 
-    public void renderSingleFormString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer, int positions) {
+    public void renderSingleFormString(Writer writer, Map context, FormStringRenderer formStringRenderer, int positions) throws IOException {
+        StringBuffer buffer = new StringBuffer();
         List tempFieldList = FastList.newInstance();
         tempFieldList.addAll(this.fieldList);
         
@@ -959,9 +963,12 @@ public class ModelForm extends ModelWidget {
 
         // render form close
         if (!skipEnd) formStringRenderer.renderFormClose(buffer, context, this);
+
+        writer.write(buffer.toString());
     }
 
-    public void renderListFormString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer, int positions) {
+    public void renderListFormString(Writer writer, Map context, FormStringRenderer formStringRenderer, int positions) throws IOException {
+        StringBuffer buffer = new StringBuffer();
         // render list/tabular type forms
 
         // prepare the items iterator and compute the pagination parameters
@@ -976,14 +983,20 @@ public class ModelForm extends ModelWidget {
             numOfColumns = this.renderHeaderRow(buffer, context, formStringRenderer);
         }
 
+        writer.write(buffer.toString());
+        buffer = new StringBuffer();
+
         // ===== render the item rows =====
-        this.renderItemRows(buffer, context, formStringRenderer, true, numOfColumns);
+        this.renderItemRows(writer, context, formStringRenderer, true, numOfColumns);
 
         // render formatting wrapper close
         formStringRenderer.renderFormatListWrapperClose(buffer, context, this);
+
+        writer.write(buffer.toString());
     }
 
-    public void renderMultiFormString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer, int positions) {
+    public void renderMultiFormString(Writer writer, Map context, FormStringRenderer formStringRenderer, int positions) throws IOException {
+        StringBuffer buffer = new StringBuffer();
         formStringRenderer.renderFormOpen(buffer, context, this);
 
         // render formatting wrapper open
@@ -993,12 +1006,17 @@ public class ModelForm extends ModelWidget {
         // ===== render header row =====
         numOfColumns = this.renderHeaderRow(buffer, context, formStringRenderer);
 
+        writer.write(buffer.toString());
+        buffer = new StringBuffer();
+
         // ===== render the item rows =====
-        this.renderItemRows(buffer, context, formStringRenderer, false, numOfColumns);
+        this.renderItemRows(writer, context, formStringRenderer, false, numOfColumns);
 
         formStringRenderer.renderFormatListWrapperClose(buffer, context, this);
         
         formStringRenderer.renderMultiFormClose(buffer, context, this);
+
+        writer.write(buffer.toString());
     }
 
     public int renderHeaderRow(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
@@ -1263,7 +1281,7 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    public void renderItemRows(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer, boolean formPerItem, int numOfColumns) {
+    public void renderItemRows(Writer writer, Map context, FormStringRenderer formStringRenderer, boolean formPerItem, int numOfColumns) throws IOException {
         this.rowCount = 0;
         String lookupName = this.getListName();
         if (UtilValidate.isEmpty(lookupName)) {
@@ -1457,7 +1475,9 @@ public class ModelForm extends ModelWidget {
                     // are now rendered: this will create a visual representation
                     // of one row (for the current position).
                     if (innerDisplayHyperlinkFieldsBegin.size() > 0 || innerFormFields.size() > 0 || innerDisplayHyperlinkFieldsEnd.size() > 0) {
+                        StringBuffer buffer = new StringBuffer();
                         this.renderItemRow(buffer, localContext, formStringRenderer, formPerItem, hiddenIgnoredFieldList, innerDisplayHyperlinkFieldsBegin, innerFormFields, innerDisplayHyperlinkFieldsEnd, currentPosition, numOfColumns);
+                        writer.write(buffer.toString());
                     }
                 } // iteration on positions
             } // iteration on items
