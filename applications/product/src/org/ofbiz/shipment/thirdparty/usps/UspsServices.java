@@ -144,11 +144,12 @@ public class UspsServices {
 
         List shippableItemInfo = (List) context.get("shippableItemInfo");
         List packages = getPackageSplit(dctx, shippableItemInfo, maxWeight);
+        boolean isOnePackage = packages.size() == 1; // use shippableWeight if there's only one package
         // TODO: Up to 25 packages can be included per request - handle more than 25
         for (ListIterator li = packages.listIterator(); li.hasNext();) {
             Map packageMap = (Map) li.next();
 
-            double packageWeight = calcPackageWeight(dctx, packageMap, shippableItemInfo, 0);
+            double packageWeight = isOnePackage ? shippableWeight.doubleValue() : calcPackageWeight(dctx, packageMap, shippableItemInfo, 0);
             if (packageWeight == 0) {
                 continue;
             }
