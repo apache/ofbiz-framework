@@ -111,6 +111,7 @@ under the License.
     </tr>
     <#-- set initial row color -->
     <#assign rowClass = "2">
+    <#if serverHits?has_content>
     <#list serverHits[lowIndex..highIndex-1] as hit>
       <#assign serverHitType = hit.getRelatedOne("ServerHitType")?if_exists>      
       <tr<#if rowClass == "1"> class="alternate-row"</#if>>
@@ -137,6 +138,11 @@ under the License.
         <#assign rowClass = "2">
       </#if>
     </#list>
+    <#else/>
+      <tr class="header-row">
+        <td colspan="6">No Server Hits found for this Visit</td>
+      </tr>
+    </#if>
   </table>
 
   <#if serverHits?has_content>
