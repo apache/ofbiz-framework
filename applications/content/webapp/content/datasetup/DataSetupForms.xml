@@ -27,7 +27,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateDataResourceType" list-name="contentList" target="updateDataResourceType" title="" type="list">
+    <form name="UpdateDataResourceType" list-name="contentList" target="updateDataResourceType" title="" type="list" paginate-target="EditDataResourceType">
         <actions>
           <entity-condition entity-name="DataResourceType" use-cache="false"/>
         </actions>
@@ -57,7 +57,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateDataResourceTypeAttr" list-name="contentList" target="updateDataResourceTypeAttr" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext">
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="tabletext" paginate-target="EditDataResourceTypeAttr">
         <actions>
           <entity-condition entity-name="DataResourceTypeAttr" use-cache="false"/>
         </actions>
@@ -80,7 +80,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateCharacterSet" list-name="contentList" target="updateCharacterSet" title="" type="list">
+    <form name="UpdateCharacterSet" list-name="contentList" target="updateCharacterSet" title="" type="list" paginate-target="EditCharacterSet">
         <actions>
           <entity-condition entity-name="CharacterSet" use-cache="false"/>
         </actions>
@@ -101,16 +101,17 @@ under the License.
         <auto-fields-service service-name="createDataCategory"/>
         <field name="parentCategoryId">
             <drop-down allow-empty="true">
-                <list-options list-name="dataCategoryList" 
-                    key-name="dataCategoryId"  description="${categoryName}"
-                    />
+                <entity-options entity-name="DataCategory" description="${categoryName}" key-field-name="dataCategoryId"></entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateDataCategory" list-name="dataCategoryList" target="updateDataCategory" title="" type="list">
+    <form name="UpdateDataCategory" list-name="dataCategoryList" target="updateDataCategory" title="" type="list" paginate-target="EditDataCategory">
+        <actions>
+            <entity-condition entity-name="DataCategory" use-cache="false"/>
+        </actions>
         <auto-fields-service service-name="updateDataCategory"/>
         <field name="dataCategoryId" widget-style="tabletext">
             <display/>
@@ -143,7 +144,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateFileExtension" list-name="contentList" target="updateFileExtension" title="" type="list">
+    <form name="UpdateFileExtension" list-name="contentList" target="updateFileExtension" title="" type="list" paginate-target="EditFileExtension">
         <actions>
           <entity-condition entity-name="FileExtension" use-cache="false"/>
         </actions>
@@ -173,7 +174,7 @@ under the License.
         </field>
     </form>
     <form name="UpdateMetaDataPredicate" list-name="contentList" target="updateMetaDataPredicate" title="" type="list"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox" paginate-target="EditMetaDataPredicate">
         <actions>
           <entity-condition entity-name="MetaDataPredicate" use-cache="false"/>
         </actions>
@@ -196,7 +197,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="UpdateMimeType" list-name="contentList" target="updateMimeType" title="" type="list">
+    <form name="UpdateMimeType" list-name="contentList" target="updateMimeType" title="" type="list" paginate-target="EditMimeType">
         <actions>
           <entity-condition entity-name="MimeType" use-cache="false"/>
         </actions>
@@ -225,7 +226,7 @@ under the License.
         </field>
     </form>
 
-    <form name="UpdateMimeTypeHtmlTemplate" target="updateMimeTypeHtmlTemplate" title="" type="list" paginate="true" paginate-size-field="25" list-name="contentList">
+    <form name="UpdateMimeTypeHtmlTemplate" target="updateMimeTypeHtmlTemplate" title="" type="list" list-name="contentList" paginate-target="EditMimeTypeHtmlTemplate">
         <actions>
           <entity-condition entity-name="MimeTypeHtmlTemplate" use-cache="false"/>
         </actions>
