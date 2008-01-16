@@ -638,10 +638,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
             
             //Debug.logInfo("before renderFormString, context:" + context, module);
-            StringBuffer renderBuffer = new StringBuffer();
-            modelForm.renderFormString(renderBuffer, context, formStringRenderer);
             try {
-                writer.write(renderBuffer.toString());
+                modelForm.renderFormString(writer, context, formStringRenderer);
             } catch (IOException e) {
                 String errMsg = "Error rendering included form named [" + name + "] at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
