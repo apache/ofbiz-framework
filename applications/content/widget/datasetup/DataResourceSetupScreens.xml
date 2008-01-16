@@ -26,6 +26,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceType"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditDataResourceType"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -43,6 +45,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceCharacterSet"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditCharacterSet"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -60,6 +64,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceTypeAttr"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditDataResourceTypeAttr"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -77,6 +83,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceFileExtension"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditFileExtension"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -94,6 +102,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceMetaDataPredicate"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMetaDataPredicate"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -111,6 +121,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceMimeType"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMimeType"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -128,6 +140,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceMimeTypeHtmlTemplate"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMimeTypeHtmlTemplate"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
@@ -146,6 +160,8 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditDataCategory"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/datasetup/datacategoryprep.bsh"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
