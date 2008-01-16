@@ -154,6 +154,10 @@ public class CategoryWorker {
     }
 
     public static List getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
+        return getRelatedCategoriesRet(request, attributeName, parentId, limitView, excludeEmpty, false);
+    }
+
+    public static List getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
         List categories = FastList.newInstance();
 
         if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.getRelatedCategories] ParentID: " + parentId, module);
@@ -192,11 +196,15 @@ public class CategoryWorker {
                         if (!isCategoryEmpty(cv)) {
                             //Debug.log("Child : " + cv.getString("productCategoryId") + " is not empty.", module);
                             categories.add(cv);
-                            categories.addAll(getRelatedCategoriesRet(request, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty));
+                            if (recursive) {
+                                categories.addAll(getRelatedCategoriesRet(request, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
+                            }
                         }
                     } else {
                         categories.add(cv);
-                        categories.addAll(getRelatedCategoriesRet(request, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty));
+                        if (recursive) {
+                            categories.addAll(getRelatedCategoriesRet(request, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
+                        }
                     }
                 }
             }
