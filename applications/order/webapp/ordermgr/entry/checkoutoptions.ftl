@@ -276,7 +276,8 @@ function submitForm(form, mode, value) {
                       </#list>
                       </b>
                       </div>
-                      <div class="tabletext">${uiLabelMap.OrderUpdateEmailAddress} <a href="<@ofbizUrl>viewprofile?DONE_PAGE=quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyProfile}</a>.</div>
+                      <div class="tabletext">${uiLabelMap.OrderUpdateEmailAddress} <a href="<#if customerDetailLink?exists>${customerDetailLink}${shoppingCart.getPartyId()}" target="partymgr"
+                        <#else><@ofbizUrl>viewprofile?DONE_PAGE=quickcheckout</@ofbizUrl>"</#if> class="buttontext">${uiLabelMap.PartyProfile}</a>.</div>
                       <br/>
                       <div class="tabletext">${uiLabelMap.OrderCommaSeperatedEmailAddresses}:</div>
                       <input type="text" class="inputBox" size="30" name="order_additional_emails" value="${shoppingCart.getOrderAdditionalEmails()?if_exists}"/>
