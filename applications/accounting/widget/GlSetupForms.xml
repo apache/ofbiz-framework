@@ -442,7 +442,7 @@ under the License.
           <display-entity entity-name="PeriodType"/>
         </field>
         <field name="parentPeriodId">
-          <display-entity entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName} ${uiLabelMap.CommonFrom} ${fromDate} ${uiLabelMap.CommonTo} ${thruDate}"/>
+          <display-entity entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName}: ${fromDate} - ${thruDate}"/>
         </field>
     </form>
     <form name="ListOpenTimePeriods" type="list" list-name="openTimePeriods">
@@ -453,7 +453,7 @@ under the License.
           <display-entity entity-name="PeriodType"/>
         </field>
         <field name="parentPeriodId">
-          <display-entity entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName} ${uiLabelMap.CommonFrom} ${fromDate} ${uiLabelMap.CommonTo} ${thruDate}"/>
+          <display-entity entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName}: ${fromDate} - ${thruDate}"/>
         </field>
         <field name="close" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="closeFinancialTimePeriod?organizationPartyId=${organizationPartyId}&amp;customTimePeriodId=${customTimePeriodId}" description="Close"/></field>
     </form>
@@ -468,7 +468,7 @@ under the License.
         </field>
         <field name="parentPeriodId">
             <drop-down allow-empty="true">
-                <list-options list-name="openTimePeriods" key-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName} ${uiLabelMap.CommonFrom} ${fromDate} ${uiLabelMap.CommonTo} ${thruDate}"/>
+                <list-options list-name="openTimePeriods" key-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName}: ${fromDate} - ${thruDate}"/>
             </drop-down>
         </field>
         <field name="periodTypeId">
