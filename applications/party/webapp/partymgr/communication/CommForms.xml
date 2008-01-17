@@ -341,7 +341,7 @@ under the License.
         </actions>
     </form>
 
-    <form name="ListChildCommEvents" type="list" extends="ListCommEvents">
+    <form name="ListChildCommEvents" type="list" extends="ListCommEvents" paginate-target="EditCommunicationEvent">
         <actions>
             <entity-condition entity-name="CommunicationEvent">
                 <condition-list combine="or">
@@ -366,7 +366,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ListCommWorkEfforts" type="list">
+    <form name="ListCommWorkEfforts" type="list" paginate-target="ListCommWorkEfforts">
         <actions>
             <entity-and entity-name="CommunicationEventWorkEff" use-cache="false">
                 <field-map field-name="communicationEventId"/>
@@ -394,7 +394,7 @@ under the License.
         </sort-order>
     </form>
 
-    <form name="ListCommPurposes" type="list">
+    <form name="ListCommPurposes" type="list" paginate-target="UpdateCommPurposes">
         <actions>
             <entity-and entity-name="CommunicationEventPurpose" use-cache="true">
                 <field-map field-name="communicationEventId"/>
@@ -421,7 +421,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.PartyAddPurpose}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListCommRoles" type="list">
+    <form name="ListCommRoles" type="list" paginate-target="UpdateCommRoles">
         <actions>
             <entity-and entity-name="CommunicationEventRole" use-cache="true">
                 <field-map field-name="communicationEventId"/>
