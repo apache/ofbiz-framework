@@ -175,6 +175,10 @@ public class UspsServices {
             // TODO: handle other container types, package sizes, and machinable packages
             // IMPORTANT: Express or Priority Mail will fail if you supply a Container tag: you will get a message like
             // Invalid container type. Valid container types for Priority Mail are Flat Rate Envelope and Flat Rate Box.
+            /* This is an official response from the United States Postal Service:
+            The <Container> tag is used to specify the flat rate mailing options, or the type of large or oversized package being mailed.
+            If you are wanting to get regular Express Mail rates, leave the <Container> tag empty, or do not include it in the request at all.
+             */
             if ("Parcel".equalsIgnoreCase(serviceCode)) {
                 UtilXml.addChildElementValue(packageElement, "Container", "None", requestDocument);
             }
