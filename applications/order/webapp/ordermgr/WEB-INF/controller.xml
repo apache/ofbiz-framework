@@ -855,8 +855,14 @@ under the License.
         <security direct-request="false"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkOrderBlacklist"/>
         <response name="success" type="request" value="processpayment"/>
-        <response name="failed" type="view" value="confirm"/>
+        <response name="failed" type="request" value="failedBlacklist"/>
         <response name="error" type="view" value="confirm"/>
+    </request-map>
+    <request-map uri="failedBlacklist">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="failedBlacklistCheck"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="processpayment">
         <security direct-request="false"/>
