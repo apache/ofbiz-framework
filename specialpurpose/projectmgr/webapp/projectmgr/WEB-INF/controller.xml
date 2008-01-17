@@ -170,9 +170,9 @@
         <response name="success" type="view" value="MyTasks"/>
         <response name="error" type="view" value="MyTasks"/>
     </request-map>
-    <request-map uri="addTaskAssigment">
+    <request-map uri="addTaskAssignment">
         <security https="true" auth="true"/>
-        <event type="service" invoke="addTaskAssigment"/>
+        <event type="service" invoke="addTaskAssignment"/>
         <response name="success" type="view" value="MyTasks"/>
         <response name="error" type="view" value="MyTasks"/>
     </request-map>
