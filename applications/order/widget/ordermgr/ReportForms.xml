@@ -21,8 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="OrderPurchaseReportOptions" type="single" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
-
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonAny} -"/>
@@ -60,21 +59,20 @@ under the License.
         </field>
     </form>
     <form name="OrderPurchaseProductOptions" type="single" target="OrderPurchaseReportProduct.pdf" title="" extends="OrderPurchaseReportOptions">
-        <field name="fromOrderDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.OrderDate}&gt;=)"><date-time type="timestamp"/></field>
-        <field name="thruOrderDate" title="${uiLabelMap.CommonThruDate} (${uiLabelMap.OrderDate}&lt;)"><date-time type="timestamp"/></field>
-
+        <field name="fromOrderDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="timestamp"/></field>
+        <field name="thruOrderDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="OrderPurchasePaymentOptions" type="single" target="OrderPurchaseReportPayment.pdf" title="" extends="OrderPurchaseReportOptions">
-        <field name="fromOrderDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.OrderDate}&gt;=)"><date-time type="timestamp"/></field>
-        <field name="thruOrderDate" title="${uiLabelMap.CommonThruDate} (${uiLabelMap.OrderDate}&lt;)"><date-time type="timestamp"/></field>
+        <field name="fromOrderDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="timestamp"/></field>
+        <field name="thruOrderDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="timestamp"/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <!-- form for generating a report of total product sales (quantity and value) -->
     <form name="SalesByStoreReport" type="single" target="SalesByStoreReport.pdf" title="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
@@ -101,7 +99,7 @@ under the License.
 
     <!-- form for generating a report of open order items -->
     <form name="OpenOrderItemsReport" type="single" target="OpenOrderItemsReport" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
@@ -124,14 +122,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromOrderDate" title="${uiLabelMap.CommonFromDate} (${uiLabelMap.OrderDate}&gt;=)"><date-time type="timestamp"/></field>
-        <field name="thruOrderDate" title="${uiLabelMap.CommonThruDate} (${uiLabelMap.OrderDate}&lt;)"><date-time type="timestamp"/></field>
+        <field name="fromOrderDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="timestamp"/></field>
+        <field name="thruOrderDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <!-- list open order items -->
     <form name="OpenOrderItemsList" type="list" list-name="orderItemList"
-        default-title-style="tableheadtext" default-widget-style="tabletext" paginate-target="OpenOrderItemsReport">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="OpenOrderItemsReport">
         <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
         <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext">
             <hyperlink target="orderview?orderId=${orderId}" description="${orderId}"/>
@@ -152,11 +150,11 @@ under the License.
         <field name="percentMarkup" title="${uiLabelMap.PercentageMarkup}"><display/></field>
     </form>
     
-    <form name="OpenOrderItemsTotal" type="list" list-name="totalAmountList" default-title-style="tableheadtext"
-         default-widget-style="tabletext">
-        <field name="" title="Total"><display/></field>
-        <field name="totalquantityOrdered"><display/></field>
-        <field name="totalquantityOpen"><display/></field>                
+    <form name="OpenOrderItemsTotal" type="list" list-name="totalAmountList" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="" title="${uiLabelMap.CommonTotal}"><display/></field>
+        <field name="totalQuantityOrdered"><display/></field>
+        <field name="totalQuantityOpen"><display/></field>                
         <field name="totalCostPrice"><display/></field>
         <field name="totalListPrice"><display/></field>
         <field name="totalRetailPrice"><display/></field>
@@ -167,7 +165,7 @@ under the License.
     
     <!-- form for generating a report of total product purchases (quantity and value) -->
     <form name="PurchasesByOrganizationReport" type="single" target="PurchasesByOrganizationReport.pdf" title=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="fromPartyId" title="${uiLabelMap.AccountingFromParty}">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
