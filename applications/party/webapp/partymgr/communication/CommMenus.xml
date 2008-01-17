@@ -18,8 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="CommEventTabBar" default-menu-item-name="viewprofile" menu-container-style="button-bar button-style-1"
-        type="simple" selected-menuitem-context-field-name="subTabButtonItem">
+    <menu name="CommEventTabBar" type="simple" selected-menuitem-context-field-name="subTabButtonItem">
         <menu-item name="CommunicationEvent" title="${uiLabelMap.PartyCommEvent}">
             <link target="EditCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </menu-item>

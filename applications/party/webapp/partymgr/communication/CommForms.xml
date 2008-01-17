@@ -20,10 +20,10 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="viewCommunication" type="single" target="editCommunication" default-map-name="communicationEvent">
+    <!--form name="viewCommunication1" type="single" target="editCommunication" default-map-name="communicationEvent">
         <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>
         <field name="communicationEventId" use-when="communicationEvent != null"><display/></field>
-        <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display-entity entity-name="PartyNameView"><sub-hyperlink target="viewprofile?partyId=${partyIdFrom}" description="${firstName} ${middleName} ${lastName} ${groupName}"/></display-entity></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><display/></field>
         <field name="statusId" use-when="statusId==null"><display/></field>
         <field name="statusId" use-when="statusId!=null"><display/></field>
@@ -39,7 +39,7 @@ under the License.
         <field map-name="subjectMap" name="note" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><text size="1"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonEdit}"><submit button-type="button"/></field>
-    </form>
+    </form-->
 
     <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent">
         <actions>
@@ -64,12 +64,10 @@ under the License.
             <display-entity entity-name="CommunicationEventType" description="${description}" key-field-name="communicationEventTypeId"/>
         </field>
 
-        <!-- parent communications -->
-        <field name="parentCommEventId" use-when="${bsh:communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;parentCommEventId&quot;)!=null}">
-            <hyperlink description="${communicationEvent.parentCommEventId}" target="EditCommunicationEvent?communicationEventId=${communicationEvent.parentCommEventId}&amp;partyId=${partyId}" target-type="intra-app"/>
-        </field>
-        <field name="parentCommEventId" map-name="parameters" use-when="communicationEvent==null" >
-            <hidden/>
+        <field name="parentCommEventId">
+            <lookup target-form-name="LookupCommEvent">
+                <sub-hyperlink use-when="&quot;${communicationEvent.parentCommEventId}&quot;.length()>0" link-style="buttontext" target="EditCommunicationEvent?communicationEventId=${communicationEvent.parentCommEventId}" description="${uiLabelMap.PartyGoToParent}"/>
+            </lookup>
         </field>
         
         <!-- status -->
@@ -211,8 +209,9 @@ under the License.
     </form>
 
     <form name="ViewCommEvent" type="single" default-map-name="communicationEvent">
-        <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/></field>
-        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/></field>
+        <field name="communicationEventId"><display/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"><sub-hyperlink target="viewprofile?partyId=${partyIdFrom}" description="[${partyIdFrom}]"/></display-entity></field>
+        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"><sub-hyperlink target="viewprofile?partyId=${communicationEvent.partyIdTo}" description="[${communicationEvent.partyIdTo}]"/></display-entity></field>
         <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
         <!-- This will display email addresses when it is an email.  This could be more elaborate to show the actual string, or it could

@@ -302,6 +302,7 @@ under the License.
                                         <container style="widget-container">
                                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditCommEvent"/>
                                         </container>
+                                        <label style="head1" text="${uiLabelMap.PageTitleChildCommunicationEvents}"></label>
                                         <container style="widget-container">
                                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListChildCommEvents"/>
                                         </container>
@@ -310,6 +311,7 @@ under the License.
                                         <container style="widget-container">
                                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ViewCommEvent"/>
                                         </container>
+                                        <label style="head1" text="${uiLabelMap.PageTitleChildCommunicationEvents}"></label>
                                         <container style="widget-container">
                                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListChildCommEvents"/>
                                         </container>
