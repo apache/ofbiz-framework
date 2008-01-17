@@ -201,8 +201,8 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
 
-    <service name="addTaskAssigment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
-        location="org/ofbiz/project/ProjectServices.xml" invoke="addTaskAssigment">
+    <service name="addTaskAssignment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="addTaskAssignment">
         <description>Add a WorkEffortPartyAssignment</description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE" />
         <attribute name="workEffortId" type="String" mode="IN"/>
