@@ -201,6 +201,7 @@ under the License.
                                 <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_COMPLETE"/>
                                 <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_RESOLVED"/>
                                 <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_REFERRED"/>
+                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_CANCELLED"/>
                             </or>
                         </and>
                     </condition>
