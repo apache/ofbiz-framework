@@ -1182,7 +1182,7 @@ public class CheckOutHelper {
         }
 
         if (blacklistFound != null && blacklistFound.size() > 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderFailed", (cart != null ? cart.getLocale() : Locale.getDefault())));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource_error,"OrderFailed", (cart != null ? cart.getLocale() : Locale.getDefault())));
         } else {
             return ServiceUtil.returnSuccess("success");
         }
@@ -1191,25 +1191,26 @@ public class CheckOutHelper {
     public Map failedBlacklistCheck(GenericValue userLogin, GenericValue productStore) {
         Map result;
         String errMsg=null;
-
         String REJECT_MESSAGE = productStore.getString("authFraudMessage");
-
-        // Get the orderId from the cart.
         String orderId = this.cart.getOrderId();
-
-        // set the order/item status - reverse inv
-        OrderChangeHelper.rejectOrder(dispatcher, userLogin, orderId);
-
-        // nuke the userlogin
-        userLogin.set("enabled", "N");
+        
         try {
-            userLogin.store();
+            if (userLogin != null) {
+                // nuke the userlogin
+                userLogin.set("enabled", "N");
+                userLogin.store();
+            } else {
+                userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Problems de-activating userLogin.", module);
+            Debug.logError(e, module);
             errMsg = UtilProperties.getMessage(resource,"checkhelper.database_error", (cart != null ? cart.getLocale() : Locale.getDefault()));
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
+
+        // set the order/item status - reverse inv
+        OrderChangeHelper.rejectOrder(dispatcher, userLogin, orderId);
         result = ServiceUtil.returnSuccess();
         result.put(ModelService.ERROR_MESSAGE, REJECT_MESSAGE);
 

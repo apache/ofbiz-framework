@@ -35,6 +35,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.marketing.tracking.TrackingCodeEvents;
+import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
@@ -574,7 +575,11 @@ public class CheckOutEvents {
 
         Map callResult = checkOutHelper.checkOrderBlacklist(userLogin);
         if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
-            result = (String) callResult.get(ModelService.ERROR_MESSAGE);
+            request.setAttribute("_ERROR_MESSAGE_", callResult.get(ModelService.ERROR_MESSAGE));
+            result = "error";
+        } else if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_FAIL)) {
+            request.setAttribute("_ERROR_MESSAGE_", callResult.get(ModelService.ERROR_MESSAGE));
+            result = "failed";
         } else {
             result = (String) callResult.get(ModelService.SUCCESS_MESSAGE);
         }
@@ -587,7 +592,9 @@ public class CheckOutEvents {
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        String orderPartyId = cart.getOrderPartyId();
+        GenericValue userLogin = PartyWorker.findPartyLatestUserLogin(orderPartyId, delegator);
+        GenericValue currentUser = (GenericValue) session.getAttribute("userLogin");
         String result;
 
         // Load the properties store
@@ -599,8 +606,9 @@ public class CheckOutEvents {
         ServiceUtil.getMessages(request, callResult, null);
 
         // wipe the session
-        session.invalidate();
-
+        if (("anonymous".equals(currentUser.getString("userLoginId"))) || (currentUser.getString("userLoginId")).equals(userLogin.getString("userLoginId"))) {
+            session.invalidate();
+        }
         //Determine whether it was a success or not
         if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
             result = (String) callResult.get(ModelService.ERROR_MESSAGE);
