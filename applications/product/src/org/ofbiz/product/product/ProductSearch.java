@@ -297,6 +297,10 @@ public class ProductSearch {
                     entityConditionList.add(new EntityExpr(prefix + "Keyword", EntityOperator.LIKE, keyword));
 
                     //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, null, null);
+                    //needed when doingBothAndOr or will get an SQL error 
+                    if (doingBothAndOr) {
+                        dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, Boolean.TRUE, null);
+                    }
                     relevancyComplexAlias.addComplexAliasMember(new ComplexAliasField(entityAlias, "relevancyWeight", null, null));
                 }
 
