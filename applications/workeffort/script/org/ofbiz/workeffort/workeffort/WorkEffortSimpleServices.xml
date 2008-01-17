@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -1175,5 +1175,263 @@ under the License.
     <simple-method method-name="deleteWorkEffortInventoryProduced" short-description="Delete Work Effort InventoryProduced">
         <entity-one entity-name="WorkEffortInventoryProduced" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>  
+    </simple-method>
+    <!-- WorkEffort ServiceTest Services -->
+    <simple-method method-name="testCreateEventService" short-description="test to create new event (workeffort) service" login-required="false">
+        <log level="info" message="====================Create an event test case=========================================="/>
+        <set field="createEventMap.workEffortTypeId" value="EVENT"/>
+        <set field="createEventMap.quickAssignPartyId" value="DemoCustomer"/>
+        <set field="createEventMap.workEffortName" value="Create Work Effort"/>
+        <set field="createEventMap.currentStatusId" value="CAL_TENTATIVE"/>
+        <entity-one entity-name="UserLogin" value-name="createEventMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="createWorkEffort" in-map-name="createEventMap">
+            <result-to-field result-name="workEffortId" field-name="workEffortId" map-name="eventMap"/>
+        </call-service>
+        <call-simple-method method-name="testUpdateEventService"/>
+        <entity-one entity-name="WorkEffort" value-name="workEffort">
+            <field-map field-name="workEffortId" env-name="eventMap.workEffortId"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field-name="workEffort"/></not>
+            <if-compare-field field-name="workEffort.workEffortId" operator="equals" to-field-name="eventMap.workEffortId"/>
+            <if-compare-field field-name="workEffort.workEffortTypeId" operator="equals" to-field-name="updateEventMap.workEffortTypeId"/>
+            <if-compare-field field-name="workEffort.workEffortName" operator="equals" to-field-name="updateEventMap.workEffortName"/>
+            <if-compare-field field-name="workEffort.currentStatusId" operator="equals" to-field-name="updateEventMap.currentStatusId"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateEventService" short-description="test to update an event(workeffort) service" login-required="false">
+        <log level="info" message="====================Update an event test case=========================================="/>
+        <set field="updateEventMap.workEffortId" from-field="eventMap.workEffortId"/>
+        <set field="updateEventMap.workEffortTypeId" value="EVENT"/>
+        <set field="updateEventMap.workEffortName" value="Update an event"/>
+        <set field="updateEventMap.currentStatusId" value="CAL_ACCEPTED"/>
+        <entity-one entity-name="UserLogin" value-name="updateEventMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="updateWorkEffort" in-map-name="updateEventMap"/>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateProjectService" short-description="test to create new project(workeffort) service" login-required="false">
+        <log level="info" message="====================Create a new project test case=========================================="/>
+        <set field="createProjectMap.workEffortTypeId" value="PROJECT"/>
+        <set field="createProjectMap.quickAssignPartyId" value="DemoCustomer"/>
+        <set field="createProjectMap.workEffortName" value="Create a project"/>
+        <set field="createProjectMap.currentStatusId" value="CAL_TENTATIVE"/>
+        <entity-one entity-name="UserLogin" value-name="createProjectMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="createWorkEffort" in-map-name="createProjectMap">
+            <result-to-field result-name="workEffortId" field-name="workEffortId" map-name="projectMap"/>
+        </call-service>
+        <call-simple-method method-name="testUpdateProjectService"/>
+        <call-simple-method method-name="testCreateWorkEffortNoteService"/>
+        <entity-one entity-name="WorkEffort" value-name="workEffort">
+            <field-map field-name="workEffortId" env-name="projectMap.workEffortId"/>
+        </entity-one>
+        <entity-one entity-name="NoteData" value-name="noteData">
+            <field-map field-name="noteId" env-name="workEffortNoteMap.noteId"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field-name="workEffort"/></not>
+            <if-compare-field field-name="workEffort.workEffortId" operator="equals" to-field-name="projectMap.workEffortId"/>
+            <if-compare-field field-name="workEffort.workEffortTypeId"  operator="equals" to-field-name="updateProjectMap.workEffortTypeId"/>
+            <if-compare-field field-name="workEffort.workEffortName"  operator="equals" to-field-name="updateProjectMap.workEffortName"/>
+            <if-compare-field field-name="workEffort.currentStatusId"  operator="equals" to-field-name="updateProjectMap.currentStatusId"/>
+        </assert>
+        <assert>
+            <not><if-empty field-name="noteData"/></not>
+            <if-compare-field field-name="noteData.noteParty" operator="equals" to-field-name="createWorkEffortNoteMap.noteParty"/>
+            <if-compare-field field-name="noteData.noteInfo" operator="equals" to-field-name="createWorkEffortNoteMap.noteInfo"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateProjectService" short-description="test to update an project(workeffort) service" login-required="false">
+        <log level="info" message="====================Update a project test case=========================================="/>
+        <set field="updateProjectMap.workEffortId" from-field="projectMap.workEffortId"/>
+        <set field="updateProjectMap.workEffortTypeId" value="PROJECT"/>
+        <set field="updateProjectMap.workEffortName" value="Update a project"/>
+        <set field="updateProjectMap.currentStatusId" value="CAL_ACCEPTED"/>
+        <entity-one entity-name="UserLogin" value-name="updateProjectMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="updateWorkEffort" in-map-name="updateProjectMap"/>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateWorkEffortNoteService" short-description="test to create new workeffort note service" login-required="false">
+        <log level="info" message="====================Create a work effort note test case=========================================="/>
+        <set field="createWorkEffortNoteMap.workEffortId" from-field="projectMap.workEffortId"/>
+        <set field="createWorkEffortNoteMap.noteParty" value="DemoCustomer"/>
+        <set field="createWorkEffortNoteMap.noteInfo" value="This is a note for party 'DemoCustomer'"/>
+        <entity-one entity-name="UserLogin" value-name="createWorkEffortNoteMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="createWorkEffortNote" in-map-name="createWorkEffortNoteMap">
+            <result-to-field result-name="noteId" field-name="noteId" map-name="workEffortNoteMap"/>
+        </call-service>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateContactInfo" short-description="test to update contact information of a party" login-required="false">
+        <log level="info" message="====================Update a contact information of a party test case=========================================="/>
+        <set field="updateContactInfoMap.partyId" value="DemoCustomer"/>
+        <set field="updateContactInfoMap.contactMechId" value="9023"/>
+        <set field="updateContactInfoMap.emailAddress" value="ofbiztest@yahoo.com"/>
+        <entity-one entity-name="UserLogin" value-name="updateContactInfoMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="updatePartyEmailAddress" in-map-name="updateContactInfoMap">
+            <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+            <result-to-field result-name="oldContactMechId" field-name="oldContactMechId"/>
+        </call-service>
+        <assert>
+            <not>
+                <if-empty field-name="contactMechId">
+                    <log level="info" message="========contactMechId ${contactMechId} found null============================"/>
+                </if-empty>
+            </not>
+            <not>
+                <if-empty field-name="oldContactMechId">
+                    <log level="info" message="========oldContactMechId ${oldContactMechId} found null============================"/>
+                </if-empty>
+            </not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateTeleCom" short-description="test to update telecom information of a party" login-required="false">
+        <log level="info" message="====================Update telecom information test case=========================================="/>
+        <set field="updateTeleComMap.contactNumber" value="456789"/>
+        <set field="updateTeleComMap.contactMechId" value="10120"/>
+        <entity-one entity-name="UserLogin" value-name="updateTeleComMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="updateTelecomNumber" in-map-name="updateTeleComMap">
+           <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+           <result-to-field result-name="oldContactMechId" field-name="oldContactMechId"/>
+        </call-service>
+        <assert>
+            <not>
+                <if-empty field-name="contactMechId">
+                    <log level="info" message="========contactMechId ${contactMechId} found null============================"/>
+                </if-empty>
+            </not>
+            <not>
+                <if-empty field-name="oldContactMechId">
+                    <log level="info" message="========oldContactMechId ${oldContactMechId} found null============================"/>
+                </if-empty>
+            </not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdatePostalAddr" short-description="test to update postal address information of a party" login-required="false">
+        <log level="info" message="====================Update postal address information test case=========================================="/>
+        <set field="updatePostalAddrMap.partyId" value="DemoCustCompany"/>
+        <set field="updatePostalAddrMap.contactMechId" value="9010"/>
+        <set field="updatePostalAddrMap.address1" value="2003 Open Blvd "/>
+        <set field="updatePostalAddrMap.city" value="Open City "/>
+        <set field="updatePostalAddrMap.postalCode" value="555555"/>
+        <entity-one entity-name="UserLogin" value-name="updatePostalAddrMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="updatePartyPostalAddress" in-map-name="updatePostalAddrMap">
+            <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+        </call-service>
+        <assert>
+            <not>
+                <if-empty field-name="contactMechId">
+                    <log level="info" message="========contactMechId ${contactMechId} found null============================"/>
+                </if-empty>
+            </not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testAddRole" short-description="test to add a new role to a party" login-required="false">
+        <log level="info" message="====================Add a new role to a party test case=========================================="/>
+        <set field="addRoleMap.partyId" value="DemoCustomer"/>
+        <set field="addRoleMap.roleTypeId" value="SUPPLIER"/>
+        <entity-one entity-name="UserLogin" value-name="addRoleMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="createPartyRole" in-map-name="addRoleMap"/>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateNewCommEvent" short-description="test to create a new communication event" login-required="false">
+        <log level="info" message="====================Create a new communication event test case=========================================="/>
+        <set field="createNewCommEventMap.communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+        <set field="createNewCommEventMap.statusId" value="COM_COMPLETE"/>
+        <set field="createNewCommEventMap.partyIdFrom" value="DemoCustomer"/>
+        <set field="createNewCommEventMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
+        <entity-one entity-name="UserLogin" value-name="createNewCommEventMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="createCommunicationEvent" in-map-name="createNewCommEventMap">
+            <result-to-field result-name="communicationEventId" field-name="communicationEventId" map-name="commEventMap"/>
+        </call-service>
+        <call-simple-method method-name="testUpdateCommEvent"/>
+        <entity-one entity-name="CommunicationEvent" value-name="communicationEvent">
+            <field-map field-name="communicationEventId" env-name="commEventMap.communicationEventId"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field-name="communicationEvent"/></not>
+            <if-compare-field field-name="communicationEvent.communicationEventId" operator="equals" to-field-name="commEventMap.communicationEventId"/>
+            <if-compare-field field-name="communicationEvent.communicationEventTypeId" operator="equals" to-field-name="updateCommEventMap.communicationEventTypeId"/>
+            <if-compare-field field-name="communicationEvent.statusId" operator="equals" to-field-name="updateCommEventMap.statusId"/>
+            <if-compare-field field-name="communicationEvent.partyIdFrom" operator="equals" to-field-name="updateCommEventMap.partyIdFrom"/>
+            <if-compare-field field-name="communicationEvent.contactMechTypeId" operator="equals" to-field-name="updateCommEventMap.contactMechTypeId"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateCommEvent" short-description="test to update communication event" login-required="false">
+        <log level="info" message="====================Update communication event test case=========================================="/>
+        <set field="updateCommEventMap.communicationEventId" from-field="commEventMap.communicationEventId"/>
+        <set field="updateCommEventMap.communicationEventTypeId" value="AUTO_EMAIL_COMM"/>
+        <set field="updateCommEventMap.statusId" value="COM_ENTERED"/>
+        <set field="updateCommEventMap.partyIdFrom" value="admin"/>
+        <set field="updateCommEventMap.contactMechTypeId" value="ELECTRONIC_ADDRESS"/>
+        <entity-one entity-name="UserLogin" value-name="updateCommEventMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="updateCommunicationEvent" in-map-name="updateCommEventMap"/>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateNewRequest" short-description="create a new request" login-required="false">
+        <log level="info" message="====================Create a new request test case=========================================="/>
+        <set field="createNewRequestMap.custRequestTypeId" value="RF_PROPOSAL"/>
+        <set field="createNewRequestMap.statusId" value="CRQ_SUBMITTED"/>
+        <set field="createNewRequestMap.priority" value="1L" type="Long"/>
+        <set field="createNewRequestMap.fromPartyId" value="DemoCustomer"/>
+        <entity-one entity-name="UserLogin" value-name="createNewRequestMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="createCustRequest" in-map-name="createNewRequestMap">
+          <result-to-field result-name="custRequestId" field-name="custRequestId" map-name="requestMap"/>
+        </call-service>
+        <call-simple-method method-name="testUpdateRequest"/>
+        <entity-one entity-name="CustRequest" value-name="custRequest">
+            <field-map field-name="custRequestId" env-name="requestMap.custRequestId"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field-name="custRequest"/></not>
+            <if-compare-field field-name="custRequest.custRequestId" operator="equals" to-field-name="requestMap.custRequestId"/>
+            <if-compare-field field-name="custRequest.custRequestTypeId" operator="equals" to-field-name="updateRequestMap.custRequestTypeId"/>
+            <if-compare-field field-name="custRequest.statusId" operator="equals" to-field-name="updateRequestMap.statusId"/>
+            <if-compare-field field-name="custRequest.priority" operator="equals" to-field-name="updateRequestMap.priority"/>
+            <if-compare-field field-name="custRequest.fromPartyId" operator="equals" to-field-name="updateRequestMap.fromPartyId"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateRequest" short-description="update a request" login-required="false">
+        <log level="info" message="====================Update a request test case=========================================="/>
+        <set field="updateRequestMap.custRequestId" from-field="requestMap.custRequestId"/>
+        <set field="updateRequestMap.custRequestTypeId" value="RF_INFO"/>
+        <set field="updateRequestMap.statusId" value="CRQ_COMPLETED"/>
+        <set field="updateRequestMap.priority" value="2L" type="Long"/>
+        <set field="updateRequestMap.fromPartyId" value="admin"/>
+        <entity-one entity-name="UserLogin" value-name="updateRequestMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="updateCustRequest" in-map-name="updateRequestMap"/>
+        <check-errors/>
     </simple-method>
 </simple-methods>
