@@ -500,7 +500,7 @@
         <response name="success" type="view" value="taskView"/>
         <response name="error" type="view" value="taskView"/>
     </request-map>
-    <request-map uri="MyStatustoComplete">
+    <request-map uri="MyStatusToComplete">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheet"/>
         <response name="success" type="view" value="MyTimesheet"/>
