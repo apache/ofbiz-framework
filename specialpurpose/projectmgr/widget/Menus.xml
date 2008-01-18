@@ -335,6 +335,9 @@
         <menu-item name="listResourcesTask"  title="Task">
             <link target="listResourcesTask?partyId=${partyId}"></link>
         </menu-item>
+        <menu-item name="EditPartyRates"  title="Rates">
+            <link target="EditPartyRates?partyId=${partyId}"></link>
+        </menu-item>
     </menu>
     <menu name="RequestTabBar">
         <menu-item name="viewRequest" title="${uiLabelMap.ProjectMgrView}">

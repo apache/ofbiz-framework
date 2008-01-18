@@ -417,27 +417,26 @@
         <field name="workEffortId"><hidden/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
     </form>
-    <form name="listResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask">
+    <form name="listResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask" target="updateResourcesTaskAssigment">
         <row-actions>
+            <service service-name="getProjectIdAndName" result-map-name="resultProject">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortId"/>
             </service>
             <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
             <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
             <set field="actualHours" from-field="result.taskInfo.actualHours"/>
+            <set field="statusId" from-field="result.statusId"/>
         </row-actions>
-        <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}" widget-style="buttontext">
-            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}[${workEffortId}]"/>
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView?workEffortId=${workEffortId}"/>
         </field>
-        <field name="phaseName" title="phase name" widget-style="buttontext" widget-area-style="tabletextcenter">
-            <hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/>
-        </field>
-        <field name="projectName" title="project name" widget-style="buttontext">
-            <hyperlink target="projectView?projectId=${projectId}" description="${projectName}"/>
-        </field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
-        </field>
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${resultProject.projectId}" description="${resultProject.projectName}"/></field>
+        <field entry-name="currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field entry-name="statusId" name="Status"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}" widget-area-style="tabletextcenter">
             <display description="${priority}"/>
@@ -448,6 +447,8 @@
         <field name="actualCompletionDate" title="${uiLabelMap.ProjectMgrWorkEffortActualCompletionDate}" widget-area-style="tabletextcenter"><display type="date"/></field>
         <field name="plannedHours" widget-area-style="tabletextcenter"><display/></field>
         <field name="actualHours" widget-area-style="tabletextcenter"><display/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateResourcesTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
+        <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateResourcesTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
     </form>
     <form name="listResourcesProjects" type="list" list-name="parties" default-title-style="tableheadtext">
         <row-actions>
@@ -478,5 +479,57 @@
         <field name="plannedHours" widget-area-style="tabletextcenter"><display/></field>
         <field name="actualHours" widget-area-style="tabletextcenter"><display/></field>
         <field name="CreatedStamp" title="CreatedStamp"><display type="date"/></field>
+    </form>
+    <form name="AddResourceProjectParty" target="addWorkEffortPartyAssign" title="" type="single">
+        <field name="projectId"><hidden/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="workEffortId"><hidden value="${workEffortId}"/></field>
+        <field name="partyId"><hidden/></field>
+        <field use-when="workEffortId==projectId" name="workEffortId" entry-name="test" title="${uiLabelMap.ProjectMgrProjectName}"><!-- project level --> 
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
+                    <entity-constraint name="workEffortTypeId" value="PROJECT"/>
+                    <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>                    
+                </entity-options>
+            </drop-down>
+        </field>
+        <field use-when="project==null" name="currentStatusId"><hidden value="_NA_"/></field>
+        <field entry-name="test" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field entry-name="test" name="fromDate"><date-time type="date"/></field>
+        <field entry-name="test" name="thruDate"><date-time type="date"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddResourceTaskParty" target="addTaskPartyAssign" title="" type="single">
+        <field name="projectId"><hidden/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="workEffortId"><hidden value="${workEffortId}"/></field>
+        <field name="partyId"><hidden/></field>
+        <field entry-name="test" name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}"><!-- task level -->
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} (${phaseName}-${projectName})">
+                    <entity-constraint name="partyId" env-name="parameters.partyId"/>
+                    <entity-constraint name="workEffortTypeId" value="TASK"/>
+                    <entity-constraint name="currentStatusId" operator="equals" value="PTS_CREATED"/>
+                </entity-options>                
+            </drop-down>
+        </field>
+        <field entry-name="test" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field entry-name="test" name="fromDate"><date-time type="date"/></field>
+        <field entry-name="test" name="thruDate"><date-time type="date"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
