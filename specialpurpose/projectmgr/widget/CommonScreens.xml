@@ -366,8 +366,27 @@ under the License.
                 <entity-one entity-name="Party" value-name="party"/>
                 <entity-one entity-name="Person" value-name="lookupPerson"/>
                 <entity-one entity-name="PartyGroup" value-name="lookupGroup"/>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+                <set field="okayToUpdate" value="true" type="Boolean" global="true"/>
             </actions>
             <widgets>
+                <section>
+                    <condition>
+                        <and>
+                            <not><if-empty field-name="communicationEvent.statusId"/></not>
+                            <or>
+                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_COMPLETE"/>
+                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_RESOLVED"/>
+                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_REFERRED"/>
+                            </or>
+                        </and>
+                    </condition>
+                    <actions>
+                        <set field="okayToUpdate" value="false" type="Boolean" global="true"/>
+                    </actions>
+                    <widgets/>
+                </section>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>

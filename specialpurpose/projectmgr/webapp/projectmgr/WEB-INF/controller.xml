@@ -24,7 +24,7 @@
     <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>    
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
     <include location="component://humanres/webapp/humanres/WEB-INF/controller.xml"/>
-
+    
     <description>Project Management Component Site Configuration File</description>
 
     <request-map uri="main">
@@ -584,12 +584,207 @@
         <response name="success" type="view" value="RequestList"/>
         <response name="error" type="view" value="RequestList"/>
     </request-map>
+    <request-map uri="editperson"><security https="true" auth="true"/><response name="success" type="view" value="EditPerson"/></request-map>
+    <request-map uri="updatePerson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updatePerson"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="error" type="view" value="EditPerson"/>
+    </request-map>
+    <request-map uri="AddPartyNote"><security https="true" auth="true"/><response name="success" type="view" value="AddPartyNote"/></request-map>
+    <request-map uri="createPartyNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyNote"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="AddPartyNote"/>
+    </request-map>
+    <request-map uri="editcontactmech"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech"/></request-map>
+    <request-map uri="createContactMech">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyContactMech"/>
+        <response name="success" type="view" value="editcontactmech"/>
+        <response name="error" type="view" value="editcontactmech"/>
+    </request-map>
+    <request-map uri="updateContactMech">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyContactMech"/>
+        <response name="success" type="view" value="editcontactmech"/>
+        <response name="error" type="view" value="editcontactmech"/>
+    </request-map>
+    <request-map uri="deleteContactMech">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyContactMech"/>
+        <response name="success" type="view" value="editcontactmech"/>
+        <response name="error" type="view" value="editcontactmech"/>
+    </request-map>
+    <request-map uri="createEmailAddress">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyEmailAddress"/>
+        <response name="success" type="view" value="editcontactmech"/>
+        <response name="error" type="view" value="editcontactmech"/>
+    </request-map>
+    <request-map uri="updateEmailAddress">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyEmailAddress"/>
+        <response name="success" type="view" value="editcontactmech"/>
+        <response name="error" type="view" value="editcontactmech"/>
+    </request-map>
+    <request-map uri="EditCommunicationEvent"><security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCommunicationEvent"/>
+    </request-map>
+    <request-map uri="EditPartyRates"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRates"/></request-map>
+    <request-map uri="createPartyRate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyRate"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+        <response name="error" type="view" value="EditPartyRates"/>
+    </request-map>
+    <request-map uri="updatePartyRate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyRate"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+        <response name="error" type="view" value="EditPartyRates"/>
+    </request-map>
+    <request-map uri="deletePartyRate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyRate"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+        <response name="error" type="view" value="EditPartyRates"/>
+    </request-map>
+    <request-map uri="createnewlogin"><security https="true" auth="true"/><response name="success" type="view" value="createnewlogin"/></request-map>
+    <request-map uri="createUserLogin">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createUserLogin"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="createnewlogin"/>
+    </request-map>
+    <request-map uri="showvisits"><security https="true" auth="true"/><response name="success" type="view" value="showvisits"/></request-map>
+    <request-map uri="visitdetail"><security https="true" auth="true"/><response name="success" type="view" value="visitdetail"/></request-map>
+    <request-map uri="editlogin"><security https="true" auth="true"/><response name="success" type="view" value="EditUserLogin"/></request-map>
+    <request-map uri="updatePassword">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updatePassword"/>
+        <response name="success" type="view" value="EditUserLogin"/>
+        <response name="error" type="view" value="EditUserLogin"/>
+    </request-map>
+    <request-map uri="updateUserLoginSecurity">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateUserLoginSecurity"/>
+        <response name="success" type="view" value="EditUserLogin"/>
+        <response name="error" type="view" value="EditUserLogin"/>
+    </request-map>
+    
+    <request-map uri="EditUserLoginSecurityGroups"><security https="true" auth="true"/><response name="success" type="view" value="EditUserLoginSecurityGroups"/></request-map>
+    <request-map uri="userLogin_addUserLoginToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="addUserLoginToSecurityGroup"/>
+        <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
+        <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
+    </request-map>
+    <request-map uri="userLogin_updateUserLoginToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateUserLoginToSecurityGroup"/>
+        <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
+        <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
+    </request-map>
+    <request-map uri="userLogin_removeUserLoginFromSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeUserLoginFromSecurityGroup"/>
+        <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
+        <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
+    </request-map>
+    <request-map uri="addWorkEffortPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="view" value="listResourcesProject"/>
+        <response name="error" type="view" value="listResourcesProject"/>
+    </request-map>
+    <request-map uri="addTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="view" value="listResourcesTask"/>
+        <response name="error" type="view" value="listResourcesTask"/>
+    </request-map>
+    <request-map uri="updateResourcesTaskAssigment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTaskAssigment"/>
+        <response name="success" type="view" value="listResourcesTask"/>
+        <response name="error" type="view" value="listResourcesTask"/>
+    </request-map>
+    <request-map uri="editpartygroup"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyGroup"/></request-map>
+    <request-map uri="createPartyGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createPartyGroup"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="error" type="view" value="EditPartyGroup"/>
+    </request-map>
+    <request-map uri="updatePartyGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updatePartyGroup"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="error" type="view" value="EditPartyGroup"/>
+    </request-map>
+    <request-map uri="editperson"><security https="true" auth="true"/><response name="success" type="view" value="EditPerson"/></request-map>
+    <request-map uri="createPerson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createPerson"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="error" type="view" value="EditPerson"/>
+    </request-map>
+    <request-map uri="updatePerson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updatePerson"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
+        <response name="error" type="view" value="EditPerson"/>
+    </request-map>
+    <request-map uri="createnewlogin"><security https="true" auth="true"/><response name="success" type="view" value="createnewlogin"/></request-map>
+    <request-map uri="createUserLogin">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createUserLogin"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="createnewlogin"/>
+    </request-map>
+    <request-map uri="showvisits"><security https="true" auth="true"/><response name="success" type="view" value="showvisits"/></request-map>
+    <request-map uri="AddPartyNote"><security https="true" auth="true"/><response name="success" type="view" value="AddPartyNote"/></request-map>
+    <request-map uri="createPartyNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyNote"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="AddPartyNote"/>
+    </request-map>
+    <request-map uri="EditPartyRates"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRates"/></request-map>
+    <request-map uri="createPartyRate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyRate"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+        <response name="error" type="view" value="EditPartyRates"/>
+    </request-map>
+    <request-map uri="updatePartyRate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyRate"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+        <response name="error" type="view" value="EditPartyRates"/>
+    </request-map>
+    <request-map uri="deletePartyRate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyRate"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+        <response name="error" type="view" value="EditPartyRates"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
     <view-map name="viewprofile" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#viewprofile"/>
     <view-map name="listResourcesTask" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesTask"/>
     <view-map name="listResourcesProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesProject"/>
+    <view-map name="EditPartyGroup" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartyGroup"/>
+    <view-map name="EditPerson" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPerson"/>
+    <view-map name="createnewlogin" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#CreateUserLogin"/>
+    <view-map name="showvisits" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#showvisits"/>
+    <view-map name="AddPartyNote" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddPartyNote"/>
+    <view-map name="editcontactmech" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#editcontactmech"/>
+    <view-map name="EditPartyRates" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartyRates"/>
     
     <view-map name="main" type="screen" page="component://projectmgr/widget/CommonScreens.xml#Main"/>
     <view-map name="ganttChart" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ganttChart"/>    
