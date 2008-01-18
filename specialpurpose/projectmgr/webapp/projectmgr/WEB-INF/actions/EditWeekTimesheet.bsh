@@ -43,7 +43,7 @@ if (partyId == null) {
 // show the requested timesheet, otherwise the current , if not exist create
 timesheet = null;
 timesheetId = parameters.get("timesheetId");
-Debug.logInfo("====editweek: " + partyId + " timesheetId: " + timesheetId, "");
+// Debug.logInfo("====editweek: " + partyId + " timesheetId: " + timesheetId, "");
 if (timesheetId != null) {
         timesheet = delegator.findByPrimaryKey("Timesheet", UtilMisc.toMap("timesheetId", timesheetId));
         partyId = timesheet.getString("partyId"); // use the party from this timesheet

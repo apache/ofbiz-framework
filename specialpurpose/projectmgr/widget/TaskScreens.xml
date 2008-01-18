@@ -18,8 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="Dependencies">
         <section>
             <actions>
@@ -197,7 +197,10 @@ under the License.
                                         <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                         <section>
                                             <condition>
-                                                <if-empty field-name="parameters.partyId"/>
+                                                <or>
+                                                    <if-has-permission permission="PROJECTMGR_ADMIN"/>
+                                                    <if-has-permission permission="PROJECTMGR_VIEW"/>
+                                                </or>
                                             </condition>
                                             <actions>
                                                 <set field="entityName" value="ProjectAndPhaseAndTask"/>
@@ -208,12 +211,14 @@ under the License.
                                         </section>
                                         <section>
                                             <condition>
-                                                <not>
-                                                    <if-empty field-name="parameters.partyId"/>
-                                                </not>
+                                                <or>
+                                                    <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
+                                                    <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
+                                                </or>
                                             </condition>
                                             <actions>
-                                                <set field="entityName" value="ProjectAndPhaseAndTaskParty"/>
+                                                <set field="entityName" value="ProjectPartyAndPhaseAndTask"/>
+                                                <set field="parameters.partyId" from-field="context.userLogin.partyId"/>
                                             </actions>
                                             <widgets>
                                                 <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>

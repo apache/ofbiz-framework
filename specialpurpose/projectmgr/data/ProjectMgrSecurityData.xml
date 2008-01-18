@@ -30,10 +30,11 @@ under the License.
     <SecurityPermission description="Update operations in the Project Manager for a project/phase/task the user is member of." permissionId="PROJECTMGR_ROLE_UPDATE"/>
     <!-- Role and Task dependent -->
     <SecurityPermission description="Be able to create a task (should be member of project)" permissionId="PROJECTMGR_ROLE_TASK_CREATE"/>
-    <SecurityPermission description="Be able to assign a task to a resource (should be member of project)" permissionId="PROJECTMGR_ROLE_TASK_ASSIGN"/>
     <!-- Timesheet dependent -->
-    <SecurityPermission description="Be able to create a weekly timesheet." permissionId="PROJECTMGR_TIMESHEET_CREATE"/>
-    <SecurityPermission description="Be able to update(report) on an existing timesheet(should be member of project of the task)" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
+    <SecurityPermission description="Be able to create any weekly timesheet." permissionId="PROJECTMGR_TIMESHEET_CREATE"/>
+    <SecurityPermission description="Be able to update any weekly timesheet." permissionId="PROJECTMGR_TIMESHEET_UPDATE"/>
+    <SecurityPermission description="Be able to create a weekly timesheet for the loginid." permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
+    <SecurityPermission description="Be able to update(report) on an existing own timesheet(should be member of project of the task)" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
     
     <!-- allow the security group FULLADMIN (userlogin 'admin') full access -->
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="PROJECTMGR_ADMIN"/>
@@ -41,13 +42,14 @@ under the License.
     <SecurityGroup description="Project Admin group, has update access to own projects." groupId="PROJECTADMIN"/>
     <SecurityGroupPermission groupId="PROJECTADMIN" permissionId="PROJECTMGR_ROLE_ADMIN"/>
     <SecurityGroupPermission groupId="PROJECTADMIN" permissionId="PROJECTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="PROJECTADMIN" permissionId="PROJECTMGR_TIMESHEET_CREATE"/>
+    <SecurityGroupPermission groupId="PROJECTADMIN" permissionId="PROJECTMGR_TIMESHEET_UPDATE"/>
     
     <SecurityGroup description="Project User group, has read, task create/assign and timesheet create/update access to own projects." groupId="PROJECTUSER"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_TASK_CREATE"/>
-    <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_TASK_ASSIGN"/>
-    <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_TIMESHEET_CREATE"/>
+    <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
     
 </entity-engine-xml>
