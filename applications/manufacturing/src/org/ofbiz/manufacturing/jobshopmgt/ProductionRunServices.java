@@ -48,6 +48,7 @@ import org.ofbiz.manufacturing.bom.BOMTree;
 import org.ofbiz.manufacturing.techdata.TechDataServices;
 import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -2030,9 +2031,16 @@ public class ProductionRunServices {
         if (quantity == null) {
             quantity = new Double(1);
         }
+        String instanceProductId = null;
+        try {
+            instanceProductId = ProductWorker.getAggregatedInstanceId(delegator, config.getProduct().getString("productId"), config.getConfigId()); 
+        } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
         Map serviceContext = new HashMap();
         serviceContext.clear();
-        serviceContext.put("productId", config.getProduct().getString("productId"));
+        serviceContext.put("productId", instanceProductId);
         serviceContext.put("pRQuantity", quantity);
         serviceContext.put("startDate", UtilDateTime.nowTimestamp());
         serviceContext.put("facilityId", facilityId);

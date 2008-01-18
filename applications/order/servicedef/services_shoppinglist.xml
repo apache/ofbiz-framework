@@ -105,6 +105,7 @@ under the License.
         <attribute name="reservLength" type="Double" mode="IN" optional="true"/>
         <attribute name="reservPersons" type="Double" mode="IN" optional="true"/>
         <attribute name="quantityPurchased" type="Double" mode="IN" optional="true"/>
+        <attribute name="configId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createShoppingListItem" engine="simple" auth="true"
             location="org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="createShoppingListItem">

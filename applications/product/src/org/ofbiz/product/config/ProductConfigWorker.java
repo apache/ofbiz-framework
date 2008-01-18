@@ -18,15 +18,30 @@
  *******************************************************************************/
 package org.ofbiz.product.config;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.product.catalog.CatalogWorker;
+import org.ofbiz.product.config.ProductConfigWrapper.ConfigItem;
+import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.base.util.cache.UtilCache;
 
 /**
@@ -87,5 +102,163 @@ public class ProductConfigWorker {
             }
         }
     }
+    
+    /**
+     * First search persisted configurations and update configWrapper.configId if found.
+     * Otherwise store ProductConfigWrapper to ProductConfigConfig entity and updates configWrapper.configId with new configId
+     * This method persists only the selected options, price data is lost.
+     * @param ProductConfigWrapper
+     * @param delegator
+     */    
+    public static void storeProductConfigWrapper(ProductConfigWrapper configWrapper, GenericDelegator delegator) {
+        if (configWrapper == null || (!configWrapper.isCompleted()))  return;
+        String configId = null;
+        List questions = configWrapper.getQuestions();
+        List configsToCheck = new LinkedList();
+        int selectedOptionSize = 0;
+        for (int i = 0; i < questions.size(); i++) {
+            String configItemId = null;
+            Long sequenceNum = null;
+            List <ProductConfigWrapper.ConfigOption> selectedOptions = new ArrayList <ProductConfigWrapper.ConfigOption>();        
+            ConfigItem ci = (ConfigItem)questions.get(i);
+            List options = ci.getOptions();
+            if (ci.isStandard()) {
+                selectedOptions.addAll(options);
+            } else {
+                Iterator availOptions = options.iterator();
+                while (availOptions.hasNext()) {
+                    ConfigOption oneOption = (ConfigOption)availOptions.next();
+                    if (oneOption.isSelected()) {
+                        selectedOptions.add(oneOption);
+                    }
+                }
+            }
+
+            if (selectedOptions.size() > 0) {
+                selectedOptionSize += selectedOptions.size();
+                configItemId = ci.getConfigItemAssoc().getString("configItemId");
+                sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
+                try {
+                    List <GenericValue> configs = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configItemId",configItemId,"sequenceNum", sequenceNum));
+                    Iterator <GenericValue> configIt = configs.iterator(); 
+                    while (configIt.hasNext()) {
+                        GenericValue productConfigConfig = configIt.next();
+                        Iterator selOpIt = selectedOptions.iterator();
+                        while (selOpIt.hasNext()) {
+                            ConfigOption oneOption = (ConfigOption)selOpIt.next();
+                            String configOptionId = oneOption.configOption.getString("configOptionId");
+                            if (productConfigConfig.getString("configOptionId").equals(configOptionId)) {
+                                configsToCheck.add(productConfigConfig);
+                            }
+                        } 
+                    }
+
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                           
+            }  
+        }
+        if (UtilValidate.isNotEmpty(configsToCheck)) {
+            Iterator <GenericValue> ctci = configsToCheck.iterator();
+            while (ctci.hasNext()) {
+                GenericValue productConfigConfig =  ctci.next();
+                String tempConfigId = productConfigConfig.getString("configId");
+                try {
+                    List tempResult = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId",tempConfigId));
+                    if (tempResult.size() == selectedOptionSize && configsToCheck.containsAll(tempResult)) {
+                            configWrapper.configId = tempConfigId;
+                            Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  module);
+                            return;
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                
+            }
+        }
+        
+        //Current configuration is not found in ProductConfigConfig entity. So lets store this one
+        boolean nextId = true;
+        for (int i = 0; i < questions.size(); i++) {
+            String configItemId = null;
+            Long sequenceNum = null;
+            List <ProductConfigWrapper.ConfigOption> selectedOptions = new ArrayList <ProductConfigWrapper.ConfigOption>();        
+            ConfigItem ci = (ConfigItem)questions.get(i);
+            List options = ci.getOptions();
+           if (ci.isStandard()) {
+                selectedOptions.addAll(options);
+            } else {
+                Iterator availOptions = options.iterator();
+                while (availOptions.hasNext()) {
+                    ConfigOption oneOption = (ConfigOption)availOptions.next();
+                    if (oneOption.isSelected()) {
+                        selectedOptions.add(oneOption);
+                    }
+                }
+            }
+            
+            if (selectedOptions.size() > 0) {
+                if (nextId) {
+                    configId = delegator.getNextSeqId("ProductConfigConfig");
+                    //get next configId only once and only if there are selectedOptions
+                    nextId = false;
+                }
+                configItemId = ci.getConfigItemAssoc().getString("configItemId");
+                sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
+                Iterator selOpIt = selectedOptions.iterator();
+                while (selOpIt.hasNext()) {
+                    ConfigOption oneOption = (ConfigOption)selOpIt.next();
+                    String configOptionId = oneOption.configOption.getString("configOptionId");
+                    GenericValue productConfigConfig = delegator.makeValue("ProductConfigConfig");
+                    productConfigConfig.put("configId", configId);
+                    productConfigConfig.put("configItemId", configItemId);
+                    productConfigConfig.put("sequenceNum", sequenceNum);
+                    productConfigConfig.put("configOptionId", configOptionId);
+                    try {
+                        productConfigConfig.create();
+                    } catch (GenericEntityException e) {
+                        configId = null;
+                        Debug.logWarning(e.getMessage(), module);
+                    }
+                }                            
+            }  
+        }
+        
+        //save  configId to configWrapper, so we can use it in shopping cart operations
+        configWrapper.configId = configId;
+        Debug.logInfo("New configId created:"+ configId,  module);
+        return;
+    }
+    
+    /**
+     * Creates a new ProductConfigWrapper for productId and configures it according to ProductConfigConfig entity with configId
+     * ProductConfigConfig entity stores only the selected options, and the product price is calculated from input params
+     * @param delegator
+     * @param dispatcher
+     * @param configId configuration Id
+     * @param productId AGGRAGATED productId
+     * @param productStoreId needed for price calculations
+     * @param catalogId needed for price calculations
+     * @param webSiteId needed for price calculations
+     * @param currencyUomId needed for price calculations
+     * @param locale
+     * @param autoUserLogin
+     * @return ProductConfigWrapper
+     */
+    public static ProductConfigWrapper loadProductConfigWrapper(GenericDelegator delegator, LocalDispatcher dispatcher, String configId, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) {
+        ProductConfigWrapper configWrapper = null;
+        try {
+             configWrapper = new ProductConfigWrapper(delegator, dispatcher, productId, productStoreId, catalogId, webSiteId, currencyUomId, locale, autoUserLogin);
+            if (configWrapper != null && UtilValidate.isNotEmpty(configId)) {
+                configWrapper.loadConfig(delegator, configId);
+            }
+        } catch (Exception e) {
+            Debug.logWarning(e.getMessage(), module);
+            configWrapper = null;
+        }
+        return configWrapper;
+    }
+
 }
 

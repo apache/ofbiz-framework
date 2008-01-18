@@ -173,6 +173,45 @@ public class ProductWorker {
             pageContext.setAttribute(attributeName, product);
     }
 
+    public static String getInstanceAggregatedId(GenericDelegator delegator, String instanceProductId) throws GenericEntityException {
+        GenericValue instanceProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", instanceProductId));
+        
+        if (UtilValidate.isNotEmpty(instanceProduct) && "AGGREGATED_CONF".equals(instanceProduct.getString("productTypeId"))) {
+            GenericValue productAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(instanceProduct.getRelatedByAnd("AssocProductAssoc", 
+                    UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF"))));
+            if (UtilValidate.isNotEmpty(productAssoc)) {
+                return productAssoc.getString("productId");
+            }
+        } 
+        return null;
+    }
+
+    public static String getAggregatedInstanceId(GenericDelegator delegator, String  aggregatedProductId, String configId) throws GenericEntityException {
+        List productAssocs = getAggregatedAssocs(delegator, aggregatedProductId);
+        if (UtilValidate.isNotEmpty(productAssocs) && UtilValidate.isNotEmpty(configId)) {
+            Iterator pai = productAssocs.iterator();
+            while (pai.hasNext()) {
+                GenericValue productAssoc = (GenericValue) pai.next();
+                GenericValue product = productAssoc.getRelatedOne("AssocProduct");
+                if (configId.equals(product.getString("configId"))) {
+                    return productAssoc.getString("productIdTo");
+                }
+            }
+        }
+        return null;
+    }
+    
+    public static List getAggregatedAssocs(GenericDelegator delegator, String  aggregatedProductId) throws GenericEntityException {
+        GenericValue aggregatedProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", aggregatedProductId));
+        
+        if (UtilValidate.isNotEmpty(aggregatedProduct) && "AGGREGATED".equals(aggregatedProduct.getString("productTypeId"))) {
+            List productAssocs = EntityUtil.filterByDate(aggregatedProduct.getRelatedByAnd("MainProductAssoc", 
+                    UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF")));
+            return productAssocs;
+        }
+        return null;
+    }
+    
     public static String getVariantVirtualId(GenericValue variantProduct) throws GenericEntityException {
         List productAssocs = getVariantVirtualAssocs(variantProduct);
         if (productAssocs == null) {

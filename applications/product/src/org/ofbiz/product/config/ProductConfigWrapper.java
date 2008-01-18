@@ -47,8 +47,9 @@ public class ProductConfigWrapper implements Serializable {
     protected LocalDispatcher dispatcher;
     protected GenericValue product = null; // the aggregated product
     protected double basePrice = 0.0;
-    protected List questions = null; // ProductConfigs
     protected double defaultPrice = 0.0;
+    protected String configId = null; // Id of persisted ProductConfigWrapper
+    protected List questions = null; // ProductConfigs
     
     /** Creates a new instance of ProductConfigWrapper */
     public ProductConfigWrapper() {
@@ -109,6 +110,40 @@ public class ProductConfigWrapper implements Serializable {
             this.setDefaultPrice();
         }
     }
+
+    public void loadConfig(GenericDelegator delegator, String configId) throws Exception {
+        //configure ProductConfigWrapper according to ProductConfigConfig entity
+        if (UtilValidate.isNotEmpty(configId)) {
+            this.configId = configId;
+            List productConfigConfig = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId", configId));
+            if (productConfigConfig != null && productConfigConfig.size() > 0) {
+                Iterator pccIt = productConfigConfig.iterator();
+                while (pccIt.hasNext()) {
+                    GenericValue pcc =(GenericValue) pccIt.next();
+                    String configItemId = pcc.getString("configItemId");
+                    String configOptionId = pcc.getString("configOptionId");
+                    Long sequenceNum = pcc.getLong("sequenceNum");
+                    this.setSelected(configItemId, sequenceNum, configOptionId);
+                }
+            }
+        }
+    }
+
+    public void setSelected(String configItemId, Long sequenceNum, String configOptionId) throws Exception {
+        for (int i = 0; i < questions.size(); i++) {
+            ConfigItem ci = (ConfigItem)questions.get(i);
+            if (ci.configItemAssoc.getString("configItemId").equals(configItemId) && ci.configItemAssoc.getLong("sequenceNum").equals(sequenceNum)) {
+                List avalOptions = ci.getOptions();
+                for (int j = 0; j < avalOptions.size(); j++) {
+                    ConfigOption oneOption = (ConfigOption)avalOptions.get(j);
+                    if (oneOption.configOption.getString("configOptionId").equals(configOptionId)) {
+                        setSelected(i, j);
+                        break;
+                    }
+                }
+            }
+        }
+    }    
     
     public void resetConfig() {
         for (int i = 0; i < questions.size(); i++) {
@@ -137,6 +172,10 @@ public class ProductConfigWrapper implements Serializable {
                 }
             }
         }
+    }
+    
+    public String getConfigId() {
+        return configId;
     }
     
     public boolean equals(Object obj) {

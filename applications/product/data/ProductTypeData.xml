@@ -176,6 +176,7 @@ under the License.
     <ProductAssocType description="Manufacturing Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="MANUF_COMPONENT"/>
     <ProductAssocType description="Engineering Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="ENGINEER_COMPONENT"/>
     <ProductAssocType description="Product Manufactured As" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_MANUFACTURED"/>
+    <ProductAssocType description="Configurable product instance" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_CONF"/>
 
     <ProductCategoryType description="Catalog" hasTable="N" parentTypeId="" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategoryType description="Industry" hasTable="N" parentTypeId="" productCategoryTypeId="INDUSTRY_CATEGORY"/>
@@ -422,6 +423,7 @@ under the License.
     <ProductType description="Marketing Package: Auto Manufactured" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="MARKETING_PKG_AUTO"/>
     <ProductType description="Marketing Package: Pick Assembly" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="MARKETING_PKG_PICK"/>
     <ProductType description="Work In Process" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="WIP"/>
+    <ProductType description="Configurable Good Configuration" isPhysical="N" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATED_CONF"/> 
 
     <EnumerationType description="Product Requirement Method" enumTypeId="PROD_REQ_METHOD" hasTable="N" parentTypeId=""/>
     <!-- NONE: no requirement is created (default) -->

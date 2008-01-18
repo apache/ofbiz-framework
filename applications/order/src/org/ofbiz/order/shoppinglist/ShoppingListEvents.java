@@ -48,6 +48,8 @@ import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.product.catalog.CatalogWorker;
+import org.ofbiz.product.config.ProductConfigWorker;
+import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -145,6 +147,9 @@ public class ShoppingListEvents {
                         ctx.put("reservStart", item.getReservStart());
                         ctx.put("reservLength", new Double(item.getReservLength()));
                         ctx.put("reservPersons", new Double(item.getReservPersons()));
+                        if (item.getConfigWrapper() != null) {
+                            ctx.put("configId", item.getConfigWrapper().getConfigId());                            
+                        }
                         serviceResult = dispatcher.runSync("createShoppingListItem", ctx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Problems creating ShoppingList item entity", module);
@@ -253,6 +258,7 @@ public class ShoppingListEvents {
             Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
             Double reservLength = shoppingListItem.getDouble("reservLength");
             Double reservPersons = shoppingListItem.getDouble("reservPersons");
+            String configId = shoppingListItem.getString("configId");
             try {
                 String listId = shoppingListItem.getString("shoppingListId");
                 String itemId = shoppingListItem.getString("shoppingListItemSeqId");
@@ -268,14 +274,18 @@ public class ShoppingListEvents {
                 if (shoppingListSurveyInfo.containsKey(listId + "." + itemId)) {
                     attributes.put("surveyResponses", shoppingListSurveyInfo.get(listId + "." + itemId));
                 }
-
+                
+                ProductConfigWrapper configWrapper = null;
+                if (UtilValidate.isNotEmpty(configId)) {
+                    configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, cart.getProductStoreId(), prodCatalogId, cart.getWebSiteId(), cart.getCurrency(), cart.getLocale(), cart.getAutoUserLogin());
+                }
                 // TODO: add code to check for survey response requirement
                 
                 // i cannot get the addOrDecrease function to accept a null reservStart field: i get a null pointer exception a null constant works....
                 if (reservStart == null) {
-                    cart.addOrIncreaseItem(productId, null, quantity.doubleValue(), null, null, null, null, null, null, attributes, prodCatalogId, null, null, null, null, dispatcher);
+                    cart.addOrIncreaseItem(productId, null, quantity.doubleValue(), null, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
                 } else {
-                    cart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons, null, null, null, attributes, prodCatalogId, null, null, null, null, dispatcher);
+                    cart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
                 }
                 Map messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());

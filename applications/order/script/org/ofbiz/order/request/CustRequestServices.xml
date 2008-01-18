@@ -211,6 +211,11 @@ under the License.
         <iterate list-name="items" entry-name="item">
             <!-- a new request item is created -->
             <clear-field field-name="createCustRequestItemInMap"/>
+            <call-object-method obj-field-name="item" method-name="getConfigWrapper" ret-field-name="configWrapper"/>
+            <if-not-empty field-name="configWrapper">
+                <call-object-method obj-field-name="configWrapper" method-name="getConfigId" ret-field-name="configId"/>
+                <set from-field="configId" field="createCustRequestItemInMap.configId"/>
+            </if-not-empty>
             <call-object-method obj-field-name="item" method-name="getIsPromo" ret-field-name="isPromo"/>
             <if-compare field-name="isPromo" value="false" operator="equals" type="Boolean">
                 <set from-field="custRequest.custRequestId" field="createCustRequestItemInMap.custRequestId"/>

@@ -52,6 +52,9 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.product.config.ProductConfigWorker;
+import org.ofbiz.product.config.ProductConfigWrapper;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 
 /**
@@ -319,11 +322,25 @@ public class ShoppingListServices {
     
             List orderItems = orh.getOrderItems();
             Iterator i = orderItems.iterator();
+            String productId = null;
             while (i.hasNext()) {
                 GenericValue orderItem = (GenericValue) i.next();
-                if (orderItem.get("productId") != null) {
+                productId = orderItem.getString("productId");
+                if (UtilValidate.isNotEmpty(productId)) {
                     Map ctx = UtilMisc.toMap("userLogin", userLogin, "shoppingListId", shoppingListId, "productId",
                             orderItem.get("productId"), "quantity", orderItem.get("quantity"));
+                    if ("AGGREGATED_CONF".equals(ProductWorker.getProductTypeId(delegator, productId))) {
+                        try {
+                            GenericValue instanceProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                            String configId = instanceProduct.getString("configId");
+                            ctx.put("configId", configId);
+                            String aggregatedProductId = ProductWorker.getInstanceAggregatedId(delegator, productId);
+                            //override the instance productId with aggregated productId
+                            ctx.put("productId", aggregatedProductId);
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                        }
+                    }
                     Map serviceResult = null;
                     try {
                         serviceResult = dispatcher.runSync("createShoppingListItem", ctx);
@@ -450,12 +467,14 @@ public class ShoppingListServices {
             	
 
                 Iterator i = items.iterator();
+                ProductConfigWrapper configWrapper = null;
                 while (i.hasNext()) {
                     GenericValue shoppingListItem = (GenericValue) i.next();
                     String productId = shoppingListItem.getString("productId");
                     Double quantity = shoppingListItem.getDouble("quantity");
                     Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
                     Double reservLength = null;
+                    String configId = shoppingListItem.getString("configId");
                     if (shoppingListItem.get("reservLength") != null) {
                         reservLength = shoppingListItem.getDouble("reservLength");
                     }
@@ -464,13 +483,17 @@ public class ShoppingListServices {
                         reservPersons = shoppingListItem.getDouble("reservPersons");
                     }
                     if (UtilValidate.isNotEmpty(productId) && quantity != null) {
+
+                    if (UtilValidate.isNotEmpty(configId)) {
+                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, listCart.getProductStoreId(), null, listCart.getWebSiteId(), listCart.getCurrency(), listCart.getLocale(), listCart.getAutoUserLogin());
+                    }
                         // list items are noted in the shopping cart
                         String listId = shoppingListItem.getString("shoppingListId");
                         String itemId = shoppingListItem.getString("shoppingListItemSeqId");
                         Map attributes = UtilMisc.toMap("shoppingListId", listId, "shoppingListItemSeqId", itemId);
 
                         try { 
-                            listCart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons, null, null, null, attributes, null, null, null, null, null, dispatcher);
+                            listCart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons, null, null, null, attributes, null, configWrapper, null, null, null, dispatcher);
                         } catch (CartItemModifyException e) {
                             Debug.logError(e, "Unable to add product to List Cart - " + productId, module);
                         } catch (ItemNotFoundException e) {
