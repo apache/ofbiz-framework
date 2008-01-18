@@ -1345,6 +1345,7 @@ under the License.
       <field name="reservStart" type="date-time"></field>
       <field name="reservLength" type="floating-point"></field>
       <field name="reservPersons" type="floating-point"></field>             
+      <field name="configId" type="id"></field>
       <field name="estimatedDeliveryDate" type="date-time"></field>
       <field name="comments" type="comment"></field>
       <field name="isPromo" type="indicator"></field>
@@ -1672,6 +1673,7 @@ under the License.
       <field name="reservStart" type="date-time"></field>
       <field name="reservLength" type="floating-point"></field>
       <field name="reservPersons" type="floating-point"></field>       
+      <field name="configId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="story" type="very-long"></field>
       <prim-key field="custRequestId"/>
@@ -2493,6 +2495,7 @@ under the License.
       <field name="unitPrice" type="currency-amount"></field>
       <field name="reserv2ndPPPerc" type="floating-point"/>
       <field name="reservNthPPPerc" type="floating-point"/>
+      <field name="configId" type="id"></field>
       <field name="totalWithAdjustments" type="currency-amount"></field>
       <field name="wasReserved" type="indicator"></field>
       <prim-key field="visitId"/>
@@ -2592,6 +2595,7 @@ under the License.
       <field name="reservLength" type="floating-point"></field>
       <field name="reservPersons" type="floating-point"></field>
       <field name="quantityPurchased" type="floating-point"></field>
+      <field name="configId" type="id"></field>
       <prim-key field="shoppingListId"/>
       <prim-key field="shoppingListItemSeqId"/>
       <relation type="one" fk-name="SHLIST_ITEM_LIST" rel-entity-name="ShoppingList">

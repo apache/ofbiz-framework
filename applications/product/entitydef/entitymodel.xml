@@ -2087,6 +2087,7 @@ under the License.
       <field name="reservMaxPersons" type="floating-point"><description>maximum number of persons who can rent this asset at the same time</description></field>
       <field name="reserv2ndPPPerc" type="floating-point"><description>percentage of the end price for the 2nd person renting this asset connected to this product</description></field>
       <field name="reservNthPPPerc" type="floating-point"><description>percentage of the end price for the Nth person renting this asset connected to this product</description></field>
+      <field name="configId" type="id"><description>Used to safe the persisted configuration Id for AGGREGATED products.</description></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>

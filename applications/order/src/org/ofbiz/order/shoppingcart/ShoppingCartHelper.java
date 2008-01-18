@@ -33,7 +33,10 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.product.config.ProductConfigWrapper;
+import org.ofbiz.product.config.ProductConfigWorker;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -246,84 +249,71 @@ public class ShoppingCartHelper {
         }
 
         boolean noItems = true;
-
+        List itemIdList = null;
+        Iterator itemIter = null;
+        OrderReadHelper orderHelper = new OrderReadHelper(delegator, orderId);
         if (addAll) {
-            Iterator itemIter = null;
-
-            try {
-                itemIter = UtilMisc.toIterator(delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId), null));
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e.getMessage(), module);
-                itemIter = null;
+            itemIdList = orderHelper.getOrderItems();
+        } else {
+            if (itemIds != null) {
+                itemIdList = Arrays.asList(itemIds);
             }
-
-            String orderItemTypeId = null;
-            if (itemIter != null && itemIter.hasNext()) {
-                while (itemIter.hasNext()) {
-                    GenericValue orderItem = (GenericValue) itemIter.next();
-                    orderItemTypeId = orderItem.getString("orderItemTypeId");
-                    // do not store rental items
-                    if (orderItemTypeId.equals("RENTAL_ORDER_ITEM")) 
-                        continue;
-                    // never read: int itemId = -1;
-                    if (orderItem.get("productId") != null && orderItem.get("quantity") != null) {
-                        Double amount = orderItem.getDouble("selectedAmount");
+        }
+        if (UtilValidate.isNotEmpty(itemIdList)) {
+            itemIter = itemIdList.iterator();
+        }
+        
+        String orderItemTypeId = null;
+        String productId = null;
+        if (itemIter != null && itemIter.hasNext()) {
+            while (itemIter.hasNext()) {
+                GenericValue orderItem = null;
+                Object value = itemIter.next();
+                if (value instanceof GenericValue) {
+                    orderItem = (GenericValue) value;
+                } else {
+                    String orderItemSeqId = (String) value;
+                    orderItem = orderHelper.getOrderItem(orderItemSeqId);
+                }
+                orderItemTypeId = orderItem.getString("orderItemTypeId");
+                productId = orderItem.getString("productId");
+                // do not store rental items
+                if (orderItemTypeId.equals("RENTAL_ORDER_ITEM")) 
+                    continue;
+                // never read: int itemId = -1;
+                if (UtilValidate.isNotEmpty(productId) && orderItem.get("quantity") != null) {
+                    Double amount = orderItem.getDouble("selectedAmount");
+                    ProductConfigWrapper configWrapper = null;
+                    String aggregatedProdId = null;
+                    if ("AGGREGATED_CONF".equals(ProductWorker.getProductTypeId(delegator, productId))) {
                         try {
-                            this.cart.addOrIncreaseItem(orderItem.getString("productId"), amount, orderItem.getDouble("quantity").doubleValue(),
-                                    null, null, null, null, null, null, null, catalogId, null, orderItemTypeId, itemGroupNumber, null, dispatcher);
-                            noItems = false;
-                        } catch (CartItemModifyException e) {
-                            errorMsgs.add(e.getMessage());
-                        } catch (ItemNotFoundException e) {
+                            GenericValue instanceProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                            String configId = instanceProduct.getString("configId");
+                            aggregatedProdId = ProductWorker.getInstanceAggregatedId(delegator, productId);
+                            configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, aggregatedProdId, cart.getProductStoreId(), catalogId, cart.getWebSiteId(), cart.getCurrency(), cart.getLocale(), cart.getAutoUserLogin());
+                        } catch (GenericEntityException e) {
                             errorMsgs.add(e.getMessage());
                         }
+                        
+                    }
+                    try {
+                        this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId :  productId, amount, orderItem.getDouble("quantity").doubleValue(),
+                                null, null, null, null, null, null, null, catalogId, configWrapper, orderItemTypeId, itemGroupNumber, null, dispatcher);
+                        noItems = false;
+                    } catch (CartItemModifyException e) {
+                        errorMsgs.add(e.getMessage());
+                    } catch (ItemNotFoundException e) {
+                        errorMsgs.add(e.getMessage());
                     }
                 }
-                if (errorMsgs.size() > 0) {
-                    result = ServiceUtil.returnError(errorMsgs);
-                    result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-                    return result; // don't return error because this is a non-critical error and should go back to the same page
-                }
-            } else {
-                noItems = true;
+            }
+            if (errorMsgs.size() > 0) {
+                result = ServiceUtil.returnError(errorMsgs);
+                result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+                return result; // don't return error because this is a non-critical error and should go back to the same page
             }
         } else {
             noItems = true;
-            if (itemIds != null) {
-
-                for (int i = 0; i < itemIds.length; i++) {
-                    String orderItemSeqId = itemIds[i];
-                    GenericValue orderItem = null;
-
-                    try {
-                        orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
-                    } catch (GenericEntityException e) {
-                        Debug.logWarning(e.getMessage(), module);
-                        errorMsgs.add("Order line \"" + orderItemSeqId + "\" not found, so not added.");
-                        continue;
-                    }
-                    if (orderItem != null) {
-                        if (orderItem.get("productId") != null && orderItem.get("quantity") != null) {
-                            Double amount = orderItem.getDouble("selectedAmount");
-                            try {
-                                this.cart.addOrIncreaseItem(orderItem.getString("productId"), amount,
-                                        orderItem.getDouble("quantity").doubleValue(), null, null, null, null, null, null, null, 
-                                        catalogId, null, orderItem.getString("orderItemTypeId"), itemGroupNumber, null, dispatcher);
-                                noItems = false;
-                            } catch (CartItemModifyException e) {
-                                errorMsgs.add(e.getMessage());
-                            } catch (ItemNotFoundException e) {
-                                errorMsgs.add(e.getMessage());
-                            }
-                        }
-                    }
-                }
-                if (errorMsgs.size() > 0) {
-                    result = ServiceUtil.returnError(errorMsgs);
-                    result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-                    return result; // don't return error because this is a non-critical error and should go back to the same page
-                }
-            } // else no items
         }
 
         if (noItems) {

@@ -39,6 +39,7 @@ import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -532,6 +533,11 @@ public class ShoppingCart implements Serializable {
     }
 
     /** Add an item to the shopping cart. */
+    public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, HashMap features, HashMap attributes, String prodCatalogId, String itemType, ProductConfigWrapper configWrapper, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, null, null, null, null, null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, Boolean.FALSE, Boolean.FALSE));
+    }
+
+    /** Add an item to the shopping cart. */
     public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, HashMap features, HashMap attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
         return addItemToEnd(productId, amount, quantity, unitPrice, features, attributes, prodCatalogId, itemType, dispatcher, triggerExternalOps, triggerPriceRules, Boolean.FALSE, Boolean.FALSE);
     }
@@ -544,7 +550,12 @@ public class ShoppingCart implements Serializable {
     /** Add an (rental)item to the shopping cart. */
     public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, HashMap features, HashMap attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
         return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLengthDbl, reservPersonsDbl, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
-    }    
+    }
+
+    /** Add an (rental/aggregated)item to the shopping cart. */
+    public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, HashMap features, HashMap attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLengthDbl, reservPersonsDbl, null, null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
+    }
     
     /** Add an item to the shopping cart. */
     public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, HashMap features, HashMap attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
@@ -3167,6 +3178,81 @@ public class ShoppingCart implements Serializable {
     // Methods used for order creation
     // =======================================================================
     
+    /**
+     * Returns the Id of an AGGREGATED_CONF product having exact configId.
+     * If AGGREGATED_CONF product do not exist, creates one, associates it to the AGGREGATED product, and copy its production run template.
+     * @param item
+     * @param dispatcher
+     */    
+    public String getAggregatedInstanceId (ShoppingCartItem item, LocalDispatcher dispatcher) {
+        if (UtilValidate.isEmpty(item.getConfigWrapper()) || UtilValidate.isEmpty(item.getConfigWrapper().getConfigId())) {
+            return null;
+        }
+        String newProductId = null;
+        String configId = item.getConfigWrapper().getConfigId();
+        try {
+            //first search for existing productId
+            newProductId = ProductWorker.getAggregatedInstanceId(getDelegator(), item.getProductId(), configId);
+            if (configId.equals(newProductId)) {
+                return newProductId;
+            }
+            
+            //create new product and associate it
+            Map serviceContext = new HashMap();
+            GenericValue permUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            String internalName = item.getProductId() + "_" + configId;
+            serviceContext.put("internalName", internalName);
+            serviceContext.put("productTypeId", "AGGREGATED_CONF");
+            serviceContext.put("configId", configId);
+            serviceContext.put("userLogin", permUserLogin);
+            
+            Map result = dispatcher.runSync("createProduct", serviceContext);
+            if (ServiceUtil.isError(result)) {
+                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                return null;
+            }
+            
+            serviceContext.clear();
+            newProductId = (String) result.get("productId");
+            serviceContext.put("productId", item.getProductId());
+            serviceContext.put("productIdTo", newProductId);
+            serviceContext.put("productAssocTypeId", "PRODUCT_CONF");
+            serviceContext.put("fromDate", UtilDateTime.nowTimestamp());
+            serviceContext.put("userLogin", permUserLogin);            
+
+            result = dispatcher.runSync("createProductAssoc", serviceContext);
+            if (ServiceUtil.isError(result)) {
+                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                return null;
+            }
+            
+            //create a new WorkEffortGoodStandard based on existing one of AGGREGATED product .
+            //Another approach could be to get WorkEffortGoodStandard of the AGGREGATED product while creating production run.
+            List productionRunTemplates = getDelegator().findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("productId", item.getProductId(), "workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE", "statusId", "WEGS_CREATED"));
+            GenericValue productionRunTemplate = EntityUtil.getFirst(EntityUtil.filterByDate(productionRunTemplates));
+            if (productionRunTemplate != null) {
+                serviceContext.clear();
+                serviceContext.put("workEffortId", productionRunTemplate.getString("workEffortId"));
+                serviceContext.put("productId", newProductId);
+                serviceContext.put("workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE");
+                serviceContext.put("statusId", "WEGS_CREATED");
+                serviceContext.put("userLogin", permUserLogin);
+
+                result = dispatcher.runSync("createWorkEffortGoodStandard", serviceContext);
+                if (ServiceUtil.isError(result)) {
+                    Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                    return null;
+                }
+            }
+            
+        } catch (Exception e) {
+            Debug.logError(e, module);
+            return null;
+        }
+
+        return newProductId;
+    }
+    
     public List makeOrderItemGroups() {
         List result = FastList.newInstance();
         Iterator groupValueIter = this.itemGroupByNumberMap.values().iterator();
@@ -3221,10 +3307,10 @@ public class ShoppingCart implements Serializable {
     }
 
     public List makeOrderItems() {
-        return makeOrderItems(false, null);
+        return makeOrderItems(false, false, null);
     }
 
-    public List makeOrderItems(boolean explodeItems, LocalDispatcher dispatcher) {
+    public List makeOrderItems(boolean explodeItems, boolean replaceAggregatedId, LocalDispatcher dispatcher) {
         // do the explosion
         if (explodeItems && dispatcher != null) {
             explodeItems(dispatcher);
@@ -3259,13 +3345,18 @@ public class ShoppingCart implements Serializable {
                 if (status == null) {
                     status = initialStatus;
                 }
+                //check for aggregated products
+                String aggregatedInstanceId = null;
+                if (replaceAggregatedId && UtilValidate.isNotEmpty(item.getConfigWrapper())) {
+                    aggregatedInstanceId = getAggregatedInstanceId(item, dispatcher);
+                }
 
                 GenericValue orderItem = getDelegator().makeValue("OrderItem");
                 orderItem.set("orderItemSeqId", item.getOrderItemSeqId());
                 orderItem.set("externalId", item.getExternalId());
                 orderItem.set("orderItemTypeId", item.getItemType());
                 if (item.getItemGroup() != null) orderItem.set("orderItemGroupSeqId", item.getItemGroup().getGroupNumber());
-                orderItem.set("productId", item.getProductId());
+                orderItem.set("productId", UtilValidate.isNotEmpty(aggregatedInstanceId) ? aggregatedInstanceId : item.getProductId());
                 orderItem.set("prodCatalogId", item.getProdCatalogId());
                 orderItem.set("productCategoryId", item.getProductCategoryId());
                 orderItem.set("quantity", new Double(item.getQuantity()));
@@ -3720,7 +3811,7 @@ public class ShoppingCart implements Serializable {
         result.put("internalCode", this.getInternalCode());
         result.put("salesChannelEnumId", this.getChannelType());
         result.put("orderItemGroups", this.makeOrderItemGroups());
-        result.put("orderItems", this.makeOrderItems(explodeItems, dispatcher));
+        result.put("orderItems", this.makeOrderItems(explodeItems, Boolean.TRUE, dispatcher));
         result.put("workEfforts", this.makeWorkEfforts());
         result.put("orderAdjustments", this.makeAllAdjustments());
         result.put("orderTerms", this.getOrderTerms());

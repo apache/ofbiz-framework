@@ -52,6 +52,7 @@ import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.order.shoppinglist.ShoppingListEvents;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.category.CategoryWorker;
+import org.ofbiz.product.config.ProductConfigWorker;
 import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.product.product.ProductWorker;
@@ -675,7 +676,12 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.delegatorName = _product.getDelegator().getDelegatorName();
         this.addAllProductFeatureAndAppls(additionalProductFeatureAndAppls);
         this.locale = locale;
-        this.configWrapper = configWrapper;
+        if (UtilValidate.isNotEmpty(configWrapper)) {
+            this.configWrapper = configWrapper;
+            if (UtilValidate.isEmpty(configWrapper.getConfigId())) { //new product configuration. Persist it
+                ProductConfigWorker.storeProductConfigWrapper(configWrapper, getDelegator());
+            }
+        }
     }
 
     /** Creates new ShopingCartItem object. */

@@ -92,6 +92,9 @@ public class CartEventListener implements HttpSessionListener {
                 cartAbandonedLine.set("unitPrice", new Double(cartItem.getBasePrice()));
                 cartAbandonedLine.set("reserv2ndPPPerc", new Double(cartItem.getReserv2ndPPPerc()));
                 cartAbandonedLine.set("reservNthPPPerc", new Double(cartItem.getReservNthPPPerc()));
+                if (cartItem.getConfigWrapper() != null) {
+                    cartAbandonedLine.set("configId", cartItem.getConfigWrapper().getConfigId());
+                }
                 cartAbandonedLine.set("totalWithAdjustments", new Double(cartItem.getItemSubTotal()));
                 //not doing pre-reservations now, so this is always N
                 cartAbandonedLine.set("wasReserved", "N");

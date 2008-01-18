@@ -25,6 +25,7 @@
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.product.config.ProductConfigWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
+import org.ofbiz.base.util.*;
 
 currencyUomId = ShoppingCartEvents.getCartObject(request).getCurrency();
 product = context.get("product");
@@ -34,12 +35,20 @@ if (product != null) {
     ProductConfigWorker.fillProductConfigWrapper(configWrapper, request);
 
     if (!configWrapper.isCompleted()) {
-        configWrapper.setDefaultConfig();
+        configId = request.getParameter("configId");
+        if (UtilValidate.isNotEmpty(configId)) {
+            configWrapper.loadConfig(delegator, configId);
+        } else {
+            configWrapper.setDefaultConfig();
+        }
+
     }
+    ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
     if (!ProductStoreWorker.isStoreInventoryAvailable(request, configWrapper, 1.0)) {
         context.put("productNotAvailable", "Y");
     }
     context.put("configwrapper", configWrapper);
+    context.put("configId", configWrapper.getConfigId());
     context.put("totalPrice", configWrapper.getTotalPrice());
     context.put("renderSingleChoiceWithRadioButtons", "Y");
     context.put("showOffsetPrice", "Y");

@@ -212,8 +212,16 @@ public class ShoppingCartEvents {
         configWrapper = ProductConfigWorker.getProductConfigWrapper(productId, cart.getCurrency(), request);
 
         if (configWrapper != null) {
+            if (paramMap.containsKey("configId")) {
+                try {
+                    configWrapper.loadConfig(delegator, (String) paramMap.remove("configId"));
+                } catch (Exception e) {
+                    Debug.logWarning(e,"Could not load configuration", module);
+                }
+            } else { 
             // The choices selected by the user are taken from request and set in the wrapper
             ProductConfigWorker.fillProductConfigWrapper(configWrapper, request);
+            }
             if (!configWrapper.isCompleted()) {
                 // The configuration is not valid
                 request.setAttribute("product_id", productId);

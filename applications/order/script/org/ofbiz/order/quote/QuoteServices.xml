@@ -696,6 +696,11 @@ under the License.
             <if-compare field-name="isPromo" value="true" operator="equals" type="Boolean">
                 <set value="Y" field="createQuoteItemInMap.isPromo"/>
             </if-compare>
+            <call-object-method obj-field-name="item" method-name="getConfigWrapper" ret-field-name="configWrapper"/>
+            <if-not-empty field-name="configWrapper">
+                <call-object-method obj-field-name="configWrapper" method-name="getConfigId" ret-field-name="configId"/>
+                <set from-field="configId" field="createQuoteItemInMap.configId"/>
+            </if-not-empty>
             <if>
                 <condition>
                     <or>
@@ -810,6 +815,7 @@ under the License.
             <set field="createQuoteItemInMap.reservStart" from-field="custRequestItem.reservStart"/>
             <set field="createQuoteItemInMap.reservLength" from-field="custRequestItem.reservLength"/>
             <set field="createQuoteItemInMap.reservPersons" from-field="custRequestItem.reservPersons"/>           
+            <set field="createQuoteItemInMap.configId" from-field="custRequestItem.configId"/>
             <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap"/>
         </iterate>
         <!-- roles -->

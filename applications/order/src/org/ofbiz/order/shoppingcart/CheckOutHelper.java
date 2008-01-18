@@ -630,7 +630,7 @@ public class CheckOutHelper {
                     GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
                     GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
                     GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
-                    if ("AGGREGATED".equals(product.getString("productTypeId"))) {
+                    if ("AGGREGATED_CONF".equals(product.getString("productTypeId"))) {
                         org.ofbiz.product.config.ProductConfigWrapper config = this.cart.findCartItem(counter).getConfigWrapper();
                         Map inputMap = new HashMap();
                         inputMap.put("config", config);

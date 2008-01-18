@@ -121,7 +121,7 @@ under the License.
             <display-entity entity-name="Product" description="${productId} - ${description}"/>
         </field>
         <field name="addToCart" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="additem/editShoppingList?shoppingListId=${shoppingListId}&amp;shoppingListItemSeqId=${shoppingListItemSeqId}&amp;add_product_id=${productId}&amp;quantity=${quantity}"
+            <hyperlink target="additem/editShoppingList?shoppingListId=${shoppingListId}&amp;shoppingListItemSeqId=${shoppingListItemSeqId}&amp;add_product_id=${productId}&amp;quantity=${quantity}&amp;configId=${configId}"
                 description="Add ${quantity} to Order" also-hidden="false"/>
         </field>
     </form>

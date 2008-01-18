@@ -44,6 +44,8 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.product.config.ProductConfigWorker;
+import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -338,8 +340,28 @@ public class ShoppingCartServices {
                         reservPersons = workEffort.getDouble("reservPersons");
                     }    //end of rental data
                     
+                    //check for AGGREGATED products
+                    ProductConfigWrapper configWrapper = null;
+                    String configId = null;
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, null, reservStart, reservLength, reservPersons, null, null, prodCatalogId, item.getString("orderItemTypeId"), dispatcher, null, null, skipInventoryChecks, skipProductChecks);
+                        GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
+                        if ("AGGREGATED_CONF".equals(product.getString("productTypeId"))) {
+                            List productAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId")));
+                            productAssocs = EntityUtil.filterByDate(productAssocs);
+                            if (UtilValidate.isNotEmpty(productAssocs)) {
+                                productId = EntityUtil.getFirst(productAssocs).getString("productId");
+                                configId = product.getString("configId");
+                            }
+                        }
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                    }
+
+                    if (UtilValidate.isNotEmpty(configId)) {
+                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, productStoreId, prodCatalogId, website, currency, locale, userLogin);
+                    }                     
+                    try {
+                        itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, null, reservStart, reservLength, reservPersons, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, null, skipInventoryChecks, skipProductChecks);
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -606,8 +628,12 @@ public class ShoppingCartServices {
                 } else {
                     // product item
                     String productId = item.getString("productId");
+                    ProductConfigWrapper configWrapper = null;
+                    if (UtilValidate.isNotEmpty(item.getString("configId"))) {
+                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, item.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
+                    }                    
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantity.doubleValue(), quoteUnitPrice, reservStart, reservLength, reservPersons, null, null, null, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.doubleValue() == 0));
+                        itemIndex = cart.addItemToEnd(productId, amount, quantity.doubleValue(), quoteUnitPrice, reservStart, reservLength, reservPersons, null, null, null, configWrapper, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.doubleValue() == 0), Boolean.FALSE, Boolean.FALSE);
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -757,8 +783,12 @@ public class ShoppingCartServices {
                 if (item.get("productId") != null) {
                     // product item
                     String productId = item.getString("productId");
+                    ProductConfigWrapper configWrapper = null;
+                    if (UtilValidate.isNotEmpty(item.getString("configId"))) {
+                        configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, item.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
+                    }
                     try {
-                        itemIndex = cart.addItemToEnd(productId, null, quantity.doubleValue(), null, null, null, null, null, dispatcher, Boolean.TRUE, Boolean.TRUE);
+                        itemIndex = cart.addItemToEnd(productId, null, quantity.doubleValue(), null, null, null, null, null, configWrapper, dispatcher, Boolean.TRUE, Boolean.TRUE);
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
