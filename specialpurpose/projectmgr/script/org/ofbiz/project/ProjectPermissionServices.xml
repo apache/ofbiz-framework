@@ -24,22 +24,25 @@
     <simple-method method-name="projectMgrPermission" short-description="general service to check access to the project component">
         <set field="primaryPermission" value="PROJECTMGR"/>
         <set field="hasPermission" value="true" type="Boolean"/>
-        <if-has-permission permission="PROJECTMGR" action="_ADMIN">
-            <field-to-result field-name="hasPermission"/>
-            <return/>
-        </if-has-permission>
+        <set field="hasNoPermission" value="false" type="Boolean"/>
+        
         <!-- find object -->
         <if-compare field-name="parameters.resourceDescription" value="Timesheet" operator="contains">
             <set field="sec_object" value="TIMESHEET"/>
             <else>
-                <if-compare field-name="parameters.resourceDescription" value="Project" operator="contains">
-                    <set field="sec_object" value="PROJECT"/>
+                <if-compare field-name="parameters.resourceDescription" value="TimeEntry" operator="contains">
+                    <set field="sec_object" value="TIMEENTRY"/>
                     <else>
-                        <if-compare field-name="parameters.resourceDescription" value="Phase" operator="contains">
-                            <set field="sec_object" value="PHASE"/>
+                        <if-compare field-name="parameters.resourceDescription" value="Project" operator="contains">
+                            <set field="sec_object" value="PROJECT"/>
                             <else>
-                                <if-compare field-name="parameters.resourceDescription" value="Task" operator="contains">
-                                    <set field="sec_object" value="TASK"/>
+                                <if-compare field-name="parameters.resourceDescription" value="Phase" operator="contains">
+                                    <set field="sec_object" value="PHASE"/>
+                                    <else>
+                                        <if-compare field-name="parameters.resourceDescription" value="Task" operator="contains">
+                                            <set field="sec_object" value="TASK"/>
+                                        </if-compare>
+                                    </else>
                                 </if-compare>
                             </else>
                         </if-compare>
@@ -47,63 +50,244 @@
                 </if-compare>
             </else>
         </if-compare>      
-        <log level="always" message="==============security: object: ${sec_object} action: ${parameters.mainAction}"></log>
-
-        <field-to-result field-name="hasPermission"/>
-        <return/><!-- temporary disable -->
         
+        <log level="info" message="========security======  action: ${parameters.mainAction} object: ${sec_object} resourceDescription: ${parameters.resourceDescription}"/>
+
+
+        <!-- PROJECT -->
+        <if-compare field-name="sec_object" value="PROJECT" operator="equals">
+            <log level="info" message="=====Project: ${parameters.projectId}"></log>
+            <if-not-empty field-name="parameters.projectId">
+                <set field="projectId" from-field="parameters.projectId"/>
+                <set field="partyId" from-field="parameters.userLogin.partyId"/>
+                <call-simple-method method-name="checkProjectMembership"/>
+                <if>
+                    <condition>
+                        <or>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_ADMIN"/>
+                                <not><if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/></not>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
+                                <if-compare field-name="isMember" value="true" operator="equals"/>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_VIEW"/>
+                                <not><if-has-permission permission="PROJECTMGR_ROLE_VIEW"/></not>
+                                <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
+                                <if-compare field-name="isMember" value="true" operator="equals"/>
+                                <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            </and>
+                        </or>
+                    </condition>
+                    <then>
+                        <field-to-result field-name="hasPermission"/>
+                        <return/>
+                    </then>
+                    <else>
+                        <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToProject" field-name="failMessage"/>
+                        <field-to-result field-name="failMessage"/>
+                        <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+                        <return/>
+                    </else>
+                </if>
+                <else>
+                    <field-to-result field-name="hasPermission"/><!-- projectId empty -->
+                    <return/>
+                </else>
+            </if-not-empty>
+        </if-compare>        
+        
+        <!-- TASK -->
+        <if-compare field-name="sec_object" value="TASK" operator="equals">
+            <set field="taskId" from-field="parameters.taskId" default-value="parameters.workEffortId"/>
+            <log level="info" message="=====Task: ${parameters.taskId}"></log>
+            <if-not-empty field-name="parameters.taskId">
+                <set field="taskId" from-field="parameters.workEffortId"/>
+                <set field="partyId" from-field="parameters.userLogin.partyId"/>
+                <call-simple-method method-name="checkProjectMembership"/>
+                <if>
+                    <condition>
+                        <or>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_ADMIN"/>
+                                <not><if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/></not>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
+                                <if-compare field-name="isMember" value="true" operator="equals"/>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_VIEW"/>
+                                <not><if-has-permission permission="PROJECTMGR_ROLE_VIEW"/></not>
+                                <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
+                                <if-compare field-name="isMember" value="true" operator="equals"/>
+                                <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_ROLE_TASK_CREATE"/>
+                                <if-compare field-name="isMember" value="true" operator="equals"/>
+                                <or>
+                                    <if-compare field-name="parameters.mainAction" value="CREATE" operator="equals"/>
+                                    <if-compare field-name="parameters.mainAction" value="UPDATE" operator="equals"/>
+                                </or>
+                            </and>
+                        </or>
+                    </condition>
+                    <then>
+                        <field-to-result field-name="hasPermission"/>
+                        <return/>
+                    </then>
+                    <else>
+                        <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTask" field-name="failMessage"/>
+                        <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+                        <field-to-result field-name="failMessage"/>
+                        <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+                        <return/>
+                    </else>
+                </if>
+                <else>
+                    <field-to-result field-name="hasPermission"/><!-- projectId empty -->
+                    <return/>
+                </else>
+            </if-not-empty>
+        </if-compare>        
+        
+        
+        <!-- TIMESHEET -->
         <if-compare field-name="sec_object" value="TIMESHEET" operator="equals">
-            <if-compare field-name="mainAction" value="CREATE" operator="equals">
-                <field-to-result field-name="hasPermission"/>
-                <return/>
-            </if-compare>
-        </if-compare>
-        
-
-        <if-has-permission permission="PROJECTMGR" action="_VIEW">
-            <if-has-permission permission="PROJECTMGR" action="_ROLE_">
-                <!-- object dependent checks here -->
-                <if-compare field-name="sec_object" value="PROJECT" operator="not-equals">
-                    <!-- if not project check if member of task, when not get the projectId -->
-                    <if-compare field-name="sec_object" value="TASK" operator="equals">
-                        <!-- check if login party member of the task -->
-                        <set field="findRel.workEffortId" from-field="sec_id"/>
-                        <set field="findRel.partyId" from-field="userLogin.partyId"/>
-                        <find-by-and entity-name="WorkEffortPartyAssignment" map-name="findRel" list-name="assigns"/>
-                        <filter-list-by-date list-name="assigns" to-list-name="assignsFilt"/>
-                        <if-not-empty field-name="assignsFilt">
-                            <field-to-result field-name="hasPermission"/>
-                            <return/>
-                        </if-not-empty>
-                        <set field="getProj.workEffortId" from-field="sec_id"/>
-                        <else>
-                            <set field="getProj.phaseId" from-field="sec_id"/>
-                        </else>
-                    </if-compare>
-                    <call-service service-name="getProjectIdAndName" in-map-name="getProj">
-                        <result-to-field result-name="projectId"/>
-                    </call-service>
-                </if-compare>
-                <!-- see if login party member of the project -->
-                <set field="findRel.workEffortId" from-field="sec_id"/>
-                <set field="findRel.partyId" from-field="userLogin.partyId"/>
-                <find-by-and entity-name="WorkEffortPartyAssignment" map-name="findRel" list-name="assigns"/>
-                <filter-list-by-date list-name="assigns" to-list-name="assignsFilt"/>
-                <if-not-empty field-name="assignsFilt">
+            <if>
+                <condition>
+                    <or>
+                        <if-has-permission permission="PROJECTMGR_ADMIN"/>
+                        <and>
+                            <if-has-permission permission="PROJECTMGR_VIEW"/>
+                            <if-compare field-name="mainAction" value="VIEW" operator="equals"/>
+                        </and>
+                        <and>
+                            <if-has-permission permission="PROJECTMGR_TIMESHEET_CREATE"/>
+                            <not><if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/></not>
+                            <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
+                        </and>
+                        <and>
+                            <if-has-permission permission="PROJECTMGR_TIMESHEET_UPDATE"/>
+                            <not><if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/></not>
+                            <if-compare field-name="mainAction" value="UPDATE" operator="equals"/>
+                        </and>
+                        <and>
+                            <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
+                            <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
+                            <if-compare-field field-name="parameters.partyId" to-field-name="parameters.userLogin.userLoginId" operator="equals"/>
+                        </and>
+                        <and>
+                            <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
+                            <if-compare field-name="mainAction" value="UPDATE" operator="equals"/>
+                            <if-compare-field field-name="parameters.partyId" to-field-name="parameters.userLogin.userLoginId" operator="equals"/>
+                        </and>
+                    </or>
+                </condition>
+                <then>
                     <field-to-result field-name="hasPermission"/>
                     <return/>
-                </if-not-empty>
+                </then>
                 <else>
-                    <if-compare field-name="sec_action" value="WRITE" operator="equals">
-                        <add-error>
-                            <fail-property resource="ProjectMgrUiLabels" property="noAccess:NeedWriteOrUserAccess"/>
-                        </add-error>
-                    </if-compare>
-                </else>    
-            </if-has-permission>
-        </if-has-permission>
-        <check-errors/>   
-        <field-to-result field-name="hasPermission"/>
+                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTimesheet" field-name="failMessage"/>
+                    <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+                    <field-to-result field-name="failMessage"/>
+                    <return/>
+                </else>
+            </if>
+        </if-compare>
+        
+        <!-- TIMEENTRY -->
+        <if-compare field-name="sec_object" value="TIMEENTRY" operator="equals">
+            <if-not-empty field-name="parameters.timesheetId">
+                <entity-one entity-name="TimeSheet" value-name="timesheet"/>
+                <set field="timesheetId" from-field="timesheet.timesheetId"/>
+                <set field="taskId" from-field="parameters.workEffortId"/>
+                <set field="partyId" from-field="timesheet.partyId"/>
+                <call-simple-method method-name="checkProjectMembership"/>
+                <if>
+                    <condition>
+                        <or>
+                            <if-has-permission permission="PROJECTMGR_ADMIN"/>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_VIEW"/>
+                                <if-compare field-name="mainAction" value="VIEW" operator="equals"/>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_TIMESHEET_CREATE"/>
+                                <not><if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/></not>
+                                <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_TIMESHEET_UPDATE"/>
+                                <not><if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/></not>
+                                <if-compare field-name="mainAction" value="UPDATE" operator="equals"/>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
+                                <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
+                                <if-compare-field field-name="timesheet.partyId" to-field-name="parameters.userLogin.userLoginId" operator="equals"/>
+                                <if-compare field-name="isMember" value="true" operator="equals"/>
+                            </and>
+                            <and>
+                                <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
+                                <if-compare field-name="mainAction" value="UPDATE" operator="equals"/>
+                                <if-compare-field field-name="timesheet.partyId" to-field-name="parameters.userLogin.userLoginId" operator="equals"/>
+                                <if-compare field-name="isMember" value="true" operator="equals"/>
+                            </and>
+                        </or>
+                    </condition>
+                    <then>
+                        <field-to-result field-name="hasPermission"/>
+                        <return/>
+                    </then>
+                    <else>
+                        <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTimesheet" field-name="failMessage"/>
+                        <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+                        <field-to-result field-name="failMessage"/>
+                        <return/>
+                    </else>
+                </if>
+                <else>
+                    <field-to-result field-name="hasPermission"/><!-- no timesheetId nu update/read -->
+                    <return/>
+                </else>
+            </if-not-empty>
+        </if-compare>
+        
+        <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
+        <field-to-result field-name="failMessage"/>
+        <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
     </simple-method>
     
+    <simple-method method-name="checkProjectMembership" short-description="check if a party is member of a project, input either 'taskId' or 'projectId', returns 'isMember' ">
+        <if-empty field-name="projectId">
+            <set field="getProject.taskId" from-field="taskId"/>
+            <call-service service-name="getProjectIdAndName" in-map-name="getProject">
+                <result-to-field result-name="projectId" field-name="projectId"/>
+            </call-service>
+        </if-empty>
+        <log level="always" message="=======try to find project: ${projectId} for party: ${partyId}"></log>
+        <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true">
+            <field-map field-name="workEffortId" env-name="projectId"/>
+            <field-map field-name="partyId" env-name="partyId"/>
+        </entity-and>
+        <filter-list-by-date list-name="projectAssigns" to-list-name="projectAssignsDated"/>
+        <if-empty field-name="projectAssignsDated">
+            <log level="always" message="====is not member!!!===="></log>
+            <set field="isMember" value="false" type="Boolean"/>
+            <else>
+                <set field="isMember" value="true" type="Boolean"/>
+            </else>
+        </if-empty>
+    </simple-method>
 </simple-methods>

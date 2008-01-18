@@ -95,8 +95,6 @@
     </simple-method>
     
     <simple-method method-name="addTaskAssignment" short-description="assign a party to a task however make sure he is member of the related project">
-        <set field="partyId" from-field="parameters.partyId"/>
-        <call-simple-method method-name="checkProjectMembership"/>
         <make-value value-name="newAssign" entity-name="WorkEffortPartyAssignment"/>
         <set-pk-fields value-name="newAssign" map-name="parameters"/>
         <now-timestamp-to-env env-name="newAssign.fromDate"/>
@@ -194,22 +192,28 @@
         <if-compare field-name="parameters.workEffortId" operator="equals" value="Totals">
             <return/>
         </if-compare>
-        <set field="partyId" from-field="timesheet.partyId"/>
-        <call-simple-method method-name="checkProjectMembership"/>
-
-        <!-- check if party assigned to task, when not add with roletype of project -->
+        
+        <!-- check if party assigned to task, when not add with roletype of project, if assigned check status -->
         <entity-and entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
-            <field-map field-name="workEffortId" env-name="project.workEffortId"/>
+            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
             <field-map field-name="partyId" env-name="timesheet.partyId"/>
         </entity-and>
-        <!-- also needed for status update lateron -->
-        <set field="parameters.partyId" from-field="timesheet.partyId"/>
         <if-empty field-name="assigns">
+            <set field="getpr.taskId" from-field="parameters.workEffortId"/>
+            <call-service service-name="getProjectIdAndName" in-map-name="getpr">
+                <result-to-field result-name="projectId"/>
+            </call-service>
+            <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true">
+                <field-map field-name="workEffortId" env-name="projectId"/>
+                <field-map field-name="partyId" env-name="timesheet.partyId"/>
+            </entity-and>
             <first-from-list entry-name="projectAssign" list-name="projectAssigns"/>
+            <set field="parameters.partyId" from-field="timesheet.partyId"/>
             <set field="parameters.roleTypeId" from-field="projectAssign.roleTypeId"/>
             <set field="parameters.statusId" value="PAS_ASSIGNED"/>
             <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         </if-empty>
+        <check-errors/>
         
         <!-- check if the actual start date is set, when not set it to todays date -->
         <if-empty field-name="project.actualStartDate">
@@ -264,10 +268,12 @@
                 </if-compare>
             </if-not-empty>
         </loop>
+        
         <!-- update the assignment status -->
         <if-compare field-name="parameters.checkComplete" value="Y" operator="equals">
             <entity-one entity-name="WorkEffortPartyAssignment" value-name="alreadyAssign"/>
             <if-compare field-name="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
+                <set field="parameters.partyId" from-field="timesheet.partyId"/>
                 <set field="parameters.statusId" value="PAS_COMPLETED"/>
                 <call-simple-method method-name="updateTaskAssigment"/>
             </if-compare>
@@ -891,19 +897,5 @@
             </else>            
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="checkProjectMembership" short-description="check if a party is member of a project">
-        <set field="getProject.taskId" from-field="parameters.workEffortId"/>
-        <call-service service-name="getProjectIdAndName" in-map-name="getProject">
-            <result-to-field result-name="projectId" field-name="projectId"/>
-        </call-service>
-        <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true">
-            <field-map field-name="workEffortId" env-name="projectId"/>
-            <field-map field-name="partyId" env-name="partyId"/>
-        </entity-and>
-        <filter-list-by-date list-name="projectAssigns" to-list-name="projectAssignsDated"/>
-        <if-empty field-name="projectAssignsDated">
-            <add-error><fail-message message="Party: ${partyId} is not part of project: ${project.projectName} with task: ${project.workEffortName}"/></add-error>
-            <check-errors/>
-        </if-empty>
-    </simple-method>
+    
 </simple-methods>
