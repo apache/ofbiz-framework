@@ -524,6 +524,9 @@ under the License.
         <menu-item name="TaxAuthorityGlAccounts" title="${uiLabelMap.AccountingTaxAuthorityGlAccounts}">
             <link target="editOrganizationTaxAuthorityGlAccount?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
+        <menu-item name="PartyGlAccounts" title="${uiLabelMap.AccountingPartyGlAccounts}">
+            <link target="editPartyGlAccounts?organizationPartyId=${organizationPartyId}"/>
+        </menu-item>
     </menu>
     <menu name="PartyAccountingChecksTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple">  

@@ -3117,4 +3117,35 @@ under the License.
         <prim-key field="county"/>
         <prim-key field="fromDate"/>
     </entity>
+	
+    <entity entity-name="PartyGlAccount" package-name="org.ofbiz.accounting.ledger" title="Party Gl Account Entity">
+        <field name="organizationPartyId" type="id-ne"/>
+        <field name="partyId" type="id-ne"/>
+        <field name="roleTypeId" type="id-ne"/>
+        <field name="glAccountTypeId" type="id-ne"/>
+        <field name="glAccountId" type="id-ne"/>
+        <prim-key field="organizationPartyId"/>
+        <prim-key field="partyId"/>
+        <prim-key field="roleTypeId"/>
+        <prim-key field="glAccountTypeId"/>
+        <relation type="one" fk-name="PRTYGLACCT_ORGPRTY" title="Organization" rel-entity-name="Party">
+            <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PRTYGLACCT_PRTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="PRTYGLACCT_PTRL" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="PRTYGLACCT_GLAT" rel-entity-name="GlAccountType">
+            <key-map field-name="glAccountTypeId"/>
+        </relation>		
+        <relation type="one" fk-name="PRTYGLACCT_GLACCT" rel-entity-name="GlAccount">
+            <key-map field-name="glAccountId"/>
+        </relation>
+    </entity>
 </entitymodel>

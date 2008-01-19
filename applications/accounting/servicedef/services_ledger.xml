@@ -508,5 +508,25 @@ under the License.
         <attribute name="paymentApplicationId" type="String" mode="IN" optional="false"/>
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
+	<!-- Party GlAccount services -->
+    <service name="createPartyGlAccount" default-entity-name="PartyGlAccount" engine="simple"
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createPartyGlAccount" auth="true">
+        <description>Associate a party to a General Ledger Account</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="updatePartyGlAccount" default-entity-name="PartyGlAccount" engine="simple"
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="updatePartyGlAccount" auth="true">
+        <description>Update an existing General Ledger Account of a Party</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="glAccountId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="deletePartyGlAccount" default-entity-name="PartyGlAccount" engine="simple" 
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="deletePartyGlAccount" auth="true">
+        <description>Delete an existing General Ledger Account of a Party</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>		
+    </service>
 </services>
