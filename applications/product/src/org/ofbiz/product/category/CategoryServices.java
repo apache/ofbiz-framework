@@ -29,6 +29,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -157,6 +158,26 @@ public class CategoryServices {
         Iterator orderByFieldIter = orderByFields.iterator();
         while (orderByFieldIter.hasNext()) {
             String orderByField = (String) orderByFieldIter.next();
+            
+            // Get the real field name from the order by field removing ascending/descending order
+            if (UtilValidate.isNotEmpty(orderByField)) {
+                int startPos = 0, endPos = orderByField.length();
+                
+                if (orderByField.endsWith(" DESC")) {
+                    endPos -= 5;
+                } else if (orderByField.endsWith(" ASC")) {
+                    endPos -= 4;
+                } else if (orderByField.startsWith("-")) {
+                    startPos++;
+                } else if (orderByField.startsWith("+")) {
+                    startPos++;
+                }
+                
+                if (startPos != 0 || endPos != orderByField.length()) {
+                    orderByField = orderByField.substring(startPos, endPos);
+                }
+            }
+            
             if (!productCategoryMemberModel.isField(orderByField)) {
                 if (productModel.isField(orderByField)) {
                     entityName = "ProductAndCategoryMember";
