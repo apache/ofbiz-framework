@@ -21,14 +21,15 @@ under the License.
 <#if security.hasEntityPermission("PARTYMGR", "_VIEW", session)>
   <#-- Main Heading -->
   <#if partyClassificationGroup?has_content>
-    <#assign selected = page.tabButtonItem?default("void")>
-    <div class="button-bar button-style-1">
+    <#assign selected = tabButtonItem?default("void")>
+    <div class="button-bar tab-bar">
       <ul>
         <li<#if selected == "EditPartyClassificationGroup"> class="selected"</#if>><a href="<@ofbizUrl>EditPartyClassificationGroup?partyClassificationGroupId=${partyClassificationGroup.partyClassificationGroupId}</@ofbizUrl>">${uiLabelMap.PartyClassificationGroups}</a></li>
         <li<#if selected == "EditPartyClassificationGroupParties"> class="selected"</#if>><a href="<@ofbizUrl>EditPartyClassificationGroupParties?partyClassificationGroupId=${partyClassificationGroup.partyClassificationGroupId}</@ofbizUrl>">${uiLabelMap.Parties}</a></li>
       </ul>
-      <br class="clear" />
+      <br class="clear"/>
     </div>
+    <br/>
   </#if>
 <#else>
   <h2">${uiLabelMap.PartyMgrViewPermissionError}</h2>

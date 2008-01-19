@@ -19,8 +19,8 @@ under the License.
 
 <#if groupId?has_content>
 <!-- begin SecurityGroupTabBar.ftl -->
-  <#assign selected = page.tabButtonItem?default("void")>
-  <div class="button-bar button-style-1">
+  <#assign selected = tabButtonItem?default("void")>
+  <div class="button-bar tab-bar">
     <ul>
       <li<#if selected == "EditSecurityGroup"> class="selected"</#if>><a href="<@ofbizUrl>EditSecurityGroup?groupId=${groupId}</@ofbizUrl>">${uiLabelMap.PartySecurityGroups}</a></li>
       <li<#if selected == "EditSecurityGroupPermissions"> class="selected"</#if>><a href="<@ofbizUrl>EditSecurityGroupPermissions?groupId=${groupId}</@ofbizUrl>">${uiLabelMap.PartyPermissions}</a></li>
