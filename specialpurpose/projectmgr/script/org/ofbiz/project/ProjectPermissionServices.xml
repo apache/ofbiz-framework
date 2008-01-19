@@ -51,12 +51,10 @@
             </else>
         </if-compare>      
         
-        <log level="info" message="========security======  action: ${parameters.mainAction} object: ${sec_object} resourceDescription: ${parameters.resourceDescription}"/>
-
+        <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} resourceDescription: ${parameters.resourceDescription}"/>
 
         <!-- PROJECT -->
         <if-compare field-name="sec_object" value="PROJECT" operator="equals">
-            <log level="info" message="=====Project: ${parameters.projectId}"></log>
             <if-not-empty field-name="parameters.projectId">
                 <set field="projectId" from-field="parameters.projectId"/>
                 <set field="partyId" from-field="parameters.userLogin.partyId"/>

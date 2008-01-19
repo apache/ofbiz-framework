@@ -2,7 +2,9 @@
 <entity-engine-xml>
     
     <!-- Resources -->
-    <!-- Demo Employee1 manager -->
+    <!-- user 'admin' has full access and can create projects, add resources etc.  -->
+    
+    <!-- Demo Employee1 manager is a projectmanager of both projects and can can maintain data within the project-->
     <Party partyId="DemoEmployee1" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoEmployee1" firstName="Peter" lastName="Manager" />
     <UserLogin userLoginId="DemoEmployee1" partyId="DemoEmployee1"/>
@@ -11,8 +13,9 @@
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyRole partyId="DemoEmployee1" roleTypeId="PROJECT_TEAM"/>
-
-    <!-- Demo Employee2 analist of project 1-->
+    <UserLoginAndSecurityGroup groupId="PROJECTADMIN" userLoginId="DemoEmployee1" fromDate="2000-01-01 00:00:00.0"/>
+    
+    <!-- Demo Employee2 analist of project 1 can register time, accept and assign tasks withn his project 1 only-->
     <Party partyId="DemoEmployee2" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoEmployee2" firstName="Jo" lastName="Analist1" />
     <UserLogin userLoginId="DemoEmployee2"  partyId="DemoEmployee2"/>
@@ -21,8 +24,9 @@
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyRole partyId="DemoEmployee2" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee2" fromDate="2000-01-01 00:00:00.0"/>
     
-    <!-- Demo Employee3 analist of project 2-->
+    <!-- Demo Employee3 analist of project 2 can register time, accept and assign tasks withn his project 2 only-->
     <Party partyId="DemoEmployee3" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoEmployee3" firstName="Tom" lastName="Analist2" />
     <UserLogin userLoginId="DemoEmployee3"  partyId="DemoEmployee3"/>
@@ -31,8 +35,9 @@
     <PartyContactMech partyId="DemoEmployee3" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee3" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyRole partyId="DemoEmployee3" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee3" fromDate="2000-01-01 00:00:00.0"/>
     
-    <!-- Demo Customer1 client for demo project 1-->
+    <!-- Demo Customer1 client for demo project 1 has access to project 1 only-->
     <Party partyId="DemoCustomer1" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoCustomer1" firstName="Sam" lastName="Customer 1" />
     <UserLogin userLoginId="DemoCustomer1"  partyId="DemoCustomer1"/>
@@ -41,8 +46,9 @@
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyRole partyId="DemoCustomer1" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer1" fromDate="2000-01-01 00:00:00.0"/>
     
-    <!-- Demo Customer2 client for demo project 2-->
+    <!-- Demo Customer2 client for demo project 2 has access to project 2 only-->
     <Party partyId="DemoCustomer2" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoCustomer2" firstName="John" lastName="Customer 2"/>
     <UserLogin userLoginId="DemoCustomer2"  partyId="DemoCustomer2"/>
@@ -51,20 +57,16 @@
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyRole partyId="DemoCustomer2" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer2" fromDate="2000-01-01 00:00:00.0"/>
     
-    <!-- make sure admin show up as resources -->
+    <!-- make sure admin show up as a resource, he acts as a full access admin -->
     <PartyRole partyId="admin" roleTypeId="PROJECT_TEAM"/>
     
     <!-- security demo data -->
+    <!-- allow these these usergroups read only -->
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="PROJECTMGR_VIEW"/>
-    
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer1" fromDate="2000-01-01 00:00:00.0"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer2" fromDate="2000-01-01 00:00:00.0"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTADMIN" userLoginId="DemoEmployee1" fromDate="2000-01-01 00:00:00.0"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee2" fromDate="2000-01-01 00:00:00.0"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee3" fromDate="2000-01-01 00:00:00.0"/>
     
     <!-- First Demo project from customer 1 and employee 1,2-->
     <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PUBLIC" workEffortName="Demo Project1 Cust1" revisionNumber="1"/>
@@ -83,7 +85,7 @@
     <WorkEffort workEffortId="9006" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:58.857" workEffortParentId="9004" scopeEnumId="WES_PUBLIC" workEffortName="task4" estimatedStartDate="2007-12-18 00:00:00.0" estimatedCompletionDate="2007-12-20 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9006" skillTypeId="9000" estimatedDuration="40.0"/>
     
-    <!-- task dependencies -->
+    <!-- task dependencies project 1-->
     <WorkEffortAssoc workEffortIdFrom="9002" workEffortIdTo="9003" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="9003" workEffortIdTo="9005" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="9005" workEffortIdTo="9006" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
@@ -105,7 +107,7 @@
     <WorkEffort workEffortId="9106" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:58.857" workEffortParentId="9104" scopeEnumId="WES_PUBLIC" workEffortName="task4" estimatedStartDate="2007-12-18 00:00:00.0" estimatedCompletionDate="2007-12-20 00:00:00.0" revisionNumber="1"/>
     <WorkEffortSkillStandard workEffortId="9106" skillTypeId="9000" estimatedDuration="40.0"/>
     
-    <!-- task dependencies -->
+    <!-- task dependencies project 2 -->
     <WorkEffortAssoc workEffortIdFrom="9102" workEffortIdTo="9103" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="9103" workEffortIdTo="9105" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="9105" workEffortIdTo="9106" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
