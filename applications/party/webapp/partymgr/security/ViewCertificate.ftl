@@ -21,44 +21,59 @@ under the License.
 <#if (requestParameters.certString?has_content)>
     <#assign cert = Static["org.ofbiz.base.util.KeyStoreUtil"].pemToCert(requestParameters.certString)/>
 </#if>
-<br/>
-
-<#if (cert?has_content)>
-    <div><b>Cert: ${cert.getType()} : ${cert.getSubjectX500Principal()}</b></div>
-    <div><b>Name: ${cert.getSubjectX500Principal().getName()}</b></div>
-    <div><b>Serial Number: ${cert.getSerialNumber().toString(16)}</b></div>
-<#else>
-    <h3>Invalid certificate</h3>
-</#if>
-
-<br/>
-<h1>Save to KeyStore</h1>
-<table cellspacing="0" class="basic-table form-widget-table dark-grid">
-  <tr class="header-row">
-    <td>Component</td>
-    <td>Keystore</td>
-    <td>Import Issuer</td>
-    <td>Key Alias</td>
-    <td>&nbsp;</td>
-  </tr>
-  <#list components as component>
-    <#assign keystores = component.getKeystoreInfos()?if_exists/>    
-      <#list keystores as store>
-        <#if (store.isTrustStore())>
-          <tr>
-            <form method="post" action="<@ofbizUrl>/importIssuerProvision</@ofbizUrl>">
-              <input type="hidden" name="componentName" value="${component.getComponentName()}"/>
-              <input type="hidden" name="keystoreName" value="${store.getName()}"/>
-              <input type="hidden" name="certString" value="${requestParameters.certString}"/>
-
-              <td>${component.getComponentName()}</td>
-              <td>${store.getName()}</td>
-              <td align="center"><input type="checkbox" name="importIssuer" value="Y"/>
-              <td><input type="text" class="inputBox" name="alias" size="20"/>
-              <td align="right"><input type="submit" value="Save"/>
-            </form>
-          </tr>
-        </#if>
+<div id="findPartyParameters" class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.PageTitleImportCertificate}</li>
+    </ul>
+    <br class="clear" />
+  </div>
+  <div class="screenlet-body">
+    <#if (cert?has_content)>
+        <span class="label">${uiLabelMap.PartyCertType}</span>&nbsp;${cert.getType()} : ${cert.getSubjectX500Principal()}
+        <span class="label">${uiLabelMap.PartyCertName}</span>&nbsp;${cert.getSubjectX500Principal().getName()}
+        <span class="label">${uiLabelMap.PartyCertSerialNumber}</span>&nbsp;${cert.getSerialNumber().toString(16)}
+    <#else>
+        <h3>${uiLabelMap.PartyCertInvalid}</h3>
+    </#if>
+  </div>
+</div>
+<div id="findPartyParameters" class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.PartyCertSaveToKeyStore}</li>
+    </ul>
+    <br class="clear" />
+  </div>
+  <div class="screenlet-body">
+    <table cellspacing="0" class="basic-table">
+      <tr class="header-row">
+        <td>${uiLabelMap.PartyCertComponent}</td>
+        <td>${uiLabelMap.PartyCertKeyStore}</td>
+        <td>${uiLabelMap.PartyCertImportIssuer}</td>
+        <td>${uiLabelMap.PartyCertKeyAlias}</td>
+        <td>&nbsp;</td>
+      </tr>
+      <#list components as component>
+        <#assign keystores = component.getKeystoreInfos()?if_exists/>    
+          <#list keystores as store>
+            <#if (store.isTrustStore())>
+              <tr>
+                <form method="post" action="<@ofbizUrl>/importIssuerProvision</@ofbizUrl>">
+                  <input type="hidden" name="componentName" value="${component.getComponentName()}"/>
+                  <input type="hidden" name="keystoreName" value="${store.getName()}"/>
+                  <input type="hidden" name="certString" value="${requestParameters.certString}"/>
+    
+                  <td>${component.getComponentName()}</td>
+                  <td>${store.getName()}</td>
+                  <td align="center"><input type="checkbox" name="importIssuer" value="Y"/>
+                  <td><input type="text" name="alias" size="20"/>
+                  <td align="right"><input type="submit" value="${uiLabelMap.CommonSave}"/>
+                </form>
+              </tr>
+            </#if>
+          </#list>
       </#list>
-  </#list>
-</table>
+    </table>
+  </div>
+</div>
