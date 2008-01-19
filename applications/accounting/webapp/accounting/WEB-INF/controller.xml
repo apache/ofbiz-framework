@@ -613,6 +613,34 @@ under the License.
         <response name="error" type="view" value="SetupGlJournals"/>
     </request-map>
 
+    <!-- PartyGlAccount Requests--> 
+    <request-map uri="editPartyGlAccounts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPartyGlAccount"/>
+        <response name="error" type="view" value="EditPartyGlAccount"/>
+    </request-map> 
+
+    <request-map uri="createPartyGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPartyGlAccount"/>
+        <response name="success" type="view" value="EditPartyGlAccount"/>
+        <response name="error" type="view" value="EditPartyGlAccount"/>
+     </request-map>
+
+    <request-map uri="updatePartyGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyGlAccount"/>
+        <response name="success" type="view" value="EditPartyGlAccount"/>
+        <response name="error" type="view" value="EditPartyGlAccount"/>
+    </request-map>
+
+    <request-map uri="deletePartyGlAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyGlAccount"/>
+        <response name="success" type="view" value="EditPartyGlAccount"/>
+        <response name="error" type="view" value="EditPartyGlAccount"/>
+    </request-map>	
+	
     <!-- =============== Fixed Asset mapping =================-->
     <request-map uri="ListFixedAssets"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssets"/></request-map>
     <request-map uri="EditFixedAsset"><security https="true" auth="true"/><response name="success" type="view" value="EditFixedAsset"/></request-map>
@@ -1840,7 +1868,8 @@ under the License.
 
     <view-map name="ListGlAccountEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountEntries"/>
     <view-map name="ListAcctgTransEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListAcctgTransEntries"/>
-    
+    <view-map name="EditPartyGlAccount" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditPartyGlAccount"/>
+	
     <!-- FinAccount -->
     <view-map name="FindFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindFinAccount"/>
     <view-map name="ListFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#ListFinAccount"/>    

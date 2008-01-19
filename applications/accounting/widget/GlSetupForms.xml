@@ -704,4 +704,44 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+
+    <form name="ListPartyGlAccounts" type="list" target="updatePartyGlAccount" list-name="partyGlAccounts">
+        <auto-fields-service service-name="updatePartyGlAccount" default-field-type="display"/>
+        <field name="organizationPartyId"><hidden/></field>       
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
+            <drop-down allow-empty="false">                
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            </drop-down>
+        </field>     
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deletePartyGlAccount?organizationPartyId=${organizationPartyId}&amp;partyId=${partyId}&amp;glAccountId=${glAccountId}&amp;roleTypeId=${roleTypeId}&amp;glAccountTypeId=${glAccountTypeId}" description="${uiLabelMap.CommonDelete}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddPartyGlAccount" type="single" target="createPartyGlAccount">
+        <auto-fields-service service-name="createPartyGlAccount" default-field-type="display"/>
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.FormFieldTitle_roleTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountTypeId}">
+            <drop-down>
+                <entity-options entity-name="GlAccountType" description="${description}" key-field-name="glAccountTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
+            <drop-down allow-empty="false">
+                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
 </forms>

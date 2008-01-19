@@ -2208,5 +2208,23 @@ under the License.
         </call-service>
         <field-to-result field-name="acctgTransId" result-name="acctgTransId"/>
     </simple-method>    
-    
+
+	<!-- Party GlAccount services -->
+     <simple-method method-name="createPartyGlAccount" short-description="Associate a party to a General Ledger Account">
+        <make-value entity-name="PartyGlAccount" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="updatePartyGlAccount" short-description="Update an existing General Ledger Account of a Party">
+        <entity-one entity-name="PartyGlAccount" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="deletePartyGlAccount" short-description="Delete an existing General Ledger Account of a Party">
+        <entity-one entity-name="PartyGlAccount" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>

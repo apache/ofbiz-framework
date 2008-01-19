@@ -136,6 +136,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="GlResourceType" />
     <entity-group group="org.ofbiz" entity="GlXbrlClass" />
     <entity-group group="org.ofbiz" entity="PartyAcctgPreference" />
+    <entity-group group="org.ofbiz" entity="PartyGlAccount" />
     <entity-group group="org.ofbiz" entity="ProductAverageCost" />
     <entity-group group="org.ofbiz" entity="SettlementTerm" />
     <entity-group group="org.ofbiz" entity="VarianceReasonGlAccount" />
