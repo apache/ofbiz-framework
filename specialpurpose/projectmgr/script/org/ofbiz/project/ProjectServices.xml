@@ -34,6 +34,7 @@
     <simple-method method-name="createProjectTask" short-description="Create a project task and optionally assign">
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         <if-not-empty field-name="parameters.partyId">
+            <set field="parameters.workEffortId" from-field="newEntity.workEffortId"/>
             <call-simple-method method-name="addTaskAssignment"/>
         </if-not-empty>
     </simple-method>
