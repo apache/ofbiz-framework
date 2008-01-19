@@ -80,32 +80,24 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
 curFindString = UtilFormatOut.encodeQuery(curFindString);
 context.put("curFindString", curFindString);
 
-String viewIndexString = (String)parameters.get("VIEW_INDEX");
-if (viewIndexString == null || viewIndexString.length() == 0) { 
-    viewIndexString = "0"; 
-}
- 
-int viewIndex = 0;
 try { 
-    viewIndex = Integer.valueOf(viewIndexString).intValue(); 
+    viewIndex = Integer.valueOf((String)parameters.get("VIEW_INDEX")).intValue(); 
 } catch (NumberFormatException nfe) { 
     viewIndex = 0; 
 }
+
+int viewIndexFirst = 0;
+context.put("viewIndexFirst",viewIndexFirst);
 context.put("viewIndex", viewIndex);
 context.put("viewIndexPrevious", viewIndex-1);
 context.put("viewIndexNext", viewIndex+1);
 
-String viewSizeString = (String)parameters.get("VIEW_SIZE");
-if (viewSizeString == null || viewSizeString.length() == 0) { 
-    viewSizeString = "10";
-}
-
-int viewSize = 10;
 try {
-    viewSize = Integer.valueOf(viewSizeString).intValue();
+    viewSize = Integer.valueOf((String)parameters.get("VIEW_SIZE")).intValue();
 } catch (NumberFormatException nfe) {
     viewSize = 10; 
 }
+
 context.put("viewSize", viewSize);
 
 int lowIndex = viewIndex*viewSize+1;
@@ -167,6 +159,13 @@ if ("true".equals(find)) {
 context.put("highIndex", highIndex);
 context.put("arraySize", arraySize);
 context.put("resultPartialList", resultPartialList);
+viewIndexLast = arraySize/viewSize;
+if (arraySize%2 != 0)
+   {
+      context.put("viewIndexLast",viewIndexLast);      
+   }else{
+        context.put("viewIndexLast",viewIndexLast-1);        
+   }
 
 List fieldList = FastList.newInstance();
 for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
