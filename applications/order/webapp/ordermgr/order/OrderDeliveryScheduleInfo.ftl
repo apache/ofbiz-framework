@@ -19,19 +19,20 @@ under the License.
 
 <#if hasPermission>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxlink">
-            <#if orderId?exists>
-                <a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.OrderViewOrder}]</a>
-            </#if>
-        </div>
-        <div class="boxhead">${uiLabelMap.OrderScheduleDelivery}</div>
+    <div class="screenlet-title-bar">
+      <ul>
+        <li class="head3">${uiLabelMap.OrderScheduleDelivery}</li>
+        <#if orderId?exists>
+          <li><a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${uiLabelMap.OrderViewOrder}</a></li>
+        </#if>
+      </ul>
+      <br class="clear"/>
     </div>
     <div class="screenlet-body">
         <#if orderId?has_content>
           ${updatePODeliveryInfoWrapper.renderFormString(context)}
         <#else>
-          <div class="tabletext">${uiLabelMap.OrderNoPurchaseSpecified}</div>
+          ${uiLabelMap.OrderNoPurchaseSpecified}
         </#if>
     </div>
 </div>

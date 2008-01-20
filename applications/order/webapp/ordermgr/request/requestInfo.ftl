@@ -66,7 +66,7 @@ under the License.
                 </td>
             </tr>
             <#-- request description -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
                     &nbsp;${uiLabelMap.CommonDescription}

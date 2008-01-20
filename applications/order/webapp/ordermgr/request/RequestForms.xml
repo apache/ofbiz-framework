@@ -36,7 +36,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" widget-style="selectBox">
+        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
@@ -134,7 +134,7 @@ under the License.
                 <entity-options entity-name="CustRequestType" description="${description}"/>
             </drop-down>
         </field>
-        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" widget-style="selectBox">
+        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
@@ -148,7 +148,7 @@ under the License.
             </drop-down>
         </field>
 
-        <field use-when="custRequest==null" name="statusId" widget-style="selectBox">
+        <field use-when="custRequest==null" name="statusId">
             <drop-down allow-empty="false" current="first-in-list">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
@@ -156,7 +156,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="custRequest!=null" name="statusId" widget-style="selectBox">
+        <field use-when="custRequest!=null" name="statusId">
             <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${custRequest.statusId}"/>
@@ -164,7 +164,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="priority" widget-style="selectBox">
+        <field name="priority">
             <drop-down allow-empty="false">
                 <option key="9"/>
                 <option key="8"/>
@@ -212,7 +212,7 @@ under the License.
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="custRequestResolutionId"><hidden/></field>
-        <field use-when="custRequestItem==null" name="statusId" widget-style="selectBox">
+        <field use-when="custRequestItem==null" name="statusId">
             <drop-down allow-empty="false" current="first-in-list">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
@@ -220,7 +220,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="custRequestItem!=null" name="statusId" widget-style="selectBox">
+        <field use-when="custRequestItem!=null" name="statusId">
             <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${custRequestItem.statusId}"/>
@@ -230,7 +230,7 @@ under the License.
         </field>
         <field use-when="custRequestItem==null" name="sequenceNum" entry-name="nextSequenceNum"><text/></field>
         <field use-when="custRequestItem!=null" name="sequenceNum"><text/></field>
-        <field name="priority" widget-style="selectBox">
+        <field name="priority">
             <drop-down allow-empty="false">
                 <option key="9"/>
                 <option key="8"/>

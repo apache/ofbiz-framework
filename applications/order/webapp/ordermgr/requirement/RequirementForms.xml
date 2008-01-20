@@ -111,7 +111,7 @@ under the License.
                 <entity-options entity-name="RequirementType" description="${description}"/>
             </drop-down>
         </field>
-        <field name="statusId" widget-style="selectBox">
+        <field name="statusId">
             <drop-down allow-empty="false" no-current-selected-key="REQ_CREATED">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="REQUIREMENT_STATUS"/>
@@ -238,7 +238,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyId" title="${uiLabelMap.ProductSupplier}" widget-style="selectBox">
+        <field name="partyId" title="${uiLabelMap.ProductSupplier}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
                     <entity-constraint name="roleTypeId"  value="SUPPLIER" operator="equals"/>

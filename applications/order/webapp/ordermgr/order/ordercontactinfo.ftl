@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#macro partyPostalAddress postalContactMechList contactMechPurposeTypeId contactPostalAddress>
-   <select name="contactMechId" class="selectBox">
+   <select name="contactMechId">
       <option value="${contactPostalAddress.contactMechId}">${(contactPostalAddress.address1)?default("")} - ${contactPostalAddress.city?default("")}</option>
       <option value="${contactPostalAddress.contactMechId}"></option>
       <#list postalContactMechList as postalContactMech>
@@ -37,17 +37,15 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul><li class="head3">&nbsp;${uiLabelMap.OrderContactInformation}</li></ul>
-      <br class="clear" />
+      <br class="clear"/>
     </div>    
     <div class="screenlet-body">
-      <table width="100%" border="0" cellpadding="1" cellspacing="0">
+      <table class="basic-table" cellspacing='0'>
         <tr>
-          <td align="right" valign="top" width="15%">
-            <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonName}</b></div>
-          </td>
+          <td align="right" valign="top" width="15%"><span class="label">&nbsp;${uiLabelMap.CommonName}</span></td>
           <td width="5">&nbsp;</td>
           <td align="left" valign="top" width="80%">
-            <div class="tabletext">
+            <div>
               <#if displayParty?has_content>
                 <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                 ${displayPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
@@ -66,19 +64,19 @@ under the License.
           <#assign contactMech = orderContactMechValueMap.contactMech>
           <#assign contactMechPurpose = orderContactMechValueMap.contactMechPurposeType>
           <#--<#assign partyContactMech = orderContactMechValueMap.partyContactMech>-->
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="7"><hr/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
-              <div class="tabletext">&nbsp;<b>${contactMechPurpose.get("description",locale)}</b></div>
+              <span class="label">&nbsp;${contactMechPurpose.get("description",locale)}</span>
             </td>
             <td width="5">&nbsp;</td>
             <td align="left" valign="top" width="80%">
               <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
                 <#assign postalAddress = orderContactMechValueMap.postalAddress>
                 <#if postalAddress?has_content>
-                  <div class="tabletext">
-                    <#if postalAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${postalAddress.toName}<br/></#if>
-                    <#if postalAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b> ${postalAddress.attnName}<br/></#if>
+                  <div>
+                    <#if postalAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span> ${postalAddress.toName}<br/></#if>
+                    <#if postalAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span> ${postalAddress.attnName}<br/></#if>
                     ${postalAddress.address1}<br/>
                     <#if postalAddress.address2?has_content>${postalAddress.address2}<br/></#if>
                     ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if>
@@ -98,14 +96,14 @@ under the License.
                      <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
                      <input type="hidden" name="contactMechPurposeTypeId" value="${contactMechPurpose.contactMechPurposeTypeId?if_exists}"/>
                      <input type="hidden" name="oldContactMechId" value="${contactMech.contactMechId?if_exists}"/>
-                     <hr class="sepbar"/>      
+                     <hr/>      
                      <div><@partyPostalAddress postalContactMechList = postalContactMechList?if_exists contactMechPurposeTypeId = contactMechPurpose.contactMechPurposeTypeId?if_exists contactPostalAddress=postalAddress?if_exists/><input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/></div>
                   </form> 
                   </#if>
                 </#if>
               <#elseif contactMech.contactMechTypeId == "TELECOM_NUMBER">
                 <#assign telecomNumber = orderContactMechValueMap.telecomNumber>
-                <div class="tabletext">
+                <div>
                   ${telecomNumber.countryCode?if_exists}
                   <#if telecomNumber.areaCode?exists>${telecomNumber.areaCode}-</#if>${telecomNumber.contactNumber}
                   <#--<#if partyContactMech.extension?exists>ext&nbsp;${partyContactMech.extension}</#if>-->
@@ -115,7 +113,7 @@ under the License.
                   </#if>
                 </div>
               <#elseif contactMech.contactMechTypeId == "EMAIL_ADDRESS">
-                <div class="tabletext">
+                <div>
                   ${contactMech.infoString}
                   <#if security.hasEntityPermission("ORDERMGR", "_SEND_CONFIRMATION", session)>
                      <br/>(<a href="<@ofbizUrl>confirmationmailedit?orderId=${orderId}&amp;partyId=${partyId}&amp;sendTo=${contactMech.infoString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderSendConfirmationEmail}</a>)
@@ -124,7 +122,7 @@ under the License.
                   </#if>
                 </div>
               <#elseif contactMech.contactMechTypeId == "WEB_ADDRESS">
-                <div class="tabletext">
+                <div>
                   ${contactMech.infoString}
                   <#assign openString = contactMech.infoString>
                   <#if !openString?starts_with("http") && !openString?starts_with("HTTP")>
@@ -133,7 +131,7 @@ under the License.
                   <a target="_blank" href="${openString}" class="buttontext">(open&nbsp;page&nbsp;in&nbsp;new&nbsp;window)</a>
                 </div>
               <#else>
-                <div class="tabletext">
+                <div>
                   ${contactMech.infoString?if_exists}
                 </div>
               </#if>

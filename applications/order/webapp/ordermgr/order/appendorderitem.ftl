@@ -19,15 +19,18 @@ under the License.
 
 <#if orderHeader?has_content>
 <div class="screenlet">
-    <div class="screenlet-title-bar">
-        <h3>&nbsp;${uiLabelMap.OrderAddToOrder}</h3>
-    </div>
-    <div class="screenlet-body">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">&nbsp;${uiLabelMap.OrderAddToOrder}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
+  <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>appendItemToOrder?${paramString}</@ofbizUrl>" name="appendItemForm">
             <table class="basic-table" cellspacing="0">
                 <tr>
-                  <td class="label">${uiLabelMap.ProductChooseCatalog} :</td>
-                  <td><select name='prodCatalogId' class='selectBox'>
+                  <td class="label">${uiLabelMap.ProductChooseCatalog}</td>
+                  <td><select name='prodCatalogId'>
                     <#list catalogCol as catalogId>
                       <#assign thisCatalogName = Static["org.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
                       <option value='${catalogId}'>${thisCatalogName}</option>
@@ -36,7 +39,7 @@ under the License.
                   </td>
                 </tr>
                 <tr>
-                  <td class="label">${uiLabelMap.ProductProductId} :</td>
+                  <td class="label">${uiLabelMap.ProductProductId}</td>
                   <td><input type="text" size="25" name="productId" value="${requestParameters.productId?if_exists}"/>
                       <a href="javascript:call_fieldlookup2(document.appendItemForm.productId,'LookupProduct');">
                         <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
@@ -44,32 +47,32 @@ under the License.
                   </td>
                 </tr>
                 <tr>
-                  <td class="label">${uiLabelMap.OrderPrice} :</td>
+                  <td class="label">${uiLabelMap.OrderPrice}</td>
                   <td>
                     <input type="text" size="6" name="basePrice" value="${requestParameters.price?if_exists}"/>
                     <input type="checkbox" name="overridePrice" value="Y"/>&nbsp;${uiLabelMap.OrderOverridePrice}
                   </td>
                 </tr>
                 <tr>
-                  <td class="label">${uiLabelMap.OrderQuantity} :</td>
+                  <td class="label">${uiLabelMap.OrderQuantity}</td>
                   <td><input type="text" size="6" name="quantity" value="${requestParameters.quantity?default("1")}"/></td>
                 </tr>
                 <tr>
-                  <td class="label">${uiLabelMap.OrderShipGroup} :</td>
+                  <td class="label">${uiLabelMap.OrderShipGroup}</td>
                   <td><input type="text" size="6" name="shipGroupSeqId" value="00001"/></td>
                 </tr>
                 <tr>
                   <td colspan="2">&nbsp;</td>
                 </tr>
                 <tr>
-                  <td class="label">${uiLabelMap.OrderDesiredDeliveryDate} :</td>
+                  <td class="label">${uiLabelMap.OrderDesiredDeliveryDate}</td>
                   <td>
                       <input type="text" size="25" maxlength="30" name="itemDesiredDeliveryDate"/>
                       <a href="javascript:call_cal(document.appendItemForm.itemDesiredDeliveryDate,'${toDayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                   </td>
                 </tr>
                 <tr>
-                  <td class="label">${uiLabelMap.CommonComment} :</td>
+                  <td class="label">${uiLabelMap.CommonComment}</td>
                   <td>
                       <input type="text" size="25" name="itemComment"/>
                   </td>

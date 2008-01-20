@@ -18,31 +18,43 @@ under the License.
 -->
 
 <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
-  <h1>${uiLabelMap.OrderAddNote}</h1>
+<div class="screenlet">
+    <div class="screenlet-title-bar">
+      <ul>
+        <li class="head3">${uiLabelMap.OrderAddNote}</li>
+      </ul>
+      <br class="clear"/>
+    </div>
+    <div class="screenlet-body">      
+        <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
+        <a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
 
-  &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
-  &nbsp;<a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
+        <form method="post" action="<@ofbizUrl>createordernote/${donePage}</@ofbizUrl>" name="createnoteform">
+            <table class="basic-table" cellspacing='0'>
+              <tr>
+                <td width="26%" align="right"><span class="label">${uiLabelMap.OrderNote}</span></td>
+                <td width="54%">
+                  <textarea name="note" rows="5" cols="70"></textarea>
+                </td>
+              </tr>
+              <tr>
+                 <td>&nbsp;</td>
+                 <td><span class="label">${uiLabelMap.OrderInternalNote}</span>
+                    <select name="internalNote" size="1">
+                    <option value=""></option>
+                    <option value="Y" selected>${uiLabelMap.CommonYes}</option>
+                    <option value="N">${uiLabelMap.CommonNo}</option>
+                    </select>
+                    <span class="tooltip">${uiLabelMap.OrderInternalNoteMessage}</span>
+                 </td>
+              </tr>
+            </table>
+        </form>
 
-  <form method="post" action="<@ofbizUrl>createordernote/${donePage}</@ofbizUrl>" name="createnoteform">
-    <table width="90%" border="0" cellpadding="2" cellspacing="0">
-      <tr>
-        <td width="26%" align="right"><div class="tabletext">${uiLabelMap.OrderNote}</div></td>
-        <td width="54%">
-          <textarea name="note" class="textAreaBox" rows="5" cols="70"></textarea>
-        </td>
-      </tr>
-      <tr>
-         <td/><td class="tabletext">${uiLabelMap.OrderInternalNote} :
-	 <select class="selectBox" name="internalNote" size="1"><option value=""></option><option value="Y" selected>${uiLabelMap.CommonYes}</option><option value="N">${uiLabelMap.CommonNo}</option></select></td>
-      </tr>
-      <tr>
-	 <td/><td class="tabletext"><i>${uiLabelMap.OrderInternalNoteMessage}</i></td>
-    </table>
-  </form>
-
-  &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
-  &nbsp;<a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
-
+        <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
+        <a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>      
+    </div>
+</div>
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>
