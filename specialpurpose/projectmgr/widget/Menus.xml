@@ -67,23 +67,37 @@
     <menu name="ProjectTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+            <set field="hasUpdatePermission" value="${bsh:
+                result = dispatcher.runSync(&quot;projectMgrPermission&quot;, 
+                org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                &quot;resourceDescription&quot;, &quot;Project&quot;,
+                &quot;mainAction&quot;, &quot;UPDATE&quot;,
+                &quot;projectId&quot;, projectId)); 
+                return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
+            <set field="hasViewPermission" value="${bsh:
+                result = dispatcher.runSync(&quot;projectMgrPermission&quot;, 
+                org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                &quot;resourceDescription&quot;, &quot;Project&quot;,
+                &quot;mainAction&quot;, &quot;VIEW&quot;,
+                &quot;projectId&quot;, projectId)); 
+                return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
         </actions>
         <menu-item name="ganttchart" title="${uiLabelMap.ProjectMgrGanttChart}">
             <condition>
-                    <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
+                <if-compare field-name="hasViewPermission" operator="equals" value="true"/>
             </condition>
             <link target="ganttChart?projectId=${projectId}"/>
         </menu-item>
         <menu-item name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}">
             <condition>
-                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
+                <if-compare field-name="hasViewPermission" operator="equals" value="true"/>
             </condition>
             <link target="projectView?projectId=${projectId}"/>
         </menu-item>
         <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditPoject}">
             <condition>
                 <and>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
@@ -94,7 +108,7 @@
         <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}">
             <condition>
                 <and>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
@@ -105,7 +119,7 @@
         <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}">
             <condition>
                 <and>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
@@ -116,7 +130,7 @@
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
             <condition>
                 <and>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
@@ -127,7 +141,7 @@
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
             <condition>
                 <and>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
@@ -138,7 +152,7 @@
         <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}">
             <condition>
                 <and>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
@@ -149,7 +163,7 @@
         <menu-item name="billing" title="${uiLabelMap.ProjectMgrBilling}">
             <condition>
                 <and>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
@@ -168,7 +182,7 @@
                     <not>
                         <if-empty field-name="project"/>
                     </not>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="EditProject"></link>
@@ -179,7 +193,7 @@
                     <not>
                         <if-empty field-name="project"/>
                     </not>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="copyProject?projectId=${projectId}"></link>
@@ -190,7 +204,7 @@
                     <not>
                         <if-empty field-name="project"/>
                     </not>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="scheduleProject?projectId=${projectId}"></link>
@@ -201,7 +215,7 @@
                     <not>
                         <if-empty field-name="project"/>
                     </not>
-                    <if-has-permission permission="PROJECTMGR" action="_ROLE_UPDATE"/>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
             <link target="copyProjectToTemplate?projectId=${projectId}"></link>
