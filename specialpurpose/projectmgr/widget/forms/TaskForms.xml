@@ -69,7 +69,12 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="estimatedHours"><text size="5"/></field>
+        <field name="skillTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="SkillType" description="${description}"/>        
+            </drop-down>
+        </field>
         <field use-when="myTask!=null||task==null" name="currentStatusId"><hidden value="PTS_CREATED"/></field>
         <field use-when="task!=null" name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}">
@@ -85,6 +90,7 @@
                 <option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/> 
             </drop-down>
         </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><textarea/></field>
         <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
@@ -92,8 +98,8 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><date-time/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><date-time/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}" position="1"><date-time type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}" position="2"><date-time type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <form name="AddProjectTask" type="single" target="createProjectTaskOrPhase">
@@ -109,6 +115,12 @@
                     <entity-constraint name="workEffortParentId" value="${projectId}"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>        
+            </drop-down>
+        </field>
+        <field name="estimatedHours"><text size="5"/></field>
+        <field name="skillTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="SkillType" description="${description}"/>        
             </drop-down>
         </field>
         <field name="taskPriority" parameter-name="priority" title="${uiLabelMap.CommonPriority}">

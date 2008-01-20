@@ -54,7 +54,7 @@
         
         <!-- PROJECT -->
         <if-compare field-name="sec_object" value="PROJECT" operator="equals">
-            <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/>
+            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
             <set field="projectId" from-field="parameters.projectId"/>
             <set field="partyId" from-field="parameters.partyId"/>
             <call-simple-method method-name="checkProjectMembership"/>
@@ -101,7 +101,7 @@
         
         <!-- PHASE -->
         <if-compare field-name="sec_object" value="PHASE" operator="equals">
-            <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/>
+            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
             <set field="projectId" from-field="parameters.projectId"/>
             <call-simple-method method-name="checkProjectMembership"/>
             <if>
@@ -147,7 +147,7 @@
                 <set field="phaseId" from-field="parameters.workEffortParentId"/>
             </if-empty>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
-            <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription}"/>
+            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription}"/-->
             <call-simple-method method-name="checkProjectMembership"/>
             <if>
                 <condition>
@@ -203,7 +203,7 @@
         
         <!-- TIMESHEET -->
         <if-compare field-name="sec_object" value="TIMESHEET" operator="equals">
-            <log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} Id: ${parameters.timesheetId} partyId: ${parameters.partyId} resourceDescription: ${parameters.resourceDescription}"/>
+            <!--log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} Id: ${parameters.timesheetId} partyId: ${parameters.partyId} resourceDescription: ${parameters.resourceDescription}"/-->
             <if>
                 <condition>
                     <or>
