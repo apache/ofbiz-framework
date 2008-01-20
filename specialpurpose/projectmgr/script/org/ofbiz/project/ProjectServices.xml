@@ -32,10 +32,20 @@
     </simple-method>
     
     <simple-method method-name="createProjectTask" short-description="Create a project task and optionally assign">
+        <!-- create task -->
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+        <!-- optionally assign to party -->
         <if-not-empty field-name="parameters.partyId">
             <set field="parameters.workEffortId" from-field="newEntity.workEffortId"/>
             <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+        </if-not-empty>
+        <!-- optionally enter estimated time and required skill -->
+        <if-not-empty field-name="parameters.estimatedHours">
+            <set field="parameters.estimatedDuration" from-field="parameters.estimatedHours"/>
+            <if-empty field-name="parameters.skillTypeId">
+                <set field="parameters.skillTypeId" value="_NA_"/>
+            </if-empty>
+            <call-simple-method method-name="createWorkEffortSkillStandard" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         </if-not-empty>
     </simple-method>
     
