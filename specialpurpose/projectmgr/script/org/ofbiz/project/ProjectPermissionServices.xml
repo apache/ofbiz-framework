@@ -25,6 +25,7 @@
         <set field="primaryPermission" value="PROJECTMGR"/>
         <set field="hasPermission" value="true" type="Boolean"/>
         <set field="hasNoPermission" value="false" type="Boolean"/>
+        <set field="mainAction" from-field="parameters.mainAction"/>
         
         <!-- find object -->
         <if-compare field-name="parameters.resourceDescription" value="Timesheet" operator="contains">
@@ -55,7 +56,7 @@
         <if-compare field-name="sec_object" value="PROJECT" operator="equals">
             <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/>
             <set field="projectId" from-field="parameters.projectId"/>
-            <set field="partyId" from-field="parameters.userLogin.partyId"/>
+            <set field="partyId" from-field="parameters.partyId"/>
             <call-simple-method method-name="checkProjectMembership"/>
             <if>
                 <condition>
@@ -161,7 +162,7 @@
         
         <!-- TIMESHEET -->
         <if-compare field-name="sec_object" value="TIMESHEET" operator="equals">
-            <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.timesheetId} resourceDescription: ${parameters.resourceDescription}"/>
+            <log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} Id: ${parameters.timesheetId} partyId: ${parameters.partyId} resourceDescription: ${parameters.resourceDescription}"/>
             <if>
                 <condition>
                     <or>
@@ -183,7 +184,7 @@
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
                             <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
-                            <if-compare-field field-name="parameters.partyId" to-field-name="parameters.userLogin.userLoginId" operator="equals"/>
+                            <if-compare-field field-name="parameters.partyId" to-field-name="parameters.userLogin.partyId" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>

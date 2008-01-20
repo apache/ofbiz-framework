@@ -40,6 +40,10 @@ under the License.
         <attribute name="projectId" type="String" mode="IN" optional="true"/>        
         <attribute name="phaseId" type="String" mode="IN" optional="true"/>        
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/>        
+        <attribute name="taskId" type="String" mode="IN" optional="true"/>        
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>        
+        <attribute name="timesheetId" type="String" mode="IN" optional="true"/>        
+        <attribute name="timeEntryId" type="String" mode="IN" optional="true"/>        
     </service>
 
     <service name="updateTaskStatus" engine="simple"
