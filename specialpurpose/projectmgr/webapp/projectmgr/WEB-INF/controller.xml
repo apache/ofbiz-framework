@@ -152,18 +152,6 @@
         <event type="service" invoke="updateWorkEffort"/>
         <response name="success" type="view" value="taskView"/>
     </request-map>
-    <request-map uri="createTaskPartyAssign">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="assignPartyToWorkEffort"/>
-        <response name="success" type="view" value="EditTaskPartyAssigns"/>
-        <response name="error" type="view" value="EditTaskPartyAssigns"/>
-    </request-map>
-    <request-map uri="assignPartyToWorkEffort">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="assignPartyToWorkEffort"/>
-        <response name="success" type="view" value="MyTasks"/>
-        <response name="error" type="view" value="MyTasks"/>
-    </request-map>
     <request-map uri="updateTaskAssigment">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTaskAssigment"/>
@@ -172,7 +160,7 @@
     </request-map>
     <request-map uri="addTaskAssignment">
         <security https="true" auth="true"/>
-        <event type="service" invoke="addTaskAssignment"/>
+        <event type="service" invoke="updateTaskAssigment"/>
         <response name="success" type="view" value="MyTasks"/>
         <response name="error" type="view" value="MyTasks"/>
     </request-map>

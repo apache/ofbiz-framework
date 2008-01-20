@@ -80,7 +80,7 @@ context.put("timesheet", timesheet);
 context.put("weekNumber", UtilDateTime.weekNumber(timesheet.getTimestamp("fromDate")));
 
 entries = new LinkedList(); 
-entry = FastMap.newInstance();
+entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
 taskTotal = 0.00;
 day0Total = 0.00; day1Total=0.00;day2Total=0.00; day3Total=0.00;day4Total=0.00;day5Total=0.00;day6Total=0.00;
 pHours = 0.00;
@@ -118,7 +118,7 @@ void retrieveWorkEffortData() {
 			// get project/phase information
 	        entry.put("workEffortId", entryWorkEffort.getString("workEffortId"));    
 	        entry.put("workEffortName", entryWorkEffort.getString("workEffortName")); 
-	        result = dispatcher.runSync("getProjectIdAndName", UtilMisc.toMap("userLogin", parameters.get("userLogin"),"taskId",entryWorkEffort.getString("workEffortId")));
+	        result = dispatcher.runSync("getProjectIdAndNameFromTask", UtilMisc.toMap("userLogin", parameters.get("userLogin"),"taskId",entryWorkEffort.getString("workEffortId")));
 	            entry.put("phaseId",result.get("phaseId"));    
 	            entry.put("phaseName",result.get("phaseName"));  
 	            entry.put("projectId",result.get("projectId"));  
@@ -126,11 +126,10 @@ void retrieveWorkEffortData() {
 	            
         }
     	entry.put("total", taskTotal);
-        entry.put("timesheetId", timesheet.get("timesheetId"));
         entries.add(entry);
         // start new entry
         taskTotal = 0.00;
-		entry = FastMap.newInstance();
+		entry = UtilMisc.toMap("timesheetId", timesheet.get("timesheetId"));
 }
 
 timeEntries = timesheet.getRelated("TimeEntry", UtilMisc.toList("workEffortId", "rateTypeId", "fromDate"));
@@ -171,7 +170,7 @@ if (timeEntry != null) {
     
 // add empty lines if timesheet not completed    
 if (!timesheet.getString("statusId").equals("TIMESHEET_COMPLETED")) {
-	for (c=0; c < 3; c++) { // add 5 empty lines 
+	for (c=0; c < 3; c++) { // add empty lines 
 	    entries.add(UtilMisc.toMap("timesheetId", timesheet.get("timesheetId")));
 	}
 }

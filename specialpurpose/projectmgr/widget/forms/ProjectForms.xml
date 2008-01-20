@@ -419,7 +419,7 @@
     </form>
     <form name="listResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask" target="updateResourcesTaskAssigment">
         <row-actions>
-            <service service-name="getProjectIdAndName" result-map-name="resultProject">
+            <service service-name="getProjectIdAndNameFromTask" result-map-name="resultProject">
                 <field-map field-name="taskId" env-name="workEffortId"/>
             </service>
             <service service-name="getProjectTask" result-map-name="result">

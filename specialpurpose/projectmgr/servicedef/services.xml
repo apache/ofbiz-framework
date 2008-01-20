@@ -53,7 +53,7 @@ under the License.
         location="org/ofbiz/project/ProjectServices.xml" invoke="updateTimeEntryByWorkeffort">
         <description>Update workeffort by workeffortId and timesheetId </description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
-        <attribute name="timesheetId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="timesheetId" type="String" mode="INOUT" optional="false"/>
         <attribute name="workEffortId" type="String" mode="INOUT" optional="true"/><!-- when empty will be ignored -->
         <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
         <attribute name="rateTypeId" type="String" mode="IN" optional="true"/>
@@ -102,6 +102,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
@@ -131,8 +132,8 @@ under the License.
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
     </service>
     
-    <service name="getProjectIdAndName" engine="simple"
-        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectIdAndName">
+    <service name="getProjectIdAndNameFromTask" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectIdAndNameFromTask">
         <description>Get the projectId and Name when a phase or task is provided.</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="taskId" type="String" mode="IN" optional="true"/>
@@ -197,17 +198,8 @@ under the License.
         <attribute name="partyId" type="String" mode="IN"/>
         <attribute name="newRoleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN"/>
-        <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN"/>
+        <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
     </service>
 
-    <service name="addTaskAssignment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
-        location="org/ofbiz/project/ProjectServices.xml" invoke="addTaskAssignment">
-        <description>Add a WorkEffortPartyAssignment</description>
-        <permission-service service-name="projectMgrPermission" main-action="UPDATE" />
-        <attribute name="workEffortId" type="String" mode="IN"/>
-        <attribute name="partyId" type="String" mode="IN"/>
-        <attribute name="roleTypeId" type="String" mode="IN"/>
-    </service>
-    
 </services>

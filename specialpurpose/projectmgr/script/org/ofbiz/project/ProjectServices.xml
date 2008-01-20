@@ -35,7 +35,7 @@
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         <if-not-empty field-name="parameters.partyId">
             <set field="parameters.workEffortId" from-field="newEntity.workEffortId"/>
-            <call-simple-method method-name="addTaskAssignment"/>
+            <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         </if-not-empty>
     </simple-method>
     
@@ -43,6 +43,7 @@
         short-description="Update task to resource assignment, if required create a new one by re-assigment">
         <field-to-result map-name="parameters" field-name="workEffortId"/>
         <if>
+            <!-- check if a change in partyId Or roletypeId: need to delete and create new -->
             <condition>
                 <or>
                     <and>
@@ -74,35 +75,33 @@
                 <create-value value-name="newAssign"/>
             </then>
             <else>
-                <!-- status changed or assignment ended -->
-                <entity-one entity-name="WorkEffortPartyAssignment" value-name="assignment">
-                    <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
-                    <field-map field-name="roleTypeId" env-name="parameters.roleTypeId"/>
-                    <field-map field-name="fromDate" env-name="parameters.fromDate"/>
-                </entity-one>
-                <if-compare field-name="parameters.statusId" value="PAS_ENDED" operator="equals">
-                    <!-- special case to indicate end of assignment -->
-                    <now-date-to-env env-name="assignment.thruDate"/>
-                    <clear-field field-name="parameters.statusId"/>
-                </if-compare>
-                <set-nonpk-fields value-name="assignment" map-name="parameters"/>
-                <store-value value-name="assignment"/>
-                <if-compare field-name="assignment.statusId" value="PAS_COMPLETED" operator="equals">
-                    <call-simple-method method-name="updateTaskStatus"/>
-                </if-compare>
+                <if-not-empty field-name="parameters.fromDate">
+                    <!-- status changed or assignment ended -->
+                    <entity-one entity-name="WorkEffortPartyAssignment" value-name="assignment">
+                        <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+                        <field-map field-name="partyId" env-name="parameters.partyId"/>
+                        <field-map field-name="roleTypeId" env-name="parameters.roleTypeId"/>
+                        <field-map field-name="fromDate" env-name="parameters.fromDate"/>
+                    </entity-one>
+                    <if-compare field-name="parameters.statusId" value="PAS_ENDED" operator="equals">
+                        <!-- special case to indicate end of assignment -->
+                        <now-date-to-env env-name="assignment.thruDate"/>
+                        <clear-field field-name="parameters.statusId"/>
+                    </if-compare>
+                    <set-nonpk-fields value-name="assignment" map-name="parameters"/>
+                    <store-value value-name="assignment"/>
+                    <if-compare field-name="assignment.statusId" value="PAS_COMPLETED" operator="equals">
+                        <call-simple-method method-name="updateTaskStatus"/>
+                    </if-compare>
+                    <else>
+                        <!-- new assignment -->
+                        <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+                    </else>
+                </if-not-empty>
             </else>
         </if>
     </simple-method>
     
-    <simple-method method-name="addTaskAssignment" short-description="assign a party to a task however make sure he is member of the related project">
-        <make-value value-name="newAssign" entity-name="WorkEffortPartyAssignment"/>
-        <set-pk-fields value-name="newAssign" map-name="parameters"/>
-        <now-timestamp-to-env env-name="newAssign.fromDate"/>
-        <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
-        <create-value value-name="newAssign"/>
-    </simple-method>
-        
     <simple-method method-name="updateTaskStatus" 
         short-description="Check partyassignments on a task, if all completes set task status to completed and set actual completiondate to now">
         <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignments" filter-by-date="true">
@@ -185,7 +184,6 @@
     </simple-method>        
     
     <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffort and timesheetId ">
-        <entity-one entity-name="Timesheet" value-name="timesheet"/>
         <field-to-result field-name="parameters.timesheetId" result-name="timesheetId"/>
         <if-empty field-name="parameters.workEffortId">
             <return/>
@@ -193,6 +191,7 @@
         <if-compare field-name="parameters.workEffortId" operator="equals" value="Totals">
             <return/>
         </if-compare>
+        <entity-one entity-name="Timesheet" value-name="timesheet"/>
         
         <!-- check if party assigned to task, when not add with roletype of project, if assigned check status -->
         <entity-and entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
@@ -201,7 +200,7 @@
         </entity-and>
         <if-empty field-name="assigns">
             <set field="getpr.taskId" from-field="parameters.workEffortId"/>
-            <call-service service-name="getProjectIdAndName" in-map-name="getpr">
+            <call-service service-name="getProjectIdAndNameFromTask" in-map-name="getpr">
                 <result-to-field result-name="projectId"/>
             </call-service>
             <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true">
@@ -213,6 +212,7 @@
             <set field="parameters.roleTypeId" from-field="projectAssign.roleTypeId"/>
             <set field="parameters.statusId" value="PAS_ASSIGNED"/>
             <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+            <set field="parameters.fromDate" from-field="newEntity.fromDate"/><!-- need to be able to update status later -->
         </if-empty>
         <check-errors/>
         
@@ -281,7 +281,7 @@
         </if-compare>
     </simple-method>          
 
-    <simple-method method-name="getProjectIdAndName" short-description="Get the projectId when a phase or task is provided." login-required="true">
+    <simple-method method-name="getProjectIdAndNameFromTask" short-description="Get the projectId when a phase or task is provided." login-required="true">
         <if-empty field-name="parameters.taskId">
             <if-empty field-name="parameters.phaseId">
                 <return/>
