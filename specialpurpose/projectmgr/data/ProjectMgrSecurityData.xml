@@ -34,7 +34,7 @@ under the License.
     <SecurityPermission description="Be able to create any weekly timesheet." permissionId="PROJECTMGR_TIMESHEET_CREATE"/>
     <SecurityPermission description="Be able to update any weekly timesheet." permissionId="PROJECTMGR_TIMESHEET_UPDATE"/>
     <SecurityPermission description="Be able to create a weekly timesheet for the loginid." permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
-    <SecurityPermission description="Be able to update(report) on an existing own timesheet(should be member of project of the task)" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
+    <SecurityPermission description="Be able to update(report) on an existing own timesheet" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
     
     <!-- allow the security group FULLADMIN (userlogin 'admin') full access -->
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="PROJECTMGR_ADMIN"/>
