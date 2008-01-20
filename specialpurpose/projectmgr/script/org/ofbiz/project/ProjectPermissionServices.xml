@@ -56,7 +56,7 @@
         <if-compare field-name="sec_object" value="PROJECT" operator="equals">
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
             <set field="projectId" from-field="parameters.projectId"/>
-            <set field="partyId" from-field="parameters.partyId"/>
+            <set field="partyId" from-field="parameters.userLogin.partyId"/>
             <call-simple-method method-name="checkProjectMembership"/>
             <if>
                 <condition>
@@ -103,6 +103,7 @@
         <if-compare field-name="sec_object" value="PHASE" operator="equals">
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
             <set field="projectId" from-field="parameters.projectId"/>
+            <set field="partyId" from-field="parameters.userLogin.partyId"/>
             <call-simple-method method-name="checkProjectMembership"/>
             <if>
                 <condition>
@@ -249,7 +250,7 @@
         
         <!-- TIMEENTRY -->
         <if-compare field-name="sec_object" value="TIMEENTRY" operator="equals">
-            <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} value: ${parameters.timeEntryId} workEffortId: ${parameters.workEffortId} timesheetId: ${parameters.timesheetId} resourceDescription: ${parameters.resourceDescription}"/>
+            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} value: ${parameters.timeEntryId} workEffortId: ${parameters.workEffortId} timesheetId: ${parameters.timesheetId} resourceDescription: ${parameters.resourceDescription}"/-->
             <entity-one entity-name="Timesheet" value-name="timesheet"/>
             <set field="timesheetId" from-field="timesheet.timesheetId"/>
             <set field="taskId" from-field="parameters.workEffortId"/>
