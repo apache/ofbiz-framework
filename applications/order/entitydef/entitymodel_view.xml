@@ -606,6 +606,8 @@ under the License.
       <member-entity entity-alias="OI" entity-name="OrderItem"/>
       <member-entity entity-alias="OISGA" entity-name="OrderItemShipGroupAssoc"/>
       <member-entity entity-alias="OISG" entity-name="OrderItemShipGroup"/>
+      <member-entity entity-alias="OISGIR" entity-name="OrderItemShipGrpInvRes"/>
+      <member-entity entity-alias="II" entity-name="InventoryItem"/>
       <alias-all entity-alias="OH"/>
       <alias-all entity-alias="OISGA"/>
       <alias-all entity-alias="OISG"/>
@@ -629,6 +631,8 @@ under the License.
       <alias entity-alias="OI" name="oiStatusId" field="statusId"/>
       <alias entity-alias="OI" name="oiExternalId" field="externalId"/>
       <alias entity-alias="OI" name="oiSyncStatusId" field="syncStatusId"/>
+      <alias entity-alias="OISGIR" name="reservedQuantity" field="quantity"/>
+      <alias entity-alias="II" name="facilityId"/>
       <view-link entity-alias="OH" rel-entity-alias="OI">
         <key-map field-name="orderId"/>
       </view-link>
@@ -640,6 +644,18 @@ under the License.
         <key-map field-name="orderId"/>
         <key-map field-name="shipGroupSeqId"/>
       </view-link>
+      <view-link entity-alias="OISGA" rel-entity-alias="OISGIR" rel-optional="true">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+        <key-map field-name="shipGroupSeqId"/>
+      </view-link>
+      <view-link entity-alias="OISGIR" rel-entity-alias="II" rel-optional="true">
+        <key-map field-name="inventoryItemId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
     </view-entity>
     <view-entity entity-name="OrderItemAndShipGroupAssoc"
             package-name="org.ofbiz.order.order"

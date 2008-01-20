@@ -19,6 +19,7 @@
 
 package org.ofbiz.manufacturing.mrp;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -37,10 +38,12 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.bom.BOMNode;
+import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -56,26 +59,12 @@ public class MrpServices {
     public static final String module = MrpServices.class.getName();
     public static final String resource = "ManufacturingUiLabels";
     
-    
-    
-    /**
-     * Initialize the MrpEvent table.
-     * <li>INPUT : Parameter to get from the context :</li><ul>
-     * <li>Boolean reInitialize<br/>
-     * if true : we must reinitialize the table, else we synchronize the table (not for the moment)</li></ul>
-     *
-     * <li>OUTPUT : Result to put in the map :</li><ul>
-     * <li>none</li></ul>
-     *
-     * @param ctx The DispatchContext that this service is operating in.
-     * @param context Map containing the input parameters.
-     * @return Map with the result of the service, the output parameters.
-     */
-    
     public static Map initMrpEvents(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         Timestamp now = UtilDateTime.nowTimestamp();
         
+        String facilityId = (String)context.get("facilityId");
+        String manufacturingFacilityId = (String)context.get("manufacturingFacilityId");
         Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
         String mrpId = (String)context.get("mrpId");
 
@@ -155,6 +144,7 @@ public class MrpServices {
         resultList = null;
         iteratorResult = null;
         parameters = UtilMisc.toMap("orderTypeId", "SALES_ORDER", "oiStatusId", "ITEM_APPROVED");
+        parameters.put("facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("OrderHeaderItemAndShipGroup", parameters, UtilMisc.toList("orderId"));
         } catch(GenericEntityException e) {
@@ -166,12 +156,20 @@ public class MrpServices {
         while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String productId =  genericResult.getString("productId");
+            Double reservedQuantity = genericResult.getDouble("reservedQuantity");
             Double shipGroupQuantity = genericResult.getDouble("quantity");
             Double cancelledQuantity = genericResult.getDouble("cancelQuantity");
-            if (UtilValidate.isNotEmpty(cancelledQuantity)) {
-                shipGroupQuantity = new Double(shipGroupQuantity.doubleValue() - cancelledQuantity.doubleValue());
+            Double eventQuantityTmp = new Double(0.0);
+            
+            if (UtilValidate.isNotEmpty(reservedQuantity)) {
+                eventQuantityTmp = new Double(-1.0 * reservedQuantity.doubleValue());
+            } else {
+                if (UtilValidate.isNotEmpty(cancelledQuantity)) {
+                    shipGroupQuantity = new Double(shipGroupQuantity.doubleValue() - cancelledQuantity.doubleValue());
+                }
+                eventQuantityTmp = new Double(-1.0 * shipGroupQuantity.doubleValue());
             }
-            Double eventQuantityTmp = new Double(-1.0 * shipGroupQuantity.doubleValue());
+
             if (eventQuantityTmp.doubleValue() == 0) {
                 continue;
             }
@@ -209,7 +207,7 @@ public class MrpServices {
         // ----------------------------------------
         resultList = null;
         iteratorResult = null;
-        parameters = UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "statusId", "REQ_APPROVED");
+        parameters = UtilMisc.toMap("requirementTypeId", "PRODUCT_REQUIREMENT", "statusId", "REQ_APPROVED", "facilityId", facilityId);
         try{
             resultList = delegator.findByAnd("Requirement", parameters);
         } catch(GenericEntityException e) {
@@ -243,16 +241,20 @@ public class MrpServices {
         iteratorResult = null;
         String orderId = null;
         GenericValue orderDeliverySchedule = null;
-        parameters = UtilMisc.toMap("orderTypeId", "PURCHASE_ORDER", "itemStatusId", "ITEM_APPROVED");
         try {
-            resultList = delegator.findByAnd("OrderHeaderAndItems", parameters, UtilMisc.toList("orderId"));
+            List facilityContactMechs = EntityUtil.filterByDate(delegator.findByAnd("FacilityContactMech", UtilMisc.toMap("facilityId", facilityId)));
+            List facilityContactMechIds = EntityUtil.getFieldListFromEntityList(facilityContactMechs, "contactMechId", true);
+            List searchConditions = UtilMisc.toList(new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"),
+                                                    new EntityExpr("oiStatusId", EntityOperator.EQUALS, "ITEM_APPROVED"),
+                                                    new EntityExpr("contactMechId", EntityOperator.IN, facilityContactMechIds));
+            List fieldsToSelect = UtilMisc.toList("orderId", "orderItemSeqId", "productId", "quantity", "cancelQuantity", "oiEstimatedDeliveryDate");
+            resultList = delegator.findByCondition("OrderHeaderItemAndShipGroup", new EntityConditionList(searchConditions, EntityOperator.AND), fieldsToSelect, UtilMisc.toList("orderDate"));
+
         } catch(GenericEntityException e) {
-            Debug.logError(e, "Error : delegator.findByAnd(\"OrderItem\", parameters\")", module);
-            Debug.logError(e, "Error : parameters = "+parameters,module);
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
         iteratorResult = resultList.iterator();
-        while(iteratorResult.hasNext()){
+        while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String newOrderId =  genericResult.getString("orderId");
             if (!newOrderId.equals(orderId)) {
@@ -264,7 +266,26 @@ public class MrpServices {
                 }
             }
             String productId =  genericResult.getString("productId");
-            Double eventQuantityTmp = new Double(genericResult.getDouble("quantity").doubleValue());
+            
+            Double shipGroupQuantity = genericResult.getDouble("quantity");
+            Double cancelledQuantity = genericResult.getDouble("cancelQuantity");
+            if (UtilValidate.isEmpty(shipGroupQuantity)) {
+                shipGroupQuantity = new Double(0);
+            }
+            if (UtilValidate.isNotEmpty(cancelledQuantity)) {
+                shipGroupQuantity = new Double(shipGroupQuantity.doubleValue() - cancelledQuantity.doubleValue());
+            }
+
+            OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+            BigDecimal shippedQuantity = null;
+            try {
+                shippedQuantity = orh.getItemShippedQuantity(genericResult.getRelatedOne("OrderItem"));
+            } catch (GenericEntityException e) {
+            }
+            if (UtilValidate.isNotEmpty(shippedQuantity)) {
+                shipGroupQuantity = new Double(shipGroupQuantity.doubleValue() - shippedQuantity.doubleValue());
+            }
+
             GenericValue orderItemDeliverySchedule = null;
             try {
                 orderItemDeliverySchedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")));
@@ -284,7 +305,7 @@ public class MrpServices {
             
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "PUR_ORDER_RECP");
             try {
-                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, shipGroupQuantity, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("Problem initializing the MrpEvent entity (PUR_ORDER_RECP)");
             }
@@ -295,7 +316,7 @@ public class MrpServices {
         // ----------------------------------------
         resultList = null;
         iteratorResult = null;
-        parameters = UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", "statusId", "WEGS_CREATED");
+        parameters = UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", "statusId", "WEGS_CREATED", "facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
         } catch(GenericEntityException e) {
@@ -327,7 +348,7 @@ public class MrpServices {
         // ----------------------------------------
         resultList = null;
         iteratorResult = null;
-        parameters = UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED", "workEffortTypeId", "PROD_ORDER_HEADER");
+        parameters = UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED", "workEffortTypeId", "PROD_ORDER_HEADER", "facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
         } catch(GenericEntityException e) {
@@ -368,7 +389,6 @@ public class MrpServices {
             }
         }
 
-        
         Map result = new HashMap();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         Debug.logInfo("return from initMrpEvent", module);
@@ -538,7 +558,7 @@ public class MrpServices {
         boolean isBuilt = false;
         GenericValue routing = null;
         
-        String mrpId = delegator.getNextSeqId("Mrp");
+        String mrpId = delegator.getNextSeqId("MrpEvent");
 
         Map result = null;
         Map parameters = null;
@@ -548,6 +568,8 @@ public class MrpServices {
         
         // Initialisation of the MrpEvent table, This table will contain the products we want to buy or build.
         parameters = UtilMisc.toMap("mrpId", mrpId, "reInitialize", Boolean.TRUE, "defaultYearsOffset", defaultYearsOffset, "userLogin", userLogin);
+        parameters.put("facilityId", facilityId);
+        parameters.put("manufacturingFacilityId", manufacturingFacilityId);
         try {
             result = dispatcher.runSync("initMrpEvents", parameters);
         } catch (GenericServiceException e) {
