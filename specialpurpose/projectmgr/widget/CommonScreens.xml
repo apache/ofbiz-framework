@@ -122,7 +122,7 @@ under the License.
         <section>
             <actions>
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
-                <service service-name="getProjectIdAndName" result-map-name="result">
+                <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
                     <field-map field-name="taskId" env-name="parameters.workEffortId"/>
                 </service>
                 <set field="projectId" from-field="result.projectId"/>

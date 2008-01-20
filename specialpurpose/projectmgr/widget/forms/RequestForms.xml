@@ -106,7 +106,7 @@ under the License.
             <entity-one entity-name="WorkEffort" value-name="workEffort">
                 <field-map field-name="workEffortId" env-name="workEffortId"/>
             </entity-one>
-            <service service-name="getProjectIdAndName" result-map-name="result">
+            <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortId"/>
             </service>
             <set field="projectId" from-field="result.projectId"/>
