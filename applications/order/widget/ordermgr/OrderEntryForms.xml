@@ -53,7 +53,7 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit/></field>
     </form>
     <form name="FindQuotes" target="FindQuoteForCart" title="" type="single"
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Quote" default-field-type="find"/>
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
@@ -135,8 +135,7 @@ under the License.
     </form>
 
     <form name="LookupBulkAddProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
-        paginate-target="LookupBulkAddProducts" >
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddProducts">
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
         </field>
@@ -156,8 +155,7 @@ under the License.
         </field>
     </form>
     <form name="LookupBulkAddSupplierProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
-        paginate-target="LookupBulkAddSupplierProducts">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddSupplierProducts">
         <field name="productId" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
         </field>

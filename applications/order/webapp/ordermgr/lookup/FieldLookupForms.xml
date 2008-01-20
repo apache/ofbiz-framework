@@ -25,14 +25,14 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OrderHeader" default-field-type="find"/>
         <field name="orderHeaderId"><text-find/></field>
-        <field name="orderTypeId" widget-style="selectBox">
+        <field name="orderTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="OrderType" key-field-name="orderTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="salesChannelEnumId" widget-style="selectBox">
+        <field name="salesChannelEnumId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
@@ -40,7 +40,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
@@ -48,7 +48,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productStoreId"><lookup target-form-name="/marketing/control/LookupProductStore"/></field>
-        <field name="currencyUom" widget-style="selectBox">
+        <field name="currencyUom">
             <drop-down allow-empty="true">
                  <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -295,7 +295,7 @@ under the License.
         </field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="issueDate" title="${uiLabelMap.OrderOrderQuoteIssueDate}"></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="QUOTE_STATUS"/>

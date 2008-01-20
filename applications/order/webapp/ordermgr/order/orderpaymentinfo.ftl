@@ -20,15 +20,13 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
       <ul><li class="head3">&nbsp;${uiLabelMap.AccountingPaymentInformation}</li></ul>
-      <br class="clear" />
+      <br class="clear"/>
   </div>
   <div class="screenlet-body">
-     <table width="100%" border="0" cellpadding="1" cellspacing="0"><tbody>
+     <table class="basic-table" cellspacing='0'>
      <#-- order payment status -->
      <tr>
-       <td align="center" valign="top" width="25%">
-         <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderStatusHistory}</b></div>
-       </td>
+       <td align="center" valign="top" width="25%" class="label">&nbsp;${uiLabelMap.OrderStatusHistory}</td>
        <td width="15">&nbsp;</td>
        <td>
          <#assign orderPaymentStatuses = orderReadHelper.getOrderPaymentStatuses()>
@@ -36,7 +34,7 @@ under the License.
            <#list orderPaymentStatuses as orderPaymentStatus>
              <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem")?if_exists>
              <#if statusItem?has_content>
-                <div class="tabletext">
+                <div>
                   ${statusItem.get("description",locale)} - ${orderPaymentStatus.statusDatetime?default("0000-00-00 00:00:00")?string}
                   &nbsp;
                   ${uiLabelMap.CommonBy} - [${orderPaymentStatus.statusUserLogin?if_exists}]
@@ -46,13 +44,13 @@ under the License.
          </#if>
        </td>
      </tr>
-     <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+     <tr><td colspan="3"><hr/></td></tr>
      <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
         <#list orderPaymentPreferences as orderPaymentPreference>
           <#assign pmBillingAddress = {}>
           <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem")>
           <#if outputted?default("false") == "true">
-            <tr><td colspan="4"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="4"><hr/></td></tr>
           </#if>
           <#assign outputted = "true">
           <#-- try the paymentMethod first; if paymentMethodId is specified it overrides paymentMethodTypeId -->
@@ -68,7 +66,8 @@ under the License.
                 <#assign finAccountType = finAccount.getRelatedOne("FinAccountType")?if_exists/>
                 <tr>
                   <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingFinAccount}</b>
+                    <div>
+                    <span class="label">&nbsp;${uiLabelMap.AccountingFinAccount}</span>
                     <#if orderPaymentPreference.maxAmount?has_content>
                        <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                     </#if>
@@ -78,7 +77,7 @@ under the License.
                   <td align="left" valign="top" width="80%">
                     <div class="tabletext">
                       <#if (finAccountType?has_content)>
-                        <b>${finAccountType.description?default(finAccountType.finAccountTypeId)}</b>&nbsp;                        
+                        ${finAccountType.description?default(finAccountType.finAccountTypeId)}&nbsp;                        
                       </#if>
                       #${finAccount.finAccountCode?default(finAccount.finAccountId)} (<a href="/accounting/control/EditFinAccount?finAccountId=${finAccount.finAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${finAccount.finAccountId}</a>)
                       <br/>
@@ -86,7 +85,7 @@ under the License.
                       <br/>
 
                       <#-- Authorize and Capture transactions -->
-                      <div class="tabletext">
+                      <div>
                         <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                           <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
@@ -96,18 +95,18 @@ under the License.
                       </div>
                     </div>
                     <#if gatewayResponses?has_content>
-                      <div class="tabletext">
-                        <hr class="sepbar"/>
+                      <div>
+                        <hr/>
                         <#list gatewayResponses as gatewayResponse>
                           <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration")>
                           ${(transactionCode.get("description",locale))?default("Unknown")}:
                           ${gatewayResponse.transactionDate.toString()}
                           <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br/>
-                          (<b>${uiLabelMap.OrderReference}:</b> ${gatewayResponse.referenceNum?if_exists}
-                          <b>${uiLabelMap.OrderAvs}:</b> ${gatewayResponse.gatewayAvsResult?default("N/A")}
-                          <b>${uiLabelMap.OrderScore}:</b> ${gatewayResponse.gatewayScoreResult?default("N/A")})
+                          (<span class"label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum?if_exists}
+                          <span class"label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
+                          <span class"label">${uiLabelMap.OrderScore}</span>&nbsp;${gatewayResponse.gatewayScoreResult?default("N/A")})
                           <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.CommonDetails}</a>
-                          <#if gatewayResponse_has_next><hr class="sepbar"/></#if>
+                          <#if gatewayResponse_has_next><hr/></#if>
                         </#list>
                       </div>
                     </#if>
@@ -124,7 +123,7 @@ under the License.
             <#else>
               <tr>
                 <td align="right" valign="top" width="15%">
-                  <div class="tabletext">&nbsp;<b>${paymentMethodType.get("description",locale)?if_exists}</b>
+                  <div>&nbsp;<span class"label">${paymentMethodType.get("description",locale)?if_exists}</span>&nbsp;
                   <#if orderPaymentPreference.maxAmount?has_content>
                   <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>
@@ -133,7 +132,7 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <#if paymentMethodType.paymentMethodTypeId != "EXT_OFFLINE" && paymentMethodType.paymentMethodTypeId != "EXT_PAYPAL" && paymentMethodType.paymentMethodTypeId != "EXT_COD">
                   <td align="left">
-                    <div class="tabletext">
+                    <div>
                       <#if orderPaymentPreference.maxAmount?has_content>
                          <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                       </#if>
@@ -167,7 +166,7 @@ under the License.
               </#if>
               <tr>
                 <td align="right" valign="top" width="15%">
-                  <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingCreditCard}</b>
+                  <div>&nbsp;<span class="label">${uiLabelMap.AccountingCreditCard}</span>
                   <#if orderPaymentPreference.maxAmount?has_content>
                      <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>
@@ -175,7 +174,7 @@ under the License.
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                  <div class="tabletext">
+                  <div>
                     <#if creditCard?has_content>
                       <#if creditCard.companyNameOnCard?exists>${creditCard.companyNameOnCard}<br/></#if>
                       <#if creditCard.titleOnCard?has_content>${creditCard.titleOnCard}&nbsp</#if>
@@ -197,7 +196,7 @@ under the License.
                       <br/>
 
                       <#-- Authorize and Capture transactions -->
-                                  <div class="tabletext">
+                      <div>
                         <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                           <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
@@ -205,24 +204,23 @@ under the License.
                           <a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                         </#if>
                       </div>
-
                     <#else>
                       ${uiLabelMap.CommonInformation} ${uiLabelMap.CommonNot} ${uiLabelMap.CommonAvailable}
                     </#if>
                   </div>
                   <#if gatewayResponses?has_content>
-                    <div class="tabletext">
-                      <hr class="sepbar"/>
+                    <div>
+                      <hr/>
                       <#list gatewayResponses as gatewayResponse>
                         <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration")>
                         ${(transactionCode.get("description",locale))?default("Unknown")}:
                         ${gatewayResponse.transactionDate.toString()}
                         <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br/>
-                        (<b>${uiLabelMap.OrderReference}:</b> ${gatewayResponse.referenceNum?if_exists}
-                        <b>${uiLabelMap.OrderAvs}:</b> ${gatewayResponse.gatewayAvsResult?default("N/A")}
-                        <b>${uiLabelMap.OrderScore}:</b> ${gatewayResponse.gatewayScoreResult?default("N/A")})
+                        (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum?if_exists}
+                        <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
+                        <span class="label">${uiLabelMap.OrderScore}</span>&nbsp;${gatewayResponse.gatewayScoreResult?default("N/A")})
                         <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.CommonDetails}</a>
-                        <#if gatewayResponse_has_next><hr class="sepbar"/></#if>
+                        <#if gatewayResponse_has_next><hr/></#if>
                       </#list>
                     </div>
                   </#if>
@@ -242,7 +240,7 @@ under the License.
               </#if>
               <tr>
                 <td align="right" valign="top" width="15%">
-                  <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingEFTAccount}</b>
+                  <div>&nbsp;<span class="label">${uiLabelMap.AccountingEFTAccount}</span>
                   <#if orderPaymentPreference.maxAmount?has_content>
                   <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>
@@ -276,7 +274,7 @@ under the License.
               </#if>
               <tr>
                 <td align="right" valign="top" width="15%">
-                  <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGiftCard}</b>
+                  <div>&nbsp;<span class="label">${uiLabelMap.OrderGiftCard}</span>
                   <#if orderPaymentPreference.maxAmount?has_content>
                   <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>
@@ -284,7 +282,7 @@ under the License.
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                  <div class="tabletext">
+                  <div>
                     <#if giftCard?has_content>
                       <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
                         ${giftCard.cardNumber?default("N/A")} [${giftCard.pinNumber?default("N/A")}]
@@ -324,16 +322,14 @@ under the License.
             </#if>
           </#if>
           <#if pmBillingAddress?has_content>
-            <tr><td>&nbsp;</td><td>&nbsp;</td><td colspan="2"><hr class="sepbar"/></td></tr>
+            <tr><td>&nbsp;</td><td>&nbsp;</td><td colspan="2"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;</div>
-              </td>
+              <td align="right" valign="top" width="15%">&nbsp;</td>
               <td width="5">&nbsp;</td>
               <td colspan="2" align="left" valign="top" width="80%">
-                <div class="tabletext">
-                  <#if pmBillingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${pmBillingAddress.toName}<br/></#if>
-                  <#if pmBillingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b> ${pmBillingAddress.attnName}<br/></#if>
+                <div>
+                  <#if pmBillingAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${pmBillingAddress.toName}<br/></#if>
+                  <#if pmBillingAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span>&nbsp;${pmBillingAddress.attnName}<br/></#if>
                   ${pmBillingAddress.address1}<br/>
                   <#if pmBillingAddress.address2?has_content>${pmBillingAddress.address2}<br/></#if>
                   ${pmBillingAddress.city}<#if pmBillingAddress.stateProvinceGeoId?has_content>, ${pmBillingAddress.stateProvinceGeoId} </#if>
@@ -348,12 +344,12 @@ under the License.
         <#-- billing account -->
         <#if billingAccount?exists>
           <#if outputted?default("false") == "true">
-            <tr><td colspan="4"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="4"><hr/></td></tr>
           </#if>
           <tr>
             <td align="right" valign="top" width="15%">
               <#-- billing accounts require a special OrderPaymentPreference because it is skipped from above section of OPPs -->
-              <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingBillingAccount}</b>
+              <div>&nbsp;<span class="label">${uiLabelMap.AccountingBillingAccount}</span>&nbsp;
                   <#if billingAccountMaxAmount?has_content>
                   <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=billingAccountMaxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>
@@ -361,36 +357,28 @@ under the License.
             </td>
             <td width="5">&nbsp;</td>
             <td colspan="2" align="left" valign="top" width="80%">
-              <div class="tabletext">
-                #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
-              </div>
+                #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}              
             </td>
           </tr>
         </#if>
         <#if customerPoNumber?has_content>
-          <tr><td colspan="4"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="4"><hr/></td></tr>
           <tr>
-            <td align="right" valign="top" width="15%">
-              <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderPONumber}</b></div>
-            </td>
+            <td align="right" valign="top" width="15%"><span class="label">${uiLabelMap.OrderPONumber}</span></td>
             <td width="5">&nbsp;</td>
-            <td colspan="2" align="left" valign="top" width="80%">
-              <div class="tabletext">${customerPoNumber?if_exists}</div>
-            </td>
+            <td colspan="2" align="left" valign="top" width="80%">${customerPoNumber?if_exists}</td>
           </tr>
         </#if>
 
         <#-- invoices -->
         <#if invoices?has_content>
-          <tr><td colspan="4"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="4"><hr/></td></tr>
           <tr>
-            <td align="right" valign="top" width="15%">
-              <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderInvoices}</b></div>
-            </td>
+            <td align="right" valign="top" width="15%">&nbsp;<span class="label">${uiLabelMap.OrderInvoices}</span></td>
             <td width="5">&nbsp;</td>
             <td colspan="2" align="left" valign="top" width="80%">
               <#list invoices as invoice>
-                <div class="tabletext">${uiLabelMap.OrderNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${invoice}</a>
+                <div>${uiLabelMap.OrderNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${invoice}</a>
                 (<a href="/accounting/control/invoice.pdf?invoiceId=${invoice}" class="buttontext">PDF</a>)</div>
               </#list>
             </td>
@@ -398,20 +386,20 @@ under the License.
         </#if>
    <#else>
     <tr>
-     <td colspan="4" align="center" class="tabletext">${uiLabelMap.OrderNoOrderPaymentPreferences}</td>
+     <td colspan="4" align="center">${uiLabelMap.OrderNoOrderPaymentPreferences}</td>
     </tr>
    </#if>
    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED")) && (paymentMethodValueMaps?has_content)>
-   <tr><td colspan="4"><hr class="sepbar"/></td></tr>
+   <tr><td colspan="4"><hr/></td></tr>
    <tr><td colspan="4">
    <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">           
    <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
-   <table width="100%" border="0" cellpadding="1" cellspacing="0">
+   <table class="basic-table" cellspacing='0'>
    <tr>
-      <td width="15%" align="right" nowrap="nowrap"><div class="tableheadtext">${uiLabelMap.AccountingPaymentMethod} </div></td>
+      <td width="15%" align="right" nowrap="nowrap"><span class="label">${uiLabelMap.AccountingPaymentMethod}</span></td>
       <td width="5">&nbsp;</td>
       <td nowrap="nowrap">
-         <select name="paymentMethodId" class="selectBox">
+         <select name="paymentMethodId">
            <#list paymentMethodValueMaps as paymentMethodValueMap>
              <#assign paymentMethod = paymentMethodValueMap.paymentMethod/>
              <option value="${paymentMethod.get("paymentMethodId")?if_exists}">
@@ -436,29 +424,23 @@ under the License.
    </tr>                    
    <#assign openAmount = orderReadHelper.getOrderOpenAmount()>
    <tr>
-      <td width="20%" align="right"><div class="tableheadtext">${uiLabelMap.AccountingAmount} </div></td>
+      <td width="20%" align="right"><span class="label">${uiLabelMap.AccountingAmount}</span></td>
       <td width="2%">&nbsp;</td>
       <td nowrap="nowrap">
-         <input type="text" class="inputBox" name="maxAmount" value="${openAmount}"/>
+         <input type="text" name="maxAmount" value="${openAmount}"/>
       </td>
    </tr>
    <tr>
-      <td align="right" valign="top" width="15%">
-         <div class="tabletext">&nbsp;</div>
-      </td>
+      <td align="right" valign="top" width="15%">&nbsp;</td>
       <td width="5">&nbsp;</td>
       <td align="left" valign="top" width="80%">
-         <div class="tabletext">
-            <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>
-         </div>
+        <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>        
       </td>
    </tr>
    </table>
    </form>     
    </td></tr>
-
 </#if>
-</tbody>
 </table>
 </div>
 </div>

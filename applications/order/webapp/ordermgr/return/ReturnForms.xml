@@ -29,7 +29,7 @@ under the License.
         <field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
         
         <field position="1" name="entryDate"/>
-        <field name="statusId" widget-style="selectBox">
+        <field name="statusId">
             <drop-down>
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="ORDER_RETURN_STTS"/>

@@ -163,7 +163,7 @@ under the License.
                                 </#if>                                
                                 <div>${actualStartDate}</div>
                               </td>          
-                              <td>${task.priority?default("0")}></td>
+                              <td>${task.priority?default("0")}</td>
                               <td>
                                 <a href="/workeffort/control/activity?workEffortId=${task.workEffortId}${externalKeyParam}" target="workeffort" class="buttontext">                         
                                   ${Static["org.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}

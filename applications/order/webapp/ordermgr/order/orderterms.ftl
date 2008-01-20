@@ -19,28 +19,29 @@ under the License.
 
 <#if orderTerms?has_content>
 <div class="screenlet">
-    <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderOrderTerms}</div>
+    <div class="screenlet-title-bar">
+        <ul>
+            <li class="head3">&nbsp;${uiLabelMap.OrderOrderTerms}</li>
+        </ul>
+        <br class="clear"/>
     </div>
     <div class="screenlet-body">
-     <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="35%" align="left"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
-        <td width="15%" align="center"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
-        <td width="15%" align="center"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
-        <td width="35%" align="center"><div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div></td>
+      <table class="basic-table" cellspacing='0'>
+      <tr class="header-row">
+        <td width="35%" align="left">${uiLabelMap.OrderOrderTermType}</td>
+        <td width="15%" align="center">${uiLabelMap.OrderOrderTermValue}</td>
+        <td width="15%" align="center">${uiLabelMap.OrderOrderTermDays}</td>
+        <td width="35%" align="center">${uiLabelMap.CommonDescription}</td>
       </tr>
-      <tr><td colspan="4"><hr class='sepbar'></td></tr>
-      <#list orderTerms as orderTerm>
-          <tr>
-            <td width="35%" align="left"><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description", locale)}</div></td>
-            <td width="15%" align="center"><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
-            <td width="15%" align="center"><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
-            <td width="35%" align="center"><div class="tabletext">${orderTerm.textValue?default("")}</div></td>
-          </tr>
-          <tr><td colspan="4">&nbsp;</td></tr>
-      </#list>
-     </table>
+    <#list orderTerms as orderTerm>
+      <tr>
+        <td width="35%" align="left">${orderTerm.getRelatedOne("TermType").get("description", locale)}</td>
+        <td width="15%" align="center">${orderTerm.termValue?default("")}</td>
+        <td width="15%" align="center">${orderTerm.termDays?default("")}</td>
+        <td width="35%" align="center">${orderTerm.textValue?default("")}</td>
+      </tr>  
+    </#list>
+      </table>
     </div>
 </div>
 </#if>

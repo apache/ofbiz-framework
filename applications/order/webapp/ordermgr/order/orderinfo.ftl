@@ -37,37 +37,30 @@ under the License.
               <li><a href="<@ofbizUrl>changeOrderStatus?orderId=${orderId}&statusId=ORDER_COMPLETED</@ofbizUrl>">${uiLabelMap.OrderCompleteOrder}</a></li>
             </#if>
         </ul>
-        <br class="clear" />
+        <br class="clear"/>
     </div>
     <div class="screenlet-body">
-          <table width="100%" border="0" cellpadding="1" cellspacing="0">
-            <#-- order name -->
+        <table class="basic-table" cellspacing='0'>
             <#if orderHeader.orderName?has_content>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderOrderName}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
-              <td align="left" valign="top" width="80%">
-                <div class="tabletext">${orderHeader.orderName}</div> 
-              </td>  
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderOrderName}</td>
+              <td width="5%">&nbsp;</td>
+              <td align="left" valign="top" width="80%">${orderHeader.orderName}</td>  
             </tr>    
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             </#if>   
             <#-- order status history -->
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderStatusHistory}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderStatusHistory}</td>
+              <td width="5%">&nbsp;</td>
               <td align="left" valign="top" width="80%">
-                <div class="tabletext">${uiLabelMap.OrderCurrentStatus}: ${currentStatus.get("description",locale)}</div>
+                ${uiLabelMap.OrderCurrentStatus}: ${currentStatus.get("description",locale)}
                 <#if orderHeaderStatuses?has_content>
-                  <hr class="sepbar"/>
+                  <hr/>
                   <#list orderHeaderStatuses as orderHeaderStatus>
                     <#assign loopStatusItem = orderHeaderStatus.getRelatedOne("StatusItem")>
                     <#assign userlogin = orderHeaderStatus.getRelatedOne("UserLogin")>
-                    <div class="tabletext">
+                    <div>
                       ${loopStatusItem.get("description",locale)} - ${orderHeaderStatus.statusDatetime?default("0000-00-00 00:00:00")?string}
                       &nbsp;
                       ${uiLabelMap.CommonBy} - <#--${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, userlogin.getString("partyId"), true)}--> [${orderHeaderStatus.statusUserLogin}]
@@ -76,155 +69,108 @@ under the License.
                 </#if>
               </td>
             </tr>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDateOrdered}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
-              <td align="left" valign="top" width="80%">
-                <div class="tabletext">
-                  ${orderHeader.orderDate.toString()}
-                </div>
-              </td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderDateOrdered}</td>
+              <td width="5%">&nbsp;</td>
+              <td align="left" valign="top" width="80%">${orderHeader.orderDate.toString()}</td>
             </tr>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonCurrency}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
-              <td align="left" valign="top" width="80%">
-                <div class="tabletext">
-                  ${orderHeader.currencyUom?default("???")}
-                </div>
-              </td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.CommonCurrency}</td>
+              <td width="5%">&nbsp;</td>
+              <td align="left" valign="top" width="80%">${orderHeader.currencyUom?default("???")}</td>
             </tr>
             <#if orderHeader.internalCode?has_content>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderInternalCode}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
-              <td align="left" valign="top" width="80%">
-                <div class="tabletext">
-                  ${orderHeader.internalCode}
-                </div>
-              </td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderInternalCode}</td>
+              <td width="5%">&nbsp;</td>
+              <td align="left" valign="top" width="80%">${orderHeader.internalCode}</td>
             </tr>
             </#if>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderSalesChannel}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
-              <td align="left" valign="top" width="80%">
-                <div class="tabletext">
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderSalesChannel}</td>
+              <td width="5%">&nbsp;</td>
+              <td align="left" valign="top" width="80%">                
                   <#if orderHeader.salesChannelEnumId?has_content>
                     <#assign channel = orderHeader.getRelatedOne("SalesChannelEnumeration")>
                     ${(channel.get("description",locale))?default("N/A")}
                   <#else>
                     ${uiLabelMap.CommonNA}
                   </#if>
-                </div>
               </td>
             </tr>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderProductStore}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderProductStore}</td>
+              <td width="5%">&nbsp;</td>
               <td align="left" valign="top" width="80%">
-                <div class="tabletext">
                   <#if orderHeader.productStoreId?has_content>
                     <a href="/catalog/control/EditProductStore?productStoreId=${orderHeader.productStoreId}${externalKeyParam}" target="catalogmgr" class="buttontext">${orderHeader.productStoreId}</a>
                   <#else>
                     ${uiLabelMap.CommonNA}
                   </#if>
-                </div>
               </td>
             </tr>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderOriginFacility}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderOriginFacility}</td>
+              <td width="5%">&nbsp;</td>
               <td align="left" valign="top" width="80%">
-                <div class="tabletext">
                   <#if orderHeader.originFacilityId?has_content>
                     <a href="/facility/control/EditFacility?facilityId=${orderHeader.originFacilityId}${externalKeyParam}" target="facilitymgr" class="buttontext">${orderHeader.originFacilityId}</a>
                   <#else>
                     ${uiLabelMap.CommonNA}
                   </#if>
-                </div>
               </td>
             </tr>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderCreatedBy}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderCreatedBy}</td>
+              <td width="5%">&nbsp;</td>
               <td align="left" valign="top" width="80%">
-                <div class="tabletext">
                   <#if orderHeader.createdBy?has_content>
                     <a href="/partymgr/control/viewprofile?userlogin_id=${orderHeader.createdBy}${externalKeyParam}" target="partymgr" class="buttontext">${orderHeader.createdBy}</a>
                   <#else>
-                    [${uiLabelMap.CommonNotSet}]
+                    ${uiLabelMap.CommonNotSet}
                   </#if>
-                </div>
               </td>
             </tr>
-
             <#if distributorId?exists>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDistributor}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderDistributor}</td>
+              <td width="5%">&nbsp;</td>
               <td align="left" valign="top" width="80%">
-                <div class="tabletext">
                   <#assign distPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", distributorId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                   ${distPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
-                </div>
               </td>
             </tr>
             </#if>
             <#if affiliateId?exists>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderAffiliate}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderAffiliate}</td>
+              <td width="5%">&nbsp;</td>
               <td align="left" valign="top" width="80%">
-                <div class="tabletext">
                   <#assign affPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", affiliateId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                   ${affPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
                 </div>
               </td>
             </tr>
             </#if>
-
             <#if orderContentWrapper.get("IMAGE_URL")?has_content>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderImage}</b></div>
-              </td>
-              <td width="5">&nbsp;</td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderImage}</td>
+              <td width="5%">&nbsp;</td>
               <td align="left" valign="top" width="80%">
-                <div class="tabletext">
                   <a href="<@ofbizUrl>viewimage?orderId=${orderId}&orderContentTypeId=IMAGE_URL</@ofbizUrl>" target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
-                </div>
               </td>
             </tr>
             </#if>
-          </table>
+        </table>
     </div>
 </div>

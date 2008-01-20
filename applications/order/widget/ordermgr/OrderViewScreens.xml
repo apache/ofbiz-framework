@@ -130,6 +130,7 @@ under the License.
     <screen name="OrderHeaderListView">
         <section>
             <actions>
+                <set field="titleProperty" value="OrderLookupOrder"/>
                 <set field="headerItem" value="orderlist"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderlist.bsh"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/filterorderlist.bsh"/>                
@@ -297,7 +298,7 @@ under the License.
     <screen name="ListOrderTerms">
         <section>
             <actions>
-                <set field="titleProperty" value="ListOrderTerms"/>
+                <set field="titleProperty" value="OrderListOrderTerms"/>
                 <set field="headerItem" value="findorders"/>
                 <entity-and entity-name="OrderTerm" list-name="orderTerms">
                     <field-map field-name="orderId" env-name="parameters.orderId"/>
@@ -306,8 +307,26 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
-                        <include-form name="ListOrderTerms" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
-                        <include-form name="AddOrderTerm" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.OrderListOrderTerms}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="ListOrderTerms" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.OrderAddOrderTerms}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="AddOrderTerm" location="component://order/webapp/ordermgr/order/OrderForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

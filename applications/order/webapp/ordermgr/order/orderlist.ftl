@@ -35,27 +35,22 @@ under the License.
     
 </script>
 
-<#macro pagination>
-  <tr>
-    <td>
-      <table border="0" width="100%">
-        <tr>
-          <td>
-            <#if state.hasPrevious()>
+<#macro pagination>  
+    <table class="basic-table" cellspacing='0'>
+         <tr>
+        <td>
+          <#if state.hasPrevious()>
             <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() - 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
-            </#if>
-          </td>
-          <td align="right">
-            <#if state.hasNext()>
+          </#if>
+        </td>
+        <td align="right">
+          <#if state.hasNext()>
             <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() + 1}&viewSize=${state.getViewSize()}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
-            </#if>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
+          </#if>
+        </td>
+      </tr>
+    </table>
 </#macro>
-  
 
 <#-- order list -->
 <div id="findOrdersList" class="screenlet">
@@ -63,17 +58,17 @@ under the License.
       <ul>
         <li class="head3">${uiLabelMap.OrderLookupOrder}</li>
       </ul>
-      <br class="clear" />
+      <br class="clear"/>
     </div>
     <div class="screenlet-body">
       <form method="post" name="findorder" action="<@ofbizUrl>orderlist</@ofbizUrl>">
         <input type="hidden" name="changeStatusAndTypeState" value="Y">
-        <table border="0" cellspacing="0" cellpadding="0" class="boxbottom">
+        <table class="basic-table" cellspacing='0'>
           <tr>
-            <td><div class="tableheadtext">${uiLabelMap.CommonStatus}:</div></td>
+            <td align="right" class="label">${uiLabelMap.CommonStatus}</td>
             <td>&nbsp;&nbsp;</td>
             <td nowrap>
-                <div class="tabletext">
+                <div>
                     <input type="checkbox" name="viewall" value="Y" onclick="javascript:setCheckboxes()" <#if state.hasAllStatus()>checked="checked"</#if> />${uiLabelMap.CommonAll}
                     <input type="checkbox" name="viewcreated" value="Y" <#if state.hasStatus('viewcreated')>checked="checked"</#if> />${uiLabelMap.CommonCreated}
                     <input type="checkbox" name="viewprocessing" value="Y" <#if state.hasStatus('viewprocessing')>checked="checked"</#if> />${uiLabelMap.CommonProcessing}
@@ -85,16 +80,12 @@ under the License.
                     <input type="checkbox" name="viewcancelled" value="Y" <#if state.hasStatus('viewcancelled')>checked="checked"</#if> />${uiLabelMap.CommonCancelled}
                 </div>
             </td>            
-            <td rowspan="2">&nbsp;&nbsp;</td>
-            <td rowspan="2">
-              <a href="javascript:document.findorder.submit()" class="buttontext">${uiLabelMap.CommonSubmit}</a><br/>
-            </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">${uiLabelMap.CommonType}:</div></td>
+            <td align="right" class="label">${uiLabelMap.CommonType}</td>
             <td>&nbsp;&nbsp;</td>
             <td nowrap>
-                <div class="tabletext">
+                <div>
                     <input type="checkbox" name="view_SALES_ORDER" value="Y" <#if state.hasType('view_SALES_ORDER')>checked="checked"</#if>/>
                     ${descr_SALES_ORDER}
                     <input type="checkbox" name="view_PURCHASE_ORDER" value="Y" <#if state.hasType('view_PURCHASE_ORDER')>checked="checked"</#if>/>
@@ -103,10 +94,10 @@ under the License.
             </td>            
           </tr>
           <tr>
-            <td><div class="tableheadtext">${uiLabelMap.CommonFilter}:</div></td>
+            <td align="right" class="label">${uiLabelMap.CommonFilter}</td>
             <td>&nbsp;&nbsp;</td>
             <td nowrap>
-                <div class="tabletext">
+                <div>
                     <input type="checkbox" name="filterInventoryProblems" value="Y"
                         <#if state.hasFilter('filterInventoryProblems')>checked="checked"</#if>/>
                         ${uiLabelMap.OrderFilterInventoryProblems}
@@ -117,10 +108,10 @@ under the License.
             </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">${uiLabelMap.CommonFilter} (${uiLabelMap.OrderFilterPOs}):</div></td>
+            <td align="right" class="label">${uiLabelMap.CommonFilter} (${uiLabelMap.OrderFilterPOs})</td>
             <td>&nbsp;&nbsp;</td>
             <td nowrap>
-                <div class="tabletext">
+                <div>
                     <input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
                         <#if state.hasFilter('filterPartiallyReceivedPOs')>checked="checked"</#if>/>
                         ${uiLabelMap.OrderFilterPartiallyReceivedPOs}
@@ -133,8 +124,17 @@ under the License.
                 </div>
             </td>
           </tr>
+          <tr>
+            <td colspan="3" align="center">
+              <br/>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" align="center">
+              <a href="javascript:document.findorder.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
+            </td>
+          </tr>
         </table>
-        <br/>&nbsp;
       </form>
     </div>
  </div>
@@ -144,134 +144,87 @@ under the License.
       <ul>
         <li class="head3">${uiLabelMap.OrderOrderList}</li>
       </ul>
-      <br class="clear" />
+      <br class="clear"/>
     </div>
-    <div class="screenlet-body">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
-        <tr>
-          <td>
-            <table width="100%" cellpadding="1" cellspacing="0" border="0">
-              <tr>
-                <td width="15%">
-                  <div class="tabletext"><b>${uiLabelMap.CommonDate}</b></div>
-                </td>
-                <td width="10%">
-                  <div class="tabletext"><b>${uiLabelMap.OrderOrder} #</b></div>
-                </td>
-                <td width="10%">
-                  <div class="tabletext"><b>${uiLabelMap.OrderOrderType}</b></div>
-                </td>
-                <td width="15%">
-                  <div class="tabletext"><b>${uiLabelMap.OrderOrderBillFromParty}</b></div>
-                </td>
-                <td width="15%">
-                  <div class="tabletext"><b>${uiLabelMap.OrderOrderBillToParty}</b></div>
-                </td>
-                <td width="10%">
-                  <div class="tabletext"><b>${uiLabelMap.CommonAmount}</b></div>
-                </td>
-                <td width="10%">
-                  <div class="tabletext"><b>${uiLabelMap.OrderTrackingCode}</b></div>
-                </td>
-                <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')> 
-                    <td width="10%">
-                      <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
-                    </td>
-                    <td width="5%">
-                      <div class="tabletext"><b>${uiLabelMap.CommonFilter}</b></div>
-                    </td>
-                <#else>
-                    <td width="15%">
-                      <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
-                    </td>
-                </#if>
-              </tr>
-              <#list orderHeaderList as orderHeader>
-                <#assign status = orderHeader.getRelatedOneCache("StatusItem")>                               
-                <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
-                <#assign billToParty = orh.getBillToParty()?if_exists>
-                <#assign billFromParty = orh.getBillFromParty()?if_exists>
-                <#if billToParty?has_content>
-                    <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
-                    <#assign billTo = billToPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")/>
-                    <#-- <#assign billTo = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(billToParty, true)?if_exists> -->
-                </#if>
-                <#if billFromParty?has_content>
-                  <#assign billFrom = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(billFromParty, true)?if_exists>
-                </#if>
-                <tr><td colspan="9"><hr class="sepbar"/></td></tr>
-                <tr>
-                  <td>
-                    <div class="tabletext">${orderHeader.orderDate.toString()}</div>
-                  </td>
-                  <td>
-                    <div class="tabletext"><a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class="buttontext">${orderHeader.orderId}</a>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="tabletext">${orderHeader.getRelatedOneCache("OrderType").get("description",locale)}</div>
-                  </td>
-                  <td>
-                    <div class="tabletext">
-                      ${billFrom?if_exists}
-                    </div>
-                  </td>
-                  <td>
-                    <div class="tabletext">
-                      ${billTo?if_exists}
-                    </div>
-                  </td>
-                  <td>
-                    <div class="tabletext"><@ofbizCurrency amount=orderHeader.grandTotal isoCode=orderHeader.currencyUom/></div>
-                  </td>
-                  <td>
-                    <#assign trackingCodes = orderHeader.getRelated("TrackingCodeOrder")>
-                    <#list trackingCodes as trackingCode>
-                      <div class="tabletext">
-                        <#if trackingCode?has_content>
-                            <a href="/marketing/control/FindTrackingCodeOrders?trackingCodeId=${trackingCode.trackingCodeId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${trackingCode.trackingCodeId}</a><br/>
-                        </#if>
-                      </div>
-                    </#list>
-                  </td>
-                  <td class="tabletext">
-                  ${orderHeader.getRelatedOneCache("StatusItem").get("description",locale)}
-                  </td>
-                  <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')> 
-                      <td class="tabletext">
-                          <#if filterInventoryProblems.contains(orderHeader.orderId)>
-                            Inv&nbsp;
-                          </#if>
-                          <#if filterAuthProblems.contains(orderHeader.orderId)>
-                           Aut&nbsp;
-                          </#if>
-                          <#if filterPOsOpenPastTheirETA.contains(orderHeader.orderId)>
-                            ETA&nbsp;
-                          </#if>
-                          <#if filterPOsWithRejectedItems.contains(orderHeader.orderId)>
-                            Rej&nbsp;
-                          </#if>
-                          <#if filterPartiallyReceivedPOs.contains(orderHeader.orderId)>
-                            Part&nbsp;
-                          </#if>
-                      </td>
+    <div class="screenlet-body">      
+        <table class="basic-table hover-bar" cellspacing='0'>
+          <tr class="header-row">
+            <td width="15%">${uiLabelMap.CommonDate}</td>
+            <td width="10%">${uiLabelMap.OrderOrder} #</td>
+            <td width="10%">${uiLabelMap.OrderOrderType}</td>
+            <td width="15%">${uiLabelMap.OrderOrderBillFromParty}</td>
+            <td width="15%">${uiLabelMap.OrderOrderBillToParty}</td>
+            <td width="10%">${uiLabelMap.CommonAmount}</td>
+            <td width="10%">${uiLabelMap.OrderTrackingCode}</td>
+            <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')> 
+                <td width="10%">${uiLabelMap.CommonStatus}</td>
+                <td width="5%">${uiLabelMap.CommonFilter}</td>
+            <#else>
+                <td colspan="2" width="15%">${uiLabelMap.CommonStatus}</td>
+            </#if>
+          </tr>
+          <#list orderHeaderList as orderHeader>
+            <#assign status = orderHeader.getRelatedOneCache("StatusItem")>                               
+            <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
+            <#assign billToParty = orh.getBillToParty()?if_exists>
+            <#assign billFromParty = orh.getBillFromParty()?if_exists>
+            <#if billToParty?has_content>
+                <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
+                <#assign billTo = billToPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")/>
+                <#-- <#assign billTo = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(billToParty, true)?if_exists> -->
+            </#if>
+            <#if billFromParty?has_content>
+              <#assign billFrom = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(billFromParty, true)?if_exists>
+            </#if>
+            <tr>
+              <td>${orderHeader.orderDate.toString()}</td>
+              <td>
+                <a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class="buttontext">${orderHeader.orderId}</a>
+              </td>
+              <td>${orderHeader.getRelatedOneCache("OrderType").get("description",locale)}</td>
+              <td>${billFrom?if_exists}</td>
+              <td>${billTo?if_exists}</td>
+              <td><@ofbizCurrency amount=orderHeader.grandTotal isoCode=orderHeader.currencyUom/></td>
+              <td>
+                <#assign trackingCodes = orderHeader.getRelated("TrackingCodeOrder")>
+                <#list trackingCodes as trackingCode>                      
+                    <#if trackingCode?has_content>
+                        <a href="/marketing/control/FindTrackingCodeOrders?trackingCodeId=${trackingCode.trackingCodeId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${trackingCode.trackingCodeId}</a><br/>
+                    </#if>                      
+                </#list>
+              </td>
+              <td>${orderHeader.getRelatedOneCache("StatusItem").get("description",locale)}</td>
+              <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')> 
+              <td>
+                  <#if filterInventoryProblems.contains(orderHeader.orderId)>
+                    Inv&nbsp;
                   </#if>
-                </tr>
-              </#list>
-              <#if !orderHeaderList?has_content>
-                <tr><td colspan="8"><h3>${uiLabelMap.OrderNoOrderFound}</h3></td></tr>
+                  <#if filterAuthProblems.contains(orderHeader.orderId)>
+                   Aut&nbsp;
+                  </#if>
+                  <#if filterPOsOpenPastTheirETA.contains(orderHeader.orderId)>
+                    ETA&nbsp;
+                  </#if>
+                  <#if filterPOsWithRejectedItems.contains(orderHeader.orderId)>
+                    Rej&nbsp;
+                  </#if>
+                  <#if filterPartiallyReceivedPOs.contains(orderHeader.orderId)>
+                    Part&nbsp;
+                  </#if>
+              </td>
+              <#else>
+              <td>&nbsp;</td>
               </#if>
-            </table>
-          </td>
-        </tr>
-      </table>
+            </tr>
+          </#list>
+          <#if !orderHeaderList?has_content>
+            <tr><td colspan="9"><h3>${uiLabelMap.OrderNoOrderFound}</h3></td></tr>
+          </#if>
+        </table>
+        <@pagination/>
     </div>
   </div>
-
-  <@pagination/>
-
 <#else>
-<tr><td><div class="tableheadtext">${uiLabelMap.OrderViewPermissionError}</div></td></tr>
+<tr><td>${uiLabelMap.OrderViewPermissionError}</td></tr>
 </#if>
 </table>
-
