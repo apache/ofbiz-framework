@@ -99,6 +99,47 @@
             </if>
         </if-compare>        
         
+        <!-- PHASE -->
+        <if-compare field-name="sec_object" value="PHASE" operator="equals">
+            <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/>
+            <set field="projectId" from-field="parameters.projectId"/>
+            <call-simple-method method-name="checkProjectMembership"/>
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <if-has-permission permission="PROJECTMGR_ADMIN"/>
+                            <not><if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/></not>
+                        </and>
+                        <and>
+                            <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
+                            <if-compare field-name="isMember" value="true" operator="equals"/>
+                        </and>
+                        <and>
+                            <if-has-permission permission="PROJECTMGR_VIEW"/>
+                            <not><if-has-permission permission="PROJECTMGR_ROLE_VIEW"/></not>
+                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                        </and>
+                        <and>
+                            <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
+                            <if-compare field-name="isMember" value="true" operator="equals"/>
+                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                        </and>
+                    </or>
+                </condition>
+                <then>
+                    <field-to-result field-name="hasPermission"/>
+                    <return/>
+                </then>
+                <else>
+                    <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToProject" field-name="failMessage"/>
+                    <field-to-result field-name="failMessage"/>
+                    <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+                    <return/>
+                </else>
+            </if>
+        </if-compare>        
+
         <!-- TASK -->
         <if-compare field-name="sec_object" value="TASK" operator="equals">
             <set field="taskId" from-field="parameters.taskId" default-value="${parameters.workEffortId}"/>
