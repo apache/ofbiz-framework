@@ -122,6 +122,8 @@ under the License.
         <description>Copy a project planning data but ignore the actual data.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="OUT" optional="true"/>
     </service>
     
     <service name="copyProjectToTemplate" engine="simple"
@@ -129,6 +131,8 @@ under the License.
         <description>Copy a project planning data to a template project.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="OUT" optional="true"/>
     </service>
     
     <service name="scheduleProject" engine="simple"
