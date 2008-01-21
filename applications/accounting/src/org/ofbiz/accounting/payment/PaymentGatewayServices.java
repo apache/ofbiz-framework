@@ -2241,6 +2241,8 @@ public class PaymentGatewayServices {
                     refundResCtx.put("payToPartyId", payToPartyId);
                     refundResCtx.put("payFromPartyId", payFromPartyId);
                     refundResCtx.put("refundRefNum", refundResponse.get("refundRefNum"));
+                    refundResCtx.put("refundAltRefNum", refundResponse.get("refundAltRefNum"));
+                    refundResCtx.put("refundMessage", refundResponse.get("refundMessage"));
                     refundResCtx.put("refundResult", refundResponse.get("refundResult"));
 
                     // The refund amount could be different from what we tell the payment gateway due to issues
