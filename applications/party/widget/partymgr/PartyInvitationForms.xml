@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -57,9 +57,9 @@ under the License.
         <field name="toName" title="${uiLabelMap.PartyToName}"><display/></field>
         <field name="emailAddress" title="${uiLabelMap.PartyEmailAddress}"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="lastInviteDate" title="${uiLabelMap.PartyInvitationLastInviteDate}"><display/></field>
+        <field name="lastInviteDate"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyInvitation?partyInvitationId=${partyInvitationId}" description="delete"></hyperlink>
+            <hyperlink target="deletePartyInvitation?partyInvitationId=${partyInvitationId}" description="${UiLabelMap.CommonDelete}"></hyperlink>
         </field>
     </form>
  
@@ -103,7 +103,7 @@ under the License.
             </display-entity>
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyInvitationGroupAssoc?partyInvitationId=${partyInvitationId}&amp;partyIdTo=${partyIdTo}" description="delete"></hyperlink>
+            <hyperlink target="deletePartyInvitationGroupAssoc?partyInvitationId=${partyInvitationId}&amp;partyIdTo=${partyIdTo}" description="${UiLabelMap.CommonDelete}"></hyperlink>
         </field>
     </form>
  
@@ -135,7 +135,7 @@ under the License.
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyInvitationRoleAssoc?partyInvitationId=${partyInvitationId}&amp;roleTypeId=${roleTypeId}" description="delete"></hyperlink>
+            <hyperlink target="deletePartyInvitationRoleAssoc?partyInvitationId=${partyInvitationId}&amp;roleTypeId=${roleTypeId}" description="${UiLabelMap.CommonDelete}"></hyperlink>
         </field>
     </form>
  
