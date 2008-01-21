@@ -193,11 +193,15 @@ under the License.
             <td width='74%'>
               <select name='needsInventoryReceive'>
                 <#if needsInventoryReceive?exists>
-                  <option>${needsInventoryReceive}</option>
+                  <#if "Y" == needsInventoryReceive>
+                    <option selected="selected">${uiLabelMap.CommonYes}</option>
+                  <#elseif "N" == needsInventoryReceive>
+                    <option selected="selected">${uiLabelMap.CommonNo}</option>
+                  </#if>
                   <option value="${needsInventoryReceive}">---</option>
                 </#if>
-                <option>${uiLabelMap.CommonYes}</option>
-                <option>${uiLabelMap.CommonNo}</option>
+                <option value="Y">${uiLabelMap.CommonYes}</option>
+                <option value="N">${uiLabelMap.CommonNo}</option>
               </select>
             </td>
           </tr>
