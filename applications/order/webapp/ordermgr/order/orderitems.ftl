@@ -158,7 +158,6 @@ under the License.
                   <td align="right" valign="top" nowrap="nowrap">
                     <table>
                       <tr valign="top">
-                        <td>
                         <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
                         <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
                         <#-- to compute shortfall amount, sum up the orderItemShipGrpInvRes.quantityNotAvailable -->
@@ -168,22 +167,51 @@ under the License.
                             <#assign shortfalledQuantity = shortfalledQuantity + orderItemShipGrpInvRes.quantityNotAvailable/>
                           </#if>
                         </#list>
-                          <div><span class="label">${uiLabelMap.OrderOrdered}</span>&nbsp;${orderItem.quantity?default(0)?string.number}&nbsp;&nbsp;</div>
-                          <div><span class="label">${uiLabelMap.OrderCancelled}</span>&nbsp;${orderItem.cancelQuantity?default(0)?string.number}&nbsp;&nbsp;</div>
-                          <div><span class="label">${uiLabelMap.OrderRemaining}</span>&nbsp;${remainingQuantity}&nbsp;&nbsp;</div>
-                          <div><span class="label">${uiLabelMap.OrderShortfalled}</span>&nbsp;${shortfalledQuantity}&nbsp;&nbsp;</div>
-                        </td>
-                        <td>
-                          <div><span class="label">${uiLabelMap.OrderShipRequest}</span>&nbsp;${orderReadHelper.getItemReservedQuantity(orderItem)}&nbsp;&nbsp;</div>
-                          <#if orderHeader.orderTypeId == "SALES_ORDER">                         
-                              <div><#if pickedQty gt 0 && orderHeader.statusId == "ORDER_APPROVED"><font color="red"><span class="label">${uiLabelMap.OrderQtyPicked}</span>&nbsp;${pickedQty?default(0)?string.number}</font><#else><span class="label">${uiLabelMap.OrderQtyPicked}</span>&nbsp;${pickedQty?default(0)?string.number}</#if>&nbsp;&nbsp;</div>
-                          </#if>    
-                          <div><span class="label">${uiLabelMap.OrderQtyShipped}</span>&nbsp;${shippedQuantity}&nbsp;&nbsp;</div>
-                          <div><span class="label">${uiLabelMap.OrderOutstanding}</span>&nbsp;
+                          <td><b>${uiLabelMap.OrderOrdered}</b></td>
+                          <td>${orderItem.quantity?default(0)?string.number}</td>
+                          <td><b>${uiLabelMap.OrderShipRequest}</b></td>
+                          <td>${orderReadHelper.getItemReservedQuantity(orderItem)}</td>
+                       </tr>
+                       <tr valign="top">
+                          <td><b>${uiLabelMap.OrderCancelled}</b></td>
+                          <td>${orderItem.cancelQuantity?default(0)?string.number}</td>
+                      <#if orderHeader.orderTypeId == "SALES_ORDER">                         
+                        <#if pickedQty gt 0 && orderHeader.statusId == "ORDER_APPROVED">
+                          <td><font color="red"><b>${uiLabelMap.OrderQtyPicked}</b></font></td>
+                          <td><font color="red">${pickedQty?default(0)?string.number}</font></td>
+                        <#else>
+                          <td><b>${uiLabelMap.OrderQtyPicked}</b></td>
+                          <td>${pickedQty?default(0)?string.number}</td>
+                        </#if>
+                      <#else>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                      </#if> 
+                       </tr>
+                       <tr valign="top">
+                          <td><b>${uiLabelMap.OrderRemaining}</b></td>
+                          <td>${remainingQuantity}</td>
+                          <td><b>${uiLabelMap.OrderQtyShipped}</b></td>
+                          <td>${shippedQuantity}</td>
+                       </tr>
+                       <tr valign="top">
+                          <td><b>${uiLabelMap.OrderShortfalled}</b></td>
+                          <td>${shortfalledQuantity}</td>
+                          <td><b>${uiLabelMap.OrderOutstanding}</b></td>
+                          <td>
                           <#-- Make sure digital goods without shipments don't always remainn "outstanding": if item is completed, it must have no outstanding quantity.  -->
-                          <#if (orderItem.statusId != null) && (orderItem.statusId == "ITEM_COMPLETED")>0<#else>${orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0) - shippedQuantity}</#if>&nbsp;&nbsp;</div>
-                          <div><span class="label">${uiLabelMap.OrderInvoiced}</span>&nbsp;${orderReadHelper.getOrderItemInvoicedQuantity(orderItem)}&nbsp;&nbsp;</div>
-                          <div><span class="label">${uiLabelMap.OrderReturned}</span>&nbsp;${returnQuantityMap.get(orderItem.orderItemSeqId)?default(0)}&nbsp;&nbsp;</div>
+                          <#if (orderItem.statusId != null) && (orderItem.statusId == "ITEM_COMPLETED")>
+                          0
+                          <#else>${orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0) - shippedQuantity}
+                          </#if>
+                          </td>
+                       </tr> 
+                       <tr valign="top"> 
+                       </tr> 
+                          <td><b>${uiLabelMap.OrderInvoiced}</b></td>
+                          <td>${orderReadHelper.getOrderItemInvoicedQuantity(orderItem)}</td>
+                          <td><b>${uiLabelMap.OrderReturned}</b></td>
+                          <td>${returnQuantityMap.get(orderItem.orderItemSeqId)?default(0)}</td>
                         </td>
                       </tr>
                     </table>

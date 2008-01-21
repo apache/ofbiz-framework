@@ -42,8 +42,8 @@ under the License.
     <div class="screenlet-body">
       <table class="basic-table" cellspacing='0'>
         <tr>
-          <td align="right" valign="top" width="15%"><span class="label">&nbsp;${uiLabelMap.CommonName}</span></td>
-          <td width="5">&nbsp;</td>
+          <td align="right" valign="top" width="19%"><span class="label">&nbsp;${uiLabelMap.CommonName}</span></td>
+          <td width="1%">&nbsp;</td>
           <td align="left" valign="top" width="80%">
             <div>
               <#if displayParty?has_content>
@@ -51,11 +51,12 @@ under the License.
                 ${displayPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
               </#if>
               <#if partyId?exists>
-                <span>&nbsp;(<a href="${customerDetailLink}${partyId}" target="partymgr" class="buttontext">${partyId}</a>)</span>
-                <span>
+                &nbsp;(<a href="${customerDetailLink}${partyId}" target="partymgr" class="buttontext">${partyId}</a>)
+                </br>
+                <div>
                    <a href="<@ofbizUrl>/orderentry?partyId=${partyId}&amp;orderTypeId=${orderHeader.orderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNewOrder}</a>
                    <a href="<@ofbizUrl>/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;viewIndex=1&amp;viewSize=20</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOtherOrders}</a>
-                </span>
+                </div>
               </#if>
             </div>
           </td>
@@ -64,12 +65,12 @@ under the License.
           <#assign contactMech = orderContactMechValueMap.contactMech>
           <#assign contactMechPurpose = orderContactMechValueMap.contactMechPurposeType>
           <#--<#assign partyContactMech = orderContactMechValueMap.partyContactMech>-->
-          <tr><td colspan="7"><hr/></td></tr>
+          <tr><td colspan="3"><hr/></td></tr>
           <tr>
-            <td align="right" valign="top" width="15%">
+            <td align="right" valign="top" width="19%">
               <span class="label">&nbsp;${contactMechPurpose.get("description",locale)}</span>
             </td>
-            <td width="5">&nbsp;</td>
+            <td width="1%">&nbsp;</td>
             <td align="left" valign="top" width="80%">
               <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
                 <#assign postalAddress = orderContactMechValueMap.postalAddress>
@@ -116,7 +117,7 @@ under the License.
                 <div>
                   ${contactMech.infoString}
                   <#if security.hasEntityPermission("ORDERMGR", "_SEND_CONFIRMATION", session)>
-                     <br/>(<a href="<@ofbizUrl>confirmationmailedit?orderId=${orderId}&amp;partyId=${partyId}&amp;sendTo=${contactMech.infoString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderSendConfirmationEmail}</a>)
+                     (<a href="<@ofbizUrl>confirmationmailedit?orderId=${orderId}&amp;partyId=${partyId}&amp;sendTo=${contactMech.infoString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderSendConfirmationEmail}</a>)
                   <#else>
                      <a href="mailto:${contactMech.infoString}" class="buttontext">(${uiLabelMap.OrderSendEmail})</a>
                   </#if>

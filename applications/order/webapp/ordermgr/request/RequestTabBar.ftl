@@ -28,15 +28,19 @@ under the License.
         </ul>
         <br/>
     </div>
+    <br/>
     <#if custRequestItem?exists>
-      <div class="tabContainer">
-        <a href="<@ofbizUrl>EditRequestItem?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitem?default(unselectedClassName)}">${uiLabelMap.OrderRequestItem}</a>
-        <a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitemnotes?default(unselectedClassName)}">${uiLabelMap.OrderNotes}</a>
-        <#if custRequest.custRequestTypeId = "RF_QUOTE">
-        <a href="<@ofbizUrl>RequestItemQuotes?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitemquotes?default(unselectedClassName)}">${uiLabelMap.OrderOrderQuotes}</a>
-        </#if>
-        <a href="<@ofbizUrl>requestitemrequirements?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.requestitemrequirements?default(unselectedClassName)}">${uiLabelMap.OrderRequirements}</a>
-        <a href="<@ofbizUrl>EditRequestItemWorkEfforts?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="${selectedClassMap.EditRequestItemWorkEfforts?default(unselectedClassName)}">${uiLabelMap.WorkEffortWorkEfforts}</a>
+      <div class="button-bar tab-bar">
+          <ul>
+              <li<#if selected="requestitem"> class="selected"</#if>><a href="<@ofbizUrl>EditRequestItem?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>">${uiLabelMap.OrderRequestItem}</a></li>
+              <li<#if selected="requestitemnotes"> class="selected"</#if>><a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>">${uiLabelMap.OrderNotes}</a></li>
+            <#if custRequest.custRequestTypeId = "RF_QUOTE">
+              <li<#if selected="requestitemquotes"> class="selected"</#if>><a href="<@ofbizUrl>RequestItemQuotes?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>">${uiLabelMap.OrderOrderQuotes}</a></li>
+            </#if>
+              <li<#if selected="requestitemrequirements"> class="selected"</#if>><a href="<@ofbizUrl>requestitemrequirements?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>">${uiLabelMap.OrderRequirements}</a></li>
+              <li<#if selected="task"> class="selected"</#if>><a href="<@ofbizUrl>EditRequestItemWorkEfforts?custRequestId=${custRequest.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>">${uiLabelMap.WorkEffortWorkEfforts}</a></li>
+          </ul>
+          <br/>
       </div>
     </#if>
 </#if>

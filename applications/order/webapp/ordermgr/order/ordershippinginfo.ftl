@@ -264,17 +264,14 @@ under the License.
          <#if security.hasEntityPermission("FACILITY", "_CREATE", session)>
          <tr><td colspan="3"><hr/></td></tr>
          <tr>
-           <td align="right" valign="top" width="15%">
-             <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
-           </td>
-           <td width="5">&nbsp;</td>
-           <td align="left" valign="top" width="80%">
+           <td colspan="3" valign="top" align="center">
              <div>
                <#if orderHeader.orderTypeId == "SALES_ORDER">
                  <#if !shipGroup.supplierPartyId?has_content>
                    <a href="<@ofbizUrl>quickShipOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a>
                  </#if>
                <#else> <#-- PURCHASE_ORDER -->
+                 <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
                  <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
                  <#if facilities?has_content>
                  <form action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="POST">
