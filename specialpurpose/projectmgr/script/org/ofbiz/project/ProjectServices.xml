@@ -336,25 +336,27 @@
             </else>
         </if-not-empty>
         <if-not-empty field-name="toTemplate">
-            <set field="newProject.workEffortTypeId" value="PROJECT_TEMPLATE"/>
+            <set field="parameters.workEffortTypeId" value="PROJECT_TEMPLATE"/>
             <else>
-                <set field="newProject.workEffortTypeId" value="PROJECT"/>
+                <set field="parameters.workEffortTypeId" value="PROJECT"/>
             </else>            
         </if-not-empty>
-        <set field="newProject.currentStatusId" value="_NA_"/>            
-        <call-service service-name="createWorkEffort" in-map-name="newProject">
-            <result-to-field result-name="workEffortId" field-name="newProjectId"/>
-        </call-service> 
+        <set field="parameters.currentStatusId" value="_NA_"/>
+        <clear-field field-name="parameters.workEffortId"/>
+        <set field="parameters.workEffortName" from-field="project.workEffortName"/>
+        <set field="parameters.currentStatusId" value="_NA_"/>            
+        <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+        <set field="newProjectId" from-field="newEntity.workEffortId"/>
         
         <!-- copy assigned parties -->
         <get-related value-name="project" relation-name="WorkEffortPartyAssignment" list-name="parties"/>
         <if-not-empty field-name="parties">
             <iterate entry-name="party" list-name="parties">
-                <set field="pa.workEffortId" from-field="newProjectId"/>            
-                <set field="pa.partyId" from-field="party.partyId"/>
-                <set field="pa.roleTypeId" from-field="party.roleTypeId"/>
-                <set field="pa.statusId" value="PAS_ASSIGNED"/>            
-                <call-service service-name="assignPartyToWorkEffort" in-map-name="pa"/>
+                <set field="parameters.workEffortId" from-field="newProjectId"/>            
+                <set field="parameters.partyId" from-field="party.partyId"/>
+                <set field="parameters.roleTypeId" from-field="party.roleTypeId"/>
+                <set field="parameters.statusId" value="PAS_ASSIGNED"/>            
+                <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
             </iterate>
         </if-not-empty>
         
@@ -363,17 +365,17 @@
             <iterate entry-name="phase" list-name="phases">
                 <clear-field field-name="newPhase"/>
                 <if-not-empty field-name="toTemplate">
-                    <set field="newPhase.workEffortTypeId" value="PHASE_TEMPLATE"/>
+                    <set field="parameters.workEffortTypeId" value="PHASE_TEMPLATE"/>
                     <else>
-                        <set field="newPhase.workEffortTypeId" value="PHASE"/>
+                        <set field="parameters.workEffortTypeId" value="PHASE"/>
                     </else>            
                 </if-not-empty>
-                <set field="newPhase.workEffortName" from-field="phase.workEffortName"/>
-                <set field="newPhase.workEffortParentId" from-field="newProjectId"/>
-                <set field="newPhase.currentStatusId" value="_NA_"/>            
-                <call-service service-name="createWorkEffort" in-map-name="newPhase">
-                    <result-to-field result-name="workEffortId" field-name="newPhaseId"/>
-                </call-service> 
+                <set field="parameters.workEffortName" from-field="phase.workEffortName"/>
+                <set field="parameters.workEffortParentId" from-field="newProjectId"/>
+                <set field="parameters.currentStatusId" value="_NA_"/>            
+                <clear-field field-name="parameters.workEffortId"/>
+                <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+                <set field="newPhaseId" from-field="newEntity.workEffortId"/>
                 
                 <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
                 <if-not-empty field-name="tasks">
@@ -385,11 +387,12 @@
                                 <set field="newTask.workEffortTypeId" value="TASK"/>
                             </else>            
                         </if-not-empty>
-                        <set field="newTask.workEffortName" from-field="task.workEffortName"/>
-                        <set field="newTask.priority" from-field="task.priority"/>
-                        <set field="newTask.workEffortParentId" from-field="newPhaseId"/>
-                        <set field="newTask.currentStatusId" value="PTS_CREATED"/>            
-                        <call-service service-name="createWorkEffort" in-map-name="newTask"/>
+                        <set field="parameters.workEffortName" from-field="task.workEffortName"/>
+                        <set field="parameters.priority" from-field="task.priority"/>
+                        <set field="parameters.workEffortParentId" from-field="newPhaseId"/>
+                        <set field="parameters.currentStatusId" value="PTS_CREATED"/>            
+                        <clear-field field-name="parameters.workEffortId"/>
+                        <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
                     </iterate>
                 </if-not-empty>
             </iterate>

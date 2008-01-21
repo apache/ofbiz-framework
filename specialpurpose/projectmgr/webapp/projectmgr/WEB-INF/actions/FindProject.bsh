@@ -46,8 +46,12 @@ userLogin = parameters.get("userLogin");
 // entry conditions    
 entryCondition = new LinkedList();    
 if (UtilValidate.isNotEmpty(fromDate)) {
-    entryCondition.add(new EntityExpr("createdDate", EntityOperator.GREATER_THAN, fromDate + " 00:00:00.0"));
+	if (fromDate.toString().length() == 10)
+    	entryCondition.add(new EntityExpr("createdDate", EntityOperator.GREATER_THAN, fromDate + " 00:00:00.0"));
+    else
+    	entryCondition.add(new EntityExpr("createdDate", EntityOperator.GREATER_THAN, fromDate));
 }    
+
 if (UtilValidate.isNotEmpty(workEffortName)) {
     entryCondition.add(new EntityExpr("workEffortName", EntityOperator.LIKE, "%" + workEffortName + "%"));
 }    
