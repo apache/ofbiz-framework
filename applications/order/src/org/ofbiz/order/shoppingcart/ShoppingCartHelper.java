@@ -191,7 +191,7 @@ public class ShoppingCartHelper {
                 try {
                     productFeatureAndAppl = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl",
                                                                                     UtilMisc.toMap("productId", productId,
-                                                                                                   "productFeatureId", selectedFeatureValue))));
+                                                                                                   "productFeatureTypeId", selectedFeatureType))));
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, module);
                 }
