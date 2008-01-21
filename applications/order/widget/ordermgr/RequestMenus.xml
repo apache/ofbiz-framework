@@ -21,16 +21,8 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
 
-    <menu name="editRequest" default-title-style="tabButton"
-        default-selected-style="tabButtonSelected"
-        default-menu-item-name="content"
-        orientation="horizontal"
-        menu-width="100%"
-        default-tooltip-style="tabletext" default-widget-style="tabButton"
-        default-associated-content-id="${userLogin.userLoginId}"
-        selected-menuitem-context-field-name="currentRequestMenuItemName"
-        title="" type="simple">
-
+    <menu name="editRequest"  default-selected-style="selected" type="simple"
+        menu-container-style="button-bar tab-bar">
         <menu-item name="request" title="Request" >
             <link id="requestheader" target="request?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
@@ -43,15 +35,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="editrequestitemmenu" default-title-style="tabButton"
-        default-selected-style="tabButtonSelected"
-        default-menu-item-name="content"
-        orientation="horizontal"
-        menu-width="100%"
-        default-tooltip-style="tabletext" default-widget-style="tabButton"
-        default-associated-content-id="${userLogin.userLoginId}"
-        title="" type="simple">
-
+    <menu name="editrequestitemmenu" default-selected-style="selected" type="simple"
+        menu-container-style="button-bar tab-bar">
         <menu-item name="requestitem">
             <link id="requestitem" target="requestitem?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>
