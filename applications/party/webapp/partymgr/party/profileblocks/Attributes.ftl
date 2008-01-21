@@ -25,23 +25,31 @@ under the License.
           <li><a href="<@ofbizUrl>editPartyAttribute?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>
       </ul>
-      <br class="clear" />
+      <br class="clear"/>
     </div>
     <div class="screenlet-body">
       <#if attributes?has_content>
-        <table class="basic-table" cellspacing="0">
+        <table class="basic-table hover-bar" cellspacing="0">
+            <tr class="header-row">
+              <td>${uiLabelMap.CommonName}</td>
+              <td>${uiLabelMap.CommonValue}</td>
+              <td>&nbsp;</td>
+            </tr>
+          <#assign alt_row = false>
           <#list attributes as attr>
-            <tr>
-              <td class="label">
-                ${uiLabelMap.CommonName}: ${attr.attrName}
+            <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+              <td>
+                ${attr.attrName}
               </td>
               <td>
-                ${uiLabelMap.CommonValue}: ${attr.attrValue}
+                ${attr.attrValue}
               </td>
               <td class="button-col">
                 <a href="<@ofbizUrl>editPartyAttribute?partyId=${partyId}&attrName=${attr.attrName}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
               </td>
             </tr>
+            <#-- toggle the row color -->
+            <#assign alt_row = !alt_row>
           </#list>
         </table>
       <#else>

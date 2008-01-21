@@ -24,7 +24,7 @@ under the License.
       <li class="head3">${uiLabelMap.PartyShoppingLists}</li>
       <li><a href="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>?partyId=${partyId?if_exists}">${uiLabelMap.CommonCreateNew}</a></li>
     </ul>
-    <br class="clear" />
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
     <#if shoppingLists?has_content>
@@ -56,7 +56,7 @@ under the License.
       <li><a href="/ordermgr/control/createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}">${uiLabelMap.PartyCreateNewCustRequest}</a></li>
       <li><a href="/ordermgr/control/loadCartFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}">${uiLabelMap.OrderNewOrder}</a></li>
     </ul>
-    <br class="clear" />
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
     <form name="updateList" method="post" action="<@ofbizUrl>updateShoppingList</@ofbizUrl>">
@@ -91,8 +91,8 @@ under the License.
             <select name="isPublic" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
               <option>${shoppingList.isPublic}</option>
               <option value="${shoppingList.isPublic}">--</option>
-              <option>Y</option>
-              <option>N</option>
+              <option>${uiLabelMap.CommonYes}</option>
+              <option>${uiLabelMap.CommonNo}</option>
             </select>
           </td>
         </tr>                           
@@ -131,23 +131,23 @@ under the License.
       <li class="head3">${uiLabelMap.PartyChildShoppingList} - ${shoppingList.listName}</li>
       <li><a href="<@ofbizUrl>addListToCart?shoppingListId=${shoppingList.shoppingListId}&includeChild=yes</@ofbizUrl>">${uiLabelMap.PartyAddChildListsToCart}</a></li>
     </ul>
-    <br class="clear" />
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
     <table class="basic-table" cellspacing="0">
       <tr class="header-row"> 
         <td>${uiLabelMap.PartyListName}</td>
-		<td>&nbsp;</td>
+        <td>&nbsp;</td>
       </tr>
       <#list childShoppingListDatas as childShoppingListData>
         <#assign childShoppingList = childShoppingListData.childShoppingList>
         <tr>
           <td class="button-col"><a href="<@ofbizUrl>editShoppingList?shoppingListId=${childShoppingList.shoppingListId}</@ofbizUrl>">${childShoppingList.listName?default(childShoppingList.shoppingListId)}</a></li>
-		  <td class="button-col align-float">
+          <td class="button-col align-float">
             <a href="<@ofbizUrl>editShoppingList?shoppingListId=${childShoppingList.shoppingListId}</@ofbizUrl>">${uiLabelMap.PartyGotoList}</a>
             <a href="<@ofbizUrl>addListToCart?shoppingListId=${childShoppingList.shoppingListId}</@ofbizUrl>">${uiLabelMap.PartyAddListToCart}</a>
-	      </td>                      
-		</tr>
+          </td>                      
+        </tr>
       </#list>
     </table>
   </div>
@@ -160,7 +160,7 @@ under the License.
       <li class="head3">${uiLabelMap.PartyListItems} - ${shoppingList.listName}</li>
         <#-- <li><a href="<@ofbizUrl>addListToCart?shoppingListId=${shoppingList.shoppingListId}</@ofbizUrl>">${uiLabelMap.PartyAddListToCart}</a></li> -->
     </ul>
-    <br class="clear" />
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
     <#if shoppingListItemDatas?has_content>
@@ -173,9 +173,7 @@ under the License.
           <td>${uiLabelMap.PartyTotal}</td>
           <td>&nbsp;</td>
         </tr>
-        <tr>
-          <td colspan="6"><hr></td>
-        </tr>
+        <#assign alt_row = false>        
         <#list shoppingListItemDatas as shoppingListItemData>
           <#assign shoppingListItem = shoppingListItemData.shoppingListItem>
           <#assign product = shoppingListItemData.product>
@@ -184,7 +182,7 @@ under the License.
           <#assign totalPrice = shoppingListItemData.totalPrice>
           <#assign productVariantAssocs = shoppingListItemData.productVariantAssocs?if_exists>
           <#assign isVirtual = product.isVirtual?exists && product.isVirtual.equals("Y")>
-          <tr>
+          <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td><a href="/catalog/control/EditProduct?productId=${shoppingListItem.productId}&externalLoginKey=${requestAttributes.externalLoginKey}">${shoppingListItem.productId} -
               ${productContentWrapper.get("PRODUCT_NAME")?default("No Name")}</a> : ${productContentWrapper.get("DESCRIPTION")?if_exists}
             </td>
@@ -200,7 +198,7 @@ under the License.
                     value="${shoppingListItem.quantityPurchased?if_exists?string.number}"
                   </#if>>
               </td>
-		    </form>
+            </form>
             <td class="align-float"><@ofbizCurrency amount=unitPrice isoCode=currencyUomId/></td>
             <td class="align-float"><@ofbizCurrency amount=totalPrice isoCode=currencyUomId/></td>
             <td class="button-col align-float">
@@ -208,6 +206,9 @@ under the License.
               <a href="<@ofbizUrl>removeFromShoppingList?shoppingListId=${shoppingListItem.shoppingListId}&shoppingListItemSeqId=${shoppingListItem.shoppingListItemSeqId}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
             </td>
           </tr>
+          <#-- toggle the row color -->
+
+          <#assign alt_row = !alt_row>
         </#list>
       </table>
     <#else>

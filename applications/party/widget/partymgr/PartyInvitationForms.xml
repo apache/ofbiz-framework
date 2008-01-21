@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindPartyInvitations" type="single" default-map-name="partyInvitations" target="partyInvitation">
+    <form name="FindPartyInvitations" type="single" default-map-name="partyInvitations" target="partyInvitation"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="partyInvitationId"><text-find default-option="contains" ignore-case="true"/></field>
         <field position="1" name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field position="2" name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
@@ -39,7 +40,8 @@ under the License.
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListPartyInvitations" type="list" list-name="listIt" default-entity-name="PartyInvitation">
+    <form name="ListPartyInvitations" type="list" list-name="listIt" default-entity-name="PartyInvitation"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -61,7 +63,8 @@ under the License.
         </field>
     </form>
  
-    <form name="EditPartyInvitation" type="single" target="updatePartyInvitation"  default-map-name="partyInvitation">
+    <form name="EditPartyInvitation" type="single" target="updatePartyInvitation"  default-map-name="partyInvitation"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyInvitation==null" target="createPartyInvitation"/>
         <auto-fields-service service-name="updatePartyInvitation"/>
         <field name="partyInvitationId"><hidden/></field>
@@ -83,7 +86,8 @@ under the License.
         <field name="submitButton" use-when="partyInvitation!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
  
-    <form name="ListPartyInvitationGroupAssocs" type="list" list-name="partyInvitationGroupAssoc">
+    <form name="ListPartyInvitationGroupAssocs" type="list" list-name="partyInvitationGroupAssoc"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyInvitationGroupAssoc">
                 <condition-expr field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
@@ -103,7 +107,8 @@ under the License.
         </field>
     </form>
  
-    <form name="AddPartyInvitationGroupAssoc" type="single" target="createPartyInvitationGroupAssoc" default-map-name="partyInvitationGroupAssoc">
+    <form name="AddPartyInvitationGroupAssoc" type="single" target="createPartyInvitationGroupAssoc" default-map-name="partyInvitationGroupAssoc"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPartyInvitationGroupAssoc"/>
         <field name="partyInvitationId"><hidden/> </field>
         <field name="partyIdTo">
@@ -117,7 +122,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
  
-    <form name="ListPartyInvitationRoleAssocs" type="list" list-name="partyInvitationRoleAssoc">
+    <form name="ListPartyInvitationRoleAssocs" type="list" list-name="partyInvitationRoleAssoc"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyInvitationRoleAssoc">
                 <condition-expr field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
@@ -133,7 +139,8 @@ under the License.
         </field>
     </form>
  
-    <form name="AddPartyInvitationRoleAssoc" type="single" target="createPartyInvitationRoleAssoc" title="" default-map-name="partyInvitationGroupAssoc">
+    <form name="AddPartyInvitationRoleAssoc" type="single" target="createPartyInvitationRoleAssoc" title="" default-map-name="partyInvitationGroupAssoc"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPartyInvitationRoleAssoc"/>
         <field name="partyInvitationId"><hidden/> </field>
         <field name="roleTypeId">
@@ -146,4 +153,3 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
 </forms>
-
