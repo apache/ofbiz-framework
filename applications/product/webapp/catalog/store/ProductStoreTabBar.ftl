@@ -39,5 +39,6 @@ under the License.
             <li><a href="<@ofbizUrl>EditProductStoreVendorPayments?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreVendorPayments?default(unselectedClassName)}">${uiLabelMap.ProductVendorPayments}</a></li>
             <li><a href="<@ofbizUrl>EditProductStoreVendorShipments?productStoreId=${productStoreId}</@ofbizUrl>" class="${selectedClassMap.EditProductStoreVendorShipments?default(unselectedClassName)}">${uiLabelMap.ProductVendorShipments}</a></li>
         </ul>
+      <br/>
     </div>
 </#if>
