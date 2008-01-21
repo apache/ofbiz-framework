@@ -21,7 +21,11 @@ under the License.
 <#if !mechMap.contactMech?exists>
   <#-- When creating a new contact mech, first select the type, then actually create -->
   <#if !preContactMechTypeId?has_content>
-    <h1>${uiLabelMap.PartyCreateNewContact}</h1>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PartyCreateNewContact}</h3>        
+  </div>
+  <div class="screenlet-body">
     <form method="post" action="<@ofbizUrl>editcontactmech</@ofbizUrl>" name="createcontactmechform">
       <input type="hidden" name="DONE_PAGE" value="${donePage}">
       <input type="hidden" name="partyId" value="${partyId}">
@@ -39,11 +43,17 @@ under the License.
         </tr>
       </table>
     </form>
-  </#if>
+  </div>
+</div>
+    </#if>
 </#if>
 <#if mechMap.contactMechTypeId?has_content>
   <#if !mechMap.contactMech?has_content>
-    <h1>${uiLabelMap.PartyCreateNewContact}</h1>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PartyCreateNewContact}</h3>        
+  </div>
+  <div class="screenlet-body">
     <div class="button-bar">
       <a href="<@ofbizUrl>authview/${donePage?if_exists}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
       <a href="javascript:document.editcontactmechform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
@@ -51,7 +61,7 @@ under the License.
     <#if contactMechPurposeType?exists>
       <p>(${uiLabelMap.PartyMsgContactHavePurpose} <b>"${contactMechPurposeType.get("description",locale)?if_exists}"</b>)</p>
     </#if>
-    <table cellspacing="0">
+    <table class="basic-table" cellspacing="0">
       <form method="post" action="<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>" name="editcontactmechform">
         <input type="hidden" name="DONE_PAGE" value="${donePage}">
         <input type="hidden" name="contactMechTypeId" value="${mechMap.contactMechTypeId}">
@@ -61,18 +71,22 @@ under the License.
         <#if contactMechPurposeTypeId?exists><input type="hidden" name="contactMechPurposeTypeId" value="${contactMechPurposeTypeId?if_exists}"></#if>
         <#if paymentMethodId?has_content><input type='hidden' name='paymentMethodId' value='${paymentMethodId}'></#if>
   <#else>
-    <h1>${uiLabelMap.PartyEditContactInformation}</h1>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PartyEditContactInformation}</h3>        
+  </div>
+  <div class="screenlet-body">    
     <div class="button-bar">
       <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
       <a href="javascript:document.editcontactmechform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
     </div>
     <div id="mech-purpose-types">
-      <table cellspacing="0">
+      <table class="basic-table" cellspacing="0">
       <#if mechMap.purposeTypes?has_content>
         <tr>
           <td class="label">${uiLabelMap.PartyContactPurposes}</td>
           <td>
-            <table class="basic-table dark-grid" cellspacing="0">
+            <table class="basic-table" cellspacing="0">
               <#if mechMap.partyContactMechPurposes?has_content>
                 <#list mechMap.partyContactMechPurposes as partyContactMechPurpose>
                   <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
@@ -235,8 +249,9 @@ under the License.
   <div class="button-bar">
     <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
     <a href="javascript:document.editcontactmechform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
+  </div>  
   </div>
-  </div>
+</div>
 <#else>
   <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
 </#if>

@@ -23,7 +23,7 @@ under the License.
       <li class="head3">${uiLabelMap.PageTitleAddressMatches}</li>
       <li><a href="<@ofbizUrl>addressMatchMap</@ofbizUrl>">${uiLabelMap.PageTitleAddressMatchMap}</a></li>
     </ul>
-    <br class="clear" />
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
     <table class="basic-table" cellspacing="0">
@@ -98,7 +98,7 @@ under the License.
                     <#elseif group?has_content>
                       <td colspan="2">${group.groupName}</td>
                     <#else>
-                      <td colspan="2">[unknown partyType]</td>
+                      <td colspan="2">${uiLabelMap.PartyUnknown}</td>
                     </#if>
                     <td>${Static["org.ofbiz.party.party.PartyWorker"].makeMatchingString(delegator, match.address1)}</td>
                     <td>${Static["org.ofbiz.party.party.PartyWorker"].makeMatchingString(delegator, match.address2?default("N/A"))}</td>
@@ -116,3 +116,4 @@ under the License.
       </#if>
     </table>
   </div>
+</div>

@@ -26,13 +26,18 @@ under the License.
   <div class="screenlet-body">
     <table cellspacing="0" class="basic-table">
       <#if partyRoles?has_content>
+          <tr class="header-row">
+            <td>${uiLabelMap.PartyRoleTypeId}</td>            
+            <td>${uiLabelMap.PartyRole}</td>  
+            <td>&nbsp;</td>            
+          </tr>
         <#list partyRoles as userRole>
           <tr>
-            <td class="label">${uiLabelMap.PartyRole}</td>
-            <td>${userRole.get("description",locale)} [${userRole.roleTypeId}]</td>
+            <td align="left">${userRole.roleTypeId}</td>
+            <td align="left">${userRole.get("description",locale)}</td>
             <#if hasDeletePermission>
               <td class="button-col align-float">
-                <a href="<@ofbizUrl>deleterole?partyId=${partyId}&roleTypeId=${userRole.roleTypeId}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>&nbsp;
+                <a href="<@ofbizUrl>deleterole?partyId=${partyId}&roleTypeId=${userRole.roleTypeId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonRemove}</a>&nbsp;
               </td>
             <#else>
               <td>&nbsp;</td>
@@ -40,14 +45,23 @@ under the License.
           </tr>
         </#list>
       <#else>
-        ${uiLabelMap.PartyNoPartyRolesFound}
+          <tr>
+              <td colspan="3">
+                  ${uiLabelMap.PartyNoPartyRolesFound}
+              </td>
+          </tr>
       </#if>
+    </table>
+  </div>
+</div>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PartyAddToRole}</h3>
+  </div>
+  <div class="screenlet-body">
+    <table cellspacing="0" class="basic-table">
       <#if hasUpdatePermission>
-        <tr><td colspan="3"><hr></td></tr>
         <tr>
-          <td class="label">
-            ${uiLabelMap.PartyAddToRole}
-          </td>
           <td>
             <form name="addPartyRole" method="post" action="<@ofbizUrl>addrole/viewroles</@ofbizUrl>">
               <input type="hidden" name="partyId" value="${partyId}"/>
@@ -59,7 +73,6 @@ under the License.
               <a href="javascript:document.addPartyRole.submit()" class="smallSubmit">${uiLabelMap.CommonAdd}</a>
             </form>
           </td>
-          <td>&nbsp;</td>
         </tr>
       </#if>
     </table>
@@ -68,7 +81,6 @@ under the License.
 
 <#-- Add role type -->
 <#if hasCreatePermission>
-<br/>
 <div id="newRoleType" class="screenlet">
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.PartyNewRoleType}</h3>
@@ -87,11 +99,9 @@ under the License.
           <td class="label">${uiLabelMap.CommonDescription}</td>
           <td>
             <input type="text" name="description" size="30" class="required"><span class="tooltip">${uiLabelMap.CommonRequired}</span>
+            <a href="javascript:document.createroleform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
           </td>
         </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td><a href="javascript:document.createroleform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a></td>
       </table>
     </form>
   </div>

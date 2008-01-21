@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="EditAvsOverride" type="single" target="updateAvsOverride" default-map-name="avsOverride">
+    <form name="EditAvsOverride" type="single" target="updateAvsOverride" default-map-name="avsOverride"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="partyId"><hidden/></field>
         <field name="avsDeclineString" title="${uiLabelMap.PartyAvsString}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="[${uiLabelMap.CommonSave}]" widget-style="smallSubmit"><submit button-type="text-link"/></field>

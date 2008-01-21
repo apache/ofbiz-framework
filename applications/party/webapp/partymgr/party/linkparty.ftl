@@ -27,39 +27,38 @@ under the License.
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.PartyLink}</h3>
     </div>
-    <div class="screenlet-body">
-      <center>
+    <div class="screenlet-body" align="center">      
         <#if partyTo?has_content && partyFrom?has_content>
           <form name="linkparty" method="post" action="<@ofbizUrl>setPartyLink</@ofbizUrl>">
             <div class="head1 alert">
               ${uiLabelMap.PartyLinkMessage1}
             </div>
-            <br />
+            <br/>
             <div>
-              <span class="label">${uiLabelMap.PartyLink}:</span>
+              <span class="label">${uiLabelMap.PartyLink}</span>
               <input type="hidden" name="partyId" value="${partyFrom.partyId}"/>
               <#if personFrom?has_content>
                 ${personFrom.lastName}, ${personFrom.firstName}
               <#elseif groupFrom?has_content>
                 ${groupFrom.groupName}
               <#else>
-                [${uiLabelMap.PartyUnknown}]
+                ${uiLabelMap.PartyUnknown}
               </#if>
-              &nbsp;[${partyFrom.partyId}]
+              &nbsp;${partyFrom.partyId}
             </div>
             <div>
-              <span class="label">${uiLabelMap.CommonTo}:</span>
+              <span class="label">${uiLabelMap.CommonTo}</span>
               <input type="hidden" name="partyIdTo" value="${partyTo.partyId}"/>
               <#if personTo?has_content>
                 ${personTo.lastName}, ${personTo.firstName}
               <#elseif groupTo?has_content>
                 ${groupTo.groupName}
               <#else>
-                [${uiLabelMap.PartyUnknown}]
+                ${uiLabelMap.PartyUnknown}
               </#if>
-              &nbsp;[${partyTo.partyId}]
+              &nbsp;${partyTo.partyId}
             </div>
-            <br />
+            <br/>
             <div>
               <a href="javascript:document.linkparty.submit()" class="smallSubmit">${uiLabelMap.CommonConfirm}</a>
             </div>
@@ -78,8 +77,7 @@ under the License.
               <a href="javascript:document.linkpartycnf.submit()" class="smallSubmit">${uiLabelMap.CommonLink}</a>
             </div>
           </form>
-        </#if>
-      </center>
+        </#if>      
     </div>
   </div>
 </#if>

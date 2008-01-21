@@ -25,41 +25,37 @@ under the License.
   <div class="screenlet-body">
     <#if partyRelationships?has_content>
       <table class="basic-table" cellspacing="0">
-        <tr>
-          <th>${uiLabelMap.CommonDescription}</th>
-          <th>${uiLabelMap.CommonFromDate}</th>
-          <#if security.hasEntityPermission("PARTYMGR", "_REL_DELETE", session) ||
-               security.hasEntityPermission("PARTYMGR", "_REL_UPDATE", session)>
-            <th>&nbsp;</th>
-          </#if>
-        </tr>
+          <tr class="header-row">
+            <td>${uiLabelMap.CommonDescription}/${uiLabelMap.CommonComments}</td>
+            <td colspan="2">${uiLabelMap.CommonFromDate}/${uiLabelMap.CommonThruDate}</td>            
+          </tr>
         <#list partyRelationships as partyRelationship>
           <#assign partyRelationshipType = partyRelationship.getRelatedOneCache("PartyRelationshipType")?if_exists>
           <#assign roleTypeTo = partyRelationship.getRelatedOneCache("ToRoleType")>
           <#assign roleTypeFrom = partyRelationship.getRelatedOneCache("FromRoleType")>
-          <tr><td colspan="3"><hr/></td></tr>
           <tr>
             <td>
-              ${uiLabelMap.PartyParty} <b>${partyRelationship.partyIdTo}</b>
+              <div>
+              ${uiLabelMap.PartyParty}&nbsp;<span class="label">${partyRelationship.partyIdTo}</span>
               <#if "_NA_" != partyRelationship.roleTypeIdTo>
                 ${uiLabelMap.PartyRole} <b>${roleTypeTo.get("description",locale)}</b>
               </#if>
-              ${uiLabelMap.CommonIsA} <b>${(partyRelationshipType.get("partyRelationshipName",locale))?default("${uiLabelMap.CommonNA}")}</b>
-              ${uiLabelMap.CommonOf} ${uiLabelMap.PartyParty} <b>${partyRelationship.partyIdFrom}</b>
+              ${uiLabelMap.CommonIsA}&nbsp;<span class="label">${(partyRelationshipType.get("partyRelationshipName",locale))?default("${uiLabelMap.CommonNA}")}</span>
+              ${uiLabelMap.CommonOf} ${uiLabelMap.PartyParty}&nbsp;<span class="label">${partyRelationship.partyIdFrom}</span>
               <#if "_NA_" != partyRelationship.roleTypeIdFrom>
-                ${uiLabelMap.PartyRole} <b>${roleTypeFrom.get("description",locale)}</b>
+                ${uiLabelMap.PartyRole}&nbsp;<span class="label">${roleTypeFrom.get("description",locale)}</span>
               </#if>
               <#if partyRelationship.securityGroupId?exists>
-                ${uiLabelMap.CommonAnd} ${uiLabelMap.PartyRelationSecurity} <b>${partyRelationship.getRelatedOne("SecurityGroup").get("description",locale)}</b>
+                ${uiLabelMap.CommonAnd} ${uiLabelMap.PartyRelationSecurity}&nbsp;<span class="label">${partyRelationship.getRelatedOne("SecurityGroup").get("description",locale)}</span>
               </#if>
+              </div>
             </td>
-            <td>${partyRelationship.fromDate}</td>
-            <#if security.hasEntityPermission("PARTYMGR", "_REL_DELETE", session)>
-              <td class="button-col">                     
-                <a href="<@ofbizUrl>deletePartyRelationship?partyIdTo=${partyRelationship.partyIdTo}&amp;roleTypeIdTo=${partyRelationship.roleTypeIdTo}&amp;roleTypeIdFrom=${partyRelationship.roleTypeIdFrom}&amp;partyIdFrom=${partyRelationship.partyIdFrom}&amp;fromDate=${partyRelationship.fromDate}&amp;partyId=${partyId?if_exists}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonRemove}</a>
-              </td>
-            </#if>
-          </tr>
+            <td colspan="2">
+                ${partyRelationship.fromDate}
+                <#if security.hasEntityPermission("PARTYMGR", "_REL_DELETE", session)>
+                    <a href="<@ofbizUrl>deletePartyRelationship?partyIdTo=${partyRelationship.partyIdTo}&amp;roleTypeIdTo=${partyRelationship.roleTypeIdTo}&amp;roleTypeIdFrom=${partyRelationship.roleTypeIdFrom}&amp;partyIdFrom=${partyRelationship.partyIdFrom}&amp;fromDate=${partyRelationship.fromDate}&amp;partyId=${partyId?if_exists}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonRemove}</a>
+                </#if>
+            </td>
           <#if security.hasEntityPermission("PARTYMGR", "_REL_UPDATE", session)>
             <tr>
               <form method="post" name="updatePartyRel${partyRelationship_index}" action="<@ofbizUrl>updatePartyRelationship</@ofbizUrl>">
@@ -70,14 +66,11 @@ under the License.
                 <input type="hidden" name="roleTypeIdTo" value="${partyRelationship.roleTypeIdTo}"/>
                 <input type="hidden" name="fromDate" value="${partyRelationship.fromDate}"/>
                 <td>
-                  <b>${uiLabelMap.CommonComments}: </b><input type="text" size="50" name="comments" value="${partyRelationship.comments?if_exists}"/>
+                  <input type="text" size="50" maxlength="30" name="comments" value="${partyRelationship.comments?if_exists}"/>
                 </td>
-                <td>
-                  <b>${uiLabelMap.CommonThru}: </b><input type="text" size="24" name="thruDate" value="${partyRelationship.thruDate?if_exists}"/>
+                <td colspan="2">
+                  <input type="text" size="24" name="thruDate" value="${partyRelationship.thruDate?if_exists}"/>
                   <a href="javascript:call_cal(document.updatePartyRel${partyRelationship_index}.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
-                </td>
-                <td class="button-col">
-                  <#-- ${partyRelationship.statusId}-->
                   <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
                 </td>
               </form>
@@ -85,12 +78,11 @@ under the License.
           <#else>
             <tr>
               <td>
-                <b>${uiLabelMap.CommonComments}: </b>${partyRelationship.comments?if_exists}
+                ${partyRelationship.comments?if_exists}
               </td>
-              <td>
-                <b>${uiLabelMap.CommonThru}: </b>${partyRelationship.thruDate?if_exists}
+              <td colspan="2">
+                ${partyRelationship.thruDate?if_exists}
               </td>
-              <td>&nbsp;</td>
             </tr>
           </#if>
         </#list>

@@ -23,7 +23,7 @@ under the License.
       <li class="head3">${uiLabelMap.PageTitleAddressMatchMap}</li>
       <li><a href="<@ofbizUrl>findAddressMatch</@ofbizUrl>">${uiLabelMap.PageTitleFindMatches}</a></li>
     </ul>
-    <br class="clear" />
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
     <table class="basic-table" cellspacing="0">
@@ -56,32 +56,41 @@ under the License.
           </td>
         </tr>
       </form>
-      <#if addressMatchMaps?has_content>
-        <tr><td colspan="2">&nbsp;</td></tr>
-        <tr>
-          <td colspan="2">
-            <table class="basic-table dark-grid" cellspacing="0">
-              <tr class="header-row">
-                <td>${uiLabelMap.PartyAddressMatchKey}</td>
-                <td>=></td>
-                <td>${uiLabelMap.PartyAddressMatchValue}</td>
-                <td>${uiLabelMap.CommonSequence}</td>
-                <td class="button-col"><a href="<@ofbizUrl>clearAddressMatchMap</@ofbizUrl>">${uiLabelMap.CommonClear} ${uiLabelMap.CommonAll}</a></td>
-              </tr>
-              <#list addressMatchMaps as map>
-                <tr>
-                  <td>${map.mapKey}</td>
-                  <td>=></td>
-                  <td>${map.mapValue}</td>
-                  <td>${map.sequenceNum?if_exists}</td>
-                  <td class="button-col"><a href="<@ofbizUrl>removeAddressMatchMap?mapKey=${map.mapKey}&mapValue=${map.mapValue}</@ofbizUrl>">${uiLabelMap.CommonDelete}</a></td>
-                </tr>
-              </#list>
-            </table>
-          </td>
-        </tr>
-      </#if>
     </table>
+  </div>
+</div>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.PageTitleAddressMatchMap}</li>      
+    </ul>
+    <br class="clear"/>
+  </div>
+  <div class="screenlet-body">
+      <#if addressMatchMaps?has_content>        
+        <table class="basic-table hover-bar" cellspacing="0">
+          <tr class="header-row">
+            <td>${uiLabelMap.PartyAddressMatchKey}</td>
+            <td>=></td>
+            <td>${uiLabelMap.PartyAddressMatchValue}</td>
+            <td>${uiLabelMap.CommonSequence}</td>
+            <td class="button-col"><a href="<@ofbizUrl>clearAddressMatchMap</@ofbizUrl>">${uiLabelMap.CommonClear} ${uiLabelMap.CommonAll}</a></td>
+          </tr>
+          <#assign alt_row = false>
+          <#list addressMatchMaps as map>
+            <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+              <td>${map.mapKey}</td>
+              <td>=></td>
+              <td>${map.mapValue}</td>
+              <td>${map.sequenceNum?if_exists}</td>
+              <td class="button-col"><a href="<@ofbizUrl>removeAddressMatchMap?mapKey=${map.mapKey}&mapValue=${map.mapValue}</@ofbizUrl>">${uiLabelMap.CommonDelete}</a></td>
+            </tr>
+            <#-- toggle the row color -->
+
+            <#assign alt_row = !alt_row>
+          </#list>
+        </table>
+      </#if>
   </div>
 </div>
 <!-- end addressMatchMap.ftl -->
