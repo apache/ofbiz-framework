@@ -41,7 +41,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonEdit}"><submit button-type="button"/></field>
     </form-->
 
-    <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent">
+    <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="communicationEvent.statusId"/>
@@ -208,7 +209,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ViewCommEvent" type="single" default-map-name="communicationEvent">
+    <form name="ViewCommEvent" type="single" default-map-name="communicationEvent"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"><sub-hyperlink target="viewprofile?partyId=${partyIdFrom}" description="[${partyIdFrom}]"/></display-entity></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"><sub-hyperlink target="viewprofile?partyId=${communicationEvent.partyIdTo}" description="[${communicationEvent.partyIdTo}]"/></display-entity></field>
@@ -242,18 +244,18 @@ under the License.
         </field>
     </form>
 
-    <form name="findCommEvents" type="single" target="ListLookupCommEvents"
-        paginate="true">
+    <form name="findCommEvents" type="single" target="ListLookupCommEvents" paginate="true" 
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId" use-when="communicationEvent != null"><text-find/></field>
         <field name="parentCommEventId"><text-find/></field>
         <field name="origCommEventId"><text-find/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyName"/></field>
-    <field name="communicationEventTypeId">
+        <field name="communicationEventTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/>
-      </drop-down>
-    </field>
+            </drop-down>
+        </field>
         <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem">
@@ -288,7 +290,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListCommEvents" type="list">
+    <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="communicationEventId" widget-style="smallSubmit">
             <hyperlink description="${communicationEventId}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="intra-app"/>
         </field>
@@ -309,7 +311,7 @@ under the License.
         <field map-name="subjectMap" name="subject"><display/></field>
     </form>
 
-    <form name="ListPartyCommEvents" type="list"  extends="ListCommEvents">
+    <form name="ListPartyCommEvents" type="list"  extends="ListCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="CommunicationEvent">
                 <condition-list combine="or">
@@ -326,7 +328,7 @@ under the License.
         </field>
     </form>
 
-    <form name="ListPendingCommEvents" type="list" extends="ListCommEvents">
+    <form name="ListPendingCommEvents" type="list" extends="ListCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="CommunicationEvent">
                 <condition-list combine="and">
@@ -340,7 +342,8 @@ under the License.
         </actions>
     </form>
 
-    <form name="ListChildCommEvents" type="list" extends="ListCommEvents" paginate-target="EditCommunicationEvent">
+    <form name="ListChildCommEvents" type="list" extends="ListCommEvents" paginate-target="EditCommunicationEvent"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="CommunicationEvent">
                 <condition-list combine="or">
@@ -352,7 +355,7 @@ under the License.
     </form>
 
     <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" target="updateCommunicationEvent"
-        paginate-target="ListLookupCommEvents">
+        paginate-target="ListLookupCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
@@ -365,7 +368,8 @@ under the License.
         </field>
     </form>
     
-    <form name="ListCommWorkEfforts" type="list" paginate-target="ListCommWorkEfforts">
+    <form name="ListCommWorkEfforts" type="list" paginate-target="ListCommWorkEfforts"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommunicationEventWorkEff" use-cache="false">
                 <field-map field-name="communicationEventId"/>
@@ -381,7 +385,8 @@ under the License.
 
     <form name="AddCommEventWorkEffort" type="single" extends="EditWorkEffort"
         extends-resource="component://workeffort/widget/WorkEffortForms.xml"
-        target="/partymgr/control/createCommEventWorkEffort" target-type="inter-app">
+        target="/partymgr/control/createCommEventWorkEffort" target-type="inter-app"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
         <field name="workEffortId"  use-when="workEffort==null&amp;&amp;workEffortId==null" ><lookup target-form-name="/workeffort/control/LookupWorkEffort"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/> </field>
@@ -393,7 +398,8 @@ under the License.
         </sort-order>
     </form>
 
-    <form name="ListCommPurposes" type="list" paginate-target="UpdateCommPurposes">
+    <form name="ListCommPurposes" type="list" paginate-target="UpdateCommPurposes"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommunicationEventPurpose" use-cache="true">
                 <field-map field-name="communicationEventId"/>
@@ -407,7 +413,8 @@ under the License.
         </field>
     </form>
 
-    <form name="AddEventPurpose" type="single" target="createCommunicationEventPurpose">
+    <form name="AddEventPurpose" type="single" target="createCommunicationEventPurpose" 
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><hidden/></field>
         <field name="partyId"><hidden/></field>
         <field name="communicationEventPrpTypId" >
@@ -420,7 +427,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.PartyAddPurpose}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListCommRoles" type="list" paginate-target="UpdateCommRoles">
+    <form name="ListCommRoles" type="list" paginate-target="UpdateCommRoles"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommunicationEventRole" use-cache="true">
                 <field-map field-name="communicationEventId"/>
@@ -437,7 +445,8 @@ under the License.
         </field>
     </form>
 
-    <form name="AddEventRole" type="single" target="createCommunicationEventRole">
+    <form name="AddEventRole" type="single" target="createCommunicationEventRole"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" >
@@ -451,7 +460,7 @@ under the License.
     </form>
   
     <form name="listCommContent" type="list" list-name="contentDataResourceList"
-        paginate-target="/ListCommContent" view-size="20">
+        paginate-target="/ListCommContent" view-size="20" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommEventContentDataResource" list-name="contentDataResourceList">
                 <field-map field-name="communicationEventId"/>
@@ -470,7 +479,8 @@ under the License.
         <field name="dataResourceId"><display/></field>
     </form>
 
-    <form name="addCommContent" type="single" target="createCommContentDataResource">
+    <form name="addCommContent" type="single" target="createCommContentDataResource" 
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><hidden/></field>
         <field name="contentId"><ignored/></field>
         <field name="contentName"><text/></field>
@@ -497,7 +507,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
   
-    <form name="editCommContent" type="single" target="updateCommContentDataResource" default-map-name="commEventContentDataResource">
+    <form name="editCommContent" type="single" target="updateCommContentDataResource" default-map-name="commEventContentDataResource"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
         <field name="contentId"><display/></field>
         <field name="dataResourceId"><display/></field>
@@ -571,7 +582,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpload}"><submit/></field>
     </form>
     
-    <form name="editCommTextContent" type="single" target="uploadCommEventContent" default-map-name="commEventContentDataResource">
+    <form name="editCommTextContent" type="single" target="uploadCommEventContent" default-map-name="commEventContentDataResource"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="contentId" ><hidden/></field>
         <field name="drDataResourceId" ><hidden/></field>
         <field name="drDataResourceTypeId" ><hidden/></field>
@@ -581,5 +593,4 @@ under the License.
         <field name="textData" map-name="electronicText" title="Text Data"><textarea rows="30" cols="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-
 </forms>
