@@ -300,15 +300,18 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
         </field>
+        <field map-name="subjectMap" name="subject"><display/></field>
         <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <!-- Next two fields don't seem to be used, commenting out for now -->
+        <!--
         <field name="roleTypeIdFrom"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        -->
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
         <field name="custRequestId" widget-style="smallSubmit"><hyperlink target="/ordermgr/control/EditRequest?custRequestId=${custRequestId}" target-type="inter-app"/></field>
-        <field map-name="subjectMap" name="subject"><display/></field>
     </form>
 
     <form name="ListPartyCommEvents" type="list"  extends="ListCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -318,6 +321,7 @@ under the License.
                     <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
                     <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
                 </condition-list>
+                <order-by field-name="-lastUpdatedStamp"/>
             </entity-condition>
         </actions>
         <field name="communicationEventId" widget-style="smallSubmit">
@@ -489,7 +493,6 @@ under the License.
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
         <field name="sequenceNum"><text/></field>
-        
         <field name="drMimeTypeId" widget-style="smallSelect">
             <drop-down allow-empty="false">
                 <option key="application/msword" description="MS Word"/>
@@ -502,6 +505,12 @@ under the License.
                 <option key="image/tiff" description="TIFF"/>
                 <option key="image/png" description="PNG"/>
                 <option key="application/octet-stream" description="Other"/>
+            </drop-down>
+        </field>
+        <field name="drIsPublic" title="${uiLabelMap.PartyIsPublic}">
+            <drop-down allow-empty="true">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
@@ -530,11 +539,15 @@ under the License.
                 <option key="application/octet-stream" description="Other"/>
             </drop-down>
         </field>
+        <field name="drIsPublic" title="${uiLabelMap.PartyIsPublic}">
+            <drop-down allow-empty="true">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
         <field name="dataResourceTypeId" entry-name="drDataResourceTypeId">
             <drop-down allow-empty="false">
-        <entity-options entity-name="DataResourceType" description="${description}">
-          
-        </entity-options>
+                <entity-options entity-name="DataResourceType" description="${description}"/>
             </drop-down>
         </field>
         <!-- <field name="mimeTypeId" map-name="dataResource" title="Document Type"><display/></field> -->

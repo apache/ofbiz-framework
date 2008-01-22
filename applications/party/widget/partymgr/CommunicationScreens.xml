@@ -34,9 +34,8 @@ under the License.
                 <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -61,27 +60,27 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <!-- List comm events for a specific party -->
     <screen name="ListPartyCommEvents">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListCommunications"/>
-                <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="PartyCommEvents"/>
                 <set field="subTabButtonItem" value="CommunicationEvent"/>
                 <set field="partyId" value="${parameters.partyId}"/>
-                <set field="partyIdFrom" value="${parameters.partyIdFrom}"/>
-                <set field="partyIdTo" value="${parameters.partyIdTo}"/>
-                <set field="communicationEventId" value="${parameters.communicationEventId}"/>
-                <set field="entityName" value="CommunicationEvent"/>
+                <set field="partyIdFrom" value="${parameters.partyIdFrom}" default-value="${parameters.partyId}"/>
+                <set field="partyIdTo" value="${parameters.partyIdTo}" default-value="${parameters.partyId}"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ListPartyCommEvents?partyId=${partyId}"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -127,9 +126,8 @@ under the License.
                 <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -182,9 +180,8 @@ under the License.
                 <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -312,7 +309,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <widgets>
-                                        <container>
+                                        <container style="button-bar">
                                             <link style="smallSubmit" target="EditCommunicationEvent?partyId=${partyId}&amp;partyIdFrom=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/>
                                             <link style="smallSubmit" target="EditCommunicationEvent?partyId=${partyId}&amp;parentCommEventId=${communicationEventId}" text="${uiLabelMap.PartyReply}"/>
                                             <!--<link style="smallSubmit" target="EditCommunicationEvent?communicationEventTypeId=${communicationEvent.communicationEventTypeId}&amp;contactMechIdTo=${communicationEvent.contactMechIdFrom}&amp;contactMechIdFrom=${communicationEvent.contactMechIdTo}&amp;partyId=${partyId}&amp;partyIdTo=${partyId}&amp;partyIdFrom=${userLogin.partyId}&amp;parentCommEventId=${communicationEventId}&amp;toString=${communicationEvent.fromString}" text="${uiLabelMap.PartyReply}"/>-->
@@ -546,7 +543,7 @@ under the License.
                                 <if-compare field-name="okayToUpdate" operator="equals" type="Boolean" value="true"/>
                             </condition>
                             <widgets>
-                                <container><link style="smallSubmit" target="AddCommEventWorkEffort?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyNewCommWorkEffort}"/></container>
+                                <container style="button-bar"><link style="smallSubmit" target="AddCommEventWorkEffort?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyNewCommWorkEffort}"/></container>
                             </widgets>
                         </section>
                         <container style="screenlet">
@@ -652,9 +649,8 @@ under the License.
                 <decorator-screen  name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -662,7 +658,7 @@ under the License.
                                         <if-compare field-name="okayToUpdate" operator="equals" type="Boolean" value="true"/>
                                     </condition>
                                     <widgets>
-                                        <container><link style="smallSubmit" target="AddCommContent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyAddCommContent}"/></container>
+                                        <container style="button-bar"><link style="smallSubmit" target="AddCommContent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyAddCommContent}"/></container>
                                     </widgets>
                                 </section>
                                 <container style="screenlet">
@@ -706,9 +702,8 @@ under the License.
                 <decorator-screen  name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -757,9 +752,8 @@ under the License.
                 <decorator-screen  name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
                             </condition>
                             <widgets>
                                 <section>

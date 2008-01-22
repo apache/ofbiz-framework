@@ -305,18 +305,16 @@ public class CommunicationEventServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String communicationEventId = (String) context.get("communicationEventId");
         
-        // assume it's a success unless updateCommunicationEvent gives us an error
-        Map result = ServiceUtil.returnSuccess();
         try {
-            Map tmpResult = dispatcher.runSync("updateCommunicationEvent", UtilMisc.<String, Object>toMap("communicationEventId", communicationEventId,
+            Map<String, Object> result = dispatcher.runSync("updateCommunicationEvent", UtilMisc.<String, Object>toMap("communicationEventId", communicationEventId,
                     "statusId", "COM_COMPLETE", "userLogin", userLogin));
             if (ServiceUtil.isError(result)) {
-                result = ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
+                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
             }
         } catch (GenericServiceException esx) {
             return ServiceUtil.returnError(esx.getMessage());
         }
 
-        return result;
+        return ServiceUtil.returnSuccess();
     }
 }

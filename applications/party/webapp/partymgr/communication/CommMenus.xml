@@ -19,7 +19,7 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="CommEventTabBar" default-selected-style="selected" type="simple" 
-        menu-container-style="button-bar tab-bar"    selected-menuitem-context-field-name="subTabButtonItem">
+        menu-container-style="button-bar button-style-1" selected-menuitem-context-field-name="subTabButtonItem">
         <menu-item name="CommunicationEvent" title="${uiLabelMap.PartyCommEvent}">
             <link target="EditCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </menu-item>

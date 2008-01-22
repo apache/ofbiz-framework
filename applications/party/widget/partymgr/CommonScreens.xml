@@ -189,7 +189,6 @@ under the License.
                 <set field="headerItem" value="comm"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-                
                 <set field="okayToUpdate" value="true" type="Boolean" global="true"/>
             </actions>
             <widgets>
@@ -276,5 +275,7 @@ under the License.
         </section>
     </screen>
 </screens>
+
+
 
 
