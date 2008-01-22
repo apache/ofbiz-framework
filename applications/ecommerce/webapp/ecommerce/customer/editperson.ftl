@@ -27,6 +27,7 @@ under the License.
 &nbsp;<a href='<@ofbizUrl>authview/${donePage}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonGoBack}</a>
 &nbsp;<a href="javascript:document.editpersonform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
 
+<input type="hidden" name="partyId" value="${person.partyId?if_exists}">
 <table width="90%" border="0" cellpadding="2" cellspacing="0">
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.CommonTitle}</div></td>
