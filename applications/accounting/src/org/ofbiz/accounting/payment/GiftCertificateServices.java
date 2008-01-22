@@ -447,18 +447,23 @@ public class GiftCertificateServices {
             GenericValue giftCertSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId));
             GenericValue finAccount = null;
             String finAccountId = null;
-            if ("Y".equals(giftCertSettings.getString("requirePinCode"))) {
-                if (validatePin(delegator, giftCard.getString("cardNumber"), giftCard.getString("pinNumber"))) {
-                    finAccountId = giftCard.getString("cardNumber");
-                    finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
-                } 
+            if (UtilValidate.isNotEmpty(giftCertSettings)) {
+                if ("Y".equals(giftCertSettings.getString("requirePinCode"))) {
+                    if (validatePin(delegator, giftCard.getString("cardNumber"), giftCard.getString("pinNumber"))) {
+                        finAccountId = giftCard.getString("cardNumber");
+                        finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
+                    } 
+                } else {
+                        finAccount = FinAccountHelper.getFinAccountFromCode(giftCard.getString("cardNumber"), delegator);
+                        if (finAccount == null) {
+                            return ServiceUtil.returnError("Gift certificate not found");
+                        }
+                        finAccountId = finAccount.getString("finAccountId");
+                }
             } else {
-                    finAccount = FinAccountHelper.getFinAccountFromCode(giftCard.getString("cardNumber"), delegator);
-                    if (finAccount == null) {
-                        return ServiceUtil.returnError("Gift certificate not found");
-                    }
-                    finAccountId = finAccount.getString("finAccountId");
+                return ServiceUtil.returnError("No product store financial account settings available");
             }
+            
             if (finAccountId == null) {
                 return ServiceUtil.returnError("Gift certificate pin number is invalid");
             }
@@ -478,7 +483,7 @@ public class GiftCertificateServices {
             BigDecimal amountBd = (new BigDecimal(amount.doubleValue())).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
             // if availableBalance equal to or greater than amount, then auth
-            if (availableBalance.compareTo(amountBd) > -1) {
+            if (UtilValidate.isNotEmpty(availableBalance) && availableBalance.compareTo(amountBd) > -1) {
                 Timestamp thruDate = null;
                 if (giftCertSettings.getLong("authValidDays") != null) {
                     thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), giftCertSettings.getLong("authValidDays"));
