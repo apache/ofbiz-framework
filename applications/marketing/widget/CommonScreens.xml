@@ -91,10 +91,10 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-header">
-                                <label style="boxhead" text="Marketing Manager Main Page"/>
+                                <label style="boxhead" text="${uiLabelMap.MarketingManagerApplication}"/>
                             </container>
                             <container style="screenlet-body">
-                                <container><label style="tabletext" text="Welcome to the Marketing Manager!"/></container>
+                                <container><label style="label" text="${uiLabelMap.MarketingManagerWelcome}"/></container>
                             </container>
                         </container>
                     </decorator-section>

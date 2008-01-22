@@ -48,9 +48,21 @@ under the License.
                                 <if-has-permission permission="MARKETING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleFindSegmentGroup}</label></container>
-                                <container><link text="${uiLabelMap.SegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
-                                <include-form name="FindSegmentGroup" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleFindSegmentGroup}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <container><link text="${uiLabelMap.SegmentGroupCreate}" target="viewSegmentGroup" style="buttontext"/></container>
+                                                <include-form name="FindSegmentGroup" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="head3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
@@ -116,8 +128,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSegmentGroupDecorator">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleEditSegmentGroup}</label></container>
-                        <include-form name="EditSegmentGroup" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditSegmentGroup}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditSegmentGroup" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -152,10 +176,34 @@ under the License.
                                 <if-has-permission permission="MARKETING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleListSegmentGroupClass}</label></container>
-                                <include-form name="listSegmentGroupClass" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
-                                <container><label style="head1">${uiLabelMap.SegmentGroupClassCreate}</label></container>
-                                <include-form name="AddSegmentGroupClass" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleListSegmentGroupClass}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="listSegmentGroupClass" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.SegmentGroupClassCreate}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="AddSegmentGroupClass" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="head3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
@@ -194,10 +242,34 @@ under the License.
                                 <if-has-permission permission="MARKETING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleListSegmentGroupGeo}</label></container>
-                                <include-form name="listSegmentGroupGeo" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
-                                <label style="head1">${uiLabelMap.PageTitleEditSegmentGroupGeo}</label>
-                                <include-form name="AddSegmentGroupGeo" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleListSegmentGroupGeo}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="listSegmentGroupGeo" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleEditSegmentGroupGeo}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="AddSegmentGroupGeo" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="head3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
@@ -236,10 +308,34 @@ under the License.
                                 <if-has-permission permission="MARKETING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleListSegmentGroupRole}</label></container>
-                                <include-form name="listSegmentGroupRole" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
-                                <label style="head1">${uiLabelMap.PageTitleEditSegmentGroupRole}</label>
-                                <include-form name="AddSegmentGroupRole" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleListSegmentGroupRole}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="listSegmentGroupRole" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleEditSegmentGroupRole}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="AddSegmentGroupRole" location="component://marketing/webapp/marketing/segment/SegmentForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="head3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
