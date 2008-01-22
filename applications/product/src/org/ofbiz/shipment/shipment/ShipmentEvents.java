@@ -19,6 +19,7 @@
 package org.ofbiz.shipment.shipment;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +27,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
 
 /**
  * ShippingEvents - Events used for processing shipping fees
@@ -82,6 +86,27 @@ public class ShipmentEvents {
         }
         
         return "success";                                                
+    }
+
+    public static String checkForceShipmentReceived(HttpServletRequest request, HttpServletResponse response) {
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
+
+        String shipmentId = request.getParameter("shipmentIdReceived");
+        String forceShipmentReceived = request.getParameter("forceShipmentReceived");
+        String orderId = request.getParameter("orderId");
+        if (UtilValidate.isNotEmpty(shipmentId) && "Y".equals(forceShipmentReceived)) {
+            try {
+                Map inputMap = UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_RECEIVED");
+                inputMap.put("userLogin", userLogin);
+                dispatcher.runSync("updateShipment", inputMap);
+            } catch (GenericServiceException gse) {
+                String errMsg = "Error updating shipment [" + shipmentId + "]: " + gse.toString();
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                return "error";
+            }
+        }
+        return "success";
     }
 }
 

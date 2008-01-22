@@ -303,6 +303,9 @@ under the License.
             <input type="hidden" name="facilityId" value="${requestParameters.facilityId?if_exists}"/>
             <input type="hidden" name="purchaseOrderId" value="${requestParameters.purchaseOrderId?if_exists}"/>
             <input type="hidden" name="initialSelected" value="Y"/>
+            <#if shipment?has_content>
+            <input type="hidden" name="shipmentIdReceived" value="${shipment.shipmentId}"/>
+            </#if>
             <input type="hidden" name="_useRowSubmit" value="Y"/>
             <#assign now = Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()/>
             <#assign rowCount = 0/>
@@ -317,6 +320,8 @@ under the License.
                     <h3>${uiLabelMap.ProductReceivePurchaseOrder} #${purchaseOrder.orderId}</h3>
                     <#if shipment?has_content>
                     <h3>${uiLabelMap.ProductShipmentId} #${shipment.shipmentId}</h3>
+                    <span class="tableheadtext">Set Shipment As Received</span>&nbsp;
+                    <input type="checkbox" name="forceShipmentReceived" value="Y"/>
                     </#if>
                   </td>
                   <td align="right">
