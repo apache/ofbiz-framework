@@ -2264,7 +2264,7 @@ public class PaymentGatewayServices {
                 return ServiceUtil.returnError("No refund service defined");
             }
         } else {
-            return ServiceUtil.returnError("No payment settings found");
+            return ServiceUtil.returnFailure("No payment settings found");
         }
     }
 
