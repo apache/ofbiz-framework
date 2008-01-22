@@ -556,6 +556,12 @@ under the License.
     <request-map uri="receiveInventoryProduct">
         <security https="true" auth="true"/>
         <event type="service-multi" path="" invoke="receiveInventoryProduct"/>
+        <response name="success" type="request" value="checkForceShipmentReceived"/>
+        <response name="error" type="view" value="ReceiveInventory"/>
+    </request-map>
+    <request-map uri="checkForceShipmentReceived">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.shipment.shipment.ShipmentEvents" invoke="checkForceShipmentReceived"/>
         <response name="success" type="view" value="ReceiveInventory"/>
         <response name="error" type="view" value="ReceiveInventory"/>
     </request-map>
