@@ -26,7 +26,7 @@ context.put("autoLogoutUrl", LoginWorker.makeLoginUrl(request, "autoLogout"));
 
 previousParams = session.getAttribute("_PREVIOUS_PARAMS_");
 if (previousParams != null && previousParams.length() > 0) {
-    previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, UtilMisc.toList("USERNAME"));
+    previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, UtilMisc.toList("USERNAME", "PASSWORD"));
     previousParams = "?" + previousParams;
 } else {
     previousParams = "";
