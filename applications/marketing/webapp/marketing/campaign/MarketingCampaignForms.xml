@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-     <form name="EditMarketingCampaign" type="single" target="updateMarketingCampaign" title="" default-map-name="marketingCampaign">
+     <form name="EditMarketingCampaign" type="single" target="updateMarketingCampaign" title="" default-map-name="marketingCampaign"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </actions>
@@ -65,7 +66,8 @@ under the License.
         <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field>
     </form>
 
-   <form name="ListMarketingCampaign" list-name="" target="" title="" type="list" paginate-target="listMarketingCampaign">
+   <form name="ListMarketingCampaign" list-name="" target="" title="" type="list" paginate-target="listMarketingCampaign"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="MarketingCampaign"/>
         </actions>
@@ -82,7 +84,8 @@ under the License.
         </field>
     </form>
 
-   <form name="ListMarketingCampaignRoles" list-name="" target="" title="" type="list" paginate-target="listMarketingCampaignGeo" >
+   <form name="ListMarketingCampaignRoles" list-name="" target="" title="" type="list" paginate-target="listMarketingCampaignGeo"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
         <entity-and entity-name="MarketingCampaignRole">
             <field-map field-name="marketingCampaignId" env-name="marketingCampaignId" />
@@ -117,7 +120,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditMarketingCampaignRoles" type="single" target="updateMarketingCampaignRole" title="" default-map-name="marketingCampaignRole">
+    <form name="EditMarketingCampaignRoles" type="single" target="updateMarketingCampaignRole" title="" default-map-name="marketingCampaignRole"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="marketingCampaignRole==null" target="createMarketingCampaignRole"/>
         <auto-fields-service service-name="updateMarketingCampaignRole"/>
         
@@ -137,5 +141,4 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}"><hyperlink target="${donePage}?marketingCampaignId=${marketingCampaignId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
-
 </forms>

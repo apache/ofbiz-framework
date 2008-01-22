@@ -68,7 +68,7 @@ under the License.
                                     <widgets>
                                         <include-menu name="ContactListTabBar" location="component://marketing/webapp/marketing/contact/ContactListMenus.xml"/>
                                         <container>
-                                            <label style="head1">Contact List ${contactList.contactListName} [ID:${contactListId}]</label>
+                                            <label style="head1">${uiLabelMap.ContactList} ${contactList.contactListName} [${contactListId}]</label>
                                         </container>
                                     </widgets>
                                 </section>
