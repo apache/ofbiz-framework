@@ -76,13 +76,37 @@ under the License.
                                 <not><if-empty field-name="marketingCampaign"/></not>
                             </condition>
                             <widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleEditMarketingCampaign}</label></container>
-                                <container><link  text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign?DONE_PAGE=${donePage}" style="buttontext"/></container>
-                                <include-form name="EditMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleEditMarketingCampaign}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <container><link  text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                                <include-form name="EditMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head1">${uiLabelMap.PageTitleAddMarketingCampaign}</label>
-                                <include-form name="EditMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleAddMarketingCampaign}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>                                
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -104,9 +128,21 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMarketingCampaignDecorator">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleEditMarketingCampaign}</label></container>
-                        <container><link text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign?DONE_PAGE=${donePage}" style="buttontext"/></container>
-                        <include-form name="ListMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListMarketingCampaign}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container><link text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <include-form name="ListMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -129,10 +165,22 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMarketingCampaignDecorator">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleEditMarketingCampaignRole}</label></container>
-                        <container><link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
-                        <include-form name="EditMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
-                        <container><label style="head2" text="${uiLabelMap.CommonStatusHistory}"/></container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditMarketingCampaignRole}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container><link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <include-form name="EditMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                        <container><label style="head2" text="${uiLabelMap.CommonStatusHistory}"/></container>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -151,9 +199,21 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMarketingCampaignDecorator">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleEditMarketingCampaignRole}</label></container>
-                        <container><link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
-                        <include-form name="ListMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListMarketingCampaignRole}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container><link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <include-form name="ListMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -172,13 +232,24 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMarketingCampaignDecorator">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleFindMarketingCampaignRole}</label></container>
-                        <container><link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRole?marketingCampaignId=${marketingCampaignId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
-                        <include-form name="FindMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindMarketingCampaignRole}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container><link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRole?marketingCampaignId=${marketingCampaignId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <include-form name="FindMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>
-    
+    </screen>    
 </screens>

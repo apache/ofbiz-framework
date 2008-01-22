@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditContactList" type="single" target="updateContactList" title="" default-map-name="contactList">
+    <form name="EditContactList" type="single" target="updateContactList" title="" default-map-name="contactList"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="contactList==null" target="createContactList"/>
         
         <field use-when="contactList!=null" name="contactListId" title="${uiLabelMap.ContactListContactListId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
@@ -79,7 +80,8 @@ under the License.
         <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field> -->
     </form>
 
-    <form name="FindContactLists" target="ListContactLists" title="" type="single">
+    <form name="FindContactLists" target="ListContactLists" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text size="20" maxlength="20"/></field>
         <field name="contactListName" title="${uiLabelMap.ContactListContactListName}"><text-find/></field>
@@ -107,7 +109,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit/></field>
     </form>
 
-    <form name="ListContactLists" target="ListContactLists" title="" type="list" list-name="listIt">
+    <form name="ListContactLists" target="ListContactLists" title="" type="list" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -132,7 +135,8 @@ under the License.
         -->
     </form>
     
-    <form name="EditContactListParty" type="single" target="updateContactListParty" title="" default-map-name="contactListParty">
+    <form name="EditContactListParty" type="single" target="updateContactListParty" title="" default-map-name="contactListParty"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="contactListParty==null" target="createContactListParty"/>
         
         <field name="contactListId"><hidden/></field>
@@ -157,8 +161,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
      </form>
         
-    <form name="FindContactListParties" type="single" target="ListContactListParties" title="">
-        
+    <form name="FindContactListParties" type="single" target="ListContactListParties" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text-find/></field>
         <field name="partyId" title="${uiLabelMap.ContactListPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
@@ -178,7 +182,8 @@ under the License.
         
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListContactListParties" type="list"  title="" list-name="listIt" paginate-target="ListContactListParties">
+    <form name="ListContactListParties" type="list"  title="" list-name="listIt" paginate-target="ListContactListParties"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -201,7 +206,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EditContactListCommEvent" default-map-name="communicationEvent"  target="updateContactListCommEvent" title="" type="single">
+    <form name="EditContactListCommEvent" default-map-name="communicationEvent"  target="updateContactListCommEvent" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="createContactListCommEvent" use-when="communicationEvent==null"/>
         <field name="communicationEventId" use-when="communicationEvent!=null" title="${uiLabelMap.ContactListCommEventId}"><display/></field>
         <field name="communicationEventTypeId" title="${uiLabelMap.ContactListCommEventTypeId}">
@@ -289,7 +295,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/>        </field>
         <field name="cancelLink" title="${uiLabelMap.CommonCancel}" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
-    <form name="FindContactListCommEvents" target="ListContactListCommEvents" title="" type="single">
+    <form name="FindContactListCommEvents" target="ListContactListCommEvents" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text/></field>
         <field name="commEventId" title="${uiLabelMap.ContactListCommEventId}"><lookup target-form-name="LookupCommEvent"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
@@ -303,7 +310,8 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListContactListCommEvents" list-name="listIt" title="" type="list" paginate-target="ListContactListCommEvents">
+    <form name="ListContactListCommEvents" list-name="listIt" title="" type="list" paginate-target="ListContactListCommEvents"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -323,13 +331,14 @@ under the License.
         <field name="contactMechTypeId" title="${uiLabelMap.ContactListContactMechTypeId}"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="custReqestId" position="1"><text size="20"/></field>
+        <field name="custReqestId" position="1"><display/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
-        <field map-name="subjectMap" name="subject" title="${uiLabelMap.PartyCommEventSubject}"><text size="30"/></field>
+        <field map-name="subjectMap" name="subject" title="${uiLabelMap.PartyCommEventSubject}"><display/></field>
     </form>
     
-    <form name="LookupContactList" default-map-name="contactList" target="LookupContactList" title="" type="single">
+    <form name="LookupContactList" default-map-name="contactList" target="LookupContactList" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="contactListId" title="${uiLabelMap.ContactListContactListId}"><text-find/></field>
         <field name="contactListName" title="${uiLabelMap.ContactListContactListName}"><text-find/></field>
         <field name="contactListTypeId" title="${uiLabelMap.ContactListContactListTypeId}">
@@ -356,7 +365,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListLookupContactList" list-name="listIt" target="" title="" type="list">
+    <form name="ListLookupContactList" list-name="listIt" target="" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
@@ -372,7 +382,8 @@ under the License.
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><display-entity description="${campaignName}" entity-name="MarketingCampaign"/></field>
     </form>
     
-    <form name="LookupCommEvent"  target="LookupCommEvent" title="" type="single">
+    <form name="LookupCommEvent"  target="LookupCommEvent" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId" title="${uiLabelMap.ContactListCommEventId}"><text-find/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><lookup target-form-name="LookupPartyName"/></field>
@@ -399,7 +410,8 @@ under the License.
         <field map-name="subjectMap" name="subject" title="${uiLabelMap.PartyCommEventSubject}"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="ListLookupCommEvent" target="" title="" type="list">
+    <form name="ListLookupCommEvent" target="" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
@@ -423,7 +435,8 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
     </form>
-    <form name="ListPreferredContactMech" target="" title="" type="list">
+    <form name="ListPreferredContactMech" target="" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="PartyAndContactMech">
                 <field-map field-name="partyId"/>

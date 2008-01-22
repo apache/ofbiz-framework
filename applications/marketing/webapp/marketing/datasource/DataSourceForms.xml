@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditDataSource" type="single" target="updateDataSource" title="" default-map-name="dataSource">
+    <form name="EditDataSource" type="single" target="updateDataSource" title="" default-map-name="dataSource"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="dataSource==null" target="createDataSource"/>
         
         <field use-when="dataSource!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
@@ -41,7 +42,8 @@ under the License.
         <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field> -->
     </form>
 
-    <form name="ListDataSource" target="ListDataSource" title="" type="list">
+    <form name="ListDataSource" target="ListDataSource" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="DataSource"/>
         </actions>
@@ -55,7 +57,8 @@ under the License.
         </field>
     </form>
     
-    <form name="EditDataSourceType" type="single" target="updateDataSourceType" title="" default-map-name="dataSourceType">
+    <form name="EditDataSourceType" type="single" target="updateDataSourceType" title="" default-map-name="dataSourceType"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="dataSourceType==null" target="createDataSourceType"/>
         
         <field use-when="dataSourceType!=null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
@@ -66,14 +69,15 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
      </form>
         
-    <form name="FindDataSourceTypes" type="single" target="ListDataSourceTypes" title="">
-        
+    <form name="FindDataSourceTypes" type="single" target="ListDataSourceTypes" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><text-find/></field>
         <field name="description" title="${uiLabelMap.DataSourceTypeDescription}"><text-find/></field>
         
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListDataSourceType" type="list" title="" list-name="listIt">
+    <form name="ListDataSourceType" type="list" title="" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -93,7 +97,8 @@ under the License.
         </field>
     </form>
 
-    <form name="LookupDataSource" default-map-name="dataSource" target="LookupDataSource" title="" type="single">
+    <form name="LookupDataSource" default-map-name="dataSource" target="LookupDataSource" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}"><text-find/></field>
         <field name="description" title="${uiLabelMap.DataSourceDataSourceDescription}"><text-find/></field>
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}">
@@ -105,7 +110,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListLookupDataSource" target="" title="" type="list">
+    <form name="ListLookupDataSource" target="" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
@@ -119,12 +125,14 @@ under the License.
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><display-entity entity-name="DataSourceType"/></field>
     </form>
     
-    <form name="LookupDataSourceType" target="LookupDataSourceType" title="" type="single">
+    <form name="LookupDataSourceType" target="LookupDataSourceType" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><text-find/></field>
         <field name="description" title="${uiLabelMap.DataSourceTypeDescription}"><lookup target-form-name="LookupDataSourceType"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="ListLookupDataSourceType" target="" title="" type="list">
+    <form name="ListLookupDataSourceType" target="" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>

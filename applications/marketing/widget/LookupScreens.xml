@@ -40,8 +40,21 @@ under the License.
             <widgets>
                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                 <decorator-section name="body">
-                    <include-form name="LookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
-                    <include-form name="listLookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                    <container style="screenlet">
+                        <container style="screenlet-title-bar">
+                            <container style="head4">
+                                <label text="${uiLabelMap.PageTitleLookupSegmentGroup}"/>
+                            </container>
+                        </container>
+                        <container style="screenlet-body">
+                            <section>
+                                <widgets>
+                                    <include-form name="LookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                                    <include-form name="listLookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                                </widgets>
+                            </section>
+                        </container>
+                    </container>
                 </decorator-section>
               </decorator-screen>
             </widgets>
