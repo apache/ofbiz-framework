@@ -24,11 +24,11 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="contactList==null" target="createContactList"/>
         
-        <field use-when="contactList!=null" name="contactListId" title="${uiLabelMap.ContactListContactListId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="contactList!=null" name="contactListId" title="${uiLabelMap.ContactListContactListId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="contactList==null&amp;&amp;contactListId==null" name="contactListId" title="${uiLabelMap.ContactListContactListId}"><ignored/></field>
-        <field use-when="contactList==null&amp;&amp;contactListId!=null" name="contactListId" title="${uiLabelMap.ContactListContactListId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${contactListId}]" widget-style="tabletext"><display/></field>
+        <field use-when="contactList==null&amp;&amp;contactListId!=null" name="contactListId" title="${uiLabelMap.ContactListContactListId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${contactListId}]"><display/></field>
 
-        <field name="contactListName" widget-style="inputBox" title="${uiLabelMap.ContactListContactListName}"><text/></field>
+        <field name="contactListName" title="${uiLabelMap.ContactListContactListName}"><text/></field>
         <field name="contactListTypeId" title="${uiLabelMap.ContactListContactListTypeId}">
             <drop-down>
                 <entity-options description="${description}" entity-name="ContactListType" key-field-name="contactListTypeId">
@@ -152,7 +152,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="optInVerifyCode" widget-style="inputBox" map-name="parameters" title="${uiLabelMap.ContactListOptInVerifyCode}"><text size="10"/></field>
+        <field name="optInVerifyCode" map-name="parameters" title="${uiLabelMap.ContactListOptInVerifyCode}"><text size="10"/></field>
         
         <field name="preferredContactMechId" title="${uiLabelMap.ContactListPreferredContactMech}">
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyId"/>
@@ -219,7 +219,7 @@ under the License.
         </field>
         
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+        <field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" no-current-selected-key="COM_PENDING">
                  <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
                      <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
@@ -227,7 +227,7 @@ under the License.
                  </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" use-when="communicationEvent!=null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+        <field name="statusId" use-when="communicationEvent!=null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current-description="${uiLabelMap.CommonSelectOne}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${communicationEvent.statusId}"/>

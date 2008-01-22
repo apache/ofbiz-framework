@@ -19,7 +19,8 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
 
-    <menu name="TrackingCodeTabBar" default-menu-item-name="TrackingCode" type="simple" selected-menuitem-context-field-name="trackingCodeTabButtonItem">
+    <menu name="TrackingCodeTabBar" default-menu-item-name="TrackingCode" type="simple" selected-menuitem-context-field-name="trackingCodeTabButtonItem"
+        default-selected-style="selected" menu-container-style="button-bar tab-bar">
         <menu-item name="TrackingCode" title="${uiLabelMap.TrackingCode}">
             <link target="/FindTrackingCode"/>
         </menu-item>

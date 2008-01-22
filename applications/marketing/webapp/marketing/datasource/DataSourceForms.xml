@@ -24,9 +24,9 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="dataSource==null" target="createDataSource"/>
         
-        <field use-when="dataSource!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="dataSource!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="dataSource==null&amp;&amp;dataSourceId==null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}"><text/></field>
-        <field use-when="dataSource==null&amp;&amp;dataSourceId!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${dataSourceId}]" widget-style="tabletext"><display/></field>
+        <field use-when="dataSource==null&amp;&amp;dataSourceId!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${dataSourceId}]"><display/></field>
 
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}">
             <drop-down>
@@ -35,7 +35,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="description" widget-style="inputBox" title="${uiLabelMap.DataSourceDataSourceDescription}"><text/></field>
+        <field name="description" title="${uiLabelMap.DataSourceDataSourceDescription}"><text/></field>
         
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <!-- <field name="DONE_PAGE"><hidden value="${donePage}"/></field> -->
@@ -61,9 +61,9 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="dataSourceType==null" target="createDataSourceType"/>
         
-        <field use-when="dataSourceType!=null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="dataSourceType!=null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="dataSourceType==null&amp;&amp;dataSourceTypeId==null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><text/></field>
-        <field use-when="dataSourceType==null&amp;&amp;dataSourceTypeId!=null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${dataSourceTypeId}]" widget-style="tabletext"><display/></field>
+        <field use-when="dataSourceType==null&amp;&amp;dataSourceTypeId!=null" name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${dataSourceTypeId}]"><display/></field>
         <field name="description" title="${uiLabelMap.DataSourceTypeDescription}"><text/></field>
         
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
