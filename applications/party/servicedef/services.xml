@@ -1003,5 +1003,7 @@ under the License.
             location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyCommunicationEventPermissionCheck">
         <description>Party CommunicationEvents Permission Checking Logic</description>
         <implements service="permissionInterface"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="true"/>
     </service>
 </services>
