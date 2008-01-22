@@ -271,7 +271,7 @@ under the License.
         <attribute name="changeReason" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="cancelOrderItem" engine="java" auth="true"
+    <service name="cancelOrderItem" engine="java" auth="true" transaction-timeout="3000"
             location="org.ofbiz.order.order.OrderServices" invoke="cancelOrderItem">
         <description>Cancel an Order Item Quantity</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
