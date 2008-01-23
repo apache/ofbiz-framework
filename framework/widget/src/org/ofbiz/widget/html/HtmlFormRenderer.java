@@ -269,6 +269,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             buffer.append('"');
         }
 
+        if (!textField.getClientAutocompleteField()) {
+            buffer.append(" autocomplete=\"off\"");
+        }
+
         buffer.append("/>");
         
         this.addAstericks(buffer, context, modelFormField);
@@ -1064,6 +1068,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         
         buffer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
 
+        if (!modelForm.getClientAutocompleteFields()) {
+            buffer.append(" autocomplete=\"off\"");
+        }
+
         buffer.append(" name=\"");
         buffer.append(modelForm.getCurrentFormName(context));
         buffer.append("\">");
@@ -1513,6 +1521,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             buffer.append('"');
         }
 
+        if (!textFindField.getClientAutocompleteField()) {
+            buffer.append(" autocomplete=\"off\"");
+        }
+
         buffer.append("/>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
@@ -1575,6 +1587,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             buffer.append('"');
         }
 
+        if (!rangeFindField.getClientAutocompleteField()) {
+            buffer.append(" autocomplete=\"off\"");
+        }
+
         buffer.append("/>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
@@ -1619,6 +1635,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             buffer.append(" maxlength=\"");
             buffer.append(maxlength.intValue());
             buffer.append('"');
+        }
+
+        if (!rangeFindField.getClientAutocompleteField()) {
+            buffer.append(" autocomplete=\"off\"");
         }
 
         buffer.append("/>");
@@ -1879,6 +1899,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             buffer.append('"');
         }
 
+        if (!lookupField.getClientAutocompleteField()) {
+            buffer.append(" autocomplete=\"off\"");
+        }
+
         buffer.append("/>");
 
         String descriptionFieldName = lookupField.getDescriptionFieldName();
@@ -2118,6 +2142,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             buffer.append('"');
         }
 
+        if (!textField.getClientAutocompleteField()) {
+            buffer.append(" autocomplete=\"off\"");
+        }
+
         buffer.append("/>");
 
         this.makeHyperlinkString(buffer, textField.getSubHyperlink(), context);
@@ -2164,6 +2192,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             buffer.append(" id=\"");
             buffer.append(idName);
             buffer.append('"');
+        }
+
+        if (!passwordField.getClientAutocompleteField()) {
+            buffer.append(" autocomplete=\"off\"");
         }
 
         buffer.append("/>");

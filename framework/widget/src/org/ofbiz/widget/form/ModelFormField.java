@@ -2159,6 +2159,7 @@ public class ModelFormField {
         protected FlexibleStringExpander defaultValue;
         protected SubHyperlink subHyperlink;
         protected boolean disabled;
+        protected boolean clientAutocompleteField;
 
         protected TextField() {
             super();
@@ -2197,6 +2198,8 @@ public class ModelFormField {
             
             this.disabled = "true".equals(element.getAttribute("disabled"));
 
+            this.clientAutocompleteField = !"false".equals(element.getAttribute("client-autocomplete-field"));
+
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
                 this.subHyperlink = new SubHyperlink(subHyperlinkElement);
@@ -2232,6 +2235,13 @@ public class ModelFormField {
             this.disabled = b;   
         }
 
+        public boolean getClientAutocompleteField() {
+            return this.clientAutocompleteField;
+        }
+        
+        public void setClientAutocompleteField(boolean b) {
+            this.clientAutocompleteField = b;   
+        }
 
         /**
          * @return

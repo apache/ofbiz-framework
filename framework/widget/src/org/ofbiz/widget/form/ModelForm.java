@@ -115,6 +115,7 @@ public class ModelForm extends ModelWidget {
     protected boolean skipEnd = false;
     protected boolean hideHeader = false;
     protected boolean overridenListSize = false;
+    protected boolean clientAutocompleteFields = true;
 
     protected List altTargets = new LinkedList();
     protected List autoFieldsServices = new LinkedList();
@@ -259,6 +260,7 @@ public class ModelForm extends ModelWidget {
                 this.defaultMapName = parent.defaultMapName;
                 this.targetWindowExdr = parent.targetWindowExdr;
                 this.hideHeader = parent.hideHeader;
+                this.clientAutocompleteFields = parent.clientAutocompleteFields;
 
                 this.altTargets = parent.altTargets;
                 this.actions = parent.actions;
@@ -404,6 +406,7 @@ public class ModelForm extends ModelWidget {
         this.skipStart = "true".equals(formElement.getAttribute("skip-start"));
         this.skipEnd = "true".equals(formElement.getAttribute("skip-end"));
         this.hideHeader = "true".equals(formElement.getAttribute("hide-header"));
+        this.clientAutocompleteFields = !"false".equals(formElement.getAttribute("client-autocomplete-fields"));
         if (formElement.hasAttribute("separate-columns")) {
             String sepColumns = formElement.getAttribute("separate-columns");
             if (sepColumns != null && sepColumns.equalsIgnoreCase("true"))
@@ -2309,7 +2312,11 @@ public class ModelForm extends ModelWidget {
     public boolean getHideHeader() {
         return this.hideHeader;
     }
-    
+
+    public boolean getClientAutocompleteFields() {
+        return this.clientAutocompleteFields;
+    }
+
     public void setPaginate(boolean val) {
         paginate = val;
     }
