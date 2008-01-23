@@ -194,6 +194,14 @@ under the License.
         <xs:attribute type="xs:string" name="default-table-style">
             <xs:annotation><xs:documentation>The default-table-style specifies the style to use in the table.</xs:documentation></xs:annotation>
         </xs:attribute>
+        <xs:attribute name="client-autocomplete-fields" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <!-- not sure this is such a good idea
         <xs:attribute type="xs:string" name="hidden-values-map-name">
             <xs:annotation><xs:documentation>A map that contains hidden field name/value pairs.
@@ -618,6 +626,14 @@ under the License.
         <xs:attribute type="xs:positiveInteger" name="size" default="25"/>
         <xs:attribute type="xs:positiveInteger" name="maxlength"/>
         <xs:attribute type="xs:string" name="default-value"/>
+        <xs:attribute name="client-autocomplete-field" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="hidden" substitutionGroup="AllFields">
         <xs:complexType>
@@ -694,6 +710,14 @@ under the License.
         <xs:attribute type="xs:string" name="target-parameter">
             <xs:annotation><xs:documentation>The name of a field whose value is passed in as a parameter to the lookup target form. Can be a comma separated list.</xs:documentation></xs:annotation>
         </xs:attribute>
+        <xs:attribute name="client-autocomplete-field" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="password" substitutionGroup="AllFields">
         <xs:complexType>
@@ -707,6 +731,14 @@ under the License.
         <xs:attribute type="xs:positiveInteger" name="size" default="25"/>
         <xs:attribute type="xs:positiveInteger" name="maxlength"/>
         <xs:attribute type="xs:string" name="default-value"/>
+        <xs:attribute name="client-autocomplete-field" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="radio" substitutionGroup="AllFields">
         <xs:complexType>
@@ -733,6 +765,14 @@ under the License.
         <xs:attribute type="xs:positiveInteger" name="size" default="25"/>
         <xs:attribute type="xs:positiveInteger" name="maxlength"/>
         <xs:attribute type="xs:string" name="default-value"/>
+        <xs:attribute name="client-autocomplete-field" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="reset" substitutionGroup="AllFields">
         <xs:complexType/>
@@ -767,6 +807,14 @@ under the License.
         <xs:attribute type="xs:positiveInteger" name="maxlength"/>
         <xs:attribute type="xs:string" name="default-value"/>
         <xs:attribute name="disabled" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="client-autocomplete-field" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -834,6 +882,14 @@ under the License.
                     <xs:enumeration value="contains"/>
                     <xs:enumeration value="empty"/>
                     <xs:enumeration value="notEqual"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="client-autocomplete-field" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
