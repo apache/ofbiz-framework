@@ -17,11 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign selected = tabButtonItem?default("void")>
 
-<div class='tabContainer'>
-    <a href="<@ofbizUrl>BomSimulation</@ofbizUrl>" class="${selectedClassMap.findBom?default(unselectedClassName)}">${uiLabelMap.ManufacturingBomSimulation}</a>
-    <a href="<@ofbizUrl>EditProductBom</@ofbizUrl>" class="${selectedClassMap.EditProductBom?default(unselectedClassName)}">${uiLabelMap.ManufacturingEditProductBom}</a>
-    <a href="<@ofbizUrl>EditProductManufacturingRules</@ofbizUrl>" class="${selectedClassMap.productManufacturingRules?default(unselectedClassName)}">${uiLabelMap.ManufacturingManufacturingRules}</a>
+<div class="button-bar tab-bar">
+    <ul>
+        <li<#if selected == "findBom"> class="selected"</#if>><a href="<@ofbizUrl>BomSimulation</@ofbizUrl>">${uiLabelMap.ManufacturingBomSimulation}</a></li>
+        <li<#if selected == "EditProductBom"> class="selected"</#if>><a href="<@ofbizUrl>EditProductBom</@ofbizUrl>">${uiLabelMap.ManufacturingEditProductBom}</a></li>
+        <li<#if selected == "productManufacturingRules"> class="selected"</#if>><a href="<@ofbizUrl>EditProductManufacturingRules</@ofbizUrl>">${uiLabelMap.ManufacturingManufacturingRules}</a></li>
+    </ul>
+    <br class="clear"/>
 </div>

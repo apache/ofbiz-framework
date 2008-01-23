@@ -18,33 +18,44 @@ under the License.
 -->
 
 <#if requestParameters.lookupFlag?default("N") == "Y">
-
-<#if selectedFeatures?has_content>
-<hr/>
-<h2>${uiLabelMap.ManufacturingSelectedFeatures}</h2>
-<#list selectedFeatures as selectedFeature>
-    <p>${selectedFeature.productFeatureTypeId} = ${selectedFeature.description?if_exists} [${selectedFeature.productFeatureId}]</p>
-</#list>
+    <#if selectedFeatures?has_content>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.ManufacturingSelectedFeatures}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
+  <div class="screenlet-body">
+      <#list selectedFeatures as selectedFeature>
+         <p>${selectedFeature.productFeatureTypeId} = ${selectedFeature.description?if_exists} [${selectedFeature.productFeatureId}]</p>
+       </#list>
+<#else>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.ManufacturingBomSimulation}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
+  <div class="screenlet-body">
 </#if>
-<hr/>
-      <table border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
-        <tr>
-          <th width="10%" align="left">${uiLabelMap.ManufacturingProductLevel}</th>
-          <th width="20%" align="left">${uiLabelMap.ProductProductId}</th>
-          <th width="10%" align="left">&nbsp;</th>
-          <th width="40%" align="left">${uiLabelMap.ProductProductName}</th>
-          <th width="10%" align="right">${uiLabelMap.CommonQuantity}</th>
-          <th width="10%" align="right">&nbsp;</th>
-        </tr>
-        <tr>
-          <td colspan="6"><hr/></td>
+      <table class="basic-table" cellspacing="0">
+        <tr class="header-row">
+          <td width="10%" align="left">${uiLabelMap.ManufacturingProductLevel}</td>
+          <td width="20%" align="left">${uiLabelMap.ProductProductId}</td>
+          <td width="10%" align="left">&nbsp;</td>
+          <td width="40%" align="left">${uiLabelMap.ProductProductName}</td>
+          <td width="10%" align="right">${uiLabelMap.CommonQuantity}</td>
+          <td width="10%" align="right">&nbsp;</td>
         </tr>
         <#if tree?has_content>
-          <#assign rowClass = "viewManyTR2">
+          <#assign alt_row = false>
           <#list tree as node>
-            <tr class="${rowClass}">
+            <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>
-              <table cellspacing="1"><tr>
+              <table cellspacing="1">
+              <tr>
               <td>${node.depth}</td>
               <#list 0..(node.depth) as level>
               <td bgcolor="red">&nbsp;&nbsp;</td>
@@ -55,7 +66,7 @@ under the License.
               <td>${node.product.productId}</td>
               <td>
                 <#if node.product.isVirtual?default("N") == "Y">
-                    Virtual
+                    ${uiLabelMap.ManufacturingProductVirtualVirtual}
                 </#if>
                 ${(node.ruleApplied.ruleId)?if_exists}
               </td>
@@ -64,37 +75,29 @@ under the License.
               <td align="right"><a href="<@ofbizUrl>EditProductBom?productId=${(node.product.productId)?if_exists}&productAssocTypeId=${(node.bomTypeId)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a></td>
             </tr>
             <#-- toggle the row color -->
-            <#if rowClass == "viewManyTR2">
-              <#assign rowClass = "viewManyTR1">
-            <#else>
-              <#assign rowClass = "viewManyTR2">
-            </#if>
+            <#assign alt_row = !alt_row>
           </#list>          
         <#else>
-          <tr>
-            <th colspan="4">${uiLabelMap.CommonNoElementFound}.</th>
-          </tr>        
+            <tr>
+              <td colspan="6">${uiLabelMap.CommonNoElementFound}.</td>
+            </tr>        
         </#if>
       </table>
-<hr/>
-<hr/>
-      <table border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
-        <tr>
-          <th width="18%" align="left">${uiLabelMap.ProductProductId}</th>
-          <th width="50%" align="left">${uiLabelMap.ProductProductName}</th>
-          <th width="8%" align="right">${uiLabelMap.CommonQuantity}</th>
-          <th width="8%" align="right">${uiLabelMap.ProductQoh}</th>
-          <th width="8%" align="right">${uiLabelMap.FormFieldTitle_cost}</th>
-          <th width="8%" align="right">${uiLabelMap.CommonTotalCost}</th>
-        </tr>
-        <tr>
-          <td colspan="6"><hr/></td>
+      <br/>
+      <table class="basic-table" cellspacing="0">
+        <tr class="header-row">
+          <td width="18%" align="left">${uiLabelMap.ProductProductId}</td>
+          <td width="50%" align="left">${uiLabelMap.ProductProductName}</td>
+          <td width="8%" align="right">${uiLabelMap.CommonQuantity}</td>
+          <td width="8%" align="right">${uiLabelMap.ProductQoh}</td>
+          <td width="8%" align="right">${uiLabelMap.FormFieldTitle_cost}</td>
+          <td width="8%" align="right">${uiLabelMap.CommonTotalCost}</td>
         </tr>
         <#if productsData?has_content>
-          <#assign rowClass = "viewManyTR2">
+          <#assign alt_row = false>
           <#list productsData as productData>
             <#assign node = productData.node>
-            <tr class='${rowClass}'>
+            <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td><a href="/catalog/control/EditProduct?productId=${node.product.productId}" class="buttontext">${node.product.productId}</a></td>
               <td>${node.product.internalName?default("&nbsp;")}</td>
               <td align="right">${node.quantity}</td>
@@ -107,23 +110,21 @@ under the License.
               <td align="right">${productData.totalCost?if_exists}</td>
             </tr>
             <#-- toggle the row color -->
-            <#if rowClass == "viewManyTR2">
-              <#assign rowClass = "viewManyTR1">
-            <#else>
-              <#assign rowClass = "viewManyTR2">
-            </#if>
+            <#assign alt_row = !alt_row>
           </#list>
           <#--
           <#if grandTotalCost?exists>
           <tr>
-            <th colspan="6" align="right">${grandTotalCost}</th>
+            <td colspan="6" align="right">${grandTotalCost}</td>
           </tr>
           </#if>
           -->
         <#else>
           <tr>
-            <td colspan="6"><h3>${uiLabelMap.CommonNoElementFound}.</h3></td>
+            <td colspan="6">${uiLabelMap.CommonNoElementFound}.</td>
           </tr>
         </#if>
       </table>
+  </div>
+</div>
 </#if>

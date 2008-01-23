@@ -40,8 +40,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupRouting" location="component://manufacturing/webapp/manufacturing/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupRouting" location="component://manufacturing/webapp/manufacturing/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupRouting}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupRouting" location="component://manufacturing/webapp/manufacturing/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupRouting" location="component://manufacturing/webapp/manufacturing/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -67,8 +80,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupRoutingTask" location="component://manufacturing/webapp/manufacturing/lookup/FieldLookupForms.xml" />
-                        <include-form name="listLookupRoutingTask" location="component://manufacturing/webapp/manufacturing/lookup/FieldLookupForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupRoutingTask}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="lookupRoutingTask" location="component://manufacturing/webapp/manufacturing/lookup/FieldLookupForms.xml" />
+                                        <include-form name="listLookupRoutingTask" location="component://manufacturing/webapp/manufacturing/lookup/FieldLookupForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

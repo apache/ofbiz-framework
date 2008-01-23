@@ -52,7 +52,6 @@ under the License.
     <screen name="EditProductBom">
         <section>
             <actions>
-                <set field="title" value="Edit Product Bill of Materials"/>
                 <set field="titleProperty" value="PageTitleEditProductBom"/>
                 <set field="tabButtonItem" value="EditProductBom"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
@@ -76,7 +75,6 @@ under the License.
     <screen name="EditProductManufacturingRules">
         <section>
             <actions>
-                <set field="title" value="Edit Product Manufacturing rules"/>
                 <set field="titleProperty" value="PageTitleEditProductManufacturingRules"/>
                 <set field="tabButtonItem" value="productManufacturingRules"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
@@ -92,8 +90,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
                     <decorator-section name="body">
-                        <include-form name="UpdateProductManufacturingRule" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
-                        <include-form name="ListProductManufacturingRules" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductManufacturingRules}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="UpdateProductManufacturingRule" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditProductManufacturingRules}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListProductManufacturingRules" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -102,7 +126,6 @@ under the License.
     <screen name="BomSimulation">
         <section>
             <actions>
-                <set field="title" value="Bill Of Materials Simulation"/>
                 <set field="titleProperty" value="ManufacturingBomSimulation"/>
                 <set field="tabButtonItem" value="findBom"/>
                 <set field="headerItem" value="bom"/>
@@ -126,7 +149,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
                     <decorator-section name="body">
-                        <include-form name="RunBomSimulation" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>                        
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ManufacturingBomSimulation}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="RunBomSimulation" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/bom/BomSimulation.ftl"/></html>
                         </platform-specific>
@@ -136,4 +172,3 @@ under the License.
         </section>
     </screen>
 </screens>
-
