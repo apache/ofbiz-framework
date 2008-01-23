@@ -297,7 +297,7 @@ public class MrpServices {
             } else if (orderDeliverySchedule != null && orderDeliverySchedule.get("estimatedReadyDate") != null) {
                 estimatedShipDate = orderDeliverySchedule.getTimestamp("estimatedReadyDate");
             } else {
-                estimatedShipDate = genericResult.getTimestamp("estimatedDeliveryDate");
+                estimatedShipDate = genericResult.getTimestamp("oiEstimatedDeliveryDate");
             }
             if (estimatedShipDate == null) {
                 estimatedShipDate = now;
