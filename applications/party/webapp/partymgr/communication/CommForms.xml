@@ -520,6 +520,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
         <field name="contentId"><display/></field>
+        <field name="contentTypeId"><hidden/></field>
         <field name="dataResourceId"><display/></field>
         <field name="contentName"><text/></field>
         <field name="fromDate"><display/></field>

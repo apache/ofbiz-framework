@@ -433,7 +433,6 @@
             <exclude field-name="contentId"/>
             <exclude field-name="fromDate"/>
             <exclude field-name="contentAssocTypeId"/>
-            <exclude field-name="sequenceNum"/>
         </auto-attributes>
         <auto-attributes entity-name="ContentAssocDataResourceViewTo" include="all" mode="IN" optional="true">
         </auto-attributes>

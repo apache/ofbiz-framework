@@ -309,6 +309,7 @@ public class ContentManagementServices {
                 contentContext.put("userLogin", userLogin);
                 contentContext.put("displayFailCond", bDisplayFailCond);
                 contentContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
+                Debug.logInfo("In persistContentAndAssoc calling updateContent with content: " + contentContext, module);
                 Map thisResult = dispatcher.runSync("updateContent", contentContext);
                 if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult)) {
                     return ServiceUtil.returnError("Error updating content (updateContent) in persistContentAndAssoc", null, null, thisResult);
@@ -734,7 +735,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                   return ServiceUtil.returnError(errorMsg);
               }
           } else {
-              return ServiceUtil.returnError("'byteBuffer' empty when trying to create database image.");
+//              return ServiceUtil.returnError("'byteBuffer' empty when trying to create database image.");
           }
       } else if (dataResourceTypeId.equals("SHORT_TEXT")) {
       } else if (dataResourceTypeId.startsWith("SURVEY")) {
