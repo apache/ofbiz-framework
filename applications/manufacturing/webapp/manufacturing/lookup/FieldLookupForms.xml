@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="lookupRouting" target="LookupRouting" title="" type="single">
+    <form name="lookupRouting" target="LookupRouting" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="lookupRoutingTask" default-field-type="hidden"/>
         <field name="workEffortName"><text-find/></field>
         <field name="workEffortTypeId"><hidden value="ROUTING"/></field>
@@ -30,7 +31,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
     <form name="listLookupRouting" list-name="listIt" title="" type="list"
-        paginate-target="LookupRouting" >
+        paginate-target="LookupRouting" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
@@ -45,7 +46,8 @@ under the License.
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityMinimum}"><display/></field>
     </form>
 
-    <form name="lookupRoutingTask" target="LookupRoutingTask" title="" type="single">
+    <form name="lookupRoutingTask" target="LookupRoutingTask" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="lookupRoutingTask" default-field-type="find"/>
         <field name="workEffortTypeId"><hidden value="ROU_TASK"/></field>
         <field name="fixedAssetId" >
@@ -62,7 +64,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
     <form name="listLookupRoutingTask" list-name="listIt" title="" type="list"
-        paginate-target="LookupRoutingTask" >
+        paginate-target="LookupRoutingTask" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="requestParameters"/>
