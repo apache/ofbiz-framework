@@ -52,7 +52,7 @@ under the License.
           <#if lookupPerson.nickname?has_content>
             <tr><td class="label">${uiLabelMap.PartyNickname}</td><td>${lookupPerson.nickname}</td></tr>
           </#if>
-      	  <#if lookupPerson.gender?has_content>
+            <#if lookupPerson.gender?has_content>
             <tr><td class="label">${uiLabelMap.PartyGender}</td><td>${lookupPerson.gender}</td></tr>
           </#if>
           <#if lookupPerson.birthDate?has_content>

@@ -871,37 +871,37 @@ public class ContactMechWorker {
     }
     
     public static String getPostalAddressPostalCodeGeoId(GenericValue postalAddress, GenericDelegator delegator) throws GenericEntityException {
-    	// if postalCodeGeoId not empty use that
-    	if (UtilValidate.isNotEmpty(postalAddress.getString("postalCodeGeoId"))) {
-    		return postalAddress.getString("postalCodeGeoId");
-    	}
-    	
-    	// no postalCodeGeoId, see if there is a Geo record matching the countryGeoId and postalCode fields
-    	if (UtilValidate.isNotEmpty(postalAddress.getString("countryGeoId")) && UtilValidate.isNotEmpty(postalAddress.getString("postalCode"))) {
-    		// first try the shortcut with the geoId convention for "{countryGeoId}-{postalCode}"
-    		GenericValue geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", postalAddress.getString("countryGeoId") + "-" + postalAddress.getString("postalCode")));
-    		if (geo != null) {
-    			// save the value to the database for quicker future reference
-    			postalAddress.set("postalCodeGeoId", geo.getString("geoId"));
-    			postalAddress.store();
-    			
-    			return geo.getString("geoId");
-    		}
+        // if postalCodeGeoId not empty use that
+        if (UtilValidate.isNotEmpty(postalAddress.getString("postalCodeGeoId"))) {
+            return postalAddress.getString("postalCodeGeoId");
+        }
+        
+        // no postalCodeGeoId, see if there is a Geo record matching the countryGeoId and postalCode fields
+        if (UtilValidate.isNotEmpty(postalAddress.getString("countryGeoId")) && UtilValidate.isNotEmpty(postalAddress.getString("postalCode"))) {
+            // first try the shortcut with the geoId convention for "{countryGeoId}-{postalCode}"
+            GenericValue geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", postalAddress.getString("countryGeoId") + "-" + postalAddress.getString("postalCode")));
+            if (geo != null) {
+                // save the value to the database for quicker future reference
+                postalAddress.set("postalCodeGeoId", geo.getString("geoId"));
+                postalAddress.store();
+                
+                return geo.getString("geoId");
+            }
 
-    		// no shortcut, try the longcut to see if there is something with a geoCode associated to the countryGeoId
-			List geoAssocAndGeoToList = delegator.findByAndCache("GeoAssocAndGeoTo", 
-					UtilMisc.toMap("geoIdFrom", postalAddress.getString("countryGeoId"), "geoCode", postalAddress.getString("postalCode"), "geoAssocTypeId", "REGIONS"));
-			GenericValue geoAssocAndGeoTo = EntityUtil.getFirst(geoAssocAndGeoToList);
-			if (geoAssocAndGeoTo != null) {
-    			// save the value to the database for quicker future reference
-    			postalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
-    			postalAddress.store();
-    			
-				return geoAssocAndGeoTo.getString("geoId");
-			}
-    	}
-    	
-    	// nothing found, return null
-    	return null;
+            // no shortcut, try the longcut to see if there is something with a geoCode associated to the countryGeoId
+            List geoAssocAndGeoToList = delegator.findByAndCache("GeoAssocAndGeoTo", 
+                    UtilMisc.toMap("geoIdFrom", postalAddress.getString("countryGeoId"), "geoCode", postalAddress.getString("postalCode"), "geoAssocTypeId", "REGIONS"));
+            GenericValue geoAssocAndGeoTo = EntityUtil.getFirst(geoAssocAndGeoToList);
+            if (geoAssocAndGeoTo != null) {
+                // save the value to the database for quicker future reference
+                postalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
+                postalAddress.store();
+                
+                return geoAssocAndGeoTo.getString("geoId");
+            }
+        }
+        
+        // nothing found, return null
+        return null;
     }
 }
