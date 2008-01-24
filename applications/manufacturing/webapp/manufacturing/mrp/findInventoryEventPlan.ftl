@@ -24,72 +24,78 @@ function lookupInventory() {
 }
 // -->
 </script>
-
-<form method="post" name="lookupinventory" action="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>">
-<input type="hidden" name="lookupFlag" value="Y"/>
-<input type="hidden" name="hideFields" value="Y"/>
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <tr>
-    <td width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <td class='boxhead'></td>
-          <td align='right'>
-            <p>
-              <#if requestParameters.hideFields?default("N") == "Y">
-                <a href="<@ofbizUrl>FindInventoryEventPlan?hideFields=N${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonShowLookupFields}</a>
-              <#else>
-                <#if inventoryList?exists>
-                    <a href="<@ofbizUrl>FindInventoryEventPlan?hideFields=Y${paramList}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonHideFields}</a>
-                </#if>
-                <a href="javascript:lookupInventory();" class="submenutextright">${uiLabelMap.CommonLookup}</a>                
-              </#if>
-            </p>
-          </td>
-        </tr>
-      </table>
-      <#if requestParameters.hideFields?default("N") != "Y">
-      <table width='100%' border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
-        <tr>
-          <td align='center' width='100%'>
-            <table border='0' cellspacing='0' cellpadding='2'>
-              <tr>
-                <th width='20%' align='right'>${uiLabelMap.ManufacturingProductId}:</th>
-                <td width='5%'>&nbsp;</td>
-                <td>
-                    <input type='text' size='25' name='productId' value='${requestParameters.productId?if_exists}'/>
-                    <span>
-                      <a href="javascript:call_fieldlookup2(document.lookupinventory.productId,'LookupProduct');">
-                        <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
-                      </a> 
-                    </span>
-                    <input type='text' size='25' readonly name='productId_description' value=''/>
-                 </td>
-              </tr>
-              <tr>
-                <th width='20%' align='right'>${uiLabelMap.CommonFromDate}:</th>
-                <td width='5%'>&nbsp;</td>
-                <td>
-                  <input type='text' size='25' name='eventDate' value='${requestParameters.eventDate?if_exists}'/>
-                    <a href="javascript:call_cal(document.lookupinventory.eventDate,'');">
-                       <img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/>
-                     </a>
-                </td>
-              </tr>        
-              <tr>
-                <td width="25%" align="center" valign="top">
-                <td width="5">&nbsp;</td>
-                <td width="75%"> <a href="javascript:lookupInventory();" class="smallSubmit">&nbsp; ${uiLabelMap.CommonLookup} &nbsp;</a></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-      </#if>
-    </td>
-  </tr>
-</table>
-</form>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PageTitleFindInventoryEventPlan}</h3>        
+  </div>
+  <div class="screenlet-body">
+    <form method="post" name="lookupinventory" action="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>">
+    <input type="hidden" name="lookupFlag" value="Y"/>
+    <input type="hidden" name="hideFields" value="Y"/>
+    <table class="basic-table" cellspacing="0">
+      <tr>
+        <td width='100%'>
+          <table class="basic-table" cellspacing="0">
+            <tr>
+              <td></td>
+              <td align='right'>
+                <p>
+                  <#if requestParameters.hideFields?default("N") == "Y">
+                    <a href="<@ofbizUrl>FindInventoryEventPlan?hideFields=N${paramList}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonShowLookupFields}</a>
+                  <#else>
+                    <#if inventoryList?exists>
+                        <a href="<@ofbizUrl>FindInventoryEventPlan?hideFields=Y${paramList}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonHideFields}</a>
+                    </#if>
+                    <a href="javascript:lookupInventory();" class="smallSubmit">${uiLabelMap.CommonLookup}</a>                
+                  </#if>
+                </p>
+              </td>
+            </tr>
+          </table>
+          <#if requestParameters.hideFields?default("N") != "Y">
+          <table class="basic-table" cellspacing="0">
+            <tr>
+              <td align='center' width='100%'>
+                 <table class="basic-table" cellspacing="0">
+                  <tr>
+                    <td width='20%' align='right' class="label">${uiLabelMap.ManufacturingProductId}</td>
+                    <td width='5%'>&nbsp;</td>
+                    <td>
+                        <input type='text' size='25' name='productId' value='${requestParameters.productId?if_exists}'/>
+                        <span>
+                          <a href="javascript:call_fieldlookup2(document.lookupinventory.productId,'LookupProduct');">
+                            <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+                          </a> 
+                        </span>
+                        <input type='text' size='25' readonly name='productId_description' value=''/>
+                     </td>
+                  </tr>
+                  <tr>
+                    <td width='20%' align='right' class="label">${uiLabelMap.CommonFromDate}</td>
+                    <td width='5%'>&nbsp;</td>
+                    <td>
+                      <input type='text' size='25' name='eventDate' value='${requestParameters.eventDate?if_exists}'/>
+                        <a href="javascript:call_cal(document.lookupinventory.eventDate,'');">
+                           <img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/>
+                         </a>
+                    </td>
+                  </tr>        
+                  <tr>
+                    <td width="25%" align="center" valign="top">
+                    <td width="5">&nbsp;</td>
+                    <td width="75%"> <a href="javascript:lookupInventory();" class="smallSubmit">&nbsp; ${uiLabelMap.CommonLookup} &nbsp;</a></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          </#if>
+        </td>
+      </tr>
+    </table>
+    </form>
+  </div>
+</div>
 
 <#if requestParameters.hideFields?default("N") != "Y">
 <script language="JavaScript" type="text/javascript">
@@ -99,14 +105,13 @@ document.lookupinventory.productId.focus();
 </script>
 </#if>
 <#if requestParameters.lookupFlag?default("N") == "Y">
-<br/>
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
+<table class="basic-table" cellspacing="0">
   <tr>
     <td width='100%'>
       <#if inventoryList?exists>
       <#if 0 < inventoryList?size>
        <#assign rowClass = "viewManyTR2">
-         <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
+         <table class="basic-table" cellspacing="0">
           <tr>
            <td width="50%" class="boxhead">${uiLabelMap.CommonElementsFound}</td>
             <td width="50%">
@@ -132,15 +137,15 @@ document.lookupinventory.productId.focus();
         </tr>
       </table>
 
-       <table width='100%' border='0' cellspacing='0' cellpadding='2' class='boxbottom'>
-        <tr>
-          <td align="left"><b>${uiLabelMap.CommonType}</b></td>
-          <td align="center"><b>&nbsp</b></td>
-          <td align="left"><b>${uiLabelMap.CommonDescription}</b></td>
-          <td align="left"><b>${uiLabelMap.CommonDate}</b></td>
-          <td align="center"><b>&nbsp</b></td>
-          <td align="right"><b>${uiLabelMap.CommonQuantity}</b></td>
-          <td align="right"><b>${uiLabelMap.ManufacturingTotalQuantity}</b></td>
+      <table class="basic-table" cellspacing="0">
+        <tr class="header-row">
+          <td align="left">${uiLabelMap.CommonType}</td>
+          <td align="center">&nbsp</td>
+          <td align="left">${uiLabelMap.CommonDescription}</td>
+          <td align="left">${uiLabelMap.CommonDate}</td>
+          <td align="center">&nbsp</td>
+          <td align="right">${uiLabelMap.CommonQuantity}</td>
+          <td align="right">${uiLabelMap.ManufacturingTotalQuantity}</td>
         </tr>
         <tr>
           <td colspan="7"><hr/></td>

@@ -17,13 +17,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign selected = tabButtonItem?default("void")>
 
 <#if routing?exists>
-<div class='tabContainer'>
-    <a href="<@ofbizUrl>EditRouting?workEffortId=${routing.workEffortId}</@ofbizUrl>" class="${selectedClassMap.editRouting?default(unselectedClassName)}">${uiLabelMap.ManufacturingEditRouting}</a>
-    <a href="<@ofbizUrl>EditRoutingTaskAssoc?workEffortId=${routing.workEffortId}</@ofbizUrl>" class="${selectedClassMap.routingTaskAssoc?default(unselectedClassName)}">${uiLabelMap.ManufacturingEditRoutingTaskAssoc}</a>
-    <a href="<@ofbizUrl>EditRoutingProductLink?workEffortId=${routing.workEffortId}</@ofbizUrl>" class="${selectedClassMap.routingProductLink?default(unselectedClassName)}">${uiLabelMap.ManufacturingEditRoutingProductLink}</a>
+<div class="button-bar tab-bar">
+    <ul>
+        <li<#if selected == "editRouting"> class="selected"</#if>><a href="<@ofbizUrl>EditRouting?workEffortId=${routing.workEffortId}</@ofbizUrl>">${uiLabelMap.ManufacturingEditRouting}</a></li>
+        <li<#if selected == "routingTaskAssoc"> class="selected"</#if>><a href="<@ofbizUrl>EditRoutingTaskAssoc?workEffortId=${routing.workEffortId}</@ofbizUrl>">${uiLabelMap.ManufacturingEditRoutingTaskAssoc}</a></li>
+        <li<#if selected == "routingProductLink"> class="selected"</#if>><a href="<@ofbizUrl>EditRoutingProductLink?workEffortId=${routing.workEffortId}</@ofbizUrl>">${uiLabelMap.ManufacturingEditRoutingProductLink}</a></li>
+    </ul>
+    <br class="clear"/>
 </div>
 </#if>

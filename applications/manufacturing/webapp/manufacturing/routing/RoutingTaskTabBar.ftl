@@ -17,15 +17,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign selected = tabButtonItem?default("void")>
 
 <#if routingTask?exists>
-<div class='tabContainer'>
-    <a href="<@ofbizUrl>EditRoutingTask?workEffortId=${routingTask.workEffortId}</@ofbizUrl>" class="${selectedClassMap.editRoutingTask?default(unselectedClassName)}">${uiLabelMap.ManufacturingEditRoutingTask}</a>
-    <a href="<@ofbizUrl>EditRoutingTaskCosts?workEffortId=${routingTask.workEffortId}</@ofbizUrl>" class="${selectedClassMap.editRoutingTaskCosts?default(unselectedClassName)}">${uiLabelMap.ManufacturingRoutingTaskCosts}</a>
-    <a href="<@ofbizUrl>ListRoutingTaskRoutings?workEffortId=${routingTask.workEffortId}</@ofbizUrl>" class="${selectedClassMap.listRoutingTaskRoutings?default(unselectedClassName)}">${uiLabelMap.ManufacturingListRoutings}</a>
-    <a href="<@ofbizUrl>ListRoutingTaskProducts?workEffortId=${routingTask.workEffortId}</@ofbizUrl>" class="${selectedClassMap.listRoutingTaskProducts?default(unselectedClassName)}">${uiLabelMap.ManufacturingListProducts}</a>
-    <a href="<@ofbizUrl>EditRoutingTaskFixedAssets?workEffortId=${routingTask.workEffortId}</@ofbizUrl>" class="${selectedClassMap.editRoutingTaskFixedAssets?default(unselectedClassName)}">${uiLabelMap.ManufacturingRoutingTaskFixedAssets}</a>
+<div class="button-bar tab-bar">
+    <ul>
+        <li<#if selected == "editRoutingTask"> class="selected"</#if>><a href="<@ofbizUrl>EditRoutingTask?workEffortId=${routingTask.workEffortId}</@ofbizUrl>">${uiLabelMap.ManufacturingEditRoutingTask}</a></li>
+        <li<#if selected == "editRoutingTaskCosts"> class="selected"</#if>><a href="<@ofbizUrl>EditRoutingTaskCosts?workEffortId=${routingTask.workEffortId}</@ofbizUrl>">${uiLabelMap.ManufacturingListRoutings}</a></li>
+        <li<#if selected == "listRoutingTaskProducts"> class="selected"</#if>><a href="<@ofbizUrl>ListRoutingTaskProducts?workEffortId=${routingTask.workEffortId}</@ofbizUrl>">${uiLabelMap.ManufacturingListProducts}</a></li>
+        <li<#if selected == "editRoutingTaskFixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>EditRoutingTaskFixedAssets?workEffortId=${routingTask.workEffortId}</@ofbizUrl>">${uiLabelMap.ManufacturingRoutingTaskFixedAssets}</a></li>
+    </ul>
+    <br class="clear"/>
 </div>
 </#if>

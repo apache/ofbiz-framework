@@ -23,7 +23,6 @@ under the License.
     <screen name="EditCostCalcs">
         <section>
             <actions>
-                <set field="title" value="Edit cost component calc information"/>
                 <set field="titleProperty" value="PageTitleEditCostCalcs"/>
                 <set field="headerItem" value="costs"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -39,18 +38,37 @@ under the License.
                         <container>
                             <label style="head1">${uiLabelMap.ManufacturingManageCostComponentCalc}</label>
                         </container>
-                        <container>
-                            <label style="head2">${uiLabelMap.ManufacturingListCostComponentCalc}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ManufacturingListCostComponentCalc}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
-                        <container>
-                            <label style="head2">${uiLabelMap.ManufacturingEditCostComponentCalc}</label>
-                        </container>
-                        <include-form name="EditCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ManufacturingEditCostComponentCalc}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 </screens>
-

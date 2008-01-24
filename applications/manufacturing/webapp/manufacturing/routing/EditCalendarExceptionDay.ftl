@@ -17,20 +17,33 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>${uiLabelMap.ManufacturingEditCalendarExceptionDayFor}&nbsp; 
-        <#if (techDataCalendar.description)?has_content>"${(techDataCalendar.get("description",locale))}"</#if> 
-        [${uiLabelMap.CommonId}:${techDataCalendar.calendarId?if_exists}]
-</h1>
-<br/>
 <#if techDataCalendar?has_content>
-${listCalendarExceptionDayWrapper.renderFormString(context)}
-<br/>
-<hr/>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.ManufacturingEditCalendarExceptionDayFor}&nbsp; 
+    <#if (techDataCalendar.description)?has_content>"${(techDataCalendar.get("description",locale))}"</#if> 
+    [${uiLabelMap.CommonId} ${techDataCalendar.calendarId?if_exists}]</h3>        
+  </div>
+  <div class="screenlet-body">
+    ${listCalendarExceptionDayWrapper.renderFormString(context)}
+  </div>
+</div>
 <#if calendarExceptionDay?has_content>
-${updateCalendarExceptionDayWrapper.renderFormString(context)}
-<br/>
-<hr/>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PageTitleEditCalendarExceptionWeek}</h3>        
+  </div>
+  <div class="screenlet-body">
+    ${updateCalendarExceptionDayWrapper.renderFormString(context)}
+  </div>
+</div>
 </#if>
-${addCalendarExceptionDayWrapper.renderFormString(context)}
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PageTitleAddCalendarExceptionWeek}</h3>        
+  </div>
+  <div class="screenlet-body">
+    ${addCalendarExceptionDayWrapper.renderFormString(context)}
+  </div>
+</div>
 </#if>
-<br/>

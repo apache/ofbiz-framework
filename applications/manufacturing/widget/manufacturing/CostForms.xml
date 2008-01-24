@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListCostComponentCalc" type="list" title="" list-name="allCostComponentCalcs">
+    <form name="ListCostComponentCalc" type="list" title="" list-name="allCostComponentCalcs"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
         <field name="costComponentCalcId" widget-style="buttontext">
             <hyperlink target="EditCostCalcs?costComponentCalcId=${costComponentCalcId}" description="${costComponentCalcId}" also-hidden="false"/>
@@ -37,7 +38,8 @@ under the License.
             <hyperlink target="removeCostComponentCalc?costComponentCalcId=${costComponentCalcId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditCostComponentCalc" type="single" target="updateCostComponentCalc" title="" default-map-name="costComponentCalc">
+    <form name="EditCostComponentCalc" type="single" target="updateCostComponentCalc" title="" default-map-name="costComponentCalc"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="costComponentCalc==null" target="createCostComponentCalc"/>
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="edit"/>
         <field name="costComponentCalcId"><display/></field>

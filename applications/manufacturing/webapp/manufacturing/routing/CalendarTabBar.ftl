@@ -17,17 +17,23 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign selected = tabButtonItem?default("void")>
 
-<div class='tabContainer'>
-    <a href="<@ofbizUrl>FindCalendar</@ofbizUrl>" class="${selectedClassMap.Calendar?default(unselectedClassName)}">${uiLabelMap.ManufacturingCalendars}</a>
-    <a href="<@ofbizUrl>ListCalendarWeek</@ofbizUrl>" class="${selectedClassMap.CalendarWeek?default(unselectedClassName)}">${uiLabelMap.ManufacturingCalendarWeeks}</a>
+<div class="button-bar tab-bar">
+    <ul>
+        <li<#if selected == "Calendar"> class="selected"</#if>><a href="<@ofbizUrl>FindCalendar</@ofbizUrl>">${uiLabelMap.ManufacturingCalendars}</a></li>
+        <li<#if selected == "CalendarWeek"> class="selected"</#if>><a href="<@ofbizUrl>ListCalendarWeek</@ofbizUrl>">${uiLabelMap.ManufacturingCalendarWeeks}</a></li>
+    </ul>
+    <br class="clear"/>
 </div>
 <#if techDataCalendar?has_content>
-    <div class='tabContainer'>
-        <a href="<@ofbizUrl>EditCalendar?calendarId=${techDataCalendar.calendarId}</@ofbizUrl>" class="${selectedClassMap.calendar?default(unselectedClassName)}">${uiLabelMap.CommonEdit}</a>
-        <a href="<@ofbizUrl>EditCalendarExceptionDay?calendarId=${techDataCalendar.calendarId}</@ofbizUrl>" class="${selectedClassMap.calendarExceptionDay?default(unselectedClassName)}">${uiLabelMap.ManufacturingCalendarExceptionDate}</a>
-        <a href="<@ofbizUrl>EditCalendarExceptionWeek?calendarId=${techDataCalendar.calendarId}</@ofbizUrl>" class="${selectedClassMap.calendarExceptionWeek?default(unselectedClassName)}">${uiLabelMap.ManufacturingCalendarExceptionWeek}</a>
+    <br/>
+    <div class="button-bar tab-bar">
+        <ul>
+            <li<#if selected == "calendar"> class="selected"</#if>><a href="<@ofbizUrl>EditCalendar?calendarId=${techDataCalendar.calendarId}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a></li>
+            <li<#if selected == "calendarExceptionDay"> class="selected"</#if>><a href="<@ofbizUrl>EditCalendarExceptionDay?calendarId=${techDataCalendar.calendarId}</@ofbizUrl>">${uiLabelMap.ManufacturingCalendarExceptionDate}</a></li>
+            <li<#if selected == "calendarExceptionWeek"> class="selected"</#if>><a href="<@ofbizUrl>EditCalendarExceptionWeek?calendarId=${techDataCalendar.calendarId}</@ofbizUrl>">${uiLabelMap.ManufacturingCalendarExceptionWeek}</a></li>
+        </ul>
+        <br class="clear"/>
     </div>
 </#if>
