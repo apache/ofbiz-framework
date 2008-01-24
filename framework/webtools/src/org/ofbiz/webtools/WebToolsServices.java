@@ -762,7 +762,9 @@ public class WebToolsServices {
                         entityMap.put("plainTableName", entity.getPlainTableName());
                         entityMap.put("title", entity.getTitle());
                         entityMap.put("description", entity.getDescription());
-                        entityMap.put("location", entity.getLocation());
+                        String entityLocation = entity.getLocation();
+                        entityLocation = entityLocation.replaceFirst(System.getProperty("ofbiz.home") + "/", "");
+                        entityMap.put("location", entityLocation);
                         entityMap.put("javaNameList", javaNameList);
                         entityMap.put("relationsList", relationsList);
                         entityMap.put("indexList", indexList);
