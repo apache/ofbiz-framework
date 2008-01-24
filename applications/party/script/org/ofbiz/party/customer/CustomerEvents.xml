@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -248,7 +248,7 @@ under the License.
         <set field="partyDataSource.isCreate" value="Y" />
         <!-- get the visit from the session to get the visitId -->
         <session-to-field field-name="visit"/>
-	<set from-field="visit.visitId" field="partyDataSource.visitId"/>
+    <set from-field="visit.visitId" field="partyDataSource.visitId"/>
 
 
         <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->

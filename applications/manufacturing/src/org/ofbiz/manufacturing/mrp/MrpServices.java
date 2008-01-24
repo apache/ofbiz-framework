@@ -619,7 +619,7 @@ public class MrpServices {
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateMrpEvent");
                         }
-			// days to ship is only relevant for sales order to plan for preparatory days to ship.  Otherwise MRP will push event dates for manufacturing parts
+            // days to ship is only relevant for sales order to plan for preparatory days to ship.  Otherwise MRP will push event dates for manufacturing parts
                         // as well and cause problems
                         daysToShip = 0;
                         if (productFacility != null) {

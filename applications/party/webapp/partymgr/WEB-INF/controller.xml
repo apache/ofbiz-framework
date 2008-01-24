@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -705,21 +705,21 @@ under the License.
         <response name="error" type="view" value="AddCommContent"/>
         <response name="success" type="view" value="EditCommContent"/>
     </request-map>
-	
+    
     <request-map uri="updateCommContentDataResource">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateCommContentDataResource"/>
         <response name="success" type="view" value="EditCommContent"/>
         <response name="error" type="view" value="EditCommContent"/>
     </request-map>
-	
+    
     <request-map uri="uploadCommEventContent">
         <security https="true" auth="true"/>
         <event type="service" invoke="persistContentAndAssoc"/>
         <response name="success" type="view" value="EditCommContent"/>
         <response name="error" type="view" value="EditCommContent"/>
     </request-map>
-	
+    
     <request-map uri="UpdateCommPurposes"><security https="true" auth="true"/><response name="success" type="view" value="UpdateCommPurposes"/></request-map>
     <request-map uri="createCommunicationEventPurpose">
         <security https="true" auth="true"/>
@@ -1042,7 +1042,7 @@ under the License.
     <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
 
     <view-map name="LookupSegmentGroup" type="screen" page="component://marketing/widget/LookupScreens.xml#LookupSegmentGroup"/>
-	
+    
     <view-map name="ViewSimpleContent" page="" type="simplecontent"/>
 
     <view-map name="AddressMatchMap" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#AddressMatchMap"/>

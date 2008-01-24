@@ -127,7 +127,7 @@ public class BOMNode {
                     break;
                     case BOMTree.EXPLOSION_MANUFACTURING:
                         // for manfacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item 
-		        if (!oneChildNode.isWarehouseManaged()) {
+                if (!oneChildNode.isWarehouseManaged()) {
                             oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, type);
                         }
                     break;
@@ -629,7 +629,7 @@ public class BOMNode {
         } catch(GenericEntityException gee) {
             Debug.logError("Problem in BOMNode.isWarehouseManaged()", module);
         }
-	return isWarehouseManaged;
+    return isWarehouseManaged;
     }
 
     /**

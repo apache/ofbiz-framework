@@ -25,41 +25,41 @@ Event.observe(window, 'load', function() {
   progressBar = new Control.ProgressBar('progress_bar');
 });
 function uploadPartyContent(event){
-	var targetFrame = $('target_upload');
-	if(!targetFrame){
+    var targetFrame = $('target_upload');
+    if(!targetFrame){
         $('partyContent').insert("<iframe id='target_upload' name='target_upload' style='display: none' src=''> </iframe>");
-	}
+    }
     $('uploadPartyContent').target="target_upload";
     Event.observe('target_upload', 'load', uploadCompleted);
     var errordiv = $('content-messages');
-	if(errordiv){
+    if(errordiv){
         $('content-messages').remove();
-	}
+    }
 }
 
 function uploadCompleted(event){
-	var doc = getIframeDocument($('target_upload'));
-	var errordiv = doc.getElementById('content-messages');
-	//console.log(errordiv);
-	if(errordiv){
+    var doc = getIframeDocument($('target_upload'));
+    var errordiv = doc.getElementById('content-messages');
+    //console.log(errordiv);
+    if(errordiv){
         $('partyContent').insert(errordiv);
-	}
-	var partyContentListDiv = doc.getElementById('partyContentList');
-	//console.log(partyContentListDiv);
-	if(partyContentListDiv){
+    }
+    var partyContentListDiv = doc.getElementById('partyContentList');
+    //console.log(partyContentListDiv);
+    if(partyContentListDiv){
         $('partyContentList').update(partyContentListDiv.innerHTML);
-	}
-	if($('progressBarSavingMsg')){
+    }
+    if($('progressBarSavingMsg')){
         $('progressBarSavingMsg').remove();
-	}
-	progressBar.reset();
+    }
+    progressBar.reset();
 } 
 
 function getUploadProgressStatus(event){
-	var i=0;
-	new PeriodicalExecuter(function(event){
-		new Ajax.Request('/partymgr/control/getFileUploadProgressStatus', {
-			onSuccess: function(transport){
+    var i=0;
+    new PeriodicalExecuter(function(event){
+        new Ajax.Request('/partymgr/control/getFileUploadProgressStatus', {
+            onSuccess: function(transport){
                 var data = transport.responseText.evalJSON(true);
                 if (data._ERROR_MESSAGE_LIST_ != undefined) {
                    //console.log(data._ERROR_MESSAGE_LIST_);
@@ -68,16 +68,16 @@ function getUploadProgressStatus(event){
                    //console.log(data._ERROR_MESSAGE_);
                    //alert(data._ERROR_MESSAGE_);
                 }else {
-    	           //console.log(data.readPercent);
-    	           var readPercent = data.readPercent;
-    	           progressBar.setProgress(readPercent);
-    	           if(readPercent > 99){
-    	           	   $('uploadPartyContent').insert("<span id='progressBarSavingMsg' class='label'>Saving..</span>");
+                   //console.log(data.readPercent);
+                   var readPercent = data.readPercent;
+                   progressBar.setProgress(readPercent);
+                   if(readPercent > 99){
+                          $('uploadPartyContent').insert("<span id='progressBarSavingMsg' class='label'>Saving..</span>");
                        event.stop();
-    	           }
-    	           
+                   }
+                   
                 }
-			}});
+            }});
         },1);
 }
 
