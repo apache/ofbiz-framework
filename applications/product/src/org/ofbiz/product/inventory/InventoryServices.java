@@ -1004,4 +1004,37 @@ public class InventoryServices {
         return result;
     }
 
+    public static Map checkInventoryAlreadyReserved(DispatchContext dctx, Map context) {
+        GenericDelegator delegator = dctx.getDelegator();
+
+        String orderId = (String) context.get("orderId");
+        String orderItemSeqId = (String) context.get("orderItemSeqId");
+        double reserving = (Double) context.get("quantity");
+        try {
+            // count quantity ordered
+            double ordered = 0.0;
+            GenericValue item = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+            if (item == null) return ServiceUtil.returnError("Order Item for order ["+orderId+"] with sequence Id ["+orderItemSeqId+"] not found.");
+            ordered = item.getDouble("quantity"); 
+            ordered -= (item.get("cancelQuantity") == null ? 0 : item.getDouble("cancelQuantity"));
+
+            // count up the quantity already reserved for this item  (note that canceling a reservation deletes it, thus this data represents what's actually reserved)
+            double reserved = 0.0;
+            List<GenericValue> reservations = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+            for (GenericValue reservation : reservations) {
+                if (reservation.get("quantity") == null) continue; // paranoia
+                reserved += reservation.getDouble("quantity");
+            }
+
+            // make sure we're not over reserving the item
+            if (reserving > (ordered - reserved)) {
+                return ServiceUtil.returnError("Cannot reserve " + reserving + " of Product ["+item.get("productId")+"].  There are already " +
+                        reserved + " reserved out of " + ordered + " ordered for order ["+orderId+"] line item ["+orderItemSeqId+"].");
+            }
+
+            return ServiceUtil.returnSuccess();
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Inventory Item/Transfer lookup problem [" + e.getMessage() + "]");
+        }
+    }
 }
