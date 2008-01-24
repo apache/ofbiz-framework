@@ -23,7 +23,6 @@ under the License.
     <screen name="ManufacturingReports">
         <section>
             <actions>
-                <set field="title" value="Manufacturing Reports"/>
                 <set field="titleProperty" value="ManufacturingReports"/>
                 <set field="headerItem" value="ManufacturingReports"/>
                 
@@ -32,15 +31,23 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1" text="${uiLabelMap.ManufacturingReports}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ManufacturingReports}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="SelectMrpName" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                                        <platform-specific>
+                                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/MrpReports.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <container>
-                            <include-form name="SelectMrpName" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
-                        </container>
-                        <platform-specific>
-                            <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/MrpReports.ftl"/></html>
-                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

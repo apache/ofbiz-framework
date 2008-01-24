@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="RunMrp" type="single" target="runMrpGo" title="">
+    <form name="RunMrp" type="single" target="runMrpGo" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="mrpName" title="${uiLabelMap.ManufacturingMrpName}"><text size="20"/></field>
         <field name="facilityGroupId" title="${uiLabelMap.ProductFacilityGroup}">
             <drop-down allow-empty="true">
@@ -39,7 +40,8 @@ under the License.
         </field>
     </form>
     
-    <form name="ListRunningMrpJobs" list-name="mrpActiveJobs" title="" type="list">
+    <form name="ListRunningMrpJobs" list-name="mrpActiveJobs" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
         <field name="statusId">
             <display-entity entity-name="StatusItem" description="${description}"></display-entity>
@@ -57,7 +59,8 @@ under the License.
         <field name="finishDateTime"><hidden/></field>
         <field name="cancelDateTime"><hidden/></field>
     </form>
-    <form name="ListFinishedMrpJobs" list-name="lastFinishedJobs" title="" type="list">
+    <form name="ListFinishedMrpJobs" list-name="lastFinishedJobs" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
         <field name="statusId">
             <display-entity entity-name="StatusItem" description="${description}"></display-entity>
@@ -72,5 +75,4 @@ under the License.
         <field name="recurrenceInfoId"><hidden/></field>
         <field name="serviceName"><hidden/></field>
     </form>
-
 </forms>

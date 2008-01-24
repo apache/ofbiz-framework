@@ -20,7 +20,7 @@ under the License.
 <#-- Mandatory work efforts -->
 <#if mandatoryWorkEfforts?has_content>
     <p>
-    ${uiLabelMap.ManufacturingMandatoryProductionRuns}:
+    ${uiLabelMap.ManufacturingMandatoryProductionRuns}
     <#list mandatoryWorkEfforts as mandatoryWorkEffortAssoc>
         <#assign mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort")>
         <#if "PRUN_COMPLETED" == mandatoryWorkEffort.getString("currentStatusId") || "PRUN_CLOSED" == mandatoryWorkEffort.getString("currentStatusId")>
@@ -38,7 +38,7 @@ under the License.
 <#-- Dependent work efforts -->
 <#if dependentWorkEfforts?has_content>
     <p>
-    ${uiLabelMap.ManufacturingDependentProductionRuns}: 
+    ${uiLabelMap.ManufacturingDependentProductionRuns}
     <#list dependentWorkEfforts as dependentWorkEffortAssoc>
         <#assign dependentWorkEffort = dependentWorkEffortAssoc.getRelatedOne("ToWorkEffort")>
         <#if "PRUN_COMPLETED" == dependentWorkEffort.currentStatusId || "PRUN_CLOSED" == dependentWorkEffort.currentStatusId>

@@ -18,7 +18,7 @@ under the License.
 -->
 
     <#if routingTaskId?has_content || actionForm=="AddRoutingTask">
-        <table border="0" cellspacing="0" cellpadding="0" class="boxoutside">
+        <table class="basic-table" cellspacing="0">
             <tr>
                 <td>
                     ${editPrRoutingTaskWrapper.renderFormString(context)}
@@ -32,6 +32,4 @@ under the License.
             </tr>
         </table>
     </#if>
-<br/>
-
-    
+    <br/>

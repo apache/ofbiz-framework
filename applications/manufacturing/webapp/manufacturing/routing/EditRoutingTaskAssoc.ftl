@@ -36,7 +36,7 @@ function addRoutingTask() {
     <input type="hidden" name="workEffortIdFrom" value="${workEffortId}"/>
     <input type="hidden" name="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
     <input type="hidden" name="copyTask" value="N"/>
-    <table cellpadding="2" cellspacing="0" border="0" class="boxoutside">
+    <table class="basic-table" cellspacing="0">
         <tr>
             <th align="right">
                 ${uiLabelMap.ManufacturingRoutingTaskId}
@@ -82,5 +82,4 @@ function addRoutingTask() {
         </tr>
     </table>
 </form>
-<br/>
 </#if>

@@ -52,7 +52,6 @@ under the License.
     <screen name="MrpExecution">
         <section>
             <actions>
-                <set field="title" value="Run MRP"/>
                 <set field="titleProperty" value="ManufacturingRunMrp"/>
                 <set field="tabButtonItem" value="RunMrp"/>
                 <set field="headerItem" value="mrp"/>
@@ -60,11 +59,19 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMrpDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1" text="${uiLabelMap.ManufacturingRunMrp}"/>
-                        </container>
-                        <container>
-                            <include-form name="RunMrp" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ManufacturingRunMrp}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="RunMrp" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -74,7 +81,6 @@ under the License.
     <screen name="FindMrpPlannedEvents">
         <section>
             <actions>
-                <set field="title" value="MRP Planned Events"/>
                 <set field="titleProperty" value="PageTitleFindInventoryEventPlan"/>
                 <set field="tabButtonItem" value="findInventoryEventPlan"/>
                 <set field="headerItem" value="mrp"/>
@@ -117,10 +123,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMrpDecorator">
                     <decorator-section name="body">
-                        <label style="head2">${uiLabelMap.ManufacturingMrpJobLastExecuted}</label>
-                        <include-form name="ListFinishedMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
-                        <label style="head2">${uiLabelMap.ManufacturingMrpJobScheduledOrRunning}</label>
-                        <include-form name="ListRunningMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ManufacturingMrpJobLastExecuted}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListFinishedMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ManufacturingMrpJobScheduledOrRunning}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListRunningMrpJobs" location="component://manufacturing/webapp/manufacturing/mrp/MrpForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                         <section>
                             <condition>
                                 <if-empty field-name="mrpRunningJobs"/>
@@ -140,4 +170,3 @@ under the License.
         </section>
     </screen>
 </screens>
-

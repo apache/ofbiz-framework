@@ -17,11 +17,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<br/>
 <#list taskCosts as taskCost>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
     <#assign task = taskCost.task>
     <#assign costsForm = taskCost.costsForm>
-    <h2>${task.workEffortName?if_exists} [${task.workEffortId}]</h2>
+    <h3>${uiLabelMap.ManufacturingActualCosts} ${task.workEffortName?if_exists} [${task.workEffortId}]</h3>
     ${costsForm.renderFormString(context)}
-    <br/>
+  </div>
+  <div class="screenlet-body">
+</div>
 </#list>

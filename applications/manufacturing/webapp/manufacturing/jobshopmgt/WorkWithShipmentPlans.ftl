@@ -18,33 +18,43 @@ under the License.
 -->
 
 <#if shipment?exists>
-  <h1>${uiLabelMap.ManufacturingWorkWithShipmentPlans}: ${shipment.shipmentId}</h1>
-  ${listShipmentPlanForm.renderFormString(context)}
-  <#if workInProgress>
-    <br/>
-    <div><a href="<@ofbizUrl>ShipmentWorkEffortTasks.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingTasksReport}</a></div>
-    <div><a href="<@ofbizUrl>CuttingListReport.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_report" class="buttontext">${uiLabelMap.ManufacturingCuttingListReport}</a></div>
-  <#else>
-    <div><a href="<@ofbizUrl>createProductionRunsForShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingCreateProductionRun}</a></div>
-    <br/>
-    <div><a href="<@ofbizUrl>ShipmentPlanStockReport.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_report" class="buttontext">${uiLabelMap.ManufacturingShipmentPlanStockReport}</a></div>
-  </#if>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.ManufacturingWorkWithShipmentPlans} ${shipment.shipmentId}</h3>        
+  </div>
+  <div class="screenlet-body">    
+    ${listShipmentPlanForm.renderFormString(context)}
+    <#if workInProgress>
+        <br/>
+        <div><a href="<@ofbizUrl>ShipmentWorkEffortTasks.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingTasksReport}</a></div>
+        <div><a href="<@ofbizUrl>CuttingListReport.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_report" class="buttontext">${uiLabelMap.ManufacturingCuttingListReport}</a></div>
+    <#else>
+        <div><a href="<@ofbizUrl>createProductionRunsForShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingCreateProductionRun}</a></div>
+        <br/>
+        <div><a href="<@ofbizUrl>ShipmentPlanStockReport.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_report" class="buttontext">${uiLabelMap.ManufacturingShipmentPlanStockReport}</a></div>
+    </#if>
 
-  <div><a href="<@ofbizUrl>ShipmentLabel.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPackageLabelsReport}</a></div>
-  <#-- new reports -->
-  <#--
-  <div><a href="<@ofbizUrl>SPPRunsProductsByFeature.pdf?shipmentId=${shipmentId}&taskNamePar=O-LAV_01b&productFeatureTypeIdPar=Strutt&productCategoryIdPar=</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingSPPRunsProductsByFeature}</a></div>
-  <div><a href="<@ofbizUrl>SPPRunsComponentsByFeature.pdf?showLocation=Y&shipmentId=${shipmentId}&taskNamePar=O-PREL_L&productFeatureTypeIdPar=Strutt&productCategoryIdPar=PANNELLI</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingSPPRunsComponentsByFeature2}</a></div>
-  <div><a href="<@ofbizUrl>SPPRunsComponentsByFeature.pdf?showLocation=N&shipmentId=${shipmentId}&taskNamePar=O-PREL_L&productFeatureTypeIdPar=Strutt&productCategoryIdPar=PEZZI</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingSPPRunsComponentsByFeature3}</a></div>
-  <div><a href="<@ofbizUrl>PackageContentsAndOrder.pdf?shipmentId=${shipmentId}&taskNamePar=&productFeatureTypeIdPar=&productCategoryIdPar=</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPackageContentsAndOrder}</a></div>
-  <div><a href="<@ofbizUrl>PRunsProductsAndOrder.pdf?shipmentId=${shipmentId}&taskNamePar=&productFeatureTypeIdPar=&productCategoryIdPar=ANTA</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPRunsProductsAndOrder}</a></div>
-  <div><a href="<@ofbizUrl>PRunsInfoAndOrder.pdf?shipmentId=${shipmentId}&taskNamePar=O-PREL_L&productFeatureTypeIdPar=&productCategoryIdPar=HARDWARE</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPRunsInfoAndOrder}</a></div>
-  -->
+    <div><a href="<@ofbizUrl>ShipmentLabel.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPackageLabelsReport}</a></div>
+      <#-- new reports -->
+      <#--
+      <div><a href="<@ofbizUrl>SPPRunsProductsByFeature.pdf?shipmentId=${shipmentId}&taskNamePar=O-LAV_01b&productFeatureTypeIdPar=Strutt&productCategoryIdPar=</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingSPPRunsProductsByFeature}</a></div>
+      <div><a href="<@ofbizUrl>SPPRunsComponentsByFeature.pdf?showLocation=Y&shipmentId=${shipmentId}&taskNamePar=O-PREL_L&productFeatureTypeIdPar=Strutt&productCategoryIdPar=PANNELLI</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingSPPRunsComponentsByFeature2}</a></div>
+      <div><a href="<@ofbizUrl>SPPRunsComponentsByFeature.pdf?showLocation=N&shipmentId=${shipmentId}&taskNamePar=O-PREL_L&productFeatureTypeIdPar=Strutt&productCategoryIdPar=PEZZI</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingSPPRunsComponentsByFeature3}</a></div>
+      <div><a href="<@ofbizUrl>PackageContentsAndOrder.pdf?shipmentId=${shipmentId}&taskNamePar=&productFeatureTypeIdPar=&productCategoryIdPar=</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPackageContentsAndOrder}</a></div>
+      <div><a href="<@ofbizUrl>PRunsProductsAndOrder.pdf?shipmentId=${shipmentId}&taskNamePar=&productFeatureTypeIdPar=&productCategoryIdPar=ANTA</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPRunsProductsAndOrder}</a></div>
+      <div><a href="<@ofbizUrl>PRunsInfoAndOrder.pdf?shipmentId=${shipmentId}&taskNamePar=O-PREL_L&productFeatureTypeIdPar=&productCategoryIdPar=HARDWARE</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPRunsInfoAndOrder}</a></div>
+      -->
+  </div>
+</div>
 <#else>
-<h1>${uiLabelMap.ManufacturingWorkWithShipmentPlans}</h1>
-<#if listShipmentPlansForm?has_content>
-  ${listShipmentPlansForm.renderFormString(context)}
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.ManufacturingWorkWithShipmentPlans}</h3>        
+  </div>
+  <div class="screenlet-body">    
+    <#if listShipmentPlansForm?has_content>
+        ${listShipmentPlansForm.renderFormString(context)}
+    </#if>
+  </div>
+</div>
 </#if>
-
-</#if>
-

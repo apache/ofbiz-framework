@@ -17,10 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign unselectedClassName = "tabButton">
-<#assign selectedClassMap = {page.tabButtonItem?default("void") : "tabButtonSelected"}>
+<#assign selected = tabButtonItem?default("void")>
 
-<div class='tabContainer'>
-    <a href="<@ofbizUrl>RunMrp</@ofbizUrl>" class="${selectedClassMap.RunMrp?default(unselectedClassName)}">${uiLabelMap.ManufacturingRunMrp}</a>
-    <a href="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>" class="${selectedClassMap.findInventoryEventPlan?default(unselectedClassName)}">${uiLabelMap.ManufacturingMrpLog}</a>
+<div class="button-bar tab-bar">
+    <ul>
+        <li<#if selected == "RunMrp"> class="selected"</#if>><a href="<@ofbizUrl>RunMrp</@ofbizUrl>">${uiLabelMap.ManufacturingRunMrp}</a></li>
+        <li<#if selected == "findInventoryEventPlan"> class="selected"</#if>><a href="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>">${uiLabelMap.ManufacturingMrpLog}</a></li>
+    </ul>
+    <br class="clear"/>
 </div>
