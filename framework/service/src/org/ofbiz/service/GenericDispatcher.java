@@ -32,7 +32,8 @@ import org.ofbiz.base.util.Debug;
 public class GenericDispatcher extends GenericAbstractDispatcher {
 
     public static final String module = GenericDispatcher.class.getName();
-    
+
+    protected static boolean ecasDisabled = false; 
     protected static Map<String, LocalDispatcher> dispatcherCache = FastMap.newInstance();
     
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator) {
@@ -126,6 +127,18 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         ctx.setDispatcher(this);
         ctx.loadReaders();
         if (Debug.infoOn()) Debug.logInfo("[LocalDispatcher] : Created Dispatcher for: " + name, module);
+    }
+
+    public void disableEcas(){
+        this.ecasDisabled = true;
+    }
+
+    public void enableEcas() {
+        this.ecasDisabled = false;
+    }
+
+    public boolean isEcasDisabled() {
+        return this.ecasDisabled;
     }
 
     /**

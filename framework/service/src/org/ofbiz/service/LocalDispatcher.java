@@ -31,6 +31,25 @@ import org.ofbiz.service.job.JobManager;
 public interface LocalDispatcher {
 
     /**
+     * Disables running of Service Engine Condition Actions (SECAs).  Intended to be turned off temporarily.
+     * @throws GenericServiceException
+     */
+    public void disableEcas();
+
+    /**
+     * Reenables running of Service Engine Condition Actions (SECAs).  
+     * @throws GenericServiceException
+     */
+    public void enableEcas();
+
+    /**
+     * Returns whether Service Engine Condition Actions (SECAs) are disabled or not.
+     * @return
+     * @throws GenericServiceException
+     */
+    public boolean isEcasDisabled();
+
+    /**
      * Run the service synchronously and return the result.
      * @param serviceName Name of the service to run.
      * @param context Map of name, value pairs composing the context.

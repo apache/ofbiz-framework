@@ -26,6 +26,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -88,6 +89,11 @@ public class ServiceEcaAction implements java.io.Serializable {
         
         Map<String, Object> actionResult = null;
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        // if SECAs have been turned off, then just return true which has same effect as if secas ran successfully
+        if (dispatcher.isEcasDisabled()) {
+            Debug.logWarning("SECAs have been disabled on purpose and will not be run for [" + serviceName + "]", module);
+            return true;
+        }
 
         if (eventName.startsWith("global-")) {
             // XA resource ECA
