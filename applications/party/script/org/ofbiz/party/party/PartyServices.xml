@@ -321,15 +321,16 @@ under the License.
            <!-- create the data resource object -->
            <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
            <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
-           <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
-           <if-not-empty field-name="extension">
-              <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
-           </if-not-empty>
            <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
            <call-service service-name="createDataResource" in-map-name="dataResource" break-on-error="false">
                <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
-               <result-to-field result-name="dataResource" field-name="dataResourceMap"/>
-           </call-service>           
+           </call-service>
+           
+           <set-service-fields service-name="updateDataResource" map-name="dataResource" to-map-name="dataResource"/>           
+           <set from-field="dataResourceId" field="dataResource.dataResourceId"/>
+           <call-service service-name="updateDataResource" in-map-name="dataResource" break-on-error="false" />
+           <set from-field="dataResource.dataResourceId" field="lookup.dataResourceId"/>
+           <find-by-primary-key use-cache="true" entity-name="DataResource" value-name="dataResourceMap" map-name="lookup"/>
        </if-not-empty>
         
        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createContentMap"/>
@@ -408,17 +409,22 @@ under the License.
                <first-from-list entry-name="extension" list-name="extensions"/>
                <set-service-fields service-name="createDataResource" map-name="parameters" to-map-name="dataResource"/>
                <!-- create the data resource object -->
-               <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
-               <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
-               <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
-               <if-not-empty field-name="extension">
-                   <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
-               </if-not-empty>
-               <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
-               <call-service service-name="createDataResource" in-map-name="dataResource" break-on-error="false">
-                   <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
-                   <result-to-field result-name="dataResource" field-name="dataResourceMap"/>
-               </call-service>              
+                <!-- create the data resource object -->
+                <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
+                <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
+                <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
+                <call-service service-name="createDataResource" in-map-name="dataResource" break-on-error="false">
+                    <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
+                </call-service>
+                <set value="${uploadPath}/${dataResourceId}" field="dataResource.objectInfo"/>
+                <if-not-empty field-name="extension">
+                    <set value="${uploadPath}/${dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
+                </if-not-empty>
+                <set-service-fields service-name="updateDataResource" map-name="dataResource" to-map-name="dataResource"/>           
+                <set from-field="dataResourceId" field="dataResource.dataResourceId"/>
+                <call-service service-name="updateDataResource" in-map-name="dataResource" break-on-error="false" />
+                <set from-field="dataResource.dataResourceId" field="lookup.dataResourceId"/>
+                <find-by-primary-key use-cache="true" entity-name="DataResource" value-name="dataResourceMap" map-name="lookup"/>
             </else>   
            </if-not-empty>           
        </if-not-empty>        
