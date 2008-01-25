@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="LookupBudget" type="single" target="LookupBudget">
+    <form name="LookupBudget" type="single" target="LookupBudget"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Budget" default-field-type="hidden"/>
         <field name="budgetId" title="${uiLabelMap.HumanResBudgetID}"><text-find/></field>
         <field name="budgetTypeId">
@@ -32,7 +33,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListBudgets" type="list" list-name="listIt" paginate-target="LookupBudget">
+    <form name="ListBudgets" type="list" list-name="listIt" paginate-target="LookupBudget"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -44,7 +46,8 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${budgetId}" target="javascript:set_value('${budgetId}')"/>
         </field>        
     </form>
-    <form name="LookupBudgetItem" type="single" target="LookupBudgetItem">
+    <form name="LookupBudgetItem" type="single" target="LookupBudgetItem"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="BudgetItem" default-field-type="hidden"/>
         <field name="budgetItemSeqId" title="${uiLabelMap.HumanResBudgetItemSeqId}"><text-find/></field>
         <field name="budgetItemTypeId">
@@ -56,7 +59,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListBudgetItems" type="list" list-name="listIt" paginate-target="LookupBudgetItem">
+    <form name="ListBudgetItems" type="list" list-name="listIt" paginate-target="LookupBudgetItem"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -68,7 +72,8 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${budgetItemSeqId}" target="javascript:set_value('${budgetItemSeqId}')"/>
         </field>        
     </form>
-    <form name="LookupEmplPosition" type="single" target="LookupEmplPosition">
+    <form name="LookupEmplPosition" type="single" target="LookupEmplPosition"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="EmplPosition" default-field-type="hidden"/>
         <field name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}"><text-find/></field>
         <field name="statusId">
@@ -87,7 +92,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListEmplPositions" type="list" list-name="listIt" paginate-target="LookupEmplPosition">
+    <form name="ListEmplPositions" type="list" list-name="listIt" paginate-target="LookupEmplPosition"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -103,13 +109,15 @@ under the License.
         <field name="budgetItemSeqId"><display/></field>
         <field name="emplPositionTypeId"><display/></field>
     </form>
-    <form name="LookupTerminationReason" type="single" target="LookupTerminationReason">
+    <form name="LookupTerminationReason" type="single" target="LookupTerminationReason"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="TerminationReason" default-field-type="hidden"/>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><text-find/></field>                
         <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListTerminationReasons" type="list" list-name="listIt" paginate-target="LookupEmplPosition">
+    <form name="ListTerminationReasons" type="list" list-name="listIt" paginate-target="LookupEmplPosition"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -121,13 +129,15 @@ under the License.
         </field>        
         <field name="description"><display/></field>        
     </form>
-    <form name="LookupSalaryStep" type="single" target="LookupSalaryStep">
+    <form name="LookupSalaryStep" type="single" target="LookupSalaryStep"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="SalaryStep" default-field-type="hidden"/>
         <field name="salaryStepSeqId" title="${uiLabelMap.HumanResLookupSalaryStepSeqId}"><text-find/></field>                
         <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListSalarySteps" type="list" list-name="listIt" paginate-target="LookupSalaryStep">
+    <form name="ListSalarySteps" type="list" list-name="listIt" paginate-target="LookupSalaryStep"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -139,13 +149,15 @@ under the License.
         </field>        
         <field name="description"><display/></field>        
     </form>
-    <form name="LookupPayGrade" type="single" target="LookupPayGrade">
+    <form name="LookupPayGrade" type="single" target="LookupPayGrade"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="SalaryStep" default-field-type="hidden"/>
         <field name="payGradeId" title="${uiLabelMap.HumanResLookupPayGradeId}"><text-find/></field>                
         <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListPayGrades" type="list" list-name="listIt" paginate-target="LookupPayGrade">
+    <form name="ListPayGrades" type="list" list-name="listIt" paginate-target="LookupPayGrade"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -157,4 +169,4 @@ under the License.
         </field>        
         <field name="description"><display/></field>        
     </form>    
-</forms>        
+</forms>

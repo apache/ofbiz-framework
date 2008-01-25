@@ -28,8 +28,21 @@
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="LookupBudget" location="component://humanres/widget/forms/LookupForms.xml"/>
-                        <include-form name="ListBudgets" location="component://humanres/widget/forms/LookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResLookupBudgetByName}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="LookupBudget" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                        <include-form name="ListBudgets" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>    
             </widgets>
@@ -43,8 +56,21 @@
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="LookupBudgetItem" location="component://humanres/widget/forms/LookupForms.xml"/>
-                        <include-form name="ListBudgetItems" location="component://humanres/widget/forms/LookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResLookupBudgetItemByName}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="LookupBudgetItem" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                        <include-form name="ListBudgetItems" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>    
             </widgets>
@@ -58,8 +84,21 @@
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="LookupEmplPosition" location="component://humanres/widget/forms/LookupForms.xml"/>
-                        <include-form name="ListEmplPositions" location="component://humanres/widget/forms/LookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResLookupEmplPositionByName}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="LookupEmplPosition" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                        <include-form name="ListEmplPositions" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>    
             </widgets>
@@ -73,8 +112,21 @@
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="LookupTerminationReason" location="component://humanres/widget/forms/LookupForms.xml"/>
-                        <include-form name="ListTerminationReasons" location="component://humanres/widget/forms/LookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResLookupTerminationReason}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="LookupTerminationReason" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                        <include-form name="ListTerminationReasons" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>    
             </widgets>
@@ -88,8 +140,21 @@
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="LookupSalaryStep" location="component://humanres/widget/forms/LookupForms.xml"/>
-                        <include-form name="ListSalarySteps" location="component://humanres/widget/forms/LookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResLookupTerminationReason}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="LookupSalaryStep" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                        <include-form name="ListSalarySteps" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>    
             </widgets>
@@ -103,11 +168,24 @@
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="LookupPayGrade" location="component://humanres/widget/forms/LookupForms.xml"/>
-                        <include-form name="ListPayGrades" location="component://humanres/widget/forms/LookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResLookupPayGrade}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="LookupPayGrade" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                        <include-form name="ListPayGrades" location="component://humanres/widget/forms/LookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>    
             </widgets>
         </section>
     </screen>
-</screens>        
+</screens>
