@@ -90,6 +90,17 @@ under the License.
         <set field="checkAction" from-field="mainAction" />
         <set field="alternatePermissionRoot" value="FACILITY"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+        <if-empty field-name="error_list">
+            <set field="hasPermission" type="Boolean" value="true"/>
+            <field-to-result field-name="hasPermission"/>
+            
+            <else>
+                <property-to-field resource="ProductUiLabels" property="ProductFacilityPermissionError" field-name="failMessage"/>
+                <set field="hasPermission" type="Boolean" value="false"/>
+                <field-to-result field-name="hasPermission"/>
+                <field-to-result field-name="failMessage"/>
+            </else>
+        </if-empty>
     </simple-method>
 
     <!-- InventoryItem methods -->
