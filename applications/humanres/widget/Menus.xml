@@ -20,7 +20,8 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">    
-    <menu name="EmploymentBar" default-menu-item-name="EditPartyBenefit" type="simple">
+    <menu name="EmploymentBar" default-menu-item-name="EditPartyBenefit" default-selected-style="selected"
+        type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="EditPartyBenefit" title="${uiLabelMap.HumanResEditPartyBenefit}">
             <link target="EditPartyBenefits?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
         </menu-item>
@@ -35,7 +36,8 @@
             <link target="ListPayHistories?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
         </menu-item>
     </menu>
-    <menu name="EmplPostionBar" default-menu-item-name="EditEmplPosition" type="simple">
+    <menu name="EmplPostionBar" default-menu-item-name="EditEmplPosition" default-selected-style="selected"
+        type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="EditEmplPositionFulfillment" title="${uiLabelMap.HumanResEditEmplPositionFulfillment}">
             <link target="EditEmplPositionFulfillments?emplPositionId=${emplPositionId}"/>
         </menu-item>
@@ -46,7 +48,8 @@
             <link target="EditEmplPositionReportingStructs?emplPositionId=${emplPositionId}"/>
         </menu-item>
     </menu>
-    <menu name="PartyBar" default-menu-item-name="EditPerfReviewItems" type="simple">
+    <menu name="PartyBar" default-menu-item-name="EditPerfReviewItems" default-selected-style="selected"
+        type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="EditPerfReviewItems" title="${uiLabelMap.HumanResEditPerfReviewItems}">
             <link target="EditPerfReviewItems?perfReviewId=${perfReviewId}"/>
         </menu-item>
@@ -57,11 +60,11 @@
             <link target="EditPartyQuals?employeePartyId=${employeePartyId}"/>
         </menu-item>
     </menu>
-    <menu name="SalaryBar" default-menu-item-name="EditSalaryStep" type="simple">
+    <menu name="SalaryBar" default-menu-item-name="EditSalaryStep" default-selected-style="selected"
+        type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="EditSalaryStep" title="${uiLabelMap.HumanResEditSalaryStep}">
             <link target="EditSalarySteps?payGradeId=${payGradeId}"/>
         </menu-item>        
     </menu>
     <menu name="SkillType" type="simple" id="app-navigation" default-selected-style="selected"/>
-    
-</menus>    
+</menus>

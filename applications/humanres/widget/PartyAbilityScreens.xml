@@ -30,15 +30,23 @@
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                             <link target="EditPartyQual" text="${uiLabelMap.HumanResNewPartyQual}" style="buttontext"/>
-                        </container>
-                        <container style="boxoutside">
-                            <container style="screenlet-header">
-                                <label style="boxhead">${uiLabelMap.HumanResEditPartySkill}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResEditPartySkill}"/>
+                                </container>
                             </container>
-                            <include-form name="ListPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                            <include-form name="EditPartyQual" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                             <link target="EditPartyQual" text="${uiLabelMap.HumanResNewPartyQual}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                        <include-form name="EditPartyQual" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>                        
                     </decorator-section>
                 </decorator-screen>
@@ -50,16 +58,23 @@
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="boxoutside">
-                            <container style="screenlet-header">
-                                <label style="boxhead">${uiLabelMap.HumanResListPartyResumes}</label>
-                            </container>                            
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResListPartyResumes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="EditPartyResume" text="${uiLabelMap.HumanResNewPartyResume}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <label>&lt;br/&gt;</label>
-                        <container>
-                            <link target="EditPartyResume" text="${uiLabelMap.HumanResNewPartyResume}" style="buttontext"/>
-                        </container>
-                        <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -67,19 +82,30 @@
     </screen>
     <screen name="ListPartySkills">
         <section>
+            <actions>
+                <set field="titleProperty" value="HumanResListPartySkill"/>
+                <set field="headerItem" value="PartySkills"/>
+            </actions>  
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="boxoutside">
-                            <container style="screenlet-header">
-                                <label style="boxhead">${uiLabelMap.HumanResListPartySkill}</label>
-                            </container>                            
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResListPartySkill}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="EditPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <label>&lt;br/&gt;</label>
-                        <container>
-                            <link target="EditPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
-                        </container>
-                        <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -96,15 +122,22 @@
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="PartyBar" location="component://humanres/widget/Menus.xml"/>
-                        <container>
-                            <link target="EditPartyResume" text="${uiLabelMap.HumanResNewPartyResume}" style="buttontext" />
-                        </container>
-                        <label>&lt;br/&gt;</label>
-                        <container style="boxoutside">
-                            <container style="screenlet-header">
-                                <label style="boxhead">${uiLabelMap.HumanResEditPartyResume}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResEditPartyResume}"/>
+                                </container>
                             </container>
-                            <include-form name="EditEmplPosition" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="EditPartyResume" text="${uiLabelMap.HumanResNewPartyResume}" style="buttontext" />
+                                        </container>
+                                        <include-form name="EditEmplPosition" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -116,7 +149,7 @@
             <actions>
                 <set field="headerItem" value="Employment"/>
                 <set field="tabButtonItem" value="EditPerfReview"/>
-                <set field="titleProperty" value="PageTitleEditPartyReview"/>                
+                <set field="titleProperty" value="PageTitleListPartyReview"/>                
                 <set field="perfReviewId" from-field="parameters.perfReviewId"/>
                 <set field="employeePartyId" from-field="parameters.partyIdTo"/>                
                 <set field="employeeRoleTypeId" from-field="parameters.roleTypeIdTo"/>                
@@ -125,21 +158,37 @@
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>                            
-                            <widgets>                                                                
-                                <container>                                                            
-                                    <link target="EditPerfReview" text="${uiLabelMap.HumanResNewPartyReview}" style="buttontext"/>
-                                </container>    
-                                <label>&lt;br/&gt;</label>
-                                <container style="boxoutside">
-                                    <container style="screenlet-header">
-                                        <label style="boxhead">${uiLabelMap.HumanResNewPartyReview}</label>
-                                    </container>
-                                    <include-form name="ListPerfReviews" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                    <include-form name="EditPerfReview" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                                             
-                                </container>    
-                            </widgets>                            
-                        </section>                        
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListPartyReview}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>                                                            
+                                            <link target="EditPerfReview" text="${uiLabelMap.HumanResNewPartyReview}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListPerfReviews" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditPartyReview}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditPerfReview" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                                             
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -148,24 +197,45 @@
     <screen name="EditPartySkills">
         <section>
             <actions>
-                <set field="headerItem" value="PartyReview"/>
-                <set field="tabButtonItem" value="EditPartySkill"/>                
+                <set field="titleProperty" value="HumanResEditPartySkill"/>
+                <set field="headerItem" value="PartySkills"/>                
                 <set field="partyId" from-field="parameters.employeePartyId"/>
                 <entity-one entity-name="PartySkill" value-name="partySkill"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                             <link target="EditPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
-                        </container>
-                        <container style="boxoutside">
-                            <container style="screenlet-header">
-                                <label style="boxhead">${uiLabelMap.HumanResEditPartySkill}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResListPartySkill}"/>
+                                </container>
                             </container>
-                            <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                            <include-form name="EditPartySkill" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
-                        </container>                        
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                             <link target="EditPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResEditPartySkill}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditPartySkill" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                  
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -182,12 +252,24 @@
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.HumanResNewPartyReview}</label></container>
-                        <container>
-                            <link target="EditPerfReviewItem" text="${uiLabelMap.HumanResNewPartyReviewItem}" style="buttontext"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.HumanResNewPartyReview}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="EditPerfReviewItem" text="${uiLabelMap.HumanResNewPartyReviewItem}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListPerfReviewItems" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                     
+                                        <include-form name="EditPerfReviewItem" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                     
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ListPerfReviewItems" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                     
-                        <include-form name="EditPerfReviewItem" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                     
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -197,23 +279,43 @@
         <section>                        
             <actions>
                 <set field="headerItem" value="SkillType"/>
-                <set field="titleProperty" value="PageTitleEditSkillType"/>
+                <set field="titleProperty" value="PageTitleListSkillTypes"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
                 <entity-one entity-name="SkillType" value-name="skillType" />
             </actions>            
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                       
-                        <container>
-                            <link target="EditSkillTypes" text="${uiLabelMap.HumanResNewSkillType}" style="buttontext" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListSkillTypes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="EditSkillTypes" text="${uiLabelMap.HumanResNewSkillType}" style="buttontext" />
+                                        </container>
+                                        <include-form name="ListSkillTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <label>&lt;br/&gt;</label>
-                        <container style="boxoutside">
-                            <container style="screenlet-header">
-                                <label style="boxhead">${uiLabelMap.PageTitleEditSkillType}</label>
-                            </container>                                    
-                            <include-form name="ListSkillTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                            <include-form name="EditSkillType" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditSkillType}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditSkillType" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
