@@ -39,7 +39,8 @@ under the License.
             <link target="${checkLoginUrl}"/>
         </menu-item>
     </menu>
-    <menu name="WorkEffortTabBar" default-menu-item-name="WorkEffort" type="simple">
+    <menu name="WorkEffortTabBar" default-menu-item-name="WorkEffort" default-selected-style="selected"
+        type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="WorkEffortRelatedSummary" title="${uiLabelMap.WorkEffortSummary}">
             <link target="WorkEffortSummary?workEffortId=${workEffortId}"/>
         </menu-item>
@@ -94,6 +95,5 @@ under the License.
         <menu-item name="WorkEffortContactMechs" title="${uiLabelMap.WorkEffortContactMechs}">
             <link target="EditWorkEffortContactMechs?workEffortId=${workEffortId}"/>
         </menu-item>
-    </menu>
-    
+    </menu>    
 </menus>

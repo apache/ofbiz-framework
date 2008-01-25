@@ -41,9 +41,21 @@ under the License.
                                 <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <label style="head1">${uiLabelMap.WorkEffortJobList}</label>
-                                <include-form name="FilterUserJobs" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                                <include-form name="UserJobsList" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.WorkEffortJobList}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                   <include-form name="FilterUserJobs" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                                <include-form name="UserJobsList" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
@@ -105,18 +117,55 @@ under the License.
                                 <if-empty field-name="workEffort"/>
                             </condition>
                             <widgets>
-                                <label style="head1">${uiLabelMap.PageTitleAddWorkEffort}</label>
-                                <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleAddWorkEffort}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                   <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleEditWorkEffort}</label></container>
-                                <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="linktext"/></container>
-                                <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleEditWorkEffort}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                   <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                                <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>                                
                             </fail-widgets>
                         </section>
-                        <platform-specific>
-                            <html><html-template location="component://workeffort/webapp/workeffort/workeffort/EditWorkEffortDupForm.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.WorkEffortDuplicateWorkEffort}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <platform-specific>
+                                            <html><html-template location="component://workeffort/webapp/workeffort/workeffort/EditWorkEffortDupForm.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -128,16 +177,27 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindWorkEffort"/>
                 <set field="tabButtonItem" value="WorkEffort"/>
                 <set field="labelTitleProperty" value="PageTitleFindWorkEffort"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleFindWorkEffort}</label></container>
-                        <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="linktext"/></container>
-                        <container><link  text="${uiLabelMap.ProductAdvancedSearch}" target="WorkEffortSearchOptions" style="linktext"/></container>
-                        <include-form name="FindWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindWorkEffort}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container><link  text="${uiLabelMap.ProductAdvancedSearch}" target="WorkEffortSearchOptions" style="buttontext"/></container>
+                                        <include-form name="FindWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -156,10 +216,22 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEfforts}</label></container>
-                        <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="linktext"/></container>
-                        <container><link  text="${uiLabelMap.CommonFind}" target="FindWorkEffort" style="linktext"/></container>
-                        <include-form name="ListWorkEfforts" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListWorkEfforts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container><link  text="${uiLabelMap.CommonFind}" target="FindWorkEffort" style="buttontext"/></container>
+                                        <include-form name="ListWorkEfforts" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -178,7 +250,7 @@ under the License.
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="head1">${uiLabelMap.PageTitleTreeWorkEfforts}</label></container>
-                        <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="linktext"/></container>
+                        <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="buttontext"/></container>
                         <include-tree name="TreeWorkEffort" location="component://workeffort/widget/WorkEffortTrees.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -349,10 +421,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortAssignmentRates}</label></container>
-                        <include-form name="ListWorkEffortAssignmentRates" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortAssignmentRate}</label></container>
-                        <include-form name="AddWorkEffortAssignmentRate" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortAssignmentRates}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="ListWorkEffortAssignmentRates" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortAssignmentRate}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="AddWorkEffortAssignmentRate" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -370,10 +466,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortCommEvents}</label></container>
-                        <include-form name="ListWorkEffortCommEvents" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortCommEvent}</label></container>
-                        <include-form name="AddWorkEffortCommEvent" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortCommEvents}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="ListWorkEffortCommEvents" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortCommEvent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="AddWorkEffortCommEvent" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -391,10 +511,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortShopLists}</label></container>
-                        <include-form name="ListWorkEffortShopLists" location="component://workeffort/widget/WorkEffortShopListForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortShopList}</label></container>
-                        <include-form name="AddWorkEffortShopList" location="component://workeffort/widget/WorkEffortShopListForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortShopLists}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="ListWorkEffortShopLists" location="component://workeffort/widget/WorkEffortShopListForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortShopList}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="AddWorkEffortShopList" location="component://workeffort/widget/WorkEffortShopListForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -413,15 +557,62 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortRequests}</label></container>
-                        <include-form name="ListWorkEffortRequests" location="component://workeffort/widget/WorkEffortRequestForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortRequest}</label></container>
-                        <include-form name="AddWorkEffortRequest" location="component://workeffort/widget/WorkEffortRequestForms.xml"/>
-                        
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortRequestItems}</label></container>
-                        <include-form name="ListWorkEffortRequestItems" location="component://workeffort/widget/WorkEffortRequestForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortRequestItem}</label></container>
-                        <include-form name="AddWorkEffortRequestItem" location="component://workeffort/widget/WorkEffortRequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortRequests}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="ListWorkEffortRequests" location="component://workeffort/widget/WorkEffortRequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortRequest}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="AddWorkEffortRequest" location="component://workeffort/widget/WorkEffortRequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortRequestItems}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="ListWorkEffortRequestItems" location="component://workeffort/widget/WorkEffortRequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortRequestItem}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="AddWorkEffortRequestItem" location="component://workeffort/widget/WorkEffortRequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -440,10 +631,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortRequirements}</label></container>
-                        <include-form name="ListWorkEffortRequirements" location="component://workeffort/widget/WorkEffortRequirementForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortRequirement}</label></container>
-                        <include-form name="AddWorkEffortRequirement" location="component://workeffort/widget/WorkEffortRequirementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortRequirements}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="ListWorkEffortRequirements" location="component://workeffort/widget/WorkEffortRequirementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortRequirement}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="AddWorkEffortRequirement" location="component://workeffort/widget/WorkEffortRequirementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -462,15 +677,63 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortQuotes}</label></container>
-                        <include-form name="ListWorkEffortQuotes" location="component://workeffort/widget/WorkEffortQuoteForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortQuote}</label></container>
-                        <include-form name="AddWorkEffortQuote" location="component://workeffort/widget/WorkEffortQuoteForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortQuotes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="ListWorkEffortQuotes" location="component://workeffort/widget/WorkEffortQuoteForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortQuote}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="AddWorkEffortQuote" location="component://workeffort/widget/WorkEffortQuoteForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                         
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortQuoteItems}</label></container>
-                        <include-form name="ListWorkEffortQuoteItems" location="component://workeffort/widget/WorkEffortQuoteForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortQuoteItem}</label></container>
-                        <include-form name="AddWorkEffortQuoteItem" location="component://workeffort/widget/WorkEffortQuoteForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortQuoteItems}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="ListWorkEffortQuoteItems" location="component://workeffort/widget/WorkEffortQuoteForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortQuoteItem}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                           <include-form name="AddWorkEffortQuoteItem" location="component://workeffort/widget/WorkEffortQuoteForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
