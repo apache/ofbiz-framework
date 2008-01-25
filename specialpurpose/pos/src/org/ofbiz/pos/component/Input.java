@@ -158,10 +158,10 @@ public class Input implements KeyboardReceiver, KeyListener {
     }
 
     public void appendChar(char c) {
-        input.setText(this.input.getText() + c);
+        appendString(String.valueOf(c));
     }
 
-    public void appendString(String str) {
+    public synchronized void appendString(String str) {
         input.setText(this.input.getText() + str);
     }
 
@@ -178,7 +178,7 @@ public class Input implements KeyboardReceiver, KeyListener {
     }
 
     // KeyListener
-    public void keyPressed(KeyEvent event) {
+    public synchronized void keyPressed(KeyEvent event) {
         // implements to handle backspacing only
         if (event.getKeyCode() == 8 && this.value().length() > 0) {
             this.input.setText(this.value().substring(0, this.value().length() - 1));

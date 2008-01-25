@@ -192,7 +192,7 @@ public class PaymentEvents {
         }
     }
 
-    private static void processNoPayment(PosScreen pos, String paymentMethodTypeId) {
+    private static synchronized void processNoPayment(PosScreen pos, String paymentMethodTypeId) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
 
         try {
@@ -208,7 +208,7 @@ public class PaymentEvents {
         pos.refresh();
     }
 
-    private static void processExternalPayment(PosScreen pos, String paymentMethodTypeId, String amountStr) {
+    private static synchronized void processExternalPayment(PosScreen pos, String paymentMethodTypeId, String amountStr) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         Input input = pos.getInput();
         String refNum = input.value();
@@ -231,7 +231,7 @@ public class PaymentEvents {
         pos.refresh();
     }
 
-    public static void clearPayment(PosScreen pos) {
+    public static synchronized void clearPayment(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         Journal journal = pos.getJournal();
         String sku = journal.getSelectedSku();
@@ -250,14 +250,14 @@ public class PaymentEvents {
         pos.refresh();
     }
 
-    public static void clearAllPayments(PosScreen pos) {
+    public static synchronized void clearAllPayments(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.clearPayments();
         clearInputPaymentFunctions(pos);
         pos.refresh();
     }
 
-    public static void setRefNum(PosScreen pos) {
+    public static synchronized void setRefNum(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         Journal journal = pos.getJournal();
         String sku = journal.getSelectedSku();
@@ -316,7 +316,7 @@ public class PaymentEvents {
         }
     }
 
-    private static double processAmount(PosTransaction trans, PosScreen pos, String amountStr) throws GeneralException {
+    private static synchronized double processAmount(PosTransaction trans, PosScreen pos, String amountStr) throws GeneralException {
         Input input = pos.getInput();
 
         if (input.isFunctionSet("TOTAL")) {
@@ -350,7 +350,7 @@ public class PaymentEvents {
     // Removes all payment functions from the input function stack
     // Useful for clearing redundant data after a payment has been
     // processed or if an error occurred
-    public static void clearInputPaymentFunctions(PosScreen pos) {
+    public static synchronized void clearInputPaymentFunctions(PosScreen pos) {
         String[] paymentFuncs = {"CHECK", "CHECKINFO", "CREDIT",
                                     "GIFTCARD", "MSRINFO", "REFNUM"};
         Input input = pos.getInput();

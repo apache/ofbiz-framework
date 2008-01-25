@@ -61,7 +61,7 @@ public class ManagerEvents {
     public static boolean mgrLoggedIn = false;
     static DecimalFormat priceDecimalFormat = new DecimalFormat("#,##0.00");
 
-    public static void modifyPrice(PosScreen pos) {
+    public static synchronized void modifyPrice(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         String sku = null;
         try {
@@ -99,7 +99,7 @@ public class ManagerEvents {
         pos.refresh();
     }
 
-    public static void openTerminal(PosScreen pos) {
+    public static synchronized void openTerminal(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
             return;
@@ -152,7 +152,7 @@ public class ManagerEvents {
         }
     }
 
-    public static void closeTerminal(PosScreen pos) {
+    public static synchronized void closeTerminal(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
             return;
@@ -270,7 +270,7 @@ public class ManagerEvents {
         }
     }
 
-    public static void voidOrder(PosScreen pos) {
+    public static synchronized void voidOrder(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
             return;
@@ -346,7 +346,7 @@ public class ManagerEvents {
         }
     }
 
-    public static void reprintLastTx(PosScreen pos) {
+    public static synchronized void reprintLastTx(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
             return;
@@ -355,7 +355,7 @@ public class ManagerEvents {
         pos.refresh();
     }
 
-    public static void popDrawer(PosScreen pos) {
+    public static synchronized void popDrawer(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
         } else {
@@ -365,7 +365,7 @@ public class ManagerEvents {
         }
     }
 
-    public static void clearCache(PosScreen pos) {
+    public static synchronized void clearCache(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
         } else {
@@ -374,7 +374,7 @@ public class ManagerEvents {
         }
     }
 
-    public static void resetXui(PosScreen pos) {
+    public static synchronized void resetXui(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
         } else {
@@ -383,7 +383,7 @@ public class ManagerEvents {
         }
     }
 
-    public static void shutdown(PosScreen pos) {
+    public static synchronized void shutdown(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
         } else {
@@ -393,7 +393,7 @@ public class ManagerEvents {
         }
     }
 
-    public static void totalsReport(PosScreen pos) {
+    public static synchronized void totalsReport(PosScreen pos) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
             return;
@@ -401,15 +401,15 @@ public class ManagerEvents {
         printTotals(pos, null, false);
     }
 
-    public static void paidOut(PosScreen pos) {
+    public static synchronized void paidOut(PosScreen pos) {
         paidOutAndIn(pos, "OUT");        
     }
 
-    public static void paidIn(PosScreen pos) {
+    public static synchronized void paidIn(PosScreen pos) {
         paidOutAndIn(pos, "IN");        
     }
                     
-    public static void paidOutAndIn(PosScreen pos, String type) {
+    public static synchronized void paidOutAndIn(PosScreen pos, String type) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
             return;
@@ -457,7 +457,7 @@ public class ManagerEvents {
         }    
     }
     
-    private static void printTotals(PosScreen pos, GenericValue state, boolean runBalance) {
+    private static synchronized void printTotals(PosScreen pos, GenericValue state, boolean runBalance) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         if (!trans.isOpen()) {
             pos.showDialog("dialog/error/terminalclosed");

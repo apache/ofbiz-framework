@@ -34,7 +34,7 @@ public class SecurityEvents {
 
     public static final String module = SecurityEvents.class.getName();
 
-    public static void login(PosScreen pos) {
+    public static synchronized void login(PosScreen pos) {
         pos.setWaitCursor();
         String[] func = pos.getInput().getFunction("LOGIN");
         if (func == null) {
@@ -44,7 +44,7 @@ public class SecurityEvents {
         pos.setNormalCursor();
     }
 
-    public static void logout(PosScreen pos) {
+    public static synchronized void logout(PosScreen pos) {
         pos.setWaitCursor();
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         XuiSession session = pos.getSession();
@@ -55,7 +55,7 @@ public class SecurityEvents {
         pos.setNormalCursor();
     }
 
-    public static void mgrLogin(PosScreen pos) {
+    public static synchronized void mgrLogin(PosScreen pos) {
         pos.setWaitCursor();
         XuiSession session = pos.getSession();
         if (session.hasRole(session.getUserLogin(), "MANAGER")) {
@@ -72,11 +72,11 @@ public class SecurityEvents {
         pos.setNormalCursor();
     }
 
-    public static void lock(PosScreen pos) {
+    public static synchronized void lock(PosScreen pos) {
         pos.setLock(true);
     }
 
-    private static void baseLogin(PosScreen pos, boolean mgr) {
+    private static synchronized void baseLogin(PosScreen pos, boolean mgr) {
         XuiSession session = pos.getSession();
         Output output = pos.getOutput();
         InputWithPassword input = pos.getInput();
