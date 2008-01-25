@@ -70,22 +70,6 @@ under the License.
         <action service="updateProductIfAvailableFromShipment" mode="sync"/>    
     </eca>
 
-    <!-- Before reserving inventory, ensure that we're not over reserving the item -->
-    <eca service="reserveProductInventory" event="invoke">
-        <action service="checkInventoryAlreadyReserved" mode="sync"/>
-    </eca>
-    <eca service="reserveProductInventoryByFacility" event="invoke">
-        <action service="checkInventoryAlreadyReserved" mode="sync"/>
-    </eca>
-    <eca service="reserveProductInventoryByContainer" event="invoke">
-        <action service="checkInventoryAlreadyReserved" mode="sync"/>
-    </eca>
-    <eca service="reserveStoreInventory" event="invoke">
-        <condition field-name="orderId" operator="is-not-empty"/>
-        <condition field-name="orderItemSeqId" operator="is-not-empty"/>
-        <action service="checkInventoryAlreadyReserved" mode="sync"/>
-    </eca>
-
     <!-- Product Price Change ECAs -->
     <eca service="createProductPrice" event="commit">
         <action service="saveProductPriceChange" mode="sync"/>
