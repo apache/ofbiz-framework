@@ -43,7 +43,7 @@ public class MenuEvents {
     public static final String module = MenuEvents.class.getName();
 
     // extended number events
-    public static void triggerClear(PosScreen pos) {
+    public static synchronized void triggerClear(PosScreen pos) {
         // clear the pieces
         String[] totalFunc = pos.getInput().getFunction("TOTAL");
         String[] paidFunc = pos.getInput().getFunction("PAID");
@@ -72,11 +72,11 @@ public class MenuEvents {
         }
     }
 
-    public static void triggerQty(PosScreen pos) {
+    public static synchronized void triggerQty(PosScreen pos) {
         pos.getInput().setFunction("QTY");
     }
 
-    public static void triggerEnter(PosScreen pos, AWTEvent event) {
+    public static synchronized void triggerEnter(PosScreen pos, AWTEvent event) {
         // enter key maps to various different events; depending on the function
         Input input = pos.getInput();
         String[] lastFunc = input.getLastFunction();
@@ -119,7 +119,7 @@ public class MenuEvents {
         }
     }
 
-    public static void addItem(PosScreen pos, AWTEvent event) {
+    public static synchronized void addItem(PosScreen pos, AWTEvent event) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         Input input = pos.getInput();
         String[] func = input.getFunction("QTY");
@@ -226,7 +226,7 @@ public class MenuEvents {
         pos.refresh();
     }
 
-    public static void changeQty(PosScreen pos) {
+    public static synchronized void changeQty(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         String sku = null;
         try {
@@ -283,7 +283,7 @@ public class MenuEvents {
         pos.refresh();
     }
 
-    public static void saleDiscount(PosScreen pos) {
+    public static synchronized void saleDiscount(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         if (!trans.isOpen()) {
             pos.showDialog("dialog/error/terminalclosed");
@@ -310,7 +310,7 @@ public class MenuEvents {
         pos.refresh();
     }
 
-    public static void itemDiscount(PosScreen pos) {
+    public static synchronized void itemDiscount(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         if (!trans.isOpen()) {
             pos.showDialog("dialog/error/terminalclosed");
@@ -349,14 +349,14 @@ public class MenuEvents {
         pos.refresh();
     }
 
-    public static void clearDiscounts(PosScreen pos) {
+    public static synchronized void clearDiscounts(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.clearDiscounts();
         trans.calcTax();
         pos.refresh();
     }
 
-    public static void calcTotal(PosScreen pos) {
+    public static synchronized void calcTotal(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.calcTax();
 
@@ -364,7 +364,7 @@ public class MenuEvents {
         pos.getJournal().refresh(pos);
     }
 
-    public static void voidItem(PosScreen pos) {
+    public static synchronized void voidItem(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         String sku = null;
         try {
@@ -389,29 +389,29 @@ public class MenuEvents {
         pos.refresh();
     }
 
-    public static void voidAll(PosScreen pos) {
+    public static synchronized void voidAll(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.voidSale();
         NavagationEvents.showPosScreen(pos);
         pos.refresh();
     }
 
-    public static void saveSale(PosScreen pos) {
+    public static synchronized void saveSale(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.saveSale(pos);
     }
 
-    public static void loadSale(PosScreen pos) {
+    public static synchronized void loadSale(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         trans.loadSale(pos);
     }
 
-    public static String getSelectedItem(PosScreen pos) {
+    public static synchronized String getSelectedItem(PosScreen pos) {
         Journal journal = pos.getJournal();
         return journal.getSelectedSku();
     }
 
-    public static void configureItem(PosScreen pos) {
+    public static synchronized void configureItem(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         Journal journal = pos.getJournal();
         String index = journal.getSelectedIdx();
