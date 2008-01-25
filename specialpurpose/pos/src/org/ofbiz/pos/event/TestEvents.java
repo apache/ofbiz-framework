@@ -27,16 +27,16 @@ public class TestEvents {
 
     public static final String module = TestEvents.class.getName();
 
-    public static void testAlert(PosScreen pos) {
+    public static synchronized void testAlert(PosScreen pos) {
         pos.showDialog("dialog/error/testerror");
     }
 
-    public static void logSelectedIndex(PosScreen pos) {
+    public static synchronized void logSelectedIndex(PosScreen pos) {
         Journal journal = pos.getJournal();
         Debug.log("Selected IDX - " + journal.getSelectedIdx(), module);
     }
     
-    public static void testMsr(PosScreen pos) {
+    public static synchronized void testMsr(PosScreen pos) {
         try {
             org.ofbiz.pos.jpos.service.MsrTestService.sendTest();
         } catch (GeneralException e) {

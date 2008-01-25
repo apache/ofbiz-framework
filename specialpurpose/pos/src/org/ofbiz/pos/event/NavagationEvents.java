@@ -23,12 +23,12 @@ import org.ofbiz.pos.screen.PosScreen;
 
 public class NavagationEvents {
 
-    public static void showPosScreen(PosScreen pos) {
+    public static synchronized void showPosScreen(PosScreen pos) {
         ManagerEvents.mgrLoggedIn = false;
         pos.showPage("pospanel");
     }
 
-    public static void showPayScreen(PosScreen pos) {
+    public static synchronized void showPayScreen(PosScreen pos) {
         ManagerEvents.mgrLoggedIn = false;
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         if (trans.isEmpty()) {
@@ -40,9 +40,10 @@ public class NavagationEvents {
         }
     }
 
-    public static void showPromoScreen(PosScreen pos) {
+    public static synchronized void showPromoScreen(PosScreen pos) {
         ManagerEvents.mgrLoggedIn = false;
         pos.showPage("promopanel");
     }
 }
+
 

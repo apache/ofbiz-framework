@@ -31,7 +31,7 @@ public class PromoEvents {
 
     public static final String module = PromoEvents.class.getName();
 
-    public static void addPromoCode(PosScreen pos) {
+    public static synchronized void addPromoCode(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         if (!trans.isOpen()) {
             pos.showDialog("dialog/error/terminalclosed");
