@@ -16,28 +16,24 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-        <hr class="sepbar"/>
-        <h2>${uiLabelMap.WorkEffortDuplicateWorkEffort}</h2>
-        <form action="<@ofbizUrl>DuplicateWorkEffort</@ofbizUrl>" method="post" style="margin: 0;">
+        <form action="<@ofbizUrl>DuplicateWorkEffort</@ofbizUrl>" method="post">
             <input type="hidden" name="oldWorkEffortId" value="${workEffortId?if_exists}"/>
             <div>
-                <span class="tabletext">${uiLabelMap.ProductDuplicateRemoveSelectedWithNewId}:</span>
-                <input type="text" class="inputBox" size="20" maxlength="20" name="workEffortId"/>&nbsp;<input type="submit" class="smallSubmit" value="${uiLabelMap.CommonDuplicate}!"/>
+                <span class="label">${uiLabelMap.ProductDuplicateRemoveSelectedWithNewId}</span>
+                <input type="text" size="20" maxlength="20" name="workEffortId"/>&nbsp;<input type="submit" class="smallSubmit" value="${uiLabelMap.CommonDuplicate}!"/>
             </div>
-            <div class="tabletext">
-                <b>${uiLabelMap.CommonDuplicate}:</b>
+            <div>
+                <span class="label">${uiLabelMap.CommonDuplicate}</span>
                 ${uiLabelMap.FormFieldTitle_rate}&nbsp;<input type="checkbox" class="checkBox" name="duplicateWorkEffortAssignmentRates" value="Y" checked="checked"/>
                 ${uiLabelMap.WorkEffortAssoc}&nbsp;<input type="checkbox" class="checkBox" name="duplicateWorkEffortAssocs" value="Y" checked="checked"/>
                 ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" class="checkBox" name="duplicateWorkEffortContents" value="Y" checked="checked"/>
                 ${uiLabelMap.WorkEffortNotes}&nbsp;<input type="checkbox" class="checkBox" name="duplicateWorkEffortNotes" value="Y" checked="checked"/>
             </div>
-            <div class="tabletext">
-                <b>${uiLabelMap.CommonRemove}:</b>
+            <div>
+                <span class="label">${uiLabelMap.CommonRemove}</span>
                 ${uiLabelMap.FormFieldTitle_rate}&nbsp;<input type="checkbox" class="checkBox" name="removeWorkEffortAssignmentRates" value="Y"/>               
                 ${uiLabelMap.WorkEffortAssoc}&nbsp;<input type="checkbox" class="checkBox" name="removeWorkEffortAssocs" value="Y"/>
                 ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" class="checkBox" name="removeWorkEffortContents" value="Y"/>
                 ${uiLabelMap.WorkEffortNotes}&nbsp;<input type="checkbox" class="checkBox" name="removeWorkEffortNotes" value="Y"/>
-
             </div>
         </form>
-        <hr class="sepbar"/>
