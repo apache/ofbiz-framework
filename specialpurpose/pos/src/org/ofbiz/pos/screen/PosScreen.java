@@ -29,6 +29,7 @@ import java.util.*;
 
 import net.xoetrope.builder.NavigationHelper;
 import net.xoetrope.xui.XPage;
+import net.xoetrope.xui.XProject;
 import net.xoetrope.xui.XProjectManager;
 
 import org.ofbiz.base.splash.SplashLoader;
@@ -55,6 +56,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
     public static final long MAX_INACTIVITY = 1800000;
     public static PosScreen currentScreen;
 
+    protected XProject currentProject = (XProject)XProjectManager.getCurrentProject();
     protected static boolean monitorRunning = false;
     protected static boolean firstInit = false;
     protected static long lastActivity = 0;
@@ -98,9 +100,10 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
             firstInit = true;           
             
             // pre-load a few screens
-            XProjectManager.getPageManager().loadPage(this.getScreenLocation() + "/paypanel");
-            XProjectManager.getPageManager().loadPage(this.getScreenLocation() + "/mgrpanel");
-            XProjectManager.getPageManager().loadPage(this.getScreenLocation() + "/promopanel");
+         
+            currentProject.getPageManager().loadPage(this.getScreenLocation() + "/paypanel");            
+            currentProject.getPageManager().loadPage(this.getScreenLocation() + "/mgrpanel");
+            currentProject.getPageManager().loadPage(this.getScreenLocation() + "/promopanel");
 
             // start the shared monitor thread
             if (activityMonitor == null) {
@@ -300,7 +303,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
         if (pageName.startsWith("/")) {
             pageName = pageName.substring(1);
         }
-        XPage newPage = (XPage)XProjectManager.getPageManager().showPage(this.getScreenLocation() + "/" + pageName);         
+        XPage newPage = (XPage)currentProject.getPageManager().showPage(this.getScreenLocation() + "/" + pageName);         
         if (newPage instanceof PosScreen) {
             if (refresh) ((PosScreen) newPage).refresh();
             return (PosScreen) newPage;
@@ -336,7 +339,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
         if (pageName.startsWith("/")) {
             pageName = pageName.substring(1);
         }
-        XPage dialogPage = (XPage)XProjectManager.getPageManager().loadPage(this.getScreenLocation() + "/" + pageName);        
+        XPage dialogPage = (XPage)currentProject.getPageManager().loadPage(this.getScreenLocation() + "/" + pageName);        
         PosDialog dialog = PosDialog.getInstance(dialogPage, true, 0);
         dialog.showDialog(this, cb, text);
         return dialog;
@@ -383,7 +386,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
                 if (this.scrLocation == null) {
                     String xuiProps = this.getSession().getContainer().getXuiPropertiesName();
                     String startClass = UtilProperties.getPropertyValue(xuiProps, "StartClass", "default/pospanel");
-                    this.scrLocation = startClass.substring(0, startClass.indexOf("/"));
+                    this.scrLocation = startClass.substring(0, startClass.lastIndexOf("/"));
                 }
             }
         }

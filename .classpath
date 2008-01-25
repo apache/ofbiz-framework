@@ -48,7 +48,8 @@
   <classpathentry kind="lib" path="framework/jetty/lib/org.mortbay.jetty.jar"/>
   <classpathentry kind="lib" path="framework/jetty/lib/jasper-runtime.jar"/>
   <classpathentry kind="lib" path="framework/jetty/lib/jasper-compiler.jar"/>
-  <classpathentry kind="lib" path="framework/guiapp/lib/XuiCoreSwing_v2_0_6_jdk1_5.jar"/>
+  <classpathentry kind="lib" path="framework/guiapp/lib/XuiCoreSwing-v3.2rc2b.jar"/>
+  <classpathentry kind="lib" path="framework/guiapp/lib/XuiOptional-v3.2rc2b.jar"/>
   <classpathentry kind="lib" path="applications/content/lib/poi.jar"/>
   <classpathentry kind="lib" path="applications/content/lib/lucene-2.2.0.jar"/>
   <classpathentry kind="lib" path="framework/catalina/lib/tomcat-util.jar"/>

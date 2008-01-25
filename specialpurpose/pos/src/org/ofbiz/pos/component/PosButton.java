@@ -27,7 +27,8 @@ import java.util.Map;
 
 import net.xoetrope.swing.XButton;
 import net.xoetrope.xui.helper.SwingWorker;
-
+import net.xoetrope.xui.events.XEventHelper;
+        
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -62,7 +63,7 @@ public class PosButton {
                 if (UtilValidate.isEmpty(buttonName)) {
                     wrapper.setEnabled(false);
                 } else {
-                    pos.addActionHandler(button, PosScreen.BUTTON_ACTION_METHOD);
+                    XEventHelper.addActionHandler(pos, button, PosScreen.BUTTON_ACTION_METHOD);
                     loadedXButtons.put(button.getName(), wrapper);
                 }
             }

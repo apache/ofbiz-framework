@@ -30,6 +30,7 @@ import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XList;
 import net.xoetrope.xui.XPage;
+import net.xoetrope.xui.events.XEventHelper;
 
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.pos.PosTransaction;
@@ -65,12 +66,13 @@ public class SelectProduct extends XPage {
         dlg.setCaption(UtilProperties.getMessage("pos", "SelectAProduct", Locale.getDefault()));
         //dlg.setModal(true);
         m_productsList = (XList) dlg.findComponent("productsList");
-        addMouseHandler(m_productsList, "DoubleClick");
+        XEventHelper.addMouseHandler(this, m_productsList, "DoubleClick");
 
         m_cancel = (XButton) dlg.findComponent("BtnCancel");
         m_select = (XButton) dlg.findComponent("BtnSelect");
-        addMouseHandler(m_cancel, "cancel");
-        addMouseHandler(m_select, "selectProduct");
+        
+        XEventHelper.addMouseHandler(this, m_cancel, "cancel");
+        XEventHelper.addMouseHandler(this, m_select, "selectProduct");
 
         m_listModel = new DefaultListModel();
         for (Iterator i = m_productsMap.entrySet().iterator(); i.hasNext();) {

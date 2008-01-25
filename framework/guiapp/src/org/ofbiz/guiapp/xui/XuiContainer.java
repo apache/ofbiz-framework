@@ -31,16 +31,13 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilProperties;
 
 public abstract class XuiContainer implements Container {
 
     public static final String module = XuiContainer.class.getName();
-    protected static XuiSession session = null;
-
-    protected XuiScreen initialScreen = null;
+    protected static XuiSession xuiSession = null;
 
     protected String startupDir = null;
     protected String startupFile = null;
@@ -85,19 +82,24 @@ public abstract class XuiContainer implements Container {
         }
 
         // create and cache the session
-        session = new XuiSession(xuiSessionId, delegator, dispatcher, this);
-
+        xuiSession = new XuiSession(xuiSessionId, delegator, dispatcher, this);
+ 
         // configure the rest of the container
         this.configure(cc);
 
         // load the XUI and render the initial screen
         if (this.startupFile == null) {
-            this.startupDir = ContainerConfig.getPropertyValue(cc, "startup-directory", "/specialpurpose/pos/config/");
+            this.startupDir = ContainerConfig.getPropertyValue(cc, "startup-directory", "specialpurpose/pos/config/");
             this.startupFile = ContainerConfig.getPropertyValue(cc, "startup-file", "xpos.properties");
         }
-        this.initialScreen = new XuiScreen();
-        this.initialScreen.setup(this.startupDir, this.startupFile);                
 
+        String classPackageName = ContainerConfig.getPropertyValue(cc, "class-package-name", "net.xoetrope.swing");
+ 
+        JFrame jframe = new JFrame();
+        jframe.setUndecorated(true);   
+        new XuiScreen(
+                new String[] { this.startupDir + this.startupFile,
+                classPackageName}, jframe);
         return true;
     }
 
@@ -124,25 +126,30 @@ public abstract class XuiContainer implements Container {
     public abstract void configure(ContainerConfig.Container cc) throws ContainerException;
 
     public static XuiSession getSession() {
-        return session;
+        return xuiSession;
     }
 
     class XuiScreen extends XApplet {
-
-        public void setup(String startupDir, String startupFile) {
-            String xuiProps = System.getProperty("ofbiz.home") + startupDir + startupFile;
+        protected String startupProperties = "";
+        
+        public XuiScreen(String[] args, JFrame frame) {
+            super(args, frame); 
+            if(args.length > 0) {
+                startupProperties = args[0];
+            }
             String suffix = Locale.getDefault().getLanguage();
             if ("en".equals(suffix)) {
                 suffix = "";
             } else {
                 suffix = "_" + suffix;
             }
-            UtilProperties.setPropertyValue(xuiProps, "Language", "XuiLabels" + suffix);            
-            JFrame frame = new JFrame();
-            frame.setUndecorated(true);
-            frame.setVisible(false);
-            frame.getContentPane().add(this);            
-            super.setup(frame, new String[] { startupFile });
-        }
+            String language = UtilProperties.getPropertyValue(startupProperties, "Language");
+            if(language.compareTo("XuiLabels" + suffix ) != 0){
+                UtilProperties.setPropertyValue(startupProperties, "Language", "XuiLabels" + suffix);
+            }                
+            frame.setVisible(true);
+            frame.getContentPane().add(this);
+            frame.validate();
+        } 
     }
 }

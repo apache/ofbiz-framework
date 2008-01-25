@@ -865,7 +865,7 @@ public class PosTransaction implements Serializable {
                 double subTotal = unitPrice * quantity;
                 double adjustment = item.getOtherAdjustments();
 
-                XModel line = Journal.appendNode(model, "tr", "", "");
+                XModel line = Journal.appendNode(model, "tr", ""+cart.getItemIndex(item), "");
                 Journal.appendNode(line, "td", "sku", item.getProductId());
                 Journal.appendNode(line, "td", "desc", item.getName());
                 Journal.appendNode(line, "td", "qty", UtilFormatOut.formatQuantity(quantity));
@@ -880,10 +880,10 @@ public class PosTransaction implements Serializable {
                     pcw = item.getConfigWrapper();
                     List selected = pcw.getSelectedOptions();
                     Iterator iter = selected.iterator();
-                    while(iter.hasNext()){
+                    while(iter.hasNext()){    
                         ConfigOption configoption = (ConfigOption)iter.next();
                         if (configoption.isSelected()){
-                            XModel option = Journal.appendNode(model, "tr", "", "");
+                            XModel option = Journal.appendNode(model, "tr", ""+cart.getItemIndex(item), "");
                             Journal.appendNode(option, "td", "sku", "");
                             Journal.appendNode(option, "td", "desc", configoption.getDescription());
                             Journal.appendNode(option, "td", "qty", "");
@@ -895,7 +895,7 @@ public class PosTransaction implements Serializable {
                   
                 if (adjustment != 0) {
                     // append the promo info
-                    XModel promo = Journal.appendNode(model, "tr", "", "");
+                    XModel promo = Journal.appendNode(model, "tr", "itemadjustment", "");
                     Journal.appendNode(promo, "td", "sku", "");
                     Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage("pos","(ItemDiscount)",defaultLocale));
                     Journal.appendNode(promo, "td", "qty", "");
@@ -915,28 +915,31 @@ public class PosTransaction implements Serializable {
                 Iterator iter = adjustments.iterator();
                 while(iter.hasNext()){
                     GenericValue orderAdjustment = (GenericValue) iter.next();
-                    XModel adjustmentLine = Journal.appendNode(model, "tr", "", "");
+                    XModel adjustmentLine = Journal.appendNode(model, "tr", "adjustment", "");
                     Journal.appendNode(adjustmentLine, "td", "sku", "");
                     Journal.appendNode(adjustmentLine, "td", "desc", 
                             UtilProperties.getMessage("pos", "(SalesDiscount)",defaultLocale));
                     Journal.appendNode(adjustmentLine, "td", "qty", "");
                     Journal.appendNode(adjustmentLine, "td", "price", 
                             UtilFormatOut.formatPrice(orderAdjustment.getDouble("amount"))); 
+                    Journal.appendNode(adjustmentLine, "td", "index", "-1");
                 }    
             }
 
-            XModel taxLine = Journal.appendNode(model, "tr", "", "");
+            XModel taxLine = Journal.appendNode(model, "tr", "tax", "");
             Journal.appendNode(taxLine, "td", "sku", "");
 
             Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage("pos","Sales_Tax",defaultLocale));
             Journal.appendNode(taxLine, "td", "qty", "");
             Journal.appendNode(taxLine, "td", "price", UtilFormatOut.formatPrice(taxAmount));
-
-            XModel totalLine = Journal.appendNode(model, "tr", "", "");
+            Journal.appendNode(taxLine, "td", "index", "-1");
+            
+            XModel totalLine = Journal.appendNode(model, "tr", "total", "");
             Journal.appendNode(totalLine, "td", "sku", "");
             Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage("pos","Grand_Total",defaultLocale));
             Journal.appendNode(totalLine, "td", "qty", "");
             Journal.appendNode(totalLine, "td", "price", UtilFormatOut.formatPrice(total));
+            Journal.appendNode(totalLine, "td", "index", "-1");
         }
     }
 
