@@ -312,14 +312,6 @@ under the License.
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="Double" mode="OUT" optional="false"/>
     </service>
-    <service name="checkInventoryAlreadyReserved" engine="java"
-            location="org.ofbiz.product.inventory.InventoryServices" invoke="checkInventoryAlreadyReserved">
-        <description>Ensures that a request to reserve inventory for an order item does not over reserve it.  
-            This should be run as an invoke SECA on all reserveProductInventory services.</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
-    </service>
     <service name="reserveOrderItemInventory" engine="simple"
                 location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveOrderItemInventory" auth="true">
         <description>Create OrderItemShipGrpInvRes or increment existing reserved quantity.</description>
