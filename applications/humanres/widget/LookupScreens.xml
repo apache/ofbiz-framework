@@ -140,7 +140,7 @@
         <section>
             <actions>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.HumanResLookupTerminationReason}"/>
+                <set field="title" value="${uiLabelMap.HumanResLookupSalaryStepSeqId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -148,7 +148,7 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="head4">
-                                    <label text="${uiLabelMap.HumanResLookupTerminationReason}"/>
+                                    <label text="${uiLabelMap.HumanResLookupSalaryStepSeqId}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
