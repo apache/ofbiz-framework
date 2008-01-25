@@ -18,23 +18,31 @@
  *******************************************************************************/
 package org.ofbiz.pos.component;
 
+import java.io.StringWriter;
 import java.util.Locale;
 
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import net.xoetrope.data.XDataSource;
 import net.xoetrope.swing.XTable;
 import net.xoetrope.swing.XScrollPane;
+import net.xoetrope.xui.XProject;
+import net.xoetrope.xui.XProjectManager;
 import net.xoetrope.xui.data.XModel;
 
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.Debug;
 
 public class Journal {
 
     public static final String module = Journal.class.getName();
-
-    private static String[] field = { "sku", "desc", "qty", "price", "index" };
-    private static String[] name = { "SKU", "ITEM", "QTY", "AMT", "" };
-    private static int[] width = { 100, 170, 60, 80, 0};
+    protected XProject currentProject = (XProject)XProjectManager.getCurrentProject();
+    
+    private static String[] field = { "sku", "desc", "qty", "price" };
+    private static String[] name = { "SKU", "ITEM", "QTY", "AMT" };
+    private static int[] width = { 100, 170, 50, 90};
     private Locale defaultLocale = Locale.getDefault();
 
     protected XScrollPane jpanel = null;
@@ -45,12 +53,17 @@ public class Journal {
         //The vertical bar is always visible to allow access to horizontal bar without shrink the journal panel
         this.jpanel = (XScrollPane) page.findComponent("journal_panel");
         this.jpanel.setVisible(false);
+        this.jpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.jpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         
         this.jtable = (XTable) page.findComponent("jtable");
-                        
+
         // set the table as selectable        
         jtable.setInteractiveTable(true);
         jtable.setFocusable(false);
+        jtable.setDragEnabled(false);
+        jtable.setColumnSelectionAllowed(false);
+        jtable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // set the styles
         jtable.setBorderStyle("journalBorder");
@@ -65,6 +78,7 @@ public class Journal {
             jtable.setModel(jmodel);
 
             for (int i = 0; i < width.length; i++) {
+                //causes infinite loop
                 jtable.setColWidth(i, width[i]);
             }
         }
@@ -72,15 +86,15 @@ public class Journal {
     }
 
     public String getSelectedSku() {
-        XModel jmodel = (XModel) XModel.getInstance().get("journal/items");        
+        XModel jmodel = jtable.getXModel();
         XModel model = jmodel.get(jtable.getSelectedRow() + 1);
         return model.getValueAsString("sku");
     }
 
     public String getSelectedIdx() {
-        XModel jmodel = (XModel) XModel.getInstance().get("journal/items");
+        XModel jmodel = jtable.getXModel();
         XModel model = jmodel.get(jtable.getSelectedRow() + 1);
-        return model.getValueAsString("index");
+        return model.getId();
     }
 
     public void selectNext() {
@@ -102,12 +116,13 @@ public class Journal {
         jtable.setFocusable(!lock);
         jtable.setVisible(!lock);
         jtable.setEnabled(!lock);
+        this.jpanel.setVisible(!lock);
         if (!lock) {
             this.jpanel.setVisible(true);
         }
     }
 
-    public void refresh(PosScreen pos) {
+    public synchronized void refresh(PosScreen pos) {
         if (!jtable.isEnabled()) {
             // no point in refreshing when we are locked;
             // we will auto-refresh when unlocked
@@ -133,27 +148,26 @@ public class Journal {
 
         // make sure we are at the last item in the journal
         jtable.setSelectedRow(0);
-
+        
         try {
-            jtable.repaint();
+            jtable.update();
         } catch (ArrayIndexOutOfBoundsException e) {
-            // bug in XUI causes this; ignore for now
-            // it has been reported and will be fixed soon
+            Debug.logError(e, "Unable to repaint the Journal", module);
         }
+        //Debug.logInfo(getModelText(jmodel), module);
     }
 
     private XModel createModel() {
-        XModel jmodel = (XModel) XModel.getInstance().get("journal/items");
-
+        XModel jmodel = (XModel)currentProject.getModel().get("table/items");
         // clear the list
         jmodel.clear();
-
+       
         if (field.length == 0) {
             return null;
         }
-
+        jmodel.setTagName("table");
         // create the header
-        XModel headerNode = appendNode(jmodel, "th", "", "");
+        XModel headerNode = appendNode(jmodel, "th", "header", "");
         for (int i = 0 ; i < field.length; i++) {
             appendNode(headerNode, "td", field[i],UtilProperties.getMessage("pos",name[i],defaultLocale));
         }
@@ -162,7 +176,7 @@ public class Journal {
     }
 
     private void appendEmpty(XModel jmodel) {
-        XModel headerNode = appendNode(jmodel, "tr", "", "");
+        XModel headerNode = appendNode(jmodel, "tr", "emptyrow", "");
         for (int i = 0 ; i < field.length; i++) {
             appendNode(headerNode, "td", field[i], "");
         }
@@ -173,7 +187,14 @@ public class Journal {
         newNode.setTagName(tag);
         if (value != null) {
             newNode.set(value);
-        }
+        }        
         return newNode;
+    }
+    
+    private String getModelText(XModel model)
+    {
+        StringWriter sw = new StringWriter();
+        XDataSource.outputModel( sw, model );
+        return "<Datasets>" + sw.toString() + "</Datasets>";
     }
 }

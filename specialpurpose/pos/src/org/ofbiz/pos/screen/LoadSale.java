@@ -30,6 +30,7 @@ import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XList;
 import net.xoetrope.xui.XPage;
+import net.xoetrope.xui.events.XEventHelper;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
@@ -66,18 +67,18 @@ public class LoadSale extends XPage {
         m_dialog = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/loadsale");
         m_dialog.setCaption(UtilProperties.getMessage("pos", "LoadASale", Locale.getDefault()));
         m_salesList = (XList) m_dialog.findComponent("salesList");
-        addMouseHandler(m_salesList, "saleDoubleClick");
+        XEventHelper.addMouseHandler(this, m_salesList, "saleDoubleClick");
 
         m_cancel = (XButton) m_dialog.findComponent("BtnCancel");
         m_add = (XButton) m_dialog.findComponent("BtnAdd");
         m_replace = (XButton) m_dialog.findComponent("BtnReplace");
         m_delete = (XButton) m_dialog.findComponent("BtnDelete");
         m_replaceAndDelete = (XButton) m_dialog.findComponent("BtnReplaceAndDelete");
-        addMouseHandler(m_cancel, "cancel");
-        addMouseHandler(m_add, "addSale");
-        addMouseHandler(m_replace, "replaceSale");
-        addMouseHandler(m_delete, "deleteShoppingList");
-        addMouseHandler(m_replaceAndDelete, "replaceSaleAndDeleteShoppingList");
+        XEventHelper.addMouseHandler(this, m_cancel, "cancel");
+        XEventHelper.addMouseHandler(this, m_replace, "replaceSale");
+        XEventHelper.addMouseHandler(this, m_add, "addSale");
+        XEventHelper.addMouseHandler(this, m_delete, "deleteShoppingList");
+        XEventHelper.addMouseHandler(this, m_replaceAndDelete, "replaceSaleAndDeleteShoppingList");
 
         m_listModel = new DefaultListModel();
         for (Iterator i = m_saleMap.entrySet().iterator(); i.hasNext();) {

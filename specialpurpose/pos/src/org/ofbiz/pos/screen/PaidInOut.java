@@ -33,6 +33,7 @@ import net.xoetrope.swing.XEdit;
 import net.xoetrope.swing.XLabel;
 import net.xoetrope.swing.XComboBox;
 import net.xoetrope.xui.XPage;
+import net.xoetrope.xui.events.XEventHelper;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -76,8 +77,9 @@ public class PaidInOut extends XPage {
         m_ok = (XButton) m_dialog.findComponent("BtnOk");
         m_amoutLabel = (XLabel) m_dialog.findComponent("amoutLabel");        
         m_reasonLabel = (XLabel) m_dialog.findComponent("reasonLabel");
-        addMouseHandler(m_cancel, "cancel");
-        addMouseHandler(m_ok, "verify");
+        
+        XEventHelper.addMouseHandler(this, m_cancel, "cancel");
+        XEventHelper.addMouseHandler(this, m_ok, "verify");
 
         m_comboModel = new DefaultComboBoxModel();
         ResourceBundle reasons = null;

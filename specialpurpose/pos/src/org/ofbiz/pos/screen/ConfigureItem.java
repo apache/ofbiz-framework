@@ -35,6 +35,7 @@ import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XList;
 import net.xoetrope.swing.XScrollPane;
 import net.xoetrope.xui.XPage;
+import net.xoetrope.xui.events.XEventHelper;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
@@ -81,7 +82,6 @@ public class ConfigureItem extends XPage {
         // cache must be set to false because there's no method to remove actionhandlers
         m_dialog = (XDialog) pageMgr.loadPage(
                 m_pos.getScreenLocation() + "/dialog/ConfigureItem", false);
-        //TODO: change caption
         m_dialog.setCaption(UtilProperties.getMessage("pos", "ConfigureItem", Locale.getDefault()));
 
         m_optionListPane = (XScrollPane) m_dialog.findComponent("optionListPane");
@@ -90,8 +90,8 @@ public class ConfigureItem extends XPage {
         m_ok = (XButton) m_dialog.findComponent("BtnOk");
         m_reset = (XButton) m_dialog.findComponent("BtnReset");
 
-        addMouseHandler(m_ok, "ok");
-        addMouseHandler(m_reset, "reset");
+        XEventHelper.addMouseHandler(this, m_ok, "ok");
+        XEventHelper.addMouseHandler(this, m_reset, "reset");
 
         getButtons();
         //debugQuestions();
@@ -119,13 +119,15 @@ public class ConfigureItem extends XPage {
     }
 
     public synchronized void buttonPressed() {
-        EventObject eo = getCurrentEvent();
-        XButton button = (XButton) eo.getSource();
-        Question question = (Question)questionHashMap.get(button.getName());
-        question.buttonClicked();
-        showItem();
-        m_dialog.repaint();
-        return;
+        if (wasMouseClicked()) {
+            EventObject eo = getCurrentEvent();
+            XButton button = (XButton) eo.getSource();
+            Question question = (Question)questionHashMap.get(button.getName());
+            question.buttonClicked();
+            showItem();
+            m_dialog.repaint();
+            return;
+        }
     }
 
     public synchronized void listPressed() {
@@ -193,7 +195,7 @@ public class ConfigureItem extends XPage {
                 if(buttonQuestion instanceof ListQuestion){
                     ((ListQuestion)buttonQuestion).setupListPane(m_optionListPane);
                 }
-                addActionHandler(button, "buttonPressed");
+                XEventHelper.addMouseHandler(this, button, "buttonPressed");
             }
         }
         return;

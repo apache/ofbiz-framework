@@ -27,6 +27,7 @@ import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XEdit;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.xui.XPage;
+import net.xoetrope.xui.events.XEventHelper;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
@@ -66,9 +67,10 @@ public class SaveSale extends XPage {
         m_save = (XButton) m_dialog.findComponent("BtnSave");
         m_saveAndClear = (XButton) m_dialog.findComponent("BtnSaveAndClear");
 
-        addMouseHandler(m_cancel, "cancel");
-        addMouseHandler(m_save, "save");
-        addMouseHandler(m_saveAndClear, "saveAndClear");
+        
+        XEventHelper.addMouseHandler(this, m_cancel, "cancel");
+        XEventHelper.addMouseHandler(this, m_save, "save");
+        XEventHelper.addMouseHandler(this, m_saveAndClear, "saveAndClear");
 
         m_dialog.pack();
         m_dialog.showDialog(this);
