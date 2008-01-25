@@ -24,7 +24,7 @@ under the License.
   <div class="screenlet-body">
     <form style="display: inline;" action="<@ofbizUrl>${parameters.targetRequestUri}</@ofbizUrl>" name="partyform" method="post">
       <input type="hidden" name="start" value="${start.time?string("#")}"/>
-      ${uiLabelMap.WorkEffortByPartyId}: 
+      <span class="label">${uiLabelMap.WorkEffortByPartyId}</span>
       <input type="text" name="partyId" value="${requestParameters.partyId?if_exists}"/>
       <a href="javascript:call_fieldlookup2(document.partyform.partyId,'<@ofbizUrl>LookupPartyName</@ofbizUrl>');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'></a>
       <input type="submit" value="${uiLabelMap.CommonView}"/>
@@ -32,7 +32,7 @@ under the License.
     &nbsp;|
     <form style="display: inline;" action="<@ofbizUrl>${parameters.targetRequestUri}</@ofbizUrl>" method="post">
       <input type="hidden" name="start" value="${start.time?string("#")}"/>
-      ${uiLabelMap.WorkEffortByFacility}: 
+      <span class="label">${uiLabelMap.WorkEffortByFacility}</span>
       <select name="facilityId">
         <option value=""></option>
         <#list allFacilities as facility>
@@ -41,10 +41,11 @@ under the License.
       </select>
       <input type="submit" value="${uiLabelMap.CommonView}"/>
     </form>
-    &nbsp; |
-    <form style="display: inline;" action="<@ofbizUrl>${parameters.targetRequestUri}</@ofbizUrl>" method="post">
+    <br/>
+    &nbsp; 
+    <form action="<@ofbizUrl>${parameters.targetRequestUri}</@ofbizUrl>" method="post">
       <input type="hidden" name="start" value="${start.time?string("#")}"/>
-      ${uiLabelMap.WorkEffortByFixedAsset}: 
+      <span class="label">${uiLabelMap.WorkEffortByFixedAsset}</span>
       <select name="fixedAssetId">
         <option value=""></option>
         <#list allFixedAssets as fixedAsset>

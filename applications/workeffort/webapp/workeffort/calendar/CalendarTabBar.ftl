@@ -17,14 +17,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign selected = page.tabButtonItem?default("void")>
+<#assign selected = tabButtonItem?default("void")>
 
 <div>
     <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE</@ofbizUrl>" class="buttontext">${uiLabelMap.WorkEffortNewEvent}</a>
 </div>
 <br/>
 
-<div class="button-bar button-style-1">
+<div class="button-bar tab-bar">
     <ul>
       <li<#if selected = "day"> class="selected"</#if>><a href="<@ofbizUrl>day<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortDayView}</a></li>
       <li<#if selected = "week"> class="selected"</#if>><a href="<@ofbizUrl>week<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortWeekView}</a></li>

@@ -20,7 +20,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <h2>${start?date?string("EEEE")?cap_first} ${start?date?string.long}</h2>
+      <li class="head3">${start?date?string("EEEE")?cap_first} ${start?date?string.long}</li>
       <li><a href="<@ofbizUrl>day?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.WorkEffortNextDay}</a></li>
       <li><a href="<@ofbizUrl>day?start=${nowTimestamp.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonToday}</a></li>
       <li><a href="<@ofbizUrl>day?start=${prev.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.WorkEffortPreviousDay}</a></li>
@@ -36,7 +36,7 @@ under the License.
 <#else> 
   <#assign entryWidth = (100 / (maxConcurrentEntries))>
 </#if>
-<table width="100%" cellspacing="1" border="0" cellpadding="1" class="calendar">                
+<table width="100%" cellspacing="1" border="0" cellpadding="1" class="calendar">              
   <tr>             
     <td nowrap class="monthdayheader">${uiLabelMap.CommonTime}<br/>
       <img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1" width="88"></td>
@@ -75,6 +75,6 @@ under the License.
   </#list>                  
 </table>
 <#else>               
-  <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div
+  <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div>
 </#if>
 </div>
