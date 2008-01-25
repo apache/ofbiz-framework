@@ -24,9 +24,9 @@ under the License.
   <#if days?has_content>
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
-        <th>${uiLabelMap.CommonStartDateTime}</th>
-        <th>${uiLabelMap.CommonEndDateTime}</th>
-        <th>${uiLabelMap.WorkEffortEventName}</th>
+        <td>${uiLabelMap.CommonStartDateTime}</td>
+        <td>${uiLabelMap.CommonEndDateTime}</td>
+        <td>${uiLabelMap.WorkEffortEventName}</td>
       </tr>
       <#list days as day>
         <#assign workEfforts = day.calendarEntries>
