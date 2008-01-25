@@ -23,6 +23,7 @@
     <screen name="LookupBudget">
         <section>
             <actions>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.HumanResLookupBudgetByName}"/>
             </actions>
             <widgets>
@@ -51,6 +52,7 @@
     <screen name="LookupBudgetItem">
         <section>
             <actions>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.HumanResLookupBudgetItemByName}"/>
             </actions>
             <widgets>
@@ -79,6 +81,7 @@
     <screen name="LookupEmplPosition">
         <section>
             <actions>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.HumanResLookupEmplPositionByName}"/>
             </actions>
             <widgets>
@@ -107,6 +110,7 @@
     <screen name="LookupTerminationReason">
         <section>
             <actions>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.HumanResLookupTerminationReason}"/>
             </actions>
             <widgets>
@@ -135,6 +139,7 @@
     <screen name="LookupSalaryStep">
         <section>
             <actions>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.HumanResLookupTerminationReason}"/>
             </actions>
             <widgets>
@@ -163,6 +168,7 @@
     <screen name="LookupPayGrade">
         <section>
             <actions>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.HumanResLookupPayGrade}"/>
             </actions>
             <widgets>
