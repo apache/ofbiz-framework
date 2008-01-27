@@ -39,10 +39,10 @@ thruOrderDate = parameters.get("thruOrderDate");
 // search by orderTypeId is mandatory
 conditions = UtilMisc.toList(new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId));
 
-if (!fromOrderDate.equals("")){
+if (UtilValidate.isDate(fromOrderDate) && UtilValidate.isNotEmpty(fromOrderDate)){
     conditions.add(new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate));
 }
-if (!thruOrderDate.equals("")){
+if (UtilValidate.isDate(thruOrderDate) && UtilValidate.isNotEmpty(thruOrderDate)){
     conditions.add(new EntityExpr("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate));
 }
 
@@ -148,7 +148,3 @@ if (UtilValidate.isNotEmpty(orderItemList)) {
 }
 context.put("orderItemList", orderItemList);
 context.put("totalAmountList", totalAmountList);
-
-
-
-
