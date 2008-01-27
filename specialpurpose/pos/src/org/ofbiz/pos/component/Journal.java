@@ -52,17 +52,16 @@ public class Journal {
     public Journal(PosScreen page) {    	
         this.jpanel = (XScrollPane) page.findComponent("journal_panel");
         this.jpanel.setVisible(false);
-        this.jpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.jpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         
         this.jtable = (XTable) page.findComponent("jtable");
 
         // set the table as selectable        
         jtable.setInteractiveTable(true);
         jtable.setFocusable(false);
-        jtable.setDragEnabled(false);
-        jtable.setColumnSelectionAllowed(false);
+        jtable.setDragEnabled(false);        
+        jtable.setColumnSelectionAllowed(false);        
         jtable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
 
         // set the styles
         jtable.setBorderStyle("journalBorder");
@@ -115,9 +114,6 @@ public class Journal {
         jtable.setVisible(!lock);
         jtable.setEnabled(!lock);
         this.jpanel.setVisible(!lock);
-        if (!lock) {
-            this.jpanel.setVisible(true);
-        }
     }
 
     public synchronized void refresh(PosScreen pos) {
