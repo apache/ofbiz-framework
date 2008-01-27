@@ -50,7 +50,6 @@ public class Journal {
     protected String style = null;
 
     public Journal(PosScreen page) {    	
-        //The vertical bar is always visible to allow access to horizontal bar without shrink the journal panel
         this.jpanel = (XScrollPane) page.findComponent("journal_panel");
         this.jpanel.setVisible(false);
         this.jpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -78,7 +77,6 @@ public class Journal {
             jtable.setModel(jmodel);
 
             for (int i = 0; i < width.length; i++) {
-                //causes infinite loop
                 jtable.setColWidth(i, width[i]);
             }
         }
