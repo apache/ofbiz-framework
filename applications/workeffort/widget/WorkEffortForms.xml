@@ -805,10 +805,10 @@ under the License.
         <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
         <field name="isPrintable" use-when="internalNote.equals(&quot;N&quot;)"><display description="${uiLabelMap.OrderPrintableNote}"/></field>
         <field name="isPrintable" use-when="internalNote.equals(&quot;Y&quot;)"><display description="${uiLabelMap.OrderNotPrintableNote}"/></field>
-        <field name="Private/Public"  widget-style="buttontext" use-when="internalNote.equals(&quot;N&quot;)">
+        <field name="Private/Public" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;N&quot;)">
             <hyperlink target="updateWorkEffortNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=Y" description="${uiLabelMap.OrderNotesPrivate}" />
         </field>
-        <field name="Private/Public"  widget-style="buttontext" use-when="internalNote.equals(&quot;Y&quot;)">
+        <field name="Private/Public" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;Y&quot;)">
             <hyperlink target="updateWorkEffortNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=N" description="${uiLabelMap.OrderNotesPublic}"/>
         </field>
     </form>

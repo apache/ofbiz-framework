@@ -20,32 +20,15 @@ under the License.
     <#assign uiLabelMap = requestAttributes.uiLabelMap>
 </#if>
 
-<TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <TR>
-    <TD width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
-        <tr>
-          <TD align="left" width='90%' >
-            <div class='boxhead'>${uiLabelMap.WorkEffortWorkEffortManagerMainPage}</div>
-          </TD>
-          <TD align="right" width='10%'>&nbsp;</TD>
-        </tr>
-      </table>
-    </TD>
-  </TR>
-  <TR>
-    <TD width='100%'>
-      <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
-        <tr>
-          <td>
-            <#if !userLogin?has_content>
-              <DIV class='tabletext'>${uiLabelMap.WorkEffortInterestingSure}.</DIV>
-              <BR>
-            </#if>
-            <DIV class='tabletext'>${uiLabelMap.WorkEffortApplicationEventsTasksWorkflowActivities}.</DIV>
-          </td>
-        </tr>
-      </table>
-    </TD>
-  </TR>
-</TABLE>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+      <h3>${uiLabelMap.WorkEffortWorkEffortManagerMainPage}</h3>
+  </div>
+  <div class="screenlet-body">
+      <#if !userLogin?has_content>
+          <div>${uiLabelMap.WorkEffortInterestingSure}.</div>
+          <br/>
+      </#if>
+      <div class="label">${uiLabelMap.WorkEffortApplicationEventsTasksWorkflowActivities}.</div>
+  </div>
+</div>

@@ -19,7 +19,8 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListWorkEffortShopLists" target="" title="" type="list" separate-columns="false">
+    <form name="ListWorkEffortShopLists" target="" title="" type="list" separate-columns="false"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortShoppingListView">
                 <field-map field-name="workEffortId" />
@@ -36,7 +37,8 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${groupName} [${partyId}]"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="deleteShoppingListWorkEffort?workEffortId=${workEffortId}&amp;shoppingListId=${shoppingListId}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/></field>
     </form>
-    <form name="AddWorkEffortShopList" target="createShoppingListWorkEffort" title="" type="single">
+    <form name="AddWorkEffortShopList" target="createShoppingListWorkEffort" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortId"><hidden/></field>
         <field name="shoppingListId" ><lookup target-form-name="LookupShoppingList"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="buttontext"><submit button-type="text-link"/></field>
