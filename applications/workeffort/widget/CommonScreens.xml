@@ -74,7 +74,7 @@ under the License.
                                     <widgets>
                                         <include-menu name="WorkEffortTabBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                                         <container>
-                                            <label style="head1">${uiLabelMap.WorkEffortWorkEffortId}: ${workEffortId}</label>
+                                            <label style="head1">${uiLabelMap.WorkEffortWorkEffortId} ${workEffortId}</label>
                                         </container>
                                     </widgets>
                                 </section>
@@ -110,7 +110,7 @@ under the License.
                                     <condition><not><if-empty field-name="timesheetId"/></not></condition>
                                     <widgets>
                                         <include-menu name="TimesheetTabBar" location="component://workeffort/widget/TimesheetMenus.xml"/>
-                                        <container><label style="head1">${uiLabelMap.TimesheetTimesheetId}: ${timesheetId}</label></container>
+                                        <container><label style="head1">${uiLabelMap.TimesheetTimesheetId} ${timesheetId}</label></container>
                                     </widgets>
                                 </section>
                                 
@@ -181,4 +181,3 @@ under the License.
         </section>
     </screen>
 </screens>
-

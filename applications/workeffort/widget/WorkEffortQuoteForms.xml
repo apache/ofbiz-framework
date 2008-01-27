@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
   
-    <form name="ListWorkEffortQuotes" separate-columns="true" target="ListWorkEffortQuotes" title="" type="list">
+    <form name="ListWorkEffortQuotes" separate-columns="true" target="ListWorkEffortQuotes" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortQuoteView">
                 <field-map field-name="workEffortId"/>
@@ -36,13 +37,15 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuote?workEffortId=${workEffortId}&amp;quoteId=${quoteId}"/>
         </field>
     </form>
-    <form name="AddWorkEffortQuote" target="createWorkEffortQuote" title="" type="single">
+    <form name="AddWorkEffortQuote" target="createWorkEffortQuote" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId"><lookup target-form-name="LookupQuote"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListWorkEffortQuoteItems" separate-columns="true" target="ListWorkEffortQuoteItems" title="" type="list">
+    <form name="ListWorkEffortQuoteItems" separate-columns="true" target="ListWorkEffortQuoteItems" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="QuoteItem">
                 <field-map field-name="workEffortId"/>
@@ -62,7 +65,8 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuoteItem?workEffortId=${workEffortId}&amp;quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
         </field>
     </form>
-    <form name="AddWorkEffortQuoteItem" target="createWorkEffortQuoteItem" title="" type="single">
+    <form name="AddWorkEffortQuoteItem" target="createWorkEffortQuoteItem" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId"><lookup target-form-name="LookupQuote"/></field>
         <field name="quoteItemSeqId"><lookup target-form-name="LookupQuoteItem" target-parameter="quoteId"/></field>

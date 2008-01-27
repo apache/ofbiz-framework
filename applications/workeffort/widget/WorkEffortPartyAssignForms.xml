@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
   
-    <form name="ListWorkEffortPartyAssigns" separate-columns="false" target="updateWorkEffortPartyAssign" title="" type="list">
+    <form name="ListWorkEffortPartyAssigns" separate-columns="false" target="updateWorkEffortPartyAssign" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignment">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
@@ -59,7 +60,8 @@ under the License.
         <field name="comments"><text size="60" maxlength="255"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditWorkEffortPartyAssign" default-map-name="workEffortPartyAssignment" target="updateWorkEffortPartyAssign" title="" type="single">
+    <form name="EditWorkEffortPartyAssign" default-map-name="workEffortPartyAssignment" target="updateWorkEffortPartyAssign" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="createWorkEffortPartyAssign" use-when="workEffortPartyAssignment==null"/>
         <field name="workEffortId"><hidden/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>

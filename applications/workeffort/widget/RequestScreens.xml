@@ -36,14 +36,23 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.WorkEffortMyRequestList}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.WorkEffortMyRequestList}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                          <include-form name="ListRequests" location="component://workeffort/webapp/workeffort/request/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ListRequests" location="component://workeffort/webapp/workeffort/request/RequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 </screens>
-
