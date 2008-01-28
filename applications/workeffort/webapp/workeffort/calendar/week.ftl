@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
       <li class="head3">${uiLabelMap.CommonWeek} ${start?date?string("w")}</li>
@@ -79,4 +78,3 @@ under the License.
 <#else>               
   <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div>
 </#if>
-</div>
