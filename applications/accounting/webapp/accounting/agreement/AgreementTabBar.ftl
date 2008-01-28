@@ -45,4 +45,3 @@ under the License.
     <br class="clear"/>
   </div>
 </#if>
-
