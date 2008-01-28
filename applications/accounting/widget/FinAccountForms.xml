@@ -20,8 +20,9 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-	
-    <form name="FindFinAccounts" type="single" target="FindFinAccount">
+    
+    <form name="FindFinAccounts" type="single" target="FindFinAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="FinAccount" default-field-type="find"/>
         <field name="finAccountId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="finAccountTypeId">
@@ -37,7 +38,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListFinAccounts" type="list" separate-columns="true" default-entity-name="FinAccount" list-name="listIt" paginate-target="FindFinAccount" paginate="true">
+    <form name="ListFinAccounts" type="list" separate-columns="true" default-entity-name="FinAccount" list-name="listIt" paginate-target="FindFinAccount" paginate="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -52,8 +54,9 @@ under the License.
             <hyperlink target="deleteFinAccount?finAccountId=${finAccountId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-	
-    <form name="EditFinAccount" type="single" target="updateFinAccount" default-map-name="finAccount">
+    
+    <form name="EditFinAccount" type="single" target="updateFinAccount" default-map-name="finAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="finAccount.statusId"/>
@@ -109,8 +112,9 @@ under the License.
         <field name="actualBalance"><display/></field>
         <field name="availableBalance"><display/></field>
     </form>
-	
-    <form name="ListFinAccountRoles" type="list"  list-name="finAccountRoles"  target="updateFinAccountRole" separate-columns="true">
+    
+    <form name="ListFinAccountRoles" type="list"  list-name="finAccountRoles"  target="updateFinAccountRole" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FinAccountRole">
                 <condition-expr field-name="finAccountId" env-name="finAccountId"/>
@@ -128,7 +132,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddFinAccountRole" type="single" target="createFinAccountRole">
+    <form name="AddFinAccountRole" type="single" target="createFinAccountRole"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createFinAccountRole"/>
         <field name="finAccountId"><hidden/></field>
         <field name="partyId"> <lookup target-form-name="LookupPartyName"/></field>
@@ -143,8 +148,9 @@ under the License.
         <field name="thruDate"><date-time/></field>  
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-	
-    <form name="ListFinAccountTransactions" type="list"  list-name="finAccountTransactions" separate-columns="true">
+    
+    <form name="ListFinAccountTransactions" type="list"  list-name="finAccountTransactions" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FinAccountTrans">
                 <condition-expr field-name="finAccountId" env-name="finAccountId"/>
@@ -155,7 +161,8 @@ under the License.
         <field name="finAccountTransId"><display/></field>
         <field name="finAccountTransTypeId"><display-entity entity-name="FinAccountTransType" description="${description}"/></field>
     </form>
-    <form name="AddFinAccountTrans" type="single" target="createFinAccountTrans">
+    <form name="AddFinAccountTrans" type="single" target="createFinAccountTrans"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createFinAccountTrans"/>
         <field name="finAccountId"><hidden/></field>
         <field name="finAccountTransId"><hidden/></field>
@@ -170,11 +177,12 @@ under the License.
         <field name="transactionDate"> <date-time/> </field>   
         <field name="entryDate"><date-time/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment"/></field>   
-        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>		
+        <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>        
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListFinAccountAuths" type="list"  list-name="finAccountauths"  target="expireFinAccountAuth" separate-columns="true">
+    <form name="ListFinAccountAuths" type="list"  list-name="finAccountauths"  target="expireFinAccountAuth" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FinAccountAuth">
                 <condition-expr field-name="finAccountId" env-name="finAccountId"/>
@@ -189,7 +197,8 @@ under the License.
                 description="${uiLabelMap.CommonExpire}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddFinAccountAuth" type="single" target="createFinAccountAuth">
+    <form name="AddFinAccountAuth" type="single" target="createFinAccountAuth"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createFinAccountAuth"/>
         <field name="finAccountId"><hidden/></field>
         <field name="finAccountAuthId"><hidden/></field> 

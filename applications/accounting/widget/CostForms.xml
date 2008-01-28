@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListCostComponentCalc" type="list" list-name="allCostComponentCalcs" use-row-submit="true" target="updateCostComponentCalc">
+    <form name="ListCostComponentCalc" type="list" list-name="allCostComponentCalcs" use-row-submit="true" target="updateCostComponentCalc"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
         <field name="costComponentCalcId" widget-style="buttontext"></field>
         <field name="costGlAccountTypeId">
@@ -39,7 +40,8 @@ under the License.
             <hyperlink target="deleteCostComponentCalc?costComponentCalcId=${costComponentCalcId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddCostComponentCalc" type="single" target="createCostComponentCalc">
+    <form name="AddCostComponentCalc" type="single" target="createCostComponentCalc"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createCostComponentCalc"/>
         <field name="costGlAccountTypeId">
             <drop-down allow-empty="false">

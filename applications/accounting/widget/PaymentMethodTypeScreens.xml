@@ -35,12 +35,23 @@ under the License.
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="head1"><label text="${uiLabelMap.AccountingListPaymentMethodType}"/></container>
-                        <include-form name="ListPaymentMethodType" location="component://accounting/widget/PaymentMethodTypeForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingListPaymentMethodType}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListPaymentMethodType" location="component://accounting/widget/PaymentMethodTypeForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>
-     
+    </screen>     
 </screens>
