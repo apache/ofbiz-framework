@@ -21,7 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="FindPayments" type="single" target="findPayments">
+    <form name="FindPayments" type="single" target="findPayments"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="paymentId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="comments"><text-find default-option="contains" ignore-case="true"/></field>
@@ -46,7 +47,8 @@ under the License.
         <field name="paymentRefNum"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListPayments" type="list" separate-columns="true" default-entity-name="Payment" list-name="listIt" paginate-target="findPayments" paginate="true">
+    <form name="ListPayments" type="list" separate-columns="true" default-entity-name="Payment" list-name="listIt" paginate-target="findPayments" paginate="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -73,7 +75,8 @@ under the License.
         <field name="amountToApply"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="NewPaymentOut" type="single" target="createPayment" default-map-name="payment">
+    <form name="NewPaymentOut" type="single" target="createPayment" default-map-name="payment"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
             <drop-down allow-empty="false">
@@ -110,7 +113,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="NewPaymentIn" type="single" target="createPayment" default-map-name="payment">
+    <form name="NewPaymentIn" type="single" target="createPayment" default-map-name="payment"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdTo">
             <drop-down allow-empty="false">
@@ -148,7 +152,8 @@ under the License.
         </field>
     </form>
     
-    <form name="EditPayment" type="single" target="updatePayment" default-map-name="payment">
+    <form name="EditPayment" type="single" target="updatePayment" default-map-name="payment"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus">
                 <field-map field-name="statusId" env-name="payment.statusId"/>
@@ -225,7 +230,8 @@ under the License.
         <field position="1" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="editPaymentApplicationsInv" default-entity-name="PaymentApplication" list-name="paymentApplicationsInv" target="updatePaymentApplication" type="list" separate-columns="false">
+    <form name="editPaymentApplicationsInv" default-entity-name="PaymentApplication" list-name="paymentApplicationsInv" target="updatePaymentApplication" type="list" separate-columns="false"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice"></lookup></field>
@@ -244,7 +250,8 @@ under the License.
                 target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
         </field>
     </form>
-    <form name="editPaymentApplicationsPay" default-entity-name="PaymentApplication" list-name="paymentApplicationsPay" target="updatePaymentApplication" type="list" separate-columns="false">
+    <form name="editPaymentApplicationsPay" default-entity-name="PaymentApplication" list-name="paymentApplicationsPay" target="updatePaymentApplication" type="list" separate-columns="false"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="toPaymentId"><lookup target-form-name="LookupPayment"></lookup></field>
@@ -255,7 +262,8 @@ under the License.
                 target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
         </field>
     </form>
-    <form name="editPaymentApplicationsBil" default-entity-name="PaymentApplication" list-name="paymentApplicationsBil" target="updatePaymentApplication"  type="list" separate-columns="false">
+    <form name="editPaymentApplicationsBil" default-entity-name="PaymentApplication" list-name="paymentApplicationsBil" target="updatePaymentApplication"  type="list" separate-columns="false"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
@@ -267,7 +275,8 @@ under the License.
                 target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
         </field>
     </form>
-    <form name="editPaymentApplicationsTax" default-entity-name="PaymentApplication" list-name="paymentApplicationsTax" target="updatePaymentApplication"  type="list" separate-columns="false">
+    <form name="editPaymentApplicationsTax" default-entity-name="PaymentApplication" list-name="paymentApplicationsTax" target="updatePaymentApplication"  type="list" separate-columns="false"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="taxAuthGeoId">
@@ -286,7 +295,8 @@ under the License.
         </field>
     </form>
     
-    <form name="listInvoicesNotApplied" type="list" list-name="invoices" target="updatePaymentApplication" title="">
+    <form name="listInvoicesNotApplied" type="list" list-name="invoices" target="updatePaymentApplication" title=""
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
         <field name="description"><display/></field>
@@ -301,7 +311,8 @@ under the License.
         </field>
     </form>
 
-    <form name="listPaymentsNotApplied" type="list" list-name="payments" target="updatePaymentApplication" title="">
+    <form name="listPaymentsNotApplied" type="list" list-name="payments" target="updatePaymentApplication" title=""
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="toPaymentId" widget-style="buttontext"><hyperlink target="paymentOverview?paymentId=${toPaymentId}" description="[${toPaymentId}]"/></field>
         <field name="effectiveDate"><display/></field>
@@ -313,7 +324,8 @@ under the License.
         </field>
     </form>
     
-    <form name="addPaymentApplication" type="single" target="updatePaymentApplication" title="">
+    <form name="addPaymentApplication" type="single" target="updatePaymentApplication" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice"/></field>
         <field name="invoiceItemSeqId" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;YY&quot;)"><text size="10"/></field>
@@ -335,7 +347,8 @@ under the License.
         </field>
     </form>
 
-    <form name="paymentHeader" type="single" default-map-name="payment">
+    <form name="paymentHeader" type="single" default-map-name="payment"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <service service-name="getPartyNameForDate" result-map-name="partyNameResultFrom">
                 <field-map field-name="partyId" env-name="payment.partyIdFrom"/>
@@ -367,7 +380,8 @@ under the License.
         <field name="overrideGlAccountId" position="2"><display/></field>
     </form>
                 
-    <form name="paymentApplications" type="list" list-name="paymentApplications">
+    <form name="paymentApplications" type="list" list-name="paymentApplications"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PaymentApplication">
                 <condition-list combine="or">
@@ -389,7 +403,8 @@ under the License.
         <field name="amountApplied"><display type="currency" currency="${payment.currencyUomId}"/></field>
     </form>
 
-    <form name="AcctgTransAndEntries" type="list" list-name="AcctgTransAndEntries">
+    <form name="AcctgTransAndEntries" type="list" list-name="AcctgTransAndEntries"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="AcctgTransAndEntries">
                 <condition-expr field-name="paymentId" env-name="paymentId"/>
@@ -429,7 +444,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSend}" widget-style="smallSubmit"><submit/></field>
     </form>
 
-    <form name="FindSalesInvoicesByDueDate" type="single" target="findSalesInvoicesByDueDate">
+    <form name="FindSalesInvoicesByDueDate" type="single" target="findSalesInvoicesByDueDate"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="invoiceTypeId"><hidden value="SALES_INVOICE"/></field>
         <field name="organizationPartyId" parameter-name="partyIdFrom">
             <drop-down allow-empty="false">
@@ -444,7 +460,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="FindPurchaseInvoicesByDueDate" type="single" target="findPurchaseInvoicesByDueDate">
+    <form name="FindPurchaseInvoicesByDueDate" type="single" target="findPurchaseInvoicesByDueDate"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="invoiceTypeId"><hidden value="PURCHASE_INVOICE"/></field>
         <field name="organizationPartyId" parameter-name="partyId">
             <drop-down allow-empty="false">
@@ -459,7 +476,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListInvoicesByDueDate" type="list" list-name="invoicePaymentInfoList">
+    <form name="ListInvoicesByDueDate" type="list" list-name="invoicePaymentInfoList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId" widget-style="buttontext"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
         <field name="termTypeId">
             <display-entity entity-name="TermType" description="${description}"/>
