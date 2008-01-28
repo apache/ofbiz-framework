@@ -26,6 +26,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
@@ -76,12 +78,12 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
         if (collection == null) {
             try {
                 collection = delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userLoginId), null);
+                // make an empty collection to speed up the case where a userLogin belongs to no security groups, only with no exception of course
+                if (collection == null) collection = FastList.newInstance();
+                userLoginSecurityGroupByUserLoginId.put(userLoginId, collection);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
-            // make an empty collection to speed up the case where a userLogin belongs to no security groups
-            if (collection == null) collection = new LinkedList<GenericValue>();
-            userLoginSecurityGroupByUserLoginId.put(userLoginId, collection);
         }
         // filter each time after cache retreival, ie cache will contain entire list
         collection = EntityUtil.filterByDate(collection, true);
