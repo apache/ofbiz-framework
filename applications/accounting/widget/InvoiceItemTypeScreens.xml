@@ -24,7 +24,7 @@ under the License.
     <screen name="EditInvoiceItemType">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleInvoiceItemType"/>
+                <set field="titleProperty" value="AccountingListInvoiceItemType"/>
                 <set field="tabButtonItem" value="InvoiceItemTypes"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
@@ -35,12 +35,23 @@ under the License.
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.AccountingListInvoiceItemType}</label></container>
-                        <include-form name="ListInvoiceItemType" location="component://accounting/widget/InvoiceItemTypeForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingListInvoiceItemType}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListInvoiceItemType" location="component://accounting/widget/InvoiceItemTypeForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>
-    
+    </screen>    
 </screens>
