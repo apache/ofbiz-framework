@@ -24,6 +24,12 @@ under the License.
 </div>
 <br/>
 
+<style type="text/css">
+.tab-bar {
+margin: 0;
+}
+</style>
+
 <div class="button-bar tab-bar">
     <ul>
       <li<#if selected = "day"> class="selected"</#if>><a href="<@ofbizUrl>day<#if eventsParam?has_content>?${eventsParam}</#if></@ofbizUrl>">${uiLabelMap.WorkEffortDayView}</a></li>

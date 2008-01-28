@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
       <li class="head3">${start?date?string("EEEE")?cap_first} ${start?date?string.long}</li>
@@ -77,4 +76,3 @@ under the License.
 <#else>               
   <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div>
 </#if>
-</div>

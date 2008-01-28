@@ -17,7 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
+<style type="text/css">
+.monthdayheader {
+text-align: center;
+}
+</style>
+
   <div class="screenlet-title-bar">
     <ul>
       <li class="head3">${start?date?string("MMMM yyyy")?cap_first}</li>
@@ -83,4 +88,3 @@ under the License.
 <#else> 
   <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div>
 </#if>
-</div>
