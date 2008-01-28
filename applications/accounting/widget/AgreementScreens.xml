@@ -75,17 +75,37 @@ under the License.
                                 <if-service-permission service-name="acctgAgreementPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <container>
-                                    <label style="head1">${uiLabelMap.PageTitleFindAgreement}</label>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleFindAgreement}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                   <container style="button-bar">
+                                                    <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext"/>
+                                                </container>
+                                                <include-form name="FindAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>                                                
+                                            </widgets>
+                                        </section>
+                                    </container>
                                 </container>
-                                <container style="button-bar">
-                                    <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleListAgreement}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="ListAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
                                 </container>
-                                <include-form name="FindAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                                <container style="button-bar">
-                                    <label text=""/>
-                                </container>
-                                <include-form name="ListAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="head3">${uiLabelMap.AcccountingViewPermissionError}</label>
@@ -100,7 +120,6 @@ under the License.
     <screen name="EditAgreement">
         <section>
             <actions>
-                <set field="title" value="Edit Agreement"/>
                 <set field="titleProperty" value="PageTitleEditAgreement"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementMain"/>
@@ -120,7 +139,20 @@ under the License.
                                 </container>
                             </widgets>
                         </section>
-                        <include-form name="EditAgreement" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditAgreement}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditAgreement" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/agreement/CopyAgreement.ftl"/></html>
                         </platform-specific>
@@ -133,7 +165,6 @@ under the License.
     <screen name="ListAgreementItems">
         <section>
             <actions>
-                <set field="title" value="List Agreement Items"/>
                 <set field="titleProperty" value="PageTitleListAgreementItems"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -148,7 +179,20 @@ under the License.
                         <container style="button-bar">
                             <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext"/>
                         </container>
-                        <include-form name="ListAgreementItems" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListAgreementItems}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementItems" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -158,7 +202,6 @@ under the License.
     <screen name="EditAgreementItem">
         <section>
             <actions>
-                <set field="title" value="Edit Agreement Item"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItem"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -175,7 +218,20 @@ under the License.
                         <container style="button-bar">
                             <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext"/>
                         </container>
-                        <include-form name="EditAgreementItem" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditAgreementItem}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditAgreementItem" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -185,7 +241,6 @@ under the License.
     <screen name="EditAgreementTerms">
         <section>
             <actions>
-                <set field="title" value="Edit Agreement Terms"/>
                 <set field="titleProperty" value="PageTitleEditAgreementTerm"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementTerms"/>
@@ -196,8 +251,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListAgreementTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                        <include-form name="AddAgreementTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListAgreementTerms}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditAgreementTerm}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddAgreementTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -207,7 +288,6 @@ under the License.
     <screen name="ListAgreementPromoAppls">
         <section>
             <actions>
-                <set field="title" value="List Agreement Promo Appls"/>
                 <set field="titleProperty" value="PageTitleListAgreementPromoAppls"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -226,7 +306,20 @@ under the License.
                         <container>
                             <link target="EditAgreementPromoAppl?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.AccountingNewAgreementPromoAppl}" style="buttontext"/>
                         </container>
-                        <include-form name="ListAgreementPromoAppls" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListAgreementPromoAppls}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementPromoAppls" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -236,7 +329,6 @@ under the License.
     <screen name="EditAgreementPromoAppl">
         <section>
             <actions>
-                <set field="title" value="Edit Agreement Promo Appl"/>
                 <set field="titleProperty" value="PageTitleEditAgreementPromoAppl"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -253,7 +345,20 @@ under the License.
                         <container>
                             <link target="EditAgreementPromoAppl?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.AccountingNewAgreementPromoAppl}" style="buttontext"/>
                         </container>
-                        <include-form name="EditAgreementPromoAppl" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditAgreementPromoAppl}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditAgreementPromoAppl" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -263,7 +368,6 @@ under the License.
     <screen name="ListAgreementItemTerms">
         <section>
             <actions>
-                <set field="title" value="List Agreement Item Terms"/>
                 <set field="titleProperty" value="PageTitleListAgreementItemTerms"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -281,7 +385,20 @@ under the License.
                         <container>
                             <link target="EditAgreementItemTerm?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.AccountingNewAgreementItemTerm}" style="buttontext"/>
                         </container>
-                        <include-form name="ListAgreementItemTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListAgreementItemTerms}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementItemTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -291,7 +408,6 @@ under the License.
     <screen name="EditAgreementItemTerm">
         <section>
             <actions>
-                <set field="title" value="Edit Agreement Item Term"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItemTerm"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -309,7 +425,20 @@ under the License.
                         <container>
                             <link target="EditAgreementItemTerm?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.AccountingNewAgreementItemTerm}" style="buttontext"/>
                         </container>
-                        <include-form name="EditAgreementItemTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditAgreementItemTerm}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditAgreementItemTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -319,7 +448,6 @@ under the License.
     <screen name="ListAgreementItemProducts">
         <section>
             <actions>
-                <set field="title" value="List Agreement Item Products"/>
                 <set field="titleProperty" value="PageTitleListAgreementItemProducts"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -338,7 +466,20 @@ under the License.
                             <link target="EditAgreementItemProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
                             <link target="ListAgreementItemProductsReport?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                         </container>
-                        <include-form name="ListAgreementItemProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListAgreementItemProducts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementItemProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -362,15 +503,48 @@ under the License.
             <widgets>
                 <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.AccountingAgreement}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAgreement}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                        <container>
-                            <label style="head2">${uiLabelMap.AccountingAgreementItem}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAgreementItem}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                        <include-form name="ListAgreementItemProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAgreementItemProductsForReport}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementItemProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -380,7 +554,6 @@ under the License.
     <screen name="EditAgreementItemProduct">
         <section>
             <actions>
-                <set field="title" value="Edit Agreement Item Product"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItemProduct"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -399,7 +572,20 @@ under the License.
                         <container>
                             <link target="EditAgreementItemProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
                         </container>
-                        <include-form name="EditAgreementItemProduct" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditAgreementItemProduct}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditAgreementItemProduct" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -409,7 +595,6 @@ under the License.
     <screen name="ListAgreementItemSupplierProducts">
         <section>
             <actions>
-                <set field="title" value="List Agreement Item Products"/>
                 <set field="titleProperty" value="PageTitleListAgreementItemProducts"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -428,7 +613,20 @@ under the License.
                             <link target="EditAgreementItemSupplierProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
                             <link target="ListAgreementItemSupplierProductsReport?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                         </container>
-                        <include-form name="ListAgreementItemSupplierProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListAgreementItemProducts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementItemSupplierProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -452,15 +650,48 @@ under the License.
             <widgets>
                 <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.AccountingAgreement}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAgreement}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                        <container>
-                            <label style="head2">${uiLabelMap.AccountingAgreementItem}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAgreementItem}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                        <include-form name="ListAgreementItemSupplierProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAgreementItemSupplierProductsForReport}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementItemSupplierProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -470,7 +701,6 @@ under the License.
     <screen name="EditAgreementItemSupplierProduct">
         <section>
             <actions>
-                <set field="title" value="Edit Agreement Item Product"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItemProduct"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -496,7 +726,20 @@ under the License.
                         <container>
                             <link target="EditAgreementItemSupplierProduct?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
                         </container>
-                        <include-form name="EditAgreementItemSupplierProduct" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditAgreementItemProduct}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditAgreementItemSupplierProduct" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -517,7 +760,6 @@ under the License.
     <screen name="ListAgreementItemParties">
         <section>
             <actions>
-                <set field="title" value="List Agreement Item Parties"/>
                 <set field="titleProperty" value="PageTitleListAgreementItemParties"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -535,7 +777,20 @@ under the License.
                         <container>
                             <link target="EditAgreementItemParty?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
                         </container>
-                        <include-form name="ListAgreementItemParties" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListAgreementItemParties}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementItemParties" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -545,7 +800,6 @@ under the License.
     <screen name="EditAgreementItemParty">
         <section>
             <actions>
-                <set field="title" value="Edit Agreement Item Party"/>
                 <set field="titleProperty" value="PageTitleEditAgreementItemParty"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -563,7 +817,20 @@ under the License.
                         <container>
                             <link target="EditAgreementItemParty?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
                         </container>
-                        <include-form name="EditAgreementItemParty" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditAgreementItemParty}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditAgreementItemParty" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -573,7 +840,6 @@ under the License.
     <screen name="ListAgreementGeographicalApplic">
         <section>
             <actions>
-                <set field="title" value="List Agreement Geos"/>
                 <set field="titleProperty" value="PageTitleListAgreementGeographicalApplic"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -591,7 +857,20 @@ under the License.
                         <container>
                             <link target="EditAgreementGeographicalApplic?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
                         </container>
-                        <include-form name="ListAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListAgreementGeographicalApplic}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -601,7 +880,6 @@ under the License.
     <screen name="EditAgreementGeographicalApplic">
         <section>
             <actions>
-                <set field="title" value="Edit Agreement Geo"/>
                 <set field="titleProperty" value="PageTitleEditAgreementGeographicalApplic"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
@@ -619,7 +897,20 @@ under the License.
                         <container>
                             <link target="EditAgreementGeographicalApplic?agreementId=${agreement.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}" text="${uiLabelMap.CommonNew}" style="buttontext"/>
                         </container>
-                        <include-form name="EditAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditAgreementGeographicalApplic}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>

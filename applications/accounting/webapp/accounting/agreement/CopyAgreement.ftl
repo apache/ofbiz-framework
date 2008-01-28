@@ -17,16 +17,26 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if agreement?exists>
-<form action="<@ofbizUrl>copyAgreement</@ofbizUrl>" method="post">
-    <input type="hidden" name="agreementId" value="${agreementId}"/>
-    <div>
-        <b>${uiLabelMap.AccountingCopyAgreement}:</b>
-        ${uiLabelMap.AccountingAgreementTerms}&nbsp;<input type="checkbox" name="copyAgreementTerms" value="Y" checked/>
-        ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" name="copyAgreementProducts" value="Y" checked/>
-        ${uiLabelMap.Party}&nbsp;<input type="checkbox" name="copyAgreementParties" value="Y" checked/>
-    </div>
-    <div class="button-bar">
-        <input type="submit" value="${uiLabelMap.CommonCopy}"/>
-    </div>
-</form>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.PageTitleCopyAgreement}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
+  <div class="screenlet-body">
+    <form action="<@ofbizUrl>copyAgreement</@ofbizUrl>" method="post">
+        <input type="hidden" name="agreementId" value="${agreementId}"/>
+        <div>
+            <span class="label">${uiLabelMap.AccountingCopyAgreement}</span>
+            ${uiLabelMap.AccountingAgreementTerms}&nbsp;<input type="checkbox" name="copyAgreementTerms" value="Y" checked/>
+            ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" name="copyAgreementProducts" value="Y" checked/>
+            ${uiLabelMap.Party}&nbsp;<input type="checkbox" name="copyAgreementParties" value="Y" checked/>
+        </div>
+        <div class="button-bar">
+            <input type="submit" value="${uiLabelMap.CommonCopy}"/>
+        </div>
+    </form>
+  </div>
+</div>
 </#if>

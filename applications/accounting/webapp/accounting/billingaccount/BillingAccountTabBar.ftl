@@ -18,8 +18,8 @@ under the License.
 -->
 
 <#if billingAccount?has_content>
-  <#assign selected = page.tabButtonItem?default("void")>
-  <div class="button-bar button-style-1">
+  <#assign selected = tabButtonItem?default("void")>
+  <div class="button-bar tab-bar">
     <ul>
       <li<#if selected == "EditBillingAccount"> class="selected"</#if>><a href="<@ofbizUrl>EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>">${uiLabelMap.AccountingAccount}</a></li>
       <li<#if selected == "EditBillingAccountRoles"> class="selected"</#if>><a href="<@ofbizUrl>EditBillingAccountRoles?billingAccountId=${billingAccount.billingAccountId}</@ofbizUrl>">${uiLabelMap.PartyRoles}</a></li>

@@ -21,7 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListBillingAccounts" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccount">
+    <form name="ListBillingAccounts" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccount"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId" widget-style="buttontext">
             <hyperlink description="${billingAccountId}" target="EditBillingAccount?billingAccountId=${billingAccountId}"/>
         </field>
@@ -33,7 +34,8 @@ under the License.
         <field name="thruDate"><display/></field>
     </form>
 
-    <form name="ListBillingAccountsByParty" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccountAndRole">
+    <form name="ListBillingAccountsByParty" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccountAndRole"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId" widget-style="buttontext">
             <hyperlink description="${billingAccountId}" target="EditBillingAccount?billingAccountId=${billingAccountId}"/>
         </field>
@@ -47,7 +49,8 @@ under the License.
         <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
     </form>
 
-    <form name="ListBillingAccountInvoices" type="list" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice">
+    <form name="ListBillingAccountInvoices" type="list" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"> 
         <actions>
             <entity-condition entity-name="Invoice" list-name="billingAccountInvoices">
                 <condition-list>
@@ -94,7 +97,8 @@ under the License.
         <field name="capture" use-when="${bsh:paidInvoice}"><display/></field>
     </form>
 
-    <form name="EditBillingAccount" type="single" target="updateBillingAccount" title="">
+    <form name="EditBillingAccount" type="single" target="updateBillingAccount" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="availableBalance" value="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountBalance(billingAccount)}" type="BigDecimal"/>
         </actions>
@@ -139,7 +143,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListBillingAccountRoles" type="list"  list-name="billingAccountRoleList" target="updateBillingAccountRole">
+    <form name="ListBillingAccountRoles" type="list"  list-name="billingAccountRoleList" target="updateBillingAccountRole"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="BillingAccountRole" list-name="billingAccountRoleList">
                 <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
@@ -166,8 +171,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" title="" default-map-name="billingAccountRole">
-        
+    <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" title="" default-map-name="billingAccountRole"
+        header-row-style="header-row" default-table-style="basic-table">        
         <auto-fields-service service-name="createBillingAccountRole"/>
         <field name="billingAccountId"><hidden/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
@@ -181,7 +186,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListBillingAccountTerms" type="list" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms">
+    <form name="ListBillingAccountTerms" type="list" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="BillingAccountTerm" list-name="billingAccountTermsList">
                 <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
@@ -202,7 +208,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removeBillingAccountTerm?billingAccountId=${billingAccountId}&amp;billingAccountTermId=${billingAccountTermId}"/>
         </field>
     </form>
-    <form name="EditBillingAccountTerms" type="single" target="updateBillingAccountTerm" title="" default-map-name="billingAccountTerm">
+    <form name="EditBillingAccountTerms" type="single" target="updateBillingAccountTerm" title="" default-map-name="billingAccountTerm"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="billingAccountTermId==null" target="createBillingAccountTerm"/>
         <field name="billingAccountId"><hidden/></field>
         <field use-when="billingAccountTermId!=null" name="billingAccountTermId"><hidden/></field>
@@ -224,7 +231,8 @@ under the License.
         <field name="termValue" title="${uiLabelMap.PartyTermValue}"><text size="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListBillingAccountPayments" type="list" list-name="payments" paginate-target="BillingAccountPayments">
+    <form name="ListBillingAccountPayments" type="list" list-name="payments" paginate-target="BillingAccountPayments"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PaymentAndApplication" list-name="payments">
                 <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
@@ -246,7 +254,8 @@ under the License.
             <display type="currency" currency="${currencyUomId}"/>
         </field>
     </form>
-    <form name="CreateIncomingBillingAccountPayment" type="single" target="createPaymentAndAssociateToBillingAccount" title="">
+    <form name="CreateIncomingBillingAccountPayment" type="single" target="createPaymentAndAssociateToBillingAccount" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="partyIdFrom" from-field="billToCustomer.partyId"/>
         </actions>
@@ -280,12 +289,13 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListBillingAccountOrders" type="list" list-name="orderPaymentPreferencesList" paginate-target="BillingAccountOrders">
+    <form name="ListBillingAccountOrders" type="list" list-name="orderPaymentPreferencesList" paginate-target="BillingAccountOrders"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
             <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}" also-hidden="false"/>
         </field>  
-        <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
+        <field name="orderDate"><display/></field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonType}">
             <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId" description="${description}"/>
         </field>
@@ -296,5 +306,4 @@ under the License.
             <display type="currency" currency="${currencyUomId}"/>
         </field>
     </form>
-
 </forms>
