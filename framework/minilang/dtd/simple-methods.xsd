@@ -4957,7 +4957,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
     </xs:element>
-    <xs:attributeGroup name="attlist.set">
+    <xs:attributeGroup name="attlist.set-calendar">
         <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
