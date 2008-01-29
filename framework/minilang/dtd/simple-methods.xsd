@@ -5068,7 +5068,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="period-align-start">
+        <xs:attribute name="period-align-start">
             <xs:annotation>
                 <xs:documentation>
                     Align the returned date to the start of the chosen adjustment between year, month, week or day.
@@ -5083,7 +5083,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="period-align-end">
+        <xs:attribute name="period-align-end">
             <xs:annotation>
                 <xs:documentation>
                     Align the returned date to the end of the chosen adjustment between year, month, week or day.
