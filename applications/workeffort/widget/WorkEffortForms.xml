@@ -407,7 +407,6 @@ under the License.
   
     <form name="EditWorkEffortParty" default-map-name="workEffortParty" target="updateWorkEffortParty" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <alt-target target="createWorkEffortParty" use-when="workEffortParty==null"/>
         <field name="workEffortId"><hidden/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
