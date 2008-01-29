@@ -615,11 +615,22 @@
             </if-validate-method>
         </if-compare>
         <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="GIFT_CARD">
-            <if-validate-method field-name="${answerFieldName}" method="isGiftCard">
-                <else>
-                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid gift-card number."/></add-error>
-                </else>
-            </if-validate-method>
+            <set field="finAccountMap.finAccountTypeId" value="GIFTCERT_ACCOUNT"/>
+            <set field="finAccountMap.statusId" value="FNACT_ACTIVE"/>
+            <set field="codeOk" value="false"/>            
+            <find-by-and entity-name="FinAccount" map-name="finAccountMap" list-name="finAccountList"/>
+            <iterate entry-name="finAccount" list-name="finAccountList">
+                <if-compare field-name="finAccount.finAccountCode" operator="equals" value="${${answerFieldName}}">
+                    <set field="codeOk" value="true"/>
+                </if-compare>
+            </iterate>
+            <if-compare field-name="codeOk" value="true"  operator="not-equals">
+                <if-validate-method field-name="${answerFieldName}" method="isGiftCard">
+                    <else>
+                        <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid gift-card number."/></add-error>
+                    </else>
+                </if-validate-method>
+            </if-compare>
         </if-compare>
         <if-compare field-name="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="DATE">
             <if-validate-method field-name="${answerFieldName}" method="isDate">
