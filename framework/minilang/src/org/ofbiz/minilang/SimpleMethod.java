@@ -770,6 +770,8 @@ public class SimpleMethod {
 
                 } else if ("set".equals(nodeName)) {
                     methodOperations.add(new org.ofbiz.minilang.method.envops.SetOperation(curOperElem, simpleMethod));
+                } else if ("set-calendar".equals(nodeName)) {
+                    methodOperations.add(new org.ofbiz.minilang.method.envops.SetCalendar(curOperElem, simpleMethod));
                 } else if ("env-to-env".equals(nodeName)) {
                     MethodOperation mop = new org.ofbiz.minilang.method.envops.EnvToEnv(curOperElem, simpleMethod);
                     methodOperations.add(mop);

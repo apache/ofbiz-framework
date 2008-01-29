@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,9 +47,10 @@ public class MethodContext {
 
     protected int methodType;
 
-    protected Map env = new HashMap();
+    protected Map<String, Object> env = new HashMap<String, Object>();
     protected Map parameters;
     protected Locale locale;
+    protected TimeZone timeZone;
     protected ClassLoader loader;
     protected LocalDispatcher dispatcher;
     protected GenericDelegator delegator;
@@ -58,7 +60,7 @@ public class MethodContext {
     protected HttpServletRequest request = null;
     protected HttpServletResponse response = null;
 
-    protected Map results = null;
+    protected Map<String, Object> results = null;
     protected DispatchContext ctx;
 
     public MethodContext(HttpServletRequest request, HttpServletResponse response, ClassLoader loader) {
@@ -68,6 +70,7 @@ public class MethodContext {
         this.request = request;
         this.response = response;
         this.locale = UtilHttp.getLocale(request);
+        this.timeZone = UtilHttp.getTimeZone(request);
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.delegator = (GenericDelegator) request.getAttribute("delegator");
         this.security = (Security) request.getAttribute("security");
@@ -87,10 +90,11 @@ public class MethodContext {
         this.parameters = context;
         this.loader = loader;
         this.locale = (Locale) context.get("locale");
+        this.timeZone = (TimeZone) context.get("timeZone");
         this.dispatcher = ctx.getDispatcher();
         this.delegator = ctx.getDelegator();
         this.security = ctx.getSecurity();
-        this.results = new HashMap();
+        this.results = new HashMap<String, Object>();
         this.userLogin = (GenericValue) context.get("userLogin");
 
         if (this.loader == null) {
@@ -112,6 +116,7 @@ public class MethodContext {
         this.parameters = context;
         this.loader = loader;
         this.locale = (Locale) context.get("locale");
+        this.timeZone = (TimeZone) context.get("timeZone");
         this.dispatcher = (LocalDispatcher) context.get("dispatcher");
         this.delegator = (GenericDelegator) context.get("delegator");
         this.security = (Security) context.get("security");
@@ -121,6 +126,7 @@ public class MethodContext {
             this.request = (HttpServletRequest) context.get("request");
             this.response = (HttpServletResponse) context.get("response");
             if (this.locale == null) this.locale = UtilHttp.getLocale(request);
+            if (this.timeZone == null) this.timeZone = UtilHttp.getTimeZone(request);
             
             //make sure the delegator and other objects are in place, getting from 
             // request if necessary; assumes this came through the ControlServlet
@@ -132,7 +138,7 @@ public class MethodContext {
                 if (this.userLogin == null) this.userLogin = (GenericValue) this.request.getSession().getAttribute("userLogin");
             }
         } else if (methodType == MethodContext.SERVICE) {
-            this.results = new HashMap();
+            this.results = new HashMap<String, Object>();
         }
         
         if (this.loader == null) {
@@ -247,6 +253,10 @@ public class MethodContext {
     
     public Locale getLocale() {
         return this.locale;
+    }
+
+    public TimeZone getTimeZone() {
+        return this.timeZone;
     }
 
     public LocalDispatcher getDispatcher() {
