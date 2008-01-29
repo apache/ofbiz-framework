@@ -1514,7 +1514,7 @@ under the License.
                 put in the field.
                 
                 You can also specify a default value in the case that the
-                value evaluates to an empty string or the from field is
+                value evaluates to an empty string or the from-field is
                 null or empty. Then the default-value will be used.
                 
                 Again you can use the flexible string expander here, the
@@ -1554,7 +1554,7 @@ under the License.
         <xs:attribute type="xs:string" name="default-value">
             <xs:annotation>
                 <xs:documentation>
-                    Default value to copy in field if value evaluates to an empty string or the from field is null or empty. 
+                    Default value to copy in field if value evaluates to an empty string or the from-field is null or empty. 
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4940,6 +4940,179 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="set-calendar" substitutionGroup="OtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The set-calendar tag allows to set a date "field" from another "from-field" date field type 
+                or directly from a value using at least one adjuster to modify the from-field date.                
+                The type of fields or value is Timestamp.
+                
+                You can also specify a default value in the case that the value evaluates to an empty string or the from-field is
+                null or empty. Then the default-value will be used.
+                
+                You must specify at least one adjuster between years, months, days, hours, minutes, seconds, millis 
+                (in these cases it must be an integer value optionally precedeed by + or -), period-align-start and period-align-end.
+                
+                You may specify a locale or a time-zone else the respective default request value is used.                
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:attributeGroup name="attlist.set">
+        <xs:attribute type="xs:string" name="field" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the field to copy value to.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="from-field">
+            <xs:annotation>
+                <xs:documentation>
+                    Name of the field to copy value from.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="value">
+            <xs:annotation>
+                <xs:documentation>
+                    Simple value to copy in field.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="default-value">
+            <xs:annotation>
+                <xs:documentation>
+                    Default value to copy in field if value evaluates to an empty string or the from-field is null or empty. 
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="set-if-null" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Specifies whether or not to set fields that are null or empty. 
+                    Defaults to true.
+                </xs:documentation>
+            </xs:annotation>            
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="set-if-empty" default="true">
+            <xs:annotation>
+                <xs:documentation>
+                    If the source value, either from a value or from a field, is empty, and
+                    empty-string an empty list or a null value. 
+                    In this case it's set to true. 
+                    
+                    If you don't want to set, if you want it to
+                    leave the target field alone when the source is empty,
+                    then you need to set this to false.
+                </xs:documentation>
+            </xs:annotation>            
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="years">
+            <xs:annotation>
+                <xs:documentation>
+                    Add (optionally using +) or subtract (using -) a number of year(s)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="months">
+            <xs:annotation>
+                <xs:documentation>
+                    Add (optionally using +) or subtract (using -) a number of month(s)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="days">
+            <xs:annotation>
+                <xs:documentation>
+                    Add (optionally using +) or subtract (using -) a number of days(s)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="hours">
+            <xs:annotation>
+                <xs:documentation>
+                    Add (optionally using +) or subtract (using -) a number of hour(s)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="minutes">
+            <xs:annotation>
+                <xs:documentation>
+                    Add (optionally using +) or subtract (using -) a number of minute(s)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="seconds">
+            <xs:annotation>
+                <xs:documentation>
+                    Add (optionally using +) or subtract (using -) a number of second(s)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="millis">
+            <xs:annotation>
+                <xs:documentation>
+                    Add (optionally using +) or subtract (using -) a number of milli-second(s)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="period-align-start">
+            <xs:annotation>
+                <xs:documentation>
+                    Align the returned date to the start of the chosen adjustment between year, month, week or day.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="year"/>
+                    <xs:enumeration value="month"/>
+                    <xs:enumeration value="week"/>
+                    <xs:enumeration value="day"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="period-align-end">
+            <xs:annotation>
+                <xs:documentation>
+                    Align the returned date to the end of the chosen adjustment between year, month, week or day.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="year"/>
+                    <xs:enumeration value="month"/>
+                    <xs:enumeration value="week"/>
+                    <xs:enumeration value="day"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="locale">
+            <xs:annotation>
+                <xs:documentation>
+                    A locale value (eg: en)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="time-zone">
+            <xs:annotation>
+                <xs:documentation>
+                    a time zone value (eg: GMT)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>            
     <!--
         ======================================================
         ========== The Simple Map Processor Section ==========
