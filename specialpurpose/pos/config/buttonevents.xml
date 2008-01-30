@@ -122,4 +122,6 @@ under the License.
     <event button-name="testAlert" class-name="org.ofbiz.pos.event.TestEvents" method-name="testAlert" disable-lock="false"/>
     <event button-name="testLogIdx" class-name="org.ofbiz.pos.event.TestEvents" method-name="logSelectedIndex" disable-lock="false"/>
     <event button-name="testMsr" class-name="org.ofbiz.pos.event.TestEvents" method-name="testMsr" disable-lock="false"/>
+    <event button-name="testNumeric" class-name="org.ofbiz.pos.event.TestEvents" method-name="testNumericKeypad" disable-lock="false"/>
+
 </button-events>
