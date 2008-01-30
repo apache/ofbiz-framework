@@ -22,18 +22,18 @@ import java.io.StringWriter;
 import java.util.Locale;
 
 import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
+
 import net.xoetrope.data.XDataSource;
-import net.xoetrope.swing.XTable;
 import net.xoetrope.swing.XScrollPane;
+import net.xoetrope.swing.XTable;
 import net.xoetrope.xui.XProject;
 import net.xoetrope.xui.XProjectManager;
 import net.xoetrope.xui.data.XModel;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.screen.PosScreen;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.Debug;
 
 public class Journal {
 

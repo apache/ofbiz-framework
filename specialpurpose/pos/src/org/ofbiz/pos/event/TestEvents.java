@@ -22,6 +22,7 @@ import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.component.Journal;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.pos.screen.NumericKeypad;
 
 public class TestEvents {
 
@@ -44,4 +45,20 @@ public class TestEvents {
             pos.showDialog("dialog/error/exception", e.getMessage());
         }
     }
+    
+    public static synchronized void testNumericKeypad(PosScreen pos) {
+               
+        try {
+            NumericKeypad numericKeypad = new NumericKeypad(pos);
+            numericKeypad.setMinus(true);
+            numericKeypad.setPercent(false);
+            String results = numericKeypad.openDlg();
+        }catch(Exception e){
+            Debug.logError(e, module);
+        }
+        
+        pos.refresh();    
+        return;
+    }
+    
 }
