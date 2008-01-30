@@ -4947,19 +4947,15 @@ under the License.
                 or directly from a value using at least one adjuster to modify the from-field date.                
                 The type of fields or value is Timestamp.
                 
-                Again you can use the flexible string expander here, the
-                ${} syntax and such. It can also do a type conversion,
-                so going from whatever type the source data is in,
-                which would be a string value or whatever the variable
-                type is for a from field, it can convert that to any of
-                these types before setting it in the target field.                
-                
+                Again you can use the flexible string expander here, the ${} syntax and such. It can also do a type conversion,
+                so going from whatever type the source data is in,which would be a string value or whatever the variable
+                type is for a from field, it can convert that to any ofthese types before setting it in the target field.                                
                 
                 You can also specify a default value in the case that the value evaluates to an empty string or the from-field is
                 null or empty. Then the default-value will be used.
                 
-                You must specify at least one adjuster between years, months, days, hours, minutes, seconds, millis 
-                (in these cases it must be an integer value optionally precedeed by + or -), period-align-start and period-align-end.
+                Adjuster years, months, days, hours, minutes, seconds and millis use integers optionally precedeed by + or -
+                Period-align-start and period-align-end allows to align on end or start of a period.
                 
                 You may specify a locale or a time-zone else the respective default request value is used.                
             </xs:documentation>
