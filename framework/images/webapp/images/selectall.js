@@ -80,6 +80,36 @@ function removeSelected(formName) {
     cform.submit();
 }
 
+// highlight the selected row(s)
+
+function highlightRow(e,rowId){
+    var currentClassName = document.getElementById(rowId).className;
+    if (e.checked) {
+        if (currentClassName == '' ) {
+            document.getElementById(rowId).className = 'selected';
+        } else if (currentClassName == 'alternate-row') {
+            document.getElementById(rowId).className = 'alternate-rowSelected';
+        }
+    } else {
+        if (currentClassName == 'selected') {
+            document.getElementById(rowId).className = '';
+        } else if (currentClassName == 'alternate-rowSelected') {
+            document.getElementById(rowId).className = 'alternate-row';
+        }
+    }
+}
+
+function highlightAllRows(e, halfRowId, formName){
+    var cform = document[formName];
+    var len = cform.elements.length;
+    for (var i = 0; i < len; i++) {
+        var element = cform.elements[i];
+        if (element.name.substring(0, 10) == "_rowSubmit") {
+            highlightRow(e, halfRowId+element.name.substring(13));
+        }
+    }
+}
+
 // popup windows functions
 
 function popUp(url, name, height, width) {

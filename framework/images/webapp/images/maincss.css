@@ -1565,6 +1565,14 @@ color: #000000;
 background-color: #eeeeee;
 }
 
+.basic-table .selected {
+background: #FFFCCF;
+}
+
+.basic-table .alternate-rowSelected {
+background: #FFF55F;
+}
+
 .basic-table tr .button-col {
 /* button column style - for the small
 collection of buttons used in lists */
