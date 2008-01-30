@@ -82,12 +82,6 @@ public class SetCalendar extends MethodOperation {
         if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
             throw new IllegalArgumentException("Cannot specify a from-field [" + element.getAttribute("from-field") + "] and a value [" + element.getAttribute("value") + "] on the set-calendar action in a screen widget");
         }
-        if (this.yearsExdr.isEmpty() && this.monthsExdr.isEmpty() &&
-                this.daysExdr.isEmpty() && this.hoursExdr.isEmpty() && this.minutesExdr.isEmpty() &&
-                this.secondsExdr.isEmpty() && this.millisExdr.isEmpty() &&
-                this.periodAlignStart.isEmpty() && this.periodAlignEnd.isEmpty()) {
-            throw new IllegalArgumentException("At least one adjuster must be specified");
-        }
     }
 
     public boolean exec(MethodContext methodContext) {
