@@ -21,7 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     
-    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" paginate-target="ListGlAccountOrganization">
+    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" paginate-target="ListGlAccountOrganization"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="GlAccountOrganization"/>
             <set field="noConditionFind" value="Y"/> 
@@ -38,10 +39,8 @@ under the License.
 
     <!-- Displays the form for assigning accounts to a party or company -->
     <!-- TODO: Localize field names --> 
-    <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account">
-
-        <!-- field name="glAccountId" title="Edit" widget-style="buttontext" -->
-
+    <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="glAccountId">
             <drop-down>
                 <entity-options entity-name="GlAccount" description="${glAccountId}: ${accountName}"> 
@@ -62,7 +61,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list" default-entity-name="GlAccount">
+    <form name="ListGlAccount" list-name="listIt" target="" title="" type="list" default-entity-name="GlAccount"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="GlAccount"/>
             <set field="noConditionFind" value="Y"/> 
@@ -88,7 +88,8 @@ under the License.
         <field name="postedBalance" widget-area-style="align-text" title-area-style="align-text"><display type="currency" currency="${defaultCurrencyUomId}"/></field>
     </form>
 
-    <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount">
+    <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="glAccount==null" target="createGlAccount"/>
         <auto-fields-service service-name="updateGlAccount" map-name=""/>
         
@@ -138,7 +139,8 @@ under the License.
     </form>
 
     <!-- this is used to list AcctgTransEntries and can be called either by using an acctgTransId or a glAccountId -->
-    <form name="ListAcctgTransEntries" type="list" list-name="entries"  default-entity-name="AcctgTransEntry">
+    <form name="ListAcctgTransEntries" type="list" list-name="entries"  default-entity-name="AcctgTransEntry"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="acctgTransId">
             <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/>
         </field>
@@ -160,13 +162,15 @@ under the License.
         <field name="isSummary"><display/></field>
     </form>
 
-    <form name="GlAccountsNavForm" type="single" target="" title="GL Accounts" default-map-name="journal">
+    <form name="GlAccountsNavForm" type="single" target="" title="GL Accounts" default-map-name="journal"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="[Back to Admin]" target="AdminMain?organizationPartyId=${organizationPartyId}"/>
         </field>
     </form>
 
-    <form name="ListGlReconciliations" type="list" list-name="glReconciliations" default-entity-name="GlReconciliation">
+    <form name="ListGlReconciliations" type="list" list-name="glReconciliations" default-entity-name="GlReconciliation"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="glReconciliationId">
             <hyperlink also-hidden="false" description="${glReconciliationId}" target="viewGlReconciliation?glReconciliationId=${glReconciliationId}&amp;amp;organizationPartyId=${organizationPartyId}&amp;amp;glAccountId=${glAccountId}"/>
         </field>
@@ -183,7 +187,8 @@ under the License.
         <field name="reconciledDate"><display/></field>
     </form>
 
-    <form name="ListGlReconciliationEntries" type="list" list-name="glReconciliationEntries" default-entity-name="GlReconciliationEntry">
+    <form name="ListGlReconciliationEntries" type="list" list-name="glReconciliationEntries" default-entity-name="GlReconciliationEntry"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="glReconciliationId"><display/></field>
         <field name="acctgTransId">
             <hyperlink also-hidden="false" description="${acctgTransId}"

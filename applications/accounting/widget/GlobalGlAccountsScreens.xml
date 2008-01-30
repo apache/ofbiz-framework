@@ -112,13 +112,23 @@ under the License.
                             <widgets>
                                 <platform-specific>
                                     <html><html-template location="component://accounting/webapp/accounting/chartofaccounts/GlSettingTabBar.ftl"/></html>
-                                </platform-specific>
-                                <container>
-                                    <label style="head1">${uiLabelMap.${labelTitleProperty}}</label>
-                                </container>
+                                </platform-specific>                                
                             </widgets>
-                        </section>                        
-                        <include-form name="AssignGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        </section>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AcctgAssignGlAccount}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AssignGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -153,11 +163,34 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/chartofaccounts/GlSettingTabBar.ftl"/></html>
                         </platform-specific>
-                        <container style="column-left-wide">
-                            <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml" /> 
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AcctgNavigateAccts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>                                        
+                                    </widgets>
+                                </section>
+                            </container>                            
                         </container>
-                        <include-form name="EditGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
-                        <!-- include-form name="AssignGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/ -->
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AcctgNavigateAccts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>                        
+                                    </widgets>
+                                </section>
+                            </container>                            
+                        </container>
                      </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -178,10 +211,34 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="column-left-wide">
-                            <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml" /> 
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleViewGlAccountEntries}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>                            
                         </container>
-                        <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleViewGlAccountEntries}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>                            
+                        </container>
                      </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -201,13 +258,37 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="column-left-wide">
-                            <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml" /> 
-                        </container>
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/chartofaccounts/GlAccountTabBar.ftl"/></html>
                         </platform-specific>
-                        <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleViewAccountingTransaction}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml" /> 
+                                    </widgets>
+                                </section>
+                            </container>                            
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleViewAccountingTransaction}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>                            
+                        </container>
                      </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -226,7 +307,20 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddGlAccount}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>           
+                                    </widgets>
+                                </section>
+                            </container>                            
+                        </container>
                         
                         <!-- include-screen screen-name="ListGlAccounts" name="ListGlAccounts" / --> 
                     
@@ -253,16 +347,26 @@ under the License.
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                        <platform-specific>
-                            <html><html-template location="component://accounting/webapp/accounting/chartofaccounts/GlSettingTabBar.ftl"/></html>
+                           <html><html-template location="component://accounting/webapp/accounting/chartofaccounts/GlSettingTabBar.ftl"/></html>
                        </platform-specific>
-                                <container>
-                                    <label style="head1">${uiLabelMap.${labelTitleProperty}}</label>
+                       <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.${labelTitleProperty}}"/>
                                 </container>
-                        <container style="button-bar">
-                            <link target="ListGlAccountsReport" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
-                            <link target="ListGlAccountsExport" text="${uiLabelMap.CommonExport}" style="buttontext"/>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container style="button-bar">
+                                            <link target="ListGlAccountsReport" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                                            <link target="ListGlAccountsExport" text="${uiLabelMap.CommonExport}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>                                    
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -335,4 +439,3 @@ under the License.
         </section>
     </screen>
 </screens>
-

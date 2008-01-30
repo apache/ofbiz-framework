@@ -73,7 +73,20 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListCompanies" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAvailableInternalOrganizations}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListCompanies" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -93,8 +106,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <include-form name="ListGlAccountOrganization" location="component://accounting/widget/GlSetupForms.xml"/>
-                        <include-form name="AssignGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingChartOfAcctsMenu}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListGlAccountOrganization" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingChartOfAcctsMenu}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AssignGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -129,12 +168,48 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <label style="head1">${uiLabelMap.AccountingOpenTimePeriods}</label>
-                        <include-form name="ListOpenTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
-                        <label style="head1">${uiLabelMap.AccountingClosedTimePeriods}</label>
-                        <include-form name="ListClosedTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
-                        <label style="head1">${uiLabelMap.CommonNew}</label>
-                        <include-form name="CreateTimePeriod" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingOpenTimePeriods}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListOpenTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingClosedTimePeriods}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListClosedTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.CommonNew}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="CreateTimePeriod" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -156,7 +231,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingPreference}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -183,9 +271,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <include-form name="ListConversions" location="component://accounting/widget/GlSetupForms.xml"/>
-                        <label style="head1">${uiLabelMap.AccountingUpdateFX}</label>
-                        <include-form name="updateFXConversion" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingFX}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListConversions" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingUpdateFX}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="updateFXConversion" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -204,8 +317,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <include-form name="ListGlJournals" location="component://accounting/widget/GlSetupForms.xml"/>
-                        <include-form name="EditGlJournal" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingGlJournals}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListGlJournals" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingGlJournals}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditGlJournal" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -225,10 +364,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <include-form name="ListGlAccountTypeDefaults" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container><label style="head1">${uiLabelMap.CommonAdd}</label></container>
-                            <include-form name="EditGlAccountTypeDefault" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingGlAccountTypeDefaults}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListGlAccountTypeDefaults" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.CommonAdd}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditGlAccountTypeDefault" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -239,8 +401,8 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="AccountingGlAccountAssignments"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.AccountingGlAccountAssignments}"/>
+                <set field="titleProperty" value="AccountingInvoiceSales"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingInvoiceSales}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountSalInvoice"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
@@ -248,11 +410,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <container><label style="head1">${uiLabelMap.AccountingSalesInvoiceToRevenue}</label></container>
-                            <include-form name="ListSalInvoiceItemTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container><label style="head1">${uiLabelMap.AccountingAssignSalesInvoiceToRevenue}</label></container>
-                            <include-form name="AddSalInvoiceItemTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingSalesInvoiceToRevenue}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListSalInvoiceItemTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAssignSalesInvoiceToRevenue}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddSalInvoiceItemTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -264,6 +448,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingInvoicePurchase"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountPurInvoice"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
@@ -271,13 +456,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <container><label style="head1">Purchase Invoice type to Expense GL Account Number assignmentlist</label></container>
-                            <container>
-                                <include-form name="ListPurInvoiceItemTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingPurchaseInvoiceToRevenue}"/>
+                                </container>
                             </container>
-                            <container><label style="head1">Assign Purchase Invoice Item type to Expense GL Account Number</label></container>
-                            <include-form name="AddPurInvoiceItemTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListPurInvoiceItemTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAssignPurchaseInvoiceToRevenue}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddPurInvoiceItemTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -288,6 +493,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="${uiLabelMap.AccountingPaymentType}/${uiLabelMap.FormFieldTitle_glAccountTypeId}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountTypePaymentType"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
@@ -295,11 +501,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <container><label style="head1">Payment type to GL Account type assignment list</label></container>
-                            <include-form name="ListPaymentTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container><label style="head1">Assign Payment type to GL Account Type</label></container>
-                            <include-form name="AddPaymentTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingPaymentTypeAssigmentList}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListPaymentTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingPaymentTypeAssignAccountType}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddPaymentTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -310,6 +538,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountNrPaymentMethod"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
@@ -317,11 +546,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <container><label style="head1">Payment methods to GL Account numbers assigmentlist</label></container>
-                            <include-form name="ListPaymentMethodTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container><label style="head1">Assign Payment method type to GL Account number></label></container>
-                            <include-form name="AddPaymentMethodTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingPaymentMethodAssigmentList}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListPaymentMethodTypeGlAssignments" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingPaymentMethodAssignAccountType}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddPaymentMethodTypeGlAssignment" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -353,12 +604,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <include-form name="ListProductGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container>
-                                <label style="head2">${uiLabelMap.ProductAddGlAccount}</label>
+                       <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingProductGlAccount}"/>
+                                </container>
                             </container>
-                            <include-form name="AddProductGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListProductGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductAddGlAccount}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddProductGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -391,12 +663,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <include-form name="ListFinAccountTypeGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container>
-                                <label style="head2">${uiLabelMap.AccountingAddFinAccountTypeGlAccount}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingFinAccountTypeGlAccount}"/>
+                                </container>
                             </container>
-                            <include-form name="AddFinAccountTypeGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListFinAccountTypeGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAddFinAccountTypeGlAccount}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddFinAccountTypeGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -430,12 +723,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <include-form name="ListProductCategoryGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container>
-                                <label style="head2">${uiLabelMap.ProductAddCategoryGlAccount}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingProductCategoryGlAccount}"/>
+                                </container>
                             </container>
-                            <include-form name="AddProductCategoryGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListProductCategoryGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.ProductAddCategoryGlAccount}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddProductCategoryGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -447,10 +761,10 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="VarianceReasonGlAccount"/>
+                <set field="titleProperty" value="AccountingVarianceReasonGlAccounts"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="VarianceReasonGlAccounts"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.VarianceReasonGlAccount}"/>                
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>                
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 
                 <entity-condition entity-name="VarianceReasonGlAccount" list-name="varianceReasonGlAccounts">
@@ -465,12 +779,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <include-form name="ListVarianceReasonGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container>
-                                <label style="head2">${uiLabelMap.VarianceReasonGlAccount}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>
+                                </container>
                             </container>
-                            <include-form name="AddVarianceReasonGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListVarianceReasonGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddVarianceReasonGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>        
@@ -482,10 +817,10 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="CreditCardTypeGlAccounts"/>
+                <set field="titleProperty" value="AccountingCreditCardTypeGlAccount"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="CreditCardTypeGlAccount"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.CreditCardTypeGlAccount}"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingCreditCardTypeGlAccount}"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 <entity-condition entity-name="CreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
@@ -498,12 +833,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <include-form name="ListCreditCardTypeGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container>
-                                <label style="head2">${uiLabelMap.ProductAddCategoryGlAccount}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingCreditCardTypeGlAccount}"/>
+                                </container>
                             </container>
-                            <include-form name="AddCreditCardTypeGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListCreditCardTypeGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingCreditCardTypeGlAccount}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddCreditCardTypeGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -518,7 +874,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityGlAccounts"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="TaxAuthorityGlAccounts"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.AccountingEditTaxAuthorityGlAccounts}"/>                
+                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>                
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 <entity-condition entity-name="TaxAuthorityGlAccount" list-name="taxAuthorityGlAccounts">
                     <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
@@ -534,12 +890,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <include-form name="ListTaxAuthorityGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container>
-                                <label style="head1">${uiLabelMap.AccountingAddTaxAuthorityGlAccount}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>
+                                </container>
                             </container>
-                            <include-form name="AddTaxAuthorityGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListTaxAuthorityGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAddTaxAuthorityGlAccount}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddTaxAuthorityGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>        
@@ -568,12 +945,33 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <include-form name="ListPartyGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
-                            <container>
-                                <label style="head2">${uiLabelMap.AccountingAddPartyGlAccount}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditPartyGlAccounts}"/>
+                                </container>
                             </container>
-                            <include-form name="AddPartyGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListPartyGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAddPartyGlAccount}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddPartyGlAccount" location="component://accounting/widget/GlSetupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>

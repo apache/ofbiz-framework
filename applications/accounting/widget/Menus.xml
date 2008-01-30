@@ -515,7 +515,7 @@ under the License.
         <menu-item name="GlAccountNrPaymentMethod" title="${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}">
             <link target="GlAccountNrPaymentMethod?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="VarianceReasonGlAccounts" title="${uiLabelMap.VarianceReasonGlAccounts}">
+        <menu-item name="VarianceReasonGlAccounts" title="${uiLabelMap.AccountingVarianceReasonGlAccounts}">
             <link target="editVarianceReasonGlAccounts?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="CreditCardTypeGlAccount" title="${uiLabelMap.AccountingCreditCardTypeGlAccount}">
@@ -538,7 +538,8 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="GlobalGLSettingMenus" selected-menuitem-context-field-name="tabButtonItem" default-menu-item-name="chartofaccounts" default-selected-style="tabButtonSelected">
+    <menu name="GlobalGLSettingMenus" selected-menuitem-context-field-name="tabButtonItem" default-menu-item-name="chartofaccounts" 
+        menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="Chartofaccounts" title="${uiLabelMap.AccountingChartOfAcctsMenu}">
             <link target="FindGlobalGlAccount"/>
         </menu-item>        
@@ -553,4 +554,3 @@ under the License.
         </menu-item>    
     </menu>
 </menus>
-    

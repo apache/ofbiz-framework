@@ -21,13 +21,15 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
         
-    <form name="ListCompanies" type="list" title="Internal Organizations" list-name="parties">
+    <form name="ListCompanies" type="list" title="Internal Organizations" list-name="parties"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.AccountingCompanies}"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
         <field name="setup" title="${uiLabelMap.CommonEmptyHeader}" use-when="hasPrefPermission"><hyperlink target="AdminMain?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingSetup}"/></field>
         <field name="accounting" title="${uiLabelMap.CommonEmptyHeader}" use-when="hasBasicPermission"><hyperlink target="PartyAccountsSummary?organizationPartyId=${partyId}" description="${uiLabelMap.AccountingAccounting}"/></field>
     </form>
 
-    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list">
+    <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GlAccountOrganizationAndClass">
                 <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
@@ -46,7 +48,8 @@ under the License.
         </field>
     </form>
 
-    <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account">
+    <form name="AssignGlAccount" type="single" target="createGlAccountOrganization" title="" default-map-name="account"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down>
@@ -58,7 +61,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}"><submit button-type="button"/></field>
     </form>
     
-    <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="partyAcctgPreference">
+    <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="partyAcctgPreference"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyAcctgPreference!=null" target="updatePartyAcctgPreference"/>
         <auto-fields-service service-name="createPartyAcctgPreference"/>
         <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
@@ -199,7 +203,8 @@ under the License.
     </form>
      
     <!-- forms for managing FX rates -->
-    <form name="ListConversions" type="list" list-name="conversions">
+    <form name="ListConversions" type="list" list-name="conversions"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="uomId" title="${uiLabelMap.CommonFrom} ${uiLabelMap.CommonCurrency}"><display/></field>
         <field name="uomIdTo" title="${uiLabelMap.CommonTo} ${uiLabelMap.CommonCurrency}"><display/></field>
         <field name="conversionFactor"><display/></field>
@@ -207,7 +212,8 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
     </form>
     
-    <form name="updateFXConversion" type="single" target="updateFXConversion" default-service-name="updateFXConversion">
+    <form name="updateFXConversion" type="single" target="updateFXConversion" default-service-name="updateFXConversion"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="uomId" title="${uiLabelMap.CommonFrom} ${uiLabelMap.CommonCurrency}">
             <drop-down no-current-selected-key="${defaultCurrencyUomId}">
@@ -229,7 +235,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingUpdateFX}"><submit/></field>
     </form>
 
-    <form name="ListGlAccountTypeDefaults" type="list" target="" list-name="glAccountTypeDefaults">
+    <form name="ListGlAccountTypeDefaults" type="list" target="" list-name="glAccountTypeDefaults"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GlAccountTypeDefault" list-name="glAccountTypeDefaults">
                 <condition-list>
@@ -248,7 +255,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeGlAccountTypeDefault?glAccountTypeId=${glAccountTypeId}&amp;glAccountId=${glAccountId}&amp;organizationPartyId=${organizationPartyId}"/>
         </field>
     </form>
-    <form name="EditGlAccountTypeDefault" type="single" title="" target="createGlAccountTypeDefault">
+    <form name="EditGlAccountTypeDefault" type="single" title="" target="createGlAccountTypeDefault"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createGlAccountTypeDefault"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="glAccountTypeId">
@@ -270,7 +278,8 @@ under the License.
     </form>
 
     <!-- forms for Sales invoice Itemtypes to GLAccount number -->
-    <form name="ListSalInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes">
+    <form name="ListSalInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/listInvoiceItemTypesGlAccount.bsh"/>
         </actions>
@@ -280,9 +289,10 @@ under the License.
         <field name="defaultGlAccountId"><display/></field>
         <field name="overrideGlAccountId"><display/></field>
         <field name="activeGlDescription"><display/></field>
-        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="removeSalInvoiceItemTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;invoiceItemTypeId=${invoiceItemTypeId}" description="${remove}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="removeSalInvoiceItemTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;invoiceItemTypeId=${invoiceItemTypeId}" description="${uiLabelMap.CommonRemove}"/></field>
     </form>
-    <form name="AddSalInvoiceItemTypeGlAssignment" type="single" target="addSalInvoiceItemTypeGlAssignment">
+    <form name="AddSalInvoiceItemTypeGlAssignment" type="single" target="addSalInvoiceItemTypeGlAssignment"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="GlAccountClass" value-name="revenueGlAccountClass">
                 <field-map field-name="glAccountClassId" value="REVENUE"/>
@@ -313,7 +323,8 @@ under the License.
     </form>
     
     <!-- forms for Purchase invoice Itemtypes to GLAccount number -->
-    <form name="ListPurInvoiceItemTypeGlAssignments" type="list" list-name="purinvoiceItemTypes" default-map-name="iTypes">
+    <form name="ListPurInvoiceItemTypeGlAssignments" type="list" list-name="purinvoiceItemTypes" default-map-name="iTypes"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/listPurInvoiceItemTypesGlAccount.bsh"/>
         </actions>
@@ -321,11 +332,12 @@ under the License.
         <field name="invoiceItemTypeId"><hidden/></field>
         <field name="description"><display/></field>
         <field name="defaultGlAccountId"><display/></field>
-        <field name="glAccountId" title="Override GL Account Id"><display/></field>
+        <field name="glAccountId" title="${uiLabelMap.AccountingInvoiceOverrideExpenseGlAccountId}"><display/></field>
         <field name="activeGlDescription"><display/></field>
-        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="removePurInvoiceItemTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;invoiceItemTypeId=${invoiceItemTypeId}" description="${remove}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="removePurInvoiceItemTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;invoiceItemTypeId=${invoiceItemTypeId}" description="${uiLabelMap.CommonRemove}"/></field>
     </form>
-    <form name="AddPurInvoiceItemTypeGlAssignment" type="single" target="addPurInvoiceItemTypeGlAssignment">
+    <form name="AddPurInvoiceItemTypeGlAssignment" type="single" target="addPurInvoiceItemTypeGlAssignment"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="GlAccountClass" value-name="expenseGlAccountClass">
                 <field-map field-name="glAccountClassId" value="EXPENSE"/>
@@ -334,7 +346,7 @@ under the License.
         </actions>
         <auto-fields-service service-name="addInvoiceItemTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
-        <field name="invoiceItemTypeId" title="Purchase invoice Item Type">
+        <field name="invoiceItemTypeId" title="${uiLabelMap.AccountingInvoicePurchaseItemType}">
             <drop-down allow-empty="false" >
                 <entity-options description="${description}" entity-name="InvoiceItemType">
                     <entity-constraint name="invoiceItemTypeId" operator="like" value="PINV_%"/>
@@ -342,7 +354,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glAccountId" title="Override Expense Gl Account Id">
+        <field name="glAccountId" title="${uiLabelMap.AccountingInvoiceOverrideExpenseGlAccountId}">
             <drop-down>
                 <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
@@ -355,7 +367,8 @@ under the License.
     </form>
     
     <!-- forms for payment types to GLAccount type -->
-    <form name="ListPaymentTypeGlAssignments" type="list">
+    <form name="ListPaymentTypeGlAssignments" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PaymentGlAccountTypeMap">
                 <condition-expr field-name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
@@ -366,20 +379,21 @@ under the License.
         <field name="paymentTypeId"><display-entity entity-name="PaymentType" description="${description}"/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType" description="${description}"/></field>
         <field name="organizationPartyId"><hidden/></field>
-        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="removePaymentTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;paymentTypeId=${paymentTypeId}" description="Remove"/></field>
+        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="removePaymentTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;paymentTypeId=${paymentTypeId}" description="${uiLabelMap.CommonRemove}"/></field>
     </form>
     
-    <form name="AddPaymentTypeGlAssignment" type="single" target="addPaymentTypeGlAssignment">
+    <form name="AddPaymentTypeGlAssignment" type="single" target="addPaymentTypeGlAssignment"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addPaymentTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
-        <field name="paymentTypeId" title="Payment type">
+        <field name="paymentTypeId">
             <drop-down>
                 <entity-options entity-name="PaymentType" description="${description}" key-field-name="paymentTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glAccountTypeId" title="Gl Account type">
+        <field name="glAccountTypeId">
             <drop-down>
                 <entity-options entity-name="GlAccountType" description="${description}" key-field-name="glAccountTypeId">
                     <entity-order-by field-name="description"/>
@@ -390,7 +404,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <!-- forms for payment method Type to GLAccounts -->
-    <form name="ListPaymentMethodTypeGlAssignments" type="list">
+    <form name="ListPaymentMethodTypeGlAssignments" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PaymentMethodTypeGlAccount">
                 <condition-expr field-name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
@@ -408,20 +423,21 @@ under the License.
         <field name="glAccountId"><display-entity entity-name="GlAccount" description="${accountName}[${glAccountId}]"/></field>
         <field name="organizationPartyId"><hidden/></field>
         <field name="defaultGlAccountId"><display description="${defaultGlAccountId} : ${description}"/></field>
-        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="removePaymentMethodTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;paymentMethodTypeId=${paymentMethodTypeId}" description="Remove"/></field>
+        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="removePaymentMethodTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;paymentMethodTypeId=${paymentMethodTypeId}" description="${uiLabelMap.CommonRemove}"/></field>
     </form>
     
-    <form name="AddPaymentMethodTypeGlAssignment" type="single" target="addPaymentMethodTypeGlAssignment">
+    <form name="AddPaymentMethodTypeGlAssignment" type="single" target="addPaymentMethodTypeGlAssignment"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addPaymentMethodTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
-        <field name="paymentMethodTypeId" title="Payment method type">
+        <field name="paymentMethodTypeId">
             <drop-down>
                 <entity-options entity-name="PaymentMethodType" description="${description}" key-field-name="paymentMethodTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="glAccountId" title="Gl Account Id">
+        <field name="glAccountId">
             <drop-down>
                 <entity-options entity-name="GlAccountOrganizationAndClass" description="${accountName}[${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
@@ -434,7 +450,8 @@ under the License.
     </form>
 
     <!-- Accounting Time Period forms-->
-    <form name="ListClosedTimePeriods" type="list" list-name="closedTimePeriods">
+    <form name="ListClosedTimePeriods" type="list" list-name="closedTimePeriods"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="CustomTimePeriod" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>    
         <field name="isClosed"><hidden/></field>
@@ -445,7 +462,8 @@ under the License.
           <display-entity entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName}: ${fromDate} - ${thruDate}"/>
         </field>
     </form>
-    <form name="ListOpenTimePeriods" type="list" list-name="openTimePeriods">
+    <form name="ListOpenTimePeriods" type="list" list-name="openTimePeriods"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="CustomTimePeriod" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="isClosed"><hidden/></field>
@@ -455,9 +473,10 @@ under the License.
         <field name="parentPeriodId">
           <display-entity entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="[${customTimePeriodId}] ${periodName}: ${fromDate} - ${thruDate}"/>
         </field>
-        <field name="close" title="${uiLabelMap.CommonEmptyHeader}"><hyperlink target="closeFinancialTimePeriod?organizationPartyId=${organizationPartyId}&amp;customTimePeriodId=${customTimePeriodId}" description="Close"/></field>
+        <field name="close" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="closeFinancialTimePeriod?organizationPartyId=${organizationPartyId}&amp;customTimePeriodId=${customTimePeriodId}" description="${uiLabelMap.CommonClose}"/></field>
     </form>
-    <form name="CreateTimePeriod" type="single" title="" target="createCustomTimePeriod">
+    <form name="CreateTimePeriod" type="single" title="" target="createCustomTimePeriod"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createCustomTimePeriod"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="isClosed">
@@ -481,14 +500,16 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
 
-    <form name="EditGlJournal" type="single" target="createGlJournal" title="" default-map-name="glJournal">
+    <form name="EditGlJournal" type="single" target="createGlJournal" title="" default-map-name="glJournal"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="glJournal!=null" target="updateGlJournal"/>
         <auto-fields-service service-name="createGlJournal"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glJournalId" use-when="glJournal!=null"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
-    <form name="ListGlJournals" type="list">
+    <form name="ListGlJournals" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GlJournal">
                 <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
@@ -505,7 +526,8 @@ under the License.
         </field>
     </form>
     
-    <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" list-name="productGlAccounts">
+    <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" list-name="productGlAccounts"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateProductGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
@@ -520,7 +542,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="AddProductGlAccount" type="single" target="createProductGlAccount">
+    <form name="AddProductGlAccount" type="single" target="createProductGlAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
             <drop-down allow-empty="false">
@@ -538,7 +561,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListFinAccountTypeGlAccounts" type="list" target="updateFinAccountTypeGlAccount" list-name="finAccountTypeGlAccounts">
+    <form name="ListFinAccountTypeGlAccounts" type="list" target="updateFinAccountTypeGlAccount" list-name="finAccountTypeGlAccounts"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateFinAccountTypeGlAccount"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="finAccountTypeId"><display-entity entity-name="FinAccountType"/></field>
@@ -553,7 +577,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="AddFinAccountTypeGlAccount" type="single" target="createFinAccountTypeGlAccount">
+    <form name="AddFinAccountTypeGlAccount" type="single" target="createFinAccountTypeGlAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountTypeId}">
             <drop-down allow-empty="false">
@@ -568,7 +593,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListProductCategoryGlAccounts" type="list" target="updateProductCategoryGlAccount" list-name="productCategoryGlAccounts">
+    <form name="ListProductCategoryGlAccounts" type="list" target="updateProductCategoryGlAccount" list-name="productCategoryGlAccounts"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateProductCategoryGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
@@ -583,7 +609,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="AddProductCategoryGlAccount" type="single" target="createProductCategoryGlAccount">
+    <form name="AddProductCategoryGlAccount" type="single" target="createProductCategoryGlAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
             <drop-down allow-empty="false">
@@ -601,7 +628,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListVarianceReasonGlAccounts" type="list" target="updateVarianceReasonGlAccount" list-name="varianceReasonGlAccounts">
+    <form name="ListVarianceReasonGlAccounts" type="list" target="updateVarianceReasonGlAccount" list-name="varianceReasonGlAccounts"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateVarianceReasonGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="varianceReasonId"><display-entity entity-name="VarianceReason"/></field>
@@ -616,7 +644,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="AddVarianceReasonGlAccount" type="single" target="createVarianceReasonGlAccount">
+    <form name="AddVarianceReasonGlAccount" type="single" target="createVarianceReasonGlAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="varianceReasonId" title="${uiLabelMap.FormFieldTitle_varianceReasonId}">
             <drop-down allow-empty="false">
@@ -633,7 +662,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListCreditCardTypeGlAccounts" type="list" target="updateCreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts">
+    <form name="ListCreditCardTypeGlAccounts" type="list" target="updateCreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateCreditCardTypeGlAccount" default-field-type="display"/> 
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}"> 
@@ -647,7 +677,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field> 
     </form>
     
-    <form name="AddCreditCardTypeGlAccount" type="single" target="createCreditCardTypeGlAccount">
+    <form name="AddCreditCardTypeGlAccount" type="single" target="createCreditCardTypeGlAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field> 
         <field name="cardType">
             <drop-down allow-empty="false">
@@ -665,7 +696,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListTaxAuthorityGlAccounts" type="list" target="updateOrganizationTaxAuthorityGlAccount" list-name="taxAuthorityGlAccounts">
+    <form name="ListTaxAuthorityGlAccounts" type="list" target="updateOrganizationTaxAuthorityGlAccount" list-name="taxAuthorityGlAccounts"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateTaxAuthorityGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="taxAuthGeoId" title="${uiLabelMap.AccountingTaxAuthorityGeo}">
@@ -687,7 +719,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="AddTaxAuthorityGlAccount" type="list" target="createOrganizationTaxAuthorityGlAccount" list-name="taxAuthorityHavingNoGlAccountList">
+    <form name="AddTaxAuthorityGlAccount" type="list" target="createOrganizationTaxAuthorityGlAccount" list-name="taxAuthorityHavingNoGlAccountList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="organizationPartyId"><hidden/></field>
         <field name="taxAuthGeoId" title="${uiLabelMap.AccountingTaxAuthorityGeo}">
             <display-entity entity-name="Geo" key-field-name="geoId" description="[${geoId}] ${geoName}"/>
@@ -705,7 +738,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListPartyGlAccounts" type="list" target="updatePartyGlAccount" list-name="partyGlAccounts">
+    <form name="ListPartyGlAccounts" type="list" target="updatePartyGlAccount" list-name="partyGlAccounts"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updatePartyGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>       
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
@@ -719,7 +753,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="AddPartyGlAccount" type="single" target="createPartyGlAccount">
+    <form name="AddPartyGlAccount" type="single" target="createPartyGlAccount"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPartyGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
