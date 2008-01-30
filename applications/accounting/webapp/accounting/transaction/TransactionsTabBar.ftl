@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign selected = page.tabButtonItem?default("void")>
-<div class="button-bar button-style-1">
+<#assign selected = tabButtonItem?default("void")>
+<div class="button-bar tab-bar">
   <ul>
     <li<#if selected == "authorizetransactiontab"> class="selected"</#if>><a href="<@ofbizUrl>/AuthorizeTransaction</@ofbizUrl>">${uiLabelMap.AccountingAuthorize}</a></li>
     <li<#if selected == "capturetransactiontab"> class="selected"</#if>><a href="<@ofbizUrl>/CaptureTransaction</@ofbizUrl>">${uiLabelMap.AccountingCapture}</a></li>

@@ -19,8 +19,9 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
 
-    <menu name="TaxAuthorityTabBar" default-menu-item-name="EditTaxAuthority" type="simple">
-
+    <menu name="TaxAuthorityTabBar" default-menu-item-name="EditTaxAuthority" type="simple"
+        menu-container-style="button-bar tab-bar" default-selected-style="selected">
+                
         <menu-item name="EditTaxAuthority" title="${uiLabelMap.AccountingTaxAuthority}">
             <link target="EditTaxAuthority?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}"/>
         </menu-item>
