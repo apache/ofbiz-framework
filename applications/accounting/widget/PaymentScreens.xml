@@ -466,6 +466,7 @@ under the License.
     <screen name="ManualTransaction">
         <section>
             <actions>
+                <set field="titleProperty" value="AccountingManualTransaction"/>
                 <set field="headerItem" value="transaction"/>
                 <set field="tabButtonItem" value="manualtransactiontab"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/manualTx.bsh"/>

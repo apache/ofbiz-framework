@@ -55,7 +55,6 @@ under the License.
     <screen name="FindGatewayResponses">
         <section>
             <actions>
-                <set field="title" value="Find Gateway Responses"/>
                 <set field="titleProperty" value="PageTitleFindGatewayResponses"/> <!-- shows up in browser title bar -->
                 <set field="tabButtonItem" value="gatewayresponsestab"/> 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
@@ -64,11 +63,34 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericTransactionDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.AccountingGatewayResponses}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindGatewayResponses}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="FindGatewayResponses" location="component://accounting/widget/TransactionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="FindGatewayResponses" location="component://accounting/widget/TransactionForms.xml"/>
-                        <include-form name="ListGatewayResponses" location="component://accounting/widget/TransactionForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindGatewayResponses}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListGatewayResponses" location="component://accounting/widget/TransactionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -79,7 +101,6 @@ under the License.
     <screen name="ViewGatewayResponse">
         <section>
             <actions>
-                <set field="title" value="View Gateway Response"/>
                 <set field="titleProperty" value="PageTitleViewGatewayResponse"/>
                 <set field="tabButtonItem" value="gatewayresponsestab"/> 
 
@@ -93,11 +114,34 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericTransactionDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.AccountingGatewayResponse}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleViewGatewayResponse}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ViewGatewayResponseRelations" location="component://accounting/widget/TransactionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ViewGatewayResponseRelations" location="component://accounting/widget/TransactionForms.xml"/>
-                        <include-form name="ViewGatewayResponse" location="component://accounting/widget/TransactionForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleViewGatewayResponse}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ViewGatewayResponse" location="component://accounting/widget/TransactionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -108,7 +152,6 @@ under the License.
     <screen name="AuthorizeTransaction">
         <section>
             <actions>
-                <set field="title" value="Authorize Transaction"/>
                 <set field="titleProperty" value="AccountingAuthorize"/>
                 <set field="tabButtonItem" value="authorizetransactiontab"/> 
 
@@ -125,7 +168,20 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericTransactionDecorator">
                     <decorator-section name="body">
-                        <include-form name="AuthorizeTransaction" location="component://accounting/widget/TransactionForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAuthorize}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AuthorizeTransaction" location="component://accounting/widget/TransactionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -136,7 +192,6 @@ under the License.
     <screen name="CaptureTransaction">
         <section>
             <actions>
-                <set field="title" value="Capture Transaction"/>
                 <set field="titleProperty" value="AccountingCapture"/>
                 <set field="tabButtonItem" value="capturetransactiontab"/> 
 
@@ -153,11 +208,23 @@ under the License.
             <widgets>
                 <decorator-screen name="GenericTransactionDecorator">
                     <decorator-section name="body">
-                        <include-form name="CaptureTransaction" location="component://accounting/widget/TransactionForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingCapture}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="CaptureTransaction" location="component://accounting/widget/TransactionForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 </screens>
-

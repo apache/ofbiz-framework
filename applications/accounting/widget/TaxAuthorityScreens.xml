@@ -30,9 +30,21 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.AccountingTaxAuthorities}</label></container>
-                        <container><link target="EditTaxAuthority" text="${uiLabelMap.AccountingNewTaxAuthority}" style="buttontext"/></container>
-                        <include-form name="FindTaxAuthority" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindTaxAuthority}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container><link target="EditTaxAuthority" text="${uiLabelMap.AccountingNewTaxAuthority}" style="buttontext"/></container>
+                                        <include-form name="FindTaxAuthority" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -53,7 +65,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditTaxAuthority" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditTaxAuthority}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditTaxAuthority" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -73,9 +98,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListTaxAuthorityCategories" location="component://accounting/widget/TaxAuthorityForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddTaxAuthorityCategory}</label></container>
-                        <include-form name="AddTaxAuthorityCategory" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditTaxAuthorityCategories}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListTaxAuthorityCategories" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddTaxAuthorityCategory}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddTaxAuthorityCategory" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -94,9 +144,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListTaxAuthorityAssocs" location="component://accounting/widget/TaxAuthorityForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddTaxAuthorityAssoc}</label></container>
-                        <include-form name="AddTaxAuthorityAssoc" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditTaxAuthorityAssocs}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListTaxAuthorityAssocs" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddTaxAuthorityAssoc}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddTaxAuthorityAssoc" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -115,9 +190,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListTaxAuthorityGlAccounts" location="component://accounting/widget/TaxAuthorityForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddTaxAuthorityGlAccount}</label></container>
-                        <include-form name="AddTaxAuthorityGlAccount" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListTaxAuthorityGlAccounts" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddTaxAuthorityGlAccount}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddTaxAuthorityGlAccount" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -136,9 +236,34 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListTaxAuthorityRateProducts" location="component://accounting/widget/TaxAuthorityForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddTaxAuthorityCategory}</label></container>
-                        <include-form name="AddTaxAuthorityRateProduct" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditTaxAuthorityRateProducts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListTaxAuthorityRateProducts" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddTaxAuthorityCategory}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddTaxAuthorityRateProduct" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -158,9 +283,35 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="EditTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext"/></container>
-                        <include-form name="FindTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>
-                        <include-form name="ListTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListTaxAuthorityParties}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container><link target="EditTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext"/></container>
+                                        <include-form name="FindTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>                                        
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>        
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListTaxAuthorityParties}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>                                        
+                                        <include-form name="ListTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>                                        
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -182,8 +333,21 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="EditTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext"/></container>
-                        <include-form name="EditTaxAuthorityPartyInfo" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditTaxAuthorityPartyInfo}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container><link target="EditTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext"/></container>
+                                        <include-form name="EditTaxAuthorityPartyInfo" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindTaxAuthority" type="list" list-name="taxAuthorityList">
+    <form name="FindTaxAuthority" type="list" list-name="taxAuthorityList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TaxAuthority" list-name="taxAuthorityList">
                 <order-by field-name="taxAuthGeoId"/>
@@ -41,7 +42,8 @@ under the License.
         </field>
     </form>
     
-    <form name="EditTaxAuthority" type="single" target="updateTaxAuthority" title="" default-map-name="taxAuthority">
+    <form name="EditTaxAuthority" type="single" target="updateTaxAuthority" title="" default-map-name="taxAuthority"
+        header-row-style="header-row" default-table-style="basic-table"> 
         <alt-target use-when="taxAuthority==null" target="createTaxAuthority"/>
         <auto-fields-service service-name="updateTaxAuthority" map-name="taxAuthority"/>
  
@@ -64,7 +66,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListTaxAuthorityCategories" type="list"  list-name="taxAuthorityCategoryList" target="updateTaxAuthorityCategory">
+    <form name="ListTaxAuthorityCategories" type="list"  list-name="taxAuthorityCategoryList" target="updateTaxAuthorityCategory"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TaxAuthorityCategory" list-name="taxAuthorityCategoryList">
                 <condition-list combine="and">
@@ -88,8 +91,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddTaxAuthorityCategory" type="single" target="createTaxAuthorityCategory" title="" default-map-name="taxAuthorityCategory">
-        
+    <form name="AddTaxAuthorityCategory" type="single" target="createTaxAuthorityCategory" title="" default-map-name="taxAuthorityCategory"
+        header-row-style="header-row" default-table-style="basic-table">         
         <auto-fields-service service-name="createTaxAuthorityCategory"/>
         <field name="taxAuthPartyId"><hidden/></field>
         <field name="taxAuthGeoId"><hidden/></field>
@@ -97,7 +100,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListTaxAuthorityAssocs" type="list" list-name="taxAuthorityAssocList" target="updateTaxAuthorityAssoc">
+    <form name="ListTaxAuthorityAssocs" type="list" list-name="taxAuthorityAssocList" target="updateTaxAuthorityAssoc"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TaxAuthorityAssoc" list-name="taxAuthorityAssocList">
                 <condition-list combine="and">
@@ -134,8 +138,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddTaxAuthorityAssoc" type="single" target="createTaxAuthorityAssoc" title="" default-map-name="taxAuthorityAssoc">
-        
+    <form name="AddTaxAuthorityAssoc" type="single" target="createTaxAuthorityAssoc" title="" default-map-name="taxAuthorityAssoc"
+        header-row-style="header-row" default-table-style="basic-table">         
         <auto-fields-service service-name="createTaxAuthorityAssoc"/>
         <field name="taxAuthPartyId"><hidden/></field>
         <field name="taxAuthGeoId"><hidden/></field>
@@ -153,7 +157,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListTaxAuthorityGlAccounts" type="list"  list-name="taxAuthorityGlAccountList" target="updateTaxAuthorityGlAccount">
+    <form name="ListTaxAuthorityGlAccounts" type="list"  list-name="taxAuthorityGlAccountList" target="updateTaxAuthorityGlAccount"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TaxAuthorityGlAccount" list-name="taxAuthorityGlAccountList">
                 <condition-list combine="and">
@@ -182,8 +187,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddTaxAuthorityGlAccount" type="single" target="createTaxAuthorityGlAccount" title="" default-map-name="taxAuthorityGlAccount">
-        
+    <form name="AddTaxAuthorityGlAccount" type="single" target="createTaxAuthorityGlAccount" title="" default-map-name="taxAuthorityGlAccount"
+        header-row-style="header-row" default-table-style="basic-table">         
         <auto-fields-service service-name="createTaxAuthorityGlAccount"/>
         <field name="taxAuthPartyId"><hidden/></field>
         <field name="taxAuthGeoId"><hidden/></field>
@@ -192,7 +197,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListTaxAuthorityRateProducts" type="list" list-name="taxAuthorityRateProductList" target="updateTaxAuthorityRateProduct" separate-columns="true">
+    <form name="ListTaxAuthorityRateProducts" type="list" list-name="taxAuthorityRateProductList" target="updateTaxAuthorityRateProduct" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TaxAuthorityRateProduct" list-name="taxAuthorityRateProductList">
                 <condition-list combine="and">
@@ -240,7 +246,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AddTaxAuthorityRateProduct" type="single" target="createTaxAuthorityRateProduct" title="" default-map-name="taxAuthorityRateProduct">
+    <form name="AddTaxAuthorityRateProduct" type="single" target="createTaxAuthorityRateProduct" title="" default-map-name="taxAuthorityRateProduct"
+        header-row-style="header-row" default-table-style="basic-table"> 
         <auto-fields-service service-name="createTaxAuthorityRateProduct"/>
 
         <field name="taxAuthPartyId"><hidden/></field>
@@ -278,8 +285,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="FindTaxAuthorityParties" type="single" target="ListTaxAuthorityParties" title="">
-        
+    <form name="FindTaxAuthorityParties" type="single" target="ListTaxAuthorityParties" title=""
+        header-row-style="header-row" default-table-style="basic-table">         
         <field name="taxAuthPartyId"><hidden/></field>
         <field name="taxAuthGeoId"><hidden/></field>
 
@@ -297,7 +304,8 @@ under the License.
         
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListTaxAuthorityParties" type="list" title="" list-name="listIt">
+    <form name="ListTaxAuthorityParties" type="list" title="" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -330,7 +338,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditTaxAuthorityPartyInfo" type="single" target="updateTaxAuthorityPartyInfo" title="" default-map-name="partyTaxAuthInfo">
+    <form name="EditTaxAuthorityPartyInfo" type="single" target="updateTaxAuthorityPartyInfo" title="" default-map-name="partyTaxAuthInfo"
+        header-row-style="header-row" default-table-style="basic-table"> 
         <alt-target use-when="partyTaxAuthInfo==null" target="createTaxAuthorityPartyInfo"/>
         
         <field name="taxAuthPartyId"><hidden/></field>
