@@ -51,6 +51,9 @@ import org.ofbiz.entity.finder.ByAndFinder;
 import org.ofbiz.entity.finder.ByConditionFinder;
 import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.entity.finder.PrimaryKeyFinder;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
@@ -386,12 +389,23 @@ public abstract class ModelScreenAction implements Serializable {
                 try {
                     BshUtil.runBshAtLocation(location, context);
                 } catch (GeneralException e) {
-                    String errMsg = "Error running BSH script at location [" + location + "]: " + e.toString();
-                    // throwing nested exception instead of logging full detail: Debug.logError(e, errMsg, module);
-                    throw new GeneralException(errMsg, e);
+                    throw new GeneralException("Error running BSH script at location [" + location + "]", e);
+                }
+            } else if (location.contains(".xml#")) {
+                String xmlResource = ScreenFactory.getResourceNameFromCombined(location);
+                String methodName = ScreenFactory.getScreenNameFromCombined(location);
+                Map localContext = FastMap.newInstance();
+                localContext.putAll(context);
+                DispatchContext ctx = this.modelScreen.getDispatcher(context).getDispatchContext();
+                MethodContext methodContext = new MethodContext(ctx, localContext, null);
+                try {
+                    SimpleMethod.runSimpleMethod(xmlResource, methodName, methodContext);
+                    context.putAll(methodContext.getResults());
+                } catch (MiniLangException e) {
+                    throw new GeneralException("Error running simple method at location [" + location + "]", e);
                 }
             } else {
-                throw new GeneralException("For screen script actions the script type is not yet support for location:" + location);
+                throw new GeneralException("For screen script actions the script type is not yet supported for location: [" + location + "]");
             }
         }
     }
