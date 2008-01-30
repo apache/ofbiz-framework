@@ -24,9 +24,9 @@ under the License.
     <screen name="PartyAccountsSummary">
         <section>
             <actions>
-                <set field="titleProperty" value="PartyAccountsSummary"/>
+                <set field="titleProperty" value="AccountingPartyAccountsSummary"/>
                 <set field="tabButtonItem" value="PartyAccountsSummary"/>
-                <set field="labelTitleProperty" value="PartyAccountsSummary"/>
+                <set field="labelTitleProperty" value="AccountingPartyAccountsSummary"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <!-- entity-condition entity-name="GlAccountOrganization" list-name="entityList" use-cache="true" >
                     <condition-expr field-name="glAccountId" operator="greater" value="0" />
@@ -346,16 +346,38 @@ under the License.
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
-                            <container style="body">
-                                <include-form name="FindGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAcctRecon}"/>
+                                </container>
                             </container>
-                        </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="FindGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>    
                         <section>
                             <condition>
                                 <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
-                                <include-form name="ListGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.AccountingAcctRecon}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="ListGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -378,15 +400,37 @@ under the License.
                         <section>
                             <widgets>
                                 <container style="screenlet">
-                                    <container style="body">
-                                        <include-form name="EditGlReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.AccountingEditAcctRecon}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="EditGlReconciliation" location="component://accounting/widget/GlForms.xml"/>
+                                            </widgets>
+                                        </section>
                                     </container>
                                 </container>
                             </widgets>
                         </section>
                         <section>
                             <widgets>
-                                <include-form name="ListGlReconciliationEntries" location="component://accounting/widget/GlForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.AccountingEditAcctRecon}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="ListGlReconciliationEntries" location="component://accounting/widget/GlForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -406,8 +450,17 @@ under the License.
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
-                            <container style="body">
-                                <include-form name="FindGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAcctRecons}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="FindGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
+                                    </widgets>
+                                </section>
                             </container>
                         </container>
                         <section>
@@ -415,7 +468,20 @@ under the License.
                                 <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
-                                <include-form name="ListGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.AccountingAcctRecons}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="ListGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -424,4 +490,3 @@ under the License.
         </section>
     </screen>
 </screens>
-

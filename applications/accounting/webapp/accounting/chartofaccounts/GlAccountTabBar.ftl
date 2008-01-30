@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign selected = page.tabButtonItem?default("void")>
-<div class="button-bar button-style-1">
+<#assign selected = tabButtonItem?default("void")>
+<div class="button-bar tab-bar">
   <ul>
     <li<#if selected == "FindGlobalGlAccount"> class="selected"</#if>><a href="<@ofbizUrl>FindGlobalGlAccount</@ofbizUrl>">${uiLabelMap.AcctgChartOfAcctsTabMenu}</a></li>
     <li<#if selected == "GlAccountNavigate"> class="selected"</#if>><a href="<@ofbizUrl>GlAccountNavigate</@ofbizUrl>">${uiLabelMap.AcctgNavigateAccts}</a></li>

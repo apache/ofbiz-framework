@@ -21,7 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="FindAcctgTrans" target="FindAcctgTrans" type="single" title="" default-map-name="journal">
+    <form name="FindAcctgTrans" target="FindAcctgTrans" type="single" title="" default-map-name="journal"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down allow-empty="true">
@@ -62,7 +63,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
 
-    <form name="ListAcctgTrans" type="list" title="List Accounting Transactions" list-name="acctgTransList">
+    <form name="ListAcctgTrans" type="list" title="List Accounting Transactions" list-name="acctgTransList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransList" distinct="true">
                 <condition-list>
@@ -124,7 +126,8 @@ under the License.
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="!&quot;N&quot;.equals(isPosted)"><display/></field>
     </form>
 
-    <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions">
+    <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="acctgTransId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
         </field>                
@@ -150,7 +153,8 @@ under the License.
         </field>
     </form>
 
-    <form name="FindAcctgTransEntries" target="FindAcctgTransEntries" type="single" title="">
+    <form name="FindAcctgTransEntries" target="FindAcctgTransEntries" type="single" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId">
             <drop-down allow-empty="true">
@@ -209,7 +213,8 @@ under the License.
         </field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListFindAcctgTransEntriesByAccount" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList">
+    <form name="ListFindAcctgTransEntriesByAccount" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransEntryList">
                 <condition-list>
@@ -280,7 +285,8 @@ under the License.
         <field name="debitCreditFlag" position="2"><display/></field>
         <field name="amount" position="2"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
-    <form name="ListFindAcctgTransEntriesByDate" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList">
+    <form name="ListFindAcctgTransEntriesByDate" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="AcctgTransAndEntries" list-name="acctgTransEntryList">
                 <condition-list>
@@ -348,7 +354,8 @@ under the License.
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="CreateAcctgTransAndEntries" type="single" target="quickCreateAcctgTransAndEntries" title="">
+    <form name="CreateAcctgTransAndEntries" type="single" target="quickCreateAcctgTransAndEntries" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="debitGlAccountClassId" from-field="parameters.debitGlAccountClassId"/>
             <set field="creditGlAccountClassId" from-field="parameters.creditGlAccountClassId"/>
@@ -420,7 +427,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditAcctgTrans" type="single" target="updateAcctgTrans" default-map-name="acctgTrans">
+    <form name="EditAcctgTrans" type="single" target="updateAcctgTrans" default-map-name="acctgTrans"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateAcctgTrans"/>        
         <field name="acctgTransId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="organizationPartyId" map-name="parameter"><hidden/></field>
@@ -478,7 +486,8 @@ under the License.
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field> 
     </form>
 
-    <form name="EditAcctgTransEntry" type="single" target="updateAcctgTransEntry" default-map-name="acctgTransEntry" default-entity-name="AcctgTransEntry">
+    <form name="EditAcctgTransEntry" type="single" target="updateAcctgTransEntry" default-map-name="acctgTransEntry" default-entity-name="AcctgTransEntry"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="acctgTransEntry==null" target="createAcctgTransEntry"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
@@ -523,7 +532,8 @@ under the License.
         <field use-when="acctgTransEntry!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
         <field use-when="acctgTransEntry==null" name="createButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
     </form>
-    <form name="ListAcctgTransEntries" type="list" list-name="acctgTransEntries" default-entity-name="AcctgTransEntry" target="updateAcctgTransEntry">
+    <form name="ListAcctgTransEntries" type="list" list-name="acctgTransEntries" default-entity-name="AcctgTransEntry" target="updateAcctgTransEntry"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
         <field name="acctgTransEntrySeqId"><display/></field>     
@@ -572,7 +582,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAcctgTransEntry?acctgTransId=${acctgTransId}&amp;acctgTransEntrySeqId=${acctgTransEntrySeqId}&amp;organizationPartyId=${organizationPartyId}"/>
         </field>
     </form>
-    <form name="CreateAcctgTrans" type="single" target="createAcctgTrans">
+    <form name="CreateAcctgTrans" type="single" target="createAcctgTrans"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createAcctgTrans"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="acctgTransTypeId">
@@ -625,7 +636,8 @@ under the License.
         </field>
         <field name="createButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="FindGlAccountReconciliation" type="single" title="" target="findGlAccountReconciliation">
+    <form name="FindGlAccountReconciliation" type="single" title="" target="findGlAccountReconciliation"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" widget-style="selectBox">
             <drop-down allow-empty="false">
@@ -637,7 +649,8 @@ under the License.
         <field name="performSearch"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListGlAccountReconciliation" type="multi" use-row-submit="true" target="EditGlReconciliation?organizationPartyId=${organizationPartyId}&amp;tabButtonItem=AccountReconciliation">
+    <form name="ListGlAccountReconciliation" type="multi" use-row-submit="true" target="EditGlReconciliation?organizationPartyId=${organizationPartyId}&amp;tabButtonItem=AccountReconciliation"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="AcctgTransEntry">
                 <condition-list>
@@ -659,7 +672,8 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAcctRecons}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="EditGlReconciliation" type="single" target="updateGlReconciliation?tabButtonItem=${tabButtonItem}" default-map-name="glReconciliation">
+    <form name="EditGlReconciliation" type="single" target="updateGlReconciliation?tabButtonItem=${tabButtonItem}" default-map-name="glReconciliation"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateGlReconciliation"/>
         <field name="glReconciliationId"><display/></field>
         <field name="glReconciliationName"><text/></field>
@@ -670,7 +684,8 @@ under the License.
         <field name="reconciledBalance"><display/></field>
         <field use-when="glReconciliationId!=null" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
     </form>
-    <form name="ListGlReconciliationEntries" type="list" use-row-submit="true">
+    <form name="ListGlReconciliationEntries" type="list" use-row-submit="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GlReconciliationEntry">
                 <condition-list>
@@ -684,7 +699,8 @@ under the License.
         <field name="reconciledAmount"><display/></field>
         <field name="lastUpdatedStamp"><display/></field>
     </form>
-    <form name="FindGlAccountReconciliations" type="single" title="" target="findGlAccountReconciliations">
+    <form name="FindGlAccountReconciliations" type="single" title="" target="findGlAccountReconciliations"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" widget-style="selectBox">
             <drop-down allow-empty="false">
@@ -698,7 +714,8 @@ under the License.
         <field name="performSearch"><hidden value="Y"/></field> 
         <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="ListGlAccountReconciliations" type="list" default-entity-name="GlReconciliation">
+    <form name="ListGlAccountReconciliations" type="list" default-entity-name="GlReconciliation"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GlReconciliation">
                 <condition-list>
