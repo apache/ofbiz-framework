@@ -216,8 +216,12 @@ public class EntitySyncServices {
                 
                 // check to see if it exists, if so remove and count, if not just count already removed
                 // always do a removeByAnd, if it was a removeByAnd great, if it was a removeByPrimaryKey, this will also work and save us a query
+                // however....removeByAnd also checks for the updateTimestamps....and they never match....so i changed it to remove primary key and only check for the primary key.....(hansbak)
                 pkToRemove.setIsFromEntitySync(true);
-                int numRemByAnd = delegator.removeByAnd(pkToRemove.getEntityName(), pkToRemove);
+                
+                // Debug.logInfo("try to remove: " + pkToRemove.getEntityName() + " key: " + pkToRemove.getPrimaryKey(), module);
+                
+                int numRemByAnd = delegator.removeByPrimaryKey(pkToRemove.getPrimaryKey());
                 if (numRemByAnd == 0) {
                     toRemoveAlreadyDeleted++;
                 } else {
@@ -234,6 +238,7 @@ public class EntitySyncServices {
             result.put("toStoreNotUpdated", new Long(toStoreNotUpdated));
             result.put("toRemoveDeleted", new Long(toRemoveDeleted));
             result.put("toRemoveAlreadyDeleted", new Long(toRemoveAlreadyDeleted));
+            if (Debug.infoOn()) Debug.logInfo("Finisching storeEntitySyncData (" + entitySyncId + ") - [" + keysToRemove.size() + "] to remove. Actually removed: " + toRemoveDeleted  + " already removed: " + toRemoveAlreadyDeleted, module);
             return result;
         } catch (GenericEntityException e) {
             String errorMsg = "Exception saving Entity Sync Data for entitySyncId [" + entitySyncId + "]: " + e.toString();
