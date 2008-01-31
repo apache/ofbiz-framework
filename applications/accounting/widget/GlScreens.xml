@@ -37,26 +37,25 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="lefthalf">
-                                    <container>
-                                        <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.AccountingPartyAccountsSummary}"/>
+                                        </container>
                                     </container>
-                                    <container>
-                                        <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext"/>
-                                    </container>
-                                    <container>
-                                        <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
-                                    </container>
-                                </container>
-                                <container style="righthalf">
-                                    <container>
-                                        <link target="TrialBalance?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext"/>
-                                    </container>
-                                    <container>
-                                        <link target="IncomeStatement?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext"/>
-                                    </container>
-                                    <container>
-                                        <link target="BalanceSheet?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext"/>
+                                    <container style="screenlet-body">
+                                        <container>
+                                            <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext"/>
+                                            <link target="TrialBalance?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext"/>
+                                        </container>
+                                        <container>
+                                            <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext"/>
+                                            <link target="IncomeStatement?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext"/>
+                                        </container>
+                                        <container>
+                                            <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+                                            <link target="BalanceSheet?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext"/>
+                                        </container>     
                                     </container>
                                 </container>
                             </widgets>
@@ -78,18 +77,36 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}" style="buttontext" target="newAcctgTrans?organizationPartyId=${organizationPartyId}"/>
-                            <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}"/>
-                            <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAcctgTrans}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                 <container>
+                                    <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}" style="buttontext" target="newAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+                                    <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}"/>
+                                    <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+                                </container>
+                                <include-form name="FindAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                            </container>
                         </container>
-                        <include-form name="FindAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                         <section>
                             <condition>
                                 <if-compare field-name="parameters.performSearch" operator="equals" value="Y"/>
                             </condition>
                             <widgets>
-                                <include-form name="ListAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.AccountingAcctgTrans}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="ListAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -108,7 +125,16 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="FindAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingAcctgTransEntries}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="FindAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                            </container>
+                        </container>
                         <section>
                             <condition>
                                 <and>
@@ -117,7 +143,16 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-form name="ListFindAcctgTransEntriesByAccount" location="component://accounting/widget/GlForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByAccount}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="ListFindAcctgTransEntriesByAccount" location="component://accounting/widget/GlForms.xml"/>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                         <section>
@@ -128,7 +163,16 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-form name="ListFindAcctgTransEntriesByDate" location="component://accounting/widget/GlForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByDate}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="ListFindAcctgTransEntriesByDate" location="component://accounting/widget/GlForms.xml"/>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -148,7 +192,16 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="CreateAcctgTransAndEntries" location="component://accounting/widget/GlForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                 <include-form name="CreateAcctgTransAndEntries" location="component://accounting/widget/GlForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -159,7 +212,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="Edit Accounting transaction"/>
+                <set field="titleProperty" value="PageTitleEditTransaction"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="acctgTransId" from-field="parameters.acctgTransId"/>
@@ -185,10 +238,30 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
-                                    <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=N&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
-                                    <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=Y&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
-                                    <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
-                                    <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar">
+                                            <container style="head4">
+                                                <label text="${uiLabelMap.PageTitleEditTransaction}"/>
+                                            </container>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=N&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
+                                            <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=Y&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
+                                            <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                        </container>
+                                    </container>
+                                </container>
+                                <container>
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar">
+                                            <container style="head4">
+                                                <label text="${uiLabelMap.PageTitleEditTransactionEntries}"/>
+                                            </container>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                        </container>
+                                    </container>
                                 </container>
                             </widgets>
                         </section>
@@ -198,11 +271,22 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
-                                    <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y"/>
-                                    <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
-                                </container>
-                                <container>
-                                    <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar">
+                                            <container style="head4">
+                                                <label text="${uiLabelMap.PageTitleAddTransactionEntry}"/>
+                                            </container>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <container>
+                                                <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y"/>
+                                                <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
+                                            </container>
+                                            <container>
+                                                <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>
+                                            </container>
+                                        </container>
+                                    </container>
                                 </container>
                             </widgets>
                         </section>
@@ -216,6 +300,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleUnpostedTransactions"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.PageTitleUnpostedTransactions}"/>
@@ -228,7 +313,16 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleUnpostedTransactions}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="ListUnpostedAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -265,7 +359,16 @@ under the License.
                         <section>
                         <condition><if-has-permission permission="ACCOUNTING" action="_PRINT_CHECKS"/></condition>
                         <widgets>
-                            <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <container style="head4">
+                                        <label text="${uiLabelMap.AccountingPrintChecks}"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                     <include-form name="ListChecksToPrint" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </container>
+                            </container>
                         </widgets>
                         <fail-widgets>
                             <label style="head3">${uiLabelMap.AccountingPrintChecksPermissionError}</label>
@@ -305,7 +408,16 @@ under the License.
                         <section>
                         <condition><if-has-permission permission="PAY_INFO" action="_UPDATE"/></condition>
                         <widgets>
-                            <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                            <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <container style="head4">
+                                        <label text="${uiLabelMap.AccountingSendChecks}"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                     <include-form name="ListChecksToSend" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </container>
+                            </container>
                         </widgets>
                         <fail-widgets>
                             <label style="head3">${uiLabelMap.AccountingUpdatePaymentPermissionError}</label>
@@ -327,7 +439,16 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyAccountsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="CreateAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.AccountingCreateAnAccountingTransaction}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                 <include-form name="CreateAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -339,6 +460,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingAcctRecon"/>
                 <set field="tabButtonItem" value="AccountReconciliation"/>
+                <set field="labelTitleProperty" value="AccountingAcctRecon"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="glAccountId" from-field="parameters.glAccountId"/>
             </actions>
@@ -443,6 +565,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingAcctRecons"/>
                 <set field="tabButtonItem" value="AccountReconciliations"/>
+                <set field="labelTitleProperty" value="AccountingAcctRecons"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="glAccountId" from-field="parameters.glAccountId"/>
             </actions>

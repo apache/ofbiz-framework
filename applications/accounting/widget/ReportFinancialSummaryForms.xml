@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="BaseSummaryOptions" type="single">
+    <form name="BaseSummaryOptions" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="month" required-field="true">
             <drop-down allow-empty="false">
                 <option key="01" description="1-January"/><option key="02" description="2-February"/>
@@ -51,24 +51,30 @@ under the License.
         </field>
     </form>
     
-    <form name="SalesInvoiceByProductCategorySummaryOptions" type="single" target="SalesInvoiceByProductCategorySummary" extends="BaseSummaryOptions">
+    <form name="SalesInvoiceByProductCategorySummaryOptions" type="single" target="SalesInvoiceByProductCategorySummary" extends="BaseSummaryOptions"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="rootProductCategoryId" required-field="true"><lookup target-form-name="LookupProductCategory"/></field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="SalesInvoiceByProductGlAccountSummaryOptions" type="single" target="SalesInvoiceByProductGlAccountSummary" extends="BaseSummaryOptions">
+    <form name="SalesInvoiceByProductGlAccountSummaryOptions" type="single" target="SalesInvoiceByProductGlAccountSummary" extends="BaseSummaryOptions"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="PaymentByMethodSummaryOptions" type="single" target="PaymentByMethodSummary" extends="BaseSummaryOptions">
+    <form name="PaymentByMethodSummaryOptions" type="single" target="PaymentByMethodSummary" extends="BaseSummaryOptions"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="InventoryIssueSummaryOptions" type="single" target="InventoryIssueSummary" extends="BaseSummaryOptions">
+    <form name="InventoryIssueSummaryOptions" type="single" target="InventoryIssueSummary" extends="BaseSummaryOptions"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="FinancialAccountSummaryOptions" type="single" target="FinancialAccountSummary" extends="BaseSummaryOptions">
+    <form name="FinancialAccountSummaryOptions" type="single" target="FinancialAccountSummary" extends="BaseSummaryOptions"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="TrialBalanceList" type="list" list-name="trialBalances">
+    <form name="TrialBalanceList" type="list" list-name="trialBalances"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="GlAccount" value-name="glAccount">
                 <field-map field-name="glAccountId"/>
@@ -94,7 +100,8 @@ under the License.
         <field name="credit" entry-name="creditTotal" use-when="showTotals" widget-area-style="viewManyTR1"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="IncomeStatementParameters" type="single" target="prepareIncomeStatement">
+    <form name="IncomeStatementParameters" type="single" target="prepareIncomeStatement"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
@@ -108,7 +115,8 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="IncomeStatementList" type="list" list-name="glAccountTotalsList">
+    <form name="IncomeStatementList" type="list" list-name="glAccountTotalsList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="GlAccount" value-name="glAccount">
                 <field-map field-name="glAccountId"/>
@@ -120,7 +128,8 @@ under the License.
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="BalanceSheetParameters" type="single" target="prepareBalanceSheet">
+    <form name="BalanceSheetParameters" type="single" target="prepareBalanceSheet"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="thruDate"><date-time/></field>
         <field name="glFiscalTypeId">
@@ -132,7 +141,8 @@ under the License.
         </field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ComparativeBalanceSheetParameters" type="single" target="prepareComparativeBalanceSheet">
+    <form name="ComparativeBalanceSheetParameters" type="single" target="prepareComparativeBalanceSheet"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="period1ThruDate"><date-time/></field>
         <field name="period1GlFiscalTypeId">
@@ -153,7 +163,8 @@ under the License.
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="BalanceSheetAssetList" type="list" list-name="assetBalancesList">
+    <form name="BalanceSheetAssetList" type="list" list-name="assetBalancesList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="GlAccount" value-name="glAccount">
                 <field-map field-name="glAccountId"/>
@@ -164,7 +175,8 @@ under the License.
         </field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
-    <form name="BalanceSheetLiabilityList" type="list" list-name="liabilityBalancesList">
+    <form name="BalanceSheetLiabilityList" type="list" list-name="liabilityBalancesList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="GlAccount" value-name="glAccount">
                 <field-map field-name="glAccountId"/>
@@ -175,7 +187,8 @@ under the License.
         </field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
-    <form name="BalanceSheetEquityList" type="list" list-name="equityBalancesList">
+    <form name="BalanceSheetEquityList" type="list" list-name="equityBalancesList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="GlAccount" value-name="glAccount">
                 <field-map field-name="glAccountId"/>
@@ -186,5 +199,4 @@ under the License.
         </field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
-
 </forms>
