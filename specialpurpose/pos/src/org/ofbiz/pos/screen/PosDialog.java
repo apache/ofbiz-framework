@@ -285,8 +285,6 @@ public class PosDialog {
     }
 
     private void pack() {
-        dialog.pack();
-
         Dimension pageSize = page.getSize();
         if (pageSize.getHeight() > 0 || pageSize.getWidth() > 0) {
             dialog.setSize(page.getSize());
