@@ -106,22 +106,22 @@ under the License.
             <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
-        <field name="paymentId" use-when="paymentId!=null">
+        <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
-        <field name="workEffortId" use-when="workEffortId!=null">
+        <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/> 
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
-        <field name="shipmentId" use-when="shipmentId!=null">
+        <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
         </field>
         <field name="shipmentId" use-when="shipmentId==null"><display/></field>
         <field name="isPosted"><display/></field>
         <field name="postedDate"><display/></field>
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="&quot;N&quot;.equals(isPosted)" widget-style="buttontext">
-            <hyperlink target="postAcctgTrans?acctgTransId=${acctgTransId}" description="Post"/>
+            <hyperlink target="postAcctgTrans?acctgTransId=${acctgTransId}" description="${uiLabelMap.AccountingPost}"/>
         </field>
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="!&quot;N&quot;.equals(isPosted)"><display/></field>
     </form>
@@ -138,7 +138,7 @@ under the License.
             <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
-        <field name="paymentId" use-when="paymentId!=null">
+        <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
@@ -241,11 +241,11 @@ under the License.
         <row-actions>
             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;glAccountId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(glAccountId)));}" type="Boolean"/>
         </row-actions>
-        <field name="glAccountId" position="1" use-when="showPosition1" widget-area-style="viewManyTR1"><display/></field>
-        <field name="glAccountDescription" title="${uiLabelMap.CommonDescription}" position="1" use-when="showPosition1" widget-area-style="viewManyTR1">
+        <field name="glAccountId" position="1" use-when="showPosition1"><display/></field>
+        <field name="glAccountDescription" title="${uiLabelMap.CommonDescription}" position="1" use-when="showPosition1">
             <display description="${accountCode} ${accountName}"/>
         </field>
-        <field name="glAccountClassId" position="1" use-when="showPosition1" widget-area-style="viewManyTR1">
+        <field name="glAccountClassId" position="1" use-when="showPosition1">
             <display-entity entity-name="GlAccountClass" />
         </field>
         
@@ -260,23 +260,23 @@ under the License.
             <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
         </field>
         <field name="invoiceId" position="2" use-when="invoiceId==null"><display/></field>
-        <field name="paymentId" position="2" use-when="paymentId!=null">
+        <field name="paymentId" position="2" use-when="paymentId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
         </field>
         <field name="paymentId" position="2" use-when="paymentId==null"><display/></field>
-        <field name="workEffortId" position="2" use-when="workEffortId!=null">
+        <field name="workEffortId" position="2" use-when="workEffortId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/> 
         </field>
         <field name="workEffortId" position="2" use-when="workEffortId==null"><display/></field>
-        <field name="shipmentId" position="2" use-when="shipmentId!=null">
+        <field name="shipmentId" position="2" use-when="shipmentId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
         </field>
         <field name="shipmentId" position="2" use-when="shipmentId==null"><display/></field>
-        <field name="partyId" position="2" use-when="partyId!=null">
+        <field name="partyId" position="2" use-when="partyId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"/>
         </field>
         <field name="partyId" position="2" use-when="partyId==null"><display/></field>
-        <field name="productId" position="2" use-when="productId!=null">
+        <field name="productId" position="2" use-when="productId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app"/>
         </field>
         <field name="productId" position="2" use-when="productId==null"><display/></field>
@@ -321,30 +321,30 @@ under the License.
         <field name="glAccountDescription" title="${uiLabelMap.CommonDescription}">
             <display description="${accountCode} ${accountName}"/>
         </field>
-        <field name="glAccountClassId" widget-area-style="viewManyTR1">
+        <field name="glAccountClassId">
             <display-entity entity-name="GlAccountClass" />
         </field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
-        <field name="paymentId" use-when="paymentId!=null">
+        <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
-        <field name="workEffortId" use-when="workEffortId!=null">
+        <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/> 
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
-        <field name="shipmentId" use-when="shipmentId!=null">
+        <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
         </field>
         <field name="shipmentId" use-when="shipmentId==null"><display/></field>
-        <field name="partyId" use-when="partyId!=null">
+        <field name="partyId" use-when="partyId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"/>
         </field>
         <field name="partyId" use-when="partyId==null"><display/></field>
-        <field name="productId" use-when="productId!=null">
+        <field name="productId" use-when="productId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app"/>
         </field>
         <field name="productId" use-when="productId==null"><display/></field>

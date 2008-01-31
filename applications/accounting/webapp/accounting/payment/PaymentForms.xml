@@ -415,7 +415,8 @@ under the License.
         <field name="paymentId"><hidden/></field>
     </form>
 
-    <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" separate-columns="true">
+    <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId">
             <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>
         </field>
@@ -429,7 +430,8 @@ under the License.
             <submit/>
         </field>
     </form>
-    <form name="ListChecksToSend" type="multi" use-row-submit="true" list-name="payments" target="quickSendPayment?organizationPartyId=${organizationPartyId}" separate-columns="true">
+    <form name="ListChecksToSend" type="multi" use-row-submit="true" list-name="payments" target="quickSendPayment?organizationPartyId=${organizationPartyId}" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
             <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>
