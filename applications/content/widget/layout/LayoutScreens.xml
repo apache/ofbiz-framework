@@ -32,11 +32,37 @@ under the License.
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <link target="EditLayoutSubContent?mode=add&amp;contentIdTo=TEMPLATE_MASTER" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleFindLayout}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                         <container>
+                                            <link target="EditLayoutSubContent?mode=add&amp;contentIdTo=TEMPLATE_MASTER" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="findLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="findLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
-                        <include-form name="listFindLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleFindLayout}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="listFindLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -57,10 +83,23 @@ under the License.
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <link target="EditLayoutSubContent?mode=add&amp;contentIdTo=TEMPLATE_MASTER" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleListLayout}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container>
+                                            <link target="EditLayoutSubContent?mode=add&amp;contentIdTo=TEMPLATE_MASTER" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="listListLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="listListLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -79,12 +118,25 @@ under the License.
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://content/webapp/content/layout/renderSubContent.ftl"/>
-                            </html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleEditLayout}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://content/webapp/content/layout/renderSubContent.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -93,7 +145,7 @@ under the License.
     <screen name="EditLayoutSubContent">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditLayout"/>
+                <set field="titleProperty" value="PageTitleEditLayoutSubContent"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutSubContent"/>
                 
@@ -103,7 +155,20 @@ under the License.
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditLayoutSubContent" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleEditLayoutSubContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditLayoutSubContent" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -204,7 +269,20 @@ under the License.
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="AddLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleEditLayout}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

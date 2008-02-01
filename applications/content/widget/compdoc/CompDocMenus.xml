@@ -34,31 +34,31 @@ under the License.
         
     <menu name="tree" menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
-        <menu-item name="viewtree" title="View Tree">
+        <menu-item name="viewtree" title="${uiLabelMap.ContentCompDocViewTree}">
             <condition>
-				<or>
-                	<if-compare value="COMPDOC_TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
-                	<if-compare value="TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
-				</or>
+                <or>
+                    <if-compare value="COMPDOC_TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
+                    <if-compare value="TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
+                </or>
             </condition>
             <link target="ViewCompDocTemplateTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="viewtree2" title="View Tree">
+        <menu-item name="viewtree2" title="${uiLabelMap.ContentCompDocViewTree}">
             <condition>
-				<or>
-                	<if-compare value="COMPDOC_INSTANCE" field-name="contentTypeId" operator="equals"></if-compare>
-                	<if-compare value="DOCUMENT" field-name="contentTypeId" operator="equals"></if-compare>
-				</or>
+                <or>
+                    <if-compare value="COMPDOC_INSTANCE" field-name="contentTypeId" operator="equals"></if-compare>
+                    <if-compare value="DOCUMENT" field-name="contentTypeId" operator="equals"></if-compare>
+                </or>
             </condition>
             <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="edit" title="Edit">
+        <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="approval" title="Approvals">
+        <menu-item name="approval" title="${uiLabelMap.ContentCompDocApprovals}">
             <link target="ListContentApproval?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-        <menu-item name="revision" title="Revisions">
+        <menu-item name="revision" title="${uiLabelMap.ContentCompDocRevisions}">
             <link target="ListContentRevisions?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
     </menu>
@@ -67,19 +67,19 @@ under the License.
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="viewtree" title="View Tree">
             <condition>
-				<or>
-                	<if-compare value="COMPDOC_TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
-                	<if-compare value="TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
-				</or>
+                <or>
+                    <if-compare value="COMPDOC_TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
+                    <if-compare value="TEMPLATE" field-name="contentTypeId" operator="equals"></if-compare>
+                </or>
             </condition>
             <link target="ViewCompDocTemplateTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <menu-item name="viewtree2" title="View Tree">
             <condition>
-				<or>
-                	<if-compare value="COMPDOC_INSTANCE" field-name="contentTypeId" operator="equals"></if-compare>
-                	<if-compare value="DOCUMENT" field-name="contentTypeId" operator="equals"></if-compare>
-				</or>
+                <or>
+                    <if-compare value="COMPDOC_INSTANCE" field-name="contentTypeId" operator="equals"></if-compare>
+                    <if-compare value="DOCUMENT" field-name="contentTypeId" operator="equals"></if-compare>
+                </or>
             </condition>
             <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
@@ -97,25 +97,25 @@ under the License.
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <menu-item name="child" title="+Child">
-			<condition>
-				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
-			</condition>
+            <condition>
+                <if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+            </condition>
             <link target="AddChildCompDocTemplate?rootContentId=${contentId}&amp;sequenceNum=9999"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
         </menu-item>
         <menu-item name="latest" title="Current Template CompDoc">
-			<condition>
-				<if-compare-field field-name="mostRecentRevisionSeqId" operator="greater" to-field-name="rootContentRevisionSeqId"/>
-			</condition>
+            <condition>
+                <if-compare-field field-name="mostRecentRevisionSeqId" operator="greater" to-field-name="rootContentRevisionSeqId"/>
+            </condition>
             <link target="ViewCompDocTemplateTree?rootContentId=${contentId}"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
         </menu-item>
-		<!-- on page
+        <!-- on page
         <menu-item name="viewinst" title="View Instances">
             <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <menu-item name="addinst" title="Add Instance">
             <link target="AddRootCompDocInstance?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
-			-->
+            -->
     </menu>
         
     <menu name="childTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
@@ -131,27 +131,27 @@ under the License.
         </menu-item>
         -->
         <menu-item name="bef" title="+Bef">
-			<condition>
-				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
-			</condition>
+            <condition>
+                <if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+            </condition>
             <link target="AddChildCompDocTemplate?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumBefore}&amp;caFromDate=${fromDate}"/> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
         </menu-item>
         <menu-item name="aft" title="+Aft">
-			<condition>
-				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
-			</condition>
+            <condition>
+                <if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+            </condition>
             <link target="AddChildCompDocTemplate?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumAfter}&amp;caFromDate=${fromDate}"/> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
         </menu-item>
         <menu-item name="up" title="^Up">
-			<condition>
-				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
-			</condition>
+            <condition>
+                <if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+            </condition>
             <link target="resequenceCompDocPart?contentId=${contentId}&amp;dir=up&amp;contentAssocTypeId=COMPDOC_PART&amp;contentIdTo=${contentIdTo}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumBefore}&amp;caFromDate=${fromDate}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <menu-item name="down" title="vDn">
-			<condition>
-				<if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
-			</condition>
+            <condition>
+                <if-compare-field field-name="mostRecentRevisionSeqId" operator="equals" to-field-name="rootContentRevisionSeqId"/>
+            </condition>
             <link target="resequenceCompDocPart?contentId=${contentId}&amp;dir=down&amp;contentAssocTypeId=COMPDOC_PART&amp;contentIdTo=${contentIdTo}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumBefore}&amp;caFromDate=${fromDate}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
     </menu>
@@ -167,9 +167,9 @@ under the License.
             <link target="ViewCompDocTemplateTree?rootContentRevisionSeqId=${templateContentRevisionSeqId}&amp;rootContentId=${templateContentId}"/>
         </menu-item>
         <menu-item name="latest" title="Current Instance CompDoc">
-			<condition>
-				<if-compare-field field-name="mostRecentRevisionSeqId" operator="greater" to-field-name="rootContentRevisionSeqId"/>
-			</condition>
+            <condition>
+                <if-compare-field field-name="mostRecentRevisionSeqId" operator="greater" to-field-name="rootContentRevisionSeqId"/>
+            </condition>
             <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
         </menu-item>
     </menu>

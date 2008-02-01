@@ -74,7 +74,7 @@ under the License.
             <link target="EditDataResourceProductFeatures" name="EditDataResourceProductFeatures" target-window="_top" style="tabButton" />
         </menu-item>
     </menu>
-    <menu name="dataresourceTopMenu">
+    <menu name="dataresourceTopMenu" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="findDataResource" title="${uiLabelMap.CommonFind}">
             <link target="findDataResource"/>
         </menu-item>
@@ -82,7 +82,7 @@ under the License.
             <link target="navigateDataResource"/>
         </menu-item>
     </menu>
-    <menu name="dataresource">
+    <menu name="dataresource" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="editDataResource" title="${uiLabelMap.CommonEdit}">
             <condition>
                 <not><if-empty field-name="currentValue.dataResourceId"/></not>

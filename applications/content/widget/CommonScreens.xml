@@ -175,13 +175,13 @@ under the License.
                                         <not><if-empty field-name="currentValue.dataResourceId"/></not>
                                     </condition>
                                     <widgets>
-                                        <label style="head1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${uiLabelMap.${extraFunctionName}}"/>
                                         <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
                                         <include-menu name="dataresource" location="component://content/widget/content/DataResourceMenus.xml"/>
+                                        <label style="head1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${uiLabelMap.${extraFunctionName}}"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <label style="head1" text="${uiLabelMap.${titleProperty}}"/>
                                         <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
+                                        <label style="head1" text="${uiLabelMap.${titleProperty}}"/>
                                     </fail-widgets>
                                 </section>
                                 <link text="${uiLabelMap.CommonNew}" target="editDataResource" style="buttontext"/>

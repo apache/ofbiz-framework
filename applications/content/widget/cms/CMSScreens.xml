@@ -36,8 +36,34 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="findContent" location="component://content/webapp/content/cms/CMSForms.xml" />
-                        <include-form name="listFindContent" location="component://content/webapp/content/cms/CMSForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleFindCMSContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="findContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleFindCMSContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="listFindContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -66,11 +92,24 @@ under the License.
             <widgets>
                <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                  <decorator-section name="body">
-                    <platform-specific>
-                         <html>
-                             <html-template location="component://content/webapp/content/cms/CMSContentEdit.ftl"/>
-                         </html>
-                    </platform-specific>
+                    <container style="screenlet">
+                        <container style="screenlet-title-bar">
+                            <container style="head3">
+                                <label text="${uiLabelMap.PageTitleEditCMSContent}"/>
+                            </container>
+                        </container>
+                        <container style="screenlet-body">
+                            <section>
+                                <widgets>    
+                                    <platform-specific>
+                                         <html>
+                                             <html-template location="component://content/webapp/content/cms/CMSContentEdit.ftl"/>
+                                         </html>
+                                    </platform-specific>
+                                </widgets>
+                            </section>
+                        </container>
+                    </container>
                   </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -81,13 +120,25 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
-                <set field="title" value="CMS Content Edit Page"/>
                 <set field="titleProperty" value="PageTitleEditContent"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="AddContent" location="component://content/webapp/content/cms/CMSForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleEditContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -124,9 +175,22 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <link  text="Goto Find" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
-                        <include-form name="EditAddContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
-                        <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="CMS Content Edit Page"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <link  text="Goto Find" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
+                                        <include-form name="EditAddContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
+                                        <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -136,7 +200,7 @@ under the License.
     <screen name="EditAddSubContent">
         <section>
             <actions>
-                <set field="title" value="CMS Content Edit Page"/>
+                <set field="title" value="CMS Content Add Sub Content"/>
                 <set field="entityOperation" value="_UPDATE"/>
                 <set field="targetOperation" value="CONTENT_UPDATE|CONTENT_CREATE|CONTENT_CREATE_SUB"/>
                 <set field="requiredRoles" value="OWNER|BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
@@ -157,8 +221,21 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <link  text="Goto Find" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
-                        <include-form name="EditAddSubContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="CMS Content Add Sub Content"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <link  text="Goto Find" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
+                                        <include-form name="EditAddSubContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -178,12 +255,25 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://content/webapp/content/cms/AdminSearch.ftl"/>
-                            </html>
-                        </platform-specific>
-                        <include-form name="searchList" location="component://content/webapp/content/cms/CMSForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="CMS Search Page"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://content/webapp/content/cms/AdminSearch.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                        <include-form name="searchList" location="component://content/webapp/content/cms/CMSForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -202,8 +292,21 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="AdminIndex" location="component://content/webapp/content/cms/CMSForms.xml" />
-                        <include-form name="AdminIndexAll" location="component://content/webapp/content/cms/CMSForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="CMS Search Page"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AdminIndex" location="component://content/webapp/content/cms/CMSForms.xml"/>
+                                        <include-form name="AdminIndexAll" location="component://content/webapp/content/cms/CMSForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -225,33 +328,57 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://content/webapp/content/cms/CMSSites.ftl"/>
-                            </html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="CMS Search Page"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://content/webapp/content/cms/CMSSites.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 
-
     <screen name="addSubSite">
         <section>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
-                <set field="title" value="Add SubSite"/>
                 <set field="titleProperty" value="PageTitleSearchContent"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://content/webapp/content/cms/addSubSite.ftl"/>
-                            </html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleSearchContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://content/webapp/content/cms/addSubSite.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -261,17 +388,28 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/getMenuContext.bsh"/>
-                <set field="title" value="Test Permission"/>
                 <set field="titleProperty" value="Test Permission"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="TestPermission" location="component://content/webapp/content/cms/CMSForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="Test Permission"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="TestPermission" location="component://content/webapp/content/cms/CMSForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 </screens>
-
