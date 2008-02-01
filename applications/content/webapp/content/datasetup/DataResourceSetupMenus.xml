@@ -20,8 +20,8 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="dataresourcesetup" default-menu-item-name="content" default-associated-content-id="${userLogin.userLoginId}" title="" type="simple">
-
+    <menu name="dataresourcesetup" default-menu-item-name="content" default-associated-content-id="${userLogin.userLoginId}" title="" type="simple"
+        menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="EditDataResourceType" title="${uiLabelMap.CommonType}" >
             <link target="EditDataResourceType" target-window="_top" style="tabButton" />
         </menu-item>

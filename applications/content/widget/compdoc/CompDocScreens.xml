@@ -55,18 +55,43 @@ under the License.
                             <condition><if-compare field-name="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/></condition>
                             <widgets><include-screen name="rootInstanceApprovalStatus"/></widgets>
                         </section>
-                        <include-form name="ListContentApproval" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleListContentApproval}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContentApproval" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                         <section>
                             <condition>
                                 <if-compare field-name="content.contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
                             </condition>
                             <actions>
-                                <set field="title" value="Edit CompDoc Instance [${rootContentId}]"/>
+                                <set field="title" value="${uiLabelMap.PageTitleEditCompDocInstance} [${rootContentId}]"/>
                                 <set from-field="parameters.contentRevisionSeqId" default-value="${parameters.rootContentRevisionSeqId}" field="rootContentRevisionSeqId"/>
                             </actions>
                             <widgets>
-                                <label text="${uiLabelMap.CommonAdd}" style="head1"/>
-                                <include-form name="AddContentApproval" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.CommonAdd}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="AddContentApproval" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -89,7 +114,7 @@ under the License.
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
                 <set field="menuName" value="empty"/>
                 <set field="currentMenuItemName" value="approval"/>
-                <set field="title" value="Waiting Content Approvals"/>
+                <set field="titleProperty" value="ContentCompDocViewWaitingApprovals"/>
                 <set field="menuName" value="tree"/>
                 <set field="currentMenuItemName" value="approval"/>
                 <service service-name="checkForWaitingApprovals" result-map-name="result">
@@ -100,7 +125,20 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListWaitingContentApproval" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.ContentCompDocViewWaitingApprovals}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListWaitingContentApproval" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -124,12 +162,25 @@ under the License.
                     <field-map field-name="contentId" env-name="contentApproval.contentId"/>
                 </entity-one>
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
-                <set field="title" value="Content Approval Edit Page for ${contentApproval.contentApprovalId}"/>
+                <set field="title" value="${uiLabelMap.PageTitleEditContentApprovalEditPage} ${contentApproval.contentApprovalId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="EditContentApproval" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleEditContentApprovalEditPage}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditContentApproval" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -158,12 +209,25 @@ under the License.
                     <field-map env-name="contentId" field-name="contentId"/>
                 </entity-and>
 
-                <set field="title" value="Revision List Page for Content: ${rootContentId} rev. ${rootContentRevisionSeqId}"/>
+                <set field="title" value="${uiLabelMap.ContentCompDocRevisionListPageForContent} ${rootContentId} ${uiLabelMap.ContentCompDocRev} ${rootContentRevisionSeqId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListContentRevisions" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.ContentCompDocRevisionListPageForContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContentRevisions" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -183,14 +247,27 @@ under the License.
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
                 <set field="menuName" value="tree"/>
                 <set field="currentMenuItemName" value="revision"/>
-                <set field="title" value="Revision List Page for Content: ${rootContentId} rev. ${rootContentRevisionSeqId}"/>
+                <set field="title" value="${uiLabelMap.ContentCompDocRevisionListPageForContent} ${rootContentId} ${uiLabelMap.ContentCompDocRevisions} ${rootContentRevisionSeqId}"/>
                 
                 <entity-one entity-name="ContentRevision" value-name="contentRevision" use-cache="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="EditContentRevision" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.ContentCompDocRevisionListPageForContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditContentRevision" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -210,7 +287,7 @@ under the License.
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
                 <set field="menuName" value="tree"/>
                 <set field="currentMenuItemName" value="revision"/>
-                <set field="title" value="Revision Item List Page for Content: ${rootContentId} rev. ${rootContentRevisionSeqId}"/>
+                <set field="title" value="${uiLabelMap.ContentCompDocRevisionListPageForContent} ${rootContentId} ${uiLabelMap.ContentCompDocRevisions} ${rootContentRevisionSeqId}"/>
                     
                 <entity-and entity-name="ContentRevisionItem" list-name="contentRevisionItemList" use-cache="true">
                     <field-map field-name="contentId" env-name="parameters.contentId"/>
@@ -220,7 +297,20 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListContentRevisionItem" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.ContentCompDocRevisionListPageForContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContentRevisionItem" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -240,14 +330,27 @@ under the License.
                 <set from-field="content.contentTypeId" field="contentTypeId"/>
                 <set field="menuName" value="tree"/>
                 <set field="currentMenuItemName" value="revision"/>
-                <set field="title" value="Content Revision Item Edit Page for Content: ${contentId} rev. ${contentRevisionSeqId}"/>
+                <set field="title" value="${uiLabelMap.ContentCompDocRevisionItemEditPage} ${contentId} ${uiLabelMap.ContentCompDocRevisions} ${contentRevisionSeqId}"/>
                 
                 <entity-one entity-name="ContentRevisionItem" value-name="contentRevisionItem" use-cache="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="EditContentRevisionItem" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.ContentCompDocRevisionItemEditPage}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditContentRevisionItem" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -260,7 +363,7 @@ under the License.
             </condition>
             <actions>
                 <set field="menuName" value="empty"/>
-                <set field="title" value="Find CompDoc"/>				
+                <set field="titleProperty" value="PageTitleFindCompDoc"/>                
                 <set field="entityName" value="ContentAssocViewFrom"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="currentContentMenuItemName" value=""/>
@@ -272,12 +375,38 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container>
-                            <container><link target="AddRootCompDocTemplate" text="Create New Root CompDoc Template" style="buttontext"/></container>
-                            <container><link target="ListWaitingContentApproval" text="View Waiting Approvals" style="buttontext"/></container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleFindCompDoc}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container>
+                                            <container><link target="AddRootCompDocTemplate" text="${uiLabelMap.PageTitleCreateNewRootCompDocTemplate}" style="buttontext"/></container>
+                                            <container><link target="ListWaitingContentApproval" text="${uiLabelMap.ContentCompDocViewWaitingApprovals}" style="buttontext"/></container>
+                                        </container>
+                                        <include-form name="FindCompDoc" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="FindCompDoc" location="component://content/widget/compdoc/CompDocForms.xml"/>
-                        <include-form name="ListCompDoc" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleFindCompDoc}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListCompDoc" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -330,13 +459,26 @@ under the License.
                     <field-map field-name="instanceOfContentId" env-name="parameters.rootContentId"/>
                     <field-map field-name="contentTypeId" value="COMPDOC_INSTANCE"/>
                 </entity-and>
-                <set field="title" value="View CompDoc Instances of [${parameters.rootContentId}]"/>
+                <set field="title" value="${uiLabelMap.ContentCompDocViewInstances} ${parameters.rootContentId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container><link target="AddRootCompDocTemplate?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}" text="Create New Root CompDoc Template" style="buttontext"/></container>
-                        <include-form name="ListCompDocInstances" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.ContentCompDocViewInstances}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container><link target="AddRootCompDocTemplate?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}" text="${uiLabelMap.PageTitleCreateNewRootCompDocTemplate}" style="buttontext"/></container>
+                                        <include-form name="ListCompDocInstances" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -371,17 +513,30 @@ under the License.
                         <if-compare field-name="contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
                     </condition>
                     <actions>
-                        <set field="title" value="Edit CompDoc Template [${rootContentId}]"/>
+                        <set field="title" value="${uiLabelMap.PageTitleEditCompDocTemplate} ${rootContentId}"/>
                         <set from-field="parameters.contentRevisionSeqId" default-value="${parameters.rootContentRevisionSeqId}" field="rootContentRevisionSeqId"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                             <decorator-section name="body">
-                                <container>
-                                    <link target="AddRootCompDocInstance?contentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}" text="Create Instance of This Template" style="buttontext"/>
-                                    <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleEditCompDocTemplate}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <container>
+                                                    <link target="AddRootCompDocInstance?contentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}" text="${uiLabelMap.PageTitleCreateInstanceOfThisTemplate}" style="buttontext"/>
+                                                    <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+                                                </container>
+                                                <include-form name="EditRootCompDocTemplate" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
                                 </container>
-                                <include-form name="EditRootCompDocTemplate" location="component://content/widget/compdoc/CompDocForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
@@ -391,13 +546,26 @@ under the License.
                         <if-compare field-name="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/>
                     </condition>
                     <actions>
-                        <set field="title" value="Edit CompDoc Instance [${rootContentId}]"/>
+                        <set field="title" value="${uiLabelMap.PageTitleEditCompDocInstance} [${rootContentId}]"/>
                         <set from-field="parameters.contentRevisionSeqId" default-value="${parameters.rootContentRevisionSeqId}" field="rootContentRevisionSeqId"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                             <decorator-section name="body">
-                                <include-form name="EditRootCompDocInstance" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleEditCompDocInstance}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="EditRootCompDocInstance" location="component://content/widget/compdoc/CompDocForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
