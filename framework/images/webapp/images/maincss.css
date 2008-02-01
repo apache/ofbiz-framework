@@ -1187,10 +1187,14 @@ height: 1%; /* IE fix */
 .screenlet-title-bar .head1,
 .screenlet-title-bar .head2,
 .screenlet-title-bar .head3,
+.screenlet-title-bar .head4,
 .screenlet-title-bar h1,
 .screenlet-title-bar h2,
 .screenlet-title-bar h3 {
+background: none;
+border-left: none;
 color: #ffffff;
+font-weight: bold;
 padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
@@ -1208,39 +1212,30 @@ font-weight: bold;
 padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
-.screenlet-title-bar .head4 {
-background: none;
-border-left: 0.1em solid #5f9fcf;
-color: #ffffff;
-font-size: 1.1em;
-font-weight: bold;
-padding: 0.1em 0.5em 0.2em 0.5em;
-}
-
 .screenlet-title-bar ul h1,
 .screenlet-title-bar ul h2,
 .screenlet-title-bar ul h3,
 .screenlet-title-bar ul .head1,
 .screenlet-title-bar ul .head2,
 .screenlet-title-bar ul .head3 {
-/* h1 - h3 deprecated, fails validation */
 border-left: none;
 float: left;
 }
 
-.screenlet-title-bar ul .head1 {
+.screenlet-title-bar .head1 {
 font-size: 1.6em;
 }
 
-.screenlet-title-bar ul .head2 {
+.screenlet-title-bar .head2 {
 font-size: 1.3em;
 }
 
-.screenlet-title-bar ul .head3 {
+.screenlet-title-bar .head3,
+.screenlet-title-bar .head4 {
 font-size: 1.1em;
 }
 
-.screenlet-title-bar ul .head3 a {
+.screenlet-title-bar .head3 a {
 color: #ffff66;
 display: inline;
 }
