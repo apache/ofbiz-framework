@@ -175,6 +175,12 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="events" type="java.util.List" mode="OUT" optional="false"/>
     </service>
+    <service name="getWorkEffortAssignedEventsForRoleOfAllParties" engine="java"
+            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedEventsForRoleOfAllParties">
+        <description>Get the active WorkEffort Events in the specified role for all the parties.</description>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="events" type="java.util.List" mode="OUT" optional="false"/>
+    </service>
     <service name="getWorkEffortAssignedTasks" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedTasks">
         <description>Get WorkEffort Assigned Tasks</description>
