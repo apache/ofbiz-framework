@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-  <table width="100%" border="0" cellpadding="2" cellspacing="0">
+  <table class="basic-table hover-bar" cellspacing="0">
     <#assign questions = surveyWrapper.getSurveyQuestionAndAppls()>
     <#assign surveyResults = surveyWrapper.getResults(questions)>
 
@@ -28,20 +28,20 @@ under the License.
         <tr>
           <#-- seperator options -->
           <#if question.surveyQuestionTypeId == "SEPERATOR_TEXT">
-            <td colspan="5"><div class="tabletext">${question.question?if_exists}</div></td>
+            <td colspan="5" class="label">${question.question?if_exists}</td>
           <#elseif question.surveyQuestionTypeId == "SEPERATOR_LINE">
-            <td colspan="5"><hr class="sepbar"></td>
+            <td colspan="5"><hr></td>
           <#else>
 
             <#-- standard questions -->
-            <td align='right' nowrap>
+            <td align='right' nowrap class="label">
               <#assign answerString = "${uiLabelMap.ContentAnswers}">
               <#if (results._total?default(0) == 1)>
                 <#assign answerString = "${uiLabelMap.ContentAnswer}">
               </#if>
-              <div class="tabletext">${question.question?if_exists} (${results._total?default(0)?string.number} ${answerString})</div>
+              <div>${question.question?if_exists} (${results._total?default(0)?string.number} ${answerString})</div>
               <#if question.hint?has_content>
-                <div class="tabletext">${question.hint}</div>
+                <div>${question.hint}</div>
               </#if>
             </td>
             <td width='1'>&nbsp;</td>
@@ -50,10 +50,10 @@ under the License.
             <td>
               <#if question.surveyQuestionTypeId == "BOOLEAN">
                 <#assign selectedOption = (answer.booleanResponse)?default("Y")>
-                <div class="tabletext">
+                <div>
                   <span style="white-space: nowrap;">${uiLabelMap.CommonY}&nbsp;[${results._yes_total?default(0)?string("#")} / ${results._yes_percent?default(0)?string("#")}%]</span>
                 </div>
-                <div class="tabletext">
+                <div>
                   <span style="white-space: nowrap;">${uiLabelMap.CommonN}&nbsp;[${results._no_total?default(0)?string("#")} / ${results._no_percent?default(0)?string("#")}%]</span>
                 </div>
               <#elseif question.surveyQuestionTypeId == "OPTION">
@@ -61,7 +61,7 @@ under the License.
                 <#if options?has_content>
                   <#list options as option>
                     <#assign optionResults = results.get(option.surveyOptionSeqId)?if_exists>
-                    <div class="tabletext">
+                    <div>
                       <span style="white-space: nowrap;">
                         ${option.description?if_exists}
                         &nbsp;[${optionResults._total?default(0)?string("#")} / ${optionResults._percent?default(0?string("#"))}%]
@@ -74,29 +74,29 @@ under the License.
                 <#if answers?has_content>
                   <#list answers as answer>
                     <#if question.surveyQuestionTypeId == "TEXTAREA">
-                      <div class="tabletext">${(answer.textResponse)?if_exists}</div>
+                      <div>${(answer.textResponse)?if_exists}</div>
                     <#elseif question.surveyQuestionTypeId == "TEXT_SHORT">
-                      <div class="tabletext">${(answer.textResponse)?if_exists}</div>
+                      <div>${(answer.textResponse)?if_exists}</div>
                     <#elseif question.surveyQuestionTypeId == "TEXT_LONG">
-                      <div class="tabletext">${(answer.textResponse)?if_exists}</div>
+                      <div>${(answer.textResponse)?if_exists}</div>
                     <#elseif question.surveyQuestionTypeId == "EMAIL">
-                      <div class="tabletext">${(answer.textResponse)?if_exists}</div>
+                      <div>${(answer.textResponse)?if_exists}</div>
                     <#elseif question.surveyQuestionTypeId == "URL">
-                      <div class="tabletext">${(answer.textResponse)?if_exists}</div>
+                      <div>${(answer.textResponse)?if_exists}</div>
                     <#elseif question.surveyQuestionTypeId == "DATE">
-                      <div class="tabletext">${(answer.textResponse)?if_exists}</div>
+                      <div>${(answer.textResponse)?if_exists}</div>
                     <#elseif question.surveyQuestionTypeId == "CREDIT_CARD">
-                      <div class="tabletext">${(answer.textResponse)?if_exists}</div>
+                      <div>${(answer.textResponse)?if_exists}</div>
                     <#elseif question.surveyQuestionTypeId == "GIFT_CARD">
-                      <div class="tabletext">${(answer.textResponse)?if_exists}</div>
+                      <div>${(answer.textResponse)?if_exists}</div>
                     <#elseif question.surveyQuestionTypeId == "NUMBER_CURRENCY">
-                      <div class="tabletext">${answer.currencyResponse?default(0)}</div>
+                      <div>${answer.currencyResponse?default(0)}</div>
                     <#elseif question.surveyQuestionTypeId == "NUMBER_FLOAT">
-                      <div class="tabletext">${answer.floatResponse?default(0)?string("#")}</div>
+                      <div>${answer.floatResponse?default(0)?string("#")}</div>
                     <#elseif question.surveyQuestionTypeId == "NUMBER_LONG">
-                      <div class="tabletext">${answer.numericResponse?default(0)?string("#")}&nbsp;[${uiLabelMap.CommonTally}: ${results._tally?default(0)?string("#")} / ${uiLabelMap.CommonAverage}: ${results._average?default(0)?string("#")}]</div>
+                      <div>${answer.numericResponse?default(0)?string("#")}&nbsp;${uiLabelMap.CommonTally}: ${results._tally?default(0)?string("#")} / ${uiLabelMap.CommonAverage}: ${results._average?default(0)?string("#")}</div>
                     <#elseif question.surveyQuestionTypeId == "PASSWORD">
-                      <div class="tabletext">[${uiLabelMap.CommonNotShown}]</div>
+                      <div>${uiLabelMap.CommonNotShown}</div>
                     <#elseif question.surveyQuestionTypeId == "CONTENT">
                        <#if answer.contentId?has_content>
                          <#assign content = answer.getRelatedOne("Content")>
@@ -107,7 +107,6 @@ under the License.
                 </#if>
               </#if>
             </td>
-
             <td width="90%">&nbsp;</td>
           </#if>
         </tr>
@@ -115,7 +114,7 @@ under the License.
       </#list>
     <#else>
       <tr>
-        <td><div class="tabletext">${uiLabelMap.SurveyNoQuestions}</div></td>
+        <td class="label">${uiLabelMap.SurveyNoQuestions}</div></td>
       </tr>
     </#if>
   </table>

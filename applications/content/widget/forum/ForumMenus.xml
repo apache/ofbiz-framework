@@ -27,7 +27,7 @@ under the License.
     </menu>
     <menu name="ForumTabBar" default-menu-item-name="Survey" type="simple">
     </menu>
-    <menu name="ForumMessagesTabBar" type="simple">
+    <menu name="ForumMessagesTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="forumGroups" title="${uiLabelMap.FormFieldTitle_forumGroups}"><link target="findForumGroups"/></menu-item>
         <menu-item name="forums" title="${uiLabelMap.FormFieldTitle_forums}"><link target="findForums?forumGroupId=${parameters.forumGroupId}"/></menu-item>
         <menu-item name="messageList" title="${uiLabelMap.FormFieldTitle_messageList}"><link target="findForumMessages?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}"/></menu-item>

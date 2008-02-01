@@ -22,7 +22,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <!-- WebSite Forms -->
-    <form name="EditWebSite" type="single" target="updateWebSite" title="" default-map-name="webSite">
+    <form name="EditWebSite" type="single" target="updateWebSite" title="" default-map-name="webSite"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="webSite==null" target="createWebSite"/>
         
         <auto-fields-service service-name="updateWebSite" map-name=""/>
@@ -47,7 +48,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
-    <form name="ListWebSites" target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true">
+    <form name="ListWebSites" target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
             <hyperlink description="${webSiteId}" target="EditWebSite?webSiteId=${webSiteId}" also-hidden="false"/>
         </field>
@@ -56,7 +58,7 @@ under the License.
 
     <!-- WebSite Content Forms -->
     <form name="ListWebSiteContent" type="list" list-name="webSiteContent" target="UpdateWebSiteContent" 
-        paginate-target="ListWebSiteContent" paginate="true">
+        paginate-target="ListWebSiteContent" paginate="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateWebSiteRole"/>
         <field name="sequenceNum"><hidden/></field>
         <field name="roleTypeId"><hidden/></field>
@@ -94,10 +96,11 @@ under the License.
             <sort-field name="deleteLink"/>
         </sort-order>
     </form>
-    <form name="CreateWebSiteContent" type="single" target="CreateWebSiteContent" title="" default-map-name="webSite">
+    <form name="CreateWebSiteContent" type="single" target="CreateWebSiteContent" title="" default-map-name="webSite"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWebSiteContent"/>
         <field name="webSiteId" map-name="webSite"><display also-hidden="true"/></field>
-        <field name="contentId" title="Content Id"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
         <field name="webSiteContentTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WebSiteContentType" description="${description}">
@@ -109,7 +112,8 @@ under the License.
     </form>
 
     <!-- WebSite Role Forms -->
-    <form name="CreateWebSiteRole" type="single" target="createWebSiteRole" title="">
+    <form name="CreateWebSiteRole" type="single" target="createWebSiteRole" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWebSiteRole"/>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="webSiteId" map-name="webSite"><hidden/></field>
@@ -122,7 +126,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateWebSiteRole" type="list" target="updateWebSiteRole" title="" list-name="webSiteRoleDatas">
+    <form name="UpdateWebSiteRole" type="list" target="updateWebSiteRole" title="" list-name="webSiteRoleDatas"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateWebSiteRole" map-name="webSiteRole"/>
         <field name="webSiteId"><hidden/></field>
         <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
@@ -141,7 +146,8 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="AutoCreateWebsiteContent" type="single" target="autoCreateWebSiteContent" title="">
+    <form name="AutoCreateWebsiteContent" type="single" target="autoCreateWebSiteContent" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="webSiteId"><hidden/></field>
         <field name="webSiteContentTypeId">
             <check all-checked="false">

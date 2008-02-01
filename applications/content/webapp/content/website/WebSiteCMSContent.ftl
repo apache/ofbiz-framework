@@ -69,8 +69,8 @@
 
 <#-- content info -->
 <#if (!content?has_content)>
-    <div class="tabletext" style="margin-bottom: 8px;">
-        New <b>${contentAssocTypeId?default("SUBSITE")}</b> attached to Content: ${contentIdFrom?default(contentRoot)}</b>
+    <div style="margin-bottom: 8px;">
+        ${uiLabelMap.CommonNew} <span class="label">${contentAssocTypeId?default("SUBSITE")}</span> ${uiLabelMap.ContentWebSiteAttachedToContent} ${contentIdFrom?default(contentRoot)}
     </div>
 </#if>
 
@@ -84,23 +84,23 @@
         <form name="cmsdatatype">
             <table>
                 <tr>
-                    <td><div class="tableheadtext">Data Type</div></td>
+                    <td class="label">${uiLabelMap.ContentDataType}</td>
                     <td>            
-                        <select class="inputBox" name="dataResourceTypeId">
-                            <option value="NONE">None (Tree, Category, etc)</option>
-                            <option value="SHORT_TEXT">Short Text (255 chars.)</option>
-                            <option value="ELECTRONIC_TEXT">Long Text</option>
-                            <option value="URL_RESOURCE">URL Resource</option>
-                            <option value="IMAGE_OBJECT">Image</option>
-                            <option value="VIDEO_OBJECT">Video</option>
-                            <option value="AUDIO_OBJECT">Audio</option>
-                            <option value="OTHER_OBJECT">Other</option>
+                        <select name="dataResourceTypeId">
+                            <option value="NONE">${uiLabelMap.ContentResourceNone}</option>
+                            <option value="SHORT_TEXT">${uiLabelMap.ContentResourceShortText}</option>
+                            <option value="ELECTRONIC_TEXT">${uiLabelMap.ContentResourceLongText}</option>
+                            <option value="URL_RESOURCE">${uiLabelMap.ContentResourceUrlResource}</option>
+                            <option value="IMAGE_OBJECT">${uiLabelMap.ContentResourceImage}</option>
+                            <option value="VIDEO_OBJECT">${uiLabelMap.ContentResourceVideo}</option>
+                            <option value="AUDIO_OBJECT">${uiLabelMap.ContentResourceAudio}</option>
+                            <option value="OTHER_OBJECT">${uiLabelMap.ContentResourceOther}</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td align="center" colspan="2">
-                        <a href="javascript:void(0);" onclick="javascript:selectDataType('${contentIdFrom?default(contentRoot)}');" class="buttontext">Continue</a>
+                        <a href="javascript:void(0);" onclick="javascript:selectDataType('${contentIdFrom?default(contentRoot)}');" class="buttontext">${uiLabelMap.CommonContinue}</a>
                     </td>
                 </tr>
                 <#list 0..15 as x>
@@ -165,32 +165,32 @@
         <table>
           <#if (content?has_content)>
             <tr>
-                <td><div class="tableheadtext">Content ID</div></td>
-                <td><div class="tabletext">${content.contentId}</div></td>
+                <td class="label">${uiLabelMap.FormFieldTitle_contentId}</td>
+                <td>${content.contentId}</td>
             </tr>
           </#if>
           <tr>
-            <td><div class="tableheadtext">Name</div></td>
+            <td class="label">${uiLabelMap.CommonName}</td>
             <td>
-                <input type="text" name="contentName" class="inputBox" value="${(content.contentName)?if_exists}" size="40"/>
+                <input type="text" name="contentName" value="${(content.contentName)?if_exists}" size="40"/>
             </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">Description</div></td>
+            <td class="label">${uiLabelMap.CommonDescription}</td>
             <td>
-                <textarea name="description" class="inputBox" cols="40" rows="6">${(content.description)?if_exists}</textarea>
+                <textarea name="description" cols="40" rows="6">${(content.description)?if_exists}</textarea>
             </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">Key</div></td>
+            <td class="label">${uiLabelMap.CommonKey}</td>
             <td>
-                <input type="text" name="mapKey" class="inputBox" value="${(assoc.mapKey)?if_exists}" size="40"/>
+                <input type="text" name="mapKey" value="${(assoc.mapKey)?if_exists}" size="40"/>
             </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">Purpose</div></td>
+            <td class="label">${uiLabelMap.CommonPurpose}</td>
             <td>
-                <select name="contentPurposeTypeId" class="selectBox">
+                <select name="contentPurposeTypeId">
                     <#if (currentPurposes?has_content)>
                         <#assign purpose = currentPurposes[0].getRelatedOne("ContentPurposeType")/>
                         <option value="${purpose.contentPurposeTypeId}">${purpose.description?default(purpose.contentPurposeTypeId)}</option>
@@ -206,9 +206,9 @@
             </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">Data Type</div></td>
+            <td class="label">${uiLabelMap.ContentDataType}</td>
             <td>
-                <select name="dataTemplateTypeId" class="selectBox">
+                <select name="dataTemplateTypeId">
                     <#if (dataResource?has_content)>
                         <#if (dataResource.dataTemplateTypeId?has_content)>
                             <#assign thisType = dataResource.getRelatedOne("DataTemplateType")?if_exists/>
@@ -223,9 +223,9 @@
             </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">Decorator</div></td>
+            <td class="label">${uiLabelMap.ContentDecorator}</td>
             <td>
-                <select name="decoratorContentId" class="selectBox">
+                <select name="decoratorContentId">
                     <#if (content?has_content)>
                         <#if (content.decoratorContentId?has_content)>
                             <#assign thisDec = content.getRelatedOne("DecoratorContent")/>
@@ -233,7 +233,7 @@
                             <option value="${thisDec.contentId}">----</option>
                         </#if>
                     </#if>
-                    <option value="">None</option>
+                    <option value="">${uiLabelMap.ContentResourceNone}</option>
                     <#list decorators as decorator>
                         <option value="${decorator.contentId}">${decorator.contentName}</option>
                     </#list>
@@ -241,9 +241,9 @@
             </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">Template</div></td>
+            <td class="label">${uiLabelMap.ContentTemplate}</td>
             <td>
-                <select name="templateDataResourceId" class="selectBox">
+                <select name="templateDataResourceId">
                     <#if (content?has_content)>
                         <#if (content.templateDataResourceId?has_content && content.templateDataResourceId != "NONE")>
                             <#assign template = content.getRelatedOne("TemplateDataResource")/>
@@ -251,7 +251,7 @@
                             <option value="${template.dataResourceId}">----</option>
                         </#if>
                     </#if>
-                    <option value="">None</option>
+                    <option value="">${uiLabelMap.ContentResourceNone}</option>
                     <#list templates as template>
                         <option value="${template.dataResourceId}">${template.dataResourceName}</option>
                     </#list>
@@ -259,9 +259,9 @@
             </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">Status</div></td>
+            <td class="label">${uiLabelMap.CommonStatus}</td>
             <td>
-                <select name="statusId" class="selectBox">
+                <select name="statusId">
                     <#if (content?has_content)>
                         <#if (content.statusId?has_content)>
                             <#assign statusItem = content.getRelatedOne("StatusItem")/>
@@ -276,9 +276,9 @@
             </td>
           </tr>
           <tr>
-            <td><div class="tableheadtext">Is Public</div></td>
+            <td class="label">${uiLabelMap.FormFieldTitle_isPublic}</td>
             <td>
-                <select name="isPublic" class="selectBox">
+                <select name="isPublic">
                     <#if (dataResource?has_content)>
                         <#if (dataResource.isPublic?has_content)>
                             <option>${dataResource.isPublic}</option>
@@ -294,7 +294,7 @@
           </tr>
           <tr>
             <td colspan="2">
-              <textarea id="cmsdata" name="textData" class="inputBox" cols="40" rows="6" style="display: none;">
+              <textarea id="cmsdata" name="textData" cols="40" rows="6" style="display: none;">
                 <#if (dataText?has_content)>
                     ${dataText.textData}
                 </#if>
@@ -313,24 +313,24 @@
               </td>
             </tr>
             <tr>
-              <td><div class="tableheadtext">Upload</div></td>
+              <td class="label">${uiLabelMap.CommonUpload}</td>
               <td>
                 <input type="hidden" name="isUploadObject" value="Y"/>
-                <input type="file" name="uploadedFile" class="inputBox" size="30"/>
+                <input type="file" name="uploadedFile" size="30"/>
               </td>
             </tr>
           <#elseif (dataResourceTypeId == 'URL_RESOURCE')>
             <tr>
-              <td><div class="tableheadtext">URL</div></td>
+              <td class="label">${uiLabelMap.ContentURL}</td>
               <td>
-                <input type="text" name="objectInfo" class="inputBox" size="40" maxsize="255" value="${(dataResource.objectInfo)?if_exists}"/>
+                <input type="text" name="objectInfo" size="40" maxsize="255" value="${(dataResource.objectInfo)?if_exists}"/>
               </td>
             </tr>
           <#elseif (dataResourceTypeId == 'SHORT_TEXT')>
             <tr>
-              <td><div class="tableheadtext">Text</div></td>
+              <td class="label">${uiLabelMap.ContentText}</td>
               <td>
-                <input type="text" name="objectInfo" class="inputBox" size="40" maxsize="255" value="${(dataResource.objectInfo)?if_exists}"/>
+                <input type="text" name="objectInfo" size="40" maxsize="255" value="${(dataResource.objectInfo)?if_exists}"/>
               </td>
             </tr>
           <#elseif (dataResourceTypeId == 'ELECTRONIC_TEXT')>
@@ -345,7 +345,7 @@
 
           <tr>
             <td align="center" colspan="2">
-                <a href="javascript:void(0);" onclick="javascript:cmsSave();" class="buttontext">Save</a>
+                <a href="javascript:void(0);" onclick="javascript:cmsSave();" class="buttontext">${uiLabelMap.CommonSave}</a>
             </td>
           </tr>
         </table>
