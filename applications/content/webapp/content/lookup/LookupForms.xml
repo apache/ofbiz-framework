@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="lookupListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="entityList" target="" title="" type="list" paginate-target="LookupListLayout">
+    <form name="lookupListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="entityList" target="" title="" type="list" 
+        paginate-target="LookupListLayout" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentAssocDataResourceViewFrom" list-name="entityList" >
                 <condition-expr field-name="caContentIdTo" value="TEMPLATE_MASTER"/>
@@ -32,17 +33,18 @@ under the License.
         </field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
-        <field name="drObjectInfo" title="Template File"><display/></field>
+        <field name="drObjectInfo"><display/></field>
     </form>
 
-    <form name="lookupDataResourceContent" default-entity-name="DataResourceContentView" target="LookupSubContent" title="" type="single">
-        <field name="dataResourceId" title="DataResource Id">
+    <form name="lookupDataResourceContent" default-entity-name="DataResourceContentView" target="LookupSubContent" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="dataResourceId">
             <text-find/>
         </field>
-        <field name="coContentId" title="Content Id">
+        <field name="coContentId">
             <text-find/>
         </field>
-        <field name="coContentName" title="Name">
+        <field name="coContentName">
             <text-find/>
         </field>
         <field name="coDescription">
@@ -60,7 +62,7 @@ under the License.
         <field name="lastModifiedDate">
             <date-find/>
         </field>
-        <field name="submitButton" title="Find" widget-style="smallSubmit">
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
         <field name="contentIdTo">
@@ -71,28 +73,28 @@ under the License.
         </field>
     </form>
 
-    <form name="listLookupDataResourceContent" default-entity-name="DataResourceContentView" list-name="listIt" target="" title="" type="list" paginate-target="LookupSubContent">
+    <form name="listLookupDataResourceContent" default-entity-name="DataResourceContentView" list-name="listIt" target="" title="" type="list" 
+        paginate-target="LookupSubContent" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="DataResourceContentView"/>
             </service>
         </actions>
-        <field name="replace" title="Replace" widget-style="buttontext" >
+        <field name="replace" widget-style="buttontext" >
             <hyperlink also-hidden="false" target-type="plain" description="Replace[${dataResourceId}/${coContentId}]" 
                target="javascript:execRemoteCall('replaceSubContent','${dataResourceId}','${coContentId}', '${contentIdTo}', '${mapKey}')"
             />
         </field>
-        <field name="pasteContent" title="Paste" widget-style="buttontext" >
+        <field name="pasteContent" widget-style="buttontext" >
             <hyperlink also-hidden="false" target-type="plain" description="Paste[${dataResourceId}/${coContentId}]" 
                target="javascript:execRemoteCall('pasteContent','${dataResourceId}','${coContentId}')"/>
         </field>
-        <field name="dataResourceName" title="Name" widget-style="buttontext">
+        <field name="dataResourceName" widget-style="buttontext">
             <display/>
         </field>
-        <field name="dataCategoryId" title="Category" widget-style="buttontext">
+        <field name="dataCategoryId" widget-style="buttontext">
             <display/>
         </field>
     </form>
-
 </forms>

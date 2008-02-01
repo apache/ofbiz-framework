@@ -20,34 +20,38 @@ under the License.
     
     <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListForumGroups" type="list" list-name="forumGroups" separate-columns="true">
-        <field name="select" widget-style="tabButton" entry-name="contentId" parameter-name="contentId"><hyperlink target="findForums?forumGroupId=${contentId}" description="forums"/></field>
+    <form name="ListForumGroups" type="list" list-name="forumGroups" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="select" widget-style="buttontext" entry-name="contentId" parameter-name="contentId"><hyperlink target="findForums?forumGroupId=${contentId}" description="forums"/></field>
         <field name="forumGroupName" entry-name="contentName" parameter-name="contentName"><text/></field>
         <field name="forumGroupDescription" entry-name="description" parameter-name="description"><text/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    <form name="AddForumGroup" type="single" target="createForumGroup" title="" default-map-name="forumGroup">
+    <form name="AddForumGroup" type="single" target="createForumGroup" title="" default-map-name="forumGroup"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="forumGroupName" parameter-name="contentName"><text/></field>
         <field name="forumGroupDescription" parameter-name="description"><text/></field>
         <field name="contentTypeId"><hidden value="FORUM_ROOT"/></field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListForums" type="list" list-name="forums"  separate-columns="true" target="updateForum">
+    <form name="ListForums" type="list" list-name="forums"  separate-columns="true" target="updateForum"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentIdTo"><hidden value="${caContentIdTo}"/></field>
         <field name="contentAssocTypeId"><hidden value="${caContentAssocTypeId}"/></field>
         <field name="contentTypeId"><hidden/></field>
-        <field name="select" widget-style="tabButton" entry-name="contentId" parameter-name="contentId"><hyperlink target="findForumMessages?forumGroupId=${parameters.forumGroupId}&amp;forumId=${contentId}" description="Msgs"/></field>
+        <field name="select" widget-style="buttontext" entry-name="contentId" parameter-name="contentId"><hyperlink target="findForumMessages?forumGroupId=${parameters.forumGroupId}&amp;forumId=${contentId}" description="${uiLabelMap.ForumMessages}"/></field>
         <field name="forumName" entry-name="contentName" parameter-name="contentName"><text/></field>
         <field name="forumDescription" entry-name="description" parameter-name="description"><text/></field>
         <field name="thruDate" entry-name="caThruDate"><date-time/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
-        <field name="deleteButton" title="${uiLabelMap.CommonDelete}"><hyperlink target="updateForum?forumGroupId=${parameters.forumGroupId}&amp;contentIdTo=${parameters.forumGroupId}&amp;contentId=${contentId}&amp;contentAssocTypeId=${caContentAssocTypeId}&amp;fromDate=${caFromDate}&amp;deactivateExisting=yes" description="${uiLabelMap.CommonDelete}"/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext"><hyperlink target="updateForum?forumGroupId=${parameters.forumGroupId}&amp;contentIdTo=${parameters.forumGroupId}&amp;contentId=${contentId}&amp;contentAssocTypeId=${caContentAssocTypeId}&amp;fromDate=${caFromDate}&amp;deactivateExisting=yes" description="${uiLabelMap.CommonDelete}"/></field>
         <field name="fromDate" entry-name="caFromDate"><display description="${bsh:caFromDate.toString().substring(0,10)}"/></field>
         <field name="nbrOfMessages" entry-name="childBranchCount"><display/></field>
     </form>
-    <form name="AddForum" type="single" target="createForum">
+    <form name="AddForum" type="single" target="createForum"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="forumName" parameter-name="contentName"><text/></field>
         <field name="forumDescription" parameter-name="description"><text/></field>
@@ -59,14 +63,16 @@ under the License.
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ForumGroupPurposes" type="list" list-name="forumPurposes" target="deleteForumGroupPurpose"  separate-columns="true">
+    <form name="ForumGroupPurposes" type="list" list-name="forumPurposes" target="deleteForumGroupPurpose" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentPurposeTypeId"><display-entity entity-name="ContentPurposeType" description="${description}"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddForumGroupPurpose" type="single" target="createForumGroupPurpose" title="">
+    <form name="AddForumGroupPurpose" type="single" target="createForumGroupPurpose" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -77,7 +83,8 @@ under the License.
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ForumGroupRoles" type="list" list-name="forumRoles" target="updateForumGroupRole" separate-columns="true">
+    <form name="ForumGroupRoles" type="list" list-name="forumRoles" target="updateForumGroupRole" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="ContentRole" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -87,7 +94,8 @@ under the License.
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}"><hyperlink target="deleteForumGroupRole?forumGroupId=${parameters.forumGroupId}&amp;contentIdTo=${parameters.forumGroupId}&amp;contentId=${contentId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/></field>
     </form>
-    <form name="AddForumGroupRole" type="single" target="createForumGroupRole" default-map-name="">
+    <form name="AddForumGroupRole" type="single" target="createForumGroupRole" default-map-name=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ContentRole" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -101,7 +109,8 @@ under the License.
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListForumMessages" type="list" list-name="forumMessages" separate-columns="true" target="updateForumMessage">
+    <form name="ListForumMessages" type="list" list-name="forumMessages" separate-columns="true" target="updateForumMessage"
+        odd-row-style="alternate-row" default-table-style="basic-table">
         <row-actions>
             <service service-name="getContentAndDataResource" result-map-name="contentData">
                 <field-map field-name="contentId" env-name="contentId"/>
@@ -118,13 +127,14 @@ under the License.
         <field position="2" name="createdBy" entry-name="createdByUserLogin"><display/></field>
         <field position="3" name="fromDate" entry-name="caFromDate"><display description="${bsh:caFromDate!=null?caFromDate.toString().substring(0,10):&quot;&quot;}"/></field>
         <field position="4" name="thruDate" entry-name="caThruDate"><display description="${bsh:caThruDate!=null?caThruDate.toString().substring(0,10):&quot;&quot;}"/></field>
-        <field position="5" name="deleteButton" title="${uiLabelMap.CommonDelete}"><hyperlink target="updateForumMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;contentIdTo=${caContentIdTo}&amp;contentId=${caContentId}&amp;contentAssocTypeId=${caContentAssocTypeId}&amp;fromDate=${caFromDate}&amp;deactivateExisting=yes" description="${uiLabelMap.CommonDelete}"/></field>
+        <field position="5" name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext"><hyperlink target="updateForumMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;contentIdTo=${caContentIdTo}&amp;contentId=${caContentId}&amp;contentAssocTypeId=${caContentAssocTypeId}&amp;fromDate=${caFromDate}&amp;deactivateExisting=yes" description="${uiLabelMap.CommonDelete}"/></field>
         <field position="6" name="messageText" entry-name="contentData.resultData.electronicText.textData" parameter-name="textData"><textarea rows="8"/></field>
-        <field position="7" name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
-        <field position="8" name="responseButton" title="${uiLabelMap.FormFieldTitle_reponse}"><hyperlink target="addForumMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${contentId}&amp;contentAssocTypeId=RESPONSE" description="${uiLabelMap.FormFieldTitle_reponse}"/></field>
+        <field position="7" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field position="8" name="responseButton" title="${uiLabelMap.FormFieldTitle_reponse}" widget-style="buttontext"><hyperlink target="addForumMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${contentId}&amp;contentAssocTypeId=RESPONSE" description="${uiLabelMap.FormFieldTitle_reponse}"/></field>
     </form>
     
-    <form name="EditForumMessage" type="single" target="updateForumMessage" default-map-name="message">
+    <form name="EditForumMessage" type="single" target="updateForumMessage" default-map-name="message"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <service service-name="getContentAndDataResource" result-map-name="contentData">
                 <field-map field-name="contentId" env-name="parameters.forumMessageId"/>
@@ -157,7 +167,8 @@ under the License.
         <field name="forumMessageText" parameter-name="textData"><textarea rows="10"/></field>
         <field name="addButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddForumMessage" type="single" target="updateForumMessage" default-map-name="message">
+    <form name="AddForumMessage" type="single" target="updateForumMessage" default-map-name="message"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="VIEW_INDEX"><hidden value="${parameters.VIEW_INDEX}"/></field>
         <field name="threadView"><hidden value="${parameters.threadView}"/></field>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
@@ -172,9 +183,11 @@ under the License.
         <field name="forumMessageText" parameter-name="textData"><textarea rows="10" visual-editor-enable="true" visual-editor-buttons="undo redo bold italic underline bullet indent outdent link"/></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="AddForumThreadMessage" type="single" extends="AddForumMessage" target="updateForumThreadMessage"/>
+    <form name="AddForumThreadMessage" type="single" extends="AddForumMessage" target="updateForumThreadMessage"
+        header-row-style="header-row" default-table-style="basic-table"/>
     
-    <form name="EditForumThreadMessage" type="single" target="updateForumThreadMessage">
+    <form name="EditForumThreadMessage" type="single" target="updateForumThreadMessage"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="forumId"><hidden value="${parameters.forumId}"/></field>
         <field name="rsp.contentId" parameter-name="contentId"><hidden/></field>

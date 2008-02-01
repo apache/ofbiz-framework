@@ -28,19 +28,19 @@
 
     var treeSelected = false;
     var contentRoot = '${contentRoot?if_exists}';
-	var webSiteId = '${webSiteId?if_exists}';        
+    var webSiteId = '${webSiteId?if_exists}';        
     var editorUrl = '<@ofbizUrl>/views/WebSiteCMSContent</@ofbizUrl>';
     var aliasUrl = '<@ofbizUrl>/views/WebSiteCMSPathAlias</@ofbizUrl>';
     var metaUrl = '<@ofbizUrl>/views/WebSiteCMSMetaInfo</@ofbizUrl>';
         
     dojo.addOnLoad(function() {
-		dojo.event.topic.subscribe("webCmsNodeSelected",
-			 function(message) {
-			    treeSelected = true;
+        dojo.event.topic.subscribe("webCmsNodeSelected",
+             function(message) {
+                treeSelected = true;
                 callEditor(false, message.node.widgetId, message.node.object);
-			 }
-		);
-		dojo.event.topic.subscribe("newLong/engage",
+             }
+        );
+        dojo.event.topic.subscribe("newLong/engage",
             function (menuItem) {
                 var node = menuItem.getTreeNode();
                 callEditor(true, node.widgetId, '', 'ELECTRONIC_TEXT');
@@ -83,14 +83,14 @@
             }
         );
 
-		var cmsdata = dojo.byId("cmsdata");
-		if (cmsdata) {
-		    createEditor(cmsdata.value);
-		} else {
-		    createEditor();
+        var cmsdata = dojo.byId("cmsdata");
+        if (cmsdata) {
+            createEditor(cmsdata.value);
+        } else {
+            createEditor();
         }
         //alert("On load called!");
-	});
+    });
 
     function createEditor(text) {
         var currentEditor = dojo.widget.byId("w_editor");
@@ -187,10 +187,10 @@
         dojo.io.bind(bindArgs);
     }
 
-	function callEditor(sub, contentId, objstr, dataResourceTypeId) {
-	    var ctx = new Array();
-	    if (objstr != null && objstr.length > 0) {
-	        var obj = objstr.split("|");
+    function callEditor(sub, contentId, objstr, dataResourceTypeId) {
+        var ctx = new Array();
+        if (objstr != null && objstr.length > 0) {
+            var obj = objstr.split("|");
             ctx['contentIdFrom'] = obj[0];
             ctx['contentAssocTypeId'] = obj[1];
             ctx['fromDate'] = obj[2];
@@ -336,8 +336,8 @@
 
 <style>
 .dojoContextMenu {
-	background-color: #ccc;
-	font-size: 10px;
+    background-color: #ccc;
+    font-size: 10px;
 }
 </style>
 
@@ -367,11 +367,11 @@
     <dt dojoType="TreeMenuItem" id="newObject" caption="New Object"/>
 </dl>
 
-<div class="tableheadtext">
-    Website Content
+<div class="label">
+    ${uiLabelMap.ContentWebSiteContent}
 </div>
-<div class="tabletext">
-  *Right click to add sub-content
+<div>
+    ${uiLabelMap.ContentWebSiteAddSubdContent}
 </div>
 <div>&nbsp;</div>
 
@@ -382,7 +382,7 @@
     </#if>
 </div>
 <#if (!subsites?has_content)>
-    <a href="javascript:void(0);" class="linktext">Add Tree</a>
+    <a href="javascript:void(0);" class="buttontext">${uiLabelMap.ContentWebSiteAddTree}</a>
 </#if>
 
 <div>&nbsp;</div>
@@ -393,11 +393,11 @@
     <dt dojoType="TreeMenuItem" id="newMenu" caption="New Menu"/>    
 </dl>
 
-<div class="tableheadtext">
-    Website Menus
+<div class="label">
+    ${uiLabelMap.ContentWebSiteMenus}
 </div>
-<div class="tabletext">
-  *Right click to add new menus
+<div>
+    ${uiLabelMap.ContentWebSiteAddNewMenus}
 </div>
 <div>&nbsp;</div>
 
@@ -409,6 +409,5 @@
     </#if>
 </div>
 <#if (!menus?has_content)>
-    <a href="javascript:void(0);" class="linktext">Add Menu</a>
+    <a href="javascript:void(0);" class="buttontext">${uiLabelMap.ContentWebSiteAddMenu}</a>
 </#if>
-

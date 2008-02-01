@@ -36,7 +36,7 @@
 </div>
 
 <#if (content?has_content)>
-    <div class="tabletext" style="margin-bottom: 8px;">
+    <div style="margin-bottom: 8px;">
         Set <b>Meta-Data</b> for Content: <b>${content.contentId}</b></b>
     </div>
 </#if>
@@ -106,20 +106,20 @@
 <form name="cmsmetaform" action="javascript:void(0);" style="margin: 0;">
     <table>        
         <tr>
-            <td><div class="tableheadtext">Page Title</div></td>
-            <td><input type="text" class="inputBox" name="title" value="${(title.objectInfo)?if_exists}" size="40"></td>
+            <td class="label">Page Title</td>
+            <td><input type="text" name="title" value="${(title.objectInfo)?if_exists}" size="40"></td>
         </tr>
         <tr>
-            <td><div class="tableheadtext">Title Property</div></td>
-            <td><input type="text" class="inputBox" name="titleProperty" value="${(titleProperty.objectInfo)?if_exists}" size="40"></td>
+            <td class="label">Title Property</td>
+            <td><input type="text" name="titleProperty" value="${(titleProperty.objectInfo)?if_exists}" size="40"></td>
         </tr>
         <tr>
-            <td><div class="tableheadtext">Meta-Description</div></td>
-            <td><input type="text" class="inputBox" name="metaDescription" value="${(metaDescription.objectInfo)?if_exists}" size="40"></td>
+            <td class="label">Meta-Description</td>
+            <td><input type="text" name="metaDescription" value="${(metaDescription.objectInfo)?if_exists}" size="40"></td>
         </tr>
         <tr>
-            <td><div class="tableheadtext">Meta-Keywords</div></td>
-            <td><input type="text" class="inputBox" name="metaKeywords" value="${(metaKeywords.objectInfo)?if_exists}" size="40"></td>
+            <td class="label">Meta-Keywords</td>
+            <td><input type="text" name="metaKeywords" value="${(metaKeywords.objectInfo)?if_exists}" size="40"></td>
         </tr>
         <tr><td colspan="2">&nbsp;</td></tr>        
         <tr>

@@ -27,7 +27,7 @@
 </div>
 
 <#if (content?has_content)>
-    <div class="tabletext" style="margin-bottom: 8px;">
+    <div style="margin-bottom: 8px;">
         New <b>PathAlias</b> attached from WebSite: <b>${webSite.webSiteId}</b> to Content: <b>${content.contentId}</b></b>
     </div>
 </#if>
@@ -35,28 +35,28 @@
 <table>
   <tr><td>
     <table border="1" cellpadding="2" cellspacing="0" class="calendarTable">
-      <tr>
-        <td><div class="tableheadtext">Web Site ID</div></td>
-        <td><div class="tableheadtext">Path Alias</div></td>
-        <td><div class="tableheadtext">Alias To</div></td>
-        <td><div class="tableheadtext">Content ID</div></td>
-        <td><div class="tableheadtext">Map Key</div></td>
+      <tr class="header-row">
+        <td>Web Site ID</td>
+        <td>Path Alias</td>
+        <td>Alias To</td>
+        <td>Content ID</td>
+        <td>Map Key</td>
         <td>&nbsp;</td>
       </tr>
       <#if (aliases?has_content)>
         <#list aliases as alias>
             <tr>
-              <td><div class="tabletext">${alias.webSiteId}</div></td>
-              <td><div class="tabletext">${alias.pathAlias}</div></td>
-              <td><div class="tabletext">${alias.aliasTo?default("N/A")}</div></td>
-              <td><div class="tabletext">${alias.contentId?default("N/A")}</div></td>
-              <td><div class="tabletext">${alias.mapKey?default("N/A")}</div></td>
+              <td>${alias.webSiteId}</td>
+              <td>${alias.pathAlias}</td>
+              <td>${alias.aliasTo?default("N/A")}</td>
+              <td>${alias.contentId?default("N/A")}</td>
+              <td>${alias.mapKey?default("N/A")}</td>
               <td><a href="javascript:void(0);" onclick="javascript:pathRemove('${webSiteId}', '${alias.pathAlias}', '${contentId}');" class="buttontext">Remove</a></td>
             </tr>
         </#list>
       <#else>
         <tr>
-          <td colspan="5"><div class="tabletext">No aliases currently defined.</div></td>
+          <td colspan="5">No aliases currently defined.</td>
         </tr>
       </#if>
     </table>
@@ -67,23 +67,23 @@
         <table>
             <tr><td colspan="2">&nbsp;</td></tr>
             <tr>
-                <td><div class="tableheadtext">Web Site</div></td>
-                <td><div class="tabletext">${webSite.siteName?default(webSite.webSiteId)}</div></td>
+                <td class="label">Web Site</td>
+                <td>${webSite.siteName?default(webSite.webSiteId)}</td>
                 <input type="hidden" name="webSiteId" value="${webSiteId}"/>
             </tr>
             <tr>
-                <td><div class="tableheadtext">Content</div></td>
-                <td><div class="tabletext">${content.contentName?default(content.contentId)}</div></td>
+                <td class="label">Content</td>
+                <td>${content.contentName?default(content.contentId)}</td>
                 <input type="hidden" name="contentId" value="${contentId}"/>
             </tr>
             <tr><td colspan="2">&nbsp;</td></tr>
             <tr>
-                <td><div class="tableheadtext">Path Alias</div></td>
-                <td><input type="text" class="inputBox" name="pathAlias" value=""></td>
+                <td class="label">Path Alias</td>
+                <td><input type="text" name="pathAlias" value=""></td>
             </tr>
             <tr>
-                <td><div class="tableheadtext">Map Key</div></td>
-                <td><input type="text" class="inputBox" name="mapKey" value=""></td>
+                <td class="label">Map Key</td>
+                <td><input type="text" name="mapKey" value=""></td>
             </tr>
             <tr>
                 <td colspan="2" align="center"><input id="submit" type="button" onclick="javascript:pathSave('${contentId}');" class="smallSubmit" value="Create"/></td>

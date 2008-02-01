@@ -37,11 +37,35 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><link target="EditContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
-                        <label style="head1" text="${uiLabelMap.PageTitleFindContent}"/>
-                        <include-form name="FindContent" location="component://content/widget/content/ContentForms.xml"/>
-                        <label style="head1" text="${uiLabelMap.PageTitleListContent}"></label>
-                        <include-form name="ListContent" location="component://content/widget/content/ContentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container><link target="EditContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                        <include-form name="FindContent" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContent" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -65,7 +89,20 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditContent" location="component://content/widget/content/ContentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditContent" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -78,7 +115,7 @@ under the License.
                 <set field="title" value="CMS Content Edit Page"/>
                 <set field="titleProperty" value="PageTitleAddContent"/>
                 <set field="currentContentMenuItemName" value="AddContent" to-scope="user"/>
-				<set field="tabButtonItem" value="content"/>
+                <set field="tabButtonItem" value="content"/>
                 <set field="titleProperty" value="PageTitleAddContent"/>
             </actions>
             <widgets>
@@ -107,9 +144,34 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListContentAssocFrom" location="component://content/widget/content/ContentForms.xml"/>
-                        <label style="head1" text="${uiLabelMap.PageTitleListAssociations} '${uiLabelMap.CommonTo}'"></label>
-                        <include-form name="ListContentAssocTo" location="component://content/widget/content/ContentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditContentAssoc}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContentAssocFrom" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListAssociations} '${uiLabelMap.CommonTo}'"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContentAssocTo" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                         <section>
                             <condition>
                                 <and>
@@ -120,8 +182,20 @@ under the License.
                                 </and>  
                             </condition>
                             <widgets>
-                                <label style="head1" text="${uiLabelMap.PageTitleEditAssociation}"></label>
-                                <include-form name="EditContentAssoc" location="component://content/widget/content/ContentForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleEditAssociation}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="EditContentAssoc" location="component://content/widget/content/ContentForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                         <section>
@@ -134,8 +208,20 @@ under the License.
                                 </or>  
                             </condition>
                             <widgets>
-                                <label style="head1" text="${uiLabelMap.PageTitleAddAssociation}"></label>
-                                <include-form name="AddContentAssoc" location="component://content/widget/content/ContentForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleAddAssociation}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="AddContentAssoc" location="component://content/widget/content/ContentForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -160,9 +246,34 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListContentRole" location="component://content/widget/content/ContentForms.xml"/>
-                        <label style="head1" text="${uiLabelMap.PageTitleAddRole}"></label>
-                        <include-form name="AddContentRole" location="component://content/widget/content/ContentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditContentRole}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContentRole" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddRole}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddContentRole" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -183,9 +294,34 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
-                        <label style="head1" text="${uiLabelMap.PageTitleAddPurpose}"></label>
-                        <include-form name="AddContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditContentPurpose}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddPurpose}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -206,9 +342,34 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
-                        <label style="head1" text="${uiLabelMap.PageTitleAddAttribute}"></label>
-                        <include-form name="AddContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditContentAttribute}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddAttribute}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -230,9 +391,34 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
-                        <label style="head1" text="${uiLabelMap.PageTitleAddMetaData}"></label>
-                        <include-form name="AddContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditContentMetadata}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddMetaData}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -253,9 +439,34 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListWorkEffortContents" location="component://content/widget/content/ContentForms.xml"/>
-                        <label style="head1" text="${uiLabelMap.PageTitleAddWorkEffort}"></label>
-                        <include-form name="AddWorkEffortContent" location="component://content/widget/content/ContentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditContentWorkEffort}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListWorkEffortContents" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffort}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddWorkEffortContent" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -273,8 +484,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="LookupContent" location="component://content/widget/content/ContentForms.xml"/>
-                        <include-form name="ListLookupContent" location="component://content/widget/content/ContentForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupContent}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="LookupContent" location="component://content/widget/content/ContentForms.xml"/>
+                                        <include-form name="ListLookupContent" location="component://content/widget/content/ContentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

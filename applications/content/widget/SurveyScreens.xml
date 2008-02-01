@@ -35,10 +35,34 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleFindSurvey}</label></container>
-                                <container><link  text="${uiLabelMap.SurveyCreate}" target="EditSurvey" style="buttontext"/></container>
-                                <include-form name="FindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                                <include-form name="ListFindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleFindSurvey}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <container><link  text="${uiLabelMap.SurveyCreate}" target="EditSurvey" style="buttontext"/></container>
+                                                <include-form name="FindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleFindSurvey}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="ListFindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
@@ -101,15 +125,39 @@ under the License.
                                 <if-empty field-name="survey"/>
                             </condition>
                             <widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleCreateSurvey}</label></container>
-                                <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleCreateSurvey}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>                  
                             </widgets>
                             <fail-widgets>
-                                <container><label style="head1">${uiLabelMap.PageTitleEditSurvey}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
-                                <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-               					<include-form name="BuildSurveyFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-							</fail-widgets>
-						</section>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head4">
+                                            <label text="${uiLabelMap.PageTitleEditSurvey} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                                   <include-form name="BuildSurveyFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -132,20 +180,56 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyMultiResps}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
+                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyMultiResps} ${uiLabelMap.SurveySurveyId} ${surveyId}</label></container>
                         <iterate-section entry-name="surveyMultiResp" list-name="surveyMultiRespList">
                             <section>
                                 <widgets>
-                                    <container><label style="head2">${uiLabelMap.SurveyEditSurveyMultiResp}</label></container>
-                                    <include-form name="EditSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                                    <include-form name="ListSurveyMultiRespColumns" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                                    <container><label style="tableheadtext">${uiLabelMap.SurveyAddSurveyMultiRespColumn}</label></container>
-                                    <include-form name="AddSurveyMultiRespColumn" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar">
+                                            <container style="head4">
+                                                <label text="${uiLabelMap.SurveyEditSurveyMultiResp}"/>
+                                            </container>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <section>
+                                                <widgets>    
+                                                    <include-form name="EditSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                                    <include-form name="ListSurveyMultiRespColumns" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                                </widgets>
+                                            </section>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet">
+                                        <container style="screenlet-title-bar">
+                                            <container style="head4">
+                                                <label text="${uiLabelMap.SurveyAddSurveyMultiRespColumn}"/>
+                                            </container>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <section>
+                                                <widgets>    
+                                                    <include-form name="AddSurveyMultiRespColumn" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                                </widgets>
+                                            </section>
+                                        </container>
+                                    </container>                   
                                 </widgets>
                             </section>
                         </iterate-section>
-                        <container><label style="head2">${uiLabelMap.SurveyAddSurveyMultiResp}</label></container>
-                        <include-form name="AddSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.SurveyAddSurveyMultiResp}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -154,7 +238,7 @@ under the License.
     <screen name="EditSurveyQuestions">
         <section>
             <actions>
-			
+            
                 <set field="titleProperty" value="PageTitleEditSurveyQuestions"/>
                 <set field="tabButtonItem" value="SurveyQuestions"/>
                 <set field="labelTitleProperty" value="PageTitleEditSurveyQuestions"/>
@@ -167,7 +251,6 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyQuestions}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
                         <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyQuestions.ftl"/></html></platform-specific>
                         
                         <!-- This page is a bit of a mess, so will cleanup/modernize later...
@@ -175,9 +258,34 @@ under the License.
                         <include-form name="CreateSurveyQuestion" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         -->
                         
-                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyPages}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
-                        <include-form name="ListSurveyPages" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                        <include-form name="AddSurveyPage" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListSurveyPages} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListSurveyPages" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleEditSurveyPages} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddSurveyPage" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -200,11 +308,49 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
-                        <container><link  text="${uiLabelMap.SurveyCreateResponse}" target="EditSurveyResponse?surveyId=${surveyId}" style="buttontext"/></container>
-                        <container><label style="head1">${uiLabelMap.PageTitleFindSurveyResponse}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
-                        <include-form name="FindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                    	<include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                        <include-form name="ListFindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleFindSurveyResponse} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container><link  text="${uiLabelMap.SurveyCreateResponse}" target="EditSurveyResponse?surveyId=${surveyId}" style="buttontext"/></container>
+                                        <include-form name="FindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.SurveyBuildRespondeFromPDF}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleListSurveyResponse}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListFindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -226,12 +372,24 @@ under the License.
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
                         <container><link  text="${uiLabelMap.SurveyCreateResponse}" target="EditSurveyResponse?surveyId=${surveyId}" style="buttontext"/></container>
-                        <section>
-                            <condition><not><if-empty field-name="parameters.rootContentId"/></not></condition>
-                            <widgets><container><link text="Go Back to CompDoc Root [${parameters.rootContentId}]" target="ViewCompDocInstanceTree?rootContentId=${parameters.rootContentId}" style="buttontext"/></container></widgets>
-                        </section>
-                        <container><label style="head1">${uiLabelMap.PageTitleViewSurveyResponses}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
-                        <platform-specific><html><html-template location="component://content/webapp/content/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleViewSurveyResponses} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <section>
+                                            <condition><not><if-empty field-name="parameters.rootContentId"/></not></condition>
+                                            <widgets><container><link text="Go Back to CompDoc Root [${parameters.rootContentId}]" target="ViewCompDocInstanceTree?rootContentId=${parameters.rootContentId}" style="buttontext"/></container></widgets>
+                                        </section>
+                                        <platform-specific><html><html-template location="component://content/webapp/content/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -256,7 +414,7 @@ under the License.
                     <decorator-section name="body">
                         <container><label style="head1">${uiLabelMap.PageTitleEditSurveyResponse}, ${uiLabelMap.SurveyResponse}: ${parameters.surveyResponseId}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
                         <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyResponse.ftl"/></html></platform-specific>
-                    	<include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -278,8 +436,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                        <include-form name="listLookupSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupSurvey}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="lookupSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                        <include-form name="listLookupSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -300,8 +471,21 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                        <include-form name="listLookupSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head4">
+                                    <label text="${uiLabelMap.PageTitleLookupSurveyResponse}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="lookupSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                        <include-form name="listLookupSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
