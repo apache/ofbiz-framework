@@ -149,9 +149,9 @@ under the License.
     <GlJournal organizationPartyId="Company" glJournalId="ERROR_JOURNAL" glJournalName="Suspense transactions"/>
 
     <PartyAcctgPreference partyId="Company" taxFormId="US_IRS_1120" cogsMethodId="COGS_AVG_COST" baseCurrencyUomId="USD" 
-        invoiceSequenceEnumId="INVSQ_ENF_SEQ" invoiceIdPrefix="CI" lastInvoiceNumber="000000" 
-        quoteSequenceEnumId="INVSQ_ENF_SEQ" quoteIdPrefix="CQ" lastQuoteNumber="000000" 
-        orderSequenceEnumId="INVSQ_ENF_SEQ" orderIdPrefix="CO" lastOrderNumber="000000"
+        invoiceSequenceEnumId="INVSQ_ENF_SEQ" invoiceIdPrefix="CI"
+        quoteSequenceEnumId="INVSQ_ENF_SEQ" quoteIdPrefix="CQ"
+        orderSequenceEnumId="INVSQ_ENF_SEQ" orderIdPrefix="CO"
         errorGlJournalId="ERROR_JOURNAL"/>
 
     <!-- Chart Of Accounts -->
