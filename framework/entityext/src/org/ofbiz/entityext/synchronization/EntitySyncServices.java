@@ -216,12 +216,15 @@ public class EntitySyncServices {
                 
                 // check to see if it exists, if so remove and count, if not just count already removed
                 // always do a removeByAnd, if it was a removeByAnd great, if it was a removeByPrimaryKey, this will also work and save us a query
-                // however....removeByAnd also checks for the updateTimestamps....and they never match....so i changed it to remove primary key and only check for the primary key.....(hansbak)
                 pkToRemove.setIsFromEntitySync(true);
                 
-                // Debug.logInfo("try to remove: " + pkToRemove.getEntityName() + " key: " + pkToRemove.getPrimaryKey(), module);
+                // remove the stamp fields inserted by EntitySyncContext.java at or near line 646
+                pkToRemove.remove(ModelEntity.STAMP_TX_FIELD);
+                pkToRemove.remove(ModelEntity.STAMP_FIELD);
+                pkToRemove.remove(ModelEntity.CREATE_STAMP_TX_FIELD);
+                pkToRemove.remove(ModelEntity.CREATE_STAMP_FIELD);
                 
-                int numRemByAnd = delegator.removeByPrimaryKey(pkToRemove.getPrimaryKey());
+                int numRemByAnd = delegator.removeByAnd(pkToRemove.getEntityName(), pkToRemove);
                 if (numRemByAnd == 0) {
                     toRemoveAlreadyDeleted++;
                 } else {
