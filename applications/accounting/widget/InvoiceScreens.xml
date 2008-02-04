@@ -70,7 +70,7 @@ under the License.
                         <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleFindInvoice}"/>
                                 </container>
                             </container>
@@ -84,7 +84,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleFindInvoice}"/>
                                 </container>
                             </container>
@@ -115,7 +115,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingCreateNewSalesInvoice}"/>
                                         </container>
                                     </container>
@@ -129,7 +129,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingCreateNewPurchaseInvoice}"/>
                                         </container>
                                     </container>
@@ -171,7 +171,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleEditInvoice}"/>
                                         </container>
                                     </container>
@@ -187,7 +187,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleEditInvoice}"/>
                                         </container>
                                     </container>
@@ -246,7 +246,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceHeader}"/>
                                         </container>
                                     </container>
@@ -261,7 +261,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceRoles}"/>
                                         </container>
                                     </container>
@@ -276,7 +276,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceStatus}"/>
                                         </container>
                                     </container>
@@ -290,7 +290,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartyTerms}"/>
                                         </container>
                                     </container>
@@ -305,7 +305,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"/>
                                         </container>
                                     </container>
@@ -320,7 +320,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceItems}"/>
                                         </container>
                                     </container>
@@ -335,7 +335,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceTimeEntries}"/>
                                         </container>
                                     </container>
@@ -350,7 +350,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingTransactions}"/>
                                         </container>
                                     </container>
@@ -366,7 +366,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceHeader}"/>
                                         </container>
                                     </container>
@@ -380,7 +380,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceRoles}"/>
                                         </container>
                                     </container>
@@ -394,7 +394,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceStatus}"/>
                                         </container>
                                     </container>
@@ -408,7 +408,7 @@ under the License.
                                 </container>                                
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartyTerms}"/>
                                         </container>
                                     </container>
@@ -423,7 +423,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"/>
                                         </container>
                                     </container>
@@ -437,7 +437,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceItems}"/>
                                         </container>
                                     </container>
@@ -451,7 +451,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingInvoiceTimeEntries}"/>
                                         </container>
                                     </container>
@@ -465,7 +465,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingTransactions}"/>
                                         </container>
                                     </container>
@@ -502,7 +502,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingInvoiceStatusHistory}"/>
                                 </container>
                             </container>
@@ -543,7 +543,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"/>
                                         </container>
                                     </container>
@@ -570,7 +570,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head4">
+                                                <container style="head3">
                                                     <label text="${uiLabelMap.AccountingListPaymentsNotYetApplied} [${invoice.partyIdFrom}] ${uiLabelMap.AccountingPaymentSentForm} [${invoice.partyId}]"/>
                                                 </container>
                                             </container>
@@ -586,7 +586,7 @@ under the License.
                                 </section>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingAssignPaymentToInvoice}"/>
                                         </container>
                                     </container>
@@ -602,7 +602,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${invoice.currencyUomId})}  ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"/>
                                         </container>
                                     </container>
@@ -651,7 +651,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingAssignPaymentToInvoice}"/>
                                 </container>
                             </container>
@@ -665,7 +665,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingInvoiceItems}"/>
                                 </container>
                             </container>
@@ -679,7 +679,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingInvoiceItemAdd}"/>
                                 </container>
                             </container>
@@ -714,7 +714,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingInvoiceTimeEntries}"/>
                                 </container>
                             </container>
@@ -749,7 +749,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingPartyRoleList}"/>
                                 </container>
                             </container>
@@ -763,7 +763,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingPartyRoleAdd}"/>
                                 </container>
                             </container>
@@ -794,7 +794,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.CommonSendPerEmail}"/>
                                 </container>
                             </container>

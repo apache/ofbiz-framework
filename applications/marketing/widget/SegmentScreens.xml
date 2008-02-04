@@ -50,7 +50,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleFindSegmentGroup}"/>
                                         </container>
                                     </container>
@@ -130,7 +130,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSegmentGroup}"/>
                                 </container>
                             </container>
@@ -178,7 +178,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleListSegmentGroupClass}"/>
                                         </container>
                                     </container>
@@ -192,7 +192,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.SegmentGroupClassCreate}"/>
                                         </container>
                                     </container>
@@ -244,7 +244,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleListSegmentGroupGeo}"/>
                                         </container>
                                     </container>
@@ -258,7 +258,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleEditSegmentGroupGeo}"/>
                                         </container>
                                     </container>
@@ -310,7 +310,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleListSegmentGroupRole}"/>
                                         </container>
                                     </container>
@@ -324,7 +324,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleEditSegmentGroupRole}"/>
                                         </container>
                                     </container>

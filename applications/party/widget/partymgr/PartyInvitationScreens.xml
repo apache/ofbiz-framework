@@ -73,7 +73,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.${titleProperty}}"/>
                                         </container>
                                     </container>
@@ -98,7 +98,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.${titleProperty}}"/>
                                         </container>
                                     </container>
@@ -134,7 +134,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.${titleProperty}}"/>
                                         </container>
                                     </container>
@@ -172,7 +172,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitlePartyInvitation}"/>
                                 </container>
                             </container>
@@ -202,7 +202,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditPartyInvitationGroupAssoc}"/>
                                 </container>
                             </container>
@@ -216,7 +216,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddPartyInvitationGroupAssoc}"/>
                                 </container>
                             </container>
@@ -246,7 +246,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditPartyInvitationRoleAssoc}"/>
                                 </container>
                             </container>
@@ -260,7 +260,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddPartyInvitationRoleAssoc}"/>
                                 </container>
                             </container>

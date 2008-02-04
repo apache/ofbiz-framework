@@ -39,7 +39,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleLookupProduct}"/>
                                 </container>
                             </container>
@@ -76,7 +76,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleLookupProductVirtual}"/>
                                 </container>
                             </container>
@@ -115,7 +115,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleLookupProductVariant}"/>
                                 </container>
                             </container>
@@ -154,7 +154,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleLookupProductPrice}"/>
                                 </container>
                             </container>
@@ -191,7 +191,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleLookupProductCategory}"/>
                                 </container>
                             </container>
@@ -228,7 +228,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleLookupProductFeature}"/>
                                 </container>
                             </container>
@@ -269,7 +269,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleLookupProductStore}"/>
                                 </container>
                             </container>

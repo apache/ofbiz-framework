@@ -38,7 +38,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingManageCostComponentCalc} ${uiLabelMap.ManufacturingListCostComponentCalc}"/>
                                 </container>
                             </container>
@@ -52,7 +52,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingCreateCostComponentCalc}"/>
                                 </container>
                             </container>

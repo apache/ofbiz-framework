@@ -34,7 +34,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuotes}"/>
                                 </container>
                             </container>
@@ -94,7 +94,7 @@ under the License.
                         <include-screen name="ViewQuoteTemplate"/>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderCopyQuote}"/>
                                 </container>
                             </container>
@@ -224,7 +224,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteEdit}"/>
                                 </container>
                             </container>
@@ -259,7 +259,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteListRoles}"/>
                                 </container>
                             </container>
@@ -297,7 +297,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteEditRoles}"/>
                                 </container>
                             </container>
@@ -338,7 +338,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteListItems}"/>
                                 </container>
                             </container>
@@ -376,7 +376,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteEditItems}"/>
                                 </container>
                             </container>
@@ -413,7 +413,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteListAttributes}"/>
                                 </container>
                             </container>
@@ -451,7 +451,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteEditAttributes}"/>
                                 </container>
                             </container>
@@ -488,7 +488,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteListCoefficients}"/>
                                 </container>
                             </container>
@@ -526,7 +526,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteEditCoefficients}"/>
                                 </container>
                             </container>
@@ -574,7 +574,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuotePrices}"/>
                                 </container>
                             </container>
@@ -590,7 +590,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuotePrices}"/>
                                 </container>
                             </container>
@@ -630,7 +630,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteListAdjustments}"/>
                                 </container>
                             </container>
@@ -669,7 +669,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteEditAdjustments}"/>
                                 </container>
                             </container>
@@ -717,7 +717,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteViewProfit}"/>
                                 </container>
                             </container>
@@ -754,7 +754,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderOrderQuoteEditReportMail}"/>
                                 </container>
                             </container>

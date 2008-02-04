@@ -45,7 +45,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortMyCurrentTimesheets}"/>
                                 </container>
                             </container>
@@ -107,7 +107,7 @@ under the License.
                         <!-- createQuickTimeEntry -->
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortMyRates}"/>
                                 </container>
                             </container>
@@ -121,7 +121,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortMyTimesheets}"/>
                                 </container>
                             </container>
@@ -157,7 +157,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleFindTimesheet}"/>
                                         </container>
                                     </container>
@@ -172,7 +172,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleFindTimesheet}"/>
                                         </container>
                                     </container>
@@ -214,7 +214,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleAddTimesheet}"/>
                                         </container>
                                     </container>
@@ -230,7 +230,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleEditTimesheet}"/>
                                         </container>
                                     </container>
@@ -245,7 +245,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleAddTimesheetToInvoice}"/>
                                         </container>
                                     </container>
@@ -259,7 +259,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleDisplayTimesheetEntries}"/>
                                         </container>
                                     </container>
@@ -274,7 +274,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleAddTimesheetToNewInvoice}"/>
                                         </container>
                                     </container>
@@ -308,7 +308,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditTimesheetRoles}"/>
                                 </container>
                             </container>
@@ -323,7 +323,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddTimesheetRoles}"/>
                                 </container>
                             </container>
@@ -355,7 +355,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditTimesheetEntries}"/>
                                 </container>
                             </container>
@@ -370,7 +370,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddTimesheetEntries}"/>
                                 </container>
                             </container>

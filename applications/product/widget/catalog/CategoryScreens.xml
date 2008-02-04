@@ -114,7 +114,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductUpdateCategoryContentAssoc}"/>
                                 </container>
                             </container>
@@ -129,7 +129,7 @@ under the License.
 
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductAddProductCategoryContentFromDate}"/>
                                 </container>
                             </container>
@@ -144,7 +144,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductAddContentCategory}"/>
                                 </container>
                             </container>
@@ -194,7 +194,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"/>
                                 </container>
                             </container>
@@ -209,7 +209,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductListAssociatedContentInfos}"/>
                                 </container>
                             </container>
@@ -224,7 +224,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}"/>
                                 </container>
                             </container>
@@ -418,7 +418,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleCreateCategoryAttributes}"></label>
                                 </container>
                             </container>
@@ -432,7 +432,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditCategoryAttributes}"/>
                                 </container>
                             </container>
@@ -514,7 +514,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditProductCategoryLink}"/>
                                 </container>
                             </container>
@@ -528,7 +528,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleCreateProductCategoryLink}"/>
                                 </container>
                             </container>

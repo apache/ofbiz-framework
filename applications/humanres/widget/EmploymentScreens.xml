@@ -31,7 +31,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListEmployments}"/>
                                 </container>
                             </container>
@@ -68,7 +68,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListEmployments}"/>
                                 </container>
                             </container>
@@ -85,7 +85,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditEmployment}"/>
                                 </container>
                             </container>
@@ -116,7 +116,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListEmploymentApps}"/>
                                 </container>
                             </container>
@@ -149,7 +149,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditEmploymentApp}"/>
                                 </container>
                             </container>
@@ -181,7 +181,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListPayHistories}"/>
                                 </container>
                             </container>
@@ -213,7 +213,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListPartyBenefits}"/>
                                 </container>
                             </container>
@@ -230,7 +230,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditPartyBenefit}"/>
                                 </container>
                             </container>
@@ -263,7 +263,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListPayrollPreferences}"/>
                                 </container>
                             </container>
@@ -280,7 +280,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditPayrollPreference}"/>
                                 </container>
                             </container>
@@ -310,7 +310,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListPayGrade}"/>
                                 </container>
                             </container>
@@ -344,7 +344,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditPayGrade}"/>
                                 </container>
                             </container>
@@ -377,7 +377,7 @@
                     <decorator-section name="body">                        
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditSalaryStep}"/>
                                 </container>
                             </container>
@@ -409,7 +409,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListTerminationReasons}"/>
                                 </container>
                             </container>
@@ -442,7 +442,7 @@
                     <decorator-section name="body">                        
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditTerminationReason}"/>
                                 </container>
                             </container>
@@ -473,7 +473,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListUnemploymentClaim}"/>
                                 </container>
                             </container>
@@ -506,7 +506,7 @@
                     <decorator-section name="body">                        
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditUnemploymentClaim}"/>
                                 </container>
                             </container>

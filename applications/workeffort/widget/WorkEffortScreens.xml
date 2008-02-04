@@ -43,7 +43,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.WorkEffortJobList}"/>
                                         </container>
                                     </container>
@@ -119,7 +119,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleAddWorkEffort}"/>
                                         </container>
                                     </container>
@@ -135,7 +135,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleEditWorkEffort}"/>
                                         </container>
                                     </container>
@@ -152,7 +152,7 @@ under the License.
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortDuplicateWorkEffort}"/>
                                 </container>
                             </container>
@@ -184,7 +184,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleFindWorkEffort}"/>
                                 </container>
                             </container>
@@ -218,7 +218,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEfforts}"/>
                                 </container>
                             </container>
@@ -251,7 +251,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleTreeWorkEfforts}"/>
                                 </container>
                             </container>
@@ -319,7 +319,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffort} ${uiLabelMap.WorkEffortAssociatedFromParentToChild}"/>
                                 </container>
                             </container>
@@ -358,7 +358,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditWorkEffort}"/>
                                 </container>
                             </container>
@@ -391,7 +391,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditWorkEffortAssoc}"/>
                                 </container>
                             </container>
@@ -426,7 +426,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditWorkEffortAssoc}"/>
                                 </container>
                             </container>
@@ -459,7 +459,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortPartyAssigns}"/>
                                 </container>
                             </container>
@@ -473,7 +473,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortPartyAssign}"/>
                                 </container>
                             </container>
@@ -504,7 +504,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortAssignmentRates}"/>
                                 </container>
                             </container>
@@ -518,7 +518,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortAssignmentRate}"/>
                                 </container>
                             </container>
@@ -549,7 +549,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortCommEvents}"/>
                                 </container>
                             </container>
@@ -563,7 +563,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortCommEvent}"/>
                                 </container>
                             </container>
@@ -594,7 +594,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortShopLists}"/>
                                 </container>
                             </container>
@@ -608,7 +608,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortShopList}"/>
                                 </container>
                             </container>
@@ -640,7 +640,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortRequests}"/>
                                 </container>
                             </container>
@@ -654,7 +654,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortRequest}"/>
                                 </container>
                             </container>
@@ -668,7 +668,7 @@ under the License.
                         </container>                        
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortRequestItems}"/>
                                 </container>
                             </container>
@@ -682,7 +682,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortRequestItem}"/>
                                 </container>
                             </container>
@@ -714,7 +714,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortRequirements}"/>
                                 </container>
                             </container>
@@ -728,7 +728,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortRequirement}"/>
                                 </container>
                             </container>
@@ -760,7 +760,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortQuotes}"/>
                                 </container>
                             </container>
@@ -774,7 +774,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortQuote}"/>
                                 </container>
                             </container>
@@ -789,7 +789,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortQuoteItems}"/>
                                 </container>
                             </container>
@@ -803,7 +803,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortQuoteItem}"/>
                                 </container>
                             </container>
@@ -834,7 +834,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortOrderHeaders}"/>
                                 </container>
                             </container>
@@ -848,7 +848,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortOrderHeader}"/>
                                 </container>
                             </container>
@@ -879,7 +879,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortTimeEntries}"/>
                                 </container>
                             </container>
@@ -893,7 +893,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortTimeEntry}"/>
                                 </container>
                             </container>
@@ -908,7 +908,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortTimeToInvoice}"/>
                                 </container>
                             </container>
@@ -922,7 +922,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortTimeToNewInvoice}"/>
                                 </container>
                             </container>
@@ -953,7 +953,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortNotes}"/>
                                 </container>
                             </container>
@@ -967,7 +967,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortNotes}"/>
                                 </container>
                             </container>
@@ -997,7 +997,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListContent}"/>
                                 </container>
                             </container>
@@ -1011,7 +1011,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddContent}"/>
                                 </container>
                             </container>
@@ -1041,7 +1041,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortListGoodStandard}"/>
                                 </container>
                             </container>
@@ -1055,7 +1055,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortAddGoodStandard}"/>
                                 </container>
                             </container>
@@ -1088,7 +1088,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortReviews}"/>
                                 </container>
                             </container>
@@ -1102,7 +1102,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortReviews}"/>
                                 </container>
                             </container>
@@ -1132,7 +1132,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortKeyword}"/>
                                 </container>
                             </container>
@@ -1146,7 +1146,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortKeyword}"/>
                                 </container>
                             </container>
@@ -1176,7 +1176,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.CommonCreate}"/>
                                 </container>
                             </container>
@@ -1190,7 +1190,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortContactMechs}"/>
                                 </container>
                             </container>

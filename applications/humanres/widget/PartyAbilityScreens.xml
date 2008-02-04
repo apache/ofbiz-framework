@@ -32,7 +32,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditPartySkill}"/>
                                 </container>
                             </container>
@@ -60,7 +60,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListPartyResumes}"/>
                                 </container>
                             </container>
@@ -91,7 +91,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListPartySkill}"/>
                                 </container>
                             </container>
@@ -124,7 +124,7 @@
                         <include-menu name="PartyBar" location="component://humanres/widget/Menus.xml"/>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditPartyResume}"/>
                                 </container>
                             </container>
@@ -160,7 +160,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListPartyReview}"/>
                                 </container>
                             </container>
@@ -177,7 +177,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditPartyReview}"/>
                                 </container>
                             </container>
@@ -207,7 +207,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResListPartySkill}"/>
                                 </container>
                             </container>
@@ -224,7 +224,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResEditPartySkill}"/>
                                 </container>
                             </container>
@@ -254,7 +254,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.HumanResNewPartyReview}"/>
                                 </container>
                             </container>
@@ -288,7 +288,7 @@
                     <decorator-section name="body">                                                                                       
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleListSkillTypes}"/>
                                 </container>
                             </container>
@@ -305,7 +305,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSkillType}"/>
                                 </container>
                             </container>

@@ -35,7 +35,7 @@ under the License.
                         <container style="lefthalf">
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head4">
+                                    <container style="head3">
                                         <label text="${uiLabelMap.OrderReportSalesByStore}"/>
                                     </container>
                                 </container>
@@ -49,7 +49,7 @@ under the License.
                             </container>                
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head4">
+                                    <container style="head3">
                                         <label text="${uiLabelMap.OrderReportOpenOrderItems}"/>
                                     </container>
                                 </container>
@@ -59,7 +59,7 @@ under the License.
                             </container>                
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head4">
+                                    <container style="head3">
                                         <label text="${uiLabelMap.OrderReportPurchasesByOrganization}"/>
                                     </container>
                                 </container>
@@ -71,7 +71,7 @@ under the License.
                         <container style="righthalf">
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head4">
+                                    <container style="head3">
                                         <label text="${uiLabelMap.OrderReportPurchasesByProduct}"/>
                                     </container>
                                 </container>
@@ -81,7 +81,7 @@ under the License.
                             </container>                
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head4">
+                                    <container style="head3">
                                         <label text="${uiLabelMap.OrderReportPurchasesByPaymentMethod}"/>
                                     </container>
                                 </container>
@@ -233,7 +233,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderReportOpenOrderItems} - ${productStore.storeName}"/>
                                 </container>
                             </container>
@@ -247,7 +247,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.OrderReportOpenOrderItems}"/>
                                 </container>
                             </container>
