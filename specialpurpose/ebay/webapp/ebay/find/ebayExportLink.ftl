@@ -25,5 +25,12 @@ under the License.
 </script>
 
 <#if productIds?has_content>
-  <a href="javascript:exportToEbay();" class="buttontext">${uiLabelMap.EbayExportToEbay}</a>
+    <table cellspacing="0" class="basic-table">
+        <tr>
+            <td align="center" colspan="2">
+                <hr/>
+                <a href="javascript:exportToEbay();" class="buttontext">${uiLabelMap.EbayExportToEbay}</a>
+            </td>
+        </tr>
+    </table>
 </#if>
