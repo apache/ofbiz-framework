@@ -770,7 +770,7 @@ under the License.
         <if-empty field-name="parameters.fromDate"><now-timestamp-to-env env-name="parameters.fromDate"/></if-empty>
         
         <!-- check if not already exist -->
-        <entity-and entity-name="PartyRelationShip" list-name="partyRels" filter-by-date="true">
+        <entity-and entity-name="PartyRelationship" list-name="partyRels" filter-by-date="true">
             <field-map field-name="partyIdFrom" env-name="parameters.partyIdFrom"/>
             <field-map field-name="roleTypeIdFrom" env-name="parameters.roleTypeIdFrom"/>
             <field-map field-name="partyIdTo" env-name="parameters.partyIdTo"/>
