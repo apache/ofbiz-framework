@@ -29,11 +29,10 @@ under the License.
                 <!-- The two default (global) stylesheets are added to the list
                      of stylesheets to the first and second position -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <set field="layoutSettings.companyName" value="Ofbiz Oagis" global="true"/>
-                <set field="layoutSettings.companySubtitle"  value="Ofbiz Oagis Impl" global="true"/>
-                <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
-                     then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
-                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
+                <set field="layoutSettings.companyName" value="OFBiz Oagis" global="true"/>
+                <set field="layoutSettings.companySubtitle"  value="OFBiz Oagis Impl" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.OagisCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.OagisCompanySubtitle" global="true"/>
                 <set field="activeApp" value="oagis" global="true"/>
                 <set field="applicationMenuName" value="OagisAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://oagis/widget/Menus.xml" global="true"/>
