@@ -39,7 +39,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingPartyAccountsSummary}"/>
                                         </container>
                                     </container>
@@ -79,7 +79,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingAcctgTrans}"/>
                                 </container>
                             </container>
@@ -99,7 +99,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingAcctgTrans}"/>
                                         </container>
                                     </container>
@@ -127,7 +127,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingAcctgTransEntries}"/>
                                 </container>
                             </container>
@@ -145,7 +145,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByAccount}"/>
                                         </container>
                                     </container>
@@ -165,7 +165,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingAcctgTransEntries} ${uiLabelMap.AccountingByDate}"/>
                                         </container>
                                     </container>
@@ -194,7 +194,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}"/>
                                 </container>
                             </container>
@@ -240,7 +240,7 @@ under the License.
                                 <container>
                                     <container style="screenlet">
                                         <container style="screenlet-title-bar">
-                                            <container style="head4">
+                                            <container style="head3">
                                                 <label text="${uiLabelMap.PageTitleEditTransaction}"/>
                                             </container>
                                         </container>
@@ -254,7 +254,7 @@ under the License.
                                 <container>
                                     <container style="screenlet">
                                         <container style="screenlet-title-bar">
-                                            <container style="head4">
+                                            <container style="head3">
                                                 <label text="${uiLabelMap.PageTitleEditTransactionEntries}"/>
                                             </container>
                                         </container>
@@ -273,7 +273,7 @@ under the License.
                                 <container>
                                     <container style="screenlet">
                                         <container style="screenlet-title-bar">
-                                            <container style="head4">
+                                            <container style="head3">
                                                 <label text="${uiLabelMap.PageTitleAddTransactionEntry}"/>
                                             </container>
                                         </container>
@@ -315,7 +315,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleUnpostedTransactions}"/>
                                 </container>
                             </container>
@@ -361,7 +361,7 @@ under the License.
                         <widgets>
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head4">
+                                    <container style="head3">
                                         <label text="${uiLabelMap.AccountingPrintChecks}"/>
                                     </container>
                                 </container>
@@ -410,7 +410,7 @@ under the License.
                         <widgets>
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head4">
+                                    <container style="head3">
                                         <label text="${uiLabelMap.AccountingSendChecks}"/>
                                     </container>
                                 </container>
@@ -441,7 +441,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingCreateAnAccountingTransaction}"/>
                                 </container>
                             </container>
@@ -469,7 +469,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingAcctRecon}"/>
                                 </container>
                             </container>
@@ -488,7 +488,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingAcctRecon}"/>
                                         </container>
                                     </container>
@@ -523,7 +523,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingEditAcctRecon}"/>
                                         </container>
                                     </container>
@@ -541,7 +541,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingEditAcctRecon}"/>
                                         </container>
                                     </container>
@@ -574,7 +574,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AccountingAcctRecons}"/>
                                 </container>
                             </container>
@@ -593,7 +593,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.AccountingAcctRecons}"/>
                                         </container>
                                     </container>

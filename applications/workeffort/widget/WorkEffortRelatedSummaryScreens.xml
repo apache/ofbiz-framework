@@ -56,7 +56,7 @@ under the License.
                         <label style="head1">${uiLabelMap.PageTitleWorkEffortRelatedSummary} ${uiLabelMap.CommonFor} ${uiLabelMap.CommonId} [${workEffortId}]</label>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortWorkEffort}"/>
                                 </container>
                             </container>
@@ -75,7 +75,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PartyPartyAssignmentsDetail}"/>
                                 </container>
                             </container>
@@ -102,7 +102,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortCommEvents}"/>
                                 </container>
                             </container>
@@ -121,7 +121,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortShopLists}"/>
                                 </container>
                             </container>
@@ -140,7 +140,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortQuotes}"/>
                                 </container>
                             </container>
@@ -159,7 +159,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.WorkEffortOrderHeaders}"/>
                                 </container>
                             </container>

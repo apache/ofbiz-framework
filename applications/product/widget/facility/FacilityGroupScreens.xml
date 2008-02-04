@@ -32,7 +32,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityGroup}"/>
                                 </container>
                             </container>
@@ -95,7 +95,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditFacilityGroup}"/>
                                 </container>
                             </container>
@@ -133,7 +133,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditFacilityGroupMembers}"/>
                                 </container>
                             </container>
@@ -150,7 +150,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductAddFacilityGroupMember}"/>
                                 </container>
                             </container>
@@ -182,7 +182,7 @@ under the License.
                         <label style="head1">${uiLabelMap.PartyRoles} ${uiLabelMap.CommonFor} ${facilityGroup.facilityGroupName} [${facilityGroup.facilityGroupId}]</label>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditFacilityGroupRoles}"/>
                                 </container>
                             </container>
@@ -197,7 +197,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductAddFacilityGroupPartyRole}"/>
                                 </container>
                             </container>
@@ -233,7 +233,7 @@ under the License.
                         <container><label style="head1">${uiLabelMap.ProductRollups} ${uiLabelMap.CommonFor} ${facilityGroup.facilityGroupName} [${facilityGroup.facilityGroupId}]</label></container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditFacilityGroupRollup}"/>
                                 </container>
                             </container>
@@ -248,7 +248,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddFacilityGroupRollup}"/>
                                 </container>
                             </container>
@@ -262,7 +262,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductGroupRollupChildGroups}"/>
                                 </container>
                             </container>
@@ -276,7 +276,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductGroupRollupChildGroupsAdd}"/>
                                 </container>
                             </container>

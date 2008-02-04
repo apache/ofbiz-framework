@@ -41,7 +41,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartySecurityGroupsList}"/>
                                         </container>
                                     </container>
@@ -82,7 +82,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSecurityGroup}"/>
                                 </container>
                             </container>
@@ -114,7 +114,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSecurityGroupPermissions}"/>
                                 </container>
                             </container>
@@ -128,7 +128,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PartyAddPermissionToSecurityGroup}"/>
                                 </container>
                             </container>
@@ -142,7 +142,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PartyAddPermissionManuallyToSecurityGroup}"/>
                                 </container>
                             </container>
@@ -174,7 +174,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSecurityGroupUserLogins}"/>
                                 </container>
                             </container>
@@ -188,7 +188,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PartyAddUserLoginToSecurityGroup}"/>
                                 </container>
                             </container>
@@ -226,7 +226,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleEditIssuerProvisions}"/>
                                         </container>
                                     </container>
@@ -246,7 +246,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleAddIssuerProvisions}"/>
                                         </container>
                                     </container>

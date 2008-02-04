@@ -117,7 +117,7 @@ under the License.
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AcctgAssignGlAccount}"/>
                                 </container>
                             </container>
@@ -165,7 +165,7 @@ under the License.
                         </platform-specific>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AcctgNavigateAccts}"/>
                                 </container>
                             </container>
@@ -179,7 +179,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.AcctgNavigateAccts}"/>
                                 </container>
                             </container>
@@ -213,7 +213,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleViewGlAccountEntries}"/>
                                 </container>
                             </container>
@@ -227,7 +227,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleViewGlAccountEntries}"/>
                                 </container>
                             </container>
@@ -263,7 +263,7 @@ under the License.
                         </platform-specific>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleViewAccountingTransaction}"/>
                                 </container>
                             </container>
@@ -277,7 +277,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleViewAccountingTransaction}"/>
                                 </container>
                             </container>
@@ -309,7 +309,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddGlAccount}"/>
                                 </container>
                             </container>
@@ -351,7 +351,7 @@ under the License.
                        </platform-specific>
                        <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.${labelTitleProperty}}"/>
                                 </container>
                             </container>

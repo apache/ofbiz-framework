@@ -81,7 +81,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditProductPromotionCode}"/>
                                 </container>
                             </container>
@@ -104,7 +104,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ProductProductPromotionsList}"/>
                                 </container>
                             </container>
@@ -137,7 +137,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditProductPromos}"/>
                                 </container>
                             </container>
@@ -298,7 +298,7 @@ under the License.
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleFindProductPromotionCode}"/>
                                 </container>
                             </container>
@@ -336,7 +336,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditProductPromotionCode}"/>
                                 </container>
                             </container>

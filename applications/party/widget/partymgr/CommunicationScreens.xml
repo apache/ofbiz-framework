@@ -85,7 +85,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartyFoundCommunicationEvents}"/>
                                         </container>
                                     </container>
@@ -140,7 +140,7 @@ under the License.
                                 </section>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartyFoundCommunicationEvents}"/>
                                         </container>
                                     </container>
@@ -194,7 +194,7 @@ under the License.
                                 </section>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartyFindCommunicationEvents}"/>
                                         </container>
                                     </container>
@@ -323,7 +323,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head4">
+                                                <container style="head3">
                                                     <label text="${uiLabelMap.PartyEditCommunicationEvent}"/>
                                                 </container>
                                             </container>
@@ -337,7 +337,7 @@ under the License.
                                         </container>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head4">
+                                                <container style="head3">
                                                     <label text="${uiLabelMap.PageTitleChildCommunicationEvents}"/>
                                                 </container>
                                             </container>
@@ -353,7 +353,7 @@ under the License.
                                     <fail-widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head4">
+                                                <container style="head3">
                                                     <label text="${uiLabelMap.PartyNewCommunication}"/>
                                                 </container>
                                             </container>
@@ -367,7 +367,7 @@ under the License.
                                         </container>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head4">
+                                                <container style="head3">
                                                     <label text="${uiLabelMap.PageTitleChildCommunicationEvents}"/>
                                                 </container>
                                             </container>
@@ -414,7 +414,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartyCommEventRoles}"/>
                                         </container>
                                     </container>
@@ -433,7 +433,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head4">
+                                                <container style="head3">
                                                     <label text="${uiLabelMap.PartyNewCommRole}"/>
                                                 </container>
                                             </container>
@@ -480,7 +480,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartyCommEventPurposes}"/>
                                         </container>
                                     </container>
@@ -499,7 +499,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head4">
+                                                <container style="head3">
                                                     <label text="${uiLabelMap.PartyNewCommPurpose}"/>
                                                 </container>
                                             </container>
@@ -548,7 +548,7 @@ under the License.
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PartyCommWorkEfforts}"/>
                                 </container>
                             </container>
@@ -582,7 +582,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PartyCommWorkEfforts}"/>
                                 </container>
                             </container>
@@ -614,7 +614,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PartyCommWorkEfforts}"/>
                                 </container>
                             </container>
@@ -663,7 +663,7 @@ under the License.
                                 </section>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartyCommContent}"/>
                                         </container>
                                     </container>
@@ -708,7 +708,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PartyNewCommContent}"/>
                                         </container>
                                     </container>
@@ -766,7 +766,7 @@ under the License.
                                 </section>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.PageTitleEditCommContent}"/>
                                         </container>
                                     </container>
@@ -790,7 +790,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head4">
+                                                <container style="head3">
                                                     <label text="${uiLabelMap.PageTitleEditCommContent}"/>
                                                 </container>
                                             </container>
@@ -813,7 +813,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head4">
+                                                <container style="head3">
                                                     <label text="${uiLabelMap.PartyViewImage}"/>
                                                 </container>
                                             </container>

@@ -33,7 +33,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <section>
                                         <condition>
                                             <if-has-permission permission="CATALOG" action="_VIEW"/>
@@ -64,7 +64,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <section>
                                         <condition>
                                             <if-has-permission permission="CATALOG" action="_VIEW"/>
@@ -146,7 +146,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSubscription}"/>
                                 </container>
                             </container>
@@ -180,7 +180,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSubscriptionAttributes}"/>
                                 </container>
                             </container>
@@ -194,7 +194,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddSubscriptionAttributes}"/>
                                 </container>
                             </container>
@@ -225,7 +225,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <section>
                                         <condition>
                                             <if-has-permission permission="CATALOG" action="_VIEW"/>
@@ -312,7 +312,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSubscriptionResource}"/>
                                 </container>
                             </container>
@@ -342,7 +342,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSubscriptionResourceProducts}"/>
                                 </container>
                             </container>
@@ -356,7 +356,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddSubscriptionResourceProducts}"/>
                                 </container>
                             </container>
@@ -388,7 +388,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleEditSubscriptionCommEvent}"/>
                                 </container>
                             </container>
@@ -402,7 +402,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.PageTitleAddSubscriptionCommEvent}"/>
                                 </container>
                             </container>

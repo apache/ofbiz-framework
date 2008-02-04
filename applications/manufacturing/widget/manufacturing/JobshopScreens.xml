@@ -66,7 +66,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingCreateProductionRun}"/>
                                 </container>
                             </container>
@@ -106,7 +106,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}"/>
                                 </container>
                             </container>
@@ -123,7 +123,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingOrderItems}"/>
                                 </container>
                             </container>
@@ -137,7 +137,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}"/>
                                 </container>
                             </container>
@@ -151,7 +151,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingMaterials}"/>
                                 </container>
                             </container>
@@ -165,7 +165,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}"/>
                                 </container>
                             </container>
@@ -225,7 +225,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}"/>
                                 </container>
                             </container>
@@ -244,7 +244,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head4">
+                                        <container style="head3">
                                             <label text="${uiLabelMap.ManufacturingProductionRunProduce}"/>
                                         </container>
                                     </container>
@@ -260,7 +260,7 @@ under the License.
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingAssociatedProductionRuns}"/>
                                 </container>
                             </container>
@@ -276,7 +276,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingInventoryItemsProduced}"/>
                                 </container>
                             </container>
@@ -290,7 +290,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingOrderItems}"/>
                                 </container>
                             </container>
@@ -304,7 +304,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}"/>
                                 </container>
                             </container>
@@ -318,7 +318,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingProductionRunDeclaration}"/>
                                 </container>
                             </container>
@@ -334,7 +334,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingMaterialsRequiredByRunningTask}"/>
                                 </container>
                             </container>
@@ -348,7 +348,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingReturnMaterials}"/>
                                 </container>
                             </container>
@@ -362,7 +362,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingListOfProductionRunFixedAssets}"/>
                                 </container>
                             </container>
@@ -428,7 +428,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingMandatoryWorkEfforts}"/>
                                 </container>
                             </container>
@@ -442,7 +442,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingDependentWorkEfforts}"/>
                                 </container>
                             </container>
@@ -483,7 +483,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingProductionRunTasks}"/>
                                 </container>
                             </container>
@@ -497,7 +497,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}"/>
                                 </container>
                             </container>
@@ -534,7 +534,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingProductionRunComponents}"/>
                                 </container>
                             </container>
@@ -578,7 +578,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingActualMaterials}"/>
                                 </container>
                             </container>
@@ -618,7 +618,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingTaskFixedAssets}"/>
                                 </container>
                             </container>
@@ -683,7 +683,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingFindProductionRun}"/>
                                 </container>
                             </container>
@@ -700,7 +700,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head4">
+                                <container style="head3">
                                     <label text="${uiLabelMap.ManufacturingFindProductionRun}"/>
                                 </container>
                             </container>
