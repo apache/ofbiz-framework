@@ -127,10 +127,24 @@ under the License.
             <widgets>
                 <decorator-screen name="permission-decorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.PageTitleEbayProductsExportToEbay}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleEbayProductsExportToEbay}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="component://ebay/webapp/ebay/find/productsExportToEbay.ftl"/>
+                                            </html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <platform-specific><html><html-template location="component://ebay/webapp/ebay/find/productsExportToEbay.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -147,14 +161,34 @@ under the License.
             <widgets>
                 <decorator-screen name="permission-decorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.EbayImportOrdersSearchFromEbay}</label>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.EbayImportOrdersSearchFromEbay}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ManageOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <include-form name="ManageOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
-                        <container>
-                            <label style="head1">${uiLabelMap.EbayImportOrdersFromEbay}</label>
-                        </container>
-                        <include-form name="ListOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.EbayImportOrdersFromEbay}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container> 
                     </decorator-section>
                 </decorator-screen>
             </widgets>

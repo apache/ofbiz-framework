@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ManageOrdersFromEbay" type="single" target="ImportOrdersSearchFromEbay">
+    <form name="ManageOrdersFromEbay" type="single" target="ImportOrdersSearchFromEbay"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
             <drop-down>
                 <entity-options entity-name="ProductStore" description="${storeName}" key-field-name="productStoreId">
@@ -32,7 +33,8 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${bsh: org.ofbiz.base.util.UtilDateTime.getDayEnd(org.ofbiz.base.util.UtilDateTime.nowTimestamp())}"/></field>
         <field name="submitButton" title="${uiLabelMap.EbayImportOrdersSearchFromEbay}"><submit button-type="button"/></field>
     </form>
-    <form name="ListOrdersFromEbay" type="multi" use-row-submit="true" list-name="orderList" target="ImportOrderFromEbay">
+    <form name="ListOrdersFromEbay" type="multi" use-row-submit="true" list-name="orderList" target="ImportOrderFromEbay"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="canImportOrder" value="${bsh: org.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.ofbiz.base.util.UtilValidate.isEmpty(errorMessage)}" type="Boolean"/>
             <set field="allowProductIdChange" value="${bsh: org.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.ofbiz.base.util.UtilValidate.isNotEmpty(errorMessage)}" type="Boolean"/>
