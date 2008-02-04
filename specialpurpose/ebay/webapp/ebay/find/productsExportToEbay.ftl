@@ -35,11 +35,11 @@ under the License.
     <form method="post" action="<@ofbizUrl>PostProductsToEbay</@ofbizUrl>" name="ProductsExportToEbay">
         <table border="0" cellpadding="2" cellspacing="0">
              <tr>
-                <td align="right"><div class="tabletext">${uiLabelMap.FormFieldTitle_ebayCategory}</div></td>
+                <td align="right" class="label">${uiLabelMap.FormFieldTitle_ebayCategory}</td>
                 <td>&nbsp;</td>
                 <td>
                     <input type="hidden" name="selectResult" value="${selectResult}"/>
-                    <select class="selectBox" name="ebayCategory" onchange="changeEbayCategory(this.value, this.options[this.selectedIndex].text)">
+                    <select name="ebayCategory" onchange="changeEbayCategory(this.value, this.options[this.selectedIndex].text)">
                         <#if categories?exists>
                             <#list categories as category>
                                 <option value="${category.CategoryCode}">${category.CategoryName}</option>
@@ -49,10 +49,10 @@ under the License.
                 </td>
             </tr>
             <tr>
-                <td align="right"><div class="tabletext">${uiLabelMap.CommonCountry}</div></td>
+                <td align="right" class="label">${uiLabelMap.CommonCountry}</td>
                 <td>&nbsp;</td>
                 <td>
-                    <select class="selectBox" name="country">
+                    <select name="country">
                         <#if countries?exists>
                             <#list countries as country>
                                 <option <#if country.geoCode?has_content && country.geoCode == "US">selected="selected"</#if> value="${country.geoCode}">${country.get("geoName",locale)}</option>
@@ -62,17 +62,17 @@ under the License.
                 </td>
             </tr>
             <tr>
-                <td align="right"><div class="tabletext">${uiLabelMap.FormFieldTitle_location}</div></td>
+                <td align="right" class="label">${uiLabelMap.FormFieldTitle_location}</td>
                 <td>&nbsp;</td>
                 <td>
                     <input type="text" name="location" size="50" maxlength="50"/>
                 </td>
             </tr>
             <tr>
-                <td align="right"><div class="tabletext">${uiLabelMap.FormFieldTitle_listingDuration}</div></td>
+                <td align="right" class="label">${uiLabelMap.FormFieldTitle_listingDuration}</td>
                 <td>&nbsp;</td>
                 <td>
-                    <select class="selectBox" name="listingDuration">
+                    <select name="listingDuration">
                         <option value="Days_1">1 ${uiLabelMap.CommonDay}</option>
                         <option value="Days_3">3 ${uiLabelMap.CommonDays}</option>
                         <option value="Days_7">7 ${uiLabelMap.CommonDays}</option>
@@ -80,63 +80,63 @@ under the License.
                 </td>
             </tr>
             <tr>
-                <td align="right"><div class="tabletext">${uiLabelMap.FormFieldTitle_startPrice}</div></td>
+                <td align="right" class="label">${uiLabelMap.FormFieldTitle_startPrice}</td>
                 <td>&nbsp;</td>
                 <td>
                     <input type="text" name="startPrice" size="12" maxlength="12" value="1.0"/>
                 </td>
             </tr>
             <tr>
-                <td align="right"><div class="tabletext">${uiLabelMap.FormFieldTitle_quantity}</div></td>
+                <td align="right" class="label">${uiLabelMap.FormFieldTitle_quantity}</td>
                 <td>&nbsp;</td>
                 <td>
                     <input type="text" name="qnt" size="12" maxlength="12" value="1"/>
                 </td>
             </tr>
             <tr>
-                <td align="center" colspan="3"><div class="tabletext">${uiLabelMap.FormFieldTitle_paymentMethodsAccepted}</div></td>
+                <td align="center" colspan="3"><b><u>${uiLabelMap.FormFieldTitle_paymentMethodsAccepted}</u></b></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td colspan="3" class="tabletext">
-                    <table border="0" cellpadding="2" cellspacing="0">
+                <td colspan="3">
+                    <table class="basic-table" cellspacing="0">
                         <tr>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentPayPal}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentPayPal}</td>
                             <td width="2%"><input type="checkbox" name="paymentPayPal" checked="checked"/></td>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentVisaMC}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentVisaMC}</td>
                             <td width="2%"><input type="checkbox" name="paymentVisaMC" checked="checked"/></td>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentAmEx}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentAmEx}</td>
                             <td width="2%"><input type="checkbox" name="paymentAmEx" checked="checked"/></td>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentDiscover}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentDiscover}</td>
                             <td width="2%"><input type="checkbox" name="paymentDiscover" checked="checked"/></td>
                         </tr>
                         <tr>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentMOCC}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentMOCC}</td>
                             <td width="2%"><input type="checkbox" name="paymentMOCC" checked="checked"/></td>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentPersonalCheck}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentPersonalCheck}</td>
                             <td width="2%"><input type="checkbox" name="paymentPersonalCheck" checked="checked"/></td>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentCCAccepted}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCCAccepted}</td>
                             <td width="2%"><input type="checkbox" name="paymentCCAccepted"/></td>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentCashInPerson}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCashInPerson}</td>
                             <td width="2%"><input type="checkbox" name="paymentCashInPerson"/></td>
                         </tr>
                         <tr>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentCashOnPickup}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCashOnPickup}</td>
                             <td width="2%"><input type="checkbox" name="paymentCashOnPickup"/></td>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentCOD}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCOD}</td>
                             <td width="2%"><input type="checkbox" name="paymentCOD"/></td>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentCODPrePayDelivery}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCODPrePayDelivery}</td>
                             <td width="2%"><input type="checkbox" name="paymentCODPrePayDelivery"/></td>
-                            <td align="right" width="23%">${uiLabelMap.FormFieldTitle_paymentMoneyXferAccepted}</td>
+                            <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentMoneyXferAccepted}</td>
                             <td width="2%"><input type="checkbox" name="paymentMoneyXferAccepted"/></td>
                         </tr>
                     </table>
                 </td>
             </tr>
             <tr>
-                <td align="right"><div class="tabletext">${uiLabelMap.FormFieldTitle_payPalEmail}</div></td>
+                <td align="right" class="label">${uiLabelMap.FormFieldTitle_payPalEmail}</td>
                 <td>&nbsp;</td>
                 <td>
                     <input type="text" name="quantity" size="50" maxlength="50"/>
