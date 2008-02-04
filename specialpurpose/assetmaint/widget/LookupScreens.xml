@@ -40,12 +40,24 @@
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupPerson" location="component://assetmaint/widget/forms/LookupForms.xml"/>
-                        <include-form name="listLookupPerson" location="component://party/webapp/partymgr/lookup/LookupForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PartyLookupPartyPerson}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="lookupPerson" location="component://assetmaint/widget/forms/LookupForms.xml"/>
+                                        <include-form name="listLookupPerson" location="component://party/webapp/partymgr/lookup/LookupForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 </screens>
-        

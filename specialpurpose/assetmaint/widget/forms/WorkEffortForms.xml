@@ -20,7 +20,8 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditWorkEffort" target="updateWorkEffort" title="" type="single" default-map-name="workEffort">
+    <form name="EditWorkEffort" target="updateWorkEffort" title="" type="single" default-map-name="workEffort"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="createWorkEffort" use-when="workEffort==null"/>
         <field name="maintHistSeqId" map-name="fixedAssetMaint"><hidden/></field>
         <field map-name="workEffort" name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}*"><display/></field>
@@ -54,8 +55,8 @@
         <field map-name="workEffort" name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
 
-    <form name="AddWorkEffortChild"  target="createWorkEffortAndAssoc" title="" type="single">
-
+    <form name="AddWorkEffortChild"  target="createWorkEffortAndAssoc" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId"><hidden/></field>
         <field name="workEffortIdTo"><hidden/></field>
@@ -93,7 +94,8 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
-    <form name="WorkEffortChildren"  target="updateWorkEffortAndAssoc" title="" type="list" separate-columns="true">
+    <form name="WorkEffortChildren"  target="updateWorkEffortAndAssoc" title="" type="list" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortAssocView">
                 <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortIdFrom"/>
@@ -133,7 +135,8 @@
         <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-    <form name="AddWorkEffortTimeEntry" type="single" target="createWorkEffortTimeEntry" title="">
+    <form name="AddWorkEffortTimeEntry" type="single" target="createWorkEffortTimeEntry" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createTimeEntry"/>
         
         <field name="workEffortId"><hidden/></field>
@@ -155,7 +158,8 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <!-- TimeEntry -->
-    <form name="ListWorkEffortTimeEntries" type="list" list-name="timesheetEntries" target="updateWorkEffortTimeEntry">
+    <form name="ListWorkEffortTimeEntries" type="list" list-name="timesheetEntries" target="updateWorkEffortTimeEntry"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TimeEntry">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>
@@ -194,7 +198,8 @@
     </form>
     
     <!-- WorkEffort Note -->
-    <form name="ListWorkEffortNotes" type="list" list-name="workEffortNotes">
+    <form name="ListWorkEffortNotes" type="list" list-name="workEffortNotes"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortNoteAndData">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>
@@ -209,7 +214,8 @@
         <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
     </form>
     
-    <form name="AddWorkEffortNote" type="single" target="createWorkEffortNote" title="">
+    <form name="AddWorkEffortNote" type="single" target="createWorkEffortNote" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWorkEffortNote"/>
         <field name="noteId"><ignored/><!-- don't pass, will be sequenced --></field>
         <field name="workEffortId"><hidden/></field>

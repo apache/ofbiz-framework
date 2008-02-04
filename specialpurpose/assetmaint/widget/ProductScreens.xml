@@ -40,8 +40,21 @@
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="lookupProduct" location="component://assetmaint/widget/forms/ProductForms.xml" />
-                        <include-form name="listLookupProduct" location="component://assetmaint/widget/forms/ProductForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleLookupProduct}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="lookupProduct" location="component://assetmaint/widget/forms/ProductForms.xml" />
+                                        <include-form name="listLookupProduct" location="component://assetmaint/widget/forms/ProductForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

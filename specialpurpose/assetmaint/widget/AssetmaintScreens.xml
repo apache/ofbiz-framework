@@ -30,16 +30,37 @@
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="button-bar"><link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <label style="head3">${uiLabelMap.PageTitleFindFixedAssetMaints}</label>
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleFindFixedAssetMaints}"/>
+                                </container>
                             </container>
                             <container style="screenlet-body">
-                                <include-form name="FindFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                                <section>
+                                    <widgets>    
+                                        <container style="button-bar">
+                                            <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="FindFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                                    </widgets>
+                                </section>
                             </container>
                         </container>
-                        <include-form name="ListFixedAssetMaints" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleFindFixedAssetMaints}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListFixedAssetMaints" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -80,7 +101,9 @@
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <label style="head3">${uiLabelMap.FixedAssetMaintWorkEffortName}</label>
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.FixedAssetMaintWorkEffortName}"/>
+                                        </container>
                                     </container>
                                     <container style="screenlet-body">
                                         <include-form name="EditFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
@@ -91,7 +114,9 @@
                                 <container style="button-bar"><label/></container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <label style="head3">${uiLabelMap.AccountingNewFixedAssetMaint}</label>
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.AccountingNewFixedAssetMaint}"/>
+                                        </container>
                                     </container>
                                     <container style="screenlet-body">
                                         <include-form name="EditFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
@@ -119,8 +144,26 @@
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListFixedAssetMaintMeters" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
-                        <include-form name="AddFixedAssetMaintMeter" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleEditFixedAssetMaintenance}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="ListFixedAssetMaintMeters" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleEditFixedAssetMaintenance}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="AddFixedAssetMaintMeter" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -130,6 +173,7 @@
     <screen name="EditWorkEfforts">
         <section>
             <actions>
+                <set field="titleProperty" value="PageTitleEditWorkEffort"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditWorkEfforts"/>
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>                
             </actions>
@@ -141,14 +185,48 @@
                                 <if-empty field-name="workEffort"/>
                             </condition>
                             <widgets>
-                                <label style="head1">${uiLabelMap.PageTitleEditWorkEffort}</label>
-                                <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleEditWorkEffort}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
-                                <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
-                                <container><label style="head1">${uiLabelMap.PageTitleChildWorkEfforts}</label></container>
-                                <include-form name="WorkEffortChildren" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
-                                <include-form name="AddWorkEffortChild" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleEditWorkEffort}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleChildWorkEfforts}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="WorkEffortChildren" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleChildWorkEfforts}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="AddWorkEffortChild" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                    </container>
+                                </container>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -174,10 +252,26 @@
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortTimeEntries}</label></container>
-                        <include-form name="ListWorkEffortTimeEntries" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortTimeEntry}</label></container>
-                        <include-form name="AddWorkEffortTimeEntry" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortTimeEntries}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="ListWorkEffortTimeEntries" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortTimeEntry}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="AddWorkEffortTimeEntry" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -201,10 +295,26 @@
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListWorkEffortNotes}</label></container>
-                        <include-form name="ListWorkEffortNotes" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddWorkEffortNotes}</label></container>
-                        <include-form name="AddWorkEffortNote" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortNotes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="ListWorkEffortNotes" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleAddWorkEffortNotes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="AddWorkEffortNote" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -229,10 +339,26 @@
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleListItemIssuance}</label></container>
-                        <include-form name="ListItemIssuance" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
-                        <container><label style="head1">${uiLabelMap.PageTitleAddItemIssuance}</label></container>
-                        <include-form name="AddItemIssuance" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleListItemIssuance}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="ListItemIssuance" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleAddItemIssuance}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="AddItemIssuance" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -275,5 +401,4 @@
             </widgets>
         </section>
     </screen>
-    
 </screens>
