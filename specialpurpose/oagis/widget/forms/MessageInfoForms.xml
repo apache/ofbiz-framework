@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListMessageInfos" type="list" list-name="listIt" title="" paginate-target="FindMessageInfo">
+    <form name="ListMessageInfos" type="list" list-name="listIt" title="" paginate-target="FindMessageInfo"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="OagisMessageInfo"/>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -31,7 +32,8 @@ under the License.
         <auto-fields-entity entity-name="OagisMessageInfo" default-field-type="display"/>
     </form>
     
-    <form name="FindMessageInfos" type="single" target="FindMessageInfo" >
+    <form name="FindMessageInfos" type="single" target="FindMessageInfo"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OagisMessageInfo" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
@@ -39,7 +41,8 @@ under the License.
         </field>
     </form> 
 
-     <form name="EditMessageInfo" type="single" title="" target="updateOagisMessageInfo" default-map-name="oagisMessageInfo" paginate-target="FindMessageInfo" >
+     <form name="EditMessageInfo" type="single" title="" target="updateOagisMessageInfo" default-map-name="oagisMessageInfo" paginate-target="FindMessageInfo"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="oagisMessageInfo==null" target="createOagisMessageInfo"/>
         <auto-fields-service service-name="updateOagisMessageInfo" default-field-type="edit"/>
          <field name="processingStatusId">
@@ -55,7 +58,8 @@ under the License.
         </field>
     </form>   
     
-    <form name="ListMessageErrorInfos" type="list" list-name="listIt" title="" paginate-target="FindMessageErrorInfo">
+    <form name="ListMessageErrorInfos" type="list" list-name="listIt" title="" paginate-target="FindMessageErrorInfo"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="OagisMessageErrorInfo"/>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -69,7 +73,8 @@ under the License.
         </field>
     </form>
     
-    <form name="FindMessageErrorInfos" type="single" target="FindMessageErrorInfo" >
+    <form name="FindMessageErrorInfos" type="single" target="FindMessageErrorInfo"
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OagisMessageErrorInfo" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
@@ -77,12 +82,12 @@ under the License.
         </field>
     </form> 
     
-     <form name="EditMessageErrorInfo" type="single" title="" target="updateOagisMessageErrorInfo" default-map-name="oagisMessageErrorInfo" paginate-target="FindMessageErrorInfo" >
+     <form name="EditMessageErrorInfo" type="single" title="" target="updateOagisMessageErrorInfo" default-map-name="oagisMessageErrorInfo" paginate-target="FindMessageErrorInfo"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="oagisMessageErrorInfo==null" target="createOagisMessageErrorInfo"/>
         <auto-fields-service service-name="updateOagisMessageErrorInfo" default-field-type="edit"/>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-    </form>     
-    
+    </form>
 </forms>

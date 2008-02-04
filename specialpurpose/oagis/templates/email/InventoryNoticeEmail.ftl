@@ -34,18 +34,19 @@
       <div class="boxhead">${uiLabelMap.OagisInventoryDescription}<b></b></div>
     </div>   
     <div class="screenlet-body">
-      <table width="100%" border="0" cellpadding="0">
-        <tr align="left" valign="bottom">
-          <td width="10%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>               
-          <td width="10%" align="center"><span class="tableheadtext"><b>${uiLabelMap.OagisInventoryLevelDateTime}</b></span></td>
-          <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderReturnItemInventoryStatus}</b></span></td>
-          <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQuantity} (Inventory)</b></span></td>
-          <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQuantity} (Message)</b></span></td>
-          <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OagisQuantityDiff}.</b></span></td>
+      <table class="basic-table" cellspacing="0">
+        <tr align="left" valign="bottom" class="header-row">
+          <td width="10%" align="left"><b>${uiLabelMap.EcommerceProduct}</b></td>               
+          <td width="10%" align="center"><b>${uiLabelMap.OagisInventoryLevelDateTime}</b></td>
+          <td width="10%" align="right"><b>${uiLabelMap.OrderReturnItemInventoryStatus}</b></td>
+          <td width="10%" align="right"><b>${uiLabelMap.OrderQuantity} (Inventory)</b></td>
+          <td width="10%" align="right"><b>${uiLabelMap.OrderQuantity} (Message)</b></td>
+          <td width="10%" align="right"><b>${uiLabelMap.OagisQuantityDiff}.</b></td>
         </tr>
-        <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+        <tr><td colspan="10"><hr/></td></tr>
+        <#assign alt_row = false>
         <#list inventoryMapList as inventoryMap>
-          <tr> 
+          <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td align="left" valign="top"> ${inventoryMap.productId?if_exists}</td>   
             <td align="right" valign="top"> ${inventoryMap.timestamp?if_exists?if_exists}</td>
             <td align="right" valign="top"> ${inventoryMap.statusId?if_exists?if_exists}</td>                        
@@ -53,8 +54,10 @@
             <td align="center" valign="top"> ${inventoryMap.quantityFromMessage?if_exists?if_exists}</td>   
             <td align="right" valign="top"> ${inventoryMap.quantityDiff?if_exists?if_exists}</td>   
           </tr>
+          <#-- toggle the row color -->
+          <#assign alt_row = !alt_row>
         </#list>  
-        <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+        <tr><td colspan="10"><hr/></td></tr>
       </table>
     </div>
   </body>
