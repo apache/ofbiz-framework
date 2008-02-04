@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<table cellspacing="0" class="basic-table form-widget-table dark-grid">
+<table cellspacing="0" class="basic-table hover-bar">
     <tr class="header-row">
         <#list columnNames as columnName>
         <td>
@@ -25,8 +25,9 @@ under the License.
         </td>
         </#list>
     </tr>
+    <#assign alt_row = false>
     <#list records as record>
-    <tr>
+    <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
         <#list columnNames as columnName>
         <#assign columnValue = record[columnName]?default("")>
         <td<#if columnValue?is_number> class="align-text"</#if>>
@@ -34,6 +35,7 @@ under the License.
         </td>
         </#list>
     </tr>
+    <#-- toggle the row color -->
+    <#assign alt_row = !alt_row>
     </#list>
-    
 </table>

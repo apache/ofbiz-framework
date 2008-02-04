@@ -21,7 +21,7 @@ under the License.
     <menu name="BiAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.BusinessIntelligenceApplication}"
         default-selected-style="selected" selected-menuitem-context-field-name="headerItem">
         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
-        <menu-item name="reportbuilder" title="${uiLabelMap.ReportBuilder}"><link target="ReportBuilderSelectStarSchema"/></menu-item>
+        <menu-item name="reportbuilder" title="${uiLabelMap.BusinessIntelligenceReportBuilder}"><link target="ReportBuilderSelectStarSchema"/></menu-item>
 
         <menu-item name="Logout" title="Logout" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>

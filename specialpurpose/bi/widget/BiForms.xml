@@ -3,11 +3,12 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="selectStarSchema" title="" type="single" target="ReportBuilderSelectStarSchemaFields">
+    <form name="selectStarSchema" title="" type="single" target="ReportBuilderSelectStarSchemaFields"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <script location="component://bi/webapp/bi/WEB-INF/actions/reportbuilder/getStarSchemas.bsh"/>
         </actions>
-        <field name="starSchemaName" title="Select the star schema (report)">
+        <field name="starSchemaName" title="${uiLabelMap.BusinessIntelligenceReportBuilderSelectTheStarSchemaReport}">
             <drop-down allow-empty="false">
                 <list-options list-name="starSchemas" key-name="name" description="${title}"/>
             </drop-down>
@@ -17,7 +18,8 @@
         </field>
     </form>
 
-    <form name="SalesInvoiceItemStarSchema" list-name="invoiceItemFacts" title="" type="list">
+    <form name="SalesInvoiceItemStarSchema" list-name="invoiceItemFacts" title="" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="SalesInvoiceItemStarSchema" list-name="invoiceItemFacts">
                 <select-field field-name="invoiceDateDayName"/>

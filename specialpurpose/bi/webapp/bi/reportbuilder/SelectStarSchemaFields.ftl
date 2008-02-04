@@ -19,20 +19,21 @@ under the License.
 
 <form action="<@ofbizUrl>ReportBuilderRenderStarSchemaReport</@ofbizUrl>">
     <input type="hidden" name="starSchemaName" value="${starSchemaName}"/>
-    <table cellspacing="0" class="basic-table form-widget-table dark-grid">
+    <table cellspacing="0" class="basic-table hover-bar">
         <tr class="header-row">
             <td>
-                Select
+                ${uiLabelMap.CommonSelect}
             </td>
             <td>
-                Field Name
+                ${uiLabelMap.BusinessIntelligenceFieldName}
             </td>
             <td>
-                Field Description
+                ${uiLabelMap.BusinessIntelligenceFieldDescription}
             </td>
         </tr>
+        <#assign alt_row = false>
         <#list starSchemaFields as starSchemaField>
-        <tr>
+        <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td>
                 <input name="selectedField" value="${starSchemaField.name}" type="checkbox"/>
             </td>
@@ -43,10 +44,12 @@ under the License.
                 ${starSchemaField.description?default("")}
             </td>
         </tr>
+        <#-- toggle the row color -->
+        <#assign alt_row = !alt_row>
         </#list>
         <tr>
             <td colspan="3">
-                <input name="submitButton" type="submit" value="Render the Report"/>
+                <input name="submitButton" type="submit" value="${uiLabelMap.BusinessIntelligenceRenderTheReport}"/>
             </td>
         </tr>
     </table>
