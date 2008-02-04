@@ -24,10 +24,11 @@ under the License.
         <section>
             <actions>
                 <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <property-map resource="BiUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="layoutSettings.companyName" value="OFBiz : Business Intelligence" global="true"/>
-                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ManufacturingCompanySubtitle" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.BusinessIntelligenceCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.BusinessIntelligenceCompanySubtitle" global="true"/>
                 <set field="activeApp" value="bi" global="true"/>
                 <set field="applicationMenuName" value="BiAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://bi/widget/BiMenus.xml" global="true"/>
@@ -40,12 +41,26 @@ under the License.
     <screen name="ReportBuilderSelectStarSchema">
         <section>
             <actions>
+                <set field="titleProperty" value="BusinessIntelligenceReportBuilderSelectStarSchema"/>
                 <set field="headerItem" value="reportbuilder"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="selectStarSchema" location="component://bi/widget/BiForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.BusinessIntelligenceReportBuilderSelectStarSchema}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="selectStarSchema" location="component://bi/widget/BiForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -54,15 +69,29 @@ under the License.
     <screen name="ReportBuilderSelectStarSchemaFields">
         <section>
             <actions>
+                <set field="titleProperty" value="BusinessIntelligenceReportBuilderSelectStarSchemaFields"/>
                 <set field="headerItem" value="reportbuilder"/>
                 <script location="component://bi/webapp/bi/WEB-INF/actions/reportbuilder/getStarSchemaFields.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://bi/webapp/bi/reportbuilder/SelectStarSchemaFields.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.BusinessIntelligenceReportBuilderSelectStarSchemaFields}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <platform-specific>
+                                            <html><html-template location="component://bi/webapp/bi/reportbuilder/SelectStarSchemaFields.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -71,15 +100,29 @@ under the License.
     <screen name="ReportBuilderRenderStarSchemaReport">
         <section>
             <actions>
+                <set field="titleProperty" value="BusinessIntelligenceReportBuilderRenderStarSchemaReport"/>
                 <set field="headerItem" value="reportbuilder"/>
                 <script location="component://bi/webapp/bi/WEB-INF/actions/reportbuilder/runStarSchemaQuery.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://bi/webapp/bi/reportbuilder/RenderStarSchemaReport.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.BusinessIntelligenceReportBuilderRenderStarSchemaReport}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <platform-specific>
+                                            <html><html-template location="component://bi/webapp/bi/reportbuilder/RenderStarSchemaReport.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -89,6 +132,7 @@ under the License.
     <screen name="main">
         <section>
             <actions>
+                <set field="titleProperty" value="BusinessIntelligenceMainPage"/>
                 <set field="headerItem" value="main"/>
                 <set field="fromDate" value="2007-01-01 00:00:00.0" type="Timestamp"/>
                 <set field="thruDate" value="2008-01-01 00:00:00.0" type="Timestamp"/>
@@ -97,103 +141,103 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">Business Intelligence integrated framework</label>
+                            <label style="head1">${uiLabelMap.BusinessIntelligenceIntegratedFramework}</label>
                         </container>
                         <container>
                             <label>
-                                This is a proof of concept for an OFBiz integrated framework for business intelligence analysis.
+                                ${uiLabelMap.BusinessIntelligenceNote1}
                             </label>
                         </container>
                         <container>
                             <label>
-                                The idea is to define a set entities for business intelligence analysis in a separate (olap) database,
-                                accessible, in the same way as the main one (oltp), via the delegator.
+                                ${uiLabelMap.BusinessIntelligenceNote2}
+                                ${uiLabelMap.BusinessIntelligenceNote3}
                             </label>
                         </container>
                         <container>
                             <label>
-                                The new olap database, will contain all the entities necessary to datawarehouse analysis:
-                                dimensions, facts and star schemas (that are view-entities).
+                                ${uiLabelMap.BusinessIntelligenceNote4}
+                                ${uiLabelMap.BusinessIntelligenceNote5}
                             </label>
                         </container>
                         <container>
                             <label>
-                                The dimensions, facts and star schemas are defined according to best practices for datawarehouses
-                                and best practices for OFBiz: they are defined as standard entities using the xml entity defs;
-                                clear and consistent naming conventions are used and they are documented
-                                by meta data descriptions (in the entity def).
+                                ${uiLabelMap.BusinessIntelligenceNote6}
+                                ${uiLabelMap.BusinessIntelligenceNote7}
+                                ${uiLabelMap.BusinessIntelligenceNote8}
+                                ${uiLabelMap.BusinessIntelligenceNote9}
                             </label>
                         </container>
                         <container>
                             <label>
-                                The best practices for datawarehouses are mainly taken from the great book "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.
+                                ${uiLabelMap.BusinessIntelligenceNote10}
                             </label>
                         </container>
                         <container>
                             <label>
-                                The data for dimensions and facts are maintained and kept up to date using standard OFBiz services
-                                (most of them written in minilang to facilitate customizations) and eca rules (easily customizable).
+                                ${uiLabelMap.BusinessIntelligenceNote11}
+                                ${uiLabelMap.BusinessIntelligenceNote12}
                             </label>
                         </container>
                         <container>
                             <label style="head3">
-                                Current Status
+                                ${uiLabelMap.BusinessIntelligenceCurrentStatus}
                             </label>
                         </container>
                         <container>
                             <label>
-                                The main low level services to post data to the datawarehouse, 
-                                to map the operational keys with the datawarehouse ones, and to manage
-                                history of data changes are already implemented; they will be improved as the datawarehouse will grow (e.g. performance enhancements).
+                                ${uiLabelMap.BusinessIntelligenceNote13}
+                                ${uiLabelMap.BusinessIntelligenceNote14}
+                                ${uiLabelMap.BusinessIntelligenceNote15}
                             </label>
                         </container>
                         <container>
                             <label>
-                                The following dimensions (and data services) are defined: CurrencyDimension, DateDimension, ProductDimension;
-                                we will have to complete them and design the other ones (the total number of dimension will be probably around 20).
+                                ${uiLabelMap.BusinessIntelligenceNote16}
+                                ${uiLabelMap.BusinessIntelligenceNote17}
                             </label>
                         </container>
                         <container>
                             <label>
-                                Just one fact and one star schema are defined: SalesInvoiceItemFact and SalesInvoiceItemStarSchema.
+                                ${uiLabelMap.BusinessIntelligenceNote18}
                             </label>
                         </container>
                         <container>
                             <label style="head3">
-                                Quick Start Guide
+                                ${uiLabelMap.BusinessIntelligenceQuickStartGuide}
                             </label>
                         </container>
                         <container>
                             <label>
-                                You can quickly initialize the datawarehouse by clicking on the link below:
-                                The CurrencyDimension, DateDimension, ProductDimension and the SalesInvoiceItemFact entities will be automatically populated.
+                                ${uiLabelMap.BusinessIntelligenceNote19}
+                                ${uiLabelMap.BusinessIntelligenceNote20}
                             </label>
                         </container>
                         <container>
                             <label>
-                                Then you can run the analysis using the report builder menu.
-                                The report builder is a very simple tool that allows you to run
-                                the analysis on all the star schemas defined in the system.
-                                However, right now there is just one star schema defined:
-                                SalesInvoiceItemStarSchema that is a simple "profit and loss" (P&amp;L) analysis.
+                                ${uiLabelMap.BusinessIntelligenceNote21}
+                                ${uiLabelMap.BusinessIntelligenceNote22}
+                                ${uiLabelMap.BusinessIntelligenceNote23}
+                                ${uiLabelMap.BusinessIntelligenceNote24}
+                                ${uiLabelMap.BusinessIntelligenceNote25}
                             </label>
                         </container>
                         <container>
                             <label>
-                                Just select using the checkboxes the fields (columns) you want to see in the report
-                                and a simple report will be shown: according to the columns selected the data will be aggregated (drill up/down);
-                                all the descriptions you see in the report screens are pulled from the entity definitions.
+                                ${uiLabelMap.BusinessIntelligenceNote26}
+                                ${uiLabelMap.BusinessIntelligenceNote27}
+                                ${uiLabelMap.BusinessIntelligenceNote28}
                             </label>
                         </container>
                         <container>
-                            <link target="quickInitDataWarehouse?fromDate=${fromDate}&amp;thruDate=${thruDate}" text="Quick Init DataWarehouse" style="buttontext"/>
-                            <label> (from date ${fromDate} thru date ${thruDate})</label>
+                            <link target="quickInitDataWarehouse?fromDate=${fromDate}&amp;thruDate=${thruDate}" text="${uiLabelMap.BusinessIntelligenceQuickInitDataWarehouse}" style="buttontext"/>
+                            <label> (${uiLabelMap.CommonFromDate} ${fromDate} ${uiLabelMap.CommonThruDate} ${thruDate})</label>
                         </container>
                         <container>
                             <label>
-                                The initialization is needed only once, because the product data and sales invoice data
-                                are kept updated by ecas: if you create/update a product or create a new invoice,
-                                the new information will be immediately included in the datawarehouse analysis.
+                                ${uiLabelMap.BusinessIntelligenceNote29}
+                                ${uiLabelMap.BusinessIntelligenceNote30}
+                                ${uiLabelMap.BusinessIntelligenceNote31}
                             </label>
                         </container>
                     </decorator-section>
@@ -202,4 +246,3 @@ under the License.
         </section>
     </screen>
 </screens>
-
