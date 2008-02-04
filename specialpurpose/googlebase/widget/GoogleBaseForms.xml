@@ -20,7 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ProductsExportToGoogle" type="single" target="searchExportProductListToGoogle">
+    <form name="ProductsExportToGoogle" type="single" target="searchExportProductListToGoogle"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="selectResult"><hidden/></field>
         <field name="countryCode" tooltip="${uiLabelMap.GoogleBaseExportCountryCode}">
             <drop-down no-current-selected-key="US">

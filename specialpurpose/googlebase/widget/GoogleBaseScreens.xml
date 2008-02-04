@@ -212,8 +212,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                        
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleEditProduct}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
                         <!-- include the duplicate product form template -->
                         <platform-specific>
                             <html><html-template location="component://product/webapp/catalog/product/EditProductDupForm.ftl"/></html>
