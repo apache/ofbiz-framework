@@ -803,7 +803,7 @@ public class UtilProperties implements java.io.Serializable {
      * properties file format.
      */
     public static class UtilResourceBundle extends ResourceBundle {
-        protected static UtilCache<String, ResourceBundle> bundleCache = new UtilCache<String, ResourceBundle>("properties.UtilPropertiesBundleCache");
+        protected static UtilCache<String, UtilResourceBundle> bundleCache = new UtilCache<String, UtilResourceBundle>("properties.UtilPropertiesBundleCache");
         protected Properties properties = null;
         protected Locale locale = null;
 
@@ -817,7 +817,7 @@ public class UtilProperties implements java.io.Serializable {
 
         public static ResourceBundle getBundle(String resource, Locale locale, ClassLoader loader) throws MissingResourceException {
             String resourceName = createResourceName(resource, locale, true);
-            ResourceBundle bundle = bundleCache.get(resourceName);
+            UtilResourceBundle bundle = bundleCache.get(resourceName);
             if (bundle == null) {
                 synchronized (bundleCache) {
                     if (bundle != null) {
@@ -830,7 +830,7 @@ public class UtilProperties implements java.io.Serializable {
                         Locale candidateLocale = candidateLocales.removeLast();
                         // ResourceBundles are connected together as a singly-linked list
                         String parentName = createResourceName(resource, candidateLocale, true);
-                        ResourceBundle lookupBundle = bundleCache.get(parentName);
+                        UtilResourceBundle lookupBundle = bundleCache.get(parentName);
                         if (lookupBundle == null) {
                             Properties newProps = getProperties(resource, candidateLocale);
                             if (UtilValidate.isNotEmpty(newProps)) {
@@ -845,6 +845,12 @@ public class UtilProperties implements java.io.Serializable {
                     }
                     if (bundle == null) {
                         throw new MissingResourceException("Resource " + resource + ", locale " + locale + " not found", null, null);
+                    } else {
+                        if (!bundle.getLocale().equals(locale)) {
+                            // Create a "dummy" bundle for the requested locale
+                            // Debug.logInfo("Creating dummy bundle, size = " + bundle.properties.size(), module);
+                            bundle = new UtilResourceBundle(bundle.properties, locale, bundle);
+                        }
                     }
                     double totalTime = System.currentTimeMillis() - startTime;
                     Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime + " mS", module);
