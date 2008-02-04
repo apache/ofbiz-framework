@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,8 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindFixedAssets" type="single" target="findFixedAssets" title="${uiLabelMap.AccountingFindFixedAssets}">
+    <form name="FindFixedAssets" type="single" target="findFixedAssets" title="${uiLabelMap.AccountingFindFixedAssets}"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="fixedAssetId"  title="${uiLabelMap.AccountingFixedAssetId}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="instanceOfProductId" title="${uiLabelMap.AccountingInstanceOfProductId}"><text-find default-option="contains" ignore-case="true"/></field>
@@ -37,7 +38,8 @@
     </form>
 
     <!-- list all assets in a tabular format -->
-    <form name="ListFixedAssets" type="list" list-name="listIt" paginate-target="findFixedAsset">
+    <form name="ListFixedAssets" type="list" list-name="listIt" paginate-target="findFixedAsset"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service  service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -68,7 +70,8 @@
     </form>
 
     <!-- create and update a Equipment -->
-    <form name="EditFixedAsset" type="single" target="updateFixedAsset" title="${uiLabelMap.AccountingFixedAsset}" default-map-name="fixedAsset" style="basic-form form-widget">
+    <form name="EditFixedAsset" type="single" target="updateFixedAsset" title="${uiLabelMap.AccountingFixedAsset}" default-map-name="fixedAsset" 
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="fixedAsset==null" target="createFixedAsset"/>
         <auto-fields-service service-name="updateFixedAsset" map-name="fixedAsset"/>
 
@@ -102,10 +105,11 @@
         <field name="locatedAtFacilityId" title="${uiLabelMap.AccountingFacilityId}"><lookup target-form-name="LookupFacility"/></field>
         <field name="locatedAtLocationSeqId"><hidden/></field>
         <field name="submitButton" use-when="fixedAssetId!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="submitButton" use-when="fixedAssetId==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>        		
+        <field name="submitButton" use-when="fixedAssetId==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>                
     </form>
 
-    <form name="FindFixedAssetMaint" default-map-name="timesheet" target="findFixedAssetMaints" title="" type="single">
+    <form name="FindFixedAssetMaint" default-map-name="timesheet" target="findFixedAssetMaints" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="fixedAssetId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="maintHistSeqId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="statusId"><text-find default-option="contains" ignore-case="true"/></field>
@@ -114,7 +118,8 @@
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="ListFixedAssetMaints" target="" title="" type="list" list-name="listIt" paginate-target="findFixedAssetMaints" paginate="true">
+    <form name="ListFixedAssetMaints" target="" title="" type="list" list-name="listIt" paginate-target="findFixedAssetMaints" paginate="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service  service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -136,7 +141,8 @@
         <field name="intervalMeterTypeId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalMeterType}"><display/></field>
     </form>
     
-    <form name="EditFixedAssetMaint" type="single" default-map-name="fixedAssetMaint" target="updateFixedAssetMaintAndWorkEffort" style="basic-form form-widget">	
+    <form name="EditFixedAssetMaint" type="single" default-map-name="fixedAssetMaint" target="updateFixedAssetMaintAndWorkEffort"
+        header-row-style="header-row" default-table-style="basic-table">    
         <alt-target use-when="fixedAssetMaint==null" target="createFixedAssetMaintUpdateWorkEffort"/>
         <field name="fixedAssetId" use-when="fixedAssetMaint==null" title="${uiLabelMap.AccountingFixedAssetId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupFixedAsset"/></field>        
         <field name="dummy" use-when="fixedAssetMaint !=null" title="${uiLabelMap.AccountingFixedAssetId}" widget-style="buttontext">
@@ -169,7 +175,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="intervalQuantity" position="1" title="${uiLabelMap.AccountingFixedAssetMaintIntervalQuantity}" tooltip="${uiLabelMap.CommonRequired}"><text size="10"/></field>		
+        <field name="intervalQuantity" position="1" title="${uiLabelMap.AccountingFixedAssetMaintIntervalQuantity}" tooltip="${uiLabelMap.CommonRequired}"><text size="10"/></field>        
         <field name="intervalMeterTypeId" position="1" title="${uiLabelMap.AccountingFixedAssetMaintIntervalMeterType}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ProductMeterType" key-field-name="productMeterTypeId">
@@ -202,10 +208,11 @@
         </field>
         <field name="purchaseOrderId"><text/></field>
         <field name="submitButton" use-when="fixedAssetMaint!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="submitButton" use-when="fixedAssetMaint==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>		
+        <field name="submitButton" use-when="fixedAssetMaint==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>        
     </form>
 
-    <form name="AddItemIssuance"  target="issueInventoryItemToFixedAssetMaint" title="PageTitleFixedAssetMaintItemIssuance" default-map-name="newIssuanceItem" type="single">
+    <form name="AddItemIssuance"  target="issueInventoryItemToFixedAssetMaint" title="PageTitleFixedAssetMaintItemIssuance" default-map-name="newIssuanceItem" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId">
             <drop-down>
                 <entity-options description="${description}" entity-name="Facility">
@@ -221,7 +228,8 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListItemIssuance"  title="PageTitleFixedAssetMaintItemIssuance" type="list"  list-name="itemIssuanceList" style="basic-form form-widget">
+    <form name="ListItemIssuance"  title="PageTitleFixedAssetMaintItemIssuance" type="list"  list-name="itemIssuanceList" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productId" title="Part Id"><display/></field>
         <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}"><display/></field>
         <field name="productName" position="1" title="${uiLabelMap.CommonName}"><display/></field>

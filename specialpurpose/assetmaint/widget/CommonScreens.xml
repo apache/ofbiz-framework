@@ -60,11 +60,7 @@ under the License.
                                     <condition><not><if-empty field-name="fixedAsset"/></not></condition>
                                     <widgets>
                                         <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/Menus.xml"/>
-                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]  ${${extraFunctionName}}"/>
                                     </widgets>
-                                    <fail-widgets>
-                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}}"/>
-                                    </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
                             </widgets>

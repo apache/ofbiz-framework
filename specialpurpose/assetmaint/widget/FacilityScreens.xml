@@ -23,6 +23,7 @@
     <screen name="FindFacility">
         <section>
             <actions>
+                <set field="titleProperty" value="PageTitleFindFacility"/>
                 <set field="headerItem" value="facility"/>
                 <entity-condition entity-name="Facility" list-name="facilities">
                     <condition-expr field-name="facilityTypeId" value="WAREHOUSE"/>
@@ -32,7 +33,20 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="ListFacilities" location="component://assetmaint/widget/forms/FacilityForms.xml" />
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleFindFacility}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListFacilities" location="component://assetmaint/widget/forms/FacilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -21,8 +21,8 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product">
-
+    <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="product==null" target="createProduct"/>
 
         <field use-when="product==null" name="isCreate"><hidden value="true"/></field>
@@ -57,7 +57,8 @@
         </field>
     </form>
     <!-- List Product  -->
-    <form name="ListProducts" type="list" list-name="listIt" paginate-target="${submitTarget}">
+    <form name="ListProducts" type="list" list-name="listIt" paginate-target="${submitTarget}"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -73,7 +74,8 @@
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
         </field>
     </form>
-    <form name="lookupProduct" target="${submitTarget}" type="single">
+    <form name="lookupProduct" target="${submitTarget}" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
         <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden" /> -->
         <field name="productId" title="${uiLabelMap.CommonId}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find default-option="contains" ignore-case="true"/></field>
@@ -83,7 +85,8 @@
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="listLookupProduct" list-name="listIt" paginate-target="${submitTarget}" title="" type="list">
+    <form name="listLookupProduct" list-name="listIt" paginate-target="${submitTarget}" title="" type="list"
+         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
