@@ -31,20 +31,20 @@ under the License.
                 <td><b>&nbsp;</b></td>
             </tr>
             <#if currentProductCategoryRollups.size() != 0>            
-                <#assign rowClass = "2">
-                <#list currentProductCategoryRollups as productCategoryRollup>
-                <#assign suffix = "_o_" + productCategoryRollup_index>
-                <#assign curCategory = productCategoryRollup.getRelatedOne("ParentProductCategory")>
-                <#assign hasntStarted = false>
-                <#if productCategoryRollup.fromDate?exists && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
-                <#assign hasExpired = false>
-                <#if productCategoryRollup.thruDate?exists && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
-                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                    <td><#if curCategory?has_content><a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${curCategory.description?if_exists} [${curCategory.productCategoryId}]</a></#if></td>
-                    <td <#if hasntStarted>style="color: red;"</#if>>${productCategoryRollup.fromDate}</td>
-                    <td align="center">
-                        <form method="post" action="<@ofbizUrl>updateProductCategoryToCategory</@ofbizUrl>" name="updateProductCategoryForm">
-                            <input type="hidden" name="showProductCategoryId" value="${productCategoryId}">
+                <form method="post" action="<@ofbizUrl>updateProductCategoryToCategory</@ofbizUrl>" name="updateProductCategoryForm">
+                    <input type="hidden" name="showProductCategoryId" value="${productCategoryId}">
+                    <#assign rowClass = "2">
+                    <#list currentProductCategoryRollups as productCategoryRollup>
+                    <#assign suffix = "_o_" + productCategoryRollup_index>
+                    <#assign curCategory = productCategoryRollup.getRelatedOne("ParentProductCategory")>
+                    <#assign hasntStarted = false>
+                    <#if productCategoryRollup.fromDate?exists && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
+                    <#assign hasExpired = false>
+                    <#if productCategoryRollup.thruDate?exists && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
+                    <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                        <td><#if curCategory?has_content><a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${curCategory.description?if_exists} [${curCategory.productCategoryId}]</a></#if></td>
+                        <td <#if hasntStarted>style="color: red;"</#if>>${productCategoryRollup.fromDate}</td>
+                        <td align="center">
                             <input type="hidden" name="showProductCategoryId${suffix}" value="${productCategoryRollup.productCategoryId}">
                             <input type="hidden" name="productCategoryId${suffix}" value="${productCategoryRollup.productCategoryId}">
                             <input type="hidden" name="parentProductCategoryId${suffix}" value="${productCategoryRollup.parentProductCategoryId}">
@@ -52,26 +52,26 @@ under the License.
                             <input type="text" size="25" name="thruDate${suffix}" value="${productCategoryRollup.thruDate?if_exists}" <#if hasExpired>style="color: red"</#if>>
                             <a href="javascript:call_cal(document.updateProductCategoryForm.thruDate${suffix}, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                             <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}">
-                        </form>
-                    </td>
-                    <td>
-                        <a href="<@ofbizUrl>removeProductCategoryFromCategory?showProductCategoryId=${productCategoryId}&productCategoryId=${productCategoryRollup.productCategoryId}&parentProductCategoryId=${productCategoryRollup.parentProductCategoryId}&fromDate=${productCategoryRollup.fromDate}</@ofbizUrl>" class="buttontext">
-                        ${uiLabelMap.CommonDelete}</a>
-                    </td>
-                </tr> 
-                <#-- toggle the row color -->
-                <#if rowClass == "2">
-                    <#assign rowClass = "1">
-                <#else>
-                    <#assign rowClass = "2">
-                </#if>                   
-                </#list>
-                <tr valign="middle">
-                    <td colspan="4" align="center">
-                        <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
-                        <input type="hidden" value="${currentProductCategoryRollups.size()}" name="_rowCount">
-                    </td>
-                </tr>                
+                        </td>
+                        <td>
+                            <a href="<@ofbizUrl>removeProductCategoryFromCategory?showProductCategoryId=${productCategoryId}&productCategoryId=${productCategoryRollup.productCategoryId}&parentProductCategoryId=${productCategoryRollup.parentProductCategoryId}&fromDate=${productCategoryRollup.fromDate}</@ofbizUrl>" class="buttontext">
+                            ${uiLabelMap.CommonDelete}</a>
+                        </td>
+                    </tr> 
+                    <#-- toggle the row color -->
+                    <#if rowClass == "2">
+                        <#assign rowClass = "1">
+                    <#else>
+                        <#assign rowClass = "2">
+                    </#if>                   
+                    </#list>
+                    <tr valign="middle">
+                        <td colspan="4" align="center">
+                            <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
+                            <input type="hidden" value="${currentProductCategoryRollups.size()}" name="_rowCount">
+                        </td>
+                    </tr>
+                </form>
             </#if>
             <#if currentProductCategoryRollups.size() == 0>
                 <tr valign="middle">
@@ -114,49 +114,48 @@ under the License.
                 <td><b>&nbsp;</b></td>
             </tr>
             <#if parentProductCategoryRollups.size() != 0>
-                <#assign lineChild = 0>
-                <#assign rowClass = "2">
-                <#list parentProductCategoryRollups as productCategoryRollup>
-                <#assign suffix = "_o_" + lineChild>
-                <#assign lineChild = lineChild + 1>
-                <#assign curCategory = productCategoryRollup.getRelatedOne("CurrentProductCategory")>
-                <#assign hasntStarted = false>
-                <#if productCategoryRollup.fromDate?exists && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
-                <#assign hasExpired = false>
-                <#if productCategoryRollup.thruDate?exists && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
-                    <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                        <td><#if curCategory?has_content><a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${curCategory.description?if_exists} [${curCategory.productCategoryId}]</a></#if>
-                        <td <#if hasntStarted>style="color: red"</#if>>${productCategoryRollup.fromDate}</td>
-                        <td align="center">
-                            <form method="post" action="<@ofbizUrl>updateProductCategoryToCategory</@ofbizUrl>" name="updateProductCategoryToCategoryChild">
-                                <input type="hidden" name="showProductCategoryId" value="${productCategoryId}">
+                <form method="post" action="<@ofbizUrl>updateProductCategoryToCategory</@ofbizUrl>" name="updateProductCategoryToCategoryChild">
+                    <input type="hidden" name="showProductCategoryId" value="${productCategoryId}">
+                    <#assign lineChild = 0>
+                    <#assign rowClass = "2">
+                    <#list parentProductCategoryRollups as productCategoryRollup>
+                    <#assign suffix = "_o_" + lineChild>
+                    <#assign lineChild = lineChild + 1>
+                    <#assign curCategory = productCategoryRollup.getRelatedOne("CurrentProductCategory")>
+                    <#assign hasntStarted = false>
+                    <#if productCategoryRollup.fromDate?exists && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
+                    <#assign hasExpired = false>
+                    <#if productCategoryRollup.thruDate?exists && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
+                        <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                            <td><#if curCategory?has_content><a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${curCategory.description?if_exists} [${curCategory.productCategoryId}]</a></#if>
+                            <td <#if hasntStarted>style="color: red"</#if>>${productCategoryRollup.fromDate}</td>
+                            <td align="center">
                                 <input type="hidden" name="productCategoryId${suffix}" value="${productCategoryRollup.productCategoryId}">
                                 <input type="hidden" name="parentProductCategoryId${suffix}" value="${productCategoryRollup.parentProductCategoryId}">
                                 <input type="hidden" name="fromDate${suffix}" value="${productCategoryRollup.fromDate}">
                                 <input type="text" size="25" name="thruDate${suffix}" value="${productCategoryRollup.thruDate?if_exists}" <#if hasExpired>style="color: red;"</#if>>
                                 <a href="javascript:call_cal(document.updateProductCategoryToCategoryChild.thruDate${suffix}, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                                 <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}">
-                            </form>
-                        </td>
-                        <td>
-                            <a href="<@ofbizUrl>removeProductCategoryFromCategory?showProductCategoryId=${productCategoryId}&productCategoryId=${productCategoryRollup.productCategoryId}&parentProductCategoryId=${productCategoryRollup.parentProductCategoryId}&fromDate=${productCategoryRollup.fromDate}</@ofbizUrl>" class="buttontext">
-                            ${uiLabelMap.CommonDelete}</a>
+                            </td>
+                            <td>
+                                <a href="<@ofbizUrl>removeProductCategoryFromCategory?showProductCategoryId=${productCategoryId}&productCategoryId=${productCategoryRollup.productCategoryId}&parentProductCategoryId=${productCategoryRollup.parentProductCategoryId}&fromDate=${productCategoryRollup.fromDate}</@ofbizUrl>" class="buttontext">
+                                ${uiLabelMap.CommonDelete}</a>
+                            </td>
+                        </tr>
+                        <#-- toggle the row color -->
+                        <#if rowClass == "2">
+                            <#assign rowClass = "1">
+                        <#else>
+                            <#assign rowClass = "2">
+                        </#if>      
+                    </#list>
+                    <tr valign="middle">
+                        <td colspan="4" align="center">
+                            <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
+                            <input type="hidden" value="${lineChild}" name="_rowCount">
                         </td>
                     </tr>
-                    <#-- toggle the row color -->
-                    <#if rowClass == "2">
-                        <#assign rowClass = "1">
-                    <#else>
-                        <#assign rowClass = "2">
-                    </#if>      
-                </#list>
-                <tr valign="middle">
-                    <td colspan="4" align="center">
-                        <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
-                        <input type="hidden" value="${lineChild}" name="_rowCount">
-                    </td>
-                </tr>
-            </tr>
+                </form>
             </#if>
             <#if parentProductCategoryRollups.size() == 0>
                 <tr valign="middle">
