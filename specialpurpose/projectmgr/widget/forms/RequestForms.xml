@@ -20,14 +20,15 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListRequests" type="list" use-row-submit="true" title="" list-name="requests">
+    <form name="ListRequests" type="list" use-row-submit="true" title="" list-name="requests"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CustRequest" list-name="requests">
                 <field-map field-name="statusId" value="CRQ_SUBMITTED"/>
                 </entity-and>
         </actions> 
         <field name="custRequestName" widget-style="buttontext">
-            <hyperlink description="${custRequestName}[${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/>
+            <hyperlink description="${custRequestName} ${custRequestId}" target="ViewRequest?custRequestId=${custRequestId}"/>
         </field>
         <field name="priority"><display/></field>
         <field name="createdDate"><display type="date"/></field>
@@ -41,7 +42,7 @@ under the License.
         </field>
     </form>
     <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="custRequest==null" target="createrequest"/>
         <auto-fields-service service-name="updateCustRequest" default-field-type="edit"/>
         <field name="custRequestId"><hidden/></field>
@@ -101,7 +102,8 @@ under the License.
         <field name="lastModifiedByUserLogin"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="RequestInfo" type="single" default-entity-name="CustRequest" default-map-name="custRequest">
+    <form name="RequestInfo" type="single" default-entity-name="CustRequest" default-map-name="custRequest"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="WorkEffort" value-name="workEffort">
                 <field-map field-name="workEffortId" env-name="workEffortId"/>
@@ -128,7 +130,8 @@ under the License.
         <field name="createdDate"><display type="date"/></field>
         <field name="lastModifiedDate"><display type="date"/></field>
     </form>
-    <form name="RequestRolesInfo" type="list">
+    <form name="RequestRolesInfo" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CustRequestRole">
                 <field-map field-name="custRequestId" env-name="custRequestId"/>
@@ -144,7 +147,8 @@ under the License.
         </field>
         <field name="RequestTaker"><display description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName}"/></field>
     </form>
-    <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="requests" paginate-target="requestlist">
+    <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="requests" paginate-target="requestlist"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CustRequest" list-name="requests">
                 <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
@@ -154,7 +158,7 @@ under the License.
             <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
         </row-actions> 
         <field name="custRequestName" widget-style="buttontext">
-            <hyperlink description="${custRequestName}[${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/>
+            <hyperlink description="${custRequestName} ${custRequestId}" target="ViewRequest?custRequestId=${custRequestId}"/>
         </field>
         <field name="workEffortId">
             <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortId}"/>
@@ -168,4 +172,3 @@ under the License.
         <field name="description"><display/></field>
     </form>
 </forms>
-
