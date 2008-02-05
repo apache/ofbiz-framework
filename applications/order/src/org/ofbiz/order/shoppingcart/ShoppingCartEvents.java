@@ -1653,4 +1653,25 @@ public class ShoppingCartEvents {
         }
         return "success";
     }
+    
+    public static String getConfigDetailsEvent(HttpServletRequest request, HttpServletResponse response) {
+ 
+        GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
+        String productId = request.getParameter("product_id");
+        String currencyUomId = ShoppingCartEvents.getCartObject(request).getCurrency();
+        ProductConfigWrapper configWrapper = ProductConfigWorker.getProductConfigWrapper(productId, currencyUomId, request);
+        if (configWrapper == null) {
+            Debug.logWarning("configWrapper is null", module);
+            request.setAttribute("_ERROR_MESSAGE_", "configWrapper is null");
+            return "error";
+        }
+        ProductConfigWorker.fillProductConfigWrapper(configWrapper, request); 
+        if (configWrapper.isCompleted()) {
+            ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
+            request.setAttribute("configId", configWrapper.getConfigId());
+        } 
+        
+        request.setAttribute("totalPrice", org.ofbiz.base.util.UtilFormatOut.formatCurrency(configWrapper.getTotalPrice(), currencyUomId, UtilHttp.getLocale(request)));
+        return "success";
+    }    
 }
