@@ -31,7 +31,9 @@ rm -f $OFBIZ_LOG
 # VM args
 ADMIN="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
 #DEBUG="-Dsun.rmi.server.exceptionTrace=true"
-#RMIIF="-Djava.rmi.server.hostname=<set your IP address here>"
+#automatic IP address for linux
+#IPADDR=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
+#RMIIF="-Djava.rmi.server.hostname=$IPADDR"
 MEMIF="-Xms128M -Xmx256M"
 LANGUAGE="-Duser.language=en"
 VMARGS="$MEMIF $DEBUG $RMIIF $ADMIN $LANGUAGE"
