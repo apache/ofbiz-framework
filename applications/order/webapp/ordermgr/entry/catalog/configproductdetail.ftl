@@ -134,10 +134,44 @@ ${virtualJavaScript?if_exists}
 
 <script language="JavaScript" type="text/javascript">
 <!--
-     function resetTotalPrice(name) {
-     }
+
+Event.observe(window, 'load', function() {
+  Event.observe($('configFormId'),'click',getConfigDetails);
+});
+
+function getConfigDetails(event) {
+        new Ajax.Request('/ordermgr/control/getConfigDetailsEvent',{parameters: $('configFormId').serialize(),  requestHeaders: {Accept: 'application/json'},
+        
+           onSuccess: function(transport){     
+                var data = transport.responseText.evalJSON(true);
+                
+                if (data._ERROR_MESSAGE_LIST_ != undefined) {
+                   //console.log(data._ERROR_MESSAGE_LIST_);
+                   //alert(data._ERROR_MESSAGE_LIST_);
+                }else if (data._ERROR_MESSAGE_ != undefined) {
+                   //console.log(data._ERROR_MESSAGE_);
+                   //alert(data._ERROR_MESSAGE_);
+                }else {
+                  //console.log(data.totalPrice);
+                  //console.log(data.configId);
+                  var totalPrice = data.totalPrice;
+                  var configId = data.configId;
+                  document.getElementById('totalPrice').innerHTML = totalPrice;
+                  document.addToShoppingList.configId.value = configId;
+                  event.stop();
+                }
+            },
+            
+           onFailure: function(transport) {
+             var data = transport.responseText.evalJSON(true);
+             //console.log('Failure');
+           }
+        });
+}
+
 -->
 </script>
+
 <table border="0" cellpadding="2" cellspacing='0'>
 
   <#-- Category next/previous -->
@@ -195,7 +229,7 @@ ${virtualJavaScript?if_exists}
               - if isSale show price with salePrice style and print "On Sale!"
       -->
       <#if totalPrice?exists>
-        <div class="tabletext">${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
+        <div class="tabletext">${uiLabelMap.ProductAggregatedPrice}: <span id='totalPrice' class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
       <#else>
       <#if price.competitivePrice?exists && price.price?exists && price.price?double < price.competitivePrice?double>
         <div class="tabletext">${uiLabelMap.ProductCompareAtPrice}: <span class='basePrice'><@ofbizCurrency amount=price.competitivePrice isoCode=price.currencyUsed/></span></div>
@@ -407,7 +441,7 @@ ${virtualJavaScript?if_exists}
   <#-- Product Configurator -->
   <tr>
     <td colspan="2">
-      <form name="configform" method="post" action="<@ofbizUrl>product<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
+      <form name="configform" id="configFormId" method="post" action="<@ofbizUrl>product<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
         <input type='hidden' name='add_product_id' value='${product.productId}'>
         <input type='hidden' name='add_category_id' value=''>
         <input type='hidden' name='quantity' value='1'>
