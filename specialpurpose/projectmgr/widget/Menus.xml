@@ -353,7 +353,7 @@
             <link target="EditPartyRates?partyId=${partyId}"></link>
         </menu-item>
     </menu>
-    <menu name="RequestTabBar">
+    <menu name="RequestTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="viewRequest" title="${uiLabelMap.ProjectMgrView}">
             <link target="ViewRequest?custRequestId=${parameters.custRequestId}"/>
         </menu-item>
