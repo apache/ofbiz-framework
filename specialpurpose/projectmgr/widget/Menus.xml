@@ -20,7 +20,7 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="ProjectMgrAppBar" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.ProjectManagerApplication}" menu-container-style="button-bar tab-bar">
+    <menu name="ProjectMgrAppBar" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.ProjectMgrApplication}" menu-container-style="button-bar tab-bar">
     
         <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheet"/></menu-item>
@@ -340,16 +340,16 @@
         </menu-item>
     </menu>
     <menu name="ResourcesTabBar" menu-container-style="button-bar tab-bar" default-menu-item-name="edittimesheet" default-selected-style="selected">
-        <menu-item name="ResourcesProfile" title="Profile">
+        <menu-item name="ResourcesProfile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${partyId}"/>
         </menu-item>
-        <menu-item name="listResourcesProject" title="Project">
+        <menu-item name="listResourcesProject" title="${uiLabelMap.ProjectMgrProjectId}">
             <link target="listResourcesProject?partyId=${partyId}"></link>
         </menu-item>
-        <menu-item name="listResourcesTask"  title="Task">
+        <menu-item name="listResourcesTask"  title="${uiLabelMap.ProjectMgrTaskId}">
             <link target="listResourcesTask?partyId=${partyId}"></link>
         </menu-item>
-        <menu-item name="EditPartyRates"  title="Rates">
+        <menu-item name="EditPartyRates"  title="${uiLabelMap.ProjectMgrRates}">
             <link target="EditPartyRates?partyId=${partyId}"></link>
         </menu-item>
     </menu>

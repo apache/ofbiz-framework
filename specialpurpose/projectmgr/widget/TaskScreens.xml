@@ -47,15 +47,31 @@ under the License.
                                 <widgets>
                                     <container style="lefthalf">
                                         <container style="screenlet">
-                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksBefore}</label></container>                                
-                                            <container style="screenlet-body"> 
-                                                <include-form name="DependenciesBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            <container style="screenlet-title-bar">
+                                                <container style="head3">
+                                                    <label text="${uiLabelMap.PageTitleTasksBefore}"/>
+                                                </container>
+                                            </container>
+                                            <container style="screenlet-body">
+                                                <section>
+                                                    <widgets>    
+                                                        <include-form name="DependenciesBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                    </widgets>
+                                                </section>
                                             </container>
                                         </container>
                                         <container style="screenlet">
-                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddDependencyBefore}</label></container>                                
-                                            <container style="screenlet-body"> 
-                                                <include-form name="AddDependencyBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            <container style="screenlet-title-bar">
+                                                <container style="head3">
+                                                    <label text="${uiLabelMap.PageTitleAddDependencyBefore}"/>
+                                                </container>
+                                            </container>
+                                            <container style="screenlet-body">
+                                                <section>
+                                                    <widgets>    
+                                                        <include-form name="AddDependencyBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                    </widgets>
+                                                </section>
                                             </container>
                                         </container>
                                     </container>
@@ -71,15 +87,31 @@ under the License.
                                 <widgets>
                                     <container style="righthalf">
                                         <container style="screenlet">
-                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksAfter}</label></container>                                
-                                            <container style="screenlet-body"> 
-                                                <include-form name="DependenciesAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            <container style="screenlet-title-bar">
+                                                <container style="head3">
+                                                    <label text="${uiLabelMap.PageTitleTasksAfter}"/>
+                                                </container>
+                                            </container>
+                                            <container style="screenlet-body">
+                                                <section>
+                                                    <widgets>    
+                                                        <include-form name="DependenciesAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                    </widgets>
+                                                </section>
                                             </container>
                                         </container>
                                         <container style="screenlet">
-                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddDependencyAfter}</label></container>                                
-                                            <container style="screenlet-body"> 
-                                                <include-form name="AddDependencyAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            <container style="screenlet-title-bar">
+                                                <container style="head3">
+                                                    <label text="${uiLabelMap.PageTitleAddDependencyAfter}"/>
+                                                </container>
+                                            </container>
+                                            <container style="screenlet-body">
+                                                <section>
+                                                    <widgets>    
+                                                        <include-form name="AddDependencyAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                    </widgets>
+                                                </section>
                                             </container>
                                         </container>
                                     </container>
@@ -93,7 +125,7 @@ under the License.
     <screen name="MyTasks">
         <section>            
             <actions>
-                <set field="titleProperty" value="PageTitleMyTask"/>
+                <set field="titleProperty" value="WorkEffortMyTasks"/>
                 <set field="headerItem" value="mytasks"/>
                 <set field="labelTitleProperty" value="ProjectMgrMyTasks"/>
                 <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks" filter-by-date="true">
@@ -118,8 +150,12 @@ under the License.
                         <section>                                                        
                             <widgets>
                                 <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTaskAssignedToMe}</label></container>                                
-                                    <container style="screenlet-body"> 
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleTaskAssignedToMe}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
                                         <section>
                                             <condition>
                                                 <not><if-empty field-name="tasks"/></not>                                        
@@ -128,17 +164,12 @@ under the License.
                                                 <include-form name="MyTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                             </widgets>
                                             <fail-widgets>
-                                                <label style="head3" text="Currently no 'open' tasks are assigned to you.&lt;br/&gt; Add an existing or a new task to a project you are member of."></label>
+                                                <label style="head3" text="${uiLabelMap.ProjectMgrTaskNoOpen1}"></label>
+                                                <label style="head3" text="${uiLabelMap.ProjectMgrTaskNoOpen2}"></label>
                                             </fail-widgets>
                                         </section>
                                     </container>
                                 </container>
-                                <!--container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleMemberOfProjects}</label></container>                                
-                                    <container style="screenlet-body"> 
-                                        <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </container>
-                                </container-->
                                 <section>
                                     <condition>
                                         <not><if-empty field-name="projects"/></not>                                        
@@ -146,28 +177,40 @@ under the License.
                                     <widgets>
                                         <container style="lefthalf">
                                             <container style="screenlet">
-                                                <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAssignATaskToMe}</label></container>                                
-                                                <container style="screenlet-body"> 
+                                                <container style="screenlet-title-bar">
+                                                    <container style="head3">
+                                                        <label text="${uiLabelMap.ProjectMgrAssignATaskToMe}"/>
+                                                    </container>
+                                                </container>
+                                                <container style="screenlet-body">
                                                     <include-form name="assignTaskToMe" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                                 </container>
-                                            </container>                                                                             
+                                            </container>                                                                        
                                         </container>
                                         <container style="righthalf">
                                             <container style="screenlet">
-                                                <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAddNewTask}</label></container>                                
-                                                <container style="screenlet-body"> 
+                                                <container style="screenlet-title-bar">
+                                                    <container style="head3">
+                                                        <label text="${uiLabelMap.ProjectMgrAddNewTask}"/>
+                                                    </container>
+                                                </container>
+                                                <container style="screenlet-body">
                                                     <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                                 </container>
-                                            </container>                                                                             
+                                            </container>                                                                           
                                         </container>                                                                             
                                     </widgets>
                                     <fail-widgets>
                                         <container style="screenlet">
-                                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrAssignATaskToMe}</label></container>                                
-                                            <container style="screenlet-body"> 
-                                                <label style="head3" text="You are'nt member of any project, contact your project manager."></label>
+                                            <container style="screenlet-title-bar">
+                                                <container style="head3">
+                                                    <label text="${uiLabelMap.ProjectMgrAssignATaskToMe}"/>
+                                                </container>
                                             </container>
-                                        </container>                                                                             
+                                               <container style="screenlet-body">
+                                                <label style="head3" text="${uiLabelMap.ProjectMgrTaskMember}"></label>
+                                            </container>
+                                        </container>                                                                        
                                     </fail-widgets>
                                 </section>
                             </widgets>                            
@@ -192,9 +235,26 @@ under the License.
                         <section>                                                        
                             <widgets>
                                 <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleFindTask}</label></container>                                
-                                    <container style="screenlet-body"> 
-                                        <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleFindTask}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleFindTask}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
                                         <section>
                                             <condition>
                                                 <or>
@@ -225,8 +285,7 @@ under the License.
                                             </widgets>
                                         </section>
                                     </container>
-                                </container>
-                                                                                
+                                </container>                                                 
                             </widgets>                            
                         </section>
                     </decorator-section>
@@ -238,7 +297,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="task"/>
-                <set field="titleProperty" value="PageTitleEditTaskList"/>
+                <set field="titleProperty" value="PageTitleEditTask"/>
                 <set field="tabButtonItem" value="edittask"/>                
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>                
@@ -252,9 +311,17 @@ under the License.
                             <!-- To add a new Project -->
                             <widgets>
                                 <container style="screenlet">
-                                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleEditTask} #${task.workEffortId} ${uiLabelMap.CommonInformation}</label></container>                                
-                                    <container style="screenlet-body"> 
-                                        <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    <container style="screenlet-title-bar">
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.PageTitleEditTask} #${task.workEffortId} ${uiLabelMap.CommonInformation}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </widgets>
+                                        </section>
                                     </container>
                                 </container>
                             </widgets>                            
@@ -309,10 +376,16 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <label style="boxhead">${uiLabelMap.${titleProperty}}</label>
+                                        <container style="head3">
+                                            <label text="${uiLabelMap.${titleProperty}}"/>
+                                        </container>
                                     </container>
                                     <container style="screenlet-body">
-                                        <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                        <section>
+                                            <widgets>    
+                                                <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </widgets>
+                                        </section>
                                     </container>
                                 </container>
                                 <platform-specific>
@@ -391,17 +464,33 @@ under the License.
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleListPartyAssigns}</label></container>
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleListPartyAssigns}"/>
+                                </container>
+                            </container>
                             <container style="screenlet-body">
-                                <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </widgets>
+                                </section>
                             </container>
-                        </container> 
+                        </container>
                         <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddPartyAssign}</label></container>
-                            <container style="screenlet-body">       
-                                <include-form name="AddWorkEffortPartyAssign" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleAddPartyAssign}"/>
+                                </container>
                             </container>
-                        </container>        
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddWorkEffortPartyAssign" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -423,15 +512,33 @@ under the License.
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.${titleProperty}}</label></container>
-                            <container style="screenlet-body">
-                                <include-form name="ListTaskNotes" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.${titleProperty}}"/>
+                                </container>
                             </container>
-                            <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleAddTaskNotes}</label></container>
                             <container style="screenlet-body">
-                                <include-form name="AddTaskNote" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListTaskNotes" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </widgets>
+                                </section>
                             </container>
-                        </container>                        
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.PageTitleAddTaskNotes}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddTaskNote" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -440,6 +547,7 @@ under the License.
     <screen name="TaskView">        
         <section>
             <actions>
+                <set field="titleProperty" value="ProjectMgrTaskSummary"/>
                 <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
@@ -459,11 +567,19 @@ under the License.
                             <widgets>                                
                                 <container style="lefthalf">
                                     <container style="screenlet">
-                                        <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.PageTitleTaskInformation}"/></container>
-                                        <container style="screenlet-body">
-                                            <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>                  
+                                        <container style="screenlet-title-bar">
+                                            <container style="head3">
+                                                <label text="${uiLabelMap.PageTitleTaskInformation}"/>
+                                            </container>
                                         </container>
-                                    </container> 
+                                        <container style="screenlet-body">
+                                            <section>
+                                                <widgets>    
+                                                    <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>  
+                                                </widgets>
+                                            </section>
+                                        </container>
+                                    </container>
                                     <include-screen name="taskBefore"/>
                                     <include-screen name="taskAfter"/>
                                 </container>
@@ -535,13 +651,19 @@ under the License.
             </actions>           
             <widgets> 
                 <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <label style="boxhead" text="">${uiLabelMap.TaskTeam}</label>
-                    </container>
-                    <container style="screenlet-body">
-                        <include-form name="ListTaskParties" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                    </container>
-                </container>                
+                     <container style="screenlet-title-bar">
+                         <container style="head3">
+                             <label text="${uiLabelMap.TaskTeam}"/>
+                         </container>
+                     </container>
+                     <container style="screenlet-body">
+                         <section>
+                             <widgets>    
+                                 <include-form name="ListTaskParties" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                             </widgets>
+                         </section>
+                     </container>
+                 </container>       
             </widgets>
         </section>
     </screen>
@@ -555,11 +677,19 @@ under the License.
             </actions>
             <widgets>
                 <container style="screenlet">
-                    <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.PageTitleRequestList}"/></container>
-                    <container style="screenlet-body">
-                        <include-form name="ListWorkEffortRequests" location="component://projectmgr/widget/forms/TaskForms.xml"/>                  
-                    </container>              
-                </container>
+                     <container style="screenlet-title-bar">
+                         <container style="head3">
+                             <label text="${uiLabelMap.PageTitleRequestList}"/>
+                         </container>
+                     </container>
+                     <container style="screenlet-body">
+                         <section>
+                             <widgets>    
+                                 <include-form name="ListWorkEffortRequests" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                             </widgets>
+                         </section>
+                     </container>
+                 </container>
             </widgets>
         </section>
     </screen>
@@ -575,11 +705,19 @@ under the License.
             </actions>
             <widgets>
                 <container style="screenlet">
-                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksBefore}</label></container>                                
-                    <container style="screenlet-body"> 
-                        <include-form name="TaskBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                    </container>
-                </container>
+                     <container style="screenlet-title-bar">
+                         <container style="head3">
+                             <label text="${uiLabelMap.PageTitleTasksBefore}"/>
+                         </container>
+                     </container>
+                     <container style="screenlet-body">
+                         <section>
+                             <widgets>    
+                                 <include-form name="TaskBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                             </widgets>
+                         </section>
+                     </container>
+                 </container>
             </widgets>
         </section>
     </screen>  
@@ -595,11 +733,19 @@ under the License.
             </actions>
             <widgets>
                 <container style="screenlet">
-                    <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleTasksAfter}</label></container>                                
-                    <container style="screenlet-body"> 
-                        <include-form name="TaskAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                    </container>
-                </container>
+                     <container style="screenlet-title-bar">
+                         <container style="head3">
+                             <label text="${uiLabelMap.PageTitleTasksAfter}"/>
+                         </container>
+                     </container>
+                     <container style="screenlet-body">
+                         <section>
+                             <widgets>    
+                                 <include-form name="TaskAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                             </widgets>
+                         </section>
+                     </container>
+                 </container>
             </widgets>
         </section>
     </screen>                  
@@ -622,25 +768,41 @@ under the License.
                             <widgets>
                                 <container style="lefthalf">
                                     <container style="screenlet">
-                                        <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.PageTitleCreateTaskbyRequest}</label></container>                                
-                                        <container style="screenlet-body"> 
-                                            <include-form name="createTaskbyRequest" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                        </container>         
+                                        <container style="screenlet-title-bar">
+                                            <container style="head3">
+                                                <label text="${uiLabelMap.PageTitleCreateTaskbyRequest}"/>
+                                            </container>
+                                        </container>
+                                        <container style="screenlet-body">
+                                            <section>
+                                                <widgets>    
+                                                    <include-form name="createTaskbyRequest" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                </widgets>
+                                            </section>
+                                        </container>
                                     </container>
                                 </container>
                                 <container style="righthalf">
                                     <container style="screenlet">
-                                        <container style="screenlet-title-bar"><label style="boxhead">${uiLabelMap.ProjectMgrCreateByExistingTask}</label></container>
+                                        <container style="screenlet-title-bar">
+                                            <container style="head3">
+                                                <label text="${uiLabelMap.ProjectMgrCreateByExistingTask}"/>
+                                            </container>
+                                        </container>
                                         <container style="screenlet-body">
-                                            <include-form name="CreateCustRequestWorkEffortByExistingTaskForm" location="component://projectmgr/widget/forms/TaskForms.xml"/>                  
+                                            <section>
+                                                <widgets>    
+                                                    <include-form name="CreateCustRequestWorkEffortByExistingTaskForm" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                                </widgets>
+                                            </section>
                                         </container>
                                     </container>
                                 </container>  
-                                </widgets>                            
-                            </section>
-                        </decorator-section>
-                    </decorator-screen>
-                </widgets>
-            </section>
+                            </widgets>                            
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
     </screen>     
 </screens>

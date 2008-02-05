@@ -26,7 +26,7 @@ under the License.
         <li class="head3">&nbsp;${uiLabelMap.PageTitleAddTask}</li>
       </#if>
     </ul>
-    <br class="clear" />
+    <br class="clear"/>
   </div>  
   <div class="screenlet-body">
     <#assign workEffortIdFrom = parameters.workEffortIdFrom>

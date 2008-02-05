@@ -34,26 +34,35 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <label style="head1">${uiLabelMap.WorkEffortMyRequestList}</label>
-                        </container>
-                        <container style="screenlet-body">
-                            <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
-                        </container>
-                        <container style="screenlet-body">    
-                        <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.OrderRequestList}"/></container>
-                            <container style="screenlet">
-                                <container style="screenlet-body">
-                                    <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.OrderRequestList}"/>
                                 </container>
                             </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <container style="screenlet-body">
+                                            <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
                         </container>
-                        <container style="screenlet-body">
-                            <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.ProjectMgrRequestWorkEffortList}"/></container>
-                            <container style="screenlet">
-                                <container style="screenlet-body">
-                                    <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                                </container>    
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.ProjectMgrRequestWorkEffortList}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
                             </container>
                         </container>
                     </decorator-section>
@@ -77,7 +86,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditCustRequest" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.OrderRequest}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="EditCustRequest" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -102,17 +124,33 @@ under the License.
                     <decorator-section name="body">
                         <container style="lefthalf">
                             <container style="screenlet">
-                                <container style="screenlet-title-bar"><label style="boxhead" text="${custRequest.custRequestName} [${custRequestId}] ${uiLabelMap.CommonInformation}"/></container>
+                                <container style="screenlet-title-bar">
+                                    <container style="head3">
+                                        <label text="${custRequest.custRequestName} ${custRequestId} ${uiLabelMap.CommonInformation}"/>
+                                    </container>
+                                </container>
                                 <container style="screenlet-body">
-                                    <include-form name="RequestInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
+                                    <section>
+                                        <widgets>    
+                                            <include-form name="RequestInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                        </widgets>
+                                    </section>
                                 </container>
                             </container>
                         </container>
                         <container style="righthalf">
                             <container style="screenlet">
-                                <container style="screenlet-title-bar"><label style="boxhead" text="${uiLabelMap.OrderRequestRoles}"/></container>
+                                <container style="screenlet-title-bar">
+                                    <container style="head3">
+                                        <label text="${uiLabelMap.OrderRequestRoles}"/>
+                                    </container>
+                                </container>
                                 <container style="screenlet-body">
-                                    <include-form name="RequestRolesInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>                  
+                                    <section>
+                                        <widgets>    
+                                            <include-form name="RequestRolesInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                        </widgets>
+                                    </section>
                                 </container>
                             </container>
                         </container>
@@ -122,4 +160,3 @@ under the License.
         </section>
     </screen>
 </screens>
-

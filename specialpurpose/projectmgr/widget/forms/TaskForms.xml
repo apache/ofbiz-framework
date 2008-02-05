@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
  <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,8 @@
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     
-    <form name="EditTask" type="single" target="updateTask" default-map-name="task">
+    <form name="EditTask" type="single" target="updateTask" default-map-name="task"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortId"/>
@@ -102,7 +103,8 @@
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}" position="2"><date-time type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="AddProjectTask" type="single" target="createProjectTaskOrPhase">
+    <form name="AddProjectTask" type="single" target="createProjectTaskOrPhase"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
         <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
@@ -156,7 +158,8 @@
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><date-time type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="AddProjectPhase" type="single" target="createProjectTaskOrPhase">
+    <form name="AddProjectPhase" type="single" target="createProjectTaskOrPhase"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
@@ -165,7 +168,8 @@
         <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="AddPhase" type="single" target="createProjectPhase">
+    <form name="AddPhase" type="single" target="createProjectPhase"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortParentId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
@@ -174,7 +178,8 @@
         <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="FindTask" type="single" target="FindTask" >
+    <form name="FindTask" type="single" target="FindTask" 
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/></field> 
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
@@ -193,7 +198,8 @@
         <field name="estimatedStartDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
-    <form name="ListTasks" type="list" separate-columns="true" title="Project List" list-name="listIt"  paginate-target="FindTask">
+    <form name="ListTasks" type="list" separate-columns="true" title="Project List" list-name="listIt"  paginate-target="FindTask"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -226,7 +232,8 @@
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
     </form>
-    <form name="MyTasks" type="list" list-name="tasks" paginate-target="MyTasks" target="updateTaskAssigment">
+    <form name="MyTasks" type="list" list-name="tasks" paginate-target="MyTasks" target="updateTaskAssigment"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortId"/>
@@ -276,7 +283,8 @@
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
         <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
     </form>
-    <form name="assignTaskToMe" type="single" target="addTaskAssignment">
+    <form name="assignTaskToMe" type="single" target="addTaskAssignment"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
@@ -298,7 +306,8 @@
         </field>
         <field name="addButton"><submit/></field>
     </form>
-    <form name="DependenciesBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies">
+    <form name="DependenciesBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="r">
                 <field-map field-name="taskId" env-name="workEffortIdFrom"/>
@@ -317,7 +326,8 @@
         <field name="actualCompletionDate"  entry-name="r.taskInfo.actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
         <field name="deleteButton"><submit button-type="button"/></field>
     </form>
-    <form name="DependenciesAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies">
+    <form name="DependenciesAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="r">
                 <field-map field-name="taskId" env-name="workEffortIdTo"/>
@@ -336,7 +346,8 @@
         <field name="actualCompletionDate"  entry-name="r.taskInfo.actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
         <field name="deleteButton"><submit button-type="button"/></field>
     </form>
-    <form name="AddDependencyBefore" type="single" target="addDependency">
+    <form name="AddDependencyBefore" type="single" target="addDependency"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortIdTo"><hidden value="${parameters.workEffortId}"/></field>
         <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_DEPENDENCY"/></field>
@@ -352,7 +363,8 @@
         </field>
         <field name="add"><submit/></field>
     </form>
-    <form name="AddDependencyAfter" type="single" target="addDependency">
+    <form name="AddDependencyAfter" type="single" target="addDependency"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortIdFrom"><hidden value="${workEffortId}"/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden value="WORK_EFF_DEPENDENCY"/></field>
@@ -368,7 +380,8 @@
         </field>
         <field name="add"><submit/></field>
     </form>
-    <form name="ListTaskSkills" type="list" target="updateTaskSkillStandard" list-name="workEffortSkillStandards" paginate-target="EditTaskSkills" separate-columns="true">
+    <form name="ListTaskSkills" type="list" target="updateTaskSkillStandard" list-name="workEffortSkillStandards" paginate-target="EditTaskSkills" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}">
             <display-entity entity-name="WorkEffort" description="${workEffortName}">
                 <sub-hyperlink target="EditTask?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/>
@@ -380,7 +393,8 @@
         <field name="estimatedCost" title="${uiLabelMap.ProjectMgrEstimatedCost}" widget-style="linktext"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form> 
-    <form name="ListTaskNotes" extends="ListWorkEffortNotes" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="list" list-name="taskNotes" paginate-target="EditTaskNotes">
+    <form name="ListTaskNotes" extends="ListWorkEffortNotes" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="list" list-name="taskNotes" paginate-target="EditTaskNotes"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortNoteAndData">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>
@@ -398,8 +412,11 @@
             <hyperlink target="updateTaskNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=N" description="${uiLabelMap.OrderNotesPublic}"></hyperlink>
         </field>
     </form>
-    <form name="AddTaskNote" extends="AddWorkEffortNote" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="single" target="createTaskNote" title=""></form>
-    <form name="TaskInfo" type="single" default-map-name="task">
+    <form name="AddTaskNote" extends="AddWorkEffortNote" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="single" target="createTaskNote" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+    </form>
+    <form name="TaskInfo" type="single" default-map-name="task"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="taskName" title="${uiLabelMap.ProjectMgrTaskName}"><display/></field>
         <field name="taskDescription" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"></display-entity></field>
@@ -412,7 +429,8 @@
         <field name="actualHours"><display/></field>
         <field name="createdDate"><display type="date"/></field>
     </form>                                         
-    <form name="EditWorkEffortPartyAssigns" target="deleteTaskPartyAssign" title="" type="list" paginate-target="EditTaskPartyAssigns">
+    <form name="EditWorkEffortPartyAssigns" target="deleteTaskPartyAssign" title="" type="list" paginate-target="EditTaskPartyAssigns"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignment">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
@@ -435,7 +453,8 @@
         <field name="deleteButton" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="complete"><hyperlink description="set to Complete" target="updateTaskPartyAssign?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=CAL_COMPLETED&amp;thruDate=${nowDate}"/></field>
     </form>
-    <form name="ListTaskParties" type="list" list-name="taskParties">   
+    <form name="ListTaskParties" type="list" list-name="taskParties"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.CommonName}">
             <hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyName}"/>
         </field>
@@ -445,7 +464,8 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="actualHours"><display/></field> 
     </form>  
-    <form name="ListWorkEffortRequests" type="list">
+    <form name="ListWorkEffortRequests" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortCustRequestView">
                 <field-map field-name="workEffortId"/>
@@ -457,7 +477,8 @@
         <field name="custRequestTypeDescription"><display/></field>
         <field name="statusItemDescription"><display/></field>
     </form> 
-    <form name="TaskBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="taskView">
+    <form name="TaskBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="taskView"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortIdFrom"/>
@@ -479,7 +500,8 @@
         <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
     </form>
-    <form name="TaskAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="taskView">
+    <form name="TaskAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="taskView"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="result">
                 <field-map field-name="taskId" env-name="workEffortIdTo"/>
@@ -501,7 +523,8 @@
         <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
     </form>    
-    <form name="createTaskbyRequest" type="single" target="CreateTaskbyRequests">
+    <form name="createTaskbyRequest" type="single" target="CreateTaskbyRequests"
+        header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="WorkEffortCustRequestView">
                 <field-map field-name="workEffortId"/>
@@ -552,7 +575,8 @@
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><date-time type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>                            
-    <form name="CreateCustRequestWorkEffortByExistingTaskForm" type="single" target="createTaskListForms">
+    <form name="CreateCustRequestWorkEffortByExistingTaskForm" type="single" target="createTaskListForms"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="custRequestId"><hidden/></field>
         <field name="statusId"><hidden value="CRQ_ACCEPTED"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
