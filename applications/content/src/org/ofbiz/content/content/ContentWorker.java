@@ -127,7 +127,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
 
         // if the content is a PUBLISH_POINT and the data resource is not defined; get the related content
-        if (content.get("contentTypeId").equals("WEB_SITE_PUB_PT") && content.get("dataResourceId") == null) {
+        if ("WEB_SITE_PUB_PT".equals(content.get("contentTypeId")) && content.get("dataResourceId") == null) {
             List relContentIds = delegator.findByAnd("ContentAssocDataResourceViewTo",
                     UtilMisc.toMap("contentIdStart", content.get("contentId"),"statusId","CTNT_PUBLISHED",
                     "caContentAssocTypeId", "PUBLISH_LINK"), UtilMisc.toList("caFromDate"));
