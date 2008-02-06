@@ -20,6 +20,7 @@ package org.ofbiz.base.util.collections;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -57,6 +58,18 @@ public class ResourceBundleMapWrapper extends MapStack<String> {
         }
         this.initialResourceBundle = initialResourceBundle;
         push(new InternalRbmWrapper(initialResourceBundle));
+    }
+    
+    public void addToBottom(Map<String, Object> existingMap) {
+        if (!stackList.contains(existingMap)) {
+            super.addToBottom(existingMap);
+        }
+    }
+    
+    public void push(Map<String, Object> existingMap) {
+        if (!stackList.contains(existingMap)) {
+            super.push(existingMap);
+        }
     }
     
     /** Puts ResourceBundle on the BOTTOM of the stack - meaning the bundle will
@@ -135,6 +148,14 @@ public class ResourceBundleMapWrapper extends MapStack<String> {
             put("_RESOURCE_BUNDLE_", resourceBundle); // Is this being used anywhere?
         }
         
+        public boolean equals(Object obj) {
+            return resourceBundle.equals(obj);
+        }
+
+        public int hashCode() {
+            return resourceBundle.hashCode();
+        }
+
         /*
          * (non-Javadoc)
          * 
