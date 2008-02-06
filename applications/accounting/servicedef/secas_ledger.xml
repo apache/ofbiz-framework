@@ -21,6 +21,12 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
+    <!-- this eca automatically posts the accounting transactions to GL -->
+    <eca service="createAcctgTransAndEntries" event="commit">
+        <condition field-name="acctgTransId" operator="is-not-empty"/>
+        <action service="postAcctgTrans" mode="sync"/>
+    </eca>
+
     <!-- create the accounting transactions for a sales shipment issuance every time the inventory is issued to the shipment -->
     <eca service="createItemIssuance" event="commit">
         <condition field-name="shipmentId" operator="is-not-empty"/>
@@ -33,12 +39,6 @@ under the License.
         <action service="createAcctgTransForShipmentReceipt" mode="sync"/>
     </eca>
 
-    <!-- this eca automatically posts the accounting transactions to GL -->
-    <eca service="createAcctgTransAndEntries" event="commit">
-        <condition field-name="acctgTransId" operator="is-not-empty"/>
-        <action service="postAcctgTrans" mode="sync"/>
-    </eca>
-    
     <eca service="createWorkEffortInventoryProduced" event="commit">
         <action service="createAcctgTransForWorkEffortInventoryProduced" mode="sync"/>
     </eca>
