@@ -400,8 +400,8 @@ under the License.
             </entity-one>
             <if-not-empty field-name="varianceReasonGlAccount.glAccountId">
                 <field-to-result field-name="varianceReasonGlAccount.glAccountId" result-name="glAccountId"/>
+                <return/>
             </if-not-empty>
-            <return/>
         </if-compare>
         <!-- for invoices and payments, check first if there is a party specific account mapping defined for the account type -->
         <if>
