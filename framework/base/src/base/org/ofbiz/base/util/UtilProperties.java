@@ -836,9 +836,6 @@ public class UtilProperties implements java.io.Serializable {
                             Properties newProps = getProperties(resource, candidateLocale);
                             if (UtilValidate.isNotEmpty(newProps)) {
                                 bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
-                                UtilResourceBundle testBundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
-                                Debug.logInfo("bundle = testBundle: " + bundle.equals(testBundle), module);
-                                Debug.logInfo("bundle = null: " + bundle.equals(null), module);
                                 bundleCache.put(parentName, bundle);
                                 parentBundle = bundle;
                             }
