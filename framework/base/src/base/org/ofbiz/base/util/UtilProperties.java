@@ -801,13 +801,19 @@ public class UtilProperties implements java.io.Serializable {
         protected static UtilCache<String, UtilResourceBundle> bundleCache = new UtilCache<String, UtilResourceBundle>("properties.UtilPropertiesBundleCache");
         protected Properties properties = null;
         protected Locale locale = null;
+        protected int hashCode = hashCode();
 
         protected UtilResourceBundle() {}
         
-        public UtilResourceBundle(Properties properties, Locale locale, ResourceBundle parent) {
+        public UtilResourceBundle(Properties properties, Locale locale, UtilResourceBundle parent) {
             this.properties = properties;
             this.locale = locale;
             setParent(parent);
+            String hashString = properties.toString();
+            if (parent != null) {
+                hashString += parent.properties;
+            }
+            this.hashCode = hashString.hashCode();
         }
 
         public static ResourceBundle getBundle(String resource, Locale locale, ClassLoader loader) throws MissingResourceException {
@@ -820,7 +826,7 @@ public class UtilProperties implements java.io.Serializable {
                     }
                     double startTime = System.currentTimeMillis();
                     FastList<Locale> candidateLocales = (FastList<Locale>) getCandidateLocales(locale);
-                    ResourceBundle parentBundle = null;
+                    UtilResourceBundle parentBundle = null;
                     while (candidateLocales.size() > 0) {
                         Locale candidateLocale = candidateLocales.removeLast();
                         // ResourceBundles are connected together as a singly-linked list
@@ -830,6 +836,9 @@ public class UtilProperties implements java.io.Serializable {
                             Properties newProps = getProperties(resource, candidateLocale);
                             if (UtilValidate.isNotEmpty(newProps)) {
                                 bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
+                                UtilResourceBundle testBundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
+                                Debug.logInfo("bundle = testBundle: " + bundle.equals(testBundle), module);
+                                Debug.logInfo("bundle = null: " + bundle.equals(null), module);
                                 bundleCache.put(parentName, bundle);
                                 parentBundle = bundle;
                             }
@@ -852,6 +861,14 @@ public class UtilProperties implements java.io.Serializable {
             return bundle;
         }
         
+        public int hashCode() {
+            return this.hashCode;
+        }
+        
+        public boolean equals(Object obj) {
+            return obj == null ? false : obj.hashCode() == this.hashCode;
+        }
+
         public Locale getLocale() {
             return this.locale;
         }
