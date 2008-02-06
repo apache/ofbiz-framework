@@ -1608,22 +1608,19 @@ public class ProductionRunServices {
             } catch(Exception exc) {
                 return ServiceUtil.returnError(exc.getMessage());
             }
-            // Now the production run's quantityProduced is updated
-            double totalQuantity = quantityProduced.doubleValue() + quantity.doubleValue();
-            Map serviceContext = new HashMap();
-            serviceContext.clear();
-            serviceContext.put("workEffortId", productionRunId);
-            serviceContext.put("quantityProduced", new Double(totalQuantity));
-            serviceContext.put("actualCompletionDate", UtilDateTime.nowTimestamp());
-            serviceContext.put("userLogin", userLogin);
-            Map resultService = null;
-            try {
-                resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, "Problem calling the updateWorkEffort service", module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
-            }
         }
+        // Now the production run's quantityProduced is updated
+        Map serviceContext = UtilMisc.toMap("workEffortId", productionRunId);
+        serviceContext.put("quantityProduced", new Double(quantityProduced.doubleValue() + quantity.doubleValue()));
+        serviceContext.put("actualCompletionDate", UtilDateTime.nowTimestamp());
+        serviceContext.put("userLogin", userLogin);
+        try {
+            Map resultService = dispatcher.runSync("updateWorkEffort", serviceContext);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Problem calling the updateWorkEffort service", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
+        }
+
         result.put("quantity", quantity);
         return result;
     }
