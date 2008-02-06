@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.pos.component;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.StringWriter;
 import java.util.Locale;
 
@@ -29,6 +31,7 @@ import net.xoetrope.swing.XTable;
 import net.xoetrope.xui.XProject;
 import net.xoetrope.xui.XProjectManager;
 import net.xoetrope.xui.data.XModel;
+import net.xoetrope.xui.style.XStyle;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
@@ -50,8 +53,8 @@ public class Journal {
     protected String style = null;
 
     public Journal(PosScreen page) {    	
-        this.jpanel = (XScrollPane) page.findComponent("journal_panel");
-        this.jpanel.setVisible(false);
+        jpanel = (XScrollPane) page.findComponent("journal_panel");
+        jpanel.setVisible(false);
         
         this.jtable = (XTable) page.findComponent("jtable");
 
@@ -64,10 +67,20 @@ public class Journal {
         
 
         // set the styles
-        jtable.setBorderStyle("journalBorder");
+        jtable.setBorderStyle("journalBorder");        
         jtable.setHeaderStyle("journalHeader");
         jtable.setStyle("journalData");
         jtable.setSelectedStyle("journalSelected");
+        
+        // some settings needed for XUI 3.2rc2b update
+        jtable.setRowHeight(30); // Better to catch the line on a touch screen (minimal height I think)
+        XStyle style = currentProject.getStyleManager().getStyle("journalBorder");
+        Color borderColor = style.getStyleAsColor(XStyle.COLOR_FORE );        
+        jtable.setGridColor(borderColor); // jtable.setBorderStyle("journalBorder"); above is not working anymore        
+        style = currentProject.getStyleManager().getStyle("journalData");
+        Color backgoundColor = style.getStyleAsColor(XStyle.COLOR_BACK);        
+        jtable.setBackground(backgoundColor); // TODO This line is not working
+        jpanel.setBorder(jtable.getBorder()); // TODO there is a small shift between the vertical header grid lines and the other vertical grid lines. This line is not working
 
         // initialize the journal table header
         XModel jmodel = createModel();
