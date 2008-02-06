@@ -495,12 +495,7 @@ public class UtilProperties implements java.io.Serializable {
      * @return Map containing all entries in The ResourceBundle
      */
     public static Map<String, Object> getResourceBundleMap(String resource, Locale locale) {
-        return new ResourceBundleMapWrapper(getInternalRbmWrapper(resource, locale));
-    }
-
-    public static ResourceBundleMapWrapper.InternalRbmWrapper getInternalRbmWrapper(String resource, Locale locale) {
-        ResourceBundle bundle = getResourceBundle(resource, locale);
-        return new ResourceBundleMapWrapper.InternalRbmWrapper(bundle);
+        return new ResourceBundleMapWrapper(getResourceBundle(resource, locale));
     }
 
     /** Returns the specified resource/properties file.<p>Note that this method
@@ -845,12 +840,9 @@ public class UtilProperties implements java.io.Serializable {
                     }
                     if (bundle == null) {
                         throw new MissingResourceException("Resource " + resource + ", locale " + locale + " not found", null, null);
-                    } else {
-                        if (!bundle.getLocale().equals(locale)) {
-                            // Create a "dummy" bundle for the requested locale
-                            // Debug.logInfo("Creating dummy bundle, size = " + bundle.properties.size(), module);
-                            bundle = new UtilResourceBundle(bundle.properties, locale, bundle);
-                        }
+                    } else if (!bundle.getLocale().equals(locale)) {
+                        // Create a "dummy" bundle for the requested locale
+                        bundle = new UtilResourceBundle(bundle.properties, locale, parentBundle);
                     }
                     double totalTime = System.currentTimeMillis() - startTime;
                     Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime + " mS", module);
