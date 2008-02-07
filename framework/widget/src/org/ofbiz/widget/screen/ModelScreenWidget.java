@@ -585,7 +585,6 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
         protected FlexibleStringExpander shareScopeExdr;
-        protected ModelForm modelForm = null;
         
         public Form(ModelScreen modelScreen, Element formElement) {
             super(modelScreen, formElement);
@@ -604,7 +603,6 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 ((MapStack) context).push();
             }
             
-            getModelForm(context);
             // try finding the formStringRenderer by name in the context in case one was prepared and put there
             FormStringRenderer formStringRenderer = (FormStringRenderer) context.get("formStringRenderer");
             // if there was no formStringRenderer put in place, now try finding the request/response in the context and creating a new one
@@ -620,6 +618,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 throw new IllegalArgumentException("Could not find a formStringRenderer in the context, and could not find HTTP request/response objects need to create one.");
             }
             
+            ModelForm modelForm = getModelForm(context);
             //Debug.logInfo("before renderFormString, context:" + context, module);
             try {
                 modelForm.renderFormString(writer, context, formStringRenderer);
@@ -635,18 +634,17 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
         
         public ModelForm getModelForm(Map context) {
-            if (this.modelForm == null) {
-                String name = this.getName(context);
-                String location = this.getLocation(context);
-                try {
-                    this.modelForm = FormFactory.getFormFromLocation(location, name, this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
-                } catch (Exception e) {
-                    String errMsg = "Error rendering included form named [" + name + "] at location [" + location + "]: ";
-                    Debug.logError(e, errMsg, module);
-                    throw new RuntimeException(errMsg + e);
-                }
+            ModelForm modelForm = null;
+            String name = this.getName(context);
+            String location = this.getLocation(context);
+            try {
+                modelForm = FormFactory.getFormFromLocation(location, name, this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
+            } catch (Exception e) {
+                String errMsg = "Error rendering included form named [" + name + "] at location [" + location + "]: ";
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
             }
-            return this.modelForm;
+            return modelForm;
         }
         
         public String getName(Map context) {
@@ -991,7 +989,6 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
     public static class Menu extends ModelScreenWidget {
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
-        protected ModelMenu modelMenu = null;
         
         public Menu(ModelScreen modelScreen, Element menuElement) {
             super(modelScreen, menuElement);
@@ -1018,7 +1015,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
             
             StringBuffer renderBuffer = new StringBuffer();
-            this.modelMenu.renderMenuString(renderBuffer, context, menuStringRenderer);
+            ModelMenu modelMenu = getModelMenu(context);
+            modelMenu.renderMenuString(renderBuffer, context, menuStringRenderer);
             try {
                 writer.write(renderBuffer.toString());
             } catch (IOException e) {
@@ -1029,18 +1027,17 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
         
         public ModelMenu getModelMenu(Map context) {
-            if (this.modelMenu == null) {
-                String name = this.getName(context);
-                String location = this.getLocation(context);
-                try {
-                    this.modelMenu = MenuFactory.getMenuFromLocation(location, name, this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
-                } catch (Exception e) {
-                    String errMsg = "Error rendering included menu named [" + name + "] at location [" + location + "]: ";
-                    Debug.logError(e, errMsg, module);
-                    throw new RuntimeException(errMsg + e);
-                }
+            String name = this.getName(context);
+            String location = this.getLocation(context);
+            ModelMenu modelMenu = null;
+            try {
+                modelMenu = MenuFactory.getMenuFromLocation(location, name, this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
+            } catch (Exception e) {
+                String errMsg = "Error rendering included menu named [" + name + "] at location [" + location + "]: ";
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
             }
-            return this.modelMenu;
+            return modelMenu;
         }
 
         public String getName(Map context) {
