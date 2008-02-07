@@ -751,7 +751,8 @@ under the License.
 
             <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="PERIOD_CLOSING"/>
-            <set field="createAcctgTransAndEntriesInMap.transactionDate" from-field="customTimePeriod.thruDate"/> <!-- FIXME -->
+            <!-- Set the transaction date 1 second before the end of the period, so that it is included in the old period -->
+            <set-calendar field="createAcctgTransAndEntriesInMap.transactionDate" from-field="customTimePeriod.thruDate" seconds="-1"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
             <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
                 <result-to-field result-name="acctgTransId"/>
