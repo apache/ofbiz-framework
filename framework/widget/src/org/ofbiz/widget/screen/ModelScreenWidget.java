@@ -639,7 +639,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 String name = this.getName(context);
                 String location = this.getLocation(context);
                 try {
-                    this.modelForm = FormFactory.getFormFromLocation(this.getLocation(context), this.getName(context), this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
+                    this.modelForm = FormFactory.getFormFromLocation(location, name, this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
                 } catch (Exception e) {
                     String errMsg = "Error rendering included form named [" + name + "] at location [" + location + "]: ";
                     Debug.logError(e, errMsg, module);
@@ -1033,7 +1033,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 String name = this.getName(context);
                 String location = this.getLocation(context);
                 try {
-                    this.modelMenu = MenuFactory.getMenuFromLocation(this.getLocation(context), this.getName(context), this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
+                    this.modelMenu = MenuFactory.getMenuFromLocation(location, name, this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
                 } catch (Exception e) {
                     String errMsg = "Error rendering included menu named [" + name + "] at location [" + location + "]: ";
                     Debug.logError(e, errMsg, module);
