@@ -1073,7 +1073,14 @@ public class ShoppingCartItem implements java.io.Serializable {
                     priceContext.put("productStoreId", cart.getProductStoreId());
                     priceContext.put("agreementId", cart.getAgreementId());
                     priceContext.put("productPricePurposeId", "PURCHASE");
-                    priceContext.put("checkIncludeVat", "Y"); 
+                    priceContext.put("checkIncludeVat", "Y");
+
+                    // check if a survey is associated with the item and add to the price calculation
+                    List surveyResponses = (List) getAttribute("surveyResponses");
+                    if (surveyResponses != null && surveyResponses.size() > 0) {
+                        priceContext.put("surveyResponseId", surveyResponses.get(0));
+                    }
+
                     Map priceResult = dispatcher.runSync("calculateProductPrice", priceContext);
                     if (ServiceUtil.isError(priceResult)) {
                         throw new CartItemModifyException("There was an error while calculating the price: " + ServiceUtil.getErrorMessage(priceResult));
