@@ -194,6 +194,7 @@ under the License.
         location="org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="deleteOrderAdjustment">
         <description>Delete an order adjustment record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>  <!-- needed for resetGrandTotal seca -->
     </service>
     
     <service name="createOrderAdjustmentBilling" engine="simple"
