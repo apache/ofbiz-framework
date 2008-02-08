@@ -61,7 +61,8 @@ under the License.
 
         <!-- line 6 -->
         <!--Button name="testAlert" x="0" y="310" w="100" h="60" style="posButton" content="TEST ALERT" alignment="Center"/-->
-        <Button name="" x="0" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <!--Button name="" x="0" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/-->
+        <Button name="SKU.ENCHILADAS" x="0" y="310" w="100" h="60" style="skuButtonConfigurableItem" content="Enchiladas" alignment="Center"/>
         <Button name="" x="102" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="204" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="306" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
