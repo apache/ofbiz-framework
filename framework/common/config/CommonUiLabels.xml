@@ -38,6 +38,11 @@
 		<value xml:lang="it">Gestione Cespiti</value>
 		<value xml:lang="th">บำรุงรักษาสินทรัพย์</value>
 	</property>
+	<property key="Business Intelligence">
+		<value xml:lang="en">Business Intelligence</value>
+		<value xml:lang="it">Business Intelligence</value>
+		<value xml:lang="th">การเรียนรู้ทางธุรกิจ</value>
+	</property>
 	<property key="CMSSite">
 		<value xml:lang="en">CMS Site</value>
 		<value xml:lang="it">Sito CMS</value>
@@ -385,7 +390,7 @@
 		<value xml:lang="pt">Qualquer</value>
 		<value xml:lang="ro">Orice</value>
 		<value xml:lang="ru">Любой</value>
-		<value xml:lang="th">บางส่วน</value>
+		<value xml:lang="th">ทุก ๆ อัน</value>
 		<value xml:lang="zh_CN">任何</value>
 		<value xml:lang="zh">任何</value>
 	</property>
@@ -400,7 +405,7 @@
 		<value xml:lang="pt">Qualquer Estado de Encomenda</value>
 		<value xml:lang="ro">Orice Stadiu Comanda</value>
 		<value xml:lang="ru">Любой статус заказа</value>
-		<value xml:lang="th">สถานะรายการสั่งซื้อบางส่วน</value>
+		<value xml:lang="th">ทุก ๆ สถานะรายการสั่งซื้อ</value>
 		<value xml:lang="zh_CN">任意订单状态</value>
 		<value xml:lang="zh">任何订单状态</value>
 	</property>
@@ -415,7 +420,7 @@
 		<value xml:lang="pt">Qualquer Tipo de Encomenda</value>
 		<value xml:lang="ro">Orice Tip de Comanda</value>
 		<value xml:lang="ru">Любой тип заказа</value>
-		<value xml:lang="th">ประเภทรายการสั่งซื้อบางส่วน</value>
+		<value xml:lang="th">ทุก ๆ ประเภทรายการสั่งซื้อ</value>
 		<value xml:lang="zh_CN">任意订单类型</value>
 		<value xml:lang="zh">任何订单类型</value>
 	</property>
@@ -430,7 +435,7 @@
 		<value xml:lang="pt">Qualquer Estado de Devolução</value>
 		<value xml:lang="ro">Orice Stadiu Returnare</value>
 		<value xml:lang="ru">Любой статус возврата</value>
-		<value xml:lang="th">การคืนสถานะบางส่วน</value>
+		<value xml:lang="th">ทุก ๆ การคืนสถานะ</value>
 		<value xml:lang="zh_CN">任意退货状态</value>
 		<value xml:lang="zh">任何退货类型</value>
 	</property>
@@ -445,7 +450,7 @@
 		<value xml:lang="pt">Qualquer Tipo de Papél</value>
 		<value xml:lang="ro">Orice Tip Rol</value>
 		<value xml:lang="ru">Любой тип роли</value>
-		<value xml:lang="th">ประเภทสถานะบางส่วน</value>
+		<value xml:lang="th">ทุก ๆ ประเภทสถานะ</value>
 		<value xml:lang="zh_CN">任意角色类型</value>
 		<value xml:lang="zh">任何角色类型</value>
 	</property>
@@ -458,7 +463,7 @@
 		<value xml:lang="pt">Qualquer Canal</value>
 		<value xml:lang="ro">Orice Canal</value>
 		<value xml:lang="ru">Любой канал</value>
-		<value xml:lang="th">บางช่อง</value>
+		<value xml:lang="th">ทุก ๆ ช่องทาง</value>
 		<value xml:lang="zh_CN">任意渠道</value>
 		<value xml:lang="zh">任何渠道</value>
 	</property>
@@ -473,7 +478,7 @@
 		<value xml:lang="pt">Qualquer Loja</value>
 		<value xml:lang="ro">Orice Magazin</value>
 		<value xml:lang="ru">Любое хранилище</value>
-		<value xml:lang="th">คลังสินค้าบางส่วน</value>
+		<value xml:lang="th">ทุก ๆ คลังสินค้า</value>
 		<value xml:lang="zh_CN">任意商店</value>
 		<value xml:lang="zh">任何店铺</value>
 	</property>
@@ -488,7 +493,7 @@
 		<value xml:lang="pt">Qualquer Web Site</value>
 		<value xml:lang="ro">Orice Sit Web</value>
 		<value xml:lang="ru">Любой Web-сайт</value>
-		<value xml:lang="th">เว็บไซต์บางส่วน</value>
+		<value xml:lang="th">ทุก ๆ เว็บไซต์</value>
 		<value xml:lang="zh_CN">任意网站</value>
 		<value xml:lang="zh">任何网站</value>
 	</property>
@@ -830,7 +835,7 @@
 		<value xml:lang="en">Cancel/Done</value>
 		<value xml:lang="es">Cancelar/Terminar</value>
 		<value xml:lang="fr">Annuler / Terminer</value>
-		<value xml:lang="it">Cancella/Fai</value>
+		<value xml:lang="it">Torna Indietro</value>
 		<value xml:lang="nl">Geannuleerd/klaar</value>
 		<value xml:lang="pt">Cancelar/Feito</value>
 		<value xml:lang="ro">Sterge/Executa</value>
@@ -1742,6 +1747,7 @@
 	</property>
 	<property key="CommonEmptyHeader">
 		<value xml:lang="en">Empty Header</value>
+		<value xml:lang="it">\</value>
 		<value xml:lang="pt"> </value>
 		<value xml:lang="th">หัวข้อว่าง</value>
 	</property>
@@ -2037,6 +2043,7 @@
 	</property>
 	<property key="CommonFinAccounts">
 		<value xml:lang="en">Fin Accts</value>
+		<value xml:lang="it">Conti Finanziari</value>
 		<value xml:lang="th">บัญชี</value>
 	</property>
 	<property key="CommonFinBankName">
@@ -2376,12 +2383,14 @@ ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionLis
 	<property key="CommonGeo">
 		<value xml:lang="ar">جيو</value>
 		<value xml:lang="en">Geo</value>
+		<value xml:lang="it">Geografia</value>
 		<value xml:lang="pt">Geo</value>
 		<value xml:lang="ru">Geo</value>
 		<value xml:lang="th">Geo</value>
 	</property>
 	<property key="CommonGeos">
 		<value xml:lang="en">Geos</value>
+		<value xml:lang="it">Geografia</value>
 		<value xml:lang="pt">Geos</value>
 		<value xml:lang="ru">Geos</value>
 		<value xml:lang="th">Geos</value>
@@ -4593,7 +4602,7 @@ ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionLis
 		<value xml:lang="pt">Executar</value>
 		<value xml:lang="ro">Executa</value>
 		<value xml:lang="ru">Выполнить</value>
-		<value xml:lang="th">รัน</value>
+		<value xml:lang="th">ดำเนินการ</value>
 		<value xml:lang="zh_CN">运行</value>
 		<value xml:lang="zh">运行</value>
 	</property>
@@ -6436,6 +6445,11 @@ ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionLis
 		<value xml:lang="zh_CN">描述</value>
 		<value xml:lang="zh">描述</value>
 	</property>
+	<property key="Ebay">
+		<value xml:lang="en">eBay</value>
+		<value xml:lang="it">eBay</value>
+		<value xml:lang="th">อีเบย์</value>
+	</property>
 	<property key="Example">
 		<value xml:lang="ar">مثال</value>
 		<value xml:lang="en">Example</value>
@@ -6797,6 +6811,11 @@ ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionLis
 		<value xml:lang="ro">Actualizeaza</value>
 		<value xml:lang="th">อัพเดท</value>
 	</property>
+	<property key="GoogleBase">
+		<value xml:lang="en">Google Base</value>
+		<value xml:lang="it">Google Base</value>
+		<value xml:lang="th">Google Base</value>
+	</property>
 	<property key="HR">
 		<value xml:lang="en">HR</value>
 		<value xml:lang="it">Risorse Umane</value>
@@ -6875,6 +6894,11 @@ ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionLis
 		<value xml:lang="th">UOM ไม่พบการเปลี่ยนแปลงความสัมพันธ์</value>
 		<value xml:lang="zh_CN">单位转化关系没有找到</value>
 		<value xml:lang="zh">没有找到货币转换关系</value>
+	</property>
+	<property key="Oagis">
+		<value xml:lang="en">Oagis</value>
+		<value xml:lang="it">Oagis</value>
+		<value xml:lang="th">การรวมภาษาทางธุรกิจ</value>
 	</property>
 	<property key="Order">
 		<value xml:lang="ar">طلبية</value>
@@ -7097,7 +7121,7 @@ ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionLis
 		<value xml:lang="nl">Activiteiten</value>
 		<value xml:lang="pt">Mão-De-Obra</value>
 		<value xml:lang="ro">Sarcini de Lucru</value>
-		<value xml:lang="th">WorkEffort</value>
+		<value xml:lang="th">ความพยายามในการทำงาน</value>
 		<value xml:lang="zh_CN">工作计划</value>
 		<value xml:lang="zh">人工服务</value>
 	</property>
