@@ -1077,7 +1077,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditSupplierProduct"/>
                 <set field="tabButtonItem" value="EditSupplierProduct"/>
-                <set field="labelTitleProperty" value="ProductVendorProduct"/>
+                <set field="labelTitleProperty" value="ProductSuppliers"/>
 
                 <!-- default currency in framework/common/config/general.properties -->
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
