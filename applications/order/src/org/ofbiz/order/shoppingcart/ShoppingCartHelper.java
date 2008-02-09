@@ -21,7 +21,17 @@ package org.ofbiz.order.shoppingcart;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -32,18 +42,16 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.product.config.ProductConfigWrapper;
+import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.product.config.ProductConfigWorker;
+import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-
-import javolution.util.FastMap;
 
 /**
  * A facade over the 
@@ -191,7 +199,8 @@ public class ShoppingCartHelper {
                 try {
                     productFeatureAndAppl = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl",
                                                                                     UtilMisc.toMap("productId", productId,
-                                                                                                   "productFeatureTypeId", selectedFeatureType))));
+                                                                                                   "productFeatureTypeId", selectedFeatureType,
+                                                                                                   "productFeatureId", selectedFeatureValue))));
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, module);
                 }
