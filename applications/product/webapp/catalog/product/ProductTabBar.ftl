@@ -39,7 +39,7 @@ under the License.
             <li<#if selected="EditProductFacilities"> class="selected"</#if>><a href="<@ofbizUrl>EditProductFacilities?productId=${productId}</@ofbizUrl>">${uiLabelMap.ProductFacilities}</a><li>
             <li<#if selected="EditProductFacilityLocations"> class="selected"</#if>><a href="<@ofbizUrl>EditProductFacilityLocations?productId=${productId}</@ofbizUrl>">${uiLabelMap.ProductLocations}</a><li>
             <li<#if selected="EditProductInventoryItems"> class="selected"</#if>><a href="<@ofbizUrl>EditProductInventoryItems?productId=${productId}&showAllFacilities=Y</@ofbizUrl>">${uiLabelMap.ProductInventory}</a><li>
-            <li<#if selected="EditSupplierProduct"> class="selected"</#if>><a href="<@ofbizUrl>EditProductSuppliers?productId=${productId}</@ofbizUrl>">${uiLabelMap.ProductVendorProduct}</a><li>
+            <li<#if selected="EditSupplierProduct"> class="selected"</#if>><a href="<@ofbizUrl>EditProductSuppliers?productId=${productId}</@ofbizUrl>">${uiLabelMap.ProductSuppliers}</a><li>
             <li<#if selected="ViewProductAgreements"> class="selected"</#if>><a href="<@ofbizUrl>ViewProductAgreements?productId=${productId}</@ofbizUrl>">${uiLabelMap.ProductAgreements}</a><li>
             <li<#if selected="EditProductGlAccounts"> class="selected"</#if>><a href="<@ofbizUrl>EditProductGlAccounts?productId=${productId}</@ofbizUrl>">${uiLabelMap.ProductAccounts}</a><li>
             <li<#if selected="EditProductPaymentMethodTypes"> class="selected"</#if>><a href="<@ofbizUrl>EditProductPaymentMethodTypes?productId=${productId}</@ofbizUrl>">${uiLabelMap.ProductPaymentTypes}</a><li>
