@@ -23,103 +23,162 @@ under the License.
         <value xml:lang="en">Example Application</value>
         <value xml:lang="it">Applicazione Esempi</value>
         <value xml:lang="ro">Aplicatie Exemple</value>
+        <value xml:lang="ru">Приложение Пример</value>
+        <value xml:lang="th">ตัวอย่างโปรแกรมคอมพิวเตอร์</value>
+        <value xml:lang="zh">样例应用</value>
     </property>
     <property key="ExampleCompanyName">
         <value xml:lang="en">OFBiz: Example</value>
         <value xml:lang="it">OFBiz: Esempi</value>
         <value xml:lang="ro">OFBiz: Exemple</value>
+        <value xml:lang="ru">OFBiz: Пример</value>
+        <value xml:lang="th">OFBiz: ตัวอย่าง</value>
+        <value xml:lang="zh">OFBiz: 样例</value>
     </property>
     <property key="ExampleCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+        <value xml:lang="ru">Часть семейства ПО Open For Business</value>
+        <value xml:lang="zh">开源软件OFBiz的组成部分</value>
     </property>
     <property key="ExampleExampleId">
         <value xml:lang="en">Example ID</value>
         <value xml:lang="it">Codice Esempio</value>
         <value xml:lang="ro">Cod Exemplu</value>
+        <value xml:lang="ru">Код примера</value>
+        <value xml:lang="th">รหัสตัวอย่าง</value>
+        <value xml:lang="zh">样例标识</value>
     </property>
     <property key="ExampleExample">
         <value xml:lang="en">Example</value>
         <value xml:lang="it">Esempio</value>
         <value xml:lang="ro">Exemplu</value>
+        <value xml:lang="ru">Пример</value>
+        <value xml:lang="th">ตัวอย่าง</value>
+        <value xml:lang="zh">样例</value>
     </property>
     <property key="ExampleExamples">
         <value xml:lang="en">Examples</value>
         <value xml:lang="it">Esempi</value>
         <value xml:lang="ro">Exemple</value>
+        <value xml:lang="ru">Примеры</value>
+        <value xml:lang="th">ตัวอย่าง</value>
+        <value xml:lang="zh">样例</value>
     </property>
     <property key="ExampleFeature">
         <value xml:lang="en">Feature</value>
         <value xml:lang="it">Caratteristica</value>
         <value xml:lang="ro">Caracteristica</value>
+        <value xml:lang="ru">Особенность</value>
+        <value xml:lang="th">ลักษณะ</value>
+        <value xml:lang="zh">特征</value>
     </property>
     <property key="ExampleFeatures">
         <value xml:lang="en">Features</value>
         <value xml:lang="it">Caratteristiche</value>
         <value xml:lang="ro">Caracteristici</value>
+        <value xml:lang="ru">Особенности</value>
+        <value xml:lang="th">ลักษณะ</value>
+        <value xml:lang="zh">特征</value>
     </property>
     <property key="ExampleFeatureSource">
         <value xml:lang="en">Feature Source</value>
         <value xml:lang="it">Caratteristica Origine</value>
         <value xml:lang="ro">Origine Caracteristici </value>
+        <value xml:lang="ru">Источник особенности</value>
+        <value xml:lang="th">ที่มา</value>
+        <value xml:lang="zh">特征源</value>
     </property>
     <property key="ExampleExampleFeature">
         <value xml:lang="en">Example Feature</value>
         <value xml:lang="it">Caratteristica Esempio</value>
         <value xml:lang="ro">Caracteristica Exemplu</value>
+        <value xml:lang="ru">Особенность примера</value>
+        <value xml:lang="th">ลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">样例特征</value>
     </property>
     <property key="ExampleExampleFeatureId">
         <value xml:lang="en">Example Feature ID</value>
         <value xml:lang="it">Codice Caratteristica Esempio</value>
         <value xml:lang="ro">Cod Caracteristica Exemplu </value>
+        <value xml:lang="ru">Код особенности примера</value>
+        <value xml:lang="th">ตัวอย่างรหัสลักษณะ</value>
+        <value xml:lang="zh">样例特征标识</value>
     </property>
     <property key="ExampleExplicitOption">
         <value xml:lang="en">Explicit Option</value>
         <value xml:lang="it">Opzione Esplicita</value>
+        <value xml:lang="th">ทางเลือกที่ชัดเจน</value>
     </property>
     <property key="ExampleFormWidgetExamples">
         <value xml:lang="en">Form Widget Examples</value>
+        <value xml:lang="th">ตัวอย่างรูปแบบ Widget</value>
     </property>
     <property key="ExampleMainPage">
         <value xml:lang="en">Example Main Page</value>
         <value xml:lang="it">Pagina Principale Esempi</value>
+        <value xml:lang="th">ตัวอย่างหน้าหลัก</value>
     </property>
     <property key="ExampleMessage">
         <value xml:lang="en">For something interesting make sure you are logged in, try username:admin, password:ofbiz.</value>
         <value xml:lang="it">Per qualsiasi interesse devi essere sicuro di essere entrato, provare nome utente:admin, password:ofbiz.</value>
         <value xml:lang="ro">Pentru a fi sigur ca te-ai logat, incearca username:admin, password:ofbiz.</value>
+        <value xml:lang="ru">Для того чтобы иметь возможность сделать что-нибудь интересное убедитесь что вы зарегистрировались в системе, попробуйте имя:admin, пароль:ofbiz.</value>
+        <value xml:lang="th">สำหรับท่านที่สนใจสามารถเข้าสู่ระบบได้, โดยใช้ ชื่อผู้ใช้:admin, รหัสผ่าน:ofbiz</value>
+        <value xml:lang="zh">如果对某部分感兴趣，请先确信你已登录，可以尝试用 用户名:admin、密码:ofbiz登录。</value>
     </property>
     <property key="ExampleNewExample">
         <value xml:lang="en">New Example</value>
         <value xml:lang="it">Nuovo Esempio</value>
         <value xml:lang="ro">Nou Exemplu</value>
+        <value xml:lang="ru">Новый пример</value>
+        <value xml:lang="th">ตัวอย่างใหม่</value>
+        <value xml:lang="zh">新建样例</value>
     </property>
     <property key="ExampleNewExampleFeature">
         <value xml:lang="en">New Example Feature</value>
         <value xml:lang="it">Nuova Caratteristica Esempio</value>
         <value xml:lang="ro">Noua Caracteristica Exemplu</value>
+        <value xml:lang="ru">Новая особенность примера</value>
+        <value xml:lang="th">ลักษณะตัวอย่างใหม่</value>
+        <value xml:lang="zh">新建样例特征</value>
     </property>
     <property key="ExampleOriginalExample">
         <value xml:lang="en">Original Example</value>
+        <value xml:lang="ru">Оригинальный пример</value>
+        <value xml:lang="th">ตัวอย่างเดิม</value>
     </property>
     <property key="ExampleErrorNoExampleStatusValidChange">
         <value xml:lang="en">Error: status change from [${lookedUpValue.statusId}] to [${parameters.statusId}] is not allowed.</value>
         <value xml:lang="it">Errore: stato cambiato da [${lookedUpValue.statusId}] a [${parameters.statusId}] non &#232; permesso</value>
         <value xml:lang="ro">Eroare: stato schimbat de la [${lookedUpValue.statusId}] la [${parameters.statusId}] nu este permis</value>
+        <value xml:lang="ru">Ошибка: изменение статуса с [${lookedUpValue.statusId}] на [${parameters.statusId}] запрещено.</value>
+        <value xml:lang="th">Error: ไม่สามารถเปลี่นแปลงสถานะจาก [${lookedUpValue.statusId}] เป็น [${parameters.statusId}] ได้</value>
+        <value xml:lang="zh">错误: 不允许把状态从[${lookedUpValue.statusId}]变为[${parameters.statusId}]。</value>
     </property>
     <property key="ExamplePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the EXAMPLE_${mainAction} or EXAMPLE_ADMIN permission</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso EXAMPLE${mainAction} o EXAMPLE_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta: pentru executare ${resourceDescription} trebuie sa ai permisul EXAMPLE${mainAction} sau EXAMPLE_ADMIN</value>
+        <value xml:lang="ru">Ошибка безопасности: для выполнения ${resourceDescription} у вас должны быть права EXAMPLE_${mainAction} или EXAMPLE_ADMIN</value>
+        <value xml:lang="th">ข้อผิดพลาดในส่วนของความปลอดภัย: ในการรัน ${resourceDescription} คุณต้องได้รับอนุญาตจาก EXAMPLE_${mainAction} หรือ EXAMPLE_ADMIN ก่อน</value>
+        <value xml:lang="zh">安全错误: 要运行${methodShortDescription}，你必须具有EXAMPLE${securityAction}或EXAMPLE_ADMIN权限</value>
     </property>
     <property key="ExampleViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("EXAMPLE_VIEW" or "EXAMPLE_ADMIN" needed)</value>
         <value xml:lang="it">Tu non sei autorizzare a vedere questa pagina. (Permesso "EXAMPLE_VIEW" o "EXAMPLE_ADMIN" necessario)</value>
         <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (Este necesar Permisul "EXAMPLE_VIEW" sau "EXAMPLE_ADMIN")</value>
+        <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (необходимы права "EXAMPLE_VIEW" или "EXAMPLE_ADMIN")</value>
+        <value xml:lang="th">คุณไม่ได้รับอนุญาตให้เข้าดูหน้านี้ได้ (หน้า "EXAMPLE_VIEW" หรือ "EXAMPLE_ADMIN" ที่ต้องการ)</value>
+        <value xml:lang="zh">你没有浏览这个页面的权限。(需要"EXAMPLE_VIEW"或"EXAMPLE_ADMIN")</value>
     </property>
     <property key="ExampleWelcome">
         <value xml:lang="en">Welcome to the Example application!</value>
         <value xml:lang="it">Benvenuto nell'Applicazione Esempi!</value>
         <value xml:lang="ro">Bine ai venit in Aplicatia Exemple!</value>
+        <value xml:lang="ru">Добро пожаловать в учебное приложение Пример!</value>
+        <value xml:lang="th">ยินดีต้อนรับสู่ตัวอย่างโปรแกรม!</value>
+        <value xml:lang="zh">欢迎使用样例应用！</value>
     </property>
 
     <!-- Page Titles -->
@@ -127,44 +186,69 @@ under the License.
         <value xml:lang="en">Find Example</value>
         <value xml:lang="it">Ricerca Esempio</value>
         <value xml:lang="ro">Cauta Exemplu</value>
+        <value xml:lang="ru">Найти пример</value>
+        <value xml:lang="th">ค้นหาตัวอย่าง</value>
+        <value xml:lang="zh">查找样例</value>
     </property>
     <property key="PageTitleFormWidgetExamples">
         <value xml:lang="en">Form Widget Examples</value>
+        <value xml:lang="th">ตัวอย่าง Widget</value>
     </property>
     <property key="PageTitleEditExample">
         <value xml:lang="en">Edit Example</value>
         <value xml:lang="it">Aggiorna Esempio</value>
         <value xml:lang="ro">Actualizeaza Exemplu</value>
+        <value xml:lang="ru">Изменить пример</value>
+        <value xml:lang="th">แก้ไขตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例</value>
     </property>
     <property key="PageTitleEditExampleItems">
         <value xml:lang="en">Edit Example Items</value>
         <value xml:lang="it">Aggiorna Righe Esempio</value>
         <value xml:lang="ro">Actualizeaza Linii Exemplu</value>
+        <value xml:lang="ru">Изменить позиции примера</value>
+        <value xml:lang="th">แก้ไขสินค้าตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例明细</value>
     </property>
     <property key="PageTitleEditExampleFeatureAppls">
         <value xml:lang="en">Edit Example Features</value>
         <value xml:lang="it">Aggiorna Caratteristiche Esempio</value>
         <value xml:lang="ro">Actualizeaza Carateristici Exemplu</value>
+        <value xml:lang="ru">Изменить особенность примера</value>
+        <value xml:lang="th">แก้ไขลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例特征</value>
     </property>
     <property key="PageTitleFindExampleFeature">
         <value xml:lang="en">Find Example Feature</value>
         <value xml:lang="it">Ricerca Caratteristica Esempio</value>
         <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
+        <value xml:lang="ru">Найти особенность примера</value>
+        <value xml:lang="th">ค้นหาลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">查找样例特征</value>
     </property>
     <property key="PageTitleEditExampleFeature">
         <value xml:lang="en">Edit Example Feature</value>
         <value xml:lang="it">Aggiorna Caratteristica Esempio</value>
         <value xml:lang="ro">Actualizeaza Caracteristica Exemplu</value>
+        <value xml:lang="ru">Изменить особенности примера</value>
+        <value xml:lang="th">แก้ไขลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例特征</value>
     </property>
     <property key="PageTitleEditExampleFeatureExampleAppls">
         <value xml:lang="en">Edit Example Feature Examples</value>
         <value xml:lang="it">Aggiorna Esempio Caratteristica Esempi</value>
         <value xml:lang="ro">Actualizeaza Exemplu Caratteristica Exemple</value>
+        <value xml:lang="ru">Изменить примеры особенностей</value>
+        <value xml:lang="th">แก้ไขตัวอย่างลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例特征的样例</value>
     </property>
     <property key="PageTitleLookupExampleFeature">
         <value xml:lang="en">Lookup Example Feature</value>
         <value xml:lang="it">Ricerca Caratteristica Esempio</value>
         <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
+        <value xml:lang="ru">Искать особенности примера</value>
+        <value xml:lang="th">ดูลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">查找样例特征</value>
     </property>
 
     <!-- Form Field Labels -->
@@ -172,38 +256,58 @@ under the License.
         <value xml:lang="en">Amount</value>
         <value xml:lang="it">Importo</value>
         <value xml:lang="ro">Import</value>
+        <value xml:lang="ru">Сумма</value>
+        <value xml:lang="th">จำนวน</value>
+        <value xml:lang="zh">金额</value>
     </property>
     <property key="FormFieldTitle_exampleName">
         <value xml:lang="en">Example Name</value>
         <value xml:lang="it">Nome Esempio</value>
         <value xml:lang="ro">Nume Exemplu</value>
+        <value xml:lang="ru">Имя примера</value>
+        <value xml:lang="th">ตัวอย่างชื่อ</value>
+        <value xml:lang="zh">样例名称</value>
     </property>
     <property key="FormFieldTitle_longDescription">
         <value xml:lang="en">Long Description</value>
         <value xml:lang="it">Descrizione Lunga</value>
         <value xml:lang="ro">Descriere Lunga</value>
+        <value xml:lang="ru">Длинное описание</value>
+        <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="zh">详细描述</value>
     </property>
     <property key="FormFieldTitle_comments">
         <value xml:lang="en">Comments</value>
         <value xml:lang="it">Commenti</value>
         <value xml:lang="ro">Comentarii</value>
+        <value xml:lang="ru">Комментарии</value>
+        <value xml:lang="th">ความคิดเห็น</value>
+        <value xml:lang="zh">评论</value>
     </property>
     <property key="FormFieldTitle_exampleSize">
         <value xml:lang="en">Example Size</value>
         <value xml:lang="it">Esempio Taglia</value>
         <value xml:lang="ro">Marime-size Exemplu</value>
+        <value xml:lang="ru">Размер примера</value>
+        <value xml:lang="th">ตัวอย่างขนาด</value>
+        <value xml:lang="zh">样例尺寸</value>
     </property>
     <property key="FormFieldTitle_exampleDate">
         <value xml:lang="en">Example Date</value>
         <value xml:lang="it">Esempio Data</value>
         <value xml:lang="ro">Data Exemplu</value>
+        <value xml:lang="ru">Дата примера</value>
+        <value xml:lang="th">ตัวอย่างวันที่</value>
+        <value xml:lang="zh">样例日期</value>
     </property>
     <property key="FormFieldTitle_anotherDate">
         <value xml:lang="en">Another Date</value>
         <value xml:lang="it">Altra Data</value>
+        <value xml:lang="th">วันที่อื่น ๆ</value>
     </property>   
     <property key="FormFieldTitle_anotherText">
         <value xml:lang="en">Another Text</value>
         <value xml:lang="it">Altro Testo</value>
+        <value xml:lang="th">ตัวหนังสืออื่น ๆ</value>
     </property>
 </resource>
