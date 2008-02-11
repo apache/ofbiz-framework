@@ -394,6 +394,7 @@ under the License.
     <simple-method method-name="getGlAccountFromAccountType" short-description="Look up a GlAccountId from GlAccountTypeId">
         <!-- if this is an inventory variance then the glAccountTypeId contains the varianceReasonId; the value is used to lookup the account id in the VarianceReasonGlAccount entity -->
         <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="ITEM_VARIANCE">
+            <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId and varianceReasonId; output varianceReasonGlAccount -->
             <entity-one entity-name="VarianceReasonGlAccount" value-name="varianceReasonGlAccount">
                 <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
                 <field-map field-name="varianceReasonId" env-name="parameters.glAccountTypeId"/>
@@ -444,6 +445,7 @@ under the License.
                         <set field="roleTypeId" value="BILL_TO_CUSTOMER"/>
                     </else>
                 </if>
+                <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId, partyId, roleTypeId and glAccountTypeId; output partyGlAccount -->
                 <entity-one entity-name="PartyGlAccount" value-name="partyGlAccount">
                     <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
                     <field-map field-name="partyId" env-name="parameters.partyId"/>
@@ -483,6 +485,7 @@ under the License.
                 </if-not-empty>
                 <if-compare field-name="payment.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
                     <get-related-one value-name="payment" relation-name="CreditCard" to-value-name="creditCard"/>
+                    <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId and cardType; output creditCardTypeGlAccount -->
                     <entity-one entity-name="CreditCardTypeGlAccount" value-name="creditCardTypeGlAccount">
                         <field-map field-name="cardType" env-name="creditCard.cardType"/>
                         <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
@@ -492,6 +495,7 @@ under the License.
                         <return/>
                     </if-not-empty>
                 </if-compare>
+                <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId and paymentMethodTypeId; output paymentMethodTypeGlAccount -->
                 <entity-one entity-name="PaymentMethodTypeGlAccount" value-name="paymentMethodTypeGlAccount">
                     <field-map field-name="paymentMethodTypeId" env-name="payment.paymentMethodTypeId"/>
                     <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
@@ -504,14 +508,16 @@ under the License.
             </then>
         </if>
         <if-not-empty field-name="parameters.productId">
-            <entity-one entity-name="ProductGlAccount" value-name="lookedUpValue" use-cache="true"/>
+            <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId, glAccountTypeId and productId; output productGlAccount -->
+            <entity-one entity-name="ProductGlAccount" value-name="productGlAccount" use-cache="true"/>
             <!-- if nothing found look if the parameters.productId is member of any ProductCategory in ProductCategoryGlAccount --> 
-            <if-empty field-name="lookedUpValue.glAccountId">
+            <if-empty field-name="productGlAccount.glAccountId">
                 <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers" filter-by-date="true">
                     <field-map field-name="productId" env-name="parameters.productId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
                 <iterate list-name="productCategoryMembers" entry-name="productCategoryMember">
+                    <!-- TODO: refactor the entity-one into one simple-method call: input organizationPartyId, glAccountTypeId and productCategoryId; output productCategoryGlAccount -->
                     <entity-one entity-name="ProductCategoryGlAccount" value-name="productCategoryGlAccount">
                         <field-map field-name="productCategoryId" env-name="productCategoryMember.productCategoryId"/>
                         <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
@@ -522,6 +528,9 @@ under the License.
                         <return/>
                     </if-not-empty>
                 </iterate>
+            <else>
+                <set field="lookedUpValue.glAccountId" from-field="productGlAccount.glAccountId"/>
+            </else>
             </if-empty>
         </if-not-empty>
         <if>
@@ -544,11 +553,13 @@ under the License.
             <then>
                 <if-not-empty field-name="parameters.productId">
                     <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE">
+                        <!-- TODO ***: refactor the entity-one into one simple-method call: input organizationPartyId and glAccountTypeId; output glAccountTypeDefault -->
                         <entity-one entity-name="GlAccountTypeDefault" value-name="glAccountTypeDefault" use-cache="true">
                             <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
                             <field-map field-name="glAccountTypeId" value="UNINVOICED_SHIP_RCPT"/>
                         </entity-one>
                     <else>
+                        <!-- TODO: refactor the entity-one into one simple-method call: use the same method of the previous TODO comment (***) -->
                         <entity-one entity-name="GlAccountTypeDefault" value-name="glAccountTypeDefault" use-cache="true">
                             <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
                             <field-map field-name="glAccountTypeId" value="SALES_ACCOUNT"/>
@@ -560,6 +571,7 @@ under the License.
                         <return/>
                     </if-not-empty>
                 </if-not-empty>
+                <!-- TODO: refactor the entity-one into one simple-method call: input organizationPartyId and invoiceItemTypeId; output invoiceItemTypeGlAccount -->
                 <entity-one entity-name="InvoiceItemTypeGlAccount" value-name="invoiceItemTypeGlAccount">
                     <field-map field-name="invoiceItemTypeId" env-name="parameters.glAccountTypeId"/>
                     <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
@@ -580,6 +592,7 @@ under the License.
         </if>
         <!-- if nothing found or if no such parameters were passed (lookedUpValue empty in both cases), try GlAccountTypeDefault -->
         <if-empty field-name="lookedUpValue.glAccountId">
+            <!-- TODO: refactor the entity-one into one simple-method call: use the same method of the previous TODO comment (***) -->
             <entity-one entity-name="GlAccountTypeDefault" value-name="lookedUpValue" use-cache="true"/> 
         </if-empty>
         <field-to-result field-name="lookedUpValue.glAccountId" result-name="glAccountId"/> 
