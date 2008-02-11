@@ -103,18 +103,19 @@ under the License.
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <implements service="interfaceWorkEffort"/>        
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="skillTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="estimatedHours" type="String" mode="IN"/>
+        <attribute name="estimatedHours" type="String" mode="IN" optional="true"/>
         <override name="workEffortTypeId" optional="false"/>
         <override name="workEffortName" optional="false"/>
         <override name="currentStatusId" optional="false"/>
+        <override name="workEffortParentId" optional="false"/>
     </service>
     
     <service name="copyProject" engine="simple"

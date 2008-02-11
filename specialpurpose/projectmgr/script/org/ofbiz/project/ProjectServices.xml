@@ -33,6 +33,9 @@
     
     <simple-method method-name="createProjectTask" short-description="Create a project task and optionally assign">
         <!-- create task -->
+        <if-empty field-name="parameters.statusId">
+            <set field="parameters.statusId" value="PTS_CREATED"/>            
+        </if-empty>
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         <!-- optionally assign to party -->
         <if-not-empty field-name="parameters.partyId">
