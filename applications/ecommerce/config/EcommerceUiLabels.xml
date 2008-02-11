@@ -257,7 +257,7 @@
 		<value xml:lang="nl">Kijk na of U vandaag een tegoedbon kan gebruiken</value>
 		<value xml:lang="ro">Controleaza daca Tu ai o Carte Omagiu pe care sa o folosesti Astazi </value>
 		<value xml:lang="ru">Проверьте, есть ли у вас действительная дисконтная карта</value>
-		<value xml:lang="th">ตรวจสอบถ้าคุณมีบัตรสมนาคุณสำหรับใช้วันนี้</value>
+		<value xml:lang="th">ตรวจสอบถ้าคุณมีบัตรของขวัญสำหรับใช้วันนี้</value>
 		<value xml:lang="zh">检查你今天是否有礼品卡可用</value>
 	</property>
 	<property key="AccountingCompanyNameOnAccount">
@@ -1738,7 +1738,7 @@
 		<value xml:lang="en_GB">Add All to basket</value>
 		<value xml:lang="hi_IN">सभी को टोकरी में डालें</value>
 		<value xml:lang="ja">Add All to Cart</value>
-		<value xml:lang="th">เพิ่มรายการทั้งหมดลงบัตร</value>
+		<value xml:lang="th">เพิ่มรายการทั้งหมดลงตะกร้า</value>
 	</property>
 	<property key="EcommerceAddCheckedToCart">
 		<value xml:lang="cs">přidat vybrané do košíku</value>
@@ -1746,7 +1746,7 @@
 		<value xml:lang="en_GB">Add selected to basket</value>
 		<value xml:lang="hi_IN">सही निशान वाले को टोकरी में डालें</value>
 		<value xml:lang="ja">Add Checked to Cart</value>
-		<value xml:lang="th">เพิ่มรายการที่เลือกลงบัตร</value>
+		<value xml:lang="th">เพิ่มรายการที่เลือกลงตะกร้า</value>
 	</property>
 	<property key="EcommerceAddChildListsToCart">
 		<value xml:lang="cs">Přidejte tento seznam a další seznam(-y) do košíku</value>
@@ -1754,7 +1754,7 @@
 		<value xml:lang="en_GB">Add This List And Child List(s) To basket</value>
 		<value xml:lang="hi_IN">इस पूरी सूची को टोकरी में डालें</value>
 		<value xml:lang="ja">Add This List And Child List(s) To Cart</value>
-		<value xml:lang="th">เพิ่มรายการสินค้าเด็กลงบัตร</value>
+		<value xml:lang="th">เพิ่มรายการสินค้าเด็กลงตะกร้า</value>
 	</property>
 	<property key="EcommerceAddListToCart">
 		<value xml:lang="cs">Přidat seznam do košíku</value>
@@ -1762,7 +1762,7 @@
 		<value xml:lang="en_GB">Add List To basket</value>
 		<value xml:lang="hi_IN">सूची को टोकरी में डालें</value>
 		<value xml:lang="ja">Add List To Cart</value>
-		<value xml:lang="th">เพิ่มรายการลงบัตร</value>
+		<value xml:lang="th">เพิ่มรายการลงตะกร้า</value>
 	</property>
 	<property key="EcommerceAddNewDigitalProduct">
 		<value xml:lang="en">Add New Digital Product</value>
@@ -1788,7 +1788,7 @@
 		<value xml:lang="en_GB">Add to basket</value>
 		<value xml:lang="hi_IN">टोकरी में जोड़ें</value>
 		<value xml:lang="ja">買い物かごに入れる</value>
-		<value xml:lang="th">เพิ่มรายการลงบัตร</value>
+		<value xml:lang="th">เพิ่มรายการลงตะกร้า</value>
 	</property>
 	<property key="EcommerceAddtoShoppingList">
 		<value xml:lang="cs">přidat do nákupního seznamu</value>
@@ -1822,7 +1822,7 @@
 		<value xml:lang="en_GB">Always view basket after adding an item</value>
 		<value xml:lang="hi_IN">हमेशा टोकरी देखें सामान जोडने के बाद</value>
 		<value xml:lang="ja">Always view cart after adding an item</value>
-		<value xml:lang="th">ดูรายการหลังจากเพิ่มสินค้าเสมอ</value>
+		<value xml:lang="th">ดูรายการในตะกร้าหลังจากเพิ่มสินค้าเสมอ</value>
 	</property>
 	<property key="EcommerceAnonymous">
 		<value xml:lang="cs">anonymní</value>
@@ -1856,14 +1856,14 @@
 		<value xml:lang="en_GB">Basket has</value>
 		<value xml:lang="hi_IN">टोकरी में है</value>
 		<value xml:lang="ja">Cart has</value>
-		<value xml:lang="th">บัตรมี</value>
+		<value xml:lang="th">ในตะกร้ามี</value>
 	</property>
 	<property key="EcommerceCartItemUseinPromotions">
 		<value xml:lang="en">Cart Item Use in Promotions</value>
 		<value xml:lang="en_GB">Basket item use in promotions</value>
 		<value xml:lang="hi_IN">टोकरी वस्तु प्रोत्साहन में</value>
 		<value xml:lang="ja">Cart Item Use in Promotions</value>
-		<value xml:lang="th">รายการในบัตรใช้ในโปรโมชั่น</value>
+		<value xml:lang="th">สินค้าในตะกร้าใช้ในโปรโมชั่น</value>
 	</property>
 	<property key="EcommerceCartSummary">
 		<value xml:lang="cs">Obsah košíku</value>
@@ -1871,7 +1871,7 @@
 		<value xml:lang="en_GB">Basket Summary</value>
 		<value xml:lang="hi_IN">टोकरी संक्षेप</value>
 		<value xml:lang="ja">買い物かご状態</value>
-		<value xml:lang="th">รายงานการสั่งซื้อสินค้า</value>
+		<value xml:lang="th">สรุปสินค้าในตะกร้า</value>
 	</property>
 	<property key="EcommerceCartTotal">
 		<value xml:lang="cs">Košík celkem</value>
@@ -1879,7 +1879,7 @@
 		<value xml:lang="en_GB">Basket Total</value>
 		<value xml:lang="hi_IN">टोकरी कुल</value>
 		<value xml:lang="ja">Cart Total</value>
-		<value xml:lang="th">ยอดรวมของบัตร</value>
+		<value xml:lang="th">ผลรวมในตะกร้า</value>
 	</property>
 	<property key="EcommerceCheckBalance">
 		<value xml:lang="en">Check Balance</value>
@@ -2055,7 +2055,7 @@
 		<value xml:lang="en_GB">Empty basket</value>
 		<value xml:lang="hi_IN">ख़ाली टोकरी</value>
 		<value xml:lang="ja">Empty Cart</value>
-		<value xml:lang="th">ไม่มีข้อมูลในบัตร</value>
+		<value xml:lang="th">ตะกร้าว่างเปล่า</value>
 	</property>
 	<property key="EcommerceEnterQueryParameters">
 		<value xml:lang="en">Enter Query Parameters</value>
@@ -2891,7 +2891,7 @@
 		<value xml:lang="en_GB">Shopping basket is empty</value>
 		<value xml:lang="hi_IN">टोकरी ख़ाली है</value>
 		<value xml:lang="ja">買い物かごの中には何も入っていません</value>
-		<value xml:lang="th">ไม่มีข้อมูลในบัตร</value>
+		<value xml:lang="th">ไม่มีการซื้อสินค้าลงตะกร้า</value>
 	</property>
 	<property key="EcommerceShoppingListDetail">
 		<value xml:lang="cs">Detailní přehled nákupu</value>
@@ -3051,13 +3051,13 @@
 		<value xml:lang="en_GB">to basket</value>
 		<value xml:lang="hi_IN">टोकरी में</value>
 		<value xml:lang="ja">to Cart</value>
-		<value xml:lang="th">รายการในบัตร</value>
+		<value xml:lang="th">ลงตะกร้า</value>
 	</property>
 	<property key="EcommerceToOrderCreateCustRequestFromCart">
 		<value xml:lang="en">To Order Create CustRequest From Cart</value>
 		<value xml:lang="hi_IN">कोट उत्पन्न करने के लिए आग्रह</value>
 		<value xml:lang="ja">to create a request for quote</value>
-		<value xml:lang="th">ในการสร้างรายการสั่งซื้อของลูกค้าจากบัตร</value>
+		<value xml:lang="th">การสร้างรายการสั่งซื้อของลูกค้าจากตะกร้า</value>
 	</property>
 	<property key="EcommerceTotal">
 		<value xml:lang="cs">Suma</value>
@@ -3114,7 +3114,7 @@
 		<value xml:lang="en_GB">of Variation to basket</value>
 		<value xml:lang="hi_IN">अन्तर को टोकरी में</value>
 		<value xml:lang="ja">of Variation To Cart</value>
-		<value xml:lang="th">เปลี่ยนแปลงสู่บัตร</value>
+		<value xml:lang="th">เปลี่ยนแปลงสู่ตะกร้า</value>
 	</property>
 	<property key="EcommerceViewAll">
 		<value xml:lang="en">View All</value>
@@ -3135,7 +3135,7 @@
 		<value xml:lang="en_GB">View basket</value>
 		<value xml:lang="hi_IN">टोकरी देखें</value>
 		<value xml:lang="ja">買い物かごを見る</value>
-		<value xml:lang="th">แสดงรายการในบัตร</value>
+		<value xml:lang="th">แสดงรายการในตะกร้า</value>
 	</property>
 	<property key="EcommerceViewList">
 		<value xml:lang="en">View List</value>
@@ -3219,7 +3219,7 @@
 		<value xml:lang="en_GB">Your shopping basket is empty</value>
 		<value xml:lang="hi_IN">आपकी ख़रीदारी टोकरी ख़ाली है</value>
 		<value xml:lang="ja">Your shopping cart is empty</value>
-		<value xml:lang="th">ไม่มีข้อมูลในบัตรซื้อสินค้าของคุณ</value>
+		<value xml:lang="th">ไม่มีการซื้อสินค้าลงตะกร้าของคุณ</value>
 	</property>
 	<property key="Factoids">
 		<value xml:lang="cs">Věděli jste ?</value>
@@ -3345,7 +3345,7 @@
 		<value xml:lang="pt_PT">Voltar Ao Cesto De Compras</value>
 		<value xml:lang="ro">Intoarcete la Cosul de Cumparaturi </value>
 		<value xml:lang="ru">Обратно к корзине покупок</value>
-		<value xml:lang="th">กลับสู่หน้าการซื้อสินค้าจากบัตร</value>
+		<value xml:lang="th">กลับสู่หน้าการซื้อสินค้าลงตะกร้า</value>
 		<value xml:lang="zh">返回购物车</value>
 	</property>
 	<property key="OrderBeSureToIncludeYourOrderNb">
@@ -3402,7 +3402,7 @@
 		<value xml:lang="nl">Vak #</value>
 		<value xml:lang="ro">Cutie #</value>
 		<value xml:lang="ru">Ящик №</value>
-		<value xml:lang="th">Box #</value>
+		<value xml:lang="th">กล่อง #</value>
 		<value xml:lang="zh">箱子 #</value>
 	</property>
 	<property key="OrderCOD">
@@ -3736,7 +3736,7 @@
 		<value xml:lang="pt_PT">ERRO:Cesto de compras vazio, por favor recomece.</value>
 		<value xml:lang="ro">EROARE: Carte de Cumparare este goala, Te rugam sa mai incearci</value>
 		<value xml:lang="ru">ОШИБКА: Корзина покупок пуста, пожалуйста, начните с начала</value>
-		<value xml:lang="th">ERROR: ผิดพลาด ! ไม่มีข้อมูลในบัตร, กรุณาเริ่มใหม่</value>
+		<value xml:lang="th">ERROR: ผิดพลาด ! ไม่มีสินค้าในตะกร้า, กรุณาเริ่มใหม่</value>
 		<value xml:lang="zh">错误：购物车是空的，请重新开始</value>
 	</property>
 	<property key="OrderEstimateNextOrderDate">
@@ -5715,7 +5715,7 @@
 		<value xml:lang="pt_PT">Cesto De Compras</value>
 		<value xml:lang="ro">Cos Cumparari</value>
 		<value xml:lang="ru">Корзина покупок</value>
-		<value xml:lang="th">บัตรซื้อสินค้า</value>
+		<value xml:lang="th">การซื้อสินค้าลงตะกร้า</value>
 		<value xml:lang="zh">购物车</value>
 	</property>
 	<property key="PageTitleShoppingList">
@@ -6763,8 +6763,7 @@
 		<value xml:lang="it">Numero Telefono di Casa Contatto è mancante.</value>
 		<value xml:lang="ro">Numar Telefon Casa Contact lipseste.</value>
 		<value xml:lang="ru">Отсутствует домашний контактный телефон.</value>
-		<value xml:lang="th">ไม่ได้ใส่หมายเลขติดต่อที่เป็นเบอร์โทรศัพท์บ้าน
-		</value>
+		<value xml:lang="th">ไม่ได้ใส่หมายเลขติดต่อที่เป็นเบอร์โทรศัพท์บ้าน</value>
 		<value xml:lang="zh">找不到家庭电话号码。</value>
 	</property>
 	<property key="PartyInformationNotBelongToYou">
@@ -7675,7 +7674,7 @@
 		<value xml:lang="pt_PT">Adicionar Produtos desta Categoria para o Cesto usando as Quantidades Pré-definidas</value>
 		<value xml:lang="ro">Adauga produse din aceasta Categorie la Cos folosind Cantitate de Default</value>
 		<value xml:lang="ru">Добавить продукты этой категории в корзину используя обычное количество</value>
-		<value xml:lang="th">เพิ่มสินค้าในหมวดหมู่นี้ลงในบัตรตามจำนวนที่กำหนด</value>
+		<value xml:lang="th">เพิ่มสินค้าในหมวดหมู่นี้ลงตะกร้าตามจำนวนที่กำหนด</value>
 		<value xml:lang="zh">在这个分类中使用缺省数量把产品放入购物车</value>
 	</property>
 	<property key="ProductAddToShoppingList">
