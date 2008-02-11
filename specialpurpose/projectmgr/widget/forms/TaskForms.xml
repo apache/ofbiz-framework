@@ -45,15 +45,7 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field use-when="projectId==null" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}[${workEffortId}](project:${workEffortParentId})">
-                    <entity-constraint name="workEffortTypeId" value="PHASE"/>
-                    <entity-order-by field-name="workEffortParentId"/>
-                </entity-options>        
-            </drop-down>
-        </field>
-        <field use-when="projectId!=null" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
+        <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}[${workEffortId}]">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
@@ -62,7 +54,7 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field use-when="myTask!=null" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
+        <field use-when="myTask!=null" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${phaseName} (Proj:${projectName})">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
@@ -145,7 +137,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="phaseName" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
+        <field name="phaseName" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
