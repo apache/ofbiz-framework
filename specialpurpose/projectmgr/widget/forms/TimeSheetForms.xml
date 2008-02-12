@@ -149,7 +149,7 @@
         <field name="timesheetId"><hidden/></field>
         
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -179,7 +179,7 @@
         </actions>
         <field name="timesheetId" map-name="currentTimesheet"><hidden/></field>
         <field name="partyId" map-name="userLogin"><hidden/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD" >
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -214,7 +214,7 @@
         <field name="timesheetId"><hidden/></field>
         
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
             <drop-down>
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>

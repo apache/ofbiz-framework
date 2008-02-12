@@ -250,7 +250,7 @@ ${virtualJavaScript?if_exists}
     </tr>
   </#if>
 
-  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+  <tr><td colspan="2"><hr/></td></tr>
 
   <#-- Product image/name/price -->
   <tr>
@@ -399,7 +399,7 @@ ${virtualJavaScript?if_exists}
           <#if variantTree?exists && (variantTree.size() > 0)>
             <#list featureSet as currentType>
               <div class="tabletext">
-                <select name="FT${currentType}" class="selectBox" onchange="javascript:getList(this.name, (this.selectedIndex-1), 1);">
+                <select name="FT${currentType}" onchange="javascript:getList(this.name, (this.selectedIndex-1), 1);">
                   <option>${featureTypes.get(currentType)}</option>
                 </select>
               </div>
@@ -442,9 +442,9 @@ ${virtualJavaScript?if_exists}
         <#else>
           <#if inStock>
             <#if product.requireAmount?default("N") == "Y">
-              <#assign hiddenStyle = "tabletext">
+              <#assign hiddenStyle = "visible">
             <#else>
-              <#assign hiddenStyle = "tabletexthidden">
+              <#assign hiddenStyle = "hidden">
             </#if>           
             <div id="add_amount" class="${hiddenStyle}">
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonAmount}:</b></span>&nbsp;
@@ -471,13 +471,13 @@ ${virtualJavaScript?if_exists}
       </form>
     <div class="tabletext">
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
-        <hr class="sepbar"/>
+        <hr/>
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
           <input type="hidden" name="productId" value="${product.productId}"/>
           <input type="hidden" name="product_id" value="${product.productId}"/>
           <input type="hidden" name="productStoreId" value="${productStoreId}"/>
           <input type="hidden" name="reservStart" value= ""/>
-          <select name="shoppingListId" class="selectBox">
+          <select name="shoppingListId">
             <#if shoppingLists?has_content>
               <#list shoppingLists as shoppingList>
                 <option value="${shoppingList.shoppingListId}">${shoppingList.listName}</option>
@@ -567,7 +567,7 @@ ${virtualJavaScript?if_exists}
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
           <div class="tabletext">${uiLabelMap.EcommerceAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.EcommerceRatings})</#if></div>
       </#if>
-      <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+      <tr><td colspan="2"><hr/></td></tr>
       <#if productReviews?has_content>
         <#list productReviews as productReview>
           <#assign postedUserLogin = productReview.getRelatedOne("UserLogin")>
@@ -594,7 +594,7 @@ ${virtualJavaScript?if_exists}
                     <div class="tabletext">${productReview.productReview?if_exists}</div>
                   </td>
                 </tr>
-                <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="3"><hr/></td></tr>
               </table>
         </#list>
         <div>

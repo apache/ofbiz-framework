@@ -60,7 +60,7 @@ under the License.
               <tr>
                 <td class="label" >${uiLabelMap.ProjectMgrWorkEffortAssocTypeId}</td>
                 <td>
-                  <select class="selectBox" name="workEffortAssocTypeId"> 
+                  <select name="workEffortAssocTypeId"> 
                     <#assign WorkEffortAssocTypes = delegator.findAll("WorkEffortAssocType", Static["org.ofbiz.base.util.UtilMisc"].toList("description"))>
                     <#list WorkEffortAssocTypes as WorkEffortAssocType>
                       <option value="${WorkEffortAssocType.workEffortAssocTypeId?if_exists}">${WorkEffortAssocType.description?if_exists}</option>
@@ -112,7 +112,7 @@ under the License.
             <tr>    
               <td class="label" >${uiLabelMap.CommonStatus}</td>
               <td>    
-                <select name="currentStatusId" class="selectBox">
+                <select name="currentStatusId">
                   <#if task?exists>
                     <#assign currentStatus = task.geRelatedOne("CurrentStatusItem")?if_exists>
                     <option SELECTED value="${currentStatus.currentStatusId}">${currentStatus.description}</option>
@@ -143,7 +143,7 @@ under the License.
                  <#if task?has_content>
                    <#assign priority = task.priority?if_exists>      
                  </#if>
-                 <select name="priority" class="selectBox" size="1">
+                 <select name="priority" size="1">
                    <#if priority?exists>          
                      <option SELECTED value="${priority}">${priority}</option>       
                      <option></option>
@@ -175,7 +175,7 @@ under the License.
                <td class="label">${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}</td>
                <td>             
                  <#assign enumerations = delegator.findByAnd("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumTypeId", "WORK_EFF_SCOPE"))>
-                 <select name="scopeEnumId" class="selectBox">
+                 <select name="scopeEnumId">
                    <#if task?exists>
                      <#assign scopeEnumId = task.scopeEnumId?if_exists>            
                      <#list enumerations as enumeration>                    

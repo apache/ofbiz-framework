@@ -285,10 +285,10 @@ under the License.
         </field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
         <field name="idValue" title="UPCA"><display/></field>
-        <field name="minimumOrderQuantity" widget-area-style="tabletextright"><display/></field>
-        <field name="lastPrice" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="minimumOrderQuantity" widget-area-style="align-text"><display/></field>
+        <field name="lastPrice" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="requiredByDate"><display/></field>
-        <field name="quantity" widget-area-style="tabletextright"><display/></field>
+        <field name="quantity" widget-area-style="align-text"><display/></field>
         <field name="comments"><display/></field>
     </form>
     <form name="ApprovedProductRequirements" type="multi" use-row-submit="true" target="quickPurchaseOrderEntry" title="" list-name="requirementsForSupplier"
@@ -310,12 +310,12 @@ under the License.
         </field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
         <field name="idValue" title="UPCA"><display/></field>
-        <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="tabletextright"><display/></field>
-        <field name="lastPrice" widget-area-style="tabletextright"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="align-text"><display/></field>
+        <field name="lastPrice" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="requiredByDate"><display/></field>
-        <field name="atp" title="${uiLabelMap.ProductAtp}" widget-area-style="tabletextright"><display/></field>
-        <field name="qoh" title="${uiLabelMap.ProductQoh}" widget-area-style="tabletextright"><display/></field>
-        <field name="qtySold" title="${uiLabelMap.OrderQuantitySold}" widget-area-style="tabletextright"><display/></field>
+        <field name="atp" title="${uiLabelMap.ProductAtp}" widget-area-style="align-text"><display/></field>
+        <field name="qoh" title="${uiLabelMap.ProductQoh}" widget-area-style="align-text"><display/></field>
+        <field name="qtySold" title="${uiLabelMap.OrderQuantitySold}" widget-area-style="align-text"><display/></field>
         <field name="quantity"><text size="4"/></field>
         <field name="comments"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
@@ -337,7 +337,7 @@ under the License.
         <field name="partyId">
             <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
         </field>
-        <field name="productId" title="${uiLabelMap.OrderVendorRequirementCount}" widget-area-style="tabletextright"><display also-hidden="false"/></field>
+        <field name="productId" title="${uiLabelMap.OrderVendorRequirementCount}" widget-area-style="align-text"><display also-hidden="false"/></field>
         <field name="billToCustomerPartyId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName} ${groupName} (${partyId})" key-field-name="partyId">

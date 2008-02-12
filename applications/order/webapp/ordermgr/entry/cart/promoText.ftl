@@ -31,10 +31,10 @@ under the License.
               </td>
             </tr>
             <#if productPromo_has_next>
-              <tr><td><hr class="sepbar"/></td></tr>
+              <tr><td><hr/></td></tr>
             </#if>
           </#list>
-          <tr><td><hr class="sepbar"/></td></tr>
+          <tr><td><hr/></td></tr>
           <tr>
             <td>
               <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceViewAllPromotions}</a></div>

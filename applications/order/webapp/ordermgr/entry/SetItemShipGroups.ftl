@@ -75,7 +75,7 @@ under the License.
                   </td>
                   <td>
                     <div class="tabletext">
-                    <select name="toGroupIndex_o_${rowCount}" class="selectBox">
+                    <select name="toGroupIndex_o_${rowCount}">
                       <option value="${shipGroupIndex}">---</option>
                       <#list 0..(shoppingCart.getShipGroupSize() - 1) as groupIdx>
                         <#assign groupNumber = groupIdx + 1>

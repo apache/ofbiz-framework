@@ -68,7 +68,7 @@ under the License.
                 </#if>
             </#list>
         </div>
-        <div class="endcolumns"><span> </span></div>
+        <div class="clear"><span> </span></div>
     </div>
 </div>
                 

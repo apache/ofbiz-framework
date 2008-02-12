@@ -401,7 +401,7 @@ under the License.
                                         </container>
                                     </container>                
                                 </container>
-                                <container style="screenlet bothclear">
+                                <container style="screenlet clear">
                                     <container style="screenlet-title-bar">
                                         <container style="head3">
                                             <label text="${uiLabelMap.AccountingTransactions}"/>
@@ -445,7 +445,7 @@ under the License.
                                         </container>
                                     </container>                
                                 </container>
-                                <container style="screenlet bothclear">
+                                <container style="screenlet clear">
                                     <container style="screenlet-title-bar">
                                         <container style="head3">
                                             <label text="${uiLabelMap.AccountingTransactions}"/>

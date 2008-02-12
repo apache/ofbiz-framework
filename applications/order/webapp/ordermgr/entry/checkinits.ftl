@@ -53,7 +53,7 @@ under the License.
           <td >&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>
-              <select class="selectBox" name="productStoreId"<#if sessionAttributes.orderMode?exists> disabled</#if>>
+              <select name="productStoreId"<#if sessionAttributes.orderMode?exists> disabled</#if>>
                 <#assign currentStore = shoppingCartProductStore>
                 <#if defaultProductStore?has_content>
                    <option value="${defaultProductStore.productStoreId}">${defaultProductStore.storeName?if_exists}</option>
@@ -74,7 +74,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>
-              <select class="selectBox" name="salesChannelEnumId">
+              <select name="salesChannelEnumId">
                 <#assign currentChannel = shoppingCartChannelType>
                 <#if defaultSalesChannel?has_content>
                    <option value="${defaultSalesChannel.enumId}">${defaultSalesChannel.description?if_exists}</option>
@@ -155,7 +155,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>
-              <select class="selectBox" name="billToCustomerPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
+              <select name="billToCustomerPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
                 <#list organizations as organization>
                   <#assign organizationName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(organization, true)/>
                     <#if (organizationName.length() != 0)>
@@ -172,7 +172,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>
-              <select class="selectBox" name="supplierPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
+              <select name="supplierPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
                 <option value="">${uiLabelMap.PartyNoSupplier}</option>
                 <#list suppliers as supplier>
                   <option value="${supplier.partyId}"<#if supplier.partyId == thisPartyId> selected</#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>

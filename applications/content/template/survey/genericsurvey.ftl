@@ -35,7 +35,7 @@ under the License.
 <#macro renderSurveyQuestionInput surveyQuestionAndAppl questionFieldName>
   <#if surveyQuestionAndAppl.surveyQuestionTypeId == "BOOLEAN">
     <#assign selectedOption = (answer.booleanResponse)?default("Y")>
-    <select class="selectBox" name="${questionFieldName}">
+    <select name="${questionFieldName}">
       <#if surveyQuestionAndAppl.requiredField?default("N") != "Y">
         <option value=""></option>
       </#if>
@@ -75,7 +75,7 @@ under the License.
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION"/>
     <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", sequenceSort)?if_exists/>
     <#assign selectedOption = (answer.surveyOptionSeqId)?default("_NA_")/>
-    <select class="selectBox" name="${questionFieldName}">
+    <select name="${questionFieldName}">
       <#if surveyQuestionAndAppl.requiredField?default("N") != "Y">
         <option value=""></option>
       </#if>
@@ -88,7 +88,7 @@ under the License.
       </#if>
     </select>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "ENUMERATION"/>
-    <select class="selectBox" name="${questionFieldName}">
+    <select name="${questionFieldName}">
     <#assign formatString = surveyQuestionAndAppl.get("formatString")?if_exists/>
     <#assign enums = surveyQuestionAndAppl.getRelated("Enumeration")/>
     <#list enums as enum>
@@ -106,7 +106,7 @@ under the License.
     </#list>
     </select>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "GEO"/>
-    <select class="selectBox" name="${questionFieldName}">
+    <select name="${questionFieldName}">
     <#assign formatString = surveyQuestionAndAppl.get("formatString")?if_exists/>
     <#assign parentGeoId = surveyQuestionAndAppl.get("geoId")?if_exists/>
     <#assign geos = Static["org.ofbiz.common.geo.GeoWorker"].expandGeoGroup(parentGeoId, delegator)>
@@ -125,14 +125,14 @@ under the License.
     </#list>
     </select>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "STATE_PROVINCE"/>
-    <select class="selectBox" name="${questionFieldName}">
+    <select name="${questionFieldName}">
     <#assign states = Static["org.ofbiz.common.CommonWorkers"].getStateList(delegator)>
     <#list states as state>
         <option value='${state.geoId}'>${state.geoName?default(state.geoId)}</option>
     </#list>
     </select>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "COUNTRY"/>
-    <select class="selectBox" name="${questionFieldName}">
+    <select name="${questionFieldName}">
     <#assign countries = Static["org.ofbiz.common.CommonWorkers"].getCountryList(delegator)>
     <#list countries as country>
         <option value='${country.geoId}'>${country.get("geoName",locale)?default(country.geoId)}</option>
@@ -276,7 +276,7 @@ under the License.
       <#if surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_TEXT">
         <td colspan="5"><div class="tabletext">${surveyQuestionAndAppl.question?if_exists}</div></td>
       <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_LINE"/>
-        <td colspan="5"><hr class="sepbar"/></td>
+        <td colspan="5"><hr/></td>
       <#else/>
         <#-- standard question options -->
         <td align="right">

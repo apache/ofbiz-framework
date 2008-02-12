@@ -30,7 +30,7 @@ under the License.
             <td align="left" valign="bottom"><div class="tableheadtext">${roleData[role].get("description",locale)}</div></td>
           </tr>
           <tr>
-            <td colspan="4"><hr class="sepbar"/></td>
+            <td colspan="4"><hr/></td>
           </tr>
           <#list additionalPartyRoleMap[role] as party>
             <tr>

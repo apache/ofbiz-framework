@@ -65,7 +65,7 @@ under the License.
                   </td>
                 </tr>
                 <#if note_has_next>          
-                  <tr><td colspan="3"><hr class="sepbar"></td></tr>
+                  <tr><td colspan="3"><hr></td></tr>
                 </#if>
               </#list>
             </table>
@@ -108,7 +108,7 @@ under the License.
               </tr>
               <tr>
                 <td/><td class="tabletext">${uiLabelMap.OrderInternalNote} :
-                  <select class="selectBox" name="internalNote" size="1"><option value=""></option><option value="Y" selected>${uiLabelMap.CommonYes}</option><option value="N">${uiLabelMap.CommonNo}</option></select></td>
+                  <select name="internalNote" size="1"><option value=""></option><option value="Y" selected>${uiLabelMap.CommonYes}</option><option value="N">${uiLabelMap.CommonNo}</option></select></td>
               </tr>
               <tr>
 	            <td/><td class="tabletext"><i>${uiLabelMap.OrderInternalNoteMessage}</i></td>

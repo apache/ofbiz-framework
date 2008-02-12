@@ -25,7 +25,7 @@ under the License.
       </td>
       <td align="right">
         <form name="choosequickaddform" method="post" action="<@ofbizUrl>quickadd</@ofbizUrl>" style='margin: 0;'>
-          <select name='category_id' class='selectBox'>
+          <select name='category_id'>
             <option value='${productCategory.productCategoryId}'>${productCategory.description?if_exists}</option>
             <option value='${productCategory.productCategoryId}'>--</option>
             <#list quickAddCats as quickAddCatalogId>

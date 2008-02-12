@@ -25,7 +25,7 @@ under the License.
     </#list>
     <div>
         <span class="tableheadtext">${uiLabelMap.PartyTaxAddInfo}:</span>
-        <select name="taxAuthPartyGeoIds" class="selectBox">
+        <select name="taxAuthPartyGeoIds">
           <option></option>
           <#list taxAuthorityAndDetailList as taxAuthorityAndDetail>
             <option value="${taxAuthorityAndDetail.taxAuthPartyId}::${taxAuthorityAndDetail.taxAuthGeoId}">[${taxAuthorityAndDetail.geoCode}] ${taxAuthorityAndDetail.geoName} (${taxAuthorityAndDetail.groupName?if_exists})</option>

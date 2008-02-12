@@ -470,14 +470,14 @@ under the License.
         
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+        <field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}">
             <drop-down>
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" use-when="communicationEvent!=null" title="${uiLabelMap.CommonStatus}" widget-style="selectBox">
+        <field name="statusId" use-when="communicationEvent!=null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${communicationEvent.statusId}"/>
@@ -696,7 +696,7 @@ under the License.
         
         <field name="workEffortId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -728,7 +728,7 @@ under the License.
         </field>
         
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -758,7 +758,7 @@ under the License.
         <field name="timesheetId"><lookup size="10" target-form-name="LookupTimesheet"/></field>
         
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}" widget-style="selectBox">
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>

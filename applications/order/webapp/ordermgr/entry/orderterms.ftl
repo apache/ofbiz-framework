@@ -79,7 +79,7 @@ under the License.
                     </td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                       <select name="termTypeId" class="selectBox">
+                       <select name="termTypeId">
                           <#if termTypes?has_content>
                                <option value=""/>
                              <#list termTypes as termType>

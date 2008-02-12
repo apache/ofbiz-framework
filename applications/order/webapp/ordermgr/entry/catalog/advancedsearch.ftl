@@ -61,7 +61,7 @@ under the License.
         </td>
         <td valign="middle">
           <div class="tabletext">
-            <select class="selectBox" name="pft_${productFeatureTypeId}">
+            <select name="pft_${productFeatureTypeId}">
               <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
               <#list productFeatures as productFeature>
               <option value="${productFeature.productFeatureId}">${productFeature.get("description",locale)?default(productFeature.productFeatureId)}</option>
@@ -77,7 +77,7 @@ under the License.
       </td>
       <td valign="middle">
         <div class="tabletext">
-          <select name="SEARCH_SUPPLIER_ID" class="selectBox">
+          <select name="SEARCH_SUPPLIER_ID">
             <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
             <#list supplerPartyRoleAndPartyDetails as supplerPartyRoleAndPartyDetail>
               <option value="${supplerPartyRoleAndPartyDetail.partyId}"<#if (sessionAttributes.orderPartyId?exists & sessionAttributes.orderPartyId = supplerPartyRoleAndPartyDetail.partyId)> selected</#if>>${supplerPartyRoleAndPartyDetail.groupName?if_exists} ${supplerPartyRoleAndPartyDetail.firstName?if_exists} ${supplerPartyRoleAndPartyDetail.lastName?if_exists} [${supplerPartyRoleAndPartyDetail.partyId}]</option>
@@ -92,7 +92,7 @@ under the License.
       </td>
       <td valign="middle">
         <div class="tabletext">
-          <select name="sortOrder" class="selectBox">
+          <select name="sortOrder">
             <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevency}</option>
             <option value="SortProductField:productName">${uiLabelMap.ProductProductName}</option>
             <option value="SortProductField:internalName">${uiLabelMap.ProductInternalName}</option>
@@ -135,7 +135,7 @@ under the License.
   </table>
   
   <#if searchOptionsHistoryList?has_content>
-    <hr class="sepbar"/>
+    <hr/>
   
     <h2>${uiLabelMap.EcommerceLastSearches}...</h2>
   
@@ -155,7 +155,7 @@ under the License.
           <div class="tabletext">&nbsp;-&nbsp;${constraintString}</div>
         </#list>
         <#if searchOptions_has_next>
-          <hr class="sepbar"/>
+          <hr/>
         </#if>
     </#list>
   </#if>

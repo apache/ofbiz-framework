@@ -107,7 +107,7 @@ function submitForm(form, mode, value) {
                     </td>
                   </tr>
                   <#if (shoppingCart.getTotalQuantity() > 1) && !shoppingCart.containAllWorkEffortCartItems()> <#-- no splitting when only rental items -->
-                    <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                    <tr><td colspan="2"><hr/></td></tr>
                     <tr>
                       <td colspan="2" align="center">
                         <a href="<@ofbizUrl>splitship</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderSplitIntoMultipleShipments}</a>
@@ -118,7 +118,7 @@ function submitForm(form, mode, value) {
                     </tr>
                   </#if>
                    <#if shippingContactMechList?has_content>
-                     <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                     <tr><td colspan="2"><hr/></td></tr>
                      <#list shippingContactMechList as shippingContactMech>
                        <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                        <tr>
@@ -140,7 +140,7 @@ function submitForm(form, mode, value) {
                          </td>
                        </tr>
                        <#if shippingContactMech_has_next>
-                         <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                         <tr><td colspan="2"><hr/></td></tr>
                        </#if>
                      </#list>
                    </#if>
@@ -148,7 +148,7 @@ function submitForm(form, mode, value) {
                  
                 <#-- Party Tax Info -->
                 <#-- commented out by default because the TaxAuthority drop-down is just too wide...
-                <hr class="sepbar"/>
+                <hr/>
                 <div class="tableheadtext">&nbsp;${uiLabelMap.PartyTaxIdentification}</div>
                 ${screens.render("component://order/widget/ordermgr/OrderEntryOrderScreens.xml#customertaxinfo")}
                 -->
@@ -195,7 +195,7 @@ function submitForm(form, mode, value) {
                       </td>
                     </tr>
                   </#if>
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="2"><hr/></td></tr>
                   <tr>
                     <td colspan="2">
                       <h2>${uiLabelMap.OrderShipAllAtOnce}?</h2>
@@ -217,7 +217,7 @@ function submitForm(form, mode, value) {
                       <div class="tabletext">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</div>
                     </td>
                   </tr>
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="2"><hr/></td></tr>
                  <#else/>
                     <input type="hidden" name="shipping_method" value="NO_SHIPPING@_NA_"/>
                     <input type="hidden" name="may_split" value="false"/>
@@ -235,7 +235,7 @@ function submitForm(form, mode, value) {
                   </tr>
                  <#if shipping == true>
                   <#if productStore.showCheckoutGiftOptions?if_exists != "N">
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="2"><hr/></td></tr>
                   <tr>
                     <td colspan="2">
                       <div>
@@ -245,7 +245,7 @@ function submitForm(form, mode, value) {
                       </div>
                     </td>
                   </tr>
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="2"><hr/></td></tr>
                   <tr>
                     <td colspan="2">
                       <h2>${uiLabelMap.OrderGiftMessage}</h2>
@@ -260,7 +260,7 @@ function submitForm(form, mode, value) {
                   <input type="hidden" name="is_gift" value="false"/>
                   </#if>
                  </#if>
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="2"><hr/></td></tr>
                   <tr>
                     <td colspan="2">
                       <h2>${uiLabelMap.PartyEmailAddresses}</h2>
@@ -309,13 +309,13 @@ function submitForm(form, mode, value) {
                       </#if>
                     </td>
                   </tr>
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="2"><hr/></td></tr>
                   <tr>
                     <td colspan="2" align="center">
                       <a href="javascript:submitForm(document.checkoutInfoForm, 'SP', '');" class="buttontext">${uiLabelMap.AccountingSplitPayment}</a>
                     </td>
                   </tr>
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="2"><hr/></td></tr>
                   <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE?exists>
                   <tr>
                     <td width="1%">
@@ -356,7 +356,7 @@ function submitForm(form, mode, value) {
                     </td>
                   </tr>
                   </#if>
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="2"><hr/></td></tr>
 
                   <#-- financial accounts -->
                   <#list finAccounts as finAccount>
@@ -447,7 +447,7 @@ function submitForm(form, mode, value) {
                 <#-- special billing account functionality to allow use w/ a payment method -->
                 <#if productStorePaymentMethodTypeIdMap.EXT_BILLACT?exists>
                   <#if billingAccountList?has_content>
-                    <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                    <tr><td colspan="2"><hr/></td></tr>
                     <tr>
                       <td width="1%">
                         <select name="billingAccountId">
@@ -476,7 +476,7 @@ function submitForm(form, mode, value) {
                 <#-- end of special billing account functionality -->
 
                 <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
-                  <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="2"><hr/></td></tr>
                   <tr>
                     <td width="1%">
                       <input type="checkbox" name="addGiftCard" value="Y"/>

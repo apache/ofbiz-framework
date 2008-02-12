@@ -73,7 +73,7 @@ under the License.
                   -&nbsp;<input type="text" class="inputBox" name="homeContactNumber" value="${requestParameters.homeContactNumber?if_exists}" size="15" maxlength="15"/>*
                   &nbsp;ext&nbsp;<input type="text" class="inputBox" name="homeExt" value="${requestParameters.homeExt?if_exists}" size="6" maxlength="10"/>
                   <BR>
-                  <select name="homeSol" class="selectBox">
+                  <select name="homeSol">
                     <#if (((requestParameters.homeSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.homeSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
@@ -91,7 +91,7 @@ under the License.
                   -&nbsp;<input type="text" class="inputBox" name="workContactNumber" value="${requestParameters.CUSTOMER_WORK_CONTACT?if_exists}" size="15" maxlength="15"/>
                   &nbsp;ext&nbsp;<input type="text" class="inputBox" name="workExt" value="${requestParameters.CUSTOMER_WORK_EXT?if_exists}" size="6" maxlength="10"/>
                   <BR>
-                  <select name="workSol" class="selectBox">
+                  <select name="workSol">
                     <#if (((requestParameters.workSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.workSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
@@ -109,7 +109,7 @@ under the License.
                 <td width="74%">
                   <input type="text" class="inputBox" name="emailAddress" value="" size="60" maxlength="255">
                   <BR>
-                  <select name="emailSol" class="selectBox">
+                  <select name="emailSol">
                     <#if (((requestParameters.emailSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.emailSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>

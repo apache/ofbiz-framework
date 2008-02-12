@@ -35,7 +35,7 @@ under the License.
       </table>
 
       <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
-        <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+        <tr><td colspan="3"><hr/></td></tr>
 
         <#-- postal addresses for chosen id -->
 
@@ -64,7 +64,7 @@ under the License.
                   </div>
                 </td>
               </tr>
-              <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="3"><hr/></td></tr>
             </#if>
           </#list>
         </#if>

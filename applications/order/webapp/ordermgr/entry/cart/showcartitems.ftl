@@ -40,7 +40,7 @@ under the License.
             <div class="tabletext">
               <b>${uiLabelMap.ProductProduct}</b>
               <#if showOrderGiftWrap?default("true") == "true">
-                  <select class="selectBox" name="GWALL" onchange="javascript:gwAll(this);">
+                  <select name="GWALL" onchange="javascript:gwAll(this);">
                     <option value="">${uiLabelMap.OrderGiftWrapAllItems}</option>
                     <option value="NO^">${uiLabelMap.OrderNoGiftWrap}</option>
                     <#if allgiftWraps?has_content>
@@ -63,7 +63,7 @@ under the License.
         <#list shoppingCart.items() as cartLine>
           <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
           <#assign lineOptionalFeatures = cartLine.getOptionalProductFeatures()>
-          <tr><td colspan="8"><hr class="sepbar"></td></tr>
+          <tr><td colspan="8"><hr></td></tr>
           <tr valign="top">
             <td>&nbsp;</td>         
             <td>
@@ -155,7 +155,7 @@ under the License.
                   <td align="left">
                     <div class="tabletext">
                       ${uiLabelMap.OrderOrderItemType}:
-                      <select name="itemType_${cartLineIndex}" class="selectBox">
+                      <select name="itemType_${cartLineIndex}">
                         <#if currentOrderItemType?has_content>
                         <option value="${currentOrderItemType.orderItemTypeId}">${currentOrderItemType.get("description",locale)}</option>
                         <option value="${currentOrderItemType.orderItemTypeId}">---</option>
@@ -213,14 +213,14 @@ under the License.
               <#assign giftWrapOption = lineOptionalFeatures.GIFT_WRAP?if_exists>
               <#assign selectedOption = cartLine.getAdditionalProductFeatureAndAppl("GIFT_WRAP")?if_exists>
               <#if giftWrapOption?has_content>
-                <select class="selectBox" name="option^GIFT_WRAP_${cartLineIndex}" onchange="javascript:document.cartform.submit()">
+                <select name="option^GIFT_WRAP_${cartLineIndex}" onchange="javascript:document.cartform.submit()">
                   <option value="NO^">${uiLabelMap.OrderNoGiftWrap}</option>
                   <#list giftWrapOption as option>
                     <option value="${option.productFeatureId}" <#if ((selectedOption.productFeatureId)?exists && selectedOption.productFeatureId == option.productFeatureId)>SELECTED</#if>>${option.description} : <@ofbizCurrency amount=option.amount?default(0) isoCode=currencyUomId/></option>
                   </#list>
                 </select>
               <#elseif showNoGiftWrapOptions>
-                <select class="selectBox" name="option^GIFT_WRAP_${cartLineIndex}" onchange="javascript:document.cartform.submit()">
+                <select name="option^GIFT_WRAP_${cartLineIndex}" onchange="javascript:document.cartform.submit()">
                   <option value="">${uiLabelMap.OrderNoGiftWrap}</option>
                 </select>
               <#else>
@@ -253,7 +253,7 @@ under the License.
         </#list>
 
         <#if shoppingCart.getAdjustments()?has_content>
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
               <tr>
                 <td colspan="4" nowrap align="right"><div class="tabletext">${uiLabelMap.OrderSubTotal}:</div></td>
                 <td nowrap align="right"><div class="tabletext"><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=currencyUomId/></div></td>
@@ -279,7 +279,7 @@ under the License.
             <div class="tabletext"><b>${uiLabelMap.OrderCartTotal}:</b></div>
           </td>
           <td align="right" valign="bottom">
-            <hr class="sepbar"/>
+            <hr/>
             <div class="tabletext"><b><@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=currencyUomId/></b></div>
           </td>
         </tr>       

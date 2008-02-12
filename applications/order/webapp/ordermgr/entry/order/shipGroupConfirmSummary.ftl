@@ -56,7 +56,7 @@ standard order confirmation page and to be re-usable by other screens.
       <#if (numberOfItems > 0)>
 
       <#-- spacer goes here -->
-      <tr><td colspan="5"><hr class="sepbar"/></td></tr>
+      <tr><td colspan="5"><hr/></td></tr>
 
       <tr>
 

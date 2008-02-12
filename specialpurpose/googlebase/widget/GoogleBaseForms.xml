@@ -33,7 +33,7 @@ under the License.
         </field>
         <field name="webSiteUrl"><text size="50" maxlength="250"/></field>
         <field name="webSiteMountPoint"><text size="30" maxlength="30" default-value="ecommerce"/></field>
-        <field name="actionType" widget-style="selectBox">
+        <field name="actionType">
             <drop-down no-current-selected-key="insert">
                 <option key="insert" description="${uiLabelMap.CommonInsert}"/>
                 <option key="update" description="${uiLabelMap.CommonUpdate}"/>

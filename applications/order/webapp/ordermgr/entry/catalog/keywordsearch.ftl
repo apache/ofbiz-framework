@@ -32,7 +32,7 @@ under the License.
     <div class="product-prevnext">
         <#-- Start Page Select Drop-Down -->
         <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
-        <select name="pageSelect" class="selectBox" onchange="window.location=this[this.selectedIndex].value;">
+        <select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
           <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int + 1} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
           <#list 0..viewIndexMax as curViewNum>
             <option value="<@ofbizUrl>keywordsearch/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${curViewNum?int}/~clearSearch=N</@ofbizUrl>">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
@@ -67,7 +67,7 @@ under the License.
     <div class="product-prevnext">
         <#-- Start Page Select Drop-Down -->
         <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
-        <select name="pageSelect" class="selectBox" onchange="window.location=this[this.selectedIndex].value;">
+        <select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
           <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int + 1} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
           <#list 0..viewIndexMax as curViewNum>
             <option value="<@ofbizUrl>keywordsearch/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${curViewNum?int}/~clearSearch=N</@ofbizUrl>">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>

@@ -26,7 +26,7 @@ under the License.
         <#list productPromosAllShowable as productPromo>
             <div class="tabletext"><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a> ${productPromo.promoText}</div>
             <#if productPromo_has_next>
-                <hr class="sepbar"/>
+                <hr/>
             </#if>
         </#list>
     </div>

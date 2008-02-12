@@ -35,7 +35,7 @@ under the License.
 </#if>
 <#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)?if_exists>
 <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", supplierPartyId))?if_exists />
-<hr class="sepbar"/>
+<hr/>
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td colspan="2">
