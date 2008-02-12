@@ -164,8 +164,12 @@ under the License.
                                                 <include-form name="MyTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                             </widgets>
                                             <fail-widgets>
+                                                <container>
                                                 <label style="head3" text="${uiLabelMap.ProjectMgrTaskNoOpen1}"></label>
+                                                </container>
+                                                <container>
                                                 <label style="head3" text="${uiLabelMap.ProjectMgrTaskNoOpen2}"></label>
+                                                </container>
                                             </fail-widgets>
                                         </section>
                                     </container>
