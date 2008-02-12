@@ -21,7 +21,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.OrderSendConfirmationEmail}</li>
+        <li class="h3">${uiLabelMap.OrderSendConfirmationEmail}</li>
       </ul>
       <br class="clear"/>
     </div>

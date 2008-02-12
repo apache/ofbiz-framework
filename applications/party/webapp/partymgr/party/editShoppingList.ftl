@@ -21,7 +21,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PartyShoppingLists}</li>
+      <li class="h3">${uiLabelMap.PartyShoppingLists}</li>
       <li><a href="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>?partyId=${partyId?if_exists}">${uiLabelMap.CommonCreateNew}</a></li>
     </ul>
     <br class="clear"/>
@@ -50,7 +50,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PartyShoppingListDetail} - ${shoppingList.listName}</li>
+      <li class="h3">${uiLabelMap.PartyShoppingListDetail} - ${shoppingList.listName}</li>
       <li><a href="javascript:document.updateList.submit();">${uiLabelMap.CommonSave}</a></li>
       <li><a href="/ordermgr/control/createQuoteFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}&applyStorePromotions=N">${uiLabelMap.PartyCreateNewQuote}</a></li>
       <li><a href="/ordermgr/control/createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}">${uiLabelMap.PartyCreateNewCustRequest}</a></li>
@@ -128,7 +128,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PartyChildShoppingList} - ${shoppingList.listName}</li>
+      <li class="h3">${uiLabelMap.PartyChildShoppingList} - ${shoppingList.listName}</li>
       <li><a href="<@ofbizUrl>addListToCart?shoppingListId=${shoppingList.shoppingListId}&includeChild=yes</@ofbizUrl>">${uiLabelMap.PartyAddChildListsToCart}</a></li>
     </ul>
     <br class="clear"/>
@@ -157,7 +157,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PartyListItems} - ${shoppingList.listName}</li>
+      <li class="h3">${uiLabelMap.PartyListItems} - ${shoppingList.listName}</li>
         <#-- <li><a href="<@ofbizUrl>addListToCart?shoppingListId=${shoppingList.shoppingListId}</@ofbizUrl>">${uiLabelMap.PartyAddListToCart}</a></li> -->
     </ul>
     <br class="clear"/>

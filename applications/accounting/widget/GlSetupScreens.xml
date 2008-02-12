@@ -42,7 +42,7 @@ under the License.
                             </widgets>
                         </section>
                         <container>
-                            <label style="head1">${labelTitleProperty} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
+                            <label style="h1">${labelTitleProperty} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
                         </container>
                         <decorator-section-include name="body"/>
                     </decorator-section>
@@ -75,7 +75,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAvailableInternalOrganizations}"/>
                                 </container>
                             </container>
@@ -108,7 +108,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingChartOfAcctsMenu}"/>
                                 </container>
                             </container>
@@ -122,7 +122,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingChartOfAcctsMenu}"/>
                                 </container>
                             </container>
@@ -170,7 +170,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingOpenTimePeriods}"/>
                                 </container>
                             </container>
@@ -184,7 +184,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingClosedTimePeriods}"/>
                                 </container>
                             </container>
@@ -198,7 +198,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.CommonNew}"/>
                                 </container>
                             </container>
@@ -233,7 +233,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingPreference}"/>
                                 </container>
                             </container>
@@ -273,7 +273,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFX}"/>
                                 </container>
                             </container>
@@ -287,7 +287,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingUpdateFX}"/>
                                 </container>
                             </container>
@@ -319,7 +319,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingGlJournals}"/>
                                 </container>
                             </container>
@@ -333,7 +333,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingGlJournals}"/>
                                 </container>
                             </container>
@@ -366,7 +366,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingGlAccountTypeDefaults}"/>
                                 </container>
                             </container>
@@ -380,7 +380,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.CommonAdd}"/>
                                 </container>
                             </container>
@@ -412,7 +412,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingSalesInvoiceToRevenue}"/>
                                 </container>
                             </container>
@@ -426,7 +426,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAssignSalesInvoiceToRevenue}"/>
                                 </container>
                             </container>
@@ -458,7 +458,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingPurchaseInvoiceToRevenue}"/>
                                 </container>
                             </container>
@@ -472,7 +472,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAssignPurchaseInvoiceToRevenue}"/>
                                 </container>
                             </container>
@@ -503,7 +503,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingPaymentTypeAssigmentList}"/>
                                 </container>
                             </container>
@@ -517,7 +517,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingPaymentTypeAssignAccountType}"/>
                                 </container>
                             </container>
@@ -548,7 +548,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingPaymentMethodAssigmentList}"/>
                                 </container>
                             </container>
@@ -562,7 +562,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingPaymentMethodAssignAccountType}"/>
                                 </container>
                             </container>
@@ -606,7 +606,7 @@ under the License.
                     <decorator-section name="body">
                        <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingProductGlAccount}"/>
                                 </container>
                             </container>
@@ -620,7 +620,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductAddGlAccount}"/>
                                 </container>
                             </container>
@@ -665,7 +665,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFinAccountTypeGlAccount}"/>
                                 </container>
                             </container>
@@ -679,7 +679,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAddFinAccountTypeGlAccount}"/>
                                 </container>
                             </container>
@@ -725,7 +725,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingProductCategoryGlAccount}"/>
                                 </container>
                             </container>
@@ -739,7 +739,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductAddCategoryGlAccount}"/>
                                 </container>
                             </container>
@@ -781,7 +781,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>
                                 </container>
                             </container>
@@ -795,7 +795,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>
                                 </container>
                             </container>
@@ -835,7 +835,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingCreditCardTypeGlAccount}"/>
                                 </container>
                             </container>
@@ -849,7 +849,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingCreditCardTypeGlAccount}"/>
                                 </container>
                             </container>
@@ -892,7 +892,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>
                                 </container>
                             </container>
@@ -906,7 +906,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAddTaxAuthorityGlAccount}"/>
                                 </container>
                             </container>
@@ -947,7 +947,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditPartyGlAccounts}"/>
                                 </container>
                             </container>
@@ -961,7 +961,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAddPartyGlAccount}"/>
                                 </container>
                             </container>

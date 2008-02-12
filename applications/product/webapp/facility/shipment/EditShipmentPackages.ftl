@@ -21,7 +21,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.PageTitleEditShipmentPackages}</li>
+            <li class="h3">${uiLabelMap.PageTitleEditShipmentPackages}</li>
         </ul>
         <br class="clear"/>
     </div>
@@ -191,7 +191,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductShipmentNotFoundId} : [${shipmentId?if_exists}]</li>
+            <li class="h3">${uiLabelMap.ProductShipmentNotFoundId} : [${shipmentId?if_exists}]</li>
         </ul>
         <br class="clear"/>
     </div>

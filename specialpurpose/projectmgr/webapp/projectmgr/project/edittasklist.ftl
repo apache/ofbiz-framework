@@ -21,9 +21,9 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <#if task?has_content>
-        <li class="head3">&nbsp;${uiLabelMap.PageTitleEditTask}&nbsp;#${task.workEffortId?if_exists} ${uiLabelMap.CommonInformation}</li>
+        <li class="h3">&nbsp;${uiLabelMap.PageTitleEditTask}&nbsp;#${task.workEffortId?if_exists} ${uiLabelMap.CommonInformation}</li>
       <#else>
-        <li class="head3">&nbsp;${uiLabelMap.PageTitleAddTask}</li>
+        <li class="h3">&nbsp;${uiLabelMap.PageTitleAddTask}</li>
       </#if>
     </ul>
     <br class="clear" />
@@ -47,7 +47,7 @@ under the License.
           </tr>
           <#if task?has_content> 
             <tr>
-              <td><div class="head1">${uiLabelMap.PageTitleAddTask}</div></td>
+              <td><div class="h1">${uiLabelMap.PageTitleAddTask}</div></td>
               <td><div class="headtext">${uiLabelMap.WorkEffortAssociatedFromParentToChild}</div></td>   
               </tr>
               <tr>

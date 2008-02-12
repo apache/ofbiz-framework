@@ -50,7 +50,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleFindSegmentGroup}"/>
                                         </container>
                                     </container>
@@ -65,7 +65,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -103,7 +103,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.MarketingViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.MarketingViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -130,7 +130,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditSegmentGroup}"/>
                                 </container>
                             </container>
@@ -178,7 +178,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleListSegmentGroupClass}"/>
                                         </container>
                                     </container>
@@ -192,7 +192,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.SegmentGroupClassCreate}"/>
                                         </container>
                                     </container>
@@ -206,7 +206,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -244,7 +244,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleListSegmentGroupGeo}"/>
                                         </container>
                                     </container>
@@ -258,7 +258,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditSegmentGroupGeo}"/>
                                         </container>
                                     </container>
@@ -272,7 +272,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -310,7 +310,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleListSegmentGroupRole}"/>
                                         </container>
                                     </container>
@@ -324,7 +324,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditSegmentGroupRole}"/>
                                         </container>
                                     </container>
@@ -338,7 +338,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.SegmentGroupMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>

@@ -32,7 +32,7 @@ function lookupShipments() {
 <div id="findOrders" class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductFindShipment}</li>
+            <li class="h3">${uiLabelMap.ProductFindShipment}</li>
             <#if requestParameters.facilityId?has_content>
                 <li><a href="<@ofbizUrl>quickShipOrder?facilityId=${requestParameters.facilityId}</@ofbizUrl>">${uiLabelMap.ProductQuickShipOrder}</a></li>
             </#if>
@@ -149,7 +149,7 @@ function lookupShipments() {
 <div id="findOrders" class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductShipmentsFound}</li>
+            <li class="h3">${uiLabelMap.ProductShipmentsFound}</li>
             <#if 0 < shipmentList?size>             
                 <#if (shipmentList?size > highIndex)>
                     <li><a class="nav-next" href="<@ofbizUrl>FindShipment?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}${paramList}&amp;lookupFlag=Y</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>

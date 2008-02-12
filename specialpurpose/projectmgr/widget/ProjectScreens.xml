@@ -36,7 +36,7 @@ under the License.
                     <decorator-section name="body">                                                                                                                
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListSubProjects}"/>
                                 </container>
                             </container>
@@ -50,7 +50,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddSubProject}"/>
                                 </container>
                             </container>
@@ -88,7 +88,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleListResources}"/>
                                         </container>
                                     </container>
@@ -102,7 +102,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddResource}"/>
                                         </container>
                                     </container>
@@ -139,7 +139,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}"/>
                                         </container>
                                     </container>
@@ -153,7 +153,7 @@ under the License.
                                 </container>       
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}"/>
                                         </container>
                                     </container>
@@ -190,7 +190,7 @@ under the License.
                     <decorator-section name="body">  
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}"/>
                                 </container>
                             </container>
@@ -222,7 +222,7 @@ under the License.
                     <decorator-section name="body">  
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleHoursNotYetBilled} ${uiLabelMap.CommonInformation}"/>
                                 </container>
                             </container>
@@ -255,7 +255,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleTreeWorkEfforts}"/>
                                 </container>
                             </container>
@@ -314,7 +314,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
+                        <container><label style="h1">${uiLabelMap.${titleProperty}}</label></container>
                         <platform-specific>
                             <html><html-template location="component://projectmgr/webapp/projectmgr/project/editprojectandassoc.ftl"/></html>
                         </platform-specific>
@@ -348,7 +348,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.${titleProperty}}"/>
                                 </container>
                             </container>
@@ -363,7 +363,7 @@ under the License.
                         <container style="lefthalf">
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head3">
+                                    <container style="h3">
                                         <label text="${uiLabelMap.PageTitleAddTask}"/>
                                     </container>
                                 </container>
@@ -373,7 +373,7 @@ under the License.
                                             <if-empty field-name="phases"/>
                                         </condition>
                                         <widgets>    
-                                            <label style="head3" text="${uiLabelMap.ProjectMgrNoPhasesYet}"/>
+                                            <label style="h3" text="${uiLabelMap.ProjectMgrNoPhasesYet}"/>
                                         </widgets>
                                         <fail-widgets>    
                                             <include-form name="AddProjectTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
@@ -385,7 +385,7 @@ under the License.
                         <container style="righthalf">
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head3">
+                                    <container style="h3">
                                         <label text="${uiLabelMap.PageTitleAddPhase}"/>
                                     </container>
                                 </container>
@@ -425,7 +425,7 @@ under the License.
                             </condition>
                             <!-- Add a new Task -->
                             <widgets>
-                                <label style="head1">${uiLabelMap.PageTitleEditTask}</label>
+                                <label style="h1">${uiLabelMap.PageTitleEditTask}</label>
                                 <platform-specific>
                                     <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittask.ftl"/></html>
                                 </platform-specific>                                 
@@ -446,8 +446,8 @@ under the License.
                                     <!-- Edit an existing SubTask -->
                                     <fail-widgets>
                                         <container><link  text="${uiLabelMap.CommonGoBack}" target="FindTask?workEffortId=${task.workEffortParentId}&amp;workEffortTypeId=TASK" style="buttontext"/></container>
-                                        <label style="head1">${uiLabelMap.ProjectMgrSubTaskName}: ${task.workEffortName}</label>
-                                        <container><label style="head1">${uiLabelMap.PageTitleEditSubTask}</label></container>
+                                        <label style="h1">${uiLabelMap.ProjectMgrSubTaskName}: ${task.workEffortName}</label>
+                                        <container><label style="h1">${uiLabelMap.PageTitleEditSubTask}</label></container>
                                         <platform-specific>
                                             <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskandassoc.ftl"/></html>
                                         </platform-specific>                                        
@@ -482,7 +482,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.${titleProperty}}"/>
                                         </container>
                                     </container>
@@ -496,7 +496,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddPhase}"/>
                                         </container>
                                     </container>
@@ -532,7 +532,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListPartyAssigns}"/>
                                 </container>
                             </container>
@@ -546,7 +546,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddPartyAssign}"/>
                                 </container>
                             </container>
@@ -583,7 +583,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.${titleProperty}}"/>
                                         </container>
                                     </container>
@@ -647,7 +647,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.${titleProperty}} ${workEffortId}"/>
                                         </container>
                                     </container>
@@ -685,7 +685,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.${titleProperty}}"/>
                                 </container>
                             </container>
@@ -699,7 +699,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddProjectNotes}"/>
                                 </container>
                             </container>
@@ -735,7 +735,7 @@ under the License.
                                 <container style="lefthalf">
                                     <container style="screenlet">
                                         <container style="screenlet-title-bar">
-                                            <container style="head3">
+                                            <container style="h3">
                                                 <label text="${uiLabelMap.PageTitleProjectInformation}"/>
                                             </container>
                                         </container>
@@ -776,7 +776,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleProjectGanttChart}"/>
                                 </container>
                             </container>
@@ -806,7 +806,7 @@ under the License.
             <widgets>                
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
-                        <container style="head3">
+                        <container style="h3">
                             <label text="${uiLabelMap.ProjectMgrSubProjectList}"/>
                         </container>
                     </container>
@@ -834,7 +834,7 @@ under the License.
             <widgets>                
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
-                        <container style="head3">
+                        <container style="h3">
                             <label text="${uiLabelMap.ProjectMgrPhaseList}"/>
                         </container>
                     </container>
@@ -862,7 +862,7 @@ under the License.
             <widgets>                
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
-                        <container style="head3">
+                        <container style="h3">
                             <label text="${uiLabelMap.ProjectMgrTaskList}"/>
                         </container>
                     </container>
@@ -890,7 +890,7 @@ under the License.
             <widgets>                
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
-                        <container style="head3">
+                        <container style="h3">
                             <label text="${uiLabelMap.ProjectMgrProjectTeam}"/>
                         </container>
                     </container>
@@ -951,7 +951,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <container>
-                                    <label style="head3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
+                                    <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
                                 </container>
                             </fail-widgets>
                         </section>
@@ -990,7 +990,7 @@ under the License.
                             <widgets>           
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleProjectInformation}"/>
                                         </container>
                                     </container>
@@ -1004,7 +1004,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddProject}"/>
                                         </container>
                                     </container>
@@ -1048,7 +1048,7 @@ under the License.
                             <widgets>                     
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleTaskInformation}"/>
                                         </container>
                                     </container>
@@ -1062,7 +1062,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddTask}"/>
                                         </container>
                                     </container>
@@ -1117,7 +1117,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label text="${uiLabelMap.PageTitleNewPartyNote}" style="head2"/></container>
+                        <container><label text="${uiLabelMap.PageTitleNewPartyNote}" style="h2"/></container>
                         <include-form name="AddPartyNote" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -1156,7 +1156,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <container>
-                                    <label style="head3">${uiLabelMap.PartyMsgContactNotBelongToYou}</label>
+                                    <label style="h3">${uiLabelMap.PartyMsgContactNotBelongToYou}</label>
                                 </container>
                                 <container>
                                     <link target="authview/${donePage}" text="[${uiLabelMap.CommonBack}]" style="smallSubmit"/>
@@ -1202,10 +1202,10 @@ under the License.
                                         <not><if-empty field-name="communicationEvent"/></not>
                                     </condition>
                                     <widgets>
-                                        <label style="head1" text="${uiLabelMap.PartyEditCommunicationEvent}"/>
+                                        <label style="h1" text="${uiLabelMap.PartyEditCommunicationEvent}"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <label style="head1" text="${uiLabelMap.PartyNewCommunication}"/>
+                                        <label style="h1" text="${uiLabelMap.PartyNewCommunication}"/>
                                     </fail-widgets>
                                 </section>
                                 <section>
@@ -1261,7 +1261,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditPartyRates}"/>
                                 </container>
                             </container>
@@ -1275,7 +1275,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditPartyRates}"/>
                                 </container>
                             </container>
@@ -1306,7 +1306,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label text="${uiLabelMap.PartyCreateUserLogin}" style="head2"/></container>
+                        <container><label text="${uiLabelMap.PartyCreateUserLogin}" style="h2"/></container>
                         <include-form name="AddUserLogin" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -1337,7 +1337,7 @@ under the License.
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -1368,7 +1368,7 @@ under the License.
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -1392,9 +1392,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label text="${uiLabelMap.PartyUserLoginChangePassword}" style="head2"/></container>
+                        <container><label text="${uiLabelMap.PartyUserLoginChangePassword}" style="h2"/></container>
                         <include-form name="updatePassword" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                        <container><label text="${uiLabelMap.PartyUserLoginUpdateSecuritySettings}" style="head2"/></container>
+                        <container><label text="${uiLabelMap.PartyUserLoginUpdateSecuritySettings}" style="h2"/></container>
                         <include-form name="updateUserLoginSecurity" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
@@ -1416,9 +1416,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head2" text="${uiLabelMap.PageTitleEditUserLoginSecurityGroups}"/></container>
+                        <container><label style="h2" text="${uiLabelMap.PageTitleEditUserLoginSecurityGroups}"/></container>
                         <include-form name="ListUserLoginSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                        <container><label style="head2" text="${uiLabelMap.PartyAddUserLoginToSecurityGroup}"/></container>
+                        <container><label style="h2" text="${uiLabelMap.PartyAddUserLoginToSecurityGroup}"/></container>
                         <include-form name="AddUserLoginSecurityGroup" location="component://party/widget/partymgr/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>

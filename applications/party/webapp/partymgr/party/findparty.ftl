@@ -25,7 +25,7 @@ under the License.
 <div id="findPartyParameters" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PartyFindParty}</li>
+      <li class="h3">${uiLabelMap.PartyFindParty}</li>
       <#if parameters.hideFields?default("N") == "Y">
         <li><a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
@@ -182,7 +182,7 @@ under the License.
   <div id="findPartyResults" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.PartyPartiesFound}</li>
+        <li class="h3">${uiLabelMap.PartyPartiesFound}</li>
           <#if (partyListSize > 0)>
             <#if (partyListSize > highIndex)>
               <li><a class="nav-next" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
@@ -299,7 +299,7 @@ under the License.
       </table>
     <#else>
       <div class="screenlet-body">
-        <span class="head3">${uiLabelMap.PartyNoPartiesFound}</span>        
+        <span class="h3">${uiLabelMap.PartyNoPartiesFound}</span>        
       </div>
     </#if>
     <#if lookupErrorMessage?exists>

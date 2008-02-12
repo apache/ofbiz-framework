@@ -37,7 +37,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleFindSurvey}"/>
                                         </container>
                                     </container>
@@ -52,7 +52,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleFindSurvey}"/>
                                         </container>
                                     </container>
@@ -65,7 +65,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.WorkEffortViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -99,7 +99,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.WorkEffortViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -127,7 +127,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleCreateSurvey}"/>
                                         </container>
                                     </container>
@@ -143,7 +143,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditSurvey} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
                                         </container>
                                     </container>
@@ -180,13 +180,13 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyMultiResps} ${uiLabelMap.SurveySurveyId} ${surveyId}</label></container>
+                        <container><label style="h1">${uiLabelMap.PageTitleEditSurveyMultiResps} ${uiLabelMap.SurveySurveyId} ${surveyId}</label></container>
                         <iterate-section entry-name="surveyMultiResp" list-name="surveyMultiRespList">
                             <section>
                                 <widgets>
                                     <container style="screenlet">
                                         <container style="screenlet-title-bar">
-                                            <container style="head3">
+                                            <container style="h3">
                                                 <label text="${uiLabelMap.SurveyEditSurveyMultiResp}"/>
                                             </container>
                                         </container>
@@ -201,7 +201,7 @@ under the License.
                                     </container>
                                     <container style="screenlet">
                                         <container style="screenlet-title-bar">
-                                            <container style="head3">
+                                            <container style="h3">
                                                 <label text="${uiLabelMap.SurveyAddSurveyMultiRespColumn}"/>
                                             </container>
                                         </container>
@@ -218,7 +218,7 @@ under the License.
                         </iterate-section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.SurveyAddSurveyMultiResp}"/>
                                 </container>
                             </container>
@@ -260,7 +260,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListSurveyPages} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
                                 </container>
                             </container>
@@ -274,7 +274,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditSurveyPages} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
                                 </container>
                             </container>
@@ -310,7 +310,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindSurveyResponse} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
                                 </container>
                             </container>
@@ -325,7 +325,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.SurveyBuildRespondeFromPDF}"/>
                                 </container>
                             </container>
@@ -339,7 +339,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListSurveyResponse}"/>
                                 </container>
                             </container>
@@ -374,7 +374,7 @@ under the License.
                         <container><link  text="${uiLabelMap.SurveyCreateResponse}" target="EditSurveyResponse?surveyId=${surveyId}" style="buttontext"/></container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleViewSurveyResponses} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
                                 </container>
                             </container>
@@ -412,7 +412,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
-                        <container><label style="head1">${uiLabelMap.PageTitleEditSurveyResponse}, ${uiLabelMap.SurveyResponse}: ${parameters.surveyResponseId}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
+                        <container><label style="h1">${uiLabelMap.PageTitleEditSurveyResponse}, ${uiLabelMap.SurveyResponse}: ${parameters.surveyResponseId}, ${uiLabelMap.SurveySurveyId}: ${surveyId}</label></container>
                         <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyResponse.ftl"/></html></platform-specific>
                         <include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                     </decorator-section>
@@ -438,7 +438,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleLookupSurvey}"/>
                                 </container>
                             </container>
@@ -473,7 +473,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleLookupSurveyResponse}"/>
                                 </container>
                             </container>

@@ -21,7 +21,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.OrderScheduleDelivery}</li>
+        <li class="h3">${uiLabelMap.OrderScheduleDelivery}</li>
         <#if orderId?exists>
           <li><a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${uiLabelMap.OrderViewOrder}</a></li>
         </#if>

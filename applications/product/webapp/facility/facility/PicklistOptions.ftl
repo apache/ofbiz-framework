@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductFindOrdersToPick}</li>
+            <li class="h3">${uiLabelMap.ProductFindOrdersToPick}</li>
         </ul>
         <br class="clear"/>
     </div>
@@ -134,7 +134,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${shipmentMethodType.description?if_exists} ${uiLabelMap.ProductPickingDetail}</li>
+            <li class="h3">${shipmentMethodType.description?if_exists} ${uiLabelMap.ProductPickingDetail}</li>
         </ul>
         <br class="clear"/>
     </div>

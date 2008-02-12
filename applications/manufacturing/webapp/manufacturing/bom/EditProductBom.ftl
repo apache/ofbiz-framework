@@ -29,7 +29,7 @@ function lookupBom() {
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PageTitleEditProductBom} <#if product?exists>${(product.internalName)?if_exists}</#if>&nbsp;[${uiLabelMap.CommonId}&nbsp;${productId?if_exists}]</li>
+      <li class="h3">${uiLabelMap.PageTitleEditProductBom} <#if product?exists>${(product.internalName)?if_exists}</#if>&nbsp;[${uiLabelMap.CommonId}&nbsp;${productId?if_exists}]</li>
     </ul>
     <br class="clear"/>
   </div>
@@ -231,7 +231,7 @@ function lookupBom() {
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.ManufacturingProductComponents}</li>
+      <li class="h3">${uiLabelMap.ManufacturingProductComponents}</li>
     </ul>
     <br class="clear"/>
   </div>
@@ -285,7 +285,7 @@ function lookupBom() {
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.ManufacturingProductComponentOf}</li>
+      <li class="h3">${uiLabelMap.ManufacturingProductComponentOf}</li>
     </ul>
     <br class="clear"/>
   </div>

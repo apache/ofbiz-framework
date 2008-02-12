@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductReceiveInventory} ${uiLabelMap.CommonInto} <#if facility?has_content>"${facility.facilityName?default("Not Defined")}"</#if> [${uiLabelMap.CommonId} :${facility.facilityId?if_exists}]</li>
+            <li class="h3">${uiLabelMap.ProductReceiveInventory} ${uiLabelMap.CommonInto} <#if facility?has_content>"${facility.facilityName?default("Not Defined")}"</#if> [${uiLabelMap.CommonId} :${facility.facilityId?if_exists}]</li>
         </ul>
         <br class="clear"/>
     </div>

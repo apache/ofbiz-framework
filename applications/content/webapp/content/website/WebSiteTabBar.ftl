@@ -29,5 +29,5 @@ under the License.
       <br class="clear"/>
     </ul>
 </div>
-<div class="head1">${uiLabelMap.ContentWebSite}&nbsp;<#if (webSite.siteName)?has_content>${webSite.siteName}</#if> [${uiLabelMap.CommonId} ${webSite.webSiteId}]</div>
+<div class="h1">${uiLabelMap.ContentWebSite}&nbsp;<#if (webSite.siteName)?has_content>${webSite.siteName}</#if> [${uiLabelMap.CommonId} ${webSite.webSiteId}]</div>
 </#if>

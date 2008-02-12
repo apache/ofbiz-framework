@@ -160,7 +160,7 @@ under the License.
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/promotionproducts.ftl"/></html></platform-specific>
             </widgets>
             <fail-widgets>
-                <label text="${uiLabelMap.EcommerceErrorNoPromotionFoundWithID} [${productPromoId?if_exists}]" style="head2"/>
+                <label text="${uiLabelMap.EcommerceErrorNoPromotionFoundWithID} [${productPromoId?if_exists}]" style="h2"/>
             </fail-widgets>
         </section>
     </screen>

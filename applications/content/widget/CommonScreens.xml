@@ -65,7 +65,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -96,16 +96,16 @@ under the License.
                                         <not><if-empty field-name="currentValue.contentId"/></not>
                                     </condition>
                                     <widgets>
-                                        <label style="head1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.contentName},${currentValue.description} [${currentValue.contentId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                        <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.contentName},${currentValue.description} [${currentValue.contentId}]  ${uiLabelMap.${extraFunctionName}}"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <label style="head1" text="${uiLabelMap.PageTitleAddContent}"/>
+                                        <label style="h1" text="${uiLabelMap.PageTitleAddContent}"/>
                                     </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -135,19 +135,19 @@ under the License.
                                         <include-menu name="${tabBar}" location="component://content/widget/forum/ForumMenus.xml"/>
                                     </widgets>
                                 </section>
-                                <label style="head1" text="${uiLabelMap.${titleProperty}}"></label>
+                                <label style="h1" text="${uiLabelMap.${titleProperty}}"></label>
                                 <section>
                                     <condition>
                                         <not><if-empty field-name="objectId"/></not>
                                     </condition>
                                     <widgets>
-                                        <label style="head1" text="&quot;${objectName}&quot; [${objectId}]"></label>
+                                        <label style="h1" text="&quot;${objectName}&quot; [${objectId}]"></label>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
+                                <label style="h3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -177,18 +177,18 @@ under the License.
                                     <widgets>
                                         <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
                                         <include-menu name="dataresource" location="component://content/widget/content/DataResourceMenus.xml"/>
-                                        <label style="head1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${uiLabelMap.${extraFunctionName}}"/>
+                                        <label style="h1" text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${uiLabelMap.${extraFunctionName}}"/>
                                     </widgets>
                                     <fail-widgets>
                                         <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
-                                        <label style="head1" text="${uiLabelMap.${titleProperty}}"/>
+                                        <label style="h1" text="${uiLabelMap.${titleProperty}}"/>
                                     </fail-widgets>
                                 </section>
                                 <link text="${uiLabelMap.CommonNew}" target="editDataResource" style="buttontext"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -206,7 +206,7 @@ under the License.
                 <decorator-screen name="main-decorator" >
                     <decorator-section name="body">
                         <include-menu name="${menuName}" location="component://content/widget/compdoc/CompDocMenus.xml"/>
-                        <label text="${title}" style="head1"/>
+                        <label text="${title}" style="h1"/>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
@@ -231,7 +231,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -257,7 +257,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -283,7 +283,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>

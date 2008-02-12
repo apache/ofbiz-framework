@@ -28,7 +28,7 @@ under the License.
       <br class="clear"/>
     </div>
   </#if>
-  <span class="head1">GL Account </span><span class='head2'><#if (glAccount.accountName)?has_content>"${glAccount.accountName}"</#if> [${uiLabelMap.CommonId}:${glAccountId?if_exists}]</span><br/>
+  <span class="h1">GL Account </span><span class='h2'><#if (glAccount.accountName)?has_content>"${glAccount.accountName}"</#if> [${uiLabelMap.CommonId}:${glAccountId?if_exists}]</span><br/>
   <a href="<@ofbizUrl>EditGlobalGlAccount</@ofbizUrl>" class="buttontext">[New Global GL Account]</a>
   ${editGlAccountWrapper.renderFormString()}
 <#else>

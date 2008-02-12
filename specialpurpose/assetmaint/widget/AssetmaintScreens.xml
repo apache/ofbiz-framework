@@ -32,7 +32,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFixedAssetMaints}"/>
                                 </container>
                             </container>
@@ -49,7 +49,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFixedAssetMaints}"/>
                                 </container>
                             </container>
@@ -101,7 +101,7 @@
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.FixedAssetMaintWorkEffortName}"/>
                                         </container>
                                     </container>
@@ -114,7 +114,7 @@
                                 <container style="button-bar"><label/></container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.AccountingNewFixedAssetMaint}"/>
                                         </container>
                                     </container>
@@ -146,7 +146,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetMaintenance}"/>
                                 </container>
                             </container>
@@ -156,7 +156,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetMaintenance}"/>
                                 </container>
                             </container>
@@ -187,7 +187,7 @@
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditWorkEffort}"/>
                                         </container>
                                     </container>
@@ -199,7 +199,7 @@
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditWorkEffort}"/>
                                         </container>
                                     </container>
@@ -209,7 +209,7 @@
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleChildWorkEfforts}"/>
                                         </container>
                                     </container>
@@ -219,7 +219,7 @@
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleChildWorkEfforts}"/>
                                         </container>
                                     </container>
@@ -254,7 +254,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortTimeEntries}"/>
                                 </container>
                             </container>
@@ -264,7 +264,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortTimeEntry}"/>
                                 </container>
                             </container>
@@ -297,7 +297,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListWorkEffortNotes}"/>
                                 </container>
                             </container>
@@ -307,7 +307,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddWorkEffortNotes}"/>
                                 </container>
                             </container>
@@ -341,7 +341,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListItemIssuance}"/>
                                 </container>
                             </container>
@@ -351,7 +351,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddItemIssuance}"/>
                                 </container>
                             </container>

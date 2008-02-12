@@ -33,7 +33,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <section>
                                         <condition>
                                             <if-has-permission permission="CATALOG" action="_VIEW"/>
@@ -64,7 +64,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <section>
                                         <condition>
                                             <if-has-permission permission="CATALOG" action="_VIEW"/>
@@ -118,13 +118,13 @@ under the License.
                                     <widgets>
                                         <include-menu name="EditSubscription" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
                                         <container><link target="EditSubscription" text="${uiLabelMap.ProductNewSubscription}" style="buttontext"/></container>
-                                        <container><label style="head1">${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} [${subscriptionId}]</label></container>
+                                        <container><label style="h1">${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} [${subscriptionId}]</label></container>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.SubscriptionViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.SubscriptionViewPermissionError}</label>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -146,7 +146,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditSubscription}"/>
                                 </container>
                             </container>
@@ -180,7 +180,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditSubscriptionAttributes}"/>
                                 </container>
                             </container>
@@ -194,7 +194,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddSubscriptionAttributes}"/>
                                 </container>
                             </container>
@@ -225,7 +225,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <section>
                                         <condition>
                                             <if-has-permission permission="CATALOG" action="_VIEW"/>
@@ -283,14 +283,14 @@ under the License.
                                             <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/>
                                             <link target="FindSubscription?subscriptionResourceId=${subscriptionResourceId}" text="${uiLabelMap.ProductFindResourceSubscriptions}" style="buttontext"/>
                                         </container>
-                                        <container><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${subscriptionResource.description}" [${subscriptionResourceId}]</label></container>
+                                        <container><label style="h1">${uiLabelMap.${titleProperty}}</label><label style="h2"> ${uiLabelMap.CommonFor} "${subscriptionResource.description}" [${subscriptionResourceId}]</label></container>
                                     </widgets>
                                 </section>
 
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.SubscriptionResourceViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.SubscriptionResourceViewPermissionError}</label>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -312,7 +312,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditSubscriptionResource}"/>
                                 </container>
                             </container>
@@ -342,7 +342,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditSubscriptionResourceProducts}"/>
                                 </container>
                             </container>
@@ -356,7 +356,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddSubscriptionResourceProducts}"/>
                                 </container>
                             </container>
@@ -388,7 +388,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditSubscriptionCommEvent}"/>
                                 </container>
                             </container>
@@ -402,7 +402,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddSubscriptionCommEvent}"/>
                                 </container>
                             </container>

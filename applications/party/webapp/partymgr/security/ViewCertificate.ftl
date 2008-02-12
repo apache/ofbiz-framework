@@ -24,7 +24,7 @@ under the License.
 <div id="findPartyParameters" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PageTitleImportCertificate}</li>
+      <li class="h3">${uiLabelMap.PageTitleImportCertificate}</li>
     </ul>
     <br class="clear" />
   </div>
@@ -41,7 +41,7 @@ under the License.
 <div id="findPartyParameters" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PartyCertSaveToKeyStore}</li>
+      <li class="h3">${uiLabelMap.PartyCertSaveToKeyStore}</li>
     </ul>
     <br class="clear" />
   </div>

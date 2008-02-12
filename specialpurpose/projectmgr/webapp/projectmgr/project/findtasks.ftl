@@ -31,7 +31,7 @@ function lookupTasks(click) {
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">Find Task</li>
+      <li class="h3">Find Task</li>
     </ul>
     <br class="clear" />
   </div>  

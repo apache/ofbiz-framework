@@ -47,12 +47,12 @@ under the License.
                                     </widgets>
                                 </section>
                                 <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommFindTabBar"/>
-                                <container><label style="head1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
+                                <container><label style="h1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
                                 <container><link style="smallSubmit" target="viewCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="listPendingCommEvents"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -85,7 +85,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyFoundCommunicationEvents}"/>
                                         </container>
                                     </container>
@@ -100,7 +100,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -140,7 +140,7 @@ under the License.
                                 </section>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyFoundCommunicationEvents}"/>
                                         </container>
                                     </container>
@@ -158,7 +158,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -194,7 +194,7 @@ under the License.
                                 </section>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyFindCommunicationEvents}"/>
                                         </container>
                                     </container>
@@ -209,7 +209,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -263,10 +263,10 @@ under the License.
                                         <not><if-empty field-name="communicationEvent"/></not>
                                     </condition>
                                     <widgets>
-                                        <label style="head1" text="${uiLabelMap.PartyViewCommunicationEvent}"/>
+                                        <label style="h1" text="${uiLabelMap.PartyViewCommunicationEvent}"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <label style="head1" text="${uiLabelMap.PartyNewCommunication}"/>
+                                        <label style="h1" text="${uiLabelMap.PartyNewCommunication}"/>
                                     </fail-widgets>
                                 </section>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="viewCommunication"/>
@@ -323,7 +323,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PartyEditCommunicationEvent}"/>
                                                 </container>
                                             </container>
@@ -337,7 +337,7 @@ under the License.
                                         </container>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PageTitleChildCommunicationEvents}"/>
                                                 </container>
                                             </container>
@@ -353,7 +353,7 @@ under the License.
                                     <fail-widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PartyNewCommunication}"/>
                                                 </container>
                                             </container>
@@ -367,7 +367,7 @@ under the License.
                                         </container>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PageTitleChildCommunicationEvents}"/>
                                                 </container>
                                             </container>
@@ -414,7 +414,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyCommEventRoles}"/>
                                         </container>
                                     </container>
@@ -433,7 +433,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PartyNewCommRole}"/>
                                                 </container>
                                             </container>
@@ -480,7 +480,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyCommEventPurposes}"/>
                                         </container>
                                     </container>
@@ -499,7 +499,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PartyNewCommPurpose}"/>
                                                 </container>
                                             </container>
@@ -548,7 +548,7 @@ under the License.
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyCommWorkEfforts}"/>
                                 </container>
                             </container>
@@ -582,7 +582,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyCommWorkEfforts}"/>
                                 </container>
                             </container>
@@ -614,7 +614,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyCommWorkEfforts}"/>
                                 </container>
                             </container>
@@ -663,7 +663,7 @@ under the License.
                                 </section>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyCommContent}"/>
                                         </container>
                                     </container>
@@ -677,7 +677,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -708,7 +708,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyNewCommContent}"/>
                                         </container>
                                     </container>
@@ -722,7 +722,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -766,7 +766,7 @@ under the License.
                                 </section>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditCommContent}"/>
                                         </container>
                                     </container>
@@ -790,7 +790,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PageTitleEditCommContent}"/>
                                                 </container>
                                             </container>
@@ -813,7 +813,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PartyViewImage}"/>
                                                 </container>
                                             </container>
@@ -821,7 +821,7 @@ under the License.
                                                 <section>
                                                     <widgets>
                                                         <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="uploadCommContent"/>
-                                                        <label text="${uiLabelMap.PartyViewImage}" style="head1"/>
+                                                        <label text="${uiLabelMap.PartyViewImage}" style="h1"/>
                                                         <content dataresource-id="${commEventContentDataResource.drDataResourceId}"/>
                                                     </widgets>
                                                 </section>
@@ -831,7 +831,7 @@ under the License.
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>

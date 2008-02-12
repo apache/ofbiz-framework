@@ -22,7 +22,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.OrderOrderEntryCurrencyAgreementShipDates}</li>
+        <li class="h3">${uiLabelMap.OrderOrderEntryCurrencyAgreementShipDates}</li>
         <li><a href="javascript:document.agreementForm.submit()">${uiLabelMap.CommonContinue}</a></li>
       </ul>
       <br class="clear" />

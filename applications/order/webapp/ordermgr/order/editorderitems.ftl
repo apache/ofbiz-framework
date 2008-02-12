@@ -38,7 +38,7 @@ float: right;
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-          <li class="head3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
+          <li class="h3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
           <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)>
               <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED">
                   <li><a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>">${uiLabelMap.OrderCancelAllItems}</a></li>

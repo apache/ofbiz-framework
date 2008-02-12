@@ -48,7 +48,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.MarketingViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.MarketingViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -78,7 +78,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditMarketingCampaign}"/>
                                         </container>
                                     </container>
@@ -95,7 +95,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddMarketingCampaign}"/>
                                         </container>
                                     </container>
@@ -130,7 +130,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListMarketingCampaign}"/>
                                 </container>
                             </container>
@@ -167,7 +167,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditMarketingCampaignRole}"/>
                                 </container>
                             </container>
@@ -176,7 +176,7 @@ under the License.
                                     <widgets>
                                         <container><link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
                                         <include-form name="EditMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
-                                        <container><label style="head2" text="${uiLabelMap.CommonStatusHistory}"/></container>
+                                        <container><label style="h2" text="${uiLabelMap.CommonStatusHistory}"/></container>
                                     </widgets>
                                 </section>
                             </container>
@@ -201,7 +201,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListMarketingCampaignRole}"/>
                                 </container>
                             </container>
@@ -234,7 +234,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindMarketingCampaignRole}"/>
                                 </container>
                             </container>

@@ -45,7 +45,7 @@ under the License.
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3" text="${uiLabelMap.PartyMgrViewPermissionError}"/>
+                                <label style="h3" text="${uiLabelMap.PartyMgrViewPermissionError}"/>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -113,7 +113,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <container>
-                                    <label style="head3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
+                                    <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
                                 </container>
                             </fail-widgets>
                         </section>
@@ -212,7 +212,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyNewRelationshipType}"/>
                                         </container>
                                     </container>
@@ -250,7 +250,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyVendorInformation}"/>
                                 </container>
                             </container>
@@ -287,7 +287,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <label style="head3" text="${uiLabelMap.PartyAttribute}"/>
+                                <label style="h3" text="${uiLabelMap.PartyAttribute}"/>
                             </container>
                             <container style="screenlet-body">
                                 <include-form name="EditPartyAttribute" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -321,7 +321,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditPartyTaxAuthInfos}"/>
                                 </container>
                             </container>
@@ -335,7 +335,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddPartyTaxAuthInfos}"/>
                                 </container>
                             </container>
@@ -406,7 +406,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <container>
-                                    <label style="head3">${uiLabelMap.PartyMsgContactNotBelongToYou}</label>
+                                    <label style="h3">${uiLabelMap.PartyMsgContactNotBelongToYou}</label>
                                 </container>
                                 <container>
                                     <link target="authview/${donePage}" text="[${uiLabelMap.CommonBack}]" style="smallSubmit"/>
@@ -436,7 +436,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditPersonalInformation}"/>
                                 </container>
                             </container>
@@ -470,7 +470,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditGroupInformation}"/>
                                 </container>
                             </container>
@@ -504,7 +504,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyUserLoginChangePassword}"/>
                                 </container>
                             </container>
@@ -518,7 +518,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyUserLoginUpdateSecuritySettings}"/>
                                 </container>
                             </container>
@@ -550,7 +550,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyCreateUserLogin}"/>
                                 </container>
                             </container>
@@ -583,7 +583,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditUserLoginSecurityGroups}"/>
                                 </container>
                             </container>
@@ -597,7 +597,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyAddUserLoginToSecurityGroup}"/>
                                 </container>
                             </container>
@@ -630,7 +630,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleNewPartyNote}"/>
                                 </container>
                             </container>
@@ -663,7 +663,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditPartyRates}"/>
                                 </container>
                             </container>
@@ -677,7 +677,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddPartyRates}"/>
                                 </container>
                             </container>
@@ -712,7 +712,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleViewPartySegmentRoles}"/>
                                 </container>
                             </container>
@@ -726,7 +726,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddPartySegmentRoles}"/>
                                 </container>
                             </container>
@@ -761,7 +761,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyCreateNewParty}"/>
                                         </container>
                                     </container>
@@ -775,7 +775,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -804,7 +804,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyCreateNewCustomer}"/>
                                         </container>
                                     </container>
@@ -818,7 +818,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -847,7 +847,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyCreateNewProspect}"/>
                                         </container>
                                     </container>
@@ -861,7 +861,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -890,7 +890,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PartyCreateNewEmployee}"/>
                                         </container>
                                     </container>
@@ -904,7 +904,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -970,7 +970,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListContent}"/>
                                 </container>
                             </container>
@@ -985,7 +985,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddPartyContent}"/>
                                 </container>
                             </container>
@@ -1013,7 +1013,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyShipperAccount}"/>
                                 </container>
                             </container>

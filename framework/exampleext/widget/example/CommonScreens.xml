@@ -56,14 +56,14 @@ under the License.
                                     <widgets>
                                         <include-menu name="EditExample" location="component://exampleext/widget/example/ExampleMenus.xml"/>
                                         <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
-                                        <container style="button-bar"><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${example.exampleName}" [${exampleId}]</label></container>
+                                        <container style="button-bar"><label style="h1">${uiLabelMap.${titleProperty}}</label><label style="h2"> ${uiLabelMap.CommonFor} "${example.exampleName}" [${exampleId}]</label></container>
                                     </widgets>
                                 </section>
                                 
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ExampleViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>

@@ -43,7 +43,7 @@ under the License.
                                             <html><html-template location="component://product/webapp/catalog/category/CategoryTabBar.ftl"/></html>
                                         </platform-specific>
                                         <container>
-                                            <label style="head1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productCategory.description} [${uiLabelMap.CommonId}:${productCategoryId}]  ${${extraFunctionName}}</label>
+                                            <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productCategory.description} [${uiLabelMap.CommonId}:${productCategoryId}]  ${${extraFunctionName}}</label>
                                         </container>
                                         
                                         <container>
@@ -57,7 +57,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
                         </section>            
                     </decorator-section>
@@ -114,7 +114,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductUpdateCategoryContentAssoc}"/>
                                 </container>
                             </container>
@@ -129,7 +129,7 @@ under the License.
 
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductAddProductCategoryContentFromDate}"/>
                                 </container>
                             </container>
@@ -144,7 +144,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductAddContentCategory}"/>
                                 </container>
                             </container>
@@ -194,7 +194,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"/>
                                 </container>
                             </container>
@@ -209,7 +209,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductListAssociatedContentInfos}"/>
                                 </container>
                             </container>
@@ -224,7 +224,7 @@ under the License.
                         
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}"/>
                                 </container>
                             </container>
@@ -418,7 +418,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleCreateCategoryAttributes}"></label>
                                 </container>
                             </container>
@@ -432,7 +432,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditCategoryAttributes}"/>
                                 </container>
                             </container>
@@ -514,7 +514,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductCategoryLink}"/>
                                 </container>
                             </container>
@@ -528,7 +528,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleCreateProductCategoryLink}"/>
                                 </container>
                             </container>

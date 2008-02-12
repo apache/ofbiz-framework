@@ -116,27 +116,27 @@ height: 1.6em; /* force ctrl to scale with text */
 margin: 0.1em;
 }
 
-h1, .head1 {
+h1, .h1 {
 font-size: 1.6em;
 font-weight: bold;
 }
 
-h2, .head2 {
+h2, .h2 {
 font-size: 1.3em;
 font-weight: bold;
 }
 
-h3, .head3 {
+h3, .h3 {
 font-size: 1.1em;
 font-weight: bold;
 }
 
 /* <h> element colors deprecated */
-h1, .head1 {
+h1, .h1 {
 color: #000099;
 }
 
-h2, .head2, h3, .head3 {
+h2, .h2, h3, .h3 {
 color: #000000;
 }
 
@@ -1203,9 +1203,9 @@ color: #ffffff;
 height: 1%; /* IE fix */
 }
 
-.screenlet-title-bar .head1,
-.screenlet-title-bar .head2,
-.screenlet-title-bar .head3,
+.screenlet-title-bar .h1,
+.screenlet-title-bar .h2,
+.screenlet-title-bar .h3,
 .screenlet-title-bar .head4,
 .screenlet-title-bar h1,
 .screenlet-title-bar h2,
@@ -1234,27 +1234,27 @@ padding: 0.1em 0.5em 0.2em 0.5em;
 .screenlet-title-bar ul h1,
 .screenlet-title-bar ul h2,
 .screenlet-title-bar ul h3,
-.screenlet-title-bar ul .head1,
-.screenlet-title-bar ul .head2,
-.screenlet-title-bar ul .head3 {
+.screenlet-title-bar ul .h1,
+.screenlet-title-bar ul .h2,
+.screenlet-title-bar ul .h3 {
 border-left: none;
 float: left;
 }
 
-.screenlet-title-bar .head1 {
+.screenlet-title-bar .h1 {
 font-size: 1.6em;
 }
 
-.screenlet-title-bar .head2 {
+.screenlet-title-bar .h2 {
 font-size: 1.3em;
 }
 
-.screenlet-title-bar .head3,
+.screenlet-title-bar .h3,
 .screenlet-title-bar .head4 {
 font-size: 1.1em;
 }
 
-.screenlet-title-bar .head3 a {
+.screenlet-title-bar .h3 a {
 color: #ffff66;
 display: inline;
 }
@@ -1295,9 +1295,9 @@ min-height: 1em;
 min-width: 1em;
 }
 
-.screenlet-title-bar ul .head1:hover,
-.screenlet-title-bar ul .head2:hover,
-.screenlet-title-bar ul .head3:hover {
+.screenlet-title-bar ul .h1:hover,
+.screenlet-title-bar ul .h2:hover,
+.screenlet-title-bar ul .h3:hover {
 background-color: #000099;
 background-image: url(/images/gradient_sub_uns.gif);
 }

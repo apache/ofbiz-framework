@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductInventoryTransfer} ${uiLabelMap.CommonFrom} <#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}:${facilityId?if_exists}]</li>
+            <li class="h3">${uiLabelMap.ProductInventoryTransfer} ${uiLabelMap.CommonFrom} <#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}:${facilityId?if_exists}]</li>
             <li><a href="<@ofbizUrl>PickMoveStockSimple?facilityId=${facilityId?if_exists}</@ofbizUrl>">${uiLabelMap.CommonPrint}</a></li>
         </ul>
         <br class="clear"/>

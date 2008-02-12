@@ -22,7 +22,7 @@ under the License.
 </#if>
 <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">
+      <li class="h3">
         <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
             ${uiLabelMap.OrderPurchaseOrder}
         <#else>

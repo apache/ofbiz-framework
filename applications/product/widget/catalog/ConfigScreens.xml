@@ -43,7 +43,7 @@ under the License.
                                             <html><html-template location="component://product/webapp/catalog/config/ConfigItemTabBar.ftl"/></html>
                                         </platform-specific>
                                         <container>
-                                            <label style="head1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${configItem.configItemName} [${uiLabelMap.CommonId}:${configItemId}]  ${${extraFunctionName}}</label>
+                                            <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${configItem.configItemName} [${uiLabelMap.CommonId}:${configItemId}]  ${${extraFunctionName}}</label>
                                         </container>
                                         <container>
                                             <link target="EditProductConfigItem" text="[${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigItem}]" style="buttontext"/>
@@ -54,7 +54,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -97,7 +97,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditConfigItem}"/>
                                 </container>
                             </container>
@@ -148,7 +148,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditConfigOptions}"/>
                                 </container>
                             </container>

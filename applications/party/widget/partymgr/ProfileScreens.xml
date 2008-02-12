@@ -189,7 +189,7 @@
                     <widgets>
                         <container id="fin-account-summary" style="screenlet">
                             <container style="screenlet-title-bar">
-                                <label style="head3" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/>
+                                <label style="h3" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/>
                             </container>
                             <container style="screenlet-body">
                                 <iterate-section entry-name="ownedFinAccount" list-name="ownedFinAccountList">
@@ -225,7 +225,7 @@
                                     </section>
                                 </iterate-section>
                                 <container id="apply-service-credit">
-                                    <label style="head2" text="${uiLabelMap.AccountingApplyServiceCredit}"/>
+                                    <label style="h2" text="${uiLabelMap.AccountingApplyServiceCredit}"/>
                                     <include-form name="ApplyServiceCredit" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                 </container>
                             </container>

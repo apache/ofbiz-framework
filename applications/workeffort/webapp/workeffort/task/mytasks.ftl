@@ -22,7 +22,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.WorkEffortMyCurrentTaskList}</li>
+      <li class="h3">${uiLabelMap.WorkEffortMyCurrentTaskList}</li>
       <li><a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=TASK&amp;currentStatusId=CAL_NEEDS_ACTION</@ofbizUrl>">${uiLabelMap.WorkEffortNewTask}</a></li>
     </ul>
     <br class="clear"/>

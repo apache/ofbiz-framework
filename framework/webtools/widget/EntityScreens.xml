@@ -46,7 +46,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -71,7 +71,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -97,7 +97,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -123,7 +123,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -149,7 +149,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -172,7 +172,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -196,7 +196,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -220,7 +220,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -244,7 +244,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -270,7 +270,7 @@ under the License.
                 </section>                               
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -298,7 +298,7 @@ under the License.
                 </section>                               
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -324,7 +324,7 @@ under the License.
                 </section>                               
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>
@@ -367,7 +367,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="head3">${uiLabelMap.WebtoolsPermissionError}</label>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
             </fail-widgets>
         </section>
     </screen>

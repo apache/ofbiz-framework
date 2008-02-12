@@ -39,7 +39,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFixedAssets}"/>
                                 </container>
                             </container>
@@ -74,7 +74,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFixedAssetEdit}"/>
                                 </container>
                             </container>
@@ -117,7 +117,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFixedAssetProducts}"/>
                                 </container>
                             </container>
@@ -131,7 +131,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFixedAssetProductNew}"/>
                                 </container>
                             </container>
@@ -166,7 +166,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFixedAssetCalendar}"/>
                                 </container>
                             </container>
@@ -208,7 +208,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFixedAssetStdCosts}"/>
                                 </container>
                             </container>
@@ -222,7 +222,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetStdCost}"/>
                                 </container>
                             </container>
@@ -256,7 +256,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFixedAssetIdents}"/>
                                 </container>
                             </container>
@@ -270,7 +270,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetIdents}"/>
                                 </container>
                             </container>
@@ -303,7 +303,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFixedAssetRegistrations}"/>
                                 </container>
                             </container>
@@ -317,7 +317,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetRegistrations}"/>
                                 </container>
                             </container>
@@ -350,7 +350,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFixedAssetMaints}"/>
                                 </container>
                             </container>
@@ -386,7 +386,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetMaintenance}"/>
                                 </container>
                             </container>
@@ -422,7 +422,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFixedAssetMaintMeters}"/>
                                 </container>
                             </container>
@@ -436,7 +436,7 @@ under the License.
                         </container>
                          <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetMaintMeters}"/>
                                 </container>
                             </container>
@@ -470,7 +470,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFixedAssetChildren}"/>
                                 </container>
                             </container>
@@ -508,7 +508,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFixedAssetMaintOrders}"/>
                                 </container>
                             </container>
@@ -522,7 +522,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetMaintOrders}"/>
                                 </container>
                             </container>
@@ -558,7 +558,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListPartyFixedAssetAssignments}"/>
                                 </container>
                             </container>
@@ -572,7 +572,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditPartyFixedAssetAssignments}"/>
                                 </container>
                             </container>
@@ -607,7 +607,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleFixedAssetDepreciationReport}"/>
                                         </container>
                                     </container>

@@ -43,7 +43,7 @@ under the License.
       <option <#if "N" == selectedOption>selected="selected"</#if>>N</option>
     </select>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXTAREA"/>
-    <textarea class="textAreaBox" cols="40" rows="5" name="${questionFieldName}">${(answer.textResponse)?if_exists}</textarea>
+    <textarea cols="40" rows="5" name="${questionFieldName}">${(answer.textResponse)?if_exists}</textarea>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXT_SHORT"/>
     <input type="text" size="15" class="inputBox" name="${questionFieldName}" value="${(answer.textResponse)?default(defValue?if_exists)}">
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXT_LONG"/>

@@ -43,7 +43,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.PageTitleReturnHeader}</li>
+            <li class="h3">${uiLabelMap.PageTitleReturnHeader}</li>
         </ul>
         <br class="clear"/>
     </div>

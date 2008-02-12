@@ -41,7 +41,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleFindForumGroup}"/>
                                         </container>
                                     </container>
@@ -55,7 +55,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.ForumGroupCreate}"/>
                                         </container>
                                     </container>
@@ -69,7 +69,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
+                                <label style="h3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -98,7 +98,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindForums}"/>
                                 </container>
                             </container>
@@ -112,7 +112,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ForumAddTo} ${forumGroup.contentName}"/>
                                 </container>
                             </container>
@@ -150,7 +150,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleForumGroupRoles}"/>
                                 </container>
                             </container>
@@ -164,7 +164,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ForumAddRoleTo} ${forumGroup.contentName} [${forumGroup.contentId}]"/>
                                 </container>
                             </container>
@@ -202,7 +202,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleForumGroupPurposes}"/>
                                 </container>
                             </container>
@@ -216,7 +216,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ForumAddPurposeTo} ${forumGroup.contentName} [${forumGroup.contentId}]"/>
                                 </container>
                             </container>
@@ -263,7 +263,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.ForumAddPurposeTo} ${forumGroup.contentName} [${forumGroup.contentId}]"/>
                                         </container>
                                     </container>
@@ -277,7 +277,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.ForumAddThreadTo} ${forum.description}"/>
                                         </container>
                                     </container>
@@ -291,7 +291,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
+                                <label style="h3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -347,7 +347,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleFindForumMessages}"/>
                                         </container>
                                     </container>
@@ -366,7 +366,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.ForumThread} ${requestParameters.forumThreadId}"/>
                                                 </container>
                                             </container>
@@ -387,7 +387,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.ForumMessage} ${requestParameters.forumMessageId}"/>
                                                 </container>
                                             </container>
@@ -403,7 +403,7 @@ under the License.
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
+                                <label style="h3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -426,7 +426,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ForumAddResponseToMessage} ${contentData.resultData.content.description}"/>
                                 </container>
                             </container>
@@ -462,7 +462,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ForumAddResponseToMessage} ${forumMessage.description}"/>
                                 </container>
                             </container>
@@ -497,7 +497,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ForumAddResponseToMessage} ${forumMessage.description} [${forumMessage.contentId}]"/>
                                 </container>
                             </container>

@@ -20,7 +20,7 @@ under the License.
   <div id="partyAttributes" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.PartyAttributes}</li>
+        <li class="h3">${uiLabelMap.PartyAttributes}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
           <li><a href="<@ofbizUrl>editPartyAttribute?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>

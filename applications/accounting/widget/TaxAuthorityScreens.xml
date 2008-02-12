@@ -32,7 +32,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindTaxAuthority}"/>
                                 </container>
                             </container>
@@ -67,7 +67,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditTaxAuthority}"/>
                                 </container>
                             </container>
@@ -100,7 +100,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditTaxAuthorityCategories}"/>
                                 </container>
                             </container>
@@ -114,7 +114,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddTaxAuthorityCategory}"/>
                                 </container>
                             </container>
@@ -146,7 +146,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditTaxAuthorityAssocs}"/>
                                 </container>
                             </container>
@@ -160,7 +160,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddTaxAuthorityAssoc}"/>
                                 </container>
                             </container>
@@ -192,7 +192,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>
                                 </container>
                             </container>
@@ -206,7 +206,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddTaxAuthorityGlAccount}"/>
                                 </container>
                             </container>
@@ -238,7 +238,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditTaxAuthorityRateProducts}"/>
                                 </container>
                             </container>
@@ -252,7 +252,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddTaxAuthorityCategory}"/>
                                 </container>
                             </container>
@@ -285,7 +285,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListTaxAuthorityParties}"/>
                                 </container>
                             </container>
@@ -300,7 +300,7 @@ under the License.
                         </container>        
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListTaxAuthorityParties}"/>
                                 </container>
                             </container>
@@ -335,7 +335,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditTaxAuthorityPartyInfo}"/>
                                 </container>
                             </container>

@@ -32,7 +32,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductFacilitiesList}"/>
                                 </container>
                             </container>
@@ -71,7 +71,7 @@ under the License.
                             <decorator-section name="body">
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.ProductEditFacility}"/>
                                         </container>
                                     </container>
@@ -93,7 +93,7 @@ under the License.
                             <decorator-section name="body">
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.ProductEditFacility}"/>
                                         </container>
                                     </container>
@@ -130,7 +130,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head3">${uiLabelMap.CommonView} </label>
+                            <label style="h3">${uiLabelMap.CommonView} </label>
                             <link target="FindFacilityTransfers?facilityId=${facilityId}&amp;activeOnly=true" text="${uiLabelMap.ProductActiveOnly}" style="buttontext"/>
                             <link target="FindFacilityTransfers?facilityId=${facilityId}&amp;activeOnly=false" text="${uiLabelMap.CommonAll}" style="buttontext"/>
                         </container>
@@ -140,7 +140,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductInventoryTransfersFor} ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}] ${uiLabelMap.CommonTo}: ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]"/>
                                 </container>
                             </container>
@@ -154,7 +154,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.CommonFrom}: ${facility.facilityName} [${uiLabelMap.CommonId}: ${facilityId}]"/>
                                 </container>
                             </container>
@@ -191,7 +191,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityLocation}"/>
                                 </container>
                             </container>
@@ -246,7 +246,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.ProductInventoryItemsFor} ${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
+                            <label style="h1">${uiLabelMap.ProductInventoryItemsFor} ${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
                         </container>
                         <container>
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
@@ -255,7 +255,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityInventoryItems}"/>
                                 </container>
                             </container>
@@ -269,7 +269,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityInventoryItems}"/>
                                 </container>
                             </container>
@@ -304,7 +304,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.ProductInventoryItemsFor} ${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
+                            <label style="h1">${uiLabelMap.ProductInventoryItemsFor} ${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
                         </container>
                         <container>
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
@@ -313,7 +313,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductSearchInventoryItemsByLabels}"/>
                                 </container>
                             </container>
@@ -363,8 +363,8 @@ under the License.
                     <decorator-section name="body">
 
                         <container>
-                            <label style="head1">${uiLabelMap.PageTitleEditFacilityInventoryItems} ${uiLabelMap.CommonFor}:</label>
-                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                            <label style="h1">${uiLabelMap.PageTitleEditFacilityInventoryItems} ${uiLabelMap.CommonFor}:</label>
+                            <label style="h2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container>
                             <link target="EditFacilityInventoryItems?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryItems}" style="buttontext"/>
@@ -387,7 +387,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityInventoryItemsByProduct}"/>
                                 </container>
                             </container>
@@ -401,7 +401,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityInventoryItemsByProduct}"/>
                                 </container>
                             </container>
@@ -451,8 +451,8 @@ under the License.
                     <decorator-section name="body">
 
                         <container>
-                            <label style="head1">${uiLabelMap.PageTitleEditFacilityInventoryItems} ${uiLabelMap.CommonFor}:</label>
-                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                            <label style="h1">${uiLabelMap.PageTitleEditFacilityInventoryItems} ${uiLabelMap.CommonFor}:</label>
+                            <label style="h2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container>
                             <link target="ViewFacilityInventoryByProduct?facilityId=${facilityId}" text="${uiLabelMap.CommonBack}" style="buttontext"/>
@@ -545,14 +545,14 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.ProductInventoryItemsDetailsFor} ${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
+                            <label style="h1">${uiLabelMap.ProductInventoryItemsDetailsFor} ${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
                         </container>
                         <container>
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}"/>
                                 </container>
                             </container>
@@ -571,7 +571,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}"/>
                                         </container>
                                     </container>
@@ -592,7 +592,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}"/>
                                         </container>
                                     </container>
@@ -613,7 +613,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}"/>
                                         </container>
                                     </container>
@@ -651,7 +651,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
                                 </container>
                             </container>
@@ -685,7 +685,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductInventoryItemGrandTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
                                 </container>
                             </container>
@@ -718,11 +718,11 @@ under the License.
             </actions>
             <widgets>
                 <container>
-                    <label style="head2" text="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                    <label style="h2" text="${uiLabelMap.ProductInventoryItemTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
                 </container>
                 <include-form name="InventoryItemTotalsExport" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                 <container>
-                    <label style="head2" text="${uiLabelMap.ProductInventoryItemGrandTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                    <label style="h2" text="${uiLabelMap.ProductInventoryItemGrandTotals} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
                 </container>
                 <include-form name="InventoryItemGrandTotalsExport" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
             </widgets>
@@ -745,13 +745,13 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.ProductGroupsFor} ${uiLabelMap.CommonFor}:</label>
-                            <label style="head1">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                            <label style="h1">${uiLabelMap.ProductGroupsFor} ${uiLabelMap.CommonFor}:</label>
+                            <label style="h1">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container><link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/></container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductGroupMemberMaintenance}"/>
                                 </container>
                             </container>
@@ -765,7 +765,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductAddFacilityGroupMember}"/>
                                 </container>
                             </container>
@@ -800,13 +800,13 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.PartyRoleFor} ${uiLabelMap.CommonFor}:</label>
-                            <label style="head1">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                            <label style="h1">${uiLabelMap.PartyRoleFor} ${uiLabelMap.CommonFor}:</label>
+                            <label style="h1">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container><link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/></container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductFacilityRoleMemberMaintenance}"/>
                                 </container>
                             </container>
@@ -820,7 +820,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductAddFacilityPartyRole}"/>
                                 </container>
                             </container>
@@ -871,7 +871,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFacilityContactMech}"/>
                                 </container>
                             </container>
@@ -949,7 +949,7 @@ under the License.
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditInventoryItem}"/>
                                 </container>
                             </container>
@@ -963,7 +963,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductInventoryItemReservations}"/>
                                 </container>
                             </container>
@@ -985,7 +985,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.ProductPhysicalInventoryVariances}"/>
                                         </container>
                                     </container>
@@ -1029,7 +1029,7 @@ under the License.
                         <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/Menus.xml"/>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.CommonFor} [${inventoryItemId}]"/>
                                 </container>
                             </container>
@@ -1043,7 +1043,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductShipmentReceiptsFor} [${inventoryItemId}]"/>
                                 </container>
                             </container>
@@ -1084,7 +1084,7 @@ under the License.
                         <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/Menus.xml"/>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]"/>
                                 </container>
                             </container>
@@ -1098,7 +1098,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]"/>
                                 </container>
                             </container>
@@ -1129,7 +1129,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityPhysicalInventory}"/>
                                 </container>
                             </container>
@@ -1143,7 +1143,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityPhysicalInventory}"/>
                                 </container>
                             </container>
@@ -1426,7 +1426,7 @@ under the License.
                     <decorator-section name="schedule-body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitlePackageShipmentScheduling}"/>
                                 </container>
                             </container>
@@ -1467,7 +1467,7 @@ under the License.
                     <decorator-section name="schedule-body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleLabelPrinting}"/>
                                 </container>
                             </container>

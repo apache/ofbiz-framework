@@ -43,7 +43,7 @@ text-decoration: underline;
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.WebtoolsMainPage}</li>
+      <li class="h3">${uiLabelMap.WebtoolsMainPage}</li>
       <li class="disabled">${delegator.getDelegatorName()}</li>
     </ul>
     <br class="clear"/>

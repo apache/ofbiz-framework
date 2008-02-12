@@ -21,7 +21,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PartyVisitDetail}</li>            
+      <li class="h3">${uiLabelMap.PartyVisitDetail}</li>            
     </ul>
     <br class="clear"/>
   </div>  
@@ -89,7 +89,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PartyHitTracker}</li>            
+      <li class="h3">${uiLabelMap.PartyHitTracker}</li>            
     </ul>
     <br class="clear"/>
   </div>  
@@ -171,7 +171,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PartyPagePushFollowing}</li>            
+      <li class="h3">${uiLabelMap.PartyPagePushFollowing}</li>            
     </ul>
     <br class="clear"/>
   </div>  

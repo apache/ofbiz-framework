@@ -34,12 +34,12 @@ under the License.
                                 <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container><label style="head1">${uiLabelMap.${titleProperty}}</label></container>
+                                <container><label style="h1">${uiLabelMap.${titleProperty}}</label></container>
                                 <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
                                 <include-form name="ListExamples" location="component://example/widget/example/ExampleForms.xml"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ExampleViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>

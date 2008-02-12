@@ -20,7 +20,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductStockMovesNeeded}</li>
+            <li class="h3">${uiLabelMap.ProductStockMovesNeeded}</li>
             <li><a href="<@ofbizUrl>PickMoveStockSimple?facilityId=${facilityId?if_exists}</@ofbizUrl>">${uiLabelMap.CommonPrint}</a></li>
         </ul>
         <br class="clear"/>

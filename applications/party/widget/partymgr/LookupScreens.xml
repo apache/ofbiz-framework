@@ -39,7 +39,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupPartyByName}"/>
                                 </container>
                             </container>
@@ -76,7 +76,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupPartyByName}"/>
                                 </container>
                             </container>
@@ -114,7 +114,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupPartyByName}"/>
                                 </container>
                             </container>
@@ -154,7 +154,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupPartyPerson}"/>
                                 </container>
                             </container>
@@ -193,7 +193,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupPartyAndUserLoginAndPerson}"/>
                                 </container>
                             </container>
@@ -230,7 +230,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupUserLoginAndPartyDetails}"/>
                                 </container>
                             </container>
@@ -269,7 +269,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupPartyGroup}"/>
                                 </container>
                             </container>
@@ -309,7 +309,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupPartyClassificationGroup}"/>
                                 </container>
                             </container>
@@ -342,7 +342,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupPartyCommEvent}"/>
                                 </container>
                             </container>
@@ -376,7 +376,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyLookupContactMech}"/>
                                 </container>
                             </container>

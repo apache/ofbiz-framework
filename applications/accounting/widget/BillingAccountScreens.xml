@@ -39,7 +39,7 @@ under the License.
 
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.AcccountingViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.AcccountingViewPermissionError}</label>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -69,7 +69,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PageTitleFindBillingAccount}"/>
                                                 </container>
                                             </container>
@@ -95,7 +95,7 @@ under the License.
                                     <widgets>
                                         <container style="screenlet">
                                             <container style="screenlet-title-bar">
-                                                <container style="head3">
+                                                <container style="h3">
                                                     <label text="${uiLabelMap.PageTitleFindBillingAccount}"/>
                                                 </container>
                                             </container>
@@ -134,7 +134,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditBillingAccount}"/>
                                 </container>
                             </container>
@@ -166,7 +166,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditBillingAccountRoles}"/>
                                 </container>
                             </container>
@@ -180,7 +180,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddBillingAccountRoles}"/>
                                 </container>
                             </container>
@@ -213,7 +213,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditBillingAccountTerms} - ${uiLabelMap.AccountingAccountId} ${billingAccount.billingAccountId}"/>
                                 </container>
                             </container>
@@ -235,7 +235,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditBillingAccountTerms}"/>
                                         </container>
                                     </container>
@@ -251,7 +251,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.AccountingCreateBillingAccountTerm}"/>
                                         </container>
                                     </container>
@@ -286,7 +286,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFindInvoices}"/>
                                 </container>
                             </container>
@@ -300,7 +300,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingListInvoices}"/>
                                 </container>
                             </container>
@@ -333,7 +333,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditBillingAccountOrders}"/>
                                 </container>
                             </container>
@@ -372,7 +372,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditBillingAccountPayments}"/>
                                 </container>
                             </container>
@@ -386,7 +386,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingCreatePayment}"/>
                                 </container>
                             </container>

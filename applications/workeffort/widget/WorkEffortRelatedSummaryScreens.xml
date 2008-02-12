@@ -53,10 +53,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="head1">${uiLabelMap.PageTitleWorkEffortRelatedSummary} ${uiLabelMap.CommonFor} ${uiLabelMap.CommonId} [${workEffortId}]</label>
+                        <label style="h1">${uiLabelMap.PageTitleWorkEffortRelatedSummary} ${uiLabelMap.CommonFor} ${uiLabelMap.CommonId} [${workEffortId}]</label>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.WorkEffortWorkEffort}"/>
                                 </container>
                             </container>
@@ -75,7 +75,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PartyPartyAssignmentsDetail}"/>
                                 </container>
                             </container>
@@ -102,7 +102,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.WorkEffortCommEvents}"/>
                                 </container>
                             </container>
@@ -121,7 +121,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.WorkEffortShopLists}"/>
                                 </container>
                             </container>
@@ -140,7 +140,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.WorkEffortQuotes}"/>
                                 </container>
                             </container>
@@ -159,7 +159,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.WorkEffortOrderHeaders}"/>
                                 </container>
                             </container>

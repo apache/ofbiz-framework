@@ -393,7 +393,7 @@ under the License.
 
     <form name="EditAddContentStuff" target="persistContentStuff" title="" type="upload" default-map-name="currentValue"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="contentAssocTitle" title="${uiLabelMap.ContentAssoc}" title-style="head1" map-name="dummy">
+        <field name="contentAssocTitle" title="${uiLabelMap.ContentAssoc}" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>
         <field name="caContentIdTo" position="1" 
@@ -429,7 +429,7 @@ under the License.
         </field>
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1"><date-time default-value="${nowTimestamp}"/></field>
         <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="2"><date-time/></field>
-        <field name="contentTitle" title="${uiLabelMap.ContentContent}" title-style="head1" map-name="dummy">
+        <field name="contentTitle" title="${uiLabelMap.ContentContent}" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>
         <field name="contentId" position="1" 
@@ -488,7 +488,7 @@ under the License.
             </drop-down>
         </field>
 
-        <field name="dataResourceTitle" title-style="head1" map-name="dummy">
+        <field name="dataResourceTitle" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>
         <field name="dataResourceId">
@@ -536,14 +536,14 @@ under the License.
         </field>
         <!--<field name="textData" title="Text" id-name="textData" >-->
 
-        <field name="textDataTitle" title-style="head1" map-name="dummy">
+        <field name="textDataTitle" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>
         <field name="textData">
              <textarea rows="20" cols="80"/>
         </field>
 
-        <field name="imageDataTitle" title-style="head1" map-name="dummy">
+        <field name="imageDataTitle" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>
         <field name="imageData" >

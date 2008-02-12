@@ -49,7 +49,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.BusinessIntelligenceReportBuilderSelectStarSchema}"/>
                                 </container>
                             </container>
@@ -78,7 +78,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.BusinessIntelligenceReportBuilderSelectStarSchemaFields}"/>
                                 </container>
                             </container>
@@ -109,7 +109,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.BusinessIntelligenceReportBuilderRenderStarSchemaReport}"/>
                                 </container>
                             </container>
@@ -141,7 +141,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.BusinessIntelligenceIntegratedFramework}</label>
+                            <label style="h1">${uiLabelMap.BusinessIntelligenceIntegratedFramework}</label>
                         </container>
                         <container>
                             <label>
@@ -180,7 +180,7 @@ under the License.
                             </label>
                         </container>
                         <container>
-                            <label style="head3">
+                            <label style="h3">
                                 ${uiLabelMap.BusinessIntelligenceCurrentStatus}
                             </label>
                         </container>
@@ -203,7 +203,7 @@ under the License.
                             </label>
                         </container>
                         <container>
-                            <label style="head3">
+                            <label style="h3">
                                 ${uiLabelMap.BusinessIntelligenceQuickStartGuide}
                             </label>
                         </container>

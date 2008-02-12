@@ -31,7 +31,7 @@ under the License.
      </td>
   </tr>
   <tr>
-     <td colspan="3"><h1 class="head1">${uiLabelMap.AccountingBillingMenu}</h1></td>
+     <td colspan="3"><h1 class="h1">${uiLabelMap.AccountingBillingMenu}</h1></td>
   </tr>
   
   <tr>
@@ -44,7 +44,7 @@ under the License.
   </tr>
   
   <tr>
-     <td colspan="3"><h1 class="head1">${uiLabelMap.AccountingFixedAssets}</h1></td>
+     <td colspan="3"><h1 class="h1">${uiLabelMap.AccountingFixedAssets}</h1></td>
   </tr>
   
   <tr>
@@ -57,7 +57,7 @@ under the License.
   </tr>
   
   <tr>
-     <td colspan="3"><h1 class="head1">${uiLabelMap.AccountingInvoicesMenu}</h1></td>
+     <td colspan="3"><h1 class="h1">${uiLabelMap.AccountingInvoicesMenu}</h1></td>
   </tr>
   
   <tr valign="top">
@@ -84,7 +84,7 @@ under the License.
 </tr>
 
   <tr>
-     <td colspan="3"><h1 class="head1">${uiLabelMap.AccountingPaymentsMenu}</h1></td>
+     <td colspan="3"><h1 class="h1">${uiLabelMap.AccountingPaymentsMenu}</h1></td>
   </tr>
 
 <tr valign="top">

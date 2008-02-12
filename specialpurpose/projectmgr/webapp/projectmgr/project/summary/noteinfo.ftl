@@ -21,7 +21,7 @@ under the License.
   <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">&nbsp;${uiLabelMap.WorkEffortNotes}</li>
+        <li class="h3">&nbsp;${uiLabelMap.WorkEffortNotes}</li>
           <#--if project?has_content>
             <li><a href="<@ofbizUrl>newNotesForProject?workEffortId=${project.workEffortId?if_exists}&showForm=Y</@ofbizUrl>">${uiLabelMap.ProjectMgrNotesCreateNew}</a></li>
           <#else>
@@ -83,7 +83,7 @@ under the License.
       <#if parameters.showForm?exists>
         <div class="screenlet-title-bar">
           <ul>
-          <li class="head3">&nbsp;${uiLabelMap.OrderAddNote}</li>
+          <li class="h3">&nbsp;${uiLabelMap.OrderAddNote}</li>
           </ul>
           <br class="clear" />
         </div>
@@ -103,7 +103,7 @@ under the License.
               <tr>
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.OrderNote}</div></td>
                 <td width="54%">
-                  <textarea name="noteInfo" class="textAreaBox" rows="5" cols="70"></textarea>
+                  <textarea name="noteInfo" rows="5" cols="70"></textarea>
                 </td>
               </tr>
               <tr>

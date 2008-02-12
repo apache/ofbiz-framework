@@ -30,7 +30,7 @@ under the License.
     <div class="screenlet-body" align="center">      
         <#if partyTo?has_content && partyFrom?has_content>
           <form name="linkparty" method="post" action="<@ofbizUrl>setPartyLink</@ofbizUrl>">
-            <div class="head1 alert">
+            <div class="h1 alert">
               ${uiLabelMap.PartyLinkMessage1}
             </div>
             <br/>

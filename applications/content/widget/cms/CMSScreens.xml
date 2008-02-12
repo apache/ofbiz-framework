@@ -38,7 +38,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindCMSContent}"/>
                                 </container>
                             </container>
@@ -52,7 +52,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindCMSContent}"/>
                                 </container>
                             </container>
@@ -94,7 +94,7 @@ under the License.
                  <decorator-section name="body">
                     <container style="screenlet">
                         <container style="screenlet-title-bar">
-                            <container style="head3">
+                            <container style="h3">
                                 <label text="${uiLabelMap.PageTitleEditCMSContent}"/>
                             </container>
                         </container>
@@ -127,7 +127,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditContent}"/>
                                 </container>
                             </container>
@@ -177,7 +177,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="CMS Content Edit Page"/>
                                 </container>
                             </container>
@@ -223,7 +223,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="CMS Content Add Sub Content"/>
                                 </container>
                             </container>
@@ -257,7 +257,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="CMS Search Page"/>
                                 </container>
                             </container>
@@ -294,7 +294,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="CMS Search Page"/>
                                 </container>
                             </container>
@@ -330,7 +330,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="CMS Search Page"/>
                                 </container>
                             </container>
@@ -363,7 +363,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleSearchContent}"/>
                                 </container>
                             </container>
@@ -395,7 +395,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="Test Permission"/>
                                 </container>
                             </container>

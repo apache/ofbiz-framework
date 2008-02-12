@@ -90,7 +90,7 @@ under the License.
      
     <menu name="rootTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
-        <menu-item name="edit-inplace" title="${contentName}[${contentId}]" widget-style="head2">
+        <menu-item name="edit-inplace" title="${contentName}[${contentId}]" widget-style="h2">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <menu-item name="edit-link" title="Edit">
@@ -157,7 +157,7 @@ under the License.
     </menu>
         
     <menu name="rootInstanceLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
-        <menu-item name="edit-inplace" title="${instanceContent.contentName}[${instanceContent.contentId}]"  widget-style="head2">
+        <menu-item name="edit-inplace" title="${instanceContent.contentName}[${instanceContent.contentId}]"  widget-style="h2">
             <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <menu-item name="edit" title="Edit">
