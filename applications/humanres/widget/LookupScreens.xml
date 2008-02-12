@@ -31,7 +31,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResLookupBudgetByName}"/>
                                 </container>
                             </container>
@@ -60,7 +60,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResLookupBudgetItemByName}"/>
                                 </container>
                             </container>
@@ -89,7 +89,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResLookupEmplPositionByName}"/>
                                 </container>
                             </container>
@@ -118,7 +118,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResLookupTerminationReason}"/>
                                 </container>
                             </container>
@@ -147,7 +147,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResLookupSalaryStepSeqId}"/>
                                 </container>
                             </container>
@@ -176,7 +176,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResLookupPayGrade}"/>
                                 </container>
                             </container>

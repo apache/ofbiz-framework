@@ -20,7 +20,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.PageTitleViewShipment}</li>
+            <li class="h3">${uiLabelMap.PageTitleViewShipment}</li>
         </ul>
         <br class="clear"/>
     </div>

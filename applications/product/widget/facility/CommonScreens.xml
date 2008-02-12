@@ -70,12 +70,12 @@ under the License.
                                         <decorator-section-include name="body"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <label style="head3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
+                                        <label style="h3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
                                     </fail-widgets>
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -97,7 +97,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -126,16 +126,16 @@ under the License.
                                     <widgets>
                                         <include-menu name="InventoryItemLabelsTabBar" location="component://product/widget/facility/Menus.xml"/>
                                         <include-menu name="InventoryItemLabelTabBar" location="component://product/widget/facility/Menus.xml"/>
-                                        <label style="head1">${uiLabelMap.ProductInventoryItemLabel} [${inventoryItemLabelId}]</label>
+                                        <label style="h1">${uiLabelMap.ProductInventoryItemLabel} [${inventoryItemLabelId}]</label>
                                         <decorator-section-include name="body"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <label style="head3">${uiLabelMap.ProductErrorInventoryItemLabelIdNotFound}</label>
+                                        <label style="h3">${uiLabelMap.ProductErrorInventoryItemLabelIdNotFound}</label>
                                     </fail-widgets>
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>

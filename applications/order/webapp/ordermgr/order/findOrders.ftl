@@ -71,7 +71,7 @@ function runAction() {
 <div id="findOrders" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.OrderFindOrder}</li>
+      <li class="h3">${uiLabelMap.OrderFindOrder}</li>
       <#if requestParameters.hideFields?default("N") == "Y">
         <li><a href="<@ofbizUrl>searchorders?hideFields=N&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
@@ -370,7 +370,7 @@ document.lookuporder.orderId.focus();
 <div id="findOrdersList" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.OrderOrderFound}</li>
+      <li class="h3">${uiLabelMap.OrderOrderFound}</li>
       <#if (orderList?has_content && 0 < orderList?size)>
         <#if (viewIndex > 1)>
           <li><a href="<@ofbizUrl>searchorders?viewSize=${viewSize}&viewIndex=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>

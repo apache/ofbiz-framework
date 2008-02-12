@@ -21,7 +21,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.OrderProcessingStatus}</li>
+      <li class="h3">${uiLabelMap.OrderProcessingStatus}</li>
     </ul>
     <br class="clear"/>
   </div>
@@ -68,7 +68,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.OrderProcessingTransitions}</li>
+      <li class="h3">${uiLabelMap.OrderProcessingTransitions}</li>
     </ul>
     <br class="clear"/>
   </div>

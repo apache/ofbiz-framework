@@ -36,7 +36,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OrderRequestList}"/>
                                 </container>
                             </container>
@@ -53,7 +53,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProjectMgrRequestWorkEffortList}"/>
                                 </container>
                             </container>
@@ -88,7 +88,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OrderRequest}"/>
                                 </container>
                             </container>
@@ -125,7 +125,7 @@ under the License.
                         <container style="lefthalf">
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head3">
+                                    <container style="h3">
                                         <label text="${custRequest.custRequestName} ${custRequestId} ${uiLabelMap.CommonInformation}"/>
                                     </container>
                                 </container>
@@ -141,7 +141,7 @@ under the License.
                         <container style="righthalf">
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
-                                    <container style="head3">
+                                    <container style="h3">
                                         <label text="${uiLabelMap.OrderRequestRoles}"/>
                                     </container>
                                 </container>

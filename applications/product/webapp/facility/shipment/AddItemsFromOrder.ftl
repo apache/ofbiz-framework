@@ -20,7 +20,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.PageTitleAddItemsFromOrder}</li>
+            <li class="h3">${uiLabelMap.PageTitleAddItemsFromOrder}</li>
         </ul>
         <br class="clear"/>
     </div>
@@ -45,7 +45,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductAddItemsShipment}: [${shipmentId?if_exists}]; ${uiLabelMap.OrderFromOrder}: [${orderId?if_exists}], ${uiLabelMap.OrderShipGroup}: [${shipGroupSeqId?if_exists}]</li>
+            <li class="h3">${uiLabelMap.ProductAddItemsShipment}: [${shipmentId?if_exists}]; ${uiLabelMap.OrderFromOrder}: [${orderId?if_exists}], ${uiLabelMap.OrderShipGroup}: [${shipGroupSeqId?if_exists}]</li>
         </ul>
         <br class="clear"/>
     </div>
@@ -239,7 +239,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductShipmentNotFoundId}: [${shipmentId?if_exists}]</li>
+            <li class="h3">${uiLabelMap.ProductShipmentNotFoundId}: [${shipmentId?if_exists}]</li>
         </ul>
         <br class="clear"/>
     </div>

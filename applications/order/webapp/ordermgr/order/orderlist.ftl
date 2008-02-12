@@ -56,7 +56,7 @@ under the License.
 <div id="findOrdersList" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.OrderLookupOrder}</li>
+        <li class="h3">${uiLabelMap.OrderLookupOrder}</li>
       </ul>
       <br class="clear"/>
     </div>
@@ -142,7 +142,7 @@ under the License.
   <div id="findOrdersList" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.OrderOrderList}</li>
+        <li class="h3">${uiLabelMap.OrderOrderList}</li>
       </ul>
       <br class="clear"/>
     </div>

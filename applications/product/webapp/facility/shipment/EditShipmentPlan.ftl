@@ -20,7 +20,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductShipmentPlan}</li>
+            <li class="h3">${uiLabelMap.ProductShipmentPlan}</li>
         </ul>
         <br class="clear"/>
     </div>
@@ -32,7 +32,7 @@ under the License.
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <ul>
-                <li class="head3">${uiLabelMap.ProductShipmentPlanAdd}</li>
+                <li class="h3">${uiLabelMap.ProductShipmentPlanAdd}</li>
             </ul>
             <br class="clear"/>
         </div>
@@ -64,7 +64,7 @@ under the License.
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <ul>
-                <li class="head3">${uiLabelMap.ProductShipmentPlanList}</li>
+                <li class="h3">${uiLabelMap.ProductShipmentPlanList}</li>
             </ul>
             <br class="clear"/>
         </div>
@@ -81,7 +81,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="head3">${uiLabelMap.ProductShipmentNotFoundId} : [${shipmentId?if_exists}]</li>
+            <li class="h3">${uiLabelMap.ProductShipmentNotFoundId} : [${shipmentId?if_exists}]</li>
         </ul>
         <br class="clear"/>
     </div>

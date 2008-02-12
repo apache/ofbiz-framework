@@ -34,7 +34,7 @@ display: block;
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.CommonLanguageTitle}</li>
+      <li class="h3">${uiLabelMap.CommonLanguageTitle}</li>
       <li><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonCancel}</a></li>
     </ul>
     <br class="clear"/>

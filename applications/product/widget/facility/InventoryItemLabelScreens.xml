@@ -37,7 +37,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindInventoryItemLabels}"/>
                                 </container>
                             </container>
@@ -67,7 +67,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditInventoryItemLabelTypes}"/>
                                 </container>
                             </container>
@@ -81,7 +81,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddInventoryItemLabelTypes}"/>
                                 </container>
                             </container>
@@ -117,7 +117,7 @@ under the License.
                             <decorator-section name="body">
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.ProductInventoryItemLabel}"/>
                                         </container>
                                     </container>
@@ -140,7 +140,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.ProductInventoryItemLabel}"/>
                                         </container>
                                     </container>
@@ -173,10 +173,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonInventoryItemLabelDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="head2">${uiLabelMap.CommonType}: ${inventoryItemLabelType.description} [${inventoryItemLabelType.inventoryItemLabelTypeId}]</label></container>
+                        <container><label style="h2">${uiLabelMap.CommonType}: ${inventoryItemLabelType.description} [${inventoryItemLabelType.inventoryItemLabelTypeId}]</label></container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditInventoryItemLabelAppls}"/>
                                 </container>
                             </container>
@@ -190,7 +190,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddInventoryItemLabelAppls}"/>
                                 </container>
                             </container>

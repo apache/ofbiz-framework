@@ -78,7 +78,7 @@ under the License.
                 </container>
             </widgets>
             <fail-widgets>
-                <label style="head2" text="${uiLabelMap.OrderNoOrderFound}: [${orderId}]"></label>
+                <label style="h2" text="${uiLabelMap.OrderNoOrderFound}: [${orderId}]"></label>
             </fail-widgets>
         </section>
     </screen>
@@ -309,7 +309,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OrderListOrderTerms}"/>
                                 </container>
                             </container>
@@ -319,7 +319,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OrderAddOrderTerms}"/>
                                 </container>
                             </container>

@@ -20,7 +20,7 @@ under the License.
   <div id="partyPaymentMethod" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.PartyPaymentMethodInformation}</li>
+        <li class="h3">${uiLabelMap.PartyPaymentMethodInformation}</li>
         <#if security.hasEntityPermission("PAY_INFO", "_CREATE", session)>
           <li><a href="<@ofbizUrl>editeftaccount?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewEftAccount}</a></li>
           <li><a href="<@ofbizUrl>editgiftcard?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewGiftCard}</a></li>

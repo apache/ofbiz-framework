@@ -20,7 +20,7 @@ under the License.
 <div id="address-match-map" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PageTitleAddressMatchMap}</li>
+      <li class="h3">${uiLabelMap.PageTitleAddressMatchMap}</li>
       <li><a href="<@ofbizUrl>findAddressMatch</@ofbizUrl>">${uiLabelMap.PageTitleFindMatches}</a></li>
     </ul>
     <br class="clear"/>
@@ -62,7 +62,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PageTitleAddressMatchMap}</li>      
+      <li class="h3">${uiLabelMap.PageTitleAddressMatchMap}</li>      
     </ul>
     <br class="clear"/>
   </div>

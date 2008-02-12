@@ -48,7 +48,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.MarketingViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.MarketingViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -78,7 +78,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditDataSource}"/>
                                         </container>
                                     </container>
@@ -95,7 +95,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddDataSource}"/>
                                         </container>
                                     </container>
@@ -131,7 +131,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListDataSource}"/>
                                 </container>
                             </container>
@@ -171,7 +171,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditDataSourceType}"/>
                                         </container>
                                     </container>
@@ -188,7 +188,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddDataSourceType}"/>
                                         </container>
                                     </container>
@@ -224,7 +224,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListDataSourceType}"/>
                                 </container>
                             </container>

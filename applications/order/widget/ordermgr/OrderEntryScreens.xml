@@ -64,10 +64,10 @@ under the License.
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1" text="${uiLabelMap.OrderRequirements}"/>
+                            <label style="h1" text="${uiLabelMap.OrderRequirements}"/>
                         </container>
                         <container>
-                            <label style="head2" text="${uiLabelMap.OrderFindRequirements}"/>
+                            <label style="h2" text="${uiLabelMap.OrderFindRequirements}"/>
                         </container>
                         <include-form name="FindRequirements" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
                         <section>
@@ -76,7 +76,7 @@ under the License.
                             </condition>
                             <widgets>
                             <container>
-                                <label style="head2" text="${uiLabelMap.OrderRequirementsList}"/>
+                                <label style="h2" text="${uiLabelMap.OrderRequirementsList}"/>
                             </container>
                             <include-form name="RequirementsList" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
                             </widgets>
@@ -103,7 +103,7 @@ under the License.
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.OrderOrderQuotes}</label>
+                            <label style="h1">${uiLabelMap.OrderOrderQuotes}</label>
                         </container>
                         <include-form name="FindQuotes" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>
                         <include-form name="ListQuotes" location="component://order/widget/ordermgr/OrderEntryForms.xml"/>

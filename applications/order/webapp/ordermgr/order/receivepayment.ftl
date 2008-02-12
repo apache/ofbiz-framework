@@ -21,7 +21,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.OrderReceiveOfflinePayments}</li>
+        <li class="h3">${uiLabelMap.OrderReceiveOfflinePayments}</li>
       </ul>
       <br class="clear"/>
     </div>

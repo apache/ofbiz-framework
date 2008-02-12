@@ -21,9 +21,9 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <#if project?has_content>
-        <li class="head3">&nbsp;${uiLabelMap.PageTitleEditSubProject}&nbsp;#${project.workEffortName?if_exists} ${uiLabelMap.CommonInformation}</li>
+        <li class="h3">&nbsp;${uiLabelMap.PageTitleEditSubProject}&nbsp;#${project.workEffortName?if_exists} ${uiLabelMap.CommonInformation}</li>
       <#else>
-        <li class="head3">&nbsp;${uiLabelMap.PageTitleAddSubProject}</li>
+        <li class="h3">&nbsp;${uiLabelMap.PageTitleAddSubProject}</li>
       </#if>
     </ul>
     <br class="clear" />

@@ -34,7 +34,7 @@ under the License.
                    <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ContactListFindContactLists}"/>
                                 </container>
                             </container>
@@ -74,7 +74,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditContactList}"/>
                                         </container>
                                     </container>
@@ -91,7 +91,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddContactList}"/>
                                         </container>
                                     </container>
@@ -131,7 +131,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListContactList}"/>
                                 </container>
                             </container>
@@ -175,7 +175,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditContactListParty}"/>
                                 </container>
                             </container>
@@ -184,7 +184,7 @@ under the License.
                                     <widgets>
                                         <container><link  text="${uiLabelMap.ContactListPartyCreate}" target="EditContactListParty?contactListId=${contactListId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
                                         <include-form name="EditContactListParty" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>                        
-                                        <container><label style="head2" text="${uiLabelMap.CommonStatusHistory}"/></container>
+                                        <container><label style="h2" text="${uiLabelMap.CommonStatusHistory}"/></container>
                                         <iterate-section entry-name="contactListPartyStatus" list-name="contactListPartyStatusList">
                                             <section>
                                                 <widgets>
@@ -221,7 +221,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListContactListParty}"/>
                                 </container>
                             </container>
@@ -254,7 +254,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindContactListParty}"/>
                                 </container>
                             </container>
@@ -293,7 +293,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditContactList}"/>
                                 </container>
                             </container>
@@ -330,7 +330,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListContactList} ${uiLabelMap.CommonFor} contactListId=${contactListId}"/>
                                 </container>
                             </container>
@@ -363,7 +363,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindContactListCommEvents}"/>
                                 </container>
                             </container>
@@ -396,7 +396,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleLookupContactList}"/>
                                 </container>
                             </container>
@@ -431,7 +431,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitlePreferredContactMech}"/>
                                 </container>
                             </container>

@@ -43,13 +43,13 @@ under the License.
                                     <widgets>
                                         <include-menu name="PartyInvitationTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                         <container style="button-bar"><link target="editPartyInvitation" text="${uiLabelMap.PartyInvitationNewPartyInvitation}" style="buttontext"/></container>
-                                        <container style="button-bar"><label style="head1">${uiLabelMap.${titleProperty}}</label><label style="head2"> ${uiLabelMap.CommonFor} "${partyInvitation.partyIdFrom}" [${partyInvitationId}]</label></container>
+                                        <container style="button-bar"><label style="h1">${uiLabelMap.${titleProperty}}</label><label style="h2"> ${uiLabelMap.CommonFor} "${partyInvitation.partyIdFrom}" [${partyInvitationId}]</label></container>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -73,7 +73,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.${titleProperty}}"/>
                                         </container>
                                     </container>
@@ -88,7 +88,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                         <section>
@@ -98,7 +98,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.${titleProperty}}"/>
                                         </container>
                                     </container>
@@ -134,7 +134,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.${titleProperty}}"/>
                                         </container>
                                     </container>
@@ -149,7 +149,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -172,7 +172,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitlePartyInvitation}"/>
                                 </container>
                             </container>
@@ -202,7 +202,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditPartyInvitationGroupAssoc}"/>
                                 </container>
                             </container>
@@ -216,7 +216,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddPartyInvitationGroupAssoc}"/>
                                 </container>
                             </container>
@@ -246,7 +246,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditPartyInvitationRoleAssoc}"/>
                                 </container>
                             </container>
@@ -260,7 +260,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddPartyInvitationRoleAssoc}"/>
                                 </container>
                             </container>

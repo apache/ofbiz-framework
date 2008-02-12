@@ -230,7 +230,7 @@ function submitForm(form, mode, value) {
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <textarea class="textAreaBox" cols="30" rows="3" wrap="hard" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
+                      <textarea cols="30" rows="3" wrap="hard" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
                     </td>
                   </tr>
                  <#if shipping == true>
@@ -239,7 +239,7 @@ function submitForm(form, mode, value) {
                   <tr>
                     <td colspan="2">
                       <div>
-                        <span class="head2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
+                        <span class="h2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
                         <input type="radio" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"><span class="tabletext">${uiLabelMap.CommonYes}</span>
                         <input type="radio" <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name="is_gift" value="false"><span class="tabletext">${uiLabelMap.CommonNo}</span>
                       </div>
@@ -253,7 +253,7 @@ function submitForm(form, mode, value) {
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <textarea class="textAreaBox" cols="30" rows="3" wrap="hard" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
+                      <textarea cols="30" rows="3" wrap="hard" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
                     </td>
                   </tr>
                   <#else/>

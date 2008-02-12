@@ -33,7 +33,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.MarketingViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.MarketingViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -51,12 +51,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonMarketReportDecorator">
                     <decorator-section name="body">
-                        <container style="head1">
+                        <container style="h1">
                             <label text="${uiLabelMap.MarketingReports}"/>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.MarketingTrackingCodeReportTitle}"/>
                                 </container>
                             </container>
@@ -70,7 +70,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.MarketingCampaignReportTitle}"/>
                                 </container>
                             </container>
@@ -101,7 +101,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.MarketingTrackingCodeReportTitle} ${uiLabelMap.CommonFrom} ${parameters.fromDate} ${uiLabelMap.CommonThru} ${parameters.thruDate}"/>
                                 </container>
                             </container>
@@ -132,7 +132,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.MarketingCampaignReportTitle} ${uiLabelMap.CommonFrom} ${parameters.fromDate} ${uiLabelMap.CommonThru} ${parameters.thruDate}"/>
                                 </container>
                             </container>

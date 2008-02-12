@@ -46,7 +46,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.MarketingViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.MarketingViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -76,7 +76,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditTrackingCode}"/>
                                         </container>
                                     </container>
@@ -93,7 +93,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddTrackingCode}"/>
                                         </container>
                                     </container>
@@ -128,7 +128,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListTrackingCode}"/>
                                 </container>
                             </container>
@@ -156,7 +156,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindTrackingCode}"/>
                                 </container>
                             </container>
@@ -193,7 +193,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditTrackingCodeOder}"/>
                                 </container>
                             </container>
@@ -230,7 +230,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListTrackingCodeOrdersFor} ${uiLabelMap.TrackingCodeTrackingCodeId}=${trackingCodeId}"/>
                                 </container>
                             </container>
@@ -263,7 +263,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindTrackingCodeOrder}"/>
                                 </container>
                             </container>
@@ -298,7 +298,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditTrackingCodeVisit}"/>
                                 </container>
                             </container>
@@ -335,7 +335,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListTrackingCodeFor} ${uiLabelMap.TrackingCodeTrackingCodeId}=${trackingCodeId}"/>
                                 </container>
                             </container>
@@ -367,7 +367,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindTrackingCodeVisit}"/>
                                 </container>
                             </container>
@@ -399,7 +399,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleLookupVisit}"/>
                                 </container>
                             </container>
@@ -431,7 +431,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleLookupTrackingCode}"/>
                                 </container>
                             </container>
@@ -470,7 +470,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleEditTrackingCodeType}"/>
                                         </container>
                                     </container>
@@ -487,7 +487,7 @@ under the License.
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleAddTrackingCodeType}"/>
                                         </container>
                                     </container>
@@ -523,7 +523,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListTrackingCodeType}"/>
                                 </container>
                             </container>
@@ -555,7 +555,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleLookupTrackingCodeType}"/>
                                 </container>
                             </container>

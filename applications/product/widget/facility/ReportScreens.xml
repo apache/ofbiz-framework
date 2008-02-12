@@ -51,7 +51,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1" text="${uiLabelMap.ProductInventoryByProduct} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                            <label style="h1" text="${uiLabelMap.ProductInventoryByProduct} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
                         </container>
                         <container>
                             <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
@@ -59,7 +59,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityInventoryItemsByProduct}"/>
                                 </container>
                             </container>
@@ -73,7 +73,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacilityInventoryItemsByProduct}"/>
                                 </container>
                             </container>

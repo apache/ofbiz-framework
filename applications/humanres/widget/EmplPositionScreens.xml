@@ -32,7 +32,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResListEmplPosition}"/>
                                 </container>
                             </container>
@@ -65,7 +65,7 @@
                     <decorator-section name="body">                                                                                       
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResEditEmplPosition}"/>
                                 </container>
                             </container>
@@ -97,7 +97,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListEmplPositionFulfillments}"/>
                                 </container>
                             </container>
@@ -114,7 +114,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResEditEmplPositionFulfillment}"/>
                                 </container>
                             </container>
@@ -143,7 +143,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListEmplPositionResponsibilities}"/>
                                 </container>
                             </container>
@@ -160,7 +160,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResEditEmplPositionResponsibility}"/>
                                 </container>
                             </container>
@@ -189,7 +189,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListEmplPositionReportingStructs}"/>
                                 </container>
                             </container>
@@ -206,7 +206,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResEditEmplPositionReportingStruct}"/>
                                 </container>
                             </container>
@@ -233,7 +233,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResListValidResponsibility}"/>
                                 </container>
                             </container>
@@ -263,7 +263,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.HumanResEditValidResponsibility}"/>
                                 </container>
                             </container>

@@ -58,7 +58,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1" text="${uiLabelMap.OrderQuickFinalizeOrder}"/>
+                            <label style="h1" text="${uiLabelMap.OrderQuickFinalizeOrder}"/>
                         </container>
                         <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/checkoutoptions.ftl"/></html></platform-specific>
                     </decorator-section>

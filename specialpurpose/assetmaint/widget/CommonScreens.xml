@@ -65,7 +65,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3" text="${uiLabelMap.AssetMaintViewPermissionError}"/>
+                                <label style="h3" text="${uiLabelMap.AssetMaintViewPermissionError}"/>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -91,16 +91,16 @@ under the License.
                                     <condition><not><if-empty field-name="maintHistSeqId"/></not></condition>
                                     <widgets>
                                         <include-menu name="FixedAssetMaintTabBar" location="component://assetmaint/widget/Menus.xml"/>
-                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/>
+                                        <label style="h1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <label style="head1" text="${uiLabelMap.${labelTitleProperty}}"/>
+                                        <label style="h1" text="${uiLabelMap.${labelTitleProperty}}"/>
                                     </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3" text="${uiLabelMap.AssetMaintViewPermissionError}"/>
+                                <label style="h3" text="${uiLabelMap.AssetMaintViewPermissionError}"/>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -136,12 +136,12 @@ under the License.
                                         <decorator-section-include name="body"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <label style="head3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
+                                        <label style="h3">${uiLabelMap.ProductErrorFacilityIdNotFound}</label>
                                     </fail-widgets>
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.AssetMaintViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.AssetMaintViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>

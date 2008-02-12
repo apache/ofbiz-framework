@@ -21,9 +21,9 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <#if task?has_content>
-        <li class="head3">&nbsp;${uiLabelMap.PageTitleEditSubTask}&nbsp;#${project.workEffortId?if_exists} ${uiLabelMap.CommonInformation}</li>
+        <li class="h3">&nbsp;${uiLabelMap.PageTitleEditSubTask}&nbsp;#${project.workEffortId?if_exists} ${uiLabelMap.CommonInformation}</li>
       <#else>
-        <li class="head3">&nbsp;${uiLabelMap.PageTitleAddSubTask}</li>
+        <li class="h3">&nbsp;${uiLabelMap.PageTitleAddSubTask}</li>
       </#if>
     </ul>
     <br class="clear" />

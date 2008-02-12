@@ -20,7 +20,7 @@ under the License.
   <div id="partyContactInfo" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.PartyContactInformation}</li>
+        <li class="h3">${uiLabelMap.PartyContactInformation}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
           <li><a href="<@ofbizUrl>editcontactmech?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>

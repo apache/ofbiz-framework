@@ -35,7 +35,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindFacility}"/>
                                 </container>
                             </container>
@@ -81,8 +81,8 @@
                     <decorator-section name="body">
 
                         <container>
-                            <label style="head1">${uiLabelMap.PageTitleEditFacilityInventoryItems} ${uiLabelMap.CommonFor}:</label>
-                            <label style="head2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
+                            <label style="h1">${uiLabelMap.PageTitleEditFacilityInventoryItems} ${uiLabelMap.CommonFor}:</label>
+                            <label style="h2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container>
                             <link target="EditFacilityInventoryItems?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryItems}" style="buttontext"/>

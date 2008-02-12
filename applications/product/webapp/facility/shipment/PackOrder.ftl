@@ -28,7 +28,7 @@ under the License.
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <ul>
-                <li class="head3">${uiLabelMap.ProductPackOrder}&nbsp;in&nbsp;${facility.facilityName?if_exists} [${facilityId?if_exists}]</li>
+                <li class="h3">${uiLabelMap.ProductPackOrder}&nbsp;in&nbsp;${facility.facilityName?if_exists} [${facilityId?if_exists}]</li>
             </ul>
             <br class="clear"/>
         </div>
@@ -119,7 +119,7 @@ under the License.
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <ul>
-                <li class="head3">${uiLabelMap.ProductOrderId} #<a href="/ordermgr/control/orderview?orderId=${orderId}">${orderId}</a> / ${uiLabelMap.ProductOrderShipGroupId} #${shipGroupSeqId}</li>
+                <li class="h3">${uiLabelMap.ProductOrderId} #<a href="/ordermgr/control/orderview?orderId=${orderId}">${orderId}</a> / ${uiLabelMap.ProductOrderShipGroupId} #${shipGroupSeqId}</li>
             </ul>
             <br class="clear"/>
         </div>

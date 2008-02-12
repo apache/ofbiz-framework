@@ -36,11 +36,11 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head1">${uiLabelMap.ManufacturingManageCostComponentCalc}</label>
+                            <label style="h1">${uiLabelMap.ManufacturingManageCostComponentCalc}</label>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ManufacturingListCostComponentCalc}"/>
                                 </container>
                             </container>
@@ -54,7 +54,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ManufacturingEditCostComponentCalc}"/>
                                 </container>
                             </container>

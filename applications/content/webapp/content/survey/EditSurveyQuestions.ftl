@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PageTitleEditSurveyQuestions} ${uiLabelMap.SurveySurveyId} ${surveyId}</li>
+      <li class="h3">${uiLabelMap.PageTitleEditSurveyQuestions} ${uiLabelMap.SurveySurveyId} ${surveyId}</li>
     </ul>
     <br class="clear"/>
   </div>  
@@ -129,7 +129,7 @@ under the License.
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <li class="head3">${uiLabelMap.SurveyApplyQuestionFromCategory} - ${surveyQuestionCategory.description?if_exists} [${surveyQuestionCategory.surveyQuestionCategoryId}]</li>
+          <li class="h3">${uiLabelMap.SurveyApplyQuestionFromCategory} - ${surveyQuestionCategory.description?if_exists} [${surveyQuestionCategory.surveyQuestionCategoryId}]</li>
         </ul>
         <br class="clear"/>
       </div>  
@@ -200,7 +200,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.SurveyApplyQuestionFromCategory}</li>
+      <li class="h3">${uiLabelMap.SurveyApplyQuestionFromCategory}</li>
     </ul>
     <br class="clear"/>
   </div>  
@@ -222,7 +222,7 @@ under the License.
   <#if requestParameters.newCategory?default("N") == "Y">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.SurveyCreateQuestionCategory}</li>
+        <li class="h3">${uiLabelMap.SurveyCreateQuestionCategory}</li>
       </ul>
       <br class="clear"/>
     </div>  
@@ -234,7 +234,7 @@ under the License.
     <#if surveyQuestionId?has_content>
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.CommonEdit} ${uiLabelMap.SurveyQuestion}</li>
+        <li class="h3">${uiLabelMap.CommonEdit} ${uiLabelMap.SurveyQuestion}</li>
       </ul>
       <br class="clear"/>
     </div>  
@@ -243,7 +243,7 @@ under the License.
     <#else>
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.SurveyCreateQuestion}</li>
+        <li class="h3">${uiLabelMap.SurveyCreateQuestion}</li>
       </ul>
       <br class="clear"/>
     </div>  
@@ -259,7 +259,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.SurveyOptions} - ${uiLabelMap.CommonId} ${surveyQuestion.surveyQuestionId?if_exists}</li>
+      <li class="h3">${uiLabelMap.SurveyOptions} - ${uiLabelMap.CommonId} ${surveyQuestion.surveyQuestionId?if_exists}</li>
     </ul>
     <br class="clear"/>
   </div>  
@@ -288,7 +288,7 @@ under the License.
     <#if !surveyQuestionOption?has_content>
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.SurveyCreateQuestionOption}</li>
+        <li class="h3">${uiLabelMap.SurveyCreateQuestionOption}</li>
       </ul>
       <br class="clear"/>
     </div>  
@@ -296,7 +296,7 @@ under the License.
     <#else>
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.SurveyEditQuestionOption}}</li>
+        <li class="h3">${uiLabelMap.SurveyEditQuestionOption}}</li>
       </ul>
       <br class="clear"/>
     </div>  

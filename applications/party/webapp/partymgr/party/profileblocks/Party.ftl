@@ -21,14 +21,14 @@ under the License.
     <div class="screenlet-title-bar">
       <ul>
         <#if lookupPerson?has_content>
-          <li class="head3">${uiLabelMap.PartyPersonalInformation}</li>
+          <li class="h3">${uiLabelMap.PartyPersonalInformation}</li>
           <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
             <li><a href="<@ofbizUrl>editperson?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a></li>
           </#if>
         </#if>
         <#if lookupGroup?has_content>
           <#assign lookupPartyType = party.getRelatedOneCache("PartyType")>
-          <li class="head3">${uiLabelMap.PartyPartyGroupInformation}</li>
+          <li class="h3">${uiLabelMap.PartyPartyGroupInformation}</li>
           <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
             <li><a href="<@ofbizUrl>editpartygroup?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a></li>
           </#if>

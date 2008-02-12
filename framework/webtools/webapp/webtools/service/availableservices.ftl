@@ -39,7 +39,7 @@ under the License.
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <li class="head3">${uiLabelMap.WebtoolsService}: ${selectedServiceMap.serviceName}</li>
+          <li class="h3">${uiLabelMap.WebtoolsService}: ${selectedServiceMap.serviceName}</li>
           <li><a href='<@ofbizUrl>${url}</@ofbizUrl>'>${uiLabelMap.CommonListAll}</a></li>
           <li><a href='<@ofbizUrl>/scheduleJob?SERVICE_NAME=${selectedServiceMap.serviceName}</@ofbizUrl>'>${uiLabelMap.WebtoolsSchedule}</a></li>
           <li><a href='<@ofbizUrl>/setSyncServiceParameters?SERVICE_NAME=${selectedServiceMap.serviceName}&POOL_NAME=pool&_RUN_SYNC_=Y</@ofbizUrl>'>${uiLabelMap.PageTitleRunService}</a></li>

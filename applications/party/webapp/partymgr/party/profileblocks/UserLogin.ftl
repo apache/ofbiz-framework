@@ -20,7 +20,7 @@ under the License.
   <div id="partyUserLogins" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.PartyUserName}</li>
+        <li class="h3">${uiLabelMap.PartyUserName}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
           <li><a href="<@ofbizUrl>createnewlogin?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>

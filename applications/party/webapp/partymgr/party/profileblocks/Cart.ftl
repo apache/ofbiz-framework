@@ -21,7 +21,7 @@ under the License.
     <div id="partyShoppingCart" class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <li class="head3">${uiLabelMap.PartyCurrentShoppingCart}</li>
+          <li class="h3">${uiLabelMap.PartyCurrentShoppingCart}</li>
           <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
             <#if savedCartListId?has_content>
               <#assign listParam = "&shoppingListId=" + savedCartListId>

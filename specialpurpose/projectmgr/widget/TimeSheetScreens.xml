@@ -36,7 +36,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleFindTimeSheet}"/>
                                         </container>
                                     </container>
@@ -50,7 +50,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleTimesheets}"/>
                                         </container>
                                     </container>
@@ -85,7 +85,7 @@ under the License.
                     <decorator-section name="body">                                                  
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleTimesheet} # ${timesheet.timesheetId} week: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"/>
                                 </container>
                             </container>
@@ -105,7 +105,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddATimesheet}"/>
                                 </container>
                             </container>
@@ -195,7 +195,7 @@ under the License.
                     <decorator-section name="body">                                                  
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleCurrentTimesheet} # ${timesheet.timesheetId} week: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"/>
                                 </container>
                             </container>
@@ -215,7 +215,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddATimesheet}"/>
                                 </container>
                             </container>
@@ -298,7 +298,7 @@ under the License.
             <widgets>
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
-                        <container style="head3">
+                        <container style="h3">
                             <label text="${uiLabelMap.PageTitleTimesheets} ${uiLabelMap.CommonOf} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName}"/>
                         </container>
                     </container>

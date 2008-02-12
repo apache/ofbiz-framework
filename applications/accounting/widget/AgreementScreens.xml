@@ -42,14 +42,14 @@ under the License.
                                             <html><html-template location="component://accounting/webapp/accounting/agreement/AgreementTabBar.ftl"/></html>
                                         </platform-specific>
                                         <container>
-                                            <label style="head1">${agreement.description} [${agreement.agreementId}] </label>
+                                            <label style="h1">${agreement.description} [${agreement.agreementId}] </label>
                                         </container>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.AccountingViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.AccountingViewPermissionError}</label>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -77,7 +77,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleFindAgreement}"/>
                                         </container>
                                     </container>
@@ -94,7 +94,7 @@ under the License.
                                 </container>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.PageTitleListAgreement}"/>
                                         </container>
                                     </container>
@@ -108,7 +108,7 @@ under the License.
                                 </container>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.AcccountingViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.AcccountingViewPermissionError}</label>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -141,7 +141,7 @@ under the License.
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditAgreement}"/>
                                 </container>
                             </container>
@@ -181,7 +181,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListAgreementItems}"/>
                                 </container>
                             </container>
@@ -220,7 +220,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditAgreementItem}"/>
                                 </container>
                             </container>
@@ -253,7 +253,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListAgreementTerms}"/>
                                 </container>
                             </container>
@@ -267,7 +267,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditAgreementTerm}"/>
                                 </container>
                             </container>
@@ -308,7 +308,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListAgreementPromoAppls}"/>
                                 </container>
                             </container>
@@ -347,7 +347,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditAgreementPromoAppl}"/>
                                 </container>
                             </container>
@@ -387,7 +387,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListAgreementItemTerms}"/>
                                 </container>
                             </container>
@@ -427,7 +427,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditAgreementItemTerm}"/>
                                 </container>
                             </container>
@@ -468,7 +468,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListAgreementItemProducts}"/>
                                 </container>
                             </container>
@@ -505,7 +505,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAgreement}"/>
                                 </container>
                             </container>
@@ -519,7 +519,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAgreementItem}"/>
                                 </container>
                             </container>
@@ -533,7 +533,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAgreementItemProductsForReport}"/>
                                 </container>
                             </container>
@@ -574,7 +574,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditAgreementItemProduct}"/>
                                 </container>
                             </container>
@@ -615,7 +615,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListAgreementItemProducts}"/>
                                 </container>
                             </container>
@@ -652,7 +652,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAgreement}"/>
                                 </container>
                             </container>
@@ -666,7 +666,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAgreementItem}"/>
                                 </container>
                             </container>
@@ -680,7 +680,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingAgreementItemSupplierProductsForReport}"/>
                                 </container>
                             </container>
@@ -728,7 +728,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditAgreementItemProduct}"/>
                                 </container>
                             </container>
@@ -747,7 +747,7 @@ under the License.
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head2">${uiLabelMap.AccountingAgreementIsNotSetForSupplierProducts}</label>
+                            <label style="h2">${uiLabelMap.AccountingAgreementIsNotSetForSupplierProducts}</label>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -779,7 +779,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListAgreementItemParties}"/>
                                 </container>
                             </container>
@@ -819,7 +819,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditAgreementItemParty}"/>
                                 </container>
                             </container>
@@ -859,7 +859,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListAgreementGeographicalApplic}"/>
                                 </container>
                             </container>
@@ -899,7 +899,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditAgreementGeographicalApplic}"/>
                                 </container>
                             </container>

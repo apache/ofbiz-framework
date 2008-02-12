@@ -37,11 +37,11 @@ under the License.
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                           <label style="head1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                           <label style="h1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductCatalog}"/>
                                 </container>
                             </container>
@@ -85,11 +85,11 @@ under the License.
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                           <label style="head1">${uiLabelMap.ProductCategories} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                           <label style="h1">${uiLabelMap.ProductCategories} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductCatalogCategories}"/>
                                 </container>
                             </container>
@@ -103,7 +103,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductAddCatalogProdCat}"/>
                                 </container>
                             </container>
@@ -143,11 +143,11 @@ under the License.
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                           <label style="head1">${uiLabelMap.PartyParties} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                           <label style="h1">${uiLabelMap.PartyParties} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductCatalogParties}"/>
                                 </container>
                             </container>
@@ -161,7 +161,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddProductCatalogParties}"/>
                                 </container>
                             </container>
@@ -201,11 +201,11 @@ under the License.
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                           <label style="head1">${uiLabelMap.ProductStores} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                           <label style="h1">${uiLabelMap.ProductStores} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductCatalogStores}"/>
                                 </container>
                             </container>
@@ -219,7 +219,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddProductCatalogStores}"/>
                                 </container>
                             </container>
@@ -261,7 +261,7 @@ under the License.
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
                          </section>                    
                     </decorator-section>

@@ -228,7 +228,7 @@ function ShowTab(lname) {
       <div class="screenlet">
         <div class="screenlet-title-bar">
           <ul>
-            <li class="head3">${uiLabelMap.WebtoolsRelatedEntity}: ${relation.title}${relation.relatedTable} (${relation.type})</li>
+            <li class="h3">${uiLabelMap.WebtoolsRelatedEntity}: ${relation.title}${relation.relatedTable} (${relation.type})</li>
             <li><a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}&amp;find=true</@ofbizUrl>">${uiLabelMap.CommonFind}</a></li>
             <#if relation.valueRelated?has_content>
               <li><a href="<@ofbizUrl>ViewGeneric?${relation.encodeRelatedEntityFindString}</@ofbizUrl>">${uiLabelMap.CommonView}</a></li>

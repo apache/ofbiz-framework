@@ -31,7 +31,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFindFixedAsset}"/>
                                 </container>
                             </container>
@@ -48,7 +48,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFindFixedAsset}"/>
                                 </container>
                             </container>
@@ -86,7 +86,7 @@
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.AccountingEditFixedAsset} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]  ${${extraFunctionName}}"/>
                                         </container>
                                     </container>
@@ -105,7 +105,7 @@
                             <fail-widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.AccountingNewFixedAsset}"/>
                                         </container>
                                     </container>
@@ -141,7 +141,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFixedAssetChildren} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]  ${${extraFunctionName}}"/>
                                 </container>
                             </container>
@@ -183,7 +183,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetStdCost} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]  ${${extraFunctionName}}"/>
                                 </container>
                             </container>
@@ -197,7 +197,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFixedAssetStdCost}"/>
                                 </container>
                             </container>

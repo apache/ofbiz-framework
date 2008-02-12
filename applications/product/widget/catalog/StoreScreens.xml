@@ -37,7 +37,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductProductStoreList}"/>
                                 </container>
                             </container>
@@ -73,7 +73,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductProductStoreList}"/>
                                 </container>
                             </container>
@@ -140,20 +140,20 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <label style="head3">${uiLabelMap.CommonView}</label>
+                            <label style="h3">${uiLabelMap.CommonView}</label>
                             <link target="EditProductStorePromos?productStoreId=${productStoreId}" text="${uiLabelMap.CommonAll}" style="buttontext"/>
                             <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
                             <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
                         </container>
                         <container>
-                            <label style="head3">${uiLabelMap.CommonView} ${uiLabelMap.CommonActiveInactive}</label>
+                            <label style="h3">${uiLabelMap.CommonView} ${uiLabelMap.CommonActiveInactive}</label>
                             <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;activeOnly=N" text="${uiLabelMap.CommonAll}" style="buttontext"/>
                             <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;activeOnly=N&amp;userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
                             <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;activeOnly=N&amp;userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductStorePromos}"/>
                                 </container>
                             </container>
@@ -167,7 +167,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductAddStorePromo}"/>
                                 </container>
                             </container>
@@ -206,7 +206,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductStoreCatalogs}"/>
                                 </container>
                             </container>
@@ -220,7 +220,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddProductStoreCatalogs}"/>
                                 </container>
                             </container>
@@ -321,7 +321,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductStoreShipSetup}"/>
                                 </container>
                             </container>
@@ -335,7 +335,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <section>
                                         <condition>
                                             <and>
@@ -399,7 +399,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductStoreShipmentCostEstimates}"/>
                                 </container>
                             </container>
@@ -413,7 +413,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <section>
                                         <condition>
                                             <if-empty field-name="estimate"/>
@@ -463,7 +463,7 @@ under the License.
                     <decorator-section name="body">
                          <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <section>
                                         <widgets>
                                             <label text="${uiLabelMap.PageTitleListProductStorePaySetup}"/>
@@ -481,7 +481,7 @@ under the License.
                         </container>
                          <container style="screenlet">
                                <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <section>
                                         <widgets>
                                             <label text="${uiLabelMap.PageTitleEditProductStorePaySetup}"/>
@@ -526,7 +526,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductStoreEmailSetup}"/>
                                 </container>
                             </container>
@@ -540,7 +540,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddProductStoreEmailSetup}"/>
                                 </container>
                             </container>
@@ -601,7 +601,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductStoreKeywordOvrd}"/>
                                 </container>
                             </container>
@@ -615,7 +615,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleAddProductStoreKeywordOvrd}"/>
                                 </container>
                             </container>
@@ -654,7 +654,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleViewProductStoreSegments}"/>
                                 </container>
                             </container>
@@ -692,7 +692,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListProductStoreFinAccountSettings}"/>
                                 </container>
                             </container>
@@ -706,7 +706,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductStoreFinAccountSettings}"/>
                                 </container>
                             </container>
@@ -743,7 +743,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListProductStoreVendorPayments}"/>
                                 </container>
                             </container>
@@ -757,7 +757,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductStoreVendorPayments}"/>
                                 </container>
                             </container>
@@ -794,7 +794,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListProductStoreVendorShipments}"/>
                                 </container>
                             </container>
@@ -808,7 +808,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductStoreVendorShipments}"/>
                                 </container>
                             </container>

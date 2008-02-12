@@ -34,7 +34,7 @@ under the License.
     <div class="screenlet-title-bar">
       <#if currentCustomTimePeriod?has_content>
         <ul>
-          <li class="head3">${uiLabelMap.WebtoolsCurrentCustomTimePeriod}</li>
+          <li class="h3">${uiLabelMap.WebtoolsCurrentCustomTimePeriod}</li>
           <li><a href="<@ofbizUrl>EditCustomTimePeriod?findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>">${uiLabelMap.WebtoolsClearCurrent}</a></li>
         </ul>
         <br class="clear" />

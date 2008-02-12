@@ -113,7 +113,7 @@ under the License.
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <textarea class='textAreaBox' cols="30" rows="3" name="${shipGroupIndex?default("0")}_shipping_instructions">${cart.getShippingInstructions(shipGroupIndex)?if_exists}</textarea>
+                    <textarea cols="30" rows="3" name="${shipGroupIndex?default("0")}_shipping_instructions">${cart.getShippingInstructions(shipGroupIndex)?if_exists}</textarea>
                   </td>
                 </tr>
                 <tr>
@@ -122,7 +122,7 @@ under the License.
                        <input type='hidden' name='${shipGroupIndex?default("0")}_is_gift' value='false'>
                     <#else>
                     <div>
-                      <span class="head2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
+                      <span class="h2"><b>${uiLabelMap.OrderIsThisGift}</b></span>
                       <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("Y") == "Y">checked</#if> name='${shipGroupIndex?default("0")}_is_gift' value='true'><span class='tabletext'>${uiLabelMap.CommonYes}</span>
                       <input type='radio' <#if cart.getIsGift(shipGroupIndex)?default("N") == "N">checked</#if> name='${shipGroupIndex?default("0")}_is_gift' value='false'><span class='tabletext'>${uiLabelMap.CommonNo}</span>
                     </div>
@@ -138,7 +138,7 @@ under the License.
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <textarea class='textAreaBox' cols="30" rows="3" name="${shipGroupIndex?default("0")}_gift_message">${cart.getGiftMessage(shipGroupIndex)?if_exists}</textarea>
+                    <textarea cols="30" rows="3" name="${shipGroupIndex?default("0")}_gift_message">${cart.getGiftMessage(shipGroupIndex)?if_exists}</textarea>
                   </td>
                 </tr>
                  </#if>

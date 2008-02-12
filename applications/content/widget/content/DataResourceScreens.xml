@@ -33,7 +33,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindDataResource}"/>
                                 </container>
                             </container>
@@ -47,7 +47,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListDataResource}"/>
                                 </container>
                             </container>
@@ -83,7 +83,7 @@ under the License.
                                 <container id="cmsnav" style="left-border">
                                     <container style="screenlet">
                                         <container style="screenlet-title-bar">
-                                            <container style="head3">
+                                            <container style="h3">
                                                 <label text="${uiLabelMap.PageTitleNavigateDataResources}"/>
                                             </container>
                                         </container>
@@ -137,7 +137,7 @@ under the License.
             <widgets>
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
-                        <container style="head3">
+                        <container style="h3">
                             <label text="${uiLabelMap.PageTitleNavigateDataResources}"/>
                         </container>
                     </container>
@@ -182,7 +182,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditDataResource}"/>
                                 </container>
                             </container>
@@ -360,7 +360,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditElectronicText}"/>
                                 </container>
                             </container>
@@ -393,7 +393,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditDataResourceAttribute}"/>
                                 </container>
                             </container>
@@ -407,7 +407,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditDataResourceAttribute}"/>
                                 </container>
                             </container>
@@ -440,7 +440,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditDataResourceRole}"/>
                                 </container>
                             </container>
@@ -454,7 +454,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditDataResourceRole}"/>
                                 </container>
                             </container>
@@ -487,7 +487,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditDataResourceProductFeatures}"/>
                                 </container>
                             </container>
@@ -501,7 +501,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditDataResourceProductFeatures}"/>
                                 </container>
                             </container>
@@ -531,7 +531,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditHtmlText}"/>
                                 </container>
                             </container>

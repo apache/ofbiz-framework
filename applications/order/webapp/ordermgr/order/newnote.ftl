@@ -21,7 +21,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.OrderAddNote}</li>
+        <li class="h3">${uiLabelMap.OrderAddNote}</li>
       </ul>
       <br class="clear"/>
     </div>

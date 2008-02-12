@@ -20,7 +20,7 @@ under the License.
   <div id="partyNotes" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.CommonNotes}</li>
+        <li class="h3">${uiLabelMap.CommonNotes}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_NOTE", session)>
           <li><a href="<@ofbizUrl>AddPartyNote?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>

@@ -22,7 +22,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">&nbsp;${uiLabelMap.OrderNotes}</li>
+        <li class="h3">&nbsp;${uiLabelMap.OrderNotes}</li>
         <#if security.hasEntityPermission("ORDERMGR", "_NOTE", session)>
           <li><a href="<@ofbizUrl>createnewnote?${paramString}</@ofbizUrl>">${uiLabelMap.OrderNotesCreateNew}</a></li>
         </#if>

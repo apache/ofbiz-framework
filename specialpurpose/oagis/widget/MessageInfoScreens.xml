@@ -31,7 +31,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OagisListMessageInfo}"/>
                                 </container>
                             </container>
@@ -49,7 +49,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OagisListMessageInfo}"/>
                                 </container>
                             </container>
@@ -83,7 +83,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OagisEditMessageInfo}"/>
                                 </container>
                             </container>
@@ -112,7 +112,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OagisListMessageErrorInfo}"/>
                                 </container>
                             </container>
@@ -130,7 +130,7 @@
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OagisListMessageErrorInfo}"/>
                                 </container>
                             </container>
@@ -165,7 +165,7 @@
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OagisEditMessageErrorInfo}"/>
                                 </container>
                             </container>

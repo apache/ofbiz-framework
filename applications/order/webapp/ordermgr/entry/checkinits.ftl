@@ -36,7 +36,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
+      <li class="h3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
       <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
       <li><a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}">${uiLabelMap.PartyFindParty}</a></li>
     </ul>
@@ -133,7 +133,7 @@ under the License.
   <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="head3">${uiLabelMap.OrderPurchaseOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
+        <li class="h3">${uiLabelMap.OrderPurchaseOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
         <li><a href="javascript:document.poentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
         <li><a href="/partymgr/control/findparty?externalLoginKey=${externalLoginKey}">${uiLabelMap.PartyFindParty}</a></li>
       </ul>

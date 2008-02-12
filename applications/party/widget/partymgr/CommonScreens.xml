@@ -120,14 +120,14 @@ under the License.
                                                 </condition>
                                                 <widgets>
                                                     <label text="&amp;nbsp;&lt;br/&gt;"/>
-                                                    <label style="head1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName}"/>
+                                                    <label style="h1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName}"/>
                                                 </widgets>
                                                 <fail-widgets>
-                                                    <label style="head1" text="${uiLabelMap.PartyNewUser}"/>
+                                                    <label style="h1" text="${uiLabelMap.PartyNewUser}"/>
                                                 </fail-widgets>
                                             </section>
                                             
-                                            <label style="head1" text="[${partyId}]"/>
+                                            <label style="h1" text="[${partyId}]"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -135,7 +135,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -165,7 +165,7 @@ under the License.
                                     </widgets>
                                 </section>
                                 <container>
-                                    <label style="head1" text="${uiLabelMap.${labelTitleProperty}} [${groupId}]"/>
+                                    <label style="h1" text="${uiLabelMap.${labelTitleProperty}} [${groupId}]"/>
                                 </container>
                                 <container style="button-bar">
                                     <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
@@ -175,7 +175,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartySecurityViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartySecurityViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -266,7 +266,7 @@ under the License.
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>

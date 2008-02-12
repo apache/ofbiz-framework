@@ -44,7 +44,7 @@ under the License.
                                 </section>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3" text="${uiLabelMap.AcccountingViewPermissionError}"/>
+                                <label style="h3" text="${uiLabelMap.AcccountingViewPermissionError}"/>
                             </fail-widgets>
                         </section>                    
                         <decorator-section-include name="body"/>
@@ -67,7 +67,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFindFinAccount}"/>
                                 </container>
                             </container>
@@ -84,7 +84,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingFindFinAccount}"/>
                                 </container>
                             </container>
@@ -118,7 +118,7 @@ under the License.
                             <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
-                                        <container style="head3">
+                                        <container style="h3">
                                             <label text="${uiLabelMap.AccountingEditFinAccount}"/>
                                         </container>
                                     </container>
@@ -158,7 +158,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFinAccountRole} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]"/>
                                 </container>
                             </container>
@@ -172,7 +172,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFinAccountRoles}"/>
                                 </container>
                             </container>
@@ -204,7 +204,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFinAccountTrans} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]"/>
                                 </container>
                             </container>
@@ -218,7 +218,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFinAccountTrans}"/>
                                 </container>
                             </container>
@@ -251,7 +251,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditFinAccountAuths} ${uiLabelMap.CommonFor} ${finAccount.finAccountName} [${finAccountId}]"/>
                                 </container>
                             </container>
@@ -265,7 +265,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleListFinAccountAuths}"/>
                                 </container>
                             </container>

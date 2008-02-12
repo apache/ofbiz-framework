@@ -44,7 +44,7 @@ under the License.
                                         </platform-specific>
                     
                                         <container>
-                                            <label style="head1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>
+                                            <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>
                                         </container>
                                         <container>
                                             <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
@@ -55,7 +55,7 @@ under the License.
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="head3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
+                                <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
                         </section>                    
                     </decorator-section>
@@ -81,7 +81,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductPromotionCode}"/>
                                 </container>
                             </container>
@@ -104,7 +104,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.ProductProductPromotionsList}"/>
                                 </container>
                             </container>
@@ -137,7 +137,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductPromos}"/>
                                 </container>
                             </container>
@@ -298,7 +298,7 @@ under the License.
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleFindProductPromotionCode}"/>
                                 </container>
                             </container>
@@ -336,7 +336,7 @@ under the License.
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.PageTitleEditProductPromotionCode}"/>
                                 </container>
                             </container>

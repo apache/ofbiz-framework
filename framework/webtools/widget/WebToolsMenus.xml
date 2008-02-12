@@ -34,7 +34,7 @@ under the License.
     </menu>
     
     <menu name="FindJobsTitleBar" type="simple" menu-container-style="screenlet-title-bar">
-        <menu-item name="screenletTitle" align-style="head3">
+        <menu-item name="screenletTitle" align-style="h3">
             <link text="${uiLabelMap.PageTitleFindJob}"/>
         </menu-item>
         <menu-item name="hideFields" title="${uiLabelMap.CommonHideFields}">

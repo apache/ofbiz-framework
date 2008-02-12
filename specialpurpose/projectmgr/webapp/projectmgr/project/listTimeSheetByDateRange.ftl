@@ -20,7 +20,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">&nbsp;Find TimeSheet</li>
+      <li class="h3">&nbsp;Find TimeSheet</li>
     </ul>
     <br class="clear" />
   </div>

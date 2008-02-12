@@ -36,7 +36,7 @@ under the License.
 <#if displayParty?has_content || orderContactMechValueMaps?has_content>
 <div class="screenlet">
     <div class="screenlet-title-bar">
-      <ul><li class="head3">&nbsp;${uiLabelMap.OrderContactInformation}</li></ul>
+      <ul><li class="h3">&nbsp;${uiLabelMap.OrderContactInformation}</li></ul>
       <br class="clear"/>
     </div>    
     <div class="screenlet-body">

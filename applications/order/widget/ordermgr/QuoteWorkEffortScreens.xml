@@ -38,7 +38,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OrderCreateOrderQuoteWorkEfforts}"/>
                                 </container>
                             </container>
@@ -74,7 +74,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OrderOrderQuoteEditWorkEfforts}"/>
                                 </container>
                             </container>
@@ -108,7 +108,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="head3">
+                                <container style="h3">
                                     <label text="${uiLabelMap.OrderOrderQuoteWorkEfforts}"/>
                                 </container>
                             </container>
