@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.widget.html.HtmlWidgetRenderer;
@@ -124,6 +125,18 @@ public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenString
     }
 
     public void renderSubContentEnd(Writer writer, Map context, ModelScreenWidget.SubContent content) throws IOException {
+        // TODO: not implemented
+    }
+
+    public void renderScreenletBegin(Writer writer, Map context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
+        // TODO: not implemented
+    }
+
+    public void renderScreenletSubWidget(Writer writer, Map context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException {
+        // TODO: not implemented
+    }
+
+    public void renderScreenletEnd(Writer writer, Map context, ModelScreenWidget.Screenlet screenlet) throws IOException {
         // TODO: not implemented
     }
 }

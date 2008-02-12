@@ -20,6 +20,8 @@ package org.ofbiz.widget.html;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 
@@ -31,13 +33,18 @@ import javax.servlet.http.HttpSession;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.form.FormStringRenderer;
+import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.html.HtmlWidgetRenderer;
+import org.ofbiz.widget.menu.MenuStringRenderer;
+import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.WidgetContentWorker;
 import org.ofbiz.widget.WidgetDataResourceWorker;
 import org.ofbiz.widget.screen.ModelScreenWidget;
@@ -84,6 +91,270 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     public void renderContainerEnd(Writer writer, Map context, ModelScreenWidget.Container container) throws IOException {
         writer.write("</div>");
         appendWhitespace(writer);
+    }
+
+    public void renderScreenletBegin(Writer writer, Map context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
+        HttpServletResponse response = (HttpServletResponse) context.get("response");
+        ModelScreenWidget.Menu tabMenu = screenlet.getTabMenu();
+        if (tabMenu != null) {
+            tabMenu.renderWidgetString(writer, context, this);
+        }
+        writer.write("<div class=\"screenlet\"");
+        String id = screenlet.getId(context);
+        if (UtilValidate.isNotEmpty(id)) {
+            writer.write(" id=\"");
+            writer.write(id);
+            writer.write("\"");
+        }
+        writer.write(">");
+        appendWhitespace(writer);
+
+        String title = screenlet.getTitle(context);
+        ModelScreenWidget.Menu navMenu = screenlet.getNavigationMenu();
+        ModelScreenWidget.Form navForm = screenlet.getNavigationForm();
+        if (UtilValidate.isNotEmpty(title) || navMenu != null || navForm != null || screenlet.collapsible()) {
+            writer.write("<div class=\"screenlet-title-bar\">");
+            appendWhitespace(writer);
+            writer.write("<ul>");
+            appendWhitespace(writer);
+            if (UtilValidate.isNotEmpty(title)) {
+                writer.write("<li class=\"head3\">");
+                writer.write(title);
+                writer.write("</li>");
+                appendWhitespace(writer);
+            }
+            if (screenlet.collapsible()) {
+                String toolTip = null;
+                Map uiLabelMap = (Map) context.get("uiLabelMap");
+                Map requestParameters = new HashMap((Map)context.get("requestParameters"));
+                writer.write("<li class=\"");
+                if (collapsed) {
+                    requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "false");
+                    String queryString = UtilHttp.urlEncodeArgs(requestParameters);
+                    writer.write("collapsed\"><a href=\"");
+                    writer.write(request.getRequestURI() + "?" + queryString);
+                    if (uiLabelMap != null) {
+                        toolTip = (String) uiLabelMap.get("CommonExpand");
+                    }
+                } else {
+                    requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "true");
+                    String queryString = UtilHttp.urlEncodeArgs(requestParameters);
+                    writer.write("expanded\"><a href=\"");
+                    writer.write(request.getRequestURI() + "?" + queryString);
+                    if (uiLabelMap != null) {
+                        toolTip = (String) uiLabelMap.get("CommonCollapse");
+                    }
+                }
+                writer.write("\"");
+                if (UtilValidate.isNotEmpty(toolTip)) {
+                    writer.write(" title=\"" + toolTip + "\"");
+                }
+                writer.write(">&nbsp</a></li>");
+                appendWhitespace(writer);
+            }
+            if (!collapsed) {
+                if (navMenu != null) {
+                    MenuStringRenderer savedRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
+                    MenuStringRenderer renderer = new ScreenletMenuRenderer(request, response);
+                    context.put("menuStringRenderer", renderer);
+                    navMenu.renderWidgetString(writer, context, this);
+                    context.put("menuStringRenderer", savedRenderer);
+                } else if (navForm != null) {
+                    renderScreenletPaginateMenu(writer, context, navForm);
+                }
+            }
+            writer.write("</ul>");
+            appendWhitespace(writer);
+            writer.write("<br class=\"clear\" />");
+            appendWhitespace(writer);
+            writer.write("</div>");
+            appendWhitespace(writer);
+            if (screenlet.padded()) {
+                writer.write("<div class=\"screenlet-body\">");
+                appendWhitespace(writer);
+            }
+        }
+    }
+    
+    protected void renderScreenletPaginateMenu(Writer writer, Map context, ModelScreenWidget.Form form) throws IOException {
+        HttpServletResponse response = (HttpServletResponse) context.get("response");
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
+        ModelForm modelForm = form.getModelForm(context);
+        modelForm.runFormActions(context);
+        modelForm.preparePager(context);
+        String targetService = modelForm.getPaginateTarget(context);
+        if (targetService == null) {
+            targetService = "${targetService}";
+        }
+
+        // get the parametrized pagination index and size fields
+        String viewIndexParam = modelForm.getPaginateIndexField(context);
+        String viewSizeParam = modelForm.getPaginateSizeField(context);
+
+        int viewIndex = modelForm.getViewIndex(context);
+        int viewSize = modelForm.getViewSize(context);
+        int listSize = modelForm.getListSize(context);
+
+        int lowIndex = modelForm.getLowIndex(context);
+        int highIndex = modelForm.getHighIndex(context);
+        int actualPageSize = modelForm.getActualPageSize(context);
+
+        // if this is all there seems to be (if listSize < 0, then size is unknown)
+        if (actualPageSize >= listSize && listSize >= 0) return;
+
+        // needed for the "Page" and "rows" labels
+        Map uiLabelMap = (Map) context.get("uiLabelMap");
+        String pageLabel = "";
+        String rowsLabel = "";
+        String ofLabel = "";
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", module);
+        } else {
+            pageLabel = (String) uiLabelMap.get("CommonPage");
+            rowsLabel = (String) uiLabelMap.get("CommonRows");
+            ofLabel = (String) uiLabelMap.get("CommonOf");
+            ofLabel = ofLabel.toLowerCase();
+        }
+
+        // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
+        if (viewIndexParam.equals("viewIndex")) viewIndexParam = "VIEW_INDEX";
+        if (viewSizeParam.equals("viewSize")) viewSizeParam = "VIEW_SIZE";
+
+        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+
+        Map inputFields = (Map) context.get("requestParameters");
+        // strip out any multi form fields if the form is of type multi
+        if (modelForm.getType().equals("multi")) {
+            inputFields = UtilHttp.removeMultiFormParameters(inputFields);
+        }
+        String queryString = UtilHttp.urlEncodeArgs(inputFields);
+        // strip legacy viewIndex/viewSize params from the query string
+        queryString = UtilHttp.stripViewParamsFromQueryString(queryString);
+        // strip parametrized index/size params from the query string
+        HashSet paramNames = new HashSet();
+        paramNames.add(viewIndexParam);
+        paramNames.add(viewSizeParam);
+        queryString = UtilHttp.stripNamedParamsFromQueryString(queryString, paramNames);
+
+        String anchor = "";
+        String paginateAnchor = modelForm.getPaginateTargetAnchor();
+        if (paginateAnchor != null) anchor = "#" + paginateAnchor;
+
+        // preparing the link text, so that later in the code we can reuse this and just add the viewIndex
+        String prepLinkText = "";
+        prepLinkText = targetService;
+        if (prepLinkText.indexOf("?") < 0) {
+            prepLinkText += "?";
+        } else if (!prepLinkText.endsWith("?")) {
+            prepLinkText += "&amp;";
+        }
+        if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
+            prepLinkText += queryString + "&amp;";
+        }
+        prepLinkText += viewSizeParam + "=" + viewSize + "&amp;" + viewIndexParam + "=";
+
+        String linkText;
+
+        appendWhitespace(writer);
+        // The current screenlet title bar navigation syling requires rendering
+        // these links in reverse order
+        // Last button
+        writer.write("<li class=\"" + modelForm.getPaginateLastStyle());
+        if (highIndex < listSize) {
+            writer.write("\"><a href=\"");
+            int page = (listSize / viewSize) - 1;
+            linkText = prepLinkText + page + anchor;
+            // - make the link
+            writer.write(rh.makeLink(request, response, linkText));
+            writer.write("\">" + modelForm.getPaginateLastLabel(context) + "</a>");
+        } else {
+            // disabled button
+            writer.write(" disabled\">" + modelForm.getPaginateLastLabel(context));
+        }
+        writer.write("</li>");
+        appendWhitespace(writer);
+        // Next button
+        writer.write("<li class=\"" + modelForm.getPaginateNextStyle());
+        if (highIndex < listSize) {
+            writer.write("\"><a href=\"");
+            linkText = prepLinkText + (viewIndex + 1) + anchor;
+            // - make the link
+            writer.write(rh.makeLink(request, response, linkText));
+            writer.write("\">" + modelForm.getPaginateNextLabel(context) + "</a>");
+        } else {
+            // disabled button
+            writer.write(" disabled\">" + modelForm.getPaginateNextLabel(context));
+        }
+        writer.write("</li>");
+        appendWhitespace(writer);
+        if (listSize > 0) {
+            writer.write("<li>");
+            writer.write((lowIndex + 1) + " - " + (lowIndex + actualPageSize ) + " " + ofLabel + " " + listSize);
+            writer.write("</li>");
+            appendWhitespace(writer);
+        }
+        // Previous button
+        writer.write("<li class=\"nav-previous");
+        if (viewIndex > 0) {
+            writer.write("\"><a href=\"");
+            linkText = prepLinkText + (viewIndex - 1) + anchor;
+            // - make the link
+            writer.write(rh.makeLink(request, response, linkText));
+            writer.write("\">" + modelForm.getPaginatePreviousLabel(context) + "</a>");
+        } else {
+            // disabled button
+            writer.write(" disabled\">" + modelForm.getPaginatePreviousLabel(context));
+        }
+        writer.write("</li>");
+        appendWhitespace(writer);
+        // First button
+        writer.write("<li class=\"nav-first");
+        if (viewIndex > 0) {
+            writer.write("\"><a href=\"");
+            linkText = prepLinkText + 0 + anchor;
+            writer.write(rh.makeLink(request, response, linkText));
+            writer.write("\">" + modelForm.getPaginateFirstLabel(context) + "</a>");
+        } else {
+            writer.write(" disabled\">" + modelForm.getPaginateFirstLabel(context));
+        }
+        writer.write("</li>");
+        appendWhitespace(writer);
+    }
+    
+    public void renderScreenletSubWidget(Writer writer, Map context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException {
+        if (subWidget.equals(screenlet.getNavigationForm())) {
+            HttpServletRequest request = (HttpServletRequest) context.get("request");
+            HttpServletResponse response = (HttpServletResponse) context.get("response");
+            if (request != null && response != null) {
+                FormStringRenderer savedRenderer = (FormStringRenderer) context.get("formStringRenderer");
+                HtmlFormRenderer renderer = new HtmlFormRenderer(request, response);
+                renderer.setRenderPagination(false);
+                context.put("formStringRenderer", renderer);
+                subWidget.renderWidgetString(writer, context, this);
+                context.put("formStringRenderer", savedRenderer);
+            }
+        } else {
+            subWidget.renderWidgetString(writer, context, this);
+        }
+    }
+
+    public void renderScreenletEnd(Writer writer, Map context, ModelScreenWidget.Screenlet screenlet) throws IOException {
+        if (screenlet.padded()) {
+            writer.write("</div>");
+            appendWhitespace(writer);
+        }
+        writer.write("</div>");
+        appendWhitespace(writer);
+    }
+
+    public static class ScreenletMenuRenderer extends HtmlMenuRenderer {
+        public ScreenletMenuRenderer(HttpServletRequest request, HttpServletResponse response) {
+            super(request, response);
+        }
+        public void renderMenuOpen(StringBuffer buffer, Map context, ModelMenu modelMenu) {}
+        public void renderMenuClose(StringBuffer buffer, Map context, ModelMenu modelMenu) {}
     }
 
     public void renderLabel(Writer writer, Map context, ModelScreenWidget.Label label) throws IOException {

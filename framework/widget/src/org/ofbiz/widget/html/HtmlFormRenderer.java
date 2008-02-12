@@ -74,12 +74,21 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     HttpServletRequest request;
     HttpServletResponse response;
     protected String lastFieldGroupId = "";
+    protected boolean renderPagination = true;
 
     protected HtmlFormRenderer() {}
 
     public HtmlFormRenderer(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
+    }
+
+    public boolean getRenderPagination() {
+        return this.renderPagination;
+    }
+
+    public void setRenderPagination(boolean renderPagination) {
+        this.renderPagination = renderPagination;
     }
 
     public void appendOfbizUrl(StringBuffer buffer, String location) {
@@ -1159,7 +1168,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         context.put("_QBESTRING_", queryString);
 
         renderBeginningBoundaryComment(buffer, "Form Widget", modelForm);
-        this.renderNextPrev(buffer, context, modelForm);
+        if (this.renderPagination) {
+            this.renderNextPrev(buffer, context, modelForm);
+        }
         buffer.append(" <table cellspacing=\"0\" class=\"");
         if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
             buffer.append(modelForm.getDefaultTableStyle());
@@ -1174,7 +1185,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         buffer.append(" </table>");
 
         appendWhitespace(buffer);
-        this.renderNextPrev(buffer, context, modelForm);
+        if (this.renderPagination) {
+            this.renderNextPrev(buffer, context, modelForm);
+        }
         renderEndingBoundaryComment(buffer, "Form Widget", modelForm);
     }
 
@@ -1973,7 +1986,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         // if this is all there seems to be (if listSize < 0, then size is unknown)
         if (actualPageSize >= listSize && listSize >= 0) return;
 
-        // needed ofr the "Page" and "rows" labels
+        // needed for the "Page" and "rows" labels
         Map uiLabelMap = (Map) context.get("uiLabelMap");
         String pageLabel = "";
         String rowsLabel = "";

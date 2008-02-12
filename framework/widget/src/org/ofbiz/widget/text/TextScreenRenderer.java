@@ -116,4 +116,13 @@ public class TextScreenRenderer implements ScreenStringRenderer {
         // appending line ends for now, but this could be replaced with a simple space or something
         writer.write("\r\n");
     }
+    public void renderScreenletBegin(Writer writer, Map context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
+        // TODO: not implemented
+    }
+    public void renderScreenletSubWidget(Writer writer, Map context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException {
+        // TODO: not implemented
+    }
+    public void renderScreenletEnd(Writer writer, Map context, ModelScreenWidget.Screenlet screenlet) throws IOException {
+        // TODO: not implemented
+    }
 }
