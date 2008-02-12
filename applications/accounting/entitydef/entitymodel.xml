@@ -3148,4 +3148,28 @@ under the License.
             <key-map field-name="glAccountId"/>
         </relation>
     </entity>
+
+    <view-entity entity-name="GlAccOrgAndAcctgTransAndEntry" 
+        package-name="org.ofbiz.accounting.ledger" 
+        title="GlAccountOrganization, AcctgTransEntry, and AccTrans View Entity Group-By organizationPartyId, glAccountId, debitCreditFlag">
+        <member-entity entity-alias="GAO" entity-name="GlAccountOrganization"/>
+        <member-entity entity-alias="ATE" entity-name="AcctgTransEntry"/>
+        <member-entity entity-alias="AT" entity-name="AcctgTrans"/>
+        <alias entity-alias="GAO" name="glAccountId" group-by="true"/>
+        <alias entity-alias="ATE" name="debitCreditFlag" group-by="true"/>
+        <alias entity-alias="AT" name="isPosted" group-by="true"/>
+        <alias entity-alias="AT" name="transactionDate" group-by="true"/>        
+        <alias entity-alias="ATE" name="acctgTransId" group-by="true"/>
+        <alias entity-alias="ATE" name="organizationPartyId" group-by="true"/>
+        <alias entity-alias="ATE" name="totalAmount" field="amount" function="sum"/>
+        <alias entity-alias="GAO" name="fromDate" group-by="true"/>
+        <alias entity-alias="GAO" name="thruDate" group-by="true" />
+        <view-link entity-alias="GAO" rel-entity-alias="ATE">
+            <key-map field-name="glAccountId"/>
+            <key-map field-name="organizationPartyId"/>
+        </view-link>
+        <view-link entity-alias="ATE" rel-entity-alias="AT">
+            <key-map field-name="acctgTransId"/>
+        </view-link>
+     </view-entity>
 </entitymodel>

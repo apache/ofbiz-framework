@@ -199,4 +199,25 @@ under the License.
         </field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
+    
+    <form name="FindTransactionTotals" type="single" target="TransactionTotals" title="Find list of transaction totals"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>    
+    <form name="PostedTransactionTotalList" type="list" list-name="postedTransTotalList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="glAccountId"><display/></field>
+        <field name="debit"><display/></field>
+        <field name="credit"><display/></field>
+    </form>
+    
+    <form name="UnpostedTransactionTotalList" type="list" list-name="unpostedTransTotalList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="glAccountId"><display/></field>
+        <field name="debit"><display/></field>
+        <field name="credit"><display/></field>
+    </form>    
 </forms>
