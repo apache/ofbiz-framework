@@ -838,6 +838,53 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="screenlet" substitutionGroup="AllWidgets">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllWidgets"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.screenlet"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.screenlet">
+        <xs:attribute type="xs:string" name="title">
+            <xs:annotation><xs:documentation>Title text to be placed in the screenlet title bar.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="id">
+            <xs:annotation><xs:documentation>Collapsible screenlets must have a name or ID.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="name">
+            <xs:annotation><xs:documentation>Collapsible screenlets must have a name or ID.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="collapsible" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="padded" default="true">
+            <xs:annotation><xs:documentation>When set to true, screenlet content will be padded. Defaults to true.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="navigation-menu-name">
+            <xs:annotation><xs:documentation>Name of the screenlet include-menu sub element that will be used for screenlet navigation.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="navigation-form-name">
+            <xs:annotation>
+                <xs:documentation>Name of the screenlet include-form sub element that will be used for screenlet navigation. The form's pagination menu will be included in the screenlet title bar.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="tab-menu-name">
+            <xs:annotation><xs:documentation>Name of the screenlet include-menu sub element that will be used for the screenlet tab bar.</xs:documentation></xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
 
     <!-- ================ WIDGETS - Includers ================ -->
     <xs:element name="content" substitutionGroup="AllWidgets">

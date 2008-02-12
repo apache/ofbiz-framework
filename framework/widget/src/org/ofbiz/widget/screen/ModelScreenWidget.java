@@ -77,8 +77,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
     public abstract String rawString();
     
-    public static List readSubWidgets(ModelScreen modelScreen, List subElementList) {
-        List subWidgets = new LinkedList();
+    public static List<ModelScreenWidget> readSubWidgets(ModelScreen modelScreen, List subElementList) {
+        List<ModelScreenWidget> subWidgets = new LinkedList<ModelScreenWidget>();
         Iterator subElementIter = subElementList.iterator();
         while (subElementIter.hasNext()) {
             Element subElement = (Element) subElementIter.next();
@@ -87,6 +87,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 subWidgets.add(new Section(modelScreen, subElement));
             } else if ("container".equals(subElement.getNodeName())) {
                 subWidgets.add(new Container(modelScreen, subElement));
+            } else if ("screenlet".equals(subElement.getNodeName())) {
+                subWidgets.add(new Screenlet(modelScreen, subElement));
             } else if ("include-screen".equals(subElement.getNodeName())) {
                 subWidgets.add(new IncludeScreen(modelScreen, subElement));
             } else if ("decorator-screen".equals(subElement.getNodeName())) {
@@ -296,6 +298,127 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
         public String rawString() {
             return "<container id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\">";
+        }
+    }
+
+    @SuppressWarnings("serial")
+    public static class Screenlet extends ModelScreenWidget {
+        protected FlexibleStringExpander idExdr;
+        protected FlexibleStringExpander titleExdr;
+        protected Menu navigationMenu = null;
+        protected Menu tabMenu = null;
+        protected Form navigationForm = null;
+        protected boolean collapsible = false;
+        protected boolean padded = true;
+        protected List<ModelScreenWidget> subWidgets;
+        
+        public Screenlet(ModelScreen modelScreen, Element screenletElement) {
+            super(modelScreen, screenletElement);
+            this.idExdr = new FlexibleStringExpander(screenletElement.getAttribute("id"));
+            this.collapsible = "true".equals(screenletElement.getAttribute("collapsible"));
+            this.padded = !"false".equals(screenletElement.getAttribute("padded"));
+            if (this.collapsible && UtilValidate.isEmpty(this.name) && idExdr.isEmpty()) {
+                throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + this.modelScreen.getName() + "]");
+            }
+            this.titleExdr = new FlexibleStringExpander(screenletElement.getAttribute("title"));
+            List subElementList = UtilXml.childElementList(screenletElement);
+            this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
+            String navMenuName = screenletElement.getAttribute("navigation-menu-name");
+            if (UtilValidate.isNotEmpty(navMenuName)) {
+                for (ModelWidget subWidget : this.subWidgets) {
+                    if (navMenuName.equals(subWidget.getName()) && subWidget instanceof Menu) {
+                        this.navigationMenu = (Menu) subWidget;
+                        subWidgets.remove(subWidget);
+                        break;
+                    }
+                }
+            }
+            String tabMenuName = screenletElement.getAttribute("tab-menu-name");
+            if (UtilValidate.isNotEmpty(tabMenuName)) {
+                for (ModelWidget subWidget : this.subWidgets) {
+                    if (tabMenuName.equals(subWidget.getName()) && subWidget instanceof Menu) {
+                        this.tabMenu = (Menu) subWidget;
+                        subWidgets.remove(subWidget);
+                        break;
+                    }
+                }
+            }
+            String formName = screenletElement.getAttribute("navigation-form-name");
+            if (UtilValidate.isNotEmpty(formName) && this.navigationMenu == null) {
+                for (ModelWidget subWidget : this.subWidgets) {
+                    if (formName.equals(subWidget.getName()) && subWidget instanceof Form) {
+                        this.navigationForm = (Form) subWidget;
+                        // Let's give this a try, it can be removed later if it
+                        // proves to cause problems
+                        this.padded = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
+            boolean collapsed = false;
+            if (this.collapsible) {
+                String preferenceKey = getPreferenceKey(context) + "_collapsed";
+                Map requestParameters = (Map)context.get("requestParameters");
+                if (requestParameters != null) {
+                    collapsed = "true".equals(requestParameters.get(preferenceKey));
+                }
+            }
+            try {
+                screenStringRenderer.renderScreenletBegin(writer, context, collapsed, this);
+                if (!collapsed) {
+                    for (ModelScreenWidget subWidget : this.subWidgets) {
+                        screenStringRenderer.renderScreenletSubWidget(writer, context, subWidget, this);
+                    }
+                }
+                screenStringRenderer.renderScreenletEnd(writer, context, this);
+            } catch (IOException e) {
+                String errMsg = "Error rendering screenlet in screen named [" + this.modelScreen.getName() + "]: ";
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
+            }
+        }
+        
+        public boolean collapsible() {
+            return this.collapsible;
+        }
+
+        public boolean padded() {
+            return this.padded;
+        }
+
+        public String getPreferenceKey(Map context) {
+            String name = this.modelScreen.getName();
+            if (UtilValidate.isEmpty(name)) {
+                name = this.idExdr.expandString(context);
+            }
+            return name + "_" + this.name;
+        }
+
+        public String getId(Map<String, Object> context) {
+            return this.idExdr.expandString(context);
+        }
+        
+        public String getTitle(Map<String, Object> context) {
+            return this.titleExdr.expandString(context);
+        }
+        
+        public Menu getNavigationMenu() {
+            return this.navigationMenu;
+        }
+
+        public Form getNavigationForm() {
+            return this.navigationForm;
+        }
+
+        public Menu getTabMenu() {
+            return this.tabMenu;
+        }
+
+        public String rawString() {
+            return "<screenlet id=\"" + this.idExdr.getOriginal() + "\" title=\"" + this.titleExdr.getOriginal() + "\">";
         }
     }
 
@@ -585,6 +708,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
         protected FlexibleStringExpander shareScopeExdr;
+        protected ModelForm modelForm = null;
         
         public Form(ModelScreen modelScreen, Element formElement) {
             super(modelScreen, formElement);
@@ -625,7 +749,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             } catch (IOException e) {
                 String errMsg = "Error rendering included form named [" + name + "] at location [" + this.getLocation(context) + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
+                throw new RuntimeException(errMsg + e);
             }
 
             if (protectScope) {
@@ -998,20 +1122,27 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
 
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) {
-            getModelMenu(context);
             // try finding the menuStringRenderer by name in the context in case one was prepared and put there
             MenuStringRenderer menuStringRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
             // if there was no menuStringRenderer put in place, now try finding the request/response in the context and creating a new one
             if (menuStringRenderer == null) {
-                HttpServletRequest request = (HttpServletRequest) context.get("request");
-                HttpServletResponse response = (HttpServletResponse) context.get("response");
-                if (request != null && response != null) {
-                    menuStringRenderer = new HtmlMenuRenderer(request, response);
+                // try finding the menuStringRenderer by name in the context in
+                // case one was prepared and put there
+                menuStringRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
+                // if there was no menuStringRenderer put in place, now try
+                // finding the request/response in the context and creating a
+                // new one
+                if (menuStringRenderer == null) {
+                    HttpServletRequest request = (HttpServletRequest) context.get("request");
+                    HttpServletResponse response = (HttpServletResponse) context.get("response");
+                    if (request != null && response != null) {
+                        menuStringRenderer = new HtmlMenuRenderer(request, response);
+                    }
                 }
-            }
-            // still null, throw an error
-            if (menuStringRenderer == null) {
-                throw new IllegalArgumentException("Could not find a menuStringRenderer in the context, and could not find HTTP request/response objects need to create one.");
+                // still null, throw an error
+                if (menuStringRenderer == null) {
+                    throw new IllegalArgumentException("Could not find a menuStringRenderer in the context, and could not find HTTP request/response objects need to create one.");
+                }
             }
             
             StringBuffer renderBuffer = new StringBuffer();

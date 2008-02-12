@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
+import org.ofbiz.base.util.GeneralException;
 
 /**
  * Widget Library - Screen String Renderer interface
@@ -43,5 +44,8 @@ public interface ScreenStringRenderer {
     public void renderImage(Writer writer, Map context, ModelScreenWidget.Image image) throws IOException;
 
     public void renderContentFrame(Writer writer, Map context, ModelScreenWidget.Content content) throws IOException;
+    public void renderScreenletBegin(Writer writer, Map context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException;
+    public void renderScreenletSubWidget(Writer writer, Map context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException;
+    public void renderScreenletEnd(Writer writer, Map context, ModelScreenWidget.Screenlet screenlet) throws IOException;
 }
 

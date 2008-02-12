@@ -676,6 +676,10 @@ public class ModelForm extends ModelWidget {
         return this.addUpdateField(newFormField);
     }
 
+    public void runFormActions(Map context) {
+        ModelFormAction.runSubActions(this.actions, context);
+    }
+
     /**
      * Renders this form to a String, i.e. in a text format, as defined with the
      * FormStringRenderer implementation.
@@ -692,7 +696,7 @@ public class ModelForm extends ModelWidget {
      *   use the same form definitions for many types of form UIs
      */
     public void renderFormString(Writer writer, Map context, FormStringRenderer formStringRenderer) throws IOException {
-        ModelFormAction.runSubActions(this.actions, context);
+        runFormActions(context);
         
         setWidgetBoundaryComments(context);
 
