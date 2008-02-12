@@ -1041,6 +1041,9 @@
 		<value xml:lang="zh_CN">关</value>
 		<value xml:lang="zh">-</value>
 	</property>
+	<property key="CommonCollapse">
+		<value xml:lang="en">Collapse</value>
+	</property>
 	<property key="CommonComingSoon">
 		<value xml:lang="ar">سنعود قريبا</value>
 		<value xml:lang="de">Bald erhältlich</value>
@@ -1873,6 +1876,9 @@
 		<value xml:lang="th">เหตุการณ์วันที่</value>
 		<value xml:lang="zh_CN">事件日期</value>
 		<value xml:lang="zh">事件日期</value>
+	</property>
+	<property key="CommonExpand">
+		<value xml:lang="en">Expand</value>
 	</property>
 	<property key="CommonExclude">
 		<value xml:lang="en">Exclude</value>

@@ -119,7 +119,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             writer.write("<ul>");
             appendWhitespace(writer);
             if (UtilValidate.isNotEmpty(title)) {
-                writer.write("<li class=\"head3\">");
+                writer.write("<li class=\"h3\">");
                 writer.write(title);
                 writer.write("</li>");
                 appendWhitespace(writer);
