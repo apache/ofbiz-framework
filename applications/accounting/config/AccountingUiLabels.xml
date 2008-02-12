@@ -4245,6 +4245,9 @@
 		<value xml:lang="th">ยกเลิกรายได้บัญชีแยกประเภททั่วไป</value>
 		<value xml:lang="zh">覆盖收入总账账户标识</value>
 	</property>
+    <property key="AccountingPostedTransactionTotals">
+        <value xml:lang="en">Posted Totals</value>
+    </property>    
 	<property key="AccountingPSInvalidStatusChange">
 		<value xml:lang="ar">الوضعية الجديدة تغيير  غير صحيح</value>
 		<value xml:lang="en">The new status is not a valid change</value>
@@ -5619,6 +5622,9 @@
 		<value xml:lang="en">Total excl. tax</value>
 		<value xml:lang="th">Total excl. tax</value>
 	</property>
+    <property key="AccountingTransactionTotals">
+        <value xml:lang="en">Transaction Totals</value>
+    </property>
 	<property key="AccountingTransactionType">
 		<value xml:lang="ar">نوع العملية</value>
 		<value xml:lang="en">Transaction Type</value>
@@ -5770,6 +5776,9 @@
 		<value xml:lang="th">ราคา</value>
 		<value xml:lang="zh">单价</value>
 	</property>
+    <property key="AccountingUnPostedTransactionTotals">
+        <value xml:lang="en">UnPosted Totals</value>
+    </property>
 	<property key="AccountingUpdateAvailability">
 		<value xml:lang="ar">تحديث التوفير</value>
 		<value xml:lang="en">Update the availability</value>

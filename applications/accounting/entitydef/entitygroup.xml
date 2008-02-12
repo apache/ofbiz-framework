@@ -116,6 +116,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="AcctgTransEntryType" />
     <entity-group group="org.ofbiz" entity="AcctgTransType" />
     <entity-group group="org.ofbiz" entity="AcctgTransTypeAttr" />
+    <entity-group group="org.ofbiz" entity="GlAccOrgAndAcctgTransAndEntry" />
     <entity-group group="org.ofbiz" entity="GlAccount" />
     <entity-group group="org.ofbiz" entity="GlAccountClass" />
     <entity-group group="org.ofbiz" entity="GlAccountGroup" />

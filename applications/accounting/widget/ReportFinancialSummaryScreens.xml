@@ -527,9 +527,13 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingTransactionTotals"/>
+                <set field="labelTitleProperty" value="AccountingTransactionTotals"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
+                <set field="thruDate" from-field="parameters.thruDate"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -539,7 +543,30 @@ under the License.
                                 <container style="head3">
                                     <label text="${uiLabelMap.AccountingTransactionTotals}"/>
                                 </container>
+                                <container style="screenlet-body">
+                                    <include-form name="FindTransactionTotals" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                </container>
                             </container>
+                         </container>
+                         <container style="screenlet">       
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
+                                </container>
+                                <container style="screenlet-body">
+                                    <include-form name="PostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                                      
+                                </container>
+                            </container>
+                         </container>
+                         <container style="screenlet">            
+                            <container style="screenlet-title-bar">
+                                <container style="head3">
+                                    <label text="${uiLabelMap.AccountingUnPostedTransactionTotals}"/>            
+                                </container>    
+                                <container style="screenlet-body">
+                                    <include-form name="UnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                               
+                                </container>
+                            </container>          
                         </container>
                     </decorator-section>
                 </decorator-screen>
