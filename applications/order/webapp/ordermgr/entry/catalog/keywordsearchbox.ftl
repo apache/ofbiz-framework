@@ -30,7 +30,7 @@ under the License.
           </div>
           <#if 0 < otherSearchProdCatalogCategories?size>
             <div class="tabletext">
-              <select name="SEARCH_CATEGORY_ID" size="1" class="selectBox">
+              <select name="SEARCH_CATEGORY_ID" size="1">
                 <option value="${searchCategoryId?if_exists}">${uiLabelMap.ProductEntireCatalog}</option>
                 <#list otherSearchProdCatalogCategories as otherSearchProdCatalogCategory>
                   <#assign searchProductCategory = otherSearchProdCatalogCategory.getRelatedOneCache("ProductCategory")>
@@ -49,7 +49,7 @@ under the License.
           <#if 0 < otherSearchProdCatalogCategories?size>
             <div class="tabletext">${uiLabelMap.ProductAdvancedSearchIn}: </div>
             <div class="tabletext">
-              <select name="SEARCH_CATEGORY_ID" size="1" class="selectBox">
+              <select name="SEARCH_CATEGORY_ID" size="1">
                 <option value="${searchCategoryId?if_exists}">${uiLabelMap.ProductEntireCatalog}</option>
                 <#list otherSearchProdCatalogCategories as otherSearchProdCatalogCategory>
                   <#assign searchProductCategory = otherSearchProdCatalogCategory.getRelatedOneCache("ProductCategory")>

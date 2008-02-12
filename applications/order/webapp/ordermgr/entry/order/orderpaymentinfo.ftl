@@ -32,7 +32,7 @@ under the License.
               <td colspan="3" valign="top">
                 <div class="tabletext" align="center"><b>${uiLabelMap.AccountingOfflinePayment}</b></div>                            
                 <#if orderHeader?has_content && paymentAddress?has_content> 
-                  <div class="tabletext" align="center"><hr class="sepbar"/></div>
+                  <div class="tabletext" align="center"><hr/></div>
                   <div class="tabletext" align="center"><b>${uiLabelMap.AccountingPleaseSendPaymentTo}:</b></div>
                   <#if paymentAddress.toName?has_content><div class="tabletext" align="center">${paymentAddress.toName}</div></#if>
                   <#if paymentAddress.attnName?has_content><div class="tabletext" align="center"><b>${uiLabelMap.CommonAttn}:</b> ${paymentAddress.attnName}</div></#if>
@@ -40,7 +40,7 @@ under the License.
                   <#if paymentAddress.address2?has_content><div class="tabletext" align="center">${paymentAddress.address2}</div></#if>                            
                   <div class="tabletext" align="center">${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode}
                   <div class="tabletext" align="center">${paymentAddress.countryGeoId}</div>                                                                                                                
-                  <div class="tabletext" align="center"><hr class="sepbar"/></div>
+                  <div class="tabletext" align="center"><hr/></div>
                   <div class="tabletext" align="center"><b>${uiLabelMap.OrderBeSureIncludeOrder} #</b></div>
                 </#if>                         
               </td>                  
@@ -95,7 +95,7 @@ under the License.
         <#-- billing account info -->
         <#if billingAccount?has_content>
           <#if outputted?default(false)>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
           </#if>
           <#assign outputted = true/>
           <tr>

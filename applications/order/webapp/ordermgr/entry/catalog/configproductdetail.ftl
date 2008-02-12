@@ -299,7 +299,7 @@ function getConfigDetails(event) {
           <#if variantTree?exists && 0 < variantTree.size()>
             <#list featureSet as currentType>
               <div class="tabletext">
-                <select name="FT${currentType}" class="selectBox" onchange="javascript:getList(this.name, (this.selectedIndex-1), 1);">
+                <select name="FT${currentType}" onchange="javascript:getList(this.name, (this.selectedIndex-1), 1);">
                   <option>${featureTypes.get(currentType)}</option>
                 </select>
               </div>
@@ -339,9 +339,9 @@ function getConfigDetails(event) {
         <#else>
           <#if inStock>
             <#if product.requireAmount?default("N") == "Y">
-              <#assign hiddenStyle = "tabletext">
+              <#assign hiddenStyle = "visible">
             <#else>
-              <#assign hiddenStyle = "tabletexthidden">
+              <#assign hiddenStyle = "hidden">
             </#if>
             <div id="add_amount" class="${hiddenStyle}">
               <span style="white-space: nowrap;"><b>Amount:</b></span>&nbsp;
@@ -362,12 +362,12 @@ function getConfigDetails(event) {
       </form>
     <div class="tabletext">
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
-        <hr class="sepbar"/>
+        <hr/>
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
           <input type="hidden" name="productId" value="${product.productId}">
           <input type="hidden" name="product_id" value="${product.productId}">
           <input type="hidden" name="configId" value="${configId}">
-          <select name="shoppingListId" class="selectBox">
+          <select name="shoppingListId">
             <#if shoppingLists?has_content>
               <#list shoppingLists as shoppingList>
                 <option value="${shoppingList.shoppingListId}">${shoppingList.listName}</option>
@@ -519,7 +519,7 @@ function getConfigDetails(event) {
                 </#list>
                 <#else>
                 <#-- And this is the select box implementation -->
-                <select name='${counter}' class='selectBox'>
+                <select name='${counter}'>
                 <#if !question.isMandatory()>
                   <option value=''>---</option>
                 </#if>
@@ -607,7 +607,7 @@ function getConfigDetails(event) {
                 <div class="tabletext">${productReview.productReview?if_exists}</div>
               </td>
             </tr>
-            <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="3"><hr/></td></tr>
           </table>
         </td>
       </tr>
@@ -641,7 +641,7 @@ function getConfigDetails(event) {
   <#if assocProducts?has_content>
     <tr><td>&nbsp;</td></tr>
     <tr><td colspan="2"><h2>${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</h2></td></tr>
-    <tr><td><hr class="sepbar"/></td></tr>
+    <tr><td><hr/></td></tr>
     <#list assocProducts as productAssoc>
       <tr><td>
         <div class="tabletext">
@@ -663,7 +663,7 @@ function getConfigDetails(event) {
         </td>
       </tr>
       <#local listIndex = listIndex + 1>
-      <tr><td><hr class="sepbar"/></td></tr>
+      <tr><td><hr/></td></tr>
     </#list>
     ${setRequestAttribute("optProductId", "")}
     ${setRequestAttribute("formNamePrefix", "")}
@@ -688,7 +688,7 @@ ${setRequestAttribute("productValue", productValue)}
 <#-- special cross/up-sell area using commonFeatureResultIds (from common feature product search) -->
 <#if commonFeatureResultIds?has_content>
   <h2>Similar Products That Might Interest You...</h2>
-  <hr class="sepbar"/>
+  <hr/>
 
   <#list commonFeatureResultIds as commonFeatureResultId>
     <div class="tabletext">
@@ -699,7 +699,7 @@ ${setRequestAttribute("productValue", productValue)}
       ${screens.render(productsummaryScreen)}
     </div>
     <#if commonFeatureResultId_has_next>
-      <hr class="sepbar"/>
+      <hr/>
     </#if>
   </#list>
 </#if>

@@ -194,7 +194,7 @@
             </drop-down>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}" widget-style="selectBox" position="1">
+        <field name="priority" title="${uiLabelMap.CommonPriority}" position="1">
             <drop-down allow-empty="true">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
                 <option key="6"/><option key="7"/><option key="8"/><option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/>
@@ -226,7 +226,7 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}" widget-style="selectBox">
+        <field name="priority" title="${uiLabelMap.CommonPriority}">
             <drop-down allow-empty="true">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
                 <option key="6"/><option key="7"/><option key="8"/><option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/>
@@ -259,7 +259,7 @@
             </drop-down>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="15"/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}" widget-style="selectBox" position="1">
+        <field name="priority" title="${uiLabelMap.CommonPriority}" position="1">
             <drop-down allow-empty="true">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
                 <option key="6"/><option key="7"/><option key="8"/><option key="9" description="9 (${uiLabelMap.WorkEffortPriorityLow})"/>
@@ -461,15 +461,15 @@
         <field entry-name="currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field entry-name="statusId" name="Status"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}" widget-area-style="tabletextcenter">
+        <field name="priority" title="${uiLabelMap.CommonPriority}" widget-area-style="centered">
             <display description="${priority}"/>
         </field>      
-        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}" widget-area-style="tabletextcenter"><display type="date"/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" widget-area-style="tabletextcenter"><display type="date"/></field>
-        <field name="actualStartDate" title="${uiLabelMap.ProjectMgrWorkEffortActualStartDate}" widget-area-style="tabletextcenter"><display type="date"/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.ProjectMgrWorkEffortActualCompletionDate}" widget-area-style="tabletextcenter"><display type="date"/></field>
-        <field name="plannedHours" widget-area-style="tabletextcenter"><display/></field>
-        <field name="actualHours" widget-area-style="tabletextcenter"><display/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}" widget-area-style="centered"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" widget-area-style="centered"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.ProjectMgrWorkEffortActualStartDate}" widget-area-style="centered"><display type="date"/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.ProjectMgrWorkEffortActualCompletionDate}" widget-area-style="centered"><display type="date"/></field>
+        <field name="plannedHours" widget-area-style="centered"><display/></field>
+        <field name="actualHours" widget-area-style="centered"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateResourcesTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
         <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateResourcesTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
     </form>
@@ -495,13 +495,13 @@
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
-        <field name="Priority" widget-area-style="tabletextcenter"><display description="${Priority}"/></field>
-        <field name="EstimatedStartDate" widget-area-style="tabletextcenter"><display type="date"/></field>
-        <field name="EstimatedCompletionDate" widget-area-style="tabletextcenter"><display  type="date"/></field>
+        <field name="Priority" widget-area-style="centered"><display description="${Priority}"/></field>
+        <field name="EstimatedStartDate" widget-area-style="centered"><display type="date"/></field>
+        <field name="EstimatedCompletionDate" widget-area-style="centered"><display  type="date"/></field>
         <field name="ActualStartDate" title="startDate"><display type="date"/></field>
         <field name="ActualCompletionDate" title="completionDate"><display type="date"/></field>
-        <field name="plannedHours" widget-area-style="tabletextcenter"><display/></field>
-        <field name="actualHours" widget-area-style="tabletextcenter"><display/></field>
+        <field name="plannedHours" widget-area-style="centered"><display/></field>
+        <field name="actualHours" widget-area-style="centered"><display/></field>
         <field name="CreatedStamp" title="CreatedStamp"><display type="date"/></field>
     </form>
     <form name="AddResourceProjectParty" target="addWorkEffortPartyAssign" title="" type="single"

@@ -92,7 +92,7 @@ under the License.
         <td>&nbsp;</td>
         <td valign='middle'>
           <div class='tabletext' valign='top'>
-            <select class="selectBox" name="currencyUomId">
+            <select name="currencyUomId">
               <option value=""></option>
               <#list currencies as currency>
               <option value="${currency.uomId}" <#if (defaultCurrencyUomId?has_content) && (currency.uomId == defaultCurrencyUomId)>selected</#if>>${currency.uomId}</option>
@@ -109,7 +109,7 @@ under the License.
         </td>
         <td>&nbsp;</td>
         <td align="left">
-           <select name='CURRENT_CATALOG_ID' class='selectBox'>
+           <select name='CURRENT_CATALOG_ID'>
             <option value='${currentCatalogId}'>${currentCatalogName}</option>
             <option value='${currentCatalogId}'></option>
             <#list catalogCol as catalogId>

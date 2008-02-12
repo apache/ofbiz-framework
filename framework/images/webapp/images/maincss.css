@@ -191,6 +191,7 @@ font-style: normal;
 }
 
 DIV.graybox {
+/* deprecated */
 background-color: #CCCCCC;
 border: 0.1em solid #000000;
 font-weight: bold;
@@ -201,6 +202,7 @@ width: auto;
 }
 
 DIV.tabletexthidden {
+/* deprecated */
 visibility: hidden;
 }
 
@@ -213,14 +215,17 @@ A.tabletext:hover {
 }
 
 .tabletextright {
+/* deprecated */
 text-align: right;
 }
 
 .tabletextcenter {
+/* deprecated */
 text-align: center;
 }
 
 .tablebuttontext {
+/* deprecated */
 color: #1E3C66;
 }
 
@@ -310,12 +315,14 @@ padding-left: 0.5em;
 
 /* ===== Tab/Button Bar Styles ===== */
 .tabContainer {
+/* deprecated */
 background-color: #FFFFFF;
 margin-bottom: 1em;
 padding-top: 0.4em;
 }
 
 A.tabButton {
+/* deprecated */
 background-color: #D4D0C8;
 border: solid #000099 0.1em;
 color: #000099;
@@ -966,6 +973,10 @@ color: #ff0000;
 margin: 0.5em 0 0.5em 0;
 }
 
+.hidden {
+visibility: hidden;
+}
+
 .label {
 /* Used for <input> element labels */
 font-weight: bold;
@@ -991,6 +1002,10 @@ margin: 0.4em;
 padding: 0.1em;
 }
 
+.visible {
+visibility: visible;
+}
+
 /* ================================== */
 /* ===== Used to align elements ===== */
 /* ================================== */
@@ -1005,6 +1020,10 @@ text-align: right;
 
 .align-top {
 vertical-align: top;
+}
+
+.centered {
+text-align: center;
 }
 
 /* ==================================== */
@@ -1510,12 +1529,9 @@ border-right: none;
 /* ======================== */
 
 .basic-table {
-width: 100%;
-}
-
-.basic-table {
 background-color: #ffffff;
 color: #000000;
+width: 100%;
 }
 
 .basic-table tr td {
@@ -1604,6 +1620,10 @@ color: #ff0000;
 text-decoration: none;
 }
 
+.basic-table .collapsed {
+visibility: collapse;
+}
+
 /* ===== Table decorator - Hover bar ===== */
 
 .hover-bar tr:hover {
@@ -1643,6 +1663,47 @@ border-top: 0.1em solid #cccccc;
 .light-grid .header-row td{
 border-bottom: 0.1em solid #cccccc;
 border-left: 0.1em solid #cccccc;
+}
+
+/* ===== Table decorator - Calendar ===== */
+
+.calendar {
+border-right: 0.1em solid #cccccc;
+border-top: 0.1em solid #cccccc;
+}
+
+.calendar tr td {
+border-bottom: 0.1em solid #cccccc;
+border-left: 0.1em solid #cccccc;
+height: 8em;
+width: 10em;
+vertical-align: top;
+padding: 0.5em;
+}
+
+.calendar .header-row td {
+background-color: #69a9d9;
+border-bottom: 0.1em solid #cccccc;
+border-left: 0.1em solid #cccccc;
+color: #ffffff;
+height: auto;
+text-align: center;
+}
+
+.calendar tr td .add-new {
+float: right;
+}
+
+.calendar tr td .h1 {
+float: left;
+}
+
+.calendar tr .current-period {
+background-color: #ffffcc;
+}
+
+.calendar tr .active-period {
+background-color: #eeeeee;
 }
 
 /* ======================= */

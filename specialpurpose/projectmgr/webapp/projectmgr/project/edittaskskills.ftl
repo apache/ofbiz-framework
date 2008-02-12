@@ -32,7 +32,7 @@ under the License.
     <tr>
       <td class="label">${uiLabelMap.ProjectMgrSkillType}</td>
       <td>             
-        <select name="skillTypeId" class="selectBox">  
+        <select name="skillTypeId">  
           <#assign skillTypes = delegator.findAll("SkillType")>
           <#list skillTypes as skillType>                    
             <option value="${skillType.skillTypeId}">${skillType.description}</option>

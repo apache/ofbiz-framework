@@ -17,11 +17,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class='tabContainer'>
-  <#if security.hasEntityPermission("PAYPROC", "_VIEW", session)>
-  <a href="<@ofbizUrl>paysetup</@ofbizUrl>" class='tabButtonSelected'>Payment&nbsp;Setup</a>
-  </#if>
-</div>
+<#if security.hasEntityPermission("PAYPROC", "_VIEW", session)>
+  <div class='button-bar button-style-1'>
+    <a href="<@ofbizUrl>paysetup</@ofbizUrl>" class='selected'>Payment&nbsp;Setup</a>
+  </div>
+</#if>
 
 <#if security.hasEntityPermission("PAYPROC", "_VIEW", session)>
 <table border="0" width='100%' cellpadding='0' cellspacing=0 class='boxoutside'>
@@ -136,7 +136,7 @@ under the License.
                       <b>${webSitePayment.siteName}</b> (This cannot be changed without re-creating the setting.)
                     </div>
                   <#else>                    
-                    <select name="webSiteId" class="selectBox">
+                    <select name="webSiteId">
                       <#list webSites as nextWebSite>                                         
                         <option value='${nextWebSite.webSiteId}'>${nextWebSite.siteName}</option>
                       </#list>
@@ -154,7 +154,7 @@ under the License.
                       <b>${webSitePayment.description}</b> (This cannot be changed without re-creating the setting.)
                     </div>
                   <#else>
-                    <select name="paymentMethodTypeId" class="selectBox">
+                    <select name="paymentMethodTypeId">
                       <#list paymentMethodTypes as nextPayType>
                         <option value='${nextPayType.paymentMethodTypeId}'>${nextPayType.description}</option>
                       </#list>

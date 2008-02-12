@@ -81,7 +81,7 @@ under the License.
           <tr>    
             <td class="label" >${uiLabelMap.CommonStatus}</td>
             <td>    
-              <select name="currentStatusId" class="selectBox">
+              <select name="currentStatusId">
                 <#if project?exists>
                   <#assign currentStatus = project.getRelatedOne("CurrentStatusItem")?if_exists>
                   <option value="${currentStatus.statusId}">${currentStatus.description}</option>
@@ -112,7 +112,7 @@ under the License.
               <#if project?has_content>
                 <#assign priority = project.priority?if_exists>      
               </#if>
-              <select name="priority" class="selectBox" size="1">
+              <select name="priority" size="1">
                 <#if priority?exists>          
                   <option SELECTED value="${priority}">${priority}</option>       
                   <option></option>
@@ -144,7 +144,7 @@ under the License.
             <td class="label">${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}</td>
             <td>             
               <#assign enumerations = delegator.findByAnd("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumTypeId", "WORK_EFF_SCOPE"))>
-              <select name="scopeEnumId" class="selectBox">
+              <select name="scopeEnumId">
                 <#if project?exists>
                   <#assign scopeEnumId = project.scopeEnumId?if_exists>            
                   <#list enumerations as enumeration>                    

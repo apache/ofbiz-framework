@@ -73,7 +73,7 @@ under the License.
                   <td align="right"><div class="tableheadtext">${uiLabelMap.OrderOrderItemType} :</div></td>
                   <td>
                     <div class="tabletext">
-                      <select name="add_item_type" class="selectBox">
+                      <select name="add_item_type">
                         <option value="">&nbsp;</option>
                         <#list purchaseOrderItemTypeList as orderItemType>
                         <option value="${orderItemType.orderItemTypeId}">${orderItemType.description}</option>
@@ -102,12 +102,12 @@ under the License.
           </td>
         </tr>
         <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
-        <tr><td><hr class="sepbar"/></td></tr>
+        <tr><td><hr/></td></tr>
         <tr>
           <td>
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="bulkworkaddform" style="margin: 0;">
                 <div class="tableheadtext">
-                    ${uiLabelMap.OrderOrderItemType}:&nbsp;<select name="add_item_type" class="selectBox"><option value="BULK_ORDER_ITEM">${uiLabelMap.ProductBulkItem}</option><option value="WORK_ORDER_ITEM">${uiLabelMap.ProductWorkItem}</option></select>
+                    ${uiLabelMap.OrderOrderItemType}:&nbsp;<select name="add_item_type"><option value="BULK_ORDER_ITEM">${uiLabelMap.ProductBulkItem}</option><option value="WORK_ORDER_ITEM">${uiLabelMap.ProductWorkItem}</option></select>
                     <br>${uiLabelMap.ProductProductCategory}:&nbsp;<input type="text" class="inputBox" name="add_category_id" size="20" maxlength="20" value="${requestParameters.add_category_id?if_exists}"/>
                     <a href="javascript:call_fieldlookup2(document.bulkworkaddform.add_category_id,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
                 </div>

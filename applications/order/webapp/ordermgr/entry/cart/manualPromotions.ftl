@@ -26,13 +26,13 @@ under the License.
       <div class="tabletext">
         <form method="post" action="<@ofbizUrl>doManualPromotions</@ofbizUrl>" name="domanualpromotions" style="margin: 0;">
           <!-- to enter more than two manual promotions, just add a new select box with name="productPromoId_n" -->
-          <select name="productPromoId_1" class="selectBox">
+          <select name="productPromoId_1">
             <option value=""></option>
             <#list allProductPromos as productPromo>
               <option value="${productPromo.productPromoId}">${productPromo.promoName?if_exists}</option>
             </#list>
           </select>
-          <select name="productPromoId_2" class="selectBox">
+          <select name="productPromoId_2">
             <option value=""></option>
             <#list allProductPromos as productPromo>
               <option value="${productPromo.productPromoId}">${productPromo.promoName?if_exists}</option>

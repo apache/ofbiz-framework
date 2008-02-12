@@ -40,7 +40,7 @@ under the License.
                 <tr>
                   <td>
                     <div class="tabletext">
-                    <select name='shoppingListId' class='selectBox'>
+                    <select name='shoppingListId'>
                       <#list shoppingLists as shoppingList>
                         <option value='${shoppingList.shoppingListId}'>${shoppingList.getString("listName")}</option>
                       </#list>

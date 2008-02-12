@@ -85,7 +85,7 @@ under the License.
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonStateProvince}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <select name="stateProvinceGeoId" class="selectBox">
+                      <select name="stateProvinceGeoId">
                         <option value=""></option>                       
                         ${screens.render("component://common/widget/CommonScreens.xml#states")}
                       </select>
@@ -102,7 +102,7 @@ under the License.
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonCountry}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <select name="countryGeoId" class="selectBox">                        
+                      <select name="countryGeoId">                        
                         ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                       </select>
                     *</td>
@@ -111,7 +111,7 @@ under the License.
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAllowSolicitation}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <select name="allowSolicitation" class='selectBox'>
+                      <select name="allowSolicitation">
                         <#assign selectedValue = parameters.allowSolicitation?default("")/>
                         <option></option><option ${(selectedValue=="Y")?string("selected=\"selected\"","")}>Y</option><option ${(selectedValue=="N")?string("selected=\"selected\"","")}>N</option>
                       </select>

@@ -25,7 +25,7 @@ under the License.
     </div>
     <div class="screenlet-body" style="text-align: center;">
         <form name="choosecatalogform" method="post" action="<@ofbizUrl>choosecatalog</@ofbizUrl>" style='margin: 0;'>
-          <select name='CURRENT_CATALOG_ID' class='selectBox'>
+          <select name='CURRENT_CATALOG_ID'>
             <option value='${currentCatalogId}'>${currentCatalogName}</option>
             <option value='${currentCatalogId}'></option>
             <#list catalogCol as catalogId>

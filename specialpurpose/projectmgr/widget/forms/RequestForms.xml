@@ -52,14 +52,14 @@ under the License.
                 <entity-options entity-name="CustRequestType" description="${description}"/>
             </drop-down>
         </field>
-        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" widget-style="selectBox"><ignored/></field>
+        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}"><ignored/></field>
         <field name="custRequestCategoryId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="CustRequestCategory" description="${description}"/>
             </drop-down>
         </field>
         
-        <field use-when="custRequest==null" name="statusId" widget-style="selectBox">
+        <field use-when="custRequest==null" name="statusId">
             <drop-down allow-empty="false" current="first-in-list">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
@@ -67,7 +67,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field use-when="custRequest!=null" name="statusId" widget-style="selectBox">
+        <field use-when="custRequest!=null" name="statusId">
             <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${custRequest.statusId}"/>
@@ -75,7 +75,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="priority" widget-style="selectBox">
+        <field name="priority">
             <drop-down allow-empty="false">
                 <option key="9"/>
                 <option key="8"/>
