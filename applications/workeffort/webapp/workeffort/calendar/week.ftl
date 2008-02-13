@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-  <div class="screenlet-title-bar">
+  <div class="screenlet-title-bar h3">
     <ul>
       <li class="h3">${uiLabelMap.CommonWeek} ${start?date?string("w")}</li>
       <li><a href="<@ofbizUrl>week?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.WorkEffortNextWeek}</a></li>
@@ -27,28 +27,27 @@ under the License.
     <br class="clear"/>
   </div>
 <#if periods?has_content> 
-<#if maxConcurrentEntries = 0>
-  <#assign entryWidth = 100>
-<#elseif maxConcurrentEntries < 2>
-  <#assign entryWidth = (100 / (maxConcurrentEntries + 1))>
-<#else> 
-  <#assign entryWidth = (100 / (maxConcurrentEntries))>
-</#if>
-<table width="100%" cellspacing="1" border="0" cellpadding="1" class="calendar">      
-  <tr> 
-    <td nowrap class="monthdayheader">${uiLabelMap.CommonTime}<br/>
-      <img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1" width="88"></td>
-    <td colspan=${maxConcurrentEntries} class="monthdayheader">${uiLabelMap.WorkEffortCalendarEntries}<br/>
-      <img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1" width="88"></td>
+  <#if (maxConcurrentEntries < 2)>
+    <#assign entryWidth = 100>
+  <#else> 
+    <#assign entryWidth = (100 / (maxConcurrentEntries))>
+  </#if>
+<table cellspacing="0" class="basic-table calendar">              
+  <tr class="header-row">             
+    <td>${uiLabelMap.CommonTime}</td>
+    <td colspan=${maxConcurrentEntries}>${uiLabelMap.WorkEffortCalendarEntries}</td>
   </tr>
   <#list periods as period>
-  <tr>
-    <td valign="top" nowrap width="1%" class="monthweekheader" height="36"><a href="<@ofbizUrl>day?start=${period.start.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>" class="monthweeknumber">${period.start?date?string("EEEE")?cap_first} ${period.start?date?string.short}</a><br/>
+    <#assign currentPeriod = false/>
+    <#if (nowTimestamp >= period.start) && (nowTimestamp <= period.end)><#assign currentPeriod = true/></#if>
+  <tr<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
+    <td class="centered" width="1%">
+      <a href="<@ofbizUrl>day?start=${period.start.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${period.start?date?string("EEEE")?cap_first}&nbsp;${period.start?date?string.short}</a><br/>
       <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a>
     </td>
     <#list period.calendarEntries as calEntry>
     <#if calEntry.startOfPeriod>
-    <td class="calendarentry" rowspan="${calEntry.periodSpan}" colspan="1" width="${entryWidth?string("#")}%" valign="top">
+    <td<#if (calEntry.periodSpan > 1)> rowspan="${calEntry.periodSpan}"</#if> width="${entryWidth?string("#")}%">
     <#if (calEntry.workEffort.estimatedStartDate.compareTo(start)  <= 0 && calEntry.workEffort.estimatedCompletionDate.compareTo(next) >= 0)>
       ${uiLabelMap.CommonAllWeek}
     <#elseif (calEntry.workEffort.estimatedStartDate.compareTo(period.start)  = 0 && calEntry.workEffort.estimatedCompletionDate.compareTo(period.end) = 0)>
@@ -63,14 +62,12 @@ under the License.
       <br/><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;</td>
     </#if>
     </#list>
-    <#if period.calendarEntries?size < maxConcurrentEntries>
-    <#assign emptySlots = (maxConcurrentEntries - period.calendarEntries?size)>
-    <#list 1..emptySlots as num>
-      <td width="${entryWidth?string("#")}%"  class="calendarempty"><br/></td>
-    </#list>
+    <#if (period.calendarEntries?size < maxConcurrentEntries)>
+      <#assign emptySlots = (maxConcurrentEntries - period.calendarEntries?size)>
+        <td<#if (emptySlots > 1)> colspan="${emptySlots}"</#if>>&nbsp;</td>
     </#if>
-    <#if maxConcurrentEntries < 2>
-    <td width="${entryWidth?string("#")}" class="calendarempty">&nbsp;</td>
+    <#if maxConcurrentEntries = 0>
+      <td width="${entryWidth?string("#")}%">&nbsp;</td>
     </#if>
   </tr>
   </#list>
