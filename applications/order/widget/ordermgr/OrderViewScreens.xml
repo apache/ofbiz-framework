@@ -45,11 +45,10 @@ under the License.
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
                         <include-screen name="orderHeader"/>
-                        <container style="clear">
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/order/orderitems.ftl"/></html>
-                            </platform-specific>
-                        </container>
+                        <container style="clear"/>
+                        <platform-specific>
+                            <html><html-template location="component://order/webapp/ordermgr/order/orderitems.ftl"/></html>
+                        </platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/webapp/ordermgr/order/ordernotes.ftl"/></html>
                         </platform-specific>
@@ -158,11 +157,10 @@ under the License.
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
                         <include-screen name="orderHeader"/>
-                        <container style="clear">
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/order/editorderitems.ftl"/></html>
-                            </platform-specific>
-                        </container>
+                        <container style="clear"/>
+                        <platform-specific>
+                            <html><html-template location="component://order/webapp/ordermgr/order/editorderitems.ftl"/></html>
+                        </platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/webapp/ordermgr/order/appendorderitem.ftl"/></html>
                         </platform-specific>
