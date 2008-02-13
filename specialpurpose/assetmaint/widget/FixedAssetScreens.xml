@@ -218,7 +218,6 @@
     <screen name="CommonCalendarDecorator">
         <section>
             <actions>
-                <set field="layoutSettings.styleSheets[]" value="/images/calendarstyles.css" global="true"/>
                 <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/viewCalendar.bsh"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>

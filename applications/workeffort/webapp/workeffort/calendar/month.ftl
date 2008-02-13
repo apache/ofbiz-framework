@@ -18,12 +18,18 @@ under the License.
 -->
 
 <style type="text/css">
-.monthdayheader {
-text-align: center;
+.calendar tr td {
+height: 8em;
+width: 10em;
+vertical-align: top;
+padding: 0.5em;
+}
+.calendar .header-row td {
+height: auto;
 }
 </style>
 
-  <div class="screenlet-title-bar">
+  <div class="screenlet-title-bar h3">
     <ul>
       <li class="h3">${start?date?string("MMMM yyyy")?cap_first}</li>
       <li><a href='<@ofbizUrl>month?start=${next.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.WorkEffortNextMonth}</a></li>
@@ -33,22 +39,46 @@ text-align: center;
     <br class="clear"/>
   </div>
 <#if periods?has_content> 
-<table width="100%" cellspacing="1" border="0" cellpadding="1" class="calendar">
-  <tr class="bg">
-    <td width="1%" class="monthdayheader">&nbsp;<br/>
-      <img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1" width="88"></td>
+<table cellspacing="0" class="basic-table calendar">              
+  <tr class="header-row">             
+    <td width="1%">&nbsp;</td>
     <#list periods as day>
-    <td width="14%" class="monthdayheader">${day.start?date?string("EEEE")?cap_first}<br/>
-      <img src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" alt="" height="1" width="1"></td>
-    <#if (day_index > 5)><#break></#if>
+      <td>${day.start?date?string("EEEE")?cap_first}</td>
+      <#if (day_index > 5)><#break></#if>
     </#list>
   </tr>
   <#list periods as period>
-  <#assign indexMod7 = period_index % 7>
-  <#if indexMod7 = 0>
-  <tr class="bg">
-    <td valign="top" height="60" nowrap class="monthweekheader"><a href='<@ofbizUrl>week?start=${period.start.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>' class="monthweeknumber">${uiLabelMap.CommonWeek} ${period.start?date?string("w")}</a></td>
-  </#if>
+    <#assign currentPeriod = false/>
+    <#if (nowTimestamp >= period.start) && (nowTimestamp <= period.end)><#assign currentPeriod = true/></#if>
+    <#assign indexMod7 = period_index % 7>
+    <#if indexMod7 = 0>
+      <tr>
+        <td class="label">
+          <a href='<@ofbizUrl>week?start=${period.start.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonWeek} ${period.start?date?string("w")}</a>
+        </td>
+    </#if>
+    <td<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
+      <span class="h1"><a href='<@ofbizUrl>day?start=${period.start.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>'>${period.start?date?string("d")?cap_first}</a></span>
+      <a class="add-new" href='<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
+      <br class="clear"/>
+      <#list period.calendarEntries as calEntry>
+        <hr/>
+        <#if (calEntry.workEffort.estimatedStartDate.compareTo(period.start)  <= 0 && calEntry.workEffort.estimatedCompletionDate.compareTo(period.end) >= 0)>
+          ${uiLabelMap.CommonAllDay}
+        <#elseif calEntry.workEffort.estimatedStartDate.before(period.start)>
+          ${uiLabelMap.CommonUntil} ${calEntry.workEffort.estimatedCompletionDate?time?string.short}
+        <#elseif calEntry.workEffort.estimatedCompletionDate.after(period.end)>
+          ${uiLabelMap.CommonFrom} ${calEntry.workEffort.estimatedStartDate?time?string.short}
+        <#else>
+          ${calEntry.workEffort.estimatedStartDate?time?string.short}-${calEntry.workEffort.estimatedCompletionDate?time?string.short}
+        </#if>
+        <br/>
+        <a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;${calEntry.eventStatus?default("&nbsp;")}
+        <br/>
+      </#list>
+    </td>
+  
+<#--  
     <td valign="top">
       <table width="100%" cellspacing="0" cellpadding="0" border="0">
         <tr>
@@ -76,6 +106,7 @@ text-align: center;
       </table>
       </#list>
     </td>
+-->
     <#if !period_has_next && indexMod7 != 6>
     <td colspan='${6 - (indexMod7)}'>&nbsp;</td>
     </#if>

@@ -1669,14 +1669,11 @@ border-left: 0.1em solid #cccccc;
 
 .calendar {
 border-right: 0.1em solid #cccccc;
-border-top: 0.1em solid #cccccc;
 }
 
 .calendar tr td {
 border-bottom: 0.1em solid #cccccc;
 border-left: 0.1em solid #cccccc;
-height: 8em;
-width: 10em;
 vertical-align: top;
 padding: 0.5em;
 }
@@ -1695,14 +1692,15 @@ float: right;
 }
 
 .calendar tr td .h1 {
+color: #000099;
 float: left;
 }
 
-.calendar tr .current-period {
+.calendar .current-period {
 background-color: #ffffcc;
 }
 
-.calendar tr .active-period {
+.calendar .active-period {
 background-color: #eeeeee;
 }
 
