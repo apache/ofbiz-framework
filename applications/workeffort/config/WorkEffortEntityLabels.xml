@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="RateType.description.DISCOUNTED">
+        <value xml:lang="en">Discounted Hourly Rate</value>
+        <value xml:lang="it">Percentuale Oraria Scontata</value>
+        <value xml:lang="ro">Procent Orar Redus</value>
+        <value xml:lang="ru">Сниженные почасовые ставки</value>
+        <value xml:lang="th">อัตราลดลงทุก ๆ ชั่วโมง</value>
+        <value xml:lang="zh">小时价格折扣</value>
+    </property>
+    <property key="RateType.description.OVERTIME">
+        <value xml:lang="en">Overtime Hourly Rate</value>
+        <value xml:lang="it">Percentuale Oraria Straordinaria</value>
+        <value xml:lang="ro">Procent Orar Straordinar</value>
+        <value xml:lang="ru">Почасовые ставки при переработке</value>
+        <value xml:lang="th">อัตราล่วงเวลาทุก ๆ ชั่วโมง</value>
+        <value xml:lang="zh">加班小时价格</value>
+    </property>
+    <property key="RateType.description.STANDARD">
+        <value xml:lang="en">Standard Hourly Rate</value>
+        <value xml:lang="it">Percentuale Oraria Standard</value>
+        <value xml:lang="ro">Procent Orar Standard</value>
+        <value xml:lang="ru">Стандартные почасовые ставки</value>
+        <value xml:lang="th">อัตรามาตรฐานทุก ๆ ชั่วโมง</value>
+        <value xml:lang="zh">标准小时价格</value>
+    </property>
+    <property key="WorkEffortAssocType.description.ROUTING_COMPONENT">
+        <value xml:lang="en">Routing and Routing Task Association</value>
+        <value xml:lang="ru">Связи между маршрутизацией и задачами маршрутизации</value>
+        <value xml:lang="th">Routing และ Routing กลุ่มภารกิจ</value>
+        <value xml:lang="zh">路线与路线任务关联</value>
+    </property>
+    <property key="WorkEffortAssocType.description.WORK_EFF_BREAKDOWN">
+        <value xml:lang="en">Breakdown/Detail</value>
+        <value xml:lang="es">Descomposición de esfuerzo de trabajo</value>
+        <value xml:lang="it">Interruzione/Dettaglio</value>
+        <value xml:lang="ro">Intrerupere/Detaliu</value>
+        <value xml:lang="ru">Поломка/Подробно</value>
+        <value xml:lang="th">การวิเคราะห์/รายละเอียด</value>
+        <value xml:lang="zh">故障/详细</value>
+    </property>
+    <property key="WorkEffortAssocType.description.WORK_EFF_CONCURRENCY">
+        <value xml:lang="en">Concurrency</value>
+        <value xml:lang="es">Concurrencia de esfuerzo de trabajo</value>
+        <value xml:lang="it">Concorrenza</value>
+        <value xml:lang="ro">Concurenta</value>
+        <value xml:lang="ru">Конкуренция</value>
+        <value xml:lang="th">การเกิดขึ้นในเวลาเดียวกัน</value>
+        <value xml:lang="zh">并发</value>
+    </property>
+    <property key="WorkEffortAssocType.description.WORK_EFF_DEPENDENCY">
+        <value xml:lang="en">Dependency</value>
+        <value xml:lang="es">Dependencia de esfuerzo de trabajo</value>
+        <value xml:lang="it">Dipendenza</value>
+        <value xml:lang="ro">Dependenta</value>
+        <value xml:lang="ru">Зависимость</value>
+        <value xml:lang="th">ส่วนเพิ่มเติม</value>
+        <value xml:lang="zh">依赖</value>
+    </property>
+    <property key="WorkEffortAssocType.description.WORK_EFF_PHASE">
+        <value xml:lang="en">Phase</value>
+        <value xml:lang="es">Fase de proyecto de esfuerzo de trabajo</value>
+        <value xml:lang="th">ขั้นตอน</value>
+    </property>
+    <property key="WorkEffortAssocType.description.WORK_EFF_PRECEDENCY">
+        <value xml:lang="en">Precedency</value>
+        <value xml:lang="es">Precedencia de esfuerzo de trabajo</value>
+        <value xml:lang="it">Precedenza</value>
+        <value xml:lang="ro">Precedenta</value>
+        <value xml:lang="ru">Преимущество</value>
+        <value xml:lang="th">Precedency</value>
+        <value xml:lang="zh">优先级</value>
+    </property>
+    <property key="WorkEffortAssocType.description.WORK_EFF_TASK">
+        <value xml:lang="en">Task</value>
+        <value xml:lang="es">Tarea de fase de esfuerzo de trabajo</value>
+        <value xml:lang="th">ภารกิจ</value>
+    </property>
+    <property key="WorkEffortAssocType.description.WORK_EFF_TEMPLATE">
+        <value xml:lang="en">Template of</value>
+        <value xml:lang="it">Template di</value>
+        <value xml:lang="ro">Template de</value>
+        <value xml:lang="ru">Шаблон</value>
+        <value xml:lang="th">ของเทมเพลต</value>
+        <value xml:lang="zh">模板</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.ROU_ASSEMBLING">
+        <value xml:lang="en">Assembling</value>
+        <value xml:lang="it">Assemblaggio</value>
+        <value xml:lang="ro">Asamblare</value>
+        <value xml:lang="ru">Монтаж</value>
+        <value xml:lang="th">การรวมกลุ่ม</value>
+        <value xml:lang="zh">组装</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.ROU_MANUFACTURING">
+        <value xml:lang="en">Manufacturing</value>
+        <value xml:lang="it">Produzione</value>
+        <value xml:lang="ro">Productie</value>
+        <value xml:lang="ru">Производство</value>
+        <value xml:lang="th">การผลิต</value>
+        <value xml:lang="zh">制造</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.ROU_SUBCONTRACTING">
+        <value xml:lang="en">Sub-contracting</value>
+        <value xml:lang="it">Sotto-contratto</value>
+        <value xml:lang="ro">Sub-contract</value>
+        <value xml:lang="ru">Субподряд</value>
+        <value xml:lang="th">Sub-contracting</value>
+        <value xml:lang="zh">子商</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_DEPLOYMENT">
+        <value xml:lang="en">Deployment</value>
+        <value xml:lang="es">Despliegue</value>
+        <value xml:lang="it">Distribuzione</value>
+        <value xml:lang="ro">Distributie</value>
+        <value xml:lang="ru">Развертывание</value>
+        <value xml:lang="th">แพร่กระจาย</value>
+        <value xml:lang="zh">部署</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_DEVELOPMENT">
+        <value xml:lang="en">Development</value>
+        <value xml:lang="es">Desarrollo</value>
+        <value xml:lang="it">Sviluppo</value>
+        <value xml:lang="ro">Dezvoltare</value>
+        <value xml:lang="ru">Совершенствование</value>
+        <value xml:lang="th">การพัฒนา</value>
+        <value xml:lang="zh">开发</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_MAINTENANCE">
+        <value xml:lang="en">Maintenance</value>
+        <value xml:lang="es">Mantenimiento</value>
+        <value xml:lang="it">Manutenzione</value>
+        <value xml:lang="ro">Intretinere</value>
+        <value xml:lang="ru">Обслуживание</value>
+        <value xml:lang="th">การบำรุงรักษา</value>
+        <value xml:lang="zh">维护</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_MEETING">
+        <value xml:lang="en">Meeting</value>
+        <value xml:lang="es">Reunión</value>
+        <value xml:lang="it">Incontro</value>
+        <value xml:lang="ro">Intalnire</value>
+        <value xml:lang="ru">Встреча</value>
+        <value xml:lang="th">พบประสังสรรค์</value>
+        <value xml:lang="zh">会议</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_PHASE">
+        <value xml:lang="en">Phase</value>
+        <value xml:lang="es">Fase</value>
+        <value xml:lang="it">Fase</value>
+        <value xml:lang="ro">Faze</value>
+        <value xml:lang="ru">Этап</value>
+        <value xml:lang="th">ขั้นตอน</value>
+        <value xml:lang="zh">阶段</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_PRODUCTION_RUN">
+        <value xml:lang="en">Production Run</value>
+        <value xml:lang="es">Corrida de producción</value>
+        <value xml:lang="it">Ciclo Produzione</value>
+        <value xml:lang="ro">Ciclu Productie</value>
+        <value xml:lang="ru">Производственный прогон</value>
+        <value xml:lang="th">ดำเนินการผลิต</value>
+        <value xml:lang="zh">实际运行</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_PROJECT">
+        <value xml:lang="en">Project</value>
+        <value xml:lang="es">Proyecto</value>
+        <value xml:lang="it">Progetto</value>
+        <value xml:lang="ro">Proiect</value>
+        <value xml:lang="ru">Проект</value>
+        <value xml:lang="th">โปรเจค</value>
+        <value xml:lang="zh">项目</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_RESEARCH">
+        <value xml:lang="en">Research</value>
+        <value xml:lang="es">Investigación</value>
+        <value xml:lang="it">Ricerca</value>
+        <value xml:lang="ro">Cautare</value>
+        <value xml:lang="ru">Исследование</value>
+        <value xml:lang="th">งานวิจัย</value>
+        <value xml:lang="zh">研究</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_SUPPORT">
+        <value xml:lang="en">Support</value>
+        <value xml:lang="es">Soporte</value>
+        <value xml:lang="it">Supporto</value>
+        <value xml:lang="ro">Suport</value>
+        <value xml:lang="ru">Поддержка</value>
+        <value xml:lang="th">สนับสนุน</value>
+        <value xml:lang="zh">支持</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_TASK_EMAIL">
+        <value xml:lang="en">Email</value>
+        <value xml:lang="es">E-mail</value>
+        <value xml:lang="it">Email</value>
+        <value xml:lang="ro">Email</value>
+        <value xml:lang="ru">Эл. почта</value>
+        <value xml:lang="th">อีเมล</value>
+        <value xml:lang="zh">电子邮件</value>
+    </property>
+    <property key="WorkEffortPurposeType.description.WEPT_TASK_PHONE_CALL">
+        <value xml:lang="en">Phone Call</value>
+        <value xml:lang="it">Chiamata Telefonica</value>
+        <value xml:lang="ro">Chemare Telefonica</value>
+        <value xml:lang="ru">Телефонный звонок</value>
+        <value xml:lang="th">การเรียกโทรศัพท์</value>
+        <value xml:lang="zh">电话</value>
+    </property>
+    <property key="WorkEffortType.description.ACTIVITY">
+        <value xml:lang="en">Workflow Activity</value>
+        <value xml:lang="es">Actividad</value>
+        <value xml:lang="it">Attività Impegno di Lavoro</value>
+        <value xml:lang="ro">Activitati Sarcini de Lucru</value>
+        <value xml:lang="ru">Действие Workflow</value>
+        <value xml:lang="th">ขั้นตอนกิจกรรม</value>
+        <value xml:lang="zh">工作流活动</value>
+    </property>
+    <property key="WorkEffortType.description.ASSET_USAGE">
+        <value xml:lang="en">Fixed Asset Usage (rental)</value>
+        <value xml:lang="it">Uso Cespite (noleggio)</value>
+        <value xml:lang="ro">Folosire Mijloc Fix (inchiriat)</value>
+        <value xml:lang="ru">Использование ОС (аренда)</value>
+        <value xml:lang="th">การใช้ทรัพย์สินที่ไม่หมุนเวียน (การเช่า)</value>
+        <value xml:lang="zh">固定资产使用(租赁)</value>
+    </property>
+    <property key="WorkEffortType.description.AVAILABLE">
+        <value xml:lang="en">Available</value>
+        <value xml:lang="es">Disponible</value>
+        <value xml:lang="it">Disponibile</value>
+        <value xml:lang="ro">Disponibil</value>
+        <value xml:lang="ru">Доступный</value>
+        <value xml:lang="th">สามารถใช้ประโยชน์ได้</value>
+        <value xml:lang="zh">有效</value>
+    </property>
+    <property key="WorkEffortType.description.EVENT">
+        <value xml:lang="en">Event</value>
+        <value xml:lang="es">Evento</value>
+        <value xml:lang="it">Evento</value>
+        <value xml:lang="ro">Eveniment</value>
+        <value xml:lang="ru">Событие</value>
+        <value xml:lang="th">เหตุการณ์</value>
+        <value xml:lang="zh">事件</value>
+    </property>
+    <property key="WorkEffortType.description.PHASE">
+        <value xml:lang="en">Project Phase</value>
+        <value xml:lang="es">Fase</value>
+        <value xml:lang="it">Fase Progetto</value>
+        <value xml:lang="ro">Faze Proiect</value>
+        <value xml:lang="ru">Этап проекта</value>
+        <value xml:lang="th">ขั้นตอน</value>
+        <value xml:lang="zh">项目阶段</value>
+    </property>
+    <property key="WorkEffortType.description.PROD_ORDER_HEADER">
+        <value xml:lang="en">Production Run Header</value>
+        <value xml:lang="it">Testata Cliclo Produzione</value>
+        <value xml:lang="ro">Antet Cliclu Productie</value>
+        <value xml:lang="ru">Заголовок произв. прогона</value>
+        <value xml:lang="th">หัวข้อดำเนินการการผลิต</value>
+        <value xml:lang="zh">实际运行标题</value>
+    </property>
+    <property key="WorkEffortType.description.PROD_ORDER_TASK">
+        <value xml:lang="en">Production Run Task</value>
+        <value xml:lang="it">Compito Ciclo Produzione</value>
+        <value xml:lang="ro">Tema Ciclu Productie</value>
+        <value xml:lang="ru">Задача произв. прогона</value>
+        <value xml:lang="th">งานดำเนินการการผลิต</value>
+        <value xml:lang="zh">实际运行任务</value>
+    </property>
+    <property key="WorkEffortType.description.PROGRAM">
+        <value xml:lang="en">Program</value>
+        <value xml:lang="es">Programa</value>
+        <value xml:lang="it">Programma</value>
+        <value xml:lang="ro">Program</value>
+        <value xml:lang="ru">Программа</value>
+        <value xml:lang="th">โปรแกรม</value>
+        <value xml:lang="zh">程序</value>
+    </property>
+    <property key="WorkEffortType.description.PROJECT">
+        <value xml:lang="en">Project</value>
+        <value xml:lang="es">Proyecto</value>
+        <value xml:lang="it">Progetto</value>
+        <value xml:lang="ro">Proiect</value>
+        <value xml:lang="ru">Проект</value>
+        <value xml:lang="th">โปรเจค</value>
+        <value xml:lang="zh">项目</value>
+    </property>
+    <property key="WorkEffortType.description.ROUTING">
+        <value xml:lang="en">Routing</value>
+        <value xml:lang="it">Rotta</value>
+        <value xml:lang="ro">Ruta</value>
+        <value xml:lang="ru">Маршрутизация</value>
+        <value xml:lang="th">Routing</value>
+        <value xml:lang="zh">路线</value>
+    </property>
+    <property key="WorkEffortType.description.ROU_TASK">
+        <value xml:lang="en">Routing Task</value>
+        <value xml:lang="it">Compito Rotta</value>
+        <value xml:lang="ro">Tema Ruta</value>
+        <value xml:lang="ru">Задача маршрутизации</value>
+        <value xml:lang="th">งาน Routing </value>
+        <value xml:lang="zh">路线任务</value>
+    </property>
+    <property key="WorkEffortType.description.TASK">
+        <value xml:lang="en">Task</value>
+        <value xml:lang="es">Tarea</value>
+        <value xml:lang="it">Compito</value>
+        <value xml:lang="ro">Tema</value>
+        <value xml:lang="ru">Задача</value>
+        <value xml:lang="th">งาน</value>
+        <value xml:lang="zh">任务</value>
+    </property>
+    <property key="WorkEffortType.description.WORK_FLOW">
+        <value xml:lang="en">Workflow Process</value>
+        <value xml:lang="es">Flujo de trabajo</value>
+        <value xml:lang="it">Processo Impegno di Lavoro</value>
+        <value xml:lang="ro">Proces Sarcini de Lucru</value>
+        <value xml:lang="ru">Процесс Workflow</value>
+        <value xml:lang="th">วิธีการขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">工作流流程</value>
+    </property>
+    <property key="WorkflowParticipantType.description.HUMAN">
+        <value xml:lang="en">HUMAN</value>
+        <value xml:lang="es">Interacción humana con el sistema a través de una aplicación</value>
+        <value xml:lang="th">เกี่ยวกับคน</value>
+    </property>
+    <property key="WorkflowParticipantType.description.ORGANIZATIONAL_UNIT">
+        <value xml:lang="en">ORGANIZATIONAL_UNIT</value>
+        <value xml:lang="es">Departamento u otra unidad en una organización</value>
+        <value xml:lang="th">เกี่ยวกับองค์กร</value>
+    </property>
+    <property key="WorkflowParticipantType.description.RESOURCE">
+        <value xml:lang="en">RESOURCE</value>
+        <value xml:lang="es">Un agente específico de recurso</value>
+        <value xml:lang="th">แหล่งข้อมูล</value>
+    </property>
+    <property key="WorkflowParticipantType.description.RESOURCE_SET">
+        <value xml:lang="en">RESOURCE_SET</value>
+        <value xml:lang="es">Un conjunto de recursos</value>
+        <value xml:lang="th">ตั้งแหล่งข้อมูล</value>
+    </property>
+    <property key="WorkflowParticipantType.description.ROLE">
+        <value xml:lang="en">ROLE</value>
+        <value xml:lang="es">Especifica un rol que se puede asociar a un grupo de personas</value>
+        <value xml:lang="th">สถานะ</value>
+    </property>
+    <property key="WorkflowParticipantType.description.SYSTEM">
+        <value xml:lang="en">SYSTEM</value>
+        <value xml:lang="es">Un agente automático</value>
+        <value xml:lang="th">ระบบ</value>
+    </property>
+</resource>
