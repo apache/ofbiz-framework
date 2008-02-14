@@ -406,6 +406,9 @@
         <value xml:lang="th">ที่มาของข้อมูล</value>
         <value xml:lang="zh">元数据</value>
     </property>
+    <property key="ContentMetaTags">
+        <value xml:lang="en">Meta Tags</value>
+    </property>    
     <property key="ContentMimeType">
         <value xml:lang="ar">Mime Type</value>
         <value xml:lang="en">Mime Type</value>
@@ -454,6 +457,10 @@
         <value xml:lang="th">วาง</value>
         <value xml:lang="zh">粘贴</value>
     </property>
+    <property key="ContentPathAlias">
+        <value xml:lang="en">Path Alias</value>
+        <value xml:lang="fr">Alias de chemin d'accès</value>
+    </property>
     <property key="ContentQueryLine">
         <value xml:lang="ar">أدخل متغيرات المسألة</value>
         <value xml:lang="en">Enter query parameters</value>
@@ -461,6 +468,10 @@
         <value xml:lang="ro">Introduceti parametri cautare</value>
         <value xml:lang="th">เข้าสู่ปัญหาข้อข้องใจ</value>
         <value xml:lang="zh">输入查询参数</value>
+    </property>
+    <property key="ContentQuickSubContent">
+        <value xml:lang="en">Quick Sub-Content</value>
+        <value xml:lang="fr">Sous-contenu rapide</value>
     </property>
     <property key="ContentSubContent">
         <value xml:lang="ar">محتوى تحتي</value>
@@ -566,6 +577,41 @@
         <value xml:lang="th">เว็บไซต์</value>
         <value xml:lang="zh">网站</value>
     </property>
+    <property key="ContentWebSiteAddMenu">
+        <value xml:lang="en">Add Menu</value>
+        <value xml:lang="fr">Ajouter un menu</value>
+        <value xml:lang="it">Aggiungi Menu</value>
+    </property>    
+    <property key="ContentWebSiteAddNewMenus">
+        <value xml:lang="en">*Right click to add new menus</value>
+        <value xml:lang="fr">*Cliquer droit pour ajouter de nouveaux menus</value>
+        <value xml:lang="it">*Click destro per aggiungere un nuovo menu</value>
+    </property>    
+    <property key="ContentWebSiteAddTree">
+        <value xml:lang="en">Add Tree</value>
+        <value xml:lang="fr">AJouter une arborescence</value>
+        <value xml:lang="it">Aggiungi Albero</value>
+    </property>    
+    <property key="ContentWebSiteAddSubdContent">
+        <value xml:lang="en">*Right click to add sub-content</value>
+        <value xml:lang="fr">*Cliquer droit pour ajouter un nouveau sous-contenu</value>
+        <value xml:lang="it">*Click destro per aggiungere il sotto-contenuto</value>
+    </property>    
+    <property key="ContentWebSiteAttachedToContent">
+        <value xml:lang="en">Attached to Content</value>
+        <value xml:lang="fr">Attaché au contenu</value>
+        <value xml:lang="it">allegato al Contenuto</value>
+    </property>    
+    <property key="ContentWebSiteContent">
+        <value xml:lang="en">Web Site Content</value>
+        <value xml:lang="fr">Contenu du site Web</value>
+        <value xml:lang="it">Contenuto Sito Web</value>
+    </property>    
+    <property key="ContentWebSiteMenus">
+        <value xml:lang="en">Web Site Menus</value>
+        <value xml:lang="fr">Menus du site Web</value>
+        <value xml:lang="it">Menu Sito Web</value>
+    </property>    
     <property key="ContentWebSites">
         <value xml:lang="ar">مواقع الويب</value>
         <value xml:lang="en">WebSites</value>
