@@ -84,6 +84,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                   ext-demo = External Demo Data (custom)
     -->
     <entity-data-reader name="seed"/>
+    <entity-data-reader name="seed-initial"/>
     <entity-data-reader name="demo"/>
     <entity-data-reader name="ext"/>
     <entity-data-reader name="ext-test"/>
@@ -129,6 +130,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             join-style="ansi-no-parenthesis"
             alias-view-columns="true">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -154,6 +156,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-indices-unique="false"
             alias-view-columns="false">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -195,6 +198,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-indices-unique="false"
             alias-view-columns="false">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -214,6 +218,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             check-on-start="true"
             add-missing-on-start="true">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -233,6 +238,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             check-on-start="true"
             add-missing-on-start="true">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <!-- this setup is for the embedded version of Daffodil, with in.co.daffodil.db.jdbc.DaffodilDBDriver -->
@@ -255,6 +261,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             add-missing-on-start="true"
             use-pk-constraint-names="false">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -281,6 +288,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             character-set="latin1"
             collate="latin1_general_cs">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -332,6 +340,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 result-fetch-size="50"
             -->
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -358,6 +367,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             join-style="ansi">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -394,6 +404,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-fk-initially-deferred="false"
             join-style="ansi">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -415,6 +426,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-fk-initially-deferred="false"
             join-style="ansi-no-parenthesis">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -440,6 +452,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             join-style="ansi">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -480,6 +493,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             use-fk-initially-deferred="false">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -501,6 +515,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             add-missing-on-start="true"
             join-style="ansi">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -526,6 +541,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             always-use-constraint-keyword="true">
         <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
@@ -538,4 +554,3 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 pool-maxsize="250"/>
     </datasource>
 </entity-config>
-
