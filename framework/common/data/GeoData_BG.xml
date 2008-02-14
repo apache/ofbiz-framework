@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="E" geoCode="01" geoId="BG-01" geoName="Blagoevgrad" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="A" geoCode="02" geoId="BG-02" geoName="Burgas" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="B" geoCode="03" geoId="BG-03" geoName="Varna" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="BT" geoCode="04" geoId="BG-04" geoName="Veliko Tarnovo" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="BH" geoCode="05" geoId="BG-05" geoName="Vidin" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="BP" geoCode="06" geoId="BG-06" geoName="Vratsa" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="EB" geoCode="07" geoId="BG-07" geoName="Gabrovo" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="TX" geoCode="08" geoId="BG-08" geoName="Dobrich" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="K" geoCode="09" geoId="BG-09" geoName="Kardzhali" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="KH" geoCode="10" geoId="BG-10" geoName="Kyustendil" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="OB" geoCode="11" geoId="BG-11" geoName="Lovech" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="M" geoCode="12" geoId="BG-12" geoName="Montana" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="PA" geoCode="13" geoId="BG-13" geoName="Pazardzhik" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="PK" geoCode="14" geoId="BG-14" geoName="Pernik" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="EH" geoCode="15" geoId="BG-15" geoName="Pleven" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="PB" geoCode="16" geoId="BG-16" geoName="Plovdiv" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="PP" geoCode="17" geoId="BG-17" geoName="Razgrad" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="P" geoCode="18" geoId="BG-18" geoName="Ruse" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CC" geoCode="19" geoId="BG-19" geoName="Silistra" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CH" geoCode="20" geoId="BG-20" geoName="Sliven" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CM" geoCode="21" geoId="BG-21" geoName="Smolyan" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="C" geoCode="22" geoId="BG-22" geoName="Sofia" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CO" geoCode="23" geoId="BG-23" geoName="Sofia Province" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CT" geoCode="24" geoId="BG-24" geoName="Stara Zagora" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="T" geoCode="25" geoId="BG-25" geoName="Targovishte" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="X" geoCode="26" geoId="BG-26" geoName="Haskovo" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="H" geoCode="27" geoId="BG-27" geoName="Shumen" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="Y" geoCode="28" geoId="BG-28" geoName="Yambol" geoTypeId="PROVINCE"/>
+
+    <!-- Associations -->
+    <GeoAssoc geoId="BGR" geoIdTo="BG-01" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-02" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-03" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-04" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-05" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-06" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-07" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-08" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-09" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-10" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-11" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-12" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-13" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-14" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-15" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-16" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-17" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-18" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-19" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-20" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-21" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-22" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-23" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-24" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-25" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-26" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-27" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="BGR" geoIdTo="BG-28" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
