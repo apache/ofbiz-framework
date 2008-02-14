@@ -37,7 +37,7 @@ under the License.
     <Uom abbreviation="BMD" description="Bermudan Dollar" uomId="BMD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BIF" description="Burundi Franc" uomId="BIF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BHD" description="Bahrain Dinar" uomId="BHD" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="BGL" description="Bulgarian Lev" uomId="BGL" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="BGN" description="Bulgarian Lev" uomId="BGN" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BEF" description="Belgian Franc" uomId="BEF" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BDT" description="Bangladesh Taka" uomId="BDT" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="BBD" description="Barbados Dollar" uomId="BBD" uomTypeId="CURRENCY_MEASURE"/>
@@ -184,7 +184,7 @@ under the License.
     <Uom abbreviation="TND" description="Tunisian Dinar" uomId="TND" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TOP" description="Tongan Pa&apos;anga" uomId="TOP" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TPE" description="Timor Escudo" uomId="TPE" uomTypeId="CURRENCY_MEASURE"/>
-    <Uom abbreviation="TRL" description="Turkish Lira" uomId="TRL" uomTypeId="CURRENCY_MEASURE"/>
+    <Uom abbreviation="TRY" description="Turkish Lira" uomId="TRY" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TTD" description="Trinidad and Tobago Dollar" uomId="TTD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TWD" description="New Taiwan Dollar" uomId="TWD" uomTypeId="CURRENCY_MEASURE"/>
     <Uom abbreviation="TZS" description="Tanzanian Shilling" uomId="TZS" uomTypeId="CURRENCY_MEASURE"/>

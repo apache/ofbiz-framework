@@ -270,6 +270,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="DEU"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="AUT"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="BEL"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="BGR"/>    
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="CYP"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="DNK"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="ESP"/>
@@ -287,6 +288,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="NLD"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="POL"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="PRT"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="ROU"/>    
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="GBR"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="CZE"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="SVK"/>
