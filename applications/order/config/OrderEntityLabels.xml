@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="CustRequestResolution.description.DUPLICATE">
+        <value xml:lang="en">Duplicate</value>
+        <value xml:lang="fr">Dupliquée</value>
+        <value xml:lang="it">Duplicato</value>
+        <value xml:lang="ro">Duplicat</value>
+        <value xml:lang="ru">Повторное</value>
+        <value xml:lang="th">จำลอง</value>
+        <value xml:lang="zh">重复</value>
+    </property>
+    <property key="CustRequestResolution.description.FIXED">
+        <value xml:lang="en">Fixed</value>
+        <value xml:lang="fr">Corrigée</value>
+        <value xml:lang="it">Risolto</value>
+        <value xml:lang="ro">Solutionat</value>
+        <value xml:lang="ru">Исправлено</value>
+        <value xml:lang="th">แก้ไข</value>
+        <value xml:lang="zh">已改正</value>
+    </property>
+    <property key="CustRequestResolution.description.IMPLEMENTED">
+        <value xml:lang="en">Implemented</value>
+        <value xml:lang="fr">Implémentée</value>
+        <value xml:lang="it">Implementato</value>
+        <value xml:lang="ro">Implementat</value>
+        <value xml:lang="ru">Реализовано</value>
+        <value xml:lang="th">ทำให้เห็นผล</value>
+        <value xml:lang="zh">已实现</value>
+    </property>
+    <property key="CustRequestResolution.description.REJECTED">
+        <value xml:lang="en">Rejected</value>
+        <value xml:lang="fr">Rejetée</value>
+        <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="ro">Refuzat</value>
+        <value xml:lang="ru">Отказано</value>
+        <value xml:lang="th">ปฏิเสธ</value>
+        <value xml:lang="zh">拒绝</value>
+    </property>
+    <property key="CustRequestResolution.description.WONTFIX">
+        <value xml:lang="en">Won't Fix</value>
+        <value xml:lang="fr">Non corrigée</value>
+        <value xml:lang="it">Non Verra Fissato</value>
+        <value xml:lang="ro">Nu Va fi Fixat</value>
+        <value xml:lang="ru">Не исправлено</value>
+        <value xml:lang="th">ไม่สามารถแก้ไขได้</value>
+        <value xml:lang="zh">不改正</value>
+    </property>
+    <property key="CustRequestResolution.description.WORKS">
+        <value xml:lang="en">Works For Me</value>
+        <value xml:lang="fr">Fonctionne pour moi</value>
+        <value xml:lang="it">Per Me Funziona</value>
+        <value xml:lang="ro">Cred ca Functioneaza</value>
+        <value xml:lang="ru">Для нас работает</value>
+        <value xml:lang="th">งานสำหรับฉัน</value>
+        <value xml:lang="zh">对我是正确的</value>
+    </property>
+    <property key="CustRequestType.description.RF_BUGFIX">
+        <value xml:lang="en">Request For Bug Fix</value>
+        <value xml:lang="fr">Correction d'erreur</value>
+        <value xml:lang="it">Richiesta Di Bug Fix</value>
+        <value xml:lang="ro">Cerere De Bug Fix</value>
+        <value xml:lang="ru">Запрос на исправление ошибки</value>
+        <value xml:lang="th">คำขอร้องสำหรับการแก้บัค</value>
+        <value xml:lang="zh">除错请求</value>
+    </property>
+    <property key="CustRequestType.description.RF_CATALOG">
+        <value xml:lang="en">Request For Catalog</value>
+        <value xml:lang="fr">Demande catalogue</value>
+        <value xml:lang="it">Richiesta Di Catalogo</value>
+        <value xml:lang="ro">Cerere De Catalog</value>
+        <value xml:lang="ru">Запрос каталога</value>
+        <value xml:lang="th">คำขอร้องสำหรับหมวดหมู่</value>
+        <value xml:lang="zh">目录请求</value>
+    </property>
+    <property key="CustRequestType.description.RF_FEATURE">
+        <value xml:lang="en">Request For Feature</value>
+        <value xml:lang="fr">Demande de caracté</value>
+        <value xml:lang="it">Richiesta Di Caratteristica</value>
+        <value xml:lang="ro">Cerere Caracteristica</value>
+        <value xml:lang="ru">Запрос особенности</value>
+        <value xml:lang="th">คำขอร้องสำหรับลักษณะ</value>
+        <value xml:lang="zh">特性请求</value>
+    </property>
+    <property key="CustRequestType.description.RF_INFO">
+        <value xml:lang="en">Request For Information</value>
+        <value xml:lang="fr">Demande d'information</value>
+        <value xml:lang="it">Richiesta Di Informazione</value>
+        <value xml:lang="ro">Cerere Informatie</value>
+        <value xml:lang="ru">Запрос информации</value>
+        <value xml:lang="th">คำขอร้องสำหรับข้อมูล</value>
+        <value xml:lang="zh">信息请求</value>
+    </property>
+    <property key="CustRequestType.description.RF_PROPOSAL">
+        <value xml:lang="en">Request For Proposal</value>
+        <value xml:lang="fr">Proposition</value>
+        <value xml:lang="it">Richiesta Di Proposta</value>
+        <value xml:lang="ro">Cerere De Propunere</value>
+        <value xml:lang="ru">Запрос предложения</value>
+        <value xml:lang="th">คำขอร้องสำหรับข้อเสนอ</value>
+        <value xml:lang="zh">建议请求</value>
+    </property>
+    <property key="CustRequestType.description.RF_PUR_QUOTE">
+        <value xml:lang="en">Request For Purchase Quote</value>
+        <value xml:lang="it">Richiesta Di Preventivo Acquisto</value>
+        <value xml:lang="ru">Запрос закупочных цен</value>
+        <value xml:lang="th">คำขอร้องสำหรับการอ้างอิงการสั่งซื้อ</value>
+    </property>
+    <property key="CustRequestType.description.RF_QUOTE">
+        <value xml:lang="en">Request For Quote</value>
+        <value xml:lang="fr">Demande de devis</value>
+        <value xml:lang="it">Richiesta Di Preventivo</value>
+        <value xml:lang="ro">Cerere De Oferta</value>
+        <value xml:lang="ru">Запрос цены</value>
+        <value xml:lang="th">คำขอร้องสำหรับการอ้างอิง</value>
+        <value xml:lang="zh">询价请求</value>
+    </property>
+    <property key="CustRequestType.description.RF_SUPPORT">
+        <value xml:lang="en">Request For Support</value>
+        <value xml:lang="fr">Demande de support</value>
+        <value xml:lang="it">Richiesta Di Supporto</value>
+        <value xml:lang="ro">Cerere De Suport</value>
+        <value xml:lang="ru">Запрос поддержки</value>
+        <value xml:lang="th">คำขอร้องสำหรับการสนับสนุน</value>
+        <value xml:lang="zh">支持请求</value>
+    </property>
+    <property key="OrderAdjustmentType.description.ADDITIONAL_FEATURE">
+        <value xml:lang="en">Additional Feature</value>
+        <value xml:lang="es">Gastos adicionales</value>
+        <value xml:lang="fr">Frais additionnels</value>
+        <value xml:lang="it">Caratteristica Aggiuntiva</value>
+        <value xml:lang="ro">Caracteristica Suplimentara</value>
+        <value xml:lang="ru">Дополнительная возможность</value>
+        <value xml:lang="th">เพิ่มเติมลักษณะ</value>
+        <value xml:lang="zh">附加特性</value>
+    </property>
+    <property key="OrderAdjustmentType.description.DISCOUNT_ADJUSTMENT">
+        <value xml:lang="en">Discount</value>
+        <value xml:lang="es">Descuento</value>
+        <value xml:lang="fr">Remise</value>
+        <value xml:lang="it">Sconto</value>
+        <value xml:lang="ro">Scont</value>
+        <value xml:lang="ru">Скидка</value>
+        <value xml:lang="th">ส่วนลด</value>
+        <value xml:lang="zh">折扣</value>
+    </property>
+    <property key="OrderAdjustmentType.description.FEE">
+        <value xml:lang="en">Fee</value>
+        <value xml:lang="es">Honorario</value>
+        <value xml:lang="fr">Honoraires</value>
+        <value xml:lang="it">Tassa</value>
+        <value xml:lang="ro">Taxa</value>
+        <value xml:lang="ru">Сбор</value>
+        <value xml:lang="th">ค่าธรรมเนียม</value>
+        <value xml:lang="zh">费用</value>
+    </property>
+    <property key="OrderAdjustmentType.description.MISCELLANEOUS_CHARGE">
+        <value xml:lang="en">Miscellaneous Charges</value>
+        <value xml:lang="es">Gastos diversos</value>
+        <value xml:lang="fr">Frais divers</value>
+        <value xml:lang="it">Ricarico Vario</value>
+        <value xml:lang="ro">Incarcare mixta</value>
+        <value xml:lang="ru">Различные расходы</value>
+        <value xml:lang="th">ค่าธรรมเนียมเบ็ดเตล็ด</value>
+        <value xml:lang="zh">其它费用</value>
+    </property>
+    <property key="OrderAdjustmentType.description.MKTG_PKG_AUTO_ADJUST">
+        <value xml:lang="en">Marketing Package Adjustment</value>
+        <value xml:lang="fr">Offre marketing</value>
+        <value xml:lang="it">Aggiustamento Paccho Vendita</value>
+        <value xml:lang="ro">Adaptare Pachet Vanzare</value>
+        <value xml:lang="ru">Настройка маркетингового пакета</value>
+        <value xml:lang="th">การปรับปรุงรายการทางการตลาด</value>
+        <value xml:lang="zh">调整市场促销方案</value>
+    </property>
+    <property key="OrderAdjustmentType.description.PROMOTION_ADJUSTMENT">
+        <value xml:lang="en">Promotion</value>
+        <value xml:lang="es">Promoción</value>
+        <value xml:lang="fr">Promotion</value>
+        <value xml:lang="it">Promozione</value>
+        <value xml:lang="ro">Promotie</value>
+        <value xml:lang="ru">Акция</value>
+        <value xml:lang="th">โปรโมชัน</value>
+        <value xml:lang="zh">促销</value>
+    </property>
+    <property key="OrderAdjustmentType.description.REPLACE_ADJUSTMENT">
+        <value xml:lang="en">Replacement</value>
+        <value xml:lang="es">Reemplazo</value>
+        <value xml:lang="fr">Replacement</value>
+        <value xml:lang="it">Sostituzione</value>
+        <value xml:lang="ro">Substituire</value>
+        <value xml:lang="ru">Замена</value>
+        <value xml:lang="th">จากการเปลี่ยนแปลง</value>
+        <value xml:lang="zh">替换</value>
+    </property>
+    <property key="OrderAdjustmentType.description.SALES_TAX">
+        <value xml:lang="en">Sales Tax</value>
+        <value xml:lang="es">Impuestos de venta</value>
+        <value xml:lang="fr">Taxes de vente</value>
+        <value xml:lang="it">Tassa Vendita</value>
+        <value xml:lang="ro">Taxa Vanzare</value>
+        <value xml:lang="ru">Налог с продаж</value>
+        <value xml:lang="th">ภาษีการขาย</value>
+        <value xml:lang="zh">营业税</value>
+    </property>
+    <property key="OrderAdjustmentType.description.SHIPPING_CHARGES">
+        <value xml:lang="en">Shipping and Handling</value>
+        <value xml:lang="es">Envío y seguimiento</value>
+        <value xml:lang="fr">Port et emballage</value>
+        <value xml:lang="it">Spesa di Spedizione e Imballaggio</value>
+        <value xml:lang="ro">Cheltueli cu Expedierea si Ambalarea</value>
+        <value xml:lang="ru">Поставка и обработка</value>
+        <value xml:lang="th">การขนส่งและการควบคุม</value>
+        <value xml:lang="zh">运输和包装</value>
+    </property>
+    <property key="OrderAdjustmentType.description.SURCHARGE_ADJUSTMENT">
+        <value xml:lang="en">Surcharge</value>
+        <value xml:lang="es">Sobretasa</value>
+        <value xml:lang="fr">Surtaxe</value>
+        <value xml:lang="it">Sovraccarico</value>
+        <value xml:lang="ro">Supraincarcare</value>
+        <value xml:lang="ru">Надбавка</value>
+        <value xml:lang="th">การคิดเงินเพิ่ม</value>
+        <value xml:lang="zh">额外费用</value>
+    </property>
+    <property key="OrderAdjustmentType.description.WARRANTY_ADJUSTMENT">
+        <value xml:lang="en">Warranty</value>
+        <value xml:lang="es">Garantía</value>
+        <value xml:lang="fr">Garantie</value>
+        <value xml:lang="it">Garanzia</value>
+        <value xml:lang="ro">Garantie</value>
+        <value xml:lang="ru">Гарантия</value>
+        <value xml:lang="th">การรับประกัน</value>
+        <value xml:lang="zh">保修</value>
+    </property>
+    <property key="OrderBlacklistType.description.BLACKLIST_ADDRESS">
+        <value xml:lang="en">BLACKLIST_ADDRESS</value>
+        <value xml:lang="es">Dirección</value>
+        <value xml:lang="th">ที่อยู่</value>
+    </property>
+    <property key="OrderBlacklistType.description.BLACKLIST_CREDITCARD">
+        <value xml:lang="en">BLACKLIST_CREDITCARD</value>
+        <value xml:lang="es">Tarjeta de crédito</value>
+        <value xml:lang="th">บัตรเครดิต</value>
+    </property>
+    <property key="OrderBlacklistType.description.BLACKLIST_EMAIL">
+        <value xml:lang="en">BLACKLIST_EMAIL</value>
+        <value xml:lang="es">Email</value>
+        <value xml:lang="th">อีเมล</value>
+    </property>
+    <property key="OrderBlacklistType.description.BLACKLIST_PHONE">
+        <value xml:lang="en">BLACKLIST_PHONE</value>
+        <value xml:lang="es">Teléfono</value>
+        <value xml:lang="th">หมายเลขโทรศัพท์</value>
+    </property>
+    <property key="OrderContentType.description.IMAGE_URL">
+        <value xml:lang="en">IMAGE_URL</value>
+        <value xml:lang="es">Imagen</value>
+        <value xml:lang="th">รูปภาพ</value>
+    </property>
+    <property key="OrderItemType.description.BULK_ORDER_ITEM">
+        <value xml:lang="en">BULK_ORDER_ITEM</value>
+        <value xml:lang="es">Ítem a granel</value>
+        <value xml:lang="th">รายการความจุ</value>
+    </property>
+    <property key="OrderItemType.description.PRODUCT_ORDER_ITEM">
+        <value xml:lang="en">PRODUCT_ORDER_ITEM</value>
+        <value xml:lang="es">Ítem</value>
+    	<value xml:lang="th">รายการ</value>
+    </property>
+    <property key="OrderItemType.description.RENTAL_ORDER_ITEM">
+        <value xml:lang="en">RENTAL_ORDER_ITEM</value>
+        <value xml:lang="es">Ítem de alquiler</value>
+        <value xml:lang="th">รายการการเช่า</value>
+    </property>
+    <property key="OrderItemType.description.WORK_ORDER_ITEM">
+        <value xml:lang="en">WORK_ORDER_ITEM</value>
+        <value xml:lang="es">Ítem de trabajo</value>
+        <value xml:lang="th">รายการงาน</value>
+    </property>
+    <property key="OrderType.description.PURCHASE_ORDER">
+        <value xml:lang="en">Purchase Order</value>
+        <value xml:lang="es">Compra</value>
+        <value xml:lang="fr">Achats</value>
+        <value xml:lang="it">Ordine di Acquisto</value>
+        <value xml:lang="ro">Cumparare</value>
+        <value xml:lang="ru">Закупка</value>
+        <value xml:lang="th">รายการการสั่งซื้อ</value>
+        <value xml:lang="zh">购买</value>
+    </property>
+    <property key="OrderType.description.SALES_ORDER">
+        <value xml:lang="en">Sales Order</value>
+        <value xml:lang="es">Venta</value>
+        <value xml:lang="fr">Ventes</value>
+        <value xml:lang="it">Ordine di Vendita</value>
+        <value xml:lang="ro">Vanzare</value>
+        <value xml:lang="ru">Продажи</value>
+        <value xml:lang="th">รายการขาย</value>
+        <value xml:lang="zh">销售</value>
+    </property>
+    <property key="OrderType.description.WORK_ORDER">
+        <value xml:lang="en">WORK_ORDER</value>
+        <value xml:lang="es">Trabajo</value>
+        <value xml:lang="th">งาน</value>
+    </property>
+    <property key="QuoteType.description.OTHER_QUOTE">
+        <value xml:lang="en">Other</value>
+        <value xml:lang="es">Otras cotizaciones</value>
+        <value xml:lang="fr">Autres</value>
+        <value xml:lang="it">Altro</value>
+        <value xml:lang="ro">Alte</value>
+        <value xml:lang="ru">Другие</value>
+        <value xml:lang="th">อื่น ๆ</value>
+        <value xml:lang="zh">其它</value>
+    </property>
+    <property key="QuoteType.description.PRODUCT_QUOTE">
+        <value xml:lang="en">Product</value>
+        <value xml:lang="es">Producto</value>
+        <value xml:lang="fr">Produit</value>
+        <value xml:lang="it">Prodotto</value>
+        <value xml:lang="ro">Produs</value>
+        <value xml:lang="ru">Цены на продукцию</value>
+        <value xml:lang="th">สินค้า</value>
+        <value xml:lang="zh">产品</value>
+    </property>
+    <property key="QuoteType.description.PROPOSAL">
+        <value xml:lang="en">Proposal</value>
+        <value xml:lang="es">Propuesta</value>
+        <value xml:lang="fr">Proposé</value>
+        <value xml:lang="it">Proposta</value>
+        <value xml:lang="ro">Propunere</value>
+        <value xml:lang="ru">Предложение</value>
+        <value xml:lang="th">ข้อเสนอ</value>
+        <value xml:lang="zh">建议</value>
+    </property>
+    <property key="QuoteType.description.PROPOSAL_PURCHASE">
+        <value xml:lang="en">PROPOSAL_PURCHASE</value>
+        <value xml:lang="es">Propuesta de compra</value>
+        <value xml:lang="th">ข้อเสนอการซื้อ</value>
+    </property>
+    <property key="QuoteType.description.PURCHASE_QUOTE">
+        <value xml:lang="en">Product Purchase</value>
+        <value xml:lang="fr">Achat</value>
+        <value xml:lang="it">Prodotto Acquistato</value>
+        <value xml:lang="ro">Produs Cumparat</value>
+        <value xml:lang="ru">Закупочное предложение</value>
+        <value xml:lang="th">การสั่งซื้อสินค้า</value>
+        <value xml:lang="zh">产品购买</value>
+    </property>
+    <property key="RequirementType.description.CUSTOMER_REQUIREMENT">
+        <value xml:lang="en">Customer Requirement</value>
+        <value xml:lang="es">Requerimiento de cliente</value>
+        <value xml:lang="fr">Besoin client</value>
+        <value xml:lang="it">Fabbisogno Cliente</value>
+        <value xml:lang="ro">Necesar Cliente</value>
+        <value xml:lang="ru">Требование заказчика</value>
+        <value xml:lang="th">ความต้องการของลูกค้า</value>
+        <value xml:lang="zh">客户需求</value>
+    </property>
+    <property key="RequirementType.description.INTERNAL_REQUIREMENT">
+        <value xml:lang="en">Internal Requirement</value>
+        <value xml:lang="es">Requerimiento interno</value>
+        <value xml:lang="fr">Besoin interne</value>
+        <value xml:lang="it">Fabbisogno Interno</value>
+        <value xml:lang="ro">Necesar Intern</value>
+        <value xml:lang="ru">Внутреннее требование</value>
+        <value xml:lang="th">ความต้องการภายใน</value>
+        <value xml:lang="zh">内部需求</value>
+    </property>
+    <property key="RequirementType.description.MRP_PRO_PROD_ORDER">
+        <value xml:lang="en">MRP_PRO_PROD_ORDER</value>
+        <value xml:lang="it">Fabbisogno Ciclo Produzione proposto dal processo MRP</value>
+        <value xml:lang="ro">Necesar Ciclu Productie propus de procesul MRP</value>
+        <value xml:lang="th">MRP_PRO_PROD_ORDER</value>
+    </property>
+    <property key="RequirementType.description.MRP_PRO_PURCH_ORDER">
+        <value xml:lang="en">MRP_PRO_PURCH_ORDER</value>
+        <value xml:lang="it">Fabbisogno Ordine Acquisto proposto dal processo MRP</value>
+        <value xml:lang="ro">Necesar Comanda Comparare propusa de procesul MRP</value>
+        <value xml:lang="th">MRP_PRO_PURCH_ORDER</value>
+    </property>
+    <property key="RequirementType.description.PRODUCT_REQUIREMENT">
+        <value xml:lang="en">Product Requirement</value>
+        <value xml:lang="es">Requerimiento de producto</value>
+        <value xml:lang="fr">Besoin produit</value>
+        <value xml:lang="it">Fabbisogno Prodotto</value>
+        <value xml:lang="ro">Necesar Produs</value>
+        <value xml:lang="ru">Требование продукции</value>
+        <value xml:lang="th">ความต้องการสินค้า</value>
+        <value xml:lang="zh">产品需求</value>
+    </property>
+    <property key="RequirementType.description.WORK_REQUIREMENT">
+        <value xml:lang="en">Work Requirement</value>
+        <value xml:lang="es">Requerimiento de trabajo</value>
+        <value xml:lang="fr">Besoin produciton</value>
+        <value xml:lang="it">Fabbisogno Lavoro</value>
+        <value xml:lang="ro">Necesar de Lucru</value>
+        <value xml:lang="ru">Требование работ</value>
+        <value xml:lang="th">ความต้องการงาน</value>
+        <value xml:lang="zh">工作需求</value>
+    </property>
+    <property key="ReturnReason.description.RTN_COD_REJECT">
+        <value xml:lang="en">COD Payment Rejected</value>
+        <value xml:lang="it">Pagmento Contrassegno Rifiutato</value>
+        <value xml:lang="ru">COD платеж не принят</value>
+        <value xml:lang="th">ปฏิเสธการชำระเงินด่วน</value>
+    </property>
+    <property key="ReturnReason.description.RTN_DEFECTIVE_ITEM">
+        <value xml:lang="en">Defective Item</value>
+        <value xml:lang="es">Producto defectuoso</value>
+        <value xml:lang="fr">Défectueux</value>
+        <value xml:lang="it">Prodotto Difettoso</value>
+        <value xml:lang="ro">Produs Defectuos</value>
+        <value xml:lang="ru">Дефектное изделие</value>
+        <value xml:lang="th">รายการมีตำหนิ</value>
+        <value xml:lang="zh">有缺陷的明细</value>
+    </property>
+    <property key="ReturnReason.description.RTN_DIG_FILL_FAIL">
+        <value xml:lang="en">Digital Fulfillment Failed</value>
+        <value xml:lang="es">Error de realización</value>
+        <value xml:lang="fr">Erreur de chargement de fichier </value>
+        <value xml:lang="it">Soddisfazione Digitale Fallita</value>
+        <value xml:lang="ro">Satisfactie Digitala Falita</value>
+        <value xml:lang="ru">Выполнение поставки цифр. продукта не удалось</value>
+        <value xml:lang="th">การปฏิบัติการของดิจิตอลล้มเหลว</value>
+        <value xml:lang="zh">数字执行失败</value>
+    </property>
+    <property key="ReturnReason.description.RTN_MISSHIP_ITEM">
+        <value xml:lang="en">Mis-Shipped Item</value>
+        <value xml:lang="es">Incidente de transporte</value>
+        <value xml:lang="fr">Ligne d'expédition manquante</value>
+        <value xml:lang="it">Prodotto Non-Spedito</value>
+        <value xml:lang="ro">Produs Ne-Expediat</value>
+        <value xml:lang="ru">Ошибочная поставка</value>
+        <value xml:lang="th">ไม่มีรายการขนส่ง</value>
+        <value xml:lang="zh">送错的明细</value>
+    </property>
+    <property key="ReturnReason.description.RTN_NOT_WANT">
+        <value xml:lang="en">Did Not Want Item</value>
+        <value xml:lang="es">No desea ya el producto</value>
+        <value xml:lang="fr">Non demandé</value>
+        <value xml:lang="it">Prodotto Non Voluto</value>
+        <value xml:lang="ro">Produs Non Volut</value>
+        <value xml:lang="ru">Ненужная позиция</value>
+        <value xml:lang="th">ไม่ต้องการรายการ</value>
+        <value xml:lang="zh">不需要明细</value>
+    </property>
+    <property key="ReturnType.description.RTN_CREDIT">
+        <value xml:lang="en">Store Credit</value>
+        <value xml:lang="es">Crédito de la tienda</value>
+        <value xml:lang="fr">Avoir</value>
+        <value xml:lang="it">Credito Negozio</value>
+        <value xml:lang="ro">Credit Magazin</value>
+        <value xml:lang="ru">Торговый кредит</value>
+        <value xml:lang="th">สะสมเครดิต</value>
+        <value xml:lang="zh">存储信用</value>
+    </property>
+    <property key="ReturnType.description.RTN_CSREPLACE">
+        <value xml:lang="en">Cross-Ship Replacement</value>
+        <value xml:lang="fr">Remplacement ฀ la livraison </value>
+        <value xml:lang="it">Sostituzione Cross-Ship</value>
+        <value xml:lang="ro">Substitutie Cross-Ship</value>
+        <value xml:lang="ru">Замена на другой продукт</value>
+        <value xml:lang="th">Cross-Ship Replacement</value>
+        <value xml:lang="zh">邮寄换货</value>
+    </property>
+    <property key="ReturnType.description.RTN_REFUND">
+        <value xml:lang="en">Refund</value>
+        <value xml:lang="fr">Remboursement</value>
+        <value xml:lang="it">Rimborsato</value>
+        <value xml:lang="ro">Rambursat</value>
+        <value xml:lang="ru">Возмещение</value>
+        <value xml:lang="th">การคืนเงิน</value>
+        <value xml:lang="zh">退款</value>
+    </property>
+    <property key="ReturnType.description.RTN_REPAIR_REPLACE">
+        <value xml:lang="en">Repair Replacement</value>
+        <value xml:lang="it">Riparato Sostituito</value>
+        <value xml:lang="ru">Замена при ремонте</value>
+        <value xml:lang="th">ชดเชยการทดแทน</value>
+    </property>
+    <property key="ReturnType.description.RTN_REPLACE">
+        <value xml:lang="en">Replacement</value>
+        <value xml:lang="fr">Remplacement</value>
+        <value xml:lang="it">Sostituito</value>
+        <value xml:lang="ro">Substituit</value>
+        <value xml:lang="ru">Замена</value>
+        <value xml:lang="th">การทดแทน</value>
+        <value xml:lang="zh">替换</value>
+    </property>
+    <property key="ShoppingListType.description.SLT_AUTO_REODR">
+        <value xml:lang="en">Automatic Re-Orders</value>
+        <value xml:lang="es">Encargar automáticamente un producto ya encargado</value>
+        <value xml:lang="fr">Commander automatiquement un produit déjà commandé  </value>
+        <value xml:lang="it">Ri-Ordini Automatici</value>
+        <value xml:lang="ro">Comenzi reordinate Automatic</value>
+        <value xml:lang="ru">Автоматический повторный заказ</value>
+        <value xml:lang="th">สั่งใหม่โดยอัตโนมัติ</value>
+        <value xml:lang="zh">自动重新下订单</value>
+    </property>
+    <property key="ShoppingListType.description.SLT_FREQ_PURCHASES">
+        <value xml:lang="en">Frequent Purchases</value>
+        <value xml:lang="es">Compras frecuentes</value>
+        <value xml:lang="fr">Achats fréquents</value>
+        <value xml:lang="it">Acquisti Frequenti</value>
+        <value xml:lang="ro">Cumparari Frecvente</value>
+        <value xml:lang="ru">Частые покупки</value>
+        <value xml:lang="th">การสั่งซื้อเป็นประจำ</value>
+        <value xml:lang="zh">经常购买</value>
+    </property>
+    <property key="ShoppingListType.description.SLT_GIFT_REG">
+        <value xml:lang="en">Gift Registry</value>
+        <value xml:lang="es">Lista de regalos</value>
+        <value xml:lang="fr">Liste de cadeaux</value>
+        <value xml:lang="it">Registro Omaggi</value>
+        <value xml:lang="ro">Registru Omagiu</value>
+        <value xml:lang="ru">Реестр подарков</value>
+        <value xml:lang="th">การจดทะเบียนของขวัญ</value>
+        <value xml:lang="zh">礼品注册</value>
+    </property>
+    <property key="ShoppingListType.description.SLT_SPEC_PURP">
+        <value xml:lang="en">Special Purpose</value>
+        <value xml:lang="es">Ocasiones especiales</value>
+        <value xml:lang="fr">Occasions spéciales</value>
+        <value xml:lang="it">Funzione Speciale</value>
+        <value xml:lang="ro">Functie Speciala</value>
+        <value xml:lang="ru">Специальное назначение</value>
+        <value xml:lang="th">เป้าหมายพิเศษ</value>
+        <value xml:lang="zh">特别目的</value>
+    </property>
+    <property key="ShoppingListType.description.SLT_WISH_LIST">
+        <value xml:lang="en">Wish List</value>
+        <value xml:lang="es">Lista de deseos</value>
+        <value xml:lang="fr">Liste de souhaits</value>
+        <value xml:lang="it">Lista dei Desideri</value>
+        <value xml:lang="ro">Lista Dorintelor</value>
+        <value xml:lang="ru">Список пожеланий</value>
+        <value xml:lang="th">รายการความต้องการ</value>
+        <value xml:lang="zh">期望列表</value>
+    </property>
+    <property key="TaxAuthorityRateType.description.SALES_TAX">
+        <value xml:lang="en">SALES_TAX</value>
+        <value xml:lang="es">Impuesto de ventas</value>
+        <value xml:lang="th">ภาษีการขาย</value>
+    </property>
+    <property key="TaxAuthorityRateType.description.USE_TAX">
+        <value xml:lang="en">USE_TAX</value>
+        <value xml:lang="es">Impuesto de uso</value>
+        <value xml:lang="th">ภาษีการใช้</value>
+    </property>
+    <property key="WorkReqFulfType.description.WRF_DELIVERS">
+        <value xml:lang="en">Delivers</value>
+        <value xml:lang="es">Entregas</value>
+        <value xml:lang="fr">Délivrer</value>
+        <value xml:lang="it">Consegna</value>
+        <value xml:lang="ro">Livreaza</value>
+        <value xml:lang="ru">Доставка</value>
+        <value xml:lang="th">ประกาศ</value>
+        <value xml:lang="zh">交付</value>
+    </property>
+    <property key="WorkReqFulfType.description.WRF_DEPLOYS">
+        <value xml:lang="en">Deploys</value>
+        <value xml:lang="es">Despliegues</value>
+        <value xml:lang="fr">Déployer</value>
+        <value xml:lang="it">Distribuisci</value>
+        <value xml:lang="ro">Distribuie</value>
+        <value xml:lang="ru">Развертывание</value>
+        <value xml:lang="th">กระจาย</value>
+        <value xml:lang="zh">部署</value>
+    </property>
+    <property key="WorkReqFulfType.description.WRF_FIXES">
+        <value xml:lang="en">Fixes</value>
+        <value xml:lang="es">Arreglos</value>
+        <value xml:lang="fr">Difficulté</value>
+        <value xml:lang="it">Fissa</value>
+        <value xml:lang="ro">Fixeaza</value>
+        <value xml:lang="ru">Исправления</value>
+        <value xml:lang="th">แก้ไข</value>
+        <value xml:lang="zh">改正</value>
+    </property>
+    <property key="WorkReqFulfType.description.WRF_IMPLEMENTS">
+        <value xml:lang="en">Implements</value>
+        <value xml:lang="es">Implementos</value>
+        <value xml:lang="fr">Instruments</value>
+        <value xml:lang="it">Implementa</value>
+        <value xml:lang="ro">Implementeaza</value>
+        <value xml:lang="ru">Реализация</value>
+        <value xml:lang="th">ทำให้ได้ผล</value>
+        <value xml:lang="zh">完成</value>
+    </property>
+    <property key="WorkReqFulfType.description.WRF_TESTS">
+        <value xml:lang="en">Tests</value>
+        <value xml:lang="es">Pruebas</value>
+        <value xml:lang="fr">Tester</value>
+        <value xml:lang="it">Testa</value>
+        <value xml:lang="ro">Testeaza</value>
+        <value xml:lang="ru">Тестирование</value>
+        <value xml:lang="th">ทดสอบ</value>
+        <value xml:lang="zh">测试</value>
+    </property>
+</resource>
