@@ -194,9 +194,9 @@ under the License.
               <select name='needsInventoryReceive'>
                 <#if needsInventoryReceive?exists>
                   <#if "Y" == needsInventoryReceive>
-                    <option selected="selected">${uiLabelMap.CommonYes}</option>
+                    <option selected="selected" value="${needsInventoryReceive}">${uiLabelMap.CommonYes}</option>
                   <#elseif "N" == needsInventoryReceive>
-                    <option selected="selected">${uiLabelMap.CommonNo}</option>
+                    <option selected="selected" value="${needsInventoryReceive}">${uiLabelMap.CommonNo}</option>
                   </#if>
                   <option value="${needsInventoryReceive}">---</option>
                 </#if>
