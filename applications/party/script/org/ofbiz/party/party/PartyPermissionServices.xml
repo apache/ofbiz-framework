@@ -69,10 +69,20 @@ under the License.
 
     <!-- ============== Additional Permission Checking ============= -->
 
-    <!-- Returns hasPermission=true if user has one of the base PARTYMGR or PARTYMGR_STS CRUD+ADMIN permissions -->
+    <!-- Returns hasPermission=true if userLogin partyId equals partyId parameter OR
+         user has one of the base PARTYMGR or PARTYMGR_STS CRUD+ADMIN permissions -->
     <simple-method method-name="partyStatusPermissionCheck" short-description="Party status permission logic">
-        <set field="altPermission" value="PARTYMGR_STS"/>
-        <call-simple-method method-name="basePermissionCheck"/>
+        <set field="hasPermission" type="Boolean" value="false"/>
+        <if-not-empty field-name="parameters.partyId">
+            <if-compare-field field-name="parameters.partyId" operator="equals" to-field-name="userLogin.partyId">
+                <set field="hasPermission" type="Boolean" value="true"/>
+                <field-to-result field-name="hasPermission"/>
+            </if-compare-field>
+        </if-not-empty>
+        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+            <set field="altPermission" value="PARTYMGR_STS"/>
+            <call-simple-method method-name="basePermissionCheck"/>
+        </if-compare>
     </simple-method>
 
     <!-- Returns hasPermission=true if userLogin partyId equals partyId parameter OR
