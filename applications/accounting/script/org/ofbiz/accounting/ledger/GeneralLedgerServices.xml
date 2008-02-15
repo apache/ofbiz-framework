@@ -456,7 +456,6 @@ under the License.
                     <field-to-result field-name="partyGlAccount.glAccountId" result-name="glAccountId"/>
                     <return/>
                 </if-not-empty>
-                <return/>
             </then>
         </if>
 
@@ -477,6 +476,7 @@ under the License.
                 </and>
             </condition>
             <then>
+
                 <entity-one entity-name="Payment" value-name="payment"/>
                 <get-related-one value-name="payment" relation-name="PaymentMethod" to-value-name="paymentMethod"/>
                 <if-not-empty field-name="paymentMethod.glAccountId">
@@ -532,6 +532,7 @@ under the License.
                 <set field="lookedUpValue.glAccountId" from-field="productGlAccount.glAccountId"/>
             </else>
             </if-empty>
+
         </if-not-empty>
         <if>
             <condition>
@@ -551,6 +552,7 @@ under the License.
                 </and>
             </condition>
             <then>
+
                 <if-not-empty field-name="parameters.productId">
                     <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE">
                         <!-- TODO ***: refactor the entity-one into one simple-method call: input organizationPartyId and glAccountTypeId; output glAccountTypeDefault -->
