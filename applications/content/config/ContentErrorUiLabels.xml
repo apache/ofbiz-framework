@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="dataEvents.error_call_create_service">
+        <value xml:lang="en">Error calling the createDataResource service</value>
+        <value xml:lang="es">Error al llamar al servicio 'createDataResource'</value>
+        <value xml:lang="fr">erreur pendant l'appel du createDataResource</value>
+        <value xml:lang="it">Errore esecuzione servizio createDataResource</value>
+        <value xml:lang="ro">Eroare executie serviciu createDataResource</value>
+        <value xml:lang="th">Error : ผิดพลาด ! ในการเรียกบริการสร้างข้อมูลแหล่งที่มา</value>
+        <value xml:lang="zh">调用新建数据资源（createDataResource）服务时出错</value>
+    </property>
+    <property key="dataEvents.error_call_update_service">
+        <value xml:lang="en">Error calling the updateDataResource service</value>
+        <value xml:lang="es">Error al llamar al servicio 'updateDataResource'</value>
+        <value xml:lang="fr">Erreur pendant l'appel du service update data resource</value>
+        <value xml:lang="it">Errore esecuzione servizio updateDataResource</value>
+        <value xml:lang="ro">Eroare la executarea serviciului updateDataResource</value>
+        <value xml:lang="th">Error : ผิดพลาด ! ในการเรียกบริการเปลี่ยนแปลงข้อมูลแหล่งที่มา</value>
+        <value xml:lang="zh">调用更新数据资源（updateDataResource）服务时出错</value>
+    </property>
+    <property key="dataEvents.error_get_image">
+        <value xml:lang="en">Error getting image record from acquireImage</value>
+        <value xml:lang="es">Error al obtener la imagen a partir de la captura de imagenes</value>
+        <value xml:lang="fr">Error getting image record from acquireImage</value>
+        <value xml:lang="it">Errore lettura record immagine da aquireImage</value>
+        <value xml:lang="ro">Eroare la citirea record imagine din aquireImage</value>
+        <value xml:lang="th">Error : ผิดพลาด ! ในการรับรูปภาพจากรูปที่ได้</value>
+        <value xml:lang="zh">从获取图像（acquireImage）获得图像记录时出错</value>
+    </property>
+    <property key="dataEvents.error_write_image">
+        <value xml:lang="en">Error writing image to OutputStream</value>
+        <value xml:lang="es">Error al imprimir la imagen en la salida</value>
+        <value xml:lang="fr">Erreur pendant "l'écriture" de l'image </value>
+        <value xml:lang="it">Errore scrittura immagine su OutputStream</value>
+        <value xml:lang="ro">Eroare la scrierea imaginii in OutputStream</value>
+        <value xml:lang="th">Error : ผิดพลาด ! ในการเขียนรูปภาพเป็นข้อมูลออกไป</value>
+        <value xml:lang="zh">把图像写入OutputStream时出错</value>
+    </property>
+    <property key="dataEvents.image_or_type_null">
+        <value xml:lang="en">image({b}) or type(${imageType}) is null or empty</value>
+        <value xml:lang="es">imagen({b}) o tipo(${imageType}) son nulos o están vacios</value>
+        <value xml:lang="fr">image ou type (${imageType}) invalide ou est vide</value>
+        <value xml:lang="it">immagine({b}) o tipo (${imageType}) è nullo o vuoto</value>
+        <value xml:lang="ro">imagine({b}) sau tip (${imageType}) este zero sau o lipseste</value>
+        <value xml:lang="th">รูปภาพ ({b}) หรือ ประภท (${imageType}) ไม่มีค่าหรือเป็นค่าว่าง</value>
+        <value xml:lang="zh">图像({b})或类型(${imageType})为null或为空</value>
+    </property>
+    <property key="dataResourceWorker.image_or_field_null">
+        <value xml:lang="en">imageFi(${imageFi}) or idFieldValue(${idFieldValue}) is null</value>
+        <value xml:lang="es">Imagen(${imageFi}) or Campo(${idFieldValue}) son nulos</value>
+        <value xml:lang="fr">imageFi (${imageFi}) ou idFieldValue (${idFieldValue}) est invalide</value>
+        <value xml:lang="it">imageFi(${imageFi}) o idFieldValue(${idFieldValue}) è nullo</value>
+        <value xml:lang="ro">imageFi(${imageFi}) sau idFieldValue(${idFieldValue}) este zero</value>
+        <value xml:lang="th">ช่องรูปภาพ (${imageFi}) หรือรหัสค่า (${idFieldValue}) ไม่มีค่า</value>
+        <value xml:lang="zh">imageFi(${imageFi})或idFieldValue(${idFieldValue})为null</value>
+    </property>
+    <property key="dataResourceWorker.no_files_uploaded">
+        <value xml:lang="en">No files uploaded</value>
+        <value xml:lang="es">No se cargaron los archivos</value>
+        <value xml:lang="fr">Pas de fichiers mis à jour</value>
+        <value xml:lang="it">Nessun file caricato</value>
+        <value xml:lang="ro">Nici-un fisier incarcat</value>
+        <value xml:lang="th">ไม่มีไฟล์โหลด</value>
+        <value xml:lang="zh">没有上传文件</value>
+    </property>
+    <property key="layoutEvents.content_empty">
+        <value xml:lang="en">content is empty</value>
+        <value xml:lang="es">El contenido está vacio</value>
+        <value xml:lang="fr">content est vide</value>
+        <value xml:lang="it">content è vuoto</value>
+        <value xml:lang="ro">content este fara continut</value>
+        <value xml:lang="th">หัวข้อเป็นค่าว่าง</value>
+        <value xml:lang="zh">内容为空</value>
+    </property>
+    <property key="layoutEvents.content_id_empty">
+        <value xml:lang="en">contentId is empty</value>
+        <value xml:lang="es">El id del contenido está vacío</value>
+        <value xml:lang="fr">contentId est vide</value>
+        <value xml:lang="it">contentId è vuoto</value>
+        <value xml:lang="ro">contentId este fara continut</value>
+        <value xml:lang="th">รหัสหัวข้อเป็นค่าว่าง</value>
+        <value xml:lang="zh">内容标识（contentId）为空</value>
+    </property>
+    <property key="layoutEvents.content_id_to_null">
+        <value xml:lang="en">contentIdTo is null</value>
+        <value xml:lang="es">El id del contenido es nulo</value>
+        <value xml:lang="fr">contentIdTo est invalide</value>
+        <value xml:lang="it">contentIdTo è nullo</value>
+        <value xml:lang="ro">contentIdTo este zero</value>
+        <value xml:lang="th">ไม่มีค่าในรหัสหัวข้อ</value>
+        <value xml:lang="zh">contentIdTo为null</value>
+    </property>
+    <property key="layoutEvents.data_ressource_id_null">
+        <value xml:lang="en">DataRessourceId is null</value>
+        <value xml:lang="es">El id del recurso de datos está vacío</value>
+        <value xml:lang="fr">DataRessourceId est invalide</value>
+        <value xml:lang="it">DataRessourceId è nullo</value>
+        <value xml:lang="ro">DataRessourceId este zero</value>
+        <value xml:lang="th">ไม่มีค่าในรหัสแหล่งที่มา</value>
+        <value xml:lang="zh">数据资源标识（DataRessourceId）为null</value>
+    </property>
+    <property key="layoutEvents.empty">
+        <value xml:lang="en">is empty</value>
+        <value xml:lang="es">Vacío</value>
+        <value xml:lang="fr">est vide</value>
+        <value xml:lang="it">è vuoto</value>
+        <value xml:lang="ro">este fara continut</value>
+        <value xml:lang="th">เป็นค่าว่าง</value>
+        <value xml:lang="zh">为空</value>
+    </property>
+    <property key="layoutEvents.entityname_empty">
+        <value xml:lang="en">'entityName' is empty</value>
+        <value xml:lang="es">'entityName' está vacío</value>
+        <value xml:lang="fr">'entityName' est vide</value>
+        <value xml:lang="it">'entityName' è vuoto</value>
+        <value xml:lang="ro">'entityName' este fara continut</value>
+        <value xml:lang="th">'entityName' เป็นค่าว่าง</value>
+        <value xml:lang="zh">'实体名称（entityName）'为空</value>
+    </property>
+    <property key="layoutEvents.image_data_null">
+        <value xml:lang="en">Image data is null</value>
+        <value xml:lang="es">Imagen es nula</value>
+        <value xml:lang="fr">Image date est invalide</value>
+        <value xml:lang="it">Image data è nullo</value>
+        <value xml:lang="ro">Image data este zero</value>
+        <value xml:lang="th">ข้อมูลรูปภาพเป็นไม่มีค่า</value>
+        <value xml:lang="zh">图像数据为null</value>
+    </property>
+    <property key="layoutEvents.no_subcontent">
+        <value xml:lang="en">No subcontent found</value>
+        <value xml:lang="es">No se encontro subcontenido</value>
+        <value xml:lang="fr">pas de 'subcontent' trouvé</value>
+        <value xml:lang="it">Nessun sotto-contenuto trovato</value>
+        <value xml:lang="ro">Nici-un sub-continut gasit</value>
+        <value xml:lang="th">ไม่พบหัวข้อย่อย</value>
+        <value xml:lang="zh">没有找到子内容</value>
+    </property>
+    <property key="layoutWorker.image_null">
+        <value xml:lang="en">imageFi(${imageFi}) is null</value>
+        <value xml:lang="es">Imagen(${imageFi}) eestá vacía</value>
+        <value xml:lang="fr">imageFi(${imageFi}) est invalide</value>
+        <value xml:lang="it">imageFi(${imageFi}) è nullo</value>
+        <value xml:lang="ro">imageFi(${imageFi}) este zero</value>
+        <value xml:lang="th">ไม่มีค่าในช่องรูปภาพ (${imageFi}) </value>
+        <value xml:lang="zh">imageFi(${imageFi})为null</value>
+    </property>
+    <property key="layoutWorker.no_files_uploaded">
+        <value xml:lang="en">No files uploaded</value>
+        <value xml:lang="es">No se cargaron archivos</value>
+        <value xml:lang="fr">Pas de fichiers chargés</value>
+        <value xml:lang="it">Nessun file caricato</value>
+        <value xml:lang="ro">Nici-un fisier incarcat</value>
+        <value xml:lang="th">ไม่มีไฟล์โหลด</value>
+        <value xml:lang="zh">没有上传文件</value>
+    </property>
+    <property key="uploadContentAndImage.no_files_uploaded">
+        <value xml:lang="en">No files uploaded</value>
+        <value xml:lang="es">No se cargaron archivos</value>
+        <value xml:lang="fr">Pas de fichiers mis à jour</value>
+        <value xml:lang="it">Nessun file caricato</value>
+        <value xml:lang="ro">Nici-un  fisier incarcat</value>
+        <value xml:lang="th">ไม่มีไฟล์</value>
+        <value xml:lang="zh">没有上传文件</value>
+    </property>
+</resource>
