@@ -434,7 +434,7 @@ under the License.
         <menu-item name="AccountReconciliations" title="${uiLabelMap.AccountingAcctRecons}">
             <link target="findGlAccountReconciliations?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="FindAcctgTrans" title="${uiLabelMap.AccountingAcctgTrans}">
+        <menu-item name="FindAcctgTrans" title="${uiLabelMap.AccountingAcctgTranss}">
             <link target="FindAcctgTrans?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="FindAcctgTransEntries" title="${uiLabelMap.AccountingAcctgTransEntries}">
