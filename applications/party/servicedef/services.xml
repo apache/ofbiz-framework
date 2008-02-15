@@ -930,10 +930,11 @@ under the License.
     <service name="partyStatusPermissionCheck" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyStatusPermissionCheck">
         <description>
-            Performs a party status security check. The user must have one of the base PARTYMGR or
-            PARTYMGR_STS CRUD+ADMIN permissions.
+            Performs a party status security check. The userLogin partyId must equal the partyId parameter OR
+            the user must have one of the base PARTYMGR or PARTYMGR_STS CRUD+ADMIN permissions.
         </description>
         <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="partyGroupPermissionCheck" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="partyGroupPermissionCheck">
