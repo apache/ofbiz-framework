@@ -2187,8 +2187,8 @@ public class InvoiceServices {
 
     private static String successMessage = null;
     public static Map updatePaymentApplicationDefBd(DispatchContext dctx, Map context) {
-            GenericDelegator delegator = dctx.getDelegator();
-            Locale locale = (Locale) context.get("locale");
+        GenericDelegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
 
         if (decimals == -1 || rounding == -1) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingAritmeticPropertiesNotConfigured",locale));
@@ -2229,21 +2229,19 @@ public class InvoiceServices {
                 " amountApplied: " + amountApplied + 
                 " TaxAuthGeoId: " + taxAuthGeoId, module);
 
-        if (changeProcessing == null) changeProcessing = "N";    // not provided, so no change
+        if (changeProcessing == null) {
+            changeProcessing = "N";    // not provided, so no change
+        }
         
         boolean invoiceProcessing = true;
-        if (defaultInvoiceProcessing.equals("YY")) invoiceProcessing = true;
-
-        else if (defaultInvoiceProcessing.equals("NN")) invoiceProcessing = false;
-
-        else if (defaultInvoiceProcessing.equals("Y")) {
-            if (changeProcessing.equals("Y")) invoiceProcessing = false;
-            else invoiceProcessing = true;
-        }
-
-        else if (defaultInvoiceProcessing.equals("N")) {
-            if (changeProcessing.equals("Y")) invoiceProcessing = true;
-            else invoiceProcessing = false;
+        if (defaultInvoiceProcessing.equals("YY")) {
+            invoiceProcessing = true;
+        } else if (defaultInvoiceProcessing.equals("NN")) {
+            invoiceProcessing = false;
+        } else if (defaultInvoiceProcessing.equals("Y")) {
+            invoiceProcessing = !"Y".equals(changeProcessing);
+        } else if (defaultInvoiceProcessing.equals("N")) {
+            invoiceProcessing = "Y".equals(changeProcessing);
         }
 
         // on a new paymentApplication check if only billing or invoice or tax
