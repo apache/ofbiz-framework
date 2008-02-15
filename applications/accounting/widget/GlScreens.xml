@@ -80,7 +80,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.AccountingAcctgTrans}"/>
+                                    <label text="${uiLabelMap.AccountingAcctgTranss}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -100,7 +100,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.AccountingAcctgTrans}"/>
+                                            <label text="${uiLabelMap.AccountingAcctgTranss}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
