@@ -19,10 +19,31 @@
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+
+import javolution.util.FastList;
 
 invoice = context.get("invoice");
 if (invoice == null) return;
 
-map = delegator.findByAndCache("InvoiceItemTypeMap", UtilMisc.toMap("invoiceTypeId", invoice.get("invoiceTypeId")));
-invoiceItemTypes = EntityUtil.getRelated("InvoiceItemType", map);
+if ("SALES_INVOICE".equals(invoice.get("invoiceTypeId"))) {
+    List parentTypes = FastList.newInstance();
+    parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "INVOICE_ADJ"));
+    parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "INVOICE_ITM_ADJ"));
+    parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "INV_PROD_ITEM"));
+    parentTypesCond = new EntityConditionList(parentTypes, EntityOperator.OR);
+    invoiceItemTypes = delegator.findByCondition("InvoiceItemType", parentTypesCond, null, UtilMisc.toList("parentTypeId", "invoiceItemTypeId"));
+} else if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId"))) {
+    List parentTypes = FastList.newInstance();
+    parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "PINVOICE_ADJ"));
+    parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "PINVOICE_ITM_ADJ"));
+    parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "PINV_PROD_ITEM"));
+    parentTypesCond = new EntityConditionList(parentTypes, EntityOperator.OR);
+    invoiceItemTypes = delegator.findByCondition("InvoiceItemType", parentTypesCond, null, UtilMisc.toList("parentTypeId", "invoiceItemTypeId"));
+} else {
+    map = delegator.findByAndCache("InvoiceItemTypeMap", UtilMisc.toMap("invoiceTypeId", invoice.get("invoiceTypeId")));
+    invoiceItemTypes = EntityUtil.getRelated("InvoiceItemType", map);
+}
 context.put("invoiceItemTypes", invoiceItemTypes);
