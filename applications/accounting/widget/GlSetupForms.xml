@@ -349,7 +349,7 @@ under the License.
         <field name="invoiceItemTypeId" title="${uiLabelMap.AccountingInvoicePurchaseItemType}">
             <drop-down allow-empty="false" >
                 <entity-options description="${description}" entity-name="InvoiceItemType">
-                    <entity-constraint name="invoiceItemTypeId" operator="like" value="PINV_%"/>
+                    <entity-constraint name="invoiceItemTypeId" operator="like" value="PINV%"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

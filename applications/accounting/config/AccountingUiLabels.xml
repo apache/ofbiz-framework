@@ -598,6 +598,9 @@
         <value xml:lang="th">กำหนดการชำระเงินในใบกำกับสินค้า</value>
         <value xml:lang="zh">为这张发票指定支付额</value>
     </property>
+    <property key="AccountingAssignPurchaseInvoiceToRevenue">
+        <value xml:lang="en">Assign Purchase Invoice type to Revenue GL Account Number</value>
+    </property>
     <property key="AccountingAssignSalesInvoiceToRevenue">
         <value xml:lang="ar">تعيين نوع فاتورة البيع إلى رقم حساب العائدات</value>
         <value xml:lang="en">Assign Sales Invoice type to Revenue GL Account Number</value>
@@ -2246,7 +2249,8 @@
         <value xml:lang="es">Si el mantenimiento del producto es especificado, será establecido/reestablecido automaticamente</value>
         <value xml:lang="fr">Si la maintenance est définie au niveau du produit, ceci sera mis à jour automatiquement</value>
         <value xml:lang="it">Se la Manutenzione Prodotto è specificata, questa sarà impostata/azzerata automaticamente</value>
-        <value xml:lang="ro">Daca Intretinerea Produsului este  specificata, aceasta va fi  setataesetata in mod automat</value>
+        <value xml:lang="ro">Daca Intretinerea Produsului este  specificata, aceasta va fi  setata
+esetata in mod automat</value>
         <value xml:lang="ru">Если определено Обслуживание продукта, поле будет устанавливатся/сбрасываться автоматически</value>
         <value xml:lang="th">ถ้าการบำรุงรักษาสินค้าเป็นพิเศษ นี่จะกำหนดอัตโนมัติ</value>
         <value xml:lang="zh">如果指定了产品的维护保养，这会自动设置/复位</value>
@@ -5169,6 +5173,9 @@
         <value xml:lang="ru">Ставки продукта</value>
         <value xml:lang="th">ราคาสินค้า</value>
         <value xml:lang="zh">产品税率</value>
+    </property>
+    <property key="AccountingPurchaseInvoiceToRevenue">
+        <value xml:lang="en">Purchase Invoice type to Revenue GL Account Number assignment list</value>
     </property>
     <property key="AccountingQuantity">
         <value xml:lang="en">AccountingQuantity</value>
