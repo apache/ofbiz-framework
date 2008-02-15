@@ -266,6 +266,11 @@
         <value xml:lang="th">ติดตั้งที่มาของข้อมูล</value>
         <value xml:lang="zh">数据资源设置</value>
     </property>
+    <property key="ContentDataType">
+        <value xml:lang="en">Data Type </value>
+        <value xml:lang="fr">Type de données</value>
+        <value xml:lang="it">Tipo Dati</value>
+    </property>      
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
         <value xml:lang="en">Edit Product Store</value>
@@ -480,6 +485,41 @@
         <value xml:lang="ro">Sub-Continut</value>
         <value xml:lang="th">หัวข้อย่อย</value>
         <value xml:lang="zh">子内容</value>
+    </property>
+    <property key="ContentResourceImage">
+        <value xml:lang="en">Image</value>
+        <value xml:lang="it">Immagine</value>
+    </property>
+    <property key="ContentResourceLongText">
+        <value xml:lang="en">Long Text</value>
+        <value xml:lang="fr">Texte long</value>
+        <value xml:lang="it">Testo Lungo</value>
+    </property>
+    <property key="ContentResourceAudio">
+        <value xml:lang="en">Audio</value>
+    </property>
+    <property key="ContentResourceOther">
+        <value xml:lang="en">Other</value>
+        <value xml:lang="fr">Autre</value>
+        <value xml:lang="it">Altro</value>
+    </property>
+    <property key="ContentResourceVideo">
+        <value xml:lang="en">Video</value>
+    </property>
+    <property key="ContentResourceNone">
+        <value xml:lang="en">None (Tree, Category, etc)</value>
+        <value xml:lang="fr">Aucun (arborescence, catégorie, etc.)</value>
+        <value xml:lang="it">Nessuno (Albero, Categoria, etc)</value>
+    </property>
+    <property key="ContentResourceShortText">
+        <value xml:lang="en">Short Text (255 chars.)</value>
+        <value xml:lang="fr">Texte court (255 caract.))</value>
+        <value xml:lang="it">Testo Breve (255 carat.)</value>
+    </property>
+    <property key="ContentResourceUrlResource">
+        <value xml:lang="en">URL Resource</value>
+        <value xml:lang="fr">Ressource URL</value>
+        <value xml:lang="it">Risorsa URL</value>
     </property>
     <property key="ContentSubSites">
         <value xml:lang="ar">مواقع فرعية</value>
@@ -720,6 +760,8 @@
     </property>
     <property key="FormFieldTitle_caFromDate">
         <value xml:lang="en">From Date &amp; Time</value>
+        <value xml:lang="it">de la date et l'heure</value>
+        <value xml:lang="it">Dalla Data e Ora</value>
         <value xml:lang="th">จากวัน เวลา</value>
     </property>
     <property key="FormFieldTitle_caMapKey">
@@ -906,6 +948,21 @@
         <value xml:lang="th">ขอบเขตบุคคล</value>
         <value xml:lang="zh">对域启用Cookie</value>
     </property>
+    <property key="FormFieldTitle_coContentId">
+        <value xml:lang="en">Content Id</value>
+        <value xml:lang="fr">Ref. de contenu</value>
+        <value xml:lang="it">Contenuto</value>
+    </property>
+    <property key="FormFieldTitle_coContentName">
+        <value xml:lang="en">Content Name</value>
+        <value xml:lang="fr">Nom de contenu</value>
+        <value xml:lang="it">Nome Conteunto</value>
+    </property>
+    <property key="FormFieldTitle_coDescription">
+        <value xml:lang="en">Content Description</value>
+        <value xml:lang="fr">Description de contenu</value>
+        <value xml:lang="it">Descrizione Contenuto</value>
+    </property>
     <property key="FormFieldTitle_createdBy">
         <value xml:lang="ar">استحدث من طرف</value>
         <value xml:lang="en">Created By</value>
@@ -1065,6 +1122,11 @@
         <value xml:lang="ro">Tip Mime</value>
         <value xml:lang="th">รหัสประเภทที่เลียนแบบ</value>
         <value xml:lang="zh">指定Mime类型标识</value>
+    </property>
+    <property key="FormFieldTitle_drObjectInfo">
+        <value xml:lang="en">Template File</value>
+        <value xml:lang="fr">Canevas de fichier</value>
+        <value xml:lang="it">File Template</value>
     </property>
     <property key="FormFieldTitle_duration">
         <value xml:lang="ar">المدة</value>
@@ -1494,6 +1556,11 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
     </property>
+    <property key="FormFieldTitle_pasteContent">
+        <value xml:lang="en">Paste Content</value>
+        <value xml:lang="fr">Coller le contenu</value>
+        <value xml:lang="it">Incolla Contenuto</value>
+    </property>
     <property key="FormFieldTitle_pdfFileNameIn">
         <value xml:lang="ar">اسم ملف Pdf الداخل</value>
         <value xml:lang="en">Pdf File Name In</value>
@@ -1557,6 +1624,11 @@
         <value xml:lang="ro">Detaliu Relativ</value>
         <value xml:lang="th">รหัสรายละเอียดที่เกี่ยวข้อง</value>
         <value xml:lang="zh">内嵌的细节标识</value>
+    </property>
+    <property key="FormFieldTitle_replace">
+        <value xml:lang="en">Replace</value>
+        <value xml:lang="fr">Remplacer</value>
+        <value xml:lang="it">Sostituisci</value>
     </property>
     <property key="FormFieldTitle_reponse">
         <value xml:lang="ar">جواب</value>
@@ -1832,6 +1904,11 @@
         <value xml:lang="th">เพิ่มวัตถุประสงค์ถึง</value>
         <value xml:lang="zh">把目的添加到</value>
     </property>
+    <property key="ForumAddResponseToMessage">
+        <value xml:lang="en">Add a response to message</value>
+        <value xml:lang="fr">Ajouter une réponse à un message</value>
+        <value xml:lang="it">Aggiungi una risposta al messaggio</value>
+    </property>
     <property key="ForumAddRoleTo">
         <value xml:lang="ar">إضافة  جور إلى</value>
         <value xml:lang="en">Add role to</value>
@@ -1863,6 +1940,18 @@
         <value xml:lang="ro">Creare un nou grup forum</value>
         <value xml:lang="th">สร้างกลุ่มความคิดเห็นใหม่</value>
         <value xml:lang="zh">新建论坛组</value>
+    </property>
+    <property key="ForumMessage">
+        <value xml:lang="en">Message</value>
+        <value xml:lang="it">Messaggio</value>
+    </property>
+    <property key="ForumMessages">
+        <value xml:lang="en">Messages</value>
+        <value xml:lang="it">Messaggi</value>
+    </property>
+    <property key="ForumThread">
+        <value xml:lang="en">Thread</value>
+        <value xml:lang="fr">File</value>
     </property>
     <property key="PageTitleAddAssociation">
         <value xml:lang="ar">إضافة إرتباط</value>
@@ -1979,6 +2068,16 @@
         <value xml:lang="ro">Creare Sondaj</value>
         <value xml:lang="th">สร้างการสำรวจ</value>
         <value xml:lang="zh">新建调查</value>
+    </property>
+    <property key="PageTitleCreateWebSiteContent">
+        <value xml:lang="en">Create Web Site Content</value>
+        <value xml:lang="fr">Créer le contenu du site Web</value>
+        <value xml:lang="it">Creare Contenuto Sito Web</value>
+    </property>
+    <property key="PageTitleCreateWebSiteParties">
+        <value xml:lang="en">Create Web Site Parties</value>
+        <value xml:lang="fr">Créer les acteurs du site Web</value>
+        <value xml:lang="it">Creare Soggetti Sito Web</value>
     </property>
     <property key="PageTitleEditAssociation">
         <value xml:lang="ar">تحرير إرتباط</value>
@@ -2447,6 +2546,26 @@
         <value xml:lang="it">Lista Layout</value>
         <value xml:lang="th">รายการ Layout</value>
     </property>
+    <property key="PageTitleListSurveyPages">
+        <value xml:lang="en">List Survey Pages</value>
+        <value xml:lang="fr">Liste des pages de sondage</value>
+        <value xml:lang="it">Lista Pagine Sondaggio</value>
+    </property>
+    <property key="PageTitleListSurveyResponse">
+        <value xml:lang="en">List Survey Response</value>
+        <value xml:lang="fr">Liste des réponses au sondage</value>
+        <value xml:lang="it">Lista Risposte Sondaggio</value>
+    </property>
+    <property key="PageTitleLookupListLayout">
+        <value xml:lang="en">Lookup List Layout</value>
+        <value xml:lang="fr">Recherche de mise en page</value>
+        <value xml:lang="it">Ricerca Layout</value>
+    </property>
+    <property key="PageTitleLookupSubContent">
+        <value xml:lang="en">Lookup Sub Content</value>
+        <value xml:lang="fr">Recherche de sous-contenu</value>
+        <value xml:lang="it">Ricerca Sotto-Contenuto</value>
+    </property>
     <property key="PageTitleListWebSite">
         <value xml:lang="ar">قائمة مواقع الويب</value>
         <value xml:lang="en">WebSite List</value>
@@ -2512,6 +2631,16 @@
         <value xml:lang="en">WebSite Content</value>
         <value xml:lang="it">Contenuto Sito Web</value>
         <value xml:lang="th">หัวข้อ WebSite</value>
+    </property>
+    <property key="PageTitleWebSiteCMSNav">
+        <value xml:lang="en">Web Site CMS Nav</value>
+        <value xml:lang="fr">Navigation (site Web CMS)</value>
+        <value xml:lang="it">Sito Web CMS Navigazione</value>
+    </property>
+    <property key="PageTitleWebSiteCMSContent">
+        <value xml:lang="en">Web Site CMS Content</value>
+        <value xml:lang="fr">Contenu du site Web CMS</value>
+        <value xml:lang="it">Sito Web CMS Contenuto</value>
     </property>
     <property key="PartyParties">
         <value xml:lang="ar">الأطراف</value>
