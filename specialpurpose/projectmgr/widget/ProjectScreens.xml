@@ -134,40 +134,13 @@ under the License.
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                                                
-                        <section>                                                        
-                            <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="FindProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>       
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <container style="button-bar"><link target="EditProject" text="${uiLabelMap.ProjectMgrNewProject}" style="buttontext"/></container>
-                                                <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                            </widgets>                            
-                        </section>
+                    <decorator-section name="body">
+                        <screenlet name="findProject" collapsible="true" title="${uiLabelMap.PageTitleFindProject}">
+                            <include-form name="FindProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleFindProjectResults}" tab-menu-name="projectSubTabBar">
+                            <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
