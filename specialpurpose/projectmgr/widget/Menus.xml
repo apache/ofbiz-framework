@@ -232,7 +232,8 @@
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
-            <link target="EditTask?workEffortId=${workEffortId}"/></menu-item>
+            <link target="EditTask?workEffortId=${workEffortId}"/>
+        </menu-item>
         <menu-item name="dependencies" title="${uiLabelMap.ProjectMgrDependencies}">
             <condition>
                 <and>
@@ -242,7 +243,8 @@
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
-            <link target="Dependencies?workEffortId=${workEffortId}"/></menu-item>
+            <link target="Dependencies?workEffortId=${workEffortId}"/>
+        </menu-item>
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
             <condition>
                 <and>
@@ -252,7 +254,8 @@
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
-            <link target="EditTaskPartyAssigns?workEffortId=${workEffortId}"/></menu-item>
+            <link target="EditTaskPartyAssigns?workEffortId=${workEffortId}"/>
+        </menu-item>
         <menu-item name="projectskills" title="${uiLabelMap.ProjectMgrSkillStandards}">
             <condition>
                 <and>
@@ -262,9 +265,11 @@
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                 </and>
             </condition>
-            <link target="EditTaskSkills?workEffortId=${workEffortId}"/></menu-item>
-        <menu-item name="notes" title="${uiLabelMap.CommonNotes}"><link target="EditTaskNotes?workEffortId=${workEffortId}"/></menu-item>
-        <!--menu-item name="treeDetails" title="${uiLabelMap.ProjectMgrTreeDetails}"><link target="ChildTaskWorkEfforts?workEffortId=${workEffortId}&amp;trail=${workEffortId}&amp;workEffortTypeId=TASK&amp;workEffortAssocTypeId=WORK_EFF_BREAKDOWN"/></menu-item-->
+            <link target="EditTaskSkills?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
+            <link target="EditTaskNotes?workEffortId=${workEffortId}"/>
+        </menu-item>
     </menu>
     <menu name="TaskSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
         <menu-item name="setonhold" title="${uiLabelMap.ProjectMgrSetOnHold}" >
