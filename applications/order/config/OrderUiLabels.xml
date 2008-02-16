@@ -1530,14 +1530,6 @@
         <value xml:lang="th">ประเภทรายการ</value>
         <value xml:lang="zh">列表类型</value>
     </property>
-    <property key="EcommerceListView">
-        <value xml:lang="en">List View</value>
-        <value xml:lang="it">Mostra Lista</value>
-        <value xml:lang="ro">Afiseaza Lista</value>
-        <value xml:lang="ru">Просмотр списка</value>
-        <value xml:lang="th">แสดงรายการ</value>
-        <value xml:lang="zh">列表浏览</value>
-    </property>
     <property key="EcommerceLoggedToPost">
         <value xml:lang="en">(You must be logged in to post)</value>
         <value xml:lang="es">(Debe loguearse para ejecutar la función que desea)</value>
