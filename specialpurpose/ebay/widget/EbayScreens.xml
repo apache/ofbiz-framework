@@ -274,9 +274,16 @@ under the License.
                             </container>
                         </container>                        
                         <!-- include the duplicate product form template -->
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/EditProductDupForm.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ProductDuplicateProduct}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">                            
+                                <include-form name="EditProductDup" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -64,8 +64,12 @@ under the License.
     <service name="duplicateProduct" engine="simple"
                 location="org/ofbiz/product/product/ProductServices.xml" invoke="duplicateProduct" auth="true">
         <description>Duplicate a Product using a new productId</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="newProductId" type="String" mode="IN" optional="false"/>
         <attribute name="oldProductId" type="String" mode="IN" optional="false"/>
+        <attribute name="newInternalName" type="String" mode="IN" optional="true"/>
+        <attribute name="newProductName" type="String" mode="IN" optional="true"/>
+        <attribute name="newDescription" type="String" mode="IN" optional="true"/>
+        <attribute name="newLongDescription" type="String" mode="IN" optional="true"/>        
         <attribute name="duplicatePrices" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateIDs" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateContent" type="String" mode="IN" optional="true"/>
