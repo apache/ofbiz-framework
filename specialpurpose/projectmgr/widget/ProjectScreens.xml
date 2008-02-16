@@ -138,7 +138,7 @@ under the License.
                         <screenlet name="findProject" collapsible="true" title="${uiLabelMap.PageTitleFindProject}">
                             <include-form name="FindProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleFindProjectResults}" tab-menu-name="projectSubTabBar">
+                        <screenlet title="${uiLabelMap.PageTitleFindProjectResults}" navigation-form-name="ListProjects">
                             <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
                     </decorator-section>

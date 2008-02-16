@@ -239,37 +239,39 @@ under the License.
                         <screenlet  title="${uiLabelMap.PageTitleFindTask}" collapsible="true" id="findTask">
                             <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         </screenlet>
-                        <screenlet  title="${uiLabelMap.PageTitleListTaskSearchResult}">
-                            <section>
-                                <condition>
-                                    <or>
-                                        <if-has-permission permission="PROJECTMGR_ADMIN"/>
-                                        <if-has-permission permission="PROJECTMGR_VIEW"/>
-                                    </or>
-                                </condition>
-                                <actions>
-                                    <set field="entityName" value="ProjectAndPhaseAndTask"/>
-                                </actions>
-                                <widgets>
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="PROJECTMGR_ADMIN"/>
+                                    <if-has-permission permission="PROJECTMGR_VIEW"/>
+                                </or>
+                            </condition>
+                            <actions>
+                                <set field="entityName" value="ProjectAndPhaseAndTask"/>
+                            </actions>
+                            <widgets>
+                                <screenlet  title="${uiLabelMap.PageTitleListTaskSearchResult}" navigation-form-name="ListTasks">
                                     <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                </widgets>
-                            </section>
-                            <section>
-                                <condition>
-                                    <or>
-                                        <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
-                                        <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
-                                    </or>
-                                </condition>
-                                <actions>
-                                    <set field="entityName" value="ProjectPartyAndPhaseAndTask"/>
-                                    <set field="parameters.partyId" from-field="context.userLogin.partyId"/>
-                                </actions>
-                                <widgets>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
+                                    <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
+                                </or>
+                            </condition>
+                            <actions>
+                                <set field="entityName" value="ProjectPartyAndPhaseAndTask"/>
+                                <set field="parameters.partyId" from-field="context.userLogin.partyId"/>
+                            </actions>
+                            <widgets>
+                                <screenlet  title="${uiLabelMap.PageTitleListTaskSearchResult}" navigation-form-name="ListTasks">
                                     <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
