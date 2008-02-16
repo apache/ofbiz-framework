@@ -324,7 +324,6 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="IncomeStatement"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
                     <field-map field-name="partyId" env-name="organizationPartyId"/>
                 </entity-one>
@@ -376,7 +375,6 @@ under the License.
                 <set field="titleProperty" value="AccountingBalanceSheet"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="BalanceSheet"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
                     <field-map field-name="partyId" env-name="organizationPartyId"/>
@@ -452,7 +450,6 @@ under the License.
                 <set field="titleProperty" value="AccountingComparativeBalanceSheet"/>
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeBalanceSheet"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
                     <field-map field-name="partyId" env-name="organizationPartyId"/>
