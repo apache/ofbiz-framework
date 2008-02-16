@@ -204,6 +204,56 @@ under the License.
             <display description="[${product.createdByUserLogin}] ${uiLabelMap.CommonOn} ${product.createdDate}" also-hidden="false"/>
         </field>
     </form>
+    
+    <form name="EditProductDup" type="single" target="DuplicateProduct" title="" default-map-name="product"
+        header-row-style="header-row" default-table-style="basic-table">
+        
+        <field name="oldProductId"><hidden value="${productId}"/></field>
+        <field name="newProductId" title="${uiLabelMap.ProductDuplicateRemoveSelectedWithNewId}" map-name="dupProduct"><text size="20" maxlength="20"/></field>
+        <field name="newInternalName" title="${uiLabelMap.ProductInternalName}"><text size="30" maxlength="255"/></field>
+        <field name="newProductName" title="${uiLabelMap.ProductProductName}"><text size="30" maxlength="60"/></field>
+        <field name="newDescription" title="${uiLabelMap.ProductProductDescription}" widget-style="textAreaBox"><textarea cols="60" rows="2"/></field>
+        <field name="newLongDescription" title="${uiLabelMap.ProductLongDescription}" widget-style="textAreaBox dojo-ResizableTextArea"><textarea cols="60" rows="7"/></field>
+        <field name="duplicateTitle" title="${uiLabelMap.CommonDuplicate}" title-style="h1" map-name="dummy">
+            <display description=""/>
+        </field>
+        <field name="duplicatePrices" position="1" title="${uiLabelMap.ProductPrices}"><check all-checked="true"/></field>
+        <field name="duplicateIDs" position="2" title="${uiLabelMap.CommonId}"><check all-checked="true"/></field>
+        <field name="duplicateContent" position="3" title="${uiLabelMap.ProductContent}"><check all-checked="true"/></field>
+        <field name="duplicateCategoryMembers" position="4" title="${uiLabelMap.ProductCategoryMembers}"><check all-checked="true"/></field>
+        <field name="duplicateAssocs" position="1" title="${uiLabelMap.ProductAssocs}"><check all-checked="true"/></field>
+        <field name="duplicateAttributes" position="2" title="${uiLabelMap.ProductAttributes}"><check all-checked="true"/></field>
+        <field name="duplicateFeatureAppls" position="3" title="${uiLabelMap.ProductFeatureAppls}"><check all-checked="true"/></field>
+        <field name="duplicateInventoryItems" position="4" title="${uiLabelMap.ProductInventoryItems}"><check all-checked="false"/></field>
+        <field name="removeTitle" title="${uiLabelMap.CommonRemove}" title-style="h1" map-name="dummy">
+            <display description=""/>
+        </field>
+        <field name="removePrices" position="1" title="${uiLabelMap.ProductPrices}"><check all-checked="false"/></field>
+        <field name="removeIDs" position="2" title="${uiLabelMap.CommonId}"><check all-checked="false"/></field>
+        <field name="removeContent" position="3" title="${uiLabelMap.ProductContent}"><check all-checked="false"/></field>
+        <field name="removeCategoryMembers" position="4" title="${uiLabelMap.ProductCategoryMembers}"><check all-checked="false"/></field>
+        <field name="removeAssocs" position="1" title="${uiLabelMap.ProductAssocs}"><check all-checked="false"/></field>
+        <field name="removeAttributes" position="2" title="${uiLabelMap.ProductAttributes}"><check all-checked="false"/></field>
+        <field name="removeFeatureAppls" position="3" title="${uiLabelMap.ProductFeatureAppls}"><check all-checked="false"/></field>
+        <field name="removeInventoryItems" position="4" title="${uiLabelMap.ProductInventoryItems}"><check all-checked="false"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonDuplicate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="UpdateProductVariants" type="single" target="UpdateProductVariants?productId=${productId}" title="" default-map-name="product"
+        header-row-style="header-row" default-table-style="basic-table">
+        
+        <field name="virtualProductId"><hidden value="${productId}"/></field>        
+        <field name="removeBefore" position="1" title="${uiLabelMap.ProductRemoveBefore}"><check all-checked="false"/></field>
+        <field name="duplicatePrices" position="2" title="${uiLabelMap.ProductPrices}"><check all-checked="true"/></field>
+        <field name="duplicateIDs" position="3" title="${uiLabelMap.CommonId}"><check all-checked="true"/></field>
+        <field name="duplicateContent" position="4" title="${uiLabelMap.ProductContent}"><check all-checked="true"/></field>
+         <field name="duplicateCategoryMembers" position="1" title="${uiLabelMap.ProductCategoryMembers}"><check all-checked="true"/></field>
+        <field name="duplicateAttributes" position="2" title="${uiLabelMap.ProductAttributes}"><check all-checked="true"/></field>
+        <field name="duplicateFacilities" position="3" title="${uiLabelMap.ProductFacilities}"><check all-checked="true"/></field>
+        <field name="duplicateLocations" position="4" title="${uiLabelMap.ProductLocations}"><check all-checked="true"/></field>
+        <field name="commonGoButton" title="${uiLabelMap.CommonGo}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
     <!-- ProductPrice -->
     <form name="AddProductPrice" type="single" target="createProductPrice" title="" 
         header-row-style="header-row" default-table-style="basic-table">

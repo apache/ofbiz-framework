@@ -48,16 +48,59 @@ under the License.
                                 </section>
                             </container>
                         </container>
-                                                
-                        <!-- include the duplicate product form template -->
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/product/EditProductDupForm.ftl"/></html>
-                        </platform-specific>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field-name="productId"/></not>
+                                    <not><if-empty field-name="product"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.ProductDuplicateProduct}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">                            
+                                        <include-form name="EditProductDup" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                                    </container>
+                                </container>                                
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field-name="productId"/></not>
+                                    <not><if-empty field-name="product"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="product.isVirtual" operator="equals" type="String" value="Y"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="screenlet">
+                                            <container style="screenlet-title-bar">
+                                                <container style="h3">
+                                                    <label text="${uiLabelMap.ProductUpdateProductVariants}"/>
+                                                </container>
+                                            </container>
+                                            <container style="screenlet-body">                            
+                                                <include-form name="UpdateProductVariants" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                                            </container>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
+    
     <screen name="EditProductPrices">
         <section>
             <actions>
