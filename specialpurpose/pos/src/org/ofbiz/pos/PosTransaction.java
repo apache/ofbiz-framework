@@ -915,13 +915,20 @@ public class PosTransaction implements Serializable {
                 Iterator iter = adjustments.iterator();
                 while(iter.hasNext()){
                     GenericValue orderAdjustment = (GenericValue) iter.next();
+                    Double amount = orderAdjustment.getDouble("amount");
+                    Double sourcePercentage = orderAdjustment.getDouble("sourcePercentage");
+                    if (UtilValidate.isNotEmpty(sourcePercentage)) {
+                        double percentage = sourcePercentage.doubleValue()/100.0; // sourcePercentage is negative
+                        amount = total / ((1 + percentage) / percentage);                        
+                    }                    
                     XModel adjustmentLine = Journal.appendNode(model, "tr", "adjustment", "");
                     Journal.appendNode(adjustmentLine, "td", "sku", "");
                     Journal.appendNode(adjustmentLine, "td", "desc", 
                             UtilProperties.getMessage("pos", "(SalesDiscount)",defaultLocale));
                     Journal.appendNode(adjustmentLine, "td", "qty", "");
-                    Journal.appendNode(adjustmentLine, "td", "price", 
-                            UtilFormatOut.formatPrice(orderAdjustment.getDouble("amount"))); 
+                    if (UtilValidate.isNotEmpty(amount)) {
+                        Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(amount));
+                    }
                     Journal.appendNode(adjustmentLine, "td", "index", "-1");
                 }    
             }
