@@ -172,7 +172,7 @@ under the License.
         <clone-value value-name="oldProduct" new-value-name="newProduct"/>
 
         <!-- set the productId, and write it to the datasource -->
-        <set from-field="parameters.newProductId" field="newProduct.productId"/>
+        <set from-field="parameters.productId" field="newProduct.productId"/>
         
         <!-- if requested, set the new internalName field -->
         <if-not-empty field-name="newInternalName" map-name="parameters">
@@ -205,7 +205,7 @@ under the License.
             <find-by-and entity-name="ProductPrice" map-name="productFindContext" list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <set from-field="parameters.newProductId" field="newTempValue.productId"/>
+                <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
         </if-not-empty>
@@ -213,7 +213,7 @@ under the License.
             <find-by-and entity-name="GoodIdentification" map-name="productFindContext" list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <set from-field="parameters.newProductId" field="newTempValue.productId"/>
+                <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
         </if-not-empty>
@@ -221,7 +221,7 @@ under the License.
             <find-by-and entity-name="ProductContent" map-name="productFindContext" list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <set from-field="parameters.newProductId" field="newTempValue.productId"/>
+                <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
         </if-not-empty>
@@ -229,7 +229,7 @@ under the License.
             <find-by-and entity-name="ProductCategoryMember" map-name="productFindContext" list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <set from-field="parameters.newProductId" field="newTempValue.productId"/>
+                <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
         </if-not-empty>
@@ -237,7 +237,7 @@ under the License.
             <find-by-and entity-name="ProductAssoc" map-name="productFindContext" list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <set from-field="parameters.newProductId" field="newTempValue.productId"/>
+                <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
 
@@ -247,7 +247,7 @@ under the License.
             </entity-and>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <set from-field="parameters.newProductId" field="newTempValue.productIdTo"/>
+                <set from-field="parameters.productId" field="newTempValue.productIdTo"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
         </if-not-empty>
@@ -255,7 +255,7 @@ under the License.
             <find-by-and entity-name="ProductAttribute" map-name="productFindContext" list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <set from-field="parameters.newProductId" field="newTempValue.productId"/>
+                <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
         </if-not-empty>
@@ -263,7 +263,7 @@ under the License.
             <find-by-and entity-name="ProductFeatureAppl" map-name="productFindContext" list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <set from-field="parameters.newProductId" field="newTempValue.productId"/>
+                <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <create-value value-name="newTempValue"/>
             </iterate>
         </if-not-empty>
@@ -280,7 +280,7 @@ under the License.
                           What about the InventoryItemDetail entries?
                 -->
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
-                <set from-field="parameters.newProductId" field="newTempValue.productId"/>
+                <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <!-- this one is slightly different because it needs a new sequenced inventoryItemId -->
                 <sequenced-id-to-env sequence-name="InventoryItem" env-name="newTempValue.inventoryItemId"/>
                 <create-value value-name="newTempValue"/>
