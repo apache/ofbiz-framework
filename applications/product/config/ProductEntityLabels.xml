@@ -1,0 +1,2026 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="CostComponentType.description.ACTUAL_LABOR_COST">
+        <value xml:lang="en">Actual Labor Cost</value>
+        <value xml:lang="it">Costo Attuale Manodopera</value>
+        <value xml:lang="ro">Cost Actual Manopera</value>
+        <value xml:lang="ru">Действительные трудозатраты</value>
+        <value xml:lang="th">ต้นทุนแรงงานโดยแท้จริง</value>
+        <value xml:lang="zh">实际劳务费用</value>
+    </property>
+    <property key="CostComponentType.description.ACTUAL_MAT_COST">
+        <value xml:lang="en">Actual Materials Cost</value>
+        <value xml:lang="it">Costo Attuale Materiali</value>
+        <value xml:lang="ro">Cost Actual Materiale</value>
+        <value xml:lang="ru">Действительная стоимость материалов</value>
+        <value xml:lang="th">ต้นทุนวัตถุโดยแท้จริง</value>
+        <value xml:lang="zh">实际材料费用</value>
+    </property>
+    <property key="CostComponentType.description.ACTUAL_OTHER_COST">
+        <value xml:lang="en">Actual Other Cost</value>
+        <value xml:lang="it">Altro Costo Attuale</value>
+        <value xml:lang="ro">Alt Cost Actual</value>
+        <value xml:lang="ru">Другие действительные затраты</value>
+        <value xml:lang="th">ต้นทุนอื่นๆ โดยแท้จริง</value>
+        <value xml:lang="zh">实际其它费用</value>
+    </property>
+    <property key="CostComponentType.description.ACTUAL_ROUTE_COST">
+        <value xml:lang="en">Actual Route (fixed asset usage) Cost</value>
+        <value xml:lang="it">Costo Attuale Itinerario (uso cespiti)</value>
+        <value xml:lang="ro">Cost Actual Itinerariu (folosire mijloace fixe)</value>
+        <value xml:lang="ru">Действительная стоимость передачи (использование ОФ)</value>
+        <value xml:lang="th">ต้นทุน Route (การใช้ทัรพย์สินไม่หมุนเวียน) โดยแท้จริง</value>
+        <value xml:lang="zh">实际配送 (固定资产使用) 费</value>
+    </property>
+    <property key="CostComponentType.description.ESTIMATED_LABOR_COST">
+        <value xml:lang="en">ESTIMATED_LABOR_COST</value>
+        <value xml:lang="es">Labor estimada</value>
+        <value xml:lang="th">ต้นทุนแรงงานโดยประมาณ</value>
+    </property>
+    <property key="CostComponentType.description.ESTIMATED_MATERIALS_">
+        <value xml:lang="en">ESTIMATED_MATERIALS_</value>
+        <value xml:lang="es">Materiales estimados</value>
+        <value xml:lang="th">วัตถุโดยประมาณ</value>
+    </property>
+    <property key="CostComponentType.description.ESTIMATED_OTHER_COST">
+        <value xml:lang="en">ESTIMATED_OTHER_COST</value>
+        <value xml:lang="es">Otros estimados</value>
+        <value xml:lang="th">ต้นทุนอื่น ๆ โดยประมาณ</value>
+    </property>
+    <property key="CostComponentType.description.EST_STD_LABOR_COST">
+        <value xml:lang="en">Estimated Standard Labor Cost</value>
+        <value xml:lang="fr">Travail estimé</value>
+        <value xml:lang="it">Costo Standard Manodopera Stimata</value>
+        <value xml:lang="ro">Cost Standard Manopera Stimata</value>
+        <value xml:lang="ru">Оценочные стандартные трудозатраты</value>
+        <value xml:lang="th">ต้นทุนแรงงานมาตรฐานโดยประมาณ</value>
+        <value xml:lang="zh">预计标准劳务费用</value>
+    </property>
+    <property key="CostComponentType.description.EST_STD_MAT_COST">
+        <value xml:lang="en">Estimated Standard Materials Cost</value>
+        <value xml:lang="fr">Matériels estimés</value>
+        <value xml:lang="it">Costo Standard Materiali Stimati</value>
+        <value xml:lang="ro">Cost Standard Materiale Stimate</value>
+        <value xml:lang="ru">Оценочная стандартная стоимость материалов</value>
+        <value xml:lang="th">ต้นทุนวัตถุมาตรฐานโดยประมาณ</value>
+        <value xml:lang="zh">预计标准材料费用</value>
+    </property>
+    <property key="CostComponentType.description.EST_STD_OTHER_COST">
+        <value xml:lang="en">Estimated Standard Other Cost</value>
+        <value xml:lang="fr">Autre estimation</value>
+        <value xml:lang="it">Altro Costo Standard Stimato</value>
+        <value xml:lang="ro">Alt Cost Standard Stimat</value>
+        <value xml:lang="ru">Оценочные стандартные другие затраты</value>
+        <value xml:lang="th">ต้นทุนอื่น ๆ มาตรฐานโดยประมาณ</value>
+        <value xml:lang="zh">预计标准其它费用</value>
+    </property>
+    <property key="CostComponentType.description.EST_STD_ROUTE_COST">
+        <value xml:lang="en">Estimated Standard Route (fixed asset usage) Cost</value>
+        <value xml:lang="fr">Estimated Standard Route (fixed asset usage) Cost</value>
+        <value xml:lang="it">Costo Standard Itinerario Stiamto (uso cespiti)</value>
+        <value xml:lang="ro">Cost Standard Itinerariu Stimat (folosire mijloace fixe)</value>
+        <value xml:lang="ru">Оценочная стандартная стоимость передачи (использование ОФ)</value>
+        <value xml:lang="th">ต้นทุน Route  มาตรฐานโดยประมาณ (การใช้ทรัพย์สินไม่ถาวร)</value>
+        <value xml:lang="zh">预计标准配送 (固定资产使用) 费</value>
+    </property>
+    <property key="CostComponentType.description.LABOR_COST">
+        <value xml:lang="en">Labor Cost</value>
+        <value xml:lang="it">Costo Manodopera</value>
+        <value xml:lang="ro">Cost Manopera</value>
+        <value xml:lang="ru">Трудозатраты</value>
+        <value xml:lang="th">ต้นทุนแรงงาน</value>
+        <value xml:lang="zh">劳务费用</value>
+    </property>
+    <property key="CostComponentType.description.MAT_COST">
+        <value xml:lang="en">Materials Cost</value>
+        <value xml:lang="it">Costo Materiali</value>
+        <value xml:lang="ro">Cost Materiale</value>
+        <value xml:lang="ru">Стоимость материалов</value>
+        <value xml:lang="th">ต้นทุนวัตถุ</value>
+        <value xml:lang="zh">材料费用</value>
+    </property>
+    <property key="CostComponentType.description.OTHER_COST">
+        <value xml:lang="en">Other Cost</value>
+        <value xml:lang="it">Altro Costo</value>
+        <value xml:lang="ro">Alte Costuri</value>
+        <value xml:lang="ru">Другие затраты</value>
+        <value xml:lang="th">ต้นทุนอื่นๆ </value>
+        <value xml:lang="zh">其它费用</value>
+    </property>
+    <property key="CostComponentType.description.ROUTE_COST">
+        <value xml:lang="en">Route (fixed asset usage) Cost</value>
+        <value xml:lang="it">Costo Itinerario (uso cespiti)</value>
+        <value xml:lang="ro">Cost Itinerariu (folosire mijloace fixe)</value>
+        <value xml:lang="ru">Стоимость передачи (использование ОФ)</value>
+        <value xml:lang="th">ต้นทุน Route (การใช้ทรัพย์สินไม่ถาวร) </value>
+        <value xml:lang="zh">配送 (固定资产使用) 费</value>
+    </property>
+    <property key="FacilityGroupType.description.MGMT_STRUCTURE">
+        <value xml:lang="en">Management Structure</value>
+        <value xml:lang="fr">Management Structure</value>
+        <value xml:lang="it">Gestione Struttura</value>
+        <value xml:lang="ro">Gestiune Structura</value>
+        <value xml:lang="ru">Управляющая структура</value>
+        <value xml:lang="th">โครงสร้างการจัดการ</value>
+        <value xml:lang="zh">管理结构</value>
+    </property>
+    <property key="FacilityGroupType.description.PRICING_GROUP">
+        <value xml:lang="en">Pricing Group</value>
+        <value xml:lang="fr">Groupe de prix</value>
+        <value xml:lang="it">Gruppo Prezzo</value>
+        <value xml:lang="ro">Grup Pret</value>
+        <value xml:lang="ru">Ценовая группа</value>
+        <value xml:lang="th">กลุ่มราคา</value>
+        <value xml:lang="zh">价格组</value>
+    </property>
+    <property key="FacilityType.description.BUILDING">
+        <value xml:lang="en">Building</value>
+        <value xml:lang="fr">Immeuble</value>
+        <value xml:lang="it">Palazzo</value>
+        <value xml:lang="ro">Bloc</value>
+        <value xml:lang="ru">Здание</value>
+        <value xml:lang="th">อาคาร</value>
+        <value xml:lang="zh">建筑</value>
+    </property>
+    <property key="FacilityType.description.CALL_CENTER">
+        <value xml:lang="en">Call Center</value>
+        <value xml:lang="fr">Centre d'appel</value>
+        <value xml:lang="it">Call Center</value>
+        <value xml:lang="ro">Call Center</value>
+        <value xml:lang="ru">Центр телефонного обслуживания</value>
+        <value xml:lang="th">ประชาสัมพันธ์</value>
+        <value xml:lang="zh">呼叫中心</value>
+    </property>
+    <property key="FacilityType.description.FLOOR">
+        <value xml:lang="en">Floor</value>
+        <value xml:lang="fr">Étage</value>
+        <value xml:lang="it">Piano</value>
+        <value xml:lang="ro">Etaj</value>
+        <value xml:lang="ru">Этаж</value>
+        <value xml:lang="th">ชั้นอาคาร</value>
+        <value xml:lang="zh">楼层</value>
+    </property>
+    <property key="FacilityType.description.OFFICE">
+        <value xml:lang="en">Office</value>
+        <value xml:lang="fr">Bureau</value>
+        <value xml:lang="it">Ufficio</value>
+        <value xml:lang="ro">Uficiu</value>
+        <value xml:lang="ru">Офис</value>
+        <value xml:lang="th">ที่ทำงาน</value>
+        <value xml:lang="zh">办公室</value>
+    </property>
+    <property key="FacilityType.description.PLANT">
+        <value xml:lang="en">Plant</value>
+        <value xml:lang="fr">Usine</value>
+        <value xml:lang="it">Fabbrica</value>
+        <value xml:lang="ro">Fabrica</value>
+        <value xml:lang="ru">Завод</value>
+        <value xml:lang="th">การเพาะปลูก</value>
+        <value xml:lang="zh">工厂</value>
+    </property>
+    <property key="FacilityType.description.RETAIL_STORE">
+        <value xml:lang="en">Retail Store</value>
+        <value xml:lang="fr">Magasin de vente</value>
+        <value xml:lang="it">Negozio al Dettagio</value>
+        <value xml:lang="ro">Magazin la Detaliu</value>
+        <value xml:lang="ru">Розничный магазин</value>
+        <value xml:lang="th">คลังสินค้าการขายปลีก</value>
+        <value xml:lang="zh">零售店</value>
+    </property>
+    <property key="FacilityType.description.ROOM">
+        <value xml:lang="en">Room</value>
+        <value xml:lang="fr">Salle</value>
+        <value xml:lang="it">Stanza</value>
+        <value xml:lang="ro">Camera</value>
+        <value xml:lang="ru">Комната</value>
+        <value xml:lang="th">ห้อง</value>
+        <value xml:lang="zh">房间</value>
+    </property>
+    <property key="FacilityType.description.WAREHOUSE">
+        <value xml:lang="en">Warehouse</value>
+        <value xml:lang="fr">Entrepôt</value>
+        <value xml:lang="it">Magazzino</value>
+        <value xml:lang="ro">Magazin</value>
+        <value xml:lang="ru">Склад</value>
+        <value xml:lang="th">คลังข้อมูล</value>
+        <value xml:lang="zh">仓库</value>
+    </property>
+    <property key="GoodIdentificationType.description.ISBN">
+        <value xml:lang="en">ISBN</value>
+        <value xml:lang="fr">ISBN</value>
+        <value xml:lang="it">ISBN</value>
+        <value xml:lang="ro">ISBN</value>
+        <value xml:lang="ru">ISBN</value>
+        <value xml:lang="th">ISBN</value>
+        <value xml:lang="zh">ISBN</value>
+    </property>
+    <property key="GoodIdentificationType.description.MANUFACTURER_ID_NO">
+        <value xml:lang="en">Manufacturer (Model) Number</value>
+        <value xml:lang="fr">N° du fabricant</value>
+        <value xml:lang="it">Numero (Modello) Produttore</value>
+        <value xml:lang="ro">Numar (Model) Productor</value>
+        <value xml:lang="ru">Артикул (Модель)</value>
+        <value xml:lang="th">หมายเลขการผลิต (Model)</value>
+        <value xml:lang="zh">制造商 (款式) 编号</value>
+    </property>
+    <property key="GoodIdentificationType.description.MODEL_YEAR">
+        <value xml:lang="en">Model Year</value>
+        <value xml:lang="fr">Année modèle</value>
+        <value xml:lang="it">Anno Modello</value>
+        <value xml:lang="ro">An Model</value>
+        <value xml:lang="ru">Год выпуска модели</value>
+        <value xml:lang="th">โมเดลปี</value>
+        <value xml:lang="zh">款式年度</value>
+    </property>
+    <property key="GoodIdentificationType.description.OTHER_ID">
+        <value xml:lang="en">Other</value>
+        <value xml:lang="fr">Autre</value>
+        <value xml:lang="it">Altro</value>
+        <value xml:lang="ro">Alte</value>
+        <value xml:lang="ru">Другой</value>
+        <value xml:lang="th">อื่นๆ</value>
+        <value xml:lang="zh">其它</value>
+    </property>
+    <property key="GoodIdentificationType.description.SKU">
+        <value xml:lang="en">SKU</value>
+        <value xml:lang="fr">SKU</value>
+        <value xml:lang="it">Codice Univoco Prodotto</value>
+        <value xml:lang="ro">Cod Univoc Produs</value>
+        <value xml:lang="ru">SKU</value>
+        <value xml:lang="th">SKU</value>
+        <value xml:lang="zh">最小存货单位</value>
+    </property>
+    <property key="GoodIdentificationType.description.UPCA">
+        <value xml:lang="en">UPCA</value>
+        <value xml:lang="fr">UPCA</value>
+        <value xml:lang="it">Codice a Barre UPCA</value>
+        <value xml:lang="ro">Cod Bare UPCA</value>
+        <value xml:lang="ru">UPCA</value>
+        <value xml:lang="th">UPCA</value>
+        <value xml:lang="zh">UPCA条码</value>
+    </property>
+    <property key="GoodIdentificationType.description.UPCE">
+        <value xml:lang="en">UPCE</value>
+        <value xml:lang="fr">UPCE</value>
+        <value xml:lang="it">Codice a Barre UPCE</value>
+        <value xml:lang="ro">Cod Bare UPCE</value>
+        <value xml:lang="ru">UPCE</value>
+        <value xml:lang="th">UPCE</value>
+        <value xml:lang="zh">UPCE条码</value>
+    </property>
+    <property key="InventoryItemType.description.NON_SERIAL_INV_ITEM">
+        <value xml:lang="en">Non-Serialized</value>
+        <value xml:lang="fr">Pas en série</value>
+        <value xml:lang="it">Non-Serializzato</value>
+        <value xml:lang="ro">Ne-Serializat</value>
+        <value xml:lang="ru">Не серийный</value>
+        <value xml:lang="th">ไม่มีลำดับหมายเลข</value>
+        <value xml:lang="zh">非序列化</value>
+    </property>
+    <property key="InventoryItemType.description.SERIALIZED_INV_ITEM">
+        <value xml:lang="en">Serialized</value>
+        <value xml:lang="fr">En série</value>
+        <value xml:lang="it">Serializzato</value>
+        <value xml:lang="ro">Serializat</value>
+        <value xml:lang="ru">Серийный</value>
+        <value xml:lang="th">ลำดับหมายเลข</value>
+        <value xml:lang="zh">序列化</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_ADMIN_ALLW">
+        <value xml:lang="en">Admin Allow (One)</value>
+        <value xml:lang="es">Permitir administración (uno)</value>
+        <value xml:lang="fr">Administration autorisation (un)</value>
+        <value xml:lang="it">Amministrazione Permessa (Uno)</value>
+        <value xml:lang="ro">Administratie Permisa(Unu)</value>
+        <value xml:lang="ru">Администрирование разрешено (Одна)</value>
+        <value xml:lang="th">ผู้ดูแลระบบอนุญาต (หนึ่ง)</value>
+        <value xml:lang="zh">允许管理 (一个)</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_BROWSE_ROOT">
+        <value xml:lang="en">Browse Root (One)</value>
+        <value xml:lang="es">Navegación (uno)</value>
+        <value xml:lang="fr">Navigation (un)</value>
+        <value xml:lang="it">Mostra Radice (Uno)</value>
+        <value xml:lang="ro">Afiseaza Radacina (Unu)</value>
+        <value xml:lang="ru">Для просмотра (Одна)</value>
+        <value xml:lang="th">แสดง Root (หนึ่ง)</value>
+        <value xml:lang="zh">浏览根 (一个)</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_MOST_POPULAR">
+        <value xml:lang="en">Most Popular (One)</value>
+        <value xml:lang="es">Más popular (uno)</value>
+        <value xml:lang="fr">Le plus populaire (un)</value>
+        <value xml:lang="it">Più Popolari (Uno)</value>
+        <value xml:lang="ro">Mai Populari (Unu)</value>
+        <value xml:lang="ru">Наиболее популярные (Одна)</value>
+        <value xml:lang="th">ความนิยมสูงสุด (หนึ่ง)</value>
+        <value xml:lang="zh">最具人气 (一个)</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_OTHER_SEARCH">
+        <value xml:lang="en">Other Search (Many)</value>
+        <value xml:lang="es">Otras búsquedas (muchos)</value>
+        <value xml:lang="fr">Autres recherches (plusieurs)</value>
+        <value xml:lang="it">Altre Ricerche (Molti)</value>
+        <value xml:lang="ro">Alte Cautari (Multi)</value>
+        <value xml:lang="ru">Другие для поиска (Много)</value>
+        <value xml:lang="th">ค้นหาอื่น ๆ (มาก)</value>
+        <value xml:lang="zh">其它搜索 (许多)</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_PROMOTIONS">
+        <value xml:lang="en">Promotions (One)</value>
+        <value xml:lang="es">Promociones (uno)</value>
+        <value xml:lang="fr">Promotions (un)</value>
+        <value xml:lang="it">Promozioni (Uno)</value>
+        <value xml:lang="ro">Promotii (Unu)</value>
+        <value xml:lang="ru">Специальные предложения (Одна)</value>
+        <value xml:lang="th">โปรโมชัน (หนึ่ง)</value>
+        <value xml:lang="zh">促销 (一个)</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_PURCH_ALLW">
+        <value xml:lang="en">Purchase Allow (One)</value>
+        <value xml:lang="es">Permitir compra (uno)</value>
+        <value xml:lang="fr">Permission d'achat (une)</value>
+        <value xml:lang="it">Acquisto Permesso (Uno)</value>
+        <value xml:lang="ro">Cumparare Permisa(Unu)</value>
+        <value xml:lang="ru">Приобретение возможно (Одна)</value>
+        <value xml:lang="th">การอนุญาตการสั่งซื้อ (หนึ่ง)</value>
+        <value xml:lang="zh">允许购买 (一个)</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_QUICK_ADD">
+        <value xml:lang="en">Quick Add (Many)</value>
+        <value xml:lang="es">Añadir rápido (muchos)</value>
+        <value xml:lang="fr">Ajout rapide (plusieurs)</value>
+        <value xml:lang="it">Aggiunta Veloce (Molti)</value>
+        <value xml:lang="ro">Adaugare Rapida (Molti)</value>
+        <value xml:lang="ru">Быстрое добавление (Много)</value>
+        <value xml:lang="th">เพิ่มอย่างรวดเร็ว (มาก)</value>
+        <value xml:lang="zh">快速添加 (许多)</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_SEARCH">
+        <value xml:lang="en">Default Search (One)</value>
+        <value xml:lang="es">Búsqueda por defecto (uno)</value>
+        <value xml:lang="fr">Recherche par défaut (un)</value>
+        <value xml:lang="it">Ricerca di Default (Uno)</value>
+        <value xml:lang="ro">Cautare de Default (Unu)</value>
+        <value xml:lang="ru">Поиск по умолчанию (Одна)</value>
+        <value xml:lang="th">ค่าเริ่มต้นการค้นหา (หนึ่ง)</value>
+        <value xml:lang="zh">缺省搜索 (一个)</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_VIEW_ALLW">
+        <value xml:lang="en">View Allow (One)</value>
+        <value xml:lang="es">Permitir ver (uno)</value>
+        <value xml:lang="fr">Visualisation (un)</value>
+        <value xml:lang="it">Visione Permessa (Uno)</value>
+        <value xml:lang="ro">Viziune Permisa(Unu)</value>
+        <value xml:lang="ru">Просмотр разрешен (Одна)</value>
+        <value xml:lang="th">การอนุญาตการแสดง (หนึ่ง)</value>
+        <value xml:lang="zh">允许浏览 (一个)</value>
+    </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_WHATS_NEW">
+        <value xml:lang="en">What's New (One)</value>
+        <value xml:lang="es">Novedades (uno)</value>
+        <value xml:lang="fr">Nouveauté (une)</value>
+        <value xml:lang="it">Quali Novità (Uno)</value>
+        <value xml:lang="ro">Care Noutati(Unu)</value>
+        <value xml:lang="ru">Новые продукты (Одна)</value>
+        <value xml:lang="th">อะไรใหม่ (หนึ่ง)</value>
+        <value xml:lang="zh">新品 (一个)</value>
+    </property>
+    <property key="ProdConfItemContentType.description.DESCRIPTION">
+        <value xml:lang="en">Description</value>
+        <value xml:lang="es">Descripción</value>
+        <value xml:lang="it">Descrizione</value>
+        <value xml:lang="ro">Descriere</value>
+        <value xml:lang="ru">Описание</value>
+        <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="zh">描述</value>
+    </property>
+    <property key="ProdConfItemContentType.description.IMAGE_URL">
+        <value xml:lang="en">Image</value>
+        <value xml:lang="es">Imagen</value>
+        <value xml:lang="it">Immagine</value>
+        <value xml:lang="ro">Imagine</value>
+        <value xml:lang="ru">Изображение</value>
+        <value xml:lang="th">รูปภาพ</value>
+        <value xml:lang="zh">图像</value>
+    </property>
+    <property key="ProdConfItemContentType.description.INSTRUCTIONS">
+        <value xml:lang="en">Instructions</value>
+        <value xml:lang="es">Instrucciones</value>
+        <value xml:lang="it">Istruzioni</value>
+        <value xml:lang="ro">Instructiuni</value>
+        <value xml:lang="ru">Инструкции</value>
+        <value xml:lang="th">คำแนะนำ</value>
+        <value xml:lang="zh">说明</value>
+    </property>
+    <property key="ProdConfItemContentType.description.LONG_DESCRIPTION">
+        <value xml:lang="en">Description - Long</value>
+        <value xml:lang="es">Descrpción - Larga</value>
+        <value xml:lang="it">Descrizione - Lunga</value>
+        <value xml:lang="ro">Descriere - Lunga</value>
+        <value xml:lang="ru">Полное описание</value>
+        <value xml:lang="th">การอธิบาย</value>
+        <value xml:lang="zh">描述 - 详细</value>
+    </property>
+    <property key="ProductAssocType.description.ALSO_BOUGHT">
+        <value xml:lang="en">Also Bought</value>
+        <value xml:lang="es">También compró</value>
+        <value xml:lang="fr">Achat simple</value>
+        <value xml:lang="it">Anche Comprato</value>
+        <value xml:lang="ro">Si Cumparate</value>
+        <value xml:lang="ru">Сопутствующая</value>
+        <value xml:lang="th">ดังนั้นซื้อ</value>
+        <value xml:lang="zh">同时购买</value>
+    </property>
+    <property key="ProductAssocType.description.ENGINEER_COMPONENT">
+        <value xml:lang="en">Engineering Bill of Materials</value>
+        <value xml:lang="es">BOM de ingeniería</value>
+        <value xml:lang="fr">Nomenclatures d'étude</value>
+        <value xml:lang="it">Distinta Base Ingegnerizzata</value>
+        <value xml:lang="ro">Lista repere Inginerizata</value>
+        <value xml:lang="ru">Конструкторская спецификация материалов</value>
+        <value xml:lang="th">วิศวะกรรมศาสตร์รายการวัตถุ</value>
+        <value xml:lang="zh">工程材料清单</value>
+    </property>
+    <property key="ProductAssocType.description.MANUF_COMPONENT">
+        <value xml:lang="en">Manufacturing Bill of Materials</value>
+        <value xml:lang="es">BOM de manufactura</value>
+        <value xml:lang="fr">Nomenclatures de fabrication</value>
+        <value xml:lang="it">Distinta Base Produzione</value>
+        <value xml:lang="ro">Lista repere Productie</value>
+        <value xml:lang="ru">Производственная спецификация материалов</value>
+        <value xml:lang="th">การผลิตรายการวัตถุ</value>
+        <value xml:lang="zh">制造材料清单</value>
+    </property>
+    <property key="ProductAssocType.description.MARKETING_PACKAGE">
+        <value xml:lang="en">MARKETING_PACKAGE</value>
+        <value xml:lang="es">Componente de paquete de marketing</value>
+        <value xml:lang="fr">Produit commercialisé avec</value>
+        <value xml:lang="ro">Component Pachet Vanzare</value>
+        <value xml:lang="ru">Компонент маркетингового пакета</value>
+        <value xml:lang="th">แพคเกจการตลาด</value>
+        <value xml:lang="zh">销售包装组件</value>
+    </property>
+    <property key="ProductAssocType.description.MARKETING_PKG_AUTO">
+        <value xml:lang="en">MARKETING_PKG_AUTO</value>
+        <value xml:lang="es">Examinar automáticamente el componente del paquete de marketing</value>
+        <value xml:lang="fr">Marketing Package Auto Explode Component</value>
+        <value xml:lang="ro">Componente Pachet Vanzare Exploadat in mod Automat</value>
+        <value xml:lang="ru">Компонент автоматически расширяющий маркетинговый пакет</value>
+        <value xml:lang="th">MARKETING_PKG_AUTO</value>
+        <value xml:lang="zh">销售包装自动分拆组件</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_ACCESSORY">
+        <value xml:lang="en">Accessory</value>
+        <value xml:lang="it">Accessori</value>
+        <value xml:lang="ru">Аксессуар</value>
+        <value xml:lang="th">ส่วนประกอบ</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_AUTORO">
+        <value xml:lang="en">Auto Reorder (needs recurrenceInfoId)</value>
+        <value xml:lang="it">Riordino Automatico</value>
+        <value xml:lang="th">การสั่งซื้ออัตโนมัติ (ต้องการรหัสข้อมูลการเกิดขึ้นอีกครั้ง)</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_COMPLEMENT">
+        <value xml:lang="en">Complementary or Cross-Sell</value>
+        <value xml:lang="es">Complementario o cruzados</value>
+        <value xml:lang="fr">Éléments complémentaires ou croisés</value>
+        <value xml:lang="it">Complementario o Vendita-Trasversale</value>
+        <value xml:lang="ro">Complementar sau Vanzare -Transversala </value>
+        <value xml:lang="ru">Дополнительная и кросс-продажа</value>
+        <value xml:lang="th">Complementary or Cross-Sell</value>
+        <value xml:lang="zh">补充或交叉销售</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_COMPONENT">
+        <value xml:lang="en">Actual Product Component</value>
+        <value xml:lang="es">Componente del producto actual</value>
+        <value xml:lang="fr">Description de l'article actuel</value>
+        <value xml:lang="it">Componente Prodotto Attuale</value>
+        <value xml:lang="ro">Componente Produs Actual</value>
+        <value xml:lang="ru">Реальный компонент продукта</value>
+        <value xml:lang="th">ส่วนประกอบสินค้าโดยแท้จริง</value>
+        <value xml:lang="zh">实际产品组件</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_INCOMPATABLE">
+        <value xml:lang="en">Incompatable</value>
+        <value xml:lang="es">Incompatible</value>
+        <value xml:lang="fr">Incompatible</value>
+        <value xml:lang="it">Incompatibile</value>
+        <value xml:lang="ro">Incompatibil</value>
+        <value xml:lang="ru">Несовместимость</value>
+        <value xml:lang="th">ขัดแย้งกัน</value>
+        <value xml:lang="zh">不兼容</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_MANUFACTURED">
+        <value xml:lang="en">Product Manufactured As</value>
+        <value xml:lang="es">Producto fabricado como</value>
+        <value xml:lang="fr">Produit fini</value>
+        <value xml:lang="it">Prodotto Costruito Come</value>
+        <value xml:lang="ro">Produs Construit Ca</value>
+        <value xml:lang="ru">Продукт произведенный как</value>
+        <value xml:lang="th">การผลิตสินค้าเหมือน</value>
+        <value xml:lang="zh">生产的产品作为</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_OBSOLESCENCE">
+        <value xml:lang="en">New Version, Replacement</value>
+        <value xml:lang="es">Nueva versión, Reemplazo</value>
+        <value xml:lang="fr">Nouvelle version de remplacement</value>
+        <value xml:lang="it">Nuova Versione, Sostituzione</value>
+        <value xml:lang="ro">Noua Versiune, Substitutie</value>
+        <value xml:lang="ru">Новая версия, замещение</value>
+        <value xml:lang="th">เวอร์ชันใหม่, การแทนที่</value>
+        <value xml:lang="zh">新版本，替换</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_REFURB">
+        <value xml:lang="en">Refurbished Equivalent</value>
+        <value xml:lang="it">Equivalente Rinnovato</value>
+        <value xml:lang="ru">Замененный эквивалент</value>
+        <value xml:lang="th">เท่ากับทำใหม่</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_REPAIR_SRV">
+        <value xml:lang="en">Repair Service</value>
+        <value xml:lang="it">Servizio Riparazioni</value>
+        <value xml:lang="ru">Услуги ремонта</value>
+        <value xml:lang="th">บริการซ่อมแซม</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_REVISION">
+        <value xml:lang="en">Revision</value>
+        <value xml:lang="es">Posibilidad</value>
+        <value xml:lang="fr">Révision</value>
+        <value xml:lang="it">Revisione</value>
+        <value xml:lang="ro">Revizie</value>
+        <value xml:lang="ru">Исправление</value>
+        <value xml:lang="th">การปรับปรุงใหม่</value>
+        <value xml:lang="zh">改进型</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_SUBSTITUTE">
+        <value xml:lang="en">Equivalent or Substitute</value>
+        <value xml:lang="es">Equivalente o Sustituto</value>
+        <value xml:lang="fr">Équivalent ou remplaçant</value>
+        <value xml:lang="it">Equivalente o Sostituto</value>
+        <value xml:lang="ro">Echivalent sau Substituit </value>
+        <value xml:lang="ru">Эквивалент или заменитель</value>
+        <value xml:lang="th">เท่ากับหรือแทนที่</value>
+        <value xml:lang="zh">等价或替代</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_UPGRADE">
+        <value xml:lang="en">Upgrade or Up-Sell</value>
+        <value xml:lang="es">Actualización o Versión superior</value>
+        <value xml:lang="fr">Version supérieure ou plus récente</value>
+        <value xml:lang="it">Aggiornato o Aumentato</value>
+        <value xml:lang="ro">Actualizat sau Marit </value>
+        <value xml:lang="ru">Модернизация или дооснащение</value>
+        <value xml:lang="th">Upgrade or Up-Sell</value>
+        <value xml:lang="zh">升级或向上销售</value>
+    </property>
+    <property key="ProductAssocType.description.PRODUCT_VARIANT">
+        <value xml:lang="en">Product Variant</value>
+        <value xml:lang="es">Variante de producto</value>
+        <value xml:lang="fr">Article décliné</value>
+        <value xml:lang="it">Variante Prodotto</value>
+        <value xml:lang="ro">Variante Produs</value>
+        <value xml:lang="ru">Вариант продукта</value>
+        <value xml:lang="th">การเปลี่ยนแปลงสินค้า</value>
+        <value xml:lang="zh">产品变型</value>
+    </property>
+    <property key="ProductAssocType.description.UNIQUE_ITEM">
+        <value xml:lang="en">Unique Item</value>
+        <value xml:lang="es">Artículo único</value>
+        <value xml:lang="fr">Référence unique</value>
+        <value xml:lang="it">Riga Univoca</value>
+        <value xml:lang="ro">Linie Univoca</value>
+        <value xml:lang="ru">Уникальная позиция</value>
+        <value xml:lang="th">รายการลักษณะเฉพาะ</value>
+        <value xml:lang="zh">独有的明细</value>
+    </property>
+    <property key="ProductCategoryContentType.description.CATEGORY_IMAGE_URL">
+        <value xml:lang="en">Category Image URL</value>
+        <value xml:lang="it">URL Immagine Categoria</value>
+        <value xml:lang="ro">URL Imagine Categorie</value>
+        <value xml:lang="ru">URL изображения категории</value>
+        <value xml:lang="th">หมวดหมู่รูปภาพ URL</value>
+        <value xml:lang="zh">分类图片网址</value>
+    </property>
+    <property key="ProductCategoryContentType.description.CATEGORY_NAME">
+        <value xml:lang="en">Category Name</value>
+        <value xml:lang="it">Nome Categoria</value>
+        <value xml:lang="ro">Nume Categorie</value>
+        <value xml:lang="ru">Имя категории</value>
+        <value xml:lang="th">ชื่อหมวดหมู่</value>
+        <value xml:lang="zh">分类名称</value>
+    </property>
+    <property key="ProductCategoryContentType.description.DESCRIPTION">
+        <value xml:lang="en">Description</value>
+        <value xml:lang="es">Descripción</value>
+        <value xml:lang="it">Descrizione</value>
+        <value xml:lang="ro">Descriere</value>
+        <value xml:lang="ru">Описание</value>
+        <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="zh">描述</value>
+    </property>
+    <property key="ProductCategoryContentType.description.FOOTER">
+        <value xml:lang="en">Footer</value>
+        <value xml:lang="it">Intestazione Fine Pagina</value>
+        <value xml:lang="ro">Intestare Sfarsit Pagina</value>
+        <value xml:lang="ru">Нижняя часть страницы</value>
+        <value xml:lang="th">ท้ายกระดาษ</value>
+        <value xml:lang="zh">页脚</value>
+    </property>
+    <property key="ProductCategoryContentType.description.LONG_DESCRIPTION">
+        <value xml:lang="en">Description - Long</value>
+        <value xml:lang="es">Descripción - Larga</value>
+        <value xml:lang="it">Descrizione - Lunga</value>
+        <value xml:lang="ro">Descriere - Lunga</value>
+        <value xml:lang="ru">Полное описание</value>
+        <value xml:lang="th">การอธิบาย</value>
+        <value xml:lang="zh">描述 - 详细</value>
+    </property>
+    <property key="ProductCategoryType.description.CATALOG_CATEGORY">
+        <value xml:lang="en">Catalog</value>
+        <value xml:lang="es">Catálogo</value>
+        <value xml:lang="fr">Catalogue</value>
+        <value xml:lang="it">Catalogo</value>
+        <value xml:lang="ro">Catalog</value>
+        <value xml:lang="ru">Каталог</value>
+        <value xml:lang="th">หมวดหมู่</value>
+        <value xml:lang="zh">目录</value>
+    </property>
+    <property key="ProductCategoryType.description.CROSS_SELL_CATEGORY">
+        <value xml:lang="en">Cross Sell</value>
+        <value xml:lang="es">Cruzado</value>
+        <value xml:lang="fr">Croisé</value>
+        <value xml:lang="it">Vendite Trasversali</value>
+        <value xml:lang="ro">Vanzari Transversale</value>
+        <value xml:lang="ru">Перекрестные продажи</value>
+        <value xml:lang="th">Cross Sell</value>
+        <value xml:lang="zh">交叉销售</value>
+    </property>
+    <property key="ProductCategoryType.description.INDUSTRY_CATEGORY">
+        <value xml:lang="en">Industry</value>
+        <value xml:lang="es">Industria</value>
+        <value xml:lang="fr">Industrie</value>
+        <value xml:lang="it">Industria</value>
+        <value xml:lang="ro">Industria</value>
+        <value xml:lang="ru">Отраслевая</value>
+        <value xml:lang="th">อุตสาหกรรม</value>
+        <value xml:lang="zh">产业</value>
+    </property>
+    <property key="ProductCategoryType.description.INTERNAL_CATEGORY">
+        <value xml:lang="en">Internal</value>
+        <value xml:lang="es">Interno</value>
+        <value xml:lang="fr">Interne</value>
+        <value xml:lang="it">Interna</value>
+        <value xml:lang="ro">Interna</value>
+        <value xml:lang="ru">Внутренняя</value>
+        <value xml:lang="th">ภายใน</value>
+        <value xml:lang="zh">内部</value>
+    </property>
+    <property key="ProductCategoryType.description.MATERIALS_CATEGORY">
+        <value xml:lang="en">Materials</value>
+        <value xml:lang="es">Materiales</value>
+        <value xml:lang="fr">Matériel</value>
+        <value xml:lang="it">Materiali</value>
+        <value xml:lang="ro">Materiale</value>
+        <value xml:lang="ru">Материалы</value>
+        <value xml:lang="th">วัตถุ</value>
+        <value xml:lang="zh">材料</value>
+    </property>
+    <property key="ProductCategoryType.description.MIXMATCH_CATEGORY">
+        <value xml:lang="en">Mix and Match</value>
+        <value xml:lang="es">Intercambiable</value>
+        <value xml:lang="fr">Interchangeable</value>
+        <value xml:lang="it">Mescola e Confronta</value>
+        <value xml:lang="ro">Amesteca si Confrunta</value>
+        <value xml:lang="ru">Смешанная</value>
+        <value xml:lang="th">รวมและเหมือนกัน</value>
+        <value xml:lang="zh">混合和匹配</value>
+    </property>
+    <property key="ProductCategoryType.description.QUICKADD_CATEGORY">
+        <value xml:lang="en">Quick Add</value>
+        <value xml:lang="es">Añadir rápido</value>
+        <value xml:lang="fr">Ajout rapide</value>
+        <value xml:lang="it">Aggiunta Veloce</value>
+        <value xml:lang="ro">Adaugare rapida</value>
+        <value xml:lang="ru">Быстрое добавление</value>
+        <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
+        <value xml:lang="zh">快速添加</value>
+    </property>
+    <property key="ProductCategoryType.description.SEARCH_CATEGORY">
+        <value xml:lang="en">Search</value>
+        <value xml:lang="es">Buscar</value>
+        <value xml:lang="fr">Recherche</value>
+        <value xml:lang="it">Ricerca</value>
+        <value xml:lang="ro">Cauta</value>
+        <value xml:lang="ru">Поиск</value>
+        <value xml:lang="th">การค้นหา</value>
+        <value xml:lang="zh">搜索</value>
+    </property>
+    <property key="ProductCategoryType.description.TAX_CATEGORY">
+        <value xml:lang="en">Tax</value>
+        <value xml:lang="es">Impuesto</value>
+        <value xml:lang="fr">Taxe</value>
+        <value xml:lang="it">Tasse</value>
+        <value xml:lang="ro">Taxe</value>
+        <value xml:lang="ru">Налогообложение</value>
+        <value xml:lang="th">ภาษี</value>
+        <value xml:lang="zh">税</value>
+    </property>
+    <property key="ProductCategoryType.description.USAGE_CATEGORY">
+        <value xml:lang="en">Usage</value>
+        <value xml:lang="es">Uso</value>
+        <value xml:lang="fr">Usage</value>
+        <value xml:lang="it">Uso</value>
+        <value xml:lang="ro">Uz</value>
+        <value xml:lang="ru">Использование</value>
+        <value xml:lang="th">วิธีใช้</value>
+        <value xml:lang="zh">用途</value>
+    </property>
+    <property key="ProductContentType.description.DESCRIPTION">
+        <value xml:lang="en">Description</value>
+        <value xml:lang="es">Descripción</value>
+        <value xml:lang="fr">Description</value>
+        <value xml:lang="it">Descrizione</value>
+        <value xml:lang="ro">Descriere</value>
+        <value xml:lang="ru">Описание</value>
+        <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="zh">描述</value>
+    </property>
+    <property key="ProductContentType.description.DETAIL_IMAGE_ALT">
+        <value xml:lang="en">Image Alt Text - Detail    </value>
+        <value xml:lang="it">Immagine Testo Alternativo - Dettaglio    </value>
+        <value xml:lang="ru">Альтер. текст изображения - детальное    </value>
+        <value xml:lang="th">ข้อความตัวเลือกรูปภาพ - รายละเอียด    </value>
+    </property>
+    <property key="ProductContentType.description.DETAIL_IMAGE_URL">
+        <value xml:lang="en">Image - Detail</value>
+        <value xml:lang="es">Imagen - Detalle</value>
+        <value xml:lang="fr">Image détaillée</value>
+        <value xml:lang="it">Immagine - Dettaglio</value>
+        <value xml:lang="ro">Imagine - Detaliu</value>
+        <value xml:lang="ru">Изображение - детальное</value>
+        <value xml:lang="th">รูปภาพ - รายละเอียด</value>
+        <value xml:lang="zh">图像 - 详细</value>
+    </property>
+    <property key="ProductContentType.description.DIGITAL_DOWNLOAD">
+        <value xml:lang="en">Digital Download</value>
+        <value xml:lang="es">Descarga digital</value>
+        <value xml:lang="fr">Téléchargement numérique</value>
+        <value xml:lang="it">Download Digitale</value>
+        <value xml:lang="ro">Download Digital</value>
+        <value xml:lang="ru">Загрузка цифрового конт.</value>
+        <value xml:lang="th">ดาวน์โหลดดิจิตอล</value>
+        <value xml:lang="zh">数字下载</value>
+    </property>
+    <property key="ProductContentType.description.DIRECTIONS">
+        <value xml:lang="en">Directions</value>
+        <value xml:lang="es">Direcciones</value>
+        <value xml:lang="fr">Directions</value>
+        <value xml:lang="it">Direzioni</value>
+        <value xml:lang="ro">Directii</value>
+        <value xml:lang="ru">Направления</value>
+        <value xml:lang="th">คำแนะนำ</value>
+        <value xml:lang="zh">方向</value>
+    </property>
+    <property key="ProductContentType.description.FULFILLMENT_EMAIL">
+        <value xml:lang="en">Fulfillment Email</value>
+        <value xml:lang="es">Email de cumplimiento</value>
+        <value xml:lang="fr">Email de réalisation</value>
+        <value xml:lang="it">Adempimento Email</value>
+        <value xml:lang="ro">Transmitere Email</value>
+        <value xml:lang="ru">Выполнение по эл.почте</value>
+        <value xml:lang="th">การทำอีเมลให้สำเร็จ</value>
+        <value xml:lang="zh">执行电子邮件</value>
+    </property>
+    <property key="ProductContentType.description.FULFILLMENT_EXTASYNC">
+        <value xml:lang="en">Fulfillment External (Async)</value>
+        <value xml:lang="es">Cumplimiento externo (asíncrono)</value>
+        <value xml:lang="fr">Réalisation externe (Async)</value>
+        <value xml:lang="it">Adempimento Esterno (Async)</value>
+        <value xml:lang="ro">Executare Externa (Async)</value>
+        <value xml:lang="ru">Выполнение внешнее (Асинхр.)</value>
+        <value xml:lang="th">การทำให้สำเร็จภายใน (Async)</value>
+        <value xml:lang="zh">执行外部 (异步)</value>
+    </property>
+    <property key="ProductContentType.description.FULFILLMENT_EXTSYNC">
+        <value xml:lang="en">Fulfillment External (Sync)</value>
+        <value xml:lang="es">Cumplimiento externo (síncrono)</value>
+        <value xml:lang="fr">Réalisation externe (Sync)</value>
+        <value xml:lang="it">Adempimento Esterno (Sync)</value>
+        <value xml:lang="ro">Executare Externa (Sync)</value>
+        <value xml:lang="ru">Выполнение внешнее (Синхр.)</value>
+        <value xml:lang="th">การทำให้สำเร็จภายใน (Async)</value>
+        <value xml:lang="zh">执行外部 (同步)</value>
+    </property>
+    <property key="ProductContentType.description.INGREDIENTS">
+        <value xml:lang="en">Ingredients</value>
+        <value xml:lang="es">Ingredientes</value>
+        <value xml:lang="fr">Éléments</value>
+        <value xml:lang="it">Ingredienti</value>
+        <value xml:lang="ro">Ingrediente</value>
+        <value xml:lang="ru">Ингредиенты</value>
+        <value xml:lang="th">ส่วนประกอบ</value>
+        <value xml:lang="zh">成份</value>
+    </property>
+    <property key="ProductContentType.description.LARGE_IMAGE_ALT">
+        <value xml:lang="en">Image Alt Text - Large</value>
+        <value xml:lang="it">Immagine Testo Alternativo - Grande</value>
+        <value xml:lang="ru">Альтер. текст изображения - большое</value>
+        <value xml:lang="th">ทางเลือกข้อความรูปภาพ - ขนาดใหญ่</value>
+    </property>
+    <property key="ProductContentType.description.LARGE_IMAGE_URL">
+        <value xml:lang="en">Image - Large</value>
+        <value xml:lang="es">Imagen - Grande</value>
+        <value xml:lang="fr">Image grande</value>
+        <value xml:lang="it">Immagine - Grande</value>
+        <value xml:lang="ro">Imagine - Mare</value>
+        <value xml:lang="ru">Изображение - большое</value>
+        <value xml:lang="th">รูปภาพ - ใหญ่</value>
+        <value xml:lang="zh">图像 - 大</value>
+    </property>
+    <property key="ProductContentType.description.LONG_DESCRIPTION">
+        <value xml:lang="en">Description - Long</value>
+        <value xml:lang="es">Descripción - Larga</value>
+        <value xml:lang="fr">Description longue</value>
+        <value xml:lang="it">Descrizione - Lunga</value>
+        <value xml:lang="ro">Descriere - Lunga</value>
+        <value xml:lang="ru">Полное описание</value>
+        <value xml:lang="th">คำอธิบาย - ยาว</value>
+        <value xml:lang="zh">描述 - 详细</value>
+    </property>
+    <property key="ProductContentType.description.MEDIUM_IMAGE_ALT">
+        <value xml:lang="en">Image Alt Text - Medium</value>
+        <value xml:lang="it">Immagine Testo Alternativo - Media</value>
+        <value xml:lang="ru">Альтер. текст изображения - среднее</value>
+        <value xml:lang="th">ทางเลือกข้อความรูปภาพ - ขนาดกลาง</value>
+    </property>
+    <property key="ProductContentType.description.MEDIUM_IMAGE_URL">
+        <value xml:lang="en">Image - Medium</value>
+        <value xml:lang="es">Imagen - Mediana</value>
+        <value xml:lang="fr">Image moyenne</value>
+        <value xml:lang="it">Immagine - Media</value>
+        <value xml:lang="ro">Imagine - Medie</value>
+        <value xml:lang="ru">Изображение - среднее</value>
+        <value xml:lang="th">รูปภาพ - กลาง</value>
+        <value xml:lang="zh">图像 - 中</value>
+    </property>
+    <property key="ProductContentType.description.ONLINE_ACCESS">
+        <value xml:lang="en">Online Access</value>
+        <value xml:lang="es">Acceso en línea</value>
+        <value xml:lang="fr">Accès en ligne</value>
+        <value xml:lang="it">Accesso Online</value>
+        <value xml:lang="ro">Acces Online</value>
+        <value xml:lang="ru">Онлайновый доступ</value>
+        <value xml:lang="th">สิทธ์ในการออนไลน์</value>
+        <value xml:lang="zh">在线访问</value>
+    </property>
+    <property key="ProductContentType.description.PRICE_DETAIL_TEXT">
+        <value xml:lang="en">Price Detail Text</value>
+        <value xml:lang="it">Testo Dettaglio Prezzo</value>
+        <value xml:lang="ro">Test Detaliu Pret</value>
+        <value xml:lang="ru">Детали цены</value>
+        <value xml:lang="th">ข้อมูลราคา</value>
+        <value xml:lang="zh">价格详细文字</value>
+    </property>
+    <property key="ProductContentType.description.PRODUCT_NAME">
+        <value xml:lang="en">Product Name</value>
+        <value xml:lang="es">Nombre de Producto</value>
+        <value xml:lang="fr">Nom de l'article</value>
+        <value xml:lang="it">Nome Prodotto</value>
+        <value xml:lang="ro">Nume Produs</value>
+        <value xml:lang="ru">Название продукта</value>
+        <value xml:lang="th">ชื่อสินค้า</value>
+        <value xml:lang="zh">产品名称</value>
+    </property>
+    <property key="ProductContentType.description.SMALL_IMAGE_ALT">
+        <value xml:lang="en">Image Alt Text - Small</value>
+        <value xml:lang="it">Immagine Testo Alternativo - Piccola</value>
+        <value xml:lang="ru">Альтер. текст изображения - маленькое</value>
+        <value xml:lang="th">ทางเลือกข้อความรูปภาพ - เล็ก</value>
+    </property>
+    <property key="ProductContentType.description.SMALL_IMAGE_URL">
+        <value xml:lang="en">Image - Small</value>
+        <value xml:lang="es">Imagen - Pequeña</value>
+        <value xml:lang="fr">Image petite</value>
+        <value xml:lang="it">Immagine - Piccola</value>
+        <value xml:lang="ro">Imagine - Mica</value>
+        <value xml:lang="ru">Изображение - маленькое</value>
+        <value xml:lang="th">รูปภาพ - เล็ก</value>
+        <value xml:lang="zh">图像 - 小</value>
+    </property>
+    <property key="ProductContentType.description.SPECIALINSTRUCTIONS">
+        <value xml:lang="en">Special Instructions</value>
+        <value xml:lang="es">Instrucciones especiales</value>
+        <value xml:lang="fr">Instructions spéciales</value>
+        <value xml:lang="it">Instruzioni Speciali</value>
+        <value xml:lang="ro">Instructiuni Speciale</value>
+        <value xml:lang="ru">Специальные инструкции</value>
+        <value xml:lang="th">คำแนะนำพิเศษ</value>
+        <value xml:lang="zh">特别说明</value>
+    </property>
+    <property key="ProductContentType.description.UNIQUE_INGREDIENTS">
+        <value xml:lang="en">Unique Ingredients</value>
+        <value xml:lang="es">Ingredientes únicos</value>
+        <value xml:lang="fr">Élément unique</value>
+        <value xml:lang="it">Ingredienti Unici</value>
+        <value xml:lang="ro">Ingredienti Unici</value>
+        <value xml:lang="ru">Уникальные ингредиенты</value>
+        <value xml:lang="th">ส่วนประกอบพิเศษ</value>
+        <value xml:lang="zh">独有的成份</value>
+    </property>
+    <property key="ProductContentType.description.WARNINGS">
+        <value xml:lang="en">Warnings</value>
+        <value xml:lang="es">Advertencias</value>
+        <value xml:lang="fr">Avertissements</value>
+        <value xml:lang="it">Avvertimenti</value>
+        <value xml:lang="ro">Avertimente</value>
+        <value xml:lang="ru">Предупреждения</value>
+        <value xml:lang="th">คำเตือน</value>
+        <value xml:lang="zh">警告</value>
+    </property>
+    <property key="ProductFeature.description.HAZMAT">
+        <value xml:lang="en">HAZMAT</value>
+        <value xml:lang="es">No peligroso</value>
+        <value xml:lang="th">HAZMAT</value>
+    </property>
+    <property key="ProductFeatureApplType.description.DISTINGUISHING_FEAT">
+        <value xml:lang="en">Distinguishing</value>
+        <value xml:lang="es">Distinguible</value>
+        <value xml:lang="fr">Distinct</value>
+        <value xml:lang="it">Distinte</value>
+        <value xml:lang="ro">Distincte</value>
+        <value xml:lang="ru">Отличительная</value>
+        <value xml:lang="th">ลักษณะนิสัย</value>
+        <value xml:lang="zh">有区别</value>
+    </property>
+    <property key="ProductFeatureApplType.description.OPTIONAL_FEATURE">
+        <value xml:lang="en">Optional</value>
+        <value xml:lang="es">Opcional</value>
+        <value xml:lang="fr">Optionnel</value>
+        <value xml:lang="it">Opzionale</value>
+        <value xml:lang="ro">Optional</value>
+        <value xml:lang="ru">Дополнительная</value>
+        <value xml:lang="th">ทางเลือก</value>
+        <value xml:lang="zh">可选的</value>
+    </property>
+    <property key="ProductFeatureApplType.description.REQUIRED_FEATURE">
+        <value xml:lang="en">Required</value>
+        <value xml:lang="es">Requerido</value>
+        <value xml:lang="fr">Requis</value>
+        <value xml:lang="it">Richiesta</value>
+        <value xml:lang="ro">Cerere</value>
+        <value xml:lang="ru">Требуемая</value>
+        <value xml:lang="th">ต้องการ</value>
+        <value xml:lang="zh">必须的</value>
+    </property>
+    <property key="ProductFeatureApplType.description.SELECTABLE_FEATURE">
+        <value xml:lang="en">Selectable</value>
+        <value xml:lang="es">Seleccionable</value>
+        <value xml:lang="fr">Sélectionnable</value>
+        <value xml:lang="it">Selezionabile</value>
+        <value xml:lang="ro">Selectionabile</value>
+        <value xml:lang="ru">Выбираемая</value>
+        <value xml:lang="th">สามารถเลือกได้</value>
+        <value xml:lang="zh">可选择的</value>
+    </property>
+    <property key="ProductFeatureApplType.description.STANDARD_FEATURE">
+        <value xml:lang="en">Standard</value>
+        <value xml:lang="es">Estándard</value>
+        <value xml:lang="fr">Standard</value>
+        <value xml:lang="it">Standard</value>
+        <value xml:lang="ro">Standard</value>
+        <value xml:lang="ru">Стандартная</value>
+        <value xml:lang="th">มาตรฐาน</value>
+        <value xml:lang="zh">标准</value>
+    </property>
+    <property key="ProductFeatureCategory.description.1000">
+        <value xml:lang="en">1000</value>
+        <value xml:lang="es">Características de Peligroso</value>
+        <value xml:lang="th">1000</value>
+    </property>
+    <property key="ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND">
+        <value xml:lang="en">FEATURE_IACTN_DEPEND</value>
+        <value xml:lang="es">Dependencias</value>
+        <value xml:lang="fr">Dépendants</value>
+        <value xml:lang="th">FEATURE_IACTN_DEPEND</value>
+    </property>
+    <property key="ProductFeatureIactnType.description.FEATURE_IACTN_INCOMP">
+        <value xml:lang="en">FEATURE_IACTN_INCOMP</value>
+        <value xml:lang="es">Incompatibilidad</value>
+        <value xml:lang="fr">Incompatibles</value>
+        <value xml:lang="th">FEATURE_IACTN_INCOMP</value>
+    </property>
+    <property key="ProductFeatureType.description.ACCESSORY">
+        <value xml:lang="en">Accessory</value>
+        <value xml:lang="es">Accesorio</value>
+        <value xml:lang="fr">Accessoire</value>
+        <value xml:lang="it">Accessorio</value>
+        <value xml:lang="ro">Accesoriu</value>
+        <value xml:lang="ru">Принадлежности</value>
+        <value xml:lang="th">ส่วนประกอบ</value>
+        <value xml:lang="zh">附属品</value>
+    </property>
+    <property key="ProductFeatureType.description.AMOUNT">
+        <value xml:lang="en">Amount</value>
+        <value xml:lang="es">Monto</value>
+        <value xml:lang="fr">Quantité</value>
+        <value xml:lang="it">Importo</value>
+        <value xml:lang="ro">Valoare</value>
+        <value xml:lang="ru">Количество</value>
+        <value xml:lang="th">จำนวน</value>
+        <value xml:lang="zh">金额</value>
+    </property>
+    <property key="ProductFeatureType.description.ARTIST">
+        <value xml:lang="en">Artist</value>
+        <value xml:lang="es">Artista</value>
+        <value xml:lang="fr">Artiste</value>
+        <value xml:lang="it">Artista</value>
+        <value xml:lang="ro">Artist</value>
+        <value xml:lang="ru">Оформление</value>
+        <value xml:lang="th">ศิลปะ</value>
+        <value xml:lang="zh">艺术家</value>
+    </property>
+    <property key="ProductFeatureType.description.BILLING_FEATURE">
+        <value xml:lang="en">Billing Feature</value>
+        <value xml:lang="es">Característica de facturación</value>
+        <value xml:lang="fr">Caractéristiques</value>
+        <value xml:lang="it">Caratteristica Fatturazione</value>
+        <value xml:lang="ro">Caracteristica Facturare</value>
+        <value xml:lang="ru">Оплата</value>
+        <value xml:lang="th">ลักษณะใบเสร็จรับเงิน</value>
+        <value xml:lang="zh">账单特征</value>
+    </property>
+    <property key="ProductFeatureType.description.BRAND">
+        <value xml:lang="en">Brand</value>
+        <value xml:lang="es">Marca</value>
+        <value xml:lang="fr">Marque</value>
+        <value xml:lang="it">Marca</value>
+        <value xml:lang="ro">Marca</value>
+        <value xml:lang="ru">Брэнд</value>
+        <value xml:lang="th">ยี่ห้อ</value>
+        <value xml:lang="zh">品牌</value>
+    </property>
+    <property key="ProductFeatureType.description.CARE">
+        <value xml:lang="en">Care</value>
+        <value xml:lang="es">Cuidado</value>
+        <value xml:lang="fr">Soin</value>
+        <value xml:lang="it">Cura</value>
+        <value xml:lang="ro">Cura</value>
+        <value xml:lang="ru">Обслуживание</value>
+        <value xml:lang="th">การปกป้อง</value>
+        <value xml:lang="zh">关心</value>
+    </property>
+    <property key="ProductFeatureType.description.COLOR">
+        <value xml:lang="en">Color</value>
+        <value xml:lang="es">Color</value>
+        <value xml:lang="fr">Couleur</value>
+        <value xml:lang="it">Colore</value>
+        <value xml:lang="ro">Culoare</value>
+        <value xml:lang="ru">Цвет</value>
+        <value xml:lang="th">สี</value>
+        <value xml:lang="zh">颜色</value>
+    </property>
+    <property key="ProductFeatureType.description.DIMENSION">
+        <value xml:lang="en">Dimension</value>
+        <value xml:lang="es">Dimensión</value>
+        <value xml:lang="fr">Dimension</value>
+        <value xml:lang="it">Dimensione</value>
+        <value xml:lang="ro">Dimensiune</value>
+        <value xml:lang="ru">Размеры</value>
+        <value xml:lang="th">มิติ</value>
+        <value xml:lang="zh">尺寸</value>
+    </property>
+    <property key="ProductFeatureType.description.EQUIP_CLASS">
+        <value xml:lang="en">Equipment Class</value>
+        <value xml:lang="fr">Classe d'équipement</value>
+        <value xml:lang="it">Classe Apparecchiatura</value>
+        <value xml:lang="ro">Clasa Aparatura</value>
+        <value xml:lang="ru">Класс оборудования</value>
+        <value xml:lang="th">ชั้นอุปกรณ์</value>
+        <value xml:lang="zh">设备类</value>
+    </property>
+    <property key="ProductFeatureType.description.FABRIC">
+        <value xml:lang="en">Fabric</value>
+        <value xml:lang="es">Tela</value>
+        <value xml:lang="fr">Fabrication</value>
+        <value xml:lang="it">Tessuto</value>
+        <value xml:lang="ro">Tesut</value>
+        <value xml:lang="ru">Материал</value>
+        <value xml:lang="th">สิ่งทอ</value>
+        <value xml:lang="zh">织物</value>
+    </property>
+    <property key="ProductFeatureType.description.GENRE">
+        <value xml:lang="en">Genre</value>
+        <value xml:lang="es">Género</value>
+        <value xml:lang="fr">Genre</value>
+        <value xml:lang="it">Genere</value>
+        <value xml:lang="ro">Fel</value>
+        <value xml:lang="ru">Жанр</value>
+        <value xml:lang="th">ชนิด</value>
+        <value xml:lang="zh">流派</value>
+    </property>
+    <property key="ProductFeatureType.description.GIFT_WRAP">
+        <value xml:lang="en">Gift Wrap</value>
+        <value xml:lang="es">Envoltura de regalo</value>
+        <value xml:lang="fr">Emballage de cadeau</value>
+        <value xml:lang="it">Involucro Regalo</value>
+        <value xml:lang="ro">Invelis Cadou</value>
+        <value xml:lang="ru">Подарочная упаковка</value>
+        <value xml:lang="th">กระดาษห่อของขวัญ</value>
+        <value xml:lang="zh">礼品包装</value>
+    </property>
+    <property key="ProductFeatureType.description.HARDWARE_FEATURE">
+        <value xml:lang="en">Hardware Feature</value>
+        <value xml:lang="es">Característica de hardware</value>
+        <value xml:lang="fr">Matériaux utilisés</value>
+        <value xml:lang="it">Caratteristica Hardware</value>
+        <value xml:lang="ro">Caracteristica Hardware</value>
+        <value xml:lang="ru">Техническая особенность</value>
+        <value xml:lang="th">ลักษณะฮาร์ดแวร์</value>
+        <value xml:lang="zh">硬件特征</value>
+    </property>
+    <property key="ProductFeatureType.description.HAZMAT">
+        <value xml:lang="en">Hazmat</value>
+        <value xml:lang="es">Peligroso</value>
+        <value xml:lang="fr">Caractère dangereux</value>
+        <value xml:lang="it">Hazmat</value>
+        <value xml:lang="ro">Hazmat</value>
+        <value xml:lang="ru">Hazmat</value>
+        <value xml:lang="th">Hazmat</value>
+        <value xml:lang="zh">危险物品</value>
+    </property>
+    <property key="ProductFeatureType.description.LICENSE">
+        <value xml:lang="en">License</value>
+        <value xml:lang="es">Licencia</value>
+        <value xml:lang="fr">License</value>
+        <value xml:lang="it">Licenza</value>
+        <value xml:lang="ro">Licenta</value>
+        <value xml:lang="ru">Лицензия</value>
+        <value xml:lang="th">ใบอนุญาต</value>
+        <value xml:lang="zh">版权</value>
+    </property>
+    <property key="ProductFeatureType.description.MODEL_YEAR">
+        <value xml:lang="en">Model Year</value>
+        <value xml:lang="fr">Année modèle</value>
+        <value xml:lang="it">Anno Modello</value>
+        <value xml:lang="ro">Anno Model</value>
+        <value xml:lang="ru">Год выпуска модели</value>
+        <value xml:lang="th">ปีโมเดล</value>
+        <value xml:lang="zh">年度款式</value>
+    </property>
+    <property key="ProductFeatureType.description.NET_WEIGHT">
+        <value xml:lang="en">Net Weight</value>
+        <value xml:lang="es">Peso neto</value>
+        <value xml:lang="fr">Poids net</value>
+        <value xml:lang="it">Peso Netto</value>
+        <value xml:lang="ro">Greutate Neta</value>
+        <value xml:lang="ru">Вес нетто</value>
+        <value xml:lang="th">น้ำหนักสุทธิ</value>
+        <value xml:lang="zh">净重</value>
+    </property>
+    <property key="ProductFeatureType.description.ORIGIN">
+        <value xml:lang="en">Origin</value>
+        <value xml:lang="es">Origen</value>
+        <value xml:lang="fr">Origine</value>
+        <value xml:lang="it">Origine</value>
+        <value xml:lang="ro">Origine</value>
+        <value xml:lang="ru">Происхождение</value>
+        <value xml:lang="th">ต้นกำเนิด</value>
+        <value xml:lang="zh">来源</value>
+    </property>
+    <property key="ProductFeatureType.description.OTHER_FEATURE">
+        <value xml:lang="en">Other Feature</value>
+        <value xml:lang="es">Otra característica</value>
+        <value xml:lang="fr">Autre caractéristique</value>
+        <value xml:lang="it">Altra Caratteristica</value>
+        <value xml:lang="ro">Alta Caracteristica</value>
+        <value xml:lang="ru">Другие особенности</value>
+        <value xml:lang="th">ลักษณะอื่นๆ</value>
+        <value xml:lang="zh">其它特征</value>
+    </property>
+    <property key="ProductFeatureType.description.PRODUCT_QUALITY">
+        <value xml:lang="en">Product Quality</value>
+        <value xml:lang="es">Calidad de producto</value>
+        <value xml:lang="fr">Qualité</value>
+        <value xml:lang="it">Qualità Prodotto</value>
+        <value xml:lang="ro">Calitate Produs</value>
+        <value xml:lang="ru">Качество продукта</value>
+        <value xml:lang="th">คุณภาพสินค้า</value>
+        <value xml:lang="zh">产品质量</value>
+    </property>
+    <property key="ProductFeatureType.description.SIZE">
+        <value xml:lang="en">Size</value>
+        <value xml:lang="es">Tamaño</value>
+        <value xml:lang="fr">Taille</value>
+        <value xml:lang="it">Larghezza</value>
+        <value xml:lang="ro">Latime </value>
+        <value xml:lang="ru">Размер</value>
+        <value xml:lang="th">ขนาด</value>
+        <value xml:lang="zh">大小</value>
+    </property>
+    <property key="ProductFeatureType.description.SOFTWARE_FEATURE">
+        <value xml:lang="en">Software Feature</value>
+        <value xml:lang="es">Característica de software</value>
+        <value xml:lang="fr">Caractéristique du logiciel</value>
+        <value xml:lang="it">Caratteristica Software</value>
+        <value xml:lang="ro">Caracteristica Software</value>
+        <value xml:lang="ru">Программная особенность</value>
+        <value xml:lang="th">ลักษณะซอฟต์แวร์</value>
+        <value xml:lang="zh">软件特征</value>
+    </property>
+    <property key="ProductFeatureType.description.STYLE">
+        <value xml:lang="en">Style</value>
+        <value xml:lang="es">Estilo</value>
+        <value xml:lang="fr">Modèle</value>
+        <value xml:lang="it">Stile</value>
+        <value xml:lang="ro">Stil</value>
+        <value xml:lang="ru">Стиль</value>
+        <value xml:lang="th">สไตล์</value>
+        <value xml:lang="zh">样式</value>
+    </property>
+    <property key="ProductFeatureType.description.SYMPTOM">
+        <value xml:lang="en">Symptom</value>
+        <value xml:lang="es">Síntoma</value>
+        <value xml:lang="fr">Symptôme</value>
+        <value xml:lang="it">Sintomo</value>
+        <value xml:lang="ro">Sintom</value>
+        <value xml:lang="ru">Признак</value>
+        <value xml:lang="th">อาการ</value>
+        <value xml:lang="zh">症状</value>
+    </property>
+    <property key="ProductFeatureType.description.TOPIC">
+        <value xml:lang="en">Topic</value>
+        <value xml:lang="es">Asunto</value>
+        <value xml:lang="fr">Matière</value>
+        <value xml:lang="it">Argomento</value>
+        <value xml:lang="ro">Argument</value>
+        <value xml:lang="ru">Тема</value>
+        <value xml:lang="th">ใจความ</value>
+        <value xml:lang="zh">话题</value>
+    </property>
+    <property key="ProductFeatureType.description.TYPE">
+        <value xml:lang="en">Type</value>
+        <value xml:lang="es">Tipo</value>
+        <value xml:lang="fr">Type</value>
+        <value xml:lang="it">Tipo</value>
+        <value xml:lang="ro">Tip</value>
+        <value xml:lang="ru">Тип</value>
+        <value xml:lang="th">ประเภท</value>
+        <value xml:lang="zh">类型</value>
+    </property>
+    <property key="ProductFeatureType.description.WARRANTY">
+        <value xml:lang="en">Warranty</value>
+        <value xml:lang="es">Garantía</value>
+        <value xml:lang="fr">Garantie</value>
+        <value xml:lang="it">Garanzia</value>
+        <value xml:lang="ro">Garantie</value>
+        <value xml:lang="ru">Гарантия</value>
+        <value xml:lang="th">การรับประกัน</value>
+        <value xml:lang="zh">保修</value>
+    </property>
+    <property key="ProductFeatureType.description.YEAR_MADE">
+        <value xml:lang="en">Year Made</value>
+        <value xml:lang="fr">Année de construction</value>
+        <value xml:lang="it">Anno Fabbricazione</value>
+        <value xml:lang="ro">An Fabricatie</value>
+        <value xml:lang="ru">Год изготовления</value>
+        <value xml:lang="th">ทำปี</value>
+        <value xml:lang="zh">年生产</value>
+    </property>
+    <property key="ProductGlAccountType.description.COGS">
+        <value xml:lang="en">COGS</value>
+        <value xml:lang="es">Costo de bienes vendidos</value>
+        <value xml:lang="th">COGS</value>
+    </property>
+    <property key="ProductGlAccountType.description.INVENTORY">
+        <value xml:lang="en">Inventory</value>
+        <value xml:lang="es">Inventario</value>
+        <value xml:lang="th">สินค้าคงเหลือ</value>
+    </property>
+    <property key="ProductGlAccountType.description.SALES">
+        <value xml:lang="en">sales</value>
+        <value xml:lang="es">Ventas</value>
+        <value xml:lang="th">ขาย</value>
+    </property>
+    <property key="ProductMaintType.description.OIL_CHANGE">
+        <value xml:lang="en">Oil Change</value>
+        <value xml:lang="fr">Changer l'huile</value>
+        <value xml:lang="it">Cambio Olio</value>
+        <value xml:lang="ro">Schimb Ulei</value>
+        <value xml:lang="ru">Замена масла</value>
+        <value xml:lang="th">เปลี่ยนน้ำมัน</value>
+        <value xml:lang="zh">换油</value>
+    </property>
+    <property key="ProductMaintType.description.REFUEL">
+        <value xml:lang="en">Re-Fuel</value>
+        <value xml:lang="fr">Refaire le plein</value>
+        <value xml:lang="it">Rifornimento</value>
+        <value xml:lang="ro">Reforniment</value>
+        <value xml:lang="ru">Заправка</value>
+        <value xml:lang="th">เติมน้ำมัน</value>
+        <value xml:lang="zh">加油</value>
+    </property>
+    <property key="ProductMaintType.description.REPLACE_BATTERY">
+        <value xml:lang="en">Replace Battery</value>
+        <value xml:lang="fr">Remplacer Batteries</value>
+        <value xml:lang="it">Sostituazione Batteria</value>
+        <value xml:lang="ro">Substitutie Baterie</value>
+        <value xml:lang="ru">Замена батарей</value>
+        <value xml:lang="th">แทนที่แบตเตอรี่</value>
+        <value xml:lang="zh">更换电池</value>
+    </property>
+    <property key="ProductMaintType.description.SERP_BELT">
+        <value xml:lang="en">Serpentine Belt Replacement</value>
+        <value xml:lang="fr">Serpentine Belt Replacement</value>
+        <value xml:lang="it">Sostituzione Cinghia di Distribuzione</value>
+        <value xml:lang="ro">Substitutie Curea de Distributie</value>
+        <value xml:lang="ru">Замена приводных ремней</value>
+        <value xml:lang="th">การแทนที่ทางโค้งคดเคี้ยว</value>
+        <value xml:lang="zh">更换平带</value>
+    </property>
+    <property key="ProductMaintType.description.VEHICLE_MAINT">
+        <value xml:lang="en">Vehicle Maintenance</value>
+        <value xml:lang="fr">Révision du véhicule</value>
+        <value xml:lang="it">Manutenzione Veicolo</value>
+        <value xml:lang="ro">Intretinere Vehicol</value>
+        <value xml:lang="ru">Обслуживание транспортных средств</value>
+        <value xml:lang="th">การบำรุงรักษายานพาหนะ</value>
+        <value xml:lang="zh">车辆维护</value>
+    </property>
+    <property key="ProductMaintType.description.WASH">
+        <value xml:lang="en">Wash</value>
+        <value xml:lang="fr">Laver</value>
+        <value xml:lang="it">Lavaggio</value>
+        <value xml:lang="ro">Curatire</value>
+        <value xml:lang="ru">Мойка</value>
+        <value xml:lang="th">ล้าง</value>
+        <value xml:lang="zh">清洗</value>
+    </property>
+    <property key="ProductMeterType.description.COPY_COUNT">
+        <value xml:lang="en">Copy Count Meter</value>
+        <value xml:lang="fr">Copy Count Meter</value>
+        <value xml:lang="it">Copia Conta Metri</value>
+        <value xml:lang="ro">Copiaza Conta Metri</value>
+        <value xml:lang="ru">Количество копий</value>
+        <value xml:lang="th">คัดลอกจำนวนมิเตอร์</value>
+        <value xml:lang="zh">复制计数表</value>
+    </property>
+    <property key="ProductMeterType.description.DISTANCE">
+        <value xml:lang="en">Distance Meter</value>
+        <value xml:lang="fr">Distance Meter</value>
+        <value xml:lang="it">Contatore Distanza</value>
+        <value xml:lang="ro">Contor Distanta</value>
+        <value xml:lang="ru">Счетчик расстояния</value>
+        <value xml:lang="th">มิเตอร์ระยะทาง</value>
+        <value xml:lang="zh">里程表</value>
+    </property>
+    <property key="ProductMeterType.description.MOTOR_TIME">
+        <value xml:lang="en">Motor Time Meter</value>
+        <value xml:lang="fr">Motor Time Meter</value>
+        <value xml:lang="it">Contatore Tempo Motore</value>
+        <value xml:lang="ro">Contator Timp Motor</value>
+        <value xml:lang="ru">Счетчик времени наработки двигателя</value>
+        <value xml:lang="th">มิเตอร์เวลาเครื่องยนต์</value>
+        <value xml:lang="zh">马达计时器</value>
+    </property>
+    <property key="ProductMeterType.description.SPEEDOMETER">
+        <value xml:lang="en">Speedometer</value>
+        <value xml:lang="fr">Speedometer</value>
+        <value xml:lang="it">Misuratore della Velocità</value>
+        <value xml:lang="ro">Masurator de Viteza</value>
+        <value xml:lang="ru">Спидометр</value>
+        <value xml:lang="th">มิเตอร์ความเร็ว</value>
+        <value xml:lang="zh">速度表</value>
+    </property>
+    <property key="ProductMeterType.description.TACHOMETER">
+        <value xml:lang="en">Tachometer</value>
+        <value xml:lang="fr">Tachometer</value>
+        <value xml:lang="it">Tachimetro</value>
+        <value xml:lang="ro">Tachimetru</value>
+        <value xml:lang="ru">Тахометр</value>
+        <value xml:lang="th">เครื่องวัดความเร็ว</value>
+        <value xml:lang="zh">转速表</value>
+    </property>
+    <property key="ProductMeterType.description.USE_COUNT">
+        <value xml:lang="en">Use Count Meter</value>
+        <value xml:lang="fr">Use Count Meter</value>
+        <value xml:lang="it">Usa Conta Metri</value>
+        <value xml:lang="ro">Foloseste Conta Metri</value>
+        <value xml:lang="ru">Количество использования</value>
+        <value xml:lang="th">เครื่องงนับการใช้</value>
+        <value xml:lang="zh">使用计数表</value>
+    </property>
+    <property key="ProductPriceActionType.description.PRICE_FLAT">
+        <value xml:lang="en">Flat Amount Override</value>
+        <value xml:lang="es">Reemplazo de precio</value>
+        <value xml:lang="fr">Remplacement du prix</value>
+        <value xml:lang="it">Sostituzione Importo Fisso</value>
+        <value xml:lang="ro">Substitutie Valoare Fixa</value>
+        <value xml:lang="ru">Замещение фиксированного количества</value>
+        <value xml:lang="th">ยกเลิกจำนวนที่ไม่ชัดเจน</value>
+        <value xml:lang="zh">替代固定金额</value>
+    </property>
+    <property key="ProductPriceActionType.description.PRICE_FOL">
+        <value xml:lang="en">Flat Amount Modify</value>
+        <value xml:lang="es">Modificar de precio</value>
+        <value xml:lang="fr">Modification du prix</value>
+        <value xml:lang="it">Modifica Importo Fisso</value>
+        <value xml:lang="ro">Modifica Valoarea Fixa</value>
+        <value xml:lang="ru">Изменение фиксированного количества</value>
+        <value xml:lang="th">ปรับปรุงจำนวนที่ไม่ชัดเจน</value>
+        <value xml:lang="zh">修改固定金额</value>
+    </property>
+    <property key="ProductPriceActionType.description.PRICE_PFLAT">
+        <value xml:lang="en">Promo Amount Override</value>
+        <value xml:lang="es">Reemplazo de precio promocional</value>
+        <value xml:lang="fr">Remplacement du prix promotionnel</value>
+        <value xml:lang="it">Sostituzione Importo Promozione</value>
+        <value xml:lang="ro">Substitutie Valoare Promotie</value>
+        <value xml:lang="ru">Замещение акционного количества</value>
+        <value xml:lang="th">ยกเลิกจำนวนโปรโมชัน</value>
+        <value xml:lang="zh">替代促销金额</value>
+    </property>
+    <property key="ProductPriceActionType.description.PRICE_POAC">
+        <value xml:lang="en">Percent Of Average Cost</value>
+        <value xml:lang="es">Porcentaje del prcio promedio</value>
+        <value xml:lang="fr">Pourcentage du coût moyen</value>
+        <value xml:lang="it">Percentuale Del Costo Medio</value>
+        <value xml:lang="ro">Procent din Costul Mediu</value>
+        <value xml:lang="ru">Процент от средней стоимости</value>
+        <value xml:lang="th">อัตราร้อยละของถัวเฉลี่ย</value>
+        <value xml:lang="zh">平均花费的百分数</value>
+    </property>
+    <property key="ProductPriceActionType.description.PRICE_POD">
+        <value xml:lang="en">Percent Of Default Price</value>
+        <value xml:lang="es">Porcentaje de precio por defecto</value>
+        <value xml:lang="fr">Pourcentage du prix par défaut</value>
+        <value xml:lang="it">Percentuale Del Prezzo di Default</value>
+        <value xml:lang="ro">Procent din Pretul din Default</value>
+        <value xml:lang="ru">Процент от обычной цены</value>
+        <value xml:lang="th">อัตราร้อยละของราคาเริ่มต้น</value>
+        <value xml:lang="zh">缺省价格的百分数</value>
+    </property>
+    <property key="ProductPriceActionType.description.PRICE_POL">
+        <value xml:lang="en">Percent Of List Price</value>
+        <value xml:lang="es">Porcentaje de precio de lista</value>
+        <value xml:lang="fr">Pourcentage du prix public</value>
+        <value xml:lang="it">Percentuale Del Prezzo di Listino</value>
+        <value xml:lang="ro">Procent din Pretul din Lista</value>
+        <value xml:lang="ru">Процент от прейскурантной цены</value>
+        <value xml:lang="th">อัตราร้อยละของรายการราคา</value>
+        <value xml:lang="zh">标价的百分数</value>
+    </property>
+    <property key="ProductPriceActionType.description.PRICE_POM">
+        <value xml:lang="en">Percent Of Margin</value>
+        <value xml:lang="es">Porcentaje de margen</value>
+        <value xml:lang="fr">Pourcentage de la marge</value>
+        <value xml:lang="it">Percentuale Del Margine</value>
+        <value xml:lang="ro">Procent Din Margine</value>
+        <value xml:lang="ru">Процент от маржи</value>
+        <value xml:lang="th">อัตราร้อยละของผลต่าง</value>
+        <value xml:lang="zh">利润百分比</value>
+    </property>
+    <property key="ProductPriceActionType.description.PRICE_WFLAT">
+        <value xml:lang="en">Wholesale Amount Override</value>
+        <value xml:lang="es">Reemplazo del monto de toda la venta</value>
+        <value xml:lang="fr">Wholesale Amount Override</value>
+        <value xml:lang="it">Sostituzione Importo all'Ingrosso</value>
+        <value xml:lang="ro">Substitutie Valoare la Intrare</value>
+        <value xml:lang="ru">Замещение оптового количества</value>
+        <value xml:lang="th">ยกเลิกจำนวนการขนส่ง</value>
+        <value xml:lang="zh">替代总代理金额</value>
+    </property>
+    <property key="ProductPricePurpose.description.COMPONENT_PRICE">
+        <value xml:lang="en">Component Price</value>
+        <value xml:lang="fr">Prix du composant</value>
+        <value xml:lang="it">Prezzo Componente</value>
+        <value xml:lang="ro">Pret Componente</value>
+        <value xml:lang="ru">Цена комплектующих</value>
+        <value xml:lang="th">ส่วนประกอบราคา</value>
+        <value xml:lang="zh">元件价格</value>
+    </property>
+    <property key="ProductPricePurpose.description.PURCHASE">
+        <value xml:lang="en">Purchase/Initial</value>
+        <value xml:lang="fr">Achat/Initial</value>
+        <value xml:lang="it">Acquisto/Iniziale</value>
+        <value xml:lang="ro">Cumparare/Initiala</value>
+        <value xml:lang="ru">Закупка/Начальный</value>
+        <value xml:lang="th">การสั่งซื้อ/เริ่มแรก</value>
+        <value xml:lang="zh">购买/初始</value>
+    </property>
+    <property key="ProductPricePurpose.description.RECURRING_CHARGE">
+        <value xml:lang="en">Recurring Charge</value>
+        <value xml:lang="fr">Charge/coût récurrent</value>
+        <value xml:lang="it">Ricarico Periodico</value>
+        <value xml:lang="ro">Incarcare Periodica</value>
+        <value xml:lang="ru">Периодические платежи</value>
+        <value xml:lang="th">Recurring Charge</value>
+        <value xml:lang="zh">经常费用</value>
+    </property>
+    <property key="ProductPricePurpose.description.USAGE_CHARGE">
+        <value xml:lang="en">Usage Charge</value>
+        <value xml:lang="fr">Charge/coût d'usage</value>
+        <value xml:lang="it">Usa Ricarico</value>
+        <value xml:lang="ro">Foloseste Incarcare</value>
+        <value xml:lang="ru">Оплата использования</value>
+        <value xml:lang="th">ค่าธรรมเนียมการใช้</value>
+        <value xml:lang="zh">使用费</value>
+    </property>
+    <property key="ProductPriceType.description.AVERAGE_COST">
+        <value xml:lang="en">Average Cost</value>
+        <value xml:lang="es">Costo promedio</value>
+        <value xml:lang="fr">Coût moyen</value>
+        <value xml:lang="it">Costo Medio</value>
+        <value xml:lang="ro">Cost Mediu</value>
+        <value xml:lang="ru">Средняя стоимость</value>
+        <value xml:lang="th">ต้นทุนเฉลี่ย</value>
+        <value xml:lang="zh">平均花费</value>
+    </property>
+    <property key="ProductPriceType.description.COMPETITIVE_PRICE">
+        <value xml:lang="en">Competitive Price</value>
+        <value xml:lang="es">Precio competitivo</value>
+        <value xml:lang="fr">Prix compétitif</value>
+        <value xml:lang="it">Prezzo Competitivo</value>
+        <value xml:lang="ro">Pret Competitiv</value>
+        <value xml:lang="ru">Конкурентная цена</value>
+        <value xml:lang="th">ราคาเปรียบเทียบ</value>
+        <value xml:lang="zh">竞争对手价格</value>
+    </property>
+    <property key="ProductPriceType.description.COMPONENT_PRICE">
+        <value xml:lang="en">COMPONENT_PRICE</value>
+        <value xml:lang="es">Precio de componente</value>
+        <value xml:lang="th">ส่วนประกอบราคา</value>
+    </property>
+    <property key="ProductPriceType.description.DEFAULT_PRICE">
+        <value xml:lang="en">Default Price</value>
+        <value xml:lang="es">Precio por defecto</value>
+        <value xml:lang="fr">Prix par défaut</value>
+        <value xml:lang="it">Prezzo di Default</value>
+        <value xml:lang="ro">Pret de Default</value>
+        <value xml:lang="ru">Обычная цена</value>
+        <value xml:lang="th">ราคาเริ่มต้น</value>
+        <value xml:lang="zh">缺省价格</value>
+    </property>
+    <property key="ProductPriceType.description.LIST_PRICE">
+        <value xml:lang="en">List Price</value>
+        <value xml:lang="es">Precio de lista</value>
+        <value xml:lang="fr">Prix public</value>
+        <value xml:lang="it">Prezzo di Listino</value>
+        <value xml:lang="ro">Pret de Listare</value>
+        <value xml:lang="ru">Прейскурантная цена</value>
+        <value xml:lang="th">รายการราคา</value>
+        <value xml:lang="zh">标价</value>
+    </property>
+    <property key="ProductPriceType.description.MAXIMUM_PRICE">
+        <value xml:lang="en">Maximum Price</value>
+        <value xml:lang="es">Precio máximo</value>
+        <value xml:lang="fr">Prix maximum</value>
+        <value xml:lang="it">Prezzo Massimo</value>
+        <value xml:lang="ro">Pret Maxim</value>
+        <value xml:lang="ru">Максимальная цена</value>
+        <value xml:lang="th">ราคาสูงสุด</value>
+        <value xml:lang="zh">最高价</value>
+    </property>
+    <property key="ProductPriceType.description.MINIMUM_PRICE">
+        <value xml:lang="en">Minimum Price</value>
+        <value xml:lang="es">Precio mínimo</value>
+        <value xml:lang="fr">Prix minimum</value>
+        <value xml:lang="it">Prezzo Minimo</value>
+        <value xml:lang="ro">Pret Minim</value>
+        <value xml:lang="ru">Минимальная цена</value>
+        <value xml:lang="th">ราคาน้อยสุด</value>
+        <value xml:lang="zh">最低价</value>
+    </property>
+    <property key="ProductPriceType.description.PROMO_PRICE">
+        <value xml:lang="en">Promotional Price</value>
+        <value xml:lang="es">Precio promocional</value>
+        <value xml:lang="fr">Prix promotionnel</value>
+        <value xml:lang="it">Prezzo Promozionale</value>
+        <value xml:lang="ro">Pret Promotional </value>
+        <value xml:lang="ru">Акционная цена</value>
+        <value xml:lang="th">ราคาโปรโมชัน</value>
+        <value xml:lang="zh">促销价</value>
+    </property>
+    <property key="ProductPriceType.description.RECURRING_CHARGE">
+        <value xml:lang="en">RECURRING_CHARGE</value>
+        <value xml:lang="es">Cargo recurrente</value>
+        <value xml:lang="th">RECURRING_CHARGE</value>
+    </property>
+    <property key="ProductPriceType.description.SPECIAL_PROMO_PRICE">
+        <value xml:lang="en">Special Promo Price</value>
+        <value xml:lang="it">Prezzo Promozionale Speciale</value>
+        <value xml:lang="ro">Pret Promotional Special</value>
+        <value xml:lang="ru">Специальная цена</value>
+        <value xml:lang="th">ราคาโปรโมชันพิเศษ</value>
+        <value xml:lang="zh">特别促销价</value>
+    </property>
+    <property key="ProductPriceType.description.USAGE_CHARGE">
+        <value xml:lang="en">USAGE_CHARGE</value>
+        <value xml:lang="es">Cargo por uso</value>
+        <value xml:lang="th">ค่าธรรมเนียมการใช้</value>
+    </property>
+    <property key="ProductPriceType.description.WHOLESALE_PRICE">
+        <value xml:lang="en">Wholesale Price</value>
+        <value xml:lang="es">Precio de toda la venta</value>
+        <value xml:lang="fr">Prix de gros</value>
+        <value xml:lang="it">Prezzo all'Ingrosso</value>
+        <value xml:lang="ro">Pret la Ingros</value>
+        <value xml:lang="ru">Оптовая цена</value>
+        <value xml:lang="th">ราคาขายส่ง</value>
+        <value xml:lang="zh">总代理价</value>
+    </property>
+    <property key="ProductStoreGroup.description._NA_">
+        <value xml:lang="en">Not Applicable</value>
+        <value xml:lang="es">No aplicable</value>
+        <value xml:lang="it">Non Applicabile</value>
+        <value xml:lang="ro">Ne Aplicabil</value>
+        <value xml:lang="ru">Не применимо</value>
+        <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
+        <value xml:lang="zh">不可用</value>
+    </property>
+    <property key="ProductStoreGroup.productStoreGroupName._NA_">
+        <value xml:lang="en">Not Applicable</value>
+        <value xml:lang="it">Non Applicabile</value>
+        <value xml:lang="ro">Ne Aplicabil</value>
+        <value xml:lang="ru">Не применимо</value>
+        <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
+        <value xml:lang="zh">不可用</value>
+    </property>
+    <property key="ProductType.description.AGGREGATED">
+        <value xml:lang="en">Configurable Good</value>
+        <value xml:lang="es">Producto configurable</value>
+        <value xml:lang="fr">Produit configurable</value>
+        <value xml:lang="it">Bene Configurabile</value>
+        <value xml:lang="ro">Bun Configurabil</value>
+        <value xml:lang="ru">Товар требующий конфигурации</value>
+        <value xml:lang="th">สามารถสร้างสินค้า</value>
+        <value xml:lang="zh">可配置商品</value>
+    </property>
+    <property key="ProductType.description.ASSET_USAGE">
+        <value xml:lang="en">Fixed Asset Usage</value>
+        <value xml:lang="es">Uso de activo fijo</value>
+        <value xml:lang="fr">Usage d'immobilisation</value>
+        <value xml:lang="it">Uso Cespite</value>
+        <value xml:lang="ro">Folosire Mijloc Fix</value>
+        <value xml:lang="ru">Использование ОС</value>
+        <value xml:lang="th">วิธีการใช้ทรัพย์สินไม่หมุนเวียน</value>
+        <value xml:lang="zh">固定资产用途</value>
+    </property>
+    <property key="ProductType.description.DIGITAL_GOOD">
+        <value xml:lang="en">Digital Good</value>
+        <value xml:lang="es">Producto digital</value>
+        <value xml:lang="fr">Produit immatériel</value>
+        <value xml:lang="it">Bene Digitale</value>
+        <value xml:lang="ro">Bun Digital</value>
+        <value xml:lang="ru">Цифровой товар</value>
+        <value xml:lang="th">สินค้าดิจิตอล</value>
+        <value xml:lang="zh">数字商品</value>
+    </property>
+    <property key="ProductType.description.FINDIG_GOOD">
+        <value xml:lang="en">Finished/Digital Good</value>
+        <value xml:lang="es">Producto Digital/Terminado</value>
+        <value xml:lang="fr">Produit fini immatériel</value>
+        <value xml:lang="it">Bene Finito/Digitale</value>
+        <value xml:lang="ro">Bun Finit/Digital</value>
+        <value xml:lang="ru">Готовый/цифровой товар</value>
+        <value xml:lang="th">เสร็จสิ้น/สินค้าดิจิตอล</value>
+        <value xml:lang="zh">成品/数字商品</value>
+    </property>
+    <property key="ProductType.description.FINISHED_GOOD">
+        <value xml:lang="en">Finished Good</value>
+        <value xml:lang="es">Producto terminado</value>
+        <value xml:lang="fr">Produit fini</value>
+        <value xml:lang="it">Bene Finito</value>
+        <value xml:lang="ro">Bun Finit</value>
+        <value xml:lang="ru">Готовый товар</value>
+        <value xml:lang="th">สินค้าเคลือบเงา</value>
+        <value xml:lang="zh">成品</value>
+    </property>
+    <property key="ProductType.description.GOOD">
+        <value xml:lang="en">Good</value>
+        <value xml:lang="es">Bien</value>
+        <value xml:lang="fr">Produit</value>
+        <value xml:lang="it">Bene</value>
+        <value xml:lang="ro">Bun</value>
+        <value xml:lang="ru">Товар</value>
+        <value xml:lang="th">สินค้า</value>
+        <value xml:lang="zh">商品</value>
+    </property>
+    <property key="ProductType.description.MARKETING_PKG_AUTO">
+        <value xml:lang="en">Marketing Package</value>
+        <value xml:lang="it">Pacco di Vendita</value>
+        <value xml:lang="ru">Маркетинговый пакет</value>
+        <value xml:lang="th">แพคเกจการตลาด</value>
+    </property>
+    <property key="ProductType.description.MARKETING_PKG_PICK">
+        <value xml:lang="en">Marketing Package: Pick Assembly</value>
+        <value xml:lang="it">Pacco di Vendita: Assemblato durante il Prelievo</value>
+        <value xml:lang="th">แพคเกจการตลาด: การเลือกการรวมกลุ่ม</value>
+    </property>
+    <property key="ProductType.description.RAW_MATERIAL">
+        <value xml:lang="en">Raw Material</value>
+        <value xml:lang="es">Materia prima</value>
+        <value xml:lang="fr">Matières Premières</value>
+        <value xml:lang="it">Materia Prima</value>
+        <value xml:lang="ro">Materie Prima</value>
+        <value xml:lang="ru">Необработанный материал</value>
+        <value xml:lang="th">วัตถุดิบ</value>
+        <value xml:lang="zh">原材料</value>
+    </property>
+    <property key="ProductType.description.SERVICE">
+        <value xml:lang="en">Service</value>
+        <value xml:lang="es">Servicio</value>
+        <value xml:lang="fr">Service</value>
+        <value xml:lang="it">Servizio</value>
+        <value xml:lang="ro">Serviciu</value>
+        <value xml:lang="ru">Услуга</value>
+        <value xml:lang="th">บริการ</value>
+        <value xml:lang="zh">服务</value>
+    </property>
+    <property key="ProductType.description.SUBASSEMBLY">
+        <value xml:lang="en">Subassembly</value>
+        <value xml:lang="es">Producto intermedio</value>
+        <value xml:lang="fr">Semi-fini</value>
+        <value xml:lang="it">Subassemblato</value>
+        <value xml:lang="ro">Subasamblat</value>
+        <value xml:lang="ru">Комплектующие</value>
+        <value xml:lang="th">การรวมกลุ่มย่อย</value>
+        <value xml:lang="zh">部件</value>
+    </property>
+    <property key="ProductType.description.WIP">
+        <value xml:lang="en">Work In Process</value>
+        <value xml:lang="es">Trabajo en proceso</value>
+        <value xml:lang="fr">Travaux</value>
+        <value xml:lang="it">Semilavorato</value>
+        <value xml:lang="ro">Semifabricat</value>
+        <value xml:lang="ru">Незавершенная работа</value>
+        <value xml:lang="th">งานที่ก้าวหน้า</value>
+        <value xml:lang="zh">在制品</value>
+    </property>
+    <property key="QuantityBreakType.description.ORDER_VALUE">
+        <value xml:lang="en">Price Component Order Value Break</value>
+        <value xml:lang="es">Dividir el valor de la orden en precios de sus componentes</value>
+        <value xml:lang="it">Intervallo Prezzo Componente Valore Ordine</value>
+        <value xml:lang="ru">Порого ценового компонента от объема заказа</value>
+        <value xml:lang="th">หยุดค่ารายการส่วนประกอบราคา</value>
+    </property>
+    <property key="QuantityBreakType.description.QUANTITY">
+        <value xml:lang="en">Price Component Quantity Break</value>
+        <value xml:lang="es">Dividir la cantidad en el precio de sus componentes</value>
+        <value xml:lang="it">Intervallo Prezzo Componente Quantità</value>
+        <value xml:lang="ru">Количественный порог ценового компонента</value>
+        <value xml:lang="th">หยุดค่าจำนวนส่วนประกอบราคา</value>
+    </property>
+    <property key="QuantityBreakType.description.SHIP_PRICE">
+        <value xml:lang="en">Shipping Price Break</value>
+        <value xml:lang="es">Dividir precio de envío</value>
+        <value xml:lang="it">Intervallo Prezzo Spedizione</value>
+        <value xml:lang="ru">Ценовый порог поставки</value>
+        <value xml:lang="th">หยุดราคาการขนส่ง</value>
+    </property>
+    <property key="QuantityBreakType.description.SHIP_QUANTITY">
+        <value xml:lang="en">Shipping Quantity Break</value>
+        <value xml:lang="es">Dividir cantidad de envío</value>
+        <value xml:lang="it">Intervallo Quantità Spedizione</value>
+        <value xml:lang="ru">Количественный порог поставки</value>
+        <value xml:lang="th">หยุดจำนวนการขนส่ง</value>
+    </property>
+    <property key="QuantityBreakType.description.SHIP_WEIGHT">
+        <value xml:lang="en">Shipping Weight Break</value>
+        <value xml:lang="es">Dividir peso de envío</value>
+        <value xml:lang="it">Intervallo Peso Spedizione</value>
+        <value xml:lang="ru">Весовой порог поставки</value>
+        <value xml:lang="th">หยุดน้ำหนักการขนส่ง</value>
+    </property>
+    <property key="RejectionReason.description.SRJ_DAMAGED">
+        <value xml:lang="en">Damaged</value>
+        <value xml:lang="es">Dañado</value>
+        <value xml:lang="it">Danneggiato</value>
+        <value xml:lang="ro">Stricat</value>
+        <value xml:lang="ru">Повреждено</value>
+        <value xml:lang="th">รายจ่าย</value>
+        <value xml:lang="zh">已损坏的</value>
+    </property>
+    <property key="RejectionReason.description.SRJ_NOT_ORDERED">
+        <value xml:lang="en">Not Ordered</value>
+        <value xml:lang="es">No ordenado</value>
+        <value xml:lang="it">Non Ordinato</value>
+        <value xml:lang="ro">Ne Ordonat</value>
+        <value xml:lang="ru">Не заказывалось</value>
+        <value xml:lang="th">ไม่ใช่รายการสั่งซื้อ</value>
+        <value xml:lang="zh">未订购的</value>
+    </property>
+    <property key="RejectionReason.description.SRJ_OVER_SHIPPED">
+        <value xml:lang="en">Over Shipped</value>
+        <value xml:lang="es">Sobre-expedido</value>
+        <value xml:lang="it">Sovra Spedito</value>
+        <value xml:lang="ro">Sopra Expediat</value>
+        <value xml:lang="ru">Поставка лишнего</value>
+        <value xml:lang="th">การขนส่งมาก</value>
+        <value xml:lang="zh">超载</value>
+    </property>
+    <property key="ShipmentContactMechType.description.SHIP_FROM_ADDRESS">
+        <value xml:lang="en">SHIP_FROM_ADDRESS</value>
+        <value xml:lang="es">Envío-Dirección de origen</value>
+        <value xml:lang="th">การขนส่งจากที่อยู่</value>
+    </property>
+    <property key="ShipmentContactMechType.description.SHIP_FROM_TELECOM">
+        <value xml:lang="en">SHIP_FROM_TELECOM</value>
+        <value xml:lang="es">Envío-Número de teléfono origen</value>
+        <value xml:lang="th">การขนส่งจากโทรคมนาคม</value>
+    </property>
+    <property key="ShipmentContactMechType.description.SHIP_TO_ADDRESS">
+        <value xml:lang="en">SHIP_TO_ADDRESS</value>
+        <value xml:lang="es">Envío-Dirección origen</value>
+        <value xml:lang="th">การขนส่งถึงที่อยู่</value>
+    </property>
+    <property key="ShipmentContactMechType.description.SHIP_TO_EMAIL">
+        <value xml:lang="en">SHIP_TO_EMAIL</value>
+        <value xml:lang="es">Envío-E-mail destino</value>
+        <value xml:lang="th">การขนส่งถึงอีเมล</value>
+    </property>
+    <property key="ShipmentContactMechType.description.SHIP_TO_TELECOM">
+        <value xml:lang="en">SHIP_TO_TELECOM</value>
+        <value xml:lang="es">Envío-Número de teléfono destino</value>
+        <value xml:lang="th">การขนส่งถึงโทรคมนาคม</value>
+    </property>
+    <property key="ShipmentType.description.DROP_SHIPMENT">
+        <value xml:lang="en">Drop Shipment</value>
+        <value xml:lang="es">Entregar envío</value>
+        <value xml:lang="it">Drop Shipment</value>
+        <value xml:lang="ro">Drop Shipment</value>
+        <value xml:lang="ru">Прямая поставка</value>
+        <value xml:lang="th">หยุดการขนส่ง</value>
+        <value xml:lang="zh">删除送货</value>
+    </property>
+    <property key="ShipmentType.description.INCOMING_SHIPMENT">
+        <value xml:lang="en">Incoming</value>
+        <value xml:lang="es">Entrante</value>
+        <value xml:lang="it">Ingresso</value>
+        <value xml:lang="ro">Intrare</value>
+        <value xml:lang="ru">Входящая</value>
+        <value xml:lang="th">รายได้</value>
+        <value xml:lang="zh">运进</value>
+    </property>
+    <property key="ShipmentType.description.MANUFACTURING_SHIP">
+        <value xml:lang="en">MANUFACTURING_SHIP</value>
+        <value xml:lang="es">Recibir manufactura</value>
+        <value xml:lang="th">การผลิตการขนส่ง</value>
+    </property>
+    <property key="ShipmentType.description.OUTGOING_SHIPMENT">
+        <value xml:lang="en">Outgoing</value>
+        <value xml:lang="es">Saliente</value>
+        <value xml:lang="it">Uscita</value>
+        <value xml:lang="ro">Iesire</value>
+        <value xml:lang="ru">Исходящая</value>
+        <value xml:lang="th">ออกจากสถานที่</value>
+        <value xml:lang="zh">运出</value>
+    </property>
+    <property key="ShipmentType.description.PURCHASE_RETURN">
+        <value xml:lang="en">Purchase Return</value>
+        <value xml:lang="es">Devolución de compra</value>
+        <value xml:lang="it">Reso di Acquisto</value>
+        <value xml:lang="ro">Returnare Cumparari</value>
+        <value xml:lang="ru">Возврат закупленного</value>
+        <value xml:lang="th">คืนค่าการสั่งซื้อ</value>
+        <value xml:lang="zh">购物退货</value>
+    </property>
+    <property key="ShipmentType.description.PURCHASE_SHIPMENT">
+        <value xml:lang="en">Purchase Shipment</value>
+        <value xml:lang="es">Envío de compra</value>
+        <value xml:lang="it">Spedizione di Acquisto</value>
+        <value xml:lang="ro">Expediere Cumparaturi</value>
+        <value xml:lang="ru">Поставка закупленного</value>
+        <value xml:lang="th">การขนส่งการสั่งซื้อ</value>
+        <value xml:lang="zh">购物送货</value>
+    </property>
+    <property key="ShipmentType.description.SALES_RETURN">
+        <value xml:lang="en">Sales Return</value>
+        <value xml:lang="es">Devolución de ventas</value>
+        <value xml:lang="it">Reso di Vendita</value>
+        <value xml:lang="ro">Returnare din Vanzari</value>
+        <value xml:lang="ru">Возврат проданного</value>
+        <value xml:lang="th">คืนค่าการขาย</value>
+        <value xml:lang="zh">销售退货</value>
+    </property>
+    <property key="ShipmentType.description.SALES_SHIPMENT">
+        <value xml:lang="en">Sales Shipment</value>
+        <value xml:lang="es">Envío de ventas</value>
+        <value xml:lang="it">Spedizione di Vendita</value>
+        <value xml:lang="ro">Expediere Vanzari</value>
+        <value xml:lang="ru">Поставка проданного</value>
+        <value xml:lang="th">การขนส่งการขาย</value>
+        <value xml:lang="zh">销售送货</value>
+    </property>
+    <property key="ShipmentType.description.TRANSFER">
+        <value xml:lang="en">Transfer</value>
+        <value xml:lang="es">Transferencia</value>
+        <value xml:lang="it">Trasferimento</value>
+        <value xml:lang="ro">Transferiment</value>
+        <value xml:lang="ru">Передача</value>
+        <value xml:lang="th">การขนส่ง</value>
+        <value xml:lang="zh">传送</value>
+    </property>
+    <property key="SubscriptionType.description.NEWSGROUP_SUBSCR">
+        <value xml:lang="en">Newsgroup</value>
+        <value xml:lang="it">Notiziario</value>
+        <value xml:lang="ro">Notitiar</value>
+        <value xml:lang="ru">Новости</value>
+        <value xml:lang="th">กลุ่มข่าว</value>
+        <value xml:lang="zh">新闻组</value>
+    </property>
+    <property key="SubscriptionType.description.OTHER_SUBSCR">
+        <value xml:lang="en">Other</value>
+        <value xml:lang="es">Otro</value>
+        <value xml:lang="it">Altro</value>
+        <value xml:lang="ro">Alte</value>
+        <value xml:lang="ru">Друго</value>
+        <value xml:lang="th">อื่น ๆ</value>
+        <value xml:lang="zh">其它</value>
+    </property>
+    <property key="SubscriptionType.description.PRODUCT_INFO_SUBSCR">
+        <value xml:lang="en">Product Info</value>
+        <value xml:lang="it">Informazioni Prodotto</value>
+        <value xml:lang="ro">Informatii Produs</value>
+        <value xml:lang="ru">Информация о продукте</value>
+        <value xml:lang="th">ข้อมูลสินค้า</value>
+        <value xml:lang="zh">产品信息</value>
+    </property>
+    <property key="SubscriptionType.description.PRODUCT_SUBSCR">
+        <value xml:lang="en">Product</value>
+        <value xml:lang="it">Prodotto</value>
+        <value xml:lang="ru">Продукт</value>
+        <value xml:lang="th">สินค้า</value>
+    </property>
+    <property key="VarianceReason.description.VAR_DAMAGED">
+        <value xml:lang="en">Damaged</value>
+        <value xml:lang="fr">Endommagé</value>
+        <value xml:lang="it">Danneggiato</value>
+        <value xml:lang="ro">Stricat</value>
+        <value xml:lang="ru">Повреждено</value>
+        <value xml:lang="th">รายจ่าย</value>
+        <value xml:lang="zh">已损坏</value>
+    </property>
+    <property key="VarianceReason.description.VAR_FOUND">
+        <value xml:lang="en">Found</value>
+        <value xml:lang="fr">Trouvé</value>
+        <value xml:lang="it">Trovato</value>
+        <value xml:lang="ro">Gasit</value>
+        <value xml:lang="ru">Найдено</value>
+        <value xml:lang="th">พบ</value>
+        <value xml:lang="zh">已找到</value>
+    </property>
+    <property key="VarianceReason.description.VAR_INTEGR">
+        <value xml:lang="en">Integration</value>
+        <value xml:lang="fr">Intégré</value>
+        <value xml:lang="it">Integrazione</value>
+        <value xml:lang="ro">Integrare</value>
+        <value xml:lang="ru">Интеграция</value>
+        <value xml:lang="th">การรวมเข้าด้วยกัน</value>
+        <value xml:lang="zh">完整</value>
+    </property>
+    <property key="VarianceReason.description.VAR_LOST">
+        <value xml:lang="en">Lost</value>
+        <value xml:lang="fr">Perdu</value>
+        <value xml:lang="it">Perso</value>
+        <value xml:lang="ro">Pierdut</value>
+        <value xml:lang="ru">Утеряно</value>
+        <value xml:lang="th">สูญเสีย</value>
+        <value xml:lang="zh">丢失</value>
+    </property>
+    <property key="VarianceReason.description.VAR_SAMPLE">
+        <value xml:lang="en">Sample (Giveaway)</value>
+        <value xml:lang="fr">Échantillon</value>
+        <value xml:lang="it">Campione (Dato via)</value>
+        <value xml:lang="ro">Esantion (Introdu Strada)</value>
+        <value xml:lang="ru">Проба (испорчен)</value>
+        <value xml:lang="th">ตัวอย่าง (เปิดเผย)</value>
+        <value xml:lang="zh">样品 (派送)</value>
+    </property>
+    <property key="VarianceReason.description.VAR_STOLEN">
+        <value xml:lang="en">Stolen</value>
+        <value xml:lang="fr">Volé</value>
+        <value xml:lang="it">Rubato</value>
+        <value xml:lang="ro">Furat</value>
+        <value xml:lang="ru">Украдено</value>
+        <value xml:lang="th">ของเถื่อน</value>
+        <value xml:lang="zh">被盗</value>
+    </property>
+</resource>

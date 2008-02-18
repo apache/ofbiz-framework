@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ProductReturnNotYetAcceptedOrAlreadyReceived">
+        <value xml:lang="en">This return is not yet accepted or already received.</value>
+        <value xml:lang="fr">Ce retour n'est pas encore accepté ou déjà reçu.</value>
+        <value xml:lang="ru">Этот возврат еще не подтвержден или уже получен.</value>
+        <value xml:lang="th">การคืนค่านี้ไม่ยอมรับหรือได้รับเรียบร้อยแล้ว</value>
+        <value xml:lang="zh">还没有接受或接收到这个退货。</value>
+    </property>
+    <property key="ProductReturnRequestedOK">
+        <value xml:lang="en">The return is requested.</value>
+        <value xml:lang="fr">Le retour est demandé.</value>
+        <value xml:lang="ru">Запрошен возврат.</value>
+        <value xml:lang="th">การคืนค่าการร้องขอ</value>
+        <value xml:lang="zh">已请求退货。</value>
+    </property>
+    <property key="ProductUspsAddressValidationStateAndCityOrZipRqd">
+        <value xml:lang="en">USPS address validation requires either zip5 or city and state</value>
+        <value xml:lang="th">USPS ต้องการที่อยู่ ถ้าไม่ รหัสไปรษณีย์ หรือ เมือง และ รัฐ</value>
+    </property>
+</resource>
