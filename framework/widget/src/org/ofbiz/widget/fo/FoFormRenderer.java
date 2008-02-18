@@ -114,7 +114,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         ModelFormField modelFormField = dropDownField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
-        List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator());
+        List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
         // if the current value should go first, display it
         if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {
             String explicitDescription = dropDownField.getCurrentDescription(context);

@@ -762,7 +762,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             String name = this.getName(context);
             String location = this.getLocation(context);
             try {
-                modelForm = FormFactory.getFormFromLocation(location, name, this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
+                modelForm = FormFactory.getFormFromLocation(location, name, this.modelScreen.getDelegator(context).getModelReader(), this.modelScreen.getDispatcher(context).getDispatchContext());
             } catch (Exception e) {
                 String errMsg = "Error rendering included form named [" + name + "] at location [" + location + "]: ";
                 Debug.logError(e, errMsg, module);
