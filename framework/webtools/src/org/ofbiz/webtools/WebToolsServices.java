@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.webtools;
 
 import java.text.NumberFormat;
@@ -46,6 +46,7 @@ import java.net.MalformedURLException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -618,7 +619,7 @@ public class WebToolsServices {
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
         
         ModelReader reader = delegator.getModelReader();
-        Map<String, Object> packages = new HashMap<String, Object>();
+        Map<String, Object> packages = FastMap.newInstance();
         TreeSet<String> packageNames = new TreeSet<String>();
         TreeSet<String> tableNames = new TreeSet<String>();
         
@@ -647,17 +648,17 @@ public class WebToolsServices {
         }
         
         String search = (String) context.get("search");
-        List<Map<String, Object>> packagesList = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> packagesList = FastList.newInstance();
         Iterator piter = packageNames.iterator();
         try {
             while (piter.hasNext()) {
-                Map<String, Object> packageMap = new HashMap<String, Object>();
+                Map<String, Object> packageMap = FastMap.newInstance();
                 String pName = (String) piter.next();
                 TreeSet entities = (TreeSet) packages.get(pName);
-                List<Map<String, Object>> entitiesList = new ArrayList<Map<String, Object>>();
+                List<Map<String, Object>> entitiesList = FastList.newInstance();
                 Iterator e = entities.iterator();
                 while (e.hasNext()) {
-                    Map<String, Object> entityMap = new HashMap<String, Object>();
+                    Map<String, Object> entityMap = FastMap.newInstance();
                     String entityName = (String) e.next();
                     String helperName = delegator.getEntityHelperName(entityName);
                     String groupName = delegator.getEntityGroupName(entityName);
@@ -673,9 +674,9 @@ public class WebToolsServices {
                         }
 
                         // fields list
-                        List<Map<String, Object>> javaNameList = new ArrayList<Map<String, Object>>();
+                        List<Map<String, Object>> javaNameList = FastList.newInstance();
                         for (Iterator f = entity.getFieldsIterator(); f.hasNext();) {
-                            Map<String, Object> javaNameMap = new HashMap<String, Object>();
+                            Map<String, Object> javaNameMap = FastMap.newInstance();
                             ModelField field = (ModelField) f.next();
                             ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
                             javaNameMap.put("isPk", field.getIsPk());
@@ -684,7 +685,7 @@ public class WebToolsServices {
                             String fieldDescription = null;
                             if (bundle != null) {
                                 try {
-                                fieldDescription = bundle.getString("FieldDescription." + entity.getEntityName() + "." + field.getName());
+                                    fieldDescription = bundle.getString("FieldDescription." + entity.getEntityName() + "." + field.getName());
                                 } catch (Exception exception) {}
                             }
                             if (UtilValidate.isEmpty(fieldDescription)) {
@@ -707,13 +708,13 @@ public class WebToolsServices {
                         }
 
                         // relations list
-                        List<Map<String, Object>> relationsList = new ArrayList<Map<String, Object>>();
+                        List<Map<String, Object>> relationsList = FastList.newInstance();
                         for (int r = 0; r < entity.getRelationsSize(); r++) {
-                            Map<String, Object> relationMap = new HashMap<String, Object>();
+                            Map<String, Object> relationMap = FastMap.newInstance();
                             ModelRelation relation = entity.getRelation(r);
-                            List<Map<String, Object>> keysList = new ArrayList<Map<String, Object>>();
+                            List<Map<String, Object>> keysList = FastList.newInstance();
                             for (int km = 0; km < relation.getKeyMapsSize(); km++) {
-                                Map<String, Object> keysMap = new HashMap<String, Object>();
+                                Map<String, Object> keysMap = FastMap.newInstance();
                                 ModelKeyMap keyMap = relation.getKeyMap(km);
                                 String fieldName = null;
                                 String relFieldName = null;
@@ -740,16 +741,16 @@ public class WebToolsServices {
                         }
 
                         // index list
-                        List<Map<String, Object>> indexList = new ArrayList<Map<String, Object>>();
+                        List<Map<String, Object>> indexList = FastList.newInstance();
                         for (int r = 0; r < entity.getIndexesSize(); r++) {
-                            List<String> fieldNameList = new ArrayList<String>();
+                            List<String> fieldNameList = FastList.newInstance();
                             
                             ModelIndex index = entity.getIndex(r);
                             for (Iterator fieldIterator = index.getIndexFieldsIterator(); fieldIterator.hasNext();) {
                                 fieldNameList.add((String) fieldIterator.next());
                             }
                             
-                            Map<String, Object> indexMap = new HashMap<String, Object>();
+                            Map<String, Object> indexMap = FastMap.newInstance();
                             indexMap.put("name", index.getName());
                             indexMap.put("description", index.getDescription());
                             indexMap.put("fieldNameList", fieldNameList);

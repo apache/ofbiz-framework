@@ -44,6 +44,7 @@ under the License.
             <fileset dir="../base/build/lib" includes="*.jar"/>
             <fileset dir="../entity/lib" includes="*.jar"/>
             <fileset dir="../entity/build/lib" includes="*.jar"/>
+            <fileset dir="../entityext/build/lib" includes="*.jar"/>
             <fileset dir="../security/build/lib" includes="*.jar"/>
             <fileset dir="../service/lib" includes="*.jar"/>
             <fileset dir="../service/build/lib" includes="*.jar"/>
