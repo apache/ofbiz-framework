@@ -224,4 +224,12 @@ under the License.
         <attribute name="note" type="String" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="true"/>
     </service>
+     <service name="storeQuote" engine="java" default-entity-name="Quote" validate="true" auth="true"
+            location="org.ofbiz.order.quote.QuoteServices" invoke="storeQuote">
+        <description>Creates quote entities</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="quoteItems" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteAttributes" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
+    </service>
 </services>
