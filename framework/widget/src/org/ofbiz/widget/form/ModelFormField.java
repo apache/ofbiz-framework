@@ -54,7 +54,9 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelParam;
@@ -279,9 +281,9 @@ public class ModelFormField {
         if (UtilValidate.isEmpty(this.getServiceName()) || UtilValidate.isEmpty(this.getAttributeName())) {
             return false;
         }
-        LocalDispatcher dispatcher = this.getModelForm().getDispacher();
+        DispatchContext dispatchContext = this.getModelForm().dispatchContext;
         try {
-            ModelService modelService = dispatcher.getDispatchContext().getModelService(this.getServiceName());
+            ModelService modelService = dispatchContext.getModelService(this.getServiceName());
             if (modelService != null) {
                 ModelParam modelParam = modelService.getParam(this.getAttributeName());
                 if (modelParam != null) {
@@ -372,16 +374,20 @@ public class ModelFormField {
         if (UtilValidate.isEmpty(this.getEntityName()) || UtilValidate.isEmpty(this.getFieldName())) {
             return false;
         }
-        GenericDelegator delegator = this.getModelForm().getDelegator();
-        ModelEntity modelEntity = delegator.getModelEntity(this.getEntityName());
-        if (modelEntity != null) {
-            ModelField modelField = modelEntity.getField(this.getFieldName());
-            if (modelField != null) {
-                // okay, populate using the entity field info...
-                this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
-                return true;
-            }
-        }
+        ModelReader entityModelReader = this.getModelForm().entityModelReader;
+        try {
+			ModelEntity modelEntity = entityModelReader.getModelEntity(this.getEntityName());
+			if (modelEntity != null) {
+			    ModelField modelField = modelEntity.getField(this.getFieldName());
+			    if (modelField != null) {
+			        // okay, populate using the entity field info...
+			        this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
+			        return true;
+			    }
+			}
+		} catch (GenericEntityException e) {
+			Debug.logError(e, module);
+		}
         return false;
     }
 
@@ -1876,7 +1882,7 @@ public class ModelFormField {
             if (UtilValidate.isEmpty(fieldKey)) {
                 fieldKey = this.modelFormField.fieldName;
             }
-            GenericDelegator delegator = this.modelFormField.modelForm.getDelegator();
+            GenericDelegator delegator = this.modelFormField.modelForm.getDelegator(context);
             String fieldValue = modelFormField.getEntry(context);
             try {
                 if (this.cache) {

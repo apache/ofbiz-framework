@@ -606,7 +606,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         buffer.append(" size=\"").append(dropDownField.getSize()).append("\">");
 
         String currentValue = modelFormField.getEntry(context);
-        List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator());
+        List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
 
         // if the current value should go first, stick it in
         if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {
@@ -716,7 +716,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String currentValue = modelFormField.getEntry(context);
         Boolean allChecked = checkField.isAllChecked(context);
         
-        List allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator());
+        List allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
 
@@ -768,7 +768,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderRadioField(StringBuffer buffer, Map context, RadioField radioField) {
         ModelFormField modelFormField = radioField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
-        List allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator());
+        List allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator(context));
         String currentValue = modelFormField.getEntry(context);
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);

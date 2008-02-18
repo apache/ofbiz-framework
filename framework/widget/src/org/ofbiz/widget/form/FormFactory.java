@@ -33,6 +33,8 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.model.ModelReader;
+import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 
 import org.w3c.dom.Document;
@@ -50,7 +52,7 @@ public class FormFactory {
     public static final UtilCache formLocationCache = new UtilCache("widget.form.locationResource", 0, 0, false);
     public static final UtilCache formWebappCache = new UtilCache("widget.form.webappResource", 0, 0, false);
     
-    public static ModelForm getFormFromLocation(String resourceName, String formName, GenericDelegator delegator, LocalDispatcher dispatcher) 
+    public static ModelForm getFormFromLocation(String resourceName, String formName, ModelReader entityModelReader, DispatchContext dispatchContext) 
             throws IOException, SAXException, ParserConfigurationException {
         Map modelFormMap = (Map) formLocationCache.get(resourceName);
         if (modelFormMap == null) {
@@ -65,7 +67,7 @@ public class FormFactory {
                     URL formFileUrl = null;
                     formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
                     Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
-                    modelFormMap = readFormDocument(formFileDoc, delegator, dispatcher, resourceName);
+                    modelFormMap = readFormDocument(formFileDoc, entityModelReader, dispatchContext, resourceName);
                     formLocationCache.put(resourceName, modelFormMap);
                 }
             }
@@ -95,7 +97,7 @@ public class FormFactory {
                     
                     URL formFileUrl = servletContext.getResource(resourceName);
                     Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
-                    modelFormMap = readFormDocument(formFileDoc, delegator, dispatcher, cacheKey);
+                    modelFormMap = readFormDocument(formFileDoc, delegator.getModelReader(), dispatcher.getDispatchContext(), cacheKey);
                     formWebappCache.put(cacheKey, modelFormMap);
                 }
             }
@@ -108,7 +110,7 @@ public class FormFactory {
         return modelForm;
     }
     
-    public static Map readFormDocument(Document formFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String formLocation) {
+    public static Map readFormDocument(Document formFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation) {
         Map modelFormMap = new HashMap();
         if (formFileDoc != null) {
             // read document and construct ModelForm for each form element
@@ -117,7 +119,7 @@ public class FormFactory {
             Iterator formElementIter = formElements.iterator();
             while (formElementIter.hasNext()) {
                 Element formElement = (Element) formElementIter.next();
-                ModelForm modelForm = new ModelForm(formElement, delegator, dispatcher);
+                ModelForm modelForm = new ModelForm(formElement, entityModelReader, dispatchContext);
                 modelForm.setFormLocation(formLocation);
                 modelFormMap.put(modelForm.getName(), modelForm);
             }

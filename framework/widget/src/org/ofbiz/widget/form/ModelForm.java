@@ -50,7 +50,9 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelParam;
@@ -67,8 +69,8 @@ public class ModelForm extends ModelWidget {
     public static final String module = ModelForm.class.getName();
     public static final String DEFAULT_FORM_RESULT_LIST_NAME = "defaultFormResultList";
 
-    protected GenericDelegator delegator;
-    protected LocalDispatcher dispatcher;
+	protected ModelReader entityModelReader;
+    protected DispatchContext dispatchContext;
 
     protected String formLocation;
     protected String type;
@@ -183,10 +185,10 @@ public class ModelForm extends ModelWidget {
     public ModelForm() {}
 
     /** XML Constructor */
-    public ModelForm(Element formElement, GenericDelegator delegator, LocalDispatcher dispatcher) {
+    public ModelForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext) {
         super(formElement);
-        this.delegator = delegator;
-        this.dispatcher = dispatcher;
+        this.entityModelReader = entityModelReader;
+        this.dispatchContext = dispatchContext;
         initForm(formElement);
     }
     
@@ -205,7 +207,7 @@ public class ModelForm extends ModelWidget {
             // check if we have a resource name (part of the string before the ?)
             if (parentResource.length() > 0) {
                 try {
-                    parent = FormFactory.getFormFromLocation(parentResource, parentForm, delegator, dispatcher);
+                    parent = FormFactory.getFormFromLocation(parentResource, parentForm, entityModelReader, dispatchContext);
                 } catch (Exception e) {
                     Debug.logError(e, "Failed to load parent form definition '" + parentForm + "' at resource '" + parentResource + "'", module);
                 }
@@ -219,7 +221,7 @@ public class ModelForm extends ModelWidget {
                 while (formElementIter.hasNext()) {
                     Element formElementEntry = (Element) formElementIter.next();
                     if (formElementEntry.getAttribute("name").equals(parentForm)) {
-                        parent = new ModelForm(formElementEntry, delegator, dispatcher);
+                        parent = new ModelForm(formElementEntry, entityModelReader, dispatchContext);
                         break;
                     }
                 }
@@ -439,7 +441,7 @@ public class ModelForm extends ModelWidget {
         while (autoFieldsServiceElementIter.hasNext()) {
             Element autoFieldsServiceElement = (Element) autoFieldsServiceElementIter.next();
             AutoFieldsService autoFieldsService = new AutoFieldsService(autoFieldsServiceElement);
-            this.addAutoFieldsFromService(autoFieldsService, dispatcher);
+            this.addAutoFieldsFromService(autoFieldsService);
         }
 
         // auto-fields-entity
@@ -448,7 +450,7 @@ public class ModelForm extends ModelWidget {
         while (autoFieldsEntityElementIter.hasNext()) {
             Element autoFieldsEntityElement = (Element) autoFieldsEntityElementIter.next();
             AutoFieldsEntity autoFieldsEntity = new AutoFieldsEntity(autoFieldsEntityElement);
-            this.addAutoFieldsFromEntity(autoFieldsEntity, delegator);
+            this.addAutoFieldsFromEntity(autoFieldsEntity);
         }
 
         // read in add field defs, add/override one by one using the fieldList and fieldMap
@@ -583,13 +585,13 @@ public class ModelForm extends ModelWidget {
         altTargets.add(altTarget);
     }
 
-    public void addAutoFieldsFromService(AutoFieldsService autoFieldsService, LocalDispatcher dispatcher) {
+    public void addAutoFieldsFromService(AutoFieldsService autoFieldsService) {
         autoFieldsServices.add(autoFieldsService);
 
         // read service def and auto-create fields
         ModelService modelService = null;
         try {
-            modelService = dispatcher.getDispatchContext().getModelService(autoFieldsService.serviceName);
+            modelService = this.dispatchContext.getModelService(autoFieldsService.serviceName);
         } catch (GenericServiceException e) {
             String errmsg = "Error finding Service with name " + autoFieldsService.serviceName + " for auto-fields-service in a form widget";
             Debug.logError(e, errmsg, module);
@@ -606,20 +608,25 @@ public class ModelForm extends ModelWidget {
             }
             if (modelParam.formDisplay) {
                 if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
-                    ModelEntity modelEntity = delegator.getModelEntity(modelParam.entityName);
-                    if (modelEntity != null) {
-                        ModelField modelField = modelEntity.getField(modelParam.fieldName);
-                        if (modelField != null) {
-                            // okay, populate using the entity field info...
-                            ModelFormField modelFormField = this.addFieldFromEntityField(modelEntity, modelField, autoFieldsService.defaultFieldType, autoFieldsService.defaultPosition);
-                            if (UtilValidate.isNotEmpty(autoFieldsService.mapName)) {
-                                modelFormField.setMapName(autoFieldsService.mapName);
-                            }
-                            modelFormField.setRequiredField(!modelParam.optional);
-                            // continue to skip creating based on service param
-                            continue;
-                        }
-                    }
+                    ModelEntity modelEntity;
+					try {
+						modelEntity = this.entityModelReader.getModelEntity(modelParam.entityName);
+	                    if (modelEntity != null) {
+	                        ModelField modelField = modelEntity.getField(modelParam.fieldName);
+	                        if (modelField != null) {
+	                            // okay, populate using the entity field info...
+	                            ModelFormField modelFormField = this.addFieldFromEntityField(modelEntity, modelField, autoFieldsService.defaultFieldType, autoFieldsService.defaultPosition);
+	                            if (UtilValidate.isNotEmpty(autoFieldsService.mapName)) {
+	                                modelFormField.setMapName(autoFieldsService.mapName);
+	                            }
+	                            modelFormField.setRequiredField(!modelParam.optional);
+	                            // continue to skip creating based on service param
+	                            continue;
+	                        }
+	                    }
+					} catch (GenericEntityException e) {
+						Debug.logError(e, module);
+					}
                 }
 
                 ModelFormField modelFormField = this.addFieldFromServiceParam(modelService, modelParam, autoFieldsService.defaultFieldType, autoFieldsService.defaultPosition);
@@ -643,10 +650,15 @@ public class ModelForm extends ModelWidget {
         return this.addUpdateField(newFormField);
     }
 
-    public void addAutoFieldsFromEntity(AutoFieldsEntity autoFieldsEntity, GenericDelegator delegator) {
+    public void addAutoFieldsFromEntity(AutoFieldsEntity autoFieldsEntity) {
         autoFieldsEntities.add(autoFieldsEntity);
         // read entity def and auto-create fields
-        ModelEntity modelEntity = delegator.getModelEntity(autoFieldsEntity.entityName);
+        ModelEntity modelEntity = null;
+		try {
+			modelEntity = this.entityModelReader.getModelEntity(autoFieldsEntity.entityName);
+		} catch (GenericEntityException e) {
+			Debug.logError(e, module);
+		}
         if (modelEntity == null) {
             throw new IllegalArgumentException("Error finding Entity with name " + autoFieldsEntity.entityName + " for auto-fields-entity in a form widget");
         }
@@ -1676,14 +1688,6 @@ public class ModelForm extends ModelWidget {
             }
         }
         return fieldListByPosition;
-    }
-
-    public LocalDispatcher getDispacher() {
-        return this.dispatcher;
-    }
-
-    public GenericDelegator getDelegator() {
-        return this.delegator;
     }
 
 
