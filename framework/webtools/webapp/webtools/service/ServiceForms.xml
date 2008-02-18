@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="scheduleJob" type="single" target="setServiceParameters">
+    <form name="scheduleJob" type="single" target="setServiceParameters"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="JOB_NAME" title="${uiLabelMap.WebtoolsJob}"><text/></field>
         <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
         <field name="POOL_NAME" title="${uiLabelMap.WebtoolsPool}"><text/></field>
@@ -45,14 +46,16 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field> 
     </form>
 
-    <form name="runService" type="single" target="setSyncServiceParameters">
+    <form name="runService" type="single" target="setSyncServiceParameters"
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
         <field name="POOL_NAME" title="${uiLabelMap.WebtoolsPool}"><text/></field>
         <field name="_RUN_SYNC_"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field> 
     </form>
-	
-    <form name="findJob" type="single" target="jobList?hideFields=Y&amp;lookupFlag=Y" list-name="jobs">
+    
+    <form name="findJob" title="" type="single" target="jobList?hideFields=Y&amp;lookupFlag=Y" list-name="jobs"
+        header-row-style="header-row" default-table-style="basic-table">
         <!--field name="lookupFlag"><hidden value="Y"/></field-->
         <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}"><text/></field>
         <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
@@ -69,9 +72,10 @@ under the License.
         </field>
         <field name="" widget-style="buttontext" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
     </form>
-	
+    
     <form name="JobList" title="" target="" type="list" list-name="jobs"
-        paginate-target="jobList" override-list-size="${jobListSize}">
+        paginate-target="jobList" override-list-size="${jobListSize}"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="jobName" title="${uiLabelMap.WebtoolsJob}"><display/></field>
         <field name="jobId" title="${uiLabelMap.CommonId}"><display/></field>
         <field name="poolId" title="${uiLabelMap.WebtoolsPool}"><display/></field>
@@ -82,7 +86,7 @@ under the License.
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="cancelDateTime" title="${uiLabelMap.CommonEndDateTime}"><display/></field>
-        <field name="cancelButton" title="" use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
+        <field name="cancelButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob?jobId=${jobId}"/>
         </field>
     </form>

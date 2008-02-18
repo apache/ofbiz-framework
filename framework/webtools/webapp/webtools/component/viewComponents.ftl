@@ -20,20 +20,25 @@ under the License.
 <#assign components = Static["org.ofbiz.base.component.ComponentConfig"].getAllComponents()?if_exists/>
 <div id="stats-bins-history" class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.WebtoolsComponentsLoaded}</h3>
-  </div>
+    <ul>
+      <li class="head3">${uiLabelMap.WebtoolsComponentsLoaded}</li>
+    </ul>
+    <br class="clear"/>
+  </div>  
   <#if (components?has_content)>
-    <table class="basic-table" cellspacing="0">
+  <div class="screenlet-body">
+    <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
         <td>${uiLabelMap.CommonName}</td>
         <td>${uiLabelMap.WebtoolsComponentsPath}</td>
         <td>${uiLabelMap.CommonEnabled}</td>
         <td colspan="3">${uiLabelMap.WebtoolsComponentsWebApps}</td>
       </tr>
+      <#assign alt_row = false>
       <#list components as component>
         <#assign webinfos = component.getWebappInfos()?if_exists/>
         <#assign firstRow = true>
-        <tr>
+        <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
           <td>${component.getComponentName()?if_exists}</td>
           <td>${component.getRootLocation()?if_exists}</td>
           <td>${component.enabled()?string?if_exists}</td>
@@ -58,9 +63,12 @@ under the License.
               <td>&nbsp;</td>
             </tr>
           </#if>
+          <#-- toggle the row color -->
+          <#assign alt_row = !alt_row>
       </#list>
     </table>
+  </div>
   <#else>
-    <div class="screenlet-body">${uiLabelMap.WebtoolsComponentsNoComponents}.</div>
+  <div class="screenlet-body">${uiLabelMap.WebtoolsComponentsNoComponents}.</div>
   </#if>
 </div>

@@ -22,14 +22,21 @@ under the License.
 <h1>${uiLabelMap.WebtoolsEditCustomTimePeriods}</h1>
 <br />
 <#if security.hasPermission("PERIOD_MAINT", session)>
-  <form method="post" action="<@ofbizUrl>EditCustomTimePeriod</@ofbizUrl>" name="setOrganizationPartyIdForm">
-    <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
-    <span class="label">${uiLabelMap.WebtoolsShowOnlyPeriodsWithOrganization}</span>
-    <input type="text" size="20" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}">
-    <input type="submit" value='${uiLabelMap.CommonUpdate}'>
-  </form>
+   <div class="screenlet">
+     <div class="screenlet-title-bar">      
+         <ul>
+           <li class="head3">${uiLabelMap.WebtoolsShowOnlyPeriodsWithOrganization}</li>
+         </ul>
+         <br class="clear"/>
+     </div>
+     <form method="post" action="<@ofbizUrl>EditCustomTimePeriod</@ofbizUrl>" name="setOrganizationPartyIdForm">
+         <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
+         <span class="label">${uiLabelMap.WebtoolsShowOnlyPeriodsWithOrganization}</span>
+         <input type="text" size="20" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}">
+         <input type="submit" value='${uiLabelMap.CommonUpdate}'>
+     </form>
+   </div>
 
-  <br/>
   <div class="screenlet">
     <div class="screenlet-title-bar">
       <#if currentCustomTimePeriod?has_content>
@@ -37,7 +44,6 @@ under the License.
           <li class="h3">${uiLabelMap.WebtoolsCurrentCustomTimePeriod}</li>
           <li><a href="<@ofbizUrl>EditCustomTimePeriod?findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>">${uiLabelMap.WebtoolsClearCurrent}</a></li>
         </ul>
-        <br class="clear" />
       <#else>
         <h3>${uiLabelMap.WebtoolsCurrentCustomTimePeriod}</h3>
       </#if>
@@ -81,8 +87,8 @@ under the License.
               </select>
               <#if (currentCustomTimePeriod.parentPeriodId)?exists>
                 <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${currentCustomTimePeriod.parentPeriodId}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
-	            ${uiLabelMap.WebtoolsSetAsCurrent}</a>
-	          </#if>
+                ${uiLabelMap.WebtoolsSetAsCurrent}</a>
+              </#if>
             </td>
             <td><input type="text" size='12' name="currentCustomTimePeriod" value="${currentCustomTimePeriod.organizationPartyId?if_exists}"></td>
             <td>
@@ -130,8 +136,6 @@ under the License.
       <div class="screenlet-body">${uiLabelMap.WebtoolsMessage27}</div>
     </#if>
   </div>
-  <br/>
-
   <div class="screenlet">
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.WebtoolsChildPeriods}</h3>
@@ -226,8 +230,6 @@ under the License.
       <div class="screenlet-body">${uiLabelMap.WebtoolsMessage28}</div>
     </#if>
   </div>
-  <br/>
-
   <div class="screenlet">
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.WebtoolsAddCustomTimePeriod}</h3>
@@ -242,7 +244,7 @@ under the License.
           <select name="parentPeriodId">
             <option value=''>&nbsp;</option>
             <#list allCustomTimePeriods as allCustomTimePeriod>
-      		  <#assign allPeriodType = allCustomTimePeriod.getRelatedOneCache("PeriodType")>
+                <#assign allPeriodType = allCustomTimePeriod.getRelatedOneCache("PeriodType")>
               <#assign isDefault = false>
               <#if currentCustomTimePeriod?exists>
                 <#if currentCustomTimePeriod.customTimePeriodId = allCustomTimePeriod.customTimePeriodId>

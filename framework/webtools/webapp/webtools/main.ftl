@@ -70,7 +70,7 @@ text-decoration: underline;
         <#if security.hasPermission("ENTITY_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsEntityEngineTools}</h3></li>
           <li><a href="<@ofbizUrl>entitymaint</@ofbizUrl>">${uiLabelMap.WebtoolsEntityDataMaintenance}</a></li>
-          <li><a href="<@ofbizUrl>view/entityref</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReference}</a>&nbsp;<a href="<@ofbizUrl>view/entityref?forstatic=true</@ofbizUrl>" target="_blank">[${uiLabelMap.WebtoolsEntityReferenceStaticVersion}]</a></li>
+          <li><a href="<@ofbizUrl>view/entityref</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReference}</a>&nbsp;<a href="<@ofbizUrl>view/entityref?forstatic=true</@ofbizUrl>" target="_blank">- ${uiLabelMap.WebtoolsEntityReferenceStaticVersion}</a></li>
           <li><a href="<@ofbizUrl>view/entityrefReport</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReferencePdf}</a></li>
           <li><a href="<@ofbizUrl>EntitySQLProcessor</@ofbizUrl>">${uiLabelMap.PageTitleEntitySQLProcessor}</a></li>
           <li><a href="<@ofbizUrl>EntitySyncStatus</@ofbizUrl>">${uiLabelMap.WebtoolsEntitySyncStatus}</a></li>

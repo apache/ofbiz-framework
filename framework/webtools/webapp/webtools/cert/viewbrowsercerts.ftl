@@ -34,8 +34,8 @@ under the License.
           <#assign certString = Static["org.ofbiz.base.util.KeyStoreUtil"].certToString(cert)?if_exists>
           <#if (certString?has_content)>
             <tr>
-              <td class="label">${uiLabelMap.WebtoolsCertsCert}:</td>
-              <td>${cert.getType()} : ${cert.getSubjectX500Principal()}</td>
+              <td class="label">${uiLabelMap.WebtoolsCertsCert}</td>
+              <td>${cert.getType()} ${cert.getSubjectX500Principal()}</td>
             </tr>
             <tr>
               <td class="label">${uiLabelMap.WebtoolsCertsSerialNum}:</td>

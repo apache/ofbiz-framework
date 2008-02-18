@@ -52,6 +52,7 @@ under the License.
     <screen name="main">
         <section>
             <actions>
+                <set field="titleProperty" value="WebtoolsMainPage"/>
                 <set field="headerItem" value="main"/>
             </actions>
             <widgets>

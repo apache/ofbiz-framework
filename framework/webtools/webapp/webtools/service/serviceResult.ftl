@@ -16,30 +16,35 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<form method="post" action="<@ofbizUrl>saveServiceResultsToSession</@ofbizUrl>"
-<table class="basic-table dark-grid" cellspacing="0">
-  <tr class="header-row">
-    <td>parameter</td>
-    <td>value</td>
-    <td>save value?</td>
-  </tr>
-
-  <#list serviceResultList as srl>
-    <tr>
-      <#if srl.hasChild=="Y">
-        <td><a href="<@ofbizUrl>/serviceResult?servicePath=</@ofbizUrl><#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}">${srl.key?if_exists}</a></td>
-      <#else>
-        <td>${srl.key?if_exists}</td>
-      </#if>
-      <td>${srl.value?if_exists}</td>
-      <td><input type="checkbox" name="<#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}" /></td>
-    </tr>
-  </#list>
-
-  <tr>
-    <td>&nbsp</td>
-    <td>Clear previous params? <input type="checkbox" name="_CLEAR_PREVIOUS_PARAMS_" /></td>
-    <td><input type="submit" value="submit" /></td>
-  </tr>
-</table>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <h3>${uiLabelMap.PageTitleScheduleJob}</h3>
+  </div>
+  <div class="screenlet-body" align="center">
+    <form method="post" action="<@ofbizUrl>saveServiceResultsToSession</@ofbizUrl>"
+        <table class="basic-table" cellspacing="0">
+          <tr class="header-row">
+            <td>${uiLabelMap.WebtoolsParameterName}</td>
+            <td>${uiLabelMap.WebtoolsParameterValue}</td>
+            <td>${uiLabelMap.WebtoolsServiceSaveValue} ?</td>
+          </tr>
+          <#list serviceResultList as srl>
+            <tr>
+              <#if srl.hasChild=="Y">
+                <td><a href="<@ofbizUrl>/serviceResult?servicePath=</@ofbizUrl><#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}">${srl.key?if_exists}</a></td>
+              <#else>
+                <td>${srl.key?if_exists}</td>
+              </#if>
+              <td>${srl.value?if_exists}</td>
+              <td><input type="checkbox" name="<#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}" /></td>
+            </tr>
+          </#list>
+          <tr>
+            <td>&nbsp</td>
+            <td class="label">${uiLabelMap.WebtoolsServiceClearPreviousParams} ? <input type="checkbox" name="_CLEAR_PREVIOUS_PARAMS_" /></td>
+            <td><input type="submit" value="${uiLabelMap.CommonSubmit}"/></td>
+          </tr>
+        </table>
+      </form>    
+  </div>
+</div>

@@ -16,13 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<h1>${uiLabelMap.WebtoolsStatsMainPageTitle}</h1>
-<br />
-<div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart?clear=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsClearSince}</a>
-<a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
-<p>${uiLabelMap.WebtoolsStatsCurrentTime}: ${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</p>
-<br />
+<div id="stats-bins-history" class="screenlet">
+    <div class="screenlet-title-bar">
+      <h3>${uiLabelMap.WebtoolsStatsMainPageTitle}</h3>
+    </div>
+    <div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart?clear=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsClearSince}</a>
+    <a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
+    <p><span class="label">${uiLabelMap.WebtoolsStatsCurrentTime}</span> ${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</p>
+</div>
 <#if security.hasPermission("SERVER_STATS_VIEW", session)>
   <#-- Request Table -->
   <div id="request-statistics" class="screenlet">
@@ -33,7 +34,7 @@ under the License.
       <#if (requestList?size > 2)>
         <table class="basic-table light-grid hover-bar" cellspacing="0">
       <#else>
-        <table class="basic-table light-grid" cellspacing="0">
+        <table class="basic-table hover-bar" cellspacing="0">
       </#if>
         <tr class="header-row">
           <td>${uiLabelMap.WebtoolsStatsRequestId}</td>
@@ -72,7 +73,7 @@ under the License.
       <div class="screenlet-body">${uiLabelMap.WebtoolsStatsNoRequests}</div>
     </#if>
   </div>
-  <br />
+  <br/>
   <#-- Event Table -->
   <div id="event-statistics" class="screenlet">
     <div class="screenlet-title-bar">

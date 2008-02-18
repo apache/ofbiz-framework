@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,8 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
         
-  <form name="LevelSwitch" type="single" target="AdjustDebugLevels" default-map-name="activeDebugLevel">
+  <form name="LevelSwitch" type="single" target="AdjustDebugLevels" default-map-name="activeDebugLevel"
+    header-row-style="header-row" default-table-style="basic-table">
     <field name="fatal" title="${uiLabelMap.WebtoolsFatalLogLevel}" tooltip="${uiLabelMap.WebtoolsFatalLogLevelTooltip}"><check/></field>
     <field name="error" title="${uiLabelMap.WebtoolsErrorLogLevel}" tooltip="${uiLabelMap.WebtoolsErrorLogLevelTooltip}"><check/></field>
     <field name="warning" title="${uiLabelMap.WebtoolsWarningLogLevel}" tooltip="${uiLabelMap.WebtoolsWarningLogLevelTooltip}"><check/></field>
@@ -31,7 +32,8 @@ under the License.
     <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
   </form>
   
-  <form name="AddLogger" type="single" default-map-name="defaultLogger" target="AddLogger">
+  <form name="AddLogger" type="single" default-map-name="defaultLogger" target="AddLogger"
+    header-row-style="header-row" default-table-style="basic-table">
     <field name="name" title="${uiLabelMap.WebtoolsLoggerName}"><text size="50"/></field>
     <field name="level" title="${uiLabelMap.WebtoolsLoggerLevel}">
         <drop-down>
@@ -50,7 +52,7 @@ under the License.
   </form>
   
   <form name="LoggerList" type="multi" target="UpdateLogger" list-name="loggerList" separate-columns="true"
-    paginate="false">
+    paginate="false" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
     <field name="name" title="${uiLabelMap.WebtoolsLoggerName}"><display/></field>
     <field name="level" title="${uiLabelMap.WebtoolsLoggerLevel}">
         <drop-down>
