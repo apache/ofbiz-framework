@@ -18,7 +18,7 @@
     under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/widget-form.xsd">
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditProject" type="single" target="updateProject" default-map-name="project"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="project==null" target="createProject"/>
