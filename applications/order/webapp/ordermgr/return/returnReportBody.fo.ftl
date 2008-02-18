@@ -21,8 +21,8 @@ under the License.
     <#assign returnHeader = returnAdjustment.getRelatedOne("ReturnHeader")>
     <#assign adjReturnType = returnAdjustment.getRelatedOne("ReturnType")?if_exists>
     <fo:table-row>
-    <fo:table-cell padding="1mm"/>
-    <fo:table-cell padding="1mm"/>
+    <fo:table-cell><fo:block></fo:block></fo:table-cell>
+    <fo:table-cell><fo:block></fo:block></fo:table-cell>
     <fo:table-cell number-columns-spanned="3" padding="1mm">
       <fo:block wrap-option="wrap">
         <#if returnAdjustment.comments?has_content>${returnAdjustment.comments}<#else>${returnAdjustment.description?default("N/A")}</#if>
