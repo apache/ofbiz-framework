@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Collection;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
@@ -47,13 +50,13 @@ public class EntityEcaUtil {
 
     public static UtilCache entityEcaReaders = new UtilCache("entity.EcaReaders", 0, 0, false);
 
-    public static Map getEntityEcaCache(String entityEcaReaderName) {
-        Map ecaCache = (Map) entityEcaReaders.get(entityEcaReaderName);
+    public static Map<String, Map<String, List<EntityEcaRule>>> getEntityEcaCache(String entityEcaReaderName) {
+    	Map<String, Map<String, List<EntityEcaRule>>> ecaCache = (Map) entityEcaReaders.get(entityEcaReaderName);
         if (ecaCache == null) {
             synchronized (EntityEcaUtil.class) {
                 ecaCache = (Map) entityEcaReaders.get(entityEcaReaderName);
                 if (ecaCache == null) {
-                    ecaCache = new HashMap();
+                    ecaCache = FastMap.newInstance();
                     readConfig(entityEcaReaderName, ecaCache);
                     entityEcaReaders.put(entityEcaReaderName, ecaCache);
                 }
@@ -115,14 +118,14 @@ public class EntityEcaUtil {
             Map eventMap = (Map) ecaCache.get(entityName);
             List rules = null;
             if (eventMap == null) {
-                eventMap = new HashMap();
-                rules = new LinkedList();
+                eventMap = FastMap.newInstance();
+                rules = FastList.newInstance();
                 ecaCache.put(entityName, eventMap);
                 eventMap.put(eventName, rules);
             } else {
                 rules = (List) eventMap.get(eventName);
                 if (rules == null) {
-                    rules = new LinkedList();
+                    rules = FastList.newInstance();
                     eventMap.put(eventName, rules);
                 }
             }

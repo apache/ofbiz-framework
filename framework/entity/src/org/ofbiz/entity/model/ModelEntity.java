@@ -648,6 +648,30 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.relations.iterator();
     }
 
+    public List<ModelRelation> getRelationsList(boolean includeOne, boolean includeOneNoFk, boolean includeMany) {
+    	List<ModelRelation> relationsList = FastList.newInstance();
+    	Iterator<ModelRelation> allIter = this.getRelationsIterator();
+        while (allIter.hasNext()) {
+            ModelRelation modelRelation = allIter.next();
+            if (includeOne && "one".equals(modelRelation.getType())) {
+            	relationsList.add(modelRelation);
+            } else if (includeOneNoFk && "one-nofk".equals(modelRelation.getType())) {
+            	relationsList.add(modelRelation);
+            } else if (includeMany && "many".equals(modelRelation.getType())) {
+            	relationsList.add(modelRelation);
+            }
+        }
+        return relationsList;
+    }
+
+    public List<ModelRelation> getRelationsOneList() {
+        return getRelationsList(true, true, false);
+    }
+
+    public List<ModelRelation> getRelationsManyList() {
+        return getRelationsList(false, false, true);
+    }
+
     public ModelRelation getRelation(String relationName) {
         if (relationName == null) return null;
         for (ModelRelation relation: relations) {
