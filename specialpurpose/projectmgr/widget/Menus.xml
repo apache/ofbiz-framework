@@ -175,13 +175,17 @@
     <menu name="ProjectSubTabBar" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+            <set field="hasUpdatePermission" value="${bsh:
+                result = dispatcher.runSync(&quot;projectMgrPermission&quot;, 
+                org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                &quot;resourceDescription&quot;, &quot;Project&quot;,
+                &quot;mainAction&quot;, &quot;UPDATE&quot;,
+                &quot;projectId&quot;, projectId)); 
+                return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
         </actions>
         <menu-item name="newProject" title="${uiLabelMap.ProjectMgrNewProject}">
             <condition>
                 <and>
-                    <not>
-                        <if-empty field-name="project"/>
-                    </not>
                     <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>

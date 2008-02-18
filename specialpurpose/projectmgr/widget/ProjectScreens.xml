@@ -19,7 +19,7 @@ under the License.
 -->
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+ xsi:noNamespaceSchemaLocation="../../../framework/widget/dtd/widget-screen.xsd">
     <screen name="ListSubProjects">
         <section>            
             <actions>
@@ -27,9 +27,12 @@ under the License.
                 <set field="tabButtonItem" value="subprojects"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjects.bsh"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <entity-and entity-name="WorkEffort" list-name="projects">
+                    <field-map field-name="workEffortTypeId" value="PROJECT"/>
+                    <field-map field-name="workEffortParentId" env-name="projectId"/>
+                </entity-and>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
@@ -126,15 +129,14 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindProject"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/FindProject"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListProjects.bsh"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-menu name="ProjectSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
                         <screenlet name="findProject" collapsible="true" title="${uiLabelMap.PageTitleFindProject}">
                             <include-form name="FindProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
@@ -771,10 +773,10 @@ under the License.
     <screen name="SubProjectsInfo">
         <section>
             <actions>
-                <set field="parameters.projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/FindProject.bsh"/>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="parameters.workEffortParentId" from-field="projectId" />
             </actions>
             <widgets>                
                 <container style="screenlet">
