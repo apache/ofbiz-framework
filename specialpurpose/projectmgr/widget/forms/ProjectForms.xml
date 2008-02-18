@@ -17,8 +17,8 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="../../../../framework/widget/dtd/widget-form.xsd">
     <form name="EditProject" type="single" target="updateProject" default-map-name="project"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="project==null" target="createProject"/>
@@ -101,9 +101,9 @@
     </form>
     <form name="FindProject" type="single" target="FindProject" title="Find and List Project"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"  /></field>
+        <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}" parameter-name="workEffortId"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" parameter-name="workEffortName"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" parameter-name="createdStamp"><date-find/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
     <form name="hoursNotYetBilled" type="list" list-name="entryList"
@@ -117,20 +117,44 @@
         <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}"/></field>
         <field name="fromDate"><display type="date"/></field>
     </form>
-    <form name="ListProjects" type="list" list-name="projects" paginate-target="FindProject"
+    <form name="ListProjects" type="list" list-name="listIt" paginate-target="FindProject"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="parameters.workEffortTypeId" value="PROJECT"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="WorkEffort"/>
+                <field-map field-name="orderBy" value="lastStatusUpdate DESC"/>
+            </service>
+        </actions>
+        <row-actions>
+            <service service-name="getProject" result-map-name="result">
+                <field-map field-name="projectId" value="${workEffortId}"/>
+            </service>
+            <set field="projectName" from-field="result.projectInfo.projectName"/>
+            <set field="projectId" from-field="result.projectInfo.projectId"/>
+            <set field="currentStatusId" from-field="result.projectInfo.currentStatusId"/>
+            <set field="priority" from-field="result.projectInfo.priority"/>
+            <set field="plannedHours" from-field="result.projectInfo.plannedHours"/>
+            <set field="actualHours" from-field="result.projectInfo.actualHours"/>
+            <set field="createdStamp" from-field="result.projectInfo.createdStamp"/>
+            <set field="estimatedStartDate" from-field="result.projectInfo.estimatedStartDate"/>
+            <set field="estimatedCompletionDate" from-field="result.projectInfo.estimatedCompletionDate"/>
+            <set field="actualStartDate" from-field="result.projectInfo.actualStartDate"/>
+            <set field="actualCompletionDate" from-field="result.projectInfo.actualCompletionDate"/>
+        </row-actions>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
+            <hyperlink description="${projectName}" target="projectView?projectId=${projectId}"/>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>
-        <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
-        <field name="plannedHours"><display/></field>
-        <field name="actualHours"><display/></field>
-        <field name="createdStamp"><display type="date"/></field>
+        <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
+        <field name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
+        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
+        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field name="createdStamp" title="${uiLabelMap.FormFieldTitle_createdDate}"><display type="date"/></field>
     </form>                                        	
     <form name="EditSubProjects" list-name="projects" type="list" target="RemoveSubProject"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
