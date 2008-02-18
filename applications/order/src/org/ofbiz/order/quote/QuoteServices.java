@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.order.quote;
 
+import java.sql.Timestamp;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -33,6 +36,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.GenericServiceException;
 
 
 public class QuoteServices {
@@ -125,4 +129,77 @@ public class QuoteServices {
         return sendResp;
     }
 
+    public static Map storeQuote(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        
+        String quoteTypeId = (String) context.get("quoteTypeId");
+        String partyId = (String) context.get("partyId");
+        Timestamp issueDate = (Timestamp) context.get("issueDate");
+        String statusId = (String) context.get("statusId");
+        String currencyUomId = (String) context.get("currencyUomId");
+        String productStoreId = (String) context.get("productStoreId");
+        String salesChannelEnumId = (String) context.get("salesChannelEnumId");
+        Timestamp validFromDate = (Timestamp) context.get("validFromDate");
+        Timestamp validThruDate = (Timestamp) context.get("validThruDate");
+        String quoteName = (String) context.get("quoteName");
+        String description = (String) context.get("description");
+        List quoteItems = (List) context.get("quoteItems");
+        List quoteAttributes = (List) context.get("quoteAttributes");
+        
+
+        Map result = FastMap.newInstance();
+
+        try {
+            Map quoteIn = UtilMisc.toMap("quoteTypeId", quoteTypeId, "partyId", partyId, "issueDate", issueDate, "statusId", statusId, "currencyUomId", currencyUomId);
+            quoteIn.put("productStoreId", productStoreId);
+            quoteIn.put("salesChannelEnumId", salesChannelEnumId);
+            quoteIn.put("productStoreId", productStoreId);
+            quoteIn.put("validFromDate", validFromDate);
+            quoteIn.put("validThruDate", validThruDate);
+            quoteIn.put("quoteName", quoteName);
+            quoteIn.put("description", description);
+            quoteIn.put("userLogin", userLogin);
+            
+            // create Quote
+            Map quoteOut = dispatcher.runSync("createQuote", quoteIn);
+            
+            if (UtilValidate.isNotEmpty(quoteOut) && UtilValidate.isNotEmpty(quoteOut.get("quoteId"))) {
+                String quoteId = (String)quoteOut.get("quoteId");
+                result.put("quoteId", quoteId);
+                
+                // create Quote Items
+                if (UtilValidate.isNotEmpty(quoteItems)) {
+                    Iterator quoteIt = quoteItems.iterator();
+                    while (quoteIt.hasNext()) {
+                        GenericValue quoteItem = (GenericValue)quoteIt.next();
+                        quoteItem.set("quoteId", quoteId);
+                        Map quoteItemIn = UtilMisc.toMap(quoteItem);
+                        quoteItemIn.put("userLogin", userLogin);
+                        
+                        dispatcher.runSync("createQuoteItem", quoteItemIn);
+                    }
+                }
+                
+                // create Quote Attributes
+                if (UtilValidate.isNotEmpty(quoteAttributes)) {
+                    Iterator quoteAttrIt = quoteAttributes.iterator();
+                    while (quoteAttrIt.hasNext()) {
+                        GenericValue quoteAttr = (GenericValue)quoteAttrIt.next();
+                        quoteAttr.set("quoteId", quoteId);
+                        Map quoteAttrIn = UtilMisc.toMap(quoteAttr);
+                        quoteAttrIn.put("userLogin", userLogin);
+                        
+                        dispatcher.runSync("createQuoteAttribute", quoteAttrIn);
+                    }
+                }
+            } else {
+                return ServiceUtil.returnFailure("Could not storing Quote");
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Problem storing Quote", module);
+        }
+
+        return result;
+    }
 }
