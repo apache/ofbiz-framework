@@ -50,7 +50,7 @@ public class ServiceEcaUtil {
     public static final String module = ServiceEcaUtil.class.getName();
 
     // using a cache is dangerous here because if someone clears it the ECAs won't run: public static UtilCache ecaCache = new UtilCache("service.ServiceECAs", 0, 0, false);
-    public static Map<String, Map<String, Collection<ServiceEcaRule>>> ecaCache = FastMap.newInstance();
+    public static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = FastMap.newInstance();
 
     public static void reloadConfig() {
         ecaCache.clear();
@@ -90,18 +90,18 @@ public class ServiceEcaUtil {
         for (Element e: UtilXml.childElementList(rootElement, "eca")) {
             String serviceName = e.getAttribute("service");
             String eventName = e.getAttribute("event");
-            Map<String, Collection<ServiceEcaRule>> eventMap = ecaCache.get(serviceName);
-            Collection<ServiceEcaRule> rules = null;
+            Map<String, List<ServiceEcaRule>> eventMap = ecaCache.get(serviceName);
+            List<ServiceEcaRule> rules = null;
 
             if (eventMap == null) {
                 eventMap = FastMap.newInstance();
-                rules = new LinkedList<ServiceEcaRule>();
+                rules = FastList.newInstance();
                 ecaCache.put(serviceName, eventMap);
                 eventMap.put(eventName, rules);
             } else {
                 rules = eventMap.get(eventName);
                 if (rules == null) {
-                    rules = new LinkedList<ServiceEcaRule>();
+                    rules = FastList.newInstance();
                     eventMap.put(eventName, rules);
                 }
             }
@@ -119,13 +119,13 @@ public class ServiceEcaUtil {
         }
     }
 
-    public static Map<String, Collection<ServiceEcaRule>> getServiceEventMap(String serviceName) {
+    public static Map<String, List<ServiceEcaRule>> getServiceEventMap(String serviceName) {
         if (ServiceEcaUtil.ecaCache == null) ServiceEcaUtil.readConfig();
         return ServiceEcaUtil.ecaCache.get(serviceName);
     }
 
-    public static Collection<ServiceEcaRule> getServiceEventRules(String serviceName, String event) {
-        Map<String, Collection<ServiceEcaRule>> eventMap = getServiceEventMap(serviceName);
+    public static List<ServiceEcaRule> getServiceEventRules(String serviceName, String event) {
+        Map<String, List<ServiceEcaRule>> eventMap = getServiceEventMap(serviceName);
         if (eventMap != null) {
             if (event != null) {
                 return eventMap.get(event);
@@ -140,7 +140,7 @@ public class ServiceEcaUtil {
         return null;
     }
 
-    public static void evalRules(String serviceName, Map<String, Collection<ServiceEcaRule>> eventMap, String event, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result, boolean isError, boolean isFailure) throws GenericServiceException {
+    public static void evalRules(String serviceName, Map<String, List<ServiceEcaRule>> eventMap, String event, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result, boolean isError, boolean isFailure) throws GenericServiceException {
         // if the eventMap is passed we save a Map lookup, but if not that's okay we'll just look it up now
         if (eventMap == null) eventMap = getServiceEventMap(serviceName);
         if (eventMap == null || eventMap.size() == 0) {

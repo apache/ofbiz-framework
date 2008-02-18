@@ -261,7 +261,7 @@ public class ServiceDispatcher {
         RunningService rs = this.logService(localName, modelService, GenericEngine.SYNC_MODE);
 
         // get eventMap once for all calls for speed, don't do event calls if it is null
-        Map<String, Collection<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(modelService.name);
+        Map<String, List<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(modelService.name);
 
         // check the locale
         Locale locale = this.checkLocale(context);
@@ -641,7 +641,7 @@ public class ServiceDispatcher {
 
             try {
                 // get eventMap once for all calls for speed, don't do event calls if it is null
-                Map<String, Collection<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(service.name);
+                Map<String, List<ServiceEcaRule>> eventMap = ServiceEcaUtil.getServiceEventMap(service.name);
 
                 // pre-auth ECA
                 if (eventMap != null) ServiceEcaUtil.evalRules(service.name, eventMap, "auth", ctx, context, result, isError, isFailure);
