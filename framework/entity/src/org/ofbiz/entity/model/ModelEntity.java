@@ -649,16 +649,16 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     }
 
     public List<ModelRelation> getRelationsList(boolean includeOne, boolean includeOneNoFk, boolean includeMany) {
-    	List<ModelRelation> relationsList = FastList.newInstance();
-    	Iterator<ModelRelation> allIter = this.getRelationsIterator();
+        List<ModelRelation> relationsList = FastList.newInstance();
+        Iterator<ModelRelation> allIter = this.getRelationsIterator();
         while (allIter.hasNext()) {
             ModelRelation modelRelation = allIter.next();
             if (includeOne && "one".equals(modelRelation.getType())) {
-            	relationsList.add(modelRelation);
+                relationsList.add(modelRelation);
             } else if (includeOneNoFk && "one-nofk".equals(modelRelation.getType())) {
-            	relationsList.add(modelRelation);
+                relationsList.add(modelRelation);
             } else if (includeMany && "many".equals(modelRelation.getType())) {
-            	relationsList.add(modelRelation);
+                relationsList.add(modelRelation);
             }
         }
         return relationsList;

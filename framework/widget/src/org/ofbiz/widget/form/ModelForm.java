@@ -69,7 +69,7 @@ public class ModelForm extends ModelWidget {
     public static final String module = ModelForm.class.getName();
     public static final String DEFAULT_FORM_RESULT_LIST_NAME = "defaultFormResultList";
 
-	protected ModelReader entityModelReader;
+    protected ModelReader entityModelReader;
     protected DispatchContext dispatchContext;
 
     protected String formLocation;
@@ -609,24 +609,24 @@ public class ModelForm extends ModelWidget {
             if (modelParam.formDisplay) {
                 if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
                     ModelEntity modelEntity;
-					try {
-						modelEntity = this.entityModelReader.getModelEntity(modelParam.entityName);
-	                    if (modelEntity != null) {
-	                        ModelField modelField = modelEntity.getField(modelParam.fieldName);
-	                        if (modelField != null) {
-	                            // okay, populate using the entity field info...
-	                            ModelFormField modelFormField = this.addFieldFromEntityField(modelEntity, modelField, autoFieldsService.defaultFieldType, autoFieldsService.defaultPosition);
-	                            if (UtilValidate.isNotEmpty(autoFieldsService.mapName)) {
-	                                modelFormField.setMapName(autoFieldsService.mapName);
-	                            }
-	                            modelFormField.setRequiredField(!modelParam.optional);
-	                            // continue to skip creating based on service param
-	                            continue;
-	                        }
-	                    }
-					} catch (GenericEntityException e) {
-						Debug.logError(e, module);
-					}
+                    try {
+                        modelEntity = this.entityModelReader.getModelEntity(modelParam.entityName);
+                        if (modelEntity != null) {
+                            ModelField modelField = modelEntity.getField(modelParam.fieldName);
+                            if (modelField != null) {
+                                // okay, populate using the entity field info...
+                                ModelFormField modelFormField = this.addFieldFromEntityField(modelEntity, modelField, autoFieldsService.defaultFieldType, autoFieldsService.defaultPosition);
+                                if (UtilValidate.isNotEmpty(autoFieldsService.mapName)) {
+                                    modelFormField.setMapName(autoFieldsService.mapName);
+                                }
+                                modelFormField.setRequiredField(!modelParam.optional);
+                                // continue to skip creating based on service param
+                                continue;
+                            }
+                        }
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                    }
                 }
 
                 ModelFormField modelFormField = this.addFieldFromServiceParam(modelService, modelParam, autoFieldsService.defaultFieldType, autoFieldsService.defaultPosition);
@@ -654,11 +654,11 @@ public class ModelForm extends ModelWidget {
         autoFieldsEntities.add(autoFieldsEntity);
         // read entity def and auto-create fields
         ModelEntity modelEntity = null;
-		try {
-			modelEntity = this.entityModelReader.getModelEntity(autoFieldsEntity.entityName);
-		} catch (GenericEntityException e) {
-			Debug.logError(e, module);
-		}
+        try {
+            modelEntity = this.entityModelReader.getModelEntity(autoFieldsEntity.entityName);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
         if (modelEntity == null) {
             throw new IllegalArgumentException("Error finding Entity with name " + autoFieldsEntity.entityName + " for auto-fields-entity in a form widget");
         }
