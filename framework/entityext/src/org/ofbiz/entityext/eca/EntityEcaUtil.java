@@ -51,7 +51,7 @@ public class EntityEcaUtil {
     public static UtilCache entityEcaReaders = new UtilCache("entity.EcaReaders", 0, 0, false);
 
     public static Map<String, Map<String, List<EntityEcaRule>>> getEntityEcaCache(String entityEcaReaderName) {
-    	Map<String, Map<String, List<EntityEcaRule>>> ecaCache = (Map) entityEcaReaders.get(entityEcaReaderName);
+        Map<String, Map<String, List<EntityEcaRule>>> ecaCache = (Map) entityEcaReaders.get(entityEcaReaderName);
         if (ecaCache == null) {
             synchronized (EntityEcaUtil.class) {
                 ecaCache = (Map) entityEcaReaders.get(entityEcaReaderName);

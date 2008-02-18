@@ -47,193 +47,193 @@ import org.xml.sax.SAXException;
  */
 public class ArtifactInfoFactory {
 
-	static public class ArtifactInfoContext {
-		protected String delegatorName;
-		protected ModelReader entityModelReader;
+    static public class ArtifactInfoContext {
+        protected String delegatorName;
+        protected ModelReader entityModelReader;
         protected DispatchContext dispatchContext;
         protected Map<String, Map<String, List<EntityEcaRule>>> entityEcaCache;
         protected Map<String, Map<String, List<ServiceEcaRule>>> serviceEcaCache;
         
         public ArtifactInfoContext(String delegatorName) throws GenericEntityException {
-        	this.delegatorName = delegatorName;
-			this.entityModelReader = ModelReader.getModelReader(delegatorName);
-			this.dispatchContext = new DispatchContext("ArtifactInfoDispCtx", null, this.getClass().getClassLoader(), null);
-			this.entityEcaCache = EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegatorName));
-			this.serviceEcaCache = ServiceEcaUtil.ecaCache;
+            this.delegatorName = delegatorName;
+            this.entityModelReader = ModelReader.getModelReader(delegatorName);
+            this.dispatchContext = new DispatchContext("ArtifactInfoDispCtx", null, this.getClass().getClassLoader(), null);
+            this.entityEcaCache = EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegatorName));
+            this.serviceEcaCache = ServiceEcaUtil.ecaCache;
         }
         
         public ModelReader getEntityModelReader() {
-        	return this.entityModelReader;
+            return this.entityModelReader;
         }
         
         public DispatchContext getDispatchContext() {
-        	return this.dispatchContext;
+            return this.dispatchContext;
         }
         
         public ModelEntity getModelEntity(String entityName) throws GenericEntityException {
-        	return this.getEntityModelReader().getModelEntity(entityName);
+            return this.getEntityModelReader().getModelEntity(entityName);
         }
         
         public ModelService getModelService(String serviceName) throws GenericServiceException {
-        	return this.getDispatchContext().getModelService(serviceName);
+            return this.getDispatchContext().getModelService(serviceName);
         }
         
         public ModelForm getModelForm(String formName, String formLocation) throws ParserConfigurationException, SAXException, IOException {
-        	return FormFactory.getFormFromLocation(formLocation, formName, this.entityModelReader, this.dispatchContext);
+            return FormFactory.getFormFromLocation(formLocation, formName, this.entityModelReader, this.dispatchContext);
         }
         
         public ModelScreen getModelScreen(String screenName, String screenLocation) throws ParserConfigurationException, SAXException, IOException {
-        	return ScreenFactory.getScreenFromLocation(screenLocation, screenName);
+            return ScreenFactory.getScreenFromLocation(screenLocation, screenName);
         }
-	}
-	
-	static public class EntityInfo {
-		protected ArtifactInfoContext aic;
-		protected ModelEntity modelEntity;
-		
-		public EntityInfo(String entityName, ArtifactInfoContext aic) throws GenericEntityException {
-			this.aic = aic;
-			this.modelEntity = this.aic.getModelEntity(entityName);
-		}
-		
-		public List<ModelEntity> getEntitiesRelatedOne() {
-			List<ModelEntity> entityList = FastList.newInstance();
-			// TODO: implement this
-			return entityList;
-		}
+    }
+    
+    static public class EntityInfo {
+        protected ArtifactInfoContext aic;
+        protected ModelEntity modelEntity;
+        
+        public EntityInfo(String entityName, ArtifactInfoContext aic) throws GenericEntityException {
+            this.aic = aic;
+            this.modelEntity = this.aic.getModelEntity(entityName);
+        }
+        
+        public List<ModelEntity> getEntitiesRelatedOne() {
+            List<ModelEntity> entityList = FastList.newInstance();
+            // TODO: implement this
+            return entityList;
+        }
 
-		public List<ModelEntity> getEntitiesRelatedMany() {
-			List<ModelEntity> entityList = FastList.newInstance();
-			// TODO: implement this
-			return entityList;
-		}
-		
-		/** Get the Services that use this Entity */
-		public List<ModelService> getServicesUsingEntity() {
-			List<ModelService> serviceList = FastList.newInstance();
-			// TODO: implement this
-			return serviceList;
-		}
-		
-		/** Get the Services called by Entity ECA */
-		public List<ModelService> getServicesCalledByEntityEca() {
-			List<ModelService> serviceList = FastList.newInstance();
-			// TODO: implement this
-			return serviceList;
-		}
-		
-		public List<EntityEcaRule> getEntityEcaRules() {
-			List<EntityEcaRule> eecaList = FastList.newInstance();
-			// TODO: implement this
-			return eecaList;
-		}
-		
-		public List<ModelForm> getFormsUsingEntity() {
-			List<ModelForm> formList = FastList.newInstance();
-			// TODO: implement this
-			return formList;
-		}
-		
-		public List<ModelScreen> getScreensUsingEntity() {
-			List<ModelScreen> screenList = FastList.newInstance();
-			// TODO: implement this
-			return screenList;
-		}
-	}
+        public List<ModelEntity> getEntitiesRelatedMany() {
+            List<ModelEntity> entityList = FastList.newInstance();
+            // TODO: implement this
+            return entityList;
+        }
+        
+        /** Get the Services that use this Entity */
+        public List<ModelService> getServicesUsingEntity() {
+            List<ModelService> serviceList = FastList.newInstance();
+            // TODO: implement this
+            return serviceList;
+        }
+        
+        /** Get the Services called by Entity ECA */
+        public List<ModelService> getServicesCalledByEntityEca() {
+            List<ModelService> serviceList = FastList.newInstance();
+            // TODO: implement this
+            return serviceList;
+        }
+        
+        public List<EntityEcaRule> getEntityEcaRules() {
+            List<EntityEcaRule> eecaList = FastList.newInstance();
+            // TODO: implement this
+            return eecaList;
+        }
+        
+        public List<ModelForm> getFormsUsingEntity() {
+            List<ModelForm> formList = FastList.newInstance();
+            // TODO: implement this
+            return formList;
+        }
+        
+        public List<ModelScreen> getScreensUsingEntity() {
+            List<ModelScreen> screenList = FastList.newInstance();
+            // TODO: implement this
+            return screenList;
+        }
+    }
 
-	static public class ServiceInfo {
-		protected ArtifactInfoContext aic;
-		protected ModelService modelService;
-		
-		public ServiceInfo(String serviceName, ArtifactInfoContext aic) throws GenericServiceException {
-			this.aic = aic;
-			this.modelService = this.aic.getModelService(serviceName);
-		}
-		
-		public List<ModelEntity> getEntitiesUsedByService() {
-			List<ModelEntity> entityList = FastList.newInstance();
-			// TODO: implement this
-			return entityList;
-		}
-		
-		public List<ModelService> getServicesCallingService() {
-			List<ModelService> serviceList = FastList.newInstance();
-			// TODO: implement this
-			return serviceList;
-		}
-		
-		public List<ModelService> getServicesCalledByService() {
-			List<ModelService> serviceList = FastList.newInstance();
-			// TODO: implement this
-			return serviceList;
-		}
-		
-		public List<ModelService> getServicesCalledByServiceEca() {
-			List<ModelService> serviceList = FastList.newInstance();
-			// TODO: implement this
-			return serviceList;
-		}
-		
-		public List<ServiceEcaRule> getServiceEcaRulesTriggeredByService() {
-			List<ServiceEcaRule> secaList = FastList.newInstance();
-			// TODO: implement this
-			return secaList;
-		}
-		
-		public List<ModelService> getServicesCallingServiceByEca() {
-			List<ModelService> serviceList = FastList.newInstance();
-			// TODO: implement this
-			return serviceList;
-		}
-		
-		public List<ServiceEcaRule> getServiceEcaRulesCallingService() {
-			List<ServiceEcaRule> secaList = FastList.newInstance();
-			// TODO: implement this
-			return secaList;
-		}
-		
-		public List<ModelForm> getFormsCallingService() {
-			List<ModelForm> formList = FastList.newInstance();
-			// TODO: implement this
-			return formList;
-		}
-		
-		public List<ModelForm> getFormsBasedOnService() {
-			List<ModelForm> formList = FastList.newInstance();
-			// TODO: implement this
-			return formList;
-		}
-		
-		public List<ModelScreen> getScreensCallingService() {
-			List<ModelScreen> screenList = FastList.newInstance();
-			// TODO: implement this
-			return screenList;
-		}
-		
-		public List<ModelScreen> getRequestsWithEventCallingService() {
-			List<ModelScreen> screenList = FastList.newInstance();
-			// TODO: implement this
-			return screenList;
-		}
-	}
+    static public class ServiceInfo {
+        protected ArtifactInfoContext aic;
+        protected ModelService modelService;
+        
+        public ServiceInfo(String serviceName, ArtifactInfoContext aic) throws GenericServiceException {
+            this.aic = aic;
+            this.modelService = this.aic.getModelService(serviceName);
+        }
+        
+        public List<ModelEntity> getEntitiesUsedByService() {
+            List<ModelEntity> entityList = FastList.newInstance();
+            // TODO: implement this
+            return entityList;
+        }
+        
+        public List<ModelService> getServicesCallingService() {
+            List<ModelService> serviceList = FastList.newInstance();
+            // TODO: implement this
+            return serviceList;
+        }
+        
+        public List<ModelService> getServicesCalledByService() {
+            List<ModelService> serviceList = FastList.newInstance();
+            // TODO: implement this
+            return serviceList;
+        }
+        
+        public List<ModelService> getServicesCalledByServiceEca() {
+            List<ModelService> serviceList = FastList.newInstance();
+            // TODO: implement this
+            return serviceList;
+        }
+        
+        public List<ServiceEcaRule> getServiceEcaRulesTriggeredByService() {
+            List<ServiceEcaRule> secaList = FastList.newInstance();
+            // TODO: implement this
+            return secaList;
+        }
+        
+        public List<ModelService> getServicesCallingServiceByEca() {
+            List<ModelService> serviceList = FastList.newInstance();
+            // TODO: implement this
+            return serviceList;
+        }
+        
+        public List<ServiceEcaRule> getServiceEcaRulesCallingService() {
+            List<ServiceEcaRule> secaList = FastList.newInstance();
+            // TODO: implement this
+            return secaList;
+        }
+        
+        public List<ModelForm> getFormsCallingService() {
+            List<ModelForm> formList = FastList.newInstance();
+            // TODO: implement this
+            return formList;
+        }
+        
+        public List<ModelForm> getFormsBasedOnService() {
+            List<ModelForm> formList = FastList.newInstance();
+            // TODO: implement this
+            return formList;
+        }
+        
+        public List<ModelScreen> getScreensCallingService() {
+            List<ModelScreen> screenList = FastList.newInstance();
+            // TODO: implement this
+            return screenList;
+        }
+        
+        public List<ModelScreen> getRequestsWithEventCallingService() {
+            List<ModelScreen> screenList = FastList.newInstance();
+            // TODO: implement this
+            return screenList;
+        }
+    }
 
-	static public class FormInfo {
-		protected ArtifactInfoContext aic;
-		protected ModelForm modelForm;
-		
-		public FormInfo(String formName, String formLocation, ArtifactInfoContext aic) throws ParserConfigurationException, SAXException, IOException {
-			this.aic = aic;
+    static public class FormInfo {
+        protected ArtifactInfoContext aic;
+        protected ModelForm modelForm;
+        
+        public FormInfo(String formName, String formLocation, ArtifactInfoContext aic) throws ParserConfigurationException, SAXException, IOException {
+            this.aic = aic;
             this.modelForm = aic.getModelForm(formName, formLocation);
-		}
-	}		
+        }
+    }        
 
-	static public class ScreenInfo {
-		protected ArtifactInfoContext aic;
-		protected ModelScreen modelScreen;
-		
-		public ScreenInfo(String screenName, String screenLocation, ArtifactInfoContext aic) throws ParserConfigurationException, SAXException, IOException {
-			this.aic = aic;
+    static public class ScreenInfo {
+        protected ArtifactInfoContext aic;
+        protected ModelScreen modelScreen;
+        
+        public ScreenInfo(String screenName, String screenLocation, ArtifactInfoContext aic) throws ParserConfigurationException, SAXException, IOException {
+            this.aic = aic;
             this.modelScreen = aic.getModelScreen(screenName, screenLocation);
-		}
-	}		
+        }
+    }
 }
