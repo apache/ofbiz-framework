@@ -16,13 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<h1>${uiLabelMap.WebtoolsStatsBinsPageTitle}</h1>
-<br />
-<div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsMainPageTitle}</a>
-<a href="<@ofbizUrl>StatBinsHistory?statsId=${parameters.statsId}&type=${parameters.type}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
-<p>${uiLabelMap.WebtoolsStatsCurrentTime}: ${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</p>
-<br />
+<div id="stats-bins-history" class="screenlet">
+    <div class="screenlet-title-bar">
+      <h3>${uiLabelMap.WebtoolsStatsBinsPageTitle}</h3>
+    </div>
+    <div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsMainPageTitle}</a>
+    <a href="<@ofbizUrl>StatBinsHistory?statsId=${parameters.statsId}&type=${parameters.type}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
+    <p><span class="label">${uiLabelMap.WebtoolsStatsCurrentTime}</span> ${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</p>
+</div>
 <#if security.hasPermission("SERVER_STATS_VIEW", session)>
 
   <div id="stats-bins-history" class="screenlet">

@@ -16,10 +16,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <form name="scheduleForm" method="POST" action="<@ofbizUrl>scheduleService</@ofbizUrl>">
     <#list scheduleOptions as scheduleOption>
-	  <input type="hidden" name="${scheduleOption.name}" value="${scheduleOption.value}"/>
+      <input type="hidden" name="${scheduleOption.name}" value="${scheduleOption.value}"/>
     </#list>
 
     <table class="basic-table" cellspacing="0">
@@ -28,9 +27,9 @@ under the License.
       <tr>
         <td class="label">${serviceParameter.name} (${serviceParameter.type})</td>
         <td>
-          <input type="text" size="20" name="${serviceParameter.name}" value="${serviceParameter.value?if_exists}"/>
-          <#if serviceParameter.optional == "N">(required)<#else>(optional)</#if>
-          <#if serviceParameter.defaultValue?has_content> (default: [${serviceParameter.defaultValue}])</#if>
+          <input type="text" size="20" name="${serviceParameter.name}" value="${serviceParameter.value?if_exists}" <#if serviceParameter.optional == "N">class="required"</#if>/>
+          <#if serviceParameter.optional == "N"><span class="tooltip">${uiLabelMap.CommonRequired}</span></#if>
+          <#if serviceParameter.defaultValue?has_content>${uiLabelMap.WebtoolsServiceDefault} ${serviceParameter.defaultValue}</#if>
         </td>
       </tr>
     </#list>
@@ -38,4 +37,4 @@ under the License.
         <td colspan="2" align="center"><input type="submit" value="${uiLabelMap.CommonSubmit}"></td>
       </tr>      
     </table>
-</form>	
+</form>

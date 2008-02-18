@@ -24,7 +24,7 @@ under the License.
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.WebtoolsServiceEngineThreads}</h3>
   </div>
-<table class="basic-table" cellspacing="0">
+<table class="basic-table hover-bar" cellspacing="0">
   <tr class="header-row">
     <td>${uiLabelMap.WebtoolsThread}</td>
     <td>${uiLabelMap.CommonStatus}</td>
@@ -34,16 +34,19 @@ under the License.
     <td>${uiLabelMap.WebtoolsTTL} (ms)</td>
     <td>${uiLabelMap.CommonTime} (ms)</td>
   </tr>
+  <#assign alt_row = false>
   <#list threads as thread>
-  <tr>
-    <td>[${thread.threadId?if_exists}] ${thread.threadName?if_exists}</td>
+  <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+    <td>${thread.threadId?if_exists} ${thread.threadName?if_exists}</td>
     <td>${thread.status?if_exists}</td>
-    <td>${thread.jobName?default("[${uiLabelMap.CommonNone}]")}</td>
-    <td>${thread.serviceName?default("[${uiLabelMap.CommonNone}]")}</td>
+    <td>${thread.jobName?default("${uiLabelMap.CommonNone}")}</td>
+    <td>${thread.serviceName?default("${uiLabelMap.CommonNone}")}</td>
     <td>${thread.usage?if_exists}</td>
     <td>${thread.ttl?if_exists}</td>
     <td>${thread.runTime?if_exists}</td>
   </tr>
+  <#-- toggle the row color -->
+  <#assign alt_row = !alt_row>
   </#list>
 </table>
 </div>
@@ -53,10 +56,10 @@ under the License.
     <h3>${uiLabelMap.WebtoolsGeneralJavaThreads}</h3>
   </div>
 <br />
-<p>${uiLabelMap.WebtoolsThisThread}: <b>${Static["java.lang.Thread"].currentThread().getName()} (${Static["java.lang.Thread"].currentThread().getId()})</b>
+<p>${uiLabelMap.WebtoolsThisThread}<b> ${Static["java.lang.Thread"].currentThread().getName()} (${Static["java.lang.Thread"].currentThread().getId()})</b>
 <p>${uiLabelMap.WebtoolsNote4} ${javaVer}; ${uiLabelMap.WebtoolsNote5}? ${isJava5?string}}<p>
 <br />
-<table class="basic-table" cellspacing="0">
+<table class="basic-table hover-bar" cellspacing="0">
   <tr class="header-row">
     <td>${uiLabelMap.WebtoolsGroup}</td>
     <td>${uiLabelMap.WebtoolsThreadId}</td>
@@ -65,10 +68,11 @@ under the License.
     <td>${uiLabelMap.WebtoolsPriority}</td>
     <td>${uiLabelMap.WebtoolsDaemon}</td>
   </tr>
+  <#assign alt_row = false>
   <#list allThreadList as javaThread>
     <#if javaThread?exists>
       <#if isJava5><#assign stackTraceArray = javaThread.getStackTrace()/></#if>
-      <tr>
+      <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
         <td valign="top">${(javaThread.getThreadGroup().getName())?if_exists}</td>
         <td valign="top"><#if isJava5>${javaThread.getId()?string}</#if></td>
         <td valign="top">
@@ -85,6 +89,8 @@ under the License.
         <td valign="top">${javaThread.isDaemon()?string}<#-- /${javaThread.isAlive()?string}/${javaThread.isInterrupted()?string} --></td>
       </tr>
     </#if>
+    <#-- toggle the row color -->
+    <#assign alt_row = !alt_row>
   </#list>
 </table>
 </div>

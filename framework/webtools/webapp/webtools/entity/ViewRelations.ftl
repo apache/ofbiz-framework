@@ -16,39 +16,48 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if hasViewPermission>
-    <h1>${uiLabelMap.WebtoolsRelations}</h1>
-    <br />
-    <h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
-    <br />
-    <div class="button-bar">
-        <a href="<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsBackToFindScreen}</a>
-    </div>
-    <br />
-    <table class="basic-table light-grid hover-bar" cellspacing="0">
-        <tr class="header-row">
-            <td>${uiLabelMap.WebtoolsTitle}</td>
-            <td>${uiLabelMap.WebtoolsRelatedEntity}</td>
-            <td>${uiLabelMap.WebtoolsRelationType}</td>
-            <td>${uiLabelMap.WebtoolsFKName}</td>
-            <td>${uiLabelMap.WebtoolsFieldsList}</td>
-        </tr>
-        <#assign alt_row = false>
-        <#list relations as relation>
-            <tr<#if alt_row> class="alternate-row"</#if>>
-                <td>${relation.title}</td>
-                <td class="button-col"><a href='<@ofbizUrl>FindGeneric?entityName=${relation.relEntityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>'>${relation.relEntityName}</a></td>
-                <td>${relation.type}</td>
-                <td>${relation.fkName}</td>
-                <td>
-                    <#list relation.relFields as field>
-                        ${field.fieldName} -> ${field.relFieldName}<br/>
-                    </#list>
-                </td>
+<div class="screenlet">
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="head3">${uiLabelMap.WebtoolsRelations}</li>
+    </ul>
+    <br class="clear"/>
+  </div> 
+  <div class="screenlet-body">
+    <#if hasViewPermission>
+        <br/>
+        <h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
+        <br/>
+        <div class="button-bar">
+            <a href="<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsBackToFindScreen}</a>
+        </div>
+        <br/>
+        <table class="basic-table hover-bar" cellspacing="0">
+            <tr class="header-row">
+                <td>${uiLabelMap.WebtoolsTitle}</td>
+                <td>${uiLabelMap.WebtoolsRelatedEntity}</td>
+                <td>${uiLabelMap.WebtoolsRelationType}</td>
+                <td>${uiLabelMap.WebtoolsFKName}</td>
+                <td>${uiLabelMap.WebtoolsFieldsList}</td>
             </tr>
-            <#assign alt_row = !alt_row>
-        </#list>
-    </table>
-<#else>
-    <h3>${uiLabelMap.WebtoolsMesseage17} ${entityName} ${plainTableName} ${uiLabelMap.WebtoolsMesseage18}.</h3>
-</#if>
+            <#assign alt_row = false>
+            <#list relations as relation>
+                <tr<#if alt_row> class="alternate-row"</#if>>
+                    <td>${relation.title}</td>
+                    <td class="button-col"><a href='<@ofbizUrl>FindGeneric?entityName=${relation.relEntityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>'>${relation.relEntityName}</a></td>
+                    <td>${relation.type}</td>
+                    <td>${relation.fkName}</td>
+                    <td>
+                        <#list relation.relFields as field>
+                            ${field.fieldName} -> ${field.relFieldName}<br/>
+                        </#list>
+                    </td>
+                </tr>
+                <#assign alt_row = !alt_row>
+            </#list>
+        </table>
+    <#else>
+        <h3>${uiLabelMap.WebtoolsMesseage17} ${entityName} ${plainTableName} ${uiLabelMap.WebtoolsMesseage18}.</h3>
+    </#if>
+  </div>
+</div>

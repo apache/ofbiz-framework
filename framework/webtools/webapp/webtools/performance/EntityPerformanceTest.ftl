@@ -17,11 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>${uiLabelMap.WebtoolsEntityEnginePerformanceTests}</h1>
-<br />
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.WebtoolsTestResults}</h3>
+    <h3>${uiLabelMap.WebtoolsEntityEnginePerformanceTests} - ${uiLabelMap.WebtoolsTestResults}</h3>
   </div>
   <div class="screenlet-body">  
     <#if security.hasPermission("ENTITY_MAINT", session)>
@@ -32,7 +30,7 @@ under the License.
       </p>
       <br/>
       <#if performanceList?has_content>
-        <table class="basic-table" cellspacing="0">
+        <table class="basic-table hover-bar" cellspacing="0">
           <tr class="header-row">
             <td>${uiLabelMap.WebtoolsPerformanceOperation}</td>
             <td>${uiLabelMap.WebtoolsEntity}</td>
@@ -41,9 +39,9 @@ under the License.
             <td>${uiLabelMap.WebtoolsPerformanceSecondsCall}</td>
             <td>${uiLabelMap.WebtoolsPerformanceCallsSecond}</td>
           </tr>
-          <#assign rowNum = "2">
+          <#assign alt_row = false>
           <#list performanceList as perfRow>
-            <tr<#if rowNum == "1"> class="alternate-row"</#if>>
+            <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>${perfRow.operation}</td>
               <td>${perfRow.entity}</td>
               <td>${perfRow.calls}</td>
@@ -51,6 +49,8 @@ under the License.
               <td>${perfRow.secsPerCall}</td>
               <td>${perfRow.callsPerSecond}</td>
             </tr>
+            <#-- toggle the row color -->
+            <#assign alt_row = !alt_row>
           </#list>
         </table>
       <#else>
