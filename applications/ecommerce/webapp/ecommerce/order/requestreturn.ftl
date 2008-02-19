@@ -57,12 +57,14 @@ under the License.
             <#if returnableItems?has_content>
               <#assign rowCount = 0>
               <#list returnableItems.keySet() as orderItem>
+              <#if !orderItem.orderAdjustmentId?has_content>    <#-- filter orderAdjustments -->
                 <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
                 <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
                 <input type="hidden" name="description_o_${rowCount}" value="${orderItem.itemDescription?if_exists}"/>
                 <#-- <input type="hidden" name="returnItemType_o_${rowCount}" value="ITEM"/> -->
                 <#assign returnItemType = returnItemTypeMap.get(returnableItems.get(orderItem).get("itemTypeKey"))/>
                 <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="${returnItemType}"/>
+                <input type="hidden" name="returnPrice_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnablePrice")}"/>                 
 
                 <#-- need some order item information -->
                 <#assign orderHeader = orderItem.getRelatedOne("OrderHeader")>
@@ -106,6 +108,7 @@ under the License.
                 </tr>
                 <tr><td colspan="6"><hr class="sepbar"/></td></tr>
                 <#assign rowCount = rowCount + 1>
+              </#if>
               </#list>
               <input type="hidden" name="_rowCount" value="${rowCount}"/>
               <tr>
