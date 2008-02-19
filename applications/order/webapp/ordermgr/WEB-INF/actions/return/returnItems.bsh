@@ -28,6 +28,7 @@ returnId = request.getParameter("returnId");
 if (returnId == null) {
     returnId = request.getAttribute("returnId");
 }
+if (returnId == null) return;
 context.put("returnId", returnId);
 
 orderId = request.getParameter("orderId");
