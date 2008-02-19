@@ -273,6 +273,11 @@ under the License.
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
+        <field name="roleTypeIdTo">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+            </drop-down>
+        </field>
         <field name="custRequestId"><lookup size="20" target-form-name="LookupCustRequest"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-find/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-find/></field>
