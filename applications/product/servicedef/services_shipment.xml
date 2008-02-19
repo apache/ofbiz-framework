@@ -642,6 +642,7 @@ under the License.
         <attribute name="shippableWeight" type="Double" mode="IN" optional="false"/>
         <attribute name="shippableQuantity" type="Double" mode="IN" optional="false"/>
         <attribute name="shippableTotal" type="Double" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="shippingEstimateAmount" type="Double" mode="OUT" optional="false"/>
     </service>
 

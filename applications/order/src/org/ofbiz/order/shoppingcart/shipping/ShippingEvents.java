@@ -88,7 +88,7 @@ public class ShippingEvents {
 
         return getShipGroupEstimate(dispatcher, delegator, cart.getOrderType(), shipmentMethodTypeId, carrierPartyId, null,
                 cart.getShippingContactMechId(groupNo), cart.getProductStoreId(), cart.getShippableItemInfo(groupNo),
-                cart.getShippableWeight(groupNo), cart.getShippableQuantity(groupNo), cart.getShippableTotal(groupNo));
+                cart.getShippableWeight(groupNo), cart.getShippableQuantity(groupNo), cart.getShippableTotal(groupNo), cart.getPartyId());
     }
 
     public static Map getShipEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, OrderReadHelper orh, String shipGroupSeqId) {
@@ -108,17 +108,22 @@ public class ShippingEvents {
         if (shipAddr == null) {
             return UtilMisc.toMap("shippingTotal", new Double(0));
         }
-
+        
         String contactMechId = shipAddr.getString("contactMechId");
+        String partyId = null;
+        GenericValue partyObject = orh.getPlacingParty();
+        if (UtilValidate.isNotEmpty(partyObject)) {
+             partyId = partyObject.getString("partyId");
+        }
         return getShipGroupEstimate(dispatcher, delegator, orh.getOrderTypeId(), shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId,
                 contactMechId, orh.getProductStoreId(), orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeight(shipGroupSeqId).doubleValue(),
-                orh.getShippableQuantity(shipGroupSeqId).doubleValue(), orh.getShippableTotal(shipGroupSeqId).doubleValue());
+                orh.getShippableQuantity(shipGroupSeqId).doubleValue(), orh.getShippableTotal(shipGroupSeqId).doubleValue(), partyId);
     }
 
     public static Map getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, String orderTypeId,
             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
             String productStoreId, List itemInfo, double shippableWeight, double shippableQuantity,
-            double shippableTotal) {
+            double shippableTotal, String partyId) {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
         List errorMessageList = new ArrayList();
 
@@ -173,6 +178,7 @@ public class ShippingEvents {
         serviceFields.put("carrierPartyId", carrierPartyId);
         serviceFields.put("shipmentMethodTypeId", shipmentMethodTypeId);
         serviceFields.put("shippingContactMechId", shippingContactMechId);
+        serviceFields.put("partyId", partyId);
 
         // call the external shipping service
         try {
