@@ -52,6 +52,11 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
             throw new IllegalArgumentException("Required parameter productStoreSurveyAppl missing");
         }
         this.setDefaultValues(defaultValues);
+        // sanitize pass-thru, we need to remove hidden fields values that are set
+        // by the survey so they won't be duplicated in additionalFields
+        passThru.remove("surveyId");
+        passThru.remove("partyId");
+        passThru.remove("surveyResponseId");
         this.setPassThru(passThru);
         this.checkParameters();
     }
