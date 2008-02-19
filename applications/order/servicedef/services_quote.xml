@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -231,5 +231,10 @@ under the License.
         <attribute name="quoteItems" type="List" mode="IN" optional="true"/>
         <attribute name="quoteAttributes" type="List" mode="IN" optional="true"/>
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="sendQuoteEmailForCreation" engine="simple" require-new-transaction="true" 
+             location="org/ofbiz/order/quote/QuoteServices.xml" invoke="sendQuoteEmailForCreation">
+        <description>Send an e-mail for quote creation</description>   
+        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
     </service>
 </services>
