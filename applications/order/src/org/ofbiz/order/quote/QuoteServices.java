@@ -34,9 +34,9 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.GenericServiceException;
 
 
 public class QuoteServices {
@@ -159,7 +159,10 @@ public class QuoteServices {
             quoteIn.put("validThruDate", validThruDate);
             quoteIn.put("quoteName", quoteName);
             quoteIn.put("description", description);
-            quoteIn.put("userLogin", userLogin);
+            if (userLogin != null) {
+                quoteIn.put("userLogin", userLogin);
+            }
+            
             
             // create Quote
             Map quoteOut = dispatcher.runSync("createQuote", quoteIn);
@@ -174,7 +177,8 @@ public class QuoteServices {
                     while (quoteIt.hasNext()) {
                         GenericValue quoteItem = (GenericValue)quoteIt.next();
                         quoteItem.set("quoteId", quoteId);
-                        Map quoteItemIn = UtilMisc.toMap(quoteItem);
+                        quoteItem.set("quoteUnitPrice", null);
+                        Map quoteItemIn = quoteItem.getAllFields();
                         quoteItemIn.put("userLogin", userLogin);
                         
                         dispatcher.runSync("createQuoteItem", quoteItemIn);
@@ -187,7 +191,7 @@ public class QuoteServices {
                     while (quoteAttrIt.hasNext()) {
                         GenericValue quoteAttr = (GenericValue)quoteAttrIt.next();
                         quoteAttr.set("quoteId", quoteId);
-                        Map quoteAttrIn = UtilMisc.toMap(quoteAttr);
+                        Map quoteAttrIn = quoteAttr.getAllFields();
                         quoteAttrIn.put("userLogin", userLogin);
                         
                         dispatcher.runSync("createQuoteAttribute", quoteAttrIn);
