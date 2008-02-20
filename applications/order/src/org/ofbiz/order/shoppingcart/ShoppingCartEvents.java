@@ -1421,6 +1421,9 @@ public class ShoppingCartEvents {
                     return "error";
                 } else {
                     cart.setOrderPartyId(partyId);
+                    if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
+                        cart.setBillFromVendorPartyId(partyId);
+                    }
                 }
             } else if (partyId != null && partyId.length() == 0) {
                 cart.setOrderPartyId("_NA_");
