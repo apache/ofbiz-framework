@@ -956,6 +956,7 @@
         <value xml:lang="es">Añadir por default</value>
         <value xml:lang="fr">Ajouter par défaut</value>
         <value xml:lang="pt_PT">Adicionar Pré-definições</value>
+        <value xml:lang="th">เพิ่มค่าเริ่มต้น</value>
     </property>
     <property key="CommonAll">
         <value xml:lang="cs">Všechny</value>
@@ -1135,6 +1136,7 @@
         <value xml:lang="en">Could Be Used As</value>
         <value xml:lang="es">Podría ser usado como</value>
         <value xml:lang="fr">Pourrait être utilisé comme</value>
+        <value xml:lang="th">ควรใช้</value>
     </property>
     <property key="CommonCreate">
         <value xml:lang="cs">Založit</value>
@@ -1259,6 +1261,7 @@
         <value xml:lang="en">Fields Marked Are Required</value>
         <value xml:lang="es">Campos marcados como obligatorios</value>
         <value xml:lang="fr">Les champs marqués sont exigés</value>
+        <value xml:lang="th">ทำเครื่องหมายด้วย (*) ที่ต้องการ</value>
     </property>
     <property key="CommonFind">
         <value xml:lang="cs">Hledání</value>
@@ -1310,6 +1313,7 @@
         <value xml:lang="en">Go to Parent</value>
         <value xml:lang="es">Regresar al padre</value>
         <value xml:lang="fr">Aller au parent</value>
+        <value xml:lang="th">ไปยังกลุ่ม</value>
     </property>
     <property key="CommonInThe">
         <value xml:lang="cs">z</value>
@@ -1395,7 +1399,7 @@
         <value xml:lang="es">coincidió</value>
         <value xml:lang="fr">Equivalent</value>
         <value xml:lang="pt_PT">Equivalente</value>
-        <value xml:lang="th">จับคู่</value>
+        <value xml:lang="th">ตรงกัน</value>
     </property>
     <property key="CommonMayCreate">
         <value xml:lang="cs">Založit</value>
@@ -1515,7 +1519,7 @@
         <value xml:lang="es">en</value>
         <value xml:lang="fr">Allumé</value>
         <value xml:lang="pt_PT">Em</value>
-        <value xml:lang="th">บน</value>
+        <value xml:lang="th">ในที่</value>
     </property>
     <property key="CommonOpenNewWindow">
         <value xml:lang="cs">Otevřít stránku v novém okně</value>
@@ -1559,6 +1563,7 @@
         <value xml:lang="en">Qualifier</value>
         <value xml:lang="es">Calificador</value>
         <value xml:lang="fr">Qualifiant</value>
+        <value xml:lang="th">ผู้มีคุณสมบัติเหมาะ</value>
     </property>
     <property key="CommonQuantity">
         <value xml:lang="cs">Množství</value>
@@ -1764,7 +1769,7 @@
         <value xml:lang="en">Used As</value>
         <value xml:lang="es">usado como</value>
         <value xml:lang="fr">Utilisé comme</value>
-        <value xml:lang="th">ใช้</value>
+        <value xml:lang="th">ใช้แทน</value>
     </property>
     <property key="CommonUsername">
         <value xml:lang="cs">Uživatelské jméno</value>
@@ -1844,6 +1849,7 @@
         <value xml:lang="fr">Actif</value>
         <value xml:lang="hi_IN">सक्रिय</value>
         <value xml:lang="ja">Active</value>
+        <value xml:lang="th">ปฏิบัติ</value>
     </property>
     <property key="EcommerceAddAlltoCart">
         <value xml:lang="cs">Přidat všechno do košíku</value>
@@ -1852,7 +1858,7 @@
         <value xml:lang="en_GB">Add All to basket</value>
         <value xml:lang="hi_IN">सभी को टोकरी में डालें</value>
         <value xml:lang="ja">Add All to Cart</value>
-        <value xml:lang="th">เพิ่มรายการทั้งหมดลงบัตร</value>
+        <value xml:lang="th">เพิ่มรายการทั้งหมดลงตะกร้า</value>
     </property>
     <property key="EcommerceAddCheckedToCart">
         <value xml:lang="cs">přidat vybrané do košíku</value>
@@ -1861,7 +1867,7 @@
         <value xml:lang="en_GB">Add selected to basket</value>
         <value xml:lang="hi_IN">सही निशान वाले को टोकरी में डालें</value>
         <value xml:lang="ja">Add Checked to Cart</value>
-        <value xml:lang="th">เพิ่มรายการที่เลือกลงบัตร</value>
+        <value xml:lang="th">เพิ่มรายการที่เลือกลงตะกร้า</value>
     </property>
     <property key="EcommerceAddChildListsToCart">
         <value xml:lang="cs">Přidejte tento seznam a další seznam(-y) do košíku</value>
@@ -1870,7 +1876,7 @@
         <value xml:lang="en_GB">Add This List And Child List(s) To basket</value>
         <value xml:lang="hi_IN">इस पूरी सूची को टोकरी में डालें</value>
         <value xml:lang="ja">Add This List And Child List(s) To Cart</value>
-        <value xml:lang="th">เพิ่มรายการสินค้าเด็กลงบัตร</value>
+        <value xml:lang="th">เพิ่มรายการสินค้าเด็กลงตะกร้า</value>
     </property>
     <property key="EcommerceAddListToCart">
         <value xml:lang="cs">Přidat seznam do košíku</value>
@@ -1879,7 +1885,7 @@
         <value xml:lang="en_GB">Add List To basket</value>
         <value xml:lang="hi_IN">सूची को टोकरी में डालें</value>
         <value xml:lang="ja">Add List To Cart</value>
-        <value xml:lang="th">เพิ่มรายการลงบัตร</value>
+        <value xml:lang="th">เพิ่มรายการลงตะกร้า</value>
     </property>
     <property key="EcommerceAddNewDigitalProduct">
         <value xml:lang="en">Add New Digital Product</value>
@@ -1909,7 +1915,7 @@
         <value xml:lang="en_GB">Add to basket</value>
         <value xml:lang="hi_IN">टोकरी में जोड़ें</value>
         <value xml:lang="ja">買い物かごに入れる</value>
-        <value xml:lang="th">เพิ่มรายการลงบัตร</value>
+        <value xml:lang="th">เพิ่มรายการลงตะกร้า</value>
     </property>
     <property key="EcommerceAddtoShoppingList">
         <value xml:lang="cs">přidat do nákupního seznamu</value>
@@ -1948,7 +1954,7 @@
         <value xml:lang="en_GB">Always view basket after adding an item</value>
         <value xml:lang="hi_IN">हमेशा टोकरी देखें सामान जोडने के बाद</value>
         <value xml:lang="ja">Always view cart after adding an item</value>
-        <value xml:lang="th">ดูรายการหลังจากเพิ่มสินค้าเสมอ</value>
+        <value xml:lang="th">ดูรายการในตะกร้าหลังจากเพิ่มสินค้าเสมอ</value>
     </property>
     <property key="EcommerceAnonymous">
         <value xml:lang="cs">anonymní</value>
@@ -1987,7 +1993,7 @@
         <value xml:lang="en_GB">Basket has</value>
         <value xml:lang="hi_IN">टोकरी में है</value>
         <value xml:lang="ja">Cart has</value>
-        <value xml:lang="th">บัตรมี</value>
+        <value xml:lang="th">ในตะกร้ามี</value>
     </property>
     <property key="EcommerceCartItemUseinPromotions">
         <value xml:lang="en">Cart Item Use in Promotions</value>
@@ -1995,7 +2001,7 @@
         <value xml:lang="en_GB">Basket item use in promotions</value>
         <value xml:lang="hi_IN">टोकरी वस्तु प्रोत्साहन में</value>
         <value xml:lang="ja">Cart Item Use in Promotions</value>
-        <value xml:lang="th">รายการในบัตรใช้ในโปรโมชั่น</value>
+        <value xml:lang="th">สินค้าในตะกร้าใช้ในโปรโมชั่น</value>
     </property>
     <property key="EcommerceCartSummary">
         <value xml:lang="cs">Obsah košíku</value>
@@ -2004,7 +2010,7 @@
         <value xml:lang="en_GB">Basket Summary</value>
         <value xml:lang="hi_IN">टोकरी संक्षेप</value>
         <value xml:lang="ja">買い物かご状態</value>
-        <value xml:lang="th">รายงานการสั่งซื้อสินค้า</value>
+        <value xml:lang="th">สรุปสินค้าในตะกร้า</value>
     </property>
     <property key="EcommerceCartTotal">
         <value xml:lang="cs">Košík celkem</value>
@@ -2013,7 +2019,7 @@
         <value xml:lang="en_GB">Basket Total</value>
         <value xml:lang="hi_IN">टोकरी कुल</value>
         <value xml:lang="ja">Cart Total</value>
-        <value xml:lang="th">ยอดรวมของบัตร</value>
+        <value xml:lang="th">ผลรวมในตะกร้า</value>
     </property>
     <property key="EcommerceCheckBalance">
         <value xml:lang="en">Check Balance</value>
@@ -2219,7 +2225,7 @@
         <value xml:lang="en_GB">Empty basket</value>
         <value xml:lang="hi_IN">ख़ाली टोकरी</value>
         <value xml:lang="ja">Empty Cart</value>
-        <value xml:lang="th">ไม่มีข้อมูลในบัตร</value>
+        <value xml:lang="th">ตะกร้าว่างเปล่า</value>
     </property>
     <property key="EcommerceEnterQueryParameters">
         <value xml:lang="en">Enter Query Parameters</value>
@@ -2452,13 +2458,14 @@
         <value xml:lang="en">Article </value>
         <value xml:lang="hi_IN">सामान</value>
         <value xml:lang="ja">Item</value>
-        <value xml:lang="th">สิ่งของ</value>
+        <value xml:lang="th">รายการ</value>
     </property>
     <property key="EcommerceItemN">
         <value xml:lang="en">ItemN</value>
         <value xml:lang="fr">Article n°</value>
         <value xml:lang="hi_IN">सामान #</value>
         <value xml:lang="ja">Item #</value>
+        <value xml:lang="th">รายการ #</value>
     </property>
     <property key="EcommerceItemTotal">
         <value xml:lang="cs">Položka celkem</value>
@@ -2466,7 +2473,7 @@
         <value xml:lang="fr">Total article</value>
         <value xml:lang="hi_IN">कुल सामान</value>
         <value xml:lang="ja">Item Total</value>
-        <value xml:lang="th">ของทั้งหมด</value>
+        <value xml:lang="th">รายการรวม</value>
     </property>
     <property key="EcommerceItems">
         <value xml:lang="cs">Položky</value>
@@ -2474,7 +2481,7 @@
         <value xml:lang="fr">Articles</value>
         <value xml:lang="hi_IN">सामान</value>
         <value xml:lang="ja">Items</value>
-        <value xml:lang="th">สิ่งของ</value>
+        <value xml:lang="th">รายการ</value>
     </property>
     <property key="EcommerceItemsfromShopingList">
         <value xml:lang="cs">Položky z nákupního seznamu; aktualizovat počty ze stránky sezamu</value>
@@ -2482,7 +2489,7 @@
         <value xml:lang="fr">Articles de la liste d'achats</value>
         <value xml:lang="hi_IN">ख़रीदीरी सूची से सामान, सूची पृष्ठ से सामान ठीक करें</value>
         <value xml:lang="ja">Items from a shopping list; update quantities from list page</value>
-        <value xml:lang="th">ของจากรายการที่ซื้อ</value>
+        <value xml:lang="th">สินค้าจากรายการที่ซื้อ</value>
     </property>
     <property key="EcommerceLastCategories">
         <value xml:lang="cs">Poslední kategorie</value>
@@ -2557,7 +2564,7 @@
         <value xml:lang="fr">Prix total de la liste d'articles</value>
         <value xml:lang="hi_IN">सूची वस्तु का कुल मूल्य</value>
         <value xml:lang="ja">This List Items Total Price</value>
-        <value xml:lang="th">รายการรวมราคาสิ่งของ</value>
+        <value xml:lang="th">รายการรวมราคาสินค้า</value>
     </property>
     <property key="EcommerceListName">
         <value xml:lang="cs">Jméno seznamu</value>
@@ -2863,7 +2870,7 @@
         <value xml:lang="en">Parent List</value>
         <value xml:lang="fr">Liste parente</value>
         <value xml:lang="ja">Parent List</value>
-        <value xml:lang="th">รายชื่อครอบครัว</value>
+        <value xml:lang="th">รายชื่อกลุ่ม</value>
     </property>
     <property key="EcommercePassword">
         <value xml:lang="en">Password</value>
@@ -2966,7 +2973,7 @@
         <value xml:lang="fr">Articles promotionnels</value>
         <value xml:lang="hi_IN">प्रोत्साहन सामान: मात्रा बदली नहीं जा सकती</value>
         <value xml:lang="ja">Promotional items; quantities cannot be modified</value>
-        <value xml:lang="th">สิ่งของในโปรโมชั่น</value>
+        <value xml:lang="th">สินค้าในโปรโมชั่น</value>
     </property>
     <property key="EcommercePromotionsApplied">
         <value xml:lang="cs">Uskutečněné promoakce</value>
@@ -3041,7 +3048,7 @@
         <value xml:lang="en_GB">Recalculate basket</value>
         <value xml:lang="hi_IN">टोकरी कि गणना फिर करें</value>
         <value xml:lang="ja">Recalculate Cart</value>
-        <value xml:lang="th">คำนวณบัตร</value>
+        <value xml:lang="th">คำนวณในตะกร้า</value>
     </property>
     <property key="EcommerceRecurrence">
         <value xml:lang="en">Recurrence</value>
@@ -3177,7 +3184,7 @@
         <value xml:lang="en_GB">Shopping basket</value>
         <value xml:lang="hi_IN">ख़रीदारी टोकरी</value>
         <value xml:lang="ja">Shopping Cart</value>
-        <value xml:lang="th">บัตรซื้อสินค้า</value>
+        <value xml:lang="th">ตะกร้าซื้อสินค้า</value>
     </property>
     <property key="EcommerceShoppingCartEmpty">
         <value xml:lang="cs">Košík je prázdný</value>
@@ -3186,7 +3193,7 @@
         <value xml:lang="en_GB">Shopping basket is empty</value>
         <value xml:lang="hi_IN">टोकरी ख़ाली है</value>
         <value xml:lang="ja">買い物かごの中には何も入っていません</value>
-        <value xml:lang="th">ไม่มีข้อมูลในบัตร</value>
+        <value xml:lang="th">ไม่มีการซื้อสินค้าลงตะกร้า</value>
     </property>
     <property key="EcommerceShoppingListDetail">
         <value xml:lang="cs">Detailní přehled nákupu</value>
@@ -3372,14 +3379,14 @@
         <value xml:lang="en_GB">to basket</value>
         <value xml:lang="hi_IN">टोकरी में</value>
         <value xml:lang="ja">to Cart</value>
-        <value xml:lang="th">รายการในบัตร</value>
+        <value xml:lang="th">ลงตะกร้า</value>
     </property>
     <property key="EcommerceToOrderCreateCustRequestFromCart">
         <value xml:lang="en">To Order Create CustRequest From Cart</value>
         <value xml:lang="fr">Pour créer une commande faites une demande depuis le panier</value>
         <value xml:lang="hi_IN">कोट उत्पन्न करने के लिए आग्रह</value>
         <value xml:lang="ja">to create a request for quote</value>
-        <value xml:lang="th">ในการสร้างรายการสั่งซื้อของลูกค้าจากบัตร</value>
+        <value xml:lang="th">การสร้างรายการสั่งซื้อของลูกค้าจากตะกร้า</value>
     </property>
     <property key="EcommerceTotal">
         <value xml:lang="cs">Suma</value>
@@ -3445,7 +3452,7 @@
         <value xml:lang="en_GB">of Variation to basket</value>
         <value xml:lang="hi_IN">अन्तर को टोकरी में</value>
         <value xml:lang="ja">of Variation To Cart</value>
-        <value xml:lang="th">เปลี่ยนแปลงสู่บัตร</value>
+        <value xml:lang="th">เปลี่ยนแปลงสู่ตะกร้า</value>
     </property>
     <property key="EcommerceViewAll">
         <value xml:lang="en">View All</value>
@@ -3469,7 +3476,7 @@
         <value xml:lang="en_GB">View basket</value>
         <value xml:lang="hi_IN">टोकरी देखें</value>
         <value xml:lang="ja">買い物かごを見る</value>
-        <value xml:lang="th">แสดงรายการในบัตร</value>
+        <value xml:lang="th">แสดงรายการในตะกร้า</value>
     </property>
     <property key="EcommerceViewList">
         <value xml:lang="en">View List</value>
@@ -3566,7 +3573,7 @@
         <value xml:lang="en_GB">Your shopping basket is empty</value>
         <value xml:lang="hi_IN">आपकी ख़रीदारी टोकरी ख़ाली है</value>
         <value xml:lang="ja">Your shopping cart is empty</value>
-        <value xml:lang="th">ไม่มีข้อมูลในบัตรซื้อสินค้าของคุณ</value>
+        <value xml:lang="th">ไม่มีการซื้อสินค้าลงตะกร้าของคุณ</value>
     </property>
     <property key="Factoids">
         <value xml:lang="cs">Věděli jste ?</value>
@@ -3740,6 +3747,7 @@
         <value xml:lang="ro">Cutie #</value>
         <value xml:lang="ru">Ящик №</value>
         <value xml:lang="th">Box #</value>
+        <value xml:lang="th">กล่อง #</value>
         <value xml:lang="zh">箱子 #</value>
     </property>
     <property key="OrderCOD">
@@ -4710,6 +4718,7 @@
         <value xml:lang="en">Qty Picked</value>
         <value xml:lang="fr">Qté choisie</value>
         <value xml:lang="ru">Отобр. кол.</value>
+        <value xml:lang="th">จำนวนที่เลือก</value>
     </property>
     <property key="OrderQtyShipped">
         <value xml:lang="cs">Expedované množství</value>
@@ -4723,6 +4732,7 @@
         <value xml:lang="pt_PT">Quantidade Enviada</value>
         <value xml:lang="ro">Cant Expediata</value>
         <value xml:lang="ru">Отгруженное количество</value>
+        <value xml:lang="th">จำนวนการขนส่ง</value>
         <value xml:lang="zh">已送货数量</value>
     </property>
     <property key="OrderQuote">
@@ -6053,7 +6063,7 @@
         <value xml:lang="pt_PT">Cesto De Compras</value>
         <value xml:lang="ro">Cos Cumparari</value>
         <value xml:lang="ru">Корзина покупок</value>
-        <value xml:lang="th">บัตรซื้อสินค้า</value>
+        <value xml:lang="th">การซื้อสินค้าลงตะกร้า</value>
         <value xml:lang="zh">购物车</value>
     </property>
     <property key="PageTitleShoppingList">
@@ -6528,7 +6538,7 @@
         <value xml:lang="pt_PT">Cidade</value>
         <value xml:lang="ro">Orasul</value>
         <value xml:lang="ru">Город</value>
-        <value xml:lang="th">จังหวัด</value>
+        <value xml:lang="th">เมือง</value>
         <value xml:lang="zh">城市</value>
     </property>
     <property key="PartyCityMissing">
@@ -6544,7 +6554,7 @@
         <value xml:lang="pt_PT">Cidade em Falta</value>
         <value xml:lang="ro">Orasul Lipseste</value>
         <value xml:lang="ru">Город не указан</value>
-        <value xml:lang="th">ไม่ได้ใส่จังหวัด</value>
+        <value xml:lang="th">ไม่ได้ใส่เมือง</value>
         <value xml:lang="zh">找不到城市</value>
     </property>
     <property key="PartyCompanyNameMissingError">
@@ -6636,7 +6646,7 @@
         <value xml:lang="pt_PT">Número de Contacto</value>
         <value xml:lang="ro">Contatto Numar</value>
         <value xml:lang="ru">Контактный номер</value>
-        <value xml:lang="th">ติดต่อหมายเลข</value>
+        <value xml:lang="th">หมายเลขทรศัพท์ที่ใช้ติดต่อ</value>
         <value xml:lang="zh">联系号码</value>
     </property>
     <property key="PartyContactNumberMissing">
@@ -7286,7 +7296,7 @@
         <value xml:lang="pt_PT">Nota: esta nova informação de contacto servirá para</value>
         <value xml:lang="ro">Nota: aceasta noua informatie contact va avea scopul</value>
         <value xml:lang="ru">Примечание: этой новой информации будет присвоено назначение</value>
-        <value xml:lang="th">Note: หมายเหตุ นี่คือข้อมูลติดต่อใหม่ที่ติดต่Note: หมายเหตุ นี่คือข้อมูลติดต่อใหม่ที่ติดต่อได้อได้</value>
+        <value xml:lang="th">Note: หมายเหตุ นี่คือข้อมูลติดต่อใหม่ที่ใช้</value>
         <value xml:lang="zh">注意：这个新的联系方式用于</value>
     </property>
     <property key="PartyNewPassword">
@@ -7398,7 +7408,7 @@
         <value xml:lang="pt_PT">Não foi encontrada referência ao corrente utilizador com essa identificação</value>
         <value xml:lang="ro">Nici-un Subiect gasit pentru utilizatorul curent cu nume utilizator </value>
         <value xml:lang="ru">Не найдена party для текущего пользователя с именем</value>
-        <value xml:lang="th">ไม่พบกลุ่มผู้ใช้นี้</value>
+        <value xml:lang="th">ไม่พบกลุ่มผู้ใช้สำหรับผู้ใช้ในขณะนี้</value>
         <value xml:lang="zh">没有找到与当前用户用户名一致的会员</value>
     </property>
     <property key="PartyNoPartyForUpdateCustomer">
@@ -7825,7 +7835,7 @@
         <value xml:lang="pt_PT">Solicitação Aceite</value>
         <value xml:lang="ro">Solecitare OK</value>
         <value xml:lang="ru">Soliciting OK</value>
-        <value xml:lang="th">ตกลง</value>
+        <value xml:lang="th">ตกลงตามคำร้อง</value>
         <value xml:lang="zh">提示</value>
     </property>
     <property key="PartyState">
@@ -8444,6 +8454,7 @@
         <value xml:lang="fr">Nouvelle recherche</value>
         <value xml:lang="ja">New Search</value>
         <value xml:lang="nl">Nieuwe zoekopdracht</value>
+        <value xml:lang="th">ค้นหาใหม่</value>
     </property>
     <property key="ProductNoLongerAvailable">
         <value xml:lang="cs">Již není k dispozici</value>
@@ -8708,6 +8719,7 @@
         <value xml:lang="fr">Affiner la recherche</value>
         <value xml:lang="ja">Refine Search</value>
         <value xml:lang="nl">Zoeken verfijnen</value>
+        <value xml:lang="th">ปรับปรุงการค้นหา</value>
     </property>
     <property key="ProductRegularPrice">
         <value xml:lang="cs">Obvyklá cena</value>
@@ -8830,7 +8842,7 @@
         <value xml:lang="nl">U zocht naar</value>
         <value xml:lang="ro">Cautare de</value>
         <value xml:lang="ru">вы искали</value>
-        <value xml:lang="th">คุณค้นหาเพื่อ</value>
+        <value xml:lang="th">ผลการค้นหาของคุณ</value>
         <value xml:lang="zh">你搜索</value>
     </property>
     <property key="QuoteHistory">
@@ -8864,11 +8876,13 @@
         <value xml:lang="es">Bulgaro</value>
         <value xml:lang="fr">Bulgare</value>
         <value xml:lang="pt_PT">Bulgarian</value>
+        <value xml:lang="th">บัลแกเรีย</value>
     </property>
     <property key="cz">
         <value xml:lang="cs">Česky</value>
         <value xml:lang="en">Czeck</value>
         <value xml:lang="fr">Tchèque</value>
+        <value xml:lang="th">Czeck</value>
     </property>
     <property key="de">
         <value xml:lang="cs">Německy</value>
@@ -8877,6 +8891,7 @@
         <value xml:lang="es">Alemán</value>
         <value xml:lang="fr">Allemand</value>
         <value xml:lang="pt_PT">German</value>
+        <value xml:lang="th">เยอรมัน</value>
     </property>
     <property key="en">
         <value xml:lang="cs">Anglicky</value>
@@ -8885,11 +8900,13 @@
         <value xml:lang="es">Inglés</value>
         <value xml:lang="fr">Anglais</value>
         <value xml:lang="pt_PT">English</value>
+        <value xml:lang="th">อังกฤษ</value>
     </property>
     <property key="es">
         <value xml:lang="en">Spanish</value>
         <value xml:lang="es">Español</value>
         <value xml:lang="fr">Espagnol</value>
+        <value xml:lang="th">สเปน</value>
     </property>
     <property key="gr">
         <value xml:lang="cs">Věděli jste ?</value>
@@ -8898,23 +8915,28 @@
         <value xml:lang="es">Griego</value>
         <value xml:lang="fr">Grec</value>
         <value xml:lang="pt_PT">Greek</value>
+        <value xml:lang="th">กรีก</value>
     </property>
     <property key="it">
         <value xml:lang="en">Italian</value>
         <value xml:lang="fr">Italien</value>
+        <value xml:lang="th">อิตาลี</value>
     </property>
     <property key="ja">
         <value xml:lang="en">Japanese</value>
         <value xml:lang="fr">Japonais</value>
+        <value xml:lang="th">ญี่ปุ่น</value>
     </property>
     <property key="pt">
         <value xml:lang="en">Portuguese</value>
         <value xml:lang="fr">Portugais</value>
         <value xml:lang="pt_PT">Português</value>
+        <value xml:lang="th">โปรตุเกส</value>
     </property>
     <property key="zh">
         <value xml:lang="en">Chinese</value>
         <value xml:lang="fr">Chinois</value>
+        <value xml:lang="th">จีน</value>
     </property>
 </resource>
 
