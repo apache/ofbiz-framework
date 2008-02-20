@@ -157,14 +157,14 @@
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateVideoDataResource" engine="simple" default-entity-name="VideoDataResource" auth="true"
-            location="org/ofbiz/content/data/DataServices.xml" invoke="updateImageDataResource">
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateVideoDataResource">
         <description>Update an VideoDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeVideoDataResource" engine="simple" default-entity-name="VideoDataResource" auth="true"
-            location="org/ofbiz/content/data/DataServices.xml" invoke="removeImageDataResource">
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeVideoDataResource">
         <description>Remove an VideoDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -172,21 +172,21 @@
 
     <!-- Audio Data Resource services -->
     <service name="createAudioDataResource" engine="simple" default-entity-name="AudioDataResource" auth="true"
-            location="org/ofbiz/content/data/DataServices.xml" invoke="createImageDataResource">
+            location="org/ofbiz/content/data/DataServices.xml" invoke="createAudioDataResource">
         <description>Create an AudioDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateAudioDataResource" engine="simple" default-entity-name="AudioDataResource" auth="true"
-            location="org/ofbiz/content/data/DataServices.xml" invoke="updateImageDataResource">
+            location="org/ofbiz/content/data/DataServices.xml" invoke="updateAudioDataResource">
         <description>Update an AudioDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeAudioDataResource" engine="simple" default-entity-name="AudioDataResource" auth="true"
-            location="org/ofbiz/content/data/DataServices.xml" invoke="removeImageDataResource">
+            location="org/ofbiz/content/data/DataServices.xml" invoke="removeAudioDataResource">
         <description>Remove an AudioDataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
