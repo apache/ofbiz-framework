@@ -107,7 +107,7 @@ under the License.
                             <td>${uiLabelMap.CommonReceive}</td>
                             <td>${uiLabelMap.ProductInventoryItemType}</td>
                             <td colspan="2" align="right">
-                                <div>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');"></div>
+                                <div>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');"></div>
                             </td>
                         </#if>
                     </tr>
@@ -120,7 +120,7 @@ under the License.
                         <#assign availableToReceive = orderItemData.availableToReceive?default(0)>
                         <#assign backOrderedQuantity = orderItemData.backOrderedQuantity?default(0)>
                         <#assign fulfilledReservations = orderItemData.fulfilledReservations>
-                        <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+                        <tr id="orderItemData_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
                             <td>${(product.internalName)?if_exists} [${orderItem.productId?default("N/A")}]</div></td>
                             <td>
                                 <div>
@@ -187,7 +187,7 @@ under the License.
                                     <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&purchaseOrderId=${orderId}&productId=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a>
                                 </td>
                                 <td align="right">              
-                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');">
+                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');">
                                 </td>
                                 <#assign rowCount = rowCount + 1>   
                             </#if>

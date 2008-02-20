@@ -65,14 +65,14 @@ under the License.
     <td><b>${uiLabelMap.CommonThruDate}</b></td>
     <td><b>${uiLabelMap.ProductAmount}</b></td>
     <td><b>${uiLabelMap.CommonSequence}</b></td>
-    <td><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');"></td>
+    <td><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');"></td>
   </tr>
 <#assign rowCount = 0>
 <#assign rowClass = "2">
 <#if (listSize > 0)>
 <#list productFeatures as productFeature>
   <#assign curProductFeatureType = productFeature.getRelatedOneCache("ProductFeatureType")>
-    <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+    <tr id="productFeatureId_tableRow_${rowCount}"  valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
         <input type="hidden" name="productFeatureId_o_${rowCount}" value="${productFeature.productFeatureId}">
         <td><a href="<@ofbizUrl>EditFeature?productFeatureId=${productFeature.productFeatureId}</@ofbizUrl>" class="buttontext">${productFeature.productFeatureId}</a></td>
         <td>${productFeature.description}</td>
@@ -89,7 +89,7 @@ under the License.
         <td><input type="text" size="6" name="amount_o_${rowCount}" value="${productFeature.defaultAmount?if_exists}"></td>
         <td><input type="text" size="5" name="sequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum?if_exists}"></td>
         <td align="right">              
-            <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');">
+            <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');">
         </td>
     </tr>
     <#assign rowCount = rowCount + 1>

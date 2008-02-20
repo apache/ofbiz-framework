@@ -46,7 +46,7 @@ under the License.
                     <td>${uiLabelMap.OrderConfirm}</td>
                     <td align="right">
                         ${uiLabelMap.ProductSelectAll}&nbsp;
-                        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');">
+                        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'moveInfoId_tableRow_', 'selectAllForm');">
                     </td>
                 </tr>
                 <#if moveByOisgirInfoList?has_content || moveByPflInfoList?has_content>
@@ -59,7 +59,7 @@ under the License.
                         <#assign targetProductFacilityLocation = moveByOisgirInfo.targetProductFacilityLocation>
                         <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOneCache("TypeEnumeration"))?if_exists>
                         <#assign totalQuantity = moveByOisgirInfo.totalQuantity>
-                        <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+                        <tr id="moveInfoId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
                             <td>${product.productId}</td>
                             <td>${product.internalName?if_exists}</td>
                             <td>${facilityLocationFrom.areaId?if_exists}:${facilityLocationFrom.aisleId?if_exists}:${facilityLocationFrom.sectionId?if_exists}:${facilityLocationFrom.levelId?if_exists}:${facilityLocationFrom.positionId?if_exists}<#if facilityLocationTypeEnumFrom?has_content>(${facilityLocationTypeEnumFrom.description})</#if>[${facilityLocationFrom.locationSeqId}]</td>
@@ -78,7 +78,7 @@ under the License.
                                 <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}">
                             </td>
                             <td align="right">              
-                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');">
+                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');">
                             </td>
                         </tr>
                         <#assign rowCount = rowCount + 1>
@@ -93,7 +93,7 @@ under the License.
                         <#assign targetProductFacilityLocation = moveByPflInfo.targetProductFacilityLocation>
                         <#assign facilityLocationTypeEnumTo = (facilityLocationTo.getRelatedOneCache("TypeEnumeration"))?if_exists>
                         <#assign totalQuantity = moveByPflInfo.totalQuantity>
-                        <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+                        <tr id="moveInfoId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
                             <td>${product.productId}</td>
                             <td>${product.internalName?if_exists}</td>
                             <td>${facilityLocationFrom.areaId?if_exists}:${facilityLocationFrom.aisleId?if_exists}:${facilityLocationFrom.sectionId?if_exists}:${facilityLocationFrom.levelId?if_exists}:${facilityLocationFrom.positionId?if_exists}<#if facilityLocationTypeEnumFrom?has_content>(${facilityLocationTypeEnumFrom.description})</#if>[${facilityLocationFrom.locationSeqId}]</td>
@@ -112,7 +112,7 @@ under the License.
                                 <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}">
                             </td>
                             <td align="right">              
-                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');">
+                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');">
                             </td>
                         </tr>
                         <#assign rowCount = rowCount + 1>   

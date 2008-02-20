@@ -31,11 +31,11 @@ under the License.
             <td><b>${uiLabelMap.ProductFeatureType}</b></td>
             <td><b>${uiLabelMap.ProductIdSeqNum}</b></td>
             <td><b>${uiLabelMap.ProductIdCode}</b></td>
-            <td align="right"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="Y" checked="checked" onclick="javascript:toggleAll(this, 'selectAllForm');"></td>
+            <td align="right"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="Y" checked="checked" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureTypeId_tableRow_', 'selectAllForm');"></td>
           </tr>
         <#assign rowClass = "2">
         <#list 0..featureNum-1 as feature>
-          <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+          <tr id="productFeatureTypeId_tableRow_${feature_index}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
               <td><input type="text" size='15' name="description_o_${feature_index}"></td>
               <td><select name='productFeatureTypeId_o_${feature_index}' size="1">
                   <#list productFeatureTypes as productFeatureType>
@@ -46,7 +46,7 @@ under the License.
               </td>
               <td><input type="text" size='5' name="defaultSequenceNum_o_${feature_index}""></td>
               <td><input type="text" size='5' name="idCode_o_${feature_index}"></td>
-              <td align="right"><input type="checkbox" name="_rowSubmit_o_${feature_index}" value="Y" checked="checked" onclick="javascript:checkToggle(this, 'selectAllForm');"></td>
+              <td align="right"><input type="checkbox" name="_rowSubmit_o_${feature_index}" value="Y" checked="checked" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureTypeId_tableRow_${feature_index}');"></td>
           </tr>
           <#-- toggle the row color -->
           <#if rowClass == "2">

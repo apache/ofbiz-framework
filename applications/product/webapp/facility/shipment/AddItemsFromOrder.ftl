@@ -101,7 +101,7 @@ under the License.
                 <td>${uiLabelMap.ProductIssue}</td>
                 <td align="right">
                     <div>${uiLabelMap.CommonSubmit} ?</div>
-                    <div>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');"></div>
+                    <div>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');"></div>
                 </td>
             </tr>
             <#assign alt_row = false>
@@ -113,7 +113,7 @@ under the License.
                 <#assign orderItemShipGrpInvResDatas = orderItemData.orderItemShipGrpInvResDatas?if_exists>
                 <#assign totalQuantityReserved = orderItemData.totalQuantityReserved?if_exists>
                 <#assign totalQuantityIssuedAndReserved = orderItemData.totalQuantityIssuedAndReserved?if_exists>
-                <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+                <tr id="orderItemData_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td><div>${orderItemAndShipGroupAssoc.orderId} / ${orderItemAndShipGroupAssoc.shipGroupSeqId} / ${orderItemAndShipGroupAssoc.orderItemSeqId}</div></td>
                     <td><div>${(product.internalName)?if_exists} [${orderItemAndShipGroupAssoc.productId?default("N/A")}]</div></td>
                     <td>
@@ -170,7 +170,7 @@ under the License.
                                 <input type="text" size="5" name="quantity_o_${rowCount}" value="${quantityNotIssued}"/>
                             </td>
                             <td align="right">              
-                              <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');">
+                              <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');">
                             </td>
                             <#assign rowCount = rowCount + 1>   
                         <#else>
@@ -188,7 +188,7 @@ under the License.
                         <#if availableQuantity < 0>
                             <#assign availableQuantity = 0>
                         </#if>
-                        <tr>
+                        <tr id="orderItemData_tableRow_${rowCount}">
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>
@@ -214,7 +214,7 @@ under the License.
                                     <input type="text" size="5" name="quantity_o_${rowCount}" value="${(orderItemShipGrpInvResData.shipmentPlanQuantity)?default(availableQuantity)}"/>
                                 </td>
                                 <td align="right">              
-                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');">
+                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');">
                                 </td>
                                 <#assign rowCount = rowCount + 1>   
                             <#else>

@@ -50,7 +50,7 @@ under the License.
                     <td><b>${uiLabelMap.ProductReviews}</b></td>
                     <td align="right">
                         <span class="label">${uiLabelMap.CommonAll}</span>
-                        <input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');">
+                        <input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'review_tableRow_', 'selectAllForm');">
                     </td>
                   </tr>
                 <#assign rowCount = 0>
@@ -64,7 +64,7 @@ under the License.
                 <#else>
                 	<#assign postedPerson = postedUserLogin.getRelatedOne("PartyGroup")>
                 </#if>
-                  <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
+                  <tr id="review_tableRow_${rowCount}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                       <td>
                           <input type="hidden" name="productReviewId_o_${rowCount}" value="${review.productReviewId}">
                           ${review.postedDateTime?if_exists}
@@ -91,7 +91,7 @@ under the License.
                          <textarea name="productReview_o_${rowCount}" rows="5" cols="30" wrap="hard">${review.productReview?if_exists}</textarea>
                       </td>
                       <td align="right">
-                        <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');">
+                        <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'review_tableRow_${rowCount}');">
                       </td>
                   </tr>
                 <#assign rowCount = rowCount + 1>
