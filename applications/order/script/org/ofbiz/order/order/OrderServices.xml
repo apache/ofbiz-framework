@@ -525,7 +525,12 @@ under the License.
         <check-errors/>
 
         <make-value value-name="newEntity" entity-name="OrderHeader"/>
-        <sequenced-id-to-env sequence-name="OrderHeader" env-name="newEntity.orderId"/>
+        <if-not-empty field-name="parameters.orderId">        
+            <set field="newEntity.orderId" from-field="parameters.orderId"/>
+        <else>
+            <sequenced-id-to-env sequence-name="OrderHeader" env-name="newEntity.orderId"/>
+        </else>
+        </if-not-empty>
         <field-to-result field-name="newEntity.orderId" result-name="orderId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
