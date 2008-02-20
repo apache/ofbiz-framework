@@ -21,7 +21,7 @@ under the License.
       <td colspan="7"><h3>${uiLabelMap.OrderReturnFromOrder} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td>
       <td colspan="2" align="right">
         <span>${uiLabelMap.CommonSelectAll}</span>&nbsp;
-        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${selectAllFormName}');"/>
+        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${selectAllFormName}');highlightAllRows(this, 'returnItemId_tableRow_', 'selectAllForm');"/>
       </td>
     </tr>
 
@@ -67,7 +67,7 @@ under the License.
 
             <input type="hidden" name="returnAdjustmentTypeId_o_${rowCount}" value="${returnAdjustmentType}"/>                
             <input type="hidden" name="orderAdjustmentId_o_${rowCount}" value="${orderItem.orderAdjustmentId}"/>
-            <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+            <tr id="returnItemId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td colspan="4">
                 ${description?default("N/A")}
               </td>
@@ -85,7 +85,7 @@ under the License.
               </td>
               <td></td>
               <td align="right">
-                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');"/>
+                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');highlightRow(this,'returnItemId_tableRow_${rowCount}');"/>
               </td>
             </tr>
         <#else>
@@ -102,7 +102,7 @@ under the License.
             <#assign itemPrice = orderItem.unitPrice>
             <#-- end of order item information -->
 
-            <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+            <tr id="returnItemId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>
                 <div>
                   <#if orderItem.productId?exists>
@@ -148,7 +148,7 @@ under the License.
                 </select>
               </td>
               <td align="right">
-                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');"/>
+                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, '${selectAllFormName}');highlightRow(this,'returnItemId_tableRow_${rowCount}');"/>
               </td>
             </tr>
         </#if>
