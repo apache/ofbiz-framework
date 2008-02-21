@@ -37,9 +37,9 @@
             <set field="parameters.statusId" value="PTS_CREATED"/>            
         </if-empty>
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+        <set field="parameters.workEffortId" from-field="newEntity.workEffortId"/>
         <!-- optionally assign to party -->
         <if-not-empty field-name="parameters.partyId">
-            <set field="parameters.workEffortId" from-field="newEntity.workEffortId"/>
             <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         </if-not-empty>
         <!-- optionally enter estimated time and required skill -->

@@ -311,8 +311,8 @@
         <field name="phase"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority"><display/></field>
-        <field name="startDate"><display/></field>
-        <field name="completionDate"><display/></field>
+        <field name="startDate"><display type="date"/></field>
+        <field name="completionDate"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
     </form>
@@ -323,8 +323,8 @@
         <field name="phaseName"><display/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority"><display/></field>
-        <field name="startDate"><display/></field>
-        <field name="completionDate"><display/></field>
+        <field name="startDate"><display type="date"/></field>
+        <field name="completionDate"><display type="date"/></field>
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
     </form>
@@ -451,11 +451,11 @@
             <hyperlink target="deleteTimeEntry?workEffortId=${workEffortId}&amp;timeEntryId=${timeEntryId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form> 
-    <form name="ListProjectNotes" extends="ListWorkEffortNotes" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="list" list-name="projectNotes" paginate-target="EditWorkEffortNotes"
+    <form name="ListProjectNotes" extends="ListWorkEffortNotes" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="list" paginate-target="EditWorkEffortNotes"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortNoteAndData">
-                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                <condition-expr field-name="workEffortId" env-name="projectId"/>
                 <order-by field-name="noteId"/>
             </entity-condition>
         </actions>
