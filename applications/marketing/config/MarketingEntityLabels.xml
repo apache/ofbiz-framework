@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ContactListType.description.ANNOUNCEMENT">
+        <value xml:lang="en">Announcement</value>
+        <value xml:lang="es">Anuncio</value>
+        <value xml:lang="fr">Annonce</value>
+        <value xml:lang="it">Annunci</value>
+        <value xml:lang="ro">Anunturi</value>
+        <value xml:lang="th">การประกาศ</value>
+        <value xml:lang="zh">声明</value>
+    </property>
+    <property key="ContactListType.description.MARKETING">
+        <value xml:lang="en">Marketing</value>
+        <value xml:lang="es">Marketing</value>
+        <value xml:lang="fr">Marketing</value>
+        <value xml:lang="it">Vendite</value>
+        <value xml:lang="ro">Vanzari</value>
+        <value xml:lang="th">การตลาด</value>
+        <value xml:lang="zh">市场宣传</value>
+    </property>
+    <property key="ContactListType.description.NEWSLETTER">
+        <value xml:lang="en">Newsletter</value>
+        <value xml:lang="es">Carta de información</value>
+        <value xml:lang="fr">Lettre d'information</value>
+        <value xml:lang="it">Newsletter</value>
+        <value xml:lang="ro">Noutati</value>
+        <value xml:lang="th">จดหมายข่าว</value>
+        <value xml:lang="zh">新闻</value>
+    </property>
+    <property key="SegmentGroupType.description.MARKET_SEGMENT">
+        <value xml:lang="en">Market Segment</value>
+        <value xml:lang="es">Segmento de marketing</value>
+        <value xml:lang="fr">Segment de marché</value>
+        <value xml:lang="it">Segmento di Mercato</value>
+        <value xml:lang="ro">Segment de Piata</value>
+        <value xml:lang="th">ส่วนของการตลาด</value>
+        <value xml:lang="zh">市场分区</value>
+    </property>
+    <property key="SegmentGroupType.description.SALES_SEGMENT">
+        <value xml:lang="en">Sales Segment</value>
+        <value xml:lang="es">Segmento de ventas</value>
+        <value xml:lang="fr">Segment de vente</value>
+        <value xml:lang="it">Segmento di Vendita</value>
+        <value xml:lang="ro">Segment de Vanzare</value>
+        <value xml:lang="th">ส่วนของการขาย</value>
+        <value xml:lang="zh">销售分区</value>
+    </property>
+    <property key="StatusItem.description.CLPT_ACCEPTED">
+        <value xml:lang="en">Accepted</value>
+        <value xml:lang="es">Aceptado</value>
+        <value xml:lang="fr">Accepté</value>
+        <value xml:lang="it">Accettata</value>
+        <value xml:lang="ro">Acceptata</value>
+        <value xml:lang="th">ยอมรับ</value>
+        <value xml:lang="zh">已接受</value>
+    </property>
+    <property key="StatusItem.description.CLPT_PENDING">
+        <value xml:lang="en">Pending Acceptance</value>
+        <value xml:lang="es">Pendiente</value>
+        <value xml:lang="fr">Acceptation en attente</value>
+        <value xml:lang="it">Accettazioni Sospese</value>
+        <value xml:lang="ro">Acceptari Suspendate</value>
+        <value xml:lang="th">ในระหว่างการตอบรับ</value>
+        <value xml:lang="zh">暂缓接受</value>
+    </property>
+    <property key="StatusItem.description.CLPT_REJECTED">
+        <value xml:lang="en">Rejected</value>
+        <value xml:lang="es">Rechazado</value>
+        <value xml:lang="fr">Refué</value>
+        <value xml:lang="it">Rifiutata</value>
+        <value xml:lang="ro">Refuzata</value>
+        <value xml:lang="th">ปฏิเสธ</value>
+        <value xml:lang="zh">已拒绝</value>
+    </property>
+    <property key="StatusType.description.CONTACTLST_PARTY">
+        <value xml:lang="en">Contact List Party</value>
+        <value xml:lang="es">Lista de contactos</value>
+        <value xml:lang="fr">Acteur de liste de contact</value>
+        <value xml:lang="it">Lista Contatto Soggetto</value>
+        <value xml:lang="ro">Lista Contact Subiect</value>
+        <value xml:lang="th">รายการติดต่อกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">联系列表会员</value>
+    </property>
+    <property key="TrackingCodeType.description.EXTERNAL">
+        <value xml:lang="en">External</value>
+        <value xml:lang="es">Externo</value>
+        <value xml:lang="fr">Externe</value>
+        <value xml:lang="it">Esterno</value>
+        <value xml:lang="ro">Extern</value>
+        <value xml:lang="th">ภายนอก</value>
+        <value xml:lang="zh">外部</value>
+    </property>
+    <property key="TrackingCodeType.description.INTERNAL">
+        <value xml:lang="en">Internal</value>
+        <value xml:lang="es">Interno</value>
+        <value xml:lang="fr">Interne</value>
+        <value xml:lang="it">Interno</value>
+        <value xml:lang="ro">Intern</value>
+        <value xml:lang="th">ภายใน</value>
+        <value xml:lang="zh">内部</value>
+    </property>
+    <property key="TrackingCodeType.description.PARTNER_MGD">
+        <value xml:lang="en">Partner Managed</value>
+        <value xml:lang="es">Partner</value>
+        <value xml:lang="fr">Géré par un tiers</value>
+        <value xml:lang="it">Gestito da un Partner</value>
+        <value xml:lang="ro">Gestit de un Partener</value>
+        <value xml:lang="th">หุ้นส่วนการควบคุม</value>
+        <value xml:lang="zh">伙伴管理的</value>
+    </property>
+</resource>
