@@ -991,11 +991,14 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
      *@param prefix A prefix to put in front of the entity name in the tag name
      */
     public void writeXmlText(PrintWriter writer, String prefix) {
-        final int indent = 4;
+        int indent = 4;
+        StringBuffer indentStrBuf = new StringBuffer();
+        for (int i = 0; i < indent; i++) indentStrBuf.append(' ');
+        String indentString = indentStrBuf.toString();
 
         if (prefix == null) prefix = "";
 
-        for (int i = 0; i < indent; i++) writer.print(' ');
+        writer.print(indentString);
         writer.print('<');
         writer.print(prefix);
         writer.print(this.getEntityName());
@@ -1123,7 +1126,8 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
             writer.println('>');
 
             for (Map.Entry<String, String> entry: cdataMap.entrySet()) {
-                for (int i = 0; i < (indent << 1); i++) writer.print(' ');
+                writer.print(indentString);
+                writer.print(indentString);
                 writer.print('<');
                 writer.print(entry.getKey());
                 writer.print("><![CDATA[");
@@ -1134,7 +1138,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
             }
 
             // don't forget to close the entity.
-            for (int i = 0; i < indent; i++) writer.print(' ');
+            writer.print(indentString);
             writer.print("</");
             writer.print(this.getEntityName());
             writer.println(">");

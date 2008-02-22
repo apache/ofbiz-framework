@@ -90,17 +90,33 @@ under the License.
         <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
         <attribute name="results" type="List" mode="OUT" optional="false"/>
     </service>
+    
     <service name="getEntityRefData" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="getEntityRefData" auth="true" use-transaction="false">
         <description>Gets the entity reference data - for the entity reference screen. See org.ofbiz.webtools.WebToolsServices.getEntityRefData().</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="numberOfEntities" type="java.lang.Integer" mode="OUT" optional="true"/>
         <attribute name="packagesList" type="java.util.List" mode="OUT" optional="true"/>
     </service>
+    <service name="exportEntityEoModelBundle" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="exportEntityEoModelBundle" auth="true" use-transaction="false">
+        <description>Saves specified set of entities to an Apple EOModelBundle file. 
+            See org.ofbiz.webtools.WebToolsServices.exportEoModelBundle().
+            Specify either entityPackageName or entityGroupId, or leave both empty for ALL entities in the data model.
+        </description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
+        <attribute name="eomodeldFullPath" type="java.lang.String" mode="IN" optional="false"/>
+        <attribute name="entityPackageName" type="java.lang.String" mode="IN" optional="true"/>
+        <attribute name="entityGroupId" type="java.lang.String" mode="IN" optional="true"/>
+        <attribute name="datasourceName" type="java.lang.String" mode="IN" optional="true"/>
+        <attribute name="entityNamePrefix" type="java.lang.String" mode="IN" optional="true"/>
+    </service>
+    
     <service name="entityMaintPermCheck" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="entityMaintPermCheck">
         <description>Performs an entity maintenance security check. Returns hasPermission=true
           if the user has the ENTITY_MAINT permission.</description>
         <implements service="permissionInterface"/>
     </service>
+    
+    
     <service name="jobList" engine="java"
             location="org.ofbiz.webtools.WebToolsServices" invoke="findJobs" auth="true" use-transaction="false">
         <description>Find Jobs</description>

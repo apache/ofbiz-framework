@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.entity.model;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -1378,6 +1379,221 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public Element toXmlElement(Document document) {
         return this.toXmlElement(document, this.getPackageName());
     }
+    
+    /**
+     * Writes entity model information in the Apple EOModelBundle format. 
+     * 
+     * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/Articles/EOModelBundle.html
+     * 
+     * For examples see the JavaRealEstate.framework and JavaBusinessLogic.framework packages which are in the /Library/Frameworks directory after installing the WebObjects Examples package (get latest version of WebObjects download for this).
+     * 
+     * This is based on examples and documentation from WebObjects 5.4, downloaded 20080221.
+     * 
+     * @param writer
+     * @param entityPrefix
+     * @param helperName
+     */
+    public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName) {
+        int indent = 4;
+        StringBuffer indentStrBuf = new StringBuffer();
+        for (int i = 0; i < indent; i++) indentStrBuf.append(' ');
+        String indentString = indentStrBuf.toString();
+
+        if (entityPrefix == null) entityPrefix = "";
+        if (helperName == null) helperName = "localderby";
+        ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
+
+        writer.println('{');
+        
+        writer.print(indentString);
+        writer.print("externalName = ");
+        writer.print(this.getTableName(helperName));
+        writer.println(";");
+
+        writer.print(indentString);
+        writer.print("name = ");
+        writer.print(this.getEntityName());
+        writer.println(";");
+
+        writer.print(indentString);
+        writer.println("className = EOGenericRecord;");
+
+        // for classProperties add field names AND relationship names to get a nice, complete chart
+        writer.print(indentString);
+        writer.print("classProperties = (");
+        Iterator<ModelField> cpFieldIter = this.getFieldsIterator();
+        while (cpFieldIter.hasNext()) {
+            ModelField field = cpFieldIter.next();
+            writer.print(field.getName());
+            if (cpFieldIter.hasNext()) writer.print(", ");
+        }
+        Iterator<ModelRelation> cpRelationshipIter = this.getRelationsIterator();
+        // put these on a new line if there are any
+        if (cpRelationshipIter.hasNext()) {
+            writer.println(",");
+            writer.print(indentString);
+            writer.print(indentString);
+        }
+        while (cpRelationshipIter.hasNext()) {
+            ModelRelation relationship = cpRelationshipIter.next();
+            writer.print(relationship.getCombinedName());
+            if (cpRelationshipIter.hasNext()) writer.print(", ");
+        }
+        writer.println(");");
+        
+        // attributes
+        writer.print(indentString);
+        writer.println("attributes = (");
+        Iterator<ModelField> attrFieldIter = this.getFieldsIterator();
+        while (attrFieldIter.hasNext()) {
+            ModelField field = attrFieldIter.next();
+            ModelFieldType fieldType = modelFieldTypeReader.getModelFieldType(field.getType());
+
+            writer.print(indentString);
+            writer.println("{");
+            
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.print("name = ");
+            writer.print(field.getName());
+            writer.println(";");
+            
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.print("columnName = ");
+            writer.print(field.getColName());
+            writer.println(";");
+            
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.print("externalType = ");
+            writer.print(fieldType.getSqlType());
+            writer.println(";");
+            
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.print("valueClassName = ");
+            writer.print(fieldType.getJavaType());
+            writer.println(";");
+            
+            /* maybe map this one later, probably not needed for diagramming help anyway
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.print("valueType = ");
+            writer.print(??);
+            writer.println(";");
+            */
+            
+            writer.print(indentString);
+            if (attrFieldIter.hasNext()) {
+                writer.println("},");
+            } else {
+                writer.println("}");
+            }
+        }
+        writer.print(indentString);
+        writer.println(");");
+
+        // primaryKeyAttributes
+        writer.print(indentString);
+        writer.print("primaryKeyAttributes = (");
+        Iterator<ModelField> pkFieldIter = this.getPksIterator();
+        while (pkFieldIter.hasNext()) {
+            ModelField field = pkFieldIter.next();
+            writer.print(field.getName());
+            if (pkFieldIter.hasNext()) writer.print(", ");
+        }
+        writer.println(");");
+
+        // attributes
+        writer.print(indentString);
+        writer.println("relationships = (");
+        Iterator<ModelRelation> relRelationshipIter = this.getRelationsIterator();
+        while (relRelationshipIter.hasNext()) {
+            ModelRelation relationship = relRelationshipIter.next();
+
+            writer.print(indentString);
+            writer.println("{");
+            
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.print("name = ");
+            writer.print(relationship.getCombinedName());
+            writer.println(";");
+            
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.print("destination = ");
+            writer.print(relationship.getRelEntityName());
+            writer.println(";");
+            
+            writer.print(indentString);
+            writer.print(indentString);
+            if ("many".equals(relationship.getType())) {
+                writer.println("isToMany = Y;");
+            } else {
+                writer.println("isToMany = N;");
+            }
+
+            /* nothing in OFBiz entity models for this yet, but might be nice to add in the future
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.print("isMandatory = ");
+            writer.print();
+            writer.println(";");
+            */
+            
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.println("joinSemantic = EOInnerJoin;");
+            
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.println("joins = (");
+            Iterator<ModelKeyMap> keyMapIter = relationship.getKeyMapsIterator();
+            while (keyMapIter.hasNext()) {
+                ModelKeyMap keyMap = keyMapIter.next();
+
+                writer.print(indentString);
+                writer.print(indentString);
+                writer.println("{");
+                
+                writer.print(indentString);
+                writer.print(indentString);
+                writer.print(indentString);
+                writer.print("sourceAttribute = ");
+                writer.print(keyMap.getFieldName());
+                writer.println(";");
+
+                writer.print(indentString);
+                writer.print(indentString);
+                writer.print(indentString);
+                writer.print("destinationAttribute = ");
+                writer.print(keyMap.getRelFieldName());
+                writer.println(";");
+
+                writer.print(indentString);
+                writer.print(indentString);
+                if (keyMapIter.hasNext()) {
+                    writer.println("},");
+                } else {
+                    writer.println("}");
+                }
+            }
+            writer.print(indentString);
+            writer.print(indentString);
+            writer.println(");");
+            
+            writer.print(indentString);
+            if (relRelationshipIter.hasNext()) {
+                writer.println("},");
+            } else {
+                writer.println("}");
+            }
+        }
+        writer.print(indentString);
+        writer.println(");");
+        
+        writer.println("}");
+    }
 }
-
-

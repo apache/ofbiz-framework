@@ -90,6 +90,10 @@ public class ModelRelation extends ModelChild {
             }
         }
     }
+    
+    public String getCombinedName() {
+        return this.title + this.relEntityName;
+    }
 
     /** the title, gives a name/description to the relation */
     public String getTitle() {

@@ -346,6 +346,23 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="EntityEoModelBundle">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EntityEoModelBundle" location="component://webtools/widget/EntityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="CheckDb">
         <section>
             <condition>
