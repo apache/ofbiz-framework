@@ -111,7 +111,7 @@ under the License.
         <attribute name="requirementId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="skillTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="estimatedHours" type="String" mode="IN" optional="true"/>
+        <attribute name="estimatedHours" type="Double" mode="IN" optional="true"/>
         <override name="workEffortTypeId" optional="false"/>
         <override name="workEffortName" optional="false"/>
         <override name="currentStatusId" optional="false"/>
