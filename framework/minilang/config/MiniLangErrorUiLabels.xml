@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="simpleMethod.error_begin_transaction">
+        <value xml:lang="en">Error trying to begin transaction, could not process method</value>
+        <value xml:lang="es">Error trying to begin transaction, could not process method</value>
+        <value xml:lang="fr">La transaction ne peut de00E9buter, une erreur est survenue    </value>
+        <value xml:lang="it">Errore provando a iniziare una transazione, non è possibile eseguire il metodo</value>
+        <value xml:lang="ro">Eroare la incercarea de a initia  o</value>
+        <value xml:lang="ru">Попытка начать транзакцию завершилась ошибкой, невозможно обработать метод</value>
+        <value xml:lang="th">Error : ผิดพลด ! ในการเริ่มต้นดำเนินการ ไม่สามารถประมวลผลวิธีการนี้ได้</value>
+        <value xml:lang="zh">尝试开始交易时出错，无法执行</value>
+    </property>
+    <property key="simpleMethod.error_running">
+        <value xml:lang="en">Error running the simple-method</value>
+        <value xml:lang="es">Error running the simple-method</value>
+        <value xml:lang="fr">Erreur pendant la simple-method</value>
+        <value xml:lang="it">Errore nell'esecuzione del metodo-semplice</value>
+        <value xml:lang="ro">Eroare in executia metodei-simple</value>
+        <value xml:lang="ru">Ошибка выполнения simple-method</value>
+        <value xml:lang="th">Error : ผิดพลาด ! ในการรัน simple-method</value>
+        <value xml:lang="zh">运行这个简单方法时出错</value>
+    </property>
+    <property key="simpleMethod.must_logged_process">
+        <value xml:lang="en">You must be logged in to complete the [${shortDescription}] process</value>
+        <value xml:lang="es">You must be logged in to complete the [${shortDescription}] process</value>
+        <value xml:lang="fr">Vous devez être connecté pour pouvoir achever le process ${shortDescription}</value>
+        <value xml:lang="it">Tu devi essere autenticato per completare il processo ${shortDescription}</value>
+        <value xml:lang="ro">Trebbie sa fii autentificat pentru a putea completa procesul ${shortDescription}</value>
+        <value xml:lang="ru">Для завершения процесса ${shortDescription} вы должны зарегистрироваться в системе</value>
+        <value xml:lang="th">คุณต้องทำการเข้าสู่ระบบในการประมวลผล  [${shortDescription}] ให้เสร็จสมบูรณ์</value>
+        <value xml:lang="zh">你必须登录才能完成${shortDescription}步骤</value>
+    </property>
+</resource>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="UnableToLogIn">
+        <value xml:lang="en">Unable to log in; XUI not configured properly</value>
+        <value xml:lang="fr">Impossible de continuer : XUI n'est pas configuré correctement</value>
+        <value xml:lang="th">ไม่สามารถเข้าสู่ระบบได้ : XUI ไม่สามารถจัดการข้อมูลได้อย่างถูกต้อง</value>
+    </property>
+    <property key="UserLoginNotValid">
+        <value xml:lang="en">UserLogin returned not valid (null)</value>
+        <value xml:lang="fr">UserLogin retourné non valide (null)</value>
+        <value xml:lang="th">ชื่อผู้เข้าใช้ระบบไม่ถูกต้อง (ค่าว่าง)</value>
+    </property>
+    <property key="UsernameDoesNotMatchLoggedUser">
+        <value xml:lang="en">User name does not match already logged in user!</value>
+        <value xml:lang="fr">Cet identifiant ne correspond pas à celui en cours !</value>
+        <value xml:lang="th">ชื่อผู้เข้าใช้ระบบไม่ตรงกับข้อมูลที่บันทึกไว้กรุณาตรวจสอบ</value>
+    </property>
+</resource>
