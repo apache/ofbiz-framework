@@ -126,21 +126,35 @@ under the License.
         <response name="success" type="view" value="sitemap"/>
     </request-map>
 
-    <request-map uri="minervainfo">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="minervaobjects"/>        
-    </request-map>
-
+    <!-- Entity Information Requests -->
     <request-map uri="entitymaint">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="entitymaint"/>
+    </request-map>
+    <request-map uri="FindGeneric">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindGeneric"/>
+    </request-map>
+    <request-map uri="ViewGeneric">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewGeneric"/>
+    </request-map>
+    <request-map uri="UpdateGeneric">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.webtools.GenericWebEvent" invoke="updateGeneric"/>
+        <response name="success" type="view" value="ViewGeneric"/>
+        <response name="error" type="view" value="ViewGeneric"/>
+    </request-map>
+    
+    <request-map uri="ViewRelations">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewRelations"/>
     </request-map>
 
     <request-map uri="entityref">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="entityref"/>
     </request-map>
-
     <request-map uri="entityrefReport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="entityrefReport"/>
@@ -156,95 +170,67 @@ under the License.
         <response name="success" type="view" value="ModelGroupWriter"/>
     </request-map>
 
-    <request-map uri="xmldsdump">
+    <request-map uri="EntityEoModelBundle">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="xmldsdump"/>
+        <response name="success" type="view" value="EntityEoModelBundle"/>
     </request-map>
-    <request-map uri="xmldsrawdump">
+    <request-map uri="exportEntityEoModelBundle">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="xmldsrawdump"/>
-    </request-map>
-
-    <request-map uri="FindGeneric">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindGeneric"/>
-    </request-map>
-
-    <request-map uri="ViewGeneric">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ViewGeneric"/>
+        <event type="service" invoke="exportEntityEoModelBundle"/>
+        <response name="success" type="view" value="EntityEoModelBundle"/>
+        <response name="error" type="view" value="EntityEoModelBundle"/>
     </request-map>
     
-    <request-map uri="UpdateGeneric">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webtools.GenericWebEvent" invoke="updateGeneric"/>
-        <response name="success" type="view" value="ViewGeneric"/>
-        <response name="error" type="view" value="ViewGeneric"/>
-    </request-map>
-
-    <request-map uri="ViewRelations">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ViewRelations"/>
-    </request-map>
-
+    <!-- UtilCache Maintenance Requests -->
     <request-map uri="FindUtilCache">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindUtilCache"/>
     </request-map>
-
     <request-map uri="FindUtilCacheClear">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="clearEvent"/>
         <response name="success" type="view" value="FindUtilCache"/>
         <response name="error" type="view" value="FindUtilCache"/>
     </request-map>
-
     <request-map uri="FindUtilCacheClearAll">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="clearAllEvent"/>
         <response name="success" type="view" value="FindUtilCache"/>
         <response name="error" type="view" value="FindUtilCache"/>
     </request-map>
-
     <request-map uri="FindUtilCacheClearAllExpired">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="clearAllExpiredEvent"/>
         <response name="success" type="view" value="FindUtilCache"/>
         <response name="error" type="view" value="FindUtilCache"/>
     </request-map>
-
     <request-map uri="ForceGarbageCollection">
         <security https="true" auth="true"/>
         <event type="service" invoke="forceGarbageCollection"/>
         <response name="success" type="view" value="FindUtilCache"/>
         <response name="error" type="view" value="FindUtilCache"/>
     </request-map>
-    
     <request-map uri="EditUtilCache">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditUtilCache"/>
     </request-map>
-
     <request-map uri="EditUtilCacheUpdate">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="updateEvent"/>
         <response name="success" type="view" value="EditUtilCache"/>
         <response name="error" type="view" value="EditUtilCache"/>
     </request-map>
-
     <request-map uri="EditUtilCacheClear">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="clearEvent"/>
         <response name="success" type="view" value="EditUtilCache"/>
         <response name="error" type="view" value="EditUtilCache"/>
     </request-map>
-
     <request-map uri="FindUtilCacheElements">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindUtilCacheElements"/>
         <response name="error" type="view" value="FindUtilCacheElements"/>
     </request-map>
-
     <request-map uri="FindUtilCacheElementsRemoveElement">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="removeElementEvent"/>
@@ -252,11 +238,13 @@ under the License.
         <response name="error" type="view" value="FindUtilCacheElements"/>
     </request-map>
 
+    <!-- DataFile stuff -->
     <request-map uri="viewdatafile">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="viewdatafile"/>
     </request-map>
 
+    <!-- Old Workflow Engine Requests -->
     <request-map uri="readxpdl">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="readxpdl"/>
@@ -266,6 +254,7 @@ under the License.
         <response name="success" type="view" value="workflowMonitor"/>
     </request-map>    
 
+    <!-- ControlServlet and other stats requests -->
     <request-map uri="StatsSinceStart">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="StatsSinceStart"/>
@@ -275,6 +264,7 @@ under the License.
         <response name="success" type="view" value="StatBinsHistory"/>
     </request-map>
 
+    <!-- Loggin Setup -->
     <request-map uri="LogConfiguration">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="LogConfiguration"/>
@@ -299,6 +289,7 @@ under the License.
         <response name="success" type="view" value="LogView"/>
     </request-map>
 
+    <!-- Service Engine Info and Job Management Requests -->
     <request-map uri="serviceList">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="serviceList"/>
@@ -411,6 +402,7 @@ under the License.
         <response name="error" type="view" value="EntitySQLProcessor"/>
     </request-map>
 
+    <!-- Entity Export/Import requests -->
     <request-map uri="EntityExportAll"><security https="true" auth="true"/><response name="success" type="view" value="EntityExportAll"/><response name="error" type="view" value="EntityExportAll"/></request-map>
     <request-map uri="entityExportAll">
         <security https="true" auth="true"/>
@@ -418,7 +410,6 @@ under the License.
         <response name="success" type="view" value="EntityExportAll"/>
         <response name="error" type="view" value="EntityExportAll"/>
     </request-map>
-
     <request-map uri="EntityImportDir"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportDir"/><response name="error" type="view" value="EntityImportDir"/></request-map>
     <request-map uri="entityImportDir">
         <security https="true" auth="true"/>
@@ -426,7 +417,6 @@ under the License.
         <response name="success" type="view" value="EntityImportDir"/>
         <response name="error" type="view" value="EntityImportDir"/>
     </request-map>
-
     <request-map uri="EntityImport"><security https="true" auth="true"/><response name="success" type="view" value="EntityImport"/><response name="error" type="view" value="EntityImport"/></request-map>
     <request-map uri="entityImport">
         <security https="true" auth="true"/>
@@ -434,7 +424,6 @@ under the License.
         <response name="success" type="view" value="EntityImport"/>
         <response name="error" type="view" value="EntityImport"/>
     </request-map>
-
     <request-map uri="EntityImportReaders"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportReaders"/><response name="error" type="view" value="EntityImport"/></request-map>
     <request-map uri="entityImportReaders">
         <security https="true" auth="true"/>
@@ -442,7 +431,15 @@ under the License.
         <response name="success" type="view" value="EntityImportReaders"/>
         <response name="error" type="view" value="EntityImportReaders"/>
     </request-map>
-    
+    <request-map uri="xmldsdump">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="xmldsdump"/>
+    </request-map>
+    <request-map uri="xmldsrawdump">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="xmldsrawdump"/>
+    </request-map>
+        
     <!-- EntitySync requests -->
     <request-map uri="EntitySyncStatus">
         <security https="true" auth="true"/>
@@ -550,7 +547,8 @@ under the License.
     <view-map name="ModelWriter" page="/entity/ModelWriter.jsp"/>
     <view-map name="ModelGroupWriter" page="/entity/ModelGroupWriter.jsp"/>
     <view-map name="ModelInduceFromDb" page="/entity/ModelInduceFromDb.jsp"/>
-
+    <view-map name="EntityEoModelBundle" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityEoModelBundle"/>
+    
     <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>   
     <view-map name="xmldsdump" type="screen" page="component://webtools/widget/EntityScreens.xml#xmldsdump"/>
     <view-map name="xmldsrawdump" page="/entity/xmldsrawdump.jsp"/>

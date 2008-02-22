@@ -70,13 +70,15 @@ text-decoration: underline;
         <#if security.hasPermission("ENTITY_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsEntityEngineTools}</h3></li>
           <li><a href="<@ofbizUrl>entitymaint</@ofbizUrl>">${uiLabelMap.WebtoolsEntityDataMaintenance}</a></li>
-          <li><a href="<@ofbizUrl>view/entityref</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReference}</a>&nbsp;<a href="<@ofbizUrl>view/entityref?forstatic=true</@ofbizUrl>" target="_blank">- ${uiLabelMap.WebtoolsEntityReferenceStaticVersion}</a></li>
-          <li><a href="<@ofbizUrl>view/entityrefReport</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReferencePdf}</a></li>
+          <li><a href="<@ofbizUrl>entityref</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReference} - Interactive</a></li>
+          <li><a href="<@ofbizUrl>entityref?forstatic=true</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReference} - ${uiLabelMap.WebtoolsEntityReferenceStaticVersion}</a></li>
+          <li><a href="<@ofbizUrl>entityrefReport</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReferencePdf}</a></li>
           <li><a href="<@ofbizUrl>EntitySQLProcessor</@ofbizUrl>">${uiLabelMap.PageTitleEntitySQLProcessor}</a></li>
           <li><a href="<@ofbizUrl>EntitySyncStatus</@ofbizUrl>">${uiLabelMap.WebtoolsEntitySyncStatus}</a></li>
           <li><a href="<@ofbizUrl>view/ModelInduceFromDb</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}</a></li>
+          <li><a href="<@ofbizUrl>EntityEoModelBundle</@ofbizUrl>">${uiLabelMap.WebtoolsExportEntityEoModelBundle}</a></li>
           <li><a href="<@ofbizUrl>view/checkdb</@ofbizUrl>">${uiLabelMap.WebtoolsCheckUpdateDatabase}</a></li>
-          <li><a href="<@ofbizUrl>minervainfo</@ofbizUrl>">Minerva Connection Info</a></li>
+          <#-- not using Minerva by default any more <li><a href="<@ofbizUrl>minervainfo</@ofbizUrl>">Minerva Connection Info</a></li> -->
           <#-- want to leave these out because they are only working so-so, and cause people more problems that they solve, IMHO
             <li><a href="<@ofbizUrl>view/EditEntity</@ofbizUrl>"  target="_blank">Edit Entity Definitions</a></li>
             <li><a href="<@ofbizUrl>ModelWriter</@ofbizUrl>" target="_blank">Generate Entity Model XML (all in one)</a></li>

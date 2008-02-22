@@ -36,6 +36,7 @@ import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilTimer;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
@@ -484,6 +485,48 @@ public class ModelReader implements Serializable {
             throw new GenericEntityConfException("ERROR: Unable to load Entity Cache");
         }
         return ec.keySet();
+    }
+    
+    /** Get all entities, organized by package */
+    public Map<String, TreeSet<String>> getEntitiesByPackage(Set<String> packageFilterSet, Set<String> entityFilterSet) throws GenericEntityException {
+        Map<String, TreeSet<String>> entitiesByPackage = FastMap.newInstance();
+        
+        //put the entityNames TreeSets in a HashMap by packageName
+        Iterator<String> ecIter = this.getEntityNames().iterator();
+        while (ecIter.hasNext()) {
+            String entityName = (String) ecIter.next();
+            ModelEntity entity = this.getModelEntity(entityName);
+            String packageName = entity.getPackageName();
+            
+            if (UtilValidate.isNotEmpty(packageFilterSet)) {
+                boolean skipThis = false;
+                // does it match any of these?
+                for (String packageFilter: packageFilterSet) {
+                    boolean foundMatch = false;
+                    if (packageName.contains(packageFilter)) {
+                        foundMatch = true;
+                    }
+                    if (!foundMatch) {
+                        //Debug.logInfo("Not including entity " + entityName + " becuase it is not in the package set: " + packageFilterSet, module);
+                        skipThis = true;
+                    }
+                }
+                if (skipThis) continue;
+            }
+            if (UtilValidate.isNotEmpty(entityFilterSet) && !entityFilterSet.contains(entityName)) {
+                //Debug.logInfo("Not including entity " + entityName + " becuase it is not in the entity set: " + entityFilterSet, module);
+                continue;
+            }
+            
+            TreeSet<String> entities = entitiesByPackage.get(entity.getPackageName());
+            if (entities == null) {
+                entities = new TreeSet<String>();
+                entitiesByPackage.put(entity.getPackageName(), entities);
+            }
+            entities.add(entityName);
+        }
+        
+        return entitiesByPackage;
     }
 
     ModelEntity createModelEntity(Element entityElement, UtilTimer utilTimer, ModelInfo def) {

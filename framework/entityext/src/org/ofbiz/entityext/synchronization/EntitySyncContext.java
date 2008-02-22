@@ -49,6 +49,7 @@ import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entityext.EntityGroupUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GeneralServiceException;
 import org.ofbiz.service.GenericServiceException;
@@ -843,69 +844,13 @@ public class EntitySyncContext {
     }
     
     /** prepare a list of all entities we want to synchronize: remove all view-entities and all entities that don't match the patterns attached to this EntitySync */
-    protected List makeEntityModelToUseList() throws GenericEntityException {
-        List entityModelToUseList = new LinkedList();
-        List entitySyncIncludes = entitySync.getRelated("EntitySyncInclude");
-
+    protected List<ModelEntity> makeEntityModelToUseList() throws GenericEntityException {
+        List<GenericValue> entitySyncIncludes = entitySync.getRelated("EntitySyncInclude");
         // get these ones as well, and just add them to the main list, it will have an extra field but that shouldn't hurt anything in the code below
-        List entitySyncGroupIncludes = entitySync.getRelated("EntitySyncInclGrpDetailView");
+        List<GenericValue> entitySyncGroupIncludes = entitySync.getRelated("EntitySyncInclGrpDetailView");
         entitySyncIncludes.addAll(entitySyncGroupIncludes);
 
-        Iterator entityNameIter = delegator.getModelReader().getEntityNamesIterator();
-        while (entityNameIter.hasNext()) {
-            String entityName = (String) entityNameIter.next();
-            ModelEntity modelEntity = delegator.getModelEntity(entityName);
-            
-            // if view-entity, throw it out
-            if (modelEntity instanceof ModelViewEntity) {
-                continue;
-            }
-            
-            // if it doesn't have either or both of the two update stamp fields, throw it out
-            if (!modelEntity.isField(ModelEntity.STAMP_FIELD) || !modelEntity.isField(ModelEntity.STAMP_TX_FIELD)) {
-                continue;
-            }
-            
-            // if there are no includes records, always include; otherwise check each one to make sure at least one matches
-            if (entitySyncIncludes.size() == 0) {
-                entityModelToUseList.add(modelEntity);
-            } else {
-                // we have different types of include applications: ESIA_INCLUDE, ESIA_EXCLUDE, ESIA_ALWAYS
-                // if we find an always we can break right there because this will always be include regardless of excludes, etc
-                // if we find an include or exclude we have to finish going through the rest of them just in case there is something that overrides it (ie an exclude for an include or an always for an exclude)
-                boolean matchesInclude = false;
-                boolean matchesExclude = false;
-                boolean matchesAlways = false;
-                Iterator entitySyncIncludeIter = entitySyncIncludes.iterator();
-                while (entitySyncIncludeIter.hasNext()) {
-                    GenericValue entitySyncInclude = (GenericValue) entitySyncIncludeIter.next();
-                    String entityOrPackage = entitySyncInclude.getString("entityOrPackage");
-                    boolean matches = false;
-                    if (entityName.equals(entityOrPackage)) {
-                        matches = true;
-                    } else if (modelEntity.getPackageName().startsWith(entityOrPackage)) {
-                        matches = true;
-                    }
-                    
-                    if (matches) {
-                        if ("ESIA_INCLUDE".equals(entitySyncInclude.getString("applEnumId"))) {
-                            matchesInclude = true;
-                        } else if ("ESIA_EXCLUDE".equals(entitySyncInclude.getString("applEnumId"))) {
-                            matchesExclude = true;
-                        } else if ("ESIA_ALWAYS".equals(entitySyncInclude.getString("applEnumId"))) {
-                            matchesAlways = true;
-                            break;
-                        }
-                    }
-                }
-                
-                if (matchesAlways || (matchesInclude && !matchesExclude)) {
-                    // make sure this log message is not checked in uncommented:
-                    //Debug.log("In runEntitySync adding [" + modelEntity.getEntityName() + "] to list of Entities to sync", module);
-                    entityModelToUseList.add(modelEntity);
-                }
-            }
-        }
+        List<ModelEntity> entityModelToUseList = EntityGroupUtil.getModelEntitiesFromRecords(entitySyncIncludes, delegator);
         
         if (Debug.infoOn()) Debug.logInfo("In makeEntityModelToUseList for EntitySync with ID [" + entitySync.get("entitySyncId") + "] syncing " + entityModelToUseList.size() + " entities", module);
         return entityModelToUseList;
