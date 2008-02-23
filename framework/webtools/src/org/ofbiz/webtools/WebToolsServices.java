@@ -823,6 +823,16 @@ public class WebToolsServices {
             } else {
                 entityNames.addAll(reader.getEntityNames());
             }
+
+            // remove all view-entity
+            Iterator<String> filterEntityNameIter = entityNames.iterator();
+            while (filterEntityNameIter.hasNext()) {
+                String entityName = filterEntityNameIter.next();
+                ModelEntity modelEntity = reader.getModelEntity(entityName);
+                if (modelEntity instanceof ModelViewEntity) {
+                    filterEntityNameIter.remove();
+                }
+            }
             
             // write the index.eomodeld file 
             PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, "index.eomodeld")), "UTF-8")));
@@ -848,7 +858,7 @@ public class WebToolsServices {
             for (String curEntityName: entityNames) {
                 ModelEntity modelEntity = reader.getModelEntity(curEntityName);
                 PrintWriter entityWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, curEntityName +".plist")), "UTF-8")));
-                modelEntity.writeEoModelText(entityWriter, entityNamePrefix, datasourceName);
+                modelEntity.writeEoModelText(entityWriter, entityNamePrefix, datasourceName, entityNames);
                 entityWriter.close();
             }
         } catch (UnsupportedEncodingException e) {
