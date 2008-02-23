@@ -146,7 +146,12 @@ public class QuoteServices {
         String description = (String) context.get("description");
         List quoteItems = (List) context.get("quoteItems");
         List quoteAttributes = (List) context.get("quoteAttributes");
-        
+        List quoteCoefficients = (List) context.get("quoteCoefficients");
+        List quoteRoles = (List) context.get("quoteRoles");
+        List quoteTerms = (List) context.get("quoteTerms");
+        List quoteTermAttributes = (List) context.get("quoteTermAttributes");
+        List quoteWorkEfforts = (List) context.get("quoteWorkEfforts");
+        List quoteAdjustments = (List) context.get("quoteAdjustments");       
 
         Map result = FastMap.newInstance();
 
@@ -197,6 +202,61 @@ public class QuoteServices {
                         dispatcher.runSync("createQuoteAttribute", quoteAttrIn);
                     }
                 }
+                
+                // create Quote Coefficients
+                if (UtilValidate.isNotEmpty(quoteCoefficients)) {
+                    Iterator quoteCoefficientIt = quoteCoefficients.iterator();
+                    while (quoteCoefficientIt.hasNext()) {
+                        GenericValue quoteCoefficient = (GenericValue)quoteCoefficientIt.next();
+                        quoteCoefficient.set("quoteId", quoteId);
+                        Map quoteCoefficientIn = quoteCoefficient.getAllFields();
+                        quoteCoefficientIn.put("userLogin", userLogin);
+                        
+                        dispatcher.runSync("createQuoteCoefficient", quoteCoefficientIn);
+                    }
+                }
+                
+                // create Quote Roles
+                if (UtilValidate.isNotEmpty(quoteRoles)) {
+                    Iterator quoteRoleIt = quoteRoles.iterator();
+                    while (quoteRoleIt.hasNext()) {
+                        GenericValue quoteRole = (GenericValue)quoteRoleIt.next();
+                        quoteRole.set("quoteId", quoteId);
+                        Map quoteRoleIn = quoteRole.getAllFields();
+                        quoteRoleIn.put("userLogin", userLogin);
+                        
+                        dispatcher.runSync("createQuoteRole", quoteRoleIn);
+                    }
+                }
+
+                // create Quote WorkEfforts
+                if (UtilValidate.isNotEmpty(quoteWorkEfforts)) {
+                    Iterator quoteWorkEffortIt = quoteWorkEfforts.iterator();
+                    while (quoteWorkEffortIt.hasNext()) {
+                        GenericValue quoteWorkEffort = (GenericValue)quoteWorkEffortIt.next();
+                        quoteWorkEffort.set("quoteId", quoteId);
+                        Map quoteWorkEffortIn = quoteWorkEffort.getAllFields();
+                        quoteWorkEffortIn.put("userLogin", userLogin);
+                        
+                        dispatcher.runSync("createQuoteWorkEffort", quoteWorkEffortIn);
+                    }
+                }
+                
+                // create Quote Adjustments
+                if (UtilValidate.isNotEmpty(quoteAdjustments)) {
+                    Iterator quoteAdjustmentIt = quoteAdjustments.iterator();
+                    while (quoteAdjustmentIt.hasNext()) {
+                        GenericValue quoteAdjustment = (GenericValue)quoteAdjustmentIt.next();
+                        quoteAdjustment.set("quoteId", quoteId);
+                        Map quoteAdjustmentIn = quoteAdjustment.getAllFields();
+                        quoteAdjustmentIn.put("userLogin", userLogin);
+                        
+                        dispatcher.runSync("createQuoteAdjustment", quoteAdjustmentIn);
+                    }
+                }
+                
+                //TODO create Quote Terms still to be implemented the base service createQuoteTerm
+                //TODO create Quote Term Attributes still to be implemented the base service createQuoteTermAttribute
             } else {
                 return ServiceUtil.returnFailure("Could not storing Quote");
             }
