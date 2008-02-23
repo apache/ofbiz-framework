@@ -313,11 +313,6 @@
         <value xml:lang="pt_PT">Nenhum</value>
         <value xml:lang="th">ไม่มี</value>
     </property>
-    <property key="CommonNotModifRecreat">
-        <value xml:lang="en">Not Modif Recreat</value>
-        <value xml:lang="pt_PT">impossível mudar sem recriar</value>
-        <value xml:lang="th">ไม่มีการสร้างใหม่</value>
-    </property>
     <property key="CommonNote">
         <value xml:lang="en">Note</value>
         <value xml:lang="pt_PT">Nota</value>
