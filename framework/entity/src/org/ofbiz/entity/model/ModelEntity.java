@@ -1393,7 +1393,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @param entityPrefix
      * @param helperName
      */
-    public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName) {
+    public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet) {
         int indent = 4;
         StringBuffer indentStrBuf = new StringBuffer();
         for (int i = 0; i < indent; i++) indentStrBuf.append(' ');
@@ -1467,7 +1467,24 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             writer.print(indentString);
             writer.print(indentString);
             writer.print("externalType = ");
-            writer.print(fieldType.getSqlType());
+            String sqlType = fieldType.getSqlType();
+            if (sqlType.indexOf("(") >= 0) {
+                writer.print(sqlType.substring(0, sqlType.indexOf("(")));
+                writer.println(";");
+                
+                // since there is a field length set that
+                writer.print(indentString);
+                writer.print(indentString);
+                writer.print("width = ");
+                String widthStr = sqlType.substring(sqlType.indexOf("(") + 1, sqlType.indexOf(")"));
+                // if there is a comma remove it; the format doesn't seem to support this sort of detail
+                if (widthStr.indexOf(",") >= 0) {
+                    widthStr = widthStr.substring(0, widthStr.indexOf(","));
+                }
+                writer.print(widthStr);
+            } else {
+                writer.print(sqlType);
+            }
             writer.println(";");
             
             writer.print(indentString);
@@ -1505,94 +1522,110 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         }
         writer.println(");");
 
-        // attributes
-        writer.print(indentString);
-        writer.println("relationships = (");
-        Iterator<ModelRelation> relRelationshipIter = this.getRelationsIterator();
-        while (relRelationshipIter.hasNext()) {
-            ModelRelation relationship = relRelationshipIter.next();
-
-            writer.print(indentString);
-            writer.println("{");
+        // relationships
+        List<ModelRelation> relRelationshipList = FastList.newInstance();
+        Iterator<ModelRelation> buildRelationshipIter = this.getRelationsIterator();
+        while (buildRelationshipIter.hasNext()) {
+            ModelRelation relationship = buildRelationshipIter.next();
             
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.print("name = ");
-            writer.print(relationship.getCombinedName());
-            writer.println(";");
-            
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.print("destination = ");
-            writer.print(relationship.getRelEntityName());
-            writer.println(";");
-            
-            writer.print(indentString);
-            writer.print(indentString);
-            if ("many".equals(relationship.getType())) {
-                writer.println("isToMany = Y;");
-            } else {
-                writer.println("isToMany = N;");
+            if (entityNameIncludeSet.contains(relationship.getRelEntityName())) {
+                relRelationshipList.add(relationship);
             }
+        }
+        
+        if (relRelationshipList.size() > 0) {
+            writer.print(indentString);
+            writer.println("relationships = (");
+            Iterator<ModelRelation> relRelationshipIter = relRelationshipList.iterator();
+            while (relRelationshipIter.hasNext()) {
+                ModelRelation relationship = relRelationshipIter.next();
+                
+                if (!entityNameIncludeSet.contains(relationship.getRelEntityName())) {
+                    continue;
+                }
 
-            /* nothing in OFBiz entity models for this yet, but might be nice to add in the future
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.print("isMandatory = ");
-            writer.print();
-            writer.println(";");
-            */
-            
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.println("joinSemantic = EOInnerJoin;");
-            
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.println("joins = (");
-            Iterator<ModelKeyMap> keyMapIter = relationship.getKeyMapsIterator();
-            while (keyMapIter.hasNext()) {
-                ModelKeyMap keyMap = keyMapIter.next();
-
-                writer.print(indentString);
                 writer.print(indentString);
                 writer.println("{");
                 
                 writer.print(indentString);
                 writer.print(indentString);
-                writer.print(indentString);
-                writer.print("sourceAttribute = ");
-                writer.print(keyMap.getFieldName());
+                writer.print("name = ");
+                writer.print(relationship.getCombinedName());
                 writer.println(";");
-
+                
                 writer.print(indentString);
                 writer.print(indentString);
-                writer.print(indentString);
-                writer.print("destinationAttribute = ");
-                writer.print(keyMap.getRelFieldName());
+                writer.print("destination = ");
+                writer.print(relationship.getRelEntityName());
                 writer.println(";");
+                
+                writer.print(indentString);
+                writer.print(indentString);
+                if ("many".equals(relationship.getType())) {
+                    writer.println("isToMany = Y;");
+                } else {
+                    writer.println("isToMany = N;");
+                }
 
+                /* nothing in OFBiz entity models for this yet, but might be nice to add in the future
                 writer.print(indentString);
                 writer.print(indentString);
-                if (keyMapIter.hasNext()) {
+                writer.print("isMandatory = ");
+                writer.print();
+                writer.println(";");
+                */
+                
+                writer.print(indentString);
+                writer.print(indentString);
+                writer.println("joinSemantic = EOInnerJoin;");
+                
+                writer.print(indentString);
+                writer.print(indentString);
+                writer.println("joins = (");
+                Iterator<ModelKeyMap> keyMapIter = relationship.getKeyMapsIterator();
+                while (keyMapIter.hasNext()) {
+                    ModelKeyMap keyMap = keyMapIter.next();
+
+                    writer.print(indentString);
+                    writer.print(indentString);
+                    writer.println("{");
+                    
+                    writer.print(indentString);
+                    writer.print(indentString);
+                    writer.print(indentString);
+                    writer.print("sourceAttribute = ");
+                    writer.print(keyMap.getFieldName());
+                    writer.println(";");
+
+                    writer.print(indentString);
+                    writer.print(indentString);
+                    writer.print(indentString);
+                    writer.print("destinationAttribute = ");
+                    writer.print(keyMap.getRelFieldName());
+                    writer.println(";");
+
+                    writer.print(indentString);
+                    writer.print(indentString);
+                    if (keyMapIter.hasNext()) {
+                        writer.println("},");
+                    } else {
+                        writer.println("}");
+                    }
+                }
+                writer.print(indentString);
+                writer.print(indentString);
+                writer.println(");");
+                
+                writer.print(indentString);
+                if (relRelationshipIter.hasNext()) {
                     writer.println("},");
                 } else {
                     writer.println("}");
                 }
             }
             writer.print(indentString);
-            writer.print(indentString);
             writer.println(");");
-            
-            writer.print(indentString);
-            if (relRelationshipIter.hasNext()) {
-                writer.println("},");
-            } else {
-                writer.println("}");
-            }
         }
-        writer.print(indentString);
-        writer.println(");");
         
         writer.println("}");
     }
