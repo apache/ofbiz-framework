@@ -19,7 +19,7 @@
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+ xsi:noNamespaceSchemaLocation="../../../framework/widget/dtd/widget-menu.xsd">
     <menu name="ProjectMgrAppBar" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.ProjectMgrApplication}" menu-container-style="button-bar tab-bar">
     
         <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
@@ -348,7 +348,7 @@
             <link target="myTimeSheetStatustoComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
     </menu>
-    <menu name="ResourcesTabBar" menu-container-style="button-bar tab-bar" default-menu-item-name="edittimesheet" default-selected-style="selected">
+    <menu name="ResourceTabBar" menu-container-style="button-bar tab-bar" default-menu-item-name="edittimesheet" default-selected-style="selected">
         <menu-item name="ResourcesProfile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${partyId}"/>
         </menu-item>
@@ -360,6 +360,9 @@
         </menu-item>
         <menu-item name="EditPartyRates"  title="${uiLabelMap.ProjectMgrRates}">
             <link target="EditPartyRates?partyId=${partyId}"></link>
+        </menu-item>
+        <menu-item name="ListUnBilledHours"  title="${uiLabelMap.ProjectMgrBilling}">
+            <link target="ListResourcesUnBilledHours?partyId=${partyId}"></link>
         </menu-item>
     </menu>
     <menu name="RequestTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected">
