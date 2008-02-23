@@ -301,7 +301,10 @@ under the License.
             <if-not-empty field-name="parameters.productId">
                 <entity-one entity-name="Product" value-name="product"/>
                 <set from-field="product" field="calculateProductPriceMap.product"/>
-                <set from-field="parameters.quantity" field="calculateProductPriceMap.quantity"/> 
+                <set from-field="parameters.quantity" field="calculateProductPriceMap.quantity"/>
+                <if-not-empty field-name="parameters.selectedAmount">
+                    <set from-field="parameters.selectedAmount" field="calculateProductPriceMap.amount"/>
+                </if-not-empty>
                 <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
                     <result-to-field result-name="price" field-name="newEntity.quoteUnitPrice"/>
                 </call-service>
