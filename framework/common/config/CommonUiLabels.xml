@@ -1748,10 +1748,10 @@
         <value xml:lang="zh">电子邮件</value>
     </property>
     <property key="CommonEmptyHeader">
-        <value xml:lang="en">Empty Header</value>
-        <value xml:lang="it">\</value>
+        <value xml:lang="en"> </value>
+        <value xml:lang="it"> </value>
         <value xml:lang="pt"> </value>
-        <value xml:lang="th">หัวข้อว่าง</value>
+        <value xml:lang="th"> </value>
     </property>
     <property key="CommonEnabled">
         <value xml:lang="ar">شغال</value>
