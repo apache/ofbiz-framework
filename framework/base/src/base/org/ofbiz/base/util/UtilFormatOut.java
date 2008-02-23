@@ -18,10 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * General output formatting functions - mainly for helping in JSPs
@@ -29,6 +33,9 @@ import java.util.Locale;
 public class UtilFormatOut {
 
     public static final String module = UtilFormatOut.class.getName();
+    
+    /** simple 4 char indentation */
+    public static final String indentFourString = "    ";
 
     public static String safeToString(Object obj) {
         if (obj != null) {
@@ -496,5 +503,53 @@ public class UtilFormatOut {
     }
     public static String makeSqlSafe(String unsafeString) {
         return unsafeString.replaceAll("'","''");
+    }
+    
+    public static void writePlistProperty(String name, Object value, int indentLevel, PrintWriter writer) {
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        writer.print(name);
+        writer.print(" = ");
+        if (value instanceof Map) {
+            writer.println();
+            writePlistPropertyMap((Map<String, Object>) value, indentLevel + 1, writer, false);
+        } else if (value instanceof List) {
+            writer.println();
+            writePlistPropertyValueList((List<Object>) value, indentLevel + 1, writer);
+        } else {
+            writer.print(value);
+            writer.println(";");
+        }
+    }
+    public static void writePlistPropertyMap(Map<String, Object> propertyMap, int indentLevel, PrintWriter writer, boolean appendComma) {
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        writer.println("{");
+        for (Map.Entry<String, Object> property: propertyMap.entrySet()) {
+            writePlistProperty(property.getKey(), property.getValue(), indentLevel + 1, writer);
+        }
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        if (appendComma) {
+            writer.println("},");
+        } else {
+            writer.println("}");
+        }
+    }
+    public static void writePlistPropertyValueList(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        writer.println("(");
+        
+        Iterator<Object> propertyValueIter = propertyValueList.iterator();
+        while (propertyValueIter.hasNext()) {
+            Object propertyValue = propertyValueIter.next();
+            if (propertyValue instanceof Map) {
+                Map<String, Object> propertyMap = (Map<String, Object>) propertyValue;
+                writePlistPropertyMap(propertyMap, indentLevel + 1, writer, propertyValueIter.hasNext());
+            } else {
+                writer.print(propertyValue);
+                if (propertyValueIter.hasNext()) writer.print(", ");
+            }
+        }
+        
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        writer.println(");");
     }
 }
