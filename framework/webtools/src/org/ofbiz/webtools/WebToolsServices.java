@@ -49,6 +49,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -789,10 +790,17 @@ public class WebToolsServices {
     
     public static Map exportEntityEoModelBundle(DispatchContext dctx, Map context) {
         String eomodeldFullPath = (String) context.get("eomodeldFullPath");
-        String entityPackageName = (String) context.get("entityPackageName");
+        String entityPackageNameOrig = (String) context.get("entityPackageName");
         String entityGroupId = (String) context.get("entityGroupId");
         String datasourceName = (String) context.get("datasourceName");
         String entityNamePrefix = (String) context.get("entityNamePrefix");
+        
+        Set<String> entityPackageNameSet = FastSet.newInstance();
+        if (UtilValidate.isNotEmpty(entityPackageNameOrig)) {
+            entityPackageNameSet.addAll(StringUtil.split(entityPackageNameOrig, ","));
+        }
+        
+        Debug.logInfo("Exporting with entityPackageNameSet: " + entityPackageNameSet, module);
 
         ModelReader reader = dctx.getDelegator().getModelReader();
         
@@ -813,12 +821,10 @@ public class WebToolsServices {
             }
             
             Set<String> entityNames = new TreeSet();
-            if (UtilValidate.isNotEmpty(entityPackageName)) {
-                Map<String, TreeSet<String>> entitiesByPackage = reader.getEntitiesByPackage(UtilMisc.toSet(entityPackageName), null);
+            if (UtilValidate.isNotEmpty(entityPackageNameSet)) {
+                Map<String, TreeSet<String>> entitiesByPackage = reader.getEntitiesByPackage(entityPackageNameSet, null);
                 for (Map.Entry<String, TreeSet<String>> entitiesByPackageMapEntry: entitiesByPackage.entrySet()) {
-                    if (entitiesByPackageMapEntry.getKey().contains(entityPackageName)) {
-                        entityNames.addAll(entitiesByPackageMapEntry.getValue());
-                    }
+                    entityNames.addAll(entitiesByPackageMapEntry.getValue());
                 }
                 Debug.logInfo("Exporting the following entities: " + entityNames, module);
             } else if (UtilValidate.isNotEmpty(entityGroupId)) {
@@ -859,6 +865,8 @@ public class WebToolsServices {
                 modelEntity.writeEoModelText(entityWriter, entityNamePrefix, datasourceName, entityNames);
                 entityWriter.close();
             }
+            
+            return ServiceUtil.returnSuccess("Exported eomodeld file for " + entityNames.size() + " entities to: " + eomodeldFullPath);
         } catch (UnsupportedEncodingException e) {
             return ServiceUtil.returnError("ERROR saving file: " + e.toString());
         } catch (FileNotFoundException e) {
@@ -866,8 +874,6 @@ public class WebToolsServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("ERROR: getting entity names: " + e.toString());
         }
-        
-        return ServiceUtil.returnSuccess();
     }
 
     /** Performs an entity maintenance security check. Returns hasPermission=true
