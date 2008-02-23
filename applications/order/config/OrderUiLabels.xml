@@ -11300,6 +11300,10 @@
         <value xml:lang="zh_CN">请指定发货后日期作为日期</value>
         <value xml:lang="zh">请指出最早送货日期。</value>
     </property>
+    <property key="checkhelper.change_returned_cannot_be_greater_than_cash">
+        <value xml:lang="en">The change returned cannot be greater than the cash given.</value>
+        <value xml:lang="fr">La monnaie rendue ne peut être supérieure au paiement.</value>
+    </property>
     <property key="checkhelper.specify_if_shipBeforeDate_is_date">
         <value xml:lang="de">Bitte geben Sie 'Auslieferung vor Datum' als Datum an.</value>
         <value xml:lang="en">Please specify a ship before date as a date.</value>

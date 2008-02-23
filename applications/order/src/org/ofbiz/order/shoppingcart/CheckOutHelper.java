@@ -1516,7 +1516,23 @@ public class CheckOutHelper {
             errMsg = UtilProperties.getMessage(resource, "checkevents.payment_not_cover_this_order", (cart != null ? cart.getLocale() : Locale.getDefault()));
             return ServiceUtil.returnError(errMsg);
         }
-
+        if (paymentMethods != null && paymentMethods.size() > 0 && requiredAmount < selectedPaymentTotal) {
+            double changeAmount = selectedPaymentTotal - requiredAmount;
+            if (!paymentTypes.contains("CASH")){
+                Debug.logError("Change Amount : " + changeAmount + " / No cash.", module);
+                errMsg = UtilProperties.getMessage(resource, "checkhelper.change_returned_cannot_be_greater_than_cash", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                return ServiceUtil.returnError(errMsg);
+            }else{
+                int cashIndex = paymentTypes.indexOf("CASH");
+                String cashId = (String) paymentTypes.get(cashIndex);
+                double cashAmount = cart.getPaymentAmount(cashId);
+                if (cashAmount < changeAmount){
+                    Debug.logError("Change Amount : " + changeAmount + " / Cash Amount : " + cashAmount, module);
+                    errMsg = UtilProperties.getMessage(resource, "checkhelper.change_returned_cannot_be_greater_than_cash", (cart != null ? cart.getLocale() : Locale.getDefault()));
+                    return ServiceUtil.returnError(errMsg);
+                }
+            }            
+        }
         return ServiceUtil.returnSuccess();
     }
 
