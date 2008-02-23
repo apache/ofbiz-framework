@@ -566,6 +566,11 @@
         <response name="success" type="view" value="listResourcesProject"/>
         <response name="error" type="view" value="listResourcesProject"/>
     </request-map>
+    <request-map uri="ListResourcesUnBilledHours">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListResourcesUnBilledHours"/>
+        <response name="error" type="view" value="ListResourcesUnBilledHours"/>
+    </request-map>
     <request-map uri="updaterequeststatus">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateCustRequest"/>
@@ -781,6 +786,7 @@
     <view-map name="FindProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProject"/>    
     <view-map name="EditProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
     <view-map name="projectBilling" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#projectBilling"/>
+    <view-map name="ListResourcesUnBilledHours" type="screen" page="component://projectmgr/widget/ResourceScreens.xml#ListUnBilledHours"/>
     <view-map name="EditWorkEffort" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
     <view-map name="ChildWorkEfforts" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ChildWorkEfforts"/>
     <view-map name="EditProjectAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectAndAssoc"/>
