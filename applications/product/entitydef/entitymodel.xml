@@ -315,6 +315,27 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="prodCatContentTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="ProductCategoryGlAccount" package-name="org.ofbiz.product.category" title="Product Category GlAccount Entity">
+        <field name="productCategoryId" type="id-ne"></field>
+        <field name="organizationPartyId" type="id-ne"></field>
+        <field name="glAccountTypeId" type="id-ne"></field>
+        <field name="glAccountId" type="id-ne"></field>
+        <prim-key field="productCategoryId"/>
+        <prim-key field="organizationPartyId"/>
+        <prim-key field="glAccountTypeId"/>
+        <relation type="one" fk-name="PRD_CT_GLACT_PCAT" rel-entity-name="ProductCategory">
+            <key-map field-name="productCategoryId"/>
+        </relation>
+        <relation type="one" fk-name="PRD_CT_GLACT_PRTY" rel-entity-name="Party">
+            <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="PRD_CT_GLACT_TYPE" rel-entity-name="GlAccountType">
+            <key-map field-name="glAccountTypeId"/>
+        </relation>
+        <relation type="one" fk-name="PRD_CT_GLACT_GLACT" rel-entity-name="GlAccount">
+            <key-map field-name="glAccountId"/>
+        </relation>
+    </entity>
     <entity entity-name="ProductCategoryLink"
         package-name="org.ofbiz.product.category"
         title="Product Category Link Entity">
@@ -2374,29 +2395,6 @@ under the License.
         <key-map field-name="glAccountTypeId"/>
       </relation>
       <relation type="one" fk-name="PROD_GLACT_GLACT" rel-entity-name="GlAccount">
-        <key-map field-name="glAccountId"/>
-      </relation>
-    </entity>
-    <entity entity-name="ProductCategoryGlAccount"
-            package-name="org.ofbiz.product.product"
-            title="Product Category GlAccount Entity">
-      <field name="productCategoryId" type="id-ne"></field>
-      <field name="organizationPartyId" type="id-ne"></field>
-      <field name="glAccountTypeId" type="id-ne"></field>
-      <field name="glAccountId" type="id-ne"></field>
-      <prim-key field="productCategoryId"/>
-      <prim-key field="organizationPartyId"/>
-      <prim-key field="glAccountTypeId"/>
-      <relation type="one" fk-name="PRD_CT_GLACT_PCAT" rel-entity-name="ProductCategory">
-        <key-map field-name="productCategoryId"/>
-      </relation>
-      <relation type="one" fk-name="PRD_CT_GLACT_PRTY" rel-entity-name="Party">
-        <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PRD_CT_GLACT_TYPE" rel-entity-name="GlAccountType">
-        <key-map field-name="glAccountTypeId"/>
-      </relation>
-      <relation type="one" fk-name="PRD_CT_GLACT_GLACT" rel-entity-name="GlAccount">
         <key-map field-name="glAccountId"/>
       </relation>
     </entity>
