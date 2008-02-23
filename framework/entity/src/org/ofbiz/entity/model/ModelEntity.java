@@ -34,6 +34,7 @@ import org.w3c.dom.Element;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilXml;
@@ -1394,239 +1395,98 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @param helperName
      */
     public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet) {
-        int indent = 4;
-        StringBuffer indentStrBuf = new StringBuffer();
-        for (int i = 0; i < indent; i++) indentStrBuf.append(' ');
-        String indentString = indentStrBuf.toString();
-
         if (entityPrefix == null) entityPrefix = "";
         if (helperName == null) helperName = "localderby";
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
-
-        writer.println('{');
         
-        writer.print(indentString);
-        writer.print("externalName = ");
-        writer.print(this.getTableName(helperName));
-        writer.println(";");
+        Map<String, Object> topLevelMap = FastMap.newInstance();
 
-        writer.print(indentString);
-        writer.print("name = ");
-        writer.print(this.getEntityName());
-        writer.println(";");
-
-        writer.print(indentString);
-        writer.println("className = EOGenericRecord;");
+        topLevelMap.put("name", this.getEntityName());
+        topLevelMap.put("externalName", this.getTableName(helperName));
+        topLevelMap.put("className", "EOGenericRecord");
 
         // for classProperties add field names AND relationship names to get a nice, complete chart
-        writer.print(indentString);
-        writer.print("classProperties = (");
-        Iterator<ModelField> cpFieldIter = this.getFieldsIterator();
-        while (cpFieldIter.hasNext()) {
-            ModelField field = cpFieldIter.next();
-            writer.print(field.getName());
-            if (cpFieldIter.hasNext()) writer.print(", ");
+        List<String> classPropertiesList = FastList.newInstance();
+        topLevelMap.put("classProperties", classPropertiesList);
+        for (ModelField field: this.fields) {
+            classPropertiesList.add(field.getName());
         }
-        Iterator<ModelRelation> cpRelationshipIter = this.getRelationsIterator();
-        // put these on a new line if there are any
-        if (cpRelationshipIter.hasNext()) {
-            writer.println(",");
-            writer.print(indentString);
-            writer.print(indentString);
+        for (ModelRelation relationship: this.relations) {
+            classPropertiesList.add(relationship.getCombinedName());
         }
-        while (cpRelationshipIter.hasNext()) {
-            ModelRelation relationship = cpRelationshipIter.next();
-            writer.print(relationship.getCombinedName());
-            if (cpRelationshipIter.hasNext()) writer.print(", ");
-        }
-        writer.println(");");
         
         // attributes
-        writer.print(indentString);
-        writer.println("attributes = (");
-        Iterator<ModelField> attrFieldIter = this.getFieldsIterator();
-        while (attrFieldIter.hasNext()) {
-            ModelField field = attrFieldIter.next();
+        List<Map<String, Object>> attributesList = FastList.newInstance();
+        topLevelMap.put("attributes", attributesList);
+        for (ModelField field: this.fields) {
             ModelFieldType fieldType = modelFieldTypeReader.getModelFieldType(field.getType());
+            
+            Map<String, Object> attributeMap = FastMap.newInstance();
+            attributesList.add(attributeMap);
+            
+            attributeMap.put("name", field.getName());
+            attributeMap.put("columnName", field.getColName());
+            attributeMap.put("valueClassName", fieldType.getJavaType());
+            attributeMap.put("name", field.getName());
 
-            writer.print(indentString);
-            writer.println("{");
-            
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.print("name = ");
-            writer.print(field.getName());
-            writer.println(";");
-            
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.print("columnName = ");
-            writer.print(field.getColName());
-            writer.println(";");
-            
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.print("externalType = ");
             String sqlType = fieldType.getSqlType();
             if (sqlType.indexOf("(") >= 0) {
-                writer.print(sqlType.substring(0, sqlType.indexOf("(")));
-                writer.println(";");
-                
+                attributeMap.put("externalType", sqlType.substring(0, sqlType.indexOf("(")));
                 // since there is a field length set that
-                writer.print(indentString);
-                writer.print(indentString);
-                writer.print("width = ");
                 String widthStr = sqlType.substring(sqlType.indexOf("(") + 1, sqlType.indexOf(")"));
-                // if there is a comma remove it; the format doesn't seem to support this sort of detail
+                // if there is a comma split by it for width,precision
                 if (widthStr.indexOf(",") >= 0) {
-                    widthStr = widthStr.substring(0, widthStr.indexOf(","));
+                    attributeMap.put("width", widthStr.substring(0, widthStr.indexOf(",")));
+                    // since there is a field precision set that
+                    attributeMap.put("precision", widthStr.substring(widthStr.indexOf(",") + 1));
+                } else {
+                    attributeMap.put("width", widthStr);
                 }
-                writer.print(widthStr);
             } else {
-                writer.print(sqlType);
-            }
-            writer.println(";");
-            
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.print("valueClassName = ");
-            writer.print(fieldType.getJavaType());
-            writer.println(";");
-            
-            /* maybe map this one later, probably not needed for diagramming help anyway
-            writer.print(indentString);
-            writer.print(indentString);
-            writer.print("valueType = ");
-            writer.print(??);
-            writer.println(";");
-            */
-            
-            writer.print(indentString);
-            if (attrFieldIter.hasNext()) {
-                writer.println("},");
-            } else {
-                writer.println("}");
+                attributeMap.put("externalType", sqlType);
             }
         }
-        writer.print(indentString);
-        writer.println(");");
-
+        
         // primaryKeyAttributes
-        writer.print(indentString);
-        writer.print("primaryKeyAttributes = (");
-        Iterator<ModelField> pkFieldIter = this.getPksIterator();
-        while (pkFieldIter.hasNext()) {
-            ModelField field = pkFieldIter.next();
-            writer.print(field.getName());
-            if (pkFieldIter.hasNext()) writer.print(", ");
+        List<String> primaryKeyAttributesList = FastList.newInstance();
+        topLevelMap.put("primaryKeyAttributes", primaryKeyAttributesList);
+        for (ModelField pkField: this.pks) {
+            primaryKeyAttributesList.add(pkField.getName());
         }
-        writer.println(");");
 
         // relationships
-        List<ModelRelation> relRelationshipList = FastList.newInstance();
-        Iterator<ModelRelation> buildRelationshipIter = this.getRelationsIterator();
-        while (buildRelationshipIter.hasNext()) {
-            ModelRelation relationship = buildRelationshipIter.next();
-            
+        List<Map<String, Object>> relationshipsMapList = FastList.newInstance();
+        for (ModelRelation relationship: this.relations) {
             if (entityNameIncludeSet.contains(relationship.getRelEntityName())) {
-                relRelationshipList.add(relationship);
-            }
-        }
-        
-        if (relRelationshipList.size() > 0) {
-            writer.print(indentString);
-            writer.println("relationships = (");
-            Iterator<ModelRelation> relRelationshipIter = relRelationshipList.iterator();
-            while (relRelationshipIter.hasNext()) {
-                ModelRelation relationship = relRelationshipIter.next();
+                Map<String, Object> relationshipMap = FastMap.newInstance();
+                relationshipsMapList.add(relationshipMap);
                 
-                if (!entityNameIncludeSet.contains(relationship.getRelEntityName())) {
-                    continue;
-                }
-
-                writer.print(indentString);
-                writer.println("{");
-                
-                writer.print(indentString);
-                writer.print(indentString);
-                writer.print("name = ");
-                writer.print(relationship.getCombinedName());
-                writer.println(";");
-                
-                writer.print(indentString);
-                writer.print(indentString);
-                writer.print("destination = ");
-                writer.print(relationship.getRelEntityName());
-                writer.println(";");
-                
-                writer.print(indentString);
-                writer.print(indentString);
+                relationshipMap.put("name", relationship.getCombinedName());
+                relationshipMap.put("destination", relationship.getRelEntityName());
                 if ("many".equals(relationship.getType())) {
-                    writer.println("isToMany = Y;");
+                    relationshipMap.put("isToMany", "Y");
                 } else {
-                    writer.println("isToMany = N;");
+                    relationshipMap.put("isToMany", "N");
                 }
-
-                /* nothing in OFBiz entity models for this yet, but might be nice to add in the future
-                writer.print(indentString);
-                writer.print(indentString);
-                writer.print("isMandatory = ");
-                writer.print();
-                writer.println(";");
-                */
+                relationshipMap.put("joinSemantic", "EOInnerJoin");
                 
-                writer.print(indentString);
-                writer.print(indentString);
-                writer.println("joinSemantic = EOInnerJoin;");
+                //nothing in OFBiz entity models for this yet, but might be nice to add in the future
+                //relationshipMap.put("isMandatory", );
                 
-                writer.print(indentString);
-                writer.print(indentString);
-                writer.println("joins = (");
-                Iterator<ModelKeyMap> keyMapIter = relationship.getKeyMapsIterator();
-                while (keyMapIter.hasNext()) {
-                    ModelKeyMap keyMap = keyMapIter.next();
-
-                    writer.print(indentString);
-                    writer.print(indentString);
-                    writer.println("{");
-                    
-                    writer.print(indentString);
-                    writer.print(indentString);
-                    writer.print(indentString);
-                    writer.print("sourceAttribute = ");
-                    writer.print(keyMap.getFieldName());
-                    writer.println(";");
-
-                    writer.print(indentString);
-                    writer.print(indentString);
-                    writer.print(indentString);
-                    writer.print("destinationAttribute = ");
-                    writer.print(keyMap.getRelFieldName());
-                    writer.println(";");
-
-                    writer.print(indentString);
-                    writer.print(indentString);
-                    if (keyMapIter.hasNext()) {
-                        writer.println("},");
-                    } else {
-                        writer.println("}");
-                    }
-                }
-                writer.print(indentString);
-                writer.print(indentString);
-                writer.println(");");
-                
-                writer.print(indentString);
-                if (relRelationshipIter.hasNext()) {
-                    writer.println("},");
-                } else {
-                    writer.println("}");
+                List<Map<String, Object>> joinsMapList = FastList.newInstance();
+                relationshipMap.put("joins", joinsMapList);
+                for (ModelKeyMap keyMap: relationship.getKeyMapsClone()) {
+                    Map<String, Object> joinsMap = FastMap.newInstance();
+                    joinsMapList.add(joinsMap);
+                    joinsMap.put("sourceAttribute", keyMap.getFieldName());
+                    joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
                 }
             }
-            writer.print(indentString);
-            writer.println(");");
+        }
+        if (relationshipsMapList.size() > 0) {
+            topLevelMap.put("relationships", relationshipsMapList);
         }
         
-        writer.println("}");
+        UtilFormatOut.writePlistPropertyMap(topLevelMap, 0, writer, false);
     }
 }

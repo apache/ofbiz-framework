@@ -19,6 +19,9 @@
 package org.ofbiz.entity.model;
 
 import java.util.*;
+
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 
 import org.ofbiz.base.util.*;
@@ -151,6 +154,12 @@ public class ModelRelation extends ModelChild {
     /** keyMaps defining how to lookup the relatedTable using columns from this table */
     public Iterator<ModelKeyMap> getKeyMapsIterator() {
         return this.keyMaps.iterator();
+    }
+    
+    public List<ModelKeyMap> getKeyMapsClone() {
+        List<ModelKeyMap> kmList = FastList.newInstance();
+        kmList.addAll(this.keyMaps);
+        return kmList;
     }
 
     public int getKeyMapsSize() {

@@ -52,6 +52,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
@@ -814,10 +815,12 @@ public class WebToolsServices {
             Set<String> entityNames = new TreeSet();
             if (UtilValidate.isNotEmpty(entityPackageName)) {
                 Map<String, TreeSet<String>> entitiesByPackage = reader.getEntitiesByPackage(UtilMisc.toSet(entityPackageName), null);
-                Debug.logInfo("entitiesByPackage = " + entitiesByPackage, module);
-                if (entitiesByPackage.get(entityPackageName) != null) {
-                    entityNames.addAll(entitiesByPackage.get(entityPackageName));
+                for (Map.Entry<String, TreeSet<String>> entitiesByPackageMapEntry: entitiesByPackage.entrySet()) {
+                    if (entitiesByPackageMapEntry.getKey().contains(entityPackageName)) {
+                        entityNames.addAll(entitiesByPackageMapEntry.getValue());
+                    }
                 }
+                Debug.logInfo("Exporting the following entities: " + entityNames, module);
             } else if (UtilValidate.isNotEmpty(entityGroupId)) {
                 entityNames.addAll(EntityGroupUtil.getEntityNamesByGroup(entityGroupId, dctx.getDelegator()));
             } else {
@@ -835,23 +838,18 @@ public class WebToolsServices {
             }
             
             // write the index.eomodeld file 
-            PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, "index.eomodeld")), "UTF-8")));
-            writer.println("{");
-            writer.println("EOModelVersion = \"2.1\";");
-            writer.println("entities = (");
-            Iterator<String> entityNameIter = entityNames.iterator();
-            while (entityNameIter.hasNext()) {
-                String entityName = entityNameIter.next(); 
-                writer.print("{ className = EOGenericRecord; name = ");
-                writer.print(entityName);
-                if (entityNameIter.hasNext()) {
-                    writer.println("; },");
-                } else {
-                    writer.println("; }");
-                }
+            Map<String, Object> topLevelMap = FastMap.newInstance();
+            topLevelMap.put("EOModelVersion", "\"2.1\"");
+            List<Map<String, Object>> entitiesMapList = FastList.newInstance();
+            topLevelMap.put("entities", entitiesMapList);
+            for (String entityName: entityNames) {
+                Map<String, Object> entitiesMap = FastMap.newInstance();
+                entitiesMapList.add(entitiesMap);
+                entitiesMap.put("className", "EOGenericRecord");
+                entitiesMap.put("name", entityName);
             }
-            writer.println(");");
-            writer.println("}");
+            PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, "index.eomodeld")), "UTF-8")));
+            UtilFormatOut.writePlistPropertyMap(topLevelMap, 0, writer, false);
             writer.close();
             
             // write each <EntityName>.plist file

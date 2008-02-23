@@ -511,10 +511,9 @@ public class UtilFormatOut {
         writer.print(" = ");
         if (value instanceof Map) {
             writer.println();
-            writePlistPropertyMap((Map<String, Object>) value, indentLevel + 1, writer, false);
+            writePlistPropertyMap((Map<String, Object>) value, indentLevel, writer, false);
         } else if (value instanceof List) {
-            writer.println();
-            writePlistPropertyValueList((List<Object>) value, indentLevel + 1, writer);
+            writePlistPropertyValueList((List<Object>) value, indentLevel, writer);
         } else {
             writer.print(value);
             writer.println(";");
@@ -535,7 +534,7 @@ public class UtilFormatOut {
     }
     public static void writePlistPropertyValueList(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
-        writer.println("(");
+        writer.print("(");
         
         Iterator<Object> propertyValueIter = propertyValueList.iterator();
         while (propertyValueIter.hasNext()) {
