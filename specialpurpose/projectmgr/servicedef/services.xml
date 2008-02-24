@@ -22,6 +22,16 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Project Manager service definitions.</description>
 
+    <service name="createTimeEntryInTimesheet" default-entity-name="TimeEntry" engine="simple" auth="true"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="createTimeEntryInTimesheet">
+        <description>Creates TimeEntry and searches for a timesheetId, if required it will create a weekly time sheet, it also assigns the party to the task</description>
+        <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="timesheetId" type="String" mode="OUT" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+    </service>
+
     <service name="createProjectTimesheet" engine="simple" default-entity-name="Timesheet"
         location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheetForThisWeek">
         <description>Creates Timesheet for this week if no required date specified.</description>

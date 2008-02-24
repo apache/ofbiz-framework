@@ -106,7 +106,7 @@ void retrieveWorkEffortData() {
 	            workEffortPartyAssign = workEffortPartyAssigns.get(0);
 	            entry.put("fromDate", workEffortPartyAssign.getTimestamp("fromDate"));
 	            entry.put("roleTypeId", workEffortPartyAssign.getString("roleTypeId"));
-	            if (workEffortPartyAssign.getString("statusId").equals("PAS_COMPLETED")) {
+	            if ("PAS_COMPLETED".equals(workEffortPartyAssign.getString("statusId"))) {
 	                entry.put("checkComplete", "Y");
 	            }
 	        }

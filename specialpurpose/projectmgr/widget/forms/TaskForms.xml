@@ -385,6 +385,69 @@
         <field name="estimatedCost" title="${uiLabelMap.ProjectMgrEstimatedCost}" widget-style="linktext"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form> 
+    <form name="ListTimeEntries" type="list" list-name="timesheetEntries" target="updateTimeEntry" paginate-target="EditTimeEntries"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="TimeEntry">
+                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                <order-by field-name="timesheetId"/>
+                <order-by field-name="partyId"/>
+                <order-by field-name="rateTypeId"/>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateTimeEntry"/>        
+        <field name="fixedAssetId"><hidden/></field>
+        <field name="maintHistSeqId"><hidden/></field>
+        <field name="timeEntryId"><hidden/></field>
+        <field name="workEffortId"><hidden/></field>
+        <field name="timesheetId"><hyperlink target="Timesheet?timesheetId=${timesheetId}" description="${timesheetId}"/></field>
+        <field name="partyId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${middleName} ${lastName}">
+                    <entity-constraint name="roleTypeId" operator="equals" value="PROJECT_TEAM"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+            <drop-down no-current-selected-key="STANDARD">
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="fromDate"><date-time type="date"/></field>
+        <field name="thruDate"><ignored/></field><!-- not used in project manager -->
+        <field name="invoiceInfo"><hidden/></field>
+        <field name="comments"><text size="60"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteTimeEntry?workEffortId=${workEffortId}&amp;timeEntryId=${timeEntryId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form> 
+    <form name="createTimeEntry" type="single" target="createTimeEntry" header-row-style="header-row" default-table-style="basic-table">
+        <field name="fromDate" title="${uiLabelMap.CommonDate}"><date-time type="date"/></field>
+        <field name="hours"><text size="10"/></field>
+        <field name="partyId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${middleName} ${lastName}">
+                    <entity-constraint name="roleTypeId" operator="equals" value="PROJECT_TEAM"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
+            <drop-down no-current-selected-key="STANDARD">
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="comments"><text size="40"/></field>
+        <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
+        <field name="addButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
+    </form>    
     <form name="ListTaskNotes" extends="ListWorkEffortNotes" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="list" list-name="taskNotes" paginate-target="EditTaskNotes"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>

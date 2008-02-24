@@ -605,45 +605,6 @@ under the License.
             </widgets>
         </section> 
     </screen>
-    <screen name="EditTimeEntries">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleListTimeEntries"/>
-                <set field="tabButtonItem" value="tasks"/>
-                <set field="labelTitleProperty" value="PageTitleEditSkill"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>                            
-                            <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.${titleProperty}} ${workEffortId}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="ListTimeEntries" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/EditTimeEntry.ftl"/></html>
-                                </platform-specific>
-                            </widgets>                            
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="EditProjectNotes">
         <section>
             <actions>

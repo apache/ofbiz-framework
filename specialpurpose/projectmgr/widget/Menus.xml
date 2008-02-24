@@ -271,6 +271,17 @@
             </condition>
             <link target="EditTaskSkills?workEffortId=${workEffortId}"/>
         </menu-item>
+        <menu-item name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="workEffort"/></not>
+                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                </and>
+            </condition>
+            <link target="EditTimeEntries?workEffortId=${workEffortId}"/>
+        </menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
             <link target="EditTaskNotes?workEffortId=${workEffortId}"/>
         </menu-item>

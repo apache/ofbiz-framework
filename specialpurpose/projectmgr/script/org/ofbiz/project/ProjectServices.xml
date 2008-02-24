@@ -915,4 +915,47 @@
         </if-not-empty>
     </simple-method>
     
+    <simple-method method-name="createTimeEntryInTimesheet" short-description="Creates TimeEntry and searches for a timesheetId if not provided">
+        <if-not-empty field-name="parameters.fromDate">
+            <if-empty field-name="parameters.timesheetId">
+                <entity-condition entity-name="Timesheet" list-name="timesheets">
+                    <condition-list combine="and">
+                        <condition-expr field-name="fromDate" operator="less-equals" env-name="parameters.fromDate"/>
+                        <condition-expr field-name="thruDate" operator="greater-equals" env-name="parameters.fromDate"/>
+                        <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
+                    </condition-list>
+                </entity-condition>
+                <if-not-empty field-name="timesheets">
+                    <!-- use existing timesheet -->
+                    <first-from-list entry-name="timesheet" list-name="timesheets"/>
+                    <if-compare field-name="timesheet.statusId" value="TIMESHEET_IN_PROCESS" operator="equals">
+                        <set field="parameters.timesheetId" from-field="timesheet.timesheetId"/>
+                        <else>
+                            <add-error>
+                                <fail-message message="Cannot add to timesheet ${timesheet.timesheetId} because the status does not allow additions or modifications."/>
+                            </add-error>
+                            <check-errors/>
+                        </else>                        
+                    </if-compare>
+                    <else>
+                        <!-- create new timesheet -->
+                        <set field="parameters.requiredDate" from-field="parameters.fromDate"/>
+                        <call-simple-method method-name="createTimesheetForThisWeek" xml-resource="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml"/>
+                        <set field="parameters.timesheetId" from-field="newEntity.timesheetId"/>
+                    </else>
+                </if-not-empty>
+            </if-empty>
+        </if-not-empty>
+        <!-- get role for this party in this project -->
+        <entity-and entity-name="ProjectPartyAndPhaseAndTask" list-name="taskRoles" filter-by-date="true">
+            <field-map field-name="partyId" env-name="parameters.partyId"/>
+            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+        </entity-and>
+        <first-from-list entry-name="taskRole" list-name="taskRoles"/>
+        <set field="parameters.roleTypeId" from-field="taskRole.roleTypeId"/>
+        <set field="parameters.statusId" value="PAS_ASSIGNED"/>
+        <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+        <call-simple-method method-name="createTimeEntry" xml-resource="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml"/>
+    </simple-method>
+    
 </simple-methods>

@@ -411,46 +411,6 @@
         <field entry-name="xx" name="thruDate"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListTimeEntries" type="list" list-name="timesheetEntries" target="updateTimeEntry" paginate-target="EditTimeEntries"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-condition entity-name="TimeEntry">
-                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
-                <order-by field-name="timesheetId"/>
-                <order-by field-name="partyId"/>
-                <order-by field-name="rateTypeId"/>
-                <order-by field-name="-fromDate"/>
-            </entity-condition>
-        </actions>
-        <auto-fields-service service-name="updateTimeEntry"/>        
-        <field name="fixedAssetId"><hidden/></field>
-        <field name="maintHistSeqId"><hidden/></field>
-        <field name="timeEntryId"><hidden/></field>
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="EditProject?workEffortId=${workEffortId}"/>
-        </field>
-        <field name="timesheetId">
-            <lookup size="10" target-form-name="LookupTimesheet">
-                <sub-hyperlink target="EditTimesheet?timesheetId=${timesheetId}" link-style="buttontext" description="TS:${timesheetId}"/>
-            </lookup>
-        </field>
-        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPerson" default-value="${timesheet.partyId}"/></field>        
-        <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
-            <drop-down>
-                <entity-options entity-name="RateType" description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
-        <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
-        <field name="invoiceInfo"><hidden/></field>
-        <field name="comments"><text size="60"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteTimeEntry?workEffortId=${workEffortId}&amp;timeEntryId=${timeEntryId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
-        </field>
-    </form> 
     <form name="ListProjectNotes" extends="ListWorkEffortNotes" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="list" paginate-target="EditWorkEffortNotes"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
