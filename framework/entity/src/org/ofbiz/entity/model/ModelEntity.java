@@ -1395,6 +1395,8 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @param helperName
      */
     public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet) {
+        final boolean useRelationshipNames = false; 
+        
         if (entityPrefix == null) entityPrefix = "";
         if (helperName == null) helperName = "localderby";
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
@@ -1409,16 +1411,23 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         List<String> classPropertiesList = FastList.newInstance();
         topLevelMap.put("classProperties", classPropertiesList);
         for (ModelField field: this.fields) {
+            if (field.getIsAutoCreatedInternal()) continue;
+            
             classPropertiesList.add(field.getName());
         }
         for (ModelRelation relationship: this.relations) {
-            classPropertiesList.add(relationship.getCombinedName());
+            if (!entityNameIncludeSet.contains(relationship.getRelEntityName())) continue;
+            if (useRelationshipNames || relationship.isAutoRelation()) {
+                classPropertiesList.add(relationship.getCombinedName());
+            }
         }
         
         // attributes
         List<Map<String, Object>> attributesList = FastList.newInstance();
         topLevelMap.put("attributes", attributesList);
         for (ModelField field: this.fields) {
+            if (field.getIsAutoCreatedInternal()) continue;
+            
             ModelFieldType fieldType = modelFieldTypeReader.getModelFieldType(field.getType());
             
             Map<String, Object> attributeMap = FastMap.newInstance();
@@ -1461,7 +1470,11 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 Map<String, Object> relationshipMap = FastMap.newInstance();
                 relationshipsMapList.add(relationshipMap);
                 
-                relationshipMap.put("name", relationship.getCombinedName());
+                if (useRelationshipNames || relationship.isAutoRelation()) {
+                    relationshipMap.put("name", relationship.getCombinedName());
+                } else {
+                    relationshipMap.put("name", relationship.getKeyMapsIterator().next().getFieldName());
+                }
                 relationshipMap.put("destination", relationship.getRelEntityName());
                 if ("many".equals(relationship.getType())) {
                     relationshipMap.put("isToMany", "Y");
