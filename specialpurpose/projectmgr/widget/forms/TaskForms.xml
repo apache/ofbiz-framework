@@ -29,15 +29,15 @@
             </service>
             <set field="statusId" from-field="result.taskInfo.currentStatusId"/>
         </actions>
-        <alt-target use-when="myTask!=null" target="createMyTask"/>
+        <alt-target use-when="myTask!=void" target="createMyTask"/>
         <alt-target use-when="task==null" target="createTask"/>
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
-        <field use-when="myTask!=null" name="partyId"><hidden value="${userLogin.partyId}"/></field>
+        <field use-when="myTask!=void" name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
         <field use-when="task!=null" name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="task==null" entry-name="dummy" name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
-        <field use-when="myTask!=null" name="roleTypeId" title="${uiLabelMap.ProjectMgrMyRoleForThisTask}">
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field use-when="myTask!=void" name="roleTypeId" title="${uiLabelMap.ProjectMgrMyRoleForThisTask}">
             <drop-down>
                 <entity-options entity-name="RoleType" description="${description}">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
@@ -54,7 +54,7 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field use-when="myTask!=null" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
+        <field use-when="myTask!=void" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${phaseName} (Proj:${projectName})">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
@@ -62,8 +62,8 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field name="estimatedHours"><text size="5"/></field>
-        <field name="skillTypeId">
+        <field use-when="myTask!=void" name="estimatedHours"><text size="5"/></field>
+        <field use-when="myTask!=void" name="skillTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SkillType" description="${description}"/>        
             </drop-down>
