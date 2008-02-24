@@ -356,33 +356,42 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>                            
-                            <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.${titleProperty}}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <platform-specific>
-                                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskskills.ftl"/></html>
-                                </platform-specific>
-                            </widgets>                            
-                        </section>
+                        <screenlet title="${uiLabelMap.${titleProperty}}">
+                            <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                        </screenlet>
+                        <platform-specific>
+                            <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskskills.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>     
-    <screen name="ChildTaskWorkEfforts">
+    <screen name="EditTimeEntries">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListTimeEntries"/>
+                <set field="tabButtonItem" value="timeEntries"/>
+                <set field="labelTitleProperty" value="PageTitleEditSkill"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.${titleProperty}} ${workEffortId}">
+                            <include-form name="ListTimeEntries" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                        </screenlet>
+                        <screenlet title="Add Time Entry">
+                            <include-form name="createTimeEntry" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <!--screen name="ChildTaskWorkEfforts">
         <section>
             <actions>                
                 <set field="titleProperty" value="PageTitleListWorkEfforts"/>
@@ -426,7 +435,7 @@ under the License.
                 </section>
             </widgets>
         </section>
-    </screen>
+    </screen-->
     <screen name="EditTaskPartyAssigns">
         <section>
             <actions>

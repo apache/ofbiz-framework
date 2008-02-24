@@ -382,7 +382,7 @@
     </request-map>
     <request-map uri="createTimeEntry">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createTimeEntry"/>
+        <event type="service" invoke="createTimeEntryInTimesheet"/>
         <response name="success" type="view" value="EditTimeEntries"/>
         <response name="error" type="view" value="EditTimeEntries"/>
     </request-map>
@@ -807,7 +807,7 @@
     <view-map name="EditTaskSkills" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskSkills"/>
     <view-map name="projectView" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ProjectView"/>
     <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
-    <view-map name="EditTimeEntries" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditTimeEntries"/>
+    <view-map name="EditTimeEntries" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTimeEntries"/>
     <view-map name="FindTimeSheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#FindTimeSheet"/>
     <view-map name="EditTimeSheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimeSheet"/>
     <view-map name="addWeeklyTimesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#addWeeklyTimesheet"/>
