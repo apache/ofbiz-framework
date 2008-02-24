@@ -121,6 +121,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.workEffortTypeId" value="PROJECT"/>
+            <set field="parameters.noConditionFind" value="N"/> 
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>

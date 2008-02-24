@@ -172,8 +172,6 @@
     </form>
     <form name="FindTask" type="single" target="FindTask" 
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="noConditionFind"><hidden value="Y"/></field> 
-        <field name="hideSearch"><hidden value="Y"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskId}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}"><text-find default-option="contains" ignore-case="true"/></field>
@@ -193,6 +191,7 @@
     <form name="ListTasks" type="list" separate-columns="true" title="Project List" list-name="listIt"  paginate-target="FindTask"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
+            <set field="parameters.noConditionFind" value="Y"/> 
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="${entityName}"/>
@@ -246,10 +245,10 @@
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${resultProject.projectId}" description="${resultProject.projectName}"/></field>
         <field entry-name="result.taskInfo.currentStatusId" name="currentStatusId" ><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority"><display/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" red-when="before-now"><display type="date"/></field>
-        <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}" red-when="before-now"><display type="date"/></field>
+        <field name="estimatedStartDate"><display type="date"/></field>
+        <field name="estimatedCompletionDate" red-when="before-now"><display type="date"/></field>
+        <field name="actualStartDate"><display type="date"/></field>
+        <field name="actualCompletionDate" red-when="before-now"><display type="date"/></field>
         <field entry-name="result.taskInfo.plannedHours" name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field entry-name="result.taskInfo.actualHours" name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
