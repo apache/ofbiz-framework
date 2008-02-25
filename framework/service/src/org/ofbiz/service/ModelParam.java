@@ -115,6 +115,10 @@ public class ModelParam implements Serializable {
         }
     }
     
+    public String getShortDisplayDescription() {
+        return this.name + "[" + this.type + "," + this.mode + "]" + (optional ? "" : "*"); 
+    }
+    
     public Object getDefaultValue() {
         Object defaultValueObj = null;
         if (this.type != null) {

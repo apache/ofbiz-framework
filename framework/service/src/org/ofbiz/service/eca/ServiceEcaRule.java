@@ -18,20 +18,17 @@
  *******************************************************************************/
 package org.ofbiz.service.eca;
 
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastList;
-import javolution.util.FastSet;
 
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.w3c.dom.Element;
 
 /**
@@ -83,6 +80,26 @@ public class ServiceEcaRule implements java.io.Serializable {
         if (Debug.verboseOn()) Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
     }
 
+    public String getShortDisplayName() {
+        return this.serviceName + ":" + this.eventName;
+    }
+    
+    public List<ServiceEcaAction> getEcaActionList() {
+        List<ServiceEcaAction> actionList = FastList.newInstance();
+        for (Object actionOrSet: this.actionsAndSets) {
+            if (actionOrSet instanceof ServiceEcaAction) {
+                actionList.add((ServiceEcaAction) actionOrSet);
+            }
+        }
+        return actionList;
+    }
+    
+    public List<ServiceEcaCondition> getEcaConditionList() {
+        List<ServiceEcaCondition> condList = FastList.newInstance();
+        condList.addAll(this.conditions);
+        return condList;
+    }
+    
     public void eval(String serviceName, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result, boolean isError, boolean isFailure, Set<String> actionsRun) throws GenericServiceException {
         if (!enabled) {
             Debug.logInfo("Service ECA [" + this.serviceName + "] on [" + this.eventName + "] is disabled; not running.", module);
