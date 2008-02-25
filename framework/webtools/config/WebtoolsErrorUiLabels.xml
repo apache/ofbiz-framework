@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="foundgenericWebEvent.conversion_failed">
+        <value xml:lang="en">conversion failed</value>
+        <value xml:lang="fr">La conversion a échoué. "${fval}" n'est pas valide</value>
+        <value xml:lang="th">การเปลี่ยนแปลงล้มเหลว</value>
+    </property>
+    <property key="genericWebEvent.already_exists_pk">
+        <value xml:lang="en">already exists with primary key: "${primaryKey}; please change</value>
+        <value xml:lang="es">Ya existe esta llave primaria: "${primaryKey}; cambiarla.</value>
+        <value xml:lang="fr">existe avec primary key "${primaryKey}"</value>
+        <value xml:lang="it">già esistente con chiave primaria: "${primaryKey}; perfavore cambiarla</value>
+        <value xml:lang="ro">deja exista cu cheia primara: "${primaryKey}; Va rugam schimbati-o</value>
+        <value xml:lang="th">ยังคงมีอยู่แล้วด้วยคีย์หลัก: "${primaryKey}; กรุณาเปลี่ยน</value>
+        <value xml:lang="zh">主键已存在："${primaryKey}；请换一个</value>
+    </property>
+    <property key="genericWebEvent.conversion_failed">
+        <value xml:lang="en">conversion failed</value>
+        <value xml:lang="ro">conversie falita: "${fval}" nu este valida</value>
+        <value xml:lang="th">การเปลี่ยนแปลงล้มเหลว</value>
+        <value xml:lang="zh">无法转换："${fval}"无效</value>
+    </property>
+    <property key="genericWebEvent.create_failed_by_check">
+        <value xml:lang="en">Create failed while checking if exists (read error)</value>
+        <value xml:lang="es">Registro fallido durante revisión (error de lectura)</value>
+        <value xml:lang="fr">'créer' a échoué pendant la vérification (lire l'erreur)</value>
+        <value xml:lang="it">Creazione fallita durante il controllo di esistenza (errore di lettura)</value>
+        <value xml:lang="ro">Creare falita in timpul controului de existenta (eroare de citire)</value>
+        <value xml:lang="th">การสร้างล้มเหลวขณะกำลังตรวจสอบถ้ายังคงมีอยู่ (การอ่านผิดพลาด)</value>
+        <value xml:lang="zh">无法新建，检查是否存在时出错(读错误)</value>
+    </property>
+    <property key="genericWebEvent.creation_param_failed">
+        <value xml:lang="en">Creation of ${entityName} failed for entity</value>
+        <value xml:lang="es">Registro de ${entityName} fallido por la entidad</value>
+        <value xml:lang="fr">La création de ${entityName}  a échoué pour entity</value>
+        <value xml:lang="it">Creazione dell'${entityName} fallita per entità</value>
+        <value xml:lang="ro">Creatie ${entityName} falita pentru entitatea</value>
+        <value xml:lang="th">การสร้างของ${entityName} ล้มเหลวสำหรับเอนทิตี</value>
+        <value xml:lang="zh">无法为实体创建${entityName}</value>
+    </property>
+    <property key="genericWebEvent.delegator_object_not_found">
+        <value xml:lang="en">The delegator object was not found in the request, please check the control servlet init</value>
+        <value xml:lang="es">Objeto deletar no fue encontrado en el request, favor revisar el init del servlet</value>
+        <value xml:lang="fr">Le delegator object n a pas ete trouvé dans la request, merci de vérifier le control servlet init</value>
+        <value xml:lang="it">L'oggetto delegator non è stato trovato nella request, perfavore controlla la control servlet init</value>
+        <value xml:lang="ro">Obiectul delegator nu a fost gasit in cerere, va rugam controlati controlul servlet init.</value>
+        <value xml:lang="th">The delegator object was not found in the request, please check the control servlet init</value>
+        <value xml:lang="zh">访问请求中没有代表对象，请检查控制servlet的初始化</value>
+    </property>
+    <property key="genericWebEvent.delete_failed">
+        <value xml:lang="en">Delete failed (write error)</value>
+        <value xml:lang="es">Eliminación fallida(error de escritura)</value>
+        <value xml:lang="fr">L'annulation a échouée:- inscrire l'erreur</value>
+        <value xml:lang="it">Cancellazione fallita (errore di scrittura)</value>
+        <value xml:lang="ro">Stergere falita (eroare la scriere)</value>
+        <value xml:lang="th">การลบล้มเหลว (การเขียนผิดพลาด)</value>
+        <value xml:lang="zh">无法删除(写错误)</value>
+    </property>
+    <property key="genericWebEvent.entity_name_not_specified">
+        <value xml:lang="en">The entityName was not specified, but is required</value>
+        <value xml:lang="es">El nombre de la entidad no fue especificado, pero es requerido</value>
+        <value xml:lang="fr">The entity name n'a pas ete spécifié, mais il est obligatoire</value>
+        <value xml:lang="it">Nome entità non è stato specificato, ma è richiesto</value>
+        <value xml:lang="ro">Nume entitate nu a fost nespecificata, dar este ceruta.</value>
+        <value xml:lang="th">ไม่ระบุชื่อเอนทิตี, แต่ต้องการ</value>
+        <value xml:lang="zh">没有指定所需的实体名称</value>
+    </property>
+    <property key="genericWebEvent.failed">
+        <value xml:lang="en">failed</value>
+        <value xml:lang="es">Falló</value>
+        <value xml:lang="fr">failed</value>
+        <value xml:lang="it">fallita</value>
+        <value xml:lang="ro">falita</value>
+        <value xml:lang="th">ล้มเหลว</value>
+        <value xml:lang="zh">失败</value>
+    </property>
+    <property key="genericWebEvent.fatal_error_param">
+        <value xml:lang="en">Fatal error: field type "${fieldType}" not found genericWebEvent.conversion_failed=conversion failed: "${fval}" is not a valid</value>
+        <value xml:lang="es">Error fatal: Tipo de campo "${fieldType}" no encontrado genericWebEvent.conversion_failed=conversion failed: "${fval}" invalido</value>
+        <value xml:lang="fr">Erreur fatale: Cellule type n'est pas ${fieldType}</value>
+        <value xml:lang="it">Errore Fatale: tipo campo "${fieldType}" non trovato genericWebEvent.conversion_failed=conversione fallita: "${fval}" non è valido</value>
+        <value xml:lang="ro">Eroare Fatala: tip camp "${fieldType}" ne gasit </value>
+        <value xml:lang="th">ผิดพลาดซึ่งทำให้ล้มเหลว: ประเภทฟิลด์ "${fieldType}" ไม่พบ    genericWebEvent.conversion_failed=การเปลี่ยนแปลงล้มเหลว: "${fval}" ไม่มีค่า</value>
+        <value xml:lang="zh">严重错误：没有找到域类型"${fieldType}"</value>
+    </property>
+    <property key="genericWebEvent.following_error_occurred">
+        <value xml:lang="en">The following error(s) occurred</value>
+        <value xml:lang="es">El siguiente error ha ocurrido</value>
+        <value xml:lang="fr">L'erreur suivante est survenue)</value>
+        <value xml:lang="it">Il seguente(i) errore(i) sono successi</value>
+        <value xml:lang="ro">A aparut Urmatoarea(le) eroare(i).</value>
+        <value xml:lang="th">ตามความผิดพลาดที่เกิดขึ้น</value>
+        <value xml:lang="zh">发生下列错误</value>
+    </property>
+    <property key="genericWebEvent.not_sufficient_permissions_01">
+        <value xml:lang="en">You do not have sufficient permissions to</value>
+        <value xml:lang="es">No cuenta con suficientes permisos</value>
+        <value xml:lang="fr">Vous n'avez pas d'autorisations suffisantes pour </value>
+        <value xml:lang="ro">Tu nu ai suficiente drepturi pentru </value>
+        <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง</value>
+        <value xml:lang="zh">你没有足够的权限</value>
+    </property>
+    <property key="genericWebEvent.not_sufficient_permissions_02">
+        <value xml:lang="en">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} or ${entityPlainTableName}_ADMIN needed)</value>
+        <value xml:lang="es">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} o ${entityPlainTableName}_ADMIN necesarios)</value>
+        <value xml:lang="fr">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} ou ${entityPlainTableName}_ADMIN demandée)</value>
+        <value xml:lang="it">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} o ${entityPlainTableName}_ADMIN necessitano)</value>
+        <value xml:lang="ro">${updateMode}   ${entityName} (sunt necesare ${entityPlainTableName}_${updateMode} sau ${entityPlainTableName}_ADMIN)</value>
+        <value xml:lang="th">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} หรือ ${entityPlainTableName}_ADMIN ต้องการ)</value>
+        <value xml:lang="zh">${updateMode}   ${entityName} (需要${entityPlainTableName}_${updateMode}或${entityPlainTableName}_ADMIN)</value>
+    </property>
+    <property key="genericWebEvent.security_object_not_found">
+        <value xml:lang="en">The security object was not found in the request, please check the control servlet init</value>
+        <value xml:lang="es">El token de seguridad no fue encontrado, revisar el inicio del servlet</value>
+        <value xml:lang="fr">L'object securité n'a pas ete trouvé dans la request, merci de vérifier the control servlet init</value>
+        <value xml:lang="it">L'oggetto sicurezza non è stato trovato nella request, perfavore controlla la control servlet init</value>
+        <value xml:lang="ro">Obiectul siguranta nu a fost gasit  in cerere, va rugam controlati controlul servlet init.</value>
+        <value xml:lang="th">ไม่พบเป้าหมายความปลอดภัยในการร้องขอ, กรุณาเริ่มตรวจสอบการควบคุมเซิร์ฟเลท</value>
+        <value xml:lang="zh">访问请求中没有安全对象，请检查控制servlet的初始化</value>
+    </property>
+    <property key="genericWebEvent.update_mode_invalid">
+        <value xml:lang="en">Update Mode specified (${updateMode}) was not valid</value>
+        <value xml:lang="es">Modo de actualización (${updateMode}) invalido</value>
+        <value xml:lang="fr">Update Mode (${updateMode}) spécifiée n'est pas valide </value>
+        <value xml:lang="it">Modo Aggiornamento specificato (${updateMode}) non è valido</value>
+        <value xml:lang="ro">Modul de  Actualizare specificat (${updateMode}) nu este valid</value>
+        <value xml:lang="th">อัพเดทการระบุโหมด (${updateMode}) ไม่มีค่า</value>
+        <value xml:lang="zh">指定的更新方法(${updateMode})无效</value>
+    </property>
+    <property key="genericWebEvent.update_mode_not_specified">
+        <value xml:lang="en">Update Mode was not specified, but is required</value>
+        <value xml:lang="es">Modo de actualización no especificado, pero requerido</value>
+        <value xml:lang="fr">Update Mode n'a pas ete spécifié, mais il est obligatoire</value>
+        <value xml:lang="it">Modo Aggiornamento non è stato specificato, ma è richiesto</value>
+        <value xml:lang="ro">Mod Actualizare nu a fost specificat, dar este cerut.</value>
+        <value xml:lang="th">ไม่ระบุการอัพเดทโหมด , แต่ต้องการ</value>
+        <value xml:lang="zh">没有指定更新方法，而这是必须的</value>
+    </property>
+    <property key="genericWebEvent.update_of_param_failed">
+        <value xml:lang="en">Update of ${entityName} failed for value</value>
+        <value xml:lang="es">Actualización de ${entityName} fallo</value>
+        <value xml:lang="fr">La mise à jour of ${entityName} a échoué pour la valeur</value>
+        <value xml:lang="it">Aggiornamento dell'${entityName} fallita per il valore</value>
+        <value xml:lang="ro">Actualizarea {entityName} falita pentru  valoare</value>
+        <value xml:lang="th">อัพเดทของ ${entityName} ผิดพลาดสำหรับค่า</value>
+        <value xml:lang="zh">无法更新${entityName}</value>
+    </property>
+    <property key="genericWebEvent.validation_failed">
+        <value xml:lang="en">validation failed</value>
+        <value xml:lang="es">validación fallida</value>
+        <value xml:lang="fr">la validation a échouée</value>
+        <value xml:lang="it">validazione fallita</value>
+        <value xml:lang="ro">Validare falita</value>
+        <value xml:lang="th">การให้เหตุผลผิดพลาด</value>
+        <value xml:lang="zh">验证失败</value>
+    </property>
+    <property key="utilCache.clearAllCaches">
+        <value xml:lang="en">Cleared all caches</value>
+        <value xml:lang="it">Tutte le cache sono state pulite</value>
+        <value xml:lang="ro">Toate cache-urile au fost curatate</value>
+        <value xml:lang="th">เคลียร์หน่วยความจำทั้งหมด</value>
+        <value xml:lang="zh">已清除全部缓存</value>
+    </property>
+    <property key="utilCache.clearAllExpiredElements">
+        <value xml:lang="en">Cleared all expired elements from all caches</value>
+        <value xml:lang="it">Pulite tutti gli elementi scaduti da tutte le caches</value>
+        <value xml:lang="ro">Au fost Curatate toate elementele expirate din toate cach-urile</value>
+        <value xml:lang="th">เคลียร์สิ่งเล็กน้อยหมดอายุทั้งหมดจากหน่วยความจำทั้งหมด</value>
+        <value xml:lang="zh">从全部缓存中清除了全部过期元素</value>
+    </property>
+    <property key="utilCache.clearCache">
+        <value xml:lang="en">Cleared cache with name: ${name}</value>
+        <value xml:lang="it">Pulita cache con nome: ${name}</value>
+        <value xml:lang="ro">Curatire cache cu nume: ${name}</value>
+        <value xml:lang="th">เคลียร์หน่วยความจำด้วยชื่อ: ${name}</value>
+        <value xml:lang="zh">已清除缓存：${name}</value>
+    </property>
+    <property key="utilCache.couldNotClearCache">
+        <value xml:lang="en">Could not clear cache, no name specified</value>
+        <value xml:lang="it">Non è possibile pulire la cache, nessun nome specificato</value>
+        <value xml:lang="ro">Nu este posibila curatarea cach-ului, nici-un nume  specificat</value>
+        <value xml:lang="th">ไม่สามารถเคลียร์หน่วยความจำ , ไม่ระบุชื่อ</value>
+        <value xml:lang="zh">无法清除缓存，没有指定名称</value>
+    </property>
+    <property key="utilCache.couldNotClearCacheNotFoundName">
+        <value xml:lang="en">Could not clear cache, cache not found with name: ${name}</value>
+        <value xml:lang="it">Non è possibile pulire la cache, cache non trovata con nome: ${name}</value>
+        <value xml:lang="ro">Nu este posibila curatirea cache,nu gaseste nume cache: ${name}</value>
+        <value xml:lang="th">ไม่สามารถเคลียร์หน่วยความจำ , ไม่พบหน่วยความจำด้วยชื่อ: ${name}</value>
+        <value xml:lang="zh">无法清除缓存，没有找到缓存：${name}</value>
+    </property>
+    <property key="utilCache.couldNotRemoveElement">
+        <value xml:lang="en">Could not remove cache element, cache not found with name: ${name}</value>
+        <value xml:lang="it">Non è possibile rimuovere l'elemento della cache, cache non trovata con nome: ${name}</value>
+        <value xml:lang="ro">Nu este posibila stergerea elementului din chash, nu gaseste chash cu nume: ${name}</value>
+        <value xml:lang="th">ไม่สามารถย้ายองค์ประกอบจากหน่วยความจำ, ไม่พบหน่วยความจำด้วยชื่อ: ${name}</value>
+        <value xml:lang="zh">无法删除缓存元素，没有找到名称为 ${name} 的缓存</value>
+    </property>
+    <property key="utilCache.couldNotRemoveElementNumber">
+        <value xml:lang="en">Could not remove cache element, element not found with cache name: ${name} , element number: ${numString}</value>
+        <value xml:lang="it">Non è possibile rimuovere l'elemento della cache, elemento non trovato con nome cache: ${name} , elemento numero: ${numString}</value>
+        <value xml:lang="ro">Nu este possibila stergerea elementului din chesh-ul, nu gaseste elementul cu numele cache: ${name} , element numar: ${numString}</value>
+        <value xml:lang="th">ไม่สามารถย้ายองค์ประกอบจากหน่วยความจำ, ไม่พบองค์ประกอบด้วยชื่อหน่วยความจำ: ${name} , หมายเลของค์ประกอบ: ${numString}</value>
+        <value xml:lang="zh">无法删除缓存元素，符合条件的元素没有找到，缓存名称：${name}，元素编号：${numString}</value>
+    </property>
+    <property key="utilCache.couldNotUpdateCacheSetting">
+        <value xml:lang="en">Could not update cache settings, no name specified</value>
+        <value xml:lang="it">Non è possibile aggiornare le impostazioni della cache, nessun nome specificato</value>
+        <value xml:lang="ro">Nu e posibila actualizarea setarilor cache, nici un nume specificat</value>
+        <value xml:lang="th">ไม่สามารถอัพเดทการตั้งค่าหน่วยความจำ, ไม่ระบุชื่อ</value>
+        <value xml:lang="zh">无法更新缓存设置，没有指定名称</value>
+    </property>
+    <property key="utilCache.removeElementWithKey">
+        <value xml:lang="en">Removed element from cache with key: ${key}</value>
+        <value xml:lang="it">Rimosso elemento dalla cache con chiave: ${key}</value>
+        <value xml:lang="ro">A fost sters elementul din chash-ul cu cheia: ${key}</value>
+        <value xml:lang="th">ย้ายองค์ประกอบจากหน่วยความจำด้วยคีย์: ${key}</value>
+        <value xml:lang="zh">从缓存中删除了元素，键：${key}</value>
+    </property>
+    <property key="utilCacheEvents.noCacheNameSpecified">
+        <value xml:lang="en">Could not remove cache line/element, no cache name specified</value>
+        <value xml:lang="it">Non è possibile rimuovere la riga/elemento, nessun nome di cache specificato</value>
+        <value xml:lang="ro">Nu este posibila stergerea linieri/element, nici-un nume de chash specificata</value>
+        <value xml:lang="th">ไม่สามารถลบหน่วยความจำ/องค์ประกอบ, ไม่ระบุชื่อหน่วยความจำ</value>
+        <value xml:lang="zh">无法删除缓存行/元素，没有指定缓存名称</value>
+    </property>
+    <property key="utilCacheEvents.noElementNumberSpecified">
+        <value xml:lang="en">Could not remove cache line/element, no element number specified</value>
+        <value xml:lang="it">Non è possibile rimuovere la riga/elemento, nessun numero elemento specificato</value>
+        <value xml:lang="ro">Nu este posibila stergerea liniei/element, nici-un numar de elemente specificate</value>
+        <value xml:lang="th">ไม่สามารถลบหน่วยความจำ/องค์ประกอบ, ไม่ระบุหมายเลขหน่วยความจำ</value>
+        <value xml:lang="zh">无法删除缓存行/元素，没有指定元素编号</value>
+    </property>
+    <property key="utilCacheEvents.permissionEdit">
+        <value xml:lang="en">You do not have permission to perform this operation, UTIL_CACHE_EDIT required</value>
+        <value xml:lang="it">Tu non hai il permesso di eseguire questa operazione, permesso UTIL_CACHE_EDIT richiesto</value>
+        <value xml:lang="ro">Nu ai permisul de a executa aceasta operatie, permis UTIL_CACHE_EDIT cerut</value>
+        <value xml:lang="th">คุณไม่มีการอนุญาตถึงการทำงานการดำเนินการนี้, UTIL_CACHE_EDIT ต้องการ</value>
+        <value xml:lang="zh">你没有执行这个操作的权限，需要UTIL_CACHE_EDIT</value>
+    </property>
+    <property key="genericWebEvent.not_sufficient_permissions_01Tu">
+        <value xml:lang="en">genericWebEvent.not_sufficient_permissions_01Tu</value>
+        <value xml:lang="it">non hai sufficienti permessi per</value>
+    </property>
+</resource>
