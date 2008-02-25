@@ -448,6 +448,17 @@ public class ShoppingCart implements Serializable {
     public int addOrIncreaseItem(String productId, Double selectedAmountDbl, double quantity, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map features, Map attributes, String prodCatalogId, 
             ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
+    
+       return addOrIncreaseItem(productId,selectedAmountDbl,quantity,reservStart,reservLengthDbl,reservPersonsDbl, 
+                       null,null,shipBeforeDate,shipAfterDate,features,attributes,prodCatalogId, 
+                configWrapper,itemType,itemGroupNumber,parentProductId,dispatcher);
+    }
+    
+    /** add rental (with accommodation) item to cart  */
+    public int addOrIncreaseItem(String productId, Double selectedAmountDbl, double quantity, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
+               String accommodationMapId, String accommodationSpotId,
+            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map features, Map attributes, String prodCatalogId, 
+            ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
         if (isReadOnlyCart()) {
            throw new CartItemModifyException("Cart items cannot be changed");
         }
@@ -463,7 +474,7 @@ public class ShoppingCart implements Serializable {
             ShoppingCartItem sci = (ShoppingCartItem) cartLines.get(i);
 
             
-            if (sci.equals(productId, reservStart, reservLength, reservPersons, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, selectedAmount)) {
+            if (sci.equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, features, attributes, prodCatalogId,selectedAmount, configWrapper, itemType, itemGroup, false)) {
                 double newQuantity = sci.getQuantity() + quantity;
 
                 if (Debug.verboseOn()) Debug.logVerbose("Found a match for id " + productId + " on line " + i + ", updating quantity to " + newQuantity, module);
@@ -492,7 +503,7 @@ public class ShoppingCart implements Serializable {
             }
         } else {
             return this.addItem(0, ShoppingCartItem.makeItem(new Integer(0), productId, selectedAmountDbl, quantity, null, 
-                    reservStart, reservLengthDbl, reservPersonsDbl, shipBeforeDate, shipAfterDate, 
+                    reservStart, reservLengthDbl, reservPersonsDbl, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, 
                     features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, 
                     this, Boolean.TRUE, Boolean.TRUE, parentProductId, Boolean.FALSE, Boolean.FALSE));
         }
@@ -555,6 +566,21 @@ public class ShoppingCart implements Serializable {
     /** Add an (rental/aggregated)item to the shopping cart. */
     public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, HashMap features, HashMap attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
         return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLengthDbl, reservPersonsDbl, null, null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
+    }
+
+    /** Add an accommodation(rental )item to the shopping cart. */
+    public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, String accommodationMapId, String accommodationSpotId, HashMap features, HashMap attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLengthDbl, reservPersonsDbl, accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, Boolean.FALSE, Boolean.FALSE));
+    }    
+
+    /** Add an accommodation(rental)item to the shopping cart. */
+    public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl,String accommodationMapId, String accommodationSpotId, HashMap features, HashMap attributes, String prodCatalogId, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLengthDbl, reservPersonsDbl, accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, null, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
+    }
+
+    /** Add an accommodation(rental/aggregated)item to the shopping cart. */
+    public int addItemToEnd(String productId, Double amount, double quantity, Double unitPrice, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl,String accommodationMapId, String accommodationSpotId, HashMap features, HashMap attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, LocalDispatcher dispatcher, Boolean triggerExternalOps, Boolean triggerPriceRules, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException, ItemNotFoundException {
+        return addItemToEnd(ShoppingCartItem.makeItem(null, productId, amount, quantity, unitPrice, reservStart, reservLengthDbl, reservPersonsDbl, accommodationMapId, accommodationSpotId, null, null, features, attributes, prodCatalogId, configWrapper, itemType, null, dispatcher, this, triggerExternalOps, triggerPriceRules, null, skipInventoryChecks, skipProductChecks));
     }
     
     /** Add an item to the shopping cart. */
@@ -3407,7 +3433,8 @@ public class ShoppingCart implements Serializable {
                 workEffort.set("reservPersons",new Double(item.getReservPersons()));
                 workEffort.set("reserv2ndPPPerc", new Double(item.getReserv2ndPPPerc()));
                 workEffort.set("reservNthPPPerc", new Double(item.getReservNthPPPerc()));
-
+                workEffort.set("accommodationMapId", item.getAccommodationMapId());
+                workEffort.set("accommodationSpotId",item.getAccommodationSpotId());
                 allWorkEfforts.add(workEffort);
             }
         }

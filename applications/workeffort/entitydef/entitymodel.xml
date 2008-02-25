@@ -278,6 +278,8 @@ under the License.
       <field name="reservPersons" type="floating-point"><description>the number of persons renting the attached asset</description></field>   
       <field name="reserv2ndPPPerc" type="floating-point"><description>reservationSecondPersonPricePercentage: percentage of the end price for the 2nd person renting this asset connected to the workEffort</description></field>
       <field name="reservNthPPPerc" type="floating-point"><description>reservationNthPersonPricePercentage: percentage of the end price for the Nth (2+) person renting this asset connected to the workEffort</description></field>      
+      <field name="accommodationMapId" type="id"/>
+      <field name="accommodationSpotId" type="id"/>
       <field name="revisionNumber" type="numeric"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
@@ -340,6 +342,12 @@ under the License.
       <relation type="one" fk-name="WK_EFFRT_CUS_MET" rel-entity-name="CustomMethod">
         <key-map field-name="estimateCalcMethod" rel-field-name="customMethodId"/>
       </relation>
+      <relation type="one" fk-name="WK_EFFRT_ACC_MAP" rel-entity-name="AccommodationMap">
+        <key-map field-name="accommodationMapId"/>
+      </relation>  
+      <relation type="one" fk-name="WK_EFFRT_ACC_SPOT" rel-entity-name="AccommodationSpot">
+        <key-map field-name="accommodationSpotId"/>
+      </relation>               
     </entity>
     <entity entity-name="WorkEffortAssoc"
             package-name="org.ofbiz.workeffort.workeffort"

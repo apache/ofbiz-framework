@@ -369,13 +369,15 @@ public class OrderServices {
                             errorMessages.add(excMsg);
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotFindRelatedFixedAssetForTheProduct",UtilMisc.toMap("productId",orderItem.getString("productId")), locale ));
                         }
+                        
                         if (selFixedAssetProduct != null && selFixedAssetProduct.size() > 0) {
                             Iterator firstOne = selFixedAssetProduct.iterator();
                             if(firstOne.hasNext())        {
                                 GenericValue fixedAssetProduct = delegator.makeValue("FixedAssetProduct");
-                                fixedAssetProduct = (GenericValue) firstOne.next();
-                                workEffort.set("fixedAssetId",fixedAssetProduct.get("fixedAssetId"));
+                                fixedAssetProduct = (GenericValue) firstOne.next();                                
+                                workEffort.set("fixedAssetId",fixedAssetProduct.get("fixedAssetId"));                                
                                 workEffort.set("quantityToProduce",orderItem.get("quantity")); // have quantity easy available later...
+                                workEffort.set("createdByUserLogin", userLogin.get("userLoginId"));                                
                             }
                         }
                         break;  // item found, so go to next orderitem.

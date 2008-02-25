@@ -96,6 +96,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     private double reservLength = 0;
     /** for reservations: number of persons using */
     private double reservPersons = 0;
+    private String accommodationMapId = null;
+    private String accommodationSpotId = null;
     private double quantity = 0.0;
     private double basePrice = 0.0;
     private Double displayPrice = null;
@@ -282,6 +284,25 @@ public class ShoppingCartItem implements java.io.Serializable {
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, 
             String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks) 
             throws CartItemModifyException, ItemNotFoundException {
+        
+        return makeItem(cartLocation,productId,selectedAmountDbl,quantity,unitPriceDbl, 
+                reservStart,reservLengthDbl,reservPersonsDbl,null,null,shipBeforeDate,shipAfterDate, 
+                additionalProductFeatureAndAppls,attributes,prodCatalogId,configWrapper, 
+                itemType,itemGroup,dispatcher,cart,triggerExternalOpsBool,triggerPriceRulesBool,
+                parentProductId,skipInventoryChecks,skipProductChecks);
+                
+    }
+    
+    /** 
+     * Makes a ShoppingCartItem and adds it to the cart.
+     * @param accommodationMapId Optional. reservations add into workeffort
+     * @param accommodationSpotId Optional. reservations add into workeffort
+     */
+    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, Double selectedAmountDbl, double quantity, Double unitPriceDbl, 
+            Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl,String accommodationMapId,String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, 
+            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, 
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks) 
+            throws CartItemModifyException, ItemNotFoundException {
         GenericDelegator delegator = cart.getDelegator();
         GenericValue product = null;
         GenericValue parentProduct = null;
@@ -322,7 +343,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
         return makeItem(cartLocation, product, selectedAmountDbl, quantity, unitPriceDbl, 
-                reservStart, reservLengthDbl, reservPersonsDbl, shipBeforeDate, shipAfterDate, 
+                reservStart, reservLengthDbl, reservPersonsDbl, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, 
                 additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, 
                 itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct, skipInventoryChecks, skipProductChecks);
     }
@@ -358,6 +379,25 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, Double selectedAmountDbl, 
             double quantity, Double unitPriceDbl, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
+            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
+            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
+            ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
+
+        return makeItem(cartLocation,product,selectedAmountDbl, 
+               quantity,unitPriceDbl,reservStart,reservLengthDbl,reservPersonsDbl, 
+               null,null,shipBeforeDate,shipAfterDate,additionalProductFeatureAndAppls,attributes, 
+               prodCatalogId,configWrapper,itemType,itemGroup,dispatcher,cart, 
+               triggerExternalOpsBool,triggerPriceRulesBool,parentProduct,skipInventoryChecks,skipProductChecks);
+    }
+    
+    /** 
+     * Makes a ShoppingCartItem and adds it to the cart.
+     * @param accommodationMapId Optional. reservations add into workeffort
+     * @param accommodationSpotId Optional. reservations add into workeffort
+    */
+    public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, Double selectedAmountDbl, 
+            double quantity, Double unitPriceDbl, Timestamp reservStart, Double reservLengthDbl, Double reservPersonsDbl, 
+            String accommodationMapId,String accommodationSpotId,
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
             String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
             ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
@@ -468,7 +508,11 @@ public class ShoppingCartItem implements java.io.Serializable {
 
              if (product.get("reservNthPPPerc") != null)
                  newItem.setReservNthPPPerc(product.getDouble("reservNthPPPerc").doubleValue());
-
+             
+             if ((accommodationMapId != null) && (accommodationSpotId != null)) {
+                newItem.setAccommodationId(accommodationMapId,accommodationSpotId);
+             }
+            
             // check to see if the related fixed asset is available for rent
             String isAvailable = checkAvailability(product.getString("productId"), quantity, reservStart, reservLength, cart);
             if(isAvailable.compareTo("OK") != 0) {
@@ -594,6 +638,8 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.reservStart = item.getReservStart();
         this.reservLength = item.getReservLength();
         this.reservPersons = item.getReservPersons();
+        this.accommodationMapId = item.getAccommodationMapId();
+        this.accommodationSpotId = item.getAccommodationSpotId();
         this.selectedAmount = item.getSelectedAmount();
         this.setBasePrice(item.getBasePrice());
         this.setDisplayPrice(item.getDisplayPrice());
@@ -766,6 +812,11 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Sets number of persons using the reservation */
     public void setReservPersons(double reservPersons)    {
         this.reservPersons = reservPersons;
+    }
+    /** Sets accommodationId using the reservation */
+    public void setAccommodationId(String accommodationMapId,String accommodationSpotId)    {
+        this.accommodationMapId = accommodationMapId;
+        this.accommodationSpotId = accommodationSpotId;
     }
 
     /** Sets the quantity for the item and validates the change in quantity, etc */
@@ -1168,7 +1219,16 @@ public class ShoppingCartItem implements java.io.Serializable {
     public double getReservPersons() {
         return this.reservPersons;
     }
-
+    
+    /** Returns accommodationMapId */
+    public String getAccommodationMapId()    {
+        return this.accommodationMapId;
+    }
+    /** Returns accommodationSpotId  */
+    public String getAccommodationSpotId()    {
+        return this.accommodationSpotId;
+    }
+    
     public double getPromoQuantityUsed() {
         if (this.getIsPromo()) {
             return this.quantity;
@@ -2151,21 +2211,20 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Compares the specified object with this cart item. Defaults isPromo to false. */
     public boolean equals(String productId, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, double selectedAmount) {
-        return equals(productId, null, 0.00, 0.00, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, false);
+        return equals(productId, null, 0.00, 0.00, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, false);
     }
-
     /** Compares the specified object with this cart item including rental data. Defaults isPromo to false. */
     public boolean equals(String productId, Timestamp reservStart, double reservLength, double reservPersons, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, double selectedAmount) {
-        return equals(productId, reservStart, reservLength, reservPersons, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, false);
+        return equals(productId, reservStart, reservLength, reservPersons, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, false);
     }
-
+    
     /** Compares the specified object with this cart item. Defaults isPromo to false. */
     public boolean equals(String productId, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, double selectedAmount, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
-        return equals(productId, null, 0.00, 0.00, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, null, itemType, itemGroup, isPromo);
+        return equals(productId, null, 0.00, 0.00, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, null, itemType, itemGroup, isPromo);
     }
 
     /** Compares the specified object with this cart item. */
-    public boolean equals(String productId, Timestamp reservStart, double reservLength, double reservPersons, 
+    public boolean equals(String productId, Timestamp reservStart, double reservLength, double reservPersons, String accommodationMapId, String accommodationSpotId,
             Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, double selectedAmount, 
             ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
         if (this.productId == null || productId == null) {
@@ -2199,6 +2258,13 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         if (this.reservPersons != reservPersons) {
+            return false;
+        }
+
+        if (this.accommodationMapId != null && !this.accommodationMapId.equals(accommodationMapId)) {
+            return false;
+        }
+        if (this.accommodationSpotId != null && !this.accommodationSpotId.equals(accommodationSpotId)) {
             return false;
         }
 
