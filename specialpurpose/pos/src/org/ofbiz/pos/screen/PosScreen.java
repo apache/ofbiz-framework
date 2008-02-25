@@ -113,8 +113,7 @@ public class PosScreen extends NavigationHelper implements Runnable, DialogCallb
                 activityMonitor.start();
             }
 
-            // configure the frame/window listeners
-            KeyboardAdaptor.attachComponents(appFrame, false);
+            // configure the window listener
             KeyboardAdaptor.attachComponents(appWin, false);
             appFrame.addFocusListener(this);
             appWin.addFocusListener(this);
