@@ -191,7 +191,6 @@
     <form name="ListTasks" type="list" separate-columns="true" title="Project List" list-name="listIt"  paginate-target="FindTask"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <set field="parameters.noConditionFind" value="Y"/> 
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="${entityName}"/>
