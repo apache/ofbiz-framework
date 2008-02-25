@@ -133,6 +133,8 @@ public class ShoppingCartEvents {
         Double reservLength = null;
         String reservPersonsStr = null;
         Double reservPersons = null;
+        String accommodationMapId = null;
+        String accommodationSpotId = null;
         String shipBeforeDateStr = null;
         String shipAfterDateStr = null;
         java.sql.Timestamp shipBeforeDate = null;
@@ -321,6 +323,13 @@ public class ShoppingCartEvents {
                 request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.enterBookingInforamtionBeforeAddingToCart", locale));
                 return "product";
             }
+
+            //check accommodation for reservations
+            if((paramMap.containsKey("accommodationMapId")) && (paramMap.containsKey("accommodationSpotId"))){
+            	accommodationMapId = (String) paramMap.remove("accommodationMapId");
+            	accommodationSpotId = (String) paramMap.remove("accommodationSpotId");
+
+            }
             
         }
 
@@ -492,6 +501,7 @@ public class ShoppingCartEvents {
         // Translate the parameters and add to the cart
         result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, productCategoryId,
                 itemType, itemDescription, price, amount, quantity, reservStart, reservLength, reservPersons, 
+                accommodationMapId, accommodationSpotId,
                 shipBeforeDate, shipAfterDate, configWrapper, itemGroupNumber, paramMap, parentProductId);
         controlDirective = processResult(result, request);
 

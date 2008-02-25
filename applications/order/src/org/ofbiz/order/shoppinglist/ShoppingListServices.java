@@ -475,12 +475,21 @@ public class ShoppingListServices {
                     Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
                     Double reservLength = null;
                     String configId = shoppingListItem.getString("configId");
+                    String accommodationMapId = shoppingListItem.getString("accommodationMapId");
+                    String accommodationSpotId = shoppingListItem.getString("accommodationSpotId");
+
                     if (shoppingListItem.get("reservLength") != null) {
                         reservLength = shoppingListItem.getDouble("reservLength");
                     }
                     Double reservPersons = null;
                     if (shoppingListItem.get("reservPersons") != null) {
                         reservPersons = shoppingListItem.getDouble("reservPersons");
+                    }
+                    if (shoppingListItem.get("accommodationMapId") != null) {
+                       accommodationMapId = shoppingListItem.getString("accommodationMapId");
+                    }
+                    if (shoppingListItem.get("accommodationSpotId") != null) {
+                       accommodationSpotId = shoppingListItem.getString("accommodationSpotId");
                     }
                     if (UtilValidate.isNotEmpty(productId) && quantity != null) {
 
@@ -493,7 +502,7 @@ public class ShoppingListServices {
                         Map attributes = UtilMisc.toMap("shoppingListId", listId, "shoppingListItemSeqId", itemId);
 
                         try { 
-                            listCart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons, null, null, null, attributes, null, configWrapper, null, null, null, dispatcher);
+                            listCart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, null, attributes, null, configWrapper, null, null, null, dispatcher);
                         } catch (CartItemModifyException e) {
                             Debug.logError(e, "Unable to add product to List Cart - " + productId, module);
                         } catch (ItemNotFoundException e) {

@@ -324,6 +324,8 @@ public class ShoppingCartServices {
                     Timestamp reservStart = null;
                     Double reservLength = null;
                     Double reservPersons = null;
+                    String accommodationMapId = null;
+                    String accommodationSpotId = null;
                     
                     GenericValue workEffort = null;                   
                     String workEffortId = orh.getCurrentOrderItemWorkEffort(item);
@@ -338,6 +340,9 @@ public class ShoppingCartServices {
                         reservStart = workEffort.getTimestamp("estimatedStartDate");
                         reservLength = OrderReadHelper.getWorkEffortRentalLenght(workEffort);
                         reservPersons = workEffort.getDouble("reservPersons");
+                        accommodationMapId = workEffort.getString("accommodationMapId");
+                        accommodationSpotId = workEffort.getString("accommodationSpotId");
+                        
                     }    //end of rental data
                     
                     //check for AGGREGATED products
@@ -361,7 +366,9 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, productStoreId, prodCatalogId, website, currency, locale, userLogin);
                     }                     
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, null, reservStart, reservLength, reservPersons, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, null, skipInventoryChecks, skipProductChecks);
+                    
+                               itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, null, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, null, skipInventoryChecks, skipProductChecks);
+                    
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -613,6 +620,8 @@ public class ShoppingCartServices {
                 Timestamp reservStart = item.getTimestamp("reservStart");
                 Double reservLength = item.getDouble("reservLength");
                 Double reservPersons = item.getDouble("reservPersons");
+                String accommodationMapId = item.getString("accommodationMapId");
+                String accommodationSpotId = item.getString("accommodationSpotId");
                 
                 int itemIndex = -1;
                 if (item.get("productId") == null) {
@@ -633,7 +642,8 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, item.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
                     }                    
                     try {
-                        itemIndex = cart.addItemToEnd(productId, amount, quantity.doubleValue(), quoteUnitPrice, reservStart, reservLength, reservPersons, null, null, null, configWrapper, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.doubleValue() == 0), Boolean.FALSE, Boolean.FALSE);
+                            itemIndex = cart.addItemToEnd(productId, amount, quantity.doubleValue(), quoteUnitPrice, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, null, configWrapper, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.doubleValue() == 0), Boolean.FALSE, Boolean.FALSE);
+                            
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());

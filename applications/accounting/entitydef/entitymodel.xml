@@ -954,6 +954,62 @@ under the License.
         </relation>
     </entity>
 
+  <entity entity-name="AccommodationClass" 
+    package-name="org.ofbiz.accounting.fixedasset"
+    title="Accommodation Class">
+    <field name="accommodationClassId" type="id-ne"></field>
+    <field name="parentClassId" type="id-ne"></field>
+    <field name="description" type="description"></field>
+    <prim-key field="accommodationClassId"/>        
+    <relation type="one" fk-name="ACCOMM_CLASS_PAR" title="Parent" rel-entity-name="AccommodationClass">
+      <key-map field-name="parentClassId" rel-field-name="accommodationClassId"/>
+    </relation>
+  </entity>
+  <entity entity-name="AccommodationSpot"
+    package-name="org.ofbiz.order.reservations"
+    title="Accommodation Spot">
+    <field name="accommodationSpotId" type="id-ne"></field>
+    <field name="accommodationClassId" type="id"></field>
+    <field name="fixedAssetId" type="id"></field>
+    <field name="numberOfSpaces" type="numeric"></field>
+    <field name="description" type="description"></field>
+    <prim-key field="accommodationSpotId"/>
+    <relation type="one" fk-name="ACCOM_CLASS" rel-entity-name="AccommodationClass">
+      <key-map field-name="accommodationClassId"/>
+    </relation>
+    <relation type="one" fk-name="SPOT_FA" rel-entity-name="FixedAsset">
+      <key-map field-name="fixedAssetId"/>
+    </relation>
+  </entity>   
+  
+  <entity entity-name="AccommodationMap" 
+    package-name="org.ofbiz.accounting.fixedasset"
+    title="Accommodation Map">
+    <field name="accommodationMapId" type="id-ne"></field> 
+    <field name="accommodationClassId" type="id-ne"></field>
+    <field name="fixedAssetId" type="id"></field>
+    <field name="accommodationMapTypeId" type="id"></field>
+    <field name="numberOfSpaces" type="numeric"></field>                        
+    <prim-key field="accommodationMapId"/> 
+    <relation type="one" fk-name="ACMD_MAP_CLASS" rel-entity-name="AccommodationClass">
+      <key-map field-name="accommodationClassId"/>
+    </relation>
+    <relation type="one" fk-name="ACMD_MAP_FA" rel-entity-name="FixedAsset">
+      <key-map field-name="fixedAssetId"/>
+    </relation>
+    <relation type="one" fk-name="ACMD_MAP_TYPE" rel-entity-name="AccommodationMapType">
+      <key-map field-name="accommodationMapTypeId"/>
+    </relation>
+  </entity>
+  
+  <entity entity-name="AccommodationMapType" 
+    package-name="org.ofbiz.accounting.fixedasset"
+    title="Accommodation Map Type">
+    <field name="accommodationMapTypeId" type="id-ne"></field>
+    <field name="description" type="description"></field>
+    <prim-key field="accommodationMapTypeId"/>
+  </entity>
+  
   <!-- ========================================================= -->
   <!-- org.ofbiz.accounting.invoice -->
   <!-- ========================================================= -->

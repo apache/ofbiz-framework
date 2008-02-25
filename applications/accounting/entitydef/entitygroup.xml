@@ -83,6 +83,11 @@ under the License.
     <entity-group group="org.ofbiz" entity="FixedAssetType" />
     <entity-group group="org.ofbiz" entity="FixedAssetTypeAttr" />
     <entity-group group="org.ofbiz" entity="PartyFixedAssetAssignment" />
+    <entity-group group="org.ofbiz" entity="AccommodationClass"/>
+    <entity-group group="org.ofbiz" entity="AccommodationMap"/>
+    <entity-group group="org.ofbiz" entity="AccommodationSpot"/>
+    <entity-group group="org.ofbiz" entity="AccommodationMapType"/>
+    
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.accounting.invoice -->

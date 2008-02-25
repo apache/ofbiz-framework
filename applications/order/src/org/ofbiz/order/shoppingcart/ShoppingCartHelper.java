@@ -103,6 +103,20 @@ public class ShoppingCartHelper {
             java.sql.Timestamp reservStart, Double reservLength, Double reservPersons, 
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map context, String parentProductId) {
+
+        return addToCart(catalogId,shoppingListId,shoppingListItemSeqId,productId,
+                productCategoryId,itemType,itemDescription,price,amount,quantity,
+                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,
+                configWrapper,itemGroupNumber,context,parentProductId);
+    }
+    
+    /** Event to add an item to the shopping cart with accommodation. */
+    public Map addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
+            String productCategoryId, String itemType, String itemDescription, 
+            Double price, Double amount, double quantity, 
+            java.sql.Timestamp reservStart, Double reservLength, Double reservPersons, String accommodationMapId,String accommodationSpotId, 
+            java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
+            ProductConfigWrapper configWrapper, String itemGroupNumber, Map context, String parentProductId) {
         Map result = null;
         Map attributes = null;
         String pProductId = null;
@@ -215,9 +229,11 @@ public class ShoppingCartHelper {
         try {
             int itemId = -1;
             if (productId != null) {
-                itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength, 
-                                                reservPersons, shipBeforeDate, shipAfterDate, additionalFeaturesMap, attributes, 
+            
+                       itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength, 
+                                                reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, additionalFeaturesMap, attributes, 
                                                 catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
+            
             } else {
                 itemId = cart.addNonProductItem(itemType, itemDescription, productCategoryId, price, quantity, attributes, catalogId, itemGroupNumber, dispatcher);
             }
@@ -666,14 +682,16 @@ public class ShoppingCartHelper {
                     } else if (parameterName.toUpperCase().startsWith("DESCRIPTION")) {
                         itemDescription = quantString;  // the quantString is actually the description if the field name starts with DESCRIPTION
                     } else if (parameterName.startsWith("reservStart")) {
-                        // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
-                        quantString += " 00:00:00.000000000";
-                        if (item != null) {
-                            Timestamp reservStart = Timestamp.valueOf(quantString);
-                            item.setReservStart(reservStart);
-                        }
+                    	if (quantString.length() ==0){
+                    		// should have format: yyyy-mm-dd hh:mm:ss.fffffffff                    
+                    		quantString += " 00:00:00.000000000";
+                    	}
+                    	if (item != null) {                        
+                    		Timestamp reservStart = Timestamp.valueOf(quantString);
+                    		item.setReservStart(reservStart);
+                    	}
                     } else if (parameterName.startsWith("reservLength")) {
-                        if (item != null) {
+                    	if (item != null) {
                             double reservLength = nf.parse(quantString).doubleValue();
                             item.setReservLength(reservLength);
                         }
