@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="AccountingEditFixedAsset">
+        <value xml:lang="en">Edit Equipment</value>
+        <value xml:lang="it">Aggiorna Cespite</value>
+        <value xml:lang="th">แก้ไขเครื่องมือ</value>
+    </property>
+    <property key="AccountingFacilityId">
+        <value xml:lang="en">Located at</value>
+        <value xml:lang="it">Posizione</value>
+        <value xml:lang="th">ที่ตั้ง</value>
+    </property>
+    <property key="AccountingFindFixedAsset">
+        <value xml:lang="en">Find Equipments</value>
+        <value xml:lang="it">Ricerca Cespite</value>
+        <value xml:lang="th">ค้นหาเครื่องมือ</value>
+    </property>
+    <property key="AccountingFixedAsset">
+        <value xml:lang="en">Equipment</value>
+        <value xml:lang="it">Cespite</value>
+        <value xml:lang="th">เครื่องมือ</value>
+    </property>
+    <property key="AccountingFixedAssetChildren">
+        <value xml:lang="en">Children</value>
+        <value xml:lang="it">Figlio</value>
+        <value xml:lang="th">เด็ก</value>
+    </property>
+    <property key="AccountingFixedAssetClassEnumId">
+        <value xml:lang="en">Equipment Class</value>
+        <value xml:lang="it">Classe Cespite</value>
+        <value xml:lang="th">ห้องเครื่องมือ</value>
+    </property>
+    <property key="AccountingFixedAssetEdit">
+        <value xml:lang="en">Create/Update Equipment</value>
+        <value xml:lang="it">Crea/Aggiorna Cespite</value>
+        <value xml:lang="th">สร้าง/เปลี่ยนแปลง เครื่องมือ</value>
+    </property>
+    <property key="AccountingFixedAssetId">
+        <value xml:lang="en">Equipment Id</value>
+        <value xml:lang="it">Codice Cespite</value>
+        <value xml:lang="th">รหัสเครื่องมือ</value>
+    </property>
+    <property key="AccountingFixedAssetIdInvalidError">
+        <value xml:lang="en">Equipment Id is invalid. Please use Equipment lookup tool to find valid Equipment Id</value>
+        <value xml:lang="it">Codice Cespite non è valido. Perfavore usare la ricerca dei Cespiti per trovare un cespite valido</value>
+        <value xml:lang="th">รหัสเครื่องมือไม่ถูกต้อง กรุณาใช้การค้นหาเครื่องมือเพื่อค้นหารหัสเครื่องมือที่ถูกต้อง</value>
+    </property>
+    <property key="AccountingFixedAssetIdRequiredError">
+        <value xml:lang="en">Equipment Id is required field, Please enter and try again.</value>
+        <value xml:lang="it">Codice Cespite è un campo richiesto, Perfavore inserire e provare nuovamente.</value>
+        <value xml:lang="th">ช่องกรอกรหัสเครื่อมือที่ต้องการ กรุณากรองและลองอีกครั้ง</value>
+    </property>
+    <property key="AccountingFixedAssetIdent">
+        <value xml:lang="en">Identification</value>
+        <value xml:lang="it">Identificazione</value>
+        <value xml:lang="th">เลขประจำตัว</value>
+    </property>
+    <property key="AccountingFixedAssetIdentIdValue">
+        <value xml:lang="en">Value</value>
+        <value xml:lang="it">Valore</value>
+        <value xml:lang="th">ค่า</value>
+    </property>
+    <property key="AccountingFixedAssetIdentTypeId">
+        <value xml:lang="en">Equipment Identification Type Id</value>
+        <value xml:lang="it">Codice Tipo Identificazione Cespite</value>
+        <value xml:lang="th">แสดงรหัสประเภทเครื่องมือ</value>
+    </property>
+    <property key="AccountingFixedAssetIdents">
+        <value xml:lang="en">Identifications</value>
+        <value xml:lang="it">Identificazioni</value>
+        <value xml:lang="th">เลขประจำตัว</value>
+    </property>
+    <property key="AccountingFixedAssetMaintIntervalMeterType">
+        <value xml:lang="en">Meter Type</value>
+        <value xml:lang="it">Tipo Contachilometri</value>
+        <value xml:lang="th">ประเภทเครื่องวัด</value>
+    </property>
+    <property key="AccountingFixedAssetMaintIntervalQuantity">
+        <value xml:lang="en">Meter Reading</value>
+        <value xml:lang="it">Lettura Contachilometri</value>
+        <value xml:lang="th">กำลังอ่านเครื่องวัด</value>
+    </property>
+    <property key="AccountingFixedAssetMaintIntervalUom">
+        <value xml:lang="en">Meter Uom</value>
+        <value xml:lang="it">Udm Contachilometri</value>
+        <value xml:lang="th">หน่วยวัด Uom</value>
+    </property>
+    <property key="AccountingFixedAssetMaintSeqId">
+        <value xml:lang="en">Maint Seq Id</value>
+        <value xml:lang="it">Sequenza Manutenzione</value>
+        <value xml:lang="th">รหัสลำดับการดูแลรักษา</value>
+    </property>
+    <property key="AccountingFixedAssetName">
+        <value xml:lang="en">Description</value>
+        <value xml:lang="it">Descrizione</value>
+        <value xml:lang="th">รายละเอียด</value>
+    </property>
+    <property key="AccountingFixedAssetParent">
+        <value xml:lang="en">Equipment Group</value>
+        <value xml:lang="it">Gruppo Cespite</value>
+        <value xml:lang="th">กลุ่มเครื่องมือ</value>
+    </property>
+    <property key="AccountingFixedAssetStdCosts">
+        <value xml:lang="en">Standard Costs</value>
+        <value xml:lang="it">Costi Standard</value>
+        <value xml:lang="th">ราคามาตรฐาน</value>
+    </property>
+    <property key="AccountingFixedAssets">
+        <value xml:lang="en">Equipments</value>
+        <value xml:lang="it">Cespiti</value>
+        <value xml:lang="th">เครื่องมือ</value>
+    </property>
+    <property key="AccountingInstanceOfProductId">
+        <value xml:lang="en">Manufacturer Product Id</value>
+        <value xml:lang="it">Codice Prodotto Produttore</value>
+        <value xml:lang="th">รหัสผู้ผลิตสินค้า</value>
+    </property>
+    <property key="AccountingNewFixedAsset">
+        <value xml:lang="en">New Equipment</value>
+        <value xml:lang="it">Nuova Cespite</value>
+        <value xml:lang="th">เครื่องมือใหม่</value>
+    </property>
+    <property key="AccountingNewFixedAssetIdent">
+        <value xml:lang="en">Create Identification</value>
+        <value xml:lang="it">Crea Identificazione</value>
+        <value xml:lang="th">สร้างเลขประจำตัว</value>
+    </property>
+    <property key="AccountingNewFixedAssetIdentsType">
+        <value xml:lang="en">Create Equipment Identification Type</value>
+        <value xml:lang="it">Crea Tipo Identificazione Cespite</value>
+        <value xml:lang="th">สร้างประเภทเลขประจำตัวเครื่องมือ</value>
+    </property>
+    <property key="AssetEquipmentStdCosts">
+        <value xml:lang="en">Standard Cost</value>
+        <value xml:lang="it">Costo Standard</value>
+        <value xml:lang="th">ราคามาตรฐาน</value>
+    </property>
+    <property key="AssetMaintApplication">
+        <value xml:lang="en">Asset Maintenance Application</value>
+        <value xml:lang="it">Applicazione Manutenzione Beni</value>
+        <value xml:lang="th">บำรุงรักษาโปรแกรม</value>
+    </property>
+    <property key="AssetMaintCompanyName">
+        <value xml:lang="en">OFBiz: Asset Maintenance</value>
+        <value xml:lang="it">OFBiz: Manutenzione Beni</value>
+        <value xml:lang="th">OFBiz: การบำรุงรักษา</value>
+    </property>
+    <property key="AssetMaintCompanySubtitle">
+        <value xml:lang="en">Maintenance Department</value>
+        <value xml:lang="it">Manutenzione Dipartimento</value>
+        <value xml:lang="th">แผนกการดูแลรักษา</value>
+    </property>
+    <property key="AssetMaintInvalidPartProductIdError">
+        <value xml:lang="en">"Part Id ${productId} provided is invalid please check and try again"</value>
+        <value xml:lang="it">"Codice Parte ${productId} fornito non è valido perfavore controllare e provare nuovamente"</value>
+        <value xml:lang="th">รหัสส่วน ${productId} ใช้ไม่ได้ กรุณาตรวจสอบและลองอีกครั้ง</value>
+    </property>
+    <property key="AssetMaintLowPartInventoryError">
+        <value xml:lang="en">"Available Inventory level for ${productId} is ${quantity}"</value>
+        <value xml:lang="it">"Livello Inventario Disponibile per ${productId} è ${quantity}"</value>
+        <value xml:lang="th">รดับสินค้าคงเหลือของ ${productId} คือ ${quantity}</value>
+    </property>
+    <property key="AssetMaintMaintenanceCalendar">
+        <value xml:lang="en">Maintenance Calendar</value>
+        <value xml:lang="th">ซ่อมบำรุงปฏิทิน</value>
+    </property>
+    <property key="AssetMaintViewPermissionError">
+        <value xml:lang="en">View Permission Error</value>
+        <value xml:lang="th">แสดงข้อผิดพลาดในการอนุญาต</value>
+    </property>
+    <property key="FixedAssetMaintItemIssuance">
+        <value xml:lang="en">Parts</value>
+        <value xml:lang="it">Parti</value>
+        <value xml:lang="th">ส่วนหนึ่ง</value>
+    </property>
+    <property key="FixedAssetMaintWorkEffortName">
+        <value xml:lang="en">Maintenance of Equipment</value>
+        <value xml:lang="it">Manutenzione di un Cespite</value>
+        <value xml:lang="th">การบำรุงรักษาเครื่องมือ</value>
+    </property>
+    <property key="LabelTitleEditFixedAsset">
+        <value xml:lang="en">Edit Equipment</value>
+        <value xml:lang="it">Aggiorna Cespite</value>
+        <value xml:lang="th">แก้ไขเครื่องมือ</value>
+    </property>
+    <property key="LabelTitleFindFixedAssets">
+        <value xml:lang="en">Find Equipments</value>
+        <value xml:lang="it">Ricerca Cespite</value>
+        <value xml:lang="th">ค้นหาเรื่องมือ</value>
+    </property>
+    <property key="LabelTitleFixedAssetChildren">
+        <value xml:lang="en">Children Equipments</value>
+        <value xml:lang="it">Figli Cespite</value>
+        <value xml:lang="th">เครื่องมือเด็ก</value>
+    </property>
+    <property key="PageTitleAddItemIssuance">
+        <value xml:lang="en">Add Item Issuance</value>
+        <value xml:lang="it">Aggiungi Riga Prelievo</value>
+        <value xml:lang="th">เพิ่มรายการที่ออกมา</value>
+    </property>
+    <property key="PageTitleChildWorkEfforts">
+        <value xml:lang="en">Task Breakdown</value>
+        <value xml:lang="it">Compito Breakdown</value>
+        <value xml:lang="th">งานหยุด</value>
+    </property>
+    <property key="PageTitleEditFixedAsset">
+        <value xml:lang="en">Edit Equipment</value>
+        <value xml:lang="it">Aggiorna Cespite</value>
+        <value xml:lang="th">แก้ไขเครื่องมือ</value>
+    </property>
+    <property key="PageTitleEditWorkEffort">
+        <value xml:lang="en">Edit Task</value>
+        <value xml:lang="it">Aggiorna Compito</value>
+        <value xml:lang="th">แก้ไขงาน</value>
+    </property>
+    <property key="PageTitleFindFixedAssetMaints">
+        <value xml:lang="en">Find Maintenances</value>
+        <value xml:lang="it">Ricerca Manutenzioni</value>
+        <value xml:lang="th">ค้นหาการบำรุงรักษา</value>
+    </property>
+    <property key="PageTitleFindFixedAssets">
+        <value xml:lang="en">Find Equipments</value>
+        <value xml:lang="it">Ricerca Cespite</value>
+        <value xml:lang="th">ค้นหาเครื่องมือ</value>
+    </property>
+    <property key="PageTitleListItemIssuance">
+        <value xml:lang="en">Parts List</value>
+        <value xml:lang="it">Lista Soggetti</value>
+        <value xml:lang="th">ส่วนหนึ่งของรายการ</value>
+    </property>
+    <property key="ProductWarehouse">
+        <value xml:lang="en">Warehouse</value>
+        <value xml:lang="it">Magazzino</value>
+        <value xml:lang="th">คลังสินค้า</value>
+    </property>
+    <property key="WorkEffortActualCompletionDate">
+        <value xml:lang="en">Completion Date</value>
+        <value xml:lang="it">Data Termine</value>
+        <value xml:lang="th">วันที่เสร็จสิ้น</value>
+    </property>
+    <property key="WorkEffortActualStartDate">
+        <value xml:lang="en">Start Date</value>
+        <value xml:lang="it">Data Inizio</value>
+        <value xml:lang="th">วันที่เริ่มต้น</value>
+    </property>
+    <property key="WorkEffortAllTasks">
+        <value xml:lang="en">Tasks</value>
+        <value xml:lang="it">Compiti</value>
+        <value xml:lang="th">งาน</value>
+    </property>
+    <property key="WorkEffortSummary">
+        <value xml:lang="en">Schedule Summary</value>
+        <value xml:lang="it">Sommario Schedulazione</value>
+        <value xml:lang="th">สรุปกำหนดการ</value>
+    </property>
+    <property key="WorkEffortWorkEffortAssocTypeId">
+        <value xml:lang="en">Association Type</value>
+        <value xml:lang="it">Tipo Associazione</value>
+        <value xml:lang="th">ประเภทกลุ่ม</value>
+    </property>
+    <property key="WorkEffortWorkEffortPurposeTypeId">
+        <value xml:lang="en">Purpose</value>
+        <value xml:lang="it">Funzione</value>
+        <value xml:lang="th">วัตถุประสงค์</value>
+    </property>
+    <property key="de">
+        <value xml:lang="en">German</value>
+        <value xml:lang="it">Tedesco</value>
+        <value xml:lang="th">เยอรมัน</value>
+    </property>
+    <property key="en">
+        <value xml:lang="en">English</value>
+        <value xml:lang="it">Inglese</value>
+        <value xml:lang="th">อังกฤษ</value>
+    </property>
+    <property key="fr">
+        <value xml:lang="en">French</value>
+        <value xml:lang="it">Francese</value>
+        <value xml:lang="th">ฝรั่งเศส</value>
+    </property>
+    <property key="it">
+        <value xml:lang="en">Italian</value>
+        <value xml:lang="it">Italiano</value>
+        <value xml:lang="th">อิตาลี</value>
+    </property>
+    <property key="nl">
+        <value xml:lang="en">Dutch</value>
+        <value xml:lang="it">Olandese</value>
+        <value xml:lang="th">เนเธอแลนด์</value>
+    </property>
+</resource>
