@@ -996,7 +996,7 @@ public class PosTransaction implements Serializable {
                     amount = inf.amount.doubleValue();
                 }
 
-                XModel paymentLine = Journal.appendNode(model, "tr", "", "");
+                XModel paymentLine = Journal.appendNode(model, "tr", Integer.toString(i), "");
                 Journal.appendNode(paymentLine, "td", "sku", "");
                 Journal.appendNode(paymentLine, "td", "desc", descString);
                 Journal.appendNode(paymentLine, "td", "qty", "-");
