@@ -627,6 +627,7 @@ public class OrderServices {
         // and connect them with the orderitem over the WorkOrderItemFulfillment
         // create also the techData calendars to keep track of availability of the fixed asset.
         if (workEfforts != null && workEfforts.size() > 0) {
+        	List tempList = new LinkedList();
             Iterator we = workEfforts.iterator();
             while (we.hasNext()) {
                 // create the entity maps required.
@@ -652,15 +653,33 @@ public class OrderServices {
                 catch (GenericEntityException e) {
                     Debug.logInfo("TechData calendar does not exist yet so create for fixedAsset: " + fixedAsset.get("fixedAssetId") ,module);
                 }
+                if (techDataCalendar == null) {
+                    Iterator fai = tempList.iterator();
+                    while (fai.hasNext()) {
+                        GenericValue currentValue = (GenericValue) fai.next();
+                        if ("FixedAsset".equals(currentValue.getEntityName()) && currentValue.getString("fixedAssetId").equals(workEffort.getString("fixedAssetId"))) {
+                            fixedAsset = currentValue;
+                            break;
+                        }
+                    }
+                    Iterator tdci = tempList.iterator();
+                    while (tdci.hasNext()) {
+                        GenericValue currentValue = (GenericValue) tdci.next();
+                        if ("TechDataCalendar".equals(currentValue.getEntityName()) && currentValue.getString("calendarId").equals(fixedAsset.getString("calendarId"))) {
+                            techDataCalendar = currentValue;
+                            break;
+                        }
+                    }
+                }                
                 if(techDataCalendar == null ) {
                     techDataCalendar = delegator.makeValue("TechDataCalendar");
                     Debug.logInfo("create techdata calendar because it does not exist",module);
                     String calendarId = delegator.getNextSeqId("TechDataCalendar");
                     techDataCalendar.set("calendarId", calendarId);
-                    toBeStored.add(techDataCalendar);
+                    tempList.add(techDataCalendar);
                     Debug.logInfo("update fixed Asset",module);
                     fixedAsset.set("calendarId",calendarId);
-                    toBeStored.add(fixedAsset);
+                    tempList.add(fixedAsset);
                 }
                 // then create the workEffort and the workOrderItemFulfillment to connect to the order and orderItem
                 workOrderItemFulfillment.set("orderItemSeqId", workEffort.get("workEffortId").toString()); // orderItemSeqNo is stored here so save first
@@ -691,6 +710,17 @@ public class OrderServices {
                     catch (GenericEntityException e) {
                         Debug.logInfo(" techData excday record not found so creating........", module);
                     }
+                    if (techDataCalendarExcDay == null) {
+                        Iterator tdcedi = tempList.iterator();
+                        while (tdcedi.hasNext()) {
+                        	GenericValue currentValue = (GenericValue) tdcedi.next();
+                            if ("TechDataCalendarExcDay".equals(currentValue.getEntityName()) && currentValue.getString("calendarId").equals(fixedAsset.getString("calendarId"))
+                                    && currentValue.getTimestamp("exceptionDateStartTime").equals(exceptionDateStartTime)) {
+                                techDataCalendarExcDay = currentValue;
+                                break;
+                            }
+                        }
+                    }                    
                     if (techDataCalendarExcDay == null)    {
                         techDataCalendarExcDay = delegator.makeValue("TechDataCalendarExcDay");
                         techDataCalendarExcDay.set("calendarId", fixedAsset.get("calendarId"));
@@ -716,11 +746,14 @@ public class OrderServices {
                         }
                     }
                     techDataCalendarExcDay.set("usedCapacity", newUsedCapacity);
-                    toBeStored.add(techDataCalendarExcDay);
+                    tempList.add(techDataCalendarExcDay);
 //                  Debug.logInfo("Update success CalendarID: " + techDataCalendarExcDay.get("calendarId").toString() +
 //                            " and for date: " + techDataCalendarExcDay.get("exceptionDateStartTime").toString() +
 //                            " and for quantity: " + techDataCalendarExcDay.getDouble("usedCapacity").toString(), module);
                 }
+            }
+            if (tempList.size() > 0) {
+                toBeStored.addAll(tempList);
             }
         }
         if (errorMessages.size() > 0) {
