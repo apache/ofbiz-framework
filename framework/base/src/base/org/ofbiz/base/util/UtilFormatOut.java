@@ -18,7 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -550,5 +556,10 @@ public class UtilFormatOut {
         
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.println(");");
+    }
+    public static void writePlistFile(Map<String, Object> eoModelMap, String eomodeldFullPath, String filename) throws FileNotFoundException, UnsupportedEncodingException {
+        PrintWriter plistWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, filename)), "UTF-8")));
+        UtilFormatOut.writePlistPropertyMap(eoModelMap, 0, plistWriter, false);
+        plistWriter.close();
     }
 }

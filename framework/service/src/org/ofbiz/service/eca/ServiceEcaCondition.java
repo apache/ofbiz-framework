@@ -18,20 +18,19 @@
  *******************************************************************************/
 package org.ofbiz.service.eca;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
-
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -82,6 +81,28 @@ public class ServiceEcaCondition implements java.io.Serializable {
                 rhsValueName = "";
             }
         }
+    }
+
+    public String getShortDisplayDescription(boolean moreDetail) {
+        StringBuilder buf = new StringBuilder();
+        if (isService) {
+            buf.append("[").append(conditionService).append("]");
+        } else {
+            buf.append("[");
+            if (UtilValidate.isNotEmpty(lhsMapName)) buf.append(lhsMapName).append(".");
+            buf.append(lhsValueName);
+            buf.append(":").append(operator).append(":");
+            if (UtilValidate.isNotEmpty(rhsMapName)) buf.append(rhsMapName).append(".");
+            buf.append(rhsValueName);
+            
+            if (moreDetail) {
+                if (UtilValidate.isNotEmpty(compareType)) buf.append(compareType);
+                if (UtilValidate.isNotEmpty(format)) buf.append(format);
+            }
+
+            buf.append("]");
+        }
+        return buf.toString();
     }
 
     public boolean eval(String serviceName, DispatchContext dctx, Map context) throws GenericServiceException {
@@ -173,15 +194,15 @@ public class ServiceEcaCondition implements java.io.Serializable {
     public String toString() {
         StringBuilder buf = new StringBuilder();
 
-        buf.append("[").append(conditionService).append("]");
-        buf.append("[").append(lhsMapName).append("]");
-        buf.append("[").append(lhsValueName).append("]");
-        buf.append("[").append(operator).append("]");
-        buf.append("[").append(rhsMapName).append("]");
-        buf.append("[").append(rhsValueName).append("]");
-        buf.append("[").append(isConstant).append("]");
-        buf.append("[").append(compareType).append("]");
-        buf.append("[").append(format).append("]");
+        if (UtilValidate.isNotEmpty(conditionService)) buf.append("[").append(conditionService).append("]");
+        if (UtilValidate.isNotEmpty(lhsMapName)) buf.append("[").append(lhsMapName).append("]");
+        if (UtilValidate.isNotEmpty(lhsValueName)) buf.append("[").append(lhsValueName).append("]");
+        if (UtilValidate.isNotEmpty(operator)) buf.append("[").append(operator).append("]");
+        if (UtilValidate.isNotEmpty(rhsMapName)) buf.append("[").append(rhsMapName).append("]");
+        if (UtilValidate.isNotEmpty(rhsValueName)) buf.append("[").append(rhsValueName).append("]");
+        if (UtilValidate.isNotEmpty(isConstant)) buf.append("[").append(isConstant).append("]");
+        if (UtilValidate.isNotEmpty(compareType)) buf.append("[").append(compareType).append("]");
+        if (UtilValidate.isNotEmpty(format)) buf.append("[").append(format).append("]");
         return buf.toString();
     }
 }

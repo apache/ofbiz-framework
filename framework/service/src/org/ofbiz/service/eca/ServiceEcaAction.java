@@ -75,6 +75,14 @@ public class ServiceEcaAction implements java.io.Serializable {
         this.ignoreError = !"false".equals(action.getAttribute("ignore-error"));
         this.persist = "true".equals(action.getAttribute("persist"));
     }
+    
+    public String getServiceName() {
+        return this.serviceName;
+    }
+    
+    public String getShortDisplayDescription() {
+        return this.serviceName + "[" + this.serviceMode + (this.persist ? ",persist" : "") + "]";
+    }
 
     public boolean runAction(String selfService, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result) throws GenericServiceException {
         if (serviceName.equals(selfService)) {

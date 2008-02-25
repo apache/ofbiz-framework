@@ -1395,10 +1395,15 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @param helperName
      */
     public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet) {
-        final boolean useRelationshipNames = false; 
-        
         if (entityPrefix == null) entityPrefix = "";
         if (helperName == null) helperName = "localderby";
+        
+        UtilFormatOut.writePlistPropertyMap(this.createEoModelMap(entityPrefix, helperName, entityNameIncludeSet), 0, writer, false);
+    }
+
+
+    public Map<String, Object> createEoModelMap(String entityPrefix, String helperName, Set<String> entityNameIncludeSet) {
+        final boolean useRelationshipNames = false; 
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
         
         Map<String, Object> topLevelMap = FastMap.newInstance();
@@ -1436,7 +1441,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             attributeMap.put("name", field.getName());
             attributeMap.put("columnName", field.getColName());
             attributeMap.put("valueClassName", fieldType.getJavaType());
-            attributeMap.put("name", field.getName());
 
             String sqlType = fieldType.getSqlType();
             if (sqlType.indexOf("(") >= 0) {
@@ -1500,6 +1504,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             topLevelMap.put("relationships", relationshipsMapList);
         }
         
-        UtilFormatOut.writePlistPropertyMap(topLevelMap, 0, writer, false);
+        return topLevelMap;
     }
 }
