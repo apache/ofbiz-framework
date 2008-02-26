@@ -24,4 +24,7 @@ under the License.
     <test-case case-name="purchaseOrder-test">
         <junit-test-suite class-name="org.ofbiz.order.test.PurchaseOrderTest"/>
     </test-case>
+    <test-case case-name="salesOrder-test">
+        <junit-test-suite class-name="org.ofbiz.order.test.SalesOrderTest"/>
+    </test-case>
 </test-suite>
