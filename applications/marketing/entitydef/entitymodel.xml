@@ -528,7 +528,7 @@ under the License.
         </view-link>
       </view-entity>
       <view-entity entity-name="TrackingCodeAndOrderHeader"
-                   package-name="org.ofibz.marketing.reports"
+                   package-name="org.ofbiz.marketing.reports"
                    title="View entity for reporting number of orders and total order amounts">
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
         <member-entity entity-alias="OH" entity-name="OrderHeader"/>
@@ -541,7 +541,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="TrackingCodeOrderAndOrderHeader"
-                 package-name="org.ofibz.marketing.reports"
+                 package-name="org.ofbiz.marketing.reports"
                  never-cache="true"
                  title="Order Header And Tracking Code Order View Entity">
       <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
@@ -560,7 +560,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="TrackingCodeOrderReturnAndReturnHeader"
-                 package-name="org.ofibz.marketing.reports"
+                 package-name="org.ofbiz.marketing.reports"
                  never-cache="true"
                  title="Return Header And Tracking Code Order Return View Entity">
       <member-entity entity-alias="TCO" entity-name="TrackingCodeOrderReturn"/>
@@ -595,7 +595,7 @@ under the License.
         </view-link>
       </view-entity>
       <view-entity entity-name="MarketingCampaignAndOrderHeader"
-                   package-name="org.ofibz.marketing.reports"
+                   package-name="org.ofbiz.marketing.reports"
                    title="View entity for reporting number of orders and total order amounts">
         <member-entity entity-alias="TC" entity-name="TrackingCode"/>
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
