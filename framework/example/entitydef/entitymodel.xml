@@ -74,6 +74,9 @@ under the License.
         <relation type="one" fk-name="EXMPLIT_UOM" title="Amount" rel-entity-name="Uom">
             <key-map field-name="amountUomId" rel-field-name="uomId"/>
         </relation>
+        <relation type="one" fk-name="EXMPLIT_EXMP" rel-entity-name="Example">
+            <key-map field-name="exampleId"/>
+        </relation>
     </entity>
     <entity entity-name="ExampleStatus" package-name="org.ofbiz.example.example" title="Example Status Entity" default-resource-name="ExampleEntityLabels">
         <field name="exampleId" type="id-ne"></field>
