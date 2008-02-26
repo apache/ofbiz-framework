@@ -32,7 +32,6 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.ofbiz.content.commevent -->
   <!--  - org.ofbiz.content.compdoc -->
   <!--  - org.ofbiz.content.content -->
   <!--  - org.ofbiz.content.data -->
@@ -43,40 +42,6 @@ under the License.
   <!-- ========================================================= -->
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.content.commevent -->
-  <!-- ========================================================= -->
-
-   <entity entity-name="CommEventContentAssoc"
-            package-name="org.ofbiz.content.commevent"
-            title="CommunicationEvent Content Association Entity">
-      <field name="contentId" type="id-ne"></field>
-      <field name="communicationEventId" type="id-ne"></field>
-      <field name="commContentAssocTypeId" type="id"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <field name="sequenceNum" type="numeric"></field>
-      <prim-key field="contentId"/>
-      <prim-key field="communicationEventId"/>
-      <prim-key field="fromDate"/>
-      <relation type="one" fk-name="COMMEV_CA_FROM" title="From" rel-entity-name="Content">
-        <key-map field-name="contentId"/>
-      </relation>
-      <relation type="one" fk-name="COMMEV_CA_COMMEV"  rel-entity-name="CommunicationEvent">
-        <key-map field-name="communicationEventId"/>
-      </relation>
-      <relation type="one" fk-name="COMMEV_CA_TYP" rel-entity-name="CommContentAssocType">
-        <key-map field-name="commContentAssocTypeId"/>
-      </relation>
-    </entity>
-    <entity entity-name="CommContentAssocType"
-            package-name="org.ofbiz.content.commevent"			
-            title="CommunicationEvent Content Association Type Entity">
-      <field name="commContentAssocTypeId" type="id-ne"></field>
-      <field name="description" type="description"></field>
-      <prim-key field="commContentAssocTypeId"/>
-    </entity>
-
-    <!-- ========================================================= -->
   <!-- org.ofbiz.content.compdoc -->
   <!-- ========================================================= -->
 
@@ -514,52 +479,6 @@ under the License.
       </view-link>
       <relation type="one-nofk" rel-entity-name="ElectronicText">
         <key-map field-name="dataResourceId" />
-      </relation>
-      <relation type="one-nofk" rel-entity-name="ImageDataResource">
-        <key-map field-name="dataResourceId" />
-      </relation>
-      <relation type="one-nofk" rel-entity-name="OtherDataResource">
-        <key-map field-name="dataResourceId" />
-      </relation>
-      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
-      </relation>
-      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
-      </relation>
-      <relation type="many" title="From" rel-entity-name="ContentAssoc">
-        <key-map field-name="contentId"/>
-      </relation>
-      <relation type="many" title="To" rel-entity-name="ContentAssoc">
-        <key-map field-name="contentId" rel-field-name="contentIdTo"/>
-      </relation>
-      <relation type="many" rel-entity-name="ContentPurpose">
-          <key-map field-name="contentId"/>
-      </relation>
-      <relation type="many" rel-entity-name="ContentRole">
-        <key-map field-name="contentId"/>
-      </relation>
-    </view-entity>
-    <view-entity entity-name="CommEventContentDataResource"
-                package-name="org.ofbiz.content.content"
-                title="CommEvent and Content and DataResource View Entity">
-      <member-entity entity-alias="CECA" entity-name="CommEventContentAssoc"/>
-      <member-entity entity-alias="CO" entity-name="Content"/>
-      <member-entity entity-alias="DR" entity-name="DataResource"/>
-      <alias-all entity-alias="CECA" />
-      <alias-all entity-alias="CO" />
-      <alias-all entity-alias="DR" prefix="dr"/>
-      <view-link entity-alias="CECA" rel-entity-alias="CO" rel-optional="false">
-        <key-map field-name="contentId"/>
-      </view-link>
-      <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
-        <key-map field-name="dataResourceId"/>
-      </view-link>
-      <relation type="one-nofk" rel-entity-name="ElectronicText">
-        <key-map field-name="dataResourceId" />
-      </relation>
-      <relation type="one-nofk" rel-entity-name="CommunicationEvent">
-        <key-map field-name="communicationEventId" />
       </relation>
       <relation type="one-nofk" rel-entity-name="ImageDataResource">
         <key-map field-name="dataResourceId" />

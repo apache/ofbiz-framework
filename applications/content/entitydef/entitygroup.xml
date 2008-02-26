@@ -22,14 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitygroup.xsd">
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.content.commevent -->
-  <!-- ========================================================= -->
-
-    <entity-group group="org.ofbiz" entity="CommEventContentAssoc" />
-    <entity-group group="org.ofbiz" entity="CommContentAssocType" />
-    <entity-group group="org.ofbiz" entity="CommEventContentDataResource" />
-
-  <!-- ========================================================= -->
   <!-- org.ofbiz.content.compdoc -->
   <!-- ========================================================= -->
 
