@@ -57,6 +57,9 @@ under the License.
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_shipment.xml"/>
 
+    <!-- test suite -->
+    <test-suite loader="main" location="testdef/FacilityTest.xml"/>
+    
     <webapp name="catalog" title="Catalog" server="default-server" location="webapp/catalog"
         base-permission="OFBTOOLS,CATALOG" mount-point="/catalog"/>
     <webapp name="facility" title="Facility" server="default-server" location="webapp/facility"
