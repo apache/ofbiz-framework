@@ -52,6 +52,9 @@ under the License.
   <!-- org.ofbiz.party.communication -->
   <!-- ========================================================= -->
 
+    <entity-group group="org.ofbiz" entity="CommEventContentAssoc" />
+    <entity-group group="org.ofbiz" entity="CommContentAssocType" />
+    <entity-group group="org.ofbiz" entity="CommEventContentDataResource" />
     <entity-group group="org.ofbiz" entity="CommunicationEvent" />
     <entity-group group="org.ofbiz" entity="CommunicationEventPrpTyp" />
     <entity-group group="org.ofbiz" entity="CommunicationEventPurpose" />
