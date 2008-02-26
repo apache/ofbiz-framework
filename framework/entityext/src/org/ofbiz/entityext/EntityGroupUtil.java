@@ -39,12 +39,12 @@ public class EntityGroupUtil {
 
     public static final String module = EntityGroupUtil.class.getName();
 
-    public static Set<String> getEntityNamesByGroup(String entityGroupId, GenericDelegator delegator) throws GenericEntityException {
+    public static Set<String> getEntityNamesByGroup(String entityGroupId, GenericDelegator delegator, boolean requireStampFields) throws GenericEntityException {
         Set<String> entityNames = FastSet.newInstance();
         
-        List entitySyncGroupIncludes = delegator.findByAnd("EntitySyncInclGrpDetailView", UtilMisc.toMap("entityGroupId", entityGroupId));
+        List<GenericValue> entitySyncGroupIncludes = delegator.findByAnd("EntityGroupEntry", UtilMisc.toMap("entityGroupId", entityGroupId));
         
-        List<ModelEntity> modelEntities = getModelEntitiesFromRecords(entitySyncGroupIncludes, delegator);
+        List<ModelEntity> modelEntities = getModelEntitiesFromRecords(entitySyncGroupIncludes, delegator, requireStampFields);
         for (ModelEntity modelEntity: modelEntities) {
             entityNames.add(modelEntity.getEntityName());
         }
@@ -52,12 +52,10 @@ public class EntityGroupUtil {
         return entityNames;
     }
 
-    public static List<ModelEntity> getModelEntitiesFromRecords(List<GenericValue> entityGroupEntryValues, GenericDelegator delegator) throws GenericEntityException {
+    public static List<ModelEntity> getModelEntitiesFromRecords(List<GenericValue> entityGroupEntryValues, GenericDelegator delegator, boolean requireStampFields) throws GenericEntityException {
         List<ModelEntity> entityModelToUseList = FastList.newInstance();
 
-        Iterator entityNameIter = delegator.getModelReader().getEntityNamesIterator();
-        while (entityNameIter.hasNext()) {
-            String entityName = (String) entityNameIter.next();
+        for (String entityName: delegator.getModelReader().getEntityNames()) {
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
             
             // if view-entity, throw it out
@@ -66,7 +64,7 @@ public class EntityGroupUtil {
             }
             
             // if it doesn't have either or both of the two update stamp fields, throw it out
-            if (!modelEntity.isField(ModelEntity.STAMP_FIELD) || !modelEntity.isField(ModelEntity.STAMP_TX_FIELD)) {
+            if (requireStampFields && (!modelEntity.isField(ModelEntity.STAMP_FIELD) || !modelEntity.isField(ModelEntity.STAMP_TX_FIELD))) {
                 continue;
             }
             

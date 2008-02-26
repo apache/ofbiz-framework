@@ -795,13 +795,6 @@ public class WebToolsServices {
         String datasourceName = (String) context.get("datasourceName");
         String entityNamePrefix = (String) context.get("entityNamePrefix");
         
-        Set<String> entityPackageNameSet = FastSet.newInstance();
-        if (UtilValidate.isNotEmpty(entityPackageNameOrig)) {
-            entityPackageNameSet.addAll(StringUtil.split(entityPackageNameOrig, ","));
-        }
-        
-        Debug.logInfo("Exporting with entityPackageNameSet: " + entityPackageNameSet, module);
-
         ModelReader reader = dctx.getDelegator().getModelReader();
         
         try {
@@ -821,17 +814,23 @@ public class WebToolsServices {
             }
             
             Set<String> entityNames = new TreeSet();
-            if (UtilValidate.isNotEmpty(entityPackageNameSet)) {
+            if (UtilValidate.isNotEmpty(entityPackageNameOrig)) {
+                Set<String> entityPackageNameSet = FastSet.newInstance();
+                entityPackageNameSet.addAll(StringUtil.split(entityPackageNameOrig, ","));
+                
+                Debug.logInfo("Exporting with entityPackageNameSet: " + entityPackageNameSet, module);
+
                 Map<String, TreeSet<String>> entitiesByPackage = reader.getEntitiesByPackage(entityPackageNameSet, null);
                 for (Map.Entry<String, TreeSet<String>> entitiesByPackageMapEntry: entitiesByPackage.entrySet()) {
                     entityNames.addAll(entitiesByPackageMapEntry.getValue());
                 }
-                Debug.logInfo("Exporting the following entities: " + entityNames, module);
             } else if (UtilValidate.isNotEmpty(entityGroupId)) {
-                entityNames.addAll(EntityGroupUtil.getEntityNamesByGroup(entityGroupId, dctx.getDelegator()));
+                Debug.logInfo("Exporting entites from the Group: " + entityGroupId, module);
+                entityNames.addAll(EntityGroupUtil.getEntityNamesByGroup(entityGroupId, dctx.getDelegator(), false));
             } else {
                 entityNames.addAll(reader.getEntityNames());
             }
+            Debug.logInfo("Exporting the following entities: " + entityNames, module);
 
             // remove all view-entity
             Iterator<String> filterEntityNameIter = entityNames.iterator();
