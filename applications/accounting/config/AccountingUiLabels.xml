@@ -254,7 +254,7 @@
         <value xml:lang="nl">Overeenkomst item</value>
         <value xml:lang="ro">Linie Contract</value>
         <value xml:lang="ru">Элемент договора</value>
-        <value xml:lang="th">ไอเทมสัญญา</value>
+        <value xml:lang="th">ข้อสัญญา</value>
         <value xml:lang="zh">合同条款</value>
     </property>
     <property key="AccountingAgreementItemSeqId">
@@ -266,7 +266,7 @@
         <value xml:lang="nl">Overeenkomst Item Nr</value>
         <value xml:lang="ro">Nr.Com.Inrg.Contract</value>
         <value xml:lang="ru">Код элемента договора</value>
-        <value xml:lang="th">รหัสรายการไอเทมสัญญา</value>
+        <value xml:lang="th">รหัสรายการข้อสัญญา</value>
         <value xml:lang="zh">合同条款顺序编号</value>
     </property>
     <property key="AccountingAgreementItemTerms">
@@ -289,7 +289,7 @@
         <value xml:lang="nl">Overeenkomst Item type Nr</value>
         <value xml:lang="ro">Tip Contract Linie</value>
         <value xml:lang="ru">Код типа элемента договора</value>
-        <value xml:lang="th">รหัสประเภทไอเทมสัญญา</value>
+        <value xml:lang="th">รหัสประเภทข้อสัญญา</value>
         <value xml:lang="zh">合同条款类型标识</value>
     </property>
     <property key="AccountingAgreementItems">
@@ -301,7 +301,7 @@
         <value xml:lang="nl">Overeenkomst Items</value>
         <value xml:lang="ro">Linii Contract</value>
         <value xml:lang="ru">Элементы договора</value>
-        <value xml:lang="th">ไอเทมสัญญา</value>
+        <value xml:lang="th">ข้อสัญญา</value>
         <value xml:lang="zh">合同条款</value>
     </property>
     <property key="AccountingAgreementPromoAppls">
@@ -337,7 +337,7 @@
         <value xml:lang="nl">Overeenkomst voorwaarden</value>
         <value xml:lang="ro">Termen Contract</value>
         <value xml:lang="ru">Условия договора</value>
-        <value xml:lang="th">สัญญา</value>
+        <value xml:lang="th">ช่วงเวลาของสัญญา</value>
         <value xml:lang="zh">合同条件</value>
     </property>
     <property key="AccountingAgreementTypeId">
@@ -387,7 +387,7 @@
         <value xml:lang="nl">Toe te wijzen bedrag</value>
         <value xml:lang="ro">Valoare Aplicata</value>
         <value xml:lang="ru">Примененная сумма </value>
-        <value xml:lang="th">รหัสช่วงเวลาที่กำหนดสัญญา</value>
+        <value xml:lang="th">จำนวนที่ประยุกต์ได้</value>
         <value xml:lang="zh">已付金额 </value>
     </property>
     <property key="AccountingAmountNotApplied">
@@ -399,7 +399,7 @@
         <value xml:lang="nl">Bedrag nog toe te wijzen</value>
         <value xml:lang="ro">Valoare ne aplicata inca</value>
         <value xml:lang="ru">Сумма еще не применена</value>
-        <value xml:lang="th">รหัสช่วงเวลาที่กำหนดสัญญา</value>
+        <value xml:lang="th">จำนวนที่ประยุกต์ไม่ได้</value>
         <value xml:lang="zh">未付金额</value>
     </property>
     <property key="AccountingAnyInvoiceStatus">
@@ -559,7 +559,7 @@
         <value xml:lang="nl">Wijs aan faktuur items toe</value>
         <value xml:lang="ro">Aplica la liniile Facturii</value>
         <value xml:lang="ru">Применить на позиции накладной</value>
-        <value xml:lang="th">นำไอเทมใบกำกับสินค้าไปใช้</value>
+        <value xml:lang="th">นำรายการใบกำกับสินค้าไปใช้</value>
         <value xml:lang="zh">支付的发票明细</value>
     </property>
     <property key="AccountingAritmeticPropertiesNotConfigured">
@@ -600,6 +600,8 @@
     </property>
     <property key="AccountingAssignPurchaseInvoiceToRevenue">
         <value xml:lang="en">Assign Purchase Invoice type to Revenue GL Account Number</value>
+        <value xml:lang="th">กำหนดประเภทใบกำกับสินค้าการสั่งซื้อไปยังหมายเลขบัญชีประเภททั่วไป</value>
+        
     </property>
     <property key="AccountingAssignSalesInvoiceToRevenue">
         <value xml:lang="ar">تعيين نوع فاتورة البيع إلى رقم حساب العائدات</value>
@@ -808,7 +810,7 @@
         <value xml:lang="nl">Fakturen voor faktuurrekening</value>
         <value xml:lang="ro">Cont Facturare Facturi</value>
         <value xml:lang="ru">Накладные кредитного счета</value>
-        <value xml:lang="th">ยอดรวมของบัญชีในใบเสร็จรับเงิน</value>
+        <value xml:lang="th">ยอดรวมของบัญชีในใบกำกับสินค้า</value>
         <value xml:lang="zh">账单账户发票</value>
     </property>
     <property key="AccountingBillingAccountLessRequested">
@@ -966,7 +968,7 @@
         <value xml:lang="pt_PT">Mecanismo de Contacto para Cobranças</value>
         <value xml:lang="ro">Contact Facturare</value>
         <value xml:lang="ru">Способ контакта по вопр. оплаты</value>
-        <value xml:lang="th">Billing Contact Mech</value>
+        <value xml:lang="th">วิธีการติดต่อยอดรวมของราคาสินค้าและบริการที่แจ้งต่อลูกค้า</value>
         <value xml:lang="zh">账单联系方式</value>
     </property>
     <property key="AccountingBillingContactMechIdMessage">
@@ -1223,7 +1225,7 @@
         <value xml:lang="it">Non trovato Conto Gl con Codice</value>
         <value xml:lang="ro">Nu gaseste Contul Gl cu Codul</value>
         <value xml:lang="ru">Невозможно найти счет ГК с кодом</value>
-        <value xml:lang="th">ไม่สามารถหา GlAccount ด้วยรหัส</value>
+        <value xml:lang="th">ไม่สามารถหาบัญชีแยกประเภททั่วไปด้วยรหัส</value>
         <value xml:lang="zh">没有在总账中找到相应的编号</value>
     </property>
     <property key="AccountingCreateAcctRecons">
@@ -1246,7 +1248,7 @@
         <value xml:lang="it">Creare Assegnazione</value>
         <value xml:lang="ro">Creaza Alocare</value>
         <value xml:lang="ru">Создать назначение</value>
-        <value xml:lang="th">สร้างข้อตกลง</value>
+        <value xml:lang="th">สร้างสัญญา</value>
         <value xml:lang="zh">新建指定</value>
     </property>
     <property key="AccountingCreateBillingAccount">
@@ -1448,7 +1450,7 @@
     </property>
     <property key="AccountingCreditCardBillingAddNotFoundError">
         <value xml:lang="en">Billing Address associated with Credit Card not found.</value>
-        <value xml:lang="th">ใบแจ้งค่าบริการไม่พบบัตรเครดิต</value>
+        <value xml:lang="th">ไม่พบบัตรเครดิตที่เกี่ยวข้องกับใบแจ้งค่าบริการ</value>
     </property>
     <property key="AccountingCreditCardEmailAddNotFoundError">
         <value xml:lang="en">Bill To Email Address not found.</value>
@@ -1456,7 +1458,7 @@
     </property>
     <property key="AccountingCreditCardManualAuthFailedError">
         <value xml:lang="en">Not creating credit card.  Credit card not verified, authentication failed.</value>
-        <value xml:lang="th">ไม่สร้างบัตรเครดิต. บัตรเครดิตไม่ถูกต้อง, authentication failed</value>
+        <value xml:lang="th">ไม่สร้างบัตรเครดิต. บัตรเครดิตไม่ถูกต้อง, เครื่องหมายผิดพลาด</value>
     </property>
     <property key="AccountingCreditCardTypeGlAccount">
         <value xml:lang="en">Credit Card Type GlAccount</value>
@@ -1506,7 +1508,7 @@
         <value xml:lang="it">Errore Sorgente Dati</value>
         <value xml:lang="ro">Eroare Resurse Date</value>
         <value xml:lang="ru">Ошибка источника данных</value>
-        <value xml:lang="th">Data source error</value>
+        <value xml:lang="th">แหล่งข้อมูลผิดพลาด</value>
         <value xml:lang="zh">数据源错误</value>
     </property>
     <property key="AccountingDateAcquiredIsEmpty">
@@ -1779,7 +1781,7 @@
         <value xml:lang="en">Error creating InvoiceTerm from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un terme de facturation à partir de la commande</value>
         <value xml:lang="ru">Ошибка создания условий накладной на основании заказа</value>
-        <value xml:lang="th">Error creating InvoiceTerm from order</value>
+        <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างระยะเวลาใบกำกับสินค้าจากรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">从定单创建发票明细时出错</value>
     </property>
     <property key="AccountingErrorCreatingOrderAdjustmentBillingFromOrder">
@@ -1886,7 +1888,7 @@
         <value xml:lang="pt_PT">Procurar Facturas</value>
         <value xml:lang="ro">Cauta Factura</value>
         <value xml:lang="ru">Поиск накладных</value>
-        <value xml:lang="th">ค้นหาใบส่งของ</value>
+        <value xml:lang="th">ค้นหาใบกำกับสินค้า</value>
         <value xml:lang="zh">查找发票</value>
     </property>
     <property key="AccountingFindPayment">
@@ -1916,7 +1918,7 @@
     <property key="AccountingFindPurchaseInvoicesByDueDate">
         <value xml:lang="en">Find Purchase Invoices By Due Date</value>
         <value xml:lang="it">Ricerca Fatture Acquisto Per Data Scadenza</value>
-        <value xml:lang="th">ค้นหาใบกำกับการสั่งซื้อโดยวันที่</value>
+        <value xml:lang="th">ค้นหาใบกำกับสินค้าโดยวันที่</value>
     </property>
     <property key="AccountingFindSalesInvoicesByDueDate">
         <value xml:lang="en">Find Sales Invoices By Due Date</value>
@@ -2207,7 +2209,7 @@
         <value xml:lang="it">Manutenzione</value>
         <value xml:lang="ro">Intretinere</value>
         <value xml:lang="ru">Обслуживание</value>
-        <value xml:lang="th">บำรุงรักษา</value>
+        <value xml:lang="th">การบำรุงรักษา</value>
         <value xml:lang="zh">维修保养</value>
     </property>
     <property key="AccountingFixedAssetMaintIntervalMeterType">
@@ -2240,7 +2242,7 @@
         <value xml:lang="it">Udm Intervallo</value>
         <value xml:lang="ro">Udm Interval</value>
         <value xml:lang="ru">Ед. изм. интервала</value>
-        <value xml:lang="th">จำนวนช่วงเวลา</value>
+        <value xml:lang="th">หน่วยวัดจำนวนช่วงเวลา</value>
         <value xml:lang="zh">计量仪表单位</value>
     </property>
     <property key="AccountingFixedAssetMaintMessage1">
@@ -2281,7 +2283,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Valore Contatore</value>
         <value xml:lang="ro">Valoare Contr</value>
         <value xml:lang="ru">Значение счетчика</value>
-        <value xml:lang="th">Meter Value</value>
+        <value xml:lang="th">ค่ามิเตอร์</value>
         <value xml:lang="zh">仪表数值</value>
     </property>
     <property key="AccountingFixedAssetMaintMeters">
@@ -2292,7 +2294,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Lettura Contatore</value>
         <value xml:lang="ro">Citire Contr</value>
         <value xml:lang="ru">Значения счетчиков</value>
-        <value xml:lang="th">Meters Readings</value>
+        <value xml:lang="th">การอ่านค่ามิเตอร์</value>
         <value xml:lang="zh">仪表读数</value>
     </property>
     <property key="AccountingFixedAssetMaintName">
@@ -2375,7 +2377,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Inventaris group</value>
         <value xml:lang="ro">Grup Mijloace Fixe</value>
         <value xml:lang="ru">Группа активов </value>
-        <value xml:lang="th">กลุ่มสินทรัพย์</value>
+        <value xml:lang="th">กลุ่มทรัพย์สิน</value>
         <value xml:lang="zh">资产组 </value>
     </property>
     <property key="AccountingFixedAssetParties">
@@ -2478,7 +2480,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Standard Cost already Exists</value>
         <value xml:lang="fr">Coût standard déjà défini</value>
         <value xml:lang="ru">Стандартная стоимость уже существует</value>
-        <value xml:lang="th">ราคามาตรฐานยังคงอยู่</value>
+        <value xml:lang="th">ราคามาตรฐานยังคงมีอยู่แล้ว</value>
     </property>
     <property key="AccountingFixedAssetStdCostTypeId">
         <value xml:lang="ar">نوع السعر المعياري</value>
@@ -2513,7 +2515,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Inventaris type</value>
         <value xml:lang="ro">Tip Mijloace </value>
         <value xml:lang="ru">Тип активов</value>
-        <value xml:lang="th">ประเภทสินทรัพย์</value>
+        <value xml:lang="th">ประเภททรัพย์สิน</value>
         <value xml:lang="zh">资产类型</value>
     </property>
     <property key="AccountingFixedAssets">
@@ -2579,7 +2581,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Gateway antwoord</value>
         <value xml:lang="ro">Raspuns Gateway</value>
         <value xml:lang="ru">Ответ шлюза</value>
-        <value xml:lang="th">Gateway Response</value>
+        <value xml:lang="th">วิธีการตอบสนอง</value>
         <value xml:lang="zh">网关响应</value>
     </property>
     <property key="AccountingGatewayResponses">
@@ -2591,7 +2593,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Gateway antwoorden</value>
         <value xml:lang="ro">Raspunsuri Gateway</value>
         <value xml:lang="ru">Ответы шлюза</value>
-        <value xml:lang="th">Gateway Responses</value>
+        <value xml:lang="th">วิธีการตอบสนอง</value>
         <value xml:lang="zh">网关响应</value>
     </property>
     <property key="AccountingGeneralLedger">
@@ -2674,7 +2676,7 @@ esetata in mod automat</value>
     <property key="AccountingGlAccountTypeDefaults">
         <value xml:lang="en">GL Account Type Defaults</value>
         <value xml:lang="it">Default Tipo Conto Contabilità Generale</value>
-        <value xml:lang="th">ตัวเลือกอัตโนมัติของประเภทบัญชีแยกประเภททั่วไป</value>
+        <value xml:lang="th">ค่าเริ่มต้นอัตโนมัติของประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingGlAccounts">
         <value xml:lang="ar">الحسابات المحاسبية</value>
@@ -2733,7 +2735,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Wijs toe aan de gehele faktuur</value>
         <value xml:lang="ro">Ignoreaza Linii Factura</value>
         <value xml:lang="ru">Игнорировать позиции накладной</value>
-        <value xml:lang="th">ไม่สนใจใบสั่งของ</value>
+        <value xml:lang="th">เพิกเฉยรายการใบกำกับสินค้า</value>
         <value xml:lang="zh">忽略发票明细</value>
     </property>
     <property key="AccountingIgnoringAdditionalShipCharges">
@@ -2799,7 +2801,7 @@ esetata in mod automat</value>
         <value xml:lang="pt_PT">Factura</value>
         <value xml:lang="ro">Factura</value>
         <value xml:lang="ru">Накладная</value>
-        <value xml:lang="th">ใบเสร็จชำระเงิน</value>
+        <value xml:lang="th">ใบกำกับสินค้า</value>
         <value xml:lang="zh">发票</value>
     </property>
     <property key="AccountingInvoiceCancelledCannotApplyTo">
@@ -2817,7 +2819,7 @@ esetata in mod automat</value>
 </value>
         <value xml:lang="ru">Накладная [${invoiceId}] отменена, не может быть применена к ...
 </value>
-        <value xml:lang="th">ใบเสร็จชำระเงิน [${invoiceId}] ถูกยกเลิก, ไม่สามารถที่จะนำมาใช้ได้...</value>
+        <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] ถูกยกเลิก, ไม่สามารถที่จะนำมาใช้ได้...</value>
         <value xml:lang="zh">发票[${invoiceId}]已取消，无法应用...
 </value>
     </property>
@@ -2830,7 +2832,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">FAKTUUR</value>
         <value xml:lang="ro">FACTURA</value>
         <value xml:lang="ru">НАКЛАДНАЯ</value>
-        <value xml:lang="th">ใบเสร็จชำระเงิน</value>
+        <value xml:lang="th">ใบกำกับสินค้า</value>
         <value xml:lang="zh">发票</value>
     </property>
     <property key="AccountingInvoiceCommissionEntityDataProblem">
@@ -2841,7 +2843,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Entità/dati problemi creata provvigione fattura: ${reason} </value>
         <value xml:lang="ro">Probleme la crearea proviziei Facturii: ${reason} </value>
         <value xml:lang="ru">Проблемы объекта/данных при создании комиссионной накладной: ${reason} </value>
-        <value xml:lang="th">ปัญหาเอนทิตีหรือข้อมูลในการสร้างใบเสร็จค่า commission: ${reason}</value>
+        <value xml:lang="th">ปัญหาเอนทิตีหรือข้อมูลในการสร้างค่าคอมมิชชันใบกำกับสินค้า: ${reason}</value>
         <value xml:lang="zh">新建佣金发票时出现实体/数据问题：${reason} </value>
     </property>
     <property key="AccountingInvoiceCommissionError">
@@ -2852,7 +2854,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Errore creazione provvigioni fattura</value>
         <value xml:lang="ro">Eroare creatie provizii Factura</value>
         <value xml:lang="ru">Ошибка создания комиссионной накладной</value>
-        <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างใบเสร็จค่า commission</value>
+        <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างค่าคอมมิชชันใบกำกับสินค้า</value>
         <value xml:lang="zh">新建佣金发票时出错</value>
     </property>
     <property key="AccountingInvoiceCommissionErrorItem">
@@ -2863,7 +2865,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Errore creazione righe fattura per provvigioni fattura</value>
         <value xml:lang="ro">Eroare creatie Linie Factura pentru provizii Factura</value>
         <value xml:lang="ru">Ошибка создания позиции комиссионной накладной</value>
-        <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างใบสั่งของสำหรับใบเสร็จค่า commission</value>
+        <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างใบสั่งของสำหรับค่าคอมมิชชันใบกำกับสินค้า</value>
         <value xml:lang="zh">为佣金发票新建发票明细时出错</value>
     </property>
     <property key="AccountingInvoiceCommissionErrorRole">
@@ -2874,7 +2876,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Errore creazione ruolo fattura per provvigioni fattura</value>
         <value xml:lang="ro">Eroare creatie Rol Factura pentru  provizii Factura</value>
         <value xml:lang="ru">Ошибка создания роли для комиссионной накладной</value>
-        <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างสถานะใบกำกับสินค้าสำหรับใบเสร็จค่าคอมมิชชัน</value>
+        <value xml:lang="th">Error: ความผิดพลาด! ในการสร้างสถานะใบกำกับสินค้าสำหรับค่าคอมมิชชันใบกำกับสินค้า</value>
         <value xml:lang="zh">为佣金发票新建发票角色时出错</value>
     </property>
     <property key="AccountingInvoiceCommissionInvalid">
@@ -2885,7 +2887,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Questo tipo di fattura non ha provvigione, non creata provvigione fattura</value>
         <value xml:lang="ro">Acest Tip di Factura nu are provizii, nu sunt  create provizii Factura</value>
         <value xml:lang="ru">Этот тип накладной не имеет комиссии, комиссионная накладная не создается</value>
-        <value xml:lang="th">ประเภทของใบเสร็จชำระเงินนี้ไม่มีคอมมิชชัน ไม่มีการสร้างใบเสร็จค่า commission</value>
+        <value xml:lang="th">ประเภทของใบเสร็จชำระเงินนี้ไม่มีคอมมิชชัน ไม่มีการสร้างค่าคอมมิชชันใบกำกับสินค้า</value>
         <value xml:lang="zh">这个发票类型没有佣金，无法创建佣金发票</value>
     </property>
     <property key="AccountingInvoiceCommissionMultHeader">
@@ -2907,7 +2909,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Nessun ordine o righe reso, non creata provvigione fattura</value>
         <value xml:lang="ro">Nici o Comanda sau Linie returnata, Provizie Factura necreata</value>
         <value xml:lang="ru">Нет позиций заказа или возврата, комиссионная накладная не создается</value>
-        <value xml:lang="th">ไม่มีรายการสั่งของหรือคืนสินค้า, ไม่มีการสร้างใบเสร็จค่า commission</value>
+        <value xml:lang="th">ไม่มีรายการสั่งของหรือคืนสินค้า, ไม่มีการสร้างค่าคอมมิชชันใบกำกับสินค้า</value>
         <value xml:lang="zh">没有定单或退货明细，无法创建佣金发票</value>
     </property>
     <property key="AccountingInvoiceCommissionZeroInvoiceAmount">
@@ -2918,7 +2920,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Questa fattura ha un importo a zero, così nessena provvigione fattura sarà creata</value>
         <value xml:lang="ro">Aceasta Factura are Valoarea  zero, deci la aceasta Factura nu se poate crea nici-o provizie.</value>
         <value xml:lang="ru">Комиссионная накладная не создана потом-что сумма накладной нулевая </value>
-        <value xml:lang="th">ใบเสร็จชำระเงินนี้มีจำนวนของศูนย์, ดังนั้นจะไม่มีการสร้างใบเสร็จค่า commission </value>
+        <value xml:lang="th">ใบเสร็จชำระเงินนี้มีจำนวนของศูนย์, ดังนั้นจะไม่มีการสร้างค่าคอมมิชชันใบกำกับสินค้า </value>
         <value xml:lang="zh">这个发票的金额为0，因此不会创建佣金发票 </value>
     </property>
     <property key="AccountingInvoiceCompletelyApplied">
@@ -2936,7 +2938,7 @@ esetata in mod automat</value>
 </value>
         <value xml:lang="ru">Накладная [${invoiceId}]  уже полностью оплачена... 
 </value>
-        <value xml:lang="th">ใบเสร็จรับเงิน [${invoiceId}]  เสร็จเรียบร้อยแล้วครอบคลุมไปถึงการชำระเงิน...</value>
+        <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}]  เสร็จเรียบร้อยแล้วครอบคลุมไปถึงการชำระเงิน...</value>
         <value xml:lang="zh">支付已完全满足了发票[${invoiceId}]的金额... 
 </value>
     </property>
@@ -2951,7 +2953,7 @@ esetata in mod automat</value>
         <value xml:lang="pt_PT">Data da Factura</value>
         <value xml:lang="ro">Data Factura</value>
         <value xml:lang="ru">Дата накладной</value>
-        <value xml:lang="th">ใบเสร็จชำระเงินวันที่</value>
+        <value xml:lang="th">ใบกำกับสินค้าวันที่</value>
         <value xml:lang="zh">开票日期</value>
     </property>
     <property key="AccountingInvoiceDateAbbr">
@@ -3001,7 +3003,7 @@ esetata in mod automat</value>
         <value xml:lang="pt_PT">ID da Factura</value>
         <value xml:lang="ro">Nr.Factura</value>
         <value xml:lang="ru">Код накл.</value>
-        <value xml:lang="th">รหัสใบเสร็จชำระเงิน</value>
+        <value xml:lang="th">รหัสใบกำกับสินค้า</value>
         <value xml:lang="zh">发票编号</value>
     </property>
     <property key="AccountingInvoiceItem">
@@ -3015,7 +3017,7 @@ esetata in mod automat</value>
         <value xml:lang="pt_PT">Item de Factura</value>
         <value xml:lang="ro">Linie Factura</value>
         <value xml:lang="ru">Позиция накладной</value>
-        <value xml:lang="th">ไอเทมใบกำกับสินค้า</value>
+        <value xml:lang="th">รายการใบกำกับสินค้า</value>
         <value xml:lang="zh">发票明细</value>
     </property>
     <property key="AccountingInvoiceItemAdd">
@@ -3027,7 +3029,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Voeg een nieuwe faktuurregel toe</value>
         <value xml:lang="ro">Adauga o noua Linie factura</value>
         <value xml:lang="ru">Добавить новую позицию накладной</value>
-        <value xml:lang="th">เพิ่มไอเทมใบกำกับสินค้าใหม่</value>
+        <value xml:lang="th">เพิ่มรายการใบกำกับสินค้าใหม่</value>
         <value xml:lang="zh">新建发票明细</value>
     </property>
     <property key="AccountingInvoiceItemLessRequested">
@@ -3061,7 +3063,7 @@ esetata in mod automat</value>
 </value>
         <value xml:lang="ru">Запрашиваемая сумма ${tooMuch?currency(${isoCode})} превышает сумму позиции [${invoiceItemSeqId}] накладной [${invoiceId}]
 </value>
-        <value xml:lang="th">จำนวนเรียกร้อง ${tooMuch?currency(${isoCode})} ถึงมากสำหรับใบเสร็จรับเงินนี้ [${invoiceId}] สินค้า[${invoiceItemSeqId}]</value>
+        <value xml:lang="th">จำนวนคำร้อง ${tooMuch?currency(${isoCode})} ถึงมากสำหรับใบเสร็จรับเงินนี้ [${invoiceId}] สินค้า[${invoiceItemSeqId}]</value>
         <value xml:lang="zh">请求的金额是${tooMuch?currency(${isoCode})}，对于这个发票[${invoiceId}]的明细[${invoiceItemSeqId}]来说太多了
 </value>
     </property>
@@ -3096,7 +3098,7 @@ esetata in mod automat</value>
 "</value>
         <value xml:lang="ru">Валюта платежа [${paymentCurrencyId}] и валюта позиции накладной [${itemCurrency}] не совпадают
 "</value>
-        <value xml:lang="th">การชำระเงิน [${paymentCurrencyId}] และใบสั่งของ[${itemCurrency}] ไม่เหมือนกัน"</value>
+        <value xml:lang="th">สกุลเงินที่ชำระ [${paymentCurrencyId}] และใบสั่งของ[${itemCurrency}] ไม่เหมือนกัน"</value>
         <value xml:lang="zh">支付的币种[${paymentCurrencyId}]与发票明细的币种[${itemCurrency}]不同
 "</value>
     </property>
@@ -3109,13 +3111,13 @@ esetata in mod automat</value>
         <value xml:lang="nl">Item Nr</value>
         <value xml:lang="ro">N.Linie</value>
         <value xml:lang="ru">№ поз.</value>
-        <value xml:lang="th">รหัสไอเทม</value>
+        <value xml:lang="th">รหัสรายการ</value>
         <value xml:lang="zh">明细编号</value>
     </property>
     <property key="AccountingInvoiceItemType">
         <value xml:lang="en">Invoice Item Type</value>
         <value xml:lang="it">Tipo Riga Fattura</value>
-        <value xml:lang="th">ประเภทไอเทมใบกำกับสินค้า</value>
+        <value xml:lang="th">ประเภทรายการใบกำกับสินค้า</value>
     </property>
     <property key="AccountingInvoiceItems">
         <value xml:lang="ar">البنود</value>
@@ -3126,7 +3128,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Items</value>
         <value xml:lang="ro">Linii</value>
         <value xml:lang="ru">Спецификация</value>
-        <value xml:lang="th">ไอเทม</value>
+        <value xml:lang="th">รายการ</value>
         <value xml:lang="zh">明细</value>
     </property>
     <property key="AccountingInvoiceLessRequested">
@@ -3179,7 +3181,7 @@ esetata in mod automat</value>
 </value>
         <value xml:lang="ru">Накладная [${invoiceId}]: запись не найдена
 </value>
-        <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] ไม่พบในบันทึ</value>
+        <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] ไม่พบเรคคอร์ด</value>
         <value xml:lang="zh">没有找到发票[${invoiceId}]的记录
 </value>
     </property>
@@ -3209,7 +3211,7 @@ esetata in mod automat</value>
     <property key="AccountingInvoicePDFOtherCur">
         <value xml:lang="en">PDF other Currency</value>
         <value xml:lang="it">PDF Altra Valuta</value>
-        <value xml:lang="th">PDF other Currency</value>
+        <value xml:lang="th">PDF สกุลเงินอื่น ๆ</value>
     </property>
     <property key="AccountingInvoicePaid">
         <value xml:lang="ar">مسدد</value>
@@ -3261,7 +3263,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Fattura Acquisto</value>
         <value xml:lang="ro">Factura Cumparare</value>
         <value xml:lang="ru">Приходная накладная</value>
-        <value xml:lang="th">ใบเสร็จการสั่งซื้อ</value>
+        <value xml:lang="th">ใบกำกับการสั่งซื้อ</value>
         <value xml:lang="zh">购物发票</value>
     </property>
     <property key="AccountingInvoiceRoles">
@@ -3284,7 +3286,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Fattura Vendita</value>
         <value xml:lang="ro">Factura Vanzare</value>
         <value xml:lang="ru">Расходная накладная</value>
-        <value xml:lang="th">ใบเสร็จการขาย</value>
+        <value xml:lang="th">ใบกำกับการขาย</value>
         <value xml:lang="zh">销售发票</value>
     </property>
     <property key="AccountingInvoiceStatus">
@@ -3423,7 +3425,7 @@ esetata in mod automat</value>
         <value xml:lang="pt_PT">Factura Total</value>
         <value xml:lang="ro">Total Factura</value>
         <value xml:lang="ru">Итого по накладной</value>
-        <value xml:lang="th">ผลรวมใบเสร็จรับเงิน</value>
+        <value xml:lang="th">ผลรวมใบกำกับสินค้า</value>
         <value xml:lang="zh">发票金额合计</value>
     </property>
     <property key="AccountingInvoiceTotalZero">
@@ -3492,7 +3494,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">ItemNr</value>
         <value xml:lang="ro">Nr.</value>
         <value xml:lang="ru">Поз№</value>
-        <value xml:lang="th">หมายเลขไอเทม</value>
+        <value xml:lang="th">หมายเลขรายการ</value>
         <value xml:lang="zh">明细编号</value>
     </property>
     <property key="AccountingLastNameCard">
@@ -3780,7 +3782,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Overeenkomstregel aanmaken</value>
         <value xml:lang="ro">Creaza Linie Contract</value>
         <value xml:lang="ru">Создать элемент договора</value>
-        <value xml:lang="th">สร้างไอเทมสัญญา</value>
+        <value xml:lang="th">สร้างข้อสัญญา</value>
         <value xml:lang="zh">新建合同条款</value>
     </property>
     <property key="AccountingNewAgreementItemTerm">
@@ -4036,7 +4038,7 @@ esetata in mod automat</value>
         <value xml:lang="pt_PT">Facturas Não Encontradas</value>
         <value xml:lang="ro">Nici o Factura Gasita.</value>
         <value xml:lang="ru">Накладные не найдены</value>
-        <value xml:lang="th">ไม่พบใบเส็จรับเงิน</value>
+        <value xml:lang="th">ไม่พบใบกำกับสินค้า</value>
         <value xml:lang="zh">没有找到发票</value>
     </property>
     <property key="AccountingNoKnownInvoiceItemTypeReturnAdjustmentType">
@@ -4081,7 +4083,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Geen bestellingsregels, kan geen faktuur aanmaken.</value>
         <value xml:lang="ro">Nici o Linie de inregistrare Factura, nici o Factura Creata.</value>
         <value xml:lang="ru">Для накладной нет позиций заказа, создать невозможно.</value>
-        <value xml:lang="th">ไม่มีการสั่งไอเทมถึงใบเสร็จรับเงิน ไม่สามารถสร้างใบเสร็จรับเงินได้</value>
+        <value xml:lang="th">ไม่มีการสั่งรายการถึงใบเสร็จรับเงิน ไม่สามารถสร้างใบเสร็จรับเงินได้</value>
         <value xml:lang="zh">没有定单明细到发票，无法创建发票。</value>
     </property>
     <property key="AccountingNoPaymentMethods">
@@ -4187,7 +4189,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Order Item with id ${orderItemSeqId} not found.</value>
         <value xml:lang="fr">La ligne de commande avec identifiant  ${orderItemSeqId} n'a pas été trouvée</value>
         <value xml:lang="ru">Позиция заказа с кодом ${orderItemSeqId} не найдена.</value>
-        <value xml:lang="th">ไม่พบรายการสั่งไอเทมด้วยรหัส ${orderItemSeqId}</value>
+        <value xml:lang="th">ไม่พบรายการสั่งรายการด้วยรหัส ${orderItemSeqId}</value>
     </property>
     <property key="AccountingOrderNr">
         <value xml:lang="en">Order #</value>
@@ -4251,6 +4253,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPostedTransactionTotals">
         <value xml:lang="en">Posted Totals</value>
+        <value xml:lang="th">ผลรวมประกาศ</value>
     </property>    
     <property key="AccountingPSInvalidStatusChange">
         <value xml:lang="ar">الوضعية الجديدة تغيير  غير صحيح</value>
@@ -4336,7 +4339,7 @@ esetata in mod automat</value>
     <property key="AccountingPartyFixedAssetAssignments">
         <value xml:lang="en">Assignments</value>
         <value xml:lang="it">Assegnazioni</value>
-        <value xml:lang="th">งานที่ได้รับมอบหมาย</value>
+        <value xml:lang="th">การกำหนด</value>
     </property>
     <property key="AccountingPartyGlAccounts">
         <value xml:lang="en">Party Gl Accounts</value>
@@ -5070,7 +5073,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Probleem met het veranderen van de status van de faktuur naar ${newStatus}</value>
         <value xml:lang="ro">Problema la  modificarea stadiului Facturii in stadiu  ${newStatus}</value>
         <value xml:lang="ru">Проблема изменения статуса накладной в ${newStatus}</value>
-        <value xml:lang="th">ปัญหาในการเปลี่นสถานะใบเสร็จรับเงิน ${newStatus}</value>
+        <value xml:lang="th">ปัญหาในการเปลี่นสถานะใบกำกับสินค้า ${newStatus}</value>
         <value xml:lang="zh">把发票状态改为${newStatus}时出错</value>
     </property>
     <property key="AccountingProblemGettingItemsFromShipments">
@@ -5176,6 +5179,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPurchaseInvoiceToRevenue">
         <value xml:lang="en">Purchase Invoice type to Revenue GL Account Number assignment list</value>
+        <value xml:lang="th">Purchase Invoice type to Revenue GL Account Number assignment list</value>
     </property>
     <property key="AccountingQuantity">
         <value xml:lang="en">AccountingQuantity</value>
@@ -5413,7 +5417,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Mostra Fatture</value>
         <value xml:lang="ro">Afiseaza Facturi</value>
         <value xml:lang="ru">Показать накладные:</value>
-        <value xml:lang="th">แสดงใบเสร็จรับเงิน</value>
+        <value xml:lang="th">แสดงใบกำกับสินค้า</value>
         <value xml:lang="zh">显示发票</value>
     </property>
     <property key="AccountingShowLookupFields">
@@ -5515,7 +5519,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingTaxAuthorityGeo">
         <value xml:lang="en">Tax Authority Geo</value>
-        <value xml:lang="th">Tax Authority Geo</value>
+        <value xml:lang="th">โครงสร้างภาษี</value>
     </property>
     <property key="AccountingTaxAuthorityGlAccounts">
         <value xml:lang="en">TaxAuthority GL Accounts </value>
@@ -5552,7 +5556,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Vorwaarde type Nr</value>
         <value xml:lang="ro">Tip Termen</value>
         <value xml:lang="ru">Тип условия</value>
-        <value xml:lang="th">Term Type Id</value>
+        <value xml:lang="th">รหัสประเภทช่วงระยะเวลา</value>
         <value xml:lang="zh">条件类型标识</value>
     </property>
     <property key="AccountingTextData">
@@ -5631,6 +5635,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingTransactionTotals">
         <value xml:lang="en">Transaction Totals</value>
+        <value xml:lang="th">ผลรวมรายการ</value>
     </property>
     <property key="AccountingTransactionType">
         <value xml:lang="ar">نوع العملية</value>
@@ -5785,6 +5790,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingUnPostedTransactionTotals">
         <value xml:lang="en">UnPosted Totals</value>
+        <value xml:lang="th">UnPosted Totals</value>
     </property>
     <property key="AccountingUpdateAvailability">
         <value xml:lang="ar">تحديث التوفير</value>
@@ -5822,7 +5828,7 @@ esetata in mod automat</value>
         <value xml:lang="pt_PT">Erro e Segurança: para correr "Actualizar Transacção em Conta" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN </value>
         <value xml:lang="ro">Eroare de Siguranta: pentru  executarea updateAcctgTrans trebuie sa ai permisul ACCOUNTING_UPDATE sau ACCOUNTING_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска updateAcctgTrans у вас должны быть права ACCOUNTING_UPDATE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error : to run updateAcctgTrans you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission</value>
+        <value xml:lang="th">Security Error : ความปลอดภัยผิดพลาด! ในการดำเนินการ updateAcctgTrans คุณต้องมีการอนุญาต ACCOUNTING_UPDATE หรือ ACCOUNTING_ADMIN </value>
         <value xml:lang="zh">安全错误：要运行更新账户交易，你必须具有ACCOUNTING_UPDATE或ACCOUNTING_ADMIN权限</value>
     </property>
     <property key="AccountingUpdateBillingAccountRolePermissionError">
@@ -5835,7 +5841,7 @@ esetata in mod automat</value>
         <value xml:lang="pt_PT">Erro de Segurança: para correr "Actualizar Função de Conta para Pagamentos" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru a executa updateBillingAccountRole trebuie sa ai permisul ACCOUNTING_UPDATE sau ACCOUNTING_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска updateBillingAccountRole у вас должны быть права ACCOUNTING_UPDATE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error : to run updateBillingAccountRole you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission</value>
+        <value xml:lang="th">Security Error : ความปลอดภัยผิดพลาด! ในการดำเนินการ updateBillingAccountRole คุณต้องมีการอนุญาต ACCOUNTING_UPDATE หรือ ACCOUNTING_ADMIN </value>
         <value xml:lang="zh">安全错误：要运行更新账单账户角色，你必须具有ACCOUNTING_UPDATE或ACCOUNTING_ADMIN权限</value>
     </property>
     <property key="AccountingUpdateBillingAccountTermPermissionError">
@@ -5848,7 +5854,7 @@ esetata in mod automat</value>
         <value xml:lang="pt_PT">Erro de Segurança: para correr "Actualizar Termo de Conta para Pagamento" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru a executa updateBillingAccountTerm trebuie sa ai permisul ACCOUNTING_UPDATE sau ACCOUNTING_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска updateBillingAccountTerm у вас должны быть права ACCOUNTING_UPDATE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error : to run updateBillingAccountTerm you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission</value>
+        <value xml:lang="th">Security Error : ความปลอดภัยผิดพลาด! ในการดำเนินการ updateBillingAccountTerm คุณต้องมีการอนุญาต ACCOUNTING_UPDATE หรือ ACCOUNTING_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行更新账单账户条件，你必须具有ACCOUNTING_UPDATE或ACCOUNTING_ADMIN权限</value>
     </property>
     <property key="AccountingUpdateFX">
@@ -5878,7 +5884,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingUseGiftCardNotOnFile">
         <value xml:lang="en">Use Gift Card Not On File</value>
-        <value xml:lang="th">ใช้บัตรของขวํยไม่ได้ใช้ไฟล์</value>
+        <value xml:lang="th">ใช้บัตรของขวัญไม่ได้บนไฟล์</value>
     </property>
     <property key="AccountingValidationPattern">
         <value xml:lang="en">Use regular expression validation pattern</value>
@@ -6126,7 +6132,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Valuta Conto</value>
         <value xml:lang="ro">Cont Valuta </value>
         <value xml:lang="ru">Валюта счета</value>
-        <value xml:lang="th">Account Currency Uom Id</value>
+        <value xml:lang="th">รหัสหน่วยวัดสกุลเงินบัญชี</value>
         <value xml:lang="zh">账户币种货币单位标识</value>
     </property>
     <property key="FormFieldTitle_accountLimit">
@@ -6317,7 +6323,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Udm Importo</value>
         <value xml:lang="ro">Udm Valoare</value>
         <value xml:lang="ru">Денежная единица</value>
-        <value xml:lang="th">Amount Uom Id</value>
+        <value xml:lang="th">รหัสหน่วยวัดจำนวน</value>
         <value xml:lang="zh">金额货币单位标识</value>
     </property>
     <property key="FormFieldTitle_applied">
@@ -6364,7 +6370,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Valuta di Base</value>
         <value xml:lang="ro">Valuta de Baza</value>
         <value xml:lang="ru">Базовая валюта</value>
-        <value xml:lang="th">เงินตราพื้นฐาน</value>
+        <value xml:lang="th">สกุลเงินพื้นฐาน</value>
         <value xml:lang="zh">基础币种</value>
     </property>
     <property key="FormFieldTitle_billingAccountId">
@@ -6450,7 +6456,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Codice Contatto</value>
         <value xml:lang="ro">Cod Contract</value>
         <value xml:lang="ru">Код способа контакта</value>
-        <value xml:lang="th">Contact Mech Id</value>
+        <value xml:lang="th">รหัสวิธีการติดต่อ</value>
         <value xml:lang="zh">联系方法标识</value>
     </property>
     <property key="FormFieldTitle_conversionFactor">
@@ -6481,7 +6487,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Valuta</value>
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
-        <value xml:lang="th">Currency Uom Id</value>
+        <value xml:lang="th">รหัสหน่วยวัดสกุลเงิน</value>
         <value xml:lang="zh">币种货币单位标识</value>
     </property>
     <property key="FormFieldTitle_dateAcquired">
@@ -6774,7 +6780,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Codice Gateway</value>
         <value xml:lang="ro">Cod Gateway</value>
         <value xml:lang="ru">Код шлюза</value>
-        <value xml:lang="th">รหัสเกทเวย์</value>
+        <value xml:lang="th">รหัสวิธี</value>
         <value xml:lang="zh">网关代码</value>
     </property>
     <property key="FormFieldTitle_gatewayFlag">
@@ -6796,7 +6802,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Messaggio Gateway</value>
         <value xml:lang="ro">Mesaj Gateway</value>
         <value xml:lang="ru">Сообщение шлюза</value>
-        <value xml:lang="th">Gateway Message</value>
+        <value xml:lang="th">ข้อความวิธี</value>
         <value xml:lang="zh">网关信息</value>
     </property>
     <property key="FormFieldTitle_gatewayScoreResult">
@@ -6966,7 +6972,7 @@ esetata in mod automat</value>
         <value xml:lang="nl">Regel Nr</value>
         <value xml:lang="ro">N.Linie</value>
         <value xml:lang="ru">Позиция №</value>
-        <value xml:lang="th">หมายเลขไอเทม</value>
+        <value xml:lang="th">หมายเลขรายการ</value>
         <value xml:lang="zh">明细编号</value>
     </property>
     <property key="FormFieldTitle_invoiceItemTypeId">
@@ -7105,7 +7111,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Ubicato Nello Stabilimento</value>
         <value xml:lang="ro">Pozitionat in Compartimentul</value>
         <value xml:lang="ru">Расположен на объекте</value>
-        <value xml:lang="th">Located At Facility Id</value>
+        <value xml:lang="th">ที่ตั้งที่รหัสการทำงาน</value>
         <value xml:lang="zh">位于场所标识</value>
     </property>
     <property key="FormFieldTitle_locatedAtLocationSeqId">
@@ -7145,7 +7151,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Prezzo Minimo Riga</value>
         <value xml:lang="ro">Pret Minim Linie</value>
         <value xml:lang="ru">Мин. цена поз.</value>
-        <value xml:lang="th">ราคาไอเทมน้อยสุด</value>
+        <value xml:lang="th">ราคารายการน้อยสุด</value>
         <value xml:lang="zh">最小明细价格</value>
     </property>
     <property key="FormFieldTitle_minPurchase">
@@ -7223,7 +7229,7 @@ esetata in mod automat</value>
     <property key="FormFieldTitle_otherCurrency">
         <value xml:lang="en">Other Currency</value>
         <value xml:lang="it">Altra Valuta</value>
-        <value xml:lang="th">Other Currency</value>
+        <value xml:lang="th">สกุลเงินอื่น ๆ</value>
     </property>
     <property key="FormFieldTitle_outstandingAmount">
         <value xml:lang="en">Outstanding Amount</value>
@@ -7279,7 +7285,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Codice Conto Padre Gl</value>
         <value xml:lang="ro">Cod Cont Parinte Gl</value>
         <value xml:lang="ru">Код родительского счета ГК</value>
-        <value xml:lang="th">Parent Gl Account Id</value>
+        <value xml:lang="th">รหัสกลุ่มบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">上级总账账户编号</value>
     </property>
     <property key="FormFieldTitle_parentInvoiceId">
@@ -7288,7 +7294,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Fattura Principale</value>
         <value xml:lang="ro">Factura Principala</value>
         <value xml:lang="ru">Код род-й накладной</value>
-        <value xml:lang="th">Parent Invoice Id</value>
+        <value xml:lang="th">รหัสกลุ่มใบกำกับสินค้า</value>
         <value xml:lang="zh">上级发票编号</value>
     </property>
     <property key="FormFieldTitle_parentInvoiceItemSeqId">
@@ -7297,7 +7303,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Riga Fattura Principale</value>
         <value xml:lang="ro">Linie Factura Principala</value>
         <value xml:lang="ru">Код поз. род-й наклад.</value>
-        <value xml:lang="th">Parent Invoice Item Seq Id</value>
+        <value xml:lang="th">รหัสรายการกลุ่มใบกำกับสินค้า</value>
         <value xml:lang="zh">上级发票明细顺序编号</value>
     </property>
     <property key="FormFieldTitle_partyId">
@@ -7361,7 +7367,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Codice Risposta Gateway Pagamento</value>
         <value xml:lang="ro">Cod Id Raspuns Gateway Plata</value>
         <value xml:lang="ru">Код ответа платежного шлюза</value>
-        <value xml:lang="th">Payment Gateway Response Id</value>
+        <value xml:lang="th">รหัสการตอบสนองวิธีการชำระเงิน</value>
         <value xml:lang="zh">支付网关响应标识</value>
     </property>
     <property key="FormFieldTitle_paymentId">
@@ -7535,7 +7541,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Nome Promozione Prodotto</value>
         <value xml:lang="ro">Nume Promovare Produs</value>
         <value xml:lang="ru">Название акции</value>
-        <value xml:lang="th">ชื่อสินค้าโปนโมชัน</value>
+        <value xml:lang="th">ชื่อสินค้าโปรโมชัน</value>
         <value xml:lang="zh">产品促销名称</value>
     </property>
     <property key="FormFieldTitle_productionCapacity">
@@ -7994,7 +8000,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Impegno di Lavoro</value>
         <value xml:lang="ro">Sarcina de Lucru</value>
         <value xml:lang="ru">Код задачи</value>
-        <value xml:lang="th">Work Effort Id</value>
+        <value xml:lang="th">รหัสงาน</value>
         <value xml:lang="zh">人工服务标识</value>
     </property>
     <property key="FromTimePeriod">
@@ -8133,26 +8139,26 @@ esetata in mod automat</value>
         <value xml:lang="nl">Overeenkomst item aanpassen</value>
         <value xml:lang="ro">Actualizare Linie Contract</value>
         <value xml:lang="ru">Изменить элемент договора</value>
-        <value xml:lang="th">แก้ไขไอเทมสัญญา</value>
+        <value xml:lang="th">แก้ไขหัวข้อสัญญา</value>
         <value xml:lang="zh">编辑合同条款</value>
     </property>
     <property key="PageTitleEditAgreementItemParty">
         <value xml:lang="en">Edit Agreement Item Party</value>
         <value xml:lang="it">Aggiorna Soggetto Riga Contratto </value>
         <value xml:lang="ru">Изменить участника элемента договора</value>
-        <value xml:lang="th">แก้ไขสัญญากลุ่มไอเทม</value>
+        <value xml:lang="th">แก้ไขสัญญากลุ่มหัวข้อ</value>
     </property>
     <property key="PageTitleEditAgreementItemProduct">
         <value xml:lang="en">Edit Agreement Item Product</value>
         <value xml:lang="it">Aggiorna Prodotto Riga Contratto </value>
         <value xml:lang="ru">Изменить продукт элемента договора</value>
-        <value xml:lang="th">แก้ไขสัญญาไอเทมสินค้า</value>
+        <value xml:lang="th">แก้ไขสัญญาหัวข้อสินค้า</value>
     </property>
     <property key="PageTitleEditAgreementItemTerm">
         <value xml:lang="en">Edit Agreement Item Term</value>
         <value xml:lang="it">Aggiorna Termini Riga Contratto</value>
         <value xml:lang="ru">Изменить условия элемента договора</value>
-        <value xml:lang="th">แก้ไขสัญญาไอเทมช่วงเวลาที่กำหนด</value>
+        <value xml:lang="th">แก้ไขสัญญาหัวข้อช่วงเวลาที่กำหนด</value>
     </property>
     <property key="PageTitleEditAgreementPromoAppl">
         <value xml:lang="en">Edit Agreement Promo Appl</value>

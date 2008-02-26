@@ -36,7 +36,7 @@
     <property key="AssetMaint">
         <value xml:lang="en">Asset Maint</value>
         <value xml:lang="it">Gestione Cespiti</value>
-        <value xml:lang="th">บำรุงรักษาสินทรัพย์</value>
+        <value xml:lang="th">การรักษาทรัพย์สิน</value>
     </property>
     <property key="Business Intelligence">
         <value xml:lang="en">Business Intelligence</value>
@@ -119,7 +119,7 @@
         <value xml:lang="pt">Somente Activo</value>
         <value xml:lang="ro">Numai Activ</value>
         <value xml:lang="ru">Только активные</value>
-        <value xml:lang="th">ปฏิบัติงานเท่านั้น</value>
+        <value xml:lang="th">ใช้งานเท่านั้น</value>
         <value xml:lang="zh_CN">在用</value>
         <value xml:lang="zh">仅有效</value>
     </property>
@@ -508,7 +508,7 @@
         <value xml:lang="pt">Aplicar</value>
         <value xml:lang="ro">Aplica</value>
         <value xml:lang="ru">Применить</value>
-        <value xml:lang="th">สมัคร</value>
+        <value xml:lang="th">ประยุกต์ใช้</value>
         <value xml:lang="zh_CN">应用</value>
         <value xml:lang="zh">应用</value>
     </property>
@@ -579,7 +579,7 @@
         <value xml:lang="nl">Vennoot</value>
         <value xml:lang="pt">Associar</value>
         <value xml:lang="ro">Asociere</value>
-        <value xml:lang="th">มีส่วนร่วม</value>
+        <value xml:lang="th">รวมกลุ่ม</value>
         <value xml:lang="zh_CN">关联</value>
         <value xml:lang="zh">联系</value>
     </property>
@@ -593,7 +593,7 @@
         <value xml:lang="pt">Associações</value>
         <value xml:lang="ro">Asociatii</value>
         <value xml:lang="ru">Ассоциации</value>
-        <value xml:lang="th">มีส่วนร่วม</value>
+        <value xml:lang="th">รวมกลุ่ม</value>
         <value xml:lang="zh_CN">关联</value>
         <value xml:lang="zh">联系</value>
     </property>
@@ -711,7 +711,7 @@
         <value xml:lang="pt">Retroceder para</value>
         <value xml:lang="ro">Inapoi La</value>
         <value xml:lang="ru">Назад</value>
-        <value xml:lang="th">กลับถึง</value>
+        <value xml:lang="th">กลับไปยัง</value>
         <value xml:lang="zh_CN">返回至</value>
         <value xml:lang="zh">后退到</value>
     </property>
@@ -726,7 +726,7 @@
         <value xml:lang="pt">Voltar à Lista</value>
         <value xml:lang="ro">Inapoi La Lista</value>
         <value xml:lang="ru">Назад к списку</value>
-        <value xml:lang="th">กลับถึงรายการ</value>
+        <value xml:lang="th">กลับไปยังรายการ</value>
         <value xml:lang="zh_CN">返回列表</value>
         <value xml:lang="zh">后退到列表</value>
     </property>
@@ -741,7 +741,7 @@
         <value xml:lang="pt">Voltar às Opções</value>
         <value xml:lang="ro">Inapoi La Optiuni</value>
         <value xml:lang="ru">Назад к опциям</value>
-        <value xml:lang="th">กลับถึงตัวเลือก</value>
+        <value xml:lang="th">กลับไปยังตัวเลือก</value>
         <value xml:lang="zh_CN">返回至选项</value>
         <value xml:lang="zh">后退到选项</value>
     </property>
@@ -869,7 +869,7 @@
         <value xml:lang="pt">Alterar</value>
         <value xml:lang="ro">Schimbare</value>
         <value xml:lang="ru">Изменить</value>
-        <value xml:lang="th">เปลี่ยน</value>
+        <value xml:lang="th">เปลี่ยนแปลง</value>
         <value xml:lang="zh_CN">改变</value>
         <value xml:lang="zh">修改</value>
     </property>
@@ -1042,6 +1042,7 @@
     </property>
     <property key="CommonCollapse">
         <value xml:lang="en">Collapse</value>
+        <value xml:lang="th">ล้มเหลว</value>
     </property>
     <property key="CommonComingSoon">
         <value xml:lang="ar">سنعود قريبا</value>
@@ -1381,7 +1382,7 @@
         <value xml:lang="pt">Moeda</value>
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
-        <value xml:lang="th">เงินตรา</value>
+        <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="zh_CN">货币</value>
         <value xml:lang="zh">币种</value>
     </property>
@@ -1396,13 +1397,13 @@
         <value xml:lang="pt">Corrente</value>
         <value xml:lang="ro">Actual</value>
         <value xml:lang="ru">Текущий</value>
-        <value xml:lang="th">เป็นที่ยอมรับ</value>
+        <value xml:lang="th">ใช้กันในปัจจุบัน</value>
         <value xml:lang="zh_CN">当前</value>
         <value xml:lang="zh">当前</value>
     </property>
     <property key="CommonCurrentPassword">
         <value xml:lang="en">Current Password</value>
-        <value xml:lang="th">รหัสผ่านเป็ที่ยอมรับ</value>
+        <value xml:lang="th">รหัสผ่านที่ใช้อยู่ในปัจจุบัน</value>
     </property>
     <property key="CommonDaily">
         <value xml:lang="ar">يوميا</value>
@@ -1617,7 +1618,7 @@
         <value xml:lang="pt">Desactivado</value>
         <value xml:lang="ro">Dizabilitat</value>
         <value xml:lang="ru">Недоступно</value>
-        <value xml:lang="th">Disabled</value>
+        <value xml:lang="th">ไม่สามารถใช้ได้</value>
         <value xml:lang="zh_CN">禁用</value>
         <value xml:lang="zh">无效</value>
     </property>
@@ -1877,6 +1878,7 @@
     </property>
     <property key="CommonExpand">
         <value xml:lang="en">Expand</value>
+        <value xml:lang="en">แผ่ขยาย</value>
     </property>
     <property key="CommonExclude">
         <value xml:lang="en">Exclude</value>
@@ -2465,7 +2467,7 @@
         <value xml:lang="pt">Ir Para o Nó Pai</value>
         <value xml:lang="ro">Intoarcete la Parinte</value>
         <value xml:lang="ru">Вернуться на родительский уровень</value>
-        <value xml:lang="th">กลับไปยังผู้ดูแล</value>
+        <value xml:lang="th">กลับไปยังกลุ่ม</value>
         <value xml:lang="zh_CN">返回父结点</value>
         <value xml:lang="zh">回退到上一级</value>
     </property>
@@ -3806,7 +3808,7 @@
         <value xml:lang="pt">Ordenar</value>
         <value xml:lang="ro">Comanda</value>
         <value xml:lang="ru">Заказ</value>
-        <value xml:lang="th">รายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh">订单</value>
     </property>
@@ -3834,7 +3836,7 @@
         <value xml:lang="pt">Encomendas</value>
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="ru">Заказы</value>
-        <value xml:lang="th">รายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh">订单</value>
     </property>
@@ -4243,7 +4245,7 @@
         <value xml:lang="pt">Adicionar Rapidamente</value>
         <value xml:lang="ro">Adaugare Rapida</value>
         <value xml:lang="ru">Быстрое добавление</value>
-        <value xml:lang="th">เพิ่มอย่ารวดเร็ว</value>
+        <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
         <value xml:lang="zh_CN">快速添加</value>
         <value xml:lang="zh">快速添加</value>
     </property>
@@ -4413,7 +4415,7 @@
         <value xml:lang="en">Release Version</value>
         <value xml:lang="es">Versión 0.9.1</value>
         <value xml:lang="pt">1.0.0-Preview</value>
-        <value xml:lang="th">เวอร์ชัน</value>
+        <value xml:lang="th">เวอร์ชันใหม่</value>
     </property>
     <property key="CommonRemove">
         <value xml:lang="ar">نزع</value>
@@ -4920,7 +4922,7 @@
         <value xml:lang="pt">Definir</value>
         <value xml:lang="ro">Setare</value>
         <value xml:lang="ru">Установить</value>
-        <value xml:lang="th">เซท</value>
+        <value xml:lang="th">กำหนด</value>
         <value xml:lang="zh_CN">赋值</value>
         <value xml:lang="zh">设置</value>
     </property>
@@ -5075,7 +5077,7 @@
         <value xml:lang="pt">Especificado</value>
         <value xml:lang="ro">Specificat</value>
         <value xml:lang="ru">Указанный</value>
-        <value xml:lang="th">กำหนด</value>
+        <value xml:lang="th">เฉพาะเจาะจง</value>
         <value xml:lang="zh_CN">指定的</value>
         <value xml:lang="zh">指定</value>
     </property>
@@ -5252,7 +5254,7 @@
         <value xml:lang="pt">Subtotal</value>
         <value xml:lang="ro">Subtotal</value>
         <value xml:lang="ru">Сумма</value>
-        <value xml:lang="th">ผลรวมทั้งหมด</value>
+        <value xml:lang="th">ยอดรวมของส่วนหนึ่ง</value>
         <value xml:lang="zh_CN">小计</value>
         <value xml:lang="zh">小计</value>
     </property>
@@ -5365,7 +5367,7 @@
         <value xml:lang="pt">Texto</value>
         <value xml:lang="ro">Text</value>
         <value xml:lang="ru">Текст</value>
-        <value xml:lang="th">ข้อมูล</value>
+        <value xml:lang="th">ข้อความ</value>
         <value xml:lang="zh_CN">文本</value>
         <value xml:lang="zh">文本</value>
     </property>
@@ -5750,7 +5752,7 @@
         <value xml:lang="nl">UOM</value>
         <value xml:lang="pt">UOM</value>
         <value xml:lang="ro">UdM</value>
-        <value xml:lang="th">Uom</value>
+        <value xml:lang="th">หน่วยวัด</value>
         <value xml:lang="zh_CN">单位</value>
         <value xml:lang="zh">货币单位</value>
     </property>
@@ -5792,7 +5794,7 @@
         <value xml:lang="pt">UOM ID</value>
         <value xml:lang="ro">Cod UdM</value>
         <value xml:lang="ru">UOM ID</value>
-        <value xml:lang="th">UOM ID</value>
+        <value xml:lang="th">รหัสหน่วยวัด</value>
         <value xml:lang="zh_CN">单位标识</value>
         <value xml:lang="zh">货币单位标识</value>
     </property>
@@ -6047,7 +6049,7 @@
         <value xml:lang="pt">Vêr Pedido</value>
         <value xml:lang="ro">Afiseaza Cerere</value>
         <value xml:lang="ru">Просмотреть запрос</value>
-        <value xml:lang="th">แสดงการเรียกร้อง</value>
+        <value xml:lang="th">แสดงคำร้อง</value>
         <value xml:lang="zh_CN">查看请求</value>
         <value xml:lang="zh">浏览请求</value>
     </property>
@@ -6448,7 +6450,7 @@
     <property key="ExampleExt">
         <value xml:lang="en">Example Ext</value>
         <value xml:lang="it">Esempi Est.</value>
-        <value xml:lang="th">ตัวอย่าง</value>
+        <value xml:lang="th">ตัวอย่างพิเศษ</value>
     </property>
     <property key="Facility">
         <value xml:lang="ar">مرفق</value>
@@ -6461,7 +6463,7 @@
         <value xml:lang="pt">Instalação</value>
         <value xml:lang="ro">Compartimente</value>
         <value xml:lang="ru">Объект</value>
-        <value xml:lang="th">สิ่งอำนวยความสะดวก</value>
+        <value xml:lang="th">การทำงาน</value>
         <value xml:lang="zh_CN">设备</value>
         <value xml:lang="zh">场所</value>
     </property>
@@ -6538,7 +6540,7 @@
         <value xml:lang="nl">Valuta</value>
         <value xml:lang="pt">Moeda</value>
         <value xml:lang="ru">Валюта</value>
-        <value xml:lang="th">เงินตรา</value>
+        <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="zh">币种</value>
     </property>
     <property key="FormFieldTitle_deleteButton">
@@ -6722,7 +6724,7 @@
         <value xml:lang="nl">Valuta</value>
         <value xml:lang="pt">UOM</value>
         <value xml:lang="ru">Валюта</value>
-        <value xml:lang="th">UOM</value>
+        <value xml:lang="th">หน่วยวัด</value>
         <value xml:lang="zh">币值</value>
     </property>
     <property key="FormFieldTitle_updateButton">
@@ -6745,6 +6747,7 @@
         <value xml:lang="en">amount</value>
         <value xml:lang="it">Importo</value>
         <value xml:lang="ro">Valoare</value>
+        <value xml:lang="th">จำนวน</value>
     </property>
     <property key="FormfieldTitle_comments">
         <value xml:lang="en">comments</value>
@@ -6762,7 +6765,7 @@
         <value xml:lang="en">Currency</value>
         <value xml:lang="it">Valuta</value>
         <value xml:lang="ro">Valuta</value>
-        <value xml:lang="th">เงินตรา</value>
+        <value xml:lang="th">สกุลเงิน</value>
     </property>
     <property key="FormfieldTitle_effectiveDate">
         <value xml:lang="en">Effective Date</value>
@@ -6786,7 +6789,7 @@
         <value xml:lang="en">UOM</value>
         <value xml:lang="it">Udm</value>
         <value xml:lang="ro">Udm</value>
-        <value xml:lang="th">UOM</value>
+        <value xml:lang="th">หน่วยวัด</value>
     </property>
     <property key="FormfieldTitle_updateButton">
         <value xml:lang="en">Update</value>
@@ -6894,7 +6897,7 @@
         <value xml:lang="pt">Encomenda</value>
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="ru">Заказ</value>
-        <value xml:lang="th">รายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh">订单</value>
     </property>
@@ -7023,7 +7026,7 @@
         <value xml:lang="pt">Propóstio do Contacto</value>
         <value xml:lang="ro">Functie Contact</value>
         <value xml:lang="ru">Цель контакта</value>
-        <value xml:lang="th">ติดต่อเป้าหมาย</value>
+        <value xml:lang="th">เป้าหมายการติดต่อ</value>
         <value xml:lang="zh_CN">联络目的</value>
         <value xml:lang="zh">联系目的</value>
     </property>

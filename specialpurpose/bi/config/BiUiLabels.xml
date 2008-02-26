@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="BusinessIntelligenceApplication">
+        <value xml:lang="en">Business Intelligence Application</value>
+        <value xml:lang="it">Applicazione Business Intelligence</value>
+        <value xml:lang="th">โปรแกรมประยุกต์การเรียนรู้ทางธุรกิจ</value>
+    </property>
+    <property key="BusinessIntelligenceCompanyName">
+        <value xml:lang="en">OFBiz: Business Intelligence</value>
+        <value xml:lang="it">OFBiz: Business Intelligence</value>
+        <value xml:lang="th">OFBiz:การเรียนรู้ทางธุรกิจ</value>
+    </property>
+    <property key="BusinessIntelligenceCompanySubtitle">
+        <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+    </property>
+    <property key="BusinessIntelligenceCurrentStatus">
+        <value xml:lang="en">Current Status</value>
+        <value xml:lang="it">Stato Attuale</value>
+        <value xml:lang="th">สถานะในปัจจุบัน</value>
+    </property>
+    <property key="BusinessIntelligenceFieldDescription">
+        <value xml:lang="en">Field Description</value>
+        <value xml:lang="it">Descrizione Campo</value>
+        <value xml:lang="th">รายละเอียดข้อมูล</value>
+    </property>
+    <property key="BusinessIntelligenceFieldName">
+        <value xml:lang="en">Field Name</value>
+        <value xml:lang="it">Nome Campo</value>
+        <value xml:lang="th">ชื่อข้อมูล</value>
+    </property>
+    <property key="BusinessIntelligenceIntegratedFramework">
+        <value xml:lang="en">Business Intelligence Integrated Framework</value>
+        <value xml:lang="it">Business Intelligence Framework Integrato</value>
+        <value xml:lang="th">Framework ของการเรียนรู้ทางธุรกิจรวมกัน</value>
+    </property>
+    <property key="BusinessIntelligenceMainPage">
+        <value xml:lang="en">Main Page</value>
+        <value xml:lang="it">Pagina Principale</value>
+        <value xml:lang="th">หน้าหลัก</value>
+    </property>
+    <property key="BusinessIntelligenceNote1">
+        <value xml:lang="en">This is a proof of concept for an OFBiz integrated framework for business intelligence analysis.</value>
+        <value xml:lang="it">Questo è un prototipo per un OFBiz framework integrato per analisi di business intelligence.</value>
+        <value xml:lang="th">การทดสอบความเข้าใจสำหรับ OFBiz framework เพื่อการวิเคราะห์ระบบการเรียนรู้ทางธุรกิจ</value>
+    </property>
+    <property key="BusinessIntelligenceNote10">
+        <value xml:lang="en">The best practices for datawarehouses are mainly taken from the great book "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
+        <value xml:lang="it">Le migliori pratiche per i datawarehouses sono stati ricavati dal grande libro "The Data Warehouse Toolkit - Second Edition" di Ralph Kimball.</value>
+        <value xml:lang="th">วิธีปฏิบัติที่ดีที่สุดสำหรับข้อมูลคลังสินค้าส่วนใหญ่มาจากหนังสือดี ๆ ชื่อ "The Data Warehouse Toolkit - Second Edition" โดย Ralph Kimball</value>
+    </property>
+    <property key="BusinessIntelligenceNote11">
+        <value xml:lang="en">The data for dimensions and facts are maintained and kept up to date using standard OFBiz services</value>
+        <value xml:lang="it">I dati per dimensioni e fatti sono manutenibili e mantenuti aggiornati usando gli standard dei servizi OFBiz</value>
+        <value xml:lang="th">ข้อมูลสำหรับขอบเขตและข้อเท็จจริงคือการดูแลและรักษาวันที่ใช้บริการ OFBiz</value>
+    </property>
+    <property key="BusinessIntelligenceNote12">
+        <value xml:lang="en">(most of them written in minilang to facilitate customizations) and eca rules (easily customizable).</value>
+        <value xml:lang="it">(molti dei quali sono scritti utizzando minilang per facilitare le personalizzazioni) e le regole eca (facilmente personalizzabili).</value>
+        <value xml:lang="th">(สิ่งที่เขียนทั้งมหดใน minilang ถึง facilitate customizations) และเข้าแทนที่สถานะ (อย่างสะดวก)</value>
+    </property>
+    <property key="BusinessIntelligenceNote13">
+        <value xml:lang="en">The main low level services to post data to the datawarehouse,</value>
+        <value xml:lang="it">I servizi principali a basso livello per ricavare i dati del datawarehouse,</value>
+        <value xml:lang="th">หลักการบริการระดับล่างในการบันทึกข้อมูลลงในคลังข้อมูลสินค้า</value>
+    </property>
+    <property key="BusinessIntelligenceNote14">
+        <value xml:lang="en">to map the operational keys with the datawarehouse ones, and to manage</value>
+        <value xml:lang="it">la mappa di chiavi operazionali con il datawarehouse, e la gestione</value>
+        <value xml:lang="th">แผนที่สำคัญที่สามารถใช้งานได้ด้วยข้อมูลคลังสินค้าและการจัดการ</value>
+    </property>
+    <property key="BusinessIntelligenceNote15">
+        <value xml:lang="en">history of data changes are already implemented; they will be improved as the datawarehouse will grow (e.g. performance enhancements).</value>
+        <value xml:lang="it">storia di cambio di dati che sono già implementati; sarà aumentato di caratteristiche non appena crescerà il datawarehouse (e.g. aumento prestazioni).</value>
+        <value xml:lang="th">ความเป็นมาของข้อมูลได้เปลี่ยนแปลงเรียบร้อยแล้ว; ได้มีการปรับปรุงข้อมูลคลังสินค้าให้ดีขึ้น (ตัวอย่างเช่น การทำให้ดีขึ้น)</value>
+    </property>
+    <property key="BusinessIntelligenceNote16">
+        <value xml:lang="en">The following dimensions (and data services) are defined: CurrencyDimension, DateDimension, ProductDimension;</value>
+        <value xml:lang="it">Le seguenti dimensioni (e servizi dei dati) sono definiti: CurrencyDimension, DateDimension, ProductDimension;</value>
+        <value xml:lang="th">การวัดขนาดตามที่กำหนด (และข้อมูลการบริการ) ระบุ : CurrencyDimension, DateDimension, ProductDimension;</value>
+    </property>
+    <property key="BusinessIntelligenceNote17">
+        <value xml:lang="en">we will have to complete them and design the other ones (the total number of dimension will be probably around 20).</value>
+        <value xml:lang="it">verranno usati per completare questi e disegnare gli altri (il numero totale di dimensioni saranno probabilmente circa 20).</value>
+        <value xml:lang="th">เรากำลังทำสิ่งเหล่านั้นสำเร็จแล้วและวางแผนสิ่งต่อไป (จำนวนทั้งหมดประมาณ 20)</value>
+    </property>
+    <property key="BusinessIntelligenceNote18">
+        <value xml:lang="en">Just one fact and one star schema are defined: SalesInvoiceItemFact and SalesInvoiceItemStarSchema.</value>
+        <value xml:lang="it">Solo un fatto e uno star schema sono definiti: SalesInvoiceItemFact e SalesInvoiceItemStarSchema.</value>
+        <value xml:lang="th">จะต้องระบุ 1 ข้อเท็จจริงและ 1 โครงการ: SalesInvoiceItemFact and SalesInvoiceItemStarSchema</value>
+    </property>
+    <property key="BusinessIntelligenceNote19">
+        <value xml:lang="en">You can quickly initialize the datawarehouse by clicking on the link below:</value>
+        <value xml:lang="it">Tu puoi velocemente inizializzare il datawarehouse facendo click sul link qui sotto:</value>
+        <value xml:lang="th">คุณสามารถเริ่มต้นเข้าสู่ข้อมูลคลังสินค้าได้อย่างรวดเร็วโดยการคลิกบนลิงค์ด้านล่างนี้</value>
+    </property>
+    <property key="BusinessIntelligenceNote2">
+        <value xml:lang="en">The idea is to define a set entities for business intelligence analysis in a separate (olap) database,</value>
+        <value xml:lang="it">L'idea è di definire un'insieme di entità per le analisi di business intelligence in un database (olap) separato,</value>
+        <value xml:lang="th">แผนการในการตั้งค่าสิ่งที่มีอยู่เพื่อวิเคราะห์การเรียนรู้ทางธุรกิจในการแยก (olap) ฐานข้อมูล</value>
+    </property>
+    <property key="BusinessIntelligenceNote20">
+        <value xml:lang="en">The CurrencyDimension, DateDimension, ProductDimension and the SalesInvoiceItemFact entities will be automatically populated.</value>
+        <value xml:lang="it">Le entità CurrencyDimension, DateDimension, ProductDimension e SalesInvoiceItemFact saranno caricate automaticamente.</value>
+        <value xml:lang="th">CurrencyDimension, DateDimension, ProductDimension และ SalesInvoiceItemFact จะคงอยู่โดยอัตโนมัติ</value>
+    </property>
+    <property key="BusinessIntelligenceNote21">
+        <value xml:lang="en">Then you can run the analysis using the report builder menu.</value>
+        <value xml:lang="it">Dopo tu puoi eseguire analisi usando il menu costruzione report.</value>
+        <value xml:lang="th">หลังจากที่คุณทำการวิเคราะห์แล้วสามารถใช้เมนูการสร้างรายงานได้</value>
+    </property>
+    <property key="BusinessIntelligenceNote22">
+        <value xml:lang="en">The report builder is a very simple tool that allows you to run</value>
+        <value xml:lang="it">La costruzione report è un vero strumento semplice che ti permette di eseguire</value>
+        <value xml:lang="th">การสร้างรายงานเป็นเครื่องมือง่าย ๆ ที่ให้คุณใช้งานได้</value>
+    </property>
+    <property key="BusinessIntelligenceNote23">
+        <value xml:lang="en">the analysis on all the star schemas defined in the system.</value>
+        <value xml:lang="it">le analisi su tutti i star schemas definiti nel sistema.</value>
+        <value xml:lang="th">การวิเคราะห์บนแผนผังทั้งหมดที่ระบุในระบบ</value>
+    </property>
+    <property key="BusinessIntelligenceNote24">
+        <value xml:lang="en">However, right now there is just one star schema defined:</value>
+        <value xml:lang="it">Comunque, fino adesso c'è solo un star schema definito:</value>
+        <value xml:lang="th">อย่างไรก็ตาม, ขณะนี้มีแผนผังที่กำหนด:</value>
+    </property>
+    <property key="BusinessIntelligenceNote25">
+        <value xml:lang="en">SalesInvoiceItemStarSchema that is a simple "profit and loss" (P&amp;L) analysis.</value>
+        <value xml:lang="it">SalesInvoiceItemStarSchema che è una semplice analisi di "profit and loss" (P&amp;L).</value>
+        <value xml:lang="th">SalesInvoiceItemStarSchema เป็นการวิเคราะห์ขั้นพื้นฐานของ "กำไรและขาดทุน" (P&amp;L) </value>
+    </property>
+    <property key="BusinessIntelligenceNote26">
+        <value xml:lang="en">Just select using the checkboxes the fields (columns) you want to see in the report</value>
+        <value xml:lang="it">Appena selezionato i campi dei checkboxes (colonne) tu vorrai vedere</value>
+        <value xml:lang="th">จะต้องเลือกใช้เช็คบ็อก (คอลัมภ์) ตามที่คุณต้องการให้มีในรายงาน</value>
+    </property>
+    <property key="BusinessIntelligenceNote27">
+        <value xml:lang="en">and a simple report will be shown: according to the columns selected the data will be aggregated (drill up/down);</value>
+        <value xml:lang="it">e un semplice report verrà mostrato: in accordo alle colonne selezionate i dati verranno aggregati (drill up/down);</value>
+        <value xml:lang="th">และพื้นฐานของรายงานจะต้องแสดง: ตามคอลัมภ์ที่เลือกข้อมูลจะต้องรวมกัน (drill up/down);</value>
+    </property>
+    <property key="BusinessIntelligenceNote28">
+        <value xml:lang="en">all the descriptions you see in the report screens are pulled from the entity definitions.</value>
+        <value xml:lang="it">tutte le descrizioni che tu vedrai nelle scrermate del report sono prelevare dalla definizioni delle entità.</value>
+        <value xml:lang="th">รายละเอียดทั้งหมดที่คุณเห็นในหน้ารายงานดึงมาจากสิ่งที่กำหด</value>
+    </property>
+    <property key="BusinessIntelligenceNote29">
+        <value xml:lang="en">The initialization is needed only once, because the product data and sales invoice data</value>
+        <value xml:lang="it">L'inizializzazione è necessaria solo una volta, perchè i dati del prodotti e i dati delle fatture di vendita</value>
+        <value xml:lang="th">การเริ่มต้นเป็นความต้องการอย่างแรกเพราะเป็นข้อมูลสินค้าและข้อมูลใบแจ้งการขาย</value>
+    </property>
+    <property key="BusinessIntelligenceNote3">
+        <value xml:lang="en">accessible, in the same way as the main one (olap), via the delegator.</value>
+        <value xml:lang="it">accessibile, nello stesso modo di quello principale (oltp), attraverso un delegator.</value>
+        <value xml:lang="th">สามารถเข้าถึงได้ในทางเดียวกันกับทางแรก (oltp)</value>
+    </property>
+    <property key="BusinessIntelligenceNote30">
+        <value xml:lang="en">are kept updated by ecas: if you create/update a product or create a new invoice,</value>
+        <value xml:lang="it">sono mantenute aggiornate dagli ecas: se tu crei/aggiorni un prodotto o creare una nuova fattura,</value>
+        <value xml:lang="th">เป็นการเปลี่ยนแปลงโดยการแทนที่: ถ้าคุณสร้าง/เปลี่ยนแปลงสินค้าหรือสร้างใบส่งของใหม่</value>
+    </property>
+    <property key="BusinessIntelligenceNote31">
+        <value xml:lang="en">the new information will be immediately included in the datawarehouse analysis.</value>
+        <value xml:lang="it">la nuova informazione sarà immediatamente inclusa nelle analisi del datawarehouse.</value>
+        <value xml:lang="th">ข้อมูลใหม่จะต้องรวมทันทีในการวิเคราะห์ข้อมูลคลังสินค้า</value>
+    </property>
+    <property key="BusinessIntelligenceNote4">
+        <value xml:lang="en">The new olap database, will contain all the entities necessary to datawarehouse analysis:</value>
+        <value xml:lang="it">Il nuovo database olap, conterrà tutte le entità necessarie alle analisi di datawarehouse:</value>
+        <value xml:lang="th">ฐานข้อมูล olap ใหม่จะประกอบด้วยสิ่งที่มีอยู่ซึ่งจำเป็นในการวิเคราะห์ข้อมูลคลังสินค้า:</value>
+    </property>
+    <property key="BusinessIntelligenceNote5">
+        <value xml:lang="en">dimensions, facts and star schemas (that are view-entities).</value>
+        <value xml:lang="it">dimensioni, fatti e star schemas (queste sono view-entities).</value>
+        <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผัง (เป็นการแสดงสิ่งที่มีอยู่)</value>
+    </property>
+    <property key="BusinessIntelligenceNote6">
+        <value xml:lang="en">The dimensions, facts and star schemas are defined according to best practices for datawarehouses</value>
+        <value xml:lang="it">Le dimensioni, fatti e star schemas sono definiti in accordo alle migliori pratiche per i datawarehouses</value>
+        <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผังตามที่ระบุเป็นวิธีปฏิบัติที่ดีที่สุดสำหรับข้อมูลคลังสินค้า</value>
+    </property>
+    <property key="BusinessIntelligenceNote7">
+        <value xml:lang="en">and best practices for OFBiz: they are defined as standard entities using the xml entity defs;</value>
+        <value xml:lang="it">e le migliori pratiche per OFBiz: queste sono definite come entità standard usando le definizioni xml entity;</value>
+        <value xml:lang="th">และวิธีปฏิบัติที่ดีที่สุดสำหรับ OFBiz คือ: ต้องกำหนดมาตรฐานสิ่งที่มีอยู่ให้เหมือนกับที่ใช้ใน xml </value>
+    </property>
+    <property key="BusinessIntelligenceNote8">
+        <value xml:lang="en">clear and consistent naming conventions are used and they are documented</value>
+        <value xml:lang="it">corretti e consistenti convenzione nei nomi sono usati and sono documentati</value>
+        <value xml:lang="th">ยกเลิกและใช้ชื่อข้อตกลงที่สอดคล้องกันและเป็นไปตามเอกสาร</value>
+    </property>
+    <property key="BusinessIntelligenceNote9">
+        <value xml:lang="en">by meta data descriptions (in the entity def).</value>
+        <value xml:lang="it">dalle descrizione dei meta dati (nella definizione entità).</value>
+        <value xml:lang="th">โดยรายละเอียดที่มาของข้อมูล(อยู่ในที่กำหนด)</value>
+    </property>
+    <property key="BusinessIntelligenceQuickInitDataWarehouse">
+        <value xml:lang="en">Quick Init DataWarehouse</value>
+        <value xml:lang="it">Inizializzazione Veloce DataWarehouse</value>
+        <value xml:lang="th">เริ่มต้นเข้าสู่ข้อมูลคลังสินค้าอย่างรวดเร็ว</value>
+    </property>
+    <property key="BusinessIntelligenceQuickStartGuide">
+        <value xml:lang="en">Quick Start Guide</value>
+        <value xml:lang="it">Guida Rapida</value>
+        <value xml:lang="th">เข้าสู่คำแนะนำอย่างรวดเร็ว</value>
+    </property>
+    <property key="BusinessIntelligenceRenderTheReport">
+        <value xml:lang="en">Render the Report</value>
+        <value xml:lang="it">Visualizza il Report</value>
+        <value xml:lang="th">เสนอรายงาน</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilder">
+        <value xml:lang="en">Report Builder</value>
+        <value xml:lang="it">Costruzione Report</value>
+        <value xml:lang="th">สร้างรายงาน</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilderRenderStarSchemaReport">
+        <value xml:lang="en">Render Star Schema Report</value>
+        <value xml:lang="it">Visualizza Report Star Schema</value>
+        <value xml:lang="th">เสนอแผนผังรายงาน</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilderSelectStarSchema">
+        <value xml:lang="en">Select Star Schema</value>
+        <value xml:lang="it">Seleziona Star Schema</value>
+        <value xml:lang="th">เลือกแผนผัง</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilderSelectStarSchemaFields">
+        <value xml:lang="en">Select Star Schema Fields</value>
+        <value xml:lang="it">Seleziona Campi Star Schema</value>
+        <value xml:lang="th">เลือกช่องแผนผัง</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilderSelectTheStarSchemaReport">
+        <value xml:lang="en">Select the start schema (report)</value>
+        <value xml:lang="it">Seleziona lo start schema (report)</value>
+        <value xml:lang="th">เลือกแผนผัง (รายงาน)</value>
+    </property>
+</resource>
