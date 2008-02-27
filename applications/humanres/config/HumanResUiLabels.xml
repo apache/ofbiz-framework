@@ -81,12 +81,12 @@
     <property key="FormFieldTitle_budgetItemSeqId">
         <value xml:lang="en">Budget Item Seq Id</value>
         <value xml:lang="it">Numero Seq. Riga Budget</value>
-        <value xml:lang="th">รหัสรายการไอเทมงบประมาณ</value>
+        <value xml:lang="th">รหัสรายการงบประมาณ</value>
     </property>
     <property key="FormFieldTitle_budgetItemTypeId">
         <value xml:lang="en">Budget Item Type Id</value>
         <value xml:lang="it">Tipo Budget Riga</value>
-        <value xml:lang="th">รหัสประเภทไอเทมงบประมาณ</value>
+        <value xml:lang="th">รหัสประเภทรายการงบประมาณ</value>
     </property>
     <property key="FormFieldTitle_budgetTypeId">
         <value xml:lang="en">Budget Type Id</value>
@@ -361,7 +361,7 @@
     <property key="HumanResBudgetItemSeqId">
         <value xml:lang="en">Budget Item Id</value>
         <value xml:lang="it">Riga Budget</value>
-        <value xml:lang="th">รหัสไอเทมงบประมาณ</value>
+        <value xml:lang="th">รหัสรายการงบประมาณ</value>
     </property>
     <property key="HumanResCompanyName">
         <value xml:lang="en">OFBiz: HumanRes Manager</value>
@@ -446,7 +446,7 @@
     <property key="HumanResEditPerfReviewItems">
         <value xml:lang="en">Edit PerfReview Items</value>
         <value xml:lang="it">Aggiorna Preferenze Righe Rassegne </value>
-        <value xml:lang="th">แก้ไขไอเทมการตรวจสอบสิทธิพิเศษ</value>
+        <value xml:lang="th">แก้ไขรายการการตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="HumanResEditSalaryStep">
         <value xml:lang="en">Edit Salary Step</value>
@@ -600,7 +600,7 @@
     <property key="HumanResLookupBudgetItemByName">
         <value xml:lang="en">Lookup Budget Item by Name</value>
         <value xml:lang="it">Ricerca Riga Budget per Nome</value>
-        <value xml:lang="th">ค้นหาไอเทมงบประมาณโดยชื่อ</value>
+        <value xml:lang="th">ค้นหารายการงบประมาณโดยชื่อ</value>
     </property>
     <property key="HumanResLookupEmplPositionByName">
         <value xml:lang="en">Lookup EmplPosition by Name</value>
@@ -690,12 +690,12 @@
     <property key="HumanResNewPartyReviewItem">
         <value xml:lang="en">New PerfReviewItem</value>
         <value xml:lang="it">Nuova Riga Rassegna Prestazioni</value>
-        <value xml:lang="th">ไอเทมการตวจสอบสิทธิพิเศษใหม่</value>
+        <value xml:lang="th">รายการการตวจสอบสิทธิพิเศษใหม่</value>
     </property>
     <property key="HumanResNewPartyReviewItemEdit">
         <value xml:lang="en">Create/Update PerfReviewItem</value>
         <value xml:lang="it">Crea/Aggiorna Riga Rassegna Prestazioni</value>
-        <value xml:lang="th">สร้าง/แก้ไข ไอเทมการตรวจสอบสิทธิพิเศษ</value>
+        <value xml:lang="th">สร้าง/แก้ไข รายการการตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="HumanResNewPartySkill">
         <value xml:lang="en">New Party Skill</value>
@@ -893,7 +893,7 @@
     <property key="PageTitleEditPartyReviewItem">
         <value xml:lang="en">=Edit PerrfReviewItem</value>
         <value xml:lang="it">Aggiorna Riga Rassegna Prestazioni</value>
-        <value xml:lang="th">=แก้ไขไอเทมการตรวจสอบสิทธิพิเศษ</value>
+        <value xml:lang="th">=แก้ไขรายการการตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="PageTitleEditSkillType">
         <value xml:lang="en">Edit Skill Type</value>
@@ -933,7 +933,7 @@
     <property key="PageTitleListPartyReviewItems">
         <value xml:lang="en">List PerfReviewItem</value>
         <value xml:lang="it">Lista Riga Rassegna Prestazioni</value>
-        <value xml:lang="th">รายการไอเทมตรวจสอบสิทธิพิเศษ</value>
+        <value xml:lang="th">รายการรายการตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="PageTitleListSkillTypes">
         <value xml:lang="en">List Skill Types</value>

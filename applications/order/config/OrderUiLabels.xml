@@ -493,7 +493,7 @@
         <value xml:lang="nl">Bekijk de winkelwagen altijd na het toevoegen</value>
         <value xml:lang="ro">Vezi cosul numai dupa ce ai adaugat o linie</value>
         <value xml:lang="ru">Всегда просматривать корзину перед добавлением позиции</value>
-        <value xml:lang="th">ทุกครั้งแสดงบัตรหลังจากการเพิ่มไอเทม</value>
+        <value xml:lang="th">ทุกครั้งแสดงบัตรหลังจากการเพิ่มรายการ</value>
         <value xml:lang="zh">总是在添加一个明细后浏览购物车</value>
     </property>
     <property key="EcommerceAnonymous">
@@ -579,7 +579,7 @@
         <value xml:lang="pt_PT">Resumo do Cesto</value>
         <value xml:lang="ro">Breviar Cos</value>
         <value xml:lang="ru">Итого в корзине</value>
-        <value xml:lang="th">โดยสรุปบัตร</value>
+        <value xml:lang="th">โดยสรุปตระกร้า</value>
         <value xml:lang="zh">购物车摘要</value>
     </property>
     <property key="EcommerceCartTotal">
@@ -592,7 +592,7 @@
         <value xml:lang="pt_PT">Total no Cesto</value>
         <value xml:lang="ro">Total Cos</value>
         <value xml:lang="ru">Всего в корзине</value>
-        <value xml:lang="th">ผลรวมบัตร</value>
+        <value xml:lang="th">ผลรวมตระกร้า</value>
         <value xml:lang="zh">购物车总计</value>
     </property>
     <property key="EcommerceCheckBalance">
@@ -918,7 +918,7 @@
         <value xml:lang="pt_PT">Cesto Vazio</value>
         <value xml:lang="ro">Cos Gol</value>
         <value xml:lang="ru">Корзина пустая</value>
-        <value xml:lang="th">ไม่มีข้อมูลบัตร</value>
+        <value xml:lang="th">ไม่มีข้อมูลในตระกร้า</value>
         <value xml:lang="zh">清空购物车</value>
     </property>
     <property key="EcommerceEnterQueryParameters">
@@ -929,7 +929,7 @@
         <value xml:lang="nl">Vul zoek parameters in</value>
         <value xml:lang="ro">Introdu parametrii de cautare</value>
         <value xml:lang="ru">Введите параметры запроса</value>
-        <value xml:lang="th">เข้าสู่ตัวแปรคำถาม</value>
+        <value xml:lang="th">เข้าสู่พารามิเตอร์คำถาม</value>
         <value xml:lang="zh">输入查询参数</value>
     </property>
     <property key="EcommerceErrorNoPromotionFoundWithID">
@@ -1031,7 +1031,7 @@
         <value xml:lang="nl">is aangevraagd dat we je deze link sturen met het bericht:</value>
         <value xml:lang="ro">dupa cum ati cerut noi iti trimitem acest link cu urmatorul mesaj:</value>
         <value xml:lang="ru">запрошен, мы посылаем вам эту ссылку со следующим сообщением:</value>
-        <value xml:lang="th">เราส่งลิงค์นี้ให้คุณตามข้อความที่คุรเรียกร้อง
+        <value xml:lang="th">เราส่งลิงค์นี้ให้คุณตามข้อความที่คุณเรียกร้อง
 </value>
         <value xml:lang="zh">要求我们发送给你这个带有下列消息的链接：</value>
     </property>
@@ -1043,7 +1043,7 @@
         <value xml:lang="nl">Van het moeder artikel</value>
         <value xml:lang="ro">De La Articolul Parinte</value>
         <value xml:lang="ru">От родительской статьи</value>
-        <value xml:lang="th">จากบทความผู้ดูแล</value>
+        <value xml:lang="th">จากกลุ่มบทความ</value>
         <value xml:lang="zh">来自上级文章</value>
     </property>
     <property key="EcommerceFromSite">
@@ -1098,7 +1098,7 @@
         <value xml:lang="nl">Uw bestelling is gemarkeerd om terug te worden betaald.</value>
         <value xml:lang="ro">Comanda ta a fost setata pentru a fi rambursata.</value>
         <value xml:lang="ru">Ваш заказ помечен как возвращенный.</value>
-        <value xml:lang="th">รายการสั่งซื้อของคุณมีเครื่องหมายจะคืนเงินให้
+        <value xml:lang="th">รายการสั่งซื้อสินค้าของคุณมีเครื่องหมายจะคืนเงินให้
 </value>
         <value xml:lang="zh">你的订单已经标记为退款。</value>
     </property>
@@ -1133,7 +1133,7 @@
         <value xml:lang="nl">Geschenkverpakking voor alle items</value>
         <value xml:lang="ro">Omagiul Inglobeaza Toate Liniile</value>
         <value xml:lang="ru">Подарочная упаковка для всех позиций</value>
-        <value xml:lang="th">ไอเทมการดาษห่อของขวัญทั้งหมด</value>
+        <value xml:lang="th">รายการการดาษห่อของขวัญทั้งหมด</value>
         <value xml:lang="zh">礼品包装全部明细</value>
     </property>
     <property key="EcommerceGoToList">
@@ -1310,7 +1310,7 @@
         <value xml:lang="pt_PT">Item</value>
         <value xml:lang="ro">Linie</value>
         <value xml:lang="ru">Позиция</value>
-        <value xml:lang="th">ไอเทม</value>
+        <value xml:lang="th">รายการ</value>
         <value xml:lang="zh">明细</value>
     </property>
     <property key="EcommerceItemN">
@@ -1322,7 +1322,7 @@
         <value xml:lang="nl">Item #</value>
         <value xml:lang="ro">Linie #</value>
         <value xml:lang="ru">№ позиции</value>
-        <value xml:lang="th">ไอเทม #</value>
+        <value xml:lang="th">รายการ #</value>
         <value xml:lang="zh">明细 #</value>
     </property>
     <property key="EcommerceItemTotal">
@@ -1335,7 +1335,7 @@
         <value xml:lang="pt_PT">Total de Itens</value>
         <value xml:lang="ro">Total Linie</value>
         <value xml:lang="ru">Позиций всего</value>
-        <value xml:lang="th">ผลรวมไอเทม</value>
+        <value xml:lang="th">ผลรวมรายการ</value>
         <value xml:lang="zh">明细合计</value>
     </property>
     <property key="EcommerceItems">
@@ -1348,7 +1348,7 @@
         <value xml:lang="pt_PT">Itens</value>
         <value xml:lang="ro">Linii</value>
         <value xml:lang="ru">Позиции</value>
-        <value xml:lang="th">ไอเทม</value>
+        <value xml:lang="th">รายการ</value>
         <value xml:lang="zh">明细</value>
     </property>
     <property key="EcommerceItemsfromShopingList">
@@ -1361,7 +1361,7 @@
         <value xml:lang="pt_PT">Itens de uma Lista de Compras; actualizar quantidades da lista na página</value>
         <value xml:lang="ro">Linii dintr-o lista de cumparari; actualizeaza cantitatile de la lista din pagina</value>
         <value xml:lang="ru">Позиций из списка покупок; обновить количество со страницы списка</value>
-        <value xml:lang="th">ไอเทมจากรายการสั่งซื้อสินค้า ; อัพเดทจำนวนจากหน้ารายการ
+        <value xml:lang="th">รายการจากรายการสั่งซื้อสินค้าสินค้า ; อัพเดทจำนวนจากหน้ารายการ
 </value>
         <value xml:lang="zh">明细来自购物清单；从列表页更新数量</value>
     </property>
@@ -1442,7 +1442,7 @@
         <value xml:lang="it">Link Carte</value>
         <value xml:lang="ro">Link Carte</value>
         <value xml:lang="ru">Ссылка на карты</value>
-        <value xml:lang="th">เชื่อมต่อบัตร</value>
+        <value xml:lang="th">การเชื่อมต่อตระกร้า</value>
         <value xml:lang="zh">链接卡</value>
     </property>
     <property key="EcommerceListDoesNotBelong">
@@ -1469,7 +1469,7 @@
         <value xml:lang="pt_PT">Itens da Lista de Compras</value>
         <value xml:lang="ro">Linii Liste Cumparaturi</value>
         <value xml:lang="ru">Позиции списка покупок</value>
-        <value xml:lang="th">ไอเทมรายการสั่งซื้อสินค้า</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh">购物清单明细</value>
     </property>
     <property key="EcommerceListItemsTotalPrice">
@@ -1581,7 +1581,7 @@
         <value xml:lang="nl">Als U uw wachtwoord vergeet kunt U altijd een nieuw wachtwoord aanvragen.</value>
         <value xml:lang="ro">Daca nu iti mai amintesti parola, poti oricand sa ceri una noua.</value>
         <value xml:lang="ru">Если вы забыли пароль, можете запросить новый в любое время.</value>
-        <value xml:lang="th">ถ้ารหัสผ่านของคุณเคยหาย , คุณสามารถขอรหัสผ่านหม่ได้ทุกเวลา
+        <value xml:lang="th">ถ้ารหัสผ่านของคุณเคยหาย , คุณสามารถขอรหัสผ่านใหม่ได้ทุกเวลา
 </value>
         <value xml:lang="zh">如果你丢了你的密码，你能随时得到一个新的。</value>
     </property>
@@ -1970,13 +1970,13 @@
         <value xml:lang="nl">bestelling(en) in de laatste</value>
         <value xml:lang="ro">comenzi in ultimele</value>
         <value xml:lang="ru">последний заказ(ы)</value>
-        <value xml:lang="th">ในรายการสั่งซื้อสุดท้าย</value>
+        <value xml:lang="th">ในรายการสั่งซื้อสินค้าสุดท้าย</value>
         <value xml:lang="zh">上次的订单</value>
     </property>
     <property key="EcommerceOrderNotActive">
         <value xml:lang="en">Order Not Active</value>
         <value xml:lang="it">Ordine Non Attivo</value>
-        <value xml:lang="th">รายการสั่งซื้อไม่ทำงาน</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าไม่ทำงาน</value>
     </property>
     <property key="EcommerceOwningDepartment">
         <value xml:lang="en">Owning Department</value>
@@ -1999,7 +1999,7 @@
         <value xml:lang="pt_PT">Lista de Semelhantes</value>
         <value xml:lang="ro">Lista Parinte</value>
         <value xml:lang="ru">Родительский список</value>
-        <value xml:lang="th">รายการผู้ดูแล</value>
+        <value xml:lang="th">รายการกลุ่ม</value>
         <value xml:lang="zh">上一级列表</value>
     </property>
     <property key="EcommercePassword">
@@ -2044,7 +2044,7 @@
         <value xml:lang="nl">punten van</value>
         <value xml:lang="ro">puncte de</value>
         <value xml:lang="ru">points from</value>
-        <value xml:lang="th">ความคิดเห็นจาก</value>
+        <value xml:lang="th">จากความคิดเห็น</value>
         <value xml:lang="zh">点数来自</value>
     </property>
     <property key="EcommercePostAnonymous">
@@ -2107,7 +2107,7 @@
         <value xml:lang="pt_PT">Products For Promotion</value>
         <value xml:lang="ro">Produse In Promotie</value>
         <value xml:lang="ru">Акционные продукты</value>
-        <value xml:lang="th">สินค้าสำหรับโปรโมชัน</value>
+        <value xml:lang="th">โปรโมชันสำหรับสินค้า</value>
         <value xml:lang="zh">用于促销的产品</value>
     </property>
     <property key="EcommercePromoPrice">
@@ -2135,7 +2135,7 @@
         <value xml:lang="it">Categorie nella Promozione</value>
         <value xml:lang="ro">Categorie in Promotie</value>
         <value xml:lang="ru">Акционные категории</value>
-        <value xml:lang="th">หมวดหมู่สำหรับโปรโมชัน</value>
+        <value xml:lang="th">โปรโมชันสำหรับหมวดหมู่</value>
         <value xml:lang="zh">用于促销的分类</value>
     </property>
     <property key="EcommercePromotionDetails">
@@ -2185,7 +2185,7 @@
         <value xml:lang="pt_PT">Itens em promoção; as quantidades não podem ser alteradas</value>
         <value xml:lang="ro">Linii Promotie; Cantitatile nu pot sa fie modificate</value>
         <value xml:lang="ru">Акционные позиции; количество не может быть изменено</value>
-        <value xml:lang="th">โปรโมชัน ; จำนวนไม่สามารถแก้ไขได้
+        <value xml:lang="th">รายการโปรโมชัน ; จำนวนไม่สามารถแก้ไขได้
 </value>
         <value xml:lang="zh">属于促销的明细；不能更改数量</value>
     </property>
@@ -2260,7 +2260,7 @@
         <value xml:lang="pt_PT">Classe (1-5; 5 para o melhor)</value>
         <value xml:lang="ro">Pozitia(1-5; 5 este cea mai buna )</value>
         <value xml:lang="ru">Рейтинг (1-5; 5 лучший)</value>
-        <value xml:lang="th">การประเมิณ</value>
+        <value xml:lang="th">การประเมิณ (1-5; 5 คุณสมบัติดีที่สุด)</value>
         <value xml:lang="zh">评级 (1-5; 5最好)</value>
     </property>
     <property key="EcommerceRatings">
@@ -2304,7 +2304,7 @@
         <value xml:lang="pt_PT">Recalcular o Cesto</value>
         <value xml:lang="ro">Recalculeaza Cos</value>
         <value xml:lang="ru">Пересчитать корзину</value>
-        <value xml:lang="th">คำนวณบัตรอีกครั้ง</value>
+        <value xml:lang="th">คำนวณตระกร้าอีกครั้ง</value>
         <value xml:lang="zh">重新计算购物车</value>
     </property>
     <property key="EcommerceRecurrence">
@@ -2385,7 +2385,7 @@
         <value xml:lang="nl">Uw terugaveverzoek for de volgende items:</value>
         <value xml:lang="ro">Cererea ta de returnare pentru urmatoarele linii:</value>
         <value xml:lang="ru">Ваш возвращенный запрос на следующие позиции:</value>
-        <value xml:lang="th">การคืนคำร้องของคุณเป็นไปตามไอเทม:</value>
+        <value xml:lang="th">การคืนคำร้องของคุณเป็นไปตามรายการ:</value>
         <value xml:lang="zh">你对下列明细的退货请求：</value>
     </property>
     <property key="EcommerceReturnRequestAccepted">
@@ -2408,7 +2408,7 @@
         <value xml:lang="nl">is geannuleerd.</value>
         <value xml:lang="ro">a fost sters.</value>
         <value xml:lang="ru">был отменен.</value>
-        <value xml:lang="th">ยกเลิก</value>
+        <value xml:lang="th">ถูกยกเลิก</value>
         <value xml:lang="zh">已被取消。</value>
     </property>
     <property key="EcommerceReturnRequestCompleted">
@@ -2459,7 +2459,7 @@
     <property key="EcommerceSeeStorePoliciesHere">
         <value xml:lang="en">See Store Policies Here</value>
         <value xml:lang="it">Vedi Politiche Negozio Qui</value>
-        <value xml:lang="th">ดูนโยบายที่นี่</value>
+        <value xml:lang="th">ดูหลักการเก็บข้อมูลที่นี่</value>
     </property>
     <property key="EcommerceSelectFrequency">
         <value xml:lang="en">Select Frequency</value>
@@ -2491,7 +2491,7 @@
         <value xml:lang="nl">"De geselecteerde geschenkverpakking is niet beschikbaar voor alle items. De items die beschikbaar zijn, zijn geselecteerd, de anderen zijn niet veranderd."</value>
         <value xml:lang="ro">"Selectioneaza Omagiu indisponibil pentru toate liniile. Liniile care sunt disponibile vor fi selectionate, celelalte vor ramane invariate."</value>
         <value xml:lang="ru">"Выбранная подарочная упаковка не доступна для всех позиций. Выбраны только позиции для которых упаковка доступна."</value>
-        <value xml:lang="th">"การเลือกกระดาษห่อของขวัญไม่สามารถนำไปใช้ได้กับทุกไอเทม. เลือกใช้ได้กับไอเทมอื่น ๆ ที่ยังไม่มีการเปลี่ยนแปลงเหลืออยู่"
+        <value xml:lang="th">"การเลือกกระดาษห่อของขวัญไม่สามารถนำไปใช้ได้กับทุกรายการ. เลือกใช้ได้กับรายการอื่น ๆ ที่ยังไม่มีการเปลี่ยนแปลงเหลืออยู่"
 </value>
         <value xml:lang="zh">"所选的礼品包装无法对全部明细使用。这些选中的明细是可用的，其它没有改变。"</value>
     </property>
@@ -2853,7 +2853,7 @@
         <value xml:lang="pt_PT">Para adicionar itens seleccionados a uma lista de compras</value>
         <value xml:lang="ro">pentru a adauga selectioneaza Linii dintr-o lista de cumparari</value>
         <value xml:lang="ru">добавить выбранные позиции в список покупок</value>
-        <value xml:lang="th">เพิ่มการเลือกไอเทมในรายการซื้อของ
+        <value xml:lang="th">เพิ่มการเลือกรายการในรายการซื้อของ
 </value>
         <value xml:lang="zh">把所选的明细添加到购物列表</value>
     </property>
@@ -3211,7 +3211,7 @@
         <value xml:lang="nl">Faciliteit</value>
         <value xml:lang="ro">Compartiment </value>
         <value xml:lang="ru">Оборудование</value>
-        <value xml:lang="th">สิ่งอำนวยความสะดวก</value>
+        <value xml:lang="th">การทำงาน</value>
         <value xml:lang="zh_CN">仓储设施</value>
         <value xml:lang="zh">场所</value>
     </property>
@@ -3237,7 +3237,7 @@
         <value xml:lang="nl">Geen faciliteit</value>
         <value xml:lang="ro">Nici-un Compartiment </value>
         <value xml:lang="ru">Нет оборудования</value>
-        <value xml:lang="th">ไม่มีสิ่งอำนวยความสะดวก</value>
+        <value xml:lang="th">ไม่มีการทำงาน</value>
         <value xml:lang="zh_CN">仓储设施</value>
         <value xml:lang="zh">没有场所</value>
     </property>
@@ -3355,7 +3355,7 @@
         <value xml:lang="nl">Wacht alstublieft tot de gehele bestelling compleet is voor verzenden.</value>
         <value xml:lang="ro">Va rog asteptati pana cand intreaga comanda  este gata pentru expediere.</value>
         <value xml:lang="ru">Пожалуйста поставляйте после того как будет готов весь заказ.</value>
-        <value xml:lang="th">กรุณารอจนกระทั่งอ่านรายการสั่งซื้อทั้งหมดก่อนการขนส่งสินค้า
+        <value xml:lang="th">กรุณารอจนกระทั่งอ่านรายการสั่งซื้อสินค้าทั้งหมดก่อนการขนส่งสินค้า
 </value>
         <value xml:lang="zh_CN">等待直到整个订单完成后发货。</value>
         <value xml:lang="zh">请等待整个订单都有货时再送货。</value>
@@ -3368,7 +3368,7 @@
     <property key="FormFieldTitle_autoOrderShoppingListId">
         <value xml:lang="en">Auto Order Shopping List Id</value>
         <value xml:lang="it">Ordine Automatico Lista di Acquisto</value>
-        <value xml:lang="th">รหัสรายการสั่งซื้อสินค้าอัตโนมัติ</value>
+        <value xml:lang="th">รหัสรายการสั่งซื้อสินค้าสินค้าอัตโนมัติ</value>
     </property>
     <property key="FormFieldTitle_billToCustomerPartyId">
         <value xml:lang="en">Bill To Customer Party Id</value>
@@ -3602,13 +3602,13 @@
         <value xml:lang="nl">Faciliteit Id</value>
         <value xml:lang="ro">Cod Compartiment </value>
         <value xml:lang="ru">Код склада</value>
-        <value xml:lang="th">รหัสสิ่งอำนวยความสะดวก</value>
+        <value xml:lang="th">รหัสการทำงาน</value>
         <value xml:lang="zh">场所标识</value>
     </property>
     <property key="FormFieldTitle_facilityQuantityOnHandTotal">
         <value xml:lang="en">Facility Quantity On Hand Total</value>
         <value xml:lang="it">Totale Quantità Disponibile Stabilimento</value>
-        <value xml:lang="th">ผลรวมจำนวนสิ่งอำนวยความสะดวก</value>
+        <value xml:lang="th">ผลรวมจำนวนการทำงาน</value>
     </property>
     <property key="FormFieldTitle_firstAttemptOrderId">
         <value xml:lang="en">First Attempt Order Id</value>
@@ -3701,7 +3701,7 @@
         <value xml:lang="nl">Spoed Bestelling</value>
         <value xml:lang="ro">Este o Comanda Rush</value>
         <value xml:lang="ru">Срочный заказ?</value>
-        <value xml:lang="th">เร่งรายการสั่งซื้อ</value>
+        <value xml:lang="th">เร่งรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">加急吗</value>
     </property>
     <property key="FormFieldTitle_lastAdminModified">
@@ -3741,7 +3741,7 @@
         <value xml:lang="nl">Laatste order datum</value>
         <value xml:lang="ro">Ultima Data Comanda</value>
         <value xml:lang="ru">Дата последнего заказа</value>
-        <value xml:lang="th">รายการสั่งซื้อสุดท้ายวันที่</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าสุดท้ายวันที่</value>
         <value xml:lang="zh">上次下订单的日期</value>
     </property>
     <property key="FormFieldTitle_listName">
@@ -3799,7 +3799,7 @@
         <value xml:lang="nl">Bestel datum</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Дата заказа</value>
-        <value xml:lang="th">รายการสั่งซื้อวันที่</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าวันที่</value>
         <value xml:lang="zh">订单日期</value>
     </property>
     <property key="FormFieldTitle_orderHeaderId">
@@ -3809,7 +3809,7 @@
         <value xml:lang="nl">Bestel briefhoofd Id</value>
         <value xml:lang="ro">Numar Antet Comanda</value>
         <value xml:lang="ru">Код оглавления заказа</value>
-        <value xml:lang="th">รหัสหัวข้อรายการสั่งซื้อ</value>
+        <value xml:lang="th">รหัสหัวข้อรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单头标识</value>
     </property>
     <property key="FormFieldTitle_orderId">
@@ -3819,13 +3819,13 @@
         <value xml:lang="nl">Bestelling Id</value>
         <value xml:lang="ro">Numar Comanda</value>
         <value xml:lang="ru">Код заказа</value>
-        <value xml:lang="th">รหัสรายการสั่งซื้อ</value>
+        <value xml:lang="th">รหัสรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单标识</value>
     </property>
     <property key="FormFieldTitle_orderName">
         <value xml:lang="en">Order Name</value>
         <value xml:lang="it">Nome Ordine</value>
-        <value xml:lang="th">ชื่อรายการสั่งซื้อ</value>
+        <value xml:lang="th">ชื่อรายการสั่งซื้อสินค้า</value>
     </property>
     <property key="FormFieldTitle_orderStatusId">
         <value xml:lang="en">Order Status Id</value>
@@ -3833,7 +3833,7 @@
         <value xml:lang="nl">Bestelling Status Id</value>
         <value xml:lang="ro">Stare Comanda</value>
         <value xml:lang="ru">Код статуса заказа</value>
-        <value xml:lang="th">รหัสสถานะรายการสั่งซื้อ</value>
+        <value xml:lang="th">รหัสสถานะรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单状态标识</value>
     </property>
     <property key="FormFieldTitle_orderTypeId">
@@ -3843,7 +3843,7 @@
         <value xml:lang="nl">Bestelling Type Id</value>
         <value xml:lang="ro">Tip Comanda</value>
         <value xml:lang="ru">Код типа заказа</value>
-        <value xml:lang="th">รหัสประเภทรายการสั่งซื้อ</value>
+        <value xml:lang="th">รหัสประเภทรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单类型标识</value>
     </property>
     <property key="FormFieldTitle_ordersLink">
@@ -3853,7 +3853,7 @@
         <value xml:lang="nl">Bestellings Link</value>
         <value xml:lang="ro">Link Comenzi</value>
         <value xml:lang="ru">Связь с заказами</value>
-        <value xml:lang="th">ลิงค์รายการสั่งซื้อ</value>
+        <value xml:lang="th">ลิงค์รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单链接</value>
     </property>
     <property key="FormFieldTitle_originFacilityId">
@@ -3863,7 +3863,7 @@
         <value xml:lang="nl">Oorspronkelijke Faciliteit Id</value>
         <value xml:lang="ro">Compartiment Origine</value>
         <value xml:lang="ru">Код исходящего склада</value>
-        <value xml:lang="th">รหัสต้นฉบับสิง่อำนวยความสะดวก</value>
+        <value xml:lang="th">รหัสต้นฉบับการทำงาน</value>
         <value xml:lang="zh">起点场所标识</value>
     </property>
     <property key="FormFieldTitle_parentShoppingListId">
@@ -3873,7 +3873,7 @@
         <value xml:lang="nl">Moeder winkel lijst Id</value>
         <value xml:lang="ro">Lista de Cumparare Parinte</value>
         <value xml:lang="ru">Код родительского списка покупок</value>
-        <value xml:lang="th">รหัสรายการซื้อสินค้า</value>
+        <value xml:lang="th">รหัสกลุ่มรายการซื้อสินค้า</value>
         <value xml:lang="zh">上级购物列表标识</value>
     </property>
     <property key="FormFieldTitle_partyId">
@@ -4290,7 +4290,7 @@
     <property key="FormFieldTitle_totalQuantityOrdered">
         <value xml:lang="en">Total Quantity Ordered</value>
         <value xml:lang="it">Totale Quantità Ordinata</value>
-        <value xml:lang="th">ผลรวมจำนวนรายการสั่งซื้อ</value>
+        <value xml:lang="th">ผลรวมจำนวนรายการสั่งซื้อสินค้า</value>
     </property>
     <property key="FormFieldTitle_totalRetailPrice">
         <value xml:lang="en">Total Retail Price</value>
@@ -4430,7 +4430,7 @@
         <value xml:lang="nl">Voeg to aan bestelling</value>
         <value xml:lang="ro">Adauga la Comanda </value>
         <value xml:lang="ru">Добавить в заказ</value>
-        <value xml:lang="th">เพิ่มในรายการสั่งซื้อ</value>
+        <value xml:lang="th">เพิ่มในรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">加入到订单</value>
         <value xml:lang="zh">添加到订单</value>
     </property>
@@ -4488,7 +4488,7 @@
         <value xml:lang="nl">Bestel Agent</value>
         <value xml:lang="ro">Agent Comanda </value>
         <value xml:lang="ru">Агент заказа</value>
-        <value xml:lang="th">ตัวแทนจำหน่าย</value>
+        <value xml:lang="th">ตัวแทนจำหน่ายรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh">订单代理人</value>
     </property>
     <property key="OrderAllowSplit">
@@ -4538,7 +4538,7 @@
         <value xml:lang="nl">Bevestig Bestelling</value>
         <value xml:lang="ro">Aprobare Comanda(enzi)</value>
         <value xml:lang="ru">Утвердить заказ</value>
-        <value xml:lang="th">ปรับปรุงรายการสั่งซื้อ</value>
+        <value xml:lang="th">ปรับปรุงรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">批准订单</value>
         <value xml:lang="zh">批准订单</value>
     </property>
@@ -4620,7 +4620,7 @@
         <value xml:lang="nl">Backordered</value>
         <value xml:lang="ro">Backordered</value>
         <value xml:lang="ru">задолженный заказ</value>
-        <value xml:lang="th">กลับรายการสั่งซื้อ</value>
+        <value xml:lang="th">กลับรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">列入缺货通知单</value>
     </property>
     <property key="OrderBackOrders">
@@ -4631,7 +4631,7 @@
         <value xml:lang="nl">Backbestellingen</value>
         <value xml:lang="ro">Backorders</value>
         <value xml:lang="ru">Задолженные заказы</value>
-        <value xml:lang="th">กลับรายการสั่งซื้อ</value>
+        <value xml:lang="th">กลับรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh">缺货通知单</value>
     </property>
     <property key="OrderBacktoShoppingCart">
@@ -4647,7 +4647,7 @@
         <value xml:lang="nl">Weet zeker dat je deze bestelling toevoegd</value>
         <value xml:lang="ro">Trebuie sa fii sigur de includerea comenzii tale OrderCancelAllItems = Sterge toate Liniile</value>
         <value xml:lang="ru">Убедитесь что включили свой заказ</value>
-        <value xml:lang="th">แน่ใจว่าจะรวมรายการสั่งซื้อของคุณ</value>
+        <value xml:lang="th">แน่ใจว่าจะรวมรายการสั่งซื้อสินค้าของคุณ</value>
         <value xml:lang="zh_CN">确保包含你的订单</value>
         <value xml:lang="zh">请确认包括了你的订单</value>
     </property>
@@ -4683,13 +4683,13 @@
         <value xml:lang="it">Cancella tutte le Righe</value>
         <value xml:lang="nl">Cancel alle Items</value>
         <value xml:lang="ru">Отменить все позиции</value>
-        <value xml:lang="th">ยกเลิกไอเทมทั้งหมด</value>
+        <value xml:lang="th">ยกเลิกรายการทั้งหมด</value>
         <value xml:lang="zh_CN">取消所有项目</value>
         <value xml:lang="zh">取消全部明细</value>
     </property>
     <property key="OrderCancelOrder">
         <value xml:lang="en">Cancel Order</value>
-        <value xml:lang="th">ยกเลิกรายการสั่งซื้อ</value>
+        <value xml:lang="th">ยกเลิกรายการสั่งซื้อสินค้าสินค้า</value>
     </property>
     <property key="OrderCancelled">
         <value xml:lang="de">Abgebrochen</value>
@@ -4713,7 +4713,7 @@
         <value xml:lang="nl">(kan niet worden gewijzigd zonder de reeds opgestartte bestelling op te ruimen.)</value>
         <value xml:lang="ro">(Nu este posibila schimbarea fara stergerea comenzii.)</value>
         <value xml:lang="ru">(нельзя изменить без очистки заказа.)</value>
-        <value xml:lang="th">(ไม่สามารถเปลี่ยนได้โดยปราศจากการเคลียร์รายการสั่งซื้อ)
+        <value xml:lang="th">(ไม่สามารถเปลี่ยนได้โดยปราศจากการเคลียร์รายการสั่งซื้อสินค้า)
 </value>
         <value xml:lang="zh_CN">(必须清空订单才能改变)</value>
         <value xml:lang="zh">(不清除订单的话不能修改。)</value>
@@ -4759,7 +4759,7 @@
         <value xml:lang="nl">U kunt een faciliteit kiezen in plaats van de standaard</value>
         <value xml:lang="ro">Tu poti alege un Compartiment in loc de Default</value>
         <value xml:lang="ru">Вместо указанного по умолчанию, вы можете выбрать другой склад</value>
-        <value xml:lang="th">คุณอาจจะเลือกสิ่งอำนวยความสะดวกแทนที่ค่าเริ่มต้น
+        <value xml:lang="th">คุณอาจจะเลือกการทำงานแทนที่ค่าเริ่มต้น
 </value>
         <value xml:lang="zh_CN">你可以选择设施，而不用默认的</value>
         <value xml:lang="zh">你可以选择一个场所而不是使用缺省值</value>
@@ -4786,7 +4786,7 @@
         <value xml:lang="it">Cancella Ordine</value>
         <value xml:lang="nl">Wis Bestelling</value>
         <value xml:lang="ru">Очистить</value>
-        <value xml:lang="th">เคลียร์รายการสั่งซื้อ</value>
+        <value xml:lang="th">เคลียร์รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">清空订单</value>
         <value xml:lang="zh">清除订单</value>
     </property>
@@ -4804,7 +4804,7 @@
         <value xml:lang="nl">Teleswitch Order Manager</value>
         <value xml:lang="ro">OFBiz: Gestiune Comanda </value>
         <value xml:lang="ru">OFBiz: Управление заказами</value>
-        <value xml:lang="th">OFBiz: การจัดการรายการสั่งซื้อ</value>
+        <value xml:lang="th">OFBiz: การจัดการรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh_CN">OFBiz: 订单管理</value>
         <value xml:lang="zh">OFBiz: 订单管理</value>
     </property>
@@ -4830,7 +4830,7 @@
         <value xml:lang="nl">Rond Bestelling af.</value>
         <value xml:lang="ro">Ordin Completat</value>
         <value xml:lang="ru">Завершить заполнение заказа</value>
-        <value xml:lang="th">รายการสั่งซื้อเสร็จสมบูรณ์</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าสินค้าเสร็จสมบูรณ์</value>
         <value xml:lang="zh_CN">完成订单</value>
         <value xml:lang="zh">完成订单</value>
     </property>
@@ -4867,7 +4867,7 @@
         <value xml:lang="nl">Bevat BackOrders</value>
         <value xml:lang="ro">Contine BackOrders</value>
         <value xml:lang="ru">Содержат задолженные заказы</value>
-        <value xml:lang="th">กลับไปยังหัวข้อรายการสั่งซื้อ
+        <value xml:lang="th">กลับไปยังหัวข้อรายการสั่งซื้อสินค้าสินค้า
 
 </value>
         <value xml:lang="zh">包含缺货通知单</value>
@@ -4906,7 +4906,7 @@
         <value xml:lang="fr">Créer comme nouvelle commande</value>
         <value xml:lang="it">Creare Come Nuovo Ordine</value>
         <value xml:lang="ru">Создать как новый заказ</value>
-        <value xml:lang="th">สร้างรายการสั่งซื้อใหม่</value>
+        <value xml:lang="th">สร้างรายการสั่งซื้อสินค้าใหม่</value>
     </property>
     <property key="OrderCreateCustRequestFromCart">
         <value xml:lang="en">Create a Request For Quote</value>
@@ -4954,7 +4954,7 @@
         <value xml:lang="nl">Nieuwe Bestelling</value>
         <value xml:lang="ro">Creare Comanda</value>
         <value xml:lang="ru">Создать заказ</value>
-        <value xml:lang="th">สร้างรายการสั่งซื้อ</value>
+        <value xml:lang="th">สร้างรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh_CN">建立订单</value>
         <value xml:lang="zh">创建订单</value>
     </property>
@@ -5162,7 +5162,7 @@
         <value xml:lang="nl">Order Datum</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Дата заказа</value>
-        <value xml:lang="th">วันที่</value>
+        <value xml:lang="th">วันที่สั่งรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh_CN">订单日期</value>
         <value xml:lang="zh">订单日期</value>
     </property>
@@ -5175,14 +5175,14 @@
         <value xml:lang="nl">Bestel datum</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Date Ordered</value>
-        <value xml:lang="th">รายการสั่งซื้อวันที่</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าสินค้าวันที่</value>
         <value xml:lang="zh_CN">订货日期</value>
         <value xml:lang="zh">下订单的日期</value>
     </property>
     <property key="OrderDeliveryScheduleInfo">
         <value xml:lang="en">Delivery Schedule Info</value>
         <value xml:lang="es">Información de horario de entrega</value>
-        <value xml:lang="th">ข้อมูลตารางการส่ง</value>
+        <value xml:lang="th">ข้อมูลตารางเวลาการส่ง</value>
     </property>
     <property key="OrderDesiredDeliveryDate">
         <value xml:lang="de">Gewünschtes Lieferdatum</value>
@@ -5252,7 +5252,7 @@
     </property>
     <property key="OrderEmailSentToFollowingAddresses">
         <value xml:lang="en">Your order will be sent to the following email addresses</value>
-        <value xml:lang="th">รายการสั่งซื้อของคุณจะส่งตามที่อยู่อีเมล</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าของคุณจะส่งตามที่อยู่อีเมล</value>
     </property>
     <property key="OrderEnteredPromoCodes">
         <value xml:lang="en">Entered Codes</value>
@@ -5285,7 +5285,7 @@
         <value xml:lang="nl">Foutmelding: deze faciliteit heeft geen verzend adres</value>
         <value xml:lang="ro">Eroare : Compartimentul nu are adrese</value>
         <value xml:lang="ru">Ошибка: склад не имеет адресов</value>
-        <value xml:lang="th">Error : ผิดพลาด ! ไม่มีที่อยู่สิ่งอำนวยความสะดวก
+        <value xml:lang="th">Error : ผิดพลาด ! ไม่มีที่อยู่การทำงาน
 </value>
         <value xml:lang="zh_CN">错误 : 这个设施没有地址</value>
         <value xml:lang="zh">错误：场所没有地址</value>
@@ -5361,7 +5361,7 @@
         <value xml:lang="fr">ordres d'achat</value>
         <value xml:lang="it">ordini di acquisto</value>
         <value xml:lang="ru">закупочные заказы</value>
-        <value xml:lang="th">รายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">购物订单</value>
     </property>
     <property key="OrderFilterPOsOpenPastTheirETA">
@@ -5421,7 +5421,7 @@
         <value xml:lang="nl">Zoek Bestellingen</value>
         <value xml:lang="ro">Cauta Comenzi </value>
         <value xml:lang="ru">Поиск заказов</value>
-        <value xml:lang="th">ค้นหารายการสั่งซื้อ</value>
+        <value xml:lang="th">ค้นหารายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh_CN">查找订单</value>
         <value xml:lang="zh">查找订单</value>
     </property>
@@ -5479,7 +5479,7 @@
     <property key="OrderForceCompletePurchaseOrder">
         <value xml:lang="en">Force Complete Purchase Order</value>
         <value xml:lang="ru">Принудительное завершение закупочного заказа</value>
-        <value xml:lang="th">รายการสั่งซื้อเสร็จสมบูรณ์</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าเสร็จสมบูรณ์</value>
     </property>
     <property key="OrderFromMondayToTuesday">
         <value xml:lang="en">From Monday To Tuesday</value>
@@ -5532,7 +5532,7 @@
         <value xml:lang="nl">Verwijder alle cadeau items?</value>
         <value xml:lang="ro">Omagiul Antreneaza Toate Liniile</value>
         <value xml:lang="ru">Все позиции являются подарком?</value>
-        <value xml:lang="th">ไอเทมกระดาษห่อของขวัญทั้งหมด?</value>
+        <value xml:lang="th">รายการกระดาษห่อของขวัญทั้งหมด?</value>
         <value xml:lang="zh_CN">礼品打包到一项？</value>
         <value xml:lang="zh">全部明细使用礼品包装吗?</value>
     </property>
@@ -5570,7 +5570,7 @@
         <value xml:lang="nl">Totaalbedrag verkocht (inclusief promoties en lopende bestellingen).</value>
         <value xml:lang="ro">Linii Vandute Brute  (include promotii si comenzi suspendate)</value>
         <value xml:lang="ru">Валовые продажи по позициям (включая предложения и ожидающие заказы)</value>
-        <value xml:lang="th">ยอดรวมไอเทมที่ขาย (รวมโปรโมชันและรายการที่ยังค้างอยู่)
+        <value xml:lang="th">ยอดรวมรายการที่ขาย (รวมโปรโมชันและรายการที่ยังค้างอยู่)
 </value>
         <value xml:lang="zh_CN">总销售项目 (包括促销和未完成的订单)</value>
         <value xml:lang="zh">已售的全部明细 (包括促销和待处理的订单)</value>
@@ -5583,7 +5583,7 @@
         <value xml:lang="nl">Zet bestelling in wacht</value>
         <value xml:lang="ro">Congeleaza Comenzi </value>
         <value xml:lang="ru">Приостановить заказа</value>
-        <value xml:lang="th">การควบคุมรายการสั่งซื้อ</value>
+        <value xml:lang="th">การควบคุมรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">扣留订单</value>
     </property>
     <property key="OrderHowShallWeShipIt">
@@ -5637,7 +5637,7 @@
         <value xml:lang="nl">Snel een purchase order maken</value>
         <value xml:lang="ro">Inseriment Rapid Comanda Comparare OrderInternalCode = Cod Intern</value>
         <value xml:lang="ru">Быстрый ввод закупочного заказа</value>
-        <value xml:lang="th">กรอกข้อมูลรายการสั่งซื้อย่างรวดเร็ว</value>
+        <value xml:lang="th">กรอกข้อมูลรายการสั่งซื้อสินค้าย่างรวดเร็ว</value>
         <value xml:lang="zh_CN">快速输入采购订单</value>
         <value xml:lang="zh">购物订单快速入口</value>
     </property>
@@ -5761,7 +5761,7 @@
         <value xml:lang="nl">Item Totaal</value>
         <value xml:lang="ro">Total Linie</value>
         <value xml:lang="ru">Итог позиции</value>
-        <value xml:lang="th">ผลรวมไอเทม</value>
+        <value xml:lang="th">ผลรวมรายการ</value>
         <value xml:lang="zh_CN">项目总计</value>
         <value xml:lang="zh">明细合计</value>
     </property>
@@ -5773,7 +5773,7 @@
         <value xml:lang="nl">Items Backordered</value>
         <value xml:lang="ro">Linie in Backorder</value>
         <value xml:lang="ru">Задолженные позиции</value>
-        <value xml:lang="th">กลับไปยังรายการไอเทม</value>
+        <value xml:lang="th">กลับไปยังรายการรายการ</value>
         <value xml:lang="zh_CN">Items Backordered</value>
         <value xml:lang="zh">列入缺货通知单的明细</value>
     </property>
@@ -5786,7 +5786,7 @@
         <value xml:lang="nl">Items Ordered</value>
         <value xml:lang="ro">Linii Comandate</value>
         <value xml:lang="ru">Заказано позиций</value>
-        <value xml:lang="th">รายการไอเทม</value>
+        <value xml:lang="th">รายการรายการ</value>
         <value xml:lang="zh_CN">订货项</value>
         <value xml:lang="zh">已下订单的明细</value>
     </property>
@@ -5799,7 +5799,7 @@
         <value xml:lang="nl">Items Retour gebracht</value>
         <value xml:lang="ro">Linii Returnate</value>
         <value xml:lang="ru">Возвращено позиций</value>
-        <value xml:lang="th">คืนค่าไอเทม</value>
+        <value xml:lang="th">คืนค่ารายการ</value>
         <value xml:lang="zh_CN">退货项 </value>
         <value xml:lang="zh">已退货的明细</value>
     </property>
@@ -5831,7 +5831,7 @@
     <property key="OrderLinkedFromOrderItem">
         <value xml:lang="en">Linked from order item</value>
         <value xml:lang="ru">Связь от позиции заказа</value>
-        <value xml:lang="th">ลิงค์จากรายการไอเทม</value>
+        <value xml:lang="th">ลิงค์จากรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh">链接自订单明细</value>
     </property>
     <property key="OrderLinkedToOrderItem">
@@ -5841,7 +5841,7 @@
         <value xml:lang="nl">Gelinkt aan bestel item</value>
         <value xml:lang="ro">Link la liniile comenzi</value>
         <value xml:lang="ru">Связано с позицией заказа</value>
-        <value xml:lang="th">ลิงค์ถึงรายการไอเทม</value>
+        <value xml:lang="th">ลิงค์ไปยังรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh">链接到订单明细</value>
     </property>
     <property key="OrderLinkedToQuote">
@@ -5851,7 +5851,7 @@
         <value xml:lang="nl">Gelinkt aan offerte</value>
         <value xml:lang="ro">Link la Oferte</value>
         <value xml:lang="ru">Связано с предложением</value>
-        <value xml:lang="th">ลิงค์ถึงคำร้อง</value>
+        <value xml:lang="th">ลิงค์ไปยังคำร้อง</value>
         <value xml:lang="zh">链接到询价</value>
     </property>
     <property key="OrderLinkedToRequirement">
@@ -5861,7 +5861,7 @@
         <value xml:lang="nl">Gelinkt aan aanvraag</value>
         <value xml:lang="ro">Link la Necesar</value>
         <value xml:lang="ru">Связано с требованием</value>
-        <value xml:lang="th">ลิงค์ถึงการร้องขอ</value>
+        <value xml:lang="th">ลิงค์ไปยังการร้องขอ</value>
         <value xml:lang="zh">链接到需求</value>
     </property>
     <property key="OrderLookupOrder">
@@ -5873,7 +5873,7 @@
         <value xml:lang="nl">Opvragen Bestelling(en)</value>
         <value xml:lang="ro">Cauta Comanda(enzi)</value>
         <value xml:lang="ru">Искать заказ(ы)</value>
-        <value xml:lang="th">ค้นหารายการสั่งซื้อ</value>
+        <value xml:lang="th">ค้นหารายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">查找订单</value>
         <value xml:lang="zh">查找订单</value>
     </property>
@@ -5910,7 +5910,7 @@
         <value xml:lang="nl">Bestel Manage Programma</value>
         <value xml:lang="ro">Aplicatie Gestiune Comenzi</value>
         <value xml:lang="ru">Управление заказами</value>
-        <value xml:lang="th">โปรแกรมประยุกต์การจัดการรายการสั่งซื้อ</value>
+        <value xml:lang="th">โปรแกรมประยุกต์การจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单管理</value>
         <value xml:lang="zh">订单管理应用程序</value>
     </property>
@@ -5971,7 +5971,7 @@
         <value xml:lang="fr">Nouvelle commande</value>
         <value xml:lang="it">Nuovo ordine</value>
         <value xml:lang="ru">Новый заказ</value>
-        <value xml:lang="th">รายการสั่งซื้อใหม่</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าใหม่</value>
     </property>
     <property key="OrderNewQuantity">
         <value xml:lang="en">New quantity</value>
@@ -6148,7 +6148,7 @@
         <value xml:lang="nl">Geen instellingen voor deze bestelling</value>
         <value xml:lang="ro">Nici-o modificare pentru aceasta comanda.</value>
         <value xml:lang="ru">Нет настроек для этого заказа.</value>
-        <value xml:lang="th">ไม่มีการปรับเปลี่ยนบนรายการสั่งซื้อนี้</value>
+        <value xml:lang="th">ไม่มีการปรับเปลี่ยนบนรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh">这个订单没有调整。</value>
     </property>
     <property key="OrderNoOrderFound">
@@ -6160,7 +6160,7 @@
         <value xml:lang="nl">Geen bestellingen gevonden</value>
         <value xml:lang="ro">Nici-o Comanda Gasita</value>
         <value xml:lang="ru">Заказы не найдены</value>
-        <value xml:lang="th">ไม่พบรหัสรายการสั่งซื้อนี้</value>
+        <value xml:lang="th">ไม่พบรหัสรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh_CN">没有找到订单</value>
         <value xml:lang="zh">没有找到订单</value>
     </property>
@@ -6170,7 +6170,7 @@
         <value xml:lang="nl">Geen bestellingen gevonmden voor deze organisatie Id</value>
         <value xml:lang="ro">Nici-o Comanda Gasita pentru subiectul</value>
         <value xml:lang="ru">Для контрагента заказы не найдены</value>
-        <value xml:lang="th">ไม่พบรายการสั่งซื้อสำหรับกลุ่มผู้ใช้นี้</value>
+        <value xml:lang="th">ไม่พบรายการสั่งซื้อสินค้าสำหรับกลุ่มผู้ใช้นี้</value>
         <value xml:lang="zh">没有找到订单，会员标识</value>
     </property>
     <property key="OrderNoOrderItemsToDisplay">
@@ -6182,20 +6182,20 @@
         <value xml:lang="nl">Geen bestellingen te laten zien</value>
         <value xml:lang="ro">Nici-o linie de comanda de vizualizare.</value>
         <value xml:lang="ru">Нет заказанных позиций для показа.</value>
-        <value xml:lang="th">ไม่แสดงไอเทมในการสั่งซื้อ</value>
+        <value xml:lang="th">ไม่แสดงรายการในการสั่งซื้อ</value>
         <value xml:lang="zh_CN">没有订单项目可显示</value>
         <value xml:lang="zh">没有要显示的订单明细。</value>
     </property>
     <property key="OrderNoOrderPaymentPreferences">
         <value xml:lang="en">No payment preferences  with this order.</value>
         <value xml:lang="ru">Платежных предпочтений ассоциированных с этим заказом нет.</value>
-        <value xml:lang="th">ไม่มีสิทธิพิเศษที่เกี่ยวข้องกับการชำระเงินด้วยรายการสั่งซื้อนี้</value>
+        <value xml:lang="th">ไม่มีสิทธิพิเศษที่เกี่ยวข้องกับการชำระเงินด้วยรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh">没有与这个订单关联的支付优先方式。</value>
     </property>
     <property key="OrderNoPurchaseOrderSpecified">
         <value xml:lang="en">No Purchase Order Specified</value>
         <value xml:lang="es">Ninguna orden de compra especificada</value>
-        <value xml:lang="th">ไม่มีรายการสั่งซื้อที่ระบุ</value>
+        <value xml:lang="th">ไม่มีรายการสั่งซื้อสินค้าที่ระบุ</value>
     </property>
     <property key="OrderNoPurchasePaymentMethod">
         <value xml:lang="en">No Purchase Payment Method Information Found.</value>
@@ -6221,7 +6221,7 @@
         <value xml:lang="nl">Geen inkoop bestelling gespecificeerd.</value>
         <value xml:lang="ro">Nici-o Comanda de Cumparare a fost specificata</value>
         <value xml:lang="ru">Не указаны закупочные заказы</value>
-        <value xml:lang="th">ไม่มีรายการสั่งซื้อที่ระบุ</value>
+        <value xml:lang="th">ไม่มีรายการสั่งซื้อสินค้าที่ระบุ</value>
         <value xml:lang="zh">没有指定购物订单</value>
     </property>
     <property key="OrderNoQuoteFound">
@@ -6277,7 +6277,7 @@
         <value xml:lang="nl">Geen item(s) retour.</value>
         <value xml:lang="ro">Nici-o Linie in returnare.</value>
         <value xml:lang="ru">Нет позиций в возврате.</value>
-        <value xml:lang="th">ไม่มีการคืนไอเทม</value>
+        <value xml:lang="th">ไม่มีการคืนรายการ</value>
         <value xml:lang="zh">退货中没有明细。</value>
     </property>
     <property key="OrderNoRolesAssociatedRequest">
@@ -6326,7 +6326,7 @@
         <value xml:lang="nl">Not Used For Purchase Orders</value>
         <value xml:lang="ro">Nu este folosit Pentru Comenzi de Cumparare</value>
         <value xml:lang="ru">Не используется в закупочных заказах</value>
-        <value xml:lang="th">ไม่ใช้สำหรับรายการสั่งซื้อ</value>
+        <value xml:lang="th">ไม่ใช้สำหรับรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">不适用于采购订单</value>
         <value xml:lang="zh">不用于购物订单</value>
     </property>
@@ -6451,7 +6451,7 @@
         <value xml:lang="nl">On Bestelling</value>
         <value xml:lang="ro">In Comanda</value>
         <value xml:lang="ru">Заказан</value>
-        <value xml:lang="th">บนรายการสั่งซื้อ</value>
+        <value xml:lang="th">บนรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">已订购未交货</value>
     </property>
     <property key="OrderOrder">
@@ -6463,7 +6463,7 @@
         <value xml:lang="nl">Bestellingen</value>
         <value xml:lang="ro">Comanda</value>
         <value xml:lang="ru">Заказ</value>
-        <value xml:lang="th">รายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh">订单</value>
     </property>
@@ -6500,7 +6500,7 @@
         <value xml:lang="nl">Bestelling Confirmation</value>
         <value xml:lang="ro">Confirma Comanda</value>
         <value xml:lang="ru">Подтверждение заказа</value>
-        <value xml:lang="th">การยืนยันรายการสั่งซื้อ</value>
+        <value xml:lang="th">การยืนยันรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单确认</value>
         <value xml:lang="zh">订单确认</value>
     </property>
@@ -6513,7 +6513,7 @@
         <value xml:lang="nl">Bestelling Date</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Дата заказа</value>
-        <value xml:lang="th">รายการสั่งซื้อวันที่</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าวันที่</value>
         <value xml:lang="zh_CN">订单日期</value>
         <value xml:lang="zh">订购日期</value>
     </property>
@@ -6526,7 +6526,7 @@
         <value xml:lang="nl">Bestelling Entry</value>
         <value xml:lang="ro">Introducere Comanda </value>
         <value xml:lang="ru">Ввод заказа</value>
-        <value xml:lang="th">การกรอกข้อมูลรายการสั่งซื้อ</value>
+        <value xml:lang="th">การกรอกข้อมูลรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单录入</value>
         <value xml:lang="zh">订购记录</value>
     </property>
@@ -6550,7 +6550,7 @@
         <value xml:lang="nl">Bestelling Entry Customer Info</value>
         <value xml:lang="ro">Introducere Informatii Comenzi </value>
         <value xml:lang="ru">Ввод информации о клиенте заказа</value>
-        <value xml:lang="th">ข้อมูลลูกค้าที่เข้าสู่รายการสั่งซื้อ</value>
+        <value xml:lang="th">ข้อมูลลูกค้าที่เข้าสู่รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">客户信息</value>
         <value xml:lang="zh">订单记录客户信息</value>
     </property>
@@ -6575,7 +6575,7 @@
         <value xml:lang="nl">Bestelling Entry Bestelling Terms</value>
         <value xml:lang="ro">Introducere Termene Comanda</value>
         <value xml:lang="ru">Введите условия заказа</value>
-        <value xml:lang="th">การเข้าสู่รายการสั่งซื้อ</value>
+        <value xml:lang="th">การเข้าสู่รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单条款</value>
         <value xml:lang="zh">订单记录订单条件</value>
     </property>
@@ -6614,7 +6614,7 @@
         <value xml:lang="nl">Bestelling for</value>
         <value xml:lang="ro">Comanda pentru </value>
         <value xml:lang="ru">Заказ для</value>
-        <value xml:lang="th">สำหรับรายการสั่งซื้อ</value>
+        <value xml:lang="th">สำหรับรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单为</value>
         <value xml:lang="zh">订单：</value>
     </property>
@@ -6627,7 +6627,7 @@
         <value xml:lang="nl">Bestelling(en) Gevonden</value>
         <value xml:lang="ro">Comand(enzi) Gasita(e)</value>
         <value xml:lang="ru">Найденные заказы</value>
-        <value xml:lang="th">พบรายการสั่งซื้อ</value>
+        <value xml:lang="th">พบรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单找到</value>
         <value xml:lang="zh">订单被找到</value>
     </property>
@@ -6639,7 +6639,7 @@
         <value xml:lang="nl">Bestelling Header Info</value>
         <value xml:lang="ro">Informatii Antet Comanda</value>
         <value xml:lang="ru">Оглавление заказа</value>
-        <value xml:lang="th">ข้อมูลหัวข้อรายการสั่งซื้อ
+        <value xml:lang="th">ข้อมูลหัวข้อรายการสั่งซื้อสินค้า
 </value>
         <value xml:lang="zh_CN">订单头信息</value>
         <value xml:lang="zh">订单头信息</value>
@@ -6653,7 +6653,7 @@
         <value xml:lang="nl">Bestelling Id</value>
         <value xml:lang="ro">Numar Comanda</value>
         <value xml:lang="ru">Код заказа</value>
-        <value xml:lang="th">รหัสรายการสั่งซื้อ</value>
+        <value xml:lang="th">รหัสรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单标识</value>
         <value xml:lang="zh">订单标识</value>
     </property>
@@ -6672,7 +6672,7 @@
         <value xml:lang="nl">Item Type</value>
         <value xml:lang="ro">Tip Linie</value>
         <value xml:lang="ru">Тип позиции</value>
-        <value xml:lang="th">ประเภทไอเทม</value>
+        <value xml:lang="th">ประเภทรายการ</value>
         <value xml:lang="zh">明细类型</value>
     </property>
     <property key="OrderOrderItems">
@@ -6684,7 +6684,7 @@
         <value xml:lang="nl">Bestelling Items</value>
         <value xml:lang="ro">Linii Comanda</value>
         <value xml:lang="ru">Позиции заказа</value>
-        <value xml:lang="th">ไอเทมรายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单项</value>
         <value xml:lang="zh">订单明细</value>
     </property>
@@ -6697,7 +6697,7 @@
         <value xml:lang="nl">Bestelling List</value>
         <value xml:lang="ro">Lista Comanda</value>
         <value xml:lang="ru">Список заказов</value>
-        <value xml:lang="th">รายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单列表</value>
         <value xml:lang="zh">订单列表</value>
     </property>
@@ -6709,7 +6709,7 @@
         <value xml:lang="nl">Bestelling Manager Application</value>
         <value xml:lang="ro">Aplicatie Gestiune Comenzi</value>
         <value xml:lang="ru">Управление заказами</value>
-        <value xml:lang="th">โปรแกรมประยุกต์การจัดการรายการสั่งซื้อ</value>
+        <value xml:lang="th">โปรแกรมประยุกต์การจัดการรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单管理应用</value>
         <value xml:lang="zh">订单管理程序</value>
     </property>
@@ -6732,7 +6732,7 @@
         <value xml:lang="nl">Orders die aandacht nodig hebben</value>
         <value xml:lang="ro">Comenzi care au nevoie de Atentie</value>
         <value xml:lang="ru">Заказы требующие внимания</value>
-        <value xml:lang="th">รายการสั่งซื้อต้องการการพิจารณาอย่างสนใจ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าต้องการการพิจารณาอย่างสนใจ</value>
         <value xml:lang="zh_CN">需要关注的订单</value>
         <value xml:lang="zh">需要注意的订单</value>
     </property>
@@ -6745,7 +6745,7 @@
         <value xml:lang="nl">Bestel nummer</value>
         <value xml:lang="ro">Numar Comanda</value>
         <value xml:lang="ru">Номер заказа</value>
-        <value xml:lang="th">หมายเลขรายการสั่งซื้อ</value>
+        <value xml:lang="th">หมายเลขรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单号</value>
         <value xml:lang="zh">订单编号</value>
     </property>
@@ -6770,7 +6770,7 @@
         <value xml:lang="nl">Inkoop die gepland moeten worden</value>
         <value xml:lang="ro">Comanda Cumparare ce va fi Planificata </value>
         <value xml:lang="ru">Закупка будет запланирована</value>
-        <value xml:lang="th">ตารางรายการสั่งซื้อ</value>
+        <value xml:lang="th">ตารางรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单采购将被计划</value>
         <value xml:lang="zh">要计划的订单购买</value>
     </property>
@@ -6780,7 +6780,7 @@
         <value xml:lang="nl">Order tellingen</value>
         <value xml:lang="ro">Cant Comanda</value>
         <value xml:lang="ru">Количество в заказе</value>
-        <value xml:lang="th">จำนวนรายการสั่งซื้อ</value>
+        <value xml:lang="th">จำนวนรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订购数量</value>
     </property>
     <property key="OrderOrderQuote">
@@ -7507,7 +7507,7 @@
         <value xml:lang="nl">Bestelling Type</value>
         <value xml:lang="ro">Tip Comenzi</value>
         <value xml:lang="ru">Тип заказа</value>
-        <value xml:lang="th">ประเภทรายการสั่งซื้อ</value>
+        <value xml:lang="th">ประเภทรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单类型</value>
         <value xml:lang="zh">订单类型</value>
     </property>
@@ -7520,7 +7520,7 @@
         <value xml:lang="nl">Ordered</value>
         <value xml:lang="ro">Comanda</value>
         <value xml:lang="ru">Заказано</value>
-        <value xml:lang="th">รายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订购的</value>
         <value xml:lang="zh">已订购的</value>
     </property>
@@ -7528,7 +7528,7 @@
         <value xml:lang="en">Orders</value>
         <value xml:lang="it">Ordini</value>
         <value xml:lang="ru">Заказы</value>
-        <value xml:lang="th">รายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
     </property>
     <property key="OrderOrdersItemCounts">
         <value xml:lang="en">Orders Item Counts</value>
@@ -7538,7 +7538,7 @@
         <value xml:lang="nl">Orders Item Counts</value>
         <value xml:lang="ro">Contor Linii Comanda</value>
         <value xml:lang="ru">Количество позиций заказов</value>
-        <value xml:lang="th">นับจำนวนหัวข้อรายการสั่งซื้อ</value>
+        <value xml:lang="th">นับจำนวนหัวข้อรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单项目个数</value>
         <value xml:lang="zh">订单明细计数</value>
     </property>
@@ -7550,7 +7550,7 @@
         <value xml:lang="nl">Orders Pending</value>
         <value xml:lang="ro">Comenzi Suspendate</value>
         <value xml:lang="ru">Ожидающих заказов</value>
-        <value xml:lang="th">รายการสั่งซื้อที่ยังค้างอยู่</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าที่ยังค้างอยู่</value>
         <value xml:lang="zh_CN">未完成订单</value>
         <value xml:lang="zh">扣留的订单</value>
     </property>
@@ -7562,7 +7562,7 @@
         <value xml:lang="nl">Orders Totals</value>
         <value xml:lang="ro">Total Comenzi</value>
         <value xml:lang="ru">Всего заказов</value>
-        <value xml:lang="th">ผลรวมรายการสั่งซื้อ</value>
+        <value xml:lang="th">ผลรวมรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单总额</value>
         <value xml:lang="zh">订单合计</value>
     </property>
@@ -7574,7 +7574,7 @@
         <value xml:lang="nl">Origin Facility</value>
         <value xml:lang="ro">Compartiment Origine</value>
         <value xml:lang="ru">Исходящий склад</value>
-        <value xml:lang="th">ต้นฉบับสิ่งอำนวยความสะดวก</value>
+        <value xml:lang="th">ต้นฉบับการทำงาน</value>
         <value xml:lang="zh_CN">原仓储设施</value>
         <value xml:lang="zh">原场所</value>
     </property>
@@ -7586,7 +7586,7 @@
         <value xml:lang="nl">Other Orders</value>
         <value xml:lang="ro">Alte Comenzi</value>
         <value xml:lang="ru">Другие заказы</value>
-        <value xml:lang="th">รายการสั่งซื้ออื่น ๆ </value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าอื่น ๆ </value>
         <value xml:lang="zh_CN">其他订单</value>
         <value xml:lang="zh">其它订单</value>
     </property>
@@ -7656,7 +7656,7 @@
         <value xml:lang="nl">Paid Items Sold (includes promotions)</value>
         <value xml:lang="ro">Linii Vandute Platite (include promotii)</value>
         <value xml:lang="ru">Оплаченные проданные позиции (включая специальные предложения)</value>
-        <value xml:lang="th">การจ่ายไอเทมที่ขาย (รวมโปรโมชัน)</value>
+        <value xml:lang="th">การจ่ายรายการที่ขาย (รวมโปรโมชัน)</value>
         <value xml:lang="zh_CN">已付款的销售项 (包括促销)</value>
         <value xml:lang="zh">已支付的销售明细 (包括促销)</value>
     </property>
@@ -7795,7 +7795,7 @@
         <value xml:lang="nl">Pending Payment Items Sold (includes promotions)</value>
         <value xml:lang="ro">Linii Vandute Plati in Suspendare (include promotii)</value>
         <value xml:lang="ru">Ожидаемые к оплате проданные позиции (включая специальные предложения)</value>
-        <value xml:lang="th">การชำระเงินไอเทมที่ขายที่ยังค้างอยู่ (รวมโปรโมชัน)</value>
+        <value xml:lang="th">การชำระเงินรายการที่ขายที่ยังค้างอยู่ (รวมโปรโมชัน)</value>
         <value xml:lang="zh_CN">为支付的销售项 (包括促销)</value>
         <value xml:lang="zh">扣留的销售支付明细 (包括促销)</value>
     </property>
@@ -7855,7 +7855,7 @@
         <value xml:lang="en">Prepare Order</value>
         <value xml:lang="it">Prepara Ordine</value>
         <value xml:lang="ru">Подготовить заказ</value>
-        <value xml:lang="th">จัดเตรียมรายการสั่งซื้อ</value>
+        <value xml:lang="th">จัดเตรียมรายการสั่งซื้อสินค้า</value>
     </property>
     <property key="OrderPrice">
         <value xml:lang="de">Preis</value>
@@ -7884,7 +7884,7 @@
     </property>
     <property key="OrderProcessOrder">
         <value xml:lang="en">Process Order</value>
-        <value xml:lang="th">ประมวลผลรายการสั่งซื้อ</value>
+        <value xml:lang="th">ประมวลผลรายการสั่งซื้อสินค้า</value>
     </property>
     <property key="OrderProcessingInActive">
         <value xml:lang="en">This order is currently in a 'Active' state.</value>
@@ -7893,7 +7893,7 @@
         <value xml:lang="nl">This bestelling is currently in a 'Active' state.</value>
         <value xml:lang="ro">Aceasta comanda este in acest moment in stare 'Activ'.</value>
         <value xml:lang="ru">Заказ находится в состоянии 'Активный'.</value>
-        <value xml:lang="th">ปัจจุบันรายการสั่งซื้อนี้อยู่ในสภาพซึ่งทำกำไร
+        <value xml:lang="th">ปัจจุบันรายการสั่งซื้อสินค้านี้อยู่ในสภาพซึ่งทำกำไร
 </value>
         <value xml:lang="zh">这个订单当前处于“有效”状态。</value>
     </property>
@@ -7904,7 +7904,7 @@
         <value xml:lang="nl">This bestelling is currently in a 'Hold' state. The activity has been suspended.</value>
         <value xml:lang="ro">Aceasta Comanda este in acest moment in stare 'Congelata'. Activitatea a fost suspendata.</value>
         <value xml:lang="ru">Заказ находится в состоянии 'Удержание'. Обработка приостановлена.</value>
-        <value xml:lang="th">ปัจจุบันรายการสั่งซื้อนี้อยู่ในสภาพที่ต้องควบคุม รายการนี้จะถูกระงับชั่วคราว
+        <value xml:lang="th">ปัจจุบันรายการสั่งซื้อสินค้านี้อยู่ในสภาพที่ต้องควบคุม รายการนี้จะถูกระงับชั่วคราว
 </value>
         <value xml:lang="zh">这个订单当前处于“扣留”状态。操作已被暂停。</value>
     </property>
@@ -7973,7 +7973,7 @@
         <value xml:lang="nl">Purchase Bestelling</value>
         <value xml:lang="ro">Comanda Cumparare</value>
         <value xml:lang="ru">Закупочный заказ</value>
-        <value xml:lang="th">รายการสั่งซื้อ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">采购订单</value>
         <value xml:lang="zh">购物订单</value>
     </property>
@@ -8086,7 +8086,7 @@
         <value xml:lang="nl">Bestelling Item Quick Add</value>
         <value xml:lang="ro">Adaugare Rapida Linie Comanda</value>
         <value xml:lang="ru">Быстрое добавления позиции заказа</value>
-        <value xml:lang="th">เพิ่มไอเทมรายการสั่งซื้อย่างรวดเร็ว</value>
+        <value xml:lang="th">เพิ่มรายการรายการสั่งซื้อสินค้าย่างรวดเร็ว</value>
         <value xml:lang="zh_CN">快速添加订单项目</value>
         <value xml:lang="zh">快速添加订单明细</value>
     </property>
@@ -8098,7 +8098,7 @@
         <value xml:lang="nl">Quick Finalize Bestelling</value>
         <value xml:lang="ro">Adaugare Rapida Comanda</value>
         <value xml:lang="ru">Быстро закрыть</value>
-        <value xml:lang="th">ทำรายการสั่งซื้อให้เสร็จสมบูรณ์อย่างรวดเร็ว</value>
+        <value xml:lang="th">ทำรายการสั่งซื้อสินค้าให้เสร็จสมบูรณ์อย่างรวดเร็ว</value>
         <value xml:lang="zh_CN">快速完成订单</value>
         <value xml:lang="zh">快速结束订单</value>
     </property>
@@ -8121,7 +8121,7 @@
         <value xml:lang="nl">Quick Receive Purchase Bestelling</value>
         <value xml:lang="ro">Primire Rapida Comanda Cumparare</value>
         <value xml:lang="ru">Быстрый прием закупочного заказа</value>
-        <value xml:lang="th">รับรายการสั่งซื้ออย่างรวดเร็ว</value>
+        <value xml:lang="th">รับรายการสั่งซื้อสินค้าอย่างรวดเร็ว</value>
         <value xml:lang="zh_CN">快速接收采购订单</value>
         <value xml:lang="zh">快速接收购物订单</value>
     </property>
@@ -8133,7 +8133,7 @@
         <value xml:lang="nl">Quick Refund Entire Bestelling</value>
         <value xml:lang="ro">Returnare Rapida Intreaga Comanda</value>
         <value xml:lang="ru">Быстрый возврат по всему заказу</value>
-        <value xml:lang="th">คืนรายการสั่งซื้อทั้งหมดอย่างรวดเร็ว</value>
+        <value xml:lang="th">คืนรายการสั่งซื้อสินค้าทั้งหมดอย่างรวดเร็ว</value>
         <value xml:lang="zh_CN">整个订单快速退还</value>
         <value xml:lang="zh">快速退还整个订单</value>
     </property>
@@ -8245,7 +8245,7 @@
     </property>
     <property key="OrderRejectOrder">
         <value xml:lang="en">Reject Order</value>
-        <value xml:lang="th">ปฏิเสธรายการสั่งซื้อ</value>
+        <value xml:lang="th">ปฏิเสธรายการสั่งซื้อสินค้า</value>
     </property>
     <property key="OrderRejected">
         <value xml:lang="en">Rejected</value>
@@ -8308,14 +8308,14 @@
     <property key="OrderReportFromDate">
         <value xml:lang="en">From Date<br/>(Order Date&gt;=)</value>
         <value xml:lang="it">Dalla Data<br/>(Data Ordine&gt;=)</value>
-        <value xml:lang="th">จากวันที่<br/>(รายการสั่งซื้อวันที่&gt;=)</value>
+        <value xml:lang="th">จากวันที่<br/>(รายการสั่งซื้อสินค้าวันที่&gt;=)</value>
     </property>
     <property key="OrderReportOpenOrderItems">
         <value xml:lang="en">Open Order Items Report</value>
         <value xml:lang="it">Report Righe Ordine Aperte</value>
         <value xml:lang="ro">Raport Linii Comenzi Deschise</value>
         <value xml:lang="ru">Открыть отчет по позициям заказа</value>
-        <value xml:lang="th">เปิดรายงานรายการสั่งซื้อไอเทม</value>
+        <value xml:lang="th">เปิดรายงานรายการสั่งซื้อสินค้ารายการ</value>
         <value xml:lang="zh">打开订单明细报告</value>
     </property>
     <property key="OrderReportPurchasesByOrganization">
@@ -8358,7 +8358,7 @@
     <property key="OrderReportThruDate">
         <value xml:lang="en">Thru Date<br/>(Order Date&lt;)</value>
         <value xml:lang="it">Fino alla Data<br/>(Data Ordine&lt;)</value>
-        <value xml:lang="th">ถึงวันที่<br/>(รายการสั่งซื้อวันที่&lt;)
+        <value xml:lang="th">ถึงวันที่<br/>(รายการสั่งซื้อสินค้าวันที่&lt;)
 </value>
     </property>
     <property key="OrderReports">
@@ -8607,7 +8607,7 @@
         <value xml:lang="nl">Bestelling Requirement Status Id</value>
         <value xml:lang="ro">Stare Comanda Necesar</value>
         <value xml:lang="ru">Код статуса требования заказа</value>
-        <value xml:lang="th">รหัสสถานะรายการสั่งซื้อที่ต้องการ</value>
+        <value xml:lang="th">รหัสสถานะรายการสั่งซื้อสินค้าที่ต้องการ</value>
         <value xml:lang="zh">订单需求状态标识</value>
     </property>
     <property key="OrderRequirements">
@@ -8655,7 +8655,7 @@
         <value xml:lang="nl">Return Bestelling Adjustment(s) From Bestelling</value>
         <value xml:lang="ro">Returnare Modificare(i) Comanda Pentru Comanda</value>
         <value xml:lang="ru">Настройки возвратного заказа из заказа</value>
-        <value xml:lang="th">กลับคืนการปรับเปลี่ยนรายการสั่งซื้อจากรายการ</value>
+        <value xml:lang="th">กลับคืนการปรับเปลี่ยนรายการสั่งซื้อสินค้าจากรายการ</value>
         <value xml:lang="zh">退货订单调整来自订单</value>
     </property>
     <property key="OrderReturnCreate">
@@ -8675,7 +8675,7 @@
         <value xml:lang="nl">Destination Facility</value>
         <value xml:lang="ro">Compartiment Destinatie </value>
         <value xml:lang="ru">На склад</value>
-        <value xml:lang="th">เป้าหมายของสิ่งอำนวยความสะดวก</value>
+        <value xml:lang="th">เป้าหมายของการทำงาน</value>
         <value xml:lang="zh">目的地场所</value>
     </property>
     <property key="OrderReturnEnumId">
@@ -8715,7 +8715,7 @@
         <value xml:lang="nl">Return Item(s) From Bestelling</value>
         <value xml:lang="ro">Linia(e) Returnare De la Comanda</value>
         <value xml:lang="ru">Возврат позиции(й) из заказа</value>
-        <value xml:lang="th">กลับคืนไอเทมจากรายการสั่งซื้อ</value>
+        <value xml:lang="th">กลับคืนรายการจากรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">退货明细来自订单</value>
     </property>
     <property key="OrderReturnFromParty">
@@ -8776,7 +8776,7 @@
         <value xml:lang="nl">Return Items</value>
         <value xml:lang="ro">Linii Returnare</value>
         <value xml:lang="ru">Возвращаемые позиции</value>
-        <value xml:lang="th">กลับคืนสู่ไอเทม</value>
+        <value xml:lang="th">กลับคืนสู่รายการ</value>
         <value xml:lang="zh_CN">退货项目</value>
         <value xml:lang="zh">退货明细</value>
     </property>
@@ -8786,7 +8786,7 @@
         <value xml:lang="nl">Load bestelling items for return</value>
         <value xml:lang="ro">Incarca linii comanda pe returnare </value>
         <value xml:lang="ru">Загрузить позиции заказа для возврата</value>
-        <value xml:lang="th">โหลดรายการไอเทมสำหรับการชดเชย</value>
+        <value xml:lang="th">โหลดรายการรายการสำหรับการชดเชย</value>
         <value xml:lang="zh">为退货载入订单明细</value>
     </property>
     <property key="OrderReturnManualAdjustment">
@@ -8795,7 +8795,7 @@
         <value xml:lang="nl">Manual Return Adjustment For Bestelling</value>
         <value xml:lang="ro">Modificare Returnare Manuala pe Comanda</value>
         <value xml:lang="ru">Ручная настройка возврата для заказа</value>
-        <value xml:lang="th">กลับสู่การปรับปรุงคู่มือสำหรับรายการสั่งซื้อ</value>
+        <value xml:lang="th">กลับสู่การปรับปรุงคู่มือสำหรับรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单手工退货调整</value>
     </property>
     <property key="OrderReturnNeedsAutoReceive">
@@ -8814,7 +8814,7 @@
         <value xml:lang="nl">No returnable items found for bestelling</value>
         <value xml:lang="ro">Nici-o linie restituita gasita pe comanda</value>
         <value xml:lang="ru">В заказе не найдены позиции которые могут быть возвращены</value>
-        <value xml:lang="th">ไม่พบไอเทมซึ่งกลับคืนได้สำหรับรายการนี้</value>
+        <value xml:lang="th">ไม่พบรายการซึ่งกลับคืนได้สำหรับรายการนี้</value>
         <value xml:lang="zh">订单中没有可以退货的明细</value>
     </property>
     <property key="OrderReturnPrice">
@@ -8879,7 +8879,7 @@
         <value xml:lang="nl">Return Selected Item(s)</value>
         <value xml:lang="ro">Returnare pentru liniile selectionate</value>
         <value xml:lang="ru">Возврат выбранных позиций</value>
-        <value xml:lang="th">กลับสู่การเลือกไอเทม</value>
+        <value xml:lang="th">กลับสู่การเลือกรายการ</value>
         <value xml:lang="zh">把所选的明细退货</value>
     </property>
     <property key="OrderReturnShipFromAddress">
@@ -8919,7 +8919,7 @@
         <value xml:lang="nl">Return To Facility</value>
         <value xml:lang="ro">Returnare la Compartimentul  </value>
         <value xml:lang="ru">Возврат на склад</value>
-        <value xml:lang="th">ผลตอบแทนอำนวยความสะดวก</value>
+        <value xml:lang="th">ผลตอบแทนการทำงาน</value>
         <value xml:lang="zh_CN">退货到设施</value>
         <value xml:lang="zh">退货到场所</value>
     </property>
@@ -8965,7 +8965,7 @@
         <value xml:lang="nl">Review Bestelling</value>
         <value xml:lang="ro">Modifica Comanda</value>
         <value xml:lang="ru">Просмотр заказа</value>
-        <value xml:lang="th">การตรวจสอบรายการสั่งซื้อ</value>
+        <value xml:lang="th">การตรวจสอบรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">检查订单</value>
         <value xml:lang="zh">浏览订单</value>
     </property>
@@ -9078,7 +9078,7 @@
         <value xml:lang="nl">Set a currency for this bestelling</value>
         <value xml:lang="ro">Seteaza o valuta pentru aceasta comanda</value>
         <value xml:lang="ru">Установите валюту заказа</value>
-        <value xml:lang="th">กำหนดเงินสำหรับรายการสั่งซื้อนี้</value>
+        <value xml:lang="th">กำหนดเงินสำหรับรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh_CN">或者设置这个订单的货币</value>
         <value xml:lang="zh">为这个订单设置币种</value>
     </property>
@@ -9089,7 +9089,7 @@
         <value xml:lang="nl">Or set a currency for this bestelling</value>
         <value xml:lang="ro">Sau seteaza o valuta pentru aceasta comanda</value>
         <value xml:lang="ru">Или установите валюту заказа</value>
-        <value xml:lang="th">หรือกำหนดเงินสำหรับรายการสั่งซื้อนี้</value>
+        <value xml:lang="th">หรือกำหนดเงินสำหรับรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh">或者为这个订单设置币种</value>
     </property>
     <property key="OrderSelectPartyToOrder">
@@ -9101,7 +9101,7 @@
         <value xml:lang="nl">Select type of party to associate to bestelling</value>
         <value xml:lang="ro">Selectioneaza tipul de Subiect de asociat la comanda</value>
         <value xml:lang="ru">Выберите ассоциированный с заказом тип контрагента</value>
-        <value xml:lang="th">เลือกประเภทของกลุ่มผู้ใช้ที่เกี่ยวข้องถึงรายการสั่งซื้อ</value>
+        <value xml:lang="th">เลือกประเภทของกลุ่มผู้ใช้ที่เกี่ยวข้องถึงรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">选择与这个订单关联的组织类型</value>
         <value xml:lang="zh">选择要关联到订单的会员类型</value>
     </property>
@@ -9119,7 +9119,7 @@
         <value xml:lang="nl">Selected Gift Wrap is not available for all items. The items which are available have been selected, the others remain unchanged.</value>
         <value xml:lang="ro">Selectioneaza un Omagiu care nu este disponibil pe toate liniile. Liniile care sunt disponibile sunt selectionate, celelalte vor ramane invariate.</value>
         <value xml:lang="ru">Выбранная подарочная упаковка недоступна для всех позиций. Позиции для которых возможно ее использования будут выбраны, остальные нет.</value>
-        <value xml:lang="th">การเลือกกระดาษห่อของขวัญไม่สามารถนำไปใช้ได้กับทุกไอเทม. เลือกใช้ได้กับไอเทมอื่น ๆ ที่ยังไม่มีการเปลี่ยนแปลงเหลืออยู่</value>
+        <value xml:lang="th">การเลือกกระดาษห่อของขวัญไม่สามารถนำไปใช้ได้กับทุกรายการ. เลือกใช้ได้กับรายการอื่น ๆ ที่ยังไม่มีการเปลี่ยนแปลงเหลืออยู่</value>
         <value xml:lang="zh_CN">选择的礼品打包对所有项目不可用。 可用的项目已被选中，其他保持不变。</value>
         <value xml:lang="zh">所选的礼品包装不能用于全部明细。已经把可以使用的选择了出来，其它的保持不变。</value>
     </property>
@@ -9525,7 +9525,7 @@
         <value xml:lang="nl">This bestelling is a gift</value>
         <value xml:lang="ro">Aceasta comanda este un omagiu</value>
         <value xml:lang="ru">Этот заказ - подарок</value>
-        <value xml:lang="th">รายการสั่งซื้อคือของขวัญ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าคือของขวัญ</value>
         <value xml:lang="zh_CN">这个订单是个礼品</value>
         <value xml:lang="zh">本订单是个礼品</value>
     </property>
@@ -9538,7 +9538,7 @@
         <value xml:lang="nl">This bestelling is not a gift</value>
         <value xml:lang="ro">Aceasta comanda nu este un omagiu</value>
         <value xml:lang="ru">Этот заказ не подарок</value>
-        <value xml:lang="th">รายการสั่งซื้อไม่ใช่ของขวัญ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าไม่ใช่ของขวัญ</value>
         <value xml:lang="zh_CN">这个订单不是礼品</value>
         <value xml:lang="zh">本订单不是礼品</value>
     </property>
@@ -9569,7 +9569,7 @@
         <value xml:lang="nl">Total Other Bestelling Adjustments</value>
         <value xml:lang="ro">Total Alte Modificari Comenzi</value>
         <value xml:lang="ru">Другие общие корректировки по заказу</value>
-        <value xml:lang="th">ผลรวมการปรับเปลี่ยนรายการสั่งซื้ออื่น ๆ </value>
+        <value xml:lang="th">ผลรวมการปรับเปลี่ยนรายการสั่งซื้อสินค้าอื่น ๆ </value>
         <value xml:lang="zh_CN">其他调整总计</value>
         <value xml:lang="zh">其它订单调整合计</value>
     </property>
@@ -9605,7 +9605,7 @@
         <value xml:lang="nl">Total quantity bestellinged</value>
         <value xml:lang="ro">Total cantitate comandata</value>
         <value xml:lang="ru">Общее заказанное количество</value>
-        <value xml:lang="th">ผลรวมจำนวนรายการสั่งซื้อ</value>
+        <value xml:lang="th">ผลรวมจำนวนรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">总订单数量</value>
         <value xml:lang="zh">已订购数量合计</value>
     </property>
@@ -9746,7 +9746,7 @@
         <value xml:lang="nl">Update Items</value>
         <value xml:lang="ro">Linii Actualizate</value>
         <value xml:lang="ru">Обновить позиции</value>
-        <value xml:lang="th">อัพเดทไอเทม</value>
+        <value xml:lang="th">อัพเดทรายการ</value>
         <value xml:lang="zh_CN">更新项目</value>
         <value xml:lang="zh">更新明细</value>
     </property>
@@ -9842,7 +9842,7 @@
         <value xml:lang="nl">View Bestelling</value>
         <value xml:lang="ro">Afiseaza Comanda</value>
         <value xml:lang="ru">Просмотреть заказ</value>
-        <value xml:lang="th">แสดงรายการสั่งซื้อ</value>
+        <value xml:lang="th">แสดงรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">查看订单</value>
         <value xml:lang="zh">浏览订单</value>
     </property>
@@ -10106,7 +10106,7 @@
         <value xml:lang="nl">List Requirement Orders</value>
         <value xml:lang="ro">Lista Necesar Comenzi </value>
         <value xml:lang="ru">Список требуемых заказов</value>
-        <value xml:lang="th">รายการสั่งซื้อที่ต้องการ</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าที่ต้องการ</value>
         <value xml:lang="zh">订单的需求列表</value>
     </property>
     <property key="PageTitleListRequirementRoles">
@@ -10155,7 +10155,7 @@
         <value xml:lang="nl">Lookup Bestelling Header</value>
         <value xml:lang="ro">Cauta Antet Comenzi</value>
         <value xml:lang="ru">Найзи оглавление заказа</value>
-        <value xml:lang="th">ค้นหาหัวข้อรายการสั่งซื้อ</value>
+        <value xml:lang="th">ค้นหาหัวข้อรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">查找订单头</value>
     </property>
     <property key="PageTitleLookupOrderHeaderAndShipInfo">
@@ -10165,7 +10165,7 @@
         <value xml:lang="nl">Lookup Bestelling Header and Ship Info</value>
         <value xml:lang="ro">Cauta Antet Comenzi si Informatii Expedieri</value>
         <value xml:lang="ru">Найти оглавление заказа и информацию о поставке</value>
-        <value xml:lang="th">ค้นหาหัวข้อรายการสั่งซื้อและข้อมูลการขนส่ง</value>
+        <value xml:lang="th">ค้นหาหัวข้อรายการสั่งซื้อสินค้าและข้อมูลการขนส่ง</value>
         <value xml:lang="zh">查找订单头和送货信息</value>
     </property>
     <property key="PageTitleLookupPurchaseOrderHeaderAndShipInfo">
@@ -10175,7 +10175,7 @@
         <value xml:lang="nl">Lookup Purchase Bestelling Header and Ship Info</value>
         <value xml:lang="ro">Cauta Antete Comenzi de Cumparare si Informatii Expedieri </value>
         <value xml:lang="ru">Найти оглавление закупочного заказа и информацию о поставке</value>
-        <value xml:lang="th">ค้นหาหัวข้อรายการสั่งซื้อและข้อมูลการขนส่ง</value>
+        <value xml:lang="th">ค้นหาหัวข้อรายการสั่งซื้อสินค้าและข้อมูลการขนส่ง</value>
         <value xml:lang="zh">查找购物订单头和送货信息</value>
     </property>
     <property key="PageTitleLookupQuote">
@@ -10215,7 +10215,7 @@
         <value xml:lang="nl">Lookup Shopping List</value>
         <value xml:lang="ro">Cauta Liste de Cumparare</value>
         <value xml:lang="ru">Найти список покупок</value>
-        <value xml:lang="th">ค้นหารายการสั่งซื้อ</value>
+        <value xml:lang="th">ค้นหารายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">查找购物列表</value>
     </property>
     <property key="PageTitleOrderAgreements">
@@ -10315,7 +10315,7 @@
         <value xml:lang="nl">Return Items</value>
         <value xml:lang="ro">Linii Returnari</value>
         <value xml:lang="ru">Позиции возврата</value>
-        <value xml:lang="th">กลับสู่ไอเทม</value>
+        <value xml:lang="th">กลับสู่รายการ</value>
         <value xml:lang="zh">退货明细</value>
     </property>
     <property key="PageTitleReturnList">
@@ -10547,20 +10547,20 @@
         <value xml:lang="de">Artikel</value>
         <value xml:lang="en">Item</value>
         <value xml:lang="es">Ítem</value>
-        <value xml:lang="th">ไอเทม</value>
+        <value xml:lang="th">รายการ</value>
     </property>
     <property key="ProductItemOutofStock">
         <value xml:lang="de">Dieser Artikel ist nicht auf Lager</value>
         <value xml:lang="en">Item  Out  of  Stock</value>
         <value xml:lang="es">Este ítem está agotado</value>
         <value xml:lang="pt_PT">Este item está esgotado</value>
-        <value xml:lang="th">ไอเทมออกจากคลังสินค้า</value>
+        <value xml:lang="th">รายการออกจากคลังสินค้า</value>
     </property>
     <property key="ProductItems">
         <value xml:lang="de">Artikel</value>
         <value xml:lang="en">Items</value>
         <value xml:lang="es">Ítems</value>
-        <value xml:lang="th">ไอเทม</value>
+        <value xml:lang="th">รายการ</value>
     </property>
     <property key="ProductKeywords">
         <value xml:lang="de">Stichwörter</value>
@@ -10756,7 +10756,7 @@
         <value xml:lang="pt_PT">Added ${totalQuantity} items to the cart.</value>
         <value xml:lang="ro">Adaugare ${totalQuantity} linii in Cos.</value>
         <value xml:lang="ru">В корзину добавлено ${totalQuantity} позиций.</value>
-        <value xml:lang="th">เพิ่ม ${totalQuantity} ไอเทมลงตระกร้า</value>
+        <value xml:lang="th">เพิ่ม ${totalQuantity} รายการลงตระกร้า</value>
         <value xml:lang="zh">把 ${totalQuantity} 明细添加到购物车。</value>
     </property>
     <property key="cart.agreement_not_specified_to_add_from">
@@ -10898,7 +10898,7 @@
         <value xml:lang="nl">Cannot cancel item at this time; please try again.</value>
         <value xml:lang="ro">Nu este posibila stergerea liniei in acest moment; te rogam incearca din nou.</value>
         <value xml:lang="ru">Не могу отменить позицию; пожалуйста попробуйте снова.</value>
-        <value xml:lang="th">ไม่สามารถยกเลิกไอเทมในเวลานี้ กรุณาลองอีกครั้ง</value>
+        <value xml:lang="th">ไม่สามารถยกเลิกรายการในเวลานี้ กรุณาลองอีกครั้ง</value>
         <value xml:lang="zh_CN">现在不能取消商品，请重试。</value>
         <value xml:lang="zh">没能取消明细；请重试。</value>
     </property>
@@ -10976,7 +10976,7 @@
         <value xml:lang="nl">Selected payment methods will not cover this bestelling.</value>
         <value xml:lang="ro">Selectioneaza metodele de plata care vor acoperi aceasta comanda.</value>
         <value xml:lang="ru">Выбранный способ платежа не может удовлетворить этот заказ.</value>
-        <value xml:lang="th">เลือกวิธีการชำระเงินจะไม่ครอบคลุมถึงรายการสั่งซื้อนี้
+        <value xml:lang="th">เลือกวิธีการชำระเงินจะไม่ครอบคลุมถึงรายการสั่งซื้อสินค้านี้
 </value>
         <value xml:lang="zh_CN">选中的支付方式不足以支付该订单。</value>
         <value xml:lang="zh">所选的支付方式不够这个订单。</value>
@@ -10990,7 +10990,7 @@
         <value xml:lang="nl">ERROR: Could not create bestelling (problem invoking the service: ${service})</value>
         <value xml:lang="ro">EROARE: Nu este posibila crearea comenzii (probleme la executarea serviciului: ${service})</value>
         <value xml:lang="ru">ОШИБКА: Не смог создать заказ (ошибка вызова сервиса: ${service})</value>
-        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถสร้างรายการสั่งซื้อ (ปัญหาในการเรียกใช้บริการ: ${service})
+        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถสร้างรายการสั่งซื้อสินค้า (ปัญหาในการเรียกใช้บริการ: ${service})
 </value>
         <value xml:lang="zh_CN">错误: 不能建立订单 (调用服务出错: ${service})</value>
         <value xml:lang="zh">错误：无法创建订单 (激活服务时出错： ${service})</value>
@@ -11004,7 +11004,7 @@
         <value xml:lang="nl">ERROR: Could not create bestelling (problem parsing bestelling totals).</value>
         <value xml:lang="ro">EROARE: Nu este posibila crearea comenzii (problema parsing total comanda).</value>
         <value xml:lang="ru">ОШИБКА: Не смог создать заказ (ошибка при анализе итогов).</value>
-        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถสร้างรายการสั่งซื้อ (ปัญหาในการวิเคราะห์ผลรวมในการสั่งซื้อ).</value>
+        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถสร้างรายการสั่งซื้อสินค้า (ปัญหาในการวิเคราะห์ผลรวมในการสั่งซื้อ).</value>
         <value xml:lang="zh_CN">错误: 不能建立订单 (订单总额解析错误).</value>
         <value xml:lang="zh">错误：无法创建订单 (解析订单合计时出错)。</value>
     </property>
@@ -11030,7 +11030,7 @@
         <value xml:lang="nl">Did not complete the bestelling, the following occurred:</value>
         <value xml:lang="ro">Nu completati comanda, au aparut urmatoarele :</value>
         <value xml:lang="ru">Заказ не завершен, возможно по следующей причине:</value>
-        <value xml:lang="th">รายการสั่งซื้อไม่เสร็จสมบูรณ์ , ตามที่เกิดขี้น:
+        <value xml:lang="th">รายการสั่งซื้อสินค้าไม่เสร็จสมบูรณ์ , ตามที่เกิดขี้น:
 </value>
         <value xml:lang="zh_CN">未完成定单，发生下面错误：</value>
         <value xml:lang="zh">没有完成订单，发生下列问题：</value>
@@ -11145,7 +11145,7 @@
         <value xml:lang="nl">There are no items in the cart.</value>
         <value xml:lang="ro">Nu sunt linii in cos.</value>
         <value xml:lang="ru">В корзине нет ни одной позиции.</value>
-        <value xml:lang="th">ไม่มีไอเทมในตะกร้า</value>
+        <value xml:lang="th">ไม่มีรายการในตะกร้า</value>
         <value xml:lang="zh_CN">购物车是空的。</value>
         <value xml:lang="zh">购物车里没有明细。</value>
     </property>
@@ -11282,7 +11282,7 @@
         <value xml:lang="nl">Please Specify Whether or Not This Bestelling is a Gift.</value>
         <value xml:lang="ro">Va rugam Specificati daca aceasta comanda este sau nu este un Omagiu.</value>
         <value xml:lang="ru">Пожалуйста укажите является ли это заказ подарком, или нет.</value>
-        <value xml:lang="th">กรุณาระบุไม่ว่าจะเป็นรายการสั่งซื้อนี้ในตระกร้าหรือไม่
+        <value xml:lang="th">กรุณาระบุไม่ว่าจะเป็นรายการสั่งซื้อสินค้านี้ในตระกร้าหรือไม่
 </value>
         <value xml:lang="zh_CN">请指定该订单是否是礼品</value>
         <value xml:lang="zh">请指出本订单是否是礼品。</value>
@@ -11326,7 +11326,7 @@
         <value xml:lang="nl">Totals do not match bestelling total.</value>
         <value xml:lang="ro">Totalurile nu corespund totalului Comenzii.</value>
         <value xml:lang="ru">Итоги не соответствуют итогам заказа.</value>
-        <value xml:lang="th">ผลรวมไม่ตรงกับผลรวมรายการสั่งซื้อ</value>
+        <value xml:lang="th">ผลรวมไม่ตรงกับผลรวมรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">总额与订单总额不符</value>
         <value xml:lang="zh">合计与订单合计不一致。</value>
     </property>
@@ -11352,7 +11352,7 @@
         <value xml:lang="nl">Totals do not match bestelling total.</value>
         <value xml:lang="ro">Totalurile nu corespund totalului comenzii.</value>
         <value xml:lang="ru">Итоги не соответствуют итогам заказа.</value>
-        <value xml:lang="th">ผลรวมไม่ตรงกับผลรวมรายการสั่งซื้อ</value>
+        <value xml:lang="th">ผลรวมไม่ตรงกับผลรวมรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">总额与订单总和不符.</value>
         <value xml:lang="zh">合计与订单合计不一致。</value>
     </property>
@@ -11467,7 +11467,7 @@
         <value xml:lang="it">Sono spiacente, nessuna disponibilità a queste date: ${resultMessage} prodotto non aggiunto al carrello.....</value>
         <value xml:lang="ro">Imi pare rau, nici-o disponibilitate la aceste date: ${resultMessage} produs neadaugat in cos.....</value>
         <value xml:lang="ru">Извините, не доступно в эти даты: ${resultMessage} позиция в корзину покупок не добавлена....</value>
-        <value xml:lang="th">ขอโทษค่ะ, วันที่สิ่งนี้ไม่สามารใช้ได้: ${resultMessage} ไม่เพิ่มไอเทมในบัตรซื้อของ.....</value>
+        <value xml:lang="th">ขอโทษค่ะ, วันที่สิ่งนี้ไม่สามารใช้ได้: ${resultMessage} ไม่เพิ่มรายการในบัตรซื้อของ.....</value>
         <value xml:lang="zh">对不起，这些日期无效：${resultMessage} 没有把明细添加到购物车.....</value>
     </property>
     <property key="item.number_of_days">
@@ -11518,7 +11518,7 @@
         <value xml:lang="pt_PT">ERRO: Não existem itens para encomendar</value>
         <value xml:lang="ro">EROARE: Comanda nu are nici o linie inregistrata</value>
         <value xml:lang="ru">ОШИБКА: в заказе нет позиций</value>
-        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่มีไอเทมในรายการสั่งซื้อ</value>
+        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่มีรายการในรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">错误: 没有项目到订单</value>
         <value xml:lang="zh">错误：订单没有明细</value>
     </property>
@@ -11531,7 +11531,7 @@
         <value xml:lang="pt_PT">Tentou encomendar o Produto {0} (Identificação de Produto: {1}). Este produto já se encontra indisponível para venda.Por favor remova-o desta encomenda.</value>
         <value xml:lang="ro">Incercare de comandare produs {0} (Cod produs: {1}). Acest produs nu a fost dat disponibil pentru vanzare. Te rugam sa-l stergi din comanda ta.</value>
         <value xml:lang="ru">Предпринята попытка заказать продукт {0} (productId: {1}). Этот продукт более недоступен. Пожалуйста, удалите его из заказа.</value>
-        <value xml:lang="th">พยายามให้รายการสินค้า {0} (productId: {1}). สินค้านี้ไม่สามารถใช้ประโยชน์ได้ในระยะยาวสำหรับการขาย. กรุณาลบรายการสั่งซื้อของคุณ
+        <value xml:lang="th">พยายามให้รายการสินค้า {0} (productId: {1}). สินค้านี้ไม่สามารถใช้ประโยชน์ได้ในระยะยาวสำหรับการขาย. กรุณาลบรายการสั่งซื้อสินค้าของคุณ
 </value>
         <value xml:lang="zh_CN">尝试订购产品 {0} (标识: {1}). 该产品不再销售. 请从订单中删除该产品</value>
         <value xml:lang="zh">尝试订购产品 {0} (产品标识：{1})。这个产品不再销售了。请把它从订单中删除。</value>
@@ -11559,7 +11559,7 @@
         <value xml:lang="pt_PT">Tentou encomendar o Produto {0} (Identificação de Produto: {1}). Este produto ainda está indisponível para venda. Por favor, remova-o desta encomenda.</value>
         <value xml:lang="ro">Incercare de comandare a produsului {0} (Cod produs: {1}). Acest produs nu a fost dat disponibil pentru vanzare. Te rugam sa-l stergi din comanda ta.</value>
         <value xml:lang="ru">Предпринята попытка заказать продукт {0} (productId: {1}). Этот продукт пока недоступен. Пожалуйста, удалите его из заказа.</value>
-        <value xml:lang="th">พยายามให้รายการสินค้า {0} (productId: {1}). สินค้านี้ไม่ได้ทำขึ้นสำหรับการขาย. กรุณาลบออกจากรายการสั่งซื้อของคุณ.</value>
+        <value xml:lang="th">พยายามให้รายการสินค้า {0} (productId: {1}). สินค้านี้ไม่ได้ทำขึ้นสำหรับการขาย. กรุณาลบออกจากรายการสั่งซื้อสินค้าของคุณ.</value>
         <value xml:lang="zh_CN">尝试订购产品 {0} (标识: {1}). 该产品不再为销售生产. 请从订单中删除该产品。</value>
         <value xml:lang="zh">尝试订购产品 {0} (产品标识：{1})。这个产品还没有销售。请把它从订单中删除。</value>
     </property>
@@ -11624,7 +11624,7 @@
         <value xml:lang="nl">Error adding item to shopping list.</value>
         <value xml:lang="ro">Eroare la adaugarea unei linii la lista de cumparari.</value>
         <value xml:lang="ru">Ошибка добавления позиции в список покупок.</value>
-        <value xml:lang="th">ผิดพลาด ! การเพิ่มไอเทมลงสู่รายการซื้อสินค้า</value>
+        <value xml:lang="th">ผิดพลาด ! การเพิ่มรายการลงสู่รายการซื้อสินค้า</value>
         <value xml:lang="zh_CN">加入项目到购物列表错误</value>
         <value xml:lang="zh">向购物列表添加明细时出错。</value>
     </property>
@@ -11637,7 +11637,7 @@
         <value xml:lang="nl">Error getting shopping list and items.</value>
         <value xml:lang="ro">Eroare la citirea listei de cumparari si liniile.</value>
         <value xml:lang="ru">Ошибка получения списка покупок и позиций.</value>
-        <value xml:lang="th">ผิดพลาด ! การได้รับรายการซื้อสินค้าและไอเทม</value>
+        <value xml:lang="th">ผิดพลาด ! การได้รับรายการซื้อสินค้าและรายการ</value>
         <value xml:lang="zh_CN">得到购物列表及其项目错误。</value>
         <value xml:lang="zh">获得购物列表和明细时出错。</value>
     </property>
@@ -11650,7 +11650,7 @@
         <value xml:lang="nl">No items were added.</value>
         <value xml:lang="ro">Nici-o linie nu a fost adaugata.</value>
         <value xml:lang="ru">Позиции не были добавлены.</value>
-        <value xml:lang="th">ไม่มีการเพิ่มไอเทม</value>
+        <value xml:lang="th">ไม่มีการเพิ่มรายการ</value>
         <value xml:lang="zh_CN">没有项目被添加</value>
         <value xml:lang="zh">没有添加明细。</value>
     </property>
@@ -11676,7 +11676,7 @@
         <value xml:lang="nl">Please select item(s) to add to the shopping list.</value>
         <value xml:lang="ro">Va rugam selectionati linia(le) de adaugat la lista de cumparari.</value>
         <value xml:lang="ru">Пожалуйста выберите позицию(и) для добавления в корзину покупок.</value>
-        <value xml:lang="th">กรุณาเลือกไอเทมลงเพิ่มในรายการซื้อสินค้า</value>
+        <value xml:lang="th">กรุณาเลือกรายการลงเพิ่มในรายการซื้อสินค้า</value>
         <value xml:lang="zh_CN">请选择项目添加到购物列表。</value>
         <value xml:lang="zh">请选择要添加到购物列表的明细。</value>
     </property>

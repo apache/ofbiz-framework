@@ -45,7 +45,7 @@
         <value xml:lang="it">Codice Cespite</value>
         <value xml:lang="ro">Cod Mijloace Fixe</value>
         <value xml:lang="ru">Код ОС</value>
-        <value xml:lang="th">รหัสทรัพย์สินไม่หมุนเวียน</value>
+        <value xml:lang="th">รหัสทรัพย์สิน</value>
         <value xml:lang="zh">资产标识</value>
     </property>
     <property key="AccountingFixedAssetNew">
@@ -55,7 +55,7 @@
         <value xml:lang="it">Nuovo cespite</value>
         <value xml:lang="ro">Nou Mijloc Fix</value>
         <value xml:lang="ru">Добавить ссылку к ОС</value>
-        <value xml:lang="th">เพิ่มลิงค์ถึงทรัพย์สินไม่หมุนเวียน</value>
+        <value xml:lang="th">เพิ่มการเชื่อมต่อไปยังทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">添加到固定资产的链接</value>
     </property>
     <property key="AccountingFixedAssetProductAdd">
@@ -65,7 +65,7 @@
         <value xml:lang="it">Aggiungi un link al cespite</value>
         <value xml:lang="ro">Adauga un link la Mijlocul Fix</value>
         <value xml:lang="ru">Добавить ссылку к ОС</value>
-        <value xml:lang="th">เพิ่มลิงค์ถึงทรัพย์สินไม่หมุนเวียน</value>
+        <value xml:lang="th">เพิ่มการเชื่อมต่อไปยังทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">添加到固定资产的链接</value>
     </property>
     <property key="AccountingFixedAssetProductType">
@@ -85,7 +85,7 @@
         <value xml:lang="it">Aggiorna un link ad un Cespite</value>
         <value xml:lang="ro">Actualizeaza un link la un Mijloc Fix</value>
         <value xml:lang="ru">Обновить ссылку к ОС</value>
-        <value xml:lang="th">อัพเดทลิงค์ทรัพย์สินไม่หมุนเวียน</value>
+        <value xml:lang="th">อัพเดทการเชื่อมต่อไปยังทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">更新到固定资产的链接</value>
     </property>
     <property key="AccountingFixedAssets">
@@ -846,7 +846,7 @@
         <value xml:lang="it">Nome Riga Configurazione</value>
         <value xml:lang="ro">Nume Linie Configurare </value>
         <value xml:lang="ru">Имя позиции конфигурации</value>
-        <value xml:lang="th">สร้างชื่อไอเทม</value>
+        <value xml:lang="th">สร้างชื่อรายการ</value>
         <value xml:lang="zh">配置明细名称</value>
     </property>
     <property key="FormFieldTitle_configOptionName">
@@ -1675,7 +1675,7 @@
         <value xml:lang="en">Incl. No Charge Items</value>
         <value xml:lang="it">Inc. Rig. No Ric.</value>
         <value xml:lang="ru">Включ. позиции с бесплат. достав.</value>
-        <value xml:lang="th">ไม่รวมค่าธรรมเนียมไอเทม</value>
+        <value xml:lang="th">ไม่รวมค่าธรรมเนียมรายการ</value>
     </property>
     <property key="FormFieldTitle_instanceOfContentId">
         <value xml:lang="en">Instance Of Content Id</value>
@@ -2942,7 +2942,7 @@
         <value xml:lang="it">Seleziona Tipo Pagamento Per Riga</value>
         <value xml:lang="ro">Selectioneaza Tip Plata Pe Linie</value>
         <value xml:lang="ru">Выбирать способ платежа по каждой позиции</value>
-        <value xml:lang="th">เลือกวิธีการชำระเงินต่อหนึ่งไอเทม</value>
+        <value xml:lang="th">เลือกวิธีการชำระเงินต่อหนึ่งรายการ</value>
         <value xml:lang="zh">为每个明细选择支付类型</value>
     </property>
     <property key="FormFieldTitle_selectedAmount">
