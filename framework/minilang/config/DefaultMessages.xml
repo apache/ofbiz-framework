@@ -20,7 +20,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="check.error.prefix">
         <value xml:lang="en"></value>
-        <value xml:lang="fr">L'erreur suivante est intervenue:</value>
+        <value xml:lang="fr">Erreur : </value>
     </property>
     <property key="check.error.suffix">
         <value xml:lang="en"></value>
@@ -43,7 +43,7 @@
     </property>
     <property key="service.error.prefix">
         <value xml:lang="en"></value>
-        <value xml:lang="fr">L'erreur suivante est intervenue:</value>
+        <value xml:lang="fr">Erreur : </value>
     </property>
     <property key="service.error.suffix">
         <value xml:lang="en"></value>
