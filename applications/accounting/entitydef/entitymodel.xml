@@ -1885,6 +1885,9 @@ under the License.
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="glAccountTypeId"/>
+      <relation type="one" fk-name="GLACTTY_PAR" title="Parent" rel-entity-name="GlAccountType">
+        <key-map field-name="parentTypeId" rel-field-name="glAccountTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="GlAccountTypeDefault"
             package-name="org.ofbiz.accounting.ledger"
