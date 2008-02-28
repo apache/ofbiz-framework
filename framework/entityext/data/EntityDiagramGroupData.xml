@@ -18,43 +18,28 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <EntityGroup entityGroupId="5010" entityGroupName="Common Top Level"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="DataSource" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="Geo" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="GeoAssoc" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="NoteData" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="StandardTimePeriod" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="CustomTimePeriod" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="StatusItem" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="StatusValidChange" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="Uom" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="UomConversionDated" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5010" entityOrPackage="UserPreference" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="5000" entityGroupName="Top Level: Common"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="DataSource" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="Geo" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="GeoAssoc" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="NoteData" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="StandardTimePeriod" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="CustomTimePeriod" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="StatusItem" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="StatusValidChange" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="Uom" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="UomConversionDated" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5000" entityOrPackage="UserPreference" applEnumId="ESIA_INCLUDE"/>
     
-    <EntityGroup entityGroupId="5011" entityGroupName="Example and Common"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="Example" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="ExampleItem" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="Uom" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="UomType" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="ExampleStatus" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="StatusItem" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="StatusType" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="ExampleType" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="ExampleFeatureAppl" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="ExampleFeatureApplType" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="ExampleFeature" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="Enumeration" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5011" entityOrPackage="EnumerationType" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="5010" entityGroupName="Top Level: Content"/>
+    <EntityGroupEntry entityGroupId="5010" entityOrPackage="Content" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5010" entityOrPackage="ContentAssoc" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5010" entityOrPackage="DataResource" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5010" entityOrPackage="Survey" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5010" entityOrPackage="WebSiteContent" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5010" entityOrPackage="WebSite" applEnumId="ESIA_INCLUDE"/>
     
-    <EntityGroup entityGroupId="5015" entityGroupName="Content Top Level"/>
-    <EntityGroupEntry entityGroupId="5015" entityOrPackage="Content" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5015" entityOrPackage="ContentAssoc" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5015" entityOrPackage="DataResource" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5015" entityOrPackage="Survey" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5015" entityOrPackage="WebSiteContent" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroupEntry entityGroupId="5015" entityOrPackage="WebSite" applEnumId="ESIA_INCLUDE"/>
-    
-    <EntityGroup entityGroupId="5020" entityGroupName="Party Top Level"/>
+    <EntityGroup entityGroupId="5020" entityGroupName="Top Level: Party"/>
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="Party" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="Person" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="PartyGroup" applEnumId="ESIA_INCLUDE"/>
@@ -70,7 +55,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="SecurityGroupPermission" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="SecurityPermission" applEnumId="ESIA_INCLUDE"/>
     
-    <EntityGroup entityGroupId="5030" entityGroupName="Product Top Level"/>
+    <EntityGroup entityGroupId="5030" entityGroupName="Top Level: Product"/>
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="ProductStore" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="ProductStoreCatalog" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="ProdCatalog" applEnumId="ESIA_INCLUDE"/>
@@ -81,7 +66,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="ProductStorePromoAppl" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="ProductPromo" applEnumId="ESIA_INCLUDE"/>
     
-    <EntityGroup entityGroupId="5035" entityGroupName="Facility Top Level"/>
+    <EntityGroup entityGroupId="5035" entityGroupName="Top Level: Facility"/>
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="Facility" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="FacilityLocation" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="InventoryItem" applEnumId="ESIA_INCLUDE"/>
@@ -90,7 +75,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="ShipmentItem" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="ItemIssuance" applEnumId="ESIA_INCLUDE"/>
     
-    <EntityGroup entityGroupId="5040" entityGroupName="Order Top Level"/>
+    <EntityGroup entityGroupId="5040" entityGroupName="Top Level: Order"/>
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="CustRequest" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="CustRequestItem" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="RequirementCustRequest" applEnumId="ESIA_INCLUDE"/>
@@ -101,7 +86,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="OrderItem" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="ReturnHeader" applEnumId="ESIA_INCLUDE"/>
     
-    <EntityGroup entityGroupId="5050" entityGroupName="Accounting Top Level"/>
+    <EntityGroup entityGroupId="5050" entityGroupName="Top Level: Accounting"/>
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="Invoice" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="PaymentApplication" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="Payment" applEnumId="ESIA_INCLUDE"/>
@@ -114,7 +99,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="AcctgTransEntry" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="FixedAsset" applEnumId="ESIA_INCLUDE"/>
     
-    <EntityGroup entityGroupId="5060" entityGroupName="WorkEffort Top Level"/>
+    <EntityGroup entityGroupId="5060" entityGroupName="Top Level: WorkEffort"/>
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="WorkEffort" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="WorkEffortAssoc" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="TimeEntry" applEnumId="ESIA_INCLUDE"/>
@@ -124,7 +109,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="Requirement" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="WorkRequirementFulfillment" applEnumId="ESIA_INCLUDE"/>
     
-    <EntityGroup entityGroupId="5070" entityGroupName="HumanRes Top Level"/>
+    <EntityGroup entityGroupId="5070" entityGroupName="Top Level: HumanRes"/>
     <EntityGroupEntry entityGroupId="5070" entityOrPackage="EmplPosition" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5070" entityOrPackage="Party" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5070" entityOrPackage="EmplPositionFulfillment" applEnumId="ESIA_INCLUDE"/>
@@ -133,4 +118,82 @@ under the License.
     <EntityGroupEntry entityGroupId="5070" entityOrPackage="PerfReview" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5070" entityOrPackage="PartySkill" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5070" entityOrPackage="PartyQual" applEnumId="ESIA_INCLUDE"/>
+    
+    <EntityGroup entityGroupId="5080" entityGroupName="Top Level: Marketing"/>
+    <EntityGroupEntry entityGroupId="5080" entityOrPackage="MarketingCampaign" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5080" entityOrPackage="ContactList" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5080" entityOrPackage="SegmentGroup" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="5080" entityOrPackage="TrackingCode" applEnumId="ESIA_INCLUDE"/>
+    
+    <!-- =============================================== -->
+    <!-- =============================================== -->
+    <EntityGroup entityGroupId="6000" entityGroupName="Detail: Example and Common"/>
+    <EntityGroupEntry entityGroupId="6000" entityOrPackage="org.ofbiz.example" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6000" entityOrPackage="Uom" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6000" entityOrPackage="UomType" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6000" entityOrPackage="StatusItem" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6000" entityOrPackage="StatusValidChange" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6000" entityOrPackage="StatusType" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6000" entityOrPackage="Enumeration" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6000" entityOrPackage="EnumerationType" applEnumId="ESIA_INCLUDE"/>
+    
+    <EntityGroup entityGroupId="6050" entityGroupName="Detail: Common Entities"/>
+    <EntityGroupEntry entityGroupId="6050" entityOrPackage="org.ofbiz.common" applEnumId="ESIA_INCLUDE"/>
+    
+    <EntityGroup entityGroupId="6100" entityGroupName="Detail Content: Content"/>
+    <EntityGroupEntry entityGroupId="6100" entityOrPackage="org.ofbiz.content.content" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6100" entityOrPackage="org.ofbiz.content.data" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6110" entityGroupName="Detail Content: Survey"/>
+    <EntityGroupEntry entityGroupId="6110" entityOrPackage="org.ofbiz.content.survey" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6120" entityGroupName="Detail Content: Other"/>
+    <EntityGroupEntry entityGroupId="6120" entityOrPackage="org.ofbiz.content.document" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6120" entityOrPackage="org.ofbiz.content.preference" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6120" entityOrPackage="org.ofbiz.content.website" applEnumId="ESIA_INCLUDE"/>
+
+    <EntityGroup entityGroupId="6200" entityGroupName="Detail Party: Party"/>
+    <EntityGroupEntry entityGroupId="6200" entityOrPackage="org.ofbiz.party.party" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6210" entityGroupName="Detail Party: Contact"/>
+    <EntityGroupEntry entityGroupId="6210" entityOrPackage="org.ofbiz.party.contact" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6220" entityGroupName="Detail Party: Communication"/>
+    <EntityGroupEntry entityGroupId="6220" entityOrPackage="org.ofbiz.party.communication" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6230" entityGroupName="Detail Party: Agreement and Need"/>
+    <EntityGroupEntry entityGroupId="6230" entityOrPackage="org.ofbiz.party.agreement" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6230" entityOrPackage="org.ofbiz.party.need" applEnumId="ESIA_INCLUDE"/>
+    
+    <EntityGroup entityGroupId="6300" entityGroupName="Detail Product: Product"/>
+    <EntityGroupEntry entityGroupId="6300" entityOrPackage="org.ofbiz.product.product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6310" entityGroupName="Detail Product: Catalog and Category"/>
+    <EntityGroupEntry entityGroupId="6310" entityOrPackage="org.ofbiz.product.catalog" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6310" entityOrPackage="org.ofbiz.product.category" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6310" entityOrPackage="Product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6320" entityGroupName="Detail Product: Store"/>
+    <EntityGroupEntry entityGroupId="6320" entityOrPackage="org.ofbiz.product.store" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6330" entityGroupName="Detail Product: Config"/>
+    <EntityGroupEntry entityGroupId="6330" entityOrPackage="org.ofbiz.product.store" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6340" entityGroupName="Detail Product: Price, Promo, and Cost"/>
+    <EntityGroupEntry entityGroupId="6340" entityOrPackage="org.ofbiz.product.price" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6340" entityOrPackage="org.ofbiz.product.promo" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6340" entityOrPackage="org.ofbiz.product.cost" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6350" entityGroupName="Detail Product: Facility"/>
+    <EntityGroupEntry entityGroupId="6350" entityOrPackage="org.ofbiz.product.facility" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6360" entityGroupName="Detail Product: Feature"/>
+    <EntityGroupEntry entityGroupId="6360" entityOrPackage="org.ofbiz.product.feature" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6360" entityOrPackage="Product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6360" entityOrPackage="ProductAssoc" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6370" entityGroupName="Detail Product: Inventory"/>
+    <EntityGroupEntry entityGroupId="6370" entityOrPackage="org.ofbiz.product.inventory" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6370" entityOrPackage="org.ofbiz.product.supplier" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6370" entityOrPackage="Product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6370" entityOrPackage="Facility" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6370" entityOrPackage="FacilityLocation" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6380" entityGroupName="Detail Product: Subscription"/>
+    <EntityGroupEntry entityGroupId="6380" entityOrPackage="org.ofbiz.product.subscription" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6380" entityOrPackage="Product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6380" entityOrPackage="OrderItem" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6380" entityOrPackage="ShoppingListItem" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6390" entityGroupName="Detail Product: Shipment"/>
+    <EntityGroupEntry entityGroupId="6390" entityOrPackage="org.ofbiz.product.shipment" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6390" entityOrPackage="org.ofbiz.product.issuance" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6390" entityOrPackage="org.ofbiz.product.receipt" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6390" entityOrPackage="org.ofbiz.product.picklist" applEnumId="ESIA_INCLUDE"/>
 </entity-engine-xml>
