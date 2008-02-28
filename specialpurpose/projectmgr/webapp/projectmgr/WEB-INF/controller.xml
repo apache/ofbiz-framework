@@ -178,7 +178,7 @@
     </request-map>
     <request-map uri="deleteTaskPartyAssign">
         <security https="true" auth="true"/>
-        <event type="service" invoke="unassignPartyFromWorkEffort"/>
+        <event type="service" invoke="deletePartyToWorkEffortAssignment"/>
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
         <response name="error" type="view" value="EditTaskPartyAssigns"/>
     </request-map>
