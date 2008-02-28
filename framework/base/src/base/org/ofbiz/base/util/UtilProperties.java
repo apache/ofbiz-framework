@@ -523,21 +523,10 @@ public class UtilProperties implements java.io.Serializable {
             } catch (Exception e) {
                 if (UtilValidate.isNotEmpty(e.getMessage())) {
                     Debug.log(e.getMessage(), module);
+                } else {
+                    Debug.log("Exception thrown: " + e.getClass().getName(), module);
                 }
                 properties = null;
-            }
-        }
-        if (UtilValidate.isEmpty(properties) && !resource.endsWith(".xml")) {
-            url = resolvePropertiesUrl(resource + ".xml", locale);
-            if (url != null) {
-                try {
-                    properties = new ExtendedProperties(url, locale);
-                } catch (Exception e) {
-                    if (UtilValidate.isNotEmpty(e.getMessage())) {
-                        Debug.log(e.getMessage(), module);
-                    }
-                    properties = null;
-                }
             }
         }
         if (UtilValidate.isNotEmpty(properties)) {
@@ -703,8 +692,13 @@ public class UtilProperties implements java.io.Serializable {
             if (url != null) {
                 return url;
             }
-            // Check for XML properties file
+            // Check for Java XML properties file
             url = FlexibleLocation.resolveLocation(resourceName + ".xml");
+            if (url != null) {
+                return url;
+            }
+            // Check for Custom XML properties file
+            url = FlexibleLocation.resolveLocation(resource + ".xml");
             if (url != null) {
                 return url;
             }
@@ -771,7 +765,10 @@ public class UtilProperties implements java.io.Serializable {
                     if (properties == null) {
                         properties = new Properties();
                     }
-                    properties.put(property.getAttribute("key"), UtilXml.elementValue(value));
+                    String valueString = UtilXml.elementValue(value);
+                    if (valueString != null) {
+                        properties.put(property.getAttribute("key"), valueString);
+                    }
                 }
             }
             return properties;

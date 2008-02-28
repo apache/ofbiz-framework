@@ -23,13 +23,13 @@
         <value xml:lang="fr">Erreur : </value>
     </property>
     <property key="check.error.suffix">
-        <value xml:lang="en"> </value>
+        <value xml:lang="en"></value>
     </property>
     <property key="check.message.prefix">
-        <value xml:lang="en"> </value>
+        <value xml:lang="en"></value>
     </property>
     <property key="check.message.suffix">
-        <value xml:lang="en"> </value>
+        <value xml:lang="en"></value>
     </property>
     <property key="service.default.message">
         <value xml:lang="en">The action was performed successfully.</value>
@@ -46,18 +46,18 @@
         <value xml:lang="fr">Erreur : </value>
     </property>
     <property key="service.error.suffix">
-        <value xml:lang="en"> </value>
+        <value xml:lang="en"></value>
     </property>
     <property key="service.message.prefix">
-        <value xml:lang="en"> </value>
+        <value xml:lang="en"></value>
     </property>
     <property key="service.message.suffix">
-        <value xml:lang="en"> </value>
+        <value xml:lang="en"></value>
     </property>
     <property key="service.success.prefix">
-        <value xml:lang="en"> </value>
+        <value xml:lang="en"></value>
     </property>
     <property key="service.success.suffix">
-        <value xml:lang="en"> </value>
+        <value xml:lang="en"></value>
     </property>
 </resource>
