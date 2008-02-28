@@ -2117,7 +2117,7 @@
         <value xml:lang="de">Folgende Fehler sind aufgetreten</value>
         <value xml:lang="en">The Following Errors Occurred</value>
         <value xml:lang="es">Los siguientes errores ocurrieron</value>
-        <value xml:lang="fr">L'(les) erreur(s) suivante(s) a (ont) été détectée(s)</value>
+        <value xml:lang="fr">Erreur(s) </value>
         <value xml:lang="it">Sono successi i Seguenti Errori</value>
         <value xml:lang="nl">De volgende fouten kwamen voor</value>
         <value xml:lang="pt">Ocorreram os Seguintes Erros</value>
