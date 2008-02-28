@@ -1121,6 +1121,7 @@ under the License.
       <field name="taxAuthPartyId" type="id-ne"/>
       <field name="taxAuthGeoId" type="id-ne"/>
       <field name="taxAuthorityRateSeqId" type="id-ne"></field>
+      <field name="salesOpportunityId" type="id-ne"></field>
       <prim-key field="invoiceId"/>
       <prim-key field="invoiceItemSeqId"/>
       <relation type="one" fk-name="INVOICE_ITMITYP" rel-entity-name="InvoiceItemType">
@@ -1166,6 +1167,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="INVCE_ITM_OVRPTY" title="OverrideOrg" rel-entity-name="Party">
         <key-map field-name="overrideOrgPartyId" rel-field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="INVCE_ITM_SLSOPP" rel-entity-name="SalesOpportunity" >
+            <key-map field-name="salesOpportunityId"/>
       </relation>
     </entity>
     <entity entity-name="InvoiceItemAttribute"

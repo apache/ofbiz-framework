@@ -144,6 +144,7 @@ under the License.
     <Enumeration description="Party Invitation Email" enumCode="INVITE_EMAIL" enumId="PRDS_PARTYINV_EMAIL" sequenceId="04" enumTypeId="PARTY_EMAIL"/>
 
     <!-- top level role types -->
+    <RoleType description="Account" hasTable="N" parentTypeId="" roleTypeId="ACCOUNT"/>
     <RoleType description="Administrator" hasTable="N" parentTypeId="" roleTypeId="ADMIN"/>
     <RoleType description="Agent" hasTable="N" parentTypeId="" roleTypeId="AGENT"/>
     <RoleType description="Automated Agent" hasTable="N" parentTypeId="" roleTypeId="AUTOMATED_AGENT_ROLE"/>
@@ -236,7 +237,12 @@ under the License.
     <PartyClassificationType description="Trade" hasTable="N" parentTypeId="" partyClassificationTypeId="TRADE_CLASSIFICATION"/>
     <PartyClassificationType description="Wholesale" hasTable="N" parentTypeId="TRADE_CLASSIFICATION" partyClassificationTypeId="TRADE_WHOLE_CLASSIFI"/>
     <PartyClassificationType description="Retail" hasTable="N" parentTypeId="TRADE_CLASSIFICATION" partyClassificationTypeId="TRADE_RETAIL_CLASSIF"/>
-
+    <PartyClassificationType description="Annual Revenue" hasTable="N" parentTypeId="" partyClassificationTypeId="ANNUAL_REVENUE"/>
+    <PartyClassificationType description="Number of Employees" hasTable="N" parentTypeId="" partyClassificationTypeId="NUMBER_OF_EMPLOYEES"/>
+    <PartyClassificationType description="Value Rating" hasTable="N" parentTypeId="" partyClassificationTypeId="VALUE_RATING"/>
+    <PartyClassificationType description="SIC Code" hasTable="N" parentTypeId="" partyClassificationTypeId="SIC_CODE"/>  
+    <PartyClassificationType description="Ownership" hasTable="N" parentTypeId="" partyClassificationTypeId="OWNERSHIP"/>
+  
     <PartyQualType description="Work experience" hasTable="N" parentTypeId="" partyQualTypeId="EXPERIENCE"/>
     <PartyQualType description="Certification" hasTable="N" parentTypeId="" partyQualTypeId="CERTIFICATION"/>
     <PartyQualType description="Degree" hasTable="N" parentTypeId="" partyQualTypeId="DEGREE"/>
@@ -259,7 +265,12 @@ under the License.
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Spouse" partyRelationshipTypeId="SPOUSE" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Supplier" partyRelationshipTypeId="SUPPLIER_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Web Master" partyRelationshipTypeId="WEB_MASTER_ASSIGNMEN" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
-
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Account" partyRelationshipTypeId="ACCOUNT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Assistant" partyRelationshipTypeId="ASSISTANT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Owner" partyRelationshipTypeId="OWNER" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Parent Account" partyRelationshipTypeId="PARENT_ACCOUNT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Reports To" partyRelationshipTypeId="REPORTS_TO" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+  
     <PartyType description="Automated Agent" hasTable="N" parentTypeId="" partyTypeId="AUTOMATED_AGENT"/>
     <PartyType description="Person" hasTable="Y" parentTypeId="" partyTypeId="PERSON"/>
     <PartyType description="Party Group" hasTable="Y" parentTypeId="" partyTypeId="PARTY_GROUP"/>

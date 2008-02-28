@@ -475,6 +475,7 @@ under the License.
       <field name="shipBeforeDate" type="date-time"></field>
       <field name="shipAfterDate" type="date-time"></field>
       <field name="overrideGlAccountId" type="id"><!-- used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc --></field>
+      <field name="salesOpportunityId" type="id-ne"></field>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
       <relation type="one" fk-name="ORDER_ITEM_HDR" rel-entity-name="OrderHeader">
@@ -520,6 +521,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="ORDER_ITEM_OGLA" title="Override" rel-entity-name="GlAccount">
         <key-map field-name="overrideGlAccountId" rel-field-name="glAccountId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITEM_SLSOPP" rel-entity-name="SalesOpportunity" >
+            <key-map field-name="salesOpportunityId"/>
       </relation>
       <index name="ORDITMEXT_ID_IDX">
         <index-field name="externalId"/>
@@ -1583,6 +1587,11 @@ under the License.
               Field to support a location of a cust request--ie, product literature sent to an address, service call at a localtion, etc. 
           </description>
       </field>
+      <field name="currencyUomId" type="id"></field>
+      <field name="openDateTime" type="date-time"></field>
+      <field name="closedDateTime" type="date-time"></field>
+      <field name="internalComment" type="comment"></field>
+      <field name="reason" type="description"></field>
       <field name="createdDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
@@ -1614,6 +1623,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="CUST_REQ_FULCM" title="Fulfill" rel-entity-name="ContactMech">
           <key-map field-name="fulfillContactMechId" rel-field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="CUST_REQ_CUOM" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
       </relation>
     </entity>
     <entity entity-name="CustRequestAttribute"
@@ -2798,6 +2810,7 @@ under the License.
         <field name="closedAmount" type="currency-amount"/>
         <field name="percentOfQuotaForecast" type="floating-point"/>
         <field name="percentOfQuotaClosed" type="floating-point"/>
+        <field name="pipelineAmount" type="currency-amount"></field>
         <field name="createdByUserLoginId" type="id-vlong"></field>
         <field name="modifiedByUserLoginId" type="id-vlong"></field>
         <prim-key field="salesForecastId"/>
@@ -2863,6 +2876,32 @@ under the License.
         </relation>
         <relation type="one" fk-name="SALES4CH_MOD_USER" title="ModifiedBy" rel-entity-name="UserLogin">
             <key-map field-name="modifiedByUserLoginId" rel-field-name="userLoginId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SalesOpportunityCompetitor"
+            package-name="org.ofbiz.order.opportunity"
+            title="Sales opportunity competitors record">
+        <field name="salesOpportunityId" type="id-ne"></field>
+        <field name="competitorPartyId" type="id-ne"></field>
+        <field name="positionEnumId" type="id-ne"></field>
+        <field name="strengths" type="very-long"></field>
+        <field name="weaknesses" type="very-long"></field>
+        <prim-key field="salesOpportunityId"/>
+        <prim-key field="competitorPartyId"/>
+        <relation type="one" fk-name="SOPPCOMP_SOPP" rel-entity-name="SalesOpportunity">
+            <key-map field-name="salesOpportunityId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SalesOpportunityTrackingCode" 
+            package-name="org.ofbiz.order.opportunity"
+            title="Sales opportunity traking code">
+        <field name="salesOpportunityId" type="id-ne"></field>    
+        <field name="trackingCodeId" type="id-ne"></field>
+        <field name="receivedDate" type="date-time"></field>
+        <prim-key field="salesOpportunityId"/>
+        <prim-key field="trackingCodeId"/>
+        <relation type="one" fk-name="SOPPTRKCD_SOPP" rel-entity-name="SalesOpportunity">
+            <key-map field-name="salesOpportunityId"/>
         </relation>
     </entity>
 
