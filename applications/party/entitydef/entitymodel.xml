@@ -560,100 +560,103 @@ under the License.
         </relation>
     </view-entity>
     <entity entity-name="CommunicationEvent" package-name="org.ofbiz.party.communication" title="Communication Event Entity">
-      <field name="communicationEventId" type="id-ne"></field>
-      <field name="communicationEventTypeId" type="id"></field>
-      <field name="origCommEventId" type="id"></field>
-      <field name="parentCommEventId" type="id"></field>
-      <field name="statusId" type="id"></field>
-      <field name="contactMechTypeId" type="id"></field>
-      <field name="contactMechIdFrom" type="id"/>
-      <field name="contactMechIdTo" type="id"/>
-      <field name="roleTypeIdFrom" type="id"></field>
-      <field name="roleTypeIdTo" type="id"></field>
-      <field name="partyIdFrom" type="id"></field>
-      <field name="partyIdTo" type="id"></field>
-      <field name="entryDate" type="date-time"></field>
-      <field name="datetimeStarted" type="date-time"></field>
-      <field name="datetimeEnded" type="date-time"></field>
-      <field name="subject" type="long-varchar"></field>
-      <field name="contentMimeTypeId" type="id-long"/>
-      <field name="content" type="very-long"></field>
-      <field name="note" type="comment"></field>
-      <field name="reasonEnumId" type="id"></field>
-      <field name="contactListId" type="id"></field>
-      <field name="headerString" type="very-long"></field>
-      <field name="fromString" type="very-long"></field>
-      <field name="toString" type="very-long"></field>
-      <field name="ccString" type="very-long"></field>
-      <field name="bccString" type="very-long"></field>
-      <field name="messageId" type="value"></field>
-      <prim-key field="communicationEventId"/>
-      <relation type="one" fk-name="COM_EVNT_TYPE" rel-entity-name="CommunicationEventType">
-        <key-map field-name="communicationEventTypeId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_TPTY" title="To" rel-entity-name="Party">
-        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_TRTYP" title="To" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" title="To" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdTo" rel-field-name="partyId"/>
-        <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_FPTY" title="From" rel-entity-name="Party">
-        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_FRTYP" title="From" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" title="From" rel-entity-name="PartyRole">
-        <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-        <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_STTS" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_CMTP" rel-entity-name="ContactMechType">
-        <key-map field-name="contactMechTypeId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_FCM" title="From" rel-entity-name="ContactMech">
-        <key-map field-name="contactMechIdFrom" rel-field-name="contactMechId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_TCM" title="To" rel-entity-name="ContactMech">
-        <key-map field-name="contactMechIdTo" rel-field-name="contactMechId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_CLST" rel-entity-name="ContactList">
-        <key-map field-name="contactListId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_MIMETYPE" rel-entity-name="MimeType">
-          <key-map field-name="contentMimeTypeId" rel-field-name="mimeTypeId"/>
-      </relation>
-      <relation type="one" fk-name="COM_EVNT_RESENUM" rel-entity-name="Enumeration">
-          <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
-      </relation>
-      <index name="COMMEVT_MSG_ID" unique="true">
-          <index-field name="messageId"/>               
-      </index>
+        <field name="communicationEventId" type="id-ne"></field>
+        <field name="communicationEventTypeId" type="id"></field>
+        <field name="origCommEventId" type="id"></field>
+        <field name="parentCommEventId" type="id"></field>
+        <field name="statusId" type="id"></field>
+        <field name="contactMechTypeId" type="id"></field>
+        <field name="contactMechIdFrom" type="id"/>
+        <field name="contactMechIdTo" type="id"/>
+        <field name="roleTypeIdFrom" type="id"></field>
+        <field name="roleTypeIdTo" type="id"></field>
+        <field name="partyIdFrom" type="id"></field>
+        <field name="partyIdTo" type="id"></field>
+        <field name="entryDate" type="date-time"></field>
+        <field name="datetimeStarted" type="date-time"></field>
+        <field name="datetimeEnded" type="date-time"></field>
+        <field name="subject" type="long-varchar"></field>
+        <field name="contentMimeTypeId" type="id-long"/>
+        <field name="content" type="very-long"></field>
+        <field name="note" type="comment"></field>
+        <field name="reasonEnumId" type="id"></field>
+        <field name="contactListId" type="id"></field>
+        <field name="headerString" type="very-long"></field>
+        <field name="fromString" type="very-long"></field>
+        <field name="toString" type="very-long"></field>
+        <field name="ccString" type="very-long"></field>
+        <field name="bccString" type="very-long"></field>
+        <field name="messageId" type="value"></field>
+        <prim-key field="communicationEventId"/>
+        <relation type="one" fk-name="COM_EVNT_TYPE" rel-entity-name="CommunicationEventType">
+            <key-map field-name="communicationEventTypeId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_TPTY" title="To" rel-entity-name="Party">
+            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_TRTYP" title="To" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" title="To" rel-entity-name="PartyRole">
+            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+            <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_FPTY" title="From" rel-entity-name="Party">
+            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_FRTYP" title="From" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" title="From" rel-entity-name="PartyRole">
+            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+            <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_STTS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_CMTP" rel-entity-name="ContactMechType">
+            <key-map field-name="contactMechTypeId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_FCM" title="From" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechIdFrom" rel-field-name="contactMechId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_TCM" title="To" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechIdTo" rel-field-name="contactMechId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_CLST" rel-entity-name="ContactList">
+            <key-map field-name="contactListId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_MIMETYPE" rel-entity-name="MimeType">
+            <key-map field-name="contentMimeTypeId" rel-field-name="mimeTypeId"/>
+        </relation>
+        <relation type="one" fk-name="COM_EVNT_RESENUM" rel-entity-name="Enumeration">
+            <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
+        </relation>
+        <index name="COMMEVT_MSG_ID" unique="true">
+            <index-field name="messageId"/>               
+        </index>
     </entity>
-    
-  <view-entity entity-name="CommunicationEventAndSubscr"
-    package-name="org.ofbiz.party.communication"
-    title="Communication Event And Role View Entity">
-    <member-entity entity-alias="SC" entity-name="SubscriptionCommEvent"/>
-    <member-entity entity-alias="SU" entity-name="Subscription"/>
-    <alias-all entity-alias="SC">
-      <exclude field="communicationEventId"/>
-    </alias-all>
-    <alias-all entity-alias="SU"/>
-    <view-link entity-alias="SC" rel-entity-alias="SU">
-      <key-map field-name="subscriptionId"/>
-    </view-link>
-  </view-entity>
-  
-    <view-entity entity-name="CommunicationEventAndRole"
-                 package-name="org.ofbiz.party.communication"
-                 title="Communication Event And Role View Entity">
+    <view-entity entity-name="CommunicationEventAndSubscr" package-name="org.ofbiz.party.communication" title="Communication Event And Role View Entity">
+        <member-entity entity-alias="SC" entity-name="SubscriptionCommEvent"/>
+        <member-entity entity-alias="SU" entity-name="Subscription"/>
+        <alias-all entity-alias="SC">
+            <exclude field="communicationEventId"/>
+        </alias-all>
+        <alias-all entity-alias="SU"/>
+        <view-link entity-alias="SC" rel-entity-alias="SU">
+            <key-map field-name="subscriptionId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="CommunicationEventAndProduct" package-name="org.ofbiz.party.communication" title="Communication Event And Product View Entity">
+        <member-entity entity-alias="CP" entity-name="CommunicationEventProduct"/>
+        <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
+        <alias-all entity-alias="CP"/>
+        <alias-all entity-alias="CE"/>
+        <view-link entity-alias="CP" rel-entity-alias="CE">
+            <key-map field-name="communicationEventId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="CommunicationEventAndRole" package-name="org.ofbiz.party.communication" title="Communication Event And Role View Entity">
       <member-entity entity-alias="CR" entity-name="CommunicationEventRole"/>
       <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
       <alias-all entity-alias="CR"/>
@@ -713,6 +716,18 @@ under the License.
         <key-map field-name="communicationEventId"/>
       </relation>
     </view-entity>
+    <entity entity-name="CommunicationEventProduct" package-name="org.ofbiz.party.communication" title="Communication Event Product Entity">
+        <field name="productId" type="id-ne"></field>
+        <field name="communicationEventId" type="id-ne"></field>
+        <prim-key field="productId"/>
+        <prim-key field="communicationEventId"/>
+        <relation type="one" fk-name="COMEV_PROD_PROD" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="COMEV_PROD_CMEV" rel-entity-name="CommunicationEvent">
+            <key-map field-name="communicationEventId"/>
+        </relation>
+    </entity>
     <entity entity-name="CommunicationEventPrpTyp"
             package-name="org.ofbiz.party.communication"
             default-resource-name="PartyEntityLabels"
@@ -788,7 +803,6 @@ under the License.
         <alias entity-alias="CE" name="statusId" group-by="false"/>
         <alias entity-alias="CE" name="partyIdTo" group-by="true"/>
     </view-entity>
-
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.party.contact -->
@@ -2365,39 +2379,6 @@ under the License.
       <relation type="one" fk-name="VENDOR_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
-    </entity>
-    <entity entity-name="WebSiteRole"
-        package-name="org.ofbiz.party.party"
-        title="WebSite Role Association Entity">
-        <field name="partyId" type="id-ne"></field>
-        <field name="roleTypeId" type="id-ne"></field>
-        <field name="webSiteId" type="id-ne"></field>
-        <field name="fromDate" type="date-time"></field>
-        <field name="thruDate" type="date-time"></field>
-        <field name="sequenceNum" type="numeric"></field>
-        <prim-key field="partyId"/>
-        <prim-key field="roleTypeId"/>
-        <prim-key field="webSiteId"/>
-        <prim-key field="fromDate"/>
-        <relation type="one-nofk" rel-entity-name="Party">
-            <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="Person">
-            <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="PartyGroup">
-            <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one" fk-name="WSRLE_PTYRLE" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation type="one" fk-name="WSRLE_WSITE" rel-entity-name="WebSite">
-            <key-map field-name="webSiteId"/>
-        </relation>
     </entity>
     <extend-entity entity-name="CustomTimePeriod">
         <field name="organizationPartyId" type="id"></field>

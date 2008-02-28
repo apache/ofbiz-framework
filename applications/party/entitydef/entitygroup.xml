@@ -56,9 +56,11 @@ under the License.
     <entity-group group="org.ofbiz" entity="CommContentAssocType" />
     <entity-group group="org.ofbiz" entity="CommEventContentDataResource" />
     <entity-group group="org.ofbiz" entity="CommunicationEvent" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventAndProduct" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventAndSubscr" />
     <entity-group group="org.ofbiz" entity="CommunicationEventPrpTyp" />
     <entity-group group="org.ofbiz" entity="CommunicationEventPurpose" />
-    <entity-group group="org.ofbiz" entity="CommunicationEventAndSubscr" />
+    <entity-group group="org.ofbiz" entity="CommunicationEventProduct" />
     <entity-group group="org.ofbiz" entity="CommunicationEventRole" />
     <entity-group group="org.ofbiz" entity="CommunicationEventType" />
     <entity-group group="org.ofbiz" entity="CommunicationEventAndRole" />
@@ -99,7 +101,6 @@ under the License.
   <!-- ========================================================= -->
   <!-- org.ofbiz.party.party -->
   <!-- ========================================================= -->
-
 
     <entity-group group="org.ofbiz" entity="AddressMatchMap" />        
     <entity-group group="org.ofbiz" entity="Affiliate" />
@@ -148,5 +149,4 @@ under the License.
     <entity-group group="org.ofbiz" entity="RoleTypeAndParty" />
     <entity-group group="org.ofbiz" entity="RoleTypeAttr" />
     <entity-group group="org.ofbiz" entity="Vendor" />
-    <entity-group group="org.ofbiz" entity="WebSiteRole" />
 </entitygroup>

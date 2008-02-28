@@ -128,6 +128,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="WebSiteContentType" />
     <entity-group group="org.ofbiz" entity="WebSitePathAlias" />
     <entity-group group="org.ofbiz" entity="WebSitePublishPoint" />
-
+    <entity-group group="org.ofbiz" entity="WebSiteRole" />
+    
 </entitygroup>
 
