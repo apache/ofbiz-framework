@@ -35,8 +35,7 @@ ADMIN="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
 #IPADDR=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 #RMIIF="-Djava.rmi.server.hostname=$IPADDR"
 MEMIF="-Xms128M -Xmx256M"
-LANGUAGE="-Duser.language=en"
-VMARGS="$MEMIF $DEBUG $RMIIF $ADMIN $LANGUAGE"
+VMARGS="$MEMIF $DEBUG $RMIIF $ADMIN"
 
 # Worldpay Config
 #VMARGS="-Xbootclasspath/p:applications/accounting/lib/cryptix.jar $VMARGS"
