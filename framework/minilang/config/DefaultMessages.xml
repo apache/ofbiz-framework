@@ -19,21 +19,17 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="check.error.prefix">
-        <value xml:lang="en">prefix</value>
+        <value xml:lang="en"></value>
         <value xml:lang="fr">L'erreur suivante est intervenue:</value>
-        <value xml:lang="th">คำขึ้นต้น</value>
     </property>
     <property key="check.error.suffix">
-        <value xml:lang="en">suffix</value>
-        <value xml:lang="th">คำลงท้าย</value>
+        <value xml:lang="en"></value>
     </property>
     <property key="check.message.prefix">
-        <value xml:lang="en">prefix</value>
-        <value xml:lang="th">คำขึ้นต้น</value>
+        <value xml:lang="en"></value>
     </property>
     <property key="check.message.suffix">
-        <value xml:lang="en">suffix</value>
-        <value xml:lang="th">คำลงท้าย</value>
+        <value xml:lang="en"></value>
     </property>
     <property key="service.default.message">
         <value xml:lang="en">The action was performed successfully.</value>
@@ -46,28 +42,23 @@
         <value xml:lang="zh">已成功执行本操作。</value>
     </property>
     <property key="service.error.prefix">
-        <value xml:lang="en">prefix</value>
+        <value xml:lang="en"></value>
         <value xml:lang="fr">L'erreur suivante est intervenue:</value>
-        <value xml:lang="th">คำขึ้นต้น</value>
     </property>
     <property key="service.error.suffix">
-        <value xml:lang="en">suffix</value>
-        <value xml:lang="th">คำลงท้าย</value>
+        <value xml:lang="en"></value>
     </property>
     <property key="service.message.prefix">
-        <value xml:lang="en">prefix</value>
-        <value xml:lang="th">คำขึ้นต้น</value>
+        <value xml:lang="en"></value>
     </property>
     <property key="service.message.suffix">
-        <value xml:lang="en">suffix</value>
-        <value xml:lang="th">คำลงท้าย</value>
+        <value xml:lang="en"></value>
+        <value xml:lang="th"></value>
     </property>
     <property key="service.success.prefix">
-        <value xml:lang="en">prefix</value>
-        <value xml:lang="th">คำขึ้นต้น</value>
+        <value xml:lang="en"></value>
     </property>
     <property key="service.success.suffix">
-        <value xml:lang="en">suffix</value>
-        <value xml:lang="th">คำลงท้าย</value>
+        <value xml:lang="en"></value>
     </property>
 </resource>
