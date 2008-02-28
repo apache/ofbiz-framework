@@ -365,7 +365,7 @@
         <value xml:lang="it">OFBiz: Gestione Stabilimenti</value>
         <value xml:lang="ro">OFBiz: Gestiune Compartimente</value>
         <value xml:lang="ru">OFBiz: Управление объектами</value>
-        <value xml:lang="th">OFBiz: การจัดการการทำงาน</value>
+        <value xml:lang="th">OFBiz: การจัดการคลังสินค้า</value>
         <value xml:lang="zh">OFBiz：场所管理程序</value>
     </property>
     <property key="FeatureTypes">
@@ -1422,17 +1422,17 @@
     <property key="FormFieldTitle_facilityGroupId">
         <value xml:lang="en">Facility Group Id</value>
         <value xml:lang="it">Gruppo Stabilimento</value>
-        <value xml:lang="th">รหัสกลุ่มการทำงาน</value>
+        <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_facilityGroupName">
         <value xml:lang="en">Facility Group Name</value>
         <value xml:lang="it">Nome Gruppo Stabilimento</value>
-        <value xml:lang="th">ชื่อกลุ่มการทำงาน</value>
+        <value xml:lang="th">ชื่อกลุ่มคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_facilityGroupTypeId">
         <value xml:lang="en">Facility Group Type Id</value>
         <value xml:lang="it">Tipo Gruppo Stabilimento</value>
-        <value xml:lang="th">รหัสประเภทกลุ่มการทำงาน</value>
+        <value xml:lang="th">รหัสประเภทกลุ่มคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_facilityId">
         <value xml:lang="en">Facility Id</value>
@@ -1440,13 +1440,13 @@
         <value xml:lang="it">Codice Stabilimento</value>
         <value xml:lang="ro">Cod Compartiment</value>
         <value xml:lang="ru">Код объекта</value>
-        <value xml:lang="th">รหัสการทำงาน</value>
+        <value xml:lang="th">รหัสคลังสินค้า</value>
         <value xml:lang="zh">场所标识</value>
     </property>
     <property key="FormFieldTitle_facilityIdTo">
         <value xml:lang="en">Facility Id To</value>
         <value xml:lang="it">Stabilimento Destinazione</value>
-        <value xml:lang="th">ถึงรหัสการทำงาน</value>
+        <value xml:lang="th">ถึงรหัสคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_facilityName">
         <value xml:lang="en">Facility Name</value>
@@ -1454,7 +1454,7 @@
         <value xml:lang="it">Nome Stabilimento</value>
         <value xml:lang="ro">Nume Compartiment</value>
         <value xml:lang="ru">Название объекта</value>
-        <value xml:lang="th">ชื่อการทำงาน</value>
+        <value xml:lang="th">ชื่อคลังสินค้า</value>
         <value xml:lang="zh">场所名称</value>
     </property>
     <property key="FormFieldTitle_facilityTypeId">
@@ -1463,7 +1463,7 @@
         <value xml:lang="it">Tipo Stabilimento</value>
         <value xml:lang="ro">Tip Compartiment</value>
         <value xml:lang="ru">Код типа объекта</value>
-        <value xml:lang="th">รหัสประเภทการทำงาน</value>
+        <value xml:lang="th">รหัสประเภทคลังสินค้า</value>
         <value xml:lang="zh">场所类型标识</value>
     </property>
     <property key="FormFieldTitle_featurePercent">
@@ -2133,7 +2133,7 @@
         <value xml:lang="it">Una Stabilimento Inventario</value>
         <value xml:lang="ro">Un Compartiment Inventar</value>
         <value xml:lang="ru">Один склад ТМЦ</value>
-        <value xml:lang="th">หนึ่งการทำงานสินค้าคงเหลือ</value>
+        <value xml:lang="th">หนึ่งคลังสินค้าสินค้าคงเหลือ</value>
         <value xml:lang="zh">一个库存场所</value>
     </property>
     <property key="FormFieldTitle_orderDate">
@@ -2244,7 +2244,7 @@
     <property key="FormFieldTitle_parentFacilityGroupId">
         <value xml:lang="en">Parent Facility Group Id</value>
         <value xml:lang="it">Gruppo Stabilimento Padre</value>
-        <value xml:lang="th">รหัสกลุ่มการทำงาน</value>
+        <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_parentTypeId">
         <value xml:lang="en">Parent Type Id</value>
@@ -3966,7 +3966,7 @@
         <value xml:lang="it">Aggiorna Contatto Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Contact Compartiment</value>
         <value xml:lang="ru">Изменить способ контакта объекта</value>
-        <value xml:lang="th">แก้ไขวิธีการติดต่อการทำงาน</value>
+        <value xml:lang="th">แก้ไขวิธีการติดต่อคลังสินค้า</value>
         <value xml:lang="zh">编辑场所联系方式</value>
     </property>
     <property key="PageTitleEditFacilityGroup">
@@ -3976,7 +3976,7 @@
         <value xml:lang="it">Aggiorna Gruppo Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Grup Compartiment</value>
         <value xml:lang="ru">Изменить группу объектов</value>
-        <value xml:lang="th">แก้ไขกลุ่มการทำงาน</value>
+        <value xml:lang="th">แก้ไขกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">编辑场所组</value>
     </property>
     <property key="PageTitleEditFacilityGroupMembers">
@@ -3986,7 +3986,7 @@
         <value xml:lang="it">Aggiorna Membri Gruppo Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Membri Grup Compartiment</value>
         <value xml:lang="ru">Изменить членов группы объектов</value>
-        <value xml:lang="th">แก้ไขสมาชิกกลุ่มการทำงาน</value>
+        <value xml:lang="th">แก้ไขสมาชิกกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">编辑场所组成员</value>
     </property>
     <property key="PageTitleEditFacilityGroupRoles">
@@ -3996,7 +3996,7 @@
         <value xml:lang="it">Aggiorna Ruoli Gruppo Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Roluri Grup Compartiment</value>
         <value xml:lang="ru">Изменить роли группы объектов</value>
-        <value xml:lang="th">แก้ไขสถานะกลุ่มการทำงาน</value>
+        <value xml:lang="th">แก้ไขสถานะกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">编辑场所组角色</value>
     </property>
     <property key="PageTitleEditFacilityGroupRollup">
@@ -4016,7 +4016,7 @@
         <value xml:lang="it">Aggiorna Gruppi Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Grupuri Compartimente PageTitleEditFacilityInventoryItems=Actualizeaza Linii Inventar Compartiment</value>
         <value xml:lang="ru">Изменить группы объектов</value>
-        <value xml:lang="th">แก้ไขกลุ่มการทำงาน</value>
+        <value xml:lang="th">แก้ไขกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">编辑场所组</value>
     </property>
     <property key="PageTitleEditFacilityInventoryItems">
@@ -4025,7 +4025,7 @@
         <value xml:lang="fr">Édition des lignes de stocks</value>
         <value xml:lang="it">Aggiorna Righe Inventario Stabilimento</value>
         <value xml:lang="ru">Изменить позиции реестра ТМЦ объекта</value>
-        <value xml:lang="th">แก้ไขรายการทำงานสินค้าคงเหลือ</value>
+        <value xml:lang="th">แก้ไขรายคลังสินค้าสินค้าคงเหลือ</value>
         <value xml:lang="zh">编辑场所库存明细</value>
     </property>
     <property key="PageTitleEditFacilityLocation">
@@ -4035,7 +4035,7 @@
         <value xml:lang="it">Aggiorna Posizione Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Pozitie Compartiment</value>
         <value xml:lang="ru">Изменить местонахождение объекта</value>
-        <value xml:lang="th">แก้ไขที่ตั้งการทำงาน</value>
+        <value xml:lang="th">แก้ไขที่ตั้งคลังสินค้า</value>
         <value xml:lang="zh">编辑场所位置</value>
     </property>
     <property key="PageTitleEditFacilityRoles">
@@ -4045,7 +4045,7 @@
         <value xml:lang="it">Aggiorna Ruoli Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Rol Compartiment</value>
         <value xml:lang="ru">Изменить роли объекта</value>
-        <value xml:lang="th">แก้ไขสถานะการทำงาน</value>
+        <value xml:lang="th">แก้ไขสถานะคลังสินค้า</value>
         <value xml:lang="zh">编辑场所角色</value>
     </property>
     <property key="PageTitleEditFeature">
@@ -4241,7 +4241,7 @@
         <value xml:lang="it">Aggiorna Stabilimento Prodotto</value>
         <value xml:lang="ro">Actualizeaza Compartiment Produs</value>
         <value xml:lang="ru">Изменить объекты</value>
-        <value xml:lang="th">แก้ไขการทำงานสินค้า</value>
+        <value xml:lang="th">แก้ไขสินค้าในคลังสินค้า</value>
         <value xml:lang="zh">编辑产品场所</value>
     </property>
     <property key="PageTitleEditProductFacilityLocations">
@@ -4251,7 +4251,7 @@
         <value xml:lang="it">Aggiorna Posizioni Stabilimento Prodotto</value>
         <value xml:lang="ro">Actualizeaza Pozitii Compartiment Produs</value>
         <value xml:lang="ru">Изменить местонахождение объектов</value>
-        <value xml:lang="th">แก้ไขที่ตั้งการทำงานสินค้า</value>
+        <value xml:lang="th">แก้ไขที่ตั้งคลังสินค้าสินค้า</value>
         <value xml:lang="zh">编辑产品场所位置</value>
     </property>
     <property key="PageTitleEditProductFeatureCategories">
@@ -4697,7 +4697,7 @@
         <value xml:lang="it">Ricerca Stabilimento</value>
         <value xml:lang="ro">Cauta Compartimento</value>
         <value xml:lang="ru">Поиск объекта</value>
-        <value xml:lang="th">ค้นหาการทำงาน</value>
+        <value xml:lang="th">ค้นหาคลังสินค้า</value>
         <value xml:lang="zh">查找场所</value>
     </property>
     <property key="PageTitleFindFacilityGroup">
@@ -4707,18 +4707,18 @@
         <value xml:lang="it">Ricerca Gruppo Stabilimento </value>
         <value xml:lang="ro">Cauta Grup Compartiment </value>
         <value xml:lang="ru">Поиск группы объектов</value>
-        <value xml:lang="th">ค้นกลุ่มการทำงาน</value>
+        <value xml:lang="th">ค้นกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">查找场所组</value>
     </property>
     <property key="PageTitleFindFacilityInventoryItems">
         <value xml:lang="en">Find Facility Inventory Items</value>
         <value xml:lang="it">Ricerca Righe Inventario</value>
-        <value xml:lang="th">ค้นหารายการการทำงานสินค้าคงเหลือ</value>
+        <value xml:lang="th">ค้นหารายการคลังสินค้าสินค้าคงเหลือ</value>
     </property>
     <property key="PageTitleFindFacilityInventoryItemsByProduct">
         <value xml:lang="en">Find Facility Inventory Items by Product</value>
         <value xml:lang="it">Ricerca Righe Inventario per Prodotto</value>
-        <value xml:lang="th">ค้นหารายการการทำงานสินค้าคงเหลือโดยสินค้า</value>
+        <value xml:lang="th">ค้นหาคลังสินค้าของรายการสินค้าคงเหลือโดยสินค้า</value>
     </property>
     <property key="PageTitleFindFacilityLocation">
         <value xml:lang="en">Find Facility Location</value>
@@ -4727,14 +4727,14 @@
         <value xml:lang="it">Ricerca Posizione Stabilimento</value>
         <value xml:lang="ro">Cauta Pozitie Compartiment</value>
         <value xml:lang="ru">Найти местонахождение объекта</value>
-        <value xml:lang="th">ค้นหาที่ตั้งการทำงาน</value>
+        <value xml:lang="th">ค้นหาที่ตั้งคลังสินค้า</value>
         <value xml:lang="zh">查找场所位置</value>
     </property>
     <property key="PageTitleFindFacilityPhysicalInventory">
         <value xml:lang="en">Find Facility Physical Inventory</value>
         <value xml:lang="it">Ricerca Stabilimento Inventario Fisico</value>
         <value xml:lang="ru">Найти запись по результатам инвентаризации</value>
-        <value xml:lang="th">ค้นหาการทำงานสินค้าคงเหลือทั่วไป</value>
+        <value xml:lang="th">ค้นหาคลังสินค้าสินค้าคงเหลือทั่วไป</value>
     </property>
     <property key="PageTitleFindFacilityTransfers">
         <value xml:lang="en">Find Facility Transfers</value>
@@ -4743,7 +4743,7 @@
         <value xml:lang="it">Ricerca Trasferimenti Stabilimento</value>
         <value xml:lang="ro">Cauta Trasferari Compartimente</value>
         <value xml:lang="ru">Найти перемещения по объекту</value>
-        <value xml:lang="th">ค้นหาการเปลี่ยนการทำงาน</value>
+        <value xml:lang="th">ค้นหาการเปลี่ยนคลังสินค้า</value>
         <value xml:lang="zh">查找场所转让</value>
     </property>
     <property key="PageTitleFindInventoryItemLabels">
@@ -4890,7 +4890,7 @@
         <value xml:lang="it">Ricerca Stabilimento</value>
         <value xml:lang="ro">Cauta Compartiment</value>
         <value xml:lang="ru">Искать объект</value>
-        <value xml:lang="th">ค้นหาการทำงาน</value>
+        <value xml:lang="th">ค้นหาคลังสินค้า</value>
         <value xml:lang="zh">查找场所</value>
     </property>
     <property key="PageTitleLookupProduct">
@@ -5080,14 +5080,14 @@
         <value xml:lang="it">Mostra Contatto Stabilimento</value>
         <value xml:lang="ro">Afiseaza Contract Compartiment</value>
         <value xml:lang="ru">Просмотреть способ связи с объектом</value>
-        <value xml:lang="th">แสดงวิธีการติดต่อการทำงาน
+        <value xml:lang="th">แสดงวิธีการติดต่อคลังสินค้า
         </value>
         <value xml:lang="zh">浏览场所联系方式</value>
     </property>
     <property key="PageTitleViewFacilityInventoryItemsDetails">
         <value xml:lang="en">View Facility Inventory Items Details</value>
         <value xml:lang="it">Visualizza i Movimenti di Magazzino</value>
-        <value xml:lang="th">แสดงรายะเอียดรายการการทำงานสินค้าคงเหลือ</value>
+        <value xml:lang="th">แสดงรายะเอียดรายการคลังสินค้าของสินค้าคงเหลือ</value>
     </property>
     <property key="PageTitleViewProductAgreements">
         <value xml:lang="en">View Product Agreements</value>
@@ -5786,7 +5786,7 @@
         <value xml:lang="it">Aggiungi Stabilimento</value>
         <value xml:lang="ro">Adauga Compartiment </value>
         <value xml:lang="ru">Добавить объект</value>
-        <value xml:lang="th">เพิ่มการทำงาน</value>
+        <value xml:lang="th">เพิ่มคลังสินค้า</value>
         <value xml:lang="zh">添加场所</value>
     </property>
     <property key="ProductAddFacilityGroupMember">
@@ -5796,7 +5796,7 @@
         <value xml:lang="it">Aggiungi Membro Gruppo Stabilimento</value>
         <value xml:lang="ro">Adauga Membru Grup Compartiment</value>
         <value xml:lang="ru">Добавить ЧленаГруппыОбъектов</value>
-        <value xml:lang="th">เพิ่มสมาชิกกลุ่มการทำงาน</value>
+        <value xml:lang="th">เพิ่มสมาชิกกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">添加场所组成员</value>
     </property>
     <property key="ProductAddFacilityGroupPartyRole">
@@ -5806,7 +5806,7 @@
         <value xml:lang="it">Aggiungi Ruolo Soggetto Gruppo Stabilimento</value>
         <value xml:lang="ro">Adauga Subiect Grup Compartiment</value>
         <value xml:lang="ru">Добавить группу роль участника группы объектов</value>
-        <value xml:lang="th">เพิ่มสถานะกลุ่มผู้ใช้กลุ่มการทำงาน</value>
+        <value xml:lang="th">เพิ่มสถานะกลุ่มผู้ใช้กลุ่มคลังสินค้า</value>
         <value xml:lang="zh">添加场所组会员角色</value>
     </property>
     <property key="ProductAddFacilityPartyRole">
@@ -5816,7 +5816,7 @@
         <value xml:lang="it">Aggiungi Ruolo Soggetto Stabilimento</value>
         <value xml:lang="ro">Adauga Rol Subiect Compartiment</value>
         <value xml:lang="ru">Добавить роль участника объекта</value>
-        <value xml:lang="th">เพิ่มสถานะกลุ่มผู้ใช้การทำงาน</value>
+        <value xml:lang="th">เพิ่มสถานะกลุ่มผู้ใช้คลังสินค้า</value>
         <value xml:lang="zh">添加场所会员角色</value>
     </property>
     <property key="ProductAddFeature">
@@ -6329,7 +6329,7 @@
         <value xml:lang="it">Qualsiasi Stabilimento</value>
         <value xml:lang="ro">Orice Compartiment</value>
         <value xml:lang="ru">Любой объект</value>
-        <value xml:lang="th">ทุก ๆ การทำงาน</value>
+        <value xml:lang="th">ทุก ๆ คลังสินค้า</value>
         <value xml:lang="zh">任一场所</value>
     </property>
     <property key="ProductAnyShipmentStatus">
@@ -7530,7 +7530,7 @@
         <value xml:lang="it">Non Trovata Stabilimento con Codice</value>
         <value xml:lang="ro">Negasit Compartiment cu Cod</value>
         <value xml:lang="ru">Невозможно найти объект с кодом</value>
-        <value xml:lang="th">ไม่พบการทำงานด้วยรหัส
+        <value xml:lang="th">ไม่พบคลังสินค้าด้วยรหัส
         </value>
         <value xml:lang="zh">没有找到场所——标识</value>
     </property>
@@ -7680,7 +7680,7 @@
         <value xml:lang="it">Creare Nuova Stabilimento</value>
         <value xml:lang="ro">Creare Nou Compartiment</value>
         <value xml:lang="ru">Создать новый объект</value>
-        <value xml:lang="th">สร้างการทำงานใหม่</value>
+        <value xml:lang="th">สร้างคลังสินค้าใหม่</value>
         <value xml:lang="zh">新建场所</value>
     </property>
     <property key="ProductCreateNewFeature">
@@ -7700,7 +7700,7 @@
         <value xml:lang="it">Creare Nuova Riga Inventario per questo Stabilimento</value>
         <value xml:lang="ro">Creare Noua Linie Inventar pentru acest Compartiment </value>
         <value xml:lang="ru">Создать новую позицию ТМЦ для этого объекта</value>
-        <value xml:lang="th">สร้างรายการสินค้าคงเหลือใหม่สำหรับการทำงานนี้
+        <value xml:lang="th">สร้างรายการสินค้าคงเหลือใหม่สำหรับคลังสินค้านี้
         </value>
         <value xml:lang="zh">为这个场所新建库存明细</value>
     </property>
@@ -8107,7 +8107,7 @@
         <value xml:lang="it">Dest. Stabilimento</value>
         <value xml:lang="ro">Dest. Compartiment</value>
         <value xml:lang="ru">Объект в пункте назначения</value>
-        <value xml:lang="th">เป้าหมายการทำงาน</value>
+        <value xml:lang="th">เป้าหมายคลังสินค้า</value>
         <value xml:lang="zh">目的地场所</value>
     </property>
     <property key="ProductDestination">
@@ -8127,7 +8127,7 @@
         <value xml:lang="it">Stabilimento Destinazione</value>
         <value xml:lang="ro">Compartiment Destinatie </value>
         <value xml:lang="ru">Объект назначения</value>
-        <value xml:lang="th">เป้าหมายการทำงาน</value>
+        <value xml:lang="th">เป้าหมายคลังสินค้า</value>
         <value xml:lang="zh">目的地场所</value>
     </property>
     <property key="ProductDestinationFacilityIs">
@@ -8137,7 +8137,7 @@
         <value xml:lang="it">Stabilimento Destinazione è</value>
         <value xml:lang="ro">Compartiment Destinatie</value>
         <value xml:lang="ru">Объект назначения это</value>
-        <value xml:lang="th">เป้าหมายการทำงานคือ</value>
+        <value xml:lang="th">เป้าหมายคลังสินค้าคือ</value>
         <value xml:lang="zh">目的地场所是</value>
     </property>
     <property key="ProductDestinationPhoneNumberId">
@@ -8310,7 +8310,7 @@
         <value xml:lang="it">Aggiorna Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Compartiment</value>
         <value xml:lang="ru">Изменить объект</value>
-        <value xml:lang="th">แก้ไขการทำงาน</value>
+        <value xml:lang="th">แก้ไขคลังสินค้า</value>
         <value xml:lang="zh">编辑场所</value>
     </property>
     <property key="ProductEditFeature">
@@ -8419,7 +8419,7 @@
         <value xml:lang="it">Errore: Stabilimento</value>
         <value xml:lang="ro">Eroare: Compartiment</value>
         <value xml:lang="ru">Ошибка: объект</value>
-        <value xml:lang="th">Error: ผิดพลาด! การทำงาน</value>
+        <value xml:lang="th">Error: ผิดพลาด! คลังสินค้า</value>
         <value xml:lang="zh">错误：场所</value>
     </property>
     <property key="ProductErrorFacilityIdNotFound">
@@ -8429,7 +8429,7 @@
         <value xml:lang="it">ERRORE: Stabilimento con Codice [${facilityId}] non trovato</value>
         <value xml:lang="ro">EROARE: Compartiment cu Cod [${facilityId}] negasit</value>
         <value xml:lang="ru">ОШИБКА: Объект с кодом [${facilityId}] не найден</value>
-        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่พบการทำงานด้วยรหัส [${facilityId}] </value>
+        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่พบคลังสินค้าด้วยรหัส [${facilityId}] </value>
         <value xml:lang="zh">错误：没有找到标识为 [${facilityId}]场所</value>
     </property>
     <property key="ProductErrorNoFacilityAvailable">
@@ -8437,7 +8437,7 @@
         <value xml:lang="it">Errore: Nessun Stabilimento Disponibile</value>
         <value xml:lang="ro">Eroare: No Facility Available</value>
         <value xml:lang="ru">Ошибка: нет доступных объектов</value>
-        <value xml:lang="th">Error: ผิดพลาด ! ไม่สามารถใช้การทำงาน</value>
+        <value xml:lang="th">Error: ผิดพลาด ! ไม่สามารถใช้คลังสินค้า</value>
         <value xml:lang="zh">错误：没有可用的场所</value>
     </property>
     <property key="ProductErrorNoPackagesFoundForShipment">
@@ -8755,7 +8755,7 @@
         <value xml:lang="it">Stabilimenti</value>
         <value xml:lang="ro">Compartimente</value>
         <value xml:lang="ru">Объекты</value>
-        <value xml:lang="th">การทำงาน</value>
+        <value xml:lang="th">คลังสินค้า</value>
         <value xml:lang="zh">场所</value>
     </property>
     <property key="ProductFacilitiesList">
@@ -8765,7 +8765,7 @@
         <value xml:lang="it">Lista Stabilimenti</value>
         <value xml:lang="ro">Lista Compartimente</value>
         <value xml:lang="ru">Список объектов</value>
-        <value xml:lang="th">รายการการทำงาน</value>
+        <value xml:lang="th">รายการคลังสินค้า</value>
         <value xml:lang="zh">场所列表</value>
     </property>
     <property key="ProductFacility">
@@ -8775,7 +8775,7 @@
         <value xml:lang="it">Stabilimento</value>
         <value xml:lang="ro">Compartiment</value>
         <value xml:lang="ru">Объект</value>
-        <value xml:lang="th">การทำงาน</value>
+        <value xml:lang="th">คลังสินค้า</value>
         <value xml:lang="zh">场所</value>
     </property>
     <property key="ProductFacilityContainer">
@@ -8785,7 +8785,7 @@
         <value xml:lang="it">Stabilimento / Contenitore</value>
         <value xml:lang="ro">Compartiment / Contenitor</value>
         <value xml:lang="ru">Объект / Контейнер</value>
-        <value xml:lang="th">การทำงาน / การขนส่ง</value>
+        <value xml:lang="th">คลังสินค้า / การขนส่ง</value>
         <value xml:lang="zh">场所/容器</value>
     </property>
     <property key="ProductFacilityContainerId">
@@ -8795,7 +8795,7 @@
         <value xml:lang="it">Stabilimento o Codice Contenitore</value>
         <value xml:lang="ro">Compartiment sau Cod Contenitor</value>
         <value xml:lang="ru">Объект или код контейнера</value>
-        <value xml:lang="th">การทำงานหรือรหัสการขนส่ง</value>
+        <value xml:lang="th">คลังสินค้าหรือรหัสการขนส่ง</value>
         <value xml:lang="zh">场所或容器标识</value>
     </property>
     <property key="ProductFacilityCreatePermissionError">
@@ -8835,7 +8835,7 @@
         <value xml:lang="it">Gruppo Stabilimento</value>
         <value xml:lang="ro">Grup Compartiment</value>
         <value xml:lang="ru">Группа объектов</value>
-        <value xml:lang="th">กลุ่มการทำงาน</value>
+        <value xml:lang="th">กลุ่มคลังสินค้า</value>
         <value xml:lang="zh">场所组</value>
     </property>
     <property key="ProductFacilityGroupId">
@@ -8845,7 +8845,7 @@
         <value xml:lang="it">Codice Gruppo Stabilimento</value>
         <value xml:lang="ro">Cod Grup Compartiment</value>
         <value xml:lang="ru">Код группы объектов</value>
-        <value xml:lang="th">รหัสกลุ่มการทำงาน</value>
+        <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">场所组标识</value>
     </property>
     <property key="ProductFacilityGroupList">
@@ -8855,7 +8855,7 @@
         <value xml:lang="it">Lista Gruppo Stabilimento</value>
         <value xml:lang="ro">Lista Grup Compartiment</value>
         <value xml:lang="ru">Список групп объектов</value>
-        <value xml:lang="th">รายการกลุ่มการทำงาน</value>
+        <value xml:lang="th">รายการกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">场所组列表</value>
     </property>
     <property key="ProductFacilityGroupMemberMaintenance">
@@ -8865,7 +8865,7 @@
         <value xml:lang="it">Manutenzione Membri Gruppo-Stabilimento</value>
         <value xml:lang="ro">Intretinere Membri Grup-Compartiment</value>
         <value xml:lang="ru">Поддержка членов группы объектов</value>
-        <value xml:lang="th">บำรุงรักษาสมาชิกกลุ่มการทำงาน</value>
+        <value xml:lang="th">บำรุงรักษาสมาชิกกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">场所-组成员维护</value>
     </property>
     <property key="ProductFacilityGroupNameId">
@@ -8875,7 +8875,7 @@
         <value xml:lang="it">Nome Gruppo Stabilimento [Codice]</value>
         <value xml:lang="ro">Nume Grup Compartiment [Cod]</value>
         <value xml:lang="ru">Название группы объектов [Код]</value>
-        <value xml:lang="th">ชื่อกลุ่มการทำงาน [รหัส]</value>
+        <value xml:lang="th">ชื่อกลุ่มคลังสินค้า [รหัส]</value>
         <value xml:lang="zh">场所组名称 [标识]</value>
     </property>
     <property key="ProductFacilityGroupRollupParentGroups">
@@ -8895,7 +8895,7 @@
         <value xml:lang="it">Tipo Gruppo Stabilimento</value>
         <value xml:lang="ro">Tip Grup Compartiment</value>
         <value xml:lang="ru">Тип группы объектов</value>
-        <value xml:lang="th">ประเภทกลุ่มการทำงาน</value>
+        <value xml:lang="th">ประเภทกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">场所组类型</value>
     </property>
     <property key="ProductFacilityGroups">
@@ -8905,7 +8905,7 @@
         <value xml:lang="it">Gruppi Stabilimento</value>
         <value xml:lang="ro">Grup Compartiment</value>
         <value xml:lang="ru">Группы объектов</value>
-        <value xml:lang="th">กลุ่มการทำงาน</value>
+        <value xml:lang="th">กลุ่มคลังสินค้า</value>
         <value xml:lang="zh">场所组</value>
     </property>
     <property key="ProductFacilityId">
@@ -8915,7 +8915,7 @@
         <value xml:lang="it">Codice Stabilimento</value>
         <value xml:lang="ro">Cod Compartiment</value>
         <value xml:lang="ru">Код объекта</value>
-        <value xml:lang="th">รหัสการทำงาน</value>
+        <value xml:lang="th">รหัสคลังสินค้า</value>
         <value xml:lang="zh">场所标识</value>
     </property>
     <property key="ProductFacilityLetter">
@@ -8935,7 +8935,7 @@
         <value xml:lang="it">Posizione Stabilimento</value>
         <value xml:lang="ro">Pozitie Compartiment</value>
         <value xml:lang="ru">Местонахождение объекта</value>
-        <value xml:lang="th">ที่ตั้งการทำงาน</value>
+        <value xml:lang="th">ที่ตั้งคลังสินค้า</value>
         <value xml:lang="zh">场所位置</value>
     </property>
     <property key="ProductFacilityLocations">
@@ -8945,7 +8945,7 @@
         <value xml:lang="it">Posizioni Stabilimento</value>
         <value xml:lang="ro">Pozitie Compartiment</value>
         <value xml:lang="ru">Места расположения объектов</value>
-        <value xml:lang="th">ที่ตั้งการทำงาน</value>
+        <value xml:lang="th">ที่ตั้งคลังสินค้า</value>
         <value xml:lang="zh">场所位置</value>
     </property>
     <property key="ProductFacilityManagerApplication">
@@ -8955,7 +8955,7 @@
         <value xml:lang="it">Applicazione Gestione Stabilimenti</value>
         <value xml:lang="ro">Aplicatie Gestiune Compartimente</value>
         <value xml:lang="ru">Управление объектами</value>
-        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการการทำงาน</value>
+        <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการคลังสินค้า</value>
         <value xml:lang="zh">场所管理应用程序</value>
     </property>
     <property key="ProductFacilityNameId">
@@ -8965,7 +8965,7 @@
         <value xml:lang="it">Nome Stabilimento [Codice]</value>
         <value xml:lang="ro">Nume Compartiment [Cod]</value>
         <value xml:lang="ru">Название объекта [Код]</value>
-        <value xml:lang="th">ชื่อการทำงาน [รหัส]</value>
+        <value xml:lang="th">ชื่อคลังสินค้า [รหัส]</value>
         <value xml:lang="zh">场所名称 [标识]</value>
     </property>
     <property key="ProductFacilityOwner">
@@ -8989,7 +8989,7 @@
         <value xml:lang="it">Manutenzione Membri Ruoli Stabilimento</value>
         <value xml:lang="ro">Intretinere Membri Roluri Compartiment</value>
         <value xml:lang="ru">Поддержка членов роли объекта</value>
-        <value xml:lang="th">บำรังรักษาสถานะสมาชิกการทำงาน</value>
+        <value xml:lang="th">บำรังรักษาสถานะสมาชิกคลังสินค้า</value>
         <value xml:lang="zh">场所角色 成员维护</value>
     </property>
     <property key="ProductFacilityType">
@@ -8999,7 +8999,7 @@
         <value xml:lang="it">Tipo Stabilimento</value>
         <value xml:lang="ro">Tip Compartiment</value>
         <value xml:lang="ru">Тип объекта</value>
-        <value xml:lang="th">ประเภทการทำงาน</value>
+        <value xml:lang="th">ประเภทคลังสินค้า</value>
         <value xml:lang="zh">场所类型</value>
     </property>
     <property key="ProductFacilityTypeId">
@@ -9009,7 +9009,7 @@
         <value xml:lang="it">Tipo Stabilimento</value>
         <value xml:lang="ro">Tip Compartiment ID</value>
         <value xml:lang="ru">Код типа объектов</value>
-        <value xml:lang="th">รหัสประเภทการทำงาน</value>
+        <value xml:lang="th">รหัสประเภทคลังสินค้า</value>
         <value xml:lang="zh">场所类型标识</value>
     </property>
     <property key="ProductFacilityViewPermissionError">
@@ -9974,7 +9974,7 @@
         <value xml:lang="it">Inventario Stabilimento</value>
         <value xml:lang="ro">Inventar Compartiment</value>
         <value xml:lang="ru">Склад</value>
-        <value xml:lang="th">การทำงานสินค้าคงเหลือ</value>
+        <value xml:lang="th">คลังสินค้าสินค้าคงเหลือ</value>
         <value xml:lang="zh">库存场所</value>
     </property>
     <property key="ProductInventoryItem">
@@ -10741,7 +10741,7 @@
     </property>
     <property key="ProductMaintenanceFacilityGroupPartyRole">
         <value xml:lang="en">Maintenance FacilityGroup Party Role</value>
-        <value xml:lang="th">ประเภทกลุ่มการทำงานการบำรุงรักษา</value>
+        <value xml:lang="th">ประเภทกลุ่มคลังสินค้าการบำรุงรักษา</value>
     </property>
     <property key="ProductMakeTop">
         <value xml:lang="en">MakeTop</value>
@@ -11249,7 +11249,7 @@
         <value xml:lang="it">Nuova Stabilimento</value>
         <value xml:lang="ro">Nou Compartiment</value>
         <value xml:lang="ru">Новый объект</value>
-        <value xml:lang="th">การทำงานใหม่</value>
+        <value xml:lang="th">คลังสินค้าใหม่</value>
         <value xml:lang="zh">新建场所</value>
     </property>
     <property key="ProductNewFacilityLocation">
@@ -11259,7 +11259,7 @@
         <value xml:lang="it">Nuova Posizione Stabilimento</value>
         <value xml:lang="ro">Noua Pozitie Stabilita</value>
         <value xml:lang="ru">Новое местонахождение объекта</value>
-        <value xml:lang="th">ที่ตั้งการทำงานใหม่</value>
+        <value xml:lang="th">ที่ตั้งคลังสินค้าใหม่</value>
         <value xml:lang="zh">新建场所位置</value>
     </property>
     <property key="ProductNewFeatureType">
@@ -11529,7 +11529,7 @@
         <value xml:lang="it">nessuna Stabilimento</value>
         <value xml:lang="ro">Nici-un Compartiment</value>
         <value xml:lang="ru">объектов нет</value>
-        <value xml:lang="th">ไม่มีการทำงาน</value>
+        <value xml:lang="th">ไม่มีคลังสินค้า</value>
         <value xml:lang="zh">没有场所</value>
     </property>
     <property key="ProductNoFileSpecifiedForUpload">
@@ -11777,7 +11777,7 @@
         <value xml:lang="it">Non è possibile creare posizioni senza Codice Stabilimento</value>
         <value xml:lang="ro">Nu este posibila crearea pozitiilor fara Cod Compartiment</value>
         <value xml:lang="ru">Невозможно создать местонахождения без кода объекта</value>
-        <value xml:lang="th">ไม่สามารถสร้างที่ตั้งโดยไม่มีรหัสการทำงาน</value>
+        <value xml:lang="th">ไม่สามารถสร้างที่ตั้งโดยไม่มีรหัสคลังสินค้า</value>
         <value xml:lang="zh">没有场所标识，无法创建位置</value>
     </property>
     <property key="ProductNotFindInventoryItemWithId">
@@ -11817,7 +11817,7 @@
         <value xml:lang="it">Questo non può essere cambiata senza ri-creare la Stabilimento</value>
         <value xml:lang="ro">Aceasta nu poate fi schimbata fara a recrea Compartimentul</value>
         <value xml:lang="ru">изменить после создания нельзя</value>
-        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงโดยปราศจากการสร้างการทำงานอีกครั้ง</value>
+        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงโดยปราศจากการสร้างคลังสินค้าอีกครั้ง</value>
         <value xml:lang="zh">无法修改，除非重新创建场所</value>
     </property>
     <property key="ProductNotModificationRecrationFacilityGroup">
@@ -11827,7 +11827,7 @@
         <value xml:lang="it">Questo non può essere cambiata senza ri-creare il gruppo Stabilimento</value>
         <value xml:lang="ro">Aceasta nu poate fi schimbata fara a re-crea grupul Compartiment</value>
         <value xml:lang="ru">изменить после создания нельзя</value>
-        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงโดยปราศจากการสร้างกลุ่มการทำงานอีกครั้ง</value>
+        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงโดยปราศจากการสร้างกลุ่มคลังสินค้าอีกครั้ง</value>
         <value xml:lang="zh">无法修改，除非重新创建场所组</value>
     </property>
     <property key="ProductNotModificationRecrationInventoryItem">
@@ -11905,7 +11905,7 @@
         <value xml:lang="it">Non In Origine Stabilimento</value>
         <value xml:lang="ro">Nici-un Compartiment de Origine </value>
         <value xml:lang="ru">Нет на исходном объекте</value>
-        <value xml:lang="th">ไม่มีที่มาการทำงาน</value>
+        <value xml:lang="th">ไม่มีที่มาคลังสินค้า</value>
         <value xml:lang="zh">不在出发地场所</value>
     </property>
     <property key="ProductNotPurchaseShipment">
@@ -12125,7 +12125,7 @@
         <value xml:lang="it">Una Stabilimento Inventario</value>
         <value xml:lang="ro">Inventar Compartiment</value>
         <value xml:lang="ru">Один склад</value>
-        <value xml:lang="th">หนึ่งการทำงานสินค้าคงเหลือ</value>
+        <value xml:lang="th">หนึ่งคลังสินค้าสินค้าคงเหลือ</value>
         <value xml:lang="zh">一个库存场所</value>
     </property>
     <property key="ProductOnlyAppliesWithinSpan">
@@ -12321,7 +12321,7 @@
         <value xml:lang="it">Stabilimento Origine-Destinazione</value>
         <value xml:lang="ro">Compartiment Origine-Destinatie</value>
         <value xml:lang="ru">Объект источник-назначения</value>
-        <value xml:lang="th">ที่มาเป้าหมายการทำงาน</value>
+        <value xml:lang="th">ที่มาเป้าหมายคลังสินค้า</value>
         <value xml:lang="zh">出发地-目的地场所</value>
     </property>
     <property key="ProductOriginDestinationPhoneId">
@@ -12341,7 +12341,7 @@
         <value xml:lang="it">Stabilimento Origine</value>
         <value xml:lang="ro">Compartiment Origine</value>
         <value xml:lang="ru">Объект источник</value>
-        <value xml:lang="th">ที่มาการทำงาน</value>
+        <value xml:lang="th">ที่มาคลังสินค้า</value>
         <value xml:lang="zh">出发地场所</value>
     </property>
     <property key="ProductOriginFacilityIs">
@@ -12351,7 +12351,7 @@
         <value xml:lang="it">Stabilimento Origine è</value>
         <value xml:lang="ro">Compartimentul Origine este</value>
         <value xml:lang="ru">Объект источник это</value>
-        <value xml:lang="th">ที่มาการทำงานคือ</value>
+        <value xml:lang="th">ที่มาคลังสินค้าคือ</value>
         <value xml:lang="zh">出发地场所是</value>
     </property>
     <property key="ProductOriginPhoneNumberId">
@@ -14991,7 +14991,7 @@
         <value xml:lang="it">Seleziona una Stabilimento</value>
         <value xml:lang="ro">Selectioneaza un Compartiment</value>
         <value xml:lang="ru">Выбрать объект</value>
-        <value xml:lang="th">เลือกการทำงาน</value>
+        <value xml:lang="th">เลือกคลังสินค้า</value>
         <value xml:lang="zh">选择场所</value>
     </property>
     <property key="ProductSelectOne">
@@ -15630,7 +15630,7 @@
         <value xml:lang="it">Mostra tutte le Stabilimento</value>
         <value xml:lang="ro">Afiseaza toate Compartimentele </value>
         <value xml:lang="ru">Показывать все объекты</value>
-        <value xml:lang="th">แสดงการทำงานทั้งหมด</value>
+        <value xml:lang="th">แสดงคลังสินค้าทั้งหมด</value>
         <value xml:lang="zh">显示全部场所</value>
     </property>
     <property key="ProductShowEmptyItems">
@@ -15649,7 +15649,7 @@
         <value xml:lang="it">Mostra Stabilimento Prodotto</value>
         <value xml:lang="ro">Afiseaza Compartiment Produs</value>
         <value xml:lang="ru">Показывать объекты продукта</value>
-        <value xml:lang="th">แสดงการทำงานสินค้า</value>
+        <value xml:lang="th">แสดงคลังสินค้าสินค้า</value>
         <value xml:lang="zh">显示产品场所</value>
     </property>
     <property key="ProductShowProductsPerPage">
@@ -16387,7 +16387,7 @@
         <value xml:lang="it">Alla Stabilimento / Contenitore</value>
         <value xml:lang="ro">La Compartimentul / Contenitor</value>
         <value xml:lang="ru">В склад/контейнер</value>
-        <value xml:lang="th">ถึงการทำงาน / การบรรจุสินค้า</value>
+        <value xml:lang="th">ถึงคลังสินค้า / การบรรจุสินค้า</value>
         <value xml:lang="zh">到场所/容器</value>
     </property>
     <property key="ProductToGeo">

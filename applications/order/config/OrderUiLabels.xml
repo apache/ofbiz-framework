@@ -3211,7 +3211,7 @@
         <value xml:lang="nl">Faciliteit</value>
         <value xml:lang="ro">Compartiment </value>
         <value xml:lang="ru">Оборудование</value>
-        <value xml:lang="th">การทำงาน</value>
+        <value xml:lang="th">คลังสินค้า</value>
         <value xml:lang="zh_CN">仓储设施</value>
         <value xml:lang="zh">场所</value>
     </property>
@@ -3237,7 +3237,7 @@
         <value xml:lang="nl">Geen faciliteit</value>
         <value xml:lang="ro">Nici-un Compartiment </value>
         <value xml:lang="ru">Нет оборудования</value>
-        <value xml:lang="th">ไม่มีการทำงาน</value>
+        <value xml:lang="th">ไม่มีคลังสินค้า</value>
         <value xml:lang="zh_CN">仓储设施</value>
         <value xml:lang="zh">没有场所</value>
     </property>
@@ -3434,7 +3434,7 @@
         <value xml:lang="nl">Contact Mech Id</value>
         <value xml:lang="ro">Numar Contact</value>
         <value xml:lang="ru">Код способа контакта</value>
-        <value xml:lang="th">รหัสวิธีการติดต่อการทำงาน</value>
+        <value xml:lang="th">รหัสวิธีการติดต่อ</value>
         <value xml:lang="zh">联系方式标识</value>
     </property>
     <property key="FormFieldTitle_countryGeoId">
@@ -3602,13 +3602,13 @@
         <value xml:lang="nl">Faciliteit Id</value>
         <value xml:lang="ro">Cod Compartiment </value>
         <value xml:lang="ru">Код склада</value>
-        <value xml:lang="th">รหัสการทำงาน</value>
+        <value xml:lang="th">รหัสคลังสินค้า</value>
         <value xml:lang="zh">场所标识</value>
     </property>
     <property key="FormFieldTitle_facilityQuantityOnHandTotal">
         <value xml:lang="en">Facility Quantity On Hand Total</value>
         <value xml:lang="it">Totale Quantità Disponibile Stabilimento</value>
-        <value xml:lang="th">ผลรวมจำนวนการทำงาน</value>
+        <value xml:lang="th">ผลรวมจำนวนคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_firstAttemptOrderId">
         <value xml:lang="en">First Attempt Order Id</value>
@@ -3634,7 +3634,7 @@
         <value xml:lang="en">Fulfill Contact Mech Id</value>
         <value xml:lang="it">Contatto Avanzamento</value>
         <value xml:lang="ru">Код способа контакта выполнения</value>
-        <value xml:lang="th">เติมรหัสวิธีการติดต่อการทำงาน</value>
+        <value xml:lang="th">เติมรหัสวิธีการติดต่อคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_grandTotal">
         <value xml:lang="en">Grand Total</value>
@@ -3863,7 +3863,7 @@
         <value xml:lang="nl">Oorspronkelijke Faciliteit Id</value>
         <value xml:lang="ro">Compartiment Origine</value>
         <value xml:lang="ru">Код исходящего склада</value>
-        <value xml:lang="th">รหัสต้นฉบับการทำงาน</value>
+        <value xml:lang="th">รหัสที่มาคลังสินค้า</value>
         <value xml:lang="zh">起点场所标识</value>
     </property>
     <property key="FormFieldTitle_parentShoppingListId">
@@ -4759,7 +4759,7 @@
         <value xml:lang="nl">U kunt een faciliteit kiezen in plaats van de standaard</value>
         <value xml:lang="ro">Tu poti alege un Compartiment in loc de Default</value>
         <value xml:lang="ru">Вместо указанного по умолчанию, вы можете выбрать другой склад</value>
-        <value xml:lang="th">คุณอาจจะเลือกการทำงานแทนที่ค่าเริ่มต้น
+        <value xml:lang="th">คุณอาจจะเลือกคลังสินค้าnแทนที่ค่าเริ่มต้น
 </value>
         <value xml:lang="zh_CN">你可以选择设施，而不用默认的</value>
         <value xml:lang="zh">你可以选择一个场所而不是使用缺省值</value>
@@ -5285,7 +5285,7 @@
         <value xml:lang="nl">Foutmelding: deze faciliteit heeft geen verzend adres</value>
         <value xml:lang="ro">Eroare : Compartimentul nu are adrese</value>
         <value xml:lang="ru">Ошибка: склад не имеет адресов</value>
-        <value xml:lang="th">Error : ผิดพลาด ! ไม่มีที่อยู่การทำงาน
+        <value xml:lang="th">Error : ผิดพลาด ! ไม่มีที่อยู่คลังสินค้า
 </value>
         <value xml:lang="zh_CN">错误 : 这个设施没有地址</value>
         <value xml:lang="zh">错误：场所没有地址</value>
@@ -7574,7 +7574,7 @@
         <value xml:lang="nl">Origin Facility</value>
         <value xml:lang="ro">Compartiment Origine</value>
         <value xml:lang="ru">Исходящий склад</value>
-        <value xml:lang="th">ต้นฉบับการทำงาน</value>
+        <value xml:lang="th">ที่มาคลังสินค้า</value>
         <value xml:lang="zh_CN">原仓储设施</value>
         <value xml:lang="zh">原场所</value>
     </property>
@@ -8675,7 +8675,7 @@
         <value xml:lang="nl">Destination Facility</value>
         <value xml:lang="ro">Compartiment Destinatie </value>
         <value xml:lang="ru">На склад</value>
-        <value xml:lang="th">เป้าหมายของการทำงาน</value>
+        <value xml:lang="th">เป้าหมายของคลังสินค้า</value>
         <value xml:lang="zh">目的地场所</value>
     </property>
     <property key="OrderReturnEnumId">
@@ -8919,7 +8919,7 @@
         <value xml:lang="nl">Return To Facility</value>
         <value xml:lang="ro">Returnare la Compartimentul  </value>
         <value xml:lang="ru">Возврат на склад</value>
-        <value xml:lang="th">ผลตอบแทนการทำงาน</value>
+        <value xml:lang="th">กลับไปยังคลังสินค้า</value>
         <value xml:lang="zh_CN">退货到设施</value>
         <value xml:lang="zh">退货到场所</value>
     </property>

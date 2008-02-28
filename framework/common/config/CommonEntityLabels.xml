@@ -2071,7 +2071,7 @@
         <value xml:lang="pt">Tpo de Localização de Instalação</value>
         <value xml:lang="ro">Tip Pozitie Compartiment</value>
         <value xml:lang="ru">Тип расположения склада</value>
-        <value xml:lang="th">ประเภทที่ตั้งการทำงาน</value>
+        <value xml:lang="th">ประเภทที่ตั้งคลังสินค้า</value>
         <value xml:lang="zh">场所地址类型</value>
     </property>
     <property key="EnumerationType.description.FXAST_CLASS">

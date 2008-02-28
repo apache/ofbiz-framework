@@ -1130,7 +1130,7 @@
         <value xml:lang="es">El almacén no existe</value>
         <value xml:lang="it">La tabella stabilimenti non esiste</value>
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
-        <value xml:lang="th">ไม่มีตารางการทำงานนี้อยู่</value>
+        <value xml:lang="th">ไม่มีตารางคลังสินค้านี้อยู่</value>
         <value xml:lang="zh">场所表不存在</value>
     </property>
     <property key="ManufacturingFindBillOfMaterials">
@@ -1768,7 +1768,7 @@
         <value xml:lang="es">Tabla de almacén no existe</value>
         <value xml:lang="it">Tabella Stabilimenti non esiste</value>
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
-        <value xml:lang="th">ไม่มีตารางสินค้าที่ยืดหยุ่นอยู่</value>
+        <value xml:lang="th">ไม่มีตารางคลังสินค้าที่ยืดหยุ่นอยู่</value>
         <value xml:lang="zh">产品场所表不存在</value>
     </property>
     <property key="ManufacturingProductHasNoBom">
