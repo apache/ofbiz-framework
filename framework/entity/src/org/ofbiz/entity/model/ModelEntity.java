@@ -1482,13 +1482,13 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 relationshipMap.put("destination", relationship.getRelEntityName());
                 if ("many".equals(relationship.getType())) {
                     relationshipMap.put("isToMany", "Y");
+                    relationshipMap.put("isMandatory", "N");
                 } else {
                     relationshipMap.put("isToMany", "N");
+                    relationshipMap.put("isMandatory", "Y");
                 }
                 relationshipMap.put("joinSemantic", "EOInnerJoin");
                 
-                //nothing in OFBiz entity models for this yet, but might be nice to add in the future
-                //relationshipMap.put("isMandatory", );
                 
                 List<Map<String, Object>> joinsMapList = FastList.newInstance();
                 relationshipMap.put("joins", joinsMapList);
