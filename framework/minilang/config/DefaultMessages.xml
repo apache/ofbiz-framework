@@ -53,7 +53,6 @@
     </property>
     <property key="service.message.suffix">
         <value xml:lang="en"></value>
-        <value xml:lang="th"></value>
     </property>
     <property key="service.success.prefix">
         <value xml:lang="en"></value>

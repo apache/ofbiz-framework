@@ -176,7 +176,7 @@
         <value xml:lang="it">Codice Stabilimento</value>
         <value xml:lang="nl">Facility Id</value>
         <value xml:lang="ro">Cod Compartiment</value>
-        <value xml:lang="th">รหัสการทำงาน</value>
+        <value xml:lang="th">รหัสคลังสินค้า</value>
         <value xml:lang="zh">场所标识</value>
     </property>
     <property key="FormFieldTitle_finishDateTime">
@@ -1951,7 +1951,7 @@
         <value xml:lang="nl">Op faciliteit</value>
         <value xml:lang="ro">Pentru Compartiment</value>
         <value xml:lang="ru">по объектам</value>
-        <value xml:lang="th">โดยการทำงาน</value>
+        <value xml:lang="th">โดยคลังสินค้า</value>
         <value xml:lang="zh">安场所</value>
     </property>
     <property key="WorkEffortByFixedAsset">

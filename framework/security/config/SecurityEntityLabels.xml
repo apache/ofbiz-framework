@@ -358,43 +358,43 @@
         <value xml:lang="en">ALL operations in the Facility Manager.</value>
         <value xml:lang="es">TODAS las operaciones en el Administrador de Establecimientos.</value>
         <value xml:lang="ru">Все операции в приложении Управление объектами.</value>
-        <value xml:lang="th">การทำงานทั้งหมดในการจัดการการทำงาน</value>
+        <value xml:lang="th">การทำงานทั้งหมดในการจัดการคลังสินค้า</value>
     </property>
     <property key="SecurityPermission.description.FACILITY_CREATE">
         <value xml:lang="en">Create operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Creación en el Administrador de Establecimientos.</value>
         <value xml:lang="ru">Операции создания в приложении Управление объектами.</value>
-        <value xml:lang="th">สร้างการทำงานในการจัดการการทำงาน</value>
+        <value xml:lang="th">สร้างการทำงานในการจัดการคลังสินค้า</value>
     </property>
     <property key="SecurityPermission.description.FACILITY_DELETE">
         <value xml:lang="en">Delete operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Eliminación en el Administrador de Establecimientos.</value>
         <value xml:lang="ru">Операции удаления в приложении Управление объектами.</value>
-        <value xml:lang="th">ลบการทำงานในการจัดการการทำงาน</value>
+        <value xml:lang="th">ลบการทำงานในการจัดการคลังสินค้า</value>
     </property>
     <property key="SecurityPermission.description.FACILITY_ROLE_UPDATE">
         <value xml:lang="en">Limited update operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Actualización Limitadas en el Administrador de Establecimientos.</value>
         <value xml:lang="ru">Операции ограниченного обновления в приложении Управление объектами.</value>
-        <value xml:lang="th">ขอบเขตการอัพเดทการทำงานในการจัดการการทำงาน</value>
+        <value xml:lang="th">ขอบเขตการอัพเดทการทำงานในการจัดการคลังสินค้า</value>
     </property>
     <property key="SecurityPermission.description.FACILITY_ROLE_VIEW">
         <value xml:lang="en">Limited view operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Visualización Limitada en el Administrador de Establecimientos.</value>
         <value xml:lang="ru">Операции ограниченного просмотра в Управление объектами.</value>
-        <value xml:lang="th">ขอบเขตการแสดงการทำงานในการจัดการการทำงาน</value>
+        <value xml:lang="th">ขอบเขตการแสดงการทำงานในการจัดการคลังสินค้า</value>
     </property>
     <property key="SecurityPermission.description.FACILITY_UPDATE">
         <value xml:lang="en">Update operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Actualización en el Administrador de Establecimientos.</value>
         <value xml:lang="ru">Операции обновления в приложении Управление объектами.</value>
-        <value xml:lang="th">การอัพเดทการทำงานในการจัดการการทำงาน</value>
+        <value xml:lang="th">การอัพเดทการทำงานในการจัดการคลังสินค้า</value>
     </property>
     <property key="SecurityPermission.description.FACILITY_VIEW">
         <value xml:lang="en">View operations in the Facility Manager.</value>
         <value xml:lang="es">Operaciones de Visualización en el Administrador de Establecimientos.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление объектами.</value>
-        <value xml:lang="th">การแสดงการทำงานในการจัดการการทำงาน</value>
+        <value xml:lang="th">การแสดงการทำงานในการจัดการคลังสินค้า</value>
     </property>
     <property key="SecurityPermission.description.MANUAL_PAYMENT">
         <value xml:lang="en">Manual Payment Transaction.</value>
