@@ -289,8 +289,9 @@ under the License.
     <GlAccountType description="COGS - Average Cost Adjustment" glAccountTypeId="COGS_ADJ_AVG_COST" hasTable="N" parentTypeId="COGS_ACCOUNT"/>
     <GlAccountType description="Purchase" glAccountTypeId="PURCHASE_ACCOUNT" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Inventory Change" glAccountTypeId="INV_CHANGE_ACCOUNT" hasTable="N" parentTypeId=""/>
-    <GlAccountType description="Operating Expense" glAccountTypeId="OPERATING_EXPENSE" hasTable="N" parentTypeId=""/>
-    <GlAccountType description="Other Expense" glAccountTypeId="OTHER_EXPENSE" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Expense" glAccountTypeId="EXPENSE" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Operating Expense" glAccountTypeId="OPERATING_EXPENSE" hasTable="N" parentTypeId="EXPENSE"/>
+    <GlAccountType description="Other Expense" glAccountTypeId="OTHER_EXPENSE" hasTable="N" parentTypeId="EXPENSE"/>
     <GlAccountType description="Owner's Equity" glAccountTypeId="OWNERS_EQUITY" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Retained Earnings" glAccountTypeId="RETAINED_EARNINGS" hasTable="N" parentTypeId=""/>
 
@@ -298,11 +299,12 @@ under the License.
     <GlAccountType description="Customer Credits" glAccountTypeId="CUSTOMER_CREDIT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
     <GlAccountType description="Customer Gift Certificate Balances" glAccountTypeId="CUSTOMER_GC_DEPOSIT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
     <GlAccountType description="Uninvoiced Shipment Receipts" glAccountTypeId="UNINVOICED_SHIP_RCPT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
-    <GlAccountType description="Purchase Price Variance" glAccountTypeId="PURCHASE_PRICE_VAR" hasTable="N" parentTypeId="EXPENSE"/>
+    <GlAccountType description="Purchase Price Variance" glAccountTypeId="PURCHASE_PRICE_VAR" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
     <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
     
+    <GlAccountType description="Income" glAccountTypeId="INCOME" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Other Income" glAccountTypeId="OTHER_INCOME" hasTable="N" parentTypeId="INCOME"/>
-    <GlAccountType description="Interest Income" glAccountTypeId="INTEREST_INCOME" hasTable="N" parentTypeId="OTHER_INCOME"/>
+    <GlAccountType description="Interest Income" glAccountTypeId="INTEREST_INCOME" hasTable="N" parentTypeId="INCOME"/>
     
     <GlAccountType description="Interest Income Receivables" glAccountTypeId="INTRSTINC_RECEIVABLE" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
     <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
