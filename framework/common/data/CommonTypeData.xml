@@ -24,6 +24,9 @@ under the License.
     <DataSourceType dataSourceTypeId="MAILING_LIST_SIGNUP" description="Mailing List Signup"/>
     <DataSourceType dataSourceTypeId="CONTEST_SIGNUP" description="Contest Signup"/>
     <DataSourceType dataSourceTypeId="ADMIN_ENTRY" description="Administrative Data Entry"/>
+    <DataSourceType dataSourceTypeId="ADVERTISEMENT" description="Advertisement"/>
+    <DataSourceType dataSourceTypeId="WEB" description="Web"/>
+    <DataSourceType dataSourceTypeId="PARTNER" description="Partner"/>
 
     <DataSource dataSourceId="ECOMMERCE_SITE" dataSourceTypeId="WEBSITE_ENTRY" description="eCommerce Site Profile Maintenance"/>
     <DataSource dataSourceId="GENERAL_MAILING" dataSourceTypeId="MAILING_LIST_SIGNUP" description="General Interest Mailing List Signup"/>
