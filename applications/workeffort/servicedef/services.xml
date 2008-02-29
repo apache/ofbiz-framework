@@ -96,11 +96,13 @@ under the License.
     </service>
     
     <!-- Communication Event WorkEffort -->
-    <service name="makeCommunicationEventWorkEffort" default-entity-name="CommunicationEventWorkEff" engine="simple"
+    <service name="makeCommunicationEventWorkEffort" default-entity-name="WorkEffort" engine="simple"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="makeCommunicationEventWorkEffort" auth="true">
-        <description>Make a Communication Event Workeffort</description>
-        <auto-attributes include="all" mode="IN" optional="false"/>
-        <override name="description" optional="true"/>
+        <description>Make a Communication Event Workeffort and create the workeffort itself if the ID not supplied</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="communicationEventId" type="String" mode="INOUT"/>
+        <attribute name="relationDescription" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- WorkEffortPartyAssignment services -->
