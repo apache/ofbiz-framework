@@ -59,9 +59,9 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="isActive" type="indicator"></field>
       <field name="convertedLeads" type="id-ne"></field>
-      <field name="expectedResponsePercent" type="id-ne"></field>
+      <field name="expectedResponsePercent" type="floating-point"></field>
       <field name="expectedRevenue" type="currency-amount"></field>
-      <field name="numSent" type="id-ne"></field>
+      <field name="numSent" type="numeric"></field>
        <field name="startDate" type="date-time"></field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
