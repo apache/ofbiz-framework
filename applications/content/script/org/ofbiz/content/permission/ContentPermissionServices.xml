@@ -43,12 +43,12 @@
                 <and>
                     <if-empty field-name="parameters.ownerContentId"/>
                     <not>
-                        <if-empty field-name="parameters.contentIdTo"/>
+                        <if-empty field-name="parameters.contentIdFrom"/>
                     </not>
                 </and>
             </condition>
             <then>
-                <set field="ownerContentId" from-field="parameters.contentIdTo"/>
+                <set field="ownerContentId" from-field="parameters.contentIdFrom"/>
             </then>
         </if>
 
@@ -202,9 +202,17 @@
                         <set field="checkId" from-field="ownerContentId"/>
                         <call-simple-method method-name="checkContentOperationSecurity"/>
                     </then>
+                </if>
 
-                    <!-- otherwise, we are okay to create unless we are creating against a parent; check parent ownership -->
-                    <else>
+                <!-- check if there was no operation; or if the operation check failed, we are okay to create unless we are creating against a parent; check parent ownership -->
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field-name="contentOperationId"/>
+                            <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                        </or>
+                    </condition>
+                    <then>
                         <if>
                             <condition>
                                 <not>
@@ -262,7 +270,7 @@
                                 </if>
                             </then>
                         </if>
-                    </else>
+                    </then>
                 </if>
             </then>
         </if>
@@ -415,10 +423,6 @@
         <!-- resetting the permission flag -->
         <set field="hasPermission" type="Boolean" value="false"/>
 
-        <if-empty field-name="checkId">
-            <add-error><fail-message message="Required field 'checkId' (contentId) is missing in simple method call [checkContentOperationSecurity]"/></add-error>
-        </if-empty>
-
         <if-empty field-name="contentOperationId">
             <add-error><fail-message message="Required field 'contentOperationId' is missing in simple method call [checkContentOperationSecurity]"/></add-error>
         </if-empty>
@@ -433,35 +437,57 @@
         <entity-one entity-name="Content" value-name="checkContent">
             <field-map field-name="contentId" env-name="checkId"/>
         </entity-one>
-        <set field="statusId" from-field="checkContent.statusId"/>         
+        <set field="statusId" from-field="checkContent.statusId"/>
 
-        <!-- get all purposes for this content -->
-        <call-simple-method method-name="findAllContentPurposes"/>
+        <!-- If operation is CONTENT_CREATE and contentPurposeTypeId exists in parameters than obtain operations
+             for that contentPurposeTypeId, else get the operations for checkContent -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare value="CONTENT_CREATE" field-name="contentOperationId" operator="equals"/>
+                    <not>
+                        <if-empty field-name="contentPurposeTypeId"/>
+                    </not>
+                </and>
+            </condition>
+            <then>
+                <!-- find defined purpose/operation mappings -->
+                <entity-condition entity-name="ContentPurposeOperation" list-name="operations">
+                    <condition-list combine="and">
+                        <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="contentPurposeTypeId"/>
+                        <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
+                    </condition-list>
+                </entity-condition>
+            </then>
+            <else>
+                <!-- get all purposes for checkContent -->
+                <call-simple-method method-name="findAllContentPurposes"/>
 
-        <!-- find defined purpose/operation mappings -->
-        <iterate entry-name="currentPurpose" list-name="contentPurposes">
-            <entity-condition entity-name="ContentPurposeOperation" list-name="currentOperations">
-                <condition-list combine="and">
-                    <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="currentPurpose.contentPurposeTypeId"/>
-                    <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
-                </condition-list>
-                <order-by field-name="contentPurposeTypeId"/>
-            </entity-condition>
-            <list-to-list list-name="currentOperations" to-list-name="operations"/>
-        </iterate>
+                <!-- find defined purpose/operation mappings -->
+                <iterate entry-name="currentPurpose" list-name="contentPurposes">
+                    <entity-condition entity-name="ContentPurposeOperation" list-name="currentOperations">
+                        <condition-list combine="and">
+                            <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="currentPurpose.contentPurposeTypeId"/>
+                            <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
+                        </condition-list>
+                        <order-by field-name="contentPurposeTypeId"/>
+                    </entity-condition>
+                    <list-to-list list-name="currentOperations" to-list-name="operations"/>
+                </iterate>
 
-        <!-- check the _NA_ purpose but only if no other purposes were found -->
-        <if-empty field-name="contentPurposes">
-            <entity-condition entity-name="ContentPurposeOperation" list-name="currentOperations">
-                <condition-list combine="and">
-                    <condition-expr field-name="contentPurposeTypeId" operator="equals" value="_NA_"/>
-                    <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
-                </condition-list>
-                <order-by field-name="contentPurposeTypeId"/>
-            </entity-condition>
-            <list-to-list list-name="currentOperations" to-list-name="operations"/>
-        </if-empty>
-
+                <!-- check the _NA_ purpose but only if no other purposes were found -->
+                <if-empty field-name="contentPurposes">
+                    <entity-condition entity-name="ContentPurposeOperation" list-name="operations">
+                        <condition-list combine="and">
+                            <condition-expr field-name="contentPurposeTypeId" operator="equals" value="_NA_"/>
+                            <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
+                        </condition-list>
+                        <order-by field-name="contentPurposeTypeId"/>
+                    </entity-condition>
+                </if-empty>
+            </else>
+        </if>
+        
         <!-- place holder for the content ID -->
         <set field="toCheckContentId" from-field="checkId"/>
         <log level="verbose" message="[${checkId}] Found Operations [${contentPurposeTypeId}/${contentOperationId}] :: ${operations}"/>
@@ -482,96 +508,112 @@
 
                 <!-- check each operation security -->
                 <iterate entry-name="operation" list-name="operations">
-                    <!-- reset the checkId if needed -->
-                    <if>
-                        <condition>
-                            <and>
-                                <if-empty field-name="checkId"/>
-                                <not>
-                                    <if-empty field-name="toCheckContentId"/>
-                                </not>
-                            </and>
-                        </condition>
-                        <then>
-                            <set field="checkId" from-field="toCheckContentId"/>
-                        </then>
-                    </if>
-
-                    <log level="verbose" message="Testing [${checkId}] [${statusId}] OPERATION: ${operation}"/>
-
-                    <!-- check statusId -->
-                    <if>
-                        <condition>
-                            <or>
-                                <if-compare field-name="operation.statusId" value="_NA_" operator="equals"/>
+                    <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals">
+                        <!-- reset the checkId if needed -->
+                        <if>
+                            <condition>
                                 <and>
+                                    <if-empty field-name="checkId"/>
                                     <not>
-                                        <if-empty field-name="statusId"/>
+                                        <if-empty field-name="toCheckContentId"/>
                                     </not>
-                                    <if-compare-field field-name="operation.statusId" operator="equals" to-field-name="statusId"/>    
                                 </and>
-                            </or>
-                        </condition>
-                        <then>
-                            <log level="verbose" message="Passed status check; now checking role(s)"/>
-                            
-                            <!-- first check passed; now we test for the role membership(s) -->
-                            <iterate entry-name="thisPartyId" list-name="partyIdList">
-                                <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals">
-                                    <set field="checkRoleTypeId" from-field="operation.roleTypeId"/>
-                                    <set field="checkPartyId" from-field="thisPartyId"/>
-                                    <call-simple-method method-name="checkRoleSecurity"/>
+                            </condition>
+                            <then>
+                                <set field="checkId" from-field="toCheckContentId"/>
+                            </then>
+                        </if>
 
-                                    <!-- check the parent(s) for permission -->
-                                    <if>
-                                        <condition>
-                                            <and>
-                                                <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
-                                                <not>
+                        <log level="verbose" message="Testing [${checkId}] [${statusId}] OPERATION: ${operation}"/>
+
+                        <!-- check statusId -->
+                        <if>
+                            <condition>
+                                <or>
+                                    <if-compare field-name="operation.statusId" value="_NA_" operator="equals"/>
+                                    <and>
+                                        <not>
+                                            <if-empty field-name="statusId"/>
+                                        </not>
+                                        <if-compare-field field-name="operation.statusId" operator="equals" to-field-name="statusId"/>    
+                                    </and>
+                                </or>
+                            </condition>
+                            <then>
+                                <log level="verbose" message="Passed status check; now checking role(s)"/>
+
+                                <!-- first check passed; now we test for the role membership(s) -->
+                                <iterate entry-name="thisPartyId" list-name="partyIdList">
+                                    <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals">
+                                        <set field="checkRoleTypeId" from-field="operation.roleTypeId"/>
+                                        <set field="checkPartyId" from-field="thisPartyId"/>
+                                        <!-- reset the checkId if needed -->
+                                        <if>
+                                            <condition>
+                                                <and>
                                                     <if-empty field-name="checkId"/>
-                                                </not>
-                                            </and>
-                                        </condition>
-                                        <then>
-                                            <log level="verbose" message="Starting loop; checking operation: ${operation.contentOperationId}"/>
-                                            <while>
-                                                <condition>
-                                                    <!-- iterate until either we have permission or there are no more parents -->
-                                                    <and>
-                                                        <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
-                                                        <not>
-                                                            <if-empty field-name="checkId"/>
-                                                        </not>
-                                                    </and>
-                                                </condition>
-                                                <then>
-                                                    <entity-one entity-name="Content" value-name="currentContent">
-                                                        <field-map field-name="contentId" env-name="checkId"/>
-                                                    </entity-one>
-                                                    <if>
-                                                        <condition>
-                                                            <not>
-                                                                <if-empty field-name="currentContent.ownerContentId"/>
-                                                            </not>
-                                                        </condition>
-                                                        <then>
-                                                            <set field="checkId" from-field="currentContent.ownerContentId"/>
-                                                            <call-simple-method method-name="checkRoleSecurity"/>
-                                                        </then>
+                                                    <not>
+                                                        <if-empty field-name="toCheckContentId"/>
+                                                    </not>
+                                                </and>
+                                            </condition>
+                                            <then>
+                                                <set field="checkId" from-field="toCheckContentId"/>
+                                            </then>
+                                        </if>
+                                        <call-simple-method method-name="checkRoleSecurity"/>
 
-                                                        <!-- no parent record found; time to stop recursion -->
-                                                        <else>
-                                                            <clear-field field-name="checkId"/>
-                                                        </else>
-                                                    </if>
-                                                </then>
-                                            </while>
-                                        </then>
-                                    </if>
-                                </if-compare>
-                            </iterate>
-                        </then>
-                    </if>
+                                        <!-- check the parent(s) for permission -->
+                                        <if>
+                                            <condition>
+                                                <and>
+                                                    <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                                    <not>
+                                                        <if-empty field-name="checkId"/>
+                                                    </not>
+                                                </and>
+                                            </condition>
+                                            <then>
+                                                <log level="verbose" message="Starting loop; checking operation: ${operation.contentOperationId}"/>
+                                                <while>
+                                                    <condition>
+                                                        <!-- iterate until either we have permission or there are no more parents -->
+                                                        <and>
+                                                            <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                                            <not>
+                                                                <if-empty field-name="checkId"/>
+                                                            </not>
+                                                        </and>
+                                                    </condition>
+                                                    <then>
+                                                        <entity-one entity-name="Content" value-name="currentContent">
+                                                            <field-map field-name="contentId" env-name="checkId"/>
+                                                        </entity-one>
+                                                        <if>
+                                                            <condition>
+                                                                <not>
+                                                                    <if-empty field-name="currentContent.ownerContentId"/>
+                                                                </not>
+                                                            </condition>
+                                                            <then>
+                                                                <set field="checkId" from-field="currentContent.ownerContentId"/>
+                                                                <call-simple-method method-name="checkRoleSecurity"/>
+                                                            </then>
+
+                                                            <!-- no parent record found; time to stop recursion -->
+                                                            <else>
+                                                                <clear-field field-name="checkId"/>
+                                                            </else>
+                                                        </if>
+                                                    </then>
+                                                </while>
+                                            </then>
+                                        </if>
+                                    </if-compare>
+                                </iterate>
+                            </then>
+                        </if>
+                    </if-compare>
                 </iterate>
             </else>
         </if>
@@ -727,6 +769,7 @@
     <simple-method method-name="findAllAssociatedPartyIds" short-description="Finds all associated party Ids for a user">
         <set field="lookupMap.partyIdFrom" from-field="userLogin.partyId"/>
         <set field="lookupMap.partyRelationshipTypeId" value="GROUP_ROLLUP"/>
+        <set field="lookupMap.includeFromToSwitched" value="Y"/>
         <call-service service-name="getRelatedParties" include-user-login="true" in-map-name="lookupMap">
             <result-to-field result-name="relatedPartyIdList" field-name="partyIdList"/>
         </call-service>
