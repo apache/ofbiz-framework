@@ -1806,7 +1806,7 @@ under the License.
       <field name="officeSiteName" type="name"></field>
       <field name="annualRevenue" type="currency-amount"></field>
       <field name="numEmployees" type="numeric"></field>
-      <field name="tickerSymbol" type="id-ne"></field>        
+      <field name="tickerSymbol" type="very-short"></field>        
       <field name="comments" type="comment"></field>
       <field name="logoImageUrl" type="url"></field>
       <prim-key field="partyId"/>
