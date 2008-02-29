@@ -175,10 +175,12 @@ under the License.
         <find-by-primary-key entity-name="CommunicationEventWorkEff" map-name="lookupMap" value-name="eventWe"/>
         <if-not-empty field-name="workEffortId" map-name="eventWe">
             <set-nonpk-fields map-name="parameters" value-name="eventWe"/>
+            <set field="eventWe.description" from-field="parameters.relationDescription"/>
             <store-value value-name="eventWe"/>
         </if-not-empty>
         <if-empty field-name="workEffortId" map-name="eventWe">
             <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+            <set field="eventWe.description" from-field="parameters.relationDescription"/>
             <create-value value-name="lookupMap"/>
         </if-empty>
         <field-to-result field-name="workEffortId" map-name="lookupMap"/>
