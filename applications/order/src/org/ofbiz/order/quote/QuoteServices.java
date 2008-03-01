@@ -182,7 +182,6 @@ public class QuoteServices {
                     while (quoteIt.hasNext()) {
                         GenericValue quoteItem = (GenericValue)quoteIt.next();
                         quoteItem.set("quoteId", quoteId);
-                        quoteItem.set("quoteUnitPrice", null);
                         Map quoteItemIn = quoteItem.getAllFields();
                         quoteItemIn.put("userLogin", userLogin);
                         
