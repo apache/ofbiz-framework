@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -8200,7 +8200,7 @@
         <value xml:lang="it">Spedizioni Conto Terzi</value>
         <value xml:lang="ru">Прямая поставка</value>
         <value xml:lang="th">หยุดการขนส่ง
-            
+
         </value>
         <value xml:lang="zh">直接送货</value>
     </property>
@@ -10126,14 +10126,14 @@
         <value xml:lang="zh">接收库存</value>
     </property>
     <property key="ProductInventoryRequiredProduct">
-        <value xml:lang="en">Should inventory be required to purchase this product? If not specified defaults to the Catalog setting.</value>
-        <value xml:lang="es">Este producto neceista inventario para ser adquirido? Si este campo no se especifica, entonces se usarán los valores del catálogo.</value>
-        <value xml:lang="fr">Est-il nécessaire d'avoir du stock pour acheter cet article ? Si vide, le paramétrage du catalogue est appliqué.</value>
-        <value xml:lang="it">L'inventario dovrebbe essere richiesto per acquistare questo prodotto? Se non specificato defaults è dalle impostazioni del Catalogo.</value>
-        <value xml:lang="ro">Poate fi cerut Inventarul pentru cumpararea acestui produs? Daca nu este specificat din default este din setarile Catalog.</value>
-        <value xml:lang="ru">Необходимо ли наличие продукта на складе для продажи? Если не указывать, значение по умолчанию берется из настроек каталога.</value>
-        <value xml:lang="th">Should inventory be required to purchase this product? If not specified defaults to the Catalog setting.</value>
-        <value xml:lang="zh">购买这个产品必须有货吗? 如果没有指定，目录设置会使用缺省值</value>
+        <value xml:lang="en">Should inventory be required to purchase this product? If not specified defaults to Store setting.</value>
+        <value xml:lang="es">Este producto neceista inventario para ser adquirido? Si este campo no se especifica, entonces se usarán los valores del tienda.</value>
+        <value xml:lang="fr">Est-il nécessaire d'avoir du stock pour acheter cet article ? Si vide, le paramétrage du centre de profit est appliqué.</value>
+        <value xml:lang="it">L'inventario dovrebbe essere richiesto per acquistare questo prodotto? Se non specificato defaults è dalle impostazioni del Negozio.</value>
+        <value xml:lang="ro">Poate fi cerut Inventarul pentru cumpararea acestui produs? Daca nu este specificat din default este din setarile Magazin.</value>
+        <value xml:lang="ru">Необходимо ли наличие продукта на складе для продажи? Если не указывать, значение по умолчанию берется из настроек Склад.</value>
+        <value xml:lang="th">Should inventory be required to purchase this product? If not specified defaults to Store setting.</value>
+        <value xml:lang="zh">购买这个产品必须有货吗? 如果没有指定，商店设置会使用缺省值</value>
     </property>
     <property key="ProductInventorySummary">
         <value xml:lang="en">Inventory Summary</value>
