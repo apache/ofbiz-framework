@@ -32,7 +32,6 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.ofbiz.shipment.delivery -->
   <!--  - org.ofbiz.shipment.issuance -->
   <!--  - org.ofbiz.shipment.picklist -->
   <!--  - org.ofbiz.shipment.receipt -->
