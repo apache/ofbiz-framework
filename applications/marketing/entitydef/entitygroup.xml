@@ -64,7 +64,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="TrackingCodeVisit" />
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.marketing.tracking -->
+  <!-- View Entities -->
   <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="TrackingCodeAndVisit"/>
