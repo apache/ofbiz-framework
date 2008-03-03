@@ -4259,11 +4259,12 @@ public class OrderServices {
                 }
                 
                 double quantityToCancel = orderItemQuantity - orderItemCancelQuantity - receivedQuantity;
-                if (quantityToCancel <= 0) continue;
-                
+                if (quantityToCancel > 0) {
                 Map cancelOrderItemResult = dispatcher.runSync("cancelOrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "cancelQuantity", new Double(quantityToCancel), "userLogin", userLogin));
                 if (ServiceUtil.isError(cancelOrderItemResult)) return cancelOrderItemResult;       
-                
+                }
+
+                // If there's nothing to cancel, the item should be set to completed, if it isn't already
                 orderItem.refresh();
                 if ("ITEM_APPROVED".equals(orderItem.getString("statusId"))) {
                     Map changeOrderItemStatusResult = dispatcher.runSync("changeOrderItemStatus", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "statusId", "ITEM_COMPLETED", "userLogin", userLogin));
