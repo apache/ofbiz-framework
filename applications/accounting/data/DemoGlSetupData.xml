@@ -230,6 +230,7 @@ under the License.
 
     <!-- mappings for payments -->
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="CUSTOMER_REFUND" glAccountTypeId="CUSTOMER_CREDIT"/>
+    <!-- NOTE: do not change this -->
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="VENDOR_PAYMENT" glAccountTypeId="ACCOUNTS_PAYABLE"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="VENDOR_PREPAY" glAccountTypeId="PREPAID_EXPENSES"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="COMMISSION_PAYMENT" glAccountTypeId="COMMISSIONS_PAYABLE"/>
@@ -239,6 +240,7 @@ under the License.
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAYROLL_TAX_PAYMENT" glAccountTypeId="TAX_ACCOUNT"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="INCOME_TAX_PAYMENT" glAccountTypeId="TAX_ACCOUNT"/>
 
+    <!-- NOTE: do not change this -->
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="CUSTOMER_PAYMENT" glAccountTypeId="ACCOUNTS_RECEIVABLE"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="CUSTOMER_DEPOSIT" glAccountTypeId="CUSTOMER_DEPOSIT"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="INTEREST_RECEIPT" glAccountTypeId="INTRSTINC_RECEIVABLE"/>
