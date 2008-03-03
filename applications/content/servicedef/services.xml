@@ -28,7 +28,7 @@
         <description>Contains necessary paramters for all file upload requests via service event handler</description>
         <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="true" />
-        <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
+        <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Content services? -->
