@@ -539,6 +539,11 @@ under the License.
     
     <simple-method method-name="attachUploadToDataResource" short-description="Attach an uploaded file to a data resource">
         <set field="isUpdate" value="false"/>
+        <property-to-field resource="content.properties" property="content.upload.always.local.file" field-name="forceLocal"/>
+        <if-compare field-name="forceLocal" value="true" operator="equals">
+            <set field="parameters.dataResourceTypeId" value="LOCAL_FILE"/>
+        </if-compare>
+        
         <if-empty field-name="parameters.dataResourceTypeId">
             <!-- create default behavior -->
             <if>
