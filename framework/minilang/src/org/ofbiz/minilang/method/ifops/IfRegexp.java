@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.ifops;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.apache.oro.text.regex.*;
 import org.w3c.dom.*;
 
@@ -38,8 +40,8 @@ public class IfRegexp extends MethodOperation {
     static PatternMatcher matcher = new Perl5Matcher();
     static PatternCompiler compiler = new Perl5Compiler();
 
-    List subOps = new LinkedList();
-    List elseSubOps = null;
+    List<MethodOperation> subOps = FastList.newInstance();
+    List<MethodOperation> elseSubOps = null;
 
     ContextAccessor mapAcsr;
     ContextAccessor fieldAcsr;
@@ -58,7 +60,7 @@ public class IfRegexp extends MethodOperation {
         Element elseElement = UtilXml.firstChildElement(element, "else");
 
         if (elseElement != null) {
-            elseSubOps = new LinkedList();
+            elseSubOps = FastList.newInstance();
             SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
         }
     }
@@ -108,6 +110,13 @@ public class IfRegexp extends MethodOperation {
                 return true;
             }
         }
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        allSubOps.addAll(this.subOps);
+        allSubOps.addAll(this.elseSubOps);
+        return allSubOps;
     }
 
     public String rawString() {

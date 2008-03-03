@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.conditional;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -32,10 +34,10 @@ public class MasterIf extends MethodOperation {
 
     Conditional condition;
 
-    List thenSubOps = new LinkedList();
-    List elseSubOps = null;
+    List<MethodOperation> thenSubOps = FastList.newInstance();
+    List<MethodOperation> elseSubOps = null;
 
-    List elseIfs = null;
+    List<ElseIf> elseIfs = null;
 
     public MasterIf(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -47,19 +49,17 @@ public class MasterIf extends MethodOperation {
         Element thenElement = UtilXml.firstChildElement(element, "then");
         SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
         
-        List elseIfElements = UtilXml.childElementList(element, "else-if");
+        List<? extends Element> elseIfElements = UtilXml.childElementList(element, "else-if");
         if (elseIfElements != null && elseIfElements.size() > 0) {
-            elseIfs = new LinkedList();
-            Iterator eieIter = elseIfElements.iterator();
-            while (eieIter.hasNext()) {
-                Element elseIfElement = (Element) eieIter.next();
+            elseIfs = FastList.newInstance();
+            for (Element elseIfElement: elseIfElements) {
                 elseIfs.add(new ElseIf(elseIfElement, simpleMethod));
             }
         }
         
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = new LinkedList();
+            elseSubOps = FastList.newInstance();
             SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
         }
     }
@@ -75,12 +75,9 @@ public class MasterIf extends MethodOperation {
         if (runSubOps) {
             return SimpleMethod.runSubOps(thenSubOps, methodContext);
         } else {
-            
             // try the else-ifs
             if (elseIfs != null && elseIfs.size() > 0) {
-                Iterator elseIfIter = elseIfs.iterator();
-                while (elseIfIter.hasNext()) {
-                    ElseIf elseIf = (ElseIf) elseIfIter.next();
+                for (ElseIf elseIf: elseIfs) {
                     if (elseIf.checkCondition(methodContext)) {
                         return elseIf.runSubOps(methodContext);
                     }
@@ -93,6 +90,17 @@ public class MasterIf extends MethodOperation {
                 return true;
             }
         }
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        allSubOps.addAll(this.thenSubOps);
+        allSubOps.addAll(this.elseSubOps);
+        for (ElseIf elseIf: elseIfs) {
+            allSubOps.addAll(elseIf.getThenSubOps());
+        }
+        
+        return allSubOps;
     }
 
     public String rawString() {

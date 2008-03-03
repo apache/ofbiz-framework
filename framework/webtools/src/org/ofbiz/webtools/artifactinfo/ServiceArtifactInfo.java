@@ -31,22 +31,74 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory.ArtifactInfoContext;
 
 /**
  *
  */
 public class ServiceArtifactInfo {
-    protected ArtifactInfoContext aic;
+    protected ArtifactInfoFactory aif;
     protected ModelService modelService;
     protected String displayPrefix = null;
     
-    public ServiceArtifactInfo(String serviceName, ArtifactInfoContext aic) throws GenericServiceException {
-        this.aic = aic;
-        this.modelService = this.aic.getModelService(serviceName);
+    Set<EntityArtifactInfo> entitiesUsedByThisService = FastSet.newInstance();
+    Set<ServiceArtifactInfo> servicesCalledByThisService = FastSet.newInstance();
+    Set<ServiceEcaArtifactInfo> serviceEcasTriggeredByThisService = FastSet.newInstance();
+    
+    public ServiceArtifactInfo(String serviceName, ArtifactInfoFactory aif) throws GeneralException {
+        this.aif = aif;
+        this.modelService = this.aif.getModelService(serviceName);
+        
+        this.populateUsedEntities();
+        this.populateCalledServices();
+        this.populateTriggeredServiceEcas();
+    }
+    
+    protected void populateUsedEntities() throws GeneralException {
+        // populate entitiesUsedByThisService and for each the reverse-associate cache in the aif
+        if ("simple".equals(this.modelService.engineName)) {
+            // we can do something with this!
+            Map<String, SimpleMethod> simpleMethods = SimpleMethod.getSimpleMethods(this.modelService.location, null);
+            SimpleMethod simpleMethodToCall = (SimpleMethod) simpleMethods.get(this.modelService.invoke);
+            
+            Set<String> allEntityNameSet = simpleMethodToCall.getAllEntityNamesUsed();
+            for (String entityName: allEntityNameSet) {
+                // the forward reference
+                this.entitiesUsedByThisService.add(aif.getEntityArtifactInfo(entityName));
+                // the reverse reference
+                UtilMisc.addToSetInMap(this, aif.allServiceInfosReferringToEntityName, entityName);
+                
+            }
+        } else if ("java".equals(this.modelService.engineName)) {
+            // TODO: can't do anything about this :( ...YET! :)
+        }
+    }
+    
+    protected void populateCalledServices() throws GeneralException {
+        // populate servicesCalledByThisService and for each the reverse-associate cache in the aif
+        if ("simple".equals(this.modelService.engineName)) {
+            // we can do something with this!
+            Map<String, SimpleMethod> simpleMethods = SimpleMethod.getSimpleMethods(this.modelService.location, null);
+            SimpleMethod simpleMethodToCall = (SimpleMethod) simpleMethods.get(this.modelService.invoke);
+            
+            Set<String> allServiceNameSet = simpleMethodToCall.getAllServiceNamesCalled();
+            for (String serviceName: allServiceNameSet) {
+                // the forward reference
+                this.servicesCalledByThisService.add(aif.getServiceArtifactInfo(serviceName));
+                // the reverse reference
+                UtilMisc.addToSetInMap(this, aif.allServiceInfosReferringToServiceName, serviceName);
+            }
+        } else if ("java".equals(this.modelService.engineName)) {
+            // TODO: can't do anything about this :( ...YET! :)
+        }
+    }
+    
+    protected void populateTriggeredServiceEcas() {
+        // TODO populate serviceEcasTriggeredByThisService and for each the reverse-associate cache in the aif
+        
     }
     
     public ModelService getModelService() {
@@ -61,46 +113,36 @@ public class ServiceArtifactInfo {
         return (this.displayPrefix != null ? this.displayPrefix : "") + this.modelService.name;
     }
     
-    public List<EntityArtifactInfo> getEntitiesUsedByService() {
-        List<EntityArtifactInfo> entityList = FastList.newInstance();
-        // TODO: implement this
-        return entityList;
+    public Set<EntityArtifactInfo> getEntitiesUsedByService() {
+        return this.entitiesUsedByThisService;
     }
     
-    public List<ServiceArtifactInfo> getServicesCallingService() {
-        List<ServiceArtifactInfo> serviceList = FastList.newInstance();
-        // TODO: *implement this
-        return serviceList;
+    public Set<ServiceArtifactInfo> getServicesCallingService() {
+        return aif.allServiceInfosReferringToServiceName.get(this.modelService.name);
     }
     
-    public List<ServiceArtifactInfo> getServicesCalledByService() {
-        List<ServiceArtifactInfo> serviceList = FastList.newInstance();
-        // TODO: *implement this
-        return serviceList;
+    public Set<ServiceArtifactInfo> getServicesCalledByService() {
+        return this.servicesCalledByThisService;
     }
     
-    public List<ServiceArtifactInfo> getServicesCalledByServiceEcas() {
-        List<ServiceArtifactInfo> serviceList = FastList.newInstance();
+    public Set<ServiceArtifactInfo> getServicesCalledByServiceEcas() {
+        Set<ServiceArtifactInfo> serviceList = FastSet.newInstance();
         // TODO: implement this
         return serviceList;
     }
     
-    public List<ServiceEcaArtifactInfo> getServiceEcaRulesTriggeredByService() {
-        List<ServiceEcaArtifactInfo> secaList = FastList.newInstance();
-        // TODO: *implement this
-        return secaList;
+    public Set<ServiceEcaArtifactInfo> getServiceEcaRulesTriggeredByService() {
+        return this.serviceEcasTriggeredByThisService;
     }
     
-    public List<ServiceArtifactInfo> getServicesCallingServiceByEcas() {
-        List<ServiceArtifactInfo> serviceList = FastList.newInstance();
+    public Set<ServiceArtifactInfo> getServicesCallingServiceByEcas() {
+        Set<ServiceArtifactInfo> serviceList = FastSet.newInstance();
         // TODO: implement this
         return serviceList;
     }
     
-    public List<ServiceEcaArtifactInfo> getServiceEcaRulesCallingService() {
-        List<ServiceEcaArtifactInfo> secaList = FastList.newInstance();
-        // TODO: *implement this
-        return secaList;
+    public Set<ServiceEcaArtifactInfo> getServiceEcaRulesCallingService() {
+        return aif.allServiceEcaInfosReferringToServiceName.get(this.modelService.name);
     }
     
     public List<FormWidgetArtifactInfo> getFormsCallingService() {
@@ -136,7 +178,7 @@ public class ServiceArtifactInfo {
         List<ServiceEcaArtifactInfo> allServiceEcaList = FastList.newInstance();
         
         // all services that call this service
-        List<ServiceArtifactInfo> callingServiceList = this.getServicesCallingService();
+        Set<ServiceArtifactInfo> callingServiceList = this.getServicesCallingService();
         
         // set the prefix and add to the all list
         for (ServiceArtifactInfo callingService: callingServiceList) {
@@ -146,7 +188,7 @@ public class ServiceArtifactInfo {
         }
         
         // all services this service calls
-        List<ServiceArtifactInfo> calledServiceList = this.getServicesCalledByService();
+        Set<ServiceArtifactInfo> calledServiceList = this.getServicesCalledByService();
         
         for (ServiceArtifactInfo calledService: calledServiceList) {
             calledService.setDisplayPrefix("Called:");
@@ -155,18 +197,18 @@ public class ServiceArtifactInfo {
         }
         
         // all SECAs and triggering services that call this service as an action
-        List<ServiceEcaArtifactInfo> callingServiceEcaList = this.getServiceEcaRulesCallingService();
+        Set<ServiceEcaArtifactInfo> callingServiceEcaSet = this.getServiceEcaRulesCallingService();
         
-        for (ServiceEcaArtifactInfo callingServiceEca: callingServiceEcaList) {
+        for (ServiceEcaArtifactInfo callingServiceEca: callingServiceEcaSet) {
             callingServiceEca.setDisplayPrefix("Triggering:");
             allDiagramEntitiesWithPrefixes.add(callingServiceEca.getDisplayPrefixedName());
             allServiceEcaList.add(callingServiceEca);
         }
 
         // all SECAs and corresponding services triggered by this service
-        List<ServiceEcaArtifactInfo> calledServiceEcaList = this.getServiceEcaRulesTriggeredByService();
+        Set<ServiceEcaArtifactInfo> calledServiceEcaSet = this.getServiceEcaRulesTriggeredByService();
         
-        for (ServiceEcaArtifactInfo calledServiceEca: calledServiceEcaList) {
+        for (ServiceEcaArtifactInfo calledServiceEca: calledServiceEcaSet) {
             calledServiceEca.setDisplayPrefix("Called:");
             allDiagramEntitiesWithPrefixes.add(calledServiceEca.getDisplayPrefixedName());
             allServiceEcaList.add(calledServiceEca);
@@ -200,7 +242,7 @@ public class ServiceArtifactInfo {
         }
         
         // write SECA description files
-        for (ServiceEcaArtifactInfo callingServiceEca: callingServiceEcaList) {
+        for (ServiceEcaArtifactInfo callingServiceEca: callingServiceEcaSet) {
             // add List<ServiceArtifactInfo> for services that trigger this eca rule
             List<ServiceArtifactInfo> ecaCallingServiceList = callingServiceEca.getServicesTriggeringServiceEca();
             for (ServiceArtifactInfo ecaCallingService: ecaCallingServiceList) {
@@ -211,7 +253,7 @@ public class ServiceArtifactInfo {
             Map<String, Object> serviceEcaEoModelMap = callingServiceEca.createEoModelMap(ecaCallingServiceList, useMoreDetailedNames);
             UtilFormatOut.writePlistFile(serviceEcaEoModelMap, eomodeldFullPath, callingServiceEca.getDisplayPrefixedName() + ".plist");
         }
-        for (ServiceEcaArtifactInfo calledServiceEca: calledServiceEcaList) {
+        for (ServiceEcaArtifactInfo calledServiceEca: calledServiceEcaSet) {
             // add List<ServiceArtifactInfo> for services this eca rule calls in action
             List<ServiceArtifactInfo> ecaCalledServiceList = calledServiceEca.getServicesCalledByServiceEcaActions();
             for (ServiceArtifactInfo ecaCalledService: ecaCalledServiceList) {
@@ -295,5 +337,13 @@ public class ServiceArtifactInfo {
         }
         
         return topLevelMap;
+    }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof ServiceArtifactInfo) {
+            return this.modelService.name.equals(((ServiceArtifactInfo) obj).modelService.name);
+        } else {
+            return false;
+        }
     }
 }

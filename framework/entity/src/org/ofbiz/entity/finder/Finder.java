@@ -34,6 +34,13 @@ public abstract class Finder implements Serializable {
         this.entityNameExdr = new FlexibleStringExpander(element.getAttribute("entity-name"));
         this.useCacheStrExdr = new FlexibleStringExpander(element.getAttribute("use-cache"));
     }
+    
+    public String getEntityName() {
+        String entName = this.entityNameExdr.getOriginal();
+        // if there is expansion syntax
+        if (entName.indexOf("${") >= 0) return null;
+        return entName;
+    }
 
     public abstract void runFind(Map<String, Object> context, GenericDelegator delegator) throws GeneralException;
 }

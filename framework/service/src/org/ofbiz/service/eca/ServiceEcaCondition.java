@@ -105,7 +105,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
         return buf.toString();
     }
 
-    public boolean eval(String serviceName, DispatchContext dctx, Map context) throws GenericServiceException {
+    public boolean eval(String serviceName, DispatchContext dctx, Map<String, Object> context) throws GenericServiceException {
         if (serviceName == null || dctx == null || context == null || dctx.getClassLoader() == null) {
             throw new GenericServiceException("Cannot have null Service, Context or DispatchContext!");
         }
@@ -204,5 +204,27 @@ public class ServiceEcaCondition implements java.io.Serializable {
         if (UtilValidate.isNotEmpty(compareType)) buf.append("[").append(compareType).append("]");
         if (UtilValidate.isNotEmpty(format)) buf.append("[").append(format).append("]");
         return buf.toString();
+    }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof ServiceEcaCondition) {
+            ServiceEcaCondition other = (ServiceEcaCondition) obj;
+
+            if (!UtilValidate.areEqual(this.conditionService, other.conditionService)) return false;
+            if (!UtilValidate.areEqual(this.lhsValueName, other.lhsValueName)) return false;
+            if (!UtilValidate.areEqual(this.rhsValueName, other.rhsValueName)) return false;
+            if (!UtilValidate.areEqual(this.lhsMapName, other.lhsMapName)) return false;
+            if (!UtilValidate.areEqual(this.rhsMapName, other.rhsMapName)) return false;
+            if (!UtilValidate.areEqual(this.operator, other.operator)) return false;
+            if (!UtilValidate.areEqual(this.compareType, other.compareType)) return false;
+            if (!UtilValidate.areEqual(this.format, other.format)) return false;
+            
+            if (this.isConstant != other.isConstant) return false;
+            if (this.isService != other.isService) return false;
+            
+            return true;
+        } else {
+            return false;
+        }
     }
 }

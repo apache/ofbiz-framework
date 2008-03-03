@@ -24,13 +24,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
@@ -45,8 +46,34 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
+import org.ofbiz.minilang.method.callops.CallService;
+import org.ofbiz.minilang.method.callops.CallServiceAsynch;
+import org.ofbiz.minilang.method.callops.CallSimpleMethod;
+import org.ofbiz.minilang.method.callops.SetServiceFields;
+import org.ofbiz.minilang.method.conditional.MasterIf;
+import org.ofbiz.minilang.method.conditional.While;
+import org.ofbiz.minilang.method.entityops.EntityAnd;
+import org.ofbiz.minilang.method.entityops.EntityCondition;
+import org.ofbiz.minilang.method.entityops.EntityCount;
+import org.ofbiz.minilang.method.entityops.EntityOne;
+import org.ofbiz.minilang.method.entityops.FindByAnd;
+import org.ofbiz.minilang.method.entityops.FindByPrimaryKey;
+import org.ofbiz.minilang.method.entityops.MakeValue;
+import org.ofbiz.minilang.method.envops.Iterate;
+import org.ofbiz.minilang.method.envops.IterateMap;
+import org.ofbiz.minilang.method.envops.Loop;
+import org.ofbiz.minilang.method.ifops.IfCompare;
+import org.ofbiz.minilang.method.ifops.IfCompareField;
+import org.ofbiz.minilang.method.ifops.IfEmpty;
+import org.ofbiz.minilang.method.ifops.IfHasPermission;
+import org.ofbiz.minilang.method.ifops.IfInstanceOf;
+import org.ofbiz.minilang.method.ifops.IfNotEmpty;
+import org.ofbiz.minilang.method.ifops.IfRegexp;
+import org.ofbiz.minilang.method.ifops.IfValidateMethod;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * SimpleMethod Mini Language Core Object
@@ -56,9 +83,9 @@ public class SimpleMethod {
     public static final String module = SimpleMethod.class.getName();
     public static final String err_resource = "MiniLangErrorUiLabels";
 
-    protected static UtilCache simpleMethodsDirectCache = new UtilCache("minilang.SimpleMethodsDirect", 0, 0);
-    protected static UtilCache simpleMethodsResourceCache = new UtilCache("minilang.SimpleMethodsResource", 0, 0);
-    protected static UtilCache simpleMethodsURLCache = new UtilCache("minilang.SimpleMethodsURL", 0, 0);
+    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = new UtilCache("minilang.SimpleMethodsDirect", 0, 0);
+    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = new UtilCache("minilang.SimpleMethodsResource", 0, 0);
+    protected static UtilCache<URL, Map<String, SimpleMethod>> simpleMethodsURLCache = new UtilCache("minilang.SimpleMethodsURL", 0, 0);
 
     // ----- Event Context Invokers -----
 
@@ -97,7 +124,7 @@ public class SimpleMethod {
     // ----- General Method Invokers -----
 
     public static String runSimpleMethod(String xmlResource, String methodName, MethodContext methodContext) throws MiniLangException {
-        Map simpleMethods = getSimpleMethods(xmlResource, methodName, methodContext.getLoader());
+        Map simpleMethods = getSimpleMethods(xmlResource, methodContext.getLoader());
         SimpleMethod simpleMethod = (SimpleMethod) simpleMethods.get(methodName);
         if (simpleMethod == null) {
             throw new MiniLangException("Could not find SimpleMethod " + methodName + " in XML document in resource: " + xmlResource);
@@ -106,7 +133,7 @@ public class SimpleMethod {
     }
 
     public static String runSimpleMethod(URL xmlURL, String methodName, MethodContext methodContext) throws MiniLangException {
-        Map simpleMethods = getSimpleMethods(xmlURL, methodName);
+        Map simpleMethods = getSimpleMethods(xmlURL);
         SimpleMethod simpleMethod = (SimpleMethod) simpleMethods.get(methodName);
         if (simpleMethod == null) {
             throw new MiniLangException("Could not find SimpleMethod " + methodName + " in XML document from URL: " + xmlURL.toString());
@@ -114,8 +141,8 @@ public class SimpleMethod {
         return simpleMethod.exec(methodContext);
     }
 
-    public static Map getSimpleMethods(String xmlResource, String methodName, ClassLoader loader) throws MiniLangException {
-        Map simpleMethods = (Map) simpleMethodsResourceCache.get(xmlResource);
+    public static Map<String, SimpleMethod> getSimpleMethods(String xmlResource, ClassLoader loader) throws MiniLangException {
+        Map<String, SimpleMethod> simpleMethods = (Map) simpleMethodsResourceCache.get(xmlResource);
         if (simpleMethods == null) {
             synchronized (SimpleMethod.class) {
                 simpleMethods = (Map) simpleMethodsResourceCache.get(xmlResource);
@@ -142,8 +169,8 @@ public class SimpleMethod {
         return simpleMethods;
     }
 
-    public static Map getSimpleMethods(URL xmlURL, String methodName) throws MiniLangException {
-        Map simpleMethods = (Map) simpleMethodsURLCache.get(xmlURL);
+    public static Map<String, SimpleMethod> getSimpleMethods(URL xmlURL) throws MiniLangException {
+        Map<String, SimpleMethod> simpleMethods = (Map) simpleMethodsURLCache.get(xmlURL);
 
         if (simpleMethods == null) {
             synchronized (SimpleMethod.class) {
@@ -160,8 +187,8 @@ public class SimpleMethod {
         return simpleMethods;
     }
 
-    protected static Map getAllSimpleMethods(URL xmlURL) throws MiniLangException {
-        Map simpleMethods = FastMap.newInstance();
+    protected static Map<String, SimpleMethod> getAllSimpleMethods(URL xmlURL) throws MiniLangException {
+        Map<String, SimpleMethod> simpleMethods = FastMap.newInstance();
 
         // read in the file
         Document document = null;
@@ -252,7 +279,7 @@ public class SimpleMethod {
     }
 
     // Member fields begin here...
-    protected List methodOperations = FastList.newInstance();
+    protected List<MethodOperation> methodOperations = FastList.newInstance();
     protected Map parentSimpleMethodsMap;
     protected String fromLocation;
     protected String methodName;
@@ -494,6 +521,118 @@ public class SimpleMethod {
     public String getUserLoginEnvName() {
         return this.userLoginName;
     }
+    
+    public Set<String> getAllServiceNamesCalled() throws MiniLangException {
+        Set<String> allServiceNames = FastSet.newInstance();
+        findServiceNamesCalled(this.methodOperations, allServiceNames);
+        return allServiceNames;
+    }
+    protected static void findServiceNamesCalled(List<MethodOperation> methodOperations, Set<String> allServiceNames) throws MiniLangException {
+        for (MethodOperation methodOperation: methodOperations) {
+            if (methodOperation instanceof CallService) {
+                String svcName = ((CallService) methodOperation).getServiceName();
+                if (UtilValidate.isNotEmpty(svcName)) allServiceNames.add(svcName);
+            } else if (methodOperation instanceof CallServiceAsynch) {
+                String svcName = ((CallServiceAsynch) methodOperation).getServiceName();
+                if (UtilValidate.isNotEmpty(svcName)) allServiceNames.add(svcName);
+            } else if (methodOperation instanceof SetServiceFields) {
+                String svcName = ((SetServiceFields) methodOperation).getServiceName();
+                if (UtilValidate.isNotEmpty(svcName)) allServiceNames.add(svcName);
+                
+            } else if (methodOperation instanceof CallSimpleMethod) {
+                SimpleMethod calledMethod = ((CallSimpleMethod) methodOperation).getSimpleMethodToCall(null);
+                allServiceNames.addAll(calledMethod.getAllServiceNamesCalled());
+            } else if (methodOperation instanceof Iterate) {
+                findServiceNamesCalled(((Iterate) methodOperation).getSubOps(), allServiceNames);
+            } else if (methodOperation instanceof IterateMap) {
+                findServiceNamesCalled(((IterateMap) methodOperation).getSubOps(), allServiceNames);
+            } else if (methodOperation instanceof Loop) {
+                findServiceNamesCalled(((Loop) methodOperation).getSubOps(), allServiceNames);
+            } else if (methodOperation instanceof MasterIf) {
+                findServiceNamesCalled(((MasterIf) methodOperation).getAllSubOps(), allServiceNames);
+            } else if (methodOperation instanceof While) {
+                findServiceNamesCalled(((While) methodOperation).getThenSubOps(), allServiceNames);
+            } else if (methodOperation instanceof IfValidateMethod) {
+                findServiceNamesCalled(((IfValidateMethod) methodOperation).getAllSubOps(), allServiceNames);
+            } else if (methodOperation instanceof IfInstanceOf) {
+                findServiceNamesCalled(((IfInstanceOf) methodOperation).getAllSubOps(), allServiceNames);
+            } else if (methodOperation instanceof IfCompare) {
+                findServiceNamesCalled(((IfCompare) methodOperation).getAllSubOps(), allServiceNames);
+            } else if (methodOperation instanceof IfCompareField) {
+                findServiceNamesCalled(((IfCompareField) methodOperation).getAllSubOps(), allServiceNames);
+            } else if (methodOperation instanceof IfRegexp) {
+                findServiceNamesCalled(((IfRegexp) methodOperation).getAllSubOps(), allServiceNames);
+            } else if (methodOperation instanceof IfEmpty) {
+                findServiceNamesCalled(((IfEmpty) methodOperation).getAllSubOps(), allServiceNames);
+            } else if (methodOperation instanceof IfNotEmpty) {
+                findServiceNamesCalled(((IfNotEmpty) methodOperation).getAllSubOps(), allServiceNames);
+            } else if (methodOperation instanceof IfHasPermission) {
+                findServiceNamesCalled(((IfHasPermission) methodOperation).getAllSubOps(), allServiceNames);
+            }
+        }
+    }
+
+    public Set<String> getAllEntityNamesUsed() throws MiniLangException {
+        Set<String> allEntityNames = FastSet.newInstance();
+        findEntityNamesUsed(this.methodOperations, allEntityNames);
+        return allEntityNames;
+    }
+    protected static void findEntityNamesUsed(List<MethodOperation> methodOperations, Set<String> allEntityNames) throws MiniLangException {
+        for (MethodOperation methodOperation: methodOperations) {
+            if (methodOperation instanceof FindByPrimaryKey) {
+                String entName = ((FindByPrimaryKey) methodOperation).getEntityName();
+                if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+            } else if (methodOperation instanceof FindByAnd) {
+                String entName = ((FindByAnd) methodOperation).getEntityName();
+                if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+            } else if (methodOperation instanceof EntityOne) {
+                String entName = ((EntityOne) methodOperation).getEntityName();
+                if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+            } else if (methodOperation instanceof EntityAnd) {
+                String entName = ((EntityAnd) methodOperation).getEntityName();
+                if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+            } else if (methodOperation instanceof EntityCondition) {
+                String entName = ((EntityCondition) methodOperation).getEntityName();
+                if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+            } else if (methodOperation instanceof EntityCount) {
+                String entName = ((EntityCount) methodOperation).getEntityName();
+                if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+            } else if (methodOperation instanceof MakeValue) {
+                String entName = ((MakeValue) methodOperation).getEntityName();
+                if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+                
+            } else if (methodOperation instanceof CallSimpleMethod) {
+                SimpleMethod calledMethod = ((CallSimpleMethod) methodOperation).getSimpleMethodToCall(null);
+                allEntityNames.addAll(calledMethod.getAllServiceNamesCalled());
+            } else if (methodOperation instanceof Iterate) {
+                findEntityNamesUsed(((Iterate) methodOperation).getSubOps(), allEntityNames);
+            } else if (methodOperation instanceof IterateMap) {
+                findEntityNamesUsed(((IterateMap) methodOperation).getSubOps(), allEntityNames);
+            } else if (methodOperation instanceof Loop) {
+                findEntityNamesUsed(((Loop) methodOperation).getSubOps(), allEntityNames);
+            } else if (methodOperation instanceof MasterIf) {
+                findEntityNamesUsed(((MasterIf) methodOperation).getAllSubOps(), allEntityNames);
+            } else if (methodOperation instanceof While) {
+                findEntityNamesUsed(((While) methodOperation).getThenSubOps(), allEntityNames);
+            } else if (methodOperation instanceof IfValidateMethod) {
+                findEntityNamesUsed(((IfValidateMethod) methodOperation).getAllSubOps(), allEntityNames);
+            } else if (methodOperation instanceof IfInstanceOf) {
+                findEntityNamesUsed(((IfInstanceOf) methodOperation).getAllSubOps(), allEntityNames);
+            } else if (methodOperation instanceof IfCompare) {
+                findEntityNamesUsed(((IfCompare) methodOperation).getAllSubOps(), allEntityNames);
+            } else if (methodOperation instanceof IfCompareField) {
+                findEntityNamesUsed(((IfCompareField) methodOperation).getAllSubOps(), allEntityNames);
+            } else if (methodOperation instanceof IfRegexp) {
+                findEntityNamesUsed(((IfRegexp) methodOperation).getAllSubOps(), allEntityNames);
+            } else if (methodOperation instanceof IfEmpty) {
+                findEntityNamesUsed(((IfEmpty) methodOperation).getAllSubOps(), allEntityNames);
+            } else if (methodOperation instanceof IfNotEmpty) {
+                findEntityNamesUsed(((IfNotEmpty) methodOperation).getAllSubOps(), allEntityNames);
+            } else if (methodOperation instanceof IfHasPermission) {
+                findEntityNamesUsed(((IfHasPermission) methodOperation).getAllSubOps(), allEntityNames);
+            }
+        }
+    }
 
     /** Execute the Simple Method operations */
     public String exec(MethodContext methodContext) {
@@ -707,14 +846,11 @@ public class SimpleMethod {
         return returnValue;
     }
 
-    public static void readOperations(Element simpleMethodElement, List methodOperations, SimpleMethod simpleMethod) {
-        List operationElements = UtilXml.childElementList(simpleMethodElement);
+    public static void readOperations(Element simpleMethodElement, List<MethodOperation> methodOperations, SimpleMethod simpleMethod) {
+        List<? extends Element> operationElements = UtilXml.childElementList(simpleMethodElement);
 
         if (operationElements != null && operationElements.size() > 0) {
-            Iterator operElemIter = operationElements.iterator();
-
-            while (operElemIter.hasNext()) {
-                Element curOperElem = (Element) operElemIter.next();
+            for (Element curOperElem: operationElements) {
                 String nodeName = curOperElem.getNodeName();
 
                 if ("call-map-processor".equals(nodeName)) {
@@ -925,10 +1061,8 @@ public class SimpleMethod {
     /** Execs the given operations returning true if all return true, or returning 
      *  false and stopping if any return false.
      */
-    public static boolean runSubOps(List methodOperations, MethodContext methodContext) {
-        Iterator methodOpsIter = methodOperations.iterator();
-        while (methodOpsIter.hasNext()) {
-            MethodOperation methodOperation = (MethodOperation) methodOpsIter.next();
+    public static boolean runSubOps(List<MethodOperation> methodOperations, MethodContext methodContext) {
+        for (MethodOperation methodOperation: methodOperations) {
             try {
                 if (!methodOperation.exec(methodContext)) {
                     return false;

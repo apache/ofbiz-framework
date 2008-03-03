@@ -22,7 +22,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory.ArtifactInfoContext;
+import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.xml.sax.SAXException;
 
@@ -30,11 +30,20 @@ import org.xml.sax.SAXException;
  *
  */
 public class ScreenWidgetArtifactInfo {
-    protected ArtifactInfoContext aic;
+    protected ArtifactInfoFactory aif;
     protected ModelScreen modelScreen;
     
-    public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoContext aic) throws ParserConfigurationException, SAXException, IOException {
-        this.aic = aic;
-        this.modelScreen = aic.getModelScreen(screenName, screenLocation);
+    public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws ParserConfigurationException, SAXException, IOException {
+        this.aif = aif;
+        this.modelScreen = aif.getModelScreen(screenName, screenLocation);
+    }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof ScreenWidgetArtifactInfo) {
+            return (this.modelScreen.getName().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getName()) && 
+                    this.modelScreen.getSourceLocation().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getSourceLocation()));
+        } else {
+            return false;
+        }
     }
 }

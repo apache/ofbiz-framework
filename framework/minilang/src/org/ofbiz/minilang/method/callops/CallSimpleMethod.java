@@ -18,12 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
-import java.util.*;
+import java.util.Map;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * An operation that calls a simple method in the same, or from another, file
@@ -47,20 +49,13 @@ public class CallSimpleMethod extends MethodOperation {
             String xmlResource = methodContext.expandString(this.xmlResource);
 
             SimpleMethod simpleMethodToCall = null;
-            if (xmlResource == null || xmlResource.length() == 0) {
-                simpleMethodToCall = this.simpleMethod.getSimpleMethodInSameFile(methodName);
-            } else {
-                Map simpleMethods = null;
-                try {
-                    simpleMethods = SimpleMethod.getSimpleMethods(xmlResource, methodName, methodContext.getLoader());
-                } catch (MiniLangException e) {
-                    String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error getting methods from resource: " + e.getMessage() + "]";
-                    Debug.logError(e, errMsg, module);
-                    methodContext.setErrorReturn(errMsg, simpleMethod);
-                    return false;
-                }
-
-                simpleMethodToCall = (SimpleMethod) simpleMethods.get(methodName);
+            try {
+                simpleMethodToCall = getSimpleMethodToCall(methodContext.getLoader());
+            } catch (MiniLangException e) {
+                String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error getting methods from resource: " + e.getMessage() + "]";
+                Debug.logError(e, errMsg, module);
+                methodContext.setErrorReturn(errMsg, simpleMethod);
+                return false;
             }
 
             if (simpleMethodToCall == null) {
@@ -82,7 +77,7 @@ public class CallSimpleMethod extends MethodOperation {
                 return false;
             }
             
-            // if the response code/meassge is error, if so show the error and return false
+            // if the response code/message is error, if so show the error and return false
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 String responseCode = (String) methodContext.getEnv(simpleMethod.getEventResponseCodeName());
                 if (responseCode != null && responseCode.equals(simpleMethod.getDefaultErrorCode())) {
@@ -104,6 +99,17 @@ public class CallSimpleMethod extends MethodOperation {
         }
 
         return true;
+    }
+    
+    public SimpleMethod getSimpleMethodToCall(ClassLoader loader) throws MiniLangException {
+        SimpleMethod simpleMethodToCall = null;
+        if (xmlResource == null || xmlResource.length() == 0) {
+            simpleMethodToCall = this.simpleMethod.getSimpleMethodInSameFile(methodName);
+        } else {
+            Map simpleMethods = SimpleMethod.getSimpleMethods(xmlResource, loader);
+            simpleMethodToCall = (SimpleMethod) simpleMethods.get(methodName);
+        }
+        return simpleMethodToCall;
     }
 
     public String rawString() {

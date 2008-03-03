@@ -22,7 +22,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory.ArtifactInfoContext;
+import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 import org.ofbiz.widget.form.ModelForm;
 import org.xml.sax.SAXException;
 
@@ -30,11 +30,20 @@ import org.xml.sax.SAXException;
  *
  */
 public class FormWidgetArtifactInfo {
-    protected ArtifactInfoContext aic;
+    protected ArtifactInfoFactory aif;
     protected ModelForm modelForm;
     
-    public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoContext aic) throws ParserConfigurationException, SAXException, IOException {
-        this.aic = aic;
-        this.modelForm = aic.getModelForm(formName, formLocation);
+    public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws ParserConfigurationException, SAXException, IOException {
+        this.aif = aif;
+        this.modelForm = aif.getModelForm(formName, formLocation);
     }
-}        
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof FormWidgetArtifactInfo) {
+            return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName()) && 
+                    this.modelForm.getFormLocation().equals(((FormWidgetArtifactInfo) obj).modelForm.getFormLocation()));
+        } else {
+            return false;
+        }
+    }
+}

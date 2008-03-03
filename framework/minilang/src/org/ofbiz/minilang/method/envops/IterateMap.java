@@ -23,6 +23,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -37,7 +39,7 @@ public class IterateMap extends MethodOperation {
     
     public static final String module = IterateMap.class.getName();
 
-    List subOps = new LinkedList();
+    List<MethodOperation> subOps = FastList.newInstance();
 
     ContextAccessor keyAcsr;
     ContextAccessor valueAcsr;
@@ -92,6 +94,10 @@ public class IterateMap extends MethodOperation {
         }
 
         return true;
+    }
+
+    public List<MethodOperation> getSubOps() {
+        return this.subOps;
     }
 
     public String rawString() {

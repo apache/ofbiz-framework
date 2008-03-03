@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.conditional;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -30,8 +32,8 @@ import org.ofbiz.minilang.method.*;
  */
 public class ElseIf {
 
-    Conditional condition;
-    List thenSubOps = new LinkedList();
+    protected Conditional condition;
+    protected List<MethodOperation> thenSubOps = FastList.newInstance();
 
     public ElseIf(Element element, SimpleMethod simpleMethod) {
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
@@ -40,6 +42,10 @@ public class ElseIf {
         
         Element thenElement = UtilXml.firstChildElement(element, "then");
         SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
+    }
+    
+    public List<MethodOperation> getThenSubOps() {
+        return this.thenSubOps;
     }
 
     public boolean checkCondition(MethodContext methodContext) {

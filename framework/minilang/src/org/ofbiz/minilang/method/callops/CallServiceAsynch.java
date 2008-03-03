@@ -38,9 +38,9 @@ public class CallServiceAsynch extends MethodOperation {
     
     public static final String module = CallServiceAsynch.class.getName();
     
-    String serviceName;
-    ContextAccessor inMapAcsr;
-    String includeUserLoginStr;
+    protected String serviceName;
+    protected ContextAccessor inMapAcsr;
+    protected String includeUserLoginStr;
 
     public CallServiceAsynch(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -97,6 +97,10 @@ public class CallServiceAsynch extends MethodOperation {
         }
 
         return true;
+    }
+
+    public String getServiceName() {
+        return this.serviceName;
     }
 
     public String rawString() {

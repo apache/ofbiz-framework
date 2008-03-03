@@ -24,6 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -61,7 +63,7 @@ public class SetServiceFields extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         List messages = (List) errorListAcsr.get(methodContext);
         if (messages == null) {
-            messages = new LinkedList();
+            messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
 
@@ -115,6 +117,10 @@ public class SetServiceFields extends MethodOperation {
         return true;
     }
 
+    public String getServiceName() {
+        return this.serviceName;
+    }
+    
     public String rawString() {
         // TODO: something more than the empty tag
         return "<set-service-fields/>";

@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -46,40 +49,40 @@ public class CallService extends MethodOperation {
     
     public static final String module = CallService.class.getName();
     
-    String serviceName;
-    ContextAccessor inMapAcsr;
-    String includeUserLoginStr;
-    String breakOnErrorStr;
-    String errorCode;
-    String successCode;
+    protected String serviceName;
+    protected ContextAccessor inMapAcsr;
+    protected String includeUserLoginStr;
+    protected String breakOnErrorStr;
+    protected String errorCode;
+    protected String successCode;
     
     /** Require a new transaction for this service */
-    public String requireNewTransactionStr;
+    protected  String requireNewTransactionStr;
     /** Override the default transaction timeout, only works if we start the transaction */
-    public int transactionTimeout;
+    protected  int transactionTimeout;
 
-    FlexibleMessage errorPrefix;
-    FlexibleMessage errorSuffix;
-    FlexibleMessage successPrefix;
-    FlexibleMessage successSuffix;
-    FlexibleMessage messagePrefix;
-    FlexibleMessage messageSuffix;
-    FlexibleMessage defaultMessage;
+    protected FlexibleMessage errorPrefix;
+    protected FlexibleMessage errorSuffix;
+    protected FlexibleMessage successPrefix;
+    protected FlexibleMessage successSuffix;
+    protected FlexibleMessage messagePrefix;
+    protected FlexibleMessage messageSuffix;
+    protected FlexibleMessage defaultMessage;
 
     /** A list of strings with names of new maps to create */
-    List resultsToMap = new LinkedList();
+    protected List<String> resultsToMap = FastList.newInstance();
 
     /** A list of ResultToFieldDef objects */
-    List resultToField = new LinkedList();
+    protected List<ResultToFieldDef> resultToField = FastList.newInstance();
 
     /** the key is the request attribute name, the value is the result name to get */
-    Map resultToRequest = new HashMap();
+    protected Map<FlexibleServletAccessor, ContextAccessor> resultToRequest = FastMap.newInstance();
 
     /** the key is the session attribute name, the value is the result name to get */
-    Map resultToSession = new HashMap();
+    protected Map<FlexibleServletAccessor, ContextAccessor> resultToSession = FastMap.newInstance();
 
     /** the key is the result entry name, the value is the result name to get */
-    Map resultToResult = new HashMap();
+    protected Map<ContextAccessor, ContextAccessor> resultToResult = FastMap.newInstance();
 
     public CallService(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -172,6 +175,10 @@ public class CallService extends MethodOperation {
                 resultToResult.put(serResAcsr, resultAcsr);
             }
         }
+    }
+    
+    public String getServiceName() {
+        return this.serviceName;
     }
 
     public boolean exec(MethodContext methodContext) {

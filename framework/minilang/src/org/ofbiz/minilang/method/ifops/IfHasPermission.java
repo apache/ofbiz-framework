@@ -18,8 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
-import java.util.LinkedList;
 import java.util.List;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -36,8 +37,8 @@ import org.w3c.dom.Element;
  */
 public class IfHasPermission extends MethodOperation {
 
-    protected List subOps = new LinkedList();
-    protected List elseSubOps = null;
+    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> elseSubOps = null;
 
     protected FlexibleStringExpander permissionExdr;
     protected FlexibleStringExpander actionExdr;
@@ -51,7 +52,7 @@ public class IfHasPermission extends MethodOperation {
 
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = new LinkedList();
+            elseSubOps = FastList.newInstance();
             SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
         }
     }
@@ -93,6 +94,13 @@ public class IfHasPermission extends MethodOperation {
                 return true;
             }
         }
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        allSubOps.addAll(this.subOps);
+        allSubOps.addAll(this.elseSubOps);
+        return allSubOps;
     }
 
     public String rawString() {

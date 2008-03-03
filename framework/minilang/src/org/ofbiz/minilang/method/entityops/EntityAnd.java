@@ -61,6 +61,10 @@ public class EntityAnd extends MethodOperation {
         return true;
     }
 
+    public String getEntityName() {
+        return this.finder.getEntityName();
+    }
+
     public String rawString() {
         // TODO: something more than the empty tag
         return "<entity-and/>";

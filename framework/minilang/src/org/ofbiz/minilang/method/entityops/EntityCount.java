@@ -119,6 +119,13 @@ public class EntityCount extends MethodOperation {
         return true;
     }
 
+    public String getEntityName() {
+        String entName = this.entityNameExdr.getOriginal();
+        // if there is expansion syntax
+        if (entName.indexOf("${") >= 0) return null;
+        return entName;
+    }
+    
     public String rawString() {
         // TODO: something more than the empty tag
         return "<entity-count/>";
