@@ -26,6 +26,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -153,5 +154,23 @@ public class ServiceEcaRule implements java.io.Serializable {
 
     public boolean isEnabled() {
         return this.enabled;
+    }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof ServiceEcaRule) {
+            ServiceEcaRule other = (ServiceEcaRule) obj;
+            if (!UtilValidate.areEqual(this.serviceName, other.serviceName)) return false;
+            if (!UtilValidate.areEqual(this.eventName, other.eventName)) return false;
+            if (!this.conditions.equals(other.conditions)) return false;
+            if (!this.actionsAndSets.equals(other.actionsAndSets)) return false;
+            
+            if (this.runOnFailure != other.runOnFailure) return false;
+            if (this.runOnError != other.runOnError) return false;
+            if (this.enabled != other.enabled) return false;
+            
+            return true;
+        } else {
+            return false;
+        }
     }
 }

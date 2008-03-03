@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.ifops;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -34,8 +36,8 @@ public class IfCompareField extends MethodOperation {
     
     public static final String module = IfCompareField.class.getName();
 
-    List subOps = new LinkedList();
-    List elseSubOps = null;
+    List<MethodOperation> subOps = FastList.newInstance();
+    List<MethodOperation> elseSubOps = null;
 
     ContextAccessor mapAcsr;
     ContextAccessor fieldAcsr;
@@ -66,7 +68,7 @@ public class IfCompareField extends MethodOperation {
         SimpleMethod.readOperations(element, subOps, simpleMethod);
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = new LinkedList();
+            elseSubOps = FastList.newInstance();
             SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
         }
     }
@@ -106,7 +108,7 @@ public class IfCompareField extends MethodOperation {
             fieldVal2 = toFieldAcsr.get(methodContext);
         }
 
-        List messages = new LinkedList();
+        List messages = FastList.newInstance();
         Boolean resultBool = BaseCompare.doRealCompare(fieldVal1, fieldVal2, operator, type, format, messages, null, methodContext.getLoader(), false);
 
         if (messages.size() > 0) {
@@ -138,6 +140,13 @@ public class IfCompareField extends MethodOperation {
                 return true;
             }
         }
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        allSubOps.addAll(this.subOps);
+        allSubOps.addAll(this.elseSubOps);
+        return allSubOps;
     }
 
     public String rawString() {

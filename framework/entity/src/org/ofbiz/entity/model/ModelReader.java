@@ -479,7 +479,7 @@ public class ModelReader implements Serializable {
     /** Creates a Collection with the entityName of each Entity defined in the specified XML Entity Descriptor file.
      * @return A Collection of entityName Strings
      */
-    public Collection<String> getEntityNames() throws GenericEntityException {
+    public Set<String> getEntityNames() throws GenericEntityException {
         Map<String, ModelEntity> ec = getEntityCache();
         if (ec == null) {
             throw new GenericEntityConfException("ERROR: Unable to load Entity Cache");

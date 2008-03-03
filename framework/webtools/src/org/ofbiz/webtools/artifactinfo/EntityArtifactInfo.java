@@ -25,22 +25,30 @@ import javolution.util.FastList;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entityext.eca.EntityEcaRule;
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory.ArtifactInfoContext;
+import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 
 /**
  *
  */
 public class EntityArtifactInfo {
-    protected ArtifactInfoContext aic;
+    protected ArtifactInfoFactory aif;
     protected ModelEntity modelEntity;
     
-    public EntityArtifactInfo(String entityName, ArtifactInfoContext aic) throws GenericEntityException {
-        this.aic = aic;
-        this.modelEntity = this.aic.getModelEntity(entityName);
+    public EntityArtifactInfo(String entityName, ArtifactInfoFactory aif) throws GenericEntityException {
+        this.aif = aif;
+        this.modelEntity = this.aif.getModelEntity(entityName);
     }
     
     public ModelEntity getModelEntity() {
         return this.modelEntity;
+    }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof EntityArtifactInfo) {
+            return this.modelEntity.getEntityName().equals(((EntityArtifactInfo) obj).modelEntity.getEntityName());
+        } else {
+            return false;
+        }
     }
     
     public List<EntityArtifactInfo> getEntitiesRelatedOne() {

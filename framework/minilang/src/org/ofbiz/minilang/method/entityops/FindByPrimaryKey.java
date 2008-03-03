@@ -98,6 +98,10 @@ public class FindByPrimaryKey extends MethodOperation {
         }
         return true;
     }
+    
+    public String getEntityName() {
+        return this.entityName;
+    }
 
     public String rawString() {
         // TODO: something more than the empty tag

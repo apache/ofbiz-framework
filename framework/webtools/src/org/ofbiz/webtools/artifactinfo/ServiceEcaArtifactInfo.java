@@ -28,18 +28,18 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.eca.ServiceEcaAction;
 import org.ofbiz.service.eca.ServiceEcaCondition;
 import org.ofbiz.service.eca.ServiceEcaRule;
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory.ArtifactInfoContext;
+import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 
 /**
  *
  */
 public class ServiceEcaArtifactInfo {
-    protected ArtifactInfoContext aic;
+    protected ArtifactInfoFactory aif;
     protected ServiceEcaRule serviceEcaRule;
     protected String displayPrefix = null;
     
-    public ServiceEcaArtifactInfo(ServiceEcaRule serviceEcaRule, ArtifactInfoContext aic) throws GenericServiceException {
-        this.aic = aic;
+    public ServiceEcaArtifactInfo(ServiceEcaRule serviceEcaRule, ArtifactInfoFactory aif) throws GenericServiceException {
+        this.aif = aif;
         this.serviceEcaRule = serviceEcaRule;
     }
     
@@ -131,5 +131,14 @@ public class ServiceEcaArtifactInfo {
         }
         
         return topLevelMap;
+    }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof ServiceEcaArtifactInfo) {
+            ServiceEcaArtifactInfo that = (ServiceEcaArtifactInfo) obj;
+            return this.serviceEcaRule.equals(that.serviceEcaRule);
+        } else {
+            return false;
+        }
     }
 }

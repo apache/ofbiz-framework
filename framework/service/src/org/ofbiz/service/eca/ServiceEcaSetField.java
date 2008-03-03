@@ -116,4 +116,19 @@ public class ServiceEcaSetField {
         Debug.logWarning("Format function not found [" + format + "] return string unchanged - " + s, module);
         return s;
     }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof ServiceEcaSetField) {
+            ServiceEcaSetField other = (ServiceEcaSetField) obj;
+
+            if (!UtilValidate.areEqual(this.fieldName, other.fieldName)) return false;
+            if (!UtilValidate.areEqual(this.envName, other.envName)) return false;
+            if (!UtilValidate.areEqual(this.value, other.value)) return false;
+            if (!UtilValidate.areEqual(this.format, other.format)) return false;
+            
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

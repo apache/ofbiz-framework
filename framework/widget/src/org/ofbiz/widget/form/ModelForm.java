@@ -2070,6 +2070,10 @@ public class ModelForm extends ModelWidget {
         this.formLocation = formLocation;
     }
 
+    public String getFormLocation() {
+        return this.formLocation;
+    }
+    
     /**
      * @param string
      */

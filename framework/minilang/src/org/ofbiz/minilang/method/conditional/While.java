@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.conditional;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -34,7 +36,7 @@ public class While extends MethodOperation {
 
     Conditional condition;
 
-    List thenSubOps = new LinkedList();
+    List<MethodOperation> thenSubOps = FastList.newInstance();
 
     public While(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -57,6 +59,10 @@ public class While extends MethodOperation {
             }
         }
         return true;
+    }
+
+    public List<MethodOperation> getThenSubOps() {
+        return this.thenSubOps;
     }
 
     public String rawString() {

@@ -21,10 +21,13 @@ package org.ofbiz.minilang.method.ifops;
 import java.util.*;
 import java.lang.reflect.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
+import org.ofbiz.minilang.method.conditional.ElseIf;
 
 /**
  * Iff the validate method returns true with the specified field process sub-operations
@@ -33,8 +36,8 @@ public class IfValidateMethod extends MethodOperation {
     
     public static final String module = IfValidateMethod.class.getName();
 
-    List subOps = new LinkedList();
-    List elseSubOps = null;
+    List<MethodOperation> subOps = FastList.newInstance();
+    List<MethodOperation> elseSubOps = null;
 
     ContextAccessor mapAcsr;
     ContextAccessor fieldAcsr;
@@ -52,7 +55,7 @@ public class IfValidateMethod extends MethodOperation {
 
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = new LinkedList();
+            elseSubOps = FastList.newInstance();
             SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
         }
     }
@@ -125,6 +128,13 @@ public class IfValidateMethod extends MethodOperation {
                 return true;
             }
         }
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        allSubOps.addAll(this.subOps);
+        allSubOps.addAll(this.elseSubOps);
+        return allSubOps;
     }
 
     public String rawString() {

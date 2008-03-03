@@ -230,4 +230,27 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         return success;
     }
+    
+    public boolean equals(Object obj) {
+        if (obj instanceof ServiceEcaAction) {
+            ServiceEcaAction other = (ServiceEcaAction) obj;
+
+            if (!UtilValidate.areEqual(this.eventName, other.eventName)) return false;
+            if (!UtilValidate.areEqual(this.serviceName, other.serviceName)) return false;
+            if (!UtilValidate.areEqual(this.serviceMode, other.serviceMode)) return false;
+            if (!UtilValidate.areEqual(this.resultMapName, other.resultMapName)) return false;
+            if (!UtilValidate.areEqual(this.runAsUser, other.runAsUser)) return false;
+            
+            if (this.newTransaction != other.newTransaction) return false;
+            if (this.resultToContext != other.resultToContext) return false;
+            if (this.resultToResult != other.resultToResult) return false;
+            if (this.ignoreFailure != other.ignoreFailure) return false;
+            if (this.ignoreError != other.ignoreError) return false;
+            if (this.persist != other.persist) return false;
+            
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

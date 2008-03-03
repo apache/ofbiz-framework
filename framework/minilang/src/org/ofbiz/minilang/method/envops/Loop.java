@@ -21,6 +21,8 @@ package org.ofbiz.minilang.method.envops;
 import java.util.List;
 import java.util.LinkedList;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.Element;
 
 import org.ofbiz.minilang.method.MethodOperation;
@@ -35,7 +37,7 @@ import org.ofbiz.base.util.Debug;
 public class Loop extends MethodOperation {
 
     public static final String module = Loop.class.getName();
-    protected List subOps = new LinkedList();
+    protected List<MethodOperation> subOps = FastList.newInstance();
     protected ContextAccessor fieldAcsr;
     protected String countStr;
 
@@ -75,6 +77,10 @@ public class Loop extends MethodOperation {
         }
 
         return true;
+    }
+
+    public List<MethodOperation> getSubOps() {
+        return this.subOps;
     }
 
     public String rawString() {

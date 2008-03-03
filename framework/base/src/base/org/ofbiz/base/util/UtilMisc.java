@@ -489,6 +489,15 @@ public class UtilMisc {
         theList.add(element);
     }
     
+    public static <K, V> void addToSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
+        Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
+        if (theSet == null) {
+            theSet = FastSet.newInstance();
+            theMap.put(setKey, theSet);
+        }
+        theSet.add(element);
+    }
+    
     public static long toLong(Object value) {
         if (value != null) {
             // FIXME: Handle java.lang.Number?

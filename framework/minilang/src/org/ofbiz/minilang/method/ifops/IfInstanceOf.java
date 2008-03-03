@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 
+import javolution.util.FastList;
+
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.ContextAccessor;
@@ -86,6 +88,13 @@ public class IfInstanceOf extends MethodOperation {
                 return true;
             }
         }
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        allSubOps.addAll(this.subOps);
+        allSubOps.addAll(this.elseSubOps);
+        return allSubOps;
     }
 
     public String rawString() {

@@ -40,10 +40,10 @@ public class Iterate extends MethodOperation {
     
     public static final String module = Iterate.class.getName();
 
-    List subOps = new LinkedList();
+    protected List<MethodOperation> subOps = new LinkedList();
 
-    ContextAccessor entryAcsr;
-    ContextAccessor listAcsr;
+    protected ContextAccessor entryAcsr;
+    protected ContextAccessor listAcsr;
 
     public Iterate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -116,6 +116,10 @@ public class Iterate extends MethodOperation {
         }
         entryAcsr.put(methodContext, oldEntryValue);
         return true;
+    }
+    
+    public List<MethodOperation> getSubOps() {
+        return this.subOps;
     }
 
     public String rawString() {

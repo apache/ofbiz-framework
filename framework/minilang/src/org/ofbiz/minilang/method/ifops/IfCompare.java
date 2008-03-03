@@ -36,8 +36,8 @@ public class IfCompare extends MethodOperation {
     
     public static final String module = IfCompare.class.getName();
 
-    List subOps = new LinkedList();
-    List elseSubOps = null;
+    List<MethodOperation> subOps = FastList.newInstance();
+    List<MethodOperation> elseSubOps = null;
 
     ContextAccessor mapAcsr;
     ContextAccessor fieldAcsr;
@@ -60,7 +60,7 @@ public class IfCompare extends MethodOperation {
         SimpleMethod.readOperations(element, subOps, simpleMethod);
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = new LinkedList();
+            elseSubOps = FastList.newInstance();
             SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
         }
     }
@@ -123,6 +123,13 @@ public class IfCompare extends MethodOperation {
                 return true;
             }
         }
+    }
+
+    public List<MethodOperation> getAllSubOps() {
+        List<MethodOperation> allSubOps = FastList.newInstance();
+        allSubOps.addAll(this.subOps);
+        allSubOps.addAll(this.elseSubOps);
+        return allSubOps;
     }
 
     public String rawString() {

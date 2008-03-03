@@ -46,6 +46,10 @@ public class MakeValue extends MethodOperation {
         valueAcsr.put(methodContext, methodContext.getDelegator().makeValidValue(entityName, ctxMap));
         return true;
     }
+    
+    public String getEntityName() {
+        return this.entityName;
+    }
 
     public String rawString() {
         // TODO: something more than the empty tag
