@@ -1723,24 +1723,24 @@ under the License.
                 <calcop operator="get" field-name="inventoryItem.unitCost"/>
             </calcop>
         </calculate>
-        <!--Credit -->
-        <make-value entity-name="AcctgTransEntry" value-name="creditEntry"/>
-        <set field="creditEntry.debitCreditFlag" value="C"/>
-        <set field="creditEntry.glAccountTypeId" value="WIP_INVENTORY"/>
-        <set field="creditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
-        <set field="creditEntry.productId" from-field="workEffortGoodStandard.productId"/>
-        <set field="creditEntry.origAmount" from-field="origAmount"/>
-        <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>        
-        <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
         <!-- Debit -->
         <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
         <set field="debitEntry.debitCreditFlag" value="D"/>
-        <set field="debitEntry.glAccountTypeId" value="RAWMAT_INVENTORY"/>
+        <set field="debitEntry.glAccountTypeId" value="WIP_INVENTORY"/>
         <set field="debitEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
-        <set field="debitEntry.productId" from-field="inventoryItem.productId"/>
+        <set field="debitEntry.productId" from-field="workEffortGoodStandard.productId"/>
         <set field="debitEntry.origAmount" from-field="origAmount"/>
         <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>        
         <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+        <!-- Credit -->
+        <make-value entity-name="AcctgTransEntry" value-name="creditEntry"/>
+        <set field="creditEntry.debitCreditFlag" value="C"/>
+        <set field="creditEntry.glAccountTypeId" value="RAWMAT_INVENTORY"/>
+        <set field="creditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <set field="creditEntry.productId" from-field="inventoryItem.productId"/>
+        <set field="creditEntry.origAmount" from-field="origAmount"/>
+        <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>        
+        <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
         <!-- Set header fields (AcctgTrans) -->
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INVENTORY"/>
