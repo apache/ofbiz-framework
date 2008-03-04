@@ -271,6 +271,16 @@ under the License.
         </#if>
       </div>
     </#list>
+    
+    <#-- Show a little form for exportServiceEoModelBundle -->
+    <div class="screenlet-body">
+      <form name="exportServiceEoModelBundle" method="post" action="<@ofbizUrl>exportServiceEoModelBundle</@ofbizUrl>" class="basic-form">
+        <input type="hidden" name="sel_service_name" value="${selectedServiceMap.serviceName}"/>
+        <input type="hidden" name="serviceName" value="${selectedServiceMap.serviceName}"/>
+        Save eomodeld to Local Path: <input type="text" name="eomodeldFullPath" value="${parameters.eomodeldFullPath?if_exists}" size="60"/>
+        <input type="submit" name="submitButton" value="Export"/>
+      </form>
+    </div>
   </#if>
 <#-- No Service selected , we list all-->
 <#elseif servicesList?exists && servicesList?has_content>

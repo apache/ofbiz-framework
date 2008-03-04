@@ -136,4 +136,11 @@ under the License.
         <attribute name="filterJobsWithRunningStatus" type="String" mode="INOUT" optional="true"/>
         <attribute name="filterJobsWithFinishedStatus" type="String" mode="INOUT" optional="true"/>
     </service>
+    <service name="exportServiceEoModelBundle" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="exportServiceEoModelBundle" auth="true" use-transaction="false">
+        <description>Saves service and related artifacts diagram to an Apple EOModelBundle file. 
+        </description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
+        <attribute name="eomodeldFullPath" type="java.lang.String" mode="IN" optional="false"/>
+        <attribute name="serviceName" type="java.lang.String" mode="IN" optional="false"/>
+    </service>
 </services>

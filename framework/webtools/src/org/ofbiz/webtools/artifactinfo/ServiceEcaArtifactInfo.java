@@ -20,15 +20,16 @@ package org.ofbiz.webtools.artifactinfo;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
-import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.service.eca.ServiceEcaAction;
 import org.ofbiz.service.eca.ServiceEcaCondition;
 import org.ofbiz.service.eca.ServiceEcaRule;
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 
 /**
  *
@@ -38,9 +39,23 @@ public class ServiceEcaArtifactInfo {
     protected ServiceEcaRule serviceEcaRule;
     protected String displayPrefix = null;
     
-    public ServiceEcaArtifactInfo(ServiceEcaRule serviceEcaRule, ArtifactInfoFactory aif) throws GenericServiceException {
+    protected Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = FastSet.newInstance();
+    
+    public ServiceEcaArtifactInfo(ServiceEcaRule serviceEcaRule, ArtifactInfoFactory aif) throws GeneralException {
         this.aif = aif;
         this.serviceEcaRule = serviceEcaRule;
+    }
+    
+    /**
+     * This must be called after creation from the ArtifactInfoFactory after this class has been put into the global Map in order to avoid recursive initialization
+     * 
+     * @throws GeneralException
+     */
+    public void populateAll() throws GeneralException {
+        // populate the services called Set
+        for (ServiceEcaAction ecaAction: serviceEcaRule.getEcaActionList()) {
+            servicesCalledByThisServiceEca.add(aif.getServiceArtifactInfo(ecaAction.getServiceName()));
+        }
     }
     
     public ServiceEcaRule getServiceEcaRule() {
@@ -55,20 +70,16 @@ public class ServiceEcaArtifactInfo {
         return (this.displayPrefix != null ? this.displayPrefix : "") + this.serviceEcaRule.getShortDisplayName();
     }
     
-    public List<ServiceArtifactInfo> getServicesCalledByServiceEcaActions() {
-        List<ServiceArtifactInfo> serviceList = FastList.newInstance();
-        // TODO: *implement this
-        return serviceList;
+    public Set<ServiceArtifactInfo> getServicesCalledByServiceEcaActions() {
+        return this.servicesCalledByThisServiceEca;
     }
     
-    public List<ServiceArtifactInfo> getServicesTriggeringServiceEca() {
-        List<ServiceArtifactInfo> serviceList = FastList.newInstance();
-        // TODO: *implement this
-        return serviceList;
+    public Set<ServiceArtifactInfo> getServicesTriggeringServiceEca() {
+        return aif.allServiceInfosReferringToServiceEcaRule.get(this.serviceEcaRule);
     }
 
-    public Map<String, Object> createEoModelMap(List<ServiceArtifactInfo> relatedServiceList, boolean useMoreDetailedNames) {
-        if (relatedServiceList == null) relatedServiceList = FastList.newInstance();
+    public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> relatedServiceSet, boolean useMoreDetailedNames) {
+        if (relatedServiceSet == null) relatedServiceSet = FastSet.newInstance();
         Map<String, Object> topLevelMap = FastMap.newInstance();
 
         topLevelMap.put("name", this.getDisplayPrefixedName());
@@ -111,7 +122,7 @@ public class ServiceEcaArtifactInfo {
         // relationships
         List<Map<String, Object>> relationshipsMapList = FastList.newInstance();
         
-        for (ServiceArtifactInfo sai: relatedServiceList) {
+        for (ServiceArtifactInfo sai: relatedServiceSet) {
             Map<String, Object> relationshipMap = FastMap.newInstance();
             relationshipsMapList.add(relationshipMap);
             

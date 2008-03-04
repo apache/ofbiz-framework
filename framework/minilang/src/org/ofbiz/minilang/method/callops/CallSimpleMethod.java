@@ -42,6 +42,14 @@ public class CallSimpleMethod extends MethodOperation {
         this.methodName = element.getAttribute("method-name");
         this.xmlResource = element.getAttribute("xml-resource");
     }
+    
+    public String getXmlResource() {
+        return this.xmlResource;
+    }
+    
+    public String getMethodName() {
+        return this.methodName;
+    }
 
     public boolean exec(MethodContext methodContext) {
         if (this.methodName != null && this.methodName.length() > 0) {
@@ -113,8 +121,7 @@ public class CallSimpleMethod extends MethodOperation {
     }
 
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<call-simple-method/>";
+        return "<call-simple-method xml-resource=\"" + this.xmlResource + "\" method-name=\"" + this.methodName + "\" />";
     }
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy

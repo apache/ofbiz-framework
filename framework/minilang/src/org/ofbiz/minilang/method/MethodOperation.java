@@ -32,6 +32,10 @@ public abstract class MethodOperation {
     public MethodOperation(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
     }
+    
+    public SimpleMethod getSimpleMethod() {
+        return this.simpleMethod;
+    }
 
     /** Execute the operation; if false is returned then no further operations will be executed */
     public abstract boolean exec(MethodContext methodContext);

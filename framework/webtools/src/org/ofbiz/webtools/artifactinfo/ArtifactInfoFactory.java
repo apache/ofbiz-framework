@@ -154,6 +154,7 @@ public class ArtifactInfoFactory {
         if (curInfo == null) {
             curInfo = new ServiceArtifactInfo(serviceName, this);
             this.allServiceInfos.put(serviceName, curInfo);
+            curInfo.populateAll();
         }
         return curInfo;
     }
@@ -163,6 +164,7 @@ public class ArtifactInfoFactory {
         if (curInfo == null) {
             curInfo = new ServiceEcaArtifactInfo(ecaRule, this);
             this.allServiceEcaInfos.put(ecaRule, curInfo);
+            curInfo.populateAll();
         }
         return curInfo;
     }
