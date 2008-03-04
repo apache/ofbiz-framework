@@ -18,44 +18,57 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
-import java.util.*;
-import java.lang.reflect.Method;
-import java.lang.reflect.Field;
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.AbstractMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TimeZone;
+import java.util.TreeSet;
 
-import javax.wsdl.*;
+import javax.wsdl.Binding;
+import javax.wsdl.BindingInput;
+import javax.wsdl.BindingOperation;
+import javax.wsdl.BindingOutput;
+import javax.wsdl.Definition;
+import javax.wsdl.Input;
+import javax.wsdl.Message;
+import javax.wsdl.Operation;
+import javax.wsdl.Output;
+import javax.wsdl.Port;
+import javax.wsdl.PortType;
+import javax.wsdl.Service;
+import javax.wsdl.WSDLException;
+import javax.wsdl.extensions.soap.SOAPAddress;
 import javax.wsdl.extensions.soap.SOAPBinding;
 import javax.wsdl.extensions.soap.SOAPBody;
 import javax.wsdl.extensions.soap.SOAPOperation;
-import javax.wsdl.extensions.soap.SOAPAddress;
 import javax.wsdl.factory.WSDLFactory;
 import javax.xml.namespace.QName;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import com.ibm.wsdl.extensions.soap.SOAPBindingImpl;
-import com.ibm.wsdl.extensions.soap.SOAPBodyImpl;
-import com.ibm.wsdl.extensions.soap.SOAPOperationImpl;
-import com.ibm.wsdl.extensions.soap.SOAPAddressImpl;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.model.ModelField;
-import org.ofbiz.entity.model.ModelFieldType;
-import org.ofbiz.entity.model.ModelFieldTypeReader;
-import org.ofbiz.entity.model.ModelKeyMap;
-import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.service.group.GroupModel;
 import org.ofbiz.service.group.GroupServiceModel;
 import org.ofbiz.service.group.ServiceGroupReader;
-
 import org.w3c.dom.Document;
+
+import com.ibm.wsdl.extensions.soap.SOAPAddressImpl;
+import com.ibm.wsdl.extensions.soap.SOAPBindingImpl;
+import com.ibm.wsdl.extensions.soap.SOAPBodyImpl;
+import com.ibm.wsdl.extensions.soap.SOAPOperationImpl;
 
 /**
  * Generic Service Model Class
