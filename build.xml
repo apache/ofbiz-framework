@@ -245,25 +245,18 @@ under the License.
             <arg value="readers=seed"/>
         </java>
     </target>
-    <target name="run-install-extseed-initial" depends="build">
+    <target name="run-install-extseed" depends="build">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
             <arg value="readers=seed,seed-initial,ext"/>
         </java>
     </target>
-    <target name="run-install-extseed" depends="build">
-        <java jar="ofbiz.jar" fork="true">
-            <jvmarg value="${memory.max.param}"/>
-            <arg value="install"/>
-            <arg value="readers=seed,ext"/>
-        </java>
-    </target>
     <target name="run-install-exttest" depends="build">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
-            <arg value="readers=seed,ext,ext-test"/>
+            <arg value="readers=seed,seed-initial,ext,ext-test"/>
         </java>
     </target>
     <target name="run-debug" depends="build">

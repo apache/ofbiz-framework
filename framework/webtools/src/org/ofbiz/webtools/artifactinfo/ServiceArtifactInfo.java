@@ -233,6 +233,9 @@ public class ServiceArtifactInfo {
         List<ServiceArtifactInfo> allServiceList = FastList.newInstance(); 
         List<ServiceEcaArtifactInfo> allServiceEcaList = FastList.newInstance();
         
+        // put this service in the master list
+        allDiagramEntitiesWithPrefixes.add(this.modelService.name);
+        
         // all services that call this service
         Set<ServiceArtifactInfo> callingServiceList = this.getServicesCallingService();
         if (callingServiceList != null) {
