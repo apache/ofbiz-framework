@@ -60,36 +60,42 @@ public class ArtifactInfoFactory {
     
     public Map<String, EntityArtifactInfo> allEntityInfos = FastMap.newInstance();
     public Map<String, ServiceArtifactInfo> allServiceInfos = FastMap.newInstance();
+    public Map<ServiceEcaRule, ServiceEcaArtifactInfo> allServiceEcaInfos = FastMap.newInstance();
     public Map<String, FormWidgetArtifactInfo> allFormInfos = FastMap.newInstance();
     public Map<String, ScreenWidgetArtifactInfo> allScreenInfos = FastMap.newInstance();
 
     // reverse-associative caches for walking backward in the diagram
     public Map<String, Set<ServiceEcaArtifactInfo>> allServiceEcaInfosReferringToServiceName = FastMap.newInstance();
     public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceName = FastMap.newInstance();
-    public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToEntityName = FastMap.newInstance();
-    public Map<String, Set<ServiceArtifactInfo>> allFormInfosReferringToServiceName = FastMap.newInstance();
-    public Map<String, Set<ServiceArtifactInfo>> allFormInfosReferringToEntityName = FastMap.newInstance();
-    public Map<String, Set<ServiceArtifactInfo>> allScreenInfosReferringToServiceName = FastMap.newInstance();
-    public Map<String, Set<ServiceArtifactInfo>> allScreenInfosReferringToEntityName = FastMap.newInstance();
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToServiceName = FastMap.newInstance();
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToServiceName = FastMap.newInstance();
     
-    public static ArtifactInfoFactory makeArtifactInfoFactory(String delegatorName) throws GenericEntityException {
+    public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToEntityName = FastMap.newInstance();
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToEntityName = FastMap.newInstance();
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToEntityName = FastMap.newInstance();
+
+    public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = FastMap.newInstance();
+    
+    public static ArtifactInfoFactory makeArtifactInfoFactory(String delegatorName) throws GeneralException {
         if (UtilValidate.isEmpty(delegatorName)) {
             delegatorName = "default";
         }
         
-        ArtifactInfoFactory aic = artifactInfoFactoryCache.get(delegatorName);
-        if (aic == null) {
-            aic = new ArtifactInfoFactory(delegatorName);
+        ArtifactInfoFactory aif = artifactInfoFactoryCache.get(delegatorName);
+        if (aif == null) {
+            aif = new ArtifactInfoFactory(delegatorName);
         }
-        return aic;
+        return aif;
     }
     
-    protected ArtifactInfoFactory(String delegatorName) throws GenericEntityException {
+    protected ArtifactInfoFactory(String delegatorName) throws GeneralException {
         this.delegatorName = delegatorName;
         this.entityModelReader = ModelReader.getModelReader(delegatorName);
         this.dispatchContext = new DispatchContext("ArtifactInfoDispCtx", null, this.getClass().getClassLoader(), null);
         this.entityEcaCache = EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegatorName));
         this.serviceEcaCache = ServiceEcaUtil.ecaCache;
+        
+        this.prepareAll();
     }
     
     public void prepareAll() throws GeneralException {
@@ -103,7 +109,7 @@ public class ArtifactInfoFactory {
             this.getServiceArtifactInfo(serviceName);
         }
         
-        // TODO: how to get all Service ECAs to prepare?
+        // how to get all Service ECAs to prepare? don't worry about it, will be populated from service load, ie all ECAs for each service
         
         // TODO: how to get all forms to prepare?
         
@@ -148,6 +154,15 @@ public class ArtifactInfoFactory {
         if (curInfo == null) {
             curInfo = new ServiceArtifactInfo(serviceName, this);
             this.allServiceInfos.put(serviceName, curInfo);
+        }
+        return curInfo;
+    }
+    
+    public ServiceEcaArtifactInfo getServiceEcaArtifactInfo(ServiceEcaRule ecaRule) throws GeneralException {
+        ServiceEcaArtifactInfo curInfo = this.allServiceEcaInfos.get(ecaRule);
+        if (curInfo == null) {
+            curInfo = new ServiceEcaArtifactInfo(ecaRule, this);
+            this.allServiceEcaInfos.put(ecaRule, curInfo);
         }
         return curInfo;
     }

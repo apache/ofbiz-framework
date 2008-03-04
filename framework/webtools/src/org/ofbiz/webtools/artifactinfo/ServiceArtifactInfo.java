@@ -32,9 +32,10 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.eca.ServiceEcaRule;
+import org.ofbiz.service.eca.ServiceEcaUtil;
 
 /**
  *
@@ -96,9 +97,16 @@ public class ServiceArtifactInfo {
         }
     }
     
-    protected void populateTriggeredServiceEcas() {
-        // TODO populate serviceEcasTriggeredByThisService and for each the reverse-associate cache in the aif
-        
+    protected void populateTriggeredServiceEcas() throws GeneralException {
+        // populate serviceEcasTriggeredByThisService and for each the reverse-associate cache in the aif
+        Map<String, List<ServiceEcaRule>> serviceEventMap = ServiceEcaUtil.getServiceEventMap(this.modelService.name);
+        for (List<ServiceEcaRule> ecaRuleList: serviceEventMap.values()) {
+            for (ServiceEcaRule ecaRule: ecaRuleList) {
+                this.serviceEcasTriggeredByThisService.add(aif.getServiceEcaArtifactInfo(ecaRule));
+                // the reverse reference
+                UtilMisc.addToSetInMap(this, aif.allServiceInfosReferringToServiceEcaRule, ecaRule);
+            }
+        }
     }
     
     public ModelService getModelService() {
