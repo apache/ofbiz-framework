@@ -95,9 +95,11 @@ public class MasterIf extends MethodOperation {
     public List<MethodOperation> getAllSubOps() {
         List<MethodOperation> allSubOps = FastList.newInstance();
         allSubOps.addAll(this.thenSubOps);
-        allSubOps.addAll(this.elseSubOps);
-        for (ElseIf elseIf: elseIfs) {
-            allSubOps.addAll(elseIf.getThenSubOps());
+        if (this.elseSubOps != null) allSubOps.addAll(this.elseSubOps);
+        if (elseIfs != null) {
+            for (ElseIf elseIf: elseIfs) {
+                allSubOps.addAll(elseIf.getThenSubOps());
+            }
         }
         
         return allSubOps;

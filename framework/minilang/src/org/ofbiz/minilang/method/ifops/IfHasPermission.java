@@ -99,7 +99,7 @@ public class IfHasPermission extends MethodOperation {
     public List<MethodOperation> getAllSubOps() {
         List<MethodOperation> allSubOps = FastList.newInstance();
         allSubOps.addAll(this.subOps);
-        allSubOps.addAll(this.elseSubOps);
+        if (this.elseSubOps != null) allSubOps.addAll(this.elseSubOps);
         return allSubOps;
     }
 

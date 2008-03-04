@@ -18,32 +18,32 @@
  */
 package org.ofbiz.webtools;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.io.File;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.FileReader;
-import java.io.PrintWriter;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.MalformedURLException;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -52,47 +52,51 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilProperties.UtilResourceBundle;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityDataAssert;
-import org.ofbiz.entity.util.EntityDataLoader;
-import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.entity.util.EntitySaxReader;
-import org.ofbiz.entity.model.ModelReader;
-import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelField;
-import org.ofbiz.entity.model.ModelFieldType;
-import org.ofbiz.entity.model.ModelIndex;
-import org.ofbiz.entity.model.ModelRelation;
-import org.ofbiz.entity.model.ModelKeyMap;
-import org.ofbiz.entity.model.ModelUtil;
-import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.entity.model.ModelIndex;
+import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.model.ModelReader;
+import org.ofbiz.entity.model.ModelRelation;
+import org.ofbiz.entity.model.ModelUtil;
+import org.ofbiz.entity.model.ModelViewEntity;
+import org.ofbiz.entity.util.EntityDataAssert;
+import org.ofbiz.entity.util.EntityDataLoader;
 import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.entityext.EntityGroupUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-
+import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
+import org.ofbiz.webtools.artifactinfo.ServiceArtifactInfo;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import freemarker.template.*;
-import freemarker.ext.dom.NodeModel;
 import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.dom.NodeModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateHashModel;
 
 /**
  * WebTools Services
@@ -1013,5 +1017,44 @@ public class WebToolsServices {
        result.put("jobs", jobList);
        result.put("jobListSize", new Integer(jobListSize));
        return result;
+    }
+    
+    public static Map exportServiceEoModelBundle(DispatchContext dctx, Map context) {
+        String eomodeldFullPath = (String) context.get("eomodeldFullPath");
+        String serviceName = (String) context.get("serviceName");
+        
+        if (eomodeldFullPath.endsWith("/")) {
+            eomodeldFullPath = eomodeldFullPath + serviceName + ".eomodeld";
+        }
+        
+        if (!eomodeldFullPath.endsWith(".eomodeld")) {
+            eomodeldFullPath = eomodeldFullPath + ".eomodeld";
+        }
+        
+        File outdir = new File(eomodeldFullPath);
+        if (!outdir.exists()) {
+            outdir.mkdir();
+        }
+        if (!outdir.isDirectory()) {
+            return ServiceUtil.returnError("eomodel Full Path is not a directory: " + eomodeldFullPath);
+        }
+        if (!outdir.canWrite()) {
+            return ServiceUtil.returnError("eomodel Full Path is not write-able: " + eomodeldFullPath);
+        }
+        
+        try {
+            ArtifactInfoFactory aif = ArtifactInfoFactory.makeArtifactInfoFactory("default");
+            ServiceArtifactInfo serviceInfo = aif.getServiceArtifactInfo(serviceName);
+            serviceInfo.writeServiceCallGraphEoModel(eomodeldFullPath);
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError("Error getting service info: " + e.toString());
+        } catch (UnsupportedEncodingException e) {
+            return ServiceUtil.returnError("ERROR saving file: " + e.toString());
+        } catch (FileNotFoundException e) {
+            return ServiceUtil.returnError("ERROR: file/directory not found: " + e.toString());
+        }
+        
+        return ServiceUtil.returnSuccess();
     }
 }

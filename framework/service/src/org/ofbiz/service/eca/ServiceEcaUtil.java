@@ -18,13 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.service.eca;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Collection;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -33,13 +31,11 @@ import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.config.ServiceConfigUtil;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.cache.UtilCache;
-
 import org.w3c.dom.Element;
 
 /**
@@ -115,7 +111,7 @@ public class ServiceEcaUtil {
             } catch (GenericConfigException e) {
                 Debug.logError(e, "Could not get resource URL", module);
             }
-            Debug.logImportant("Loaded " + numDefs + " Service ECA definitions from " + resourceLocation, module);
+            Debug.logImportant("Loaded [" + numDefs + "] Service ECA definitions from " + resourceLocation, module);
         }
     }
 

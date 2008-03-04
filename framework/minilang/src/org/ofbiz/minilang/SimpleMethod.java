@@ -428,6 +428,9 @@ public class SimpleMethod {
     public String getMethodName() {
         return this.methodName;
     }
+    public String getLocationAndName() {
+        return this.fromLocation + "#" + this.methodName;
+    }
 
     public SimpleMethod getSimpleMethodInSameFile(String simpleMethodName) {
         if (parentSimpleMethodsMap == null) return null;
@@ -524,10 +527,11 @@ public class SimpleMethod {
     
     public Set<String> getAllServiceNamesCalled() throws MiniLangException {
         Set<String> allServiceNames = FastSet.newInstance();
-        findServiceNamesCalled(this.methodOperations, allServiceNames);
+        Set<String> simpleMethodsVisited = FastSet.newInstance();
+        findServiceNamesCalled(this.methodOperations, allServiceNames, simpleMethodsVisited);
         return allServiceNames;
     }
-    protected static void findServiceNamesCalled(List<MethodOperation> methodOperations, Set<String> allServiceNames) throws MiniLangException {
+    protected static void findServiceNamesCalled(List<MethodOperation> methodOperations, Set<String> allServiceNames, Set<String> simpleMethodsVisited) throws MiniLangException {
         for (MethodOperation methodOperation: methodOperations) {
             if (methodOperation instanceof CallService) {
                 String svcName = ((CallService) methodOperation).getServiceName();
@@ -540,44 +544,57 @@ public class SimpleMethod {
                 if (UtilValidate.isNotEmpty(svcName)) allServiceNames.add(svcName);
                 
             } else if (methodOperation instanceof CallSimpleMethod) {
-                SimpleMethod calledMethod = ((CallSimpleMethod) methodOperation).getSimpleMethodToCall(null);
-                allServiceNames.addAll(calledMethod.getAllServiceNamesCalled());
+                CallSimpleMethod csm = (CallSimpleMethod) methodOperation;
+                try {
+                    SimpleMethod calledMethod = csm.getSimpleMethodToCall(methodOperations.getClass().getClassLoader());
+                    if (calledMethod == null) {
+                        Debug.logWarning("Could not find simple-method [" + csm.getMethodName() + "] in [" + csm.getXmlResource() + "] from the SimpleMethod [" + csm.getSimpleMethod().getMethodName() + "] in [" + csm.getSimpleMethod().getFromLocation() + "]", module);
+                    } else {
+                        if (!simpleMethodsVisited.contains(calledMethod.getLocationAndName())) {
+                            simpleMethodsVisited.add(calledMethod.getLocationAndName());
+                            findServiceNamesCalled(calledMethod.methodOperations, allServiceNames, simpleMethodsVisited);
+                        }
+                    }
+                } catch (MiniLangException e) {
+                    Debug.logWarning("Error getting simple-method info in the [" + csm.getSimpleMethod().getMethodName() + "] in [" + csm.getSimpleMethod().getFromLocation() + "]: " + e.toString(), module);
+                }
             } else if (methodOperation instanceof Iterate) {
-                findServiceNamesCalled(((Iterate) methodOperation).getSubOps(), allServiceNames);
+                findServiceNamesCalled(((Iterate) methodOperation).getSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IterateMap) {
-                findServiceNamesCalled(((IterateMap) methodOperation).getSubOps(), allServiceNames);
+                findServiceNamesCalled(((IterateMap) methodOperation).getSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof Loop) {
-                findServiceNamesCalled(((Loop) methodOperation).getSubOps(), allServiceNames);
+                findServiceNamesCalled(((Loop) methodOperation).getSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof MasterIf) {
-                findServiceNamesCalled(((MasterIf) methodOperation).getAllSubOps(), allServiceNames);
+                findServiceNamesCalled(((MasterIf) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof While) {
-                findServiceNamesCalled(((While) methodOperation).getThenSubOps(), allServiceNames);
+                findServiceNamesCalled(((While) methodOperation).getThenSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfValidateMethod) {
-                findServiceNamesCalled(((IfValidateMethod) methodOperation).getAllSubOps(), allServiceNames);
+                findServiceNamesCalled(((IfValidateMethod) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfInstanceOf) {
-                findServiceNamesCalled(((IfInstanceOf) methodOperation).getAllSubOps(), allServiceNames);
+                findServiceNamesCalled(((IfInstanceOf) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfCompare) {
-                findServiceNamesCalled(((IfCompare) methodOperation).getAllSubOps(), allServiceNames);
+                findServiceNamesCalled(((IfCompare) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfCompareField) {
-                findServiceNamesCalled(((IfCompareField) methodOperation).getAllSubOps(), allServiceNames);
+                findServiceNamesCalled(((IfCompareField) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfRegexp) {
-                findServiceNamesCalled(((IfRegexp) methodOperation).getAllSubOps(), allServiceNames);
+                findServiceNamesCalled(((IfRegexp) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfEmpty) {
-                findServiceNamesCalled(((IfEmpty) methodOperation).getAllSubOps(), allServiceNames);
+                findServiceNamesCalled(((IfEmpty) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfNotEmpty) {
-                findServiceNamesCalled(((IfNotEmpty) methodOperation).getAllSubOps(), allServiceNames);
+                findServiceNamesCalled(((IfNotEmpty) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfHasPermission) {
-                findServiceNamesCalled(((IfHasPermission) methodOperation).getAllSubOps(), allServiceNames);
+                findServiceNamesCalled(((IfHasPermission) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
             }
         }
     }
 
     public Set<String> getAllEntityNamesUsed() throws MiniLangException {
         Set<String> allEntityNames = FastSet.newInstance();
-        findEntityNamesUsed(this.methodOperations, allEntityNames);
+        Set<String> simpleMethodsVisited = FastSet.newInstance();
+        findEntityNamesUsed(this.methodOperations, allEntityNames, simpleMethodsVisited);
         return allEntityNames;
     }
-    protected static void findEntityNamesUsed(List<MethodOperation> methodOperations, Set<String> allEntityNames) throws MiniLangException {
+    protected static void findEntityNamesUsed(List<MethodOperation> methodOperations, Set<String> allEntityNames, Set<String> simpleMethodsVisited) throws MiniLangException {
         for (MethodOperation methodOperation: methodOperations) {
             if (methodOperation instanceof FindByPrimaryKey) {
                 String entName = ((FindByPrimaryKey) methodOperation).getEntityName();
@@ -602,34 +619,46 @@ public class SimpleMethod {
                 if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
                 
             } else if (methodOperation instanceof CallSimpleMethod) {
-                SimpleMethod calledMethod = ((CallSimpleMethod) methodOperation).getSimpleMethodToCall(null);
-                allEntityNames.addAll(calledMethod.getAllServiceNamesCalled());
+                CallSimpleMethod csm = (CallSimpleMethod) methodOperation;
+                try {
+                    SimpleMethod calledMethod = csm.getSimpleMethodToCall(methodOperations.getClass().getClassLoader());
+                    if (calledMethod == null) {
+                        Debug.logWarning("Could not find simple-method [" + csm.getMethodName() + "] in [" + csm.getXmlResource() + "] from the SimpleMethod [" + csm.getSimpleMethod().getMethodName() + "] in [" + csm.getSimpleMethod().getFromLocation() + "]", module);
+                    } else {
+                        if (!simpleMethodsVisited.contains(calledMethod.getLocationAndName())) {
+                            simpleMethodsVisited.add(calledMethod.getLocationAndName());
+                            findEntityNamesUsed(calledMethod.methodOperations, allEntityNames, simpleMethodsVisited);
+                        }
+                    }
+                } catch (MiniLangException e) {
+                    Debug.logWarning("Error getting simple-method info in the [" + csm.getSimpleMethod().getMethodName() + "] in [" + csm.getSimpleMethod().getFromLocation() + "]: " + e.toString(), module);
+                }
             } else if (methodOperation instanceof Iterate) {
-                findEntityNamesUsed(((Iterate) methodOperation).getSubOps(), allEntityNames);
+                findEntityNamesUsed(((Iterate) methodOperation).getSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IterateMap) {
-                findEntityNamesUsed(((IterateMap) methodOperation).getSubOps(), allEntityNames);
+                findEntityNamesUsed(((IterateMap) methodOperation).getSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof Loop) {
-                findEntityNamesUsed(((Loop) methodOperation).getSubOps(), allEntityNames);
+                findEntityNamesUsed(((Loop) methodOperation).getSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof MasterIf) {
-                findEntityNamesUsed(((MasterIf) methodOperation).getAllSubOps(), allEntityNames);
+                findEntityNamesUsed(((MasterIf) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof While) {
-                findEntityNamesUsed(((While) methodOperation).getThenSubOps(), allEntityNames);
+                findEntityNamesUsed(((While) methodOperation).getThenSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfValidateMethod) {
-                findEntityNamesUsed(((IfValidateMethod) methodOperation).getAllSubOps(), allEntityNames);
+                findEntityNamesUsed(((IfValidateMethod) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfInstanceOf) {
-                findEntityNamesUsed(((IfInstanceOf) methodOperation).getAllSubOps(), allEntityNames);
+                findEntityNamesUsed(((IfInstanceOf) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfCompare) {
-                findEntityNamesUsed(((IfCompare) methodOperation).getAllSubOps(), allEntityNames);
+                findEntityNamesUsed(((IfCompare) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfCompareField) {
-                findEntityNamesUsed(((IfCompareField) methodOperation).getAllSubOps(), allEntityNames);
+                findEntityNamesUsed(((IfCompareField) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfRegexp) {
-                findEntityNamesUsed(((IfRegexp) methodOperation).getAllSubOps(), allEntityNames);
+                findEntityNamesUsed(((IfRegexp) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfEmpty) {
-                findEntityNamesUsed(((IfEmpty) methodOperation).getAllSubOps(), allEntityNames);
+                findEntityNamesUsed(((IfEmpty) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfNotEmpty) {
-                findEntityNamesUsed(((IfNotEmpty) methodOperation).getAllSubOps(), allEntityNames);
+                findEntityNamesUsed(((IfNotEmpty) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             } else if (methodOperation instanceof IfHasPermission) {
-                findEntityNamesUsed(((IfHasPermission) methodOperation).getAllSubOps(), allEntityNames);
+                findEntityNamesUsed(((IfHasPermission) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
             }
         }
     }
