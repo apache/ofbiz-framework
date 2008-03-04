@@ -166,11 +166,13 @@ under the License.
     
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
-                <entity-and entity-name="AgreementItemAndProductAppl" list-name="purchaseAgreements">
-                    <field-map field-name="productId"/>
-                    <field-map field-name="agreementTypeId" value="PURCHASE_AGREEMENT"/>
-                    <order-by field-name="fromDate"/>
-                </entity-and>
+                <entity-condition entity-name="SupplierProduct" list-name="supplierProductAgreements">
+                    <condition-list>
+                        <condition-expr field-name="productId" env-name="productId"/>
+                        <condition-expr field-name="agreementId" operator="not-equals" env-name="nullField"/>
+                    </condition-list>
+                    <order-by field-name="availableFromDate"/>
+                </entity-condition>
                 <entity-and entity-name="AgreementItemAndProductAppl" list-name="salesAgreements">
                     <field-map field-name="productId"/>
                     <field-map field-name="agreementTypeId" value="SALES_AGREEMENT"/>
@@ -194,7 +196,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="ListPurchaseAgreements" location="component://product/webapp/catalog/product/ProductForms.xml"/>
+                                        <include-form name="ListSupplierProductAgreements" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
