@@ -1327,19 +1327,22 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListPurchaseAgreements" type="list" list-name="purchaseAgreements"
+    <form name="ListSupplierProductAgreements" type="list" list-name="supplierProductAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
+        <row-actions>
+            <entity-one entity-name="Agreement" value-name="agreement"/>
+        </row-actions>
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app" 
-                description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
+            <hyperlink target="/accounting/control/EditAgreement?agreementId=${agreementId}" target-type="inter-app" 
+                description="${agreementId}" also-hidden="false"/>
         </field>
-        <field name="partyIdTo" title="${uiLabelMap.ProductSupplier}"><display/></field>
-        <field name="agreementText"><display/></field>
-        <field name="description"><display/></field>
-        <field name="fromDate"><display/></field>
-        <field name="thruDate"><display/></field>
+        <field name="partyId" title="${uiLabelMap.ProductSupplier}"><display/></field>
+        <field name="agreementText"><display description="${agreement.agreementText}"/></field>
+        <field name="description"><display description="${agreement.description}"/></field>
+        <field name="availableFromDate"><display/></field>
+        <field name="availableThruDate"><display/></field>
         <field name="currencyUomId"><display/></field>
-        <field name="price"><display/></field>
+        <field name="lastPrice"><display/></field>
     </form>
     <form name="ListSalesAgreements" type="list" list-name="salesAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
