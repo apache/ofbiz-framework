@@ -844,7 +844,7 @@ under the License.
     <screen name="NoteInfo">
         <section>
             <actions>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="workEffortId" from-field="projectId"/>
                 <entity-and entity-name="WorkEffortNoteAndData" list-name="workEffortNoteandDetails">
                     <field-map field-name="workEffortId" env-name="workEffortId"/>
                     <order-by field-name="-noteDateTime"/>
