@@ -415,7 +415,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortNoteAndData">
-                <condition-expr field-name="workEffortId" env-name="projectId"/>
+                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
                 <order-by field-name="noteId"/>
             </entity-condition>
         </actions>

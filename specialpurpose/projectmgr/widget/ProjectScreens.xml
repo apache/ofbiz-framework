@@ -612,7 +612,6 @@ under the License.
                 <set field="tabButtonItem" value="notes"/>
                 <set field="labelTitleProperty" value="PageTitleListProjectNotes"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <set field="parameters.projectId" from-field="workEffortId"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
