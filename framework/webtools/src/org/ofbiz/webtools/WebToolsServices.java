@@ -799,6 +799,8 @@ public class WebToolsServices {
         String datasourceName = (String) context.get("datasourceName");
         String entityNamePrefix = (String) context.get("entityNamePrefix");
         
+        if (datasourceName == null) datasourceName = "localderby";
+        
         ModelReader reader = dctx.getDelegator().getModelReader();
         
         try {
@@ -857,16 +859,12 @@ public class WebToolsServices {
                 entitiesMap.put("className", "EOGenericRecord");
                 entitiesMap.put("name", entityName);
             }
-            PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, "index.eomodeld")), "UTF-8")));
-            UtilFormatOut.writePlistPropertyMap(topLevelMap, 0, writer, false);
-            writer.close();
+            UtilFormatOut.writePlistFile(topLevelMap, eomodeldFullPath, "index.eomodeld", true);
             
             // write each <EntityName>.plist file
             for (String curEntityName: entityNames) {
                 ModelEntity modelEntity = reader.getModelEntity(curEntityName);
-                PrintWriter entityWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, curEntityName +".plist")), "UTF-8")));
-                modelEntity.writeEoModelText(entityWriter, entityNamePrefix, datasourceName, entityNames);
-                entityWriter.close();
+                UtilFormatOut.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames), eomodeldFullPath, curEntityName +".plist", true);
             }
             
             return ServiceUtil.returnSuccess("Exported eomodeld file for " + entityNames.size() + " entities to: " + eomodeldFullPath);

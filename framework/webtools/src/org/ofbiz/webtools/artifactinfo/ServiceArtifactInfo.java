@@ -237,10 +237,10 @@ public class ServiceArtifactInfo {
         allDiagramEntitiesWithPrefixes.add(this.modelService.name);
         
         // all services that call this service
-        Set<ServiceArtifactInfo> callingServiceList = this.getServicesCallingService();
-        if (callingServiceList != null) {
+        Set<ServiceArtifactInfo> callingServiceSet = this.getServicesCallingService();
+        if (callingServiceSet != null) {
             // set the prefix and add to the all list
-            for (ServiceArtifactInfo callingService: callingServiceList) {
+            for (ServiceArtifactInfo callingService: callingServiceSet) {
                 callingService.setDisplayPrefix("Calling_");
                 allDiagramEntitiesWithPrefixes.add(callingService.getDisplayPrefixedName());
                 allServiceList.add(callingService);
@@ -248,9 +248,9 @@ public class ServiceArtifactInfo {
         }
         
         // all services this service calls
-        Set<ServiceArtifactInfo> calledServiceList = this.getServicesCalledByService();
+        Set<ServiceArtifactInfo> calledServiceSet = this.getServicesCalledByService();
         
-        for (ServiceArtifactInfo calledService: calledServiceList) {
+        for (ServiceArtifactInfo calledService: calledServiceSet) {
             calledService.setDisplayPrefix("Called_");
             allDiagramEntitiesWithPrefixes.add(calledService.getDisplayPrefixedName());
             allServiceList.add(calledService);
@@ -286,20 +286,20 @@ public class ServiceArtifactInfo {
             entitiesMap.put("className", "EOGenericRecord");
             entitiesMap.put("name", entityName);
         }
-        UtilFormatOut.writePlistFile(indexEoModelMap, eomodeldFullPath, "index.eomodeld");
+        UtilFormatOut.writePlistFile(indexEoModelMap, eomodeldFullPath, "index.eomodeld", true);
         
         // write this service description file
-        Map<String, Object> thisServiceEoModelMap = createEoModelMap(allServiceList, allServiceEcaList, useMoreDetailedNames);
-        UtilFormatOut.writePlistFile(thisServiceEoModelMap, eomodeldFullPath, this.getDisplayPrefixedName() + ".plist");
+        Map<String, Object> thisServiceEoModelMap = createEoModelMap(callingServiceSet, calledServiceSet, callingServiceEcaSet, calledServiceEcaSet, useMoreDetailedNames);
+        UtilFormatOut.writePlistFile(thisServiceEoModelMap, eomodeldFullPath, this.getDisplayPrefixedName() + ".plist", true);
 
         // write service description files
-        for (ServiceArtifactInfo callingService: callingServiceList) {
-            Map<String, Object> serviceEoModelMap = callingService.createEoModelMap(UtilMisc.toList(this), null, useMoreDetailedNames);
-            UtilFormatOut.writePlistFile(serviceEoModelMap, eomodeldFullPath, callingService.getDisplayPrefixedName() + ".plist");
+        for (ServiceArtifactInfo callingService: callingServiceSet) {
+            Map<String, Object> serviceEoModelMap = callingService.createEoModelMap(null, UtilMisc.toSet(this), null, null, useMoreDetailedNames);
+            UtilFormatOut.writePlistFile(serviceEoModelMap, eomodeldFullPath, callingService.getDisplayPrefixedName() + ".plist", true);
         }
-        for (ServiceArtifactInfo calledService: calledServiceList) {
-            Map<String, Object> serviceEoModelMap = calledService.createEoModelMap(UtilMisc.toList(this), null, useMoreDetailedNames);
-            UtilFormatOut.writePlistFile(serviceEoModelMap, eomodeldFullPath, calledService.getDisplayPrefixedName() + ".plist");
+        for (ServiceArtifactInfo calledService: calledServiceSet) {
+            Map<String, Object> serviceEoModelMap = calledService.createEoModelMap(UtilMisc.toSet(this), null, null, null, useMoreDetailedNames);
+            UtilFormatOut.writePlistFile(serviceEoModelMap, eomodeldFullPath, calledService.getDisplayPrefixedName() + ".plist", true);
         }
         
         // write SECA description files
@@ -313,7 +313,7 @@ public class ServiceArtifactInfo {
                 ecaCallingServiceSet.add(this);
                 
                 Map<String, Object> serviceEcaEoModelMap = callingServiceEca.createEoModelMap(ecaCallingServiceSet, useMoreDetailedNames);
-                UtilFormatOut.writePlistFile(serviceEcaEoModelMap, eomodeldFullPath, callingServiceEca.getDisplayPrefixedName() + ".plist");
+                UtilFormatOut.writePlistFile(serviceEcaEoModelMap, eomodeldFullPath, callingServiceEca.getDisplayPrefixedName() + ".plist", true);
             }
         }
         for (ServiceEcaArtifactInfo calledServiceEca: calledServiceEcaSet) {
@@ -325,13 +325,15 @@ public class ServiceArtifactInfo {
             ecaCalledServiceSet.add(this);
             
             Map<String, Object> serviceEcaEoModelMap = calledServiceEca.createEoModelMap(ecaCalledServiceSet, useMoreDetailedNames);
-            UtilFormatOut.writePlistFile(serviceEcaEoModelMap, eomodeldFullPath, calledServiceEca.getDisplayPrefixedName() + ".plist");
+            UtilFormatOut.writePlistFile(serviceEcaEoModelMap, eomodeldFullPath, calledServiceEca.getDisplayPrefixedName() + ".plist", true);
         }
     }
 
-    public Map<String, Object> createEoModelMap(List<ServiceArtifactInfo> relatedServiceList, List<ServiceEcaArtifactInfo> relatedServiceEcaList, boolean useMoreDetailedNames) {
-        if (relatedServiceList == null) relatedServiceList = FastList.newInstance();
-        if (relatedServiceEcaList == null) relatedServiceEcaList = FastList.newInstance();
+    public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> callingServiceSet, Set<ServiceArtifactInfo> calledServiceSet, Set<ServiceEcaArtifactInfo> callingServiceEcaSet, Set<ServiceEcaArtifactInfo> calledServiceEcaSet, boolean useMoreDetailedNames) {
+        if (callingServiceSet == null) callingServiceSet = FastSet.newInstance();
+        if (calledServiceSet == null) calledServiceSet = FastSet.newInstance();
+        if (callingServiceEcaSet == null) callingServiceEcaSet = FastSet.newInstance();
+        if (calledServiceEcaSet == null) calledServiceEcaSet = FastSet.newInstance();
         Map<String, Object> topLevelMap = FastMap.newInstance();
 
         topLevelMap.put("name", this.getDisplayPrefixedName());
@@ -347,10 +349,16 @@ public class ServiceArtifactInfo {
                 classPropertiesList.add(param.name);
             }
         }
-        for (ServiceArtifactInfo sai: relatedServiceList) {
+        for (ServiceArtifactInfo sai: callingServiceSet) {
             classPropertiesList.add(sai.getDisplayPrefixedName());
         }
-        for (ServiceEcaArtifactInfo seai: relatedServiceEcaList) {
+        for (ServiceArtifactInfo sai: calledServiceSet) {
+            classPropertiesList.add(sai.getDisplayPrefixedName());
+        }
+        for (ServiceEcaArtifactInfo seai: callingServiceEcaSet) {
+            classPropertiesList.add(seai.getDisplayPrefixedName());
+        }
+        for (ServiceEcaArtifactInfo seai: calledServiceEcaSet) {
             classPropertiesList.add(seai.getDisplayPrefixedName());
         }
         
@@ -373,26 +381,54 @@ public class ServiceArtifactInfo {
         // relationships
         List<Map<String, Object>> relationshipsMapList = FastList.newInstance();
         
-        for (ServiceArtifactInfo sai: relatedServiceList) {
+        for (ServiceArtifactInfo sai: callingServiceSet) {
             Map<String, Object> relationshipMap = FastMap.newInstance();
             relationshipsMapList.add(relationshipMap);
             
             relationshipMap.put("name", sai.getDisplayPrefixedName());
             relationshipMap.put("destination", sai.getDisplayPrefixedName());
+            relationshipMap.put("isToMany", "N");
+            relationshipMap.put("isMandatory", "Y");
             
             // not sure if we can use these, or need them, for this type of diagram
-            //relationshipMap.put("isToMany", "N");
             //relationshipMap.put("joinSemantic", "EOInnerJoin");
             //relationshipMap.put("joins", joinsMapList);
             //joinsMap.put("sourceAttribute", keyMap.getFieldName());
             //joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
         }
-        for (ServiceEcaArtifactInfo seai: relatedServiceEcaList) {
+        for (ServiceArtifactInfo sai: calledServiceSet) {
+            Map<String, Object> relationshipMap = FastMap.newInstance();
+            relationshipsMapList.add(relationshipMap);
+            
+            relationshipMap.put("name", sai.getDisplayPrefixedName());
+            relationshipMap.put("destination", sai.getDisplayPrefixedName());
+            relationshipMap.put("isToMany", "Y");
+            relationshipMap.put("isMandatory", "Y");
+            
+            // not sure if we can use these, or need them, for this type of diagram
+            //relationshipMap.put("joinSemantic", "EOInnerJoin");
+            //relationshipMap.put("joins", joinsMapList);
+            //joinsMap.put("sourceAttribute", keyMap.getFieldName());
+            //joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
+        }
+        
+        for (ServiceEcaArtifactInfo seai: callingServiceEcaSet) {
             Map<String, Object> relationshipMap = FastMap.newInstance();
             relationshipsMapList.add(relationshipMap);
             
             relationshipMap.put("name", seai.getDisplayPrefixedName());
             relationshipMap.put("destination", seai.getDisplayPrefixedName());
+            relationshipMap.put("isToMany", "N");
+            relationshipMap.put("isMandatory", "Y");
+        }
+        for (ServiceEcaArtifactInfo seai: calledServiceEcaSet) {
+            Map<String, Object> relationshipMap = FastMap.newInstance();
+            relationshipsMapList.add(relationshipMap);
+            
+            relationshipMap.put("name", seai.getDisplayPrefixedName());
+            relationshipMap.put("destination", seai.getDisplayPrefixedName());
+            relationshipMap.put("isToMany", "Y");
+            relationshipMap.put("isMandatory", "Y");
         }
         
         if (relationshipsMapList.size() > 0) {

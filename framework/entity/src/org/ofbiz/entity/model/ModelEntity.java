@@ -1417,8 +1417,11 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         topLevelMap.put("classProperties", classPropertiesList);
         for (ModelField field: this.fields) {
             if (field.getIsAutoCreatedInternal()) continue;
-            
-            classPropertiesList.add(field.getName());
+            if (field.getIsPk()) {
+                classPropertiesList.add(field.getName() + "*");
+            } else {
+                classPropertiesList.add(field.getName());
+            }
         }
         for (ModelRelation relationship: this.relations) {
             if (!entityNameIncludeSet.contains(relationship.getRelEntityName())) continue;
@@ -1438,7 +1441,11 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             Map<String, Object> attributeMap = FastMap.newInstance();
             attributesList.add(attributeMap);
             
-            attributeMap.put("name", field.getName());
+            if (field.getIsPk()) {
+                attributeMap.put("name", field.getName() + "*");
+            } else {
+                attributeMap.put("name", field.getName());
+            }
             attributeMap.put("columnName", field.getColName());
             attributeMap.put("valueClassName", fieldType.getJavaType());
 

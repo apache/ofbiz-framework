@@ -23,6 +23,7 @@ under the License.
 
     <form name="EntityEoModelBundle" type="single" target="exportEntityEoModelBundle" title="">
         <auto-fields-service service-name="exportEntityEoModelBundle"/>
+        <field name="eomodeldFullPath"><text size="100"/></field>
         <field name="entityGroupId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="EntityGroup" description="${entityGroupName}">
