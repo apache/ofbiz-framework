@@ -116,7 +116,7 @@ public class ModelParam implements Serializable {
     }
     
     public String getShortDisplayDescription() {
-        return this.name + "[" + this.type + "," + this.mode + "]" + (optional ? "" : "*"); 
+        return this.name + "[" + this.type + "-" + this.mode + "]" + (optional ? "" : "*"); 
     }
     
     public Object getDefaultValue() {

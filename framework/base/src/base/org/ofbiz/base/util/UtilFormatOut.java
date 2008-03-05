@@ -557,9 +557,74 @@ public class UtilFormatOut {
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.println(");");
     }
-    public static void writePlistFile(Map<String, Object> eoModelMap, String eomodeldFullPath, String filename) throws FileNotFoundException, UnsupportedEncodingException {
+
+    public static void writePlistPropertyXml(String name, Object value, int indentLevel, PrintWriter writer) {
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        writer.print("<key>");
+        writer.print(name);
+        writer.println("</key>");
+        if (value instanceof Map) {
+            writePlistPropertyMapXml((Map<String, Object>) value, indentLevel, writer);
+        } else if (value instanceof List) {
+            writePlistPropertyValueListXml((List<Object>) value, indentLevel, writer);
+        } else {
+            for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+            writer.print("<string>");
+            writer.print(value);
+            writer.println("</string>");
+        }
+    }
+    public static void writePlistPropertyMapXml(Map<String, Object> propertyMap, int indentLevel, PrintWriter writer) {
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        writer.println("<dict>");
+        for (Map.Entry<String, Object> property: propertyMap.entrySet()) {
+            writePlistPropertyXml(property.getKey(), property.getValue(), indentLevel + 1, writer);
+        }
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        writer.println("</dict>");
+    }
+    public static void writePlistPropertyValueListXml(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        writer.println("<array>");
+        
+        indentLevel++;
+        Iterator<Object> propertyValueIter = propertyValueList.iterator();
+        while (propertyValueIter.hasNext()) {
+            Object propertyValue = propertyValueIter.next();
+            if (propertyValue instanceof Map) {
+                Map<String, Object> propertyMap = (Map<String, Object>) propertyValue;
+                writePlistPropertyMapXml(propertyMap, indentLevel, writer);
+            } else {
+                for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+                writer.print("<string>");
+                writer.print(propertyValue);
+                writer.println("</string>");
+            }
+        }
+        indentLevel--;
+        
+        for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
+        writer.println("</array>");
+    }
+    
+    /**
+     * Writes model information in the Apple EOModelBundle format. 
+     * 
+     * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/Articles/EOModelBundle.html
+     * 
+     * @param eoModelMap
+     * @param eomodeldFullPath
+     * @param filename
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
+    public static void writePlistFile(Map<String, Object> eoModelMap, String eomodeldFullPath, String filename, boolean useXml) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter plistWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(eomodeldFullPath, filename)), "UTF-8")));
-        UtilFormatOut.writePlistPropertyMap(eoModelMap, 0, plistWriter, false);
+        if (useXml) {
+            UtilFormatOut.writePlistPropertyMapXml(eoModelMap, 0, plistWriter);
+        } else {
+            UtilFormatOut.writePlistPropertyMap(eoModelMap, 0, plistWriter, false);
+        }
         plistWriter.close();
     }
 }

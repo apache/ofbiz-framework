@@ -81,7 +81,7 @@ public class ServiceEcaAction implements java.io.Serializable {
     }
     
     public String getShortDisplayDescription() {
-        return this.serviceName + "[" + this.serviceMode + (this.persist ? ",persist" : "") + "]";
+        return this.serviceName + "[" + this.serviceMode + (this.persist ? "-persist" : "") + "]";
     }
 
     public boolean runAction(String selfService, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result) throws GenericServiceException {
