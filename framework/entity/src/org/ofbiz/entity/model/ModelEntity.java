@@ -1394,15 +1394,15 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @param entityPrefix
      * @param helperName
      */
-    public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet) {
+    public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet, ModelReader entityModelReader) throws GenericEntityException {
         if (entityPrefix == null) entityPrefix = "";
         if (helperName == null) helperName = "localderby";
         
-        UtilFormatOut.writePlistPropertyMap(this.createEoModelMap(entityPrefix, helperName, entityNameIncludeSet), 0, writer, false);
+        UtilFormatOut.writePlistPropertyMap(this.createEoModelMap(entityPrefix, helperName, entityNameIncludeSet, entityModelReader), 0, writer, false);
     }
 
 
-    public Map<String, Object> createEoModelMap(String entityPrefix, String helperName, Set<String> entityNameIncludeSet) {
+    public Map<String, Object> createEoModelMap(String entityPrefix, String helperName, Set<String> entityNameIncludeSet, ModelReader entityModelReader) throws GenericEntityException {
         final boolean useRelationshipNames = false; 
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
         
@@ -1478,6 +1478,8 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         List<Map<String, Object>> relationshipsMapList = FastList.newInstance();
         for (ModelRelation relationship: this.relations) {
             if (entityNameIncludeSet.contains(relationship.getRelEntityName())) {
+                ModelEntity relEntity = entityModelReader.getModelEntity(relationship.getRelEntityName());
+                
                 Map<String, Object> relationshipMap = FastMap.newInstance();
                 relationshipsMapList.add(relationshipMap);
                 
@@ -1502,8 +1504,21 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 for (ModelKeyMap keyMap: relationship.getKeyMapsClone()) {
                     Map<String, Object> joinsMap = FastMap.newInstance();
                     joinsMapList.add(joinsMap);
-                    joinsMap.put("sourceAttribute", keyMap.getFieldName());
-                    joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
+                    
+                    ModelField thisField = this.getField(keyMap.getFieldName());
+                    if (thisField != null && thisField.getIsPk()) {
+                        joinsMap.put("sourceAttribute", keyMap.getFieldName() + "*");
+                    } else {
+                        joinsMap.put("sourceAttribute", keyMap.getFieldName());
+                    }
+                    
+                    ModelField relField = null;
+                    if (relEntity != null) relField = relEntity.getField(keyMap.getRelFieldName());
+                    if (relField != null && relField.getIsPk()) {
+                        joinsMap.put("destinationAttribute", keyMap.getRelFieldName() + "*");
+                    } else {
+                        joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
+                    }
                 }
             }
         }

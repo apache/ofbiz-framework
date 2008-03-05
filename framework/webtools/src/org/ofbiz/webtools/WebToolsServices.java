@@ -864,7 +864,7 @@ public class WebToolsServices {
             // write each <EntityName>.plist file
             for (String curEntityName: entityNames) {
                 ModelEntity modelEntity = reader.getModelEntity(curEntityName);
-                UtilFormatOut.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames), eomodeldFullPath, curEntityName +".plist", true);
+                UtilFormatOut.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames, reader), eomodeldFullPath, curEntityName +".plist", true);
             }
             
             return ServiceUtil.returnSuccess("Exported eomodeld file for " + entityNames.size() + " entities to: " + eomodeldFullPath);
