@@ -158,11 +158,17 @@
     </form>                                        	
     <form name="EditSubProjects" list-name="projects" type="list" target="RemoveSubProject"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="WorkEffort">
+                <field-map field-name="workEffortParentId" env-name="projectId"/>
+                <field-map field-name="workEffortTypeId" value="PROJECT"></field-map>
+            </entity-and>
+        </actions>
         <field name="projectId"><hidden/></field>
         <field name="workEffortParentId"><hidden value=""/></field>
         <field name="workEffortId"><hidden value="${projectId}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
+            <hyperlink also-hidden="false" description="${workEffortName}" target="projectView?projectId=${workEffortId}"/>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
