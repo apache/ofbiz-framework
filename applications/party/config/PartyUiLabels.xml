@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -157,281 +157,6 @@
         <value xml:lang="ru">ПИН</value>
         <value xml:lang="th">รหัสส่วนตัว</value>
         <value xml:lang="zh">密码</value>
-    </property>
-    <property key="CommonAccounting">
-        <value xml:lang="en">Accounting</value>
-        <value xml:lang="pt_PT">Contabilidade</value>
-        <value xml:lang="th">บัญช</value>
-    </property>
-    <property key="CommonAdd">
-        <value xml:lang="en">Add</value>
-        <value xml:lang="pt_PT">Adicionar</value>
-        <value xml:lang="th">เพิ่ม</value>
-    </property>
-    <property key="CommonAt">
-        <value xml:lang="en">At</value>
-        <value xml:lang="pt_PT">No/Em</value>
-        <value xml:lang="th">ที่ </value>
-    </property>
-    <property key="CommonBack">
-        <value xml:lang="en">Back</value>
-        <value xml:lang="pt_PT">Voltar</value>
-        <value xml:lang="th">กลับ</value>
-    </property>
-    <property key="CommonBy">
-        <value xml:lang="en">By</value>
-        <value xml:lang="pt_PT">Por/Através</value>
-        <value xml:lang="th">โดย</value>
-    </property>
-    <property key="CommonComingSoon">
-        <value xml:lang="en">ComingSoon</value>
-        <value xml:lang="pt_PT">Brevemente!</value>
-        <value xml:lang="th">เร็วๆนี้</value>
-    </property>
-    <property key="CommonCountry">
-        <value xml:lang="en">Country</value>
-        <value xml:lang="pt_PT">País</value>
-        <value xml:lang="th">ประเทศ</value>
-    </property>
-    <property key="CommonCreate">
-        <value xml:lang="en">Create</value>
-        <value xml:lang="pt_PT">Criar</value>
-        <value xml:lang="th">สร้าง</value>
-    </property>
-    <property key="CommonCreateNew">
-        <value xml:lang="en">Create New</value>
-        <value xml:lang="pt_PT">Criar Novo</value>
-        <value xml:lang="th">สร้างใหม่ </value>
-    </property>
-    <property key="CommonDelete">
-        <value xml:lang="en">Delete</value>
-        <value xml:lang="pt_PT">Eliminar</value>
-        <value xml:lang="th">ลบ</value>
-    </property>
-    <property key="CommonDescription">
-        <value xml:lang="en">Description</value>
-        <value xml:lang="pt_PT">Descrição</value>
-        <value xml:lang="th">รายละเอียด</value>
-    </property>
-    <property key="CommonDetails">
-        <value xml:lang="en">Details</value>
-        <value xml:lang="pt_PT">Detalhes</value>
-        <value xml:lang="th">รายละเอียด</value>
-    </property>
-    <property key="CommonEdit">
-        <value xml:lang="en">Edit</value>
-        <value xml:lang="pt_PT">Editar</value>
-        <value xml:lang="th">แก้ไข</value>
-    </property>
-    <property key="CommonExpire">
-        <value xml:lang="en">Expire</value>
-        <value xml:lang="pt_PT">Expirar</value>
-        <value xml:lang="th">หมดเขต</value>
-    </property>
-    <property key="CommonFind">
-        <value xml:lang="en">Find</value>
-        <value xml:lang="pt_PT">Procura</value>
-        <value xml:lang="th">ค้นหา</value>
-    </property>
-    <property key="CommonFindAll">
-        <value xml:lang="en">Find All</value>
-        <value xml:lang="pt_PT">Procurar Todos</value>
-        <value xml:lang="th">ค้นหาทั้งหมด</value>
-    </property>
-    <property key="CommonFinishDate">
-        <value xml:lang="en">Finish Date</value>
-        <value xml:lang="pt_PT">Fim Data/Hora</value>
-        <value xml:lang="th">วันที่เสร็จ</value>
-    </property>
-    <property key="CommonFromDate">
-        <value xml:lang="en">From Date</value>
-        <value xml:lang="pt_PT">A Partir De</value>
-        <value xml:lang="th">จากวันที่</value>
-    </property>
-    <property key="CommonFromDateMissing">
-        <value xml:lang="en">From Date Missing</value>
-        <value xml:lang="pt_PT">A Partir De em falta</value>
-        <value xml:lang="th">ไม่ได้ระบุจากวันที่</value>
-    </property>
-    <property key="CommonFromDateNotValidDateTime">
-        <value xml:lang="en">From Date Not Valid Date Time</value>
-        <value xml:lang="pt_PT">A Partir De não é uma data/hora válida</value>
-        <value xml:lang="th">จากวันไม่ใช่วันเวลา</value>
-    </property>
-    <property key="CommonFromDateThruDate">
-        <value xml:lang="en">From Date Thru Date</value>
-        <value xml:lang="pt_PT">A Partir De/Durante</value>
-        <value xml:lang="th">จากวัน ถึงวัน</value>
-    </property>
-    <property key="CommonGoBack">
-        <value xml:lang="en">Go Back</value>
-        <value xml:lang="pt_PT">Retroceder</value>
-        <value xml:lang="th">กลับไป</value>
-    </property>
-    <property key="CommonListAll">
-        <value xml:lang="en">List All</value>
-        <value xml:lang="pt_PT">Listar Todos</value>
-        <value xml:lang="th">รายการทั้งหมด</value>
-    </property>
-    <property key="CommonLogin">
-        <value xml:lang="en">Login</value>
-        <value xml:lang="pt_PT">Iniciar</value>
-        <value xml:lang="th">เข้าสู่ระบบ</value>
-    </property>
-    <property key="CommonLogout">
-        <value xml:lang="en">Logout</value>
-        <value xml:lang="pt_PT">Terminar</value>
-        <value xml:lang="th">ออกจากระบบ</value>
-    </property>
-    <property key="CommonLookup">
-        <value xml:lang="en">Lookup</value>
-        <value xml:lang="pt_PT">Vistoria</value>
-        <value xml:lang="th">ค้นหา</value>
-    </property>
-    <property key="CommonMain">
-        <value xml:lang="en">Main</value>
-        <value xml:lang="pt_PT">Entrada</value>
-        <value xml:lang="th">หน้าหลัก</value>
-    </property>
-    <property key="CommonN">
-        <value xml:lang="en">N</value>
-        <value xml:lang="pt_PT">N</value>
-        <value xml:lang="th">N</value>
-    </property>
-    <property key="CommonNA">
-        <value xml:lang="en">NA</value>
-        <value xml:lang="pt_PT">Indisponível</value>
-        <value xml:lang="th">NA</value>
-    </property>
-    <property key="CommonNext">
-        <value xml:lang="en">Next</value>
-        <value xml:lang="pt_PT">Seguinte</value>
-        <value xml:lang="th">ต่อไป</value>
-    </property>
-    <property key="CommonNone">
-        <value xml:lang="en">None</value>
-        <value xml:lang="pt_PT">Nenhum</value>
-        <value xml:lang="th">ไม่มี</value>
-    </property>
-    <property key="CommonNote">
-        <value xml:lang="en">Note</value>
-        <value xml:lang="pt_PT">Nota</value>
-        <value xml:lang="th">หมายเหตุ</value>
-    </property>
-    <property key="CommonNotes">
-        <value xml:lang="en">Notes</value>
-        <value xml:lang="pt_PT">Notas</value>
-        <value xml:lang="th">หมายเหตุ</value>
-    </property>
-    <property key="CommonOpenPageNewWindow">
-        <value xml:lang="en">Open Page New Window</value>
-        <value xml:lang="pt_PT">abrir página em nova janela</value>
-        <value xml:lang="th">เปิดหน้าต่างการทำงานใหม่</value>
-    </property>
-    <property key="CommonPassword">
-        <value xml:lang="en">Password</value>
-        <value xml:lang="pt_PT">Senha:</value>
-        <value xml:lang="th">รหัสผ่าน</value>
-    </property>
-    <property key="CommonPrevious">
-        <value xml:lang="en">Previous</value>
-        <value xml:lang="pt_PT">Anterior</value>
-        <value xml:lang="th">ก่อนหน้านี้</value>
-    </property>
-    <property key="CommonRegistered">
-        <value xml:lang="en">Registered</value>
-        <value xml:lang="pt_PT">Início Para Utilizadores Registados</value>
-        <value xml:lang="th">ลงทะเบียน</value>
-    </property>
-    <property key="CommonRemove">
-        <value xml:lang="en">Remove</value>
-        <value xml:lang="pt_PT">Remover</value>
-        <value xml:lang="th">ลบ</value>
-    </property>
-    <property key="CommonReset">
-        <value xml:lang="en">Reset</value>
-        <value xml:lang="pt_PT">Restaurar</value>
-        <value xml:lang="th">ตั้งใหม่</value>
-    </property>
-    <property key="CommonSave">
-        <value xml:lang="en">Save</value>
-        <value xml:lang="pt_PT">Guardar</value>
-        <value xml:lang="th">บันทึก</value>
-    </property>
-    <property key="CommonSecurity">
-        <value xml:lang="en">Security</value>
-        <value xml:lang="pt_PT">Segurança</value>
-        <value xml:lang="th">ความปลอดภัย </value>
-    </property>
-    <property key="CommonSendEmail">
-        <value xml:lang="en">Send Email</value>
-        <value xml:lang="pt_PT">Enviar E-mail</value>
-        <value xml:lang="th">ส่งอีเมล์</value>
-    </property>
-    <property key="CommonSince">
-        <value xml:lang="en">Since</value>
-        <value xml:lang="pt_PT">Desde</value>
-        <value xml:lang="th">ตั้งแต่</value>
-    </property>
-    <property key="CommonStartDate">
-        <value xml:lang="en">Start Date</value>
-        <value xml:lang="pt_PT">Começa Data/Hora</value>
-        <value xml:lang="th">วันเริ่มต้น</value>
-    </property>
-    <property key="CommonSubmit">
-        <value xml:lang="en">Submit</value>
-        <value xml:lang="pt_PT">Registar</value>
-        <value xml:lang="th">ยอมรับ</value>
-    </property>
-    <property key="CommonTest">
-        <value xml:lang="en">Test</value>
-        <value xml:lang="pt_PT">Teste em Ingês</value>
-        <value xml:lang="th">ทดสอบ</value>
-    </property>
-    <property key="CommonThruDate">
-        <value xml:lang="en">Thru Date</value>
-        <value xml:lang="pt_PT">Durante Data</value>
-        <value xml:lang="th">ถึงวัน</value>
-    </property>
-    <property key="CommonUom">
-        <value xml:lang="en">Uom</value>
-        <value xml:lang="pt_PT">UOM</value>
-        <value xml:lang="th">UOM</value>
-    </property>
-    <property key="CommonUpdate">
-        <value xml:lang="en">Update</value>
-        <value xml:lang="pt_PT">Actualizar</value>
-        <value xml:lang="th">เปลี่ยนแปลง</value>
-    </property>
-    <property key="CommonUpdated">
-        <value xml:lang="en">Updated</value>
-        <value xml:lang="pt_PT">Actualizado</value>
-        <value xml:lang="th">เปลี่ยนแปลง</value>
-    </property>
-    <property key="CommonUsername">
-        <value xml:lang="en">Username</value>
-        <value xml:lang="pt_PT">Utilizador:</value>
-        <value xml:lang="th">ชื่อผู้ใช้</value>
-    </property>
-    <property key="CommonValue">
-        <value xml:lang="en">Value</value>
-        <value xml:lang="pt_PT">Valor</value>
-        <value xml:lang="th">ค่า</value>
-    </property>
-    <property key="CommonView">
-        <value xml:lang="en">View</value>
-        <value xml:lang="pt_PT">Ver</value>
-        <value xml:lang="th">แสดง</value>
-    </property>
-    <property key="CommonWelcom">
-        <value xml:lang="en">welcome</value>
-        <value xml:lang="pt_PT">Bem-vindo</value>
-        <value xml:lang="th">ยินดีต้อนรับ</value>
-    </property>
-    <property key="CommonY">
-        <value xml:lang="en">Y</value>
-        <value xml:lang="pt_PT">S</value>
-        <value xml:lang="th">ใช่</value>
     </property>
     <property key="Description">
         <value xml:lang="en">Description</value>
@@ -1451,7 +1176,7 @@
         <value xml:lang="nl">Wijzig AVS overscrijven</value>
         <value xml:lang="ro">Actualizare Suprapuneri AVS</value>
         <value xml:lang="ru">Редактировать переопределения AVS</value>
-        <value xml:lang="th">ยกเลิกการแก้ไข AVS 
+        <value xml:lang="th">ยกเลิกการแก้ไข AVS
         </value>
         <value xml:lang="zh">编辑地址验证服务替代</value>
     </property>
@@ -7079,7 +6804,7 @@
         <value xml:lang="pt_PT">ID de Secção especificada não pode começar com dígitos, Identificações numéricas reservadas para Identificações auto-geradas.</value>
         <value xml:lang="ro">Cod Subiect specificat nu poate initia cu un numar, codurile  numerice sunt reservate pentru coduri generate automat</value>
         <value xml:lang="ru">Код участника не может начинаться с цифры, числовые идентификаторы зарезервированы для автоматической генерации</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้นี้ไม่สามารถเริ่มต้นด้วยตัวเลขนี้ได้, ตัวเลขรหัสจะได้จากการสร้างอัตโนมัติ</value>        
+        <value xml:lang="th">รหัสกลุ่มผู้ใช้นี้ไม่สามารถเริ่มต้นด้วยตัวเลขนี้ได้, ตัวเลขรหัสจะได้จากการสร้างอัตโนมัติ</value>
         <value xml:lang="zh">指定的会员标识不能以数字开始，数字标识为自动生成的标识预留</value>
     </property>
     <property key="partyrelationshipservices.cannot_create_party_relationship_partyIdFrom_not_in_role">
@@ -7099,7 +6824,7 @@
         <value xml:lang="nl">Cannot create party relationship, partyIdTo is not in specified role.</value>
         <value xml:lang="ro">Nu este posibila crearea relationarii Subiectului, partyIdTo nu specifica rolul.</value>
         <value xml:lang="ru">Не могу создать отношения для участника, partyIdTo нет в указанной роли.</value>
-        <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้, รหัสกลุ่มผู้ใช้ถึง จะต้องไม่เป็นสถานะ</value>        
+        <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้, รหัสกลุ่มผู้ใช้ถึง จะต้องไม่เป็นสถานะ</value>
         <value xml:lang="zh">不能创建会员关系，partyIdTo 不是指定的角色。</value>
     </property>
     <property key="partyrelationshipservices.cannot_create_party_relationship_partyIdTo_null">
@@ -7109,7 +6834,7 @@
         <value xml:lang="nl">Cannot create party relationship, partyIdTo cannot be null.</value>
         <value xml:lang="ro">Nu este  possibila crearea relationarii Subiectului, partyIdTo nu poate sa fie nul.</value>
         <value xml:lang="ru">Не могу создать отношения для участника, partyIdTo не может иметь пустое значение.</value>
-        <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้, รหัสกลุ่มผู้ใช้ถึง จะต้องไม่เป็นค่าว่าง</value>  
+        <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้, รหัสกลุ่มผู้ใช้ถึง จะต้องไม่เป็นค่าว่าง</value>
         <value xml:lang="zh">不能创建会员关系，partyIdTo 不能是 null。</value>
     </property>
     <property key="partyrelationshipservices.could_not_create_party_role_exists">
@@ -7119,7 +6844,7 @@
         <value xml:lang="nl">Could not create party relationship: already exists.</value>
         <value xml:lang="ro">Nu este posibila crearea relationarii Subiect: exista deja. </value>
         <value xml:lang="ru">Невозможно создать отношения участника: уже существует.</value>
-        <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้:ยังคงเหมือนเดิม</value>  
+        <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้:ยังคงเหมือนเดิม</value>
         <value xml:lang="zh">无法创建会员关系：已经存在了。</value>
     </property>
     <property key="partyrelationshipservices.could_not_create_party_role_read">
@@ -7129,7 +6854,7 @@
         <value xml:lang="nl">Could not create party role (read failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila crearea rolului Subiect (lectura falita): ${errMessage}.</value>
         <value xml:lang="ru">Невозможно создать роль участника (ошибка чтения): ${errMessage}.</value>
-        <value xml:lang="th">ไม่สามารถสร้างสถานะของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการอ่าน): ${errMessage}</value> 
+        <value xml:lang="th">ไม่สามารถสร้างสถานะของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการอ่าน): ${errMessage}</value>
         <value xml:lang="zh">无法创建会员角色 (读失败)：${errMessage}。</value>
     </property>
     <property key="partyrelationshipservices.could_not_create_party_role_write">
@@ -7139,7 +6864,7 @@
         <value xml:lang="nl">Could not create party relationship (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila crearea relationarii Subiect (scriere falita): ${errMessage}.</value>
         <value xml:lang="ru">Невозможно создать отношения участника (ошибка записи): ${errMessage}.</value>
-        <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการเขียน): ${errMessage}</value>     
+        <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">无法创建会员关系 (写失败)：${errMessage}。</value>
     </property>
     <property key="partyrelationshipservices.could_not_update_party_relation_not_found">
@@ -7149,7 +6874,7 @@
         <value xml:lang="nl">Could not update party relationship (relationship not found).</value>
         <value xml:lang="ro">Nu este  posibila Actualizarea raportului Subiect (nu gaseste relatie).</value>
         <value xml:lang="ru">Невозможно обновить отношения участника (отношение не найдено).</value>
-        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ไม่พบความสัมพันธ์)</value>         
+        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ไม่พบความสัมพันธ์)</value>
         <value xml:lang="zh">无法更新会员关系 (没有找到关系)。</value>
     </property>
     <property key="partyrelationshipservices.could_not_update_party_relation_read">
@@ -7159,7 +6884,7 @@
         <value xml:lang="nl">Could not update party relation (read failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila Actualizarea relatiei Subiect (citare falita): ${errMessage}.</value>
         <value xml:lang="ru">Невозможно обновить отношение участника (ошибка чтения): ${errMessage}.</value>
-        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการอ่าน): ${errMessage}</value>          
+        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการอ่าน): ${errMessage}</value>
         <value xml:lang="zh">无法更新会员关系 (读错误)：${errMessage}。</value>
     </property>
     <property key="partyrelationshipservices.could_not_update_party_relation_write">
@@ -7169,7 +6894,7 @@
         <value xml:lang="nl">Could not update party relationship (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila Actualizarea relatiei Subiect (scriere falita): ${errMessage}.</value>
         <value xml:lang="ru">Невозможно обновить отношения участника (ошибка записи): ${errMessage}.</value>
-        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการเขียน): ${errMessage}</value>                  
+        <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">无法更新会员关系 (写错误)：${errMessage}。</value>
     </property>
     <property key="partyroleservices.could_not_create_party_role_exists">
@@ -7209,7 +6934,7 @@
         <value xml:lang="nl">Both 'lastName' and 'firstName' cannot be empty.</value>
         <value xml:lang="ro">Entrambi 'Nume' si 'Prenume' nu pot sa fie goi.</value>
         <value xml:lang="ru">'lastName'(фамилия) и 'firstName'(имя) не могут быть пустыми одновременно.</value>
-        <value xml:lang="th">ทั้งนามสกุลและชื่อเป็นค่าว่าง</value>        
+        <value xml:lang="th">ทั้งนามสกุลและชื่อเป็นค่าว่าง</value>
         <value xml:lang="zh">'姓' 和 '名字' 不能为空。</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_ID_already_exists">
@@ -7219,7 +6944,7 @@
         <value xml:lang="nl">Cannot create, an affiliate with the specified party ID already exists.</value>
         <value xml:lang="ro">Nu este  posibila crearea, un afiliat cu codul Subiectului specificat esista deja.</value>
         <value xml:lang="ru">Невозможно создать, филиал с указанным кодом уже существует.</value>
-        <value xml:lang="th">ไม่สามารถสร้างรหัสกลุ่มผู้ใช้นี้เข้าด้วยกันได้</value>        
+        <value xml:lang="th">ไม่สามารถสร้างรหัสกลุ่มผู้ใช้นี้เข้าด้วยกันได้</value>
         <value xml:lang="zh">不能创建，已经存在指定会员标识的附属。</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_digit">
@@ -7249,7 +6974,7 @@
         <value xml:lang="nl">Cannot create affiliate; no party entity found.</value>
         <value xml:lang="ro">Nu este posibila creare afiliat; nici-o entitate Subiect gasita.</value>
         <value xml:lang="ru">Невозможно создать филиал; не найден объект участника.</value>
-        <value xml:lang="th">เกิดความผิดพลาดในการสร้าง; ไม่พบกลุ่มผู้ใช้นี้</value>    
+        <value xml:lang="th">เกิดความผิดพลาดในการสร้าง; ไม่พบกลุ่มผู้ใช้นี้</value>
         <value xml:lang="zh">无法创建附属；没有找到会员实体。</value>
     </property>
     <property key="partyservices.cannot_create_party_group_already_exists">

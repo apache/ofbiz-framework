@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -198,114 +198,10 @@
         <value xml:lang="es">Sufijo en tarjeta</value>
         <value xml:lang="th">คำลงท้ายบัตร</value>
     </property>
-    <property key="CommonAddDefault">
-        <value xml:lang="de">Default hinzufügen</value>
-        <value xml:lang="en">Add Default</value>
-        <value xml:lang="es">Agregar el defecto</value>
-        <value xml:lang="pt_PT">Adicionar Pré-definições</value>
-        <value xml:lang="th">เพิ่มค่าเริ่มต้น</value>
-    </property>
-    <property key="CommonAll">
-        <value xml:lang="de">alle</value>
-        <value xml:lang="en">All</value>
-        <value xml:lang="es">Todo</value>
-        <value xml:lang="pt_PT">Tudo</value>
-        <value xml:lang="th">ทั้งหมด</value>
-    </property>
-    <property key="CommonAny">
-        <value xml:lang="de">ein</value>
-        <value xml:lang="en">Any</value>
-        <value xml:lang="es">Cualquiera</value>
-        <value xml:lang="pt_PT">Qualquer</value>
-        <value xml:lang="th">บางส่วน</value>
-    </property>
-    <property key="CommonBy">
-        <value xml:lang="de">durch</value>
-        <value xml:lang="en">By</value>
-        <value xml:lang="es">Por</value>
-        <value xml:lang="pt_PT">Por</value>
-        <value xml:lang="th">โดย</value>
-    </property>
-    <property key="CommonDays">
-        <value xml:lang="de">Tagen</value>
-        <value xml:lang="en">Days</value>
-        <value xml:lang="es">Días</value>
-        <value xml:lang="pt_PT">Dias</value>
-        <value xml:lang="th">วัน</value>
-    </property>
-    <property key="CommonDetails">
-        <value xml:lang="de">Details</value>
-        <value xml:lang="en">Details</value>
-        <value xml:lang="es">Detalles</value>
-        <value xml:lang="pt_PT">Details</value>
-        <value xml:lang="th">รายละเอียด</value>
-    </property>
-    <property key="CommonFind">
-        <value xml:lang="de">Suche</value>
-        <value xml:lang="en">Find</value>
-        <value xml:lang="es">Búsqueda</value>
-        <value xml:lang="pt_PT">Procura</value>
-        <value xml:lang="th">ค้นหา</value>
-    </property>
-    <property key="CommonLogin">
-        <value xml:lang="de">Anmeldung</value>
-        <value xml:lang="en">Login</value>
-        <value xml:lang="es">Iniciar</value>
-        <value xml:lang="pt_PT">Iniciar</value>
-        <value xml:lang="th">เข้าสู่ระบบ</value>
-    </property>
-    <property key="CommonNext">
-        <value xml:lang="de">nächste</value>
-        <value xml:lang="en">Next</value>
-        <value xml:lang="es">Siguiente</value>
-        <value xml:lang="pt_PT">Seguinte</value>
-        <value xml:lang="th">ต่อไป</value>
-    </property>
-    <property key="CommonOn">
-        <value xml:lang="de">an</value>
-        <value xml:lang="en">On</value>
-        <value xml:lang="es">En</value>
-        <value xml:lang="pt_PT">Em</value>
-        <value xml:lang="th">บน</value>
-    </property>
-    <property key="CommonPassword">
-        <value xml:lang="de">Passwort</value>
-        <value xml:lang="en">Password</value>
-        <value xml:lang="es">Password</value>
-        <value xml:lang="pt_PT">Senha</value>
-        <value xml:lang="th">รหัสผ่าน</value>
-    </property>
-    <property key="CommonPrevious">
-        <value xml:lang="de">vorherige</value>
-        <value xml:lang="en">Previous</value>
-        <value xml:lang="es">Anterior</value>
-        <value xml:lang="pt_PT">Anterior</value>
-        <value xml:lang="th">ก่อนหน้านี้</value>
-    </property>
-    <property key="CommonRegistered">
-        <value xml:lang="de">Registrierter Nutzer</value>
-        <value xml:lang="en">Registered</value>
-        <value xml:lang="pt_PT">Utilizador Inscrito</value>
-        <value xml:lang="th">ลงทะเบียน</value>
-    </property>
     <property key="CommonRegistred">
         <value xml:lang="en">Registred</value>
         <value xml:lang="es">Usuario registrado</value>
         <value xml:lang="th">ลงทะเบียน</value>
-    </property>
-    <property key="CommonUsername">
-        <value xml:lang="de">Benutzername</value>
-        <value xml:lang="en">Username</value>
-        <value xml:lang="es">Nombre de usuario</value>
-        <value xml:lang="pt_PT">Utilizador</value>
-        <value xml:lang="th">ชื่อผู้เข้าใช้</value>
-    </property>
-    <property key="CommonWelcome">
-        <value xml:lang="de">Willkommen</value>
-        <value xml:lang="en">Welcome</value>
-        <value xml:lang="es">Bienvenido</value>
-        <value xml:lang="pt_PT">Bem-vindo</value>
-        <value xml:lang="th">ยินดีต้อนรับ</value>
     </property>
     <property key="EcommerceANew">
         <value xml:lang="en">a new</value>
