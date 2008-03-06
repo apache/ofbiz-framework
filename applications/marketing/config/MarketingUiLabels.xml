@@ -1086,8 +1086,8 @@
         <value xml:lang="th">รหัสประเภทของกลุ่ม</value>
         <value xml:lang="zh">分区组类型标识</value>
     </property>
-    <property key="SfaAcccountTeams">
-        <value xml:lang="en">Account and Account Teams</value>
+    <property key="SfaAcccounts">
+        <value xml:lang="en">Accounts</value>
     </property>
     <property key="SfaCompanyName">
         <value xml:lang="en">OFBiz: SFA Manager</value>
