@@ -74,7 +74,7 @@ public class UtilJavaParse {
     }
     
     public static int findServiceMethodBlockStart(String methodName, String javaFile) {
-        Debug.logInfo("In findServiceMethodBlockStart for " + methodName, module);
+        if (Debug.verboseOn()) Debug.logVerbose("In findServiceMethodBlockStart for " + methodName, module);
         
         // starts with something like this: public static Map exportServiceEoModelBundle(DispatchContext dctx, Map context) {
         
@@ -138,6 +138,10 @@ public class UtilJavaParse {
                 // find the service name
                 int openQuoteIndex = javaFile.indexOf("\"", openParenIndex);
                 int closeQuoteIndex = javaFile.indexOf("\"", openQuoteIndex+1);
+                if (openQuoteIndex - openParenIndex > 3 || openQuoteIndex < 0 || closeQuoteIndex < 0) {
+                    //more than two spaces/chars between quote and open paren... consider it something other than what we are looking for
+                    continue;
+                }
                 String serviceName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
                 //Debug.logInfo("In findServiceCallsInBlock found serviceName [" + serviceName + "]", module);
                 
@@ -208,6 +212,10 @@ public class UtilJavaParse {
                 // find the entity name
                 int openQuoteIndex = javaFile.indexOf("\"", openParenIndex);
                 int closeQuoteIndex = javaFile.indexOf("\"", openQuoteIndex+1);
+                if (openQuoteIndex - openParenIndex > 3 || openQuoteIndex < 0 || closeQuoteIndex < 0) {
+                    //more than two spaces/chars between quote and open paren... consider it something other than what we are looking for
+                    continue;
+                }
                 String entityName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
                 //Debug.logInfo("In findServiceCallsInBlock found valid entityName [" + entityName + "]", module);
                 
