@@ -147,8 +147,8 @@ public class ShoppingListEvents {
                         ctx.put("reservStart", item.getReservStart());
                         ctx.put("reservLength", new Double(item.getReservLength()));
                         ctx.put("reservPersons", new Double(item.getReservPersons()));
-                        ctx.put("accommodationMapId", new Double(item.getAccommodationMapId()));
-                        ctx.put("accommodationSpotId", new Double(item.getAccommodationSpotId()));
+                  //    ctx.put("accommodationMapId", new Double(item.getAccommodationMapId()));
+                  //    ctx.put("accommodationSpotId", new Double(item.getAccommodationSpotId()));
                         if (item.getConfigWrapper() != null) {
                             ctx.put("configId", item.getConfigWrapper().getConfigId());                            
                         }
@@ -260,8 +260,8 @@ public class ShoppingListEvents {
             Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
             Double reservLength = shoppingListItem.getDouble("reservLength");
             Double reservPersons = shoppingListItem.getDouble("reservPersons");
-            String accommodationMapId = shoppingListItem.getString("accommodationMapId");
-            String accommodationSpotId = shoppingListItem.getString("accommodationSpotId");            
+      //    String accommodationMapId = shoppingListItem.getString("accommodationMapId");
+      //    String accommodationSpotId = shoppingListItem.getString("accommodationSpotId");            
             String configId = shoppingListItem.getString("configId");
             try {
                 String listId = shoppingListItem.getString("shoppingListId");
@@ -289,7 +289,7 @@ public class ShoppingListEvents {
                 if (reservStart == null) {
                        cart.addOrIncreaseItem(productId, null, quantity.doubleValue(), null, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
                 }else{                
-                    cart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
+                    cart.addOrIncreaseItem(productId, null, quantity.doubleValue(), reservStart, reservLength, reservPersons, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
                 }
                 Map messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource,"shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());
