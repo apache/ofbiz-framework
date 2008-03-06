@@ -21,7 +21,7 @@ under the License.
     <menu name="SfaAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.SfaManagerApplication}"
         default-selected-style="selected" menu-container-style="button-bar tab-bar">
         <menu-item name="Main" title="${uiLabelMap.MarketingMainPage}"><link target=""/></menu-item>
-        <menu-item name="AccountTeams" title="${uiLabelMap.SfaAcccountTeams}"><link target=""/></menu-item>
+        <menu-item name="Accounts" title="${uiLabelMap.SfaAcccounts}"><link target=""/></menu-item>
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target=""/></menu-item>
         <menu-item name="Leads" title="${uiLabelMap.SfaLeads}"><link target=""/></menu-item>
         <menu-item name="Competitors" title="${uiLabelMap.SfaCompetitors}"><link target=""/></menu-item>
