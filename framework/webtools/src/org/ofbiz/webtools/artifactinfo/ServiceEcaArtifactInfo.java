@@ -27,6 +27,7 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.eca.ServiceEcaAction;
 import org.ofbiz.service.eca.ServiceEcaCondition;
 import org.ofbiz.service.eca.ServiceEcaRule;
@@ -38,6 +39,7 @@ public class ServiceEcaArtifactInfo {
     protected ArtifactInfoFactory aif;
     protected ServiceEcaRule serviceEcaRule;
     protected String displayPrefix = null;
+    protected int displaySuffixNum = 0;
     
     protected Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = FastSet.newInstance();
     
@@ -55,6 +57,7 @@ public class ServiceEcaArtifactInfo {
         // populate the services called Set
         for (ServiceEcaAction ecaAction: serviceEcaRule.getEcaActionList()) {
             servicesCalledByThisServiceEca.add(aif.getServiceArtifactInfo(ecaAction.getServiceName()));
+            UtilMisc.addToSetInMap(this, aif.allServiceEcaInfosReferringToServiceName, ecaAction.getServiceName());
         }
     }
     
@@ -66,8 +69,12 @@ public class ServiceEcaArtifactInfo {
         this.displayPrefix = displayPrefix;
     }
     
+    public void setDisplaySuffixNum(int displaySuffixNum) {
+        this.displaySuffixNum = displaySuffixNum;
+    }
+    
     public String getDisplayPrefixedName() {
-        return (this.displayPrefix != null ? this.displayPrefix : "") + this.serviceEcaRule.getShortDisplayName();
+        return (this.displayPrefix != null ? this.displayPrefix : "") + this.serviceEcaRule.getServiceName() + "_" + this.serviceEcaRule.getEventName() + "_" + displaySuffixNum;
     }
     
     public Set<ServiceArtifactInfo> getServicesCalledByServiceEcaActions() {
