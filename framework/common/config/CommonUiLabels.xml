@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -125,6 +125,7 @@
     </property>
     <property key="CommonAdd">
         <value xml:lang="ar">إضافة</value>
+        <value xml:lang="cs">Přidat</value>
         <value xml:lang="de">Hinzufügen</value>
         <value xml:lang="en">Add</value>
         <value xml:lang="es">Añadir</value>
@@ -155,6 +156,7 @@
     </property>
     <property key="CommonAddDefault">
         <value xml:lang="ar">إضافة القيم الإفتراضية</value>
+        <value xml:lang="cs">Přidat standard</value>
         <value xml:lang="de">Voreinstellung hinzufügen</value>
         <value xml:lang="en">Add Default</value>
         <value xml:lang="es">Añadir valor por defecto</value>
@@ -271,6 +273,7 @@
     </property>
     <property key="CommonAll">
         <value xml:lang="ar">الكل</value>
+        <value xml:lang="cs">Všechny</value>
         <value xml:lang="de">Alle</value>
         <value xml:lang="en">All</value>
         <value xml:lang="es">Todos</value>
@@ -351,6 +354,7 @@
     </property>
     <property key="CommonAmount">
         <value xml:lang="ar">قيمة</value>
+        <value xml:lang="cs">Počet</value>
         <value xml:lang="de">Menge</value>
         <value xml:lang="en">Amount</value>
         <value xml:lang="es">Monto</value>
@@ -366,6 +370,7 @@
     </property>
     <property key="CommonAnd">
         <value xml:lang="ar">و</value>
+        <value xml:lang="cs">a</value>
         <value xml:lang="de">und</value>
         <value xml:lang="en">And</value>
         <value xml:lang="es">y</value>
@@ -381,6 +386,7 @@
     </property>
     <property key="CommonAny">
         <value xml:lang="ar">أي</value>
+        <value xml:lang="cs">nějaký</value>
         <value xml:lang="de">Beliebig</value>
         <value xml:lang="en">Any</value>
         <value xml:lang="es">Cualquier</value>
@@ -659,6 +665,7 @@
     </property>
     <property key="CommonAvailable">
         <value xml:lang="ar">متوفر</value>
+        <value xml:lang="cs">k dispozici</value>
         <value xml:lang="de">Verfügbar</value>
         <value xml:lang="en">Available</value>
         <value xml:lang="es">Disponible</value>
@@ -688,6 +695,7 @@
     </property>
     <property key="CommonBack">
         <value xml:lang="ar">عودة</value>
+        <value xml:lang="cs">Zpět</value>
         <value xml:lang="de">Zurück</value>
         <value xml:lang="en">Back</value>
         <value xml:lang="es">Atrás</value>
@@ -732,6 +740,7 @@
     </property>
     <property key="CommonBackToOptions">
         <value xml:lang="ar">العودة إاى الإختيارات</value>
+        <value xml:lang="cs">Zpět naVolby</value>
         <value xml:lang="de">Zurück zu den Optionen</value>
         <value xml:lang="en">Back to Options</value>
         <value xml:lang="es">Regresar a las opciones</value>
@@ -759,6 +768,7 @@
     </property>
     <property key="CommonBenefit">
         <value xml:lang="ar">فائدة</value>
+        <value xml:lang="cs">použít</value>
         <value xml:lang="de">Vorteil</value>
         <value xml:lang="en">Benefit</value>
         <value xml:lang="es">Beneficio</value>
@@ -788,6 +798,7 @@
     </property>
     <property key="CommonBy">
         <value xml:lang="ar">من</value>
+        <value xml:lang="cs">prostřednictvím</value>
         <value xml:lang="de">durch</value>
         <value xml:lang="en">By</value>
         <value xml:lang="es">Por</value>
@@ -802,6 +813,7 @@
     </property>
     <property key="CommonCancel">
         <value xml:lang="ar">إلغاء</value>
+        <value xml:lang="cs">Storno</value>
         <value xml:lang="de">Abbrechen</value>
         <value xml:lang="en">Cancel</value>
         <value xml:lang="es">Cancelar</value>
@@ -903,6 +915,7 @@
     </property>
     <property key="CommonChecking">
         <value xml:lang="ar">فحص</value>
+        <value xml:lang="cs">Postžirové konto</value>
         <value xml:lang="de">Girokonto</value>
         <value xml:lang="en">Checking</value>
         <value xml:lang="es">Verificando</value>
@@ -918,6 +931,7 @@
     </property>
     <property key="CommonCheckoutAnonymous">
         <value xml:lang="ar">الفحص دون الدخول</value>
+        <value xml:lang="cs">Anonymní objednávka</value>
         <value xml:lang="de">Bestellung ohne Login</value>
         <value xml:lang="en">Checkout Without Login</value>
         <value xml:lang="es">Checkout anónimo</value>
@@ -933,6 +947,7 @@
     </property>
     <property key="CommonCheckoutAnonymousMsg">
         <value xml:lang="ar">يمكنكم التفحص دون استحداث حساب</value>
+        <value xml:lang="cs">Můžete objednávat i bez účtu</value>
         <value xml:lang="de">Sie können bestellen, ohne ein Benutzerkonto zu eröffnen</value>
         <value xml:lang="en">You may checkout without creating an account</value>
         <value xml:lang="es">Puede hacer checkout sin crear una cuenta</value>
@@ -948,6 +963,7 @@
     </property>
     <property key="CommonChooseLanguage">
         <value xml:lang="ar">اختر اللغة</value>
+        <value xml:lang="cs">Vyběr jazyka</value>
         <value xml:lang="de">Sprache wählen</value>
         <value xml:lang="en">Choose Language</value>
         <value xml:lang="es">Elija su idioma</value>
@@ -978,6 +994,7 @@
     </property>
     <property key="CommonClear">
         <value xml:lang="ar">محو</value>
+        <value xml:lang="cs">Vyprázdnit</value>
         <value xml:lang="de">Leeren</value>
         <value xml:lang="en">Clear</value>
         <value xml:lang="es">Limpiar</value>
@@ -999,6 +1016,7 @@
     </property>
     <property key="CommonClickHere">
         <value xml:lang="ar">انقر هنا</value>
+        <value xml:lang="cs">Klikněte zde</value>
         <value xml:lang="de">Klicken Sie hier</value>
         <value xml:lang="en">Click Here</value>
         <value xml:lang="es">Haga click aquí</value>
@@ -1061,6 +1079,7 @@
     </property>
     <property key="CommonComment">
         <value xml:lang="ar">تعليق</value>
+        <value xml:lang="cs">Poznámka</value>
         <value xml:lang="de">Anmerkung</value>
         <value xml:lang="en">Comment</value>
         <value xml:lang="es">Comentario</value>
@@ -1076,6 +1095,7 @@
     </property>
     <property key="CommonComments">
         <value xml:lang="ar">تعاليق</value>
+        <value xml:lang="cs">Poznámky</value>
         <value xml:lang="de">Anmerkungen</value>
         <value xml:lang="en">Comments</value>
         <value xml:lang="es">Comentarios</value>
@@ -1202,6 +1222,7 @@
     </property>
     <property key="CommonContinue">
         <value xml:lang="ar">أكمل</value>
+        <value xml:lang="cs">Pokračovat</value>
         <value xml:lang="de">Fortsetzen</value>
         <value xml:lang="en">Continue</value>
         <value xml:lang="es">Continuar</value>
@@ -1232,6 +1253,7 @@
     </property>
     <property key="CommonCouldBeUsedAs">
         <value xml:lang="ar">يحتمل استعمالها ك</value>
+        <value xml:lang="cs">Může být použit jako</value>
         <value xml:lang="de">Kann benutzt werden als</value>
         <value xml:lang="en">Could be Used as</value>
         <value xml:lang="es">Puede ser usado como</value>
@@ -1301,6 +1323,7 @@
     </property>
     <property key="CommonCreate">
         <value xml:lang="ar">استحداث</value>
+        <value xml:lang="cs">Založit</value>
         <value xml:lang="de">Anlegen</value>
         <value xml:lang="en">Create</value>
         <value xml:lang="es">Crear</value>
@@ -1316,6 +1339,7 @@
     </property>
     <property key="CommonCreateNew">
         <value xml:lang="ar">استحداث جديد</value>
+        <value xml:lang="cs">Založit nový</value>
         <value xml:lang="de">Neu Anlegen</value>
         <value xml:lang="en">Create New</value>
         <value xml:lang="es">Crear nuevo</value>
@@ -1431,6 +1455,7 @@
     </property>
     <property key="CommonDate">
         <value xml:lang="ar">تاريخ</value>
+        <value xml:lang="cs">Datum</value>
         <value xml:lang="de">Datum</value>
         <value xml:lang="en">Date</value>
         <value xml:lang="es">Fecha</value>
@@ -1476,6 +1501,7 @@
     </property>
     <property key="CommonDays">
         <value xml:lang="ar">أيام</value>
+        <value xml:lang="cs">dnů</value>
         <value xml:lang="de">Tage</value>
         <value xml:lang="en">Days</value>
         <value xml:lang="es">Días</value>
@@ -1520,6 +1546,7 @@
     </property>
     <property key="CommonDelete">
         <value xml:lang="ar">حذف</value>
+        <value xml:lang="cs">Smazat</value>
         <value xml:lang="de">Löschen</value>
         <value xml:lang="en">Delete</value>
         <value xml:lang="es">Eliminar</value>
@@ -1564,6 +1591,7 @@
     </property>
     <property key="CommonDescription">
         <value xml:lang="ar">وصف</value>
+        <value xml:lang="cs">Popis</value>
         <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="es">Descripción</value>
@@ -1594,6 +1622,7 @@
     </property>
     <property key="CommonDetails">
         <value xml:lang="ar">تفاصيل</value>
+        <value xml:lang="cs">Detaily</value>
         <value xml:lang="de">Datails</value>
         <value xml:lang="en">Details</value>
         <value xml:lang="es">Detalles</value>
@@ -1649,6 +1678,7 @@
     </property>
     <property key="CommonEdit">
         <value xml:lang="ar">تحرير</value>
+        <value xml:lang="cs">Zpracovat</value>
         <value xml:lang="de">Bearbeiten</value>
         <value xml:lang="en">Edit</value>
         <value xml:lang="es">Editar</value>
@@ -1690,6 +1720,7 @@
     </property>
     <property key="CommonEmailPassword">
         <value xml:lang="ar">كلمة سر البريد الإلكتروني</value>
+        <value xml:lang="cs">Email heslo</value>
         <value xml:lang="de">Email Passwort</value>
         <value xml:lang="en">Email Password</value>
         <value xml:lang="es">Contraseña de e-mail</value>
@@ -1705,6 +1736,7 @@
     </property>
     <property key="CommonEmailTo">
         <value xml:lang="ar">بريد الإلكتروني إلى</value>
+        <value xml:lang="cs">Email komu</value>
         <value xml:lang="de">Email an</value>
         <value xml:lang="en">Email To</value>
         <value xml:lang="es">Enviar e-mail a</value>
@@ -1858,7 +1890,7 @@
     </property>
     <property key="CommonErrorNoStatusValidChange">
         <value xml:lang="en">Error: status change from [${lookedUpValue.statusId}] to [${parameters.statusId}] is not allowed.</value>
-        <value xml:lang="th">Error: ข้อผิดพลาด ! ไม่อนุญาติเปลี่ยนสถานะจาก [${lookedUpValue.statusId}] เป็น [${parameters.statusId}] 
+        <value xml:lang="th">Error: ข้อผิดพลาด ! ไม่อนุญาติเปลี่ยนสถานะจาก [${lookedUpValue.statusId}] เป็น [${parameters.statusId}]
 </value>
     </property>
     <property key="CommonEventDate">
@@ -1903,6 +1935,7 @@
     </property>
     <property key="CommonExpire">
         <value xml:lang="ar">نهاية الصلاحية</value>
+        <value xml:lang="cs">Vypršet</value>
         <value xml:lang="de">Ablaufen</value>
         <value xml:lang="en">Expire</value>
         <value xml:lang="es">Expiración</value>
@@ -1948,6 +1981,7 @@
     </property>
     <property key="CommonExpires">
         <value xml:lang="ar">تتنتهى صلاحيته</value>
+        <value xml:lang="cs">Vyprší</value>
         <value xml:lang="de">Ablaufen</value>
         <value xml:lang="en">Expires</value>
         <value xml:lang="es">Expirados</value>
@@ -2022,6 +2056,7 @@
     </property>
     <property key="CommonFieldsMarkedAreRequired">
         <value xml:lang="ar">الحقول المعلمة ب (*) إلزامية</value>
+        <value xml:lang="cs">(*) označená pole jsou nutná</value>
         <value xml:lang="de">Mit (*) markierte Felder müssen ausgefüllt werden.</value>
         <value xml:lang="en">Fields marked with (*) are required.</value>
         <value xml:lang="es">Los campos marcados con (*) son obligatorios</value>
@@ -2065,6 +2100,7 @@
     </property>
     <property key="CommonFind">
         <value xml:lang="ar">إيجاد</value>
+        <value xml:lang="cs">Hledání</value>
         <value xml:lang="de">Suchen</value>
         <value xml:lang="en">Find</value>
         <value xml:lang="es">Buscar</value>
@@ -2159,6 +2195,7 @@
     </property>
     <property key="CommonForgotYourPassword">
         <value xml:lang="ar">نسيت كلمة السر</value>
+        <value xml:lang="cs">Zapomněl jste heslo</value>
         <value xml:lang="de">Sie haben Ihr Passwort vergessen</value>
         <value xml:lang="en">Forgot Your Password</value>
         <value xml:lang="es">¿Olvidó su contraseña?</value>
@@ -2270,6 +2307,7 @@
     </property>
     <property key="CommonFrom">
         <value xml:lang="ar">من</value>
+        <value xml:lang="cs">od</value>
         <value xml:lang="de">Von</value>
         <value xml:lang="en">From</value>
         <value xml:lang="es">De</value>
@@ -2396,6 +2434,7 @@
     </property>
     <property key="CommonGetPasswordHint">
         <value xml:lang="ar">الحصول على المساعدة لكلمة السر</value>
+        <value xml:lang="cs">Upozornění k heslu</value>
         <value xml:lang="de">Passwort Hinweis</value>
         <value xml:lang="en">Get Password Hint</value>
         <value xml:lang="es">Obtener pista de password</value>
@@ -2432,6 +2471,7 @@
     </property>
     <property key="CommonGoBack">
         <value xml:lang="ar">الرجوع</value>
+        <value xml:lang="cs">Zpět</value>
         <value xml:lang="de">Zurück</value>
         <value xml:lang="en">Go Back</value>
         <value xml:lang="es">Regresar</value>
@@ -2458,6 +2498,7 @@
     </property>
     <property key="CommonGotoParent">
         <value xml:lang="ar">اذهب إلى الوالد</value>
+        <value xml:lang="cs">Nahoru</value>
         <value xml:lang="de">Gehe zu Vorgänger</value>
         <value xml:lang="en">Go To Parent</value>
         <value xml:lang="es">Ir al nivel superior</value>
@@ -2637,6 +2678,7 @@
     </property>
     <property key="CommonInThe">
         <value xml:lang="ar">داخل ال</value>
+        <value xml:lang="cs">z</value>
         <value xml:lang="de">In</value>
         <value xml:lang="en">In The</value>
         <value xml:lang="es">En la</value>
@@ -2659,6 +2701,7 @@
     </property>
     <property key="CommonInformation">
         <value xml:lang="ar">معلومات</value>
+        <value xml:lang="cs">Informace</value>
         <value xml:lang="de">Information</value>
         <value xml:lang="en">Information</value>
         <value xml:lang="es">Información</value>
@@ -2820,6 +2863,7 @@
     </property>
     <property key="CommonLanguageTitle">
         <value xml:lang="ar">اللغة</value>
+        <value xml:lang="cs">Jazyk</value>
         <value xml:lang="de">Sprache</value>
         <value xml:lang="en">Language</value>
         <value xml:lang="es">Idioma</value>
@@ -2894,6 +2938,7 @@
     </property>
     <property key="CommonList">
         <value xml:lang="ar">قائمة</value>
+        <value xml:lang="cs">Seznam</value>
         <value xml:lang="de">Liste</value>
         <value xml:lang="en">List</value>
         <value xml:lang="es">Lista</value>
@@ -2924,6 +2969,7 @@
     </property>
     <property key="CommonLogin">
         <value xml:lang="ar">دخول</value>
+        <value xml:lang="cs">Přihlásit</value>
         <value xml:lang="de">Anmelden</value>
         <value xml:lang="en">Login</value>
         <value xml:lang="es">Login</value>
@@ -2939,6 +2985,7 @@
     </property>
     <property key="CommonLoginHere">
         <value xml:lang="ar">أدخل من هنا</value>
+        <value xml:lang="cs">Přihlaste se prosíme zde</value>
         <value xml:lang="de">Hier können Sie sich anmelden</value>
         <value xml:lang="en">log in here</value>
         <value xml:lang="es">Ingrese aquí</value>
@@ -2954,6 +3001,7 @@
     </property>
     <property key="CommonLogout">
         <value xml:lang="ar">خروج</value>
+        <value xml:lang="cs">Odhlásit</value>
         <value xml:lang="de">Abmelden</value>
         <value xml:lang="en">Logout</value>
         <value xml:lang="es">Logout</value>
@@ -2984,6 +3032,7 @@
     </property>
     <property key="CommonMain">
         <value xml:lang="ar">الرئيسية</value>
+        <value xml:lang="cs">Úvodní stránka</value>
         <value xml:lang="de">Startseite</value>
         <value xml:lang="en">Main</value>
         <value xml:lang="es">Principal</value>
@@ -3053,6 +3102,7 @@
     </property>
     <property key="CommonMatched">
         <value xml:lang="ar">مماثل</value>
+        <value xml:lang="cs">Shoda</value>
         <value xml:lang="de">Passend</value>
         <value xml:lang="en">Matched</value>
         <value xml:lang="es">Coincidentes</value>
@@ -3083,6 +3133,7 @@
     </property>
     <property key="CommonMayCreate">
         <value xml:lang="ar">استحداث</value>
+        <value xml:lang="cs">Založit</value>
         <value xml:lang="de">Anlegen</value>
         <value xml:lang="en">Create</value>
         <value xml:lang="es">Crear</value>
@@ -3098,6 +3149,7 @@
     </property>
     <property key="CommonMayCreateNewAccountHere">
         <value xml:lang="ar">يمكن استحداث حساب جديد هنا</value>
+        <value xml:lang="cs">Zde si můžete založit nový účet</value>
         <value xml:lang="de">Sie können sich hier registrieren</value>
         <value xml:lang="en">You may create a new account here</value>
         <value xml:lang="es">Puede crear una nueva cuenta aquí</value>
@@ -3127,6 +3179,7 @@
     </property>
     <property key="CommonMessage">
         <value xml:lang="ar">رسالة</value>
+        <value xml:lang="cs">Zpráva</value>
         <value xml:lang="de">Nachricht</value>
         <value xml:lang="en">Message</value>
         <value xml:lang="es">Mensaje</value>
@@ -3232,6 +3285,7 @@
     </property>
     <property key="CommonMore">
         <value xml:lang="ar">أكثر</value>
+        <value xml:lang="cs">více</value>
         <value xml:lang="de">Mehr</value>
         <value xml:lang="en">More</value>
         <value xml:lang="es">Más</value>
@@ -3345,6 +3399,7 @@
     </property>
     <property key="CommonNewUser">
         <value xml:lang="ar">مستخدم جديد</value>
+        <value xml:lang="cs">Nový uživatel</value>
         <value xml:lang="de">Neuer Nutzer</value>
         <value xml:lang="en">New User</value>
         <value xml:lang="es">Nuevo usuario</value>
@@ -3360,6 +3415,7 @@
     </property>
     <property key="CommonNext">
         <value xml:lang="ar">التالي</value>
+        <value xml:lang="cs">dále</value>
         <value xml:lang="de">Nächste</value>
         <value xml:lang="en">Next</value>
         <value xml:lang="es">Siguiente</value>
@@ -3375,6 +3431,7 @@
     </property>
     <property key="CommonNo">
         <value xml:lang="ar">لا</value>
+        <value xml:lang="cs">Ne</value>
         <value xml:lang="de">Nein</value>
         <value xml:lang="en">No</value>
         <value xml:lang="es">No</value>
@@ -3502,6 +3559,7 @@
     </property>
     <property key="CommonNot">
         <value xml:lang="ar">لا</value>
+        <value xml:lang="cs">Žádný (-á)</value>
         <value xml:lang="de">Kein</value>
         <value xml:lang="en">Not</value>
         <value xml:lang="es">No</value>
@@ -3574,6 +3632,7 @@
     </property>
     <property key="CommonNotYou">
         <value xml:lang="ar">ليس أنت</value>
+        <value xml:lang="cs">Uživatel nesouhlasí</value>
         <value xml:lang="de">Keine Nutzerübereinstimmung</value>
         <value xml:lang="en">Not You</value>
         <value xml:lang="es">No es usted</value>
@@ -3683,6 +3742,7 @@
     </property>
     <property key="CommonOn">
         <value xml:lang="ar">على</value>
+        <value xml:lang="cs">na</value>
         <value xml:lang="de">An</value>
         <value xml:lang="en">On</value>
         <value xml:lang="es">Sobre</value>
@@ -3713,6 +3773,7 @@
     </property>
     <property key="CommonOpenNewWindow">
         <value xml:lang="ar">فتح نافذة جديدة</value>
+        <value xml:lang="cs">Otevřít stránku v novém okně</value>
         <value xml:lang="de">In neuem Fenster öffnen</value>
         <value xml:lang="en">Open in New Window</value>
         <value xml:lang="es">Abrir en nueva ventana</value>
@@ -3908,6 +3969,7 @@
     </property>
     <property key="CommonPassword">
         <value xml:lang="ar">كلمة السر</value>
+        <value xml:lang="cs">Heslo</value>
         <value xml:lang="de">Passwort</value>
         <value xml:lang="en">Password</value>
         <value xml:lang="es">Contraseña</value>
@@ -4028,6 +4090,7 @@
     </property>
     <property key="CommonPrevious">
         <value xml:lang="ar">سابق</value>
+        <value xml:lang="cs">předchozí</value>
         <value xml:lang="de">Vorherige</value>
         <value xml:lang="en">Previous</value>
         <value xml:lang="es">Anterior</value>
@@ -4083,6 +4146,7 @@
     </property>
     <property key="CommonProfile">
         <value xml:lang="ar">خصائص</value>
+        <value xml:lang="cs">Profil</value>
         <value xml:lang="de">Profil</value>
         <value xml:lang="en">Profile</value>
         <value xml:lang="es">Perfil</value>
@@ -4180,6 +4244,7 @@
     </property>
     <property key="CommonQualifier">
         <value xml:lang="ar">صفة</value>
+        <value xml:lang="cs">Poznámka / záznam</value>
         <value xml:lang="de">Vermerk</value>
         <value xml:lang="en">Qualifier</value>
         <value xml:lang="es">Calificador</value>
@@ -4195,6 +4260,7 @@
     </property>
     <property key="CommonQuantity">
         <value xml:lang="ar">كمية</value>
+        <value xml:lang="cs">Množství</value>
         <value xml:lang="de">Menge</value>
         <value xml:lang="en">Quantity</value>
         <value xml:lang="es">Cantidad</value>
@@ -4236,6 +4302,7 @@
     </property>
     <property key="CommonQuickAdd">
         <value xml:lang="ar">إضافة سريعة</value>
+        <value xml:lang="cs">Přidat zrychleně</value>
         <value xml:lang="de">Schnelleingabe</value>
         <value xml:lang="en">Quick Add</value>
         <value xml:lang="es">Añadir rápido</value>
@@ -4251,6 +4318,7 @@
     </property>
     <property key="CommonQuickAddList">
         <value xml:lang="ar">إضافة سريعة لقائمة المشتريات</value>
+        <value xml:lang="cs">Zrychleně přidat do košíku</value>
         <value xml:lang="de">Schnellaufnahme in die Einkaufsliste</value>
         <value xml:lang="en">Quick Add To Shopping List</value>
         <value xml:lang="es">Añadir rápido a la lista de compras</value>
@@ -4383,6 +4451,7 @@
     </property>
     <property key="CommonRegistered">
         <value xml:lang="ar">مستخدم مسجل</value>
+        <value xml:lang="cs">Registrovaný uživatel</value>
         <value xml:lang="de">Registrierter Nutzer</value>
         <value xml:lang="en">Registered User</value>
         <value xml:lang="es">Usuario registrado</value>
@@ -4419,6 +4488,7 @@
     </property>
     <property key="CommonRemove">
         <value xml:lang="ar">نزع</value>
+        <value xml:lang="cs">Odstranit</value>
         <value xml:lang="de">Entfernen</value>
         <value xml:lang="en">Remove</value>
         <value xml:lang="es">Eliminar</value>
@@ -4553,6 +4623,7 @@
     </property>
     <property key="CommonReview">
         <value xml:lang="ar">المراجعة</value>
+        <value xml:lang="cs">Hodnocení</value>
         <value xml:lang="de">Beurteilung</value>
         <value xml:lang="en">Review</value>
         <value xml:lang="es">Revisar</value>
@@ -4615,6 +4686,7 @@
     </property>
     <property key="CommonSave">
         <value xml:lang="ar">حفظ</value>
+        <value xml:lang="cs">Uložit</value>
         <value xml:lang="de">Speichern</value>
         <value xml:lang="en">Save</value>
         <value xml:lang="es">Guardar</value>
@@ -4659,6 +4731,7 @@
     </property>
     <property key="CommonSearchResultfor">
         <value xml:lang="ar">نتائج البحث ل</value>
+        <value xml:lang="cs">Vyhledávání výsledků pro klíčové slovo</value>
         <value xml:lang="de">Suchergebnisse für</value>
         <value xml:lang="en">Search Results for</value>
         <value xml:lang="es">Resultados de la búsqueda para</value>
@@ -4713,6 +4786,7 @@
     </property>
     <property key="CommonSelectAll">
         <value xml:lang="ar">إختر الكل</value>
+        <value xml:lang="cs">Vybrat všechny</value>
         <value xml:lang="de">Alles Auswählen</value>
         <value xml:lang="en">Select All</value>
         <value xml:lang="es">Seleccionar todos</value>
@@ -4787,6 +4861,7 @@
     </property>
     <property key="CommonSend">
         <value xml:lang="ar">ارسال</value>
+        <value xml:lang="cs">Odeslat</value>
         <value xml:lang="de">Senden</value>
         <value xml:lang="en">Send</value>
         <value xml:lang="es">Enviar</value>
@@ -5032,6 +5107,7 @@
     </property>
     <property key="CommonSorryYouCannotSend">
         <value xml:lang="ar">للأسف, لا يمكنكم إرسال هذه الصفحة إاى صديق. إختر بدل ذلك من نوع أو سلعة</value>
+        <value xml:lang="cs">Litujeme, ale tuto stránku nemůžete odeslat příteli. Prosíme vyberte si jinou v náhledu produktů či kategorií.</value>
         <value xml:lang="en">Sorry, you cannot send this page to a friend.  Select rather from a category or an item</value>
         <value xml:lang="es">Lo siento, no puede enviar esta página a un amigo. Seleccione a partir de una categoría o un ítem.</value>
         <value xml:lang="fr">Désolé, vous ne pouvez envoyer cette page à un ami. Sélectionnez plutôt à partir d'un catégorie ou d'un article</value>
@@ -5157,6 +5233,7 @@
     </property>
     <property key="CommonStatus">
         <value xml:lang="ar">وضعية</value>
+        <value xml:lang="cs">Status</value>
         <value xml:lang="de">Status</value>
         <value xml:lang="en">Status</value>
         <value xml:lang="es">Estado</value>
@@ -5201,6 +5278,7 @@
     </property>
     <property key="CommonSubTotal">
         <value xml:lang="ar">المجموع الأولي</value>
+        <value xml:lang="cs">Mezisoučet</value>
         <value xml:lang="de">Zwischensumme</value>
         <value xml:lang="en">Sub Total</value>
         <value xml:lang="es">Subtotal</value>
@@ -5329,6 +5407,7 @@
     </property>
     <property key="CommonTellAFriend">
         <value xml:lang="ar">أخبر صديق</value>
+        <value xml:lang="cs">Informovat přítele</value>
         <value xml:lang="de">Diese Seite empfehlen</value>
         <value xml:lang="en">Tell-A-Friend</value>
         <value xml:lang="es">Contar a un amigo</value>
@@ -5520,6 +5599,7 @@
     </property>
     <property key="CommonTitle">
         <value xml:lang="ar">عنوان</value>
+        <value xml:lang="cs">Titul</value>
         <value xml:lang="de">Titel</value>
         <value xml:lang="en">Title</value>
         <value xml:lang="es">Título</value>
@@ -5591,6 +5671,7 @@
     </property>
     <property key="CommonTo">
         <value xml:lang="ar">إلى</value>
+        <value xml:lang="cs">k</value>
         <value xml:lang="de">Zu</value>
         <value xml:lang="en">To</value>
         <value xml:lang="es">Hasta</value>
@@ -5800,6 +5881,7 @@
     </property>
     <property key="CommonUpdate">
         <value xml:lang="ar">تحديث</value>
+        <value xml:lang="cs">Atualizovat</value>
         <value xml:lang="de">Aktualisierung</value>
         <value xml:lang="en">Update</value>
         <value xml:lang="es">Actualizar</value>
@@ -5829,6 +5911,7 @@
     </property>
     <property key="CommonUpdated">
         <value xml:lang="ar">محدثة</value>
+        <value xml:lang="cs">Aktualizováno</value>
         <value xml:lang="de">Aktualisiert</value>
         <value xml:lang="en">Updated</value>
         <value xml:lang="es">Actualizado</value>
@@ -5873,6 +5956,7 @@
     </property>
     <property key="CommonUsed">
         <value xml:lang="ar">مستعمل</value>
+        <value xml:lang="cs">Použito</value>
         <value xml:lang="de">Benutzt</value>
         <value xml:lang="en">Used</value>
         <value xml:lang="es">Usado</value>
@@ -5888,6 +5972,7 @@
     </property>
     <property key="CommonUsedAs">
         <value xml:lang="ar">مستعمل ك</value>
+        <value xml:lang="cs">Použito jako</value>
         <value xml:lang="de">Benutzt als</value>
         <value xml:lang="en">Used as</value>
         <value xml:lang="es">Usado como</value>
@@ -5925,6 +6010,7 @@
     </property>
     <property key="CommonUsername">
         <value xml:lang="ar">اسم المستخدم</value>
+        <value xml:lang="cs">Uživatelské jméno</value>
         <value xml:lang="de">Nutzername</value>
         <value xml:lang="en">Username</value>
         <value xml:lang="es">Nombre de usuario</value>
@@ -6011,6 +6097,7 @@
     </property>
     <property key="CommonView">
         <value xml:lang="ar">مشهد</value>
+        <value xml:lang="cs">Náhled</value>
         <value xml:lang="de">Sichten</value>
         <value xml:lang="en">View</value>
         <value xml:lang="es">Ver</value>
@@ -6135,6 +6222,7 @@
     </property>
     <property key="CommonWelcome">
         <value xml:lang="ar">مرحبا</value>
+        <value xml:lang="cs">Vítáme Vás</value>
         <value xml:lang="de">Willkommen</value>
         <value xml:lang="en">Welcome</value>
         <value xml:lang="es">Bienvenido</value>
@@ -6150,6 +6238,7 @@
     </property>
     <property key="CommonWhere">
         <value xml:lang="ar">أين</value>
+        <value xml:lang="cs">Kde</value>
         <value xml:lang="de">Wo</value>
         <value xml:lang="en">Where</value>
         <value xml:lang="es">Dónde</value>
@@ -6248,6 +6337,7 @@
     </property>
     <property key="CommonYes">
         <value xml:lang="ar">نعم</value>
+        <value xml:lang="cs">Ano</value>
         <value xml:lang="de">Ja</value>
         <value xml:lang="en">Yes</value>
         <value xml:lang="es">Sí</value>
@@ -6263,6 +6353,7 @@
     </property>
     <property key="CommonYouremail">
         <value xml:lang="ar">بريدك الإلكتروني</value>
+        <value xml:lang="cs">Vaše E-mailová adresa</value>
         <value xml:lang="de">Ihre Email</value>
         <value xml:lang="en">Your email</value>
         <value xml:lang="es">Su e-mail</value>
@@ -7323,4 +7414,5 @@
         <value xml:lang="zh">中文</value>
     </property>
 </resource>
+
 
