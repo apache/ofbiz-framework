@@ -1086,6 +1086,36 @@
         <value xml:lang="th">รหัสประเภทของกลุ่ม</value>
         <value xml:lang="zh">分区组类型标识</value>
     </property>
+    <property key="SfaAcccountTeams">
+        <value xml:lang="en">Account and Account Teams</value>
+    </property>
+    <property key="SfaCompanyName">
+        <value xml:lang="en">OFBiz: SFA Manager</value>
+    </property>
+    <property key="SfaCompetitors">
+        <value xml:lang="en">Competitors &amp; Partners </value>
+    </property>
+    <property key="SfaDocuments">
+        <value xml:lang="en">Documents</value>
+    </property>
+    <property key="SfaEvents">
+        <value xml:lang="en">Events</value>
+    </property>
+    <property key="SfaForecasts">
+        <value xml:lang="en">Forecast</value>
+    </property>
+    <property key="SfaOpportunities">
+        <value xml:lang="en">Opportunities</value>
+    </property>
+    <property key="SfaLeads">
+        <value xml:lang="en">Leads</value>
+    </property>
+    <property key="SfaManagerApplication">
+        <value xml:lang="en">SFA Manager Application</value>
+    </property>
+    <property key="SfaManagerWelcome">
+        <value xml:lang="en">Welcome to the SFA Manager Application</value>
+    </property>
     <property key="Tracking">
         <value xml:lang="en">Tracking</value>
         <value xml:lang="es">Seguimiento</value>
