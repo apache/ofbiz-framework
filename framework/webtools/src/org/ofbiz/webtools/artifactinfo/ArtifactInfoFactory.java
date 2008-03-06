@@ -77,7 +77,7 @@ public class ArtifactInfoFactory {
 
     public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = FastMap.newInstance();
     
-    public static ArtifactInfoFactory makeArtifactInfoFactory(String delegatorName) throws GeneralException {
+    public static ArtifactInfoFactory getArtifactInfoFactory(String delegatorName) throws GeneralException {
         if (UtilValidate.isEmpty(delegatorName)) {
             delegatorName = "default";
         }
@@ -85,6 +85,7 @@ public class ArtifactInfoFactory {
         ArtifactInfoFactory aif = artifactInfoFactoryCache.get(delegatorName);
         if (aif == null) {
             aif = new ArtifactInfoFactory(delegatorName);
+            artifactInfoFactoryCache.put(delegatorName, aif);
         }
         return aif;
     }

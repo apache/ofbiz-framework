@@ -96,8 +96,14 @@ public class ServiceEcaCondition implements java.io.Serializable {
             buf.append(rhsValueName);
             
             if (moreDetail) {
-                if (UtilValidate.isNotEmpty(compareType)) buf.append(compareType);
-                if (UtilValidate.isNotEmpty(format)) buf.append(format);
+                if (UtilValidate.isNotEmpty(compareType)) {
+                    buf.append("-");
+                    buf.append(compareType);
+                }
+                if (UtilValidate.isNotEmpty(format)) {
+                    buf.append(";");
+                    buf.append(format);
+                }
             }
 
             buf.append("]");
