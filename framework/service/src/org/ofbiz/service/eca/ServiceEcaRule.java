@@ -85,6 +85,14 @@ public class ServiceEcaRule implements java.io.Serializable {
         return this.serviceName + ":" + this.eventName;
     }
     
+    public String getServiceName() {
+        return this.serviceName;
+    }
+    
+    public String getEventName() {
+        return this.eventName;
+    }
+    
     public List<ServiceEcaAction> getEcaActionList() {
         List<ServiceEcaAction> actionList = FastList.newInstance();
         for (Object actionOrSet: this.actionsAndSets) {

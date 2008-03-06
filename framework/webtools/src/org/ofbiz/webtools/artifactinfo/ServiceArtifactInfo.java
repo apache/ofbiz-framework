@@ -296,6 +296,9 @@ public class ServiceArtifactInfo {
         List<ServiceArtifactInfo> allServiceList = FastList.newInstance(); 
         List<ServiceEcaArtifactInfo> allServiceEcaList = FastList.newInstance();
         
+        // make sure that any prefix that might have been set on this is cleared
+        this.setDisplayPrefix("");
+        
         // put this service in the master list
         allDiagramEntitiesWithPrefixes.add(this.modelService.name);
         
@@ -304,7 +307,7 @@ public class ServiceArtifactInfo {
         if (callingServiceSet != null) {
             // set the prefix and add to the all list
             for (ServiceArtifactInfo callingService: callingServiceSet) {
-                callingService.setDisplayPrefix("Calling:");
+                callingService.setDisplayPrefix("Calling_");
                 allDiagramEntitiesWithPrefixes.add(callingService.getDisplayPrefixedName());
                 allServiceList.add(callingService);
             }
@@ -312,18 +315,29 @@ public class ServiceArtifactInfo {
         
         // all services this service calls
         Set<ServiceArtifactInfo> calledServiceSet = this.getServicesCalledByService();
-        
         for (ServiceArtifactInfo calledService: calledServiceSet) {
-            calledService.setDisplayPrefix("Called:");
+            calledService.setDisplayPrefix("Called_");
             allDiagramEntitiesWithPrefixes.add(calledService.getDisplayPrefixedName());
             allServiceList.add(calledService);
         }
+        
+        Map<String, Integer> displaySuffixNumByEcaName = FastMap.newInstance();
         
         // all SECAs and triggering services that call this service as an action
         Set<ServiceEcaArtifactInfo> callingServiceEcaSet = this.getServiceEcaRulesCallingService();
         if (callingServiceEcaSet != null) {
             for (ServiceEcaArtifactInfo callingServiceEca: callingServiceEcaSet) {
-                callingServiceEca.setDisplayPrefix("Triggering:");
+                callingServiceEca.setDisplayPrefix("Triggering_");
+                
+                Integer displaySuffix = displaySuffixNumByEcaName.get(callingServiceEca.getDisplayPrefixedName());
+                if (displaySuffix == null) {
+                    displaySuffix = 1;
+                } else {
+                    displaySuffix++;
+                }
+                displaySuffixNumByEcaName.put(callingServiceEca.getDisplayPrefixedName(), displaySuffix);
+                callingServiceEca.setDisplaySuffixNum(displaySuffix);
+                
                 allDiagramEntitiesWithPrefixes.add(callingServiceEca.getDisplayPrefixedName());
                 allServiceEcaList.add(callingServiceEca);
             }
@@ -331,9 +345,18 @@ public class ServiceArtifactInfo {
 
         // all SECAs and corresponding services triggered by this service
         Set<ServiceEcaArtifactInfo> calledServiceEcaSet = this.getServiceEcaRulesTriggeredByService();
-        
         for (ServiceEcaArtifactInfo calledServiceEca: calledServiceEcaSet) {
-            calledServiceEca.setDisplayPrefix("Called:");
+            calledServiceEca.setDisplayPrefix("Triggered_");
+            
+            Integer displaySuffix = displaySuffixNumByEcaName.get(calledServiceEca.getDisplayPrefixedName());
+            if (displaySuffix == null) {
+                displaySuffix = 1;
+            } else {
+                displaySuffix++;
+            }
+            displaySuffixNumByEcaName.put(calledServiceEca.getDisplayPrefixedName(), displaySuffix);
+            calledServiceEca.setDisplaySuffixNum(displaySuffix);
+            
             allDiagramEntitiesWithPrefixes.add(calledServiceEca.getDisplayPrefixedName());
             allServiceEcaList.add(calledServiceEca);
         }
@@ -353,7 +376,7 @@ public class ServiceArtifactInfo {
         
         // write this service description file
         Map<String, Object> thisServiceEoModelMap = createEoModelMap(callingServiceSet, calledServiceSet, callingServiceEcaSet, calledServiceEcaSet, useMoreDetailedNames);
-        UtilPlist.writePlistFile(thisServiceEoModelMap, eomodeldFullPath, this.getDisplayPrefixedName() + ".plist", true);
+        UtilPlist.writePlistFile(thisServiceEoModelMap, eomodeldFullPath, this.modelService.name + ".plist", true);
 
         // write service description files
         for (ServiceArtifactInfo callingService: callingServiceSet) {
