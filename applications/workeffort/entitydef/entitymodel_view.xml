@@ -189,6 +189,9 @@ under the License.
         <key-map field-name="roleTypeId"/>
         <key-map field-name="fromDate"/>
       </relation>
+      <relation type="one-nofk" rel-entity-name="WorkEffortType">
+        <key-map field-name="workEffortTypeId"/>
+      </relation>
       <relation type="one-nofk" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
