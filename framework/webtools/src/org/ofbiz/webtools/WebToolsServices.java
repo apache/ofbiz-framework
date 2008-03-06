@@ -1041,7 +1041,7 @@ public class WebToolsServices {
         }
         
         try {
-            ArtifactInfoFactory aif = ArtifactInfoFactory.makeArtifactInfoFactory("default");
+            ArtifactInfoFactory aif = ArtifactInfoFactory.getArtifactInfoFactory("default");
             ServiceArtifactInfo serviceInfo = aif.getServiceArtifactInfo(serviceName);
             serviceInfo.writeServiceCallGraphEoModel(eomodeldFullPath);
         } catch (GeneralException e) {

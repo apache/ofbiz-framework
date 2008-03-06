@@ -138,14 +138,12 @@ public class UtilJavaParse {
                 // find the service name
                 int openQuoteIndex = javaFile.indexOf("\"", openParenIndex);
                 int closeQuoteIndex = javaFile.indexOf("\"", openQuoteIndex+1);
-                if (openQuoteIndex - openParenIndex > 3 || openQuoteIndex < 0 || closeQuoteIndex < 0) {
+                if (openQuoteIndex - openParenIndex <= 3 && openQuoteIndex >= 0 && closeQuoteIndex >= 0) {
                     //more than two spaces/chars between quote and open paren... consider it something other than what we are looking for
-                    continue;
+                    String serviceName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
+                    //Debug.logInfo("In findServiceCallsInBlock found serviceName [" + serviceName + "]", module);
+                    serviceNameSet.add(serviceName);
                 }
-                String serviceName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
-                //Debug.logInfo("In findServiceCallsInBlock found serviceName [" + serviceName + "]", module);
-                
-                serviceNameSet.add(serviceName);
             }
 
             dispatcherIndex = javaFile.indexOf("dispatcher.", openParenIndex);
@@ -212,14 +210,12 @@ public class UtilJavaParse {
                 // find the entity name
                 int openQuoteIndex = javaFile.indexOf("\"", openParenIndex);
                 int closeQuoteIndex = javaFile.indexOf("\"", openQuoteIndex+1);
-                if (openQuoteIndex - openParenIndex > 3 || openQuoteIndex < 0 || closeQuoteIndex < 0) {
+                if (openQuoteIndex - openParenIndex <= 3 && openQuoteIndex >= 0 && closeQuoteIndex >= 0) {
                     //more than two spaces/chars between quote and open paren... consider it something other than what we are looking for
-                    continue;
+                    String entityName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
+                    //Debug.logInfo("In findServiceCallsInBlock found valid entityName [" + entityName + "]", module);
+                    entityNameSet.add(entityName);
                 }
-                String entityName = javaFile.substring(openQuoteIndex+1, closeQuoteIndex).trim();
-                //Debug.logInfo("In findServiceCallsInBlock found valid entityName [" + entityName + "]", module);
-                
-                entityNameSet.add(entityName);
             }
             
             delegatorIndex = javaFile.indexOf("delegator.", openParenIndex);

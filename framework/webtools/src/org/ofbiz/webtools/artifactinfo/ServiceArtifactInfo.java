@@ -304,7 +304,7 @@ public class ServiceArtifactInfo {
         if (callingServiceSet != null) {
             // set the prefix and add to the all list
             for (ServiceArtifactInfo callingService: callingServiceSet) {
-                callingService.setDisplayPrefix("Calling_");
+                callingService.setDisplayPrefix("Calling:");
                 allDiagramEntitiesWithPrefixes.add(callingService.getDisplayPrefixedName());
                 allServiceList.add(callingService);
             }
@@ -314,7 +314,7 @@ public class ServiceArtifactInfo {
         Set<ServiceArtifactInfo> calledServiceSet = this.getServicesCalledByService();
         
         for (ServiceArtifactInfo calledService: calledServiceSet) {
-            calledService.setDisplayPrefix("Called_");
+            calledService.setDisplayPrefix("Called:");
             allDiagramEntitiesWithPrefixes.add(calledService.getDisplayPrefixedName());
             allServiceList.add(calledService);
         }
@@ -323,7 +323,7 @@ public class ServiceArtifactInfo {
         Set<ServiceEcaArtifactInfo> callingServiceEcaSet = this.getServiceEcaRulesCallingService();
         if (callingServiceEcaSet != null) {
             for (ServiceEcaArtifactInfo callingServiceEca: callingServiceEcaSet) {
-                callingServiceEca.setDisplayPrefix("Triggering_");
+                callingServiceEca.setDisplayPrefix("Triggering:");
                 allDiagramEntitiesWithPrefixes.add(callingServiceEca.getDisplayPrefixedName());
                 allServiceEcaList.add(callingServiceEca);
             }
@@ -333,7 +333,7 @@ public class ServiceArtifactInfo {
         Set<ServiceEcaArtifactInfo> calledServiceEcaSet = this.getServiceEcaRulesTriggeredByService();
         
         for (ServiceEcaArtifactInfo calledServiceEca: calledServiceEcaSet) {
-            calledServiceEca.setDisplayPrefix("Called_");
+            calledServiceEca.setDisplayPrefix("Called:");
             allDiagramEntitiesWithPrefixes.add(calledServiceEca.getDisplayPrefixedName());
             allServiceEcaList.add(calledServiceEca);
         }
