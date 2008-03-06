@@ -55,8 +55,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
@@ -859,12 +859,12 @@ public class WebToolsServices {
                 entitiesMap.put("className", "EOGenericRecord");
                 entitiesMap.put("name", entityName);
             }
-            UtilFormatOut.writePlistFile(topLevelMap, eomodeldFullPath, "index.eomodeld", true);
+            UtilPlist.writePlistFile(topLevelMap, eomodeldFullPath, "index.eomodeld", true);
             
             // write each <EntityName>.plist file
             for (String curEntityName: entityNames) {
                 ModelEntity modelEntity = reader.getModelEntity(curEntityName);
-                UtilFormatOut.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames, reader), eomodeldFullPath, curEntityName +".plist", true);
+                UtilPlist.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames, reader), eomodeldFullPath, curEntityName +".plist", true);
             }
             
             return ServiceUtil.returnSuccess("Exported eomodeld file for " + entityNames.size() + " entities to: " + eomodeldFullPath);

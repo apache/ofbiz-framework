@@ -29,6 +29,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelReader;
@@ -50,7 +51,7 @@ import org.xml.sax.SAXException;
  */
 public class ArtifactInfoFactory {
     
-    protected static Map<String, ArtifactInfoFactory> artifactInfoFactoryCache = FastMap.newInstance();
+    protected static UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = new UtilCache("ArtifactInfoFactory");
     
     protected String delegatorName;
     protected ModelReader entityModelReader;

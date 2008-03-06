@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.entity.model;
 
 import java.io.PrintWriter;
@@ -29,16 +29,15 @@ import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilTimer;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -46,6 +45,8 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Generic Entity - Entity model class
@@ -1398,7 +1399,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         if (entityPrefix == null) entityPrefix = "";
         if (helperName == null) helperName = "localderby";
         
-        UtilFormatOut.writePlistPropertyMap(this.createEoModelMap(entityPrefix, helperName, entityNameIncludeSet, entityModelReader), 0, writer, false);
+        UtilPlist.writePlistPropertyMap(this.createEoModelMap(entityPrefix, helperName, entityNameIncludeSet, entityModelReader), 0, writer, false);
     }
 
 

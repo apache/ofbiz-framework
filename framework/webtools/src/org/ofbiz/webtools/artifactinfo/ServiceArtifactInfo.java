@@ -19,6 +19,7 @@
 package org.ofbiz.webtools.artifactinfo;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
@@ -29,16 +30,20 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilJavaParse;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.callops.CallSimpleMethod;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.eca.ServiceEcaRule;
 import org.ofbiz.service.eca.ServiceEcaUtil;
+import org.ofbiz.service.group.GroupModel;
+import org.ofbiz.service.group.GroupServiceModel;
+import org.ofbiz.service.group.ServiceGroupReader;
 
 /**
  *
@@ -87,23 +92,44 @@ public class ServiceArtifactInfo {
             }
             
             Set<String> allEntityNameSet = simpleMethodToCall.getAllEntityNamesUsed();
-            for (String entityName: allEntityNameSet) {
-                if (entityName.contains("${")) {
-                    continue;
-                }
-                if (!aif.getEntityModelReader().getEntityNames().contains(entityName)) {
-                    Debug.logWarning("Entity [" + entityName + "] reference in service [" + this.modelService.name + "] does not exist!", module);
-                    continue;
-                }
-                
-                // the forward reference
-                this.entitiesUsedByThisService.add(aif.getEntityArtifactInfo(entityName));
-                // the reverse reference
-                UtilMisc.addToSetInMap(this, aif.allServiceInfosReferringToEntityName, entityName);
-                
-            }
+            populateEntitiesFromNameSet(allEntityNameSet);
         } else if ("java".equals(this.modelService.engineName)) {
-            // TODO: can't do anything about this :( ...YET! :)
+            String fullClassPathAndFile = UtilJavaParse.findRealPathAndFileForClass(this.modelService.location);
+            if (fullClassPathAndFile != null) {
+                String javaFile = null;
+                try {
+                    javaFile = FileUtil.readTextFile(fullClassPathAndFile, true).toString();
+                } catch (FileNotFoundException e) {
+                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
+                    return;
+                } catch (IOException e) {
+                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
+                    return;
+                }
+                
+                int methodBlockStart = UtilJavaParse.findServiceMethodBlockStart(this.modelService.invoke, javaFile);
+                int methodBlockEnd = UtilJavaParse.findEndOfBlock(methodBlockStart, javaFile);
+                Set<String> allEntityNameSet = UtilJavaParse.findEntityUseInBlock(methodBlockStart, methodBlockEnd, javaFile);
+                populateEntitiesFromNameSet(allEntityNameSet);
+            }
+        } else if ("group".equals(this.modelService.engineName)) {
+            // nothing to do, there won't be entities referred to in these
+        }
+    }
+    protected void populateEntitiesFromNameSet(Set<String> allEntityNameSet) throws GeneralException {
+        for (String entityName: allEntityNameSet) {
+            if (entityName.contains("${")) {
+                continue;
+            }
+            if (!aif.getEntityModelReader().getEntityNames().contains(entityName)) {
+                Debug.logWarning("Entity [" + entityName + "] reference in service [" + this.modelService.name + "] does not exist!", module);
+                continue;
+            }
+            
+            // the forward reference
+            this.entitiesUsedByThisService.add(aif.getEntityArtifactInfo(entityName));
+            // the reverse reference
+            UtilMisc.addToSetInMap(this, aif.allServiceInfosReferringToEntityName, entityName);
         }
     }
     
@@ -124,22 +150,59 @@ public class ServiceArtifactInfo {
             }
             
             Set<String> allServiceNameSet = simpleMethodToCall.getAllServiceNamesCalled();
-            for (String serviceName: allServiceNameSet) {
-                if (serviceName.contains("${")) {
-                    continue;
-                }
-                if (!aif.getDispatchContext().getAllServiceNames().contains(serviceName)) {
-                    Debug.logWarning("Service [" + serviceName + "] reference in service [" + this.modelService.name + "] does not exist!", module);
-                    continue;
+            populateServicesFromNameSet(allServiceNameSet);
+        } else if ("java".equals(this.modelService.engineName)) {
+            String fullClassPathAndFile = UtilJavaParse.findRealPathAndFileForClass(this.modelService.location);
+            if (fullClassPathAndFile != null) {
+                String javaFile = null;
+                try {
+                    javaFile = FileUtil.readTextFile(fullClassPathAndFile, true).toString();
+                } catch (FileNotFoundException e) {
+                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
+                    return;
+                } catch (IOException e) {
+                    Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
+                    return;
                 }
                 
-                // the forward reference
-                this.servicesCalledByThisService.add(aif.getServiceArtifactInfo(serviceName));
-                // the reverse reference
-                UtilMisc.addToSetInMap(this, aif.allServiceInfosReferringToServiceName, serviceName);
+                int methodBlockStart = UtilJavaParse.findServiceMethodBlockStart(this.modelService.invoke, javaFile);
+                int methodBlockEnd = UtilJavaParse.findEndOfBlock(methodBlockStart, javaFile);
+                Set<String> allServiceNameSet = UtilJavaParse.findServiceCallsInBlock(methodBlockStart, methodBlockEnd, javaFile);
+                
+                populateServicesFromNameSet(allServiceNameSet);
             }
-        } else if ("java".equals(this.modelService.engineName)) {
-            // TODO: can't do anything about this :( ...YET! :)
+        } else if ("group".equals(this.modelService.engineName)) {
+            Set<String> allServiceNameSet = FastSet.newInstance();
+            GroupModel groupModel = modelService.internalGroup;
+            if (groupModel == null) {
+                groupModel = ServiceGroupReader.getGroupModel(this.modelService.location);
+            }
+            
+            if (groupModel != null) {
+                List<GroupServiceModel> groupServiceModels = groupModel.getServices();
+                for (GroupServiceModel groupServiceModel: groupServiceModels) {
+                    allServiceNameSet.add(groupServiceModel.getName());
+                }
+            }
+            
+            populateServicesFromNameSet(allServiceNameSet);
+        }
+    }
+    
+    protected void populateServicesFromNameSet(Set<String> allServiceNameSet) throws GeneralException {
+        for (String serviceName: allServiceNameSet) {
+            if (serviceName.contains("${")) {
+                continue;
+            }
+            if (!aif.getDispatchContext().getAllServiceNames().contains(serviceName)) {
+                Debug.logWarning("Service [" + serviceName + "] reference in service [" + this.modelService.name + "] does not exist!", module);
+                continue;
+            }
+            
+            // the forward reference
+            this.servicesCalledByThisService.add(aif.getServiceArtifactInfo(serviceName));
+            // the reverse reference
+            UtilMisc.addToSetInMap(this, aif.allServiceInfosReferringToServiceName, serviceName);
         }
     }
     
@@ -286,20 +349,20 @@ public class ServiceArtifactInfo {
             entitiesMap.put("className", "EOGenericRecord");
             entitiesMap.put("name", entityName);
         }
-        UtilFormatOut.writePlistFile(indexEoModelMap, eomodeldFullPath, "index.eomodeld", true);
+        UtilPlist.writePlistFile(indexEoModelMap, eomodeldFullPath, "index.eomodeld", true);
         
         // write this service description file
         Map<String, Object> thisServiceEoModelMap = createEoModelMap(callingServiceSet, calledServiceSet, callingServiceEcaSet, calledServiceEcaSet, useMoreDetailedNames);
-        UtilFormatOut.writePlistFile(thisServiceEoModelMap, eomodeldFullPath, this.getDisplayPrefixedName() + ".plist", true);
+        UtilPlist.writePlistFile(thisServiceEoModelMap, eomodeldFullPath, this.getDisplayPrefixedName() + ".plist", true);
 
         // write service description files
         for (ServiceArtifactInfo callingService: callingServiceSet) {
             Map<String, Object> serviceEoModelMap = callingService.createEoModelMap(null, UtilMisc.toSet(this), null, null, useMoreDetailedNames);
-            UtilFormatOut.writePlistFile(serviceEoModelMap, eomodeldFullPath, callingService.getDisplayPrefixedName() + ".plist", true);
+            UtilPlist.writePlistFile(serviceEoModelMap, eomodeldFullPath, callingService.getDisplayPrefixedName() + ".plist", true);
         }
         for (ServiceArtifactInfo calledService: calledServiceSet) {
             Map<String, Object> serviceEoModelMap = calledService.createEoModelMap(UtilMisc.toSet(this), null, null, null, useMoreDetailedNames);
-            UtilFormatOut.writePlistFile(serviceEoModelMap, eomodeldFullPath, calledService.getDisplayPrefixedName() + ".plist", true);
+            UtilPlist.writePlistFile(serviceEoModelMap, eomodeldFullPath, calledService.getDisplayPrefixedName() + ".plist", true);
         }
         
         // write SECA description files
@@ -313,7 +376,7 @@ public class ServiceArtifactInfo {
                 ecaCallingServiceSet.add(this);
                 
                 Map<String, Object> serviceEcaEoModelMap = callingServiceEca.createEoModelMap(ecaCallingServiceSet, useMoreDetailedNames);
-                UtilFormatOut.writePlistFile(serviceEcaEoModelMap, eomodeldFullPath, callingServiceEca.getDisplayPrefixedName() + ".plist", true);
+                UtilPlist.writePlistFile(serviceEcaEoModelMap, eomodeldFullPath, callingServiceEca.getDisplayPrefixedName() + ".plist", true);
             }
         }
         for (ServiceEcaArtifactInfo calledServiceEca: calledServiceEcaSet) {
@@ -325,7 +388,7 @@ public class ServiceArtifactInfo {
             ecaCalledServiceSet.add(this);
             
             Map<String, Object> serviceEcaEoModelMap = calledServiceEca.createEoModelMap(ecaCalledServiceSet, useMoreDetailedNames);
-            UtilFormatOut.writePlistFile(serviceEcaEoModelMap, eomodeldFullPath, calledServiceEca.getDisplayPrefixedName() + ".plist", true);
+            UtilPlist.writePlistFile(serviceEcaEoModelMap, eomodeldFullPath, calledServiceEca.getDisplayPrefixedName() + ".plist", true);
         }
     }
 
