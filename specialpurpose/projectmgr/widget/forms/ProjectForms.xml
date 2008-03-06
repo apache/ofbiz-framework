@@ -161,7 +161,7 @@
         <actions>
             <entity-and entity-name="WorkEffort">
                 <field-map field-name="workEffortParentId" env-name="projectId"/>
-                <field-map field-name="workEffortTypeId" value="PROJECT"></field-map>
+                <field-map field-name="workEffortTypeId" value="PROJECT"/>
             </entity-and>
         </actions>
         <field name="projectId"><hidden/></field>
