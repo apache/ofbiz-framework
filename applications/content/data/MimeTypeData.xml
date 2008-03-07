@@ -98,6 +98,7 @@ under the License.
     <!-- video mime types -->
     <MimeType mimeTypeId="video/avi" description="AVI Video"/>
     <MimeType mimeTypeId="video/mpeg" description="MPEG/MPG Video"/>
+    <MimeType mimeTypeId="video/mp4" description="MPEG-4 (H.264) Video"/>
     <MimeType mimeTypeId="video/quicktime" description="Quicktime Video"/>
     <MimeType mimeTypeId="video/x-ms-asf" description="ASF Video"/>
     <MimeType mimeTypeId="video/x-flv" description="Flash Streaming Video"/>
@@ -118,6 +119,8 @@ under the License.
     <FileExtension fileExtensionId="tiff" mimeTypeId="image/tiff"/>
     <FileExtension fileExtensionId="gif" mimeTypeId="image/gif"/>
     <FileExtension fileExtensionId="png" mimeTypeId="image/png"/>
+    <FileExtension fileExtensionId="mp4" mimeTypeId="video/mp4"/>
+    <FileExtension fileExtensionId="m4v" mimeTypeId="video/mp4"/>
     <FileExtension fileExtensionId="mpg" mimeTypeId="video/mpeg"/>
     <FileExtension fileExtensionId="mpeg" mimeTypeId="video/mpeg"/>
     <FileExtension fileExtensionId="mov" mimeTypeId="video/quicktime"/>
