@@ -65,7 +65,10 @@ public class DataEvents {
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String userAgent = request.getHeader("User-Agent");
-        String contentId = request.getParameter("contentId");
+
+        Map httpParams = UtilHttp.getParameterMap(request);
+        String contentId = (String) httpParams.get("contentId");
+        //String contentId = request.getParameter("contentId");
         if (UtilValidate.isEmpty(contentId)) {
             String errorMsg = "Required parameter contentId not found!";
             Debug.logError(errorMsg, module);
