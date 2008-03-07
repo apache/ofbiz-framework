@@ -742,7 +742,7 @@ under the License.
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
                         <container style="h3">
-                            <label text="${uiLabelMap.ProjectMgrSubProjectList}"/>
+                            <label text="${uiLabelMap.ProjectMgrSubProjects}"/>
                         </container>
                     </container>
                     <container style="screenlet-body">
@@ -770,7 +770,7 @@ under the License.
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
                         <container style="h3">
-                            <label text="${uiLabelMap.ProjectMgrPhaseList}"/>
+                            <label text="${uiLabelMap.ProjectMgrPhases}"/>
                         </container>
                     </container>
                     <container style="screenlet-body">
@@ -798,7 +798,7 @@ under the License.
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
                         <container style="h3">
-                            <label text="${uiLabelMap.ProjectMgrTaskList}"/>
+                            <label text="${uiLabelMap.ProjectMgrTasks}"/>
                         </container>
                     </container>
                     <container style="screenlet-body">
@@ -826,7 +826,7 @@ under the License.
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
                         <container style="h3">
-                            <label text="${uiLabelMap.ProjectMgrProjectTeam}"/>
+                            <label text="${uiLabelMap.ProjectMgrResources}"/>
                         </container>
                     </container>
                     <container style="screenlet-body">
