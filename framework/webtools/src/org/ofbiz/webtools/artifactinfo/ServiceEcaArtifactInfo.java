@@ -85,8 +85,9 @@ public class ServiceEcaArtifactInfo {
         return aif.allServiceInfosReferringToServiceEcaRule.get(this.serviceEcaRule);
     }
 
-    public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> relatedServiceSet, boolean useMoreDetailedNames) {
-        if (relatedServiceSet == null) relatedServiceSet = FastSet.newInstance();
+    public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> triggeringServiceSet, Set<ServiceArtifactInfo> triggeredServiceSet, boolean useMoreDetailedNames) {
+        if (triggeringServiceSet == null) triggeringServiceSet = FastSet.newInstance();
+        if (triggeredServiceSet == null) triggeredServiceSet = FastSet.newInstance();
         Map<String, Object> topLevelMap = FastMap.newInstance();
 
         topLevelMap.put("name", this.getDisplayPrefixedName());
@@ -129,19 +130,23 @@ public class ServiceEcaArtifactInfo {
         // relationships
         List<Map<String, Object>> relationshipsMapList = FastList.newInstance();
         
-        for (ServiceArtifactInfo sai: relatedServiceSet) {
+        for (ServiceArtifactInfo sai: triggeringServiceSet) {
             Map<String, Object> relationshipMap = FastMap.newInstance();
             relationshipsMapList.add(relationshipMap);
             
             relationshipMap.put("name", sai.getDisplayPrefixedName());
             relationshipMap.put("destination", sai.getDisplayPrefixedName());
+            relationshipMap.put("isToMany", "N");
+            relationshipMap.put("isMandatory", "Y");
+        }
+        for (ServiceArtifactInfo sai: triggeredServiceSet) {
+            Map<String, Object> relationshipMap = FastMap.newInstance();
+            relationshipsMapList.add(relationshipMap);
             
-            // not sure if we can use these, or need them, for this type of diagram
-            //relationshipMap.put("isToMany", "N");
-            //relationshipMap.put("joinSemantic", "EOInnerJoin");
-            //relationshipMap.put("joins", joinsMapList);
-            //joinsMap.put("sourceAttribute", keyMap.getFieldName());
-            //joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
+            relationshipMap.put("name", sai.getDisplayPrefixedName());
+            relationshipMap.put("destination", sai.getDisplayPrefixedName());
+            relationshipMap.put("isToMany", "Y");
+            relationshipMap.put("isMandatory", "Y");
         }
         
         if (relationshipsMapList.size() > 0) {
