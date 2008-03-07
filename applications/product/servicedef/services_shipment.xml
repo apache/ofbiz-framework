@@ -632,6 +632,7 @@ under the License.
         <attribute name="serviceConfigProps" type="String" mode="IN" optional="true"/>
         <attribute name="initialEstimateAmt" type="Double" mode="IN" optional="true"/>
         <attribute name="shippingContactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="shippingOriginContactMechId" type="String" mode="IN" optional="true"/>
         <attribute name="shippingPostalCode" type="String" mode="IN" optional="true"/>
         <attribute name="shippingCountryCode" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentMethodTypeId" type="String" mode="IN" optional="false"/>
