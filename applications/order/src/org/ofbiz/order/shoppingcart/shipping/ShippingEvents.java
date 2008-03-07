@@ -27,10 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -38,7 +42,13 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.base.util.UtilMisc;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ShippingEvents - Events used for processing shipping fees
@@ -87,7 +97,7 @@ public class ShippingEvents {
         String carrierPartyId = cart.getCarrierPartyId(groupNo);
 
         return getShipGroupEstimate(dispatcher, delegator, cart.getOrderType(), shipmentMethodTypeId, carrierPartyId, null,
-                cart.getShippingContactMechId(groupNo), cart.getProductStoreId(), cart.getShippableItemInfo(groupNo),
+                cart.getShippingContactMechId(groupNo), cart.getProductStoreId(), cart.getSupplierPartyId(groupNo), cart.getShippableItemInfo(groupNo),
                 cart.getShippableWeight(groupNo), cart.getShippableQuantity(groupNo), cart.getShippableTotal(groupNo), cart.getPartyId());
     }
 
@@ -103,6 +113,7 @@ public class ShippingEvents {
         String shipmentMethodTypeId = shipGroup.getString("shipmentMethodTypeId");
         String carrierRoleTypeId = shipGroup.getString("carrierRoleTypeId");
         String carrierPartyId = shipGroup.getString("carrierPartyId");
+        String supplierPartyId = shipGroup.getString("supplierPartyId");
 
         GenericValue shipAddr = orh.getShippingAddress(shipGroupSeqId);
         if (shipAddr == null) {
@@ -116,13 +127,23 @@ public class ShippingEvents {
              partyId = partyObject.getString("partyId");
         }
         return getShipGroupEstimate(dispatcher, delegator, orh.getOrderTypeId(), shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId,
-                contactMechId, orh.getProductStoreId(), orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeight(shipGroupSeqId).doubleValue(),
+                contactMechId, orh.getProductStoreId(), supplierPartyId, orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeight(shipGroupSeqId).doubleValue(),
                 orh.getShippableQuantity(shipGroupSeqId).doubleValue(), orh.getShippableTotal(shipGroupSeqId).doubleValue(), partyId);
+    }
+
+    // version with no support for using the supplier's address as the origin
+    public static Map getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, String orderTypeId,
+            String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
+            String productStoreId, List itemInfo, double shippableWeight, double shippableQuantity,
+            double shippableTotal, String partyId) {
+        return getShipGroupEstimate(dispatcher, delegator, orderTypeId, shipmentMethodTypeId, carrierPartyId,
+                carrierRoleTypeId, shippingContactMechId, productStoreId, null, itemInfo,
+                shippableWeight, shippableQuantity, shippableTotal, partyId);
     }
 
     public static Map getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, String orderTypeId,
             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
-            String productStoreId, List itemInfo, double shippableWeight, double shippableQuantity,
+            String productStoreId, String supplierPartyId, List itemInfo, double shippableWeight, double shippableQuantity,
             double shippableTotal, String partyId) {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
         List errorMessageList = new ArrayList();
@@ -146,6 +167,20 @@ public class ShippingEvents {
 //            errorMessageList.add("Please Select Your Shipping Address.");
 //            return ServiceUtil.returnError(errorMessageList);
 //        }
+
+        // if as supplier is associated, then we have a drop shipment and should use the origin shipment address of it
+        String shippingOriginContactMechId = null;
+        if (supplierPartyId != null) {
+            try {
+                GenericValue originAddress = getShippingOriginContactMech(delegator, supplierPartyId);
+                if (originAddress == null) {
+                    return ServiceUtil.returnError("Cannot find the origin shipping address (SHIP_ORIG_LOCATION) for the supplier with ID ["+supplierPartyId+"].  Will not be able to calculate drop shipment estimate.");
+                }
+                shippingOriginContactMechId = originAddress.getString("contactMechId");
+            } catch (GeneralException e) {
+                return ServiceUtil.returnError(standardMessage);
+            }
+        }
 
         // no shippable items; we won't change any shipping at all
         if (shippableQuantity == 0) {
@@ -178,6 +213,7 @@ public class ShippingEvents {
         serviceFields.put("carrierPartyId", carrierPartyId);
         serviceFields.put("shipmentMethodTypeId", shipmentMethodTypeId);
         serviceFields.put("shippingContactMechId", shippingContactMechId);
+        serviceFields.put("shippingOriginContactMechId", shippingOriginContactMechId);
         serviceFields.put("partyId", partyId);
 
         // call the external shipping service
@@ -276,6 +312,30 @@ public class ShippingEvents {
             }
         }
         return externalShipAmt;
+    }
+
+    /**
+     * Attempts to get the supplier's shipping origin address and failing that, the general location.
+     */
+    public static GenericValue getShippingOriginContactMech(GenericDelegator delegator, String supplierPartyId) throws GeneralException {
+        List conditions = UtilMisc.toList(
+                new EntityExpr("partyId", EntityOperator.EQUALS, supplierPartyId),
+                new EntityExpr("contactMechTypeId", EntityOperator.EQUALS, "POSTAL_ADDRESS"),
+                new EntityExpr("contactMechPurposeTypeId", EntityOperator.IN, UtilMisc.toList("SHIP_ORIG_LOCATION", "GENERAL_LOCATION")),
+                EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"),
+                EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate")
+        );
+        List<GenericValue> addresses = delegator.findByAnd("PartyContactWithPurpose", conditions, UtilMisc.toList("contactMechPurposeTypeId DESC"));
+
+        GenericValue generalAddress = null;
+        GenericValue originAddress = null;
+        for (GenericValue address : addresses) {
+            if ("GENERAL_LOCATION".equals(address.get("contactMechPurposeTypeId")))
+                generalAddress = address;
+            else if ("SHIP_ORIG_LOCATION".equals(address.get("contactMechPurposeTypeId")))
+                originAddress = address;
+        }
+        return originAddress != null ? originAddress : generalAddress;
     }
 }
 

@@ -1483,6 +1483,7 @@ public class UpsServices {
         GenericDelegator delegator = dctx.getDelegator();
         // prepare the data
         String shippingContactMechId = (String) context.get("shippingContactMechId");
+        String shippingOriginContactMechId = (String) context.get("shippingOriginContactMechId");
         // obtain the ship-to address
         GenericValue shipToAddress = null;
         if (shippingContactMechId != null) {
@@ -1494,6 +1495,17 @@ public class UpsServices {
         }
         if (shipToAddress == null) {
             return ServiceUtil.returnError("Unable to determine ship-to address");
+        }
+
+        // obtain the ship from address if provided
+        GenericValue shipFromAddress = null;
+        if (shippingOriginContactMechId != null) {
+            try {
+                shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingOriginContactMechId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError("Unable to determine ship-from address for drop shipping");
+            }
         }
 
         GenericValue destCountryGeo = null;
@@ -1518,6 +1530,7 @@ public class UpsServices {
         cxt.put("shippableQuantity", context.get("shippableQuantity"));
         cxt.put("shippableWeight", context.get("shippableWeight"));
         cxt.put("isResidentialAddress", context.get("isResidentialAddress"));
+        cxt.put("shipFromAddress", shipFromAddress);
         try{
             return dctx.getDispatcher().runSync("upsRateEstimateByPostalCode", cxt);
             
@@ -1914,28 +1927,31 @@ public class UpsServices {
         
         // grab the pickup type; if none is defined we will assume daily pickup
         String pickupType = UtilProperties.getPropertyValue(serviceConfigProps, "shipment.ups.shipper.pickup.type", "01");
-        
-        // locate the ship-from address based on the product store's default facility
-        GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
-        
-        GenericValue shipFromAddress = null;
-        if (productStore != null && productStore.get("inventoryFacilityId") != null) {
-            List shipLocs = null;
-            try {
-                shipLocs = delegator.findByAnd("FacilityContactMechPurpose", UtilMisc.toMap("facilityId",
-                        productStore.getString("inventoryFacilityId"), "contactMechPurposeTypeId",
-                        "SHIP_ORIG_LOCATION"), UtilMisc.toList("-fromDate"));
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            }
-            if (shipLocs != null) {
-                shipLocs = EntityUtil.filterByDate(shipLocs);
-                GenericValue purp =  EntityUtil.getFirst(shipLocs);
-                if (purp != null) {
-                    try {
-                        shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", purp.getString("contactMechId")));
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, module);
+
+        // if we're drop shipping from a supplier, then the address is given to us
+        GenericValue shipFromAddress = (GenericValue) context.get("shipFromAddress");
+        if (shipFromAddress == null) {
+
+            // locate the ship-from address based on the product store's default facility
+            GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+            if (productStore != null && productStore.get("inventoryFacilityId") != null) {
+                List shipLocs = null;
+                try {
+                    shipLocs = delegator.findByAnd("FacilityContactMechPurpose", UtilMisc.toMap("facilityId",
+                            productStore.getString("inventoryFacilityId"), "contactMechPurposeTypeId",
+                            "SHIP_ORIG_LOCATION"), UtilMisc.toList("-fromDate"));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                if (shipLocs != null) {
+                    shipLocs = EntityUtil.filterByDate(shipLocs);
+                    GenericValue purp =  EntityUtil.getFirst(shipLocs);
+                    if (purp != null) {
+                        try {
+                            shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", purp.getString("contactMechId")));
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                        }
                     }
                 }
             }
@@ -1943,19 +1959,6 @@ public class UpsServices {
         if (shipFromAddress == null) {
             return ServiceUtil.returnError("Unable to determine ship-from address");
         }
-
-        // obtain the ship-to address
-        /*GenericValue shipToAddress = null;
-        if (shippingContactMechId != null) {
-            try {
-                shipToAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId));
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            }
-        }
-        if (shipToAddress == null) {
-            return ServiceUtil.returnError("Unable to determine ship-to address");
-        }*/
 
         // locate the service code
         String serviceCode = null;

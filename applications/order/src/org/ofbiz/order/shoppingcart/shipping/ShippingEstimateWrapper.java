@@ -50,6 +50,7 @@ public class ShippingEstimateWrapper {
     protected double shippableWeight = 0;
     protected double shippableTotal = 0;
     protected String partyId = null;
+    protected String supplierPartyId = null;
 
     public static ShippingEstimateWrapper getWrapper(LocalDispatcher dispatcher, ShoppingCart cart, int shipGroup) {
         return new ShippingEstimateWrapper(dispatcher, cart, shipGroup);
@@ -68,6 +69,7 @@ public class ShippingEstimateWrapper {
         this.shippingAddress = cart.getShippingAddress(shipGroup);
         this.productStoreId = cart.getProductStoreId();
         this.partyId = cart.getPartyId();
+        this.supplierPartyId = cart.getSupplierPartyId(shipGroup);
 
         this.loadShippingMethods();
         this.loadEstimates();
@@ -95,7 +97,7 @@ public class ShippingEstimateWrapper {
 
                 Map estimateMap = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, "SALES_ORDER",
                         shippingMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingCmId, productStoreId,
-                        shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId);
+                        supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId);
 
                 if (!ServiceUtil.isError(estimateMap)) {
                     Double shippingTotal = (Double) estimateMap.get("shippingTotal");
