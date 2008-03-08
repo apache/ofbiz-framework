@@ -157,7 +157,7 @@ public class CommunicationEventServices {
         List errorMessages = new ArrayList();
         String errorCallingUpdateContactListPartyService = UtilProperties.getMessage(resource, "commeventservices.errorCallingUpdateContactListPartyService", locale);
         String errorCallingSendMailService = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendMailService", locale);
-        String errorInSendEmailToContactListService = UtilProperties.getMessage(resource, "commeventservices.errorForEmailAddress", locale);
+        String errorInSendEmailToContactListService = UtilProperties.getMessage(resource, "commeventservices.errorInSendEmailToContactListService", locale);
         String skippingInvalidEmailAddress = UtilProperties.getMessage(resource, "commeventservices.skippingInvalidEmailAddress", locale);
         
         String contactListId = (String) context.get("contactListId");
