@@ -19,7 +19,8 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AgreementItemType.description.AGREEMENT_COMMISSION">
-        <value xml:lang="en">Section</value>
+        <value xml:lang="en">Commission rate</value>
+        <value xml:lang="fr">Taux de commission</value>
         <value xml:lang="it">Provvigione</value>
         <value xml:lang="ro">Provizion</value>
         <value xml:lang="ru">Секция</value>
@@ -28,7 +29,7 @@
     </property>
     <property key="AgreementItemType.description.AGREEMENT_EXHIBIT">
         <value xml:lang="en">Exhibit</value>
-        <value xml:lang="fr">Publicité</value>
+        <value xml:lang="fr">Exposition</value>
         <value xml:lang="it">Esposizione</value>
         <value xml:lang="ro">Expozitie</value>
         <value xml:lang="ru">Образец</value>
@@ -70,7 +71,7 @@
     </property>
     <property key="AgreementType.description.EMPLOYMENT_AGREEMENT">
         <value xml:lang="en">Employment</value>
-        <value xml:lang="fr">Emploi</value>
+        <value xml:lang="fr">Usage</value>
         <value xml:lang="it">Impiego</value>
         <value xml:lang="ro">Sarcina</value>
         <value xml:lang="ru">Трудовой</value>
@@ -106,7 +107,7 @@
     </property>
     <property key="AgreementType.description.SALES_AGREEMENT">
         <value xml:lang="en">Sales</value>
-        <value xml:lang="fr">Ventes</value>
+        <value xml:lang="fr">Vente</value>
         <value xml:lang="it">Vendite</value>
         <value xml:lang="ro">Vanzari</value>
         <value xml:lang="ru">Продажи</value>
