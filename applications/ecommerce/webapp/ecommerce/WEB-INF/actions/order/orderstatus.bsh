@@ -41,10 +41,10 @@ if (userLogin != null) partyId = userLogin.getString("partyId"); */
 
 partyId = context.get("partyId");
 if (userLogin != null) {
-	if(partyId == null) {
-		partyId = userLogin.get("partyId");
-	}
-}	
+    if(partyId == null) {
+        partyId = userLogin.get("partyId");
+    }
+}    
 
 
 // can anybody view an anonymous order?  this is set in the screen widget and should only be turned on by an email confirmation screen 
