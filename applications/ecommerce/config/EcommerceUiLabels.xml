@@ -1194,7 +1194,7 @@
     <property key="EcommerceCartSummary">
         <value xml:lang="cs">Obsah košíku</value>
         <value xml:lang="en">Cart Summary</value>
-        <value xml:lang="fr">Résumé du panier</value>
+        <value xml:lang="fr">Contenu du panier</value>
         <value xml:lang="en_GB">Basket Summary</value>
         <value xml:lang="hi_IN">टोकरी संक्षेप</value>
         <value xml:lang="ja">買い物かご状態</value>
