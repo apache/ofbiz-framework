@@ -481,6 +481,17 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         if (maxFiles < 1) {
             maxFiles = 250;
         }
+
+        return getDataResourceContentUploadPath(initialPath, maxFiles);
+    }
+
+    /**
+     * Handles creating sub-directories for file storage; using a max number of files per directory
+     * @param initialPath the top level location where all files should be stored
+     * @param maxFiles the max number of files to place in a directory
+     * @return the absolute path to the directory where the file should be placed
+     */
+    public static String getDataResourceContentUploadPath(String initialPath, double maxFiles) {
         String ofbizHome = System.getProperty("ofbiz.home");
 
         if (!initialPath.startsWith("/")) {
