@@ -476,8 +476,8 @@ public class ModelReader implements Serializable {
         }
     }
 
-    /** Creates a Collection with the entityName of each Entity defined in the specified XML Entity Descriptor file.
-     * @return A Collection of entityName Strings
+    /** Creates a Set with the entityName of each Entity defined in the specified XML Entity Descriptor file.
+     * @return A Set of entityName Strings
      */
     public Set<String> getEntityNames() throws GenericEntityException {
         Map<String, ModelEntity> ec = getEntityCache();
