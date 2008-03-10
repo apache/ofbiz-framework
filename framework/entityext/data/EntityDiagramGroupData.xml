@@ -152,7 +152,7 @@ under the License.
     <EntityGroup entityGroupId="6320" entityGroupName="Detail Product: Store"/>
     <EntityGroupEntry entityGroupId="6320" entityOrPackage="org.ofbiz.product.store" applEnumId="ESIA_INCLUDE"/>
     <EntityGroup entityGroupId="6330" entityGroupName="Detail Product: Config"/>
-    <EntityGroupEntry entityGroupId="6330" entityOrPackage="org.ofbiz.product.store" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6330" entityOrPackage="org.ofbiz.product.config" applEnumId="ESIA_INCLUDE"/>
     <EntityGroup entityGroupId="6340" entityGroupName="Detail Product: Price, Promo, and Cost"/>
     <EntityGroupEntry entityGroupId="6340" entityOrPackage="org.ofbiz.product.price" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6340" entityOrPackage="org.ofbiz.product.promo" applEnumId="ESIA_INCLUDE"/>
