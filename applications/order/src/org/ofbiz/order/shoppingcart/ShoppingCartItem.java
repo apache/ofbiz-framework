@@ -880,9 +880,13 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         // see if this fixed asset has a calendar, when no create one and attach to fixed asset
         // DEJ20050725 this isn't being used anywhere, commenting out for now and not assigning from the getRelatedOne: GenericValue techDataCalendar = null;
+        GenericValue techDataCalendar = null;
         try {
-            fixedAsset.getRelatedOne("TechDataCalendar");
+            techDataCalendar = fixedAsset.getRelatedOne("TechDataCalendar");
         } catch (GenericEntityException e) {
+            Debug.logWarning(e, module);
+        }
+        if(techDataCalendar == null) {            
             // no calendar ok, when not more that total capacity
             if (fixedAsset.getDouble("productionCapacity").doubleValue() >= quantity) {
                 String msg = UtilProperties.getMessage(resource, "item.availableOk", cart.getLocale());
@@ -906,13 +910,13 @@ public class ShoppingCartItem implements java.io.Serializable {
                 techDataCalendarExcDay = delegator.findByPrimaryKey("TechDataCalendarExcDay",
                         UtilMisc.toMap("calendarId", fixedAsset.get("calendarId"), "exceptionDateStartTime", exceptionDateStartTime));
             } catch (GenericEntityException e) {
-                if (fixedAsset.get("productionCapacity") != null) {
-                    //Debug.logInfo(" No exception day record found, available: " + fixedAsset.getString("productionCapacity") + " Requested now: " + quantity, module);
-                    if (fixedAsset.getDouble("productionCapacity").doubleValue() < quantity)
-                        resultMessage = resultMessage.concat(exceptionDateStartTime.toString().substring(0, 10) + ", ");
-                }
+                Debug.logWarning(e, module);
             }
-            if (techDataCalendarExcDay != null) {
+            if (techDataCalendarExcDay == null ) {
+                //Debug.logInfo(" No exception day record found, available: " + fixedAsset.getString("productionCapacity") + " Requested now: " + quantity, module);
+                if (fixedAsset.get("productionCapacity") != null && fixedAsset.getDouble("productionCapacity").doubleValue() < quantity)
+                    resultMessage = resultMessage.concat(exceptionDateStartTime.toString().substring(0, 10) + ", ");
+            } else {
                 // see if we can get the number of assets available
                 // first try techDataCalendarExcDay(exceptionCapacity) and then FixedAsset(productionCapacity)
                 // if still zero, do not check availability

@@ -476,7 +476,17 @@ public class ShoppingCart implements Serializable {
             
             if (sci.equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, features, attributes, prodCatalogId,selectedAmount, configWrapper, itemType, itemGroup, false)) {
                 double newQuantity = sci.getQuantity() + quantity;
-
+                if (sci.getItemType().equals("RENTAL_ORDER_ITEM")) {
+                    // check to see if the related fixed asset is available for the new quantity
+                    String isAvailable = ShoppingCartItem.checkAvailability(productId, newQuantity, reservStart, reservLength, this);
+                    if(isAvailable.compareTo("OK") != 0) {
+                        Map messageMap = UtilMisc.toMap("productId", productId, "availableMessage", isAvailable);
+                        String excMsg = UtilProperties.getMessage(ShoppingCartItem.resource, "item.product_not_available", messageMap, this.getLocale() );                
+                        Debug.logInfo(excMsg, module);
+                        throw new CartItemModifyException(isAvailable);
+                    }
+                }
+                
                 if (Debug.verboseOn()) Debug.logVerbose("Found a match for id " + productId + " on line " + i + ", updating quantity to " + newQuantity, module);
                 sci.setQuantity(newQuantity, dispatcher, this);
 
