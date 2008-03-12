@@ -45,7 +45,9 @@ under the License.
               <div class="tabletext"><b>${uiLabelMap.CommonStatus}</b></div>
             </td>
             <td width="10">&nbsp;</td>
-            <td width="15%"><b></b></td>
+            <td width="15%">
+              <div class="tabletext"><b>${uiLabelMap.OrderInvoices}</b></div>
+            </td>
           </tr>
           <#list orderHeaderList as orderHeader>
             <#assign status = orderHeader.getRelatedOneCache("StatusItem")>
@@ -66,7 +68,18 @@ under the License.
               <td>
                 <div class="tabletext">${status.get("description",locale)}</div>
               </td>
+              <#-- invoices -->
               <td width="10">&nbsp;</td>
+              <#assign invoices = delegator.findByAnd("OrderItemBilling", Static["org.ofbiz.base.util.UtilMisc"].toMap("orderId", "${orderHeader.orderId}"), Static["org.ofbiz.base.util.UtilMisc"].toList("invoiceId"))>
+              <#if invoices?has_content>
+                <td>
+                  <#list invoices as invoice>
+                     <a href="<@ofbizUrl>invoice.pdf?invoiceId=${invoice.invoiceId}</@ofbizUrl>" class="buttontext">(${invoice.invoiceId} PDF) </a>
+                 </#list>
+                </td>
+              <#else>
+                <td width="10">&nbsp;</td>
+              </#if>
               <td align="right">
                 <a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonView}</a>
               </td>

@@ -20,6 +20,9 @@ under the License.
 <#-- NOTE: this template is used for the orderstatus screen in ecommerce AND for order notification emails through the OrderNoticeEmail.ftl file -->
 <#-- the "urlPrefix" value will be prepended to URLs by the ofbizUrl transform if/when there is no "request" object in the context -->
 <#if baseEcommerceSecureUrl?exists><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
+<#if (orderHeader.externalId)?exists && (orderHeader.externalId)?has_content >
+  <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
+</#if>
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
@@ -33,7 +36,16 @@ under the License.
                     <a href="<@ofbizUrl>makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
                 </#if>
             </div>
-            <div class="boxhead">&nbsp;${uiLabelMap.OrderOrder}&nbsp;<#if orderHeader?has_content>${uiLabelMap.OrderNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;</#if>${uiLabelMap.CommonInformation}</div>
+            <div class="boxhead">
+                &nbsp;${uiLabelMap.OrderOrder}&nbsp;
+                <#if orderHeader?has_content>
+                    ${uiLabelMap.OrderNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;
+                </#if>
+                ${uiLabelMap.CommonInformation} 
+                <#if (orderHeader.orderId)?exists> 
+                    ${externalOrder?if_exists} [ <a href="<@ofbizUrl>order.pdf?orderId=${(orderHeader.orderId)?if_exists}</@ofbizUrl>" class="lightbuttontext" target="_blank">PDF</a> ]
+                </#if>
+            </div>
         </div>
         <div class="screenlet-body">
             <table width="100%" border="0" cellpadding="1">
