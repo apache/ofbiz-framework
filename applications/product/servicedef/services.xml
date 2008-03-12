@@ -551,7 +551,7 @@ under the License.
                 location="org/ofbiz/product/catalog/CatalogServices.xml" invoke="createProdCatalog" auth="true">
         <description>Create a ProdCatalog</description>
         <permission-service service-name="catalogPermissionCheck" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="catalogName" optional="false"/>
     </service>
