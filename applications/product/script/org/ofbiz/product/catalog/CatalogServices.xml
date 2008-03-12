@@ -23,8 +23,17 @@ under the License.
     <simple-method method-name="createProdCatalog" short-description="Create an ProdCatalog">
         <make-value value-name="newEntity" entity-name="ProdCatalog"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
+        <if-empty field-name="parameters.prodCatalogId">
+            <sequenced-id-to-env sequence-name="ProdCatalog" env-name="newEntity.prodCatalogId"/>
+        <else>
+            <set field="newEntity.prodCatalogId" from-field="parameters.prodCatalogId"/>
+            <check-id field-name="newEntity.prodCatalogId"/>
+            <check-errors/>
+        </else>
+        </if-empty>
+        <field-to-result field-name="newEntity.prodCatalogId" result-name="prodCatalogId"/> 
+               
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProdCatalog" short-description="Update an ProdCatalog">
