@@ -36,23 +36,23 @@
                 <sub-hyperlink target="taskView?workEffortId=${workEffortId}" link-style="buttontext" description="${bsh:workEffortId != void &amp;&amp; !workEffortId.equals(&quot;Totals&quot;) ? workEffortId : &quot;&quot;}"/>
             </drop-down>
         </field>
-        <field name="checkComplete"><check/></field>
-        <field name="rateTypeId">
+        <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><check/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultRateTypeId}">
                 <entity-options entity-name="RateType" description="${description}"/>
             </drop-down>
         </field>
-        <field name="0" parameter-name="hoursDay0" title="Sun"><text size="5"/></field>
-        <field name="1" parameter-name="hoursDay1" title="Mon"><text size="5"/></field>
-        <field name="2" parameter-name="hoursDay2" title="Tue"><text size="5"/></field>
-        <field name="3" parameter-name="hoursDay3" title="Wen"><text size="5"/></field>
-        <field name="4" parameter-name="hoursDay4" title="Thu"><text size="5"/></field>
-        <field name="5" parameter-name="hoursDay5" title="Fri"><text size="5"/></field>
-        <field name="6" parameter-name="hoursDay6" title="Sat"><text size="5"/></field>
-        <field name="total" title="Act Total"><display/></field>
-        <field name="plannedHours" title="Plan.Hrs"><display/></field>
-        <field name="update"><submit button-type="button"/></field>
-        <field name="_rowSubmit"><check all-checked="true"/></field>
+        <field name="0" parameter-name="hoursDay0" title="${uiLabelMap.ProjectMgrSun}"><text size="5"/></field>
+        <field name="1" parameter-name="hoursDay1" title="${uiLabelMap.ProjectMgrMon}"><text size="5"/></field>
+        <field name="2" parameter-name="hoursDay2" title="${uiLabelMap.ProjectMgrTue}"><text size="5"/></field>
+        <field name="3" parameter-name="hoursDay3" title="${uiLabelMap.ProjectMgrWen}"><text size="5"/></field>
+        <field name="4" parameter-name="hoursDay4" title="${uiLabelMap.ProjectMgrThu}"><text size="5"/></field>
+        <field name="5" parameter-name="hoursDay5" title="${uiLabelMap.ProjectMgrFri}"><text size="5"/></field>
+        <field name="6" parameter-name="hoursDay6" title="${uiLabelMap.ProjectMgrSat}"><text size="5"/></field>
+        <field name="total" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
+        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlanHours}"><display/></field>
+        <field name="updateButton"><submit button-type="button"/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.ProjectMgrRowSubmit}"><check all-checked="true"/></field>
     </form>
 
     <form name="ListTimeSheets" type="list" list-name="timesheets" paginate-target="MyTimesheet"
@@ -60,7 +60,7 @@
         <field name="timesheetId" title="${uiLabelMap.TimesheetTimesheetId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${timesheetId}" target="${my}Timesheet?timesheetId=${timesheetId}"/>
         </field>
-        <field name="weekNumber"><display/></field>
+        <field name="weekNumber" title="${uiLabelMap.ProjectMgrWeekNumber}"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
@@ -68,7 +68,7 @@
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
             <hyperlink target="${my}StatusToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
-                description="${bsh:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?&quot;To complete&quot;:&quot;&quot;}" also-hidden="false"/>
+                description="${bsh:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?&quot;${uiLabelMap.CommonStatustoComplete}&quot;:&quot;&quot;}" also-hidden="false"/>
         </field>
     </form>
     <form name="FindTimeSheet" target="FindTimeSheet" title="" type="single"
@@ -122,7 +122,7 @@
     <form name="AddMyWeeklyTimesheet" type="single" target="createMyWeeklyTimesheet" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
-        <field entry-name="dummy" name="requiredDate"><date-time type="date"/></field>
+        <field entry-name="dummy" name="requiredDate" title="${uiLabelMap.ProjectMgrSelectedDate}"><date-time type="date"/></field>
         <field name="addButton"><submit/></field>
     </form>
     
@@ -137,7 +137,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field entry-name="dummy" name="requiredDate"><date-time type="date"/></field>
+        <field entry-name="dummy" name="requiredDate" title="${uiLabelMap.ProjectMgrSelectedDate}"><date-time type="date"/></field>
         <field name="addButton"><submit/></field>
     </form>
     
@@ -254,16 +254,16 @@
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
             <hyperlink target="projectView?projectId=${projectId} " description="${projectName}"/>
         </field>
-        <field name="checkComplete"><display/></field>
-        <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
-        <field name="0" parameter-name="hoursDay0" title="Sun"><display/></field>
-        <field name="1" parameter-name="hoursDay1" title="Mon"><display/></field>
-        <field name="2" parameter-name="hoursDay2" title="Tue"><display/></field>
-        <field name="3" parameter-name="hoursDay3" title="Wen"><display/></field>
-        <field name="4" parameter-name="hoursDay4" title="Thu"><display/></field>
-        <field name="5" parameter-name="hoursDay5" title="Fri"><display/></field>
-        <field name="6" parameter-name="hoursDay6" title="Sat"><display/></field>
-        <field name="total" title="Act Total"><display/></field>
-        <field name="plannedHours" title="Plan.Hrs"><display/></field>
+        <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><display/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="0" parameter-name="hoursDay0" title="${uiLabelMap.ProjectMgrSun}"><display/></field>
+        <field name="1" parameter-name="hoursDay1" title="${uiLabelMap.ProjectMgrMon}"><display/></field>
+        <field name="2" parameter-name="hoursDay2" title="${uiLabelMap.ProjectMgrTue}"><display/></field>
+        <field name="3" parameter-name="hoursDay3" title="${uiLabelMap.ProjectMgrWen}"><display/></field>
+        <field name="4" parameter-name="hoursDay4" title="${uiLabelMap.ProjectMgrThu}"><display/></field>
+        <field name="5" parameter-name="hoursDay5" title="${uiLabelMap.ProjectMgrFri}"><display/></field>
+        <field name="6" parameter-name="hoursDay6" title="${uiLabelMap.ProjectMgrSat}"><display/></field>
+        <field name="total" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
+        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlanHours}"><display/></field>
     </form>
 </forms>

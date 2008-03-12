@@ -6305,6 +6305,46 @@
         <value xml:lang="fr">En cours de test</value>
         <value xml:lang="th">WPS_UNDER_TEST</value>
     </property>
+    <property key="StatusItem.description.PTS_CREATED">
+        <value xml:lang="en">Created</value>
+        <value xml:lang="zh">已创建</value>
+    </property>
+    <property key="StatusItem.description.PAS_ASSIGNED">
+        <value xml:lang="en">Assigned</value>
+        <value xml:lang="zh">已分配</value>
+    </property>
+    <property key="StatusItem.description.PAS_COMPLETED">
+        <value xml:lang="en">Completed</value>
+        <value xml:lang="zh">已完成</value>
+    </property>
+    <property key="StatusItem.description.PTS_CREATED_UA">
+        <value xml:lang="en">Unassigned</value>
+        <value xml:lang="zh">未分配</value>
+    </property>
+    <property key="StatusItem.description.PTS_CREATED_AS">
+        <value xml:lang="en">Assigned</value>
+        <value xml:lang="zh">已分配</value>
+    </property>
+    <property key="StatusItem.description.PTS_CREATED_IP">
+        <value xml:lang="en">In Progress</value>
+        <value xml:lang="zh">处理中</value>
+    </property>
+    <property key="StatusItem.description.PTS_CREATED_IP">
+        <value xml:lang="en">In Progress</value>
+        <value xml:lang="zh">处理中</value>
+    </property>
+    <property key="StatusItem.description.PTS_COMPLETED">
+        <value xml:lang="en">Completed</value>
+        <value xml:lang="zh">已完成</value>
+    </property>
+    <property key="StatusItem.description.PTS_ON_HOLD">
+        <value xml:lang="en">On Hold</value>
+        <value xml:lang="zh">暂停中</value>
+    </property>
+    <property key="StatusItem.description.PTS_CANCELLED">
+        <value xml:lang="en">Cancelled</value>
+        <value xml:lang="zh">已取消</value>
+    </property>
     <property key="StatusItem.description._NA_">
         <value xml:lang="en">Not Applicable</value>
         <value xml:lang="es">No aplicable</value>

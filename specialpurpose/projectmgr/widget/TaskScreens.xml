@@ -383,7 +383,7 @@ under the License.
                         <screenlet title="${uiLabelMap.${titleProperty}} ${workEffortId}">
                             <include-form name="ListTimeEntries" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         </screenlet>
-                        <screenlet title="Add Time Entry">
+                        <screenlet title="${uiLabelMap.PorjectMgrAddTimeEntry}">
                             <include-form name="createTimeEntry" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         </screenlet>
                     </decorator-section>

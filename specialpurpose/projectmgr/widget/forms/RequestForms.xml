@@ -37,7 +37,7 @@ under the License.
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
         <field name="description"><display/></field>
-        <field name="createTaskFromRequest" widget-style="buttontext">
+        <field name="createTaskFromRequest" title="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="CreateTaskbyRequest?custRequestId=${custRequestId}"/>
         </field>
     </form>
@@ -53,7 +53,7 @@ under the License.
             </drop-down>
         </field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}"><ignored/></field>
-        <field name="custRequestCategoryId">
+        <field name="custRequestCategoryId" title="${uiLabelMap.ProjectMgrCustRequestCategoryId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="CustRequestCategory" description="${description}"/>
             </drop-down>

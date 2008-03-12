@@ -22,772 +22,1047 @@
         <value xml:lang="en">Status to 'complete'</value>
         <value xml:lang="it">Stato a 'completo'</value>
         <value xml:lang="th">สถานะเป็น 'เสร็จสมบูรณ์'</value>
+        <value xml:lang="zh">置状态为完成</value>
     </property>
     <property key="PageTitleAddATimesheet">
         <value xml:lang="en">Add a new weekly Timesheet</value>
         <value xml:lang="it">Aggiungi una nuova Timbratura settimanale</value>
         <value xml:lang="th">เพิ่มตารางเวลารายสัปดาห์ใหม่</value>
+        <value xml:lang="zh">增加新的周时间表</value>
     </property>
     <property key="PageTitleAddDependencyAfter">
         <value xml:lang="en">Add Dependency After the current Task</value>
         <value xml:lang="it">Aggiungi Dipendenza Dopo l'attuale Compito</value>
         <value xml:lang="th">เพิ่มความสัมพันธ์หลังจากงานเป็นที่ยอมรับ</value>
+        <value xml:lang="zh">在当前任务后增加依赖</value>
     </property>
     <property key="PageTitleAddDependencyBefore">
         <value xml:lang="en">Add Dependency before the current Task</value>
         <value xml:lang="it">Aggiungi Dipendenza prima del Compito</value>
         <value xml:lang="th">เพิ่มความสัมพันธ์ก่อนงานเป็นที่ยอมรับ</value>
+        <value xml:lang="zh">在当前任务前增加依赖</value>
     </property>
     <property key="PageTitleAddPartyAssign">
         <value xml:lang="en">Add Resource Assignment</value>
         <value xml:lang="it">Aggiungi Assegnazione Risorsa</value>
         <value xml:lang="th">เพิ่มการกำหนดแหล่งข้อมูล</value>
+        <value xml:lang="zh">增加资源分配</value>
     </property>
     <property key="PageTitleAddPhase">
         <value xml:lang="en">Add Phase</value>
         <value xml:lang="it">Aggiungi Fase</value>
         <value xml:lang="th">เพิ่มขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">增加项目阶段</value>
     </property>
     <property key="PageTitleAddProject">
         <value xml:lang="en">Add Project</value>
         <value xml:lang="it">Aggiungi Progetto</value>
         <value xml:lang="th">เพิ่มโปรเจค</value>
+        <value xml:lang="zh">增加项目</value>
     </property>
     <property key="PageTitleAddProjectNotes">
         <value xml:lang="en">Add Project Notes</value>
         <value xml:lang="it">Aggiungi Note Progetto</value>
         <value xml:lang="th">เพิ่มข้อความโปรเจค</value>
+        <value xml:lang="zh">增加项目备注</value>
     </property>
     <property key="PageTitleAddResource">
         <value xml:lang="en">Add a Resource</value>
         <value xml:lang="it">Aggiungi una Risorsa</value>
         <value xml:lang="th">เพิ่มแหล่งที่มา</value>
+        <value xml:lang="zh">增加资源</value>
     </property>
     <property key="PageTitleAddSkill">
         <value xml:lang="en">Add Requirement</value>
         <value xml:lang="it">Aggiungi Abilità</value>
         <value xml:lang="th">เพิ่มความต้องการ</value>
+        <value xml:lang="zh">增加需求</value>
     </property>
     <property key="PageTitleAddSubProject">
         <value xml:lang="en">Add Sub Project</value>
         <value xml:lang="it">Aggiungi Sotto-Progetto</value>
         <value xml:lang="th">เพิ่มโปรเจคย่อย</value>
+        <value xml:lang="zh">增加子项目</value>
     </property>
     <property key="PageTitleAddSubTask">
         <value xml:lang="en">Add Sub Task</value>
         <value xml:lang="it">Aggiungi Sotto-Compito</value>
         <value xml:lang="th">เพิ่มงานย่อย</value>
+        <value xml:lang="zh">增加子任务</value>
     </property>
     <property key="PageTitleAddTask">
         <value xml:lang="en">Add Task</value>
         <value xml:lang="it">Aggiungi Compito</value>
         <value xml:lang="th">เพิ่มงาน</value>
+        <value xml:lang="zh">增加任务</value>
     </property>
     <property key="PageTitleAddTaskNotes">
         <value xml:lang="en">Add Task Notes</value>
         <value xml:lang="it">Aggiungi Note Compito</value>
         <value xml:lang="th">เพิ่มข้อความงาน</value>
+        <value xml:lang="zh">增加任务备注</value>
     </property>
     <property key="PageTitleAddTimeEntry">
         <value xml:lang="en">Add Time Entry</value>
         <value xml:lang="it">Aggiungi Voce Tempo</value>
         <value xml:lang="th">เพิ่มตารางเวลา</value>
+        <value xml:lang="zh">增加时间条目</value>
     </property>
     <property key="PageTitleCreateTaskbyRequest">
         <value xml:lang="en">Create a new Task for this Request</value>
         <value xml:lang="it">Creare un nuovo Compito per questa Richiesta</value>
         <value xml:lang="th">สร้างงานใหม่สำหรับคำร้องขอ</value>
+        <value xml:lang="zh">为该请求创建新的任务</value>
     </property>
     <property key="PageTitleCurrentTimesheet">
         <value xml:lang="en">Current Timesheet</value>
         <value xml:lang="it">Timbratura Corrente</value>
         <value xml:lang="th">ตารางเวลาที่ใช้กันอยู่ในปัจจุบัน</value>
+        <value xml:lang="zh">当前时间表</value>
     </property>
     <property key="PageTitleDependencies">
         <value xml:lang="en">Task dependencies</value>
         <value xml:lang="it">Dipendenze Compiti</value>
         <value xml:lang="th">ความสัมพันธ์ของงาน</value>
+        <value xml:lang="zh">任务间从属关系</value>
     </property>
     <property key="PageTitleEditCurrentTimesheet">
         <value xml:lang="en">Edit current timesheet</value>
         <value xml:lang="it">Aggiorna timbratura correnti</value>
         <value xml:lang="th">แก้ไขตารางเวลาที่ใช้อยู่ในปัจจุบัน</value>
+        <value xml:lang="zh">编辑当前时间表</value>
     </property>
     <property key="PageTitleEditPhase">
         <value xml:lang="en">Edit Phase</value>
         <value xml:lang="it">Aggiorna Fase</value>
         <value xml:lang="th">แก้ไขขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">编辑项目阶段</value>
     </property>
     <property key="PageTitleEditProject">
         <value xml:lang="en">Edit Project</value>
         <value xml:lang="it">Aggiorna Progetto</value>
         <value xml:lang="th">แก้ไขโปรเจค</value>
+        <value xml:lang="zh">编辑项目</value>
     </property>
     <property key="PageTitleEditSkill">
         <value xml:lang="en">Edit Requirement</value>
         <value xml:lang="it">Aggiorna Abilità</value>
         <value xml:lang="th">แก้ไขความต้องการ</value>
+        <value xml:lang="zh">编辑需求</value>
     </property>
     <property key="PageTitleEditSubProject">
         <value xml:lang="en">Edit Sub Project</value>
         <value xml:lang="it">Aggiorna Sotto-Progetto</value>
         <value xml:lang="th">แก้ไขโปรเจคย่อย</value>
+        <value xml:lang="zh">编辑子项目</value>
     </property>
     <property key="PageTitleEditSubTask">
         <value xml:lang="en">Edit Sub Task</value>
         <value xml:lang="it">Aggiorna Sotto-Compito</value>
         <value xml:lang="th">แก้ไขงานย่อย</value>
+        <value xml:lang="zh">编辑子任务</value>
     </property>
     <property key="PageTitleEditTask">
         <value xml:lang="en">Edit Task</value>
         <value xml:lang="it">Aggiorna Compito</value>
         <value xml:lang="th">แก้ไขงาน</value>
+        <value xml:lang="zh">编辑任务</value>
     </property>
     <property key="PageTitleFindPhase">
         <value xml:lang="en">Find Phase</value>
         <value xml:lang="it">Ricerca Fase</value>
         <value xml:lang="th">ค้นหาขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">查找项目阶段</value>
     </property>
     <property key="PageTitleFindProject">
         <value xml:lang="en">Find Project</value>
         <value xml:lang="it">Ricerca Progetto</value>
         <value xml:lang="th">ค้นหาโปรเจค</value>
+        <value xml:lang="zh">查找项目</value>
     </property>
     <property key="PageTitleFindProjectResults">
         <value xml:lang="en">Find Project Results</value>
         <value xml:lang="th">ผลลัพธ์ที่ได้จากการค้นหาโปรเจค</value>
+        <value xml:lang="zh">查找项目情况</value>
     </property>
     <property key="PageTitleFindResource">
         <value xml:lang="en">Find Resource</value>
         <value xml:lang="it">Ricerca Risorsa</value>
         <value xml:lang="th">ค้นหาแหล่งที่มา</value>
+        <value xml:lang="zh">查找资源</value>
     </property>
     <property key="PageTitleFindSubProject">
         <value xml:lang="en">Find Sub Project</value>
         <value xml:lang="it">Ricerca Sotto-Progetto</value>
         <value xml:lang="th">ค้นหาโปรเจคย่อย</value>
+        <value xml:lang="zh">查找子项目</value>
     </property>
     <property key="PageTitleFindSubTask">
         <value xml:lang="en">Find Sub Task</value>
         <value xml:lang="it">Ricerca Sotto-Compito</value>
         <value xml:lang="th">ค้นหางานย่อย</value>
+        <value xml:lang="zh">查找子任务</value>
     </property>
     <property key="PageTitleFindTask">
         <value xml:lang="en">Find Task</value>
         <value xml:lang="it">Ricerca Compito</value>
         <value xml:lang="th">ค้นหางาน</value>
+        <value xml:lang="zh">查找任务</value>
     </property>
     <property key="PageTitleFindTimeSheet">
         <value xml:lang="en">Find TimeSheet</value>
         <value xml:lang="it">Ricerca Timbratura</value>
         <value xml:lang="th">ค้นหาตารางเวลา</value>
+        <value xml:lang="zh">查找时间表</value>
     </property>
     <property key="PageTitleHoursNotYetBilled">
         <value xml:lang="en">Hours not yet billed</value>
         <value xml:lang="it">Ore che non sono ancora fatturate</value>
         <value xml:lang="th">ชั่วโมงที่ทำรายการไม่เสร็จ</value>
+        <value xml:lang="zh">未开账单的工时</value>
     </property>
     <property key="PageTitleListPartyAssigns">
         <value xml:lang="en">Current Resource Assignments</value>
         <value xml:lang="it">Risorse Attualmente Assegnate</value>
         <value xml:lang="th">กำหนดแหล่งที่มาที่ใช้กันอยู่ในปัจจุบัน</value>
+        <value xml:lang="zh">当前资源分配</value>
     </property>
     <property key="PageTitleListProjectByParty">
         <value xml:lang="en">List Project by Party</value>
         <value xml:lang="it">Lista Progetti per Soggetto</value>
         <value xml:lang="th">แสดงรายการโปรเจคโดยกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">按会员列出项目</value>
     </property>
     <property key="PageTitleListProjectNotes">
         <value xml:lang="en">List Project Notes</value>
         <value xml:lang="it">Lista Note Progetto</value>
         <value xml:lang="th">แสดงรายการข้อความโปรเจค</value>
+        <value xml:lang="zh">列出项目备注</value>
     </property>
     <property key="PageTitleListResources">
         <value xml:lang="en">Resources</value>
         <value xml:lang="it">Risorse</value>
         <value xml:lang="th">แหล่งที่มา</value>
+        <value xml:lang="zh">资源</value>
     </property>
     <property key="PageTitleListSubProjects">
         <value xml:lang="en">List of Subprojects</value>
         <value xml:lang="it">Lista dei Sotto-Progetti</value>
         <value xml:lang="th">แสดงรายการของโปรเจคย่อย</value>
+        <value xml:lang="zh">子项目列表</value>
     </property>
     <property key="PageTitleListTaskByParty">
         <value xml:lang="en">List Task by Party</value>
         <value xml:lang="it">Lista Compito per Soggetto</value>
         <value xml:lang="th">แสดงรายการงานโดยกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">按会员列出任务</value>
     </property>
     <property key="PageTitleListTaskNotes">
         <value xml:lang="en">List Task Notes</value>
         <value xml:lang="it">Lista Note Compito</value>
         <value xml:lang="th">แสดงรายการข้อความงาน</value>
+        <value xml:lang="zh">任务备注列表</value>
     </property>
     <property key="PageTitleListTaskSearchResult">
         <value xml:lang="en">Task search results</value>
         <value xml:lang="th">ผลลัพธ์ที่ได้จากการค้นหางาน</value>
+        <value xml:lang="zh">任务查找结果</value>
     </property>
     <property key="PageTitleListTimeEntries">
         <value xml:lang="en">List Time Entries for</value>
         <value xml:lang="it">Lista Voci Orari per</value>
         <value xml:lang="th">แสดงรายการตารางเวลาสำหรับ</value>
+        <value xml:lang="zh">列出时间条目</value>
     </property>
     <property key="PageTitleProjectBilling">
         <value xml:lang="en">Project Billing</value>
         <value xml:lang="it">Fatturazione Progetto</value>
         <value xml:lang="th">Project Billing</value>
+        <value xml:lang="zh">项目账单</value>
     </property>
     <property key="PageTitleProjectGanttChart">
         <value xml:lang="en">Project Gantt Chart</value>
         <value xml:lang="it">Progetto Grafico Gantt</value>
         <value xml:lang="th">แผนผังคุมการกำหนดโปรเจค</value>
+        <value xml:lang="zh">项目甘特图</value>
     </property>
     <property key="PageTitleProjectInformation">
         <value xml:lang="en">Project Information</value>
         <value xml:lang="it">Informazione Progetto</value>
         <value xml:lang="th">ข้อมูลโปรเจค</value>
+        <value xml:lang="zh">项目信息</value>
     </property>
     <property key="PageTitleRequestList">
         <value xml:lang="en">Request List</value>
         <value xml:lang="it">Lista Richiesta</value>
         <value xml:lang="th">รายการคำร้อง</value>
+        <value xml:lang="zh">请求列表</value>
     </property>
     <property key="PageTitleTaskAssignedToMe">
         <value xml:lang="en">Open Tasks Assigned to me.</value>
         <value xml:lang="it">Compiti Aperti Assegnati a me.</value>
         <value xml:lang="th">งานที่มอบหมายให้ฉัน</value>
+        <value xml:lang="zh">打开分配给我的任务</value>
     </property>
     <property key="PageTitleTaskInformation">
         <value xml:lang="en">Task information</value>
         <value xml:lang="it">Informazione Compito</value>
         <value xml:lang="th">ข้อมูลงาน</value>
+        <value xml:lang="zh">任务信息</value>
     </property>
     <property key="PageTitleTasksAfter">
         <value xml:lang="en">Tasks to be executed after the current task</value>
         <value xml:lang="it">Compiti che saranno eseguiti dopo il compito attuale</value>
         <value xml:lang="th">งานที่ทำให้สำเร็จหลังจากงานเป็นที่ยอมรับ</value>
+        <value xml:lang="zh">当前任务完成后才执行的任务</value>
     </property>
     <property key="PageTitleTasksBefore">
         <value xml:lang="en">Tasks to be executed before the current task</value>
         <value xml:lang="it">Compiti che saranno eseguiti prima del compito attuale</value>
         <value xml:lang="th">งานที่ทำให้สำเร็จก่อนงานเป็นที่ยอมรับ</value>
+        <value xml:lang="zh">当前任务执行前要执行的任务</value>
     </property>
     <property key="PageTitleTimesheet">
         <value xml:lang="en">Timesheet</value>
         <value xml:lang="it">Timbratura</value>
         <value xml:lang="th">ตารางเวลา</value>
+        <value xml:lang="zh">时间表</value>
     </property>
     <property key="PageTitleTimesheets">
         <value xml:lang="en">Timesheet list</value>
         <value xml:lang="it">Lista Timbrature</value>
         <value xml:lang="th">แสดงรายการตารางเวลา</value>
+        <value xml:lang="zh">时间表列表</value>
     </property>
     <property key="PageTitleUnassignedTask">
         <value xml:lang="en">Unassigned Task</value>
         <value xml:lang="it">Compito Non Assegnato</value>
         <value xml:lang="th">ไม่กำหนดงาน</value>
+        <value xml:lang="zh">未分配任务</value>
     </property>
     <property key="ProjectMgrActualHours">
         <value xml:lang="en">Actual Hours</value>
         <value xml:lang="it">Ore Attuali</value>
         <value xml:lang="th">ชั่วโมงจริง</value>
+        <value xml:lang="zh">实际工时</value>
     </property>
     <property key="ProjectMgrAddNewTask">
         <value xml:lang="en">Add a new task to one of my projects.</value>
         <value xml:lang="it">Aggiungi un nuovo compito ad uno dei miei progetti.</value>
         <value xml:lang="th">เพิ่มงานใหม่ไปยังส่วนหนึ่งของโปรเจคของฉัน</value>
+        <value xml:lang="zh">为我的一个项目增加新任务</value>
     </property>
     <property key="ProjectMgrApplication">
         <value xml:lang="en">Project Manager Application</value>
         <value xml:lang="it">Applicazione Gestione Progetti</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการโปรเจค</value>
+        <value xml:lang="zh">项目管理应用程序</value>
     </property>
     <property key="ProjectMgrAssignATaskToMe">
         <value xml:lang="en">Assign an existing Task to me.</value>
         <value xml:lang="it">Assegna un Compito esistente a me.</value>
         <value xml:lang="th">กำหนดงานที่มีอยู่ให้ฉัน</value>
+        <value xml:lang="zh">给我分配一个已有的任务</value>
     </property>
     <property key="ProjectMgrAssignMyTaskToSomebodyElse">
         <value xml:lang="en">Assign My Task To Somebody Else.</value>
         <value xml:lang="it">Assegna Mio Compito Per Qualcuno Altro.</value>
         <value xml:lang="th">กำหนดงานของฉันให้คนอื่น</value>
+        <value xml:lang="zh">把我的任务分配给别人</value>
     </property>
     <property key="ProjectMgrBilling">
         <value xml:lang="en">Billing</value>
         <value xml:lang="it">Fatturazione</value>
         <value xml:lang="th">Billing</value>
+        <value xml:lang="zh">账单</value>
     </property>
     <property key="ProjectMgrCompanyName">
         <value xml:lang="en">OFBiz: Project</value>
         <value xml:lang="it">OFBiz: Progetti</value>
         <value xml:lang="th">OFBiz: โปรเจค</value>
+        <value xml:lang="zh">OFBIZ: 项目</value>
     </property>
     <property key="ProjectMgrCompanySubtitle">
         <value xml:lang="en">Project</value>
         <value xml:lang="it">Progetti</value>
         <value xml:lang="th">โปรเจค</value>
+        <value xml:lang="zh">项目</value>
     </property>
     <property key="ProjectMgrCopyProject">
         <value xml:lang="en">Copy Project</value>
         <value xml:lang="it">Copia Progetto</value>
         <value xml:lang="th">คัดลอกโปรเจค</value>
+        <value xml:lang="zh">复制项目</value>
     </property>
     <property key="ProjectMgrCreateByExistingTask">
         <value xml:lang="en">Link to an existing Task</value>
         <value xml:lang="it">Link ad un Compito esistente</value>
         <value xml:lang="th">เชื่อมต่อไปยังงานที่มีอยู่แล้ว</value>
+        <value xml:lang="zh">链接到已存在的任务</value>
     </property>
     <property key="ProjectMgrCreateTaskFromRequest">
         <value xml:lang="en">Create Task From Request</value>
         <value xml:lang="it">Creare Compito Dalla Richiesta</value>
         <value xml:lang="th">สร้างงานจากคำร้อง</value>
+        <value xml:lang="zh">为请求创建任务</value>
     </property>
     <property key="ProjectMgrCustRequestWorkEffort">
         <value xml:lang="en">CustRequest WorkEffort</value>
         <value xml:lang="it">Impegno di Lavoro Richiesta</value>
         <value xml:lang="th">งานคำร้องของลูกค้า</value>
+        <value xml:lang="zh">客户请求的工作任务</value>
     </property>
     <property key="ProjectMgrDependencies">
         <value xml:lang="en">Dependencies</value>
         <value xml:lang="it">Dipendenze</value>
         <value xml:lang="th">ความสัมพันธ์</value>
+        <value xml:lang="zh">依赖</value>
     </property>
     <property key="ProjectMgrEdit">
         <value xml:lang="en">Edit</value>
         <value xml:lang="it">Aggiorna</value>
         <value xml:lang="th">แก้ไข</value>
+        <value xml:lang="zh">编辑</value>
     </property>
     <property key="ProjectMgrEditPatySkill">
         <value xml:lang="en">Edit PartySkill</value>
         <value xml:lang="it">Aggiorna Abilità Soggetto</value>
         <value xml:lang="th">แก้ไขทักษะกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">编辑会员技能</value>
     </property>
     <property key="ProjectMgrEditPoject">
         <value xml:lang="en">Edit Project</value>
         <value xml:lang="it">Aggiorna Progetto</value>
         <value xml:lang="th">แก้ไขโปรเจค</value>
+        <value xml:lang="zh">编辑项目</value>
     </property>
     <property key="ProjectMgrEditTask">
         <value xml:lang="en">Edit Task</value>
         <value xml:lang="it">Aggiorna Compito</value>
         <value xml:lang="th">แก้ไขงาน</value>
+        <value xml:lang="zh">编辑任务</value>
     </property>
     <property key="ProjectMgrEstimatedCost">
         <value xml:lang="en">Estimated Cost</value>
         <value xml:lang="it">Costo Stimato</value>
         <value xml:lang="th">ราคาโดยประมาณ</value>
+        <value xml:lang="zh">评估费用</value>
     </property>
     <property key="ProjectMgrEstimatedDuration">
         <value xml:lang="en">Estimated Duration</value>
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="th">ช่วงเวลาโดยประมาณ</value>
+        <value xml:lang="zh">评估周期</value>
     </property>
     <property key="ProjectMgrEstimatedHours">
         <value xml:lang="en">Estimated Hours</value>
         <value xml:lang="it">Ore Stimate</value>
         <value xml:lang="th">ชั่วโมงโดยประมาณ</value>
+        <value xml:lang="zh">评估工时</value>
     </property>
     <property key="ProjectMgrEstimatedNumPeople">
         <value xml:lang="en">Estimated People</value>
         <value xml:lang="it">Persone Stimate</value>
         <value xml:lang="th">บุคคลโดยประมาณ</value>
+        <value xml:lang="zh">评估人力</value>
     </property>
     <property key="ProjectMgrFilterOn">
         <value xml:lang="en">Filter on</value>
         <value xml:lang="it">Filtra su</value>
         <value xml:lang="th">Filter on</value>
+        <value xml:lang="zh">过滤</value>
     </property>
     <property key="ProjectMgrGanttChart">
         <value xml:lang="en">Gantt Chart</value>
         <value xml:lang="it">Grafico Gantt</value>
         <value xml:lang="th">แผนผังคุมการกำหนดงาน</value>
+        <value xml:lang="zh">甘特图</value>
     </property>
     <property key="ProjectMgrMyRoleForThisTask">
         <value xml:lang="en">My Role For This Task</value>
         <value xml:lang="it">Mio Ruolo Per Questo Compito</value>
         <value xml:lang="th">สถานะของฉันสำหรับงานนี้</value>
+        <value xml:lang="zh">在这个任务中我的角色</value>
     </property>
     <property key="ProjectMgrNewProject">
         <value xml:lang="en">New Project</value>
         <value xml:lang="it">Nuovo Progetto</value>
         <value xml:lang="th">โปรเจคใหม่</value>
+        <value xml:lang="zh">新项目</value>
     </property>
     <property key="ProjectMgrNewSubProject">
         <value xml:lang="en">New Sub Project</value>
         <value xml:lang="it">Nuovo Sotto-Progetto</value>
         <value xml:lang="th">โปรเจคย่อยใหม่</value>
+        <value xml:lang="zh">新子项目</value>
     </property>
     <property key="ProjectMgrNewSubTask">
         <value xml:lang="en">New Sub Task</value>
         <value xml:lang="it">Nuovo Sotto-Compito</value>
         <value xml:lang="th">งานย่อยใหม่</value>
+        <value xml:lang="zh">新子任务</value>
     </property>
     <property key="ProjectMgrNewTask">
         <value xml:lang="en">New Task</value>
         <value xml:lang="it">Nuovo Compito</value>
         <value xml:lang="th">งานใหม่</value>
+        <value xml:lang="zh">新任务</value>
     </property>
     <property key="ProjectMgrNoAccessToProject">
         <value xml:lang="en">You have no access to the project#: ${projectId}</value>
         <value xml:lang="it">Tu non hai accesso al progetto#: ${projectId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าใช้ถึงโปรเจค#: ${projectId}</value>
+        <value xml:lang="zh">你没有访问该项目的权限：${projectId}</value>
     </property>
     <property key="ProjectMgrNoAccessToTask">
         <value xml:lang="en">You have no access to the task#: ${taskId}</value>
         <value xml:lang="it">Tu non hai accesso al compito#: ${taskId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงงาน#: ${taskId}</value>
+        <value xml:lang="zh">你没有访问该任务的权限：${taskId}</value>
     </property>
     <property key="ProjectMgrNoAccessToTimesheet">
         <value xml:lang="en">You have no access to the timesheet#: ${timesheetId}</value>
         <value xml:lang="it">Tu non hai accesso alla marcatura#: ${timesheetId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงตารางเวลา#: ${timesheetId}</value>
+        <value xml:lang="zh">你没有访问该时间表的权限：${timesheetId}</value>
     </property>
     <property key="ProjectMgrNoPhasesYet">
         <value xml:lang="en">No phases have been created yet, tasks can not exist without a phase as parent, so create a phase first</value>
         <value xml:lang="th">ไม่มีขั้นตอนการทำงานที่สร้างเสร็จแล้ว , งานไม่สามารถมีอยู่โดยปราศจากขั้นตอนการทำงานเหมือนกลุ่ม , ดังนั้นสร้างขั้นตอนการทำงานเป็นอันดับแรก</value>
+        <value xml:lang="zh">该项目有没有创建任何的阶段，请先创建项目阶段，任务必须以项目阶段为父节点</value>
     </property>
     <property key="ProjectMgrNotesCreateNew">
         <value xml:lang="en">Create New</value>
         <value xml:lang="it">Creare Nuovo</value>
         <value xml:lang="th">สร้างใหม่</value>
+        <value xml:lang="zh">创建新的</value>
     </property>
     <property key="ProjectMgrParentProjectName">
         <value xml:lang="en">Parent Project Name</value>
         <value xml:lang="it">Nome Progetto Padre</value>
         <value xml:lang="th">ชื่อกลุ่มโปรเจค</value>
+        <value xml:lang="zh">父项目的名称</value>
     </property>
     <property key="ProjectMgrParties">
         <value xml:lang="en">Parties</value>
         <value xml:lang="it">Soggetti</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
+        <value xml:lang="zh">会员</value>
     </property>
     <property key="ProjectMgrPartyList">
         <value xml:lang="en">List of Parties</value>
         <value xml:lang="it">Lista di Soggetti</value>
         <value xml:lang="th">รายการของกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">会员列表</value>
     </property>
     <property key="ProjectMgrPartyRoleTypeId">
         <value xml:lang="en">Role Type Id</value>
         <value xml:lang="it">Tipo Ruolo</value>
         <value xml:lang="th">รหัสสถานะประเภท</value>
+        <value xml:lang="zh">角色类型Id</value>
     </property>
     <property key="ProjectMgrPartySkills">
         <value xml:lang="en">Party Skills</value>
         <value xml:lang="it">Abilità Soggetto</value>
         <value xml:lang="th">ทักษะของกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">会员技能</value>
     </property>
     <property key="ProjectMgrPhaseDetails">
         <value xml:lang="en">Enter the Phase Details below</value>
         <value xml:lang="it">Inserire i Dettagli della Fase qui sotto</value>
         <value xml:lang="th">เข้าสู่รายละเอียดขั้นตอนการทำงานข้างล่าง</value>
+        <value xml:lang="zh">在下面熟悉项目阶段的明细</value>
     </property>
     <property key="ProjectMgrPhaseList">
         <value xml:lang="en">List of project Phases</value>
         <value xml:lang="it">Lista delle Fasi Progetto</value>
         <value xml:lang="th">รายการของขั้นตอนการทำงานของโปรเจค</value>
+        <value xml:lang="zh">项目阶段列表</value>
     </property>
     <property key="ProjectMgrPhaseName">
         <value xml:lang="en">Phase Name</value>
         <value xml:lang="it">Nome Fase</value>
         <value xml:lang="th">ชื่อขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">项目阶段名称</value>
     </property>
     <property key="ProjectMgrPhaseTaskList">
         <value xml:lang="en">List of Phases and Tasks</value>
         <value xml:lang="it">Lista delle Fasi e Compiti</value>
         <value xml:lang="th">รายการของขั้นตอนการทำงานและงาน</value>
+        <value xml:lang="zh">项目阶段和任务列表</value>
     </property>
     <property key="ProjectMgrPhases">
         <value xml:lang="en">Phases</value>
         <value xml:lang="it">Fasi</value>
         <value xml:lang="th">ขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">项目阶段</value>
     </property>
     <property key="ProjectMgrPlannedHours">
         <value xml:lang="en">Planned Hours</value>
         <value xml:lang="it">Ore Pianificate</value>
         <value xml:lang="th">ชั่วโมงที่วางแผน</value>
+        <value xml:lang="zh">已计划工时</value>
     </property>
     <property key="ProjectMgrProjectAndPhaseName">
         <value xml:lang="en">Project and Phase Name</value>
         <value xml:lang="it">Progetto e Nome Fase</value>
         <value xml:lang="th">โปรเจคและชื่อขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">项目和阶段名称</value>
     </property>
     <property key="ProjectMgrProjectCurrent">
         <value xml:lang="en">Current Project</value>
         <value xml:lang="it">Progetto Attuale</value>
         <value xml:lang="th">โปรเจคที่ใช้กันในปัจจุบัน</value>
+        <value xml:lang="zh">当前项目</value>
     </property>
     <property key="ProjectMgrProjectId">
         <value xml:lang="en">Project Id</value>
         <value xml:lang="it">Progetto</value>
         <value xml:lang="th">รหัสโปรเจค</value>
+        <value xml:lang="zh">项目Id</value>
     </property>
     <property key="ProjectMgrProjectName">
         <value xml:lang="en">Project Name</value>
         <value xml:lang="it">Nome Progetto</value>
         <value xml:lang="th">ชื่อโปรเจค</value>
+        <value xml:lang="zh">项目名称</value>
     </property>
     <property key="ProjectMgrProjectNoNotes">
         <value xml:lang="en">No Notes for this Project</value>
         <value xml:lang="it">Nessuna Nota per questo Progetto</value>
         <value xml:lang="th">ไม่มีข้อความสำหรับโปรเจคนี้</value>
+        <value xml:lang="zh">该项目没有注释</value>
     </property>
     <property key="ProjectMgrProjectSummary">
         <value xml:lang="en">Project Summary</value>
         <value xml:lang="it">Sommario Progetto</value>
         <value xml:lang="th">สรุปโปรเจค</value>
+        <value xml:lang="zh">项目总览</value>
     </property>
     <property key="ProjectMgrProjectTeam">
         <value xml:lang="en">Project Team</value>
         <value xml:lang="it">Gruppo Progetto</value>
         <value xml:lang="th">ทีมโปรเจค</value>
+        <value xml:lang="zh">项目团队</value>
     </property>
     <property key="ProjectMgrQuickAssignPartyId">
         <value xml:lang="en">Quick Assign Party Id</value>
         <value xml:lang="it">Assegnazione Veloce Soggetto</value>
         <value xml:lang="th">กำหนดรหัสกลุ่มผู้ใช้อย่างรวดเร็ว</value>
+        <value xml:lang="zh">快速分配会员</value>
     </property>
     <property key="ProjectMgrRates">
         <value xml:lang="en">Rates</value>
         <value xml:lang="it">Percentuali</value>
         <value xml:lang="th">อัตรา</value>
+        <value xml:lang="zh">计算方式</value>
+    </property>
+    <property key="ProjectMgrRateTypeId">
+        <value xml:lang="en">Rate Type Id</value>
+	    <value xml:lang="zh">计算方式Id</value>
+    </property>
+    <property key="ProjectMgrSun">
+        <value xml:lang="en">Sun</value>
+	    <value xml:lang="zh">周日</value>
+    </property>
+    <property key="ProjectMgrMon">
+        <value xml:lang="en">Mon</value>
+	    <value xml:lang="zh">周一</value>
+    </property>
+    <property key="ProjectMgrTue">
+        <value xml:lang="en">Tue</value>
+	    <value xml:lang="zh">周二</value>
+    </property>
+    <property key="ProjectMgrWen">
+        <value xml:lang="en">Wen</value>
+	    <value xml:lang="zh">周三</value>
+    </property>
+    <property key="ProjectMgrThu">
+        <value xml:lang="en">Thu</value>
+	    <value xml:lang="zh">周四</value>
+    </property>
+    <property key="ProjectMgrFri">
+        <value xml:lang="en">Fri</value>
+	    <value xml:lang="zh">周五</value>
+    </property>
+    <property key="ProjectMgrSat">
+        <value xml:lang="en">Sat</value>
+	    <value xml:lang="zh">周六</value>
+    </property>
+    <property key="ProjectMgrActualTotal">
+        <value xml:lang="en">Act Total</value>
+	    <value xml:lang="zh">实际总时间</value>
+    </property>
+    <property key="ProjectMgrPlanHours">
+        <value xml:lang="en">Plan Hours</value>
+	    <value xml:lang="zh">计划时间</value>
+    </property>
+    <property key="ProjectMgrWeekNumber">
+        <value xml:lang="en">Week Number</value>
+	    <value xml:lang="zh">周数</value>
+    </property>
+    <property key="ProjectMgrWeek">
+        <value xml:lang="en">Week</value>
+	    <value xml:lang="zh">周</value>
+    </property>
+    <property key="ProjectMgrSelectedDate">
+        <value xml:lang="en">Select Date</value>
+	    <value xml:lang="zh">选择日期</value>
+    </property>
+    <property key="ProjectMgrRowSubmit">
+        <value xml:lang="en">Row Submit</value>
+	    <value xml:lang="zh">选择提交行</value>
     </property>
     <property key="ProjectMgrRelease">
         <value xml:lang="en">Release</value>
         <value xml:lang="it">Rilascia</value>
         <value xml:lang="th">การยกเว้น</value>
+        <value xml:lang="zh">发布</value>
     </property>
     <property key="ProjectMgrRequestWorkEffortList">
         <value xml:lang="en">Cust Request WorkEffort List</value>
         <value xml:lang="it">Lista Impegno di Lavoro Richiesta</value>
         <value xml:lang="th">รายการงานตามคำร้องของลูกค้า</value>
+        <value xml:lang="zh">用户请求工作任务列表</value>
     </property>
     <property key="ProjectMgrResourceName">
         <value xml:lang="en">Resource Name</value>
         <value xml:lang="it">Nome Risorsa</value>
         <value xml:lang="th">ชื่อแหล่งที่มา</value>
+        <value xml:lang="zh">资源名称</value>
     </property>
     <property key="ProjectMgrResources">
         <value xml:lang="en">Resources</value>
         <value xml:lang="it">Risorse</value>
         <value xml:lang="th">แหล่งที่มา</value>
+        <value xml:lang="zh">资源</value>
     </property>
     <property key="ProjectMgrSaveAsTemplate">
         <value xml:lang="en">Save As Template</value>
         <value xml:lang="it">Salva Come Template</value>
         <value xml:lang="th">บันทึกเทมเพลต</value>
+        <value xml:lang="zh">存为模板</value>
     </property>
     <property key="ProjectMgrSchedule">
         <value xml:lang="en">Schedule</value>
         <value xml:lang="it">Schedula</value>
         <value xml:lang="th">ตารางเวลา</value>
+        <value xml:lang="zh">进度表</value>
     </property>
     <property key="ProjectMgrSetOnHold">
         <value xml:lang="en">On-Hold</value>
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="th">หยุดไว้ชั่วคราว</value>
+        <value xml:lang="zh">暂停</value>
     </property>
     <property key="ProjectMgrSkillStandards">
         <value xml:lang="en">Planned Hours</value>
         <value xml:lang="it">Abilità Standard</value>
         <value xml:lang="th">ชั่วโมงที่วางแผน</value>
+        <value xml:lang="zh">已计划工时</value>
     </property>
     <property key="ProjectMgrSkillType">
         <value xml:lang="en">Skill Type</value>
         <value xml:lang="it">Tipo Abilità</value>
         <value xml:lang="th">ประเภททักษะ</value>
+        <value xml:lang="zh">技能类别</value>
     </property>
     <property key="ProjectMgrStatusCannotUpdate">
         <value xml:lang="en">Status does not allow an update</value>
         <value xml:lang="it">Stato non permette un aggiornamento</value>
         <value xml:lang="th">สถานะยังไม่อนุญาตให้อัพเดท</value>
+        <value xml:lang="zh">状态不允许更新</value>
     </property>
     <property key="ProjectMgrStatusId">
         <value xml:lang="en">Status Id</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="th">รหัสสถานะ</value>
+        <value xml:lang="zh">状态Id</value>
     </property>
     <property key="ProjectMgrSubProjectDetails">
         <value xml:lang="en">Enter the SubProject Details below</value>
         <value xml:lang="it">Inserire i Dettagli del Sotto-Progetto qui sotto</value>
         <value xml:lang="th">เข้าสู่รายละเอียดโปรเจคย่อยข้างล่าง</value>
+        <value xml:lang="zh">在下面输入子项目的明细</value>
     </property>
     <property key="ProjectMgrSubProjectList">
         <value xml:lang="en">List of SubProjects</value>
         <value xml:lang="it">Lista dei Sotto-Progetti</value>
         <value xml:lang="th">รายการของโปรเจคย่อย</value>
+        <value xml:lang="zh">子项目列表</value>
     </property>
     <property key="ProjectMgrSubProjectName">
         <value xml:lang="en">Sub Project Name</value>
         <value xml:lang="it">Nome Sotto-Progetto</value>
         <value xml:lang="th">ชื่อโปรเจคย่อย</value>
+        <value xml:lang="zh">子项目名称</value>
     </property>
     <property key="ProjectMgrSubProjects">
         <value xml:lang="en">Sub Projects</value>
         <value xml:lang="it">Sotto-Progetti</value>
         <value xml:lang="th">โปรเจคย่อย</value>
+        <value xml:lang="zh">子项目</value>
     </property>
     <property key="ProjectMgrSubTaskName">
         <value xml:lang="en">Sub Task Name</value>
         <value xml:lang="it">Nome Sotto-Compito</value>
         <value xml:lang="th">ชื่องานย่อย</value>
+        <value xml:lang="zh">子任务名称</value>
     </property>
     <property key="ProjectMgrSubTasks">
         <value xml:lang="en">Sub Tasks</value>
         <value xml:lang="it">Sotto-Compito</value>
         <value xml:lang="th">งานย่อย</value>
+        <value xml:lang="zh">子任务</value>
     </property>
     <property key="ProjectMgrTaskCurrent">
         <value xml:lang="en">Current Task</value>
         <value xml:lang="it">Compito Attuale</value>
         <value xml:lang="th">งานที่ใช้กันอยู่ในปัจจุบัน</value>
+        <value xml:lang="zh">当前任务</value>
     </property>
     <property key="ProjectMgrTaskDetails">
         <value xml:lang="en">Enter the Task Details below</value>
         <value xml:lang="it">Inserire i Dettagli Compito qui sotto</value>
         <value xml:lang="th">เข้าสู่รายละเอียดงานข้างล่าง</value>
+        <value xml:lang="zh">在下面输入任务明细</value>
     </property>
     <property key="ProjectMgrTaskId">
         <value xml:lang="en">Task Id</value>
         <value xml:lang="it">Compito</value>
         <value xml:lang="th">รหัสงาน</value>
+        <value xml:lang="zh">任务Id</value>
     </property>
     <property key="ProjectMgrTaskList">
         <value xml:lang="en">List of Project Tasks</value>
         <value xml:lang="it">Lista dei Compiti Progetto</value>
         <value xml:lang="th">รายการงานของโปรเจค</value>
+        <value xml:lang="zh">项目任务列表</value>
     </property>
     <property key="ProjectMgrTaskMember">
         <value xml:lang="en">You are'nt member of any project, contact your project manager.</value>
         <value xml:lang="it">Tu non sei membro di nessun progetto, contatta il tuo responsabile di progetto.</value>
         <value xml:lang="th">คุณไม่เป็นสมาชิกของทุก ๆ โปรเจค, ติดต่อผู้จัดการโปรเจคของคุณ</value>
+        <value xml:lang="zh">你不属于任何项目，请与你的项目经理联系</value>
     </property>
     <property key="ProjectMgrTaskName">
         <value xml:lang="en">Task Name</value>
         <value xml:lang="it">Nome Compito</value>
         <value xml:lang="th">ชื่องาน</value>
+        <value xml:lang="zh">任务名称</value>
     </property>
     <property key="ProjectMgrTaskNoNotes">
         <value xml:lang="en">No Notes for this Task</value>
         <value xml:lang="it">Nessuna Nota per questo Compito</value>
         <value xml:lang="th">ไม่มีข้อความสำหรับงานนี้</value>
+        <value xml:lang="zh">该任务无注释</value>
     </property>
     <property key="ProjectMgrTaskNoOpen1">
         <value xml:lang="en">Currently no 'open' tasks are assigned to you.</value>
         <value xml:lang="it">Attualmente nessun compito 'aperto' è assegnato a te.</value>
         <value xml:lang="th">ในปัจจุบันไม่เปิดเผยงานที่มอบหมายให้คุณ</value>
+        <value xml:lang="zh">当前没有给你分配开放的任务</value>
     </property>
     <property key="ProjectMgrTaskNoOpen2">
         <value xml:lang="en">Add an existing or a new task to a project you are member of.</value>
         <value xml:lang="it">Aggiungere uno esistente o un nuovo compito al progetto che tu sei membro di.</value>
         <value xml:lang="th">เพิ่มงานที่มีอยู่หรืองานใหม่ไปยังโปรเจคคุณเป็นสมาชิกของ</value>
+        <value xml:lang="zh">给属于你的项目增加一个新的或者已经存在的任务</value>
     </property>
     <property key="ProjectMgrTaskNotAssignedPhase">
         <value xml:lang="en">Task not assigned to Phase/Iteration</value>
         <value xml:lang="it">Compito non assegnato alla Fase/Iterazione</value>
         <value xml:lang="th">ไม่กำหนดงานถึงขั้นตอนการทำงาน/การทำซ้ำ</value>
+        <value xml:lang="zh">孤立的任务</value>
     </property>
     <property key="ProjectMgrTaskPhase">
         <value xml:lang="en">Parent Phase</value>
         <value xml:lang="it">Fase Padre</value>
         <value xml:lang="th">กลุ่มขั้นตอนการทำงาน</value>
+        <value xml:lang="zh">父阶段</value>
     </property>
     <property key="ProjectMgrTaskSummary">
         <value xml:lang="en">Task Summary</value>
         <value xml:lang="it">Sommario Compito</value>
         <value xml:lang="th">สรุปงาน</value>
+        <value xml:lang="zh">任务总览</value>
     </property>
     <property key="ProjectMgrTaskTeam">
         <value xml:lang="en">Task Team</value>
         <value xml:lang="th">ทีมงาน</value>
+        <value xml:lang="zh">任务团队</value>
     </property>
     <property key="ProjectMgrTasks">
         <value xml:lang="en">Tasks</value>
         <value xml:lang="it">Compiti</value>
         <value xml:lang="th">งาน</value>
+        <value xml:lang="zh">任务</value>
     </property>
     <property key="ProjectMgrTimeEntries">
         <value xml:lang="en">Actual Hours</value>
         <value xml:lang="it">Aggiungere/Aggiornare Voce Orario</value>
         <value xml:lang="th">ชั่วโมงจริง</value>
+        <value xml:lang="zh">实际工时</value>
     </property>
     <property key="ProjectMgrToFindProject">
         <value xml:lang="en">To Find Project Give Range</value>
         <value xml:lang="it">Per Trovare il Progetto Inserire Intervallo</value>
         <value xml:lang="th">ค้นหาโปรเจคแสดงขอบเขต</value>
+        <value xml:lang="zh">查找项目的范围</value>
     </property>
     <property key="ProjectMgrToFindTask">
         <value xml:lang="en">To Find Task Give Range</value>
         <value xml:lang="it">Per Trovare il Compito Inserire Intervallo</value>
         <value xml:lang="th">ค้นหางานแสดงขอบเขต</value>
+        <value xml:lang="zh">查找任务的范围</value>
     </property>
     <property key="ProjectMgrTreeDetails">
         <value xml:lang="en">TreeDetails</value>
         <value xml:lang="it">Dettagli Albero</value>
         <value xml:lang="th">รายละเอียดแผนผังแบบต้นไม้</value>
+        <value xml:lang="zh">树明细</value>
     </property>
     <property key="ProjectMgrView">
         <value xml:lang="en">View</value>
         <value xml:lang="it">Mostra</value>
         <value xml:lang="th">แสดง</value>
+        <value xml:lang="zh">查看</value>
     </property>
     <property key="ProjectMgrViewPermissionError">
         <value xml:lang="en">You need at least PROJECTMGR_READ permission to view this screen.</value>
         <value xml:lang="it">Tu hai bisogno al minimo del permesso PROJECTMGR_READ per vedere questa videata.</value>
         <value xml:lang="th">คุณต้องการการอนุญาตอย่างน้อยที่สุด PROJECTMGR_READ ในการแสดงหน้าจอนี้</value>
+        <value xml:lang="zh">你至少需要有PROJECTMGR_READ权限才能查看本页</value>
     </property>
     <property key="ProjectMgrWorkEffortActualCompletionDate">
         <value xml:lang="en">Actual Completion Date</value>
         <value xml:lang="it">Data Fine Attuale</value>
         <value xml:lang="th">วันที่ทำเสร็จจริง</value>
+        <value xml:lang="zh">实际完成日期</value>
     </property>
     <property key="ProjectMgrWorkEffortActualStartDate">
         <value xml:lang="en">Actual Start Date</value>
         <value xml:lang="it">Data Inizio Attuale</value>
         <value xml:lang="th">วันที่เริ่มทำจริง</value>
+        <value xml:lang="zh">实际开始日期</value>
     </property>
     <property key="ProjectMgrWorkEffortAssocTypeId">
         <value xml:lang="en">Association Type</value>
         <value xml:lang="it">Tipo Associazione</value>
         <value xml:lang="th">ประเภทกลุ่ม</value>
+        <value xml:lang="zh">相关类型</value>
     </property>
     <property key="ProjectMgrWorkEffortEstimatedCompletionDate">
         <value xml:lang="en">Estimated Completion Date</value>
         <value xml:lang="it">Data Fine Stimata</value>
         <value xml:lang="th">วันที่เสร็จโดยประมาณ</value>
+        <value xml:lang="zh">估计完成日期</value>
     </property>
     <property key="ProjectMgrWorkEffortEstimatedStartDate">
         <value xml:lang="en">Estimated Start Date</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="th">วันที่เริ่มโดยประมาณ</value>
+        <value xml:lang="zh">估计开始日期</value>
     </property>
     <property key="ProjectMgrWorkEffortId">
         <value xml:lang="en">Id</value>
         <value xml:lang="it">Codice</value>
         <value xml:lang="th">รหัส</value>
+        <value xml:lang="zh">Id</value>
     </property>
     <property key="ProjectMgrWorkEffortIdFrom">
         <value xml:lang="en">Id From</value>
         <value xml:lang="it">Codice Da</value>
         <value xml:lang="th">จากรหัส</value>
+        <value xml:lang="zh">Id来至</value>
     </property>
     <property key="ProjectMgrWorkEffortIdTo">
         <value xml:lang="en">Id To</value>
         <value xml:lang="it">Codice A</value>
         <value xml:lang="th">ถึงรหัส</value>
+        <value xml:lang="zh">Id到</value>
     </property>
     <property key="ProjectMgrWorkEffortPurposeTypeId">
         <value xml:lang="en">Purpose Type</value>
         <value xml:lang="it">Tipo Funzione</value>
         <value xml:lang="th">ประเภทเป้าหมาย</value>
+        <value xml:lang="zh">目标类型</value>
     </property>
     <property key="ProjectMgrWorkEffortScopeEnumId">
         <value xml:lang="en">Scope</value>
         <value xml:lang="it">Scopo</value>
         <value xml:lang="th">ขอบเขต</value>
+        <value xml:lang="zh">范围</value>
     </property>
     <property key="ProjectMgrWorkEffortTypeId">
         <value xml:lang="en">Type</value>
         <value xml:lang="it">Tipo</value>
         <value xml:lang="th">ประเภท</value>
+        <value xml:lang="zh">类型</value>
+    </property>
+    <property key="ProjectMgrCheckComplete">
+        <value xml:lang="en">Check Complete</value>
+        <value xml:lang="zh">是否完成</value>
+    </property>    
+    <property key="FormFieldTitle_newTimesheetId">
+        <value xml:lang="en">New Timesheet Id</value>
+        <value xml:lang="zh">新的时间表Id</value>
+    </property>
+    <property key="FormFieldTitle_fromPartyId">
+        <value xml:lang="en">From Party Id</value>
+        <value xml:lang="zh">来自会员</value>
+    </property> 
+    <property key="FormFieldTitle_actualHours">
+        <value xml:lang="en">Actual Hours</value>
+        <value xml:lang="zh">实际工时</value>
+    </property> 
+    <property key="FormFieldTitle_plannedHours">
+        <value xml:lang="en">Planned Hours</value>
+        <value xml:lang="zh">计划工时</value>
+    </property>
+    <property key="FormFieldTitle_relatedTasks">
+        <value xml:lang="en">Related Tasks</value>
+        <value xml:lang="zh">相关任务</value>
+    </property>
+    <property key="FormFieldTitle_complete">
+        <value xml:lang="en">Complete</value>
+        <value xml:lang="zh">完成</value>
+    </property>     
+    <property key="PorjectMgrAddTimeEntry">
+        <value xml:lang="en">Add Time Entry</value>
+        <value xml:lang="zh">增加工时</value>
+    </property>  
+    <property key="PorjectMgrPrivateOrPublic">
+        <value xml:lang="en">Private/Public</value>
+        <value xml:lang="zh">私人/公开</value>
+    </property>  
+    <property key="FormFieldTitle_isPrintable">
+        <value xml:lang="en">isPrintable</value>
+        <value xml:lang="zh">是否可印</value>
+    </property>
+    <property key="FormFieldTitle_templateId">
+        <value xml:lang="en">Template Id</value>
+        <value xml:lang="zh">模板Id</value>
+    </property>
+    <property key="FormFieldTitle_parentProjectName">
+        <value xml:lang="en">Parent Project Name</value>
+        <value xml:lang="zh">父项目名称</value>
+    </property>
+    <property key="ProjectMgrCustRequestCategoryId">
+        <value xml:lang="en">Cust Request Category Id</value>
+        <value xml:lang="zh">请求分类Id</value>
+    </property>
+    <property key="FormFieldTitle_openDateTime">
+        <value xml:lang="en">Open Date Time</value>
+        <value xml:lang="zh">开启日期</value>
+    </property>
+    <property key="FormFieldTitle_internalComment">
+        <value xml:lang="en">Internal Comment</value>
+        <value xml:lang="zh">内部评论</value>
+    </property>
+    <property key="FormFieldTitle_closedDateTime">
+        <value xml:lang="en">Closed Date Time</value>
+        <value xml:lang="zh">关闭日期</value>
     </property>
     <property key="de">
         <value xml:lang="en">German</value>
@@ -813,5 +1088,9 @@
         <value xml:lang="en">Dutch</value>
         <value xml:lang="it">Olandese</value>
         <value xml:lang="th">เนเธอร์แลนด์</value>
+    </property>
+    <property key="zh">
+        <value xml:lang="en">Chinese</value>
+        <value xml:lang="zh">中文</value>
     </property>
 </resource>

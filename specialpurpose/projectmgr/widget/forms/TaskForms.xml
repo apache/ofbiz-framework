@@ -62,8 +62,8 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field use-when="myTask!=void" name="estimatedHours"><text size="5"/></field>
-        <field use-when="myTask!=void" name="skillTypeId">
+        <field use-when="myTask!=void" name="estimatedHours" title="${uiLabelMap.ProjectMgrEstimatedHours}"><text size="5"/></field>
+        <field use-when="myTask!=void" name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SkillType" description="${description}"/>        
             </drop-down>
@@ -184,7 +184,7 @@
                 </entity-options>    
             </drop-down>
         </field>
-        <field name="projectName"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
@@ -242,7 +242,7 @@
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${resultProject.projectId}" description="${resultProject.projectName}"/></field>
-        <field entry-name="result.taskInfo.currentStatusId" name="currentStatusId" ><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field entry-name="result.taskInfo.currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority"><display/></field>
         <field name="estimatedStartDate"><display type="date"/></field>
         <field name="estimatedCompletionDate" red-when="before-now"><display type="date"/></field>
@@ -250,7 +250,7 @@
         <field name="actualCompletionDate" red-when="before-now"><display type="date"/></field>
         <field entry-name="result.taskInfo.plannedHours" name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field entry-name="result.taskInfo.actualHours" name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="partyId" parameter-name="newPartyId">
             <drop-down>
                 <entity-options entity-name="PartyDetailAndWorkEffortAssign" description="${firstName} ${middleName} ${lastName}">
@@ -351,7 +351,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="add"><submit/></field>
+        <field name="addButton"><submit/></field>
     </form>
     <form name="AddDependencyAfter" type="single" target="addDependency"
         header-row-style="header-row" default-table-style="basic-table">
@@ -368,7 +368,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="add"><submit/></field>
+        <field name="addButton"><submit/></field>
     </form>
     <form name="ListTaskSkills" type="list" target="updateTaskSkillStandard" list-name="workEffortSkillStandards" paginate-target="EditTaskSkills" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -458,10 +458,10 @@
         <field name="workEffortId"><hidden/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
      
-        <field name="Private/Public" widget-style="buttontext" use-when="internalNote.equals(&quot;N&quot;)">
+        <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.PorjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;N&quot;)">
             <hyperlink target="updateTaskNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=Y" description="${uiLabelMap.OrderNotesPrivate}"></hyperlink>
         </field>
-        <field name="Private/Public" widget-style="buttontext" use-when="internalNote.equals(&quot;Y&quot;)">
+        <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.PorjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;Y&quot;)">
             <hyperlink target="updateTaskNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=N" description="${uiLabelMap.OrderNotesPublic}"></hyperlink>
         </field>
     </form>
@@ -472,7 +472,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="taskName" title="${uiLabelMap.ProjectMgrTaskName}"><display/></field>
         <field name="taskDescription" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"></display-entity></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><display type="date"/></field>

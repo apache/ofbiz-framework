@@ -1533,6 +1533,46 @@
         <value xml:lang="th">ขั้นตอนก่ารทำงาน</value>
         <value xml:lang="zh">工作流</value>
     </property>
+    <property key="RoleType.description.PROJECT_TEAM">
+        <value xml:lang="en">Project Team</value>
+        <value xml:lang="zh">项目团体</value>
+    </property>
+    <property key="RoleType.description.CLIENT_MANAGER">
+        <value xml:lang="en">Client Manager</value>
+        <value xml:lang="zh">客户经理</value>
+    </property>
+    <property key="RoleType.description.CLIENT_ANALYST">
+        <value xml:lang="en">Client Analyst</value>
+        <value xml:lang="zh">客户分析员</value>
+    </property>
+    <property key="RoleType.description.CLIENT_BILLING">
+        <value xml:lang="en">Client Billing</value>
+        <value xml:lang="zh">客户收款员</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_MANAGER">
+        <value xml:lang="en">Provider Manager</value>
+        <value xml:lang="zh">供应商经理</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_ACCOUNTING">
+        <value xml:lang="en">Provider Accounting</value>
+        <value xml:lang="zh">供应商会计人员</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_ANALYST">
+        <value xml:lang="en">Provider Analyst</value>
+        <value xml:lang="zh">供应商分析员</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_VALIDATOR">
+        <value xml:lang="en">Provider Validator</value>
+        <value xml:lang="zh">供应商检验人员</value>
+    </property>
+    <property key="RoleType.description.PROVIDER_FUNCTIONAL">
+        <value xml:lang="en">Provider Functional</value>
+        <value xml:lang="zh">供应商实现人员</value>
+    </property>
+     <property key="RoleType.description.PROVIDER_TESTER">
+        <value xml:lang="en">Provider Tester</value>
+        <value xml:lang="zh">供应商测试人员</value>
+    </property>
     <property key="RoleType.description._NA_">
         <value xml:lang="en">Not Applicable</value>
         <value xml:lang="es">No aplicable</value>
