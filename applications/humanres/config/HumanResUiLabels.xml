@@ -726,6 +726,7 @@
         <value xml:lang="en">New Skill Type</value>
         <value xml:lang="it">Nuovo Tipo Abilità</value>
         <value xml:lang="th">ประเภททักษะใหม่</value>
+        <value xml:lang="zh">新技能类别</value>
     </property>
     <property key="HumanResNewTerminationReason">
         <value xml:lang="en">New Termination Reason</value>
@@ -854,6 +855,7 @@
         <value xml:lang="en">Skill Type Id</value>
         <value xml:lang="it">Codice Tipo Abilità</value>
         <value xml:lang="th">รหัสประเภททักษะ</value>
+        <value xml:lang="zh">技能类型Id</value>
     </property>
     <property key="HumanResTerminationReason">
         <value xml:lang="en">Termination Reason</value>
@@ -899,6 +901,7 @@
         <value xml:lang="en">Edit Skill Type</value>
         <value xml:lang="it">Aggiorna Tipo Abilità</value>
         <value xml:lang="th">แก้ไขประเภททักษะ</value>
+        <value xml:lang="zh">编辑技能类别</value>
     </property>
     <property key="PageTitleEditValidResponsibility">
         <value xml:lang="en">Edit ValidResponsibility</value>
@@ -939,6 +942,7 @@
         <value xml:lang="en">List Skill Types</value>
         <value xml:lang="it">Lista Tipi Abilità</value>
         <value xml:lang="th">รายการประเภททักษะ</value>
+        <value xml:lang="zh">技能类型列表</value>
     </property>
     <property key="PageTitleListValidResponsibilities">
         <value xml:lang="en">List ValidResponsibilities</value>

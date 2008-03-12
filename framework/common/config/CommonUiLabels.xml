@@ -3015,6 +3015,11 @@
         <value xml:lang="zh_CN">注销</value>
         <value xml:lang="zh">退出</value>
     </property>
+    <property key="CommonHelp">
+        <value xml:lang="en">Help</value>
+        <value xml:lang="zh_CN">帮助</value>
+        <value xml:lang="zh">帮助</value>
+    </property>
     <property key="CommonLookup">
         <value xml:lang="ar">البحث</value>
         <value xml:lang="de">Ansehen</value>
@@ -6828,66 +6833,71 @@
         <value xml:lang="th">อัพเดท</value>
         <value xml:lang="zh">更新</value>
     </property>
-    <property key="FormfieldTitle_addButton">
+    <property key="FormFieldTitle_addButton">
         <value xml:lang="en">add</value>
         <value xml:lang="it">Aggiungi</value>
         <value xml:lang="ro">Adauga</value>
         <value xml:lang="th">เพิ่ม</value>
+        <value xml:lang="zh">新增</value>
     </property>
-    <property key="FormfieldTitle_amount">
+    <property key="FormFieldTitle_currentStatusId">
+        <value xml:lang="en">Current Status Id</value>
+        <value xml:lang="zh">当前状态Id</value>
+    </property>
+    <property key="FormFieldTitle_amount">
         <value xml:lang="en">amount</value>
         <value xml:lang="it">Importo</value>
         <value xml:lang="ro">Valoare</value>
         <value xml:lang="th">จำนวน</value>
     </property>
-    <property key="FormfieldTitle_comments">
+    <property key="FormFieldTitle_comments">
         <value xml:lang="en">comments</value>
         <value xml:lang="it">Commenti</value>
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
     </property>
-    <property key="FormfieldTitle_createButton">
+    <property key="FormFieldTitle_createButton">
         <value xml:lang="en">Create</value>
         <value xml:lang="it">Creare</value>
         <value xml:lang="ro">Creare</value>
         <value xml:lang="th">สร้าง</value>
     </property>
-    <property key="FormfieldTitle_currencyUomId">
+    <property key="FormFieldTitle_currencyUomId">
         <value xml:lang="en">Currency</value>
         <value xml:lang="it">Valuta</value>
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="th">สกุลเงิน</value>
     </property>
-    <property key="FormfieldTitle_effectiveDate">
+    <property key="FormFieldTitle_effectiveDate">
         <value xml:lang="en">Effective Date</value>
         <value xml:lang="it">Data Effettiva</value>
         <value xml:lang="ro">Data Efectiva</value>
         <value xml:lang="th">วันที่มีผล</value>
     </property>
-    <property key="FormfieldTitle_removeButton">
+    <property key="FormFieldTitle_removeButton">
         <value xml:lang="en">Remove</value>
         <value xml:lang="it">Rimuovi</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="th">ลบ</value>
     </property>
-    <property key="FormfieldTitle_total">
+    <property key="FormFieldTitle_total">
         <value xml:lang="en">Total</value>
         <value xml:lang="it">Totale</value>
         <value xml:lang="ro">Total</value>
         <value xml:lang="th">ผลรวม</value>
     </property>
-    <property key="FormfieldTitle_uomId">
+    <property key="FormFieldTitle_uomId">
         <value xml:lang="en">UOM</value>
         <value xml:lang="it">Udm</value>
         <value xml:lang="ro">Udm</value>
         <value xml:lang="th">หน่วยวัด</value>
     </property>
-    <property key="FormfieldTitle_updateButton">
+    <property key="FormFieldTitle_updateButton">
         <value xml:lang="en">Update</value>
         <value xml:lang="it">Aggiorna</value>
         <value xml:lang="ro">Actualizeaza</value>
         <value xml:lang="th">อัพเดท</value>
-    </property>
+    </property> 
     <property key="GoogleBase">
         <value xml:lang="en">Google Base</value>
         <value xml:lang="it">Google Base</value>
@@ -7140,6 +7150,7 @@
         <value xml:lang="en">Project</value>
         <value xml:lang="it">Progetti</value>
         <value xml:lang="th">โปรเจค</value>
+        <value xml:lang="zh">项目管理</value>
     </property>
     <property key="ServiceManagement">
         <value xml:lang="en">Service</value>

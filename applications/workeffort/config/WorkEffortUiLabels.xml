@@ -1728,6 +1728,7 @@
         <value xml:lang="en">Internal Note</value>
         <value xml:lang="it">Nota Interna</value>
         <value xml:lang="th">ข้อความภายใน</value>
+        <value xml:lang="zh">内部便笺</value>
     </property>
     <property key="WorkEffort">
         <value xml:lang="en">WorkEffort</value>
@@ -2634,6 +2635,7 @@
         <value xml:lang="en">My Tasks</value>
         <value xml:lang="it">Miei Compiti</value>
         <value xml:lang="th">ภารกิจของฉัน</value>
+        <value xml:lang="zh">我的任务</value>
     </property>
     <property key="WorkEffortMyTimesheets">
         <value xml:lang="en">My Timesheets</value>
