@@ -164,6 +164,7 @@
         <value xml:lang="it">Aggiungi Default</value>
         <value xml:lang="nl">Voeg default toe</value>
         <value xml:lang="pt">Adicionar Default</value>
+        <value xml:lang="pt_PT">Adicionar Pré-definições</value>
         <value xml:lang="ro">Adauga Default</value>
         <value xml:lang="ru">Добавить по умолчанию</value>
         <value xml:lang="th">เพิ่มค่าเริ่มต้น</value>
@@ -281,6 +282,7 @@
         <value xml:lang="it">Tutti</value>
         <value xml:lang="nl">Alle</value>
         <value xml:lang="pt">Todos</value>
+        <value xml:lang="pt_PT">Tudo</value>
         <value xml:lang="ro">Toate</value>
         <value xml:lang="ru">Все</value>
         <value xml:lang="th">ทั้งหมด</value>
@@ -703,6 +705,7 @@
         <value xml:lang="it">Indietro</value>
         <value xml:lang="nl">Terug</value>
         <value xml:lang="pt">Retroceder</value>
+        <value xml:lang="pt_PT">Voltar</value>
         <value xml:lang="ro">Inapoi</value>
         <value xml:lang="ru">Назад</value>
         <value xml:lang="th">กลับ</value>
@@ -923,6 +926,7 @@
         <value xml:lang="it">Controlla</value>
         <value xml:lang="nl">Checking</value>
         <value xml:lang="pt">A Verificar</value>
+        <value xml:lang="pt_PT">Verificação</value>
         <value xml:lang="ro">Controleaza</value>
         <value xml:lang="ru">Проверка</value>
         <value xml:lang="th">กำลังตรวจสอบ</value>
@@ -939,6 +943,7 @@
         <value xml:lang="it">Checkout Senza Login</value>
         <value xml:lang="nl">Afrekenen zonder in te loggen</value>
         <value xml:lang="pt">Verificar/Terminar Sem Login</value>
+        <value xml:lang="pt_PT">Pagamento sem Registo</value>
         <value xml:lang="ro">Checkout fara Login</value>
         <value xml:lang="ru">Анонимная проверка (без логина)</value>
         <value xml:lang="th">การแจ้งออกโดยปราศจากการลอกอินเข้าสู่ระบบ</value>
@@ -955,6 +960,7 @@
         <value xml:lang="it">Tu puoi fare il checkout senza creare una utenza</value>
         <value xml:lang="nl">Je kan afrekenen zonder een rekening aan te maken</value>
         <value xml:lang="pt">Você pode verificar/terminar sem criar uma conta</value>
+        <value xml:lang="pt_PT">Pode Pagar sem criar uma conta connosco</value>
         <value xml:lang="ro">Tu poti sa faci checkout fara sa creezi un utilizator</value>
         <value xml:lang="ru">Вы можете выполнить проверку без создания учетной записи</value>
         <value xml:lang="th">คุณอาจจะแจ้งออกโดยปราศจากการสร้างบัญชี</value>
@@ -971,6 +977,7 @@
         <value xml:lang="it">Scegli Lingua</value>
         <value xml:lang="nl">Kies een taal</value>
         <value xml:lang="pt">Escolher Língua</value>
+        <value xml:lang="pt_PT">Escolher Idioma</value>
         <value xml:lang="ro">Alege Limba</value>
         <value xml:lang="ru">Выбрать язык</value>
         <value xml:lang="th">เลือกภาษา</value>
@@ -1024,6 +1031,7 @@
         <value xml:lang="it">Clicca Qui</value>
         <value xml:lang="nl">Klik Hier</value>
         <value xml:lang="pt">Clique Aqui</value>
+        <value xml:lang="pt_PT">Pressione Aqui</value>
         <value xml:lang="ro">Clickeaza Aici</value>
         <value xml:lang="ru">Щелкните мышью здесь</value>
         <value xml:lang="th">คลิกที่นี่</value>
@@ -1554,6 +1562,7 @@
         <value xml:lang="it">Cancella</value>
         <value xml:lang="nl">Wis</value>
         <value xml:lang="pt">Apagar</value>
+        <value xml:lang="pt_PT">Eliminar</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Удалить</value>
         <value xml:lang="th">ลบ</value>
@@ -1943,6 +1952,7 @@
         <value xml:lang="it">Scade</value>
         <value xml:lang="nl">Maak verlopen</value>
         <value xml:lang="pt">Expirar</value>
+        <value xml:lang="pt_PT">Terminar</value>
         <value xml:lang="ro">Expira</value>
         <value xml:lang="ru">Прекратить</value>
         <value xml:lang="th">หมดเขต</value>
@@ -1958,6 +1968,7 @@
         <value xml:lang="it">Scade Tutto</value>
         <value xml:lang="nl">Alles laten verlopen</value>
         <value xml:lang="pt">Expirar Tudo</value>
+        <value xml:lang="pt_PT">Termina</value>
         <value xml:lang="ro">Expira Totul</value>
         <value xml:lang="ru">Прекратить все</value>
         <value xml:lang="th">หมดเขตทั้งหมด</value>
@@ -2108,6 +2119,7 @@
         <value xml:lang="it">Ricerca</value>
         <value xml:lang="nl">Zoek</value>
         <value xml:lang="pt">Procurar</value>
+        <value xml:lang="pt_PT">Procura</value>
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Найти</value>
         <value xml:lang="th">ค้นหา</value>
@@ -2203,6 +2215,7 @@
         <value xml:lang="it">Password Dimenticata</value>
         <value xml:lang="nl">Wachtwoord vergeten</value>
         <value xml:lang="pt">Esqueceu-ce da Password</value>
+        <value xml:lang="pt_PT">Esqueceu a Sua Senha</value>
         <value xml:lang="ro">Parola Uitata</value>
         <value xml:lang="ru">Забыли пароль</value>
         <value xml:lang="th">ลืมรหัสผ่านของคุณ</value>
@@ -2345,6 +2358,7 @@
         <value xml:lang="it">Dalla Data</value>
         <value xml:lang="nl">Van Datum</value>
         <value xml:lang="pt">Data Origem</value>
+        <value xml:lang="pt_PT">A Partir De</value>
         <value xml:lang="ro">De la Data</value>
         <value xml:lang="ru">С даты</value>
         <value xml:lang="th">จากวันที่</value>
@@ -2359,8 +2373,9 @@
         <value xml:lang="fr">Date de début absente</value>
         <value xml:lang="it">Dalla Data è mancante</value>
         <value xml:lang="nl">Vanaf datum mist</value>
-        <value xml:lang="pt">Data Origem em falta</value>
         <value xml:lang="ro">De la Data Lipsa</value>
+        <value xml:lang="pt">Data Origem em falta</value>
+        <value xml:lang="pt_PT">A Partir De em falta</value>
         <value xml:lang="ru">'С даты' отсутствует</value>
         <value xml:lang="th">จากวันที่ซึ่งหาไม่พบ</value>
         <value xml:lang="zh_CN">起始日期丢失</value>
@@ -2375,6 +2390,7 @@
         <value xml:lang="it">Dalla Data non è una Data-Ora valida.</value>
         <value xml:lang="nl">Vanaf Datum is geen geldige datum-Tijd</value>
         <value xml:lang="pt">A Data Origem não é válida.</value>
+        <value xml:lang="pt_PT">A Partir De não é uma data/hora válida</value>
         <value xml:lang="ro">De la Data-nu este o Data-Ora valida.</value>
         <value xml:lang="ru">В поле 'С даты' указаны некорректные дата/время.</value>
         <value xml:lang="th">จากวันที่ที่ไม่เป็นวันและเวลา</value>
@@ -2390,6 +2406,7 @@
         <value xml:lang="it">Dalla Data / Alla Data</value>
         <value xml:lang="nl">Van/tot Datum</value>
         <value xml:lang="pt">Data Origem / Data Final</value>
+        <value xml:lang="pt_PT">A Partir De/Durante</value>
         <value xml:lang="ro">De la Data / La Data</value>
         <value xml:lang="ru">'С даты' / 'По дату'</value>
         <value xml:lang="th">จากวันที่ / ถึงวันที่</value>
@@ -2442,6 +2459,7 @@
         <value xml:lang="it">Ottieni Suggerimento Password</value>
         <value xml:lang="nl">Krijg een wachtwoord aanwijzing</value>
         <value xml:lang="pt">Obter Pergunta de Segurança</value>
+        <value xml:lang="pt_PT">Buscar Dica de Senha</value>
         <value xml:lang="ro">Obtii Sugeriment Parola</value>
         <value xml:lang="ru">Получить подсказку по паролю</value>
         <value xml:lang="th">ดึงค่ารหัสผ่านที่ซ่อนอยู่</value>
@@ -2479,6 +2497,7 @@
         <value xml:lang="it">Torna Indietro</value>
         <value xml:lang="nl">Ga terug</value>
         <value xml:lang="pt">Voltar Atràs</value>
+        <value xml:lang="pt_PT">Retroceder</value>
         <value xml:lang="ro">Inapoi</value>
         <value xml:lang="ru">Вернуться</value>
         <value xml:lang="th">กลับไป</value>
@@ -2871,6 +2890,7 @@
         <value xml:lang="it">Lingua</value>
         <value xml:lang="nl">Taal</value>
         <value xml:lang="pt">Língua</value>
+        <value xml:lang="pt_PT">Idioma</value>
         <value xml:lang="ro">Limba</value>
         <value xml:lang="ru">Язык</value>
         <value xml:lang="th">ภาษา</value>
@@ -2946,6 +2966,7 @@
         <value xml:lang="it">Lista</value>
         <value xml:lang="nl">Lijst</value>
         <value xml:lang="pt">Listar</value>
+        <value xml:lang="pt_PT">Lista</value>
         <value xml:lang="ro">Lista</value>
         <value xml:lang="ru">Список</value>
         <value xml:lang="th">รายการ</value>
@@ -2977,6 +2998,7 @@
         <value xml:lang="it">Login</value>
         <value xml:lang="nl">Login</value>
         <value xml:lang="pt">Login</value>
+        <value xml:lang="pt_PT">Iniciar</value>
         <value xml:lang="ro">Login</value>
         <value xml:lang="ru">Вход</value>
         <value xml:lang="th">เข้าสู่ระบบ</value>
@@ -2993,6 +3015,7 @@
         <value xml:lang="it">log in qui</value>
         <value xml:lang="nl">Hier Inloggen</value>
         <value xml:lang="pt">log in aqui</value>
+        <value xml:lang="pt_PT">Inicie Aqui</value>
         <value xml:lang="ro">Intra aici</value>
         <value xml:lang="ru">Войти здесь</value>
         <value xml:lang="th">เข้าสู่ระบบที่นี่</value>
@@ -3009,6 +3032,7 @@
         <value xml:lang="it">Logout</value>
         <value xml:lang="nl">Logout</value>
         <value xml:lang="pt">Logout</value>
+        <value xml:lang="pt_PT">Terminar</value>
         <value xml:lang="ro">Iesire</value>
         <value xml:lang="ru">Выход</value>
         <value xml:lang="th">ออกจากระบบ</value>
@@ -3029,6 +3053,7 @@
         <value xml:lang="it">Ricerca</value>
         <value xml:lang="nl">Zoek</value>
         <value xml:lang="pt">Procurar</value>
+        <value xml:lang="pt_PT">Vistoria</value>
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Просмотр</value>
         <value xml:lang="th">ค้นหา</value>
@@ -3045,6 +3070,7 @@
         <value xml:lang="it">Pagina Principale</value>
         <value xml:lang="nl">HoofdMenu</value>
         <value xml:lang="pt">Início</value>
+        <value xml:lang="pt_PT">Entrada</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="ru">Главная</value>
         <value xml:lang="th">หน้าหลัก</value>
@@ -3115,6 +3141,7 @@
         <value xml:lang="it">Controllato</value>
         <value xml:lang="nl">Vergeleken</value>
         <value xml:lang="pt">Encontrados</value>
+        <value xml:lang="pt_PT">Equivalente</value>
         <value xml:lang="ro">Control</value>
         <value xml:lang="ru">Совпало</value>
         <value xml:lang="th">ตรงกัน</value>
@@ -3162,6 +3189,7 @@
         <value xml:lang="it">Tu puoi creare un nuovo utente qui</value>
         <value xml:lang="nl">Hier een nieuwe rekening aanmaken</value>
         <value xml:lang="pt">Você pode criar uma nova conta aqui</value>
+        <value xml:lang="pt_PT">Pode criar nova conta aqui</value>
         <value xml:lang="ro">Tu poti crea un nou utilizatornte CommonMedium=Mediu</value>
         <value xml:lang="ru">Здесь Вы можете создать новую учетную запись</value>
         <value xml:lang="th">คุณต้องสร้างบัญชีใหม่ที่นี่</value>
@@ -3343,6 +3371,7 @@
         <value xml:lang="it">Non disponibile</value>
         <value xml:lang="nl">nvt</value>
         <value xml:lang="pt">N/A</value>
+        <value xml:lang="pt_PT">Indisponível</value>
         <value xml:lang="ro">Nu este disponibil</value>
         <value xml:lang="ru">Недоступно</value>
         <value xml:lang="th">N/A</value>
@@ -3428,6 +3457,7 @@
         <value xml:lang="it">Successivo</value>
         <value xml:lang="nl">Volgende</value>
         <value xml:lang="pt">próximo</value>
+        <value xml:lang="pt_PT">Seguinte</value>
         <value xml:lang="ro">Succesiv(a)</value>
         <value xml:lang="ru">Следующая</value>
         <value xml:lang="th">ต่อไป</value>
@@ -3982,6 +4012,7 @@
         <value xml:lang="it">Password</value>
         <value xml:lang="nl">Wachtwoord</value>
         <value xml:lang="pt">Password</value>
+        <value xml:lang="pt_PT">Senha</value>
         <value xml:lang="ro">Parola</value>
         <value xml:lang="ru">Пароль</value>
         <value xml:lang="th">รหัสผ่าน</value>
@@ -4315,6 +4346,7 @@
         <value xml:lang="it">Aggiunta Veloce</value>
         <value xml:lang="nl">Snel toevoegen</value>
         <value xml:lang="pt">Adicionar Rapidamente</value>
+        <value xml:lang="pt_PT">Compra Expresso</value>
         <value xml:lang="ro">Adaugare Rapida</value>
         <value xml:lang="ru">Быстрое добавление</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
@@ -4464,6 +4496,7 @@
         <value xml:lang="it">Utente Registrato</value>
         <value xml:lang="nl">Geregisteerde gebruiker</value>
         <value xml:lang="pt">Utilizador Registado</value>
+        <value xml:lang="pt_PT">Utilizador Inscrito</value>
         <value xml:lang="ro">Utilizator Registrat</value>
         <value xml:lang="ru">Зарегистрированный пользователь</value>
         <value xml:lang="th">ลงทะเบียนผู้ใช้</value>
@@ -4576,6 +4609,7 @@
         <value xml:lang="it">Azzera</value>
         <value xml:lang="nl">Reset</value>
         <value xml:lang="pt">Reiniciar</value>
+        <value xml:lang="pt_PT">Restaurar</value>
         <value xml:lang="ro">Azereaz</value>
         <value xml:lang="ru">Переустановить</value>
         <value xml:lang="th">ตั้งใหม่</value>
@@ -4636,6 +4670,7 @@
         <value xml:lang="it">Recensione</value>
         <value xml:lang="nl">Overzicht</value>
         <value xml:lang="pt">Revisão</value>
+        <value xml:lang="pt_PT">Rever</value>
         <value xml:lang="ro">Recenzie</value>
         <value xml:lang="ru">Просмотреть</value>
         <value xml:lang="th">ตรวจสอบ</value>
@@ -4744,6 +4779,7 @@
         <value xml:lang="it">Ricerca Risultati per</value>
         <value xml:lang="nl">Zoek resultaten voor</value>
         <value xml:lang="pt">Resultados de Pesquisa para</value>
+        <value xml:lang="pt_PT">Procurar Resultados para</value>
         <value xml:lang="ro">Cauta Resultate pentru</value>
         <value xml:lang="ru">Поиск результатов по</value>
         <value xml:lang="th">ค้นหาผลลัพธ์สำหรับ</value>
@@ -5171,6 +5207,7 @@
         <value xml:lang="it">Data Inizio</value>
         <value xml:lang="nl">Begin Datum</value>
         <value xml:lang="pt">Data de Início</value>
+        <value xml:lang="pt_PT">Começa Data/Hora</value>
         <value xml:lang="ro">Data Initieri</value>
         <value xml:lang="ru">Дата начала</value>
         <value xml:lang="th">เริ่มวันที่</value>
@@ -5306,6 +5343,7 @@
         <value xml:lang="it">Invia</value>
         <value xml:lang="nl">Submit</value>
         <value xml:lang="pt">Submeter</value>
+        <value xml:lang="pt_PT">Registar</value>
         <value xml:lang="ro">Trimite</value>
         <value xml:lang="ru">Отправить</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -5435,6 +5473,7 @@
         <value xml:lang="it">Test</value>
         <value xml:lang="nl">Test</value>
         <value xml:lang="pt">Testar</value>
+        <value xml:lang="pt_PT">Teste em Ingês</value>
         <value xml:lang="ro">Test</value>
         <value xml:lang="ru">Тест</value>
         <value xml:lang="th">ทดสอบ</value>
@@ -5547,6 +5586,7 @@
         <value xml:lang="it">Fino alla Data</value>
         <value xml:lang="nl">'tot' Datum</value>
         <value xml:lang="pt">Data Final</value>
+        <value xml:lang="pt_PT">Durante Data</value>
         <value xml:lang="ro">Pana la Data</value>
         <value xml:lang="ru">По дату</value>
         <value xml:lang="th">ถึงวันที่</value>
@@ -6023,6 +6063,7 @@
         <value xml:lang="it">Nome utente</value>
         <value xml:lang="nl">Gebruikersnaam</value>
         <value xml:lang="pt">Username</value>
+        <value xml:lang="pt_PT">Utilizador</value>
         <value xml:lang="ro">Nume utilizator</value>
         <value xml:lang="ru">Имя пользователя</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้</value>
@@ -6235,6 +6276,7 @@
         <value xml:lang="it">Benvenuto</value>
         <value xml:lang="nl">Welkom</value>
         <value xml:lang="pt">Bem Vindo</value>
+        <value xml:lang="pt_PT">Bem-vindo</value>
         <value xml:lang="ro">Bun Venit</value>
         <value xml:lang="ru">Добро пожаловать</value>
         <value xml:lang="th">ยินดีต้อนรับ</value>
@@ -6310,6 +6352,7 @@
         <value xml:lang="it">S</value>
         <value xml:lang="nl">J</value>
         <value xml:lang="pt">Y</value>
+        <value xml:lang="pt_PT">S</value>
         <value xml:lang="ro">D</value>
         <value xml:lang="ru">Д</value>
         <value xml:lang="th">ปี</value>
