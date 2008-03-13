@@ -111,8 +111,8 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field name="estimatedHours"><text size="5"/></field>
-        <field name="skillTypeId">
+        <field name="estimatedHours" title="${uiLabelMap.ProjectMgrEstimatedHours}"><text size="5"/></field>
+        <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SkillType" description="${description}"/>        
             </drop-down>

@@ -1064,6 +1064,42 @@
         <value xml:lang="en">Closed Date Time</value>
         <value xml:lang="zh">关闭日期</value>
     </property>
+    <property key="FormFieldTitle_phase">
+        <value xml:lang="en">Phase</value>
+        <value xml:lang="zh">项目阶段</value>
+    </property>
+    <property key="FormFieldTitle_startDate">
+        <value xml:lang="en">Start Date</value>
+        <value xml:lang="zh">开始日期</value>
+    </property>
+    <property key="FormFieldTitle_completionDate">
+        <value xml:lang="en">Completion Date</value>
+        <value xml:lang="zh">完成日期</value>
+    </property>
+    <property key="FormFieldTitle_task">
+        <value xml:lang="en">Task</value>
+        <value xml:lang="zh">任务</value>
+    </property>
+    <property key="FormFieldTitle_phaseName">
+        <value xml:lang="en">Phase Name</value>
+        <value xml:lang="zh">阶段名称</value>
+    </property>
+    <property key="FormFieldTitle_createdStamp">
+        <value xml:lang="en">Created Stamp</value>
+        <value xml:lang="zh">创建时间</value>
+    </property>
+    <property key="FormFieldTitle_projectName">
+        <value xml:lang="en">Project Name</value>
+        <value xml:lang="zh">项目名称</value>
+    </property>
+    <property key="FormFieldTitle_taskName">
+        <value xml:lang="en">Task Name</value>
+        <value xml:lang="zh">任务名称</value>
+    </property>
+    <property key="ProjectMgrUnbilledHours">
+        <value xml:lang="en">Unbilled hours</value>
+        <value xml:lang="zh">没记账工时</value>
+    </property>
     <property key="de">
         <value xml:lang="en">German</value>
         <value xml:lang="it">Tedesco</value>

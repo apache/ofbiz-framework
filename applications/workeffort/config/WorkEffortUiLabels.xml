@@ -3069,6 +3069,7 @@
         <value xml:lang="en">Private/Public</value>
         <value xml:lang="it">Privata/Pubblica</value>
         <value xml:lang="th">ส่วนตัว/สาธารณะ</value>
+        <value xml:lang="zh">私有/公开</value>
     </property>
     <property key="WorkEffortProduct">
         <value xml:lang="en">Product</value>
