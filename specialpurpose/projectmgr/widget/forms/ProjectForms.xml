@@ -485,14 +485,14 @@
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
-        <field name="Priority" widget-area-style="centered"><display description="${Priority}"/></field>
-        <field name="EstimatedStartDate" widget-area-style="centered"><display type="date"/></field>
-        <field name="EstimatedCompletionDate" widget-area-style="centered"><display  type="date"/></field>
-        <field name="ActualStartDate" title="startDate"><display type="date"/></field>
-        <field name="ActualCompletionDate" title="completionDate"><display type="date"/></field>
+        <field name="priority" widget-area-style="centered"><display description="${Priority}"/></field>
+        <field name="estimatedStartDate" widget-area-style="centered"><display type="date"/></field>
+        <field name="estimatedCompletionDate" widget-area-style="centered"><display  type="date"/></field>
+        <field name="actualStartDate" ><display type="date"/></field>
+        <field name="actualCompletionDate"><display type="date"/></field>
         <field name="plannedHours" widget-area-style="centered"><display/></field>
         <field name="actualHours" widget-area-style="centered"><display/></field>
-        <field name="CreatedStamp" title="CreatedStamp"><display type="date"/></field>
+        <field name="createdStamp" ><display type="date"/></field>
     </form>
     <form name="AddResourceProjectParty" target="addWorkEffortPartyAssign" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">

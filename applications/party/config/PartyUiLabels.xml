@@ -7246,4 +7246,8 @@
         <value xml:lang="pt_PT">Português</value>
         <value xml:lang="th">โปรตุเกส</value>
     </property>
+    <property key="FormFieldTitle_defaultRate">
+        <value xml:lang="en">Default Rate</value>
+        <value xml:lang="zh">默认费率</value>
+    </property>
 </resource>

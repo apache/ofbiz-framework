@@ -35,7 +35,7 @@ under the License.
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
-                            <screenlet title="Unbilled hours">
+                            <screenlet title="${uiLabelMap.ProjectMgrUnbilledHours}">
                                 <include-form name="ListUnBilledHours" location="component://projectmgr/widget/forms/ResourceForms.xml"/>
                             </screenlet>
                         </screenlet>
