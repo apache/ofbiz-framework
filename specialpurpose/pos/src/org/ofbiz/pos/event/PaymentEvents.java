@@ -109,7 +109,11 @@ public class PaymentEvents {
         Input input = pos.getInput();
         String[] msrInfo = input.getFunction("MSRINFO");
         String[] crtInfo = input.getFunction("CREDIT");
-
+        String[] track2Info = input.getFunction("TRACK2");
+        String[] securityCodeInfo = input.getFunction("SECURITYCODE");
+        String[] postalCodeInfo = input.getFunction("POSTALCODE");
+        String[] creditExpirationInfo = input.getFunction("CREDITEXP");
+        
         // check for no/external payment processing
         int paymentCheck = trans.checkPaymentMethodType("CREDIT_CARD");
         if (paymentCheck == PosTransaction.NO_PAYMENT) {
@@ -128,13 +132,19 @@ public class PaymentEvents {
 
         // now for internal payment processing
         if (crtInfo == null) {
+            // set total, if entered
+            input.clearLastFunction();
+            input.setFunction("TOTAL");
             input.setFunction("CREDIT");
             pos.getOutput().print(UtilProperties.getMessage("pos","CREDNO",Locale.getDefault()));
         } else {
             Debug.log("Credit Func Info : " + crtInfo[1], module);
-            if (msrInfo == null) {
+            if (msrInfo == null && (creditExpirationInfo == null))  {
+                //test credit card
                 if (UtilValidate.isNotEmpty(input.value()) && UtilValidate.isCreditCard(input.value())) {
-                    input.setFunction("MSRINFO");
+                    input.clearLastFunction();
+                    input.setFunction("CREDIT");
+                    input.setFunction("CREDITEXP");
                     pos.getOutput().print(UtilProperties.getMessage("pos","CREDEX",Locale.getDefault()));
                 } else {
                     Debug.log("Invalid card number - " + input.value(), module);
@@ -142,14 +152,52 @@ public class PaymentEvents {
                     input.clearInput();
                     pos.showDialog("dialog/error/invalidcardnumber");
                 }
+            } else if (msrInfo == null && (securityCodeInfo == null) ){
+                // test expiration date
+                if (UtilValidate.isNotEmpty(input.value()) && (input.value().length() == 4)) {
+                    // ask for Security Code, put in SECURITYCODE
+                    input.clearLastFunction();
+                    input.setFunction("CREDITEXP");
+                    input.setFunction("SECURITYCODE");
+                    pos.getOutput().print(UtilProperties.getMessage("pos","SECURITYCODE",Locale.getDefault()));
+                } else {
+                    Debug.log("Invalid expiration date", module);
+                    clearInputPaymentFunctions(pos);
+                    input.clearInput();
+                    pos.showDialog("dialog/error/invalidexpirationdate");
+                }
+            }else if (msrInfo == null && (postalCodeInfo == null) ){
+                // test security code - allow blank for illegible cards
+                if (UtilValidate.isEmpty(input.value()) ||
+                        (UtilValidate.isNotEmpty(input.value()) && (input.value().length() <= 4))) {
+                    // ask for Security Code, put in SECURITYCODE
+                    input.clearLastFunction();
+                    input.setFunction("SECURITYCODE");
+                    input.setFunction("POSTALCODE");
+                    pos.getOutput().print(UtilProperties.getMessage("pos","POSTALCODE",Locale.getDefault()));
+                } else {
+                    clearInputPaymentFunctions(pos);
+                    input.clearInput();
+                    pos.showDialog("dialog/error/invalidsecuritycode");
+                }
             } else {
-                String msrInfoStr = msrInfo[1];
-                if (UtilValidate.isNotEmpty(input.value())) {
-                    if (UtilValidate.isNotEmpty(msrInfoStr)) {
-                        msrInfoStr = msrInfoStr + "|" + input.value();
-                    } else {
-                        msrInfoStr = input.value();
+                String msrInfoStr = null;
+                if (msrInfo == null){
+                    input.clearLastFunction();
+                    input.setFunction("POSTALCODE");
+                    postalCodeInfo = input.getFunction("POSTALCODE");
+                    if(UtilValidate.isNotEmpty(crtInfo[1])){
+                        if(UtilValidate.isNotEmpty(creditExpirationInfo[1])){
+                            // setup keyed transaction
+                            msrInfoStr = crtInfo[1] + "|" + creditExpirationInfo[1];
+                        }else {
+                            msrInfoStr = crtInfo[1];
+                        }                        
                     }
+                } else {  // is swiped
+                    // grab total from input, if available
+                    input.setFunction("TOTAL");
+                    msrInfoStr = msrInfo[1];
                 }
                 input.clearFunction("MSRINFO");
                 input.setFunction("MSRINFO", msrInfoStr);
@@ -165,9 +213,12 @@ public class PaymentEvents {
                     case 2: // card number & exp date found
                         double amount = 0;
                         try {
-                            amount = processAmount(trans, pos, crtInfo[1]);
+                            String[] totalInfo = input.getFunction("TOTAL");
+                            amount = processAmount(trans, pos, totalInfo[1]);
                             Debug.log("Processing Credit Card Amount : " + amount, module);
                         } catch (GeneralException e) {
+                            Debug.logError("Exception caught calling processAmount.", module);
+                            Debug.logError(e.getMessage(), module);
                         }
 
                         String cardNumber = msrInfoArr[0];
@@ -175,6 +226,17 @@ public class PaymentEvents {
                         String pmId = trans.makeCreditCardVo(cardNumber, expDate, firstName, lastName);
                         if (pmId != null) {
                             trans.addPayment(pmId, amount);
+                        }
+                        if (track2Info != null && UtilValidate.isNotEmpty(track2Info[1])){ 
+                            // if swiped
+                            trans.setPaymentTrack2(pmId, null, track2Info[1]);
+                        }else{ //keyed
+                            if(securityCodeInfo != null && UtilValidate.isNotEmpty(securityCodeInfo[1])){
+                                trans.setPaymentSecurityCode(pmId, null, securityCodeInfo[1]);
+                            }
+                            if(postalCodeInfo != null && UtilValidate.isNotEmpty(postalCodeInfo[1])){
+                                trans.setPaymentPostalCode(pmId, null, postalCodeInfo[1]);
+                            }
                         }
                         clearInputPaymentFunctions(pos);
                         pos.refresh();
@@ -191,7 +253,7 @@ public class PaymentEvents {
             }
         }
     }
-
+    
     private static synchronized void processNoPayment(PosScreen pos, String paymentMethodTypeId) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
 
@@ -352,7 +414,8 @@ public class PaymentEvents {
     // processed or if an error occurred
     public static synchronized void clearInputPaymentFunctions(PosScreen pos) {
         String[] paymentFuncs = {"CHECK", "CHECKINFO", "CREDIT",
-                                    "GIFTCARD", "MSRINFO", "REFNUM"};
+                                    "GIFTCARD", "MSRINFO", "REFNUM", "CREDITEXP", 
+                                    "TRACK2", "SECURITYCODE", "POSTALCODE" };
         Input input = pos.getInput();
         for (int i = 0; i < paymentFuncs.length; i++) {
             while (input.isFunctionSet(paymentFuncs[i])) {

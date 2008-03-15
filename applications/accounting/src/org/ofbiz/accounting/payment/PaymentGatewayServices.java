@@ -465,7 +465,7 @@ public class PaymentGatewayServices {
         if (paymentPreference.get("securityCode") != null) {
             processContext.put("cardSecurityCode", paymentPreference.get("securityCode"));
         }
-
+        
         // get the billing information
         getBillingInformation(orh, paymentPreference, processContext);
 
@@ -1727,8 +1727,9 @@ public class PaymentGatewayServices {
     
             // set the avs/fraud result
             response.set("gatewayAvsResult", context.get("avsCode"));
+            response.set("gatewayCvResult", context.get("cvCode"));
             response.set("gatewayScoreResult", context.get("scoreCode"));
-    
+
             // set the auth info
             response.set("amount", context.get("processAmount"));
             response.set("referenceNum", context.get("authRefNum"));
@@ -1769,6 +1770,7 @@ public class PaymentGatewayServices {
             if (context != null && authResult.booleanValue()) {
                 orderPaymentPreference.set("statusId", "PAYMENT_AUTHORIZED");
                 orderPaymentPreference.set("securityCode", null);
+                orderPaymentPreference.set("track2", null);                
             } else if (context != null && !authResult.booleanValue()) {
                 orderPaymentPreference.set("statusId", "PAYMENT_DECLINED");
             } else {

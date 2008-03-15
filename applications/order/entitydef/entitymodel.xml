@@ -940,7 +940,15 @@ under the License.
               verification code; also note that this field is longer than needed to accommodate encryption.
           </description>
       </field>
+      <field name="track2" type="long-varchar" encrypt="true">
+          <description>NOTE: THIS SHOULD NEVER BE PERSISTED OUTSIDE THE SCOPE OF A SINGLE TRANSACTION, 
+              TYPICALLY ONLY FOR AUTHORIZATION PURPOSES, SHOULD BE REMOVED IMMEDIATELY FOLLOWING USE; 
+              this is raw track2 data, exactly as read by the magnetic swipe reader; 
+              also note that this field is longer than needed to accommodate encryption.
+          </description>
+      </field>
       <field name="presentFlag" type="indicator"></field>
+      <field name="swipedFlag" type="indicator"></field>
       <field name="overflowFlag" type="indicator"></field>
       <field name="maxAmount" type="currency-amount"></field>
       <field name="processAttempt" type="numeric"></field>

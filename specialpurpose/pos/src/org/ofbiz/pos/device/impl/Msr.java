@@ -141,6 +141,7 @@ public class Msr extends GenericDevice {
                 if (credInfo == null) {
                     PosScreen.currentScreen.getInput().setFunction("CREDIT", "");
                 }
+                PosScreen.currentScreen.getInput().setFunction("TRACK2", new String(track2));
                 PosScreen.currentScreen.getInput().setFunction("MSRINFO", msrStr.toString());
                 PosScreen.currentScreen.getOutput().print("Credit Card Read");
                 PosScreen.currentScreen.getInput().clearInput();
@@ -164,7 +165,7 @@ public class Msr extends GenericDevice {
 
     private void setPayPanel() {
         if (!"main/paypanel".equals(PosScreen.currentScreen.getName())) {
-            PosScreen pos = PosScreen.currentScreen.showPage("paypanel", false);            
+            PosScreen pos = PosScreen.currentScreen.showPage("paypanel", false);
             pos.getInput().setFunction("TOTAL", "");
             pos.refresh();
             Debug.log("Switched to paypanel.xml; triggered TOTAL function", module);

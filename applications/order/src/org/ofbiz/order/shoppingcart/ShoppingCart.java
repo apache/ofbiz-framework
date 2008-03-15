@@ -1525,11 +1525,12 @@ public class ShoppingCart implements Serializable {
             }
         }
         inf.singleUse = isSingleUse;
+        inf.isPresent = isPresent;
         if (replace) {
             paymentInfo.remove(inf);
         }
         paymentInfo.add(inf);
-
+                
         return inf;
     }
 
@@ -4464,9 +4465,11 @@ public class ShoppingCart implements Serializable {
         public String securityCode = null;
         public String postalCode = null;
         public String[] refNum = new String[2];
+        public String track2 = null;
         public Double amount = null;
         public boolean singleUse = false;
-        public boolean isPresent = false;
+        public boolean isPresent = false;    
+        public boolean isSwiped = false;
         public boolean overflow = false;
 
         public GenericValue getValueObject(GenericDelegator delegator) {
@@ -4574,6 +4577,7 @@ public class ShoppingCart implements Serializable {
                         GenericValue opp = delegator.makeValue("OrderPaymentPreference");
                         opp.set("paymentMethodTypeId", valueObj.getString("paymentMethodTypeId"));
                         opp.set("presentFlag", isPresent ? "Y" : "N");
+                        opp.set("swipedFlag", isSwiped ? "Y" : "N");
                         opp.set("overflowFlag", overflow ? "Y" : "N");
                         opp.set("paymentMethodId", paymentMethodId);
                         opp.set("finAccountId", finAccountId);
@@ -4586,6 +4590,9 @@ public class ShoppingCart implements Serializable {
                         }
                         if (securityCode != null) {
                             opp.set("securityCode", securityCode);
+                        }
+                        if (track2 != null) {
+                           opp.set("track2", track2);
                         }
                         if (paymentMethodId != null || "FIN_ACCOUNT".equals(paymentMethodTypeId)) {
                             opp.set("statusId", "PAYMENT_NOT_AUTH");
@@ -4610,6 +4617,7 @@ public class ShoppingCart implements Serializable {
                     GenericValue opp = delegator.makeValue("OrderPaymentPreference");
                     opp.set("paymentMethodTypeId", valueObj.getString("paymentMethodTypeId"));
                     opp.set("presentFlag", isPresent ? "Y" : "N");
+                    opp.set("swipedFlag", isSwiped ? "Y" : "N");
                     opp.set("overflowFlag", overflow ? "Y" : "N");
                     opp.set("paymentMethodId", paymentMethodId);
                     opp.set("finAccountId", finAccountId);
@@ -4621,6 +4629,9 @@ public class ShoppingCart implements Serializable {
                     }
                     if (securityCode != null) {
                         opp.set("securityCode", securityCode);
+                    }
+                    if (track2 != null) {
+                        opp.set("track2", securityCode);
                     }
                     if (paymentMethodId != null || "FIN_ACCOUNT".equals(paymentMethodTypeId)) {
                         opp.set("statusId", "PAYMENT_NOT_AUTH");
