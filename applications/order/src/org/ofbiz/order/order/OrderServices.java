@@ -627,7 +627,7 @@ public class OrderServices {
         // and connect them with the orderitem over the WorkOrderItemFulfillment
         // create also the techData calendars to keep track of availability of the fixed asset.
         if (workEfforts != null && workEfforts.size() > 0) {
-        	List tempList = new LinkedList();
+            List tempList = new LinkedList();
             Iterator we = workEfforts.iterator();
             while (we.hasNext()) {
                 // create the entity maps required.
@@ -713,7 +713,7 @@ public class OrderServices {
                     if (techDataCalendarExcDay == null) {
                         Iterator tdcedi = tempList.iterator();
                         while (tdcedi.hasNext()) {
-                        	GenericValue currentValue = (GenericValue) tdcedi.next();
+                            GenericValue currentValue = (GenericValue) tdcedi.next();
                             if ("TechDataCalendarExcDay".equals(currentValue.getEntityName()) && currentValue.getString("calendarId").equals(fixedAsset.getString("calendarId"))
                                     && currentValue.getTimestamp("exceptionDateStartTime").equals(exceptionDateStartTime)) {
                                 techDataCalendarExcDay = currentValue;
@@ -3143,7 +3143,8 @@ public class OrderServices {
 
         // log an order note
         try {
-            dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", "Added item to order: " +
+            String addedItemToOrder = UtilProperties.getMessage(resource, "AddedItemToOrder", locale);
+            dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", addedItemToOrder +
                     productId + " (" + quantity + ")", "internalNote", "Y", "userLogin", userLogin));
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
