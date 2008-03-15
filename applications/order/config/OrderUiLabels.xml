@@ -192,18 +192,6 @@
         <value xml:lang="es">Número de código de banco</value>
         <value xml:lang="th">Routing Number</value>
     </property>
-    <property key="AccountingSuffixCard">
-        <value xml:lang="de">Suffix auf der Karte</value>
-        <value xml:lang="en">Suffix Card</value>
-        <value xml:lang="es">Sufijo en tarjeta</value>
-        <value xml:lang="th">คำลงท้ายบัตร</value>
-    </property>
-    <property key="AccountingSuffixCard">
-        <value xml:lang="de">Suffix auf der Karte</value>
-        <value xml:lang="en">Suffix Card</value>
-        <value xml:lang="es">Sufijo en tarjeta</value>
-        <value xml:lang="th">คำลงท้ายบัตร</value>
-    </property>       
     <property key="AddedItemToOrder">
         <value xml:lang="en">Added item to order: </value>
         <value xml:lang="fr">Article ajouté à la commande : </value>
