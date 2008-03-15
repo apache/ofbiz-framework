@@ -353,16 +353,14 @@ public class PosTransaction implements Serializable {
                 payInfo.put("nameOnCard", nameOnCard);
 
                 String cardNum = cc.getString("cardNumber");
-                String cardStr = cardNum.substring(0, 2);
-                cardStr = cardStr + "****";
-                cardStr = cardStr + cardNum.substring(cardNum.length() - 4);
+                String cardStr = UtilFormatOut.formatPrintableCreditCard(cardNum);
 
                 String expDate = cc.getString("expireDate");
                 String infoString = cardStr + " " + expDate;
                 payInfo.put("payInfo", infoString);
                 payInfo.putAll(cc);
-
-
+                payInfo.put("cardNumber", cardStr);  // masked cardNumber
+                
             } else if ("GIFT_CARD".equals(paymentMethodTypeId)) {
                 GenericValue gc = null;
                 try {

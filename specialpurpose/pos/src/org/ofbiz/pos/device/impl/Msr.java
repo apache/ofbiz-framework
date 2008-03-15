@@ -118,7 +118,6 @@ public class Msr extends GenericDevice {
         msrStr.append(decodedData[1]);
         msrStr.append("|");
         msrStr.append(decodedData[3]);
-        Debug.log("Msr Info : " + msrStr.toString(), module);
 
         // implemented validation
         int msrType = MSR_UNKNOWN;
