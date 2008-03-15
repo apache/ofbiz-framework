@@ -21,6 +21,7 @@ package org.ofbiz.base.test;
 import junit.framework.TestCase;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilFormatOut;
 
 public class BaseUnitTests extends TestCase {
 
@@ -37,5 +38,23 @@ public class BaseUnitTests extends TestCase {
 
         Debug.set(Debug.INFO, true);
         assertTrue(Debug.infoOn());
+    }
+
+    public void testFormatPrintableCreditCard_1(){
+        assertEquals("test 4111111111111111 to ************111", 
+                "************1111", 
+                UtilFormatOut.formatPrintableCreditCard("4111111111111111"));
+    }
+
+    public void testFormatPrintableCreditCard_2(){
+        assertEquals("test 4111 to 4111", 
+                "4111", 
+                UtilFormatOut.formatPrintableCreditCard("4111"));
+    }
+
+    public void testFormatPrintableCreditCard_3(){
+        assertEquals("test null to null", 
+                null, 
+                UtilFormatOut.formatPrintableCreditCard(null));
     }
 }
