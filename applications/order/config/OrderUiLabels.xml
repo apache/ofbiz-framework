@@ -198,10 +198,15 @@
         <value xml:lang="es">Sufijo en tarjeta</value>
         <value xml:lang="th">คำลงท้ายบัตร</value>
     </property>
-    <property key="CommonRegistred">
-        <value xml:lang="en">Registred</value>
-        <value xml:lang="es">Usuario registrado</value>
-        <value xml:lang="th">ลงทะเบียน</value>
+    <property key="AccountingSuffixCard">
+        <value xml:lang="de">Suffix auf der Karte</value>
+        <value xml:lang="en">Suffix Card</value>
+        <value xml:lang="es">Sufijo en tarjeta</value>
+        <value xml:lang="th">คำลงท้ายบัตร</value>
+    </property>       
+    <property key="AddedItemToOrder">
+        <value xml:lang="en">Added item to order: </value>
+        <value xml:lang="fr">Article ajouté à la commande : </value>
     </property>
     <property key="EcommerceANew">
         <value xml:lang="en">a new</value>
