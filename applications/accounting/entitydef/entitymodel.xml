@@ -2868,6 +2868,7 @@ under the License.
       <field name="gatewayCode" type="short-varchar"></field>
       <field name="gatewayFlag" type="short-varchar"></field>
       <field name="gatewayAvsResult" type="short-varchar"></field>
+      <field name="gatewayCvResult" type="short-varchar"></field>
       <field name="gatewayScoreResult" type="short-varchar"></field>
       <field name="gatewayMessage" type="long-varchar"></field>
       <field name="transactionDate" type="date-time"></field>

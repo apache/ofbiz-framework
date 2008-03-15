@@ -705,6 +705,32 @@ public class PosTransaction implements Serializable {
         inf.refNum[1] = authCode;
     }
 
+    /* CVV2 code should be entered when a card can't be swiped */
+    public void setPaymentSecurityCode(String paymentId, String refNum, String securityCode) {
+        trace("setting payment security code", paymentId);
+        int paymentIndex = cart.getPaymentInfoIndex(paymentId, refNum);    
+        ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(paymentIndex);
+        inf.securityCode = securityCode;
+        inf.isSwiped = false;
+    }
+
+    /* Track2 data should be sent to processor when a card is swiped. */
+    public void setPaymentTrack2(String paymentId, String refNum, String securityCode) {
+        trace("setting payment security code", paymentId);
+        int paymentIndex = cart.getPaymentInfoIndex(paymentId, refNum);    
+        ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(paymentIndex);
+        inf.securityCode = securityCode;
+        inf.isSwiped = true;
+    }
+
+    /* Postal code should be entered when a card can't be swiped */
+    public void setPaymentPostalCode(String paymentId, String refNum, String postalCode) {
+        trace("setting payment security code", paymentId);
+        int paymentIndex = cart.getPaymentInfoIndex(paymentId, refNum);    
+        ShoppingCart.CartPaymentInfo inf = cart.getPaymentInfo(paymentIndex);
+        inf.postalCode = postalCode;
+    }
+
     public void clearPayments() {
         trace("all payments cleared from sale");
         cart.clearPayments();

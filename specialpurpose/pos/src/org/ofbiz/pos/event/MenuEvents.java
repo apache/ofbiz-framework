@@ -99,6 +99,12 @@ public class MenuEvents {
                 PaymentEvents.setRefNum(pos);
             } else if ("CREDIT".equals(lastFunc[0])) {
                 PaymentEvents.payCredit(pos);
+            } else if ("CREDITEXP".equals(lastFunc[0])) {
+                PaymentEvents.payCredit(pos);
+            } else if ("SECURITYCODE".equals(lastFunc[0])) {
+                PaymentEvents.payCredit(pos);
+            } else if ("POSTALCODE".equals(lastFunc[0])) {
+                PaymentEvents.payCredit(pos);
             } else if ("CHECK".equals(lastFunc[0])) {
                 PaymentEvents.payCheck(pos);
             } else if ("GIFTCARD".equals(lastFunc[0])) {

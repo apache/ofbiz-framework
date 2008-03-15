@@ -37,7 +37,8 @@ public class Input implements KeyboardReceiver, KeyListener {
     public static final String module = Input.class.getName();
     private static final String[] validFunc = { "CHECK", "CHECKINFO", "CLOSE", "CREDIT", "GIFTCARD", "LOGIN", "MGRLOGIN",
                                                 "MSRINFO", "OPEN", "PAID", "PAID_IN", "PAID_OUT", "PROMOCODE", "QTY",
-                                                "REFNUM", "SHIFT", "TOTAL", "UNLOCK", "VOID"};
+                                                "REFNUM", "SHIFT", "TOTAL", "UNLOCK", "VOID", "TRACK2", "SECURITYCODE", 
+                                                "CREDITEXP", "POSTALCODE"};
                                                 
 
     protected Stack functionStack = new Stack();
