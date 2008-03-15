@@ -58,8 +58,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
     </delegator>
 
+    <!-- be sure that your default delegator (or the one you use) uses the same datasource for test. You must run "ant run-install" before running "ant run-tests" -->
     <delegator name="test" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
-        <!-- be sure that your default delegator (or the one you use) uses the same datasource. You must run "ant run-install" before running "ant run-tests" -->
         <group-map group-name="org.ofbiz" datasource-name="localderby"/> 
         <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
     </delegator>
