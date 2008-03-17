@@ -902,6 +902,8 @@ public class WebToolsServices {
         Map result = ServiceUtil.returnSuccess();
         GenericDelegator delegator = dctx.getDelegator();
         String serviceName = (String) context.get("serviceName");
+        String jobId = (String) context.get("jobId");
+        String jobName = (String) context.get("jobName");
         
         // set the page parameters
         int viewIndex = 0;
@@ -939,6 +941,14 @@ public class WebToolsServices {
             if (UtilValidate.isNotEmpty(serviceName)) {
                 paramList.add("serviceName=" + serviceName);
                 conditions.add(new EntityExpr("serviceName", true, EntityOperator.LIKE, "%"+serviceName+"%", true));
+            }
+            if (UtilValidate.isNotEmpty(jobId)) {
+                paramList.add("jobId=" + jobId);
+                conditions.add(new EntityExpr("jobId", true, EntityOperator.LIKE, "%"+jobId+"%", true));
+            }
+            if (UtilValidate.isNotEmpty(jobName)) {
+                paramList.add("jobName=" + jobName);
+                conditions.add(new EntityExpr("jobName", true, EntityOperator.LIKE, "%"+jobName+"%", true));
             }
             List filterExprs = FastList.newInstance();
             String filterJobPending = (String) context.get("filterJobsWithPendingStatus");
