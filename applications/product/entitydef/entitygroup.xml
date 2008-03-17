@@ -75,6 +75,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="CostComponentAttribute" />
     <entity-group group="org.ofbiz" entity="CostComponentType" />
     <entity-group group="org.ofbiz" entity="CostComponentTypeAttr" />
+    <entity-group group="org.ofbiz" entity="CostComponentCalc" />
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.product.facility -->
