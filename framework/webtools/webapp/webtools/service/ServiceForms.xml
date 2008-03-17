@@ -58,19 +58,15 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <!--field name="lookupFlag"><hidden value="Y"/></field-->
         <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}"><text/></field>
-        <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
+        <field name="jobId" title="${uiLabelMap.CommonId}"><text/></field>
+        <field name="jobName" title="${uiLabelMap.WebtoolsJob}"><text/></field>
         <field name="filterJobsWithRunningStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsRunningStatus}"><check/></field>
-        <field name="filterJobsWithRunningStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsRunningStatus}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
         <field name="filterJobsWithPendingStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsPendingStatus}"><check/></field>
-        <field name="filterJobsWithPendingStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsPendingStatus}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
         <field name="filterJobsWithFinishedStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsFinishedStatus}"><check/></field>
-        <field name="filterJobsWithFinishedStatus" title="${uiLabelMap.WebtoolsJobFilterOn} ${uiLabelMap.WebtoolsFinishedStatus}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
         <field name="" widget-style="buttontext">
             <hyperlink target="jobList?showAll=Y&amp;hideFields=Y&amp;lookupFlag=Y" description="${uiLabelMap.CommonShowAllRecords}"/>
         </field>
-        <field name="" widget-style="buttontext" use-when="&quot;${parameters.hideFields}&quot;.equals(&quot;Y&quot;)"><ignored/></field>
     </form>
     
     <form name="JobList" title="" target="" type="list" list-name="jobs"

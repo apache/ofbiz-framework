@@ -121,6 +121,8 @@ under the License.
             location="org.ofbiz.webtools.WebToolsServices" invoke="findJobs" auth="true" use-transaction="false">
         <description>Find Jobs</description>
         <attribute name="serviceName" type="String" mode="IN" optional="true"/>
+        <attribute name="jobId" type="String" mode="IN" optional="true"/>
+        <attribute name="jobName" type="String" mode="IN" optional="true"/>
         <attribute name="VIEW_INDEX" type="String" mode="IN" optional="true"/>
         <attribute name="VIEW_SIZE" type="String" mode="IN" optional="true"/>
         <attribute name="showAll" type="String" mode="IN" optional="true"/>
