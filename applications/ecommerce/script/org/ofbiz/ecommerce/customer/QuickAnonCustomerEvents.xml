@@ -25,7 +25,8 @@ under the License.
     <!-- ======== Anonymous Checkout Events ======== -->
     <!-- =========================================== -->
     
-    <simple-method method-name="validateUserInfo" short-description="Validate User Information" login-required="false">
+    <simple-method method-name="createUpdateUser" short-description="Create or Update User" login-required="false">
+
         <property-to-field resource="security" property="username.lowercase" default="false" field-name="username_lowercase"/>
         <property-to-field resource="security" property="password.lowercase" default="false" field-name="password_lowercase"/>
         <set field="default_user_password" value="ungssblepsswd" />
@@ -289,12 +290,6 @@ under the License.
         <set from-field="visit.visitId" field="partyDataSource.visitId"/>
         <log level="info" message="Setting up party ${error_list} "/>
         <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
-        <check-errors/>
-    </simple-method>
-    
-    <simple-method method-name="createUpdateUser" short-description="Create or Update User" login-required="false">
-
-        <call-simple-method method-name="validateUserInfo"/>
         <!-- see if we should continue now... -->
         <check-errors/>
 
