@@ -118,14 +118,6 @@ under the License.
     <location>/error/error.jsp</location>
   </error-page>
 -->
-  <taglib>
-     <taglib-uri>ofbizTags</taglib-uri>
-     <taglib-location>/WEB-INF/ofbiz.tld</taglib-location> 
-  </taglib> 
-  <taglib>
-     <taglib-uri>regions</taglib-uri>
-     <taglib-location>/WEB-INF/regions.tld</taglib-location> 
-  </taglib> 
 
 <!-- HTTP Response Code definitions:
 | "400"   ; Bad Request
