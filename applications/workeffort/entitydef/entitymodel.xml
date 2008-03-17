@@ -639,6 +639,29 @@ under the License.
         <key-map field-name="inventoryItemId"/>
       </relation>
     </entity>
+    <!-- Work Effort Costing -->
+    <entity entity-name="WorkEffortCostCalc"
+            package-name="org.ofbiz.workeffort.workeffort"
+            title="Work Effort Cost Calculation Entity">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="costComponentTypeId" type="id-ne"></field>
+        <field name="costComponentCalcId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="workEffortId"/>
+        <prim-key field="costComponentTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="WK_EFFRT_COS_WEF" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+        <relation type="one" fk-name="WK_EFFRT_COS_CCT" rel-entity-name="CostComponentType">
+            <key-map field-name="costComponentTypeId"/>
+        </relation>
+        <relation type="one" fk-name="WK_EFFRT_COS_CCC" rel-entity-name="CostComponentCalc">
+            <key-map field-name="costComponentCalcId"/>
+        </relation>
+    </entity>
+    
     <entity entity-name="WorkEffortKeyword" package-name="org.ofbiz.workeffort.workeffort" title="WorkEffort Keyword Entity" never-cache="true">
         <field name="workEffortId" type="id-ne"></field>
         <field name="keyword" type="short-varchar"></field>

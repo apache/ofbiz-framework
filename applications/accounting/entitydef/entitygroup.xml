@@ -146,8 +146,6 @@ under the License.
     <entity-group group="org.ofbiz" entity="ProductAverageCost" />
     <entity-group group="org.ofbiz" entity="SettlementTerm" />
     <entity-group group="org.ofbiz" entity="VarianceReasonGlAccount" />
-    <entity-group group="org.ofbiz" entity="CostComponentCalc" />
-    <entity-group group="org.ofbiz" entity="WorkEffortCostCalc" />
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.accounting.payment -->

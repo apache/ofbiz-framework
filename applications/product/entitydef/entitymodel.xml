@@ -826,6 +826,32 @@ under the License.
         <key-map field-name="costComponentTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="CostComponentCalc"
+            package-name="org.ofbiz.product.cost"
+            title="Cost Component Calculation Entity">
+        <field name="costComponentCalcId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+        <field name="costGlAccountTypeId" type="id"></field>
+        <field name="offsettingGlAccountTypeId" type="id"></field>
+        <field name="fixedCost" type="currency-amount"></field>
+        <field name="variableCost" type="currency-amount"></field>
+        <field name="perMilliSecond" type="numeric"></field>
+        <field name="currencyUomId" type="id"></field>
+        <field name="costCustomMethodId" type="id"></field>
+        <prim-key field="costComponentCalcId"/>
+        <relation type="one" fk-name="COST_COM_CGLAT" title="Cost" rel-entity-name="GlAccountType">
+            <key-map field-name="costGlAccountTypeId" rel-field-name="glAccountTypeId"/>
+        </relation>
+        <relation type="one" fk-name="COST_COM_OGLAT" title="Offsetting" rel-entity-name="GlAccountType">
+            <key-map field-name="offsettingGlAccountTypeId" rel-field-name="glAccountTypeId"/>
+        </relation>
+        <relation type="one" fk-name="COST_COM_CUOM" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="COST_COM_CMET" rel-entity-name="CustomMethod">
+            <key-map field-name="costCustomMethodId" rel-field-name="customMethodId"/>
+        </relation>
+    </entity>
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.product.facility -->
