@@ -30,12 +30,16 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.MarketingCompanySubtitle" global="true"/>
                 <set field="applicationMenuName" value="SfaAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://marketing/widget/sfa/SfaMenus.xml" global="true"/>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="leftbarScreenLocation" value="component://marketing/widget/sfa/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="leftonly"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
+    
     <screen name="main">
         <section>
             <widgets>
@@ -51,6 +55,36 @@ under the License.
                         </container>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="leftbar">
+        <section>
+            <widgets>
+                <container style="left">
+                    <include-screen name="miniAddContact"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="miniAddContact">
+        <section>
+            <widgets>
+                <container style="screenlet">
+                    <container style="screenlet-title-bar">
+                        <container style="h3">
+                            <label text="Quick Add Contract"></label>
+                        </container>
+                    </container>
+                    <container style="screenlet-body">
+                        <section>
+                            <widgets><label text="Quick Add Contract Form"></label>    
+                            </widgets>
+                        </section>
+                    </container> 
+                </container>
             </widgets>
         </section>
     </screen>

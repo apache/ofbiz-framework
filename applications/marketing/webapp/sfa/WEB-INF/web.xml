@@ -38,7 +38,13 @@ under the License.
         <param-name>serviceReaderUrls</param-name>
         <param-value>/WEB-INF/services.xml</param-value>
         <description>Configuration File(s) For The Service Dispatcher</description>
-    </context-param>   
+    </context-param>
+    <context-param>
+        <param-name>mainDecoratorLocation</param-name>
+        <param-value>component://marketing/widget/sfa/CommonScreens.xml</param-value>
+        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+    </context-param>
+       
     <filter>
         <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
