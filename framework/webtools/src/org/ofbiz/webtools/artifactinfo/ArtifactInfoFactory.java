@@ -149,9 +149,11 @@ public class ArtifactInfoFactory {
             String rootComponentPath = componentConfig.getRootLocation();
             List<File> screenFiles = null;
             List<File> formFiles = null;
+            List<File> controllerFiles = null;
             try {
                 screenFiles = this.findScreenWidgetDefinitionFiles(rootComponentPath);
                 formFiles = this.findFormWidgetDefinitionFiles(rootComponentPath);
+                controllerFiles = this.findWebappControllerFiles(rootComponentPath);
             } catch(IOException ioe) {
                 throw new GeneralException(ioe.getMessage());
             }
@@ -193,17 +195,22 @@ public class ArtifactInfoFactory {
                     }
                 }
             }
-        }
-
-        // TODO: get all controller requests and views to prepare
-        Set<URL> controllerUrlSet = FastSet.newInstance();
-        for (URL controllerUrl: controllerUrlSet) {
-            ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
-            for (String requestUri: cc.requestMap.keySet()) {
-                this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
-            }
-            for (String viewUri: cc.viewMap.keySet()) {
-                this.getControllerViewArtifactInfo(controllerUrl, viewUri);
+            if (controllerFiles != null) {
+                for (File controllerFile: controllerFiles) {
+                    URL controllerUrl = null;
+                    try {
+                        controllerUrl = controllerFile.toURL();
+                    } catch(MalformedURLException mue) {
+                        throw new GeneralException(mue.getMessage());
+                    }
+                    ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
+                    for (String requestUri: cc.requestMap.keySet()) {
+                        this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
+                    }
+                    for (String viewUri: cc.viewMap.keySet()) {
+                        this.getControllerViewArtifactInfo(controllerUrl, viewUri);
+                    }
+                }
             }
         }
     }
@@ -444,6 +451,43 @@ public class ArtifactInfoFactory {
                     }
                     if (UtilValidate.isNotEmpty(xmlFile)) {
                         return xmlFile.indexOf("<screens ") > 0 && xmlFile.indexOf("widget-screen.xsd") > 0;
+                    }
+                } else {
+                    return false;
+                }
+                return false;
+            }
+        }, true);
+        return fileList;
+    }
+
+    public static List<File> findWebappControllerFiles(String basePath) throws IOException {
+        if (basePath == null) {
+            basePath = System.getProperty("ofbiz.home");
+        }
+        List<File> fileList = FastList.newInstance();
+        FileUtil.searchFiles(fileList, new File(basePath), new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                File file = new File(dir, name);
+                if (file.getName().startsWith(".")) {
+                    return false;
+                }
+                if (file.isDirectory()) {
+                    return true;
+                }
+                if (name.endsWith(".xml")) {
+                    String xmlFile = null;
+                    try {
+                        xmlFile = FileUtil.readTextFile(file, true).toString();
+                    } catch (FileNotFoundException e) {
+                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
+                        return false;
+                    } catch (IOException e) {
+                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
+                        return false;
+                    }
+                    if (UtilValidate.isNotEmpty(xmlFile)) {
+                        return xmlFile.indexOf("<site-conf ") > 0 && xmlFile.indexOf("site-conf.xsd") > 0;
                     }
                 } else {
                     return false;
