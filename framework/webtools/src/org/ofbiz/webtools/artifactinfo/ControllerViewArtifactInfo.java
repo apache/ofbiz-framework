@@ -46,7 +46,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         this.viewUri = viewUri;
         
         this.viewInfoMap = aif.getControllerViewInfoMap(controllerXmlUrl, viewUri);
-        
+
         // populate screenCalledByThisView and reverse in aif.allViewInfosReferringToScreen
         if ("screen".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE))) {
             String fullScreenName = this.viewInfoMap.get(ConfigXMLReader.VIEW_PAGE);
