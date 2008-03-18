@@ -22,7 +22,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.xml.sax.SAXException;
 
@@ -36,11 +36,20 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     protected String screenName;
     protected String screenLocation;
     
-    public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws ParserConfigurationException, SAXException, IOException {
+    public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.screenName = screenName;
         this.screenLocation = screenLocation;
-        this.modelScreen = aif.getModelScreen(screenName, screenLocation);
+        try {
+            this.modelScreen = aif.getModelScreen(screenName, screenLocation);
+        } catch (ParserConfigurationException e) {
+            throw new GeneralException(e);
+        } catch (SAXException e) {
+            throw new GeneralException(e);
+        } catch (IOException e) {
+            throw new GeneralException(e);
+        }
+        
     }
     
     public String getUniqueId() {

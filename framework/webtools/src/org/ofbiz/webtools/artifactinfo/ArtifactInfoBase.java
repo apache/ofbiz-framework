@@ -18,14 +18,6 @@
  */
 package org.ofbiz.webtools.artifactinfo;
 
-import java.util.List;
-
-import javolution.util.FastList;
-
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entityext.eca.EntityEcaRule;
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 
 /**
  *

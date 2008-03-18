@@ -22,9 +22,11 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
-import javolution.util.FastSet;
-
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 
 /**
  *
@@ -36,16 +38,25 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
     
     protected Map<String, String> viewInfoMap;
     
-    protected Set<ScreenWidgetArtifactInfo> screensCalledByThisView = FastSet.newInstance();
+    protected ScreenWidgetArtifactInfo screenCalledByThisView = null;
     
-    public ControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri, ArtifactInfoFactory aif) {
+    public ControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.controllerXmlUrl = controllerXmlUrl;
         this.viewUri = viewUri;
         
         this.viewInfoMap = aif.getControllerViewInfoMap(controllerXmlUrl, viewUri);
         
-        // TODO populate screensCalledByThisView
+        // populate screenCalledByThisView and reverse in aif.allViewInfosReferringToScreen
+        if ("screen".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE))) {
+            String fullScreenName = this.viewInfoMap.get(ConfigXMLReader.VIEW_PAGE);
+            if (UtilValidate.isNotEmpty(fullScreenName)) {
+                int poundIndex = fullScreenName.indexOf('#');
+                this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex+1), fullScreenName.substring(0, poundIndex));
+                // add the reverse association
+                UtilMisc.addToSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
+            }
+        }
     }
     
     public URL getControllerXmlUrl() {
@@ -74,7 +85,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         return this.aif.allRequestInfosReferringToView.get(this.getUniqueId());
     }
     
-    public Set<ScreenWidgetArtifactInfo> getScreensCalledByThisView() {
-        return screensCalledByThisView;
+    public ScreenWidgetArtifactInfo getScreenCalledByThisView() {
+        return screenCalledByThisView;
     }
 }

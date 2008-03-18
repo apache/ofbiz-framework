@@ -83,6 +83,7 @@ public class ArtifactInfoFactory {
 
     public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = FastMap.newInstance();
     
+    public Map<String, Set<ControllerViewArtifactInfo>> allViewInfosReferringToScreen = FastMap.newInstance(); 
     public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = FastMap.newInstance(); 
     public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToRequest = FastMap.newInstance(); 
     
@@ -163,7 +164,7 @@ public class ArtifactInfoFactory {
         return ScreenFactory.getScreenFromLocation(screenLocation, screenName);
     }
     
-    public Map<String, String> getControllerRequestInfoMap(URL controllerXmlUrl, String requestUri) {
+    public Map<String, Object> getControllerRequestInfoMap(URL controllerXmlUrl, String requestUri) {
         return ConfigXMLReader.getControllerConfig(controllerXmlUrl).requestMap.get(requestUri);
     }
 
@@ -200,7 +201,7 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
     
-    public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formName, String formLocation) throws GeneralException, IOException, SAXException, ParserConfigurationException {
+    public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formName, String formLocation) throws GeneralException {
         FormWidgetArtifactInfo curInfo = this.allFormInfos.get(formLocation + "#" + formName);
         if (curInfo == null) {
             curInfo = new FormWidgetArtifactInfo(formName, formLocation, this);
@@ -209,7 +210,7 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
     
-    public ScreenWidgetArtifactInfo getScreenWidgetArtifactInfo(String screenName, String screenLocation) throws GeneralException, IOException, SAXException, ParserConfigurationException {
+    public ScreenWidgetArtifactInfo getScreenWidgetArtifactInfo(String screenName, String screenLocation) throws GeneralException {
         ScreenWidgetArtifactInfo curInfo = this.allScreenInfos.get(screenLocation + "#" + screenName);
         if (curInfo == null) {
             curInfo = new ScreenWidgetArtifactInfo(screenName, screenLocation, this);
@@ -218,7 +219,7 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
     
-    public ControllerRequestArtifactInfo getControllerRequestArtifactInfo(URL controllerXmlUrl, String requestUri) {
+    public ControllerRequestArtifactInfo getControllerRequestArtifactInfo(URL controllerXmlUrl, String requestUri) throws GeneralException {
         ControllerRequestArtifactInfo curInfo = this.allControllerRequestInfos.get(controllerXmlUrl.toExternalForm() + "#" + requestUri);
         if (curInfo == null) {
             curInfo = new ControllerRequestArtifactInfo(controllerXmlUrl, requestUri, this);
@@ -227,7 +228,7 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
     
-    public ControllerViewArtifactInfo getControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri) {
+    public ControllerViewArtifactInfo getControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri) throws GeneralException {
         ControllerViewArtifactInfo curInfo = this.allControllerViewInfos.get(controllerXmlUrl.toExternalForm() + "#" + viewUri);
         if (curInfo == null) {
             curInfo = new ControllerViewArtifactInfo(controllerXmlUrl, viewUri, this);

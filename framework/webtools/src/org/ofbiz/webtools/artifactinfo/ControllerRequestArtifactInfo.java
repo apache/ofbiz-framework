@@ -24,7 +24,10 @@ import java.util.Set;
 
 import javolution.util.FastSet;
 
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 
 /**
  *
@@ -34,22 +37,51 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
     protected URL controllerXmlUrl;
     protected String requestUri;
     
-    protected Map<String, String> requestInfoMap;
+    protected Map<String, Object> requestInfoMap;
     
-    protected Set<ServiceArtifactInfo> servicesCalledByRequest = FastSet.newInstance();
+    protected ServiceArtifactInfo serviceCalledByRequestEvent = null;
     protected Set<ControllerRequestArtifactInfo> requestsThatAreResponsesToThisRequest = FastSet.newInstance();
     protected Set<ControllerViewArtifactInfo> viewsThatAreResponsesToThisRequest = FastSet.newInstance();
     
-    public ControllerRequestArtifactInfo(URL controllerXmlUrl, String requestUri, ArtifactInfoFactory aif) {
+    public ControllerRequestArtifactInfo(URL controllerXmlUrl, String requestUri, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.controllerXmlUrl = controllerXmlUrl;
         this.requestUri = requestUri;
         
         this.requestInfoMap = aif.getControllerRequestInfoMap(controllerXmlUrl, requestUri);
         
-        // TODO populate servicesCalledByRequest, requestsThatAreResponsesToThisRequest, viewsThatAreResponsesToThisRequest
+        // populate serviceCalledByRequestEvent, requestsThatAreResponsesToThisRequest, viewsThatAreResponsesToThisRequest and related reverse maps
         
-        // TODO populate reverse Set for getRequestsThatThisRequestIsResponsTo, View.getRequestsThatThisViewIsResponseTo
+        if ("service".equals(this.requestInfoMap.get(ConfigXMLReader.EVENT_TYPE))) {
+            String serviceName = (String) this.requestInfoMap.get(ConfigXMLReader.EVENT_METHOD);
+            this.serviceCalledByRequestEvent = this.aif.getServiceArtifactInfo(serviceName);
+        }
+        
+        Map<String, String> responseMap = (Map<String, String>) this.requestInfoMap.get(ConfigXMLReader.RESPONSE_MAP);
+        for (String responseValue: responseMap.values()) {
+            if (responseValue.startsWith("view:")) {
+                String viewUri = responseValue.substring(5);
+                ControllerViewArtifactInfo artInfo = this.aif.getControllerViewArtifactInfo(controllerXmlUrl, viewUri);
+                this.viewsThatAreResponsesToThisRequest.add(artInfo);
+                // add the reverse association
+                UtilMisc.addToSetInMap(this, this.aif.allRequestInfosReferringToView, artInfo.getUniqueId());
+            } else if (responseValue.startsWith("request:")) {
+                String otherRequestUri = responseValue.substring(8);
+                ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
+                this.requestsThatAreResponsesToThisRequest.add(artInfo);
+                UtilMisc.addToSetInMap(this, this.aif.allRequestInfosReferringToRequest, artInfo.getUniqueId());
+            } else if (responseValue.startsWith("request-redirect:")) {
+                String otherRequestUri = responseValue.substring(17);
+                ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
+                this.requestsThatAreResponsesToThisRequest.add(artInfo);
+                UtilMisc.addToSetInMap(this, this.aif.allRequestInfosReferringToRequest, artInfo.getUniqueId());
+            } else if (responseValue.startsWith("request-redirect-noparam:")) {
+                String otherRequestUri = responseValue.substring(25);
+                ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
+                this.requestsThatAreResponsesToThisRequest.add(artInfo);
+                UtilMisc.addToSetInMap(this, this.aif.allRequestInfosReferringToRequest, artInfo.getUniqueId());
+            }
+        }
     }
     
     public URL getControllerXmlUrl() {
@@ -67,16 +99,15 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
     public boolean equals(Object obj) {
         if (obj instanceof ControllerRequestArtifactInfo) {
             ControllerRequestArtifactInfo that = (ControllerRequestArtifactInfo) obj;
-            return UtilObject.equalsHelper(this.controllerXmlUrl, that.controllerXmlUrl) &&
-                UtilObject.equalsHelper(this.requestUri, that.requestUri);
+            return UtilObject.equalsHelper(this.controllerXmlUrl, that.controllerXmlUrl) && UtilObject.equalsHelper(this.requestUri, that.requestUri);
         } else {
             return false;
         }
     }
     
     /** Get the Services that are called by this Request */
-    public Set<ServiceArtifactInfo> getServicesCalledByRequest() {
-        return servicesCalledByRequest;
+    public ServiceArtifactInfo getServiceCalledByRequestEvent() {
+        return serviceCalledByRequestEvent;
     }
     
     public Set<ControllerRequestArtifactInfo> getRequestsThatAreResponsesToThisRequest() {
