@@ -1033,18 +1033,19 @@ public class PartyServices {
             fieldsToSelect.add("partyTypeId");
 
             // filter on parties that have relationship with logged in user
-            String roleTypeIdTo = (String) context.get("roleTypeIdTo");
-            if (UtilValidate.isNotEmpty(roleTypeIdTo)) {
-                // add role to view
+            String partyRelationshipTypeId = (String) context.get("partyRelationshipTypeId");
+            if (UtilValidate.isNotEmpty(partyRelationshipTypeId)) {
+                // add relation to view
                 dynamicView.addMemberEntity("PR", "PartyRelationship");
                 dynamicView.addAlias("PR", "partyIdTo");
+                dynamicView.addAlias("PR", "partyRelationshipTypeId");
                 dynamicView.addViewLink("PT", "PR", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId", "partyIdTo"));
                 String partyIdFrom = userLogin.getString("partyId");
                 paramList = paramList + "&partyIdFrom=" + partyIdFrom;
                 dynamicView.addAlias("PR", "partyIdFrom");
                 // add the expr 
-                andExprs.add(new EntityExpr("partyIdFrom", true, EntityOperator.EQUALS, partyIdFrom , true));
-                fieldsToSelect.add("partyIdFrom");
+                andExprs.add(new EntityExpr(new EntityExpr("partyIdFrom", true, EntityOperator.EQUALS, partyIdFrom, true), EntityOperator.AND, new EntityExpr("partyRelationshipTypeId", true, EntityOperator.EQUALS, partyRelationshipTypeId, true)));
+                fieldsToSelect.add("partyIdTo");
             }
             
             // get the params
