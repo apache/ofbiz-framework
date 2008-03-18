@@ -95,6 +95,16 @@ public class ScreenFactory {
     
     public static ModelScreen getScreenFromLocation(String resourceName, String screenName) 
             throws IOException, SAXException, ParserConfigurationException {
+        Map modelScreenMap = getScreensFromLocation(resourceName);
+        ModelScreen modelScreen = (ModelScreen) modelScreenMap.get(screenName);
+        if (modelScreen == null) {
+            throw new IllegalArgumentException("Could not find screen with name [" + screenName + "] in class resource [" + resourceName + "]");
+        }
+        return modelScreen;
+    }
+
+    public static Map getScreensFromLocation(String resourceName) 
+            throws IOException, SAXException, ParserConfigurationException {
         Map modelScreenMap = (Map) screenLocationCache.get(resourceName);
         if (modelScreenMap == null) {
             synchronized (ScreenFactory.class) {
@@ -120,13 +130,12 @@ public class ScreenFactory {
             }
         }
         
-        ModelScreen modelScreen = (ModelScreen) modelScreenMap.get(screenName);
-        if (modelScreen == null) {
-            throw new IllegalArgumentException("Could not find screen with name [" + screenName + "] in class resource [" + resourceName + "]");
+        if (modelScreenMap == null) {
+            throw new IllegalArgumentException("Could not find screen file with name [" + resourceName + "]");
         }
-        return modelScreen;
+        return modelScreenMap;
     }
-    
+
     public static ModelScreen getScreenFromWebappContext(String resourceName, String screenName, HttpServletRequest request) 
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);

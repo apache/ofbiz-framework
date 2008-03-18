@@ -19,6 +19,7 @@
 package org.ofbiz.base.util;
 
 import java.io.*;
+import java.util.List;
 
 /**
  * File Utilities
@@ -93,8 +94,7 @@ public class FileUtil {
         return fileName;
     }
 
-    public static StringBuffer readTextFile(String fileName, boolean newline) throws FileNotFoundException, IOException {
-        File file = new File(fileName);
+    public static StringBuffer readTextFile(File file, boolean newline) throws FileNotFoundException, IOException {
         if (!file.exists()) {
             throw new FileNotFoundException();
         }
@@ -125,5 +125,25 @@ public class FileUtil {
         }
         
         return buf;
+    }
+    public static StringBuffer readTextFile(String fileName, boolean newline) throws FileNotFoundException, IOException {
+        File file = new File(fileName);
+        return readTextFile(file, newline);
+    }
+
+    public static void searchFiles(List fileList, File path, FilenameFilter filter, boolean includeSubfolders) throws IOException {
+        // Get filtered files in the current path
+        File[] files = path.listFiles(filter);
+        
+        // Process each filtered entry
+        for (int i = 0; i < files.length; i++) {
+            // recurse if the entry is a directory
+            if (files[i].isDirectory() && includeSubfolders && !files[i].getName().startsWith(".")) {
+                searchFiles(fileList, files[i], filter, true);
+            } else {
+                // add the filtered file to the list
+                fileList.add(files[i]);
+            }
+        }
     }
 }
