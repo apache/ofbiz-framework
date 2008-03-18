@@ -52,6 +52,18 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         
     }
     
+    public String getDisplayName() {
+        return this.getUniqueId();
+    }
+    
+    public String getDisplayType() {
+        return "Screen Widget";
+    }
+    
+    public String getType() {
+        return ArtifactInfoFactory.ScreenWidgetInfoTypeId;
+    }
+    
     public String getUniqueId() {
         return this.screenLocation + "#" + this.screenName;
     }

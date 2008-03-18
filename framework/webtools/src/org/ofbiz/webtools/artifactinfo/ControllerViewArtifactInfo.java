@@ -67,6 +67,18 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         return this.viewUri;
     }
     
+    public String getDisplayName() {
+        return this.getUniqueId();
+    }
+    
+    public String getDisplayType() {
+        return "Controller View";
+    }
+    
+    public String getType() {
+        return ArtifactInfoFactory.ControllerViewInfoTypeId;
+    }
+    
     public String getUniqueId() {
         return this.controllerXmlUrl.toExternalForm() + "#" + this.viewUri;
     }
