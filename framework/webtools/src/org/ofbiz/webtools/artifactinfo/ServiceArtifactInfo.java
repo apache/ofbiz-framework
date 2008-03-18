@@ -48,10 +48,9 @@ import org.ofbiz.service.group.ServiceGroupReader;
 /**
  *
  */
-public class ServiceArtifactInfo {
+public class ServiceArtifactInfo extends ArtifactInfoBase {
     public static final String module = ServiceArtifactInfo.class.getName();
     
-    protected ArtifactInfoFactory aif;
     protected ModelService modelService;
     protected String displayPrefix = null;
     
@@ -60,7 +59,7 @@ public class ServiceArtifactInfo {
     Set<ServiceEcaArtifactInfo> serviceEcasTriggeredByThisService = FastSet.newInstance();
     
     public ServiceArtifactInfo(String serviceName, ArtifactInfoFactory aif) throws GeneralException {
-        this.aif = aif;
+        super(aif);
         this.modelService = this.aif.getModelService(serviceName);
     }
     

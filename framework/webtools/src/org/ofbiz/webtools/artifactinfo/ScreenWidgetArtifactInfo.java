@@ -29,13 +29,22 @@ import org.xml.sax.SAXException;
 /**
  *
  */
-public class ScreenWidgetArtifactInfo {
-    protected ArtifactInfoFactory aif;
+public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
+
     protected ModelScreen modelScreen;
     
+    protected String screenName;
+    protected String screenLocation;
+    
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws ParserConfigurationException, SAXException, IOException {
-        this.aif = aif;
+        super(aif);
+        this.screenName = screenName;
+        this.screenLocation = screenLocation;
         this.modelScreen = aif.getModelScreen(screenName, screenLocation);
+    }
+    
+    public String getUniqueId() {
+        return this.screenLocation + "#" + this.screenName;
     }
     
     public boolean equals(Object obj) {
