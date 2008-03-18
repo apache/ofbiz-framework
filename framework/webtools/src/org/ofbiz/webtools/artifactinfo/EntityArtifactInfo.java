@@ -30,12 +30,11 @@ import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 /**
  *
  */
-public class EntityArtifactInfo {
-    protected ArtifactInfoFactory aif;
+public class EntityArtifactInfo extends ArtifactInfoBase {
     protected ModelEntity modelEntity;
     
     public EntityArtifactInfo(String entityName, ArtifactInfoFactory aif) throws GenericEntityException {
-        this.aif = aif;
+        super(aif);
         this.modelEntity = this.aif.getModelEntity(entityName);
     }
     

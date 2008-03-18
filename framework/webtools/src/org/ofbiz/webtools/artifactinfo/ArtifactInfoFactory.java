@@ -19,6 +19,7 @@
 package org.ofbiz.webtools.artifactinfo;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +27,7 @@ import java.util.Set;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
@@ -40,6 +42,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.eca.ServiceEcaRule;
 import org.ofbiz.service.eca.ServiceEcaUtil;
+import org.ofbiz.webapp.control.ConfigXMLReader;
+import org.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.screen.ModelScreen;
@@ -64,6 +68,8 @@ public class ArtifactInfoFactory {
     public Map<ServiceEcaRule, ServiceEcaArtifactInfo> allServiceEcaInfos = FastMap.newInstance();
     public Map<String, FormWidgetArtifactInfo> allFormInfos = FastMap.newInstance();
     public Map<String, ScreenWidgetArtifactInfo> allScreenInfos = FastMap.newInstance();
+    public Map<String, ControllerRequestArtifactInfo> allControllerRequestInfos = FastMap.newInstance();
+    public Map<String, ControllerViewArtifactInfo> allControllerViewInfos = FastMap.newInstance();
 
     // reverse-associative caches for walking backward in the diagram
     public Map<String, Set<ServiceEcaArtifactInfo>> allServiceEcaInfosReferringToServiceName = FastMap.newInstance();
@@ -76,6 +82,9 @@ public class ArtifactInfoFactory {
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToEntityName = FastMap.newInstance();
 
     public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = FastMap.newInstance();
+    
+    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = FastMap.newInstance(); 
+    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToRequest = FastMap.newInstance(); 
     
     public static ArtifactInfoFactory getArtifactInfoFactory(String delegatorName) throws GeneralException {
         if (UtilValidate.isEmpty(delegatorName)) {
@@ -116,6 +125,18 @@ public class ArtifactInfoFactory {
         // TODO: how to get all forms to prepare?
         
         // TODO: how to get all screens to prepare?
+        
+        // TODO: get all controller requests and views to prepare
+        Set<URL> controllerUrlSet = FastSet.newInstance();
+        for (URL controllerUrl: controllerUrlSet) {
+            ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
+            for (String requestUri: cc.requestMap.keySet()) {
+                this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
+            }
+            for (String viewUri: cc.viewMap.keySet()) {
+                this.getControllerViewArtifactInfo(controllerUrl, viewUri);
+            }
+        }
     }
     
     public ModelReader getEntityModelReader() {
@@ -140,6 +161,14 @@ public class ArtifactInfoFactory {
     
     public ModelScreen getModelScreen(String screenName, String screenLocation) throws ParserConfigurationException, SAXException, IOException {
         return ScreenFactory.getScreenFromLocation(screenLocation, screenName);
+    }
+    
+    public Map<String, String> getControllerRequestInfoMap(URL controllerXmlUrl, String requestUri) {
+        return ConfigXMLReader.getControllerConfig(controllerXmlUrl).requestMap.get(requestUri);
+    }
+
+    public Map<String, String> getControllerViewInfoMap(URL controllerXmlUrl, String viewUri) {
+        return ConfigXMLReader.getControllerConfig(controllerXmlUrl).viewMap.get(viewUri);
     }
 
     public EntityArtifactInfo getEntityArtifactInfo(String entityName) throws GeneralException {
@@ -172,20 +201,77 @@ public class ArtifactInfoFactory {
     }
     
     public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formName, String formLocation) throws GeneralException, IOException, SAXException, ParserConfigurationException {
-        FormWidgetArtifactInfo curInfo = this.allFormInfos.get(formName + formLocation);
+        FormWidgetArtifactInfo curInfo = this.allFormInfos.get(formLocation + "#" + formName);
         if (curInfo == null) {
             curInfo = new FormWidgetArtifactInfo(formName, formLocation, this);
-            this.allFormInfos.put(formName + formLocation, curInfo);
+            this.allFormInfos.put(curInfo.getUniqueId(), curInfo);
         }
         return curInfo;
     }
     
     public ScreenWidgetArtifactInfo getScreenWidgetArtifactInfo(String screenName, String screenLocation) throws GeneralException, IOException, SAXException, ParserConfigurationException {
-        ScreenWidgetArtifactInfo curInfo = this.allScreenInfos.get(screenName + screenLocation);
+        ScreenWidgetArtifactInfo curInfo = this.allScreenInfos.get(screenLocation + "#" + screenName);
         if (curInfo == null) {
             curInfo = new ScreenWidgetArtifactInfo(screenName, screenLocation, this);
-            this.allScreenInfos.put(screenName + screenLocation, curInfo);
+            this.allScreenInfos.put(curInfo.getUniqueId(), curInfo);
         }
         return curInfo;
+    }
+    
+    public ControllerRequestArtifactInfo getControllerRequestArtifactInfo(URL controllerXmlUrl, String requestUri) {
+        ControllerRequestArtifactInfo curInfo = this.allControllerRequestInfos.get(controllerXmlUrl.toExternalForm() + "#" + requestUri);
+        if (curInfo == null) {
+            curInfo = new ControllerRequestArtifactInfo(controllerXmlUrl, requestUri, this);
+            this.allControllerRequestInfos.put(curInfo.getUniqueId(), curInfo);
+        }
+        return curInfo;
+    }
+    
+    public ControllerViewArtifactInfo getControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri) {
+        ControllerViewArtifactInfo curInfo = this.allControllerViewInfos.get(controllerXmlUrl.toExternalForm() + "#" + viewUri);
+        if (curInfo == null) {
+            curInfo = new ControllerViewArtifactInfo(controllerXmlUrl, viewUri, this);
+            this.allControllerViewInfos.put(curInfo.getUniqueId(), curInfo);
+        }
+        return curInfo;
+    }
+    
+    public Set<ArtifactInfoBase> getAllArtifactInfosByNamePartial(String artifactNamePartial) {
+        Set<ArtifactInfoBase> aiBaseSet = FastSet.newInstance();
+        
+        for (Map.Entry<String, EntityArtifactInfo> curEntry: allEntityInfos.entrySet()) {
+            if (curEntry.getKey().contains(artifactNamePartial)) {
+                aiBaseSet.add(curEntry.getValue());
+            }
+        }
+        for (Map.Entry<String, ServiceArtifactInfo> curEntry: allServiceInfos.entrySet()) {
+            if (curEntry.getKey().contains(artifactNamePartial)) {
+                aiBaseSet.add(curEntry.getValue());
+            }
+        }
+        
+        for (Map.Entry<String, FormWidgetArtifactInfo> curEntry: allFormInfos.entrySet()) {
+            if (curEntry.getKey().contains(artifactNamePartial)) {
+                aiBaseSet.add(curEntry.getValue());
+            }
+        }
+        for (Map.Entry<String, ScreenWidgetArtifactInfo> curEntry: allScreenInfos.entrySet()) {
+            if (curEntry.getKey().contains(artifactNamePartial)) {
+                aiBaseSet.add(curEntry.getValue());
+            }
+        }
+        
+        for (Map.Entry<String, ControllerRequestArtifactInfo> curEntry: allControllerRequestInfos.entrySet()) {
+            if (curEntry.getKey().contains(artifactNamePartial)) {
+                aiBaseSet.add(curEntry.getValue());
+            }
+        }
+        for (Map.Entry<String, ControllerViewArtifactInfo> curEntry: allControllerViewInfos.entrySet()) {
+            if (curEntry.getKey().contains(artifactNamePartial)) {
+                aiBaseSet.add(curEntry.getValue());
+            }
+        }
+        
+        return aiBaseSet;
     }
 }

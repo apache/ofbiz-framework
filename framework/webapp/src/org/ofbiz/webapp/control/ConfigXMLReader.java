@@ -65,8 +65,8 @@ public class ConfigXMLReader {
         
         public Map configMap = FastMap.newInstance();
         public Map handlerMap = FastMap.newInstance();
-        public Map requestMap = FastMap.newInstance();
-        public Map viewMap = FastMap.newInstance();
+        public Map<String, Map<String, String>> requestMap = FastMap.newInstance();
+        public Map<String, Map<String, String>> viewMap = FastMap.newInstance();
         public String defaultRequest = null;
 
         public ControllerConfig(URL url) {
@@ -162,17 +162,17 @@ public class ConfigXMLReader {
     }
 
     /** Gets a FastMap of request mappings. */
-    public static Map loadRequestMap(Element root, URL xml) {
+    public static Map<String, Map<String, String>> loadRequestMap(Element root, URL xml) {
         long startTime = System.currentTimeMillis();
-        FastMap map = FastMap.newInstance();
+        Map<String, Map<String, String>> map = FastMap.newInstance();
         if (root == null) {
             root = loadDocument(xml);
         }
 
         if (root == null) return map;
 
-        List includeElementList = UtilXml.childElementList(root, INCLUDE);
-        Iterator includeElementIter = includeElementList.iterator();
+        List<? extends Element> includeElementList = UtilXml.childElementList(root, INCLUDE);
+        Iterator<? extends Element> includeElementIter = includeElementList.iterator();
         while (includeElementIter.hasNext()) {
             Element includeElement = (Element) includeElementIter.next();
             String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
@@ -186,13 +186,13 @@ public class ConfigXMLReader {
             }
         }
 
-        List requestMapElementList = UtilXml.childElementList(root, REQUEST_MAPPING);
-        Iterator requestMapElementIter = requestMapElementList.iterator();
+        List<? extends Element> requestMapElementList = UtilXml.childElementList(root, REQUEST_MAPPING);
+        Iterator<? extends Element> requestMapElementIter = requestMapElementList.iterator();
         while (requestMapElementIter.hasNext()) {
             Element requestMapElement = (Element) requestMapElementIter.next();
             
             // Create a URI-MAP for each element found.
-            FastMap uriMap = FastMap.newInstance();
+            Map<String, String> uriMap = FastMap.newInstance();
 
             // Get the URI info.
             String uri = requestMapElement.getAttribute(REQUEST_URI);
@@ -250,8 +250,8 @@ public class ConfigXMLReader {
             uriMap.put(REQUEST_DESCRIPTION, UtilValidate.isNotEmpty(description) ? description : "");
 
             // Get the response(s).
-            List responseElementList = UtilXml.childElementList(requestMapElement, RESPONSE);
-            Iterator responseElementIter = responseElementList.iterator();
+            List<? extends Element> responseElementList = UtilXml.childElementList(requestMapElement, RESPONSE);
+            Iterator<? extends Element> responseElementIter = responseElementList.iterator();
             while (responseElementIter.hasNext()) {
                 Element responseElement = (Element) responseElementIter.next();
                 String name = responseElement.getAttribute(RESPONSE_NAME);
@@ -269,17 +269,16 @@ public class ConfigXMLReader {
         if (Debug.verboseOn()) {
             Debug.logVerbose("-------- Request Mappings --------", module);
             //FastMap debugMap = map;
-            Set debugSet = map.keySet();
-            Iterator i = debugSet.iterator();
-
+            Set<String> debugSet = map.keySet();
+            Iterator<String> i = debugSet.iterator();
             while (i.hasNext()) {
                 Object o = i.next();
                 String request = (String) o;
-                Map thisURI = (Map) map.get(o);
+                Map<String, String> thisURI = map.get(o);
 
                 StringBuilder verboseMessageBuffer = new StringBuilder();
 
-                Iterator debugIter = thisURI.keySet().iterator();
+                Iterator<String> debugIter = thisURI.keySet().iterator();
                 while (debugIter.hasNext()) {
                     Object lo = debugIter.next();
                     String name = (String) lo;

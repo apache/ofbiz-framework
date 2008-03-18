@@ -35,8 +35,7 @@ import org.ofbiz.service.eca.ServiceEcaRule;
 /**
  *
  */
-public class ServiceEcaArtifactInfo {
-    protected ArtifactInfoFactory aif;
+public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
     protected ServiceEcaRule serviceEcaRule;
     protected String displayPrefix = null;
     protected int displaySuffixNum = 0;
@@ -44,7 +43,7 @@ public class ServiceEcaArtifactInfo {
     protected Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = FastSet.newInstance();
     
     public ServiceEcaArtifactInfo(ServiceEcaRule serviceEcaRule, ArtifactInfoFactory aif) throws GeneralException {
-        this.aif = aif;
+        super(aif);
         this.serviceEcaRule = serviceEcaRule;
     }
     

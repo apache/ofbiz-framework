@@ -29,13 +29,22 @@ import org.xml.sax.SAXException;
 /**
  *
  */
-public class FormWidgetArtifactInfo {
-    protected ArtifactInfoFactory aif;
+public class FormWidgetArtifactInfo extends ArtifactInfoBase {
+    
     protected ModelForm modelForm;
     
+    protected String formName;
+    protected String formLocation;
+    
     public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws ParserConfigurationException, SAXException, IOException {
-        this.aif = aif;
+        super(aif);
+        this.formName = formName;
+        this.formLocation = formLocation;
         this.modelForm = aif.getModelForm(formName, formLocation);
+    }
+    
+    public String getUniqueId() {
+        return this.formLocation + "#" + this.formName;
     }
     
     public boolean equals(Object obj) {
