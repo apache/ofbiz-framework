@@ -1617,7 +1617,7 @@ under the License.
       <relation type="one" fk-name="CUST_REQ_FRMPTY" title="From" rel-entity-name="Party">
         <key-map field-name="fromPartyId" rel-field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="CUST_REQ_CUOM" rel-entity-name="Uom">
+      <relation type="one" fk-name="CUST_REQ_AUOM" rel-entity-name="Uom">
         <key-map field-name="maximumAmountUomId" rel-field-name="uomId"/>
       </relation>
       <relation type="one" fk-name="CUST_REQ_PRDS" rel-entity-name="ProductStore">
@@ -1633,7 +1633,7 @@ under the License.
           <key-map field-name="fulfillContactMechId" rel-field-name="contactMechId"/>
       </relation>
       <relation type="one" fk-name="CUST_REQ_CUOM" rel-entity-name="Uom">
-            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
       </relation>
     </entity>
     <entity entity-name="CustRequestAttribute"
