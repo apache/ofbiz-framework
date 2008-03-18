@@ -19,6 +19,7 @@
 package org.ofbiz.webtools.artifactinfo;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -55,7 +57,17 @@ import org.xml.sax.SAXException;
  */
 public class ArtifactInfoFactory {
     
+    public static final String module = ArtifactInfoFactory.class.getName();
+    
     protected static UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = new UtilCache("ArtifactInfoFactory");
+    
+    public static final String EntityInfoTypeId = "entity";
+    public static final String ServiceInfoTypeId = "service";
+    public static final String ServiceEcaInfoTypeId = "serviceEca";
+    public static final String FormWidgetInfoTypeId = "form";
+    public static final String ScreenWidgetInfoTypeId = "screen";
+    public static final String ControllerRequestInfoTypeId = "request";
+    public static final String ControllerViewInfoTypeId = "view";
     
     protected String delegatorName;
     protected ModelReader entityModelReader;
@@ -237,8 +249,44 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
     
+    public ArtifactInfoBase getArtifactInfoByUniqueIdAndType(String uniqueId, String type) {
+        if (uniqueId.contains("#")) {
+            int poundIndex = uniqueId.indexOf('#');
+            return getArtifactInfoByNameAndType(uniqueId.substring(poundIndex+1), uniqueId.substring(0, poundIndex), type);
+        } else {
+            return getArtifactInfoByNameAndType(uniqueId, null, type);
+        }
+    }
+    
+    public ArtifactInfoBase getArtifactInfoByNameAndType(String artifactName, String artifactLocation, String type) {
+        try {
+            if ("entity".equals(type)) {
+                return this.getEntityArtifactInfo(artifactName);
+            } else if ("service".equals(type)) {
+                return this.getServiceArtifactInfo(artifactName);
+            } else if ("form".equals(type)) {
+                return this.getFormWidgetArtifactInfo(artifactName, artifactLocation);
+            } else if ("screen".equals(type)) {
+                return this.getScreenWidgetArtifactInfo(artifactName, artifactLocation);
+            } else if ("request".equals(type)) {
+                return this.getControllerRequestArtifactInfo(new URL(artifactLocation), artifactName);
+            } else if ("view".equals(type)) {
+                return this.getControllerViewArtifactInfo(new URL(artifactLocation), artifactName);
+            }
+        } catch (GeneralException e) {
+            Debug.logError(e, "Error getting artifact info: " + e.toString(), module);
+        } catch (MalformedURLException e) {
+            Debug.logError(e, "Error getting artifact info: " + e.toString(), module);
+        }
+        return null;
+    }
+    
     public Set<ArtifactInfoBase> getAllArtifactInfosByNamePartial(String artifactNamePartial) {
         Set<ArtifactInfoBase> aiBaseSet = FastSet.newInstance();
+        
+        if (UtilValidate.isEmpty(artifactNamePartial)) {
+            return aiBaseSet;
+        }
         
         for (Map.Entry<String, EntityArtifactInfo> curEntry: allEntityInfos.entrySet()) {
             if (curEntry.getKey().contains(artifactNamePartial)) {

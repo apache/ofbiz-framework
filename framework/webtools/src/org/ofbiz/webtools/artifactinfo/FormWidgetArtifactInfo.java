@@ -51,6 +51,18 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
     
+    public String getDisplayName() {
+        return this.getUniqueId();
+    }
+    
+    public String getDisplayType() {
+        return "Form Widget";
+    }
+    
+    public String getType() {
+        return ArtifactInfoFactory.FormWidgetInfoTypeId;
+    }
+    
     public String getUniqueId() {
         return this.formLocation + "#" + this.formName;
     }

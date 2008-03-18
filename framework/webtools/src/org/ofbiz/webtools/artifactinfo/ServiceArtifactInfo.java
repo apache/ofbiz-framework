@@ -226,8 +226,23 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         this.displayPrefix = displayPrefix;
     }
     
+    public String getDisplayName() {
+        return this.getDisplayPrefixedName();
+    }
     public String getDisplayPrefixedName() {
         return (this.displayPrefix != null ? this.displayPrefix : "") + this.modelService.name;
+    }
+    
+    public String getDisplayType() {
+        return "Service";
+    }
+    
+    public String getType() {
+        return ArtifactInfoFactory.ServiceInfoTypeId;
+    }
+    
+    public String getUniqueId() {
+        return this.modelService.name;
     }
     
     public Set<EntityArtifactInfo> getEntitiesUsedByService() {

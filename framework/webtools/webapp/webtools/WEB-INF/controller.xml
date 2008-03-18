@@ -447,10 +447,7 @@ under the License.
     </request-map>
         
     <!-- EntitySync requests -->
-    <request-map uri="EntitySyncStatus">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EntitySyncStatus"/>
-    </request-map>
+    <request-map uri="EntitySyncStatus"><security https="true" auth="true"/><response name="success" type="view" value="EntitySyncStatus"/></request-map>
     <request-map uri="resetEntitySyncStatusToNotStarted">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="resetEntitySyncStatusToNotStarted"/>
@@ -475,6 +472,9 @@ under the License.
         <response name="success" type="view" value="EntitySyncStatus"/>
         <response name="error" type="view" value="EntitySyncStatus"/>
     </request-map>
+    
+    <!-- Artifact Info Requests -->
+    <request-map uri="ArtifactInfo"><security https="true" auth="true"/><response name="success" type="view" value="ArtifactInfo"/></request-map>
 
     <!-- cert requests -->
     <request-map uri="myCertificates">
@@ -606,5 +606,8 @@ under the License.
     
     <!-- cert views -->
     <view-map name="viewbrowsercerts" type="screen" page="component://webtools/widget/CommonScreens.xml#browsercerts"/> 
+    
+    <!-- Artifact Info Views -->
+    <view-map name="ArtifactInfo" type="screen" page="component://webtools/widget/ArtifactInfoScreens.xml#ArtifactInfo"/> 
     <!-- end of view mappings -->
 </site-conf>

@@ -92,6 +92,18 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         return this.requestUri;
     }
     
+    public String getDisplayName() {
+        return this.getUniqueId();
+    }
+    
+    public String getDisplayType() {
+        return "Controller Request";
+    }
+    
+    public String getType() {
+        return ArtifactInfoFactory.ControllerRequestInfoTypeId;
+    }
+    
     public String getUniqueId() {
         return this.controllerXmlUrl.toExternalForm() + "#" + this.requestUri;
     }

@@ -22,7 +22,7 @@ package org.ofbiz.webtools.artifactinfo;
 /**
  *
  */
-public class ArtifactInfoBase {
+public abstract class ArtifactInfoBase {
     protected ArtifactInfoFactory aif;
     
     public ArtifactInfoBase(ArtifactInfoFactory aif) {
@@ -36,4 +36,9 @@ public class ArtifactInfoBase {
             return false;
         }
     }
+    
+    abstract public String getDisplayName();
+    abstract public String getDisplayType();
+    abstract public String getType();
+    abstract public String getUniqueId();
 }

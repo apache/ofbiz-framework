@@ -60,6 +60,22 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
         }
     }
     
+    public String getDisplayName() {
+        return this.getDisplayPrefixedName();
+    }
+    
+    public String getDisplayType() {
+        return "Service ECA";
+    }
+    
+    public String getType() {
+        return ArtifactInfoFactory.ServiceEcaInfoTypeId;
+    }
+    
+    public String getUniqueId() {
+        return this.serviceEcaRule.toString();
+    }
+    
     public ServiceEcaRule getServiceEcaRule() {
         return this.serviceEcaRule;
     }

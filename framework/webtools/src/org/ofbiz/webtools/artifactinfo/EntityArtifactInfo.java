@@ -18,14 +18,13 @@
  */
 package org.ofbiz.webtools.artifactinfo;
 
-import java.util.List;
+import java.util.Set;
 
-import javolution.util.FastList;
+import javolution.util.FastSet;
 
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entityext.eca.EntityEcaRule;
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 
 /**
  *
@@ -42,6 +41,22 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
         return this.modelEntity;
     }
     
+    public String getDisplayName() {
+        return this.getUniqueId();
+    }
+    
+    public String getDisplayType() {
+        return "Entity";
+    }
+    
+    public String getType() {
+        return ArtifactInfoFactory.EntityInfoTypeId;
+    }
+    
+    public String getUniqueId() {
+        return this.modelEntity.getEntityName();
+    }
+    
     public boolean equals(Object obj) {
         if (obj instanceof EntityArtifactInfo) {
             return this.modelEntity.getEntityName().equals(((EntityArtifactInfo) obj).modelEntity.getEntityName());
@@ -50,47 +65,45 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
         }
     }
     
-    public List<EntityArtifactInfo> getEntitiesRelatedOne() {
-        List<EntityArtifactInfo> entityList = FastList.newInstance();
+    public Set<EntityArtifactInfo> getEntitiesRelatedOne() {
+        Set<EntityArtifactInfo> entitySet = FastSet.newInstance();
         // TODO: implement this
-        return entityList;
+        return entitySet;
     }
 
-    public List<EntityArtifactInfo> getEntitiesRelatedMany() {
-        List<EntityArtifactInfo> entityList = FastList.newInstance();
+    public Set<EntityArtifactInfo> getEntitiesRelatedMany() {
+        Set<EntityArtifactInfo> entitySet = FastSet.newInstance();
         // TODO: implement this
-        return entityList;
+        return entitySet;
     }
     
     /** Get the Services that use this Entity */
-    public List<ServiceArtifactInfo> getServicesUsingEntity() {
-        List<ServiceArtifactInfo> serviceList = FastList.newInstance();
-        // TODO: implement this
-        return serviceList;
+    public Set<ServiceArtifactInfo> getServicesUsingEntity() {
+        return this.aif.allServiceInfosReferringToEntityName.get(this.modelEntity.getEntityName());
     }
     
     /** Get the Services called by Entity ECA */
-    public List<ServiceArtifactInfo> getServicesCalledByEntityEca() {
-        List<ServiceArtifactInfo> serviceList = FastList.newInstance();
+    public Set<ServiceArtifactInfo> getServicesCalledByEntityEca() {
+        Set<ServiceArtifactInfo> serviceSet = FastSet.newInstance();
         // TODO: implement this
-        return serviceList;
+        return serviceSet;
     }
     
-    public List<EntityEcaRule> getEntityEcaRules() {
-        List<EntityEcaRule> eecaList = FastList.newInstance();
+    public Set<EntityEcaRule> getEntityEcaRules() {
+        Set<EntityEcaRule> eecaSet = FastSet.newInstance();
         // TODO: implement this
-        return eecaList;
+        return eecaSet;
     }
     
-    public List<FormWidgetArtifactInfo> getFormsUsingEntity() {
-        List<FormWidgetArtifactInfo> formList = FastList.newInstance();
+    public Set<FormWidgetArtifactInfo> getFormsUsingEntity() {
+        Set<FormWidgetArtifactInfo> formSet = FastSet.newInstance();
         // TODO: implement this
-        return formList;
+        return formSet;
     }
     
-    public List<ScreenWidgetArtifactInfo> getScreensUsingEntity() {
-        List<ScreenWidgetArtifactInfo> screenList = FastList.newInstance();
+    public Set<ScreenWidgetArtifactInfo> getScreensUsingEntity() {
+        Set<ScreenWidgetArtifactInfo> screenSet = FastSet.newInstance();
         // TODO: implement this
-        return screenList;
+        return screenSet;
     }
 }
