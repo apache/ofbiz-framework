@@ -18,9 +18,14 @@
  */
 package org.ofbiz.webtools.artifactinfo;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,9 +34,12 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastMap;
 import javolution.util.FastSet;
+import javolution.util.FastList;
 
+import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityException;
@@ -56,9 +64,9 @@ import org.xml.sax.SAXException;
  *
  */
 public class ArtifactInfoFactory {
-    
+
     public static final String module = ArtifactInfoFactory.class.getName();
-    
+
     protected static UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = new UtilCache("ArtifactInfoFactory");
     
     public static final String EntityInfoTypeId = "entity";
@@ -134,11 +142,59 @@ public class ArtifactInfoFactory {
         }
         
         // how to get all Service ECAs to prepare? don't worry about it, will be populated from service load, ie all ECAs for each service
-        
-        // TODO: how to get all forms to prepare?
-        
-        // TODO: how to get all screens to prepare?
-        
+
+        Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
+        for (ComponentConfig componentConfig: componentConfigs) {
+            String componentName = componentConfig.getGlobalName();
+            String rootComponentPath = componentConfig.getRootLocation();
+            List<File> screenFiles = null;
+            List<File> formFiles = null;
+            try {
+                screenFiles = this.findScreenWidgetDefinitionFiles(rootComponentPath);
+                formFiles = this.findFormWidgetDefinitionFiles(rootComponentPath);
+            } catch(IOException ioe) {
+                throw new GeneralException(ioe.getMessage());
+            }
+            if (screenFiles != null) {
+                for (File screenFile: screenFiles) {
+                    String screenFilePath = screenFile.getAbsolutePath();
+                    screenFilePath = screenFilePath.replace('\\', '/');
+                    String screenFileRelativePath = screenFilePath.substring(rootComponentPath.length());
+                    String screenLocation = "component://" + componentName + "/" + screenFileRelativePath;
+                    Map modelScreenMap = null;
+                    try {
+                        modelScreenMap = ScreenFactory.getScreensFromLocation(screenLocation);
+                    } catch(Exception exc) {
+                        throw new GeneralException(exc.getMessage());
+                    }
+                    Iterator screenNames = modelScreenMap.keySet().iterator();
+                    while (screenNames.hasNext()) {
+                        String screenName = (String)screenNames.next();
+                        this.getScreenWidgetArtifactInfo(screenName, screenLocation);
+                    }
+                }
+            }
+            if (formFiles != null) {
+                for (File formFile: formFiles) {
+                    String formFilePath = formFile.getAbsolutePath();
+                    formFilePath = formFilePath.replace('\\', '/');
+                    String formFileRelativePath = formFilePath.substring(rootComponentPath.length());
+                    String formLocation = "component://" + componentName + "/" + formFileRelativePath;
+                    Map modelFormMap = null;
+                    try {
+                        modelFormMap = FormFactory.getFormsFromLocation(formLocation, this.getEntityModelReader(), this.getDispatchContext());
+                    } catch(Exception exc) {
+                        throw new GeneralException(exc.getMessage());
+                    }
+                    Iterator formNames = modelFormMap.keySet().iterator();
+                    while (formNames.hasNext()) {
+                        String formName = (String)formNames.next();
+                        this.getFormWidgetArtifactInfo(formName, formLocation);
+                    }
+                }
+            }
+        }
+
         // TODO: get all controller requests and views to prepare
         Set<URL> controllerUrlSet = FastSet.newInstance();
         for (URL controllerUrl: controllerUrlSet) {
@@ -323,4 +379,79 @@ public class ArtifactInfoFactory {
         
         return aiBaseSet;
     }
+    
+    public static List<File> findFormWidgetDefinitionFiles(String basePath) throws IOException {
+        if (basePath == null) {
+            basePath = System.getProperty("ofbiz.home");
+        }
+        List<File> fileList = FastList.newInstance();
+        FileUtil.searchFiles(fileList, new File(basePath), new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                File file = new File(dir, name);
+                if (file.getName().startsWith(".")) {
+                    return false;
+                }
+                if (file.isDirectory()) {
+                    return true;
+                }
+                if (name.endsWith(".xml")) {
+                    String xmlFile = null;
+                    try {
+                        xmlFile = FileUtil.readTextFile(file, true).toString();
+                    } catch (FileNotFoundException e) {
+                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
+                        return false;
+                    } catch (IOException e) {
+                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
+                        return false;
+                    }
+                    if (UtilValidate.isNotEmpty(xmlFile)) {
+                        return xmlFile.indexOf("<forms ") > 0 && xmlFile.indexOf("widget-form.xsd") > 0;
+                    }
+                } else {
+                    return false;
+                }
+                return false;
+            }
+        }, true);
+        return fileList;
+    }
+
+    public static List<File> findScreenWidgetDefinitionFiles(String basePath) throws IOException {
+        if (basePath == null) {
+            basePath = System.getProperty("ofbiz.home");
+        }
+        List<File> fileList = FastList.newInstance();
+        FileUtil.searchFiles(fileList, new File(basePath), new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                File file = new File(dir, name);
+                if (file.getName().startsWith(".")) {
+                    return false;
+                }
+                if (file.isDirectory()) {
+                    return true;
+                }
+                if (name.endsWith(".xml")) {
+                    String xmlFile = null;
+                    try {
+                        xmlFile = FileUtil.readTextFile(file, true).toString();
+                    } catch (FileNotFoundException e) {
+                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
+                        return false;
+                    } catch (IOException e) {
+                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
+                        return false;
+                    }
+                    if (UtilValidate.isNotEmpty(xmlFile)) {
+                        return xmlFile.indexOf("<screens ") > 0 && xmlFile.indexOf("widget-screen.xsd") > 0;
+                    }
+                } else {
+                    return false;
+                }
+                return false;
+            }
+        }, true);
+        return fileList;
+    }
+
 }

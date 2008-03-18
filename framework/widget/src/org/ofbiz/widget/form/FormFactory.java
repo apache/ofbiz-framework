@@ -52,7 +52,7 @@ public class FormFactory {
     public static final UtilCache formLocationCache = new UtilCache("widget.form.locationResource", 0, 0, false);
     public static final UtilCache formWebappCache = new UtilCache("widget.form.webappResource", 0, 0, false);
     
-    public static ModelForm getFormFromLocation(String resourceName, String formName, ModelReader entityModelReader, DispatchContext dispatchContext) 
+    public static Map getFormsFromLocation(String resourceName, ModelReader entityModelReader, DispatchContext dispatchContext) 
             throws IOException, SAXException, ParserConfigurationException {
         Map modelFormMap = (Map) formLocationCache.get(resourceName);
         if (modelFormMap == null) {
@@ -72,14 +72,21 @@ public class FormFactory {
                 }
             }
         }
-        
+
+        return modelFormMap;
+    }
+
+    public static ModelForm getFormFromLocation(String resourceName, String formName, ModelReader entityModelReader, DispatchContext dispatchContext) 
+            throws IOException, SAXException, ParserConfigurationException {
+        Map modelFormMap = getFormsFromLocation(resourceName, entityModelReader, dispatchContext);
+
         ModelForm modelForm = (ModelForm) modelFormMap.get(formName);
         if (modelForm == null) {
             throw new IllegalArgumentException("Could not find form with name [" + formName + "] in class resource [" + resourceName + "]");
         }
         return modelForm;
     }
-    
+
     public static ModelForm getFormFromWebappContext(String resourceName, String formName, HttpServletRequest request) 
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);
