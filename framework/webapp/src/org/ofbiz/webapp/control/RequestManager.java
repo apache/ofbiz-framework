@@ -108,15 +108,32 @@ public class RequestManager implements Serializable {
     }
 
     public String getRequestAttribute(String uriStr, String attribute) {
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null && attribute != null) {
-            return (String) uri.get(attribute);
+            String value = (String) uri.get(attribute);
+            if (value == null) {
+                // not found, try the response Map (though better to hit that directly when desired)
+                Map<String, String> responseMap = (Map<String, String>) uri.get(ConfigXMLReader.RESPONSE_MAP);
+                value = responseMap.get(attribute);
+            }
+            return value;
         } else {
             Debug.logInfo("[RequestManager.getRequestAttribute] Value for attribute \"" + attribute +
                 "\" of uri \"" + uriStr + "\" not found", module);
             return null;
         }
+    }
+    
+    public String getRequestResponseValue(String uriStr, String responseName) {
+        if (responseName == null) return null;
+        
+        Map<String, Object> uri = getRequestMapMap(uriStr);
+        if (uri == null) return null;
+        Map<String, String> responseMap = (Map<String, String>) uri.get(ConfigXMLReader.RESPONSE_MAP);
+        if (responseMap == null) return null;
+        
+        return responseMap.get(responseName);
     }
 
     /** Gets the event class from the requestMap */
@@ -175,10 +192,10 @@ public class RequestManager implements Serializable {
 
     /** Gets the view name from the requestMap */
     public String getViewName(String uriStr) {
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null)
-            return (String) uri.get(ConfigXMLReader.NEXT_PAGE);
+            return (String) ((Map<String, String>) uri.get(ConfigXMLReader.RESPONSE_MAP)).get(ConfigXMLReader.NEXT_PAGE_DEFAULT);
         else {
             Debug.logWarning("[RequestManager.getViewName] View name for uri \"" + uriStr + "\" not found", module);
             return null;
@@ -253,7 +270,7 @@ public class RequestManager implements Serializable {
         //Debug.logInfo("RequestMapMap is: " + uri, module);
 
         if (uri != null) {
-            String errorViewUri = (String) uri.get(ConfigXMLReader.ERROR_PAGE);
+            String errorViewUri = (String) ((Map<String, String>) uri.get(ConfigXMLReader.RESPONSE_MAP)).get(ConfigXMLReader.ERROR_PAGE_DEFAULT);
             //Debug.logInfo("errorViewUri is: " + errorViewUri, module);
             String returnPage = getViewPage(errorViewUri);
             //Debug.logInfo("Got returnPage for ErrorPage: " + returnPage, module);

@@ -65,7 +65,7 @@ public class ConfigXMLReader {
         
         public Map configMap = FastMap.newInstance();
         public Map handlerMap = FastMap.newInstance();
-        public Map<String, Map<String, String>> requestMap = FastMap.newInstance();
+        public Map<String, Map<String, Object>> requestMap = FastMap.newInstance();
         public Map<String, Map<String, String>> viewMap = FastMap.newInstance();
         public String defaultRequest = null;
 
@@ -103,8 +103,8 @@ public class ConfigXMLReader {
     public static final String REQUEST_TRACK_VISIT = "track-visit";
 
     public static final String REQUEST_DESCRIPTION = "description";
-    public static final String ERROR_PAGE = "error";
-    public static final String NEXT_PAGE = "success";
+    public static final String ERROR_PAGE_DEFAULT = "error";
+    public static final String NEXT_PAGE_DEFAULT = "success";
 
     public static final String SECURITY = "security";
     public static final String SECURITY_HTTPS = "https";
@@ -123,6 +123,7 @@ public class ConfigXMLReader {
     public static final String RESPONSE_NAME = "name";
     public static final String RESPONSE_TYPE = "type";
     public static final String RESPONSE_VALUE = "value";
+    public static final String RESPONSE_MAP = "response-map";
 
     /** View Config Variables */
     public static final String VIEW_MAPPING = "view-map";
@@ -139,7 +140,7 @@ public class ConfigXMLReader {
     public static final String HANDLER_NAME = "name";
     public static final String HANDLER_TYPE = "type";
     public static final String HANDLER_CLASS = "class";
-
+    
     /** Loads the XML file and returns the root element */
     public static Element loadDocument(URL location) {
         Document document;
@@ -156,15 +157,15 @@ public class ConfigXMLReader {
     }
 
     /** Gets a Map of request mappings. */
-    public static Map getRequestMap(URL xml) {
+    public static Map<String, Map<String, Object>> getRequestMap(URL xml) {
         ControllerConfig controllerConfig = getControllerConfig(xml);
         return controllerConfig != null ? controllerConfig.requestMap : null;
     }
 
     /** Gets a FastMap of request mappings. */
-    public static Map<String, Map<String, String>> loadRequestMap(Element root, URL xml) {
+    public static Map<String, Map<String, Object>> loadRequestMap(Element root, URL xml) {
         long startTime = System.currentTimeMillis();
-        Map<String, Map<String, String>> map = FastMap.newInstance();
+        Map<String, Map<String, Object>> map = FastMap.newInstance();
         if (root == null) {
             root = loadDocument(xml);
         }
@@ -192,7 +193,7 @@ public class ConfigXMLReader {
             Element requestMapElement = (Element) requestMapElementIter.next();
             
             // Create a URI-MAP for each element found.
-            Map<String, String> uriMap = FastMap.newInstance();
+            Map<String, Object> uriMap = FastMap.newInstance();
 
             // Get the URI info.
             String uri = requestMapElement.getAttribute(REQUEST_URI);
@@ -250,6 +251,9 @@ public class ConfigXMLReader {
             uriMap.put(REQUEST_DESCRIPTION, UtilValidate.isNotEmpty(description) ? description : "");
 
             // Get the response(s).
+            Map<String, String> responseMap = FastMap.newInstance();
+            uriMap.put(RESPONSE_MAP, responseMap);
+            
             List<? extends Element> responseElementList = UtilXml.childElementList(requestMapElement, RESPONSE);
             Iterator<? extends Element> responseElementIter = responseElementList.iterator();
             while (responseElementIter.hasNext()) {
@@ -257,7 +261,8 @@ public class ConfigXMLReader {
                 String name = responseElement.getAttribute(RESPONSE_NAME);
                 String type = responseElement.getAttribute(RESPONSE_TYPE);
                 String value = responseElement.getAttribute(RESPONSE_VALUE);
-                uriMap.put(name, type + ":" + value);
+                
+                responseMap.put(name, type + ":" + value);
             }
 
             if (uri != null) {
@@ -274,7 +279,7 @@ public class ConfigXMLReader {
             while (i.hasNext()) {
                 Object o = i.next();
                 String request = (String) o;
-                Map<String, String> thisURI = map.get(o);
+                Map<String, Object> thisURI = map.get(o);
 
                 StringBuilder verboseMessageBuffer = new StringBuilder();
 
@@ -282,7 +287,7 @@ public class ConfigXMLReader {
                 while (debugIter.hasNext()) {
                     Object lo = debugIter.next();
                     String name = (String) lo;
-                    String value = (String) thisURI.get(lo);
+                    String value = thisURI.get(lo).toString();
 
                     verboseMessageBuffer.append("[").append(name).append("=>").append(value).append("]");
                 }
@@ -298,15 +303,15 @@ public class ConfigXMLReader {
     }
 
     /** Gets a FastMap of view mappings. */
-    public static Map getViewMap(URL xml) {
+    public static Map<String, Map<String, String>> getViewMap(URL xml) {
         ControllerConfig controllerConfig = getControllerConfig(xml);
         return controllerConfig != null ? controllerConfig.viewMap : null;
     }
 
     /** Gets a FastMap of view mappings. */
-    public static Map loadViewMap(Element root, URL xml) {
+    public static Map<String, Map<String, String>> loadViewMap(Element root, URL xml) {
         long startTime = System.currentTimeMillis();
-        FastMap map = FastMap.newInstance();
+        Map<String, Map<String, String>> map = FastMap.newInstance();
         if (root == null) {
             root = loadDocument(xml);
         }
@@ -315,8 +320,8 @@ public class ConfigXMLReader {
             return map;
         }
 
-        List includeElementList = UtilXml.childElementList(root, INCLUDE);
-        Iterator includeElementIter = includeElementList.iterator();
+        List<? extends Element> includeElementList = UtilXml.childElementList(root, INCLUDE);
+        Iterator<? extends Element> includeElementIter = includeElementList.iterator();
         while (includeElementIter.hasNext()) {
             Element includeElement = (Element) includeElementIter.next();
             String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
@@ -330,12 +335,12 @@ public class ConfigXMLReader {
             }
         }
 
-        List viewMapElementList = UtilXml.childElementList(root, VIEW_MAPPING);
-        Iterator viewMapElementIter = viewMapElementList.iterator();
+        List<? extends Element> viewMapElementList = UtilXml.childElementList(root, VIEW_MAPPING);
+        Iterator<? extends Element> viewMapElementIter = viewMapElementList.iterator();
         while (viewMapElementIter.hasNext()) {
             Element viewMapElement = (Element) viewMapElementIter.next();
             // Create a URI-MAP for each element found.
-            FastMap uriMap = FastMap.newInstance();
+            Map<String, String> uriMap = FastMap.newInstance();
 
             // Get the view info.
             String name = viewMapElement.getAttribute(VIEW_NAME);
