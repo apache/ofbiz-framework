@@ -1032,7 +1032,7 @@ public class PartyServices {
             fieldsToSelect.add("statusId");
             fieldsToSelect.add("partyTypeId");
 
-            // filter on inventory item's fields
+            // filter on parties that have relationship with logged in user
             String roleTypeIdTo = (String) context.get("roleTypeIdTo");
             if (UtilValidate.isNotEmpty(roleTypeIdTo)) {
                 // add role to view
