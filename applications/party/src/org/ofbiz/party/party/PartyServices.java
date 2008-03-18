@@ -936,6 +936,7 @@ public class PartyServices {
     public static Map findParty(DispatchContext dctx, Map context) {
         Map result = ServiceUtil.returnSuccess();
         GenericDelegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         String extInfo = (String) context.get("extInfo");
 
@@ -1031,6 +1032,21 @@ public class PartyServices {
             fieldsToSelect.add("statusId");
             fieldsToSelect.add("partyTypeId");
 
+            // filter on inventory item's fields
+            String roleTypeIdTo = (String) context.get("roleTypeIdTo");
+            if (UtilValidate.isNotEmpty(roleTypeIdTo)) {
+                // add role to view
+                dynamicView.addMemberEntity("PR", "PartyRelationship");
+                dynamicView.addAlias("PR", "partyIdTo");
+                dynamicView.addViewLink("PT", "PR", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId", "partyIdTo"));
+                String partyIdFrom = userLogin.getString("partyId");
+                paramList = paramList + "&partyIdFrom=" + partyIdFrom;
+                dynamicView.addAlias("PR", "partyIdFrom");
+                // add the expr 
+                andExprs.add(new EntityExpr("partyIdFrom", true, EntityOperator.EQUALS, partyIdFrom , true));
+                fieldsToSelect.add("partyIdFrom");
+            }
+            
             // get the params
             String partyId = (String) context.get("partyId");
             String statusId = (String) context.get("statusId");
