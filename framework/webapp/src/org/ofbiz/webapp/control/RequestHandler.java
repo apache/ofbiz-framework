@@ -306,25 +306,25 @@ public class RequestHandler implements Serializable {
             }
         }
 
-         // If error, then display more error messages:
-         if ("error".equals(eventReturnString)) {
-             if (Debug.errorOn()) {
-                 String errorMessageHeader = "Request " + requestUri + " caused an error with the following message: ";
-                 if (request.getAttribute("_ERROR_MESSAGE_") != null) {
-                     Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_"), module);
-                 }
-                 if (request.getAttribute("_ERROR_MESSAGE_LIST_") != null) {
-                     Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_LIST_"), module);
-                 }
-             }
-         }
+        // If error, then display more error messages:
+        if ("error".equals(eventReturnString)) {
+            if (Debug.errorOn()) {
+                String errorMessageHeader = "Request " + requestUri + " caused an error with the following message: ";
+                if (request.getAttribute("_ERROR_MESSAGE_") != null) {
+                    Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_"), module);
+                }
+                if (request.getAttribute("_ERROR_MESSAGE_LIST_") != null) {
+                    Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_LIST_"), module);
+                }
+            }
+        }
 
         // Process the eventReturn.
-        String eventReturn = requestManager.getRequestAttribute(requestUri, eventReturnString);
-        if (Debug.verboseOn()) Debug.logVerbose("[Response Qualified]: " + eventReturn + " sessionId=" + UtilHttp.getSessionId(request), module);
+        String eventReturnBasedResponse = requestManager.getRequestResponseValue(requestUri, eventReturnString);
+        if (Debug.verboseOn()) Debug.logVerbose("[Response Qualified]: " + eventReturnBasedResponse + " sessionId=" + UtilHttp.getSessionId(request), module);
 
         // Set the next view (don't use event return if success, default to nextView (which is set to eventReturn later if null); also even if success if it is a type "none" response ignore the nextView, ie use the eventReturn)
-        if (eventReturn != null && (!"success".equals(eventReturnString) || eventReturn.startsWith("none:"))) nextView = eventReturn;
+        if (eventReturnBasedResponse != null && (!"success".equals(eventReturnString) || eventReturnBasedResponse.startsWith("none:"))) nextView = eventReturnBasedResponse;
         if (Debug.verboseOn()) Debug.logVerbose("[Event Response Mapping]: " + nextView + " sessionId=" + UtilHttp.getSessionId(request), module);
 
         // get the previous request info
