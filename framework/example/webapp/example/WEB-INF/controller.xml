@@ -26,7 +26,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
 
     <description>Example Component Site Configuration File</description>
-    <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
+    <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
     <!--
       These can be used to return the reports as views; make sure the classes are compiled and available
@@ -56,13 +56,13 @@ under the License.
     <request-map uri="EditExample"><security https="true" auth="true"/><response name="success" type="view" value="EditExample"/></request-map>
     <request-map uri="createExample">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createExample"/>
+        <event type="service" invoke="createExample"/>
         <response name="success" type="view" value="EditExample"/>
         <response name="error" type="view" value="EditExample"/>
     </request-map>
     <request-map uri="updateExample">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateExample"/>
+        <event type="service" invoke="updateExample"/>
         <response name="success" type="view" value="EditExample"/>
         <response name="error" type="view" value="EditExample"/>
     </request-map>
@@ -70,19 +70,19 @@ under the License.
     <request-map uri="EditExampleItems"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleItems"/></request-map>
     <request-map uri="createExampleItem">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createExampleItem"/>
+        <event type="service" invoke="createExampleItem"/>
         <response name="success" type="view" value="EditExampleItems"/>
         <response name="error" type="view" value="EditExampleItems"/>
     </request-map>
     <request-map uri="updateExampleItem">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateExampleItem"/>
+        <event type="service" invoke="updateExampleItem"/>
         <response name="success" type="view" value="EditExampleItems"/>
         <response name="error" type="view" value="EditExampleItems"/>
     </request-map>
     <request-map uri="deleteExampleItem">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteExampleItem"/>
+        <event type="service" invoke="deleteExampleItem"/>
         <response name="success" type="view" value="EditExampleItems"/>
         <response name="error" type="view" value="EditExampleItems"/>
     </request-map>
@@ -90,19 +90,19 @@ under the License.
     <request-map uri="EditExampleFeatureAppls"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleFeatureAppls"/></request-map>
     <request-map uri="example_createExampleFeatureAppl">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createExampleFeatureAppl"/>
+        <event type="service" invoke="createExampleFeatureAppl"/>
         <response name="success" type="view" value="EditExampleFeatureAppls"/>
         <response name="error" type="view" value="EditExampleFeatureAppls"/>
     </request-map>
     <request-map uri="example_updateExampleFeatureAppl">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateExampleFeatureAppl"/>
+        <event type="service" invoke="updateExampleFeatureAppl"/>
         <response name="success" type="view" value="EditExampleFeatureAppls"/>
         <response name="error" type="view" value="EditExampleFeatureAppls"/>
     </request-map>
     <request-map uri="example_deleteExampleFeatureAppl">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteExampleFeatureAppl"/>
+        <event type="service" invoke="deleteExampleFeatureAppl"/>
         <response name="success" type="view" value="EditExampleFeatureAppls"/>
         <response name="error" type="view" value="EditExampleFeatureAppls"/>
     </request-map>
@@ -112,13 +112,13 @@ under the License.
     <request-map uri="EditExampleFeature"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleFeature"/></request-map>
     <request-map uri="createExampleFeature">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createExampleFeature"/>
+        <event type="service" invoke="createExampleFeature"/>
         <response name="success" type="view" value="EditExampleFeature"/>
         <response name="error" type="view" value="EditExampleFeature"/>
     </request-map>
     <request-map uri="updateExampleFeature">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateExampleFeature"/>
+        <event type="service" invoke="updateExampleFeature"/>
         <response name="success" type="view" value="EditExampleFeature"/>
         <response name="error" type="view" value="EditExampleFeature"/>
     </request-map>
@@ -126,19 +126,19 @@ under the License.
     <request-map uri="EditExampleFeatureExampleAppls"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleFeatureExampleAppls"/></request-map>
     <request-map uri="feature_createExampleFeatureAppl">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createExampleFeatureAppl"/>
+        <event type="service" invoke="createExampleFeatureAppl"/>
         <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
     </request-map>
     <request-map uri="feature_updateExampleFeatureAppl">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateExampleFeatureAppl"/>
+        <event type="service" invoke="updateExampleFeatureAppl"/>
         <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
     </request-map>
     <request-map uri="feature_deleteExampleFeatureAppl">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteExampleFeatureAppl"/>
+        <event type="service" invoke="deleteExampleFeatureAppl"/>
         <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
     </request-map>
