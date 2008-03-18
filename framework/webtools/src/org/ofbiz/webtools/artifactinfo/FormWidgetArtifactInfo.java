@@ -22,7 +22,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.widget.form.ModelForm;
 import org.xml.sax.SAXException;
 
@@ -36,11 +36,19 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     protected String formName;
     protected String formLocation;
     
-    public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws ParserConfigurationException, SAXException, IOException {
+    public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.formName = formName;
         this.formLocation = formLocation;
-        this.modelForm = aif.getModelForm(formName, formLocation);
+        try {
+            this.modelForm = aif.getModelForm(formName, formLocation);
+        } catch (ParserConfigurationException e) {
+            throw new GeneralException(e);
+        } catch (SAXException e) {
+            throw new GeneralException(e);
+        } catch (IOException e) {
+            throw new GeneralException(e);
+        }
     }
     
     public String getUniqueId() {
