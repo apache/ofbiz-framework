@@ -51,6 +51,7 @@ under the License.
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this -->
         <attribute name="serialNumber" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this -->
         <attribute name="softIdentifier" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this -->
+        <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
         
         <attribute name="roleTypes" type="List" mode="OUT" optional="false"/>
         <attribute name="currentRole" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
