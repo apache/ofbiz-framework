@@ -20,13 +20,31 @@ under the License.
 
 <#if artifactInfo?exists>
     <h1>Artifact Info (${artifactInfo.getDisplayType()}): ${artifactInfo.getDisplayName()}</h1>
-    
+
     <#if artifactInfo.getType() == "entity">
+        <h2>Entities Related (One)</h2>
+        <#list artifactInfo.getEntitiesRelatedOne()?if_exists as entityArtifactInfo>
+            <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
+        </#list>
+        <h2>Entities Related (Many)</h2>
+        <#list artifactInfo.getEntitiesRelatedMany()?if_exists as entityArtifactInfo>
+            <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
+        </#list>
+        
         <h2>Services Using This Entity</h2>
         <#list artifactInfo.getServicesUsingEntity()?if_exists as serviceArtifactInfo>
             <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
         </#list>
         
+        <h2>Forms Using This Entity</h2>
+        <#list artifactInfo.getFormsUsingEntity()?if_exists as formWidgetArtifactInfo>
+            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
+        </#list>
+        
+        <h2>Screens Using This Entity</h2>
+        <#list artifactInfo.getScreensUsingEntity()?if_exists as screenWidgetArtifactInfo>
+            <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
+        </#list>
     <#elseif artifactInfo.getType() == "service"/>
         <h2>Entities Used By This Service</h2>
         <#list artifactInfo.getEntitiesUsedByService()?if_exists as entityArtifactInfo>

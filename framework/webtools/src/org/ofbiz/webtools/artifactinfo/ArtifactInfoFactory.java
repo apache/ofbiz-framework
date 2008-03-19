@@ -265,6 +265,7 @@ public class ArtifactInfoFactory {
         if (curInfo == null) {
             curInfo = new EntityArtifactInfo(entityName, this);
             this.allEntityInfos.put(entityName, curInfo);
+            curInfo.populateAll();
         }
         return curInfo;
     }
