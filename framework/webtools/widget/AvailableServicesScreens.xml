@@ -45,4 +45,23 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ServiceEcaDetail">
+        <section>
+            <actions>
+                <set field="titleProperty" value="WebtoolsServiceReference"/>
+                <set field="appButtonItem" value="service"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                            </widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
