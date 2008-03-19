@@ -34,7 +34,6 @@ import org.ofbiz.webapp.control.ConfigXMLReader;
  *
  */
 public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
-    
     public static final String module = ControllerRequestArtifactInfo.class.getName();
 
     protected URL controllerXmlUrl;
@@ -57,26 +56,55 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
             throw new GeneralException("Controller request with name [" + requestUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
         }
 
+        if (this.requestInfoMap == null) {
+            throw new GeneralException("Could not find Controller Request [" + requestUri + "] at URL [" + controllerXmlUrl.toExternalForm() + "]");
+        }
+    }
+    
+    /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allControllerRequestInfos in ArtifactInfoFactory.getControllerRequestArtifactInfo */
+    public void populateAll() throws GeneralException {
         // populate serviceCalledByRequestEvent, requestsThatAreResponsesToThisRequest, viewsThatAreResponsesToThisRequest and related reverse maps
         
         if ("service".equals(this.requestInfoMap.get(ConfigXMLReader.EVENT_TYPE))) {
             String serviceName = (String) this.requestInfoMap.get(ConfigXMLReader.EVENT_METHOD);
-            this.serviceCalledByRequestEvent = this.aif.getServiceArtifactInfo(serviceName);
+            try {
+                this.serviceCalledByRequestEvent = this.aif.getServiceArtifactInfo(serviceName);
+                if (this.serviceCalledByRequestEvent != null) {
+                    // add the reverse association
+                    UtilMisc.addToSetInMap(this, aif.allRequestInfosReferringToServiceName, this.serviceCalledByRequestEvent.getUniqueId());
+                }
+            } catch (GeneralException e) {
+                Debug.logWarning(e.toString(), module);
+            }
         }
         
         Map<String, String> responseMap = (Map<String, String>) this.requestInfoMap.get(ConfigXMLReader.RESPONSE_MAP);
         for (String responseValue: responseMap.values()) {
             if (responseValue.startsWith("view:")) {
                 String viewUri = responseValue.substring(5);
-                ControllerViewArtifactInfo artInfo = this.aif.getControllerViewArtifactInfo(controllerXmlUrl, viewUri);
-                this.viewsThatAreResponsesToThisRequest.add(artInfo);
-                // add the reverse association
-                UtilMisc.addToSetInMap(this, this.aif.allRequestInfosReferringToView, artInfo.getUniqueId());
+                if (viewUri.startsWith("/")) {
+                    viewUri = viewUri.substring(1);
+                }
+                try {
+                    ControllerViewArtifactInfo artInfo = this.aif.getControllerViewArtifactInfo(controllerXmlUrl, viewUri);
+                    this.viewsThatAreResponsesToThisRequest.add(artInfo);
+                    // add the reverse association
+                    UtilMisc.addToSetInMap(this, this.aif.allRequestInfosReferringToView, artInfo.getUniqueId());
+                } catch (GeneralException e) {
+                    Debug.logWarning(e.toString(), module);
+                }
             } else if (responseValue.startsWith("request:")) {
                 String otherRequestUri = responseValue.substring(8);
-                ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
-                this.requestsThatAreResponsesToThisRequest.add(artInfo);
-                UtilMisc.addToSetInMap(this, this.aif.allRequestInfosReferringToRequest, artInfo.getUniqueId());
+                if (otherRequestUri.startsWith("/")) {
+                    otherRequestUri = otherRequestUri.substring(1);
+                }
+                try {
+                    ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
+                    this.requestsThatAreResponsesToThisRequest.add(artInfo);
+                    UtilMisc.addToSetInMap(this, this.aif.allRequestInfosReferringToRequest, artInfo.getUniqueId());
+                } catch (GeneralException e) {
+                    Debug.logWarning(e.toString(), module);
+                }
             } else if (responseValue.startsWith("request-redirect:")) {
                 String otherRequestUri = responseValue.substring(17);
                 ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);

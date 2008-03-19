@@ -19,8 +19,11 @@
 package org.ofbiz.webtools.artifactinfo;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.widget.screen.ModelScreen;
@@ -42,13 +45,13 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         this.screenLocation = screenLocation;
         try {
             this.modelScreen = aif.getModelScreen(screenName, screenLocation);
+        } catch (IllegalArgumentException e) {
+            throw new GeneralException(e);
         } catch (ParserConfigurationException e) {
             throw new GeneralException(e);
         } catch (SAXException e) {
             throw new GeneralException(e);
         } catch (IOException e) {
-            throw new GeneralException(e);
-        } catch (IllegalArgumentException e) {
             throw new GeneralException(e);
         }
         
@@ -77,5 +80,33 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         } else {
             return false;
         }
+    }
+    
+    public Set<ControllerViewArtifactInfo> getViewsReferringToScreen() {
+        return this.aif.allViewInfosReferringToScreen.get(this.getUniqueId());
+    }
+    
+    public Set<EntityArtifactInfo> getEntitiesUsedInScreen() {
+        // TODO: implement this
+        return FastSet.newInstance();
+    }
+    
+    public Set<ServiceArtifactInfo> getServicesUsedInScreen() {
+        // TODO: implement this
+        return FastSet.newInstance();
+    }
+    
+    public Set<FormWidgetArtifactInfo> getFormsIncludedInScreen() {
+        // TODO: implement this
+        return FastSet.newInstance();
+    }
+    
+    public Set<ScreenWidgetArtifactInfo> getScreensIncludedInScreen() {
+        // TODO: implement this
+        return FastSet.newInstance();
+    }
+    
+    public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisScreen() {
+        return this.aif.allScreenInfosReferringToScreen.get(this.getUniqueId());
     }
 }

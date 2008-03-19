@@ -33,7 +33,6 @@ import org.ofbiz.webapp.control.ConfigXMLReader;
  *
  */
 public class ControllerViewArtifactInfo extends ArtifactInfoBase {
-
     public static final String module = ControllerViewArtifactInfo.class.getName();
 
     protected URL controllerXmlUrl;
@@ -49,6 +48,10 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         this.viewUri = viewUri;
         
         this.viewInfoMap = aif.getControllerViewInfoMap(controllerXmlUrl, viewUri);
+        
+        if (this.viewInfoMap == null) {
+            throw new GeneralException("Could not find Controller View [" + viewUri + "] at URL [" + controllerXmlUrl.toExternalForm() + "]");
+        }
 
         if (this.viewInfoMap == null) {
             throw new GeneralException("Controller view with name [" + viewUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
@@ -58,12 +61,14 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             String fullScreenName = this.viewInfoMap.get(ConfigXMLReader.VIEW_PAGE);
             if (UtilValidate.isNotEmpty(fullScreenName)) {
                 int poundIndex = fullScreenName.indexOf('#');
-                this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex+1), fullScreenName.substring(0, poundIndex));
-                // add the reverse association
-                if (this.screenCalledByThisView != null) {
-                    UtilMisc.addToSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
-                } else {
-                    Debug.logWarning("The controller view [" + this.viewUri + "] in resource [" + controllerXmlUrl + "] is pointing to a screen [" + fullScreenName.substring(poundIndex+1) + "] in resource [" + fullScreenName.substring(0, poundIndex) + "] that doesn't exists", module);
+                try {
+                    this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex+1), fullScreenName.substring(0, poundIndex));
+                    if (this.screenCalledByThisView != null) {
+                        // add the reverse association
+                        UtilMisc.addToSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
+                    }
+                } catch (GeneralException e) {
+                    Debug.logWarning(e.toString(), module);
                 }
             }
         }
