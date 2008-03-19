@@ -303,6 +303,7 @@ public class ArtifactInfoFactory {
         if (curInfo == null) {
             try {
                 curInfo = new ScreenWidgetArtifactInfo(screenName, screenLocation, this);
+                curInfo.populateAll();
             } catch(GeneralException e) {
                 Debug.logWarning("Error loading screen [" + screenName + "] from resource [" + screenLocation + "]: " + e.toString(), module);
                 return null;

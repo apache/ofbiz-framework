@@ -25,6 +25,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastSet;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.xml.sax.SAXException;
@@ -33,11 +34,14 @@ import org.xml.sax.SAXException;
  *
  */
 public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
+    public static final String module = ScreenWidgetArtifactInfo.class.getName();
 
     protected ModelScreen modelScreen;
     
     protected String screenName;
     protected String screenLocation;
+    
+    Set<EntityArtifactInfo> entitiesUsedInThisScreen = FastSet.newInstance();
     
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -56,7 +60,34 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         }
         
     }
-    
+
+    public void populateAll() throws GeneralException {
+        this.populateUsedEntities();
+    }
+    protected void populateUsedEntities() throws GeneralException {
+        // populate entitiesUsedInThisScreen and for each the reverse-associate cache in the aif
+        Set<String> allEntityNameSet = this.modelScreen.getAllEntityNamesUsed();
+        populateEntitiesFromNameSet(allEntityNameSet);
+    }
+    protected void populateEntitiesFromNameSet(Set<String> allEntityNameSet) throws GeneralException {
+        for (String entityName: allEntityNameSet) {
+            if (entityName.contains("${")) {
+                continue;
+            }
+            if (!aif.getEntityModelReader().getEntityNames().contains(entityName)) {
+                Debug.logWarning("Entity [" + entityName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
+                continue;
+            }
+            
+            // the forward reference
+            this.entitiesUsedInThisScreen.add(aif.getEntityArtifactInfo(entityName));
+            /* TODO
+            // the reverse reference
+            UtilMisc.addToSetInMap(this, aif.allServiceInfosReferringToEntityName, entityName);
+             */
+        }
+    }
+
     public String getDisplayName() {
         return this.getUniqueId();
     }
