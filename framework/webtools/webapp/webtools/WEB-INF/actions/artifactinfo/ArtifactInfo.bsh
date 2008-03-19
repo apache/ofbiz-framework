@@ -40,6 +40,6 @@ if (UtilValidate.isNotEmpty(type)) {
     if (artifactInfoSet.size() == 1) {
         context.put("artifactInfo", artifactInfoSet.iterator().next());
     } else {
-        context.put("artifactInfoSet", artifactInfoSet);
+        context.put("artifactInfoSet", new TreeSet(artifactInfoSet));
     }
 }
