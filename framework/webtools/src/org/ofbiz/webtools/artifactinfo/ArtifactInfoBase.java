@@ -38,9 +38,11 @@ public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
         }
     }
     
-    public int compareTo(ArtifactInfoBase aib) {
-        if (aib == null) return -1;
-        return this.getDisplayName().compareTo(aib.getDisplayName());
+    public int compareTo(ArtifactInfoBase that) {
+        if (that == null) return -1;
+        String thisName = this.getDisplayType() + ":" + this.getDisplayName();
+        String thatName = that.getDisplayType() + ":" + that.getDisplayName();
+        return thisName.compareTo(thatName);
     }
     
     abstract public String getDisplayName();
