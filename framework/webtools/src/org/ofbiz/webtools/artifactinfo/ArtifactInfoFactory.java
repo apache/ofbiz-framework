@@ -96,6 +96,7 @@ public class ArtifactInfoFactory {
     public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceName = FastMap.newInstance();
     public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToServiceName = FastMap.newInstance();
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToServiceName = FastMap.newInstance();
+    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToServiceName = FastMap.newInstance(); 
     
     public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToEntityName = FastMap.newInstance();
     public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToEntityName = FastMap.newInstance();
@@ -103,8 +104,11 @@ public class ArtifactInfoFactory {
 
     public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = FastMap.newInstance();
     
-    public Map<String, Set<ControllerViewArtifactInfo>> allViewInfosReferringToScreen = FastMap.newInstance(); 
-    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = FastMap.newInstance(); 
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToScreen = FastMap.newInstance();
+    public Map<String, Set<ControllerViewArtifactInfo>> allViewInfosReferringToScreen = FastMap.newInstance();
+    
+    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = FastMap.newInstance();
+    
     public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToRequest = FastMap.newInstance(); 
     
     public static ArtifactInfoFactory getArtifactInfoFactory(String delegatorName) throws GeneralException {
@@ -313,6 +317,7 @@ public class ArtifactInfoFactory {
         if (curInfo == null) {
             curInfo = new ControllerRequestArtifactInfo(controllerXmlUrl, requestUri, this);
             this.allControllerRequestInfos.put(curInfo.getUniqueId(), curInfo);
+            curInfo.populateAll();
         }
         return curInfo;
     }
@@ -366,34 +371,34 @@ public class ArtifactInfoFactory {
         }
         
         for (Map.Entry<String, EntityArtifactInfo> curEntry: allEntityInfos.entrySet()) {
-            if (curEntry.getKey().contains(artifactNamePartial)) {
+            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
                 aiBaseSet.add(curEntry.getValue());
             }
         }
         for (Map.Entry<String, ServiceArtifactInfo> curEntry: allServiceInfos.entrySet()) {
-            if (curEntry.getKey().contains(artifactNamePartial)) {
+            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
                 aiBaseSet.add(curEntry.getValue());
             }
         }
         
         for (Map.Entry<String, FormWidgetArtifactInfo> curEntry: allFormInfos.entrySet()) {
-            if (curEntry.getKey().contains(artifactNamePartial)) {
+            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
                 aiBaseSet.add(curEntry.getValue());
             }
         }
         for (Map.Entry<String, ScreenWidgetArtifactInfo> curEntry: allScreenInfos.entrySet()) {
-            if (curEntry.getKey().contains(artifactNamePartial)) {
+            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
                 aiBaseSet.add(curEntry.getValue());
             }
         }
         
         for (Map.Entry<String, ControllerRequestArtifactInfo> curEntry: allControllerRequestInfos.entrySet()) {
-            if (curEntry.getKey().contains(artifactNamePartial)) {
+            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
                 aiBaseSet.add(curEntry.getValue());
             }
         }
         for (Map.Entry<String, ControllerViewArtifactInfo> curEntry: allControllerViewInfos.entrySet()) {
-            if (curEntry.getKey().contains(artifactNamePartial)) {
+            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
                 aiBaseSet.add(curEntry.getValue());
             }
         }

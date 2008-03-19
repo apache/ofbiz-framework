@@ -82,17 +82,25 @@ under the License.
     <#-- add form here to specify artifact info name. -->
     <div class="screenlet-body">
       <form name="ArtifactInfoByName" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
-        Artifact Name: <input type="text" name="name" value="${parameters.name?if_exists}" size="60"/>
-        <select name="type">
-            <option value="">Any Type</option>
+        Search Names/Locations: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/>
+        <input type="submit" name="submitButton" value="Find"/>
+      </form>
+    </div>
+    <div class="screenlet-body">
+      <form name="ArtifactInfoByNameAndType" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
+        <div>Name: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/></div>
+        <div>Location: <input type="text" name="location" value="${parameters.location?if_exists}" size="60"/></div>
+        <div>
+          <select name="type">
             <option>entity</option>
             <option>service</option>
             <option>form</option>
             <option>screen</option>
             <option>request</option>
             <option>view</option>
-        </select>
-        <input type="submit" name="submitButton" value="Lookup"/>
+          </select>
+          <input type="submit" name="submitButton" value="Lookup"/>
+        </div>
       </form>
     </div>
     
@@ -148,5 +156,5 @@ under the License.
 </#macro>
 
 <#macro displayArtifactInfoLink artifactInfo>
-<a href="<@ofbizUrl>ArtifactInfo?type=${artifactInfo.getType()}&amp;uniqueId=${artifactInfo.getUniqueId()?html}</@ofbizUrl>">${artifactInfo.getDisplayName()}</a>
+<a href="<@ofbizUrl>ArtifactInfo?type=${artifactInfo.getType()}&amp;uniqueId=${artifactInfo.getUniqueId()?url('ISO-8859-1')}</@ofbizUrl>">${artifactInfo.getDisplayName()}</a>
 </#macro>

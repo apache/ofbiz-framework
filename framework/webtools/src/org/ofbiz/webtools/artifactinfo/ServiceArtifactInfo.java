@@ -295,10 +295,8 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         return screenSet;
     }
     
-    public Set getRequestsWithEventCallingService() {
-        Set requestSet = FastSet.newInstance();
-        // TODO: implement this
-        return requestSet;
+    public Set<ControllerRequestArtifactInfo> getRequestsWithEventCallingService() {
+        return this.aif.allRequestInfosReferringToServiceName.get(this.modelService.name);
     }
     
     public void writeServiceCallGraphEoModel(String eomodeldFullPath) throws GeneralException, FileNotFoundException, UnsupportedEncodingException {

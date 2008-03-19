@@ -19,10 +19,11 @@
 package org.ofbiz.webtools.artifactinfo;
 
 
+
 /**
  *
  */
-public abstract class ArtifactInfoBase {
+public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
     protected ArtifactInfoFactory aif;
     
     public ArtifactInfoBase(ArtifactInfoFactory aif) {
@@ -37,8 +38,17 @@ public abstract class ArtifactInfoBase {
         }
     }
     
+    public int compareTo(ArtifactInfoBase aib) {
+        if (aib == null) return -1;
+        return this.getDisplayName().compareTo(aib.getDisplayName());
+    }
+    
     abstract public String getDisplayName();
     abstract public String getDisplayType();
     abstract public String getType();
     abstract public String getUniqueId();
+    
+    //public static List<ArtifactInfoBase> sortArtifactInfoSetByDisplayName(Set<ArtifactInfoBase> artifactInfoSet) {
+        //SortedMap<String, ArtifactInfoBase> sortedMap = FastMap.newInstance();
+    //}
 }
