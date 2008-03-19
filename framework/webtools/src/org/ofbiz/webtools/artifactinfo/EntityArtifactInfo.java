@@ -18,12 +18,15 @@
  */
 package org.ofbiz.webtools.artifactinfo;
 
+import java.util.List;
 import java.util.Set;
 
 import javolution.util.FastSet;
 
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entityext.eca.EntityEcaRule;
 
 /**
@@ -32,9 +35,24 @@ import org.ofbiz.entityext.eca.EntityEcaRule;
 public class EntityArtifactInfo extends ArtifactInfoBase {
     protected ModelEntity modelEntity;
     
+    protected Set<EntityArtifactInfo> entitiesRelatedOne = FastSet.newInstance();
+    protected Set<EntityArtifactInfo> entitiesRelatedMany = FastSet.newInstance();
+    
     public EntityArtifactInfo(String entityName, ArtifactInfoFactory aif) throws GenericEntityException {
         super(aif);
         this.modelEntity = this.aif.getModelEntity(entityName);
+    }
+    
+    public void populateAll() throws GeneralException {
+        List<ModelRelation> relationOneList = modelEntity.getRelationsOneList();
+        for (ModelRelation relationOne: relationOneList) {
+            this.entitiesRelatedOne.add(this.aif.getEntityArtifactInfo(relationOne.getRelEntityName()));
+        }
+        
+        List<ModelRelation> relationManyList = modelEntity.getRelationsManyList();
+        for (ModelRelation relationMany: relationManyList) {
+            this.entitiesRelatedMany.add(this.aif.getEntityArtifactInfo(relationMany.getRelEntityName()));
+        }
     }
     
     public ModelEntity getModelEntity() {
@@ -66,15 +84,11 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
     }
     
     public Set<EntityArtifactInfo> getEntitiesRelatedOne() {
-        Set<EntityArtifactInfo> entitySet = FastSet.newInstance();
-        // TODO: implement this
-        return entitySet;
+        return this.entitiesRelatedOne;
     }
 
     public Set<EntityArtifactInfo> getEntitiesRelatedMany() {
-        Set<EntityArtifactInfo> entitySet = FastSet.newInstance();
-        // TODO: implement this
-        return entitySet;
+        return this.entitiesRelatedMany;
     }
     
     /** Get the Services that use this Entity */
@@ -96,14 +110,10 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
     }
     
     public Set<FormWidgetArtifactInfo> getFormsUsingEntity() {
-        Set<FormWidgetArtifactInfo> formSet = FastSet.newInstance();
-        // TODO: implement this
-        return formSet;
+        return this.aif.allFormInfosReferringToEntityName.get(this.modelEntity.getEntityName());
     }
     
     public Set<ScreenWidgetArtifactInfo> getScreensUsingEntity() {
-        Set<ScreenWidgetArtifactInfo> screenSet = FastSet.newInstance();
-        // TODO: implement this
-        return screenSet;
+        return this.aif.allScreenInfosReferringToEntityName.get(this.modelEntity.getEntityName());
     }
 }
