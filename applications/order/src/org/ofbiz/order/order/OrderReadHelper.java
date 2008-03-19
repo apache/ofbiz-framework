@@ -1797,7 +1797,7 @@ public class OrderReadHelper {
         while (i.hasNext()) {
             GenericValue returnedItem = (GenericValue) i.next();
             if ((returnedItem.get("returnPrice") != null) && (returnedItem.get("returnQuantity") != null)) {
-                returnedAmount = returnedAmount.add(returnedItem.getBigDecimal("returnPrice").multiply(returnedItem.getBigDecimal("returnQuantity"))).setScale(scale, rounding);
+                returnedAmount = returnedAmount.add(returnedItem.getBigDecimal("returnPrice").multiply(returnedItem.getBigDecimal("returnQuantity")).setScale(scale, rounding));
             }
             Map itemAdjustmentCondition = UtilMisc.toMap("returnId", returnedItem.get("returnId"), "returnItemSeqId", returnedItem.get("returnItemSeqId"));
             returnedAmount = returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), itemAdjustmentCondition));
@@ -2770,13 +2770,13 @@ public class OrderReadHelper {
                 Iterator adjustmentIterator = adjustments.iterator();
                 while (adjustmentIterator.hasNext()) {
                     GenericValue returnAdjustment = (GenericValue) adjustmentIterator.next();
-                    total = total.add(setScaleByType("RET_SALES_TAX_ADJ".equals(returnAdjustment.get("returnAdjustmentTypeId")),returnAdjustment.getBigDecimal("amount"))).setScale(scale, rounding);
+                    total = total.add(setScaleByType("RET_SALES_TAX_ADJ".equals(returnAdjustment.get("returnAdjustmentTypeId")),returnAdjustment.getBigDecimal("amount")));
                 }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, OrderReturnServices.module);
         }
-        return total.setScale(scale, rounding);
+        return total;
     }
 
     // little helper method to set the scale according to tax type
