@@ -20,6 +20,7 @@
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.webtools.artifactinfo.*;
 import org.ofbiz.base.util.*;
+import javolution.util.FastList;
 
 name = parameters.get("name");
 location = parameters.get("location");
@@ -29,17 +30,35 @@ uniqueId = parameters.get("uniqueId");
 aif = ArtifactInfoFactory.getArtifactInfoFactory(delegator.getDelegatorName());
 context.put("aif", aif);
 
+artifactInfo = null;
 if (UtilValidate.isNotEmpty(type)) {
     if (UtilValidate.isNotEmpty(name)) {
-        context.put("artifactInfo", aif.getArtifactInfoByNameAndType(name, location, type));
+        artifactInfo = aif.getArtifactInfoByNameAndType(name, location, type);
+        context.put("artifactInfo", artifactInfo);
     } else if (UtilValidate.isNotEmpty(uniqueId)) {
-        context.put("artifactInfo", aif.getArtifactInfoByUniqueIdAndType(uniqueId, type));
+        artifactInfo = aif.getArtifactInfoByUniqueIdAndType(uniqueId, type);
+        context.put("artifactInfo", artifactInfo);
     }
 } else {
     artifactInfoSet = aif.getAllArtifactInfosByNamePartial(name);
     if (artifactInfoSet.size() == 1) {
-        context.put("artifactInfo", artifactInfoSet.iterator().next());
+        artifactInfo = artifactInfoSet.iterator().next();
+        context.put("artifactInfo", artifactInfo);
     } else {
         context.put("artifactInfoSet", new TreeSet(artifactInfoSet));
+    }
+}
+
+if (artifactInfo != null) {
+    // add to the recently viewed list
+    recentArtifactInfoList = session.getAttribute("recentArtifactInfoList");
+    if (recentArtifactInfoList == null) {
+        recentArtifactInfoList = FastList.newInstance();
+        session.setAttribute("recentArtifactInfoList", recentArtifactInfoList);
+    }
+    if (recentArtifactInfoList.size() > 0 && recentArtifactInfoList.get(0).equals(artifactInfo)) {
+        // hmmm, I guess do nothing if it's already there
+    } else {
+        recentArtifactInfoList.add(0, artifactInfo);
     }
 }
