@@ -24,6 +24,7 @@ import java.util.Set;
 
 import javolution.util.FastSet;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
@@ -34,6 +35,8 @@ import org.ofbiz.webapp.control.ConfigXMLReader;
  */
 public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
     
+    public static final String module = ControllerRequestArtifactInfo.class.getName();
+
     protected URL controllerXmlUrl;
     protected String requestUri;
     
@@ -49,7 +52,11 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         this.requestUri = requestUri;
         
         this.requestInfoMap = aif.getControllerRequestInfoMap(controllerXmlUrl, requestUri);
-        
+   
+        if (this.requestInfoMap == null) {
+            throw new GeneralException("Controller request with name [" + requestUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
+        }
+
         // populate serviceCalledByRequestEvent, requestsThatAreResponsesToThisRequest, viewsThatAreResponsesToThisRequest and related reverse maps
         
         if ("service".equals(this.requestInfoMap.get(ConfigXMLReader.EVENT_TYPE))) {

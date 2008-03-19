@@ -205,10 +205,18 @@ public class ArtifactInfoFactory {
                     }
                     ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
                     for (String requestUri: cc.requestMap.keySet()) {
-                        this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
+                        try {
+                            this.getControllerRequestArtifactInfo(controllerUrl, requestUri);
+                        } catch(GeneralException e) {
+                            Debug.logWarning(e.getMessage(), module);
+                        }
                     }
                     for (String viewUri: cc.viewMap.keySet()) {
-                        this.getControllerViewArtifactInfo(controllerUrl, viewUri);
+                        try {
+                            this.getControllerViewArtifactInfo(controllerUrl, viewUri);
+                        } catch(GeneralException e) {
+                            Debug.logWarning(e.getMessage(), module);
+                        }
                     }
                 }
             }
@@ -244,7 +252,8 @@ public class ArtifactInfoFactory {
     }
 
     public Map<String, String> getControllerViewInfoMap(URL controllerXmlUrl, String viewUri) {
-        return ConfigXMLReader.getControllerConfig(controllerXmlUrl).viewMap.get(viewUri);
+        ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerXmlUrl);
+        return cc.viewMap.get(viewUri);
     }
 
     public EntityArtifactInfo getEntityArtifactInfo(String entityName) throws GeneralException {
@@ -288,7 +297,12 @@ public class ArtifactInfoFactory {
     public ScreenWidgetArtifactInfo getScreenWidgetArtifactInfo(String screenName, String screenLocation) throws GeneralException {
         ScreenWidgetArtifactInfo curInfo = this.allScreenInfos.get(screenLocation + "#" + screenName);
         if (curInfo == null) {
-            curInfo = new ScreenWidgetArtifactInfo(screenName, screenLocation, this);
+            try {
+                curInfo = new ScreenWidgetArtifactInfo(screenName, screenLocation, this);
+            } catch(GeneralException e) {
+                Debug.logWarning("Error loading screen [" + screenName + "] from resource [" + screenLocation + "]: " + e.toString(), module);
+                return null;
+            }
             this.allScreenInfos.put(curInfo.getUniqueId(), curInfo);
         }
         return curInfo;

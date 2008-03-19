@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
@@ -32,7 +33,9 @@ import org.ofbiz.webapp.control.ConfigXMLReader;
  *
  */
 public class ControllerViewArtifactInfo extends ArtifactInfoBase {
-    
+
+    public static final String module = ControllerViewArtifactInfo.class.getName();
+
     protected URL controllerXmlUrl;
     protected String viewUri;
     
@@ -47,6 +50,9 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         
         this.viewInfoMap = aif.getControllerViewInfoMap(controllerXmlUrl, viewUri);
 
+        if (this.viewInfoMap == null) {
+            throw new GeneralException("Controller view with name [" + viewUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
+        }
         // populate screenCalledByThisView and reverse in aif.allViewInfosReferringToScreen
         if ("screen".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE))) {
             String fullScreenName = this.viewInfoMap.get(ConfigXMLReader.VIEW_PAGE);
@@ -54,7 +60,11 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
                 int poundIndex = fullScreenName.indexOf('#');
                 this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex+1), fullScreenName.substring(0, poundIndex));
                 // add the reverse association
-                UtilMisc.addToSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
+                if (this.screenCalledByThisView != null) {
+                    UtilMisc.addToSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
+                } else {
+                    Debug.logWarning("The controller view [" + this.viewUri + "] in resource [" + controllerXmlUrl + "] is pointing to a screen [" + fullScreenName.substring(poundIndex+1) + "] in resource [" + fullScreenName.substring(0, poundIndex) + "] that doesn't exists", module);
+                }
             }
         }
     }
