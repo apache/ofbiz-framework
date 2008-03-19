@@ -48,6 +48,8 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             throw new GeneralException(e);
         } catch (IOException e) {
             throw new GeneralException(e);
+        } catch (IllegalArgumentException e) {
+            throw new GeneralException(e);
         }
         
     }
