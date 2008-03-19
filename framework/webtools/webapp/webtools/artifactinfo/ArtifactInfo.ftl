@@ -115,6 +115,15 @@ under the License.
     </#if>
 </#if>
 
+<#if sessionAttributes.recentArtifactInfoList?has_content>
+    <h2>Recently Viewed Artifacts:</h2>
+    <#assign highRef = sessionAttributes.recentArtifactInfoList.size() - 1/>
+    <#if (highRef > 20)><#assign highRef = 20/></#if>
+    <#list sessionAttributes.recentArtifactInfoList[0..highRef] as recentArtifactInfo>
+        <div>${recentArtifactInfo_index + 1} - ${recentArtifactInfo.getDisplayType()}: <@displayArtifactInfoLink artifactInfo=recentArtifactInfo/></div>
+    </#list>
+</#if>
+
 <#macro displayEntityArtifactInfo entityArtifactInfo>
     <div>&nbsp;-&nbsp;<@displayArtifactInfoLink artifactInfo=entityArtifactInfo/></div>
 </#macro>
