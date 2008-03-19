@@ -76,6 +76,28 @@ public class ModelScreen extends ModelWidget implements Serializable {
         return sourceLocation;
     }
 
+    public Set<String> getAllServiceNamesUsed() {
+        Set<String> allServiceNamesUsed = FastSet.newInstance();
+        findServiceNamesUsedInSection(this.section, allServiceNamesUsed);
+        return allServiceNamesUsed;
+    }
+    protected static void findServiceNamesUsedInSection(ModelScreenWidget.Section currentSection, Set<String> allServiceNamesUsed) {
+        currentSection.findServiceNamesUsed(allServiceNamesUsed);
+        if (currentSection.subWidgets != null) {
+            for (ModelScreenWidget widget: currentSection.subWidgets) {
+                if (widget instanceof ModelScreenWidget.Section) {
+                    findServiceNamesUsedInSection((ModelScreenWidget.Section)widget, allServiceNamesUsed);
+                }
+            }
+        }
+        if (currentSection.failWidgets != null) {
+            for (ModelScreenWidget widget: currentSection.failWidgets) {
+                if (widget instanceof ModelScreenWidget.Section) {
+                    findServiceNamesUsedInSection((ModelScreenWidget.Section)widget, allServiceNamesUsed);
+                }
+            }
+        }
+    }
     public Set<String> getAllEntityNamesUsed() {
         Set<String> allEntityNamesUsed = FastSet.newInstance();
         findEntityNamesUsedInSection(this.section, allEntityNamesUsed);

@@ -28,6 +28,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.xml.sax.SAXException;
 
@@ -43,6 +44,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     protected String screenLocation;
     
     Set<EntityArtifactInfo> entitiesUsedInThisScreen = FastSet.newInstance();
+    Set<ServiceArtifactInfo> servicesUsedInThisScreen = FastSet.newInstance();
     
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -64,6 +66,30 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
 
     public void populateAll() throws GeneralException {
         this.populateUsedEntities();
+        this.populateUsedServices();
+    }
+    protected void populateUsedServices() throws GeneralException {
+        // populate servicesUsedInThisScreen and for each the reverse-associate cache in the aif
+        Set<String> allServiceNameSet = this.modelScreen.getAllServiceNamesUsed();
+        populateServicesFromNameSet(allServiceNameSet);
+    }
+    protected void populateServicesFromNameSet(Set<String> allServiceNameSet) throws GeneralException {
+        for (String serviceName: allServiceNameSet) {
+            if (serviceName.contains("${")) {
+                continue;
+            }
+            try {
+                ModelService modelService = aif.getModelService(serviceName);
+            } catch(GeneralException e) {
+                Debug.logWarning("Service [" + serviceName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
+                continue;
+            }
+            
+            // the forward reference
+            this.servicesUsedInThisScreen.add(aif.getServiceArtifactInfo(serviceName));
+            // the reverse reference
+            UtilMisc.addToSetInMap(this, aif.allScreenInfosReferringToServiceName, serviceName);
+        }
     }
     protected void populateUsedEntities() throws GeneralException {
         // populate entitiesUsedInThisScreen and for each the reverse-associate cache in the aif
@@ -117,13 +143,11 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     }
     
     public Set<EntityArtifactInfo> getEntitiesUsedInScreen() {
-        // TODO: implement this
-        return FastSet.newInstance();
+        return this.entitiesUsedInThisScreen;
     }
     
     public Set<ServiceArtifactInfo> getServicesUsedInScreen() {
-        // TODO: implement this
-        return FastSet.newInstance();
+        return this.servicesUsedInThisScreen;
     }
     
     public Set<FormWidgetArtifactInfo> getFormsIncludedInScreen() {
