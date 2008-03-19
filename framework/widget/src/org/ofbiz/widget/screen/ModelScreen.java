@@ -21,6 +21,7 @@ package org.ofbiz.widget.screen;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.Map;
+import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -33,6 +34,8 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.ModelWidget;
 import org.w3c.dom.Element;
+
+import javolution.util.FastSet;
 
 /**
  * Widget Library - Screen model class
@@ -71,6 +74,29 @@ public class ModelScreen extends ModelWidget implements Serializable {
     
     public String getSourceLocation() {
         return sourceLocation;
+    }
+
+    public Set<String> getAllEntityNamesUsed() {
+        Set<String> allEntityNamesUsed = FastSet.newInstance();
+        findEntityNamesUsedInSection(this.section, allEntityNamesUsed);
+        return allEntityNamesUsed;
+    }
+    protected static void findEntityNamesUsedInSection(ModelScreenWidget.Section currentSection, Set<String> allEntityNamesUsed) {
+        currentSection.findEntityNamesUsed(allEntityNamesUsed);
+        if (currentSection.subWidgets != null) {
+            for (ModelScreenWidget widget: currentSection.subWidgets) {
+                if (widget instanceof ModelScreenWidget.Section) {
+                    findEntityNamesUsedInSection((ModelScreenWidget.Section)widget, allEntityNamesUsed);
+                }
+            }
+        }
+        if (currentSection.failWidgets != null) {
+            for (ModelScreenWidget widget: currentSection.failWidgets) {
+                if (widget instanceof ModelScreenWidget.Section) {
+                    findEntityNamesUsedInSection((ModelScreenWidget.Section)widget, allEntityNamesUsed);
+                }
+            }
+        }
     }
 
     /**

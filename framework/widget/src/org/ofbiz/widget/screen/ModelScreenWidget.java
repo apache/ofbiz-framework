@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -167,9 +168,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
     public static class Section extends ModelScreenWidget {
         protected ModelScreenCondition condition;
-        protected List actions;
-        protected List subWidgets;
-        protected List failWidgets;
+        protected List<ModelScreenAction> actions;
+        protected List<ModelScreenWidget> subWidgets;
+        protected List<ModelScreenWidget> failWidgets;
         public boolean isMainSection = false;
         
         public Section(ModelScreen modelScreen, Element sectionElement) {
@@ -200,6 +201,23 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
         }
         
+        public void findEntityNamesUsed(Set<String> allEntityNames) {
+            if (this.actions != null) {
+                for (ModelScreenAction screenOperation: this.actions) {
+                    if (screenOperation instanceof ModelScreenAction.EntityOne) {
+                        String entName = ((ModelScreenAction.EntityOne) screenOperation).finder.getEntityName();
+                        if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+                    } else if (screenOperation instanceof ModelScreenAction.EntityAnd) {
+                        String entName = ((ModelScreenAction.EntityAnd) screenOperation).finder.getEntityName();
+                        if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+                    } else if (screenOperation instanceof ModelScreenAction.EntityCondition) {
+                        String entName = ((ModelScreenAction.EntityCondition) screenOperation).finder.getEntityName();
+                        if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+                    }
+                }
+            }
+        }
+
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
             // check the condition, if there is one
             boolean condTrue = true;
