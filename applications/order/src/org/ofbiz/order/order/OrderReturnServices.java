@@ -2072,7 +2072,7 @@ public class OrderReturnServices {
                 }
                 BigDecimal returnTotal = returnItem.getBigDecimal("returnPrice").multiply(returnItem.getBigDecimal("returnQuantity"));
                 BigDecimal orderTotal = orderItem.getBigDecimal("quantity").multiply(orderItem.getBigDecimal("unitPrice"));                
-                amount = getAdjustmentAmount("RET_SALES_TAX_ADJ".equals(returnAdjustmentType), returnTotal, orderTotal, orderAdjustment.getBigDecimal("amount"));
+                amount = getAdjustmentAmount("RET_SALES_TAX_ADJ".equals(returnAdjustmentTypeId), returnTotal, orderTotal, orderAdjustment.getBigDecimal("amount"));
             } else {
                 amount = (Double) context.get("amount");
             }
@@ -2276,12 +2276,11 @@ public class OrderReturnServices {
         String decimalsPrefix = isSalesTax ? ".calc" : "";
         int decimals = UtilNumber.getBigDecimalScale(settingPrefix + decimalsPrefix + ".decimals");
         int rounding = UtilNumber.getBigDecimalRoundingMode(settingPrefix + ".rounding");
-        int finalDecimals = isSalesTax ? UtilNumber.getBigDecimalScale(settingPrefix + ".final.decimals") : decimals;
         returnTotal = returnTotal.setScale(decimals, rounding);
         originalTotal = originalTotal.setScale(decimals, rounding);
         BigDecimal newAmount = null;
         if (ZERO.compareTo(originalTotal) != 0) {
-            newAmount = returnTotal.divide(originalTotal, decimals, rounding).multiply(amount).setScale(finalDecimals, rounding);
+            newAmount = returnTotal.divide(originalTotal, decimals, rounding).multiply(amount).setScale(decimals, rounding);
         } else {
             newAmount = ZERO;
         }
