@@ -27,6 +27,7 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.xml.sax.SAXException;
 
@@ -81,10 +82,8 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             
             // the forward reference
             this.entitiesUsedInThisScreen.add(aif.getEntityArtifactInfo(entityName));
-            /* TODO
             // the reverse reference
-            UtilMisc.addToSetInMap(this, aif.allServiceInfosReferringToEntityName, entityName);
-             */
+            UtilMisc.addToSetInMap(this, aif.allScreenInfosReferringToEntityName, entityName);
         }
     }
 
