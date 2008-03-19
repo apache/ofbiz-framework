@@ -207,6 +207,10 @@ under the License.
         <description>Delete EntitySyncHistory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="updateOfflineEntitySync" engine="java"
+            location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="updateOfflineEntitySync" auth="true">
+        <description>Not implemented.</description>
+    </service>
 
     <service name="cleanSyncRemoveInfo" engine="java"
             location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="cleanSyncRemoveInfo" auth="true" transaction-timeout="600">
