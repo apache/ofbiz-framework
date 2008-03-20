@@ -65,7 +65,7 @@ public class UtilJavaParse {
             String fullPathAndFile = classDir + File.separatorChar + classFileName;
             File classFile = new File(fullPathAndFile);
             if (classFile.exists()) {
-                Debug.logInfo("In findRealPathAndFileForClass for [" + fullyQualifiedClassName + "]: [" + fullPathAndFile + "]", module);
+                if (Debug.verboseOn()) Debug.logVerbose("In findRealPathAndFileForClass for [" + fullyQualifiedClassName + "]: [" + fullPathAndFile + "]", module);
                 return fullPathAndFile;
             }
         }
