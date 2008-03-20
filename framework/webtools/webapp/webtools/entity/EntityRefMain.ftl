@@ -66,6 +66,10 @@ under the License.
                                     <#assign encodeURL = response.encodeURL(controlPath + "/FindGeneric?entityName=" + entity.entityName + "&find=true&VIEW_SIZE=50&VIEW_INDEX=0")>
                                     <a target='main' href="${encodeURL}">[${uiLabelMap.WebtoolsViewData}]</a>
                                 </#if>
+                                <#if !forstatic>
+                                    <#assign encodeURL = response.encodeURL(controlPath + "/ArtifactInfo?name=" + entity.entityName + "&type=entity")>
+                                    <a target='main' href="${encodeURL}">[Artifact Info]</a>
+                                </#if>
                             </div>
                             <#if entity.description?has_content && 
                                  !entity.description.equalsIgnoreCase("NONE") && 
