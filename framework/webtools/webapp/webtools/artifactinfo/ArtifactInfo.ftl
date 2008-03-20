@@ -151,7 +151,7 @@ under the License.
     <#elseif artifactInfo.getType() == "form"/>
         <h2>Form Extended by This Form</h2>
         <#if artifactInfo.getFormThisFormExtends()?exists>
-            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=artifactInfo.getFormThisFormExtends/>
+            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=artifactInfo.getFormThisFormExtends()/>
         </#if>
 
         <h2>Entities Used in This Form</h2>
