@@ -29,6 +29,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.xml.sax.SAXException;
 
@@ -45,6 +46,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     
     Set<EntityArtifactInfo> entitiesUsedInThisScreen = FastSet.newInstance();
     Set<ServiceArtifactInfo> servicesUsedInThisScreen = FastSet.newInstance();
+    Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = FastSet.newInstance();
     
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -67,6 +69,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     public void populateAll() throws GeneralException {
         this.populateUsedEntities();
         this.populateUsedServices();
+        this.populateIncludedForms();
     }
     protected void populateUsedServices() throws GeneralException {
         // populate servicesUsedInThisScreen and for each the reverse-associate cache in the aif
@@ -112,6 +115,30 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             UtilMisc.addToSetInMap(this, aif.allScreenInfosReferringToEntityName, entityName);
         }
     }
+    protected void populateIncludedForms() throws GeneralException {
+        // populate servicesUsedInThisScreen and for each the reverse-associate cache in the aif
+        Set<String> allFormNameSet = this.modelScreen.getAllFormNamesIncluded();
+        populateFormsFromNameSet(allFormNameSet);
+    }
+    protected void populateFormsFromNameSet(Set<String> allFormNameSet) throws GeneralException {
+        for (String formName: allFormNameSet) {
+            if (formName.contains("${")) {
+                continue;
+            }
+
+            try {
+                ModelForm modelForm = aif.getModelForm(formName);
+            } catch(Exception e) {
+                Debug.logWarning("Form [" + formName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
+                continue;
+            }
+            
+            // the forward reference
+            this.formsIncludedInThisScreen.add(aif.getFormWidgetArtifactInfo(formName));
+            // the reverse reference
+            UtilMisc.addToSetInMap(this, aif.allScreenInfosReferringToEntityName, formName);
+        }
+    }
 
     public String getDisplayName() {
         return this.getUniqueId();
@@ -151,8 +178,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     }
     
     public Set<FormWidgetArtifactInfo> getFormsIncludedInScreen() {
-        // TODO: implement this
-        return FastSet.newInstance();
+        return this.formsIncludedInThisScreen;
     }
     
     public Set<ScreenWidgetArtifactInfo> getScreensIncludedInScreen() {

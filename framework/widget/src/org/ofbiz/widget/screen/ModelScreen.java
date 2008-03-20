@@ -20,6 +20,7 @@ package org.ofbiz.widget.screen;
 
 import java.io.Serializable;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -116,6 +117,58 @@ public class ModelScreen extends ModelWidget implements Serializable {
             for (ModelScreenWidget widget: currentSection.failWidgets) {
                 if (widget instanceof ModelScreenWidget.Section) {
                     findEntityNamesUsedInSection((ModelScreenWidget.Section)widget, allEntityNamesUsed);
+                }
+            }
+        }
+    }
+    public Set<String> getAllFormNamesIncluded() {
+        Set<String> allFormNamesIncluded = FastSet.newInstance();
+        findFormNamesIncludedInWidget(this.section, allFormNamesIncluded);
+        return allFormNamesIncluded;
+    }
+    protected static void findFormNamesIncludedInWidget(ModelScreenWidget currentWidget, Set<String> allFormNamesIncluded) {
+        if (currentWidget instanceof ModelScreenWidget.Form) {
+            ModelScreenWidget.Form form = (ModelScreenWidget.Form)currentWidget;
+            allFormNamesIncluded.add(form.locationExdr.getOriginal() + "#" + form.nameExdr.getOriginal());
+        } else if (currentWidget instanceof ModelScreenWidget.Section) {
+            ModelScreenWidget.Section section = (ModelScreenWidget.Section)currentWidget;
+            if (section.subWidgets != null) {
+                for (ModelScreenWidget widget: section.subWidgets) {
+                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
+                }
+            }
+            if (section.failWidgets != null) {
+                for (ModelScreenWidget widget: section.failWidgets) {
+                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
+            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection)currentWidget;
+            if (decoratorSection.subWidgets != null) {
+                for (ModelScreenWidget widget: decoratorSection.subWidgets) {
+                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
+            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen)currentWidget;
+            if (decoratorScreen.sectionMap != null) {
+                Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.sectionMap.values();
+                for (ModelScreenWidget section: sections) {
+                    findFormNamesIncludedInWidget(section, allFormNamesIncluded);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.Container) {
+            ModelScreenWidget.Container container = (ModelScreenWidget.Container)currentWidget;
+            if (container.subWidgets != null) {
+                for (ModelScreenWidget widget: container.subWidgets) {
+                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
+            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet)currentWidget;
+            if (screenlet.subWidgets != null) {
+                for (ModelScreenWidget widget: screenlet.subWidgets) {
+                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
                 }
             }
         }
