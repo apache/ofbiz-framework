@@ -234,7 +234,6 @@ public class ModelForm extends ModelWidget {
                     Debug.logError("Failed to find parent form definition '" + parentForm + "' in same document.", module);
                 } else {
                     this.parentFormName = parentForm;
-                    this.parentFormLocation = this.formLocation;
                 }
             } else {
                 Debug.logError("Recursive form definition found for '" + formElement.getAttribute("name") + ".'", module);
@@ -1718,6 +1717,9 @@ public class ModelForm extends ModelWidget {
     }
 
     public String getParentFormLocation() {
+        if (this.parentFormName != null && this.parentFormLocation == null) {
+            return this.formLocation;
+        }
         return this.parentFormLocation;
     }
 
