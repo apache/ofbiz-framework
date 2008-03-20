@@ -31,6 +31,9 @@ under the License.
       <li<#if selected == "jobs"> class="selected"</#if>><a href="<@ofbizUrl>jobList</@ofbizUrl>">${uiLabelMap.WebtoolsJobList}</a></li>
       <li<#if selected == "cache"> class="selected"</#if>><a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>">${uiLabelMap.WebtoolsCacheMaintenance}</a></li>
       <li<#if selected == "logging"> class="selected"</#if>><a href="<@ofbizUrl>LogView</@ofbizUrl>">${uiLabelMap.WebtoolsLogging}</a></li>
+      <#if security.hasPermission("ARTIFACT_INFO_VIEW", session)>
+        <li<#if selected == "ArtifactInfo"> class="selected"</#if>><a href="<@ofbizUrl>ArtifactInfo</@ofbizUrl>">Artifact Info</a></li>
+      </#if>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
       <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>

@@ -67,6 +67,12 @@ text-decoration: underline;
         <li><a href="<@ofbizUrl>LogConfiguration</@ofbizUrl>">${uiLabelMap.WebtoolsAdjustDebuggingLevels}</a></li>
         <li><a href="<@ofbizUrl>LogView</@ofbizUrl>">${uiLabelMap.WebtoolsViewLog}</a></li>
         <li><a href="<@ofbizUrl>ViewComponents</@ofbizUrl>">${uiLabelMap.WebtoolsViewComponents}</a></li>
+        <#if security.hasPermission("ARTIFACT_INFO_VIEW", session)>
+          <li><h3>General Artifact Info Tools</h3></li>
+          <li><a href="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" target="_blank">Artifact Info</a></li>
+          <li><a href="<@ofbizUrl>entityref</@ofbizUrl>" target="_blank">${uiLabelMap.WebtoolsEntityReference} - Interactive</a></li>
+          <li><a href="<@ofbizUrl>availableServices</@ofbizUrl>">${uiLabelMap.WebtoolsServiceReference}</a></li>
+        </#if>
         <#if security.hasPermission("ENTITY_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsEntityEngineTools}</h3></li>
           <li><a href="<@ofbizUrl>entitymaint</@ofbizUrl>">${uiLabelMap.WebtoolsEntityDataMaintenance}</a></li>

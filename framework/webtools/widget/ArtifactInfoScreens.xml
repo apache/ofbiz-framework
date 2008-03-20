@@ -22,9 +22,12 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="ArtifactInfo">
         <section>
+            <condition>
+                <if-has-permission permission="ARTIFACT_INFO_VIEW"/>
+            </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsServiceReference"/>
-                <set field="appButtonItem" value="service"/>
+                <set field="headerItem" value="ArtifactInfo"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/artifactinfo/ArtifactInfo.bsh"/>
             </actions>
             <widgets>
@@ -34,6 +37,9 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
+            <fail-widgets>
+                <label style="h3">Cannot view Artifact Info pages without ARTIFACT_INFO_VIEW permission.</label>
+            </fail-widgets>
         </section>
     </screen>
 </screens>

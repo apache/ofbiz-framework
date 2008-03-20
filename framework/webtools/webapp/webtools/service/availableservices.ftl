@@ -67,7 +67,8 @@ under the License.
             <td><a href='<@ofbizUrl>${url}?constraint=location@${selectedServiceMap.location}</@ofbizUrl>'>${selectedServiceMap.location}</a></td>
           </tr>
           <tr>
-            <td colspan="2">&nbsp;</td>
+            <td class="label">Artifact Info</td>
+            <td><a href='<@ofbizUrl>ArtifactInfo?name=${selectedServiceMap.serviceName}&type=service</@ofbizUrl>'>Artifact Info</a></td>
             <td class="label">${uiLabelMap.WebtoolsDefaultEntityName}</td>
             <td><a href='<@ofbizUrl>${url}?constraint=default_entity_name@${selectedServiceMap.defaultEntityName}</@ofbizUrl>'>${selectedServiceMap.defaultEntityName}</a></td>
           </tr>
