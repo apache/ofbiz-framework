@@ -18,7 +18,45 @@ under the License.
 -->
 
 
-<#if artifactInfo?exists>
+<#if !artifactInfo?exists>
+
+    <#-- add form here to specify artifact info name. -->
+    <div class="screenlet-body">
+      <form name="ArtifactInfoByName" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
+        Search Names/Locations: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/>
+        <input type="submit" name="submitButton" value="Find"/>
+      </form>
+    </div>
+    <div class="screenlet-body">
+      <form name="ArtifactInfoByNameAndType" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
+        <div>Name: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/></div>
+        <div>Location: <input type="text" name="location" value="${parameters.location?if_exists}" size="60"/></div>
+        <div>
+          <select name="type">
+            <option>entity</option>
+            <option>service</option>
+            <option>form</option>
+            <option>screen</option>
+            <option>request</option>
+            <option>view</option>
+          </select>
+          <input type="submit" name="submitButton" value="Lookup"/>
+        </div>
+      </form>
+    </div>
+    
+    <#-- add set of ArtifactInfo if there is not a single one identified, with link to each -->
+    <#if artifactInfoSet?has_content>
+    <div class="screenlet-body">
+        <h4>Multiple Artifacts Found:</h4>
+        <#list artifactInfoSet as curArtifactInfo>
+            <div>${curArtifactInfo.getDisplayType()}: <@displayArtifactInfoLink artifactInfo=curArtifactInfo/></div>
+        </#list>
+    </div>
+    </#if>
+    
+<#else/>
+    
     <h1>Artifact Info (${artifactInfo.getDisplayType()}): ${artifactInfo.getDisplayName()}</h1>
 
     <#if artifactInfo.getType() == "entity">
@@ -105,51 +143,75 @@ under the License.
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
         
+        <h2>Requests with Events That Call This Service</h2>
+        <#list artifactInfo.getRequestsWithEventCallingService()?if_exists as controllerRequestArtifactInfo>
+            <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
+        </#list>
+        
     <#elseif artifactInfo.getType() == "form"/>
+        <#-- TODO: add these once defined! -->
     
     <#elseif artifactInfo.getType() == "screen"/>
+        <h2>Entities Used in This Screen</h2>
+        <#list artifactInfo.getEntitiesUsedInScreen()?if_exists as entityArtifactInfo>
+            <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
+        </#list>
     
+        <h2>Services Used in This Screen</h2>
+        <#list artifactInfo.getServicesUsedInScreen()?if_exists as serviceArtifactInfo>
+            <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
+        </#list>
+    
+        <h2>Forms Included in This Screen</h2>
+        <#list artifactInfo.getFormsIncludedInScreen()?if_exists as formWidgetArtifactInfo>
+            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
+        </#list>
+    
+        <h2>Screens Include in This Screen</h2>
+        <#list artifactInfo.getScreensIncludedInScreen()?if_exists as screenWidgetArtifactInfo>
+            <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
+        </#list>
+        <h2>Screens Including This Screen</h2>
+        <#list artifactInfo.getScreensIncludingThisScreen()?if_exists as screenWidgetArtifactInfo>
+            <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
+        </#list>
+    
+        <h2>Controller Views Referring to This Screen</h2>
+        <#list artifactInfo.getViewsReferringToScreen()?if_exists as controllerViewArtifactInfo>
+            <@displayControllerViewArtifactInfo controllerViewArtifactInfo=controllerViewArtifactInfo/>
+        </#list>
+        
     <#elseif artifactInfo.getType() == "request"/>
+        <#if artifactInfo.getServiceCalledByRequestEvent()?exists>
+            <h2>Service Called by Request Event</h2>
+            <@displayServiceArtifactInfo serviceArtifactInfo=artifactInfo.getServiceCalledByRequestEvent()/>
+        </#if>
+    
+        <h2>Requests That Are Responses to This Request</h2>
+        <#list artifactInfo.getRequestsThatAreResponsesToThisRequest()?if_exists as controllerRequestArtifactInfo>
+            <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
+        </#list>
+        <h2>Requests That This Request is a Responses To</h2>
+        <#list artifactInfo.getRequestsThatThisRequestIsResponsTo()?if_exists as controllerRequestArtifactInfo>
+            <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
+        </#list>
+    
+        <h2>Controller Views That Are Responses to This Request</h2>
+        <#list artifactInfo.getViewsThatAreResponsesToThisRequest()?if_exists as controllerViewArtifactInfo>
+            <@displayControllerViewArtifactInfo controllerViewArtifactInfo=controllerViewArtifactInfo/>
+        </#list>
     
     <#elseif artifactInfo.getType() == "view"/>
-    
-    </#if>
-    
-<#else/>
-
-    <#-- add form here to specify artifact info name. -->
-    <div class="screenlet-body">
-      <form name="ArtifactInfoByName" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
-        Search Names/Locations: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/>
-        <input type="submit" name="submitButton" value="Find"/>
-      </form>
-    </div>
-    <div class="screenlet-body">
-      <form name="ArtifactInfoByNameAndType" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
-        <div>Name: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/></div>
-        <div>Location: <input type="text" name="location" value="${parameters.location?if_exists}" size="60"/></div>
-        <div>
-          <select name="type">
-            <option>entity</option>
-            <option>service</option>
-            <option>form</option>
-            <option>screen</option>
-            <option>request</option>
-            <option>view</option>
-          </select>
-          <input type="submit" name="submitButton" value="Lookup"/>
-        </div>
-      </form>
-    </div>
-    
-    <#-- add set of ArtifactInfo if there is not a single one identified, with link to each -->
-    <#if artifactInfoSet?has_content>
-    <div class="screenlet-body">
-        <h4>Multiple Artifacts Found:</h4>
-        <#list artifactInfoSet as curArtifactInfo>
-            <div>${curArtifactInfo.getDisplayType()}: <@displayArtifactInfoLink artifactInfo=curArtifactInfo/></div>
+        <h2>Requests That This View is a Responses To</h2>
+        <#list artifactInfo.getRequestsThatThisViewIsResponseTo()?if_exists as controllerRequestArtifactInfo>
+            <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
         </#list>
-    </div>
+    
+        <#if artifactInfo.getScreenCalledByThisView()?exists>
+            <h2>Screen Called by This View</h2>
+            <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=artifactInfo.getScreenCalledByThisView()/>
+        </#if>
+    
     </#if>
 </#if>
 
