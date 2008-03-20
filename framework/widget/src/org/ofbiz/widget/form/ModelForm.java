@@ -2700,7 +2700,7 @@ public class ModelForm extends ModelWidget {
                 allEntityNamesUsed.add(modelFormField.getEntityName());
             }
             if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
-                
+                allEntityNamesUsed.add(((ModelFormField.DisplayEntityField)modelFormField).entityName);
             }
             if (modelFormField.getFieldInfo() instanceof ModelFormField.FieldInfoWithOptions) {
                 for (ModelFormField.OptionSource optionSource: ((ModelFormField.FieldInfoWithOptions)modelFormField.getFieldInfo()).optionSources) {
@@ -2711,5 +2711,32 @@ public class ModelForm extends ModelWidget {
             }
         }
         return allEntityNamesUsed;
+    }
+
+    public Set<String> getAllServiceNamesUsed() {
+        Set<String> allServiceNamesUsed = FastSet.newInstance();
+        for (AutoFieldsService autoFieldsService: this.autoFieldsServices) {
+            allServiceNamesUsed.add(autoFieldsService.serviceName);
+        }
+        if (this.actions != null) {
+            for (ModelFormAction modelFormAction: this.actions) {
+                if (modelFormAction instanceof ModelFormAction.Service) {
+                    allServiceNamesUsed.add(((ModelFormAction.Service)modelFormAction).serviceNameExdr.getOriginal());
+                }
+            }
+        }
+        if (this.rowActions != null) {
+            for (ModelFormAction modelFormAction: this.rowActions) {
+                if (modelFormAction instanceof ModelFormAction.Service) {
+                    allServiceNamesUsed.add(((ModelFormAction.Service)modelFormAction).serviceNameExdr.getOriginal());
+                }
+            }
+        }
+        for (ModelFormField modelFormField: this.fieldList) {
+            if (UtilValidate.isNotEmpty(modelFormField.getServiceName())) {
+                allServiceNamesUsed.add(modelFormField.getServiceName());
+            }
+        }
+        return allServiceNamesUsed;
     }
 }
