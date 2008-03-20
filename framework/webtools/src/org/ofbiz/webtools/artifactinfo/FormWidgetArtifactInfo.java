@@ -64,9 +64,9 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     
     /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allFormInfos in ArtifactInfoFactory.getFormWidgetArtifactInfo */
     public void populateAll() throws GeneralException {
-        // TODO: populate entitiesUsedInThisForm, servicesUsedInThisForm, formThisFormExtends (and reverse in aif.allFormInfosExtendingForm)
+        // populate entitiesUsedInThisForm, servicesUsedInThisForm, formThisFormExtends (TODO) (and reverse in aif.allFormInfosExtendingForm)
         this.populateUsedEntities();
-        //this.populateUsedServices();
+        this.populateUsedServices();
     }
     protected void populateUsedEntities() throws GeneralException {
         // populate entitiesUsedInThisForm and for each the reverse-associate cache in the aif
@@ -91,7 +91,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     }
     protected void populateUsedServices() throws GeneralException {
         // populate servicesUsedInThisForm and for each the reverse-associate cache in the aif
-        Set<String> allServiceNameSet = null;//TODO JACOPOthis.modelScreen.getAllServiceNamesUsed();
+        Set<String> allServiceNameSet = this.modelForm.getAllServiceNamesUsed();
         populateServicesFromNameSet(allServiceNameSet);
     }
     protected void populateServicesFromNameSet(Set<String> allServiceNameSet) throws GeneralException {
