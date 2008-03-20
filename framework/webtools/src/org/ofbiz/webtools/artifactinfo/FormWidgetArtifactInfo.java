@@ -64,9 +64,31 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     
     /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allFormInfos in ArtifactInfoFactory.getFormWidgetArtifactInfo */
     public void populateAll() throws GeneralException {
-        // populate entitiesUsedInThisForm, servicesUsedInThisForm, formThisFormExtends (TODO) (and reverse in aif.allFormInfosExtendingForm)
+        // populate entitiesUsedInThisForm, servicesUsedInThisForm, formThisFormExtends (and reverse in aif.allFormInfosExtendingForm)
         this.populateUsedEntities();
         this.populateUsedServices();
+        this.populateFormExtended();
+    }
+    protected void populateFormExtended() throws GeneralException {
+        // populate formThisFormExtends and the reverse-associate cache in the aif
+        if (this.modelForm.getParentFormName() != null && this.modelForm.getParentFormLocation() != null) {
+            String formName = this.modelForm.getParentFormLocation() + "#" + this.modelForm.getParentFormName();
+            if (formName.contains("${")) {
+                return;
+            }
+
+            try {
+                ModelForm modelForm = aif.getModelForm(formName);
+            } catch(Exception e) {
+                Debug.logWarning("Form [" + formName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
+                return;
+            }
+            
+            // the forward reference
+            this.formThisFormExtends = aif.getFormWidgetArtifactInfo(formName);
+            // the reverse reference
+            UtilMisc.addToSetInMap(this, aif.allFormInfosExtendingForm, formName);
+        }
     }
     protected void populateUsedEntities() throws GeneralException {
         // populate entitiesUsedInThisForm and for each the reverse-associate cache in the aif

@@ -1713,6 +1713,14 @@ public class ModelForm extends ModelWidget {
         return this.targetType;   
     }
     
+    public String getParentFormName() {
+        return this.parentFormName;
+    }
+
+    public String getParentFormLocation() {
+        return this.parentFormLocation;
+    }
+
     /**
      * @return
      */
@@ -2700,7 +2708,7 @@ public class ModelForm extends ModelWidget {
                 allEntityNamesUsed.add(modelFormField.getEntityName());
             }
             if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
-                allEntityNamesUsed.add(((ModelFormField.DisplayEntityField)modelFormField).entityName);
+                allEntityNamesUsed.add(((ModelFormField.DisplayEntityField)modelFormField.getFieldInfo()).entityName);
             }
             if (modelFormField.getFieldInfo() instanceof ModelFormField.FieldInfoWithOptions) {
                 for (ModelFormField.OptionSource optionSource: ((ModelFormField.FieldInfoWithOptions)modelFormField.getFieldInfo()).optionSources) {
