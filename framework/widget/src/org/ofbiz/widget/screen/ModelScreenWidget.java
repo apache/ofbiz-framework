@@ -200,17 +200,6 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 this.failWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, failElementList);
             }
         }
-        
-        public void findServiceNamesUsed(Set<String> allServiceNames) {
-            if (this.actions != null) {
-                for (ModelScreenAction screenOperation: this.actions) {
-                    if (screenOperation instanceof ModelScreenAction.Service) {
-                        String serviceName = ((ModelScreenAction.Service) screenOperation).serviceNameExdr.toString();
-                        if (UtilValidate.isNotEmpty(serviceName)) allServiceNames.add(serviceName);
-                    }
-                }
-            }
-        }
 
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
             // check the condition, if there is one

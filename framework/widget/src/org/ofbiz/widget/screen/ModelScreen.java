@@ -80,22 +80,60 @@ public class ModelScreen extends ModelWidget implements Serializable {
 
     public Set<String> getAllServiceNamesUsed() {
         Set<String> allServiceNamesUsed = FastSet.newInstance();
-        findServiceNamesUsedInSection(this.section, allServiceNamesUsed);
+        findServiceNamesUsedInWidget(this.section, allServiceNamesUsed);
         return allServiceNamesUsed;
     }
-    protected static void findServiceNamesUsedInSection(ModelScreenWidget.Section currentSection, Set<String> allServiceNamesUsed) {
-        currentSection.findServiceNamesUsed(allServiceNamesUsed);
-        if (currentSection.subWidgets != null) {
-            for (ModelScreenWidget widget: currentSection.subWidgets) {
-                if (widget instanceof ModelScreenWidget.Section) {
-                    findServiceNamesUsedInSection((ModelScreenWidget.Section)widget, allServiceNamesUsed);
+
+    protected static void findServiceNamesUsedInWidget(ModelScreenWidget currentWidget, Set<String> allServiceNamesUsed) {
+        if (currentWidget instanceof ModelScreenWidget.Section) {
+            List<ModelScreenAction> actions = ((ModelScreenWidget.Section)currentWidget).actions;
+            List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).subWidgets;
+            List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).failWidgets;
+            if (actions != null) {
+                for (ModelScreenAction screenOperation: actions) {
+                    if (screenOperation instanceof ModelScreenAction.Service) {
+                        String serviceName = ((ModelScreenAction.Service) screenOperation).serviceNameExdr.getOriginal();
+                        if (UtilValidate.isNotEmpty(serviceName)) allServiceNamesUsed.add(serviceName);
+                    }
                 }
             }
-        }
-        if (currentSection.failWidgets != null) {
-            for (ModelScreenWidget widget: currentSection.failWidgets) {
-                if (widget instanceof ModelScreenWidget.Section) {
-                    findServiceNamesUsedInSection((ModelScreenWidget.Section)widget, allServiceNamesUsed);
+            if (subWidgets != null) {
+                for (ModelScreenWidget widget: subWidgets) {
+                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
+                }
+            }
+            if (failWidgets != null) {
+                for (ModelScreenWidget widget: failWidgets) {
+                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
+            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection)currentWidget;
+            if (decoratorSection.subWidgets != null) {
+                for (ModelScreenWidget widget: decoratorSection.subWidgets) {
+                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
+            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen)currentWidget;
+            if (decoratorScreen.sectionMap != null) {
+                Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.sectionMap.values();
+                for (ModelScreenWidget section: sections) {
+                    findServiceNamesUsedInWidget(section, allServiceNamesUsed);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.Container) {
+            ModelScreenWidget.Container container = (ModelScreenWidget.Container)currentWidget;
+            if (container.subWidgets != null) {
+                for (ModelScreenWidget widget: container.subWidgets) {
+                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
+            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet)currentWidget;
+            if (screenlet.subWidgets != null) {
+                for (ModelScreenWidget widget: screenlet.subWidgets) {
+                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
                 }
             }
         }
