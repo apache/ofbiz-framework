@@ -35,6 +35,7 @@ import java.util.TreeSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import bsh.EvalError;
 import bsh.Interpreter;
@@ -73,6 +74,8 @@ public class ModelForm extends ModelWidget {
     protected DispatchContext dispatchContext;
 
     protected String formLocation;
+    protected String parentFormName;
+    protected String parentFormLocation;
     protected String type;
     protected FlexibleStringExpander target;
     protected String targetType;
@@ -120,8 +123,8 @@ public class ModelForm extends ModelWidget {
     protected boolean clientAutocompleteFields = true;
 
     protected List altTargets = new LinkedList();
-    protected List autoFieldsServices = new LinkedList();
-    protected List autoFieldsEntities = new LinkedList();
+    protected List<AutoFieldsService> autoFieldsServices = new LinkedList();
+    protected List<AutoFieldsEntity> autoFieldsEntities = new LinkedList();
     protected List sortOrderFields = new LinkedList();
 
     /** This List will contain one copy of each field for each field name in the order
@@ -133,7 +136,7 @@ public class ModelForm extends ModelWidget {
      * necessary to use the Map. The Map is used when loading the form definition to keep the
      * list clean and implement the override features for field definitions.
      */
-    protected List fieldList = new LinkedList();
+    protected List<ModelFormField> fieldList = new LinkedList();
 
     /** This Map is keyed with the field name and has a ModelFormField for the value; fields
      * with conditions will not be put in this Map so field definition overrides for fields
@@ -174,8 +177,8 @@ public class ModelForm extends ModelWidget {
     public static String DEFAULT_PAG_NEXT_STYLE = "nav-next";
     public static String DEFAULT_PAG_LAST_STYLE = "nav-last";
     
-    protected List actions;
-    protected List rowActions;
+    protected List<ModelFormAction> actions;
+    protected List<ModelFormAction> rowActions;
     protected FlexibleStringExpander rowCountExdr;
     protected List multiSubmitFields = FastList.newInstance();
     protected int rowCount = 0;
@@ -208,6 +211,8 @@ public class ModelForm extends ModelWidget {
             if (parentResource.length() > 0) {
                 try {
                     parent = FormFactory.getFormFromLocation(parentResource, parentForm, entityModelReader, dispatchContext);
+                    this.parentFormName = parentForm;
+                    this.parentFormLocation = parentResource;
                 } catch (Exception e) {
                     Debug.logError(e, "Failed to load parent form definition '" + parentForm + "' at resource '" + parentResource + "'", module);
                 }
@@ -227,6 +232,9 @@ public class ModelForm extends ModelWidget {
                 }
                 if (parent == null) {
                     Debug.logError("Failed to find parent form definition '" + parentForm + "' in same document.", module);
+                } else {
+                    this.parentFormName = parentForm;
+                    this.parentFormLocation = this.formLocation;
                 }
             } else {
                 Debug.logError("Recursive form definition found for '" + formElement.getAttribute("name") + ".'", module);
@@ -2657,5 +2665,51 @@ public class ModelForm extends ModelWidget {
         public void renderString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
             formStringRenderer.renderBanner(buffer, context, this);
         }
+    }
+
+    public Set<String> getAllEntityNamesUsed() {
+        Set<String> allEntityNamesUsed = FastSet.newInstance();
+        for (AutoFieldsEntity autoFieldsEntity: this.autoFieldsEntities) {
+            allEntityNamesUsed.add(autoFieldsEntity.entityName);
+        }
+        if (this.actions != null) {
+            for (ModelFormAction modelFormAction: this.actions) {
+                if (modelFormAction instanceof ModelFormAction.EntityOne) {
+                    allEntityNamesUsed.add(((ModelFormAction.EntityOne)modelFormAction).finder.getEntityName());
+                } else if (modelFormAction instanceof ModelFormAction.EntityAnd) {
+                    allEntityNamesUsed.add(((ModelFormAction.EntityAnd)modelFormAction).finder.getEntityName());
+                } else if (modelFormAction instanceof ModelFormAction.EntityCondition) {
+                    allEntityNamesUsed.add(((ModelFormAction.EntityCondition)modelFormAction).finder.getEntityName());
+                }
+
+            }
+        }
+        if (this.rowActions != null) {
+            for (ModelFormAction modelFormAction: this.rowActions) {
+                if (modelFormAction instanceof ModelFormAction.EntityOne) {
+                    allEntityNamesUsed.add(((ModelFormAction.EntityOne)modelFormAction).finder.getEntityName());
+                } else if (modelFormAction instanceof ModelFormAction.EntityAnd) {
+                    allEntityNamesUsed.add(((ModelFormAction.EntityAnd)modelFormAction).finder.getEntityName());
+                } else if (modelFormAction instanceof ModelFormAction.EntityCondition) {
+                    allEntityNamesUsed.add(((ModelFormAction.EntityCondition)modelFormAction).finder.getEntityName());
+                }
+            }
+        }
+        for (ModelFormField modelFormField: this.fieldList) {
+            if (UtilValidate.isNotEmpty(modelFormField.getEntityName())) {
+                allEntityNamesUsed.add(modelFormField.getEntityName());
+            }
+            if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
+                
+            }
+            if (modelFormField.getFieldInfo() instanceof ModelFormField.FieldInfoWithOptions) {
+                for (ModelFormField.OptionSource optionSource: ((ModelFormField.FieldInfoWithOptions)modelFormField.getFieldInfo()).optionSources) {
+                    if (optionSource instanceof ModelFormField.EntityOptions) {
+                        allEntityNamesUsed.add(((ModelFormField.EntityOptions)optionSource).entityName);
+                    }
+                }
+            }
+        }
+        return allEntityNamesUsed;
     }
 }
