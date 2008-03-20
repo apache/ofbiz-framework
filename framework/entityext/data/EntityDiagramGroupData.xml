@@ -217,6 +217,13 @@ under the License.
     <EntityGroup entityGroupId="6550" entityGroupName="Detail Accounting: Tax"/>
     <EntityGroupEntry entityGroupId="6550" entityOrPackage="org.ofbiz.accounting.tax" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6550" entityOrPackage="OrderAdjustment" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6560" entityGroupName="Detail Accounting: Fixed Asset"/>
+    <EntityGroupEntry entityGroupId="6560" entityOrPackage="org.ofbiz.accounting.fixedasset" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6560" entityOrPackage="Product" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6560" entityOrPackage="ProductMaintType" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6560" entityOrPackage="ProductMaint" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6560" entityOrPackage="ProductMeterType" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroupEntry entityGroupId="6560" entityOrPackage="ProductMeter" applEnumId="ESIA_INCLUDE"/>
     
     <EntityGroup entityGroupId="6600" entityGroupName="Detail Work Effort"/>
     <EntityGroupEntry entityGroupId="6600" entityOrPackage="org.ofbiz.workeffort.timesheet" applEnumId="ESIA_INCLUDE"/>
