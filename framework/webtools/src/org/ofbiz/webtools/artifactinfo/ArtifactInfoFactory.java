@@ -103,6 +103,9 @@ public class ArtifactInfoFactory {
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToEntityName = FastMap.newInstance();
 
     public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = FastMap.newInstance();
+
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosExtendingForm = FastMap.newInstance();
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToForm = FastMap.newInstance();
     
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToScreen = FastMap.newInstance();
     public Map<String, Set<ControllerViewArtifactInfo>> allViewInfosReferringToScreen = FastMap.newInstance();
@@ -301,6 +304,7 @@ public class ArtifactInfoFactory {
         if (curInfo == null) {
             curInfo = new FormWidgetArtifactInfo(formName, formLocation, this);
             this.allFormInfos.put(curInfo.getUniqueId(), curInfo);
+            curInfo.populateAll();
         }
         return curInfo;
     }
@@ -310,12 +314,12 @@ public class ArtifactInfoFactory {
         if (curInfo == null) {
             try {
                 curInfo = new ScreenWidgetArtifactInfo(screenName, screenLocation, this);
+                this.allScreenInfos.put(curInfo.getUniqueId(), curInfo);
                 curInfo.populateAll();
             } catch(GeneralException e) {
                 Debug.logWarning("Error loading screen [" + screenName + "] from resource [" + screenLocation + "]: " + e.toString(), module);
                 return null;
             }
-            this.allScreenInfos.put(curInfo.getUniqueId(), curInfo);
         }
         return curInfo;
     }

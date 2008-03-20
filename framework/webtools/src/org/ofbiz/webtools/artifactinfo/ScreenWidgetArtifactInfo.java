@@ -44,9 +44,9 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     protected String screenName;
     protected String screenLocation;
     
-    Set<EntityArtifactInfo> entitiesUsedInThisScreen = FastSet.newInstance();
-    Set<ServiceArtifactInfo> servicesUsedInThisScreen = FastSet.newInstance();
-    Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = FastSet.newInstance();
+    protected Set<EntityArtifactInfo> entitiesUsedInThisScreen = FastSet.newInstance();
+    protected Set<ServiceArtifactInfo> servicesUsedInThisScreen = FastSet.newInstance();
+    protected Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = FastSet.newInstance();
     
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -136,7 +136,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.formsIncludedInThisScreen.add(aif.getFormWidgetArtifactInfo(formName));
             // the reverse reference
-            UtilMisc.addToSetInMap(this, aif.allScreenInfosReferringToEntityName, formName);
+            UtilMisc.addToSetInMap(this, aif.allScreenInfosReferringToForm, formName);
         }
     }
 

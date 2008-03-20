@@ -19,8 +19,11 @@
 package org.ofbiz.webtools.artifactinfo;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.widget.form.ModelForm;
@@ -36,6 +39,10 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     protected String formName;
     protected String formLocation;
     
+    protected Set<EntityArtifactInfo> entitiesUsedInThisForm = FastSet.newInstance();
+    protected Set<ServiceArtifactInfo> servicesUsedInThisForm = FastSet.newInstance();
+    protected FormWidgetArtifactInfo formThisFormExtends = null;
+    
     public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.formName = formName;
@@ -49,6 +56,11 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         } catch (IOException e) {
             throw new GeneralException(e);
         }
+    }
+    
+    /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allFormInfos in ArtifactInfoFactory.getFormWidgetArtifactInfo */
+    public void populateAll() {
+        // TODO: populate entitiesUsedInThisForm, servicesUsedInThisForm, formThisFormExtends (and reverse in aif.allFormInfosExtendingForm)
     }
     
     public String getDisplayName() {
@@ -74,5 +86,25 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         } else {
             return false;
         }
+    }
+
+    public Set<EntityArtifactInfo> getEntitiesUsedInForm() {
+        return this.entitiesUsedInThisForm;
+    }
+    
+    public Set<ServiceArtifactInfo> getServicesUsedInForm() {
+        return this.servicesUsedInThisForm;
+    }
+    
+    public FormWidgetArtifactInfo getFormThisFormExtends() {
+        return this.formThisFormExtends;
+    }
+    
+    public Set<FormWidgetArtifactInfo> getFormsExtendingThisForm() {
+        return this.aif.allFormInfosExtendingForm.get(this.getUniqueId());
+    }
+    
+    public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisForm() {
+        return this.aif.allScreenInfosReferringToForm.get(this.getUniqueId());
     }
 }
