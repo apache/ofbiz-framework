@@ -21,6 +21,7 @@ package org.ofbiz.widget.screen;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,22 +102,65 @@ public class ModelScreen extends ModelWidget implements Serializable {
     }
     public Set<String> getAllEntityNamesUsed() {
         Set<String> allEntityNamesUsed = FastSet.newInstance();
-        findEntityNamesUsedInSection(this.section, allEntityNamesUsed);
+        findEntityNamesUsedInWidget(this.section, allEntityNamesUsed);
         return allEntityNamesUsed;
     }
-    protected static void findEntityNamesUsedInSection(ModelScreenWidget.Section currentSection, Set<String> allEntityNamesUsed) {
-        currentSection.findEntityNamesUsed(allEntityNamesUsed);
-        if (currentSection.subWidgets != null) {
-            for (ModelScreenWidget widget: currentSection.subWidgets) {
-                if (widget instanceof ModelScreenWidget.Section) {
-                    findEntityNamesUsedInSection((ModelScreenWidget.Section)widget, allEntityNamesUsed);
+    protected static void findEntityNamesUsedInWidget(ModelScreenWidget currentWidget, Set<String> allEntityNamesUsed) {
+        if (currentWidget instanceof ModelScreenWidget.Section) {
+            List<ModelScreenAction> actions = ((ModelScreenWidget.Section)currentWidget).actions;
+            List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).subWidgets;
+            List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).failWidgets;
+            if (actions != null) {
+                for (ModelScreenAction screenOperation: actions) {
+                    if (screenOperation instanceof ModelScreenAction.EntityOne) {
+                        String entName = ((ModelScreenAction.EntityOne) screenOperation).finder.getEntityName();
+                        if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
+                    } else if (screenOperation instanceof ModelScreenAction.EntityAnd) {
+                        String entName = ((ModelScreenAction.EntityAnd) screenOperation).finder.getEntityName();
+                        if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
+                    } else if (screenOperation instanceof ModelScreenAction.EntityCondition) {
+                        String entName = ((ModelScreenAction.EntityCondition) screenOperation).finder.getEntityName();
+                        if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
+                    }
                 }
             }
-        }
-        if (currentSection.failWidgets != null) {
-            for (ModelScreenWidget widget: currentSection.failWidgets) {
-                if (widget instanceof ModelScreenWidget.Section) {
-                    findEntityNamesUsedInSection((ModelScreenWidget.Section)widget, allEntityNamesUsed);
+            if (subWidgets != null) {
+                for (ModelScreenWidget widget: subWidgets) {
+                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
+                }
+            }
+            if (failWidgets != null) {
+                for (ModelScreenWidget widget: failWidgets) {
+                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
+            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection)currentWidget;
+            if (decoratorSection.subWidgets != null) {
+                for (ModelScreenWidget widget: decoratorSection.subWidgets) {
+                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
+            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen)currentWidget;
+            if (decoratorScreen.sectionMap != null) {
+                Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.sectionMap.values();
+                for (ModelScreenWidget section: sections) {
+                    findEntityNamesUsedInWidget(section, allEntityNamesUsed);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.Container) {
+            ModelScreenWidget.Container container = (ModelScreenWidget.Container)currentWidget;
+            if (container.subWidgets != null) {
+                for (ModelScreenWidget widget: container.subWidgets) {
+                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
+            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet)currentWidget;
+            if (screenlet.subWidgets != null) {
+                for (ModelScreenWidget widget: screenlet.subWidgets) {
+                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
                 }
             }
         }
