@@ -52,7 +52,7 @@
         itemDeclinedStatus="ITEM_REJECTED" headerCancelStatus="ORDER_CANCELLED" itemCancelStatus="ITEM_CANCELLED" orderNumberPrefix="RS"
         authDeclinedMessage="There has been a problem with your method of payment. Please try a different method or call customer service."
         authFraudMessage="Your order has been rejected and your account has been disabled due to fraud."
-        authErrorMessage="Problem connecting to payment processor; we will continue to retry and notify you by email."
+        authErrorMessage="Problem connecting to payment processor."
         styleSheet="" headerLogo="" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y"/>
 
     <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveWithCaptureCCProcessor"/>
@@ -90,4 +90,5 @@
     <InventoryItemDetail inventoryItemId="9100" inventoryItemDetailSeqId="0001" availableToPromiseDiff="20" quantityOnHandDiff="20"/> -->
     <!-- NOTE: for testing now leaving out GZ-5005 which is the other default product with a button in the POS, should create a new inventory item with negative QOH -->
 </entity-engine-xml>
+
 
