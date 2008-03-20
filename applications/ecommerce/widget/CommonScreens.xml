@@ -39,10 +39,13 @@ under the License.
 
                 <!-- The default (main) java scripts -->
                 <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: -->
+                <set field="layoutSettings.javaScripts[+0]" value="/ecommerce/images/quickAnonCustSettings.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/calendar1.js" global="true"/>				
-				             				
+                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/validation.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/> 
+				            				
                 <set field="layoutSettings.extraHead" value="&lt;link rel=&quot;stylesheet&quot; href=&quot;/content/images/contentForum.css&quot; type=&quot;text/css&quot;/&gt;" global="true"/>
                 <script location="component://ecommerce/widget/EcommerceSetup.bsh"/>
 				
