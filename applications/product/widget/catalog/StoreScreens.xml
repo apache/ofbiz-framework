@@ -456,6 +456,9 @@ under the License.
 
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
+                <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
+                <set field="paymentServiceTypeEnumId" from-field="parameters.paymentServiceTypeEnumId"/>                
+                <entity-one entity-name="ProductStorePaymentSetting" value-name="productStorePaymentSetting" auto-field-map="true"/>              
 
             </actions>
             <widgets>

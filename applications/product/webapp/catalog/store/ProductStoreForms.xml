@@ -851,17 +851,23 @@
         </field>
     </form>
 
-    <form name="EditProductStorePaymentSetting" type="single" target="storeUpdatePaySetting" default-map-name="editSetting"
+    <form name="EditProductStorePaymentSetting" type="single" target="storeUpdatePaySetting" default-map-name="productStorePaymentSetting"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="editSetting==null" target="storeCreatePaySetting"/>
+        <alt-target use-when="productStorePaymentSetting==null" target="storeCreatePaySetting"/>
         <field name="productStoreId"><hidden/></field>
-        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}">
+        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}" use-when="productStorePaymentSetting!=null">
+            <display-entity entity-name="PaymentMethodType" also-hidden="true" description="${description}" key-field-name="paymentMethodTypeId"/>
+        </field>        
+        <field name="paymentMethodTypeId" title="${uiLabelMap.AccountingPaymentMethodType}" use-when="productStorePaymentSetting==null">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethodType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
+        <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}" use-when="productStorePaymentSetting!=null">
+            <display-entity entity-name="Enumeration" also-hidden="true" description="${description}" key-field-name="enumId"/>
+        </field>         
         <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
