@@ -80,10 +80,18 @@ public class ServiceEcaAction implements java.io.Serializable {
         return this.serviceName;
     }
     
+    public String getServiceMode() {
+        return this.serviceMode;
+    }
+    
+    public boolean isPersist() {
+        return this.persist;
+    }
+
     public String getShortDisplayDescription() {
         return this.serviceName + "[" + this.serviceMode + (this.persist ? "-persist" : "") + "]";
     }
-
+    
     public boolean runAction(String selfService, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result) throws GenericServiceException {
         if (serviceName.equals(selfService)) {
             throw new GenericServiceException("Cannot invoke self on ECA.");

@@ -111,6 +111,10 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
         // for classProperties add attribute names AND relationship names to get a nice, complete chart
         List<String> classPropertiesList = FastList.newInstance();
         topLevelMap.put("classProperties", classPropertiesList);
+        // conditions
+        for (ServiceEcaCondition ecaCondition: this.serviceEcaRule.getEcaConditionList()) {
+            classPropertiesList.add(ecaCondition.getShortDisplayDescription(useMoreDetailedNames));
+        }
         // actions
         for (ServiceEcaAction ecaAction: this.serviceEcaRule.getEcaActionList()) {
             if (useMoreDetailedNames) {
@@ -118,10 +122,6 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
             } else {
                 classPropertiesList.add(ecaAction.getServiceName());
             }
-        }
-        // conditions
-        for (ServiceEcaCondition ecaCondition: this.serviceEcaRule.getEcaConditionList()) {
-            classPropertiesList.add(ecaCondition.getShortDisplayDescription(useMoreDetailedNames));
         }
         
         /* going to try this without any attributes...

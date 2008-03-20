@@ -22,6 +22,13 @@ under the License.
     <h1>Artifact Info (${artifactInfo.getDisplayType()}): ${artifactInfo.getDisplayName()}</h1>
 
     <#if artifactInfo.getType() == "entity">
+        <h2>Entity Fields</h2>
+        <table>
+        <#list artifactInfo.modelEntity.getFieldsCopy() as modelField>
+            <tr><td>${modelField.getName()}<#if modelField.getIsPk()>*</#if></td><td>${modelField.getType()}</td><td>${modelField.getDescription()?if_exists}</td></tr>
+        </#list>
+        </table>
+        
         <h2>Entities Related (One)</h2>
         <#list artifactInfo.getEntitiesRelatedOne()?if_exists as entityArtifactInfo>
             <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
@@ -45,7 +52,19 @@ under the License.
         <#list artifactInfo.getScreensUsingEntity()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
+        
     <#elseif artifactInfo.getType() == "service"/>
+        <h2>Service Info</h2>
+        <div>&nbsp;Description: ${artifactInfo.modelService.description}</div>
+        <div>&nbsp;Run (${artifactInfo.modelService.engineName}): ${artifactInfo.modelService.location} :: ${artifactInfo.modelService.invoke}</div>
+        <h2>Service Parameters</h2>
+        <table>
+            <tr><td>Name</td><td>Type</td><td>Optional</td><td>Mode</td></tr>
+        <#list artifactInfo.modelService.getModelParamList() as modelParam>
+            <tr><td>${modelParam.getName()}</td><td>${modelParam.getType()}</td><td><#if modelParam.isOptional()>optional<#else/>required</#if></td><td>${modelParam.getMode()}</td></tr>
+        </#list>
+        </table>
+        
         <h2>Entities Used By This Service</h2>
         <#list artifactInfo.getEntitiesUsedByService()?if_exists as entityArtifactInfo>
             <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
@@ -85,6 +104,7 @@ under the License.
         <#list artifactInfo.getScreensCallingService()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
+        
     <#elseif artifactInfo.getType() == "form"/>
     
     <#elseif artifactInfo.getType() == "screen"/>
@@ -151,13 +171,33 @@ under the License.
 </#macro>
 
 <#macro displayServiceEcaArtifactInfo serviceEcaArtifactInfo>
-    <h4>Service ECA Rule: ${serviceEcaArtifactInfo.getDisplayName()}</h4>
+    <h4>Service ECA Rule: ${serviceEcaArtifactInfo.getDisplayPrefixedName()}</h4>
+    <#if serviceEcaArtifactInfo.serviceEcaRule.getEcaConditionList()?has_content>
+        <h4>ECA Rule Conditions</h4>
+        <#list serviceEcaArtifactInfo.serviceEcaRule.getEcaConditionList() as ecaCondition>
+            <div>&nbsp;-&nbsp;${ecaCondition.getShortDisplayDescription(true)}</div>
+        </#list>
+    </#if>
+    <#if serviceEcaArtifactInfo.serviceEcaRule.getEcaActionList()?has_content>
+        <h4>ECA Rule Actions</h4>
+        <table>
+        <#list serviceEcaArtifactInfo.serviceEcaRule.getEcaActionList() as ecaAction>
+            <tr>
+                <td><a href="<@ofbizUrl>ArtifactInfo?type=${artifactInfo.getType()}&amp;uniqueId=${ecaAction.getServiceName()}</@ofbizUrl>">${ecaAction.getServiceName()}</a></td>
+                <td>${ecaAction.getServiceMode()}<#if ecaAction.isPersist()>-persisted</#if></td>
+            </tr>
+        </#list>
+        </table>
+    </#if>
+    
+    <#-- leaving this out, will show service links for actions
     <#if serviceEcaArtifactInfo.getServicesCalledByServiceEcaActions()?has_content>
         <h4>Services Called By Service ECA Actions</h4>
         <#list serviceEcaArtifactInfo.getServicesCalledByServiceEcaActions() as serviceArtifactInfo>
             <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
         </#list>
     </#if>
+    -->
     <#if serviceEcaArtifactInfo.getServicesTriggeringServiceEca()?has_content>
         <h4>Services Triggering Service ECA</h4>
         <#list serviceEcaArtifactInfo.getServicesTriggeringServiceEca() as serviceArtifactInfo>
