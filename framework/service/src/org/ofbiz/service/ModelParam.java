@@ -119,6 +119,22 @@ public class ModelParam implements Serializable {
         return this.name + "[" + this.type + "-" + this.mode + "]" + (optional ? "" : "*"); 
     }
     
+    public String getName() {
+        return this.name;
+    }
+    
+    public String getType() {
+        return this.type;
+    }
+    
+    public String getMode() {
+        return this.mode;
+    }
+    
+    public boolean isOptional() {
+        return this.optional;
+    }
+    
     public Object getDefaultValue() {
         Object defaultValueObj = null;
         if (this.type != null) {
