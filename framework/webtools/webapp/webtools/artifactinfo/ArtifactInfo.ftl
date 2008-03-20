@@ -149,7 +149,30 @@ under the License.
         </#list>
         
     <#elseif artifactInfo.getType() == "form"/>
-        <#-- TODO: add these once defined! -->
+        <h2>Form Extended by This Form</h2>
+        <#if artifactInfo.getFormThisFormExtends()?exists>
+            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=artifactInfo.getFormThisFormExtends/>
+        </#if>
+
+        <h2>Entities Used in This Form</h2>
+        <#list artifactInfo.getEntitiesUsedInForm()?if_exists as entityArtifactInfo>
+            <@displayEntityArtifactInfo entityArtifactInfo=entityArtifactInfo/>
+        </#list>
+    
+        <h2>Services Used in This Form</h2>
+        <#list artifactInfo.getServicesUsedInForm()?if_exists as serviceArtifactInfo>
+            <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
+        </#list>
+
+        <h2>Screens Including This Form</h2>
+        <#list artifactInfo.getScreensIncludingThisForm()?if_exists as screenWidgetArtifactInfo>
+            <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
+        </#list>
+
+        <h2>Forms Extending This Form</h2>
+        <#list artifactInfo.getFormsExtendingThisForm()?if_exists as formWidgetArtifactInfo>
+            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
+        </#list>
     
     <#elseif artifactInfo.getType() == "screen"/>
         <h2>Entities Used in This Screen</h2>
@@ -171,6 +194,7 @@ under the License.
         <#list artifactInfo.getScreensIncludedInScreen()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
+
         <h2>Screens Including This Screen</h2>
         <#list artifactInfo.getScreensIncludingThisScreen()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>

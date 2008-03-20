@@ -1453,7 +1453,7 @@ public class ModelFormField {
         }
 
         protected FlexibleStringExpander noCurrentSelectedKey = null;
-        protected List optionSources = new LinkedList();
+        protected List<OptionSource> optionSources = new LinkedList();
 
         public FieldInfoWithOptions(int fieldSource, int fieldType, ModelFormField modelFormField) {
             super(fieldSource, fieldType, modelFormField);

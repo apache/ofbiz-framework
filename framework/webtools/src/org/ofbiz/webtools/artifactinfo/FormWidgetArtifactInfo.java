@@ -25,7 +25,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastSet;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.form.ModelForm;
 import org.xml.sax.SAXException;
 
@@ -33,7 +36,8 @@ import org.xml.sax.SAXException;
  *
  */
 public class FormWidgetArtifactInfo extends ArtifactInfoBase {
-    
+    public static final String module = FormWidgetArtifactInfo.class.getName();
+
     protected ModelForm modelForm;
     
     protected String formName;
@@ -59,8 +63,54 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     }
     
     /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allFormInfos in ArtifactInfoFactory.getFormWidgetArtifactInfo */
-    public void populateAll() {
+    public void populateAll() throws GeneralException {
         // TODO: populate entitiesUsedInThisForm, servicesUsedInThisForm, formThisFormExtends (and reverse in aif.allFormInfosExtendingForm)
+        this.populateUsedEntities();
+        //this.populateUsedServices();
+    }
+    protected void populateUsedEntities() throws GeneralException {
+        // populate entitiesUsedInThisForm and for each the reverse-associate cache in the aif
+        Set<String> allEntityNameSet = this.modelForm.getAllEntityNamesUsed();
+        populateEntitiesFromNameSet(allEntityNameSet);
+    }
+    protected void populateEntitiesFromNameSet(Set<String> allEntityNameSet) throws GeneralException {
+        for (String entityName: allEntityNameSet) {
+            if (entityName.contains("${")) {
+                continue;
+            }
+            if (!aif.getEntityModelReader().getEntityNames().contains(entityName)) {
+                Debug.logWarning("Entity [" + entityName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
+                continue;
+            }
+            
+            // the forward reference
+            this.entitiesUsedInThisForm.add(aif.getEntityArtifactInfo(entityName));
+            // the reverse reference
+            UtilMisc.addToSetInMap(this, aif.allFormInfosReferringToEntityName, entityName);
+        }
+    }
+    protected void populateUsedServices() throws GeneralException {
+        // populate servicesUsedInThisForm and for each the reverse-associate cache in the aif
+        Set<String> allServiceNameSet = null;//TODO JACOPOthis.modelScreen.getAllServiceNamesUsed();
+        populateServicesFromNameSet(allServiceNameSet);
+    }
+    protected void populateServicesFromNameSet(Set<String> allServiceNameSet) throws GeneralException {
+        for (String serviceName: allServiceNameSet) {
+            if (serviceName.contains("${")) {
+                continue;
+            }
+            try {
+                ModelService modelService = aif.getModelService(serviceName);
+            } catch(GeneralException e) {
+                Debug.logWarning("Service [" + serviceName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
+                continue;
+            }
+            
+            // the forward reference
+            this.servicesUsedInThisForm.add(aif.getServiceArtifactInfo(serviceName));
+            // the reverse reference
+            UtilMisc.addToSetInMap(this, aif.allFormInfosReferringToServiceName, serviceName);
+        }
     }
     
     public String getDisplayName() {
