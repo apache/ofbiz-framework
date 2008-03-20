@@ -102,8 +102,8 @@ function shipBillAddr() {
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="firstName"/>
-                  <input type="text" class="inputBox required" name="firstName" id="firstName" value="${parameters.firstName?if_exists}" size="30" maxlength="30"/>
-                *</td>
+                    <input type="text" class="inputBox required" name="firstName" id="firstName" value="${parameters.firstName?if_exists}" size="30" maxlength="30"/>*<span id="advice-required-firstName" class="required" style="display:none">(required)</span>
+                </td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyMiddleInitial}</div></td>
@@ -117,8 +117,8 @@ function shipBillAddr() {
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="lastName"/>
-                  <input type="text" class="inputBox required" name="lastName" value="${parameters.lastName?if_exists}" size="30" maxlength="30"/>
-                *</td>
+                  <input type="text" class="inputBox required" name="lastName" value="${parameters.lastName?if_exists}" size="30" maxlength="30"/>*<span id="advice-required-lastName" class="required" style="display:none">(required)</span>
+                </td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="top"><div class="tabletext"></div></td>
