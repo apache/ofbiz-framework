@@ -289,7 +289,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
     public static class Container extends ModelScreenWidget {
         protected FlexibleStringExpander idExdr;
         protected FlexibleStringExpander styleExdr;
-        protected List subWidgets;
+        protected List<ModelScreenWidget> subWidgets;
         
         public Container(ModelScreen modelScreen, Element containerElement) {
             super(modelScreen, containerElement);
@@ -551,7 +551,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
     public static class DecoratorScreen extends ModelScreenWidget {
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
-        protected Map sectionMap = new HashMap();
+        protected Map<String, DecoratorSection> sectionMap = new HashMap();
         
         public DecoratorScreen(ModelScreen modelScreen, Element decoratorScreenElement) {
             super(modelScreen, decoratorScreenElement);
@@ -636,7 +636,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
     }
 
     public static class DecoratorSection extends ModelScreenWidget {
-        protected List subWidgets;
+        protected List<ModelScreenWidget> subWidgets;
         
         public DecoratorSection(ModelScreen modelScreen, Element decoratorSectionElement) {
             super(modelScreen, decoratorSectionElement);

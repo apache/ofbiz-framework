@@ -243,6 +243,9 @@ public class ArtifactInfoFactory {
         return this.getDispatchContext().getModelService(serviceName);
     }
     
+    public ModelForm getModelForm(String formNameAndLocation) throws ParserConfigurationException, SAXException, IOException {
+        return getModelForm(formNameAndLocation.substring(0, formNameAndLocation.indexOf("#")), formNameAndLocation.substring(formNameAndLocation.indexOf("#")));
+    }
     public ModelForm getModelForm(String formName, String formLocation) throws ParserConfigurationException, SAXException, IOException {
         return FormFactory.getFormFromLocation(formLocation, formName, this.entityModelReader, this.dispatchContext);
     }
@@ -290,6 +293,9 @@ public class ArtifactInfoFactory {
         return curInfo;
     }
     
+    public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formNameAndLocation) throws GeneralException {
+        return getFormWidgetArtifactInfo(formNameAndLocation.substring(0, formNameAndLocation.indexOf("#")), formNameAndLocation.substring(formNameAndLocation.indexOf("#")));
+    }
     public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formName, String formLocation) throws GeneralException {
         FormWidgetArtifactInfo curInfo = this.allFormInfos.get(formLocation + "#" + formName);
         if (curInfo == null) {
