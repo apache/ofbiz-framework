@@ -831,6 +831,117 @@ under the License.
         </if-not-empty>
     </simple-method>
 
+    <simple-method method-name="reassignInventoryReservations" short-description="Balances available-to-promise on inventory items">
+        <entity-condition entity-name="OrderItemShipGrpInvResAndItem" list-name="relatedRes">
+            <condition-list combine="and">
+                <condition-expr field-name="productId" operator="equals" env-name="parameters.productId"/>
+                <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
+                <condition-expr field-name="inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="currentPromisedDate" operator="greater" env-name="parameters.fromDate"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="quantityNotAvailable" operator="greater" value="0"/>
+                        <condition-expr field-name="availableToPromiseTotal" operator="equals" env-name="nullField"/>
+                        <condition-expr field-name="availableToPromiseTotal" operator="equals" value=""/>
+                        <condition-expr field-name="availableToPromiseTotal" operator="less" value="0"/>
+                    </condition-list>
+                </condition-list>
+            </condition-list>
+            <order-by field-name="currentPromisedDate"/>
+            <order-by field-name="reservedDatetime"/>
+            <order-by field-name="sequenceId"/>
+        </entity-condition>
+
+        <iterate list-name="relatedRes" entry-name="oneRelatedRes">
+            <entity-condition entity-name="PicklistAndBinAndItem" list-name="picklistItemList">
+                <condition-list combine="and">
+                    <condition-expr field-name="orderId" env-name="oneRelatedRes.orderId"/>
+                    <condition-expr field-name="shipGroupSeqId" env-name="oneRelatedRes.shipGroupSeqId"/>
+                    <condition-expr field-name="orderItemSeqId" env-name="oneRelatedRes.orderItemSeqId"/>
+                    <condition-expr field-name="inventoryItemId" env-name="oneRelatedRes.inventoryItemId"/>
+                    <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
+                    <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
+                </condition-list>
+            </entity-condition>
+
+            <!-- only cancel/re-reserve when there are no picklists associated; this will prevent
+                     orders appearing on duplicate pick lists -->
+
+            <if-empty field-name="picklistItemList">
+                <log level="info" message="Order [${oneRelatedRes.orderId}] was not found on any picklist for InventoryItem [${oneRelatedRes.inventoryItemId}]"/>
+                <if>
+                    <condition>
+                        <and>
+                            <if-compare-field field-name="parameters.priorityOrderId" operator="equals" to-field-name="oneRelatedRes.orderId"/>
+                            <if-compare-field field-name="parameters.priorityOrderItemSeqId" operator="equals" to-field-name="oneRelatedRes.orderItemSeqId"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <field-to-list field-name="oneRelatedRes" list-name="privilegedReservations"/>
+                    </then>
+                    <else>
+                        <field-to-list field-name="oneRelatedRes" list-name="reservations"/>
+                    </else>
+                </if>
+            </if-empty>
+        </iterate>
+
+        <list-to-list list-name="privilegedReservations" to-list-name="allReservations"/>
+        <list-to-list list-name="reservations" to-list-name="allReservations"/>
+
+        <!-- FIRST, cancel all the reservations -->
+        <iterate list-name="allReservations" entry-name="oisgir">
+            <clear-field field-name="cancelOisgirMap"/>
+            <set field="cancelOisgirMap.orderId" from-field="oisgir.orderId"/>
+            <set field="cancelOisgirMap.orderItemSeqId" from-field="oisgir.orderItemSeqId"/>
+            <set field="cancelOisgirMap.inventoryItemId" from-field="oisgir.inventoryItemId"/>
+            <set field="cancelOisgirMap.shipGroupSeqId" from-field="oisgir.shipGroupSeqId"/>
+            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
+        </iterate>
+
+        <!-- THEN, re-reserve the cancelled items -->
+        <iterate list-name="allReservations" entry-name="oisgir">
+            <!-- maintain a Set (in a Map) of orderIds that we have reallocated for, but only if they had some quantityNotReserved -->
+            <if-not-empty field-name="oisgir.quantityNotAvailable">
+                <if-compare field-name="oisgir.quantityNotAvailable" operator="greater" value="0" type="Double">
+                    <set field="touchedOrderIdMap.${oisgir.orderId}" value="Y"/>
+                    <log level="verbose" message="Adding ${oisgir.orderId} to touchedOrderIdMap"/>
+                </if-compare>
+            </if-not-empty>
+            
+            <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
+            <clear-field field-name="resMap"/>
+            <set field="resMap.productId" from-field="parameters.productId"/>
+            <set field="resMap.orderId" from-field="oisgir.orderId"/>
+            <set field="resMap.orderItemSeqId" from-field="oisgir.orderItemSeqId"/>
+            <set field="resMap.quantity" from-field="oisgir.quantity"/>
+            <set field="resMap.reservedDatetime" from-field="oisgir.reservedDatetime"/>
+            <set field="resMap.reserveOrderEnumId" from-field="oisgir.reserveOrderEnumId"/>
+            <set field="resMap.requireInventory" value="N"/>
+            <set field="resMap.shipGroupSeqId" from-field="oisgir.shipGroupSeqId"/>
+            <set field="resMap.sequenceId" from-field="oisgir.sequenceId"/>
+            <set field="resMap.facilityId" from-field="parameters.facilityId"/>
+            <log level="info" message="Re-reserving product [${resMap.productId}] for order item [${resMap.orderId}:${resMap.orderItemSeqId}] quantity [${resMap.quantity}]; facility [${parameters.facilityId}]"/>
+            <call-service service-name="reserveProductInventoryByFacility" in-map-name="resMap"/>
+        </iterate>
+        
+        <!-- now go through touchedOrderIdMap keys and make a Set/Map of orderIds that are no longer on back-order -->
+        <iterate-map key-name="touchedOrderId" value-name="throwAwayValue" map-name="touchedOrderIdMap">
+            <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>
+            <call-service service-name="checkOrderIsOnBackOrder" in-map-name="checkOrderIsOnBackOrderMap">
+                <result-to-field result-name="isBackOrder"/>
+            </call-service>
+            
+            <if-compare field-name="isBackOrder" operator="equals" value="false" type="Boolean">
+                <set field="noLongerOnBackOrderIdMap.${touchedOrderId}" value="Y"/>
+            </if-compare>
+        </iterate-map>
+        <if-not-empty field-name="noLongerOnBackOrderIdMap">
+            <call-object-method obj-field-name="noLongerOnBackOrderIdMap" method-name="keySet" ret-field-name="noLongerOnBackOrderIdSet"/>
+            <field-to-result field-name="noLongerOnBackOrderIdSet"/>
+        </if-not-empty>
+    </simple-method>
+
     <!-- Inventory Transfer Services -->
     <simple-method method-name="createInventoryTransfer" short-description="Create an Inventory Transfer">
 
