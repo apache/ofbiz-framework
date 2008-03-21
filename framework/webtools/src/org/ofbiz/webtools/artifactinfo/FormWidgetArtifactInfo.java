@@ -71,7 +71,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     }
     protected void populateFormExtended() throws GeneralException {
         // populate formThisFormExtends and the reverse-associate cache in the aif
-        if (this.modelForm.getParentFormName() != null && this.modelForm.getParentFormLocation() != null) {
+        if (this.modelForm.getParentFormName() != null) {
             String formName = this.modelForm.getParentFormLocation() + "#" + this.modelForm.getParentFormName();
             if (formName.contains("${")) {
                 return;

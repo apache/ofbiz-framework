@@ -52,6 +52,8 @@ import org.ofbiz.minilang.method.callops.CallSimpleMethod;
 import org.ofbiz.minilang.method.callops.SetServiceFields;
 import org.ofbiz.minilang.method.conditional.MasterIf;
 import org.ofbiz.minilang.method.conditional.While;
+import org.ofbiz.minilang.method.entityops.GetRelated;
+import org.ofbiz.minilang.method.entityops.GetRelatedOne;
 import org.ofbiz.minilang.method.entityops.EntityAnd;
 import org.ofbiz.minilang.method.entityops.EntityCondition;
 import org.ofbiz.minilang.method.entityops.EntityCount;
@@ -617,6 +619,12 @@ public class SimpleMethod {
             } else if (methodOperation instanceof MakeValue) {
                 String entName = ((MakeValue) methodOperation).getEntityName();
                 if (UtilValidate.isNotEmpty(entName)) allEntityNames.add(entName);
+            } else if (methodOperation instanceof GetRelated) {
+                String relationName = ((GetRelated) methodOperation).getRelationName();
+                if (UtilValidate.isNotEmpty(relationName)) allEntityNames.add(relationName);
+            } else if (methodOperation instanceof GetRelatedOne) {
+                String relationName = ((GetRelatedOne) methodOperation).getRelationName();
+                if (UtilValidate.isNotEmpty(relationName)) allEntityNames.add(relationName);
                 
             } else if (methodOperation instanceof CallSimpleMethod) {
                 CallSimpleMethod csm = (CallSimpleMethod) methodOperation;

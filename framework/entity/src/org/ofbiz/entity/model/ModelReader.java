@@ -527,6 +527,22 @@ public class ModelReader implements Serializable {
         return entitiesByPackage;
     }
 
+    /** Util method to validate an entity name; if no entity is found with the name,
+     *  characters are stripped from the beginning of the name until a valid entity name is found.
+     *  It is intended to be used to determine the entity name from a relation name.
+     * @return A valid entityName or null
+     */
+    public String validateEntityName(String entityName) throws GenericEntityException {
+        if (entityName == null) {
+            return null;
+        }
+        Set allEntities = this.getEntityNames();
+        while (!allEntities.contains(entityName) && entityName.length() > 0) {
+            entityName = entityName.substring(1);
+        }
+        return (entityName.length() > 0? entityName: null);
+    }
+
     ModelEntity createModelEntity(Element entityElement, UtilTimer utilTimer, ModelInfo def) {
         if (entityElement == null) return null;
         this.numEntities++;
