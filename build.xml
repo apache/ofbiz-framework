@@ -162,6 +162,27 @@ under the License.
         <echo message="[docs] ========== Done Building (JavaDocs) =========="/>
     </target>
 
+	<target name="docs-all" depends="build"
+		    description="Build all javadoc into one tree for easier viewing by the community">
+
+        <echo message="[docs-all] ========== Start Building (JavaDoc) =========="/>
+
+        <mkdir dir="${site.dir}/javadocs"/>
+        <javadoc packagenames="org.ofbiz.*"
+                 destdir="${site.dir}/javadocs"
+		         maxmemory="256M"
+                 windowtitle="Open for Business - API">
+			<fileset dir="${basedir}" defaultexcludes="yes">
+				<include name="**/*.java"/>
+				<exclude name="**/ControlApplet.java"/>
+				<exclude name="**/ShipmentScaleApplet.java"/>
+				<exclude name="**/test/"/>
+			</fileset>
+		</javadoc>
+
+		<echo message="[docs-all] ========== Done Building (JavaDocs) =========="/>
+   </target>
+	
     <!-- ================================================================== -->
     <!-- Contrib Targets                                                    -->
     <!-- ================================================================== -->
