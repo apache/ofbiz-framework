@@ -242,6 +242,14 @@ under the License.
         <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
     </service>
+    
+    <service name="reassignInventoryReservations" engine="simple" transaction-timeout="600"
+            location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="reassignInventoryReservations" auth="true">
+        <description>Balance inventory reservations for a given product/facility, considering all the reservations with promised date greater than fromDate.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="String" mode="IN" optional="true"/>
+    </service>
 
     <service name="reserveAnInventoryItem" engine="simple"
             location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveAnInventoryItem" auth="true">
