@@ -1306,7 +1306,7 @@ public class OrderReadHelper {
                 }
             }
         }
-
+        openAmount = new BigDecimal(openAmount).setScale(scale, rounding).doubleValue();
         // return either a positive amount or positive zero
         return Math.max(total.doubleValue() - openAmount, 0);
     }
