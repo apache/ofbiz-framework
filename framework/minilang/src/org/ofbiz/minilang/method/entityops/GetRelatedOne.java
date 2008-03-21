@@ -79,6 +79,9 @@ public class GetRelatedOne extends MethodOperation {
         return true;
     }
 
+    public String getRelationName() {
+        return this.relationName;
+    }
     public String rawString() {
         // TODO: something more than the empty tag
         return "<get-related-one/>";

@@ -159,6 +159,12 @@ public class ModelScreen extends ModelWidget implements Serializable {
                     } else if (screenOperation instanceof ModelScreenAction.EntityCondition) {
                         String entName = ((ModelScreenAction.EntityCondition) screenOperation).finder.getEntityName();
                         if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
+                    } else if (screenOperation instanceof ModelScreenAction.GetRelated) {
+                        String relationName = ((ModelScreenAction.GetRelated) screenOperation).relationName;
+                        if (UtilValidate.isNotEmpty(relationName)) allEntityNamesUsed.add(relationName);
+                    } else if (screenOperation instanceof ModelScreenAction.GetRelatedOne) {
+                        String relationName = ((ModelScreenAction.GetRelatedOne) screenOperation).relationName;
+                        if (UtilValidate.isNotEmpty(relationName)) allEntityNamesUsed.add(relationName);
                     }
                 }
             }

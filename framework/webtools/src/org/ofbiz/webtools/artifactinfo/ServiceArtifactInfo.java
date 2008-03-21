@@ -120,7 +120,9 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             if (entityName.contains("${")) {
                 continue;
             }
-            if (!aif.getEntityModelReader().getEntityNames().contains(entityName)) {
+            // attempt to convert relation names to entity names
+            entityName = aif.getEntityModelReader().validateEntityName(entityName);
+            if (entityName == null) {
                 Debug.logWarning("Entity [" + entityName + "] reference in service [" + this.modelService.name + "] does not exist!", module);
                 continue;
             }
