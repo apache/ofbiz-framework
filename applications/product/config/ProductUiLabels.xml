@@ -14738,8 +14738,8 @@
         <value xml:lang="th">ข้อบังคับ</value>
         <value xml:lang="zh">规则</value>
     </property>
-    <property key="ProductSearchFeature">
-        <value xml:lang="en">Search feature</value>
+    <property key="ProductSearchFeatureCategory">
+        <value xml:lang="en">Search feature category</value>
     </property>
     <property key="ProductSRCH">
         <value xml:lang="en">SRCH</value>
