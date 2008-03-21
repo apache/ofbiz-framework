@@ -324,6 +324,9 @@
         <value xml:lang="th">ทั้งหมด</value>
         <value xml:lang="zh">全部</value>
     </property>
+    <property key="WebtoolsArtifactInfo">
+        <value xml:lang="en">Artifact Info</value>
+    </property>
     <property key="WebtoolsAsync">
         <value xml:lang="en">ASYNC</value>
         <value xml:lang="it">Asincrono</value>

@@ -260,9 +260,8 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     }
     
     public Set<ServiceArtifactInfo> getServicesCalledByServiceEcas() {
-        Set<ServiceArtifactInfo> serviceList = FastSet.newInstance();
-        // TODO: implement this
-        return serviceList;
+        // TODO: implement this sometime, not really necessary
+        return FastSet.newInstance();
     }
     
     public Set<ServiceEcaArtifactInfo> getServiceEcaRulesTriggeredByService() {
@@ -270,31 +269,24 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     }
     
     public Set<ServiceArtifactInfo> getServicesCallingServiceByEcas() {
-        Set<ServiceArtifactInfo> serviceList = FastSet.newInstance();
-        // TODO: implement this
-        return serviceList;
+        // TODO: implement this sometime, not really necessary
+        return FastSet.newInstance();
     }
     
     public Set<ServiceEcaArtifactInfo> getServiceEcaRulesCallingService() {
-        return aif.allServiceEcaInfosReferringToServiceName.get(this.modelService.name);
+        return this.aif.allServiceEcaInfosReferringToServiceName.get(this.modelService.name);
     }
     
     public Set<FormWidgetArtifactInfo> getFormsCallingService() {
-        Set<FormWidgetArtifactInfo> formSet = FastSet.newInstance();
-        // TODO: implement this
-        return formSet;
+        return this.aif.allFormInfosReferringToServiceName.get(this.modelService.name);
     }
     
     public Set<FormWidgetArtifactInfo> getFormsBasedOnService() {
-        Set<FormWidgetArtifactInfo> formSet = FastSet.newInstance();
-        // TODO: implement this
-        return formSet;
+        return this.aif.allFormInfosBasedOnServiceName.get(this.modelService.name);
     }
     
     public Set<ScreenWidgetArtifactInfo> getScreensCallingService() {
-        Set<ScreenWidgetArtifactInfo> screenSet = FastSet.newInstance();
-        // TODO: implement this
-        return screenSet;
+        return this.aif.allScreenInfosReferringToServiceName.get(this.modelService.name);
     }
     
     public Set<ControllerRequestArtifactInfo> getRequestsWithEventCallingService() {
