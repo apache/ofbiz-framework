@@ -250,6 +250,11 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="balanceOrderItemsWithNegativeReservations" engine="simple" 
+                location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="balanceOrderItemsWithNegativeReservations">
+        <description>For each product with a negative reservation in the order, calls reassignInventoryReservations</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
 
     <service name="reserveAnInventoryItem" engine="simple"
             location="org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveAnInventoryItem" auth="true">
