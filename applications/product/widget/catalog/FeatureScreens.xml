@@ -159,14 +159,12 @@
             </widgets>
         </section>
     </screen>
-    <screen name="EditFeatureCategories">
+    <screen name="CreateProductFeature">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductFeatureCategories"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureCategory"/>
-    
-                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureCategories.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
@@ -174,33 +172,55 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.ProductCreateAProductFeatureCategory}"/>
+                                    <label text="${uiLabelMap.PageTitleEditFeatureType}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/catalog/feature/CreateFeatureCategory.ftl"/></html>
-                                        </platform-specific>
+                                        <include-form name="CreateProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
                                     </widgets>
                                 </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFeatureCategories">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductFeatureCategories"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeatureCategory"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+                
+                <!--script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureCategories.bsh"/-->
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ProductSearchFeature}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <container><link target="CreateProductFeature" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                <include-form name="FindProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
                             </container>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.ProductEditFeatureId}"/>
+                                    <label text="${uiLabelMap.PageTitleSearchResults}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/catalog/feature/EditFeatureCategories.ftl"/></html>
-                                        </platform-specific>
-                                    </widgets>
-                                </section>
+                                <include-form name="ListProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
                             </container>
                         </container>
                     </decorator-section>
