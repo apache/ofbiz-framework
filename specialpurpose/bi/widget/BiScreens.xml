@@ -134,8 +134,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="BusinessIntelligenceMainPage"/>
                 <set field="headerItem" value="main"/>
-                <set field="fromDate" value="2007-01-01 00:00:00.0" type="Timestamp"/>
-                <set field="thruDate" value="2008-01-01 00:00:00.0" type="Timestamp"/>
+                <set field="fromDate" value="2008-01-01 00:00:00.0" type="Timestamp"/>
+                <set field="thruDate" value="2009-01-01 00:00:00.0" type="Timestamp"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
