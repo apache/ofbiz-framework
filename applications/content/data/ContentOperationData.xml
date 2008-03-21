@@ -18,12 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>    
-    <EnumerationType enumTypeId="CONTENT_PRIVILEGE" description="Content Privilege"/>
-    <Enumeration enumId="CNT_PRV_NA_" enumTypeId="CONTENT_PRIVILEGE" enumCode="_NA_" sequenceId="00" description="Not Applicable"/>
-    <Enumeration enumId="CNT_PRV_BRONZE" enumTypeId="CONTENT_PRIVILEGE" enumCode="BRONZE" sequenceId="10" description="Bronze Level"/>
-    <Enumeration enumId="CNT_PRV_SILVER" enumTypeId="CONTENT_PRIVILEGE" enumCode="SILVER" sequenceId="20" description="Silver Level"/>
-    <Enumeration enumId="CNT_PRV_GOLD" enumTypeId="CONTENT_PRIVILEGE" enumCode="GOLD" sequenceId="30" description="Gold Level"/>
-
     <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_AUTHOR" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
     <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_AUTHOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
     <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
