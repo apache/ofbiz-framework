@@ -95,6 +95,7 @@ public class ArtifactInfoFactory {
     public Map<String, Set<ServiceEcaArtifactInfo>> allServiceEcaInfosReferringToServiceName = FastMap.newInstance();
     public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceName = FastMap.newInstance();
     public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToServiceName = FastMap.newInstance();
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosBasedOnServiceName = FastMap.newInstance();
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToServiceName = FastMap.newInstance();
     public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToServiceName = FastMap.newInstance(); 
     
