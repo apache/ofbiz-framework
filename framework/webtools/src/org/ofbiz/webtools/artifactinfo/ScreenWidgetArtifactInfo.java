@@ -143,7 +143,8 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     }
 
     public String getDisplayName() {
-        return this.getUniqueId();
+        // remove the component:// from the location
+        return this.screenName + " (" + this.screenLocation.substring(12) + ")";
     }
     
     public String getDisplayType() {
