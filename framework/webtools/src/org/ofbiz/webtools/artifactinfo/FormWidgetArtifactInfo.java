@@ -136,7 +136,8 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     }
     
     public String getDisplayName() {
-        return this.getUniqueId();
+        // remove the component:// from the location
+        return this.formName + " (" + this.formLocation.substring(12) + ")";
     }
     
     public String getDisplayType() {
