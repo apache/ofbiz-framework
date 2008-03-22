@@ -26,6 +26,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 
@@ -57,7 +58,10 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             throw new GeneralException("Controller view with name [" + viewUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
         }
         // populate screenCalledByThisView and reverse in aif.allViewInfosReferringToScreen
-        if ("screen".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE))) {
+        if ("screen".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE)) || 
+                "screenfop".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE)) ||
+                "screentext".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE)) ||
+                "screenxml".equals(this.viewInfoMap.get(ConfigXMLReader.VIEW_TYPE))) {
             String fullScreenName = this.viewInfoMap.get(ConfigXMLReader.VIEW_PAGE);
             if (UtilValidate.isNotEmpty(fullScreenName)) {
                 int poundIndex = fullScreenName.indexOf('#');
@@ -83,7 +87,11 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
     }
     
     public String getDisplayName() {
-        return this.getUniqueId();
+        String location = UtilURL.getOfbizHomeRelativeLocation(this.controllerXmlUrl);
+        if (location.endsWith("/WEB-INF/controller.xml")) {
+            location = location.substring(0, location.length() - 23);
+        }
+        return this.viewUri + " (" + location + ")";
     }
     
     public String getDisplayType() {
