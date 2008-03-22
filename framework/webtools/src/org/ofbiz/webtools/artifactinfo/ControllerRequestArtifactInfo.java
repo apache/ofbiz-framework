@@ -28,6 +28,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 
 /**
@@ -128,7 +129,11 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
     }
     
     public String getDisplayName() {
-        return this.getUniqueId();
+        String location = UtilURL.getOfbizHomeRelativeLocation(this.controllerXmlUrl);
+        if (location.endsWith("/WEB-INF/controller.xml")) {
+            location = location.substring(0, location.length() - 23);
+        }
+        return this.requestUri + " (" + location + ")";
     }
     
     public String getDisplayType() {

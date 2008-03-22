@@ -17,17 +17,27 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#if sessionAttributes.recentArtifactInfoList?has_content>
+  <div class="right">
+    <h2>Recently Viewed Artifacts:</h2>
+    <#assign highRef = sessionAttributes.recentArtifactInfoList.size() - 1/>
+    <#if (highRef > 19)><#assign highRef = 19/></#if>
+    <#list sessionAttributes.recentArtifactInfoList[0..highRef] as recentArtifactInfo>
+        <div>${recentArtifactInfo_index + 1} - ${recentArtifactInfo.getDisplayType()}: <@displayArtifactInfoLink artifactInfo=recentArtifactInfo/></div>
+    </#list>
+  </div>
+</#if>
 
 <#if !artifactInfo?exists>
 
     <#-- add form here to specify artifact info name. -->
-    <div class="screenlet-body">
+    <div>
       <form name="ArtifactInfoByName" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
         Search Names/Locations: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/>
         <input type="submit" name="submitButton" value="Find"/>
       </form>
     </div>
-    <div class="screenlet-body">
+    <div>
       <form name="ArtifactInfoByNameAndType" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
         <div>Name: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/></div>
         <div>Location: <input type="text" name="location" value="${parameters.location?if_exists}" size="60"/></div>
@@ -47,7 +57,7 @@ under the License.
     
     <#-- add set of ArtifactInfo if there is not a single one identified, with link to each -->
     <#if artifactInfoSet?has_content>
-    <div class="screenlet-body">
+    <div>
         <h4>Multiple Artifacts Found:</h4>
         <#list artifactInfoSet as curArtifactInfo>
             <div>${curArtifactInfo.getDisplayType()}: <@displayArtifactInfoLink artifactInfo=curArtifactInfo/></div>
@@ -239,15 +249,7 @@ under the License.
     </#if>
 </#if>
 
-<#if sessionAttributes.recentArtifactInfoList?has_content>
-    <h2>Recently Viewed Artifacts:</h2>
-    <#assign highRef = sessionAttributes.recentArtifactInfoList.size() - 1/>
-    <#if (highRef > 20)><#assign highRef = 20/></#if>
-    <#list sessionAttributes.recentArtifactInfoList[0..highRef] as recentArtifactInfo>
-        <div>${recentArtifactInfo_index + 1} - ${recentArtifactInfo.getDisplayType()}: <@displayArtifactInfoLink artifactInfo=recentArtifactInfo/></div>
-    </#list>
-</#if>
-
+<#-- ==================== MACROS ===================== -->
 <#macro displayEntityArtifactInfo entityArtifactInfo>
     <div>&nbsp;-&nbsp;<@displayArtifactInfoLink artifactInfo=entityArtifactInfo/></div>
 </#macro>
