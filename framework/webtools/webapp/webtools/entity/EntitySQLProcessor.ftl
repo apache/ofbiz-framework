@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.WebtoolsSqlProcessor}</li>
+      <li class="h3">${uiLabelMap.WebtoolsSqlProcessor}</li>
     </ul>
     <br class="clear"/>
   </div> 
@@ -67,7 +67,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.WebtoolsResults}</li>
+      <li class="h3">${uiLabelMap.WebtoolsResults}</li>
     </ul>
     <br class="clear"/>
   </div> 

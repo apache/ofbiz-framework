@@ -21,7 +21,7 @@ under the License.
 <div id="stats-bins-history" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.WebtoolsComponentsLoaded}</li>
+      <li class="h3">${uiLabelMap.WebtoolsComponentsLoaded}</li>
     </ul>
     <br class="clear"/>
   </div>  

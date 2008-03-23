@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.WebtoolsFindValues}</li>
+      <li class="h3">${uiLabelMap.WebtoolsFindValues}</li>
     </ul>
     <br class="clear"/>
   </div> 
@@ -38,7 +38,7 @@ under the License.
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <li class="head3">${uiLabelMap.WebtoolsToFindAll} ${entityName}, ${uiLabelMap.WebtoolsLeaveAllEntriesBlank}.</li>
+          <li class="h3">${uiLabelMap.WebtoolsToFindAll} ${entityName}, ${uiLabelMap.WebtoolsLeaveAllEntriesBlank}.</li>
         </ul>
         <br class="clear"/>
       </div> 
@@ -106,7 +106,7 @@ under the License.
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <li class="head3">${uiLabelMap.WebtoolsFindValuesResults}</li>
+          <li class="h3">${uiLabelMap.WebtoolsFindValuesResults}</li>
         </ul>
         <br class="clear"/>
       </div> 

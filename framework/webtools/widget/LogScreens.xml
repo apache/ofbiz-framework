@@ -58,7 +58,7 @@ under the License.
                      <decorator-section name="body">
                          <container style="screenlet">
                              <container style="screenlet-title-bar">
-                                 <container style="head3">
+                                 <container style="h3">
                                      <label text="${uiLabelMap.WebtoolsDebuggingLevelFormDescription}"/>
                                  </container>
                              </container>
@@ -72,7 +72,7 @@ under the License.
                          </container>
                          <container style="screenlet">
                              <container style="screenlet-title-bar">
-                                 <container style="head3">
+                                 <container style="h3">
                                      <label text="${uiLabelMap.WebtoolsAddLoggerFormDescription}"/>
                                  </container>
                              </container>
@@ -86,7 +86,7 @@ under the License.
                          </container>
                          <container style="screenlet">
                              <container style="screenlet-title-bar">
-                                 <container style="head3">
+                                 <container style="h3">
                                      <label text="${uiLabelMap.WebtoolsLoggerListFormDescription}"/>
                                  </container>
                              </container>
@@ -119,7 +119,7 @@ under the License.
                      <decorator-section name="body">
                          <container style="screenlet">
                              <container style="screenlet-title-bar">
-                                 <container style="head3">
+                                 <container style="h3">
                                      <label text="${uiLabelMap.WebtoolsViewLog}"/>
                                  </container>
                              </container>
