@@ -24,7 +24,7 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
     response.setContentType("text/html");
 %>
 
-<div class='head3'><b>Please specify the helperName to induce from:</b></div>
+<div class='h3'><b>Please specify the helperName to induce from:</b></div>
 <form action='' method="post">
     <input type='TEXT' class='inputBox' size='40' name='helperName'>
     <input type=SUBMIT value='Induce!'>

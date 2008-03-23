@@ -25,20 +25,17 @@ under the License.
             <actions>
             </actions>
             <widgets>
-				<!-- main defines the regions of the HTML page -->
+                <!-- main defines the regions of the HTML page -->
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <!-- body is the primary display for this page and is called recursively -->
                     <decorator-section name="body">
                         <section>
                             <widgets>
                                 <container style="button-bar">
-                                    <label style="h1">${uiLabelMap.${labelTitleProperty}}</label>
-                                </container>
-                                <container style="button-bar">
                                     <link target="EntitySyncStatus" style="smallSubmit" text="${uiLabelMap.CommonRefresh}"/>
                                 </container>
 
-								<!-- Now call the SimpleScreen form -->
+                                <!-- Now call the SimpleScreen form -->
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -54,22 +51,44 @@ under the License.
     <screen name="EntitySyncStatus">
         <section>
             <actions>
-                <set field="title" value="Entity Sync Status"/>
                 <set field="titleProperty" value="PageTitleEntitySyncStatus"/>
-                <set field="labelTitleProperty" value="PageTitleEntitySyncStatus"/>
             </actions>
             <widgets>
                 <decorator-screen name="GenericDecorator">
                     <decorator-section name="body">
-                        <include-form name="EntitySyncStatus" location="component://webtools/widget/EntitySyncForms.xml"/>
-                        <container style="button-bar">
-                            <label style="h1">${uiLabelMap.WebtoolsLoadOfflineData}</label>
-                        </container>
-                        <include-form name="EntitySyncLoadOffline" location="component://webtools/widget/EntitySyncForms.xml"/>
+                        <container style="screenlet">
+                             <container style="screenlet-title-bar">
+                                 <container style="h3">
+                                     <label text="${uiLabelMap.PageTitleEntitySyncStatus}"/>
+                                 </container>
+                             </container>
+                             <container style="screenlet-body">
+                                 <section>
+                                     <widgets>
+                                         <include-form name="EntitySyncStatus" location="component://webtools/widget/EntitySyncForms.xml"/>
+                                     </widgets>
+                                 </section>
+                             </container>
+                         </container>
+                         <container style="screenlet">
+                             <container style="screenlet-title-bar">
+                                 <container style="h3">
+                                     <label text="${uiLabelMap.WebtoolsLoadOfflineData}"/>
+                                 </container>
+                             </container>
+                             <container style="screenlet-body">
+                                 <section>
+                                     <widgets>
+                                         <include-form name="EntitySyncLoadOffline" location="component://webtools/widget/EntitySyncForms.xml"/>
+                                     </widgets>
+                                 </section>
+                             </container>
+                         </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 </screens>
+
 

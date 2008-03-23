@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.WebtoolsEntityDataMaintenance}</li>
+      <li class="h3">${uiLabelMap.WebtoolsEntityDataMaintenance}</li>
     </ul>
     <br class="clear"/>
   </div> 
@@ -47,7 +47,7 @@ under the License.
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <li class="head3">${uiLabelMap.WebtoolsEntitiesAlpha}</li>
+          <li class="h3">${uiLabelMap.WebtoolsEntitiesAlpha}</li>
         </ul>
         <br class="clear"/>
       </div> 

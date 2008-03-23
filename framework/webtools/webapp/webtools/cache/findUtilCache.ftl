@@ -28,7 +28,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.PageTitleFindUtilCache}</li>
+      <li class="h3">${uiLabelMap.PageTitleFindUtilCache}</li>
     </ul>
     <br class="clear"/>
   </div>

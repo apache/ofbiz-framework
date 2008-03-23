@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EntitySyncStatus" type="list" list-name="entitySyncList" target=""
-        paginate-target="EntitySyncStatus" view-size="20">
+        paginate-target="EntitySyncStatus" view-size="20" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="EntitySync" list-name="entitySyncList" use-cache="false">
                 <!-- No conditions, is a find all -->
@@ -49,7 +49,8 @@ under the License.
         </field>
     </form>
 
-    <form name="EntitySyncLoadOffline" type="single" target="loadOfflineEntitySyncData" title="">
+    <form name="EntitySyncLoadOffline" type="single" target="loadOfflineEntitySyncData" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="loadOfflineEntitySyncData"/>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field> 
     </form>

@@ -35,7 +35,7 @@ function ShowTab(lname) {
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="head3">${uiLabelMap.WebtoolsViewValue}</li>
+      <li class="h3">${uiLabelMap.WebtoolsViewValue}</li>
     </ul>
     <br class="clear"/>
   </div> 
