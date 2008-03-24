@@ -71,6 +71,7 @@ under the License.
 
     <#if artifactInfo.getType() == "entity">
         <h2>Entity Fields</h2>
+        <div><a href="<@ofbizUrl>FindGeneric?entityName=${artifactInfo.modelEntity.getEntityName()}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>">All Entity Data</a></div>
         <table>
         <#list artifactInfo.modelEntity.getFieldsCopy() as modelField>
             <tr><td>${modelField.getName()}<#if modelField.getIsPk()>*</#if></td><td>${modelField.getType()}</td><td>${modelField.getDescription()?if_exists}</td></tr>
