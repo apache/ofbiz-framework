@@ -253,11 +253,15 @@ public class ComponentConfig {
     }
 
     public static List getAppBarWebInfos(String serverName) {
-        return ComponentConfig.getAppBarWebInfos(serverName, null);
+        return ComponentConfig.getAppBarWebInfos(serverName, null, null);
     }
-
-    public static List<WebappInfo> getAppBarWebInfos(String serverName,  Comparator<? super String> comp) {
-        List<WebappInfo> webInfos = serverWebApps.get(serverName);
+    
+    public static List getAppBarWebInfos(String serverName, String menuName) {
+        return ComponentConfig.getAppBarWebInfos(serverName, null, menuName);
+    }
+    
+    public static List<WebappInfo> getAppBarWebInfos(String serverName, Comparator<? super String> comp, String menuName) {
+        List<WebappInfo> webInfos = serverWebApps.get(serverName + menuName);
         if (webInfos == null) {
             synchronized (ComponentConfig.class) {
                 if (webInfos == null) {
@@ -272,14 +276,21 @@ public class ComponentConfig {
 
                     for (ComponentConfig cc: getAllComponents()) {
                         for (WebappInfo wInfo: cc.getWebappInfos()) {
+                            String key = UtilValidate.isNotEmpty(wInfo.position)? wInfo.position: wInfo.title;
                             if (serverName.equals(wInfo.server) && wInfo.appBarDisplay) {
-                                tm.put(wInfo.title, wInfo);
+                                if (UtilValidate.isNotEmpty(menuName)) {
+                                    if (menuName.equals(wInfo.menuName)) {
+                                        tm.put(key, wInfo);
+                                    }
+                                } else {
+                                    tm.put(key, wInfo);
+                                } 
                             }
                         }
                     }
                     List<WebappInfo> webInfoList = FastList.newInstance();
                     webInfoList.addAll(tm.values());
-                    serverWebApps.put(serverName, webInfoList);
+                    serverWebApps.put(serverName + menuName, webInfoList);
                     return webInfoList;
                 }
             }
@@ -660,10 +671,13 @@ public class ComponentConfig {
         public Map<String, String> initParameters;
         public String name;
         public String title;
+        public String description;
+        public String menuName;        
         public String server;
         public String mountPoint;
         public String location;
         public String[] basePermission;
+        public String position;        
         public boolean appBarDisplay;
 
         public WebappInfo(ComponentConfig componentConfig, Element element) {
@@ -672,6 +686,7 @@ public class ComponentConfig {
             this.componentConfig = componentConfig;
             this.name = element.getAttribute("name");
             this.title = element.getAttribute("title");
+            this.description = element.getAttribute("description");            
             this.server = element.getAttribute("server");
             this.mountPoint = element.getAttribute("mount-point");
             this.location = element.getAttribute("location");
@@ -696,7 +711,20 @@ public class ComponentConfig {
             if (UtilValidate.isEmpty(this.title)) {
                 this.title = Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
             }
-
+            
+            if (UtilValidate.isEmpty(this.description)) {
+                this.description = this.title;
+            }
+             
+            String menuNameStr = element.getAttribute("menu-name");
+            if (UtilValidate.isNotEmpty(menuNameStr)) {
+                this.menuName = menuNameStr;
+            } else {
+                this.menuName = "main";
+            }
+            
+            this.position = element.getAttribute("position");
+ 
             // default mount point is name if none specified
             if (UtilValidate.isEmpty(this.mountPoint)) {
                 this.mountPoint = this.name;
@@ -753,6 +781,10 @@ public class ComponentConfig {
 
         public String getTitle() {
             return title;
+        }
+        
+        public String getDescription() {
+            return description;
         }
 
         public List<String> getVirtualHosts() {

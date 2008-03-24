@@ -21,7 +21,7 @@ under the License.
 <#if (externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
 <#assign ofbizServerName = application.getAttribute("_serverId")?default("default-server")>
 <#assign contextPath = request.getContextPath()>
-<#assign displayApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName)>
+<#assign displayApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "main")>
 
 <#if userLogin?has_content>
   <div id="main-navigation">
@@ -45,7 +45,7 @@ under the License.
           <#if thisApp != "/">
             <#assign thisURL = thisURL + "/control/main">
           </#if>
-          <li<#if selected> class="selected"</#if>><a href="${response.encodeURL(thisURL + externalKeyParam)}" title=""><#if uiLabelMap?exists>${uiLabelMap[display.title]}<#else>${display.title}</#if></a></li>
+          <li<#if selected> class="selected"</#if>><a href="${response.encodeURL(thisURL + externalKeyParam)}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}"> ${display.title}</#if></a></li>
         </#if>
       </#list>
     </ul>

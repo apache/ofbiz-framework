@@ -175,6 +175,16 @@ under the License.
     <xs:attributeGroup name="attlist.webapp">
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="title"/>
+        <xs:attribute type="xs:string" name="description"/>
+        <xs:attribute name="menu-name" default="main">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="main"/>
+                    <xs:enumeration value="secondary"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="position"/>
         <xs:attribute type="xs:string" name="server" use="required"/>
         <xs:attribute type="xs:string" name="location" use="required"/>
         <xs:attribute type="xs:string" name="mount-point"/>

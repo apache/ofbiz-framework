@@ -60,8 +60,8 @@ under the License.
     <!-- test suite -->
     <test-suite loader="main" location="testdef/FacilityTest.xml"/>
     
-    <webapp name="catalog" title="Catalog" server="default-server" location="webapp/catalog"
+    <webapp name="catalog" title="Catalog" position="01" server="default-server" location="webapp/catalog"
         base-permission="OFBTOOLS,CATALOG" mount-point="/catalog"/>
-    <webapp name="facility" title="Facility" server="default-server" location="webapp/facility"
+    <webapp name="facility" title="Facility" position="04" server="default-server" location="webapp/facility"
         base-permission="OFBTOOLS,FACILITY" mount-point="/facility"/>
 </ofbiz-component>

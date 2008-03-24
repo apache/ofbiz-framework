@@ -39,6 +39,7 @@ under the License.
     <webapp name="oagis"
         title="Oagis"
         server="default-server"
+        menu-name="secondary"
         location="webapp/oagis"
         base-permission="OFBTOOLS,OAGIS"
         mount-point="/oagis"

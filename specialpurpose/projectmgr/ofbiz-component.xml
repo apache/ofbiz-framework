@@ -38,6 +38,7 @@ under the License.
     
     <webapp name="projectmgr"
         title="Project"
+        menu-name="secondary"
         server="default-server"
         location="webapp/projectmgr"
         base-permission="PROJECTMGR"

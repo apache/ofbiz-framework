@@ -19,6 +19,42 @@ under the License.
 
 <#assign nowTimestamp = Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp()>
 
+<#if (requestAttributes.externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
+<#if (externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
+<#assign ofbizServerName = application.getAttribute("_serverId")?default("default-server")>
+<#assign contextPath = request.getContextPath()>
+<#assign displayApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "secondary")>
+
+<#if userLogin?has_content>
+  <div id="secondary-navigation">
+    <ul>
+      <#list displayApps as display>
+        <#assign thisApp = display.getContextRoot()>
+        <#assign permission = true>
+        <#assign selected = false>
+        <#assign permissions = display.getBasePermission()>
+        <#list permissions as perm>
+          <#if perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session)>
+            <#-- User must have ALL permissions in the base-permission list -->
+            <#assign permission = false>
+          </#if>
+        </#list>
+        <#if permission == true>
+          <#if thisApp == contextPath || contextPath + "/" == thisApp>
+            <#assign selected = true>
+          </#if>
+          <#assign thisURL = thisApp>
+          <#if thisApp != "/">
+            <#assign thisURL = thisURL + "/control/main">
+          </#if>
+          <li<#if selected> class="selected"</#if>><a href="${response.encodeURL(thisURL + externalKeyParam)}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}"> ${display.title}</#if></a></li>
+        </#if>
+      </#list>
+    </ul>
+    <br class="clear"/>
+  </div>
+</#if>
+
 <div id="footer">
     <p><a href="http://jigsaw.w3.org/css-validator/"><img src="<@ofbizContentUrl>/images/vcss.gif</@ofbizContentUrl>" alt="Valid CSS!"/></a>
     <a href="http://validator.w3.org/check?uri=referer"><img src="<@ofbizContentUrl>/images/valid-xhtml10.png</@ofbizContentUrl>" alt="Valid XHTML 1.0!"/></a></p>
