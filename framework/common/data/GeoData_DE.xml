@@ -18,7 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<?xml version="1.0" encoding="UTF-8"?>
 <entity-engine-xml>
     <Geo abbreviation="BW" geoCode="BW" geoId="DE-BW" geoName="Baden-Württemberg" geoTypeId="COUNTY"/>
     <Geo abbreviation="BY" geoCode="BY" geoId="DE-BY" geoName="Bayern" geoTypeId="COUNTY"/>
