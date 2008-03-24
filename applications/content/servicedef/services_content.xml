@@ -83,6 +83,7 @@
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="uploadFileInterface"/>
         <attribute name="dataResourceId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="dataResourceTypeId" type="String" mode="IN" optional="true"/>
         <!-- mimetype is set from the uploaded file (contentType) when empty -->
         <attribute name="mimeTypeId" type="String" mode="INOUT" optional="true"/>
     </service>
