@@ -53,7 +53,7 @@ under the License.
     <!-- web applications; will be mounted when using the embedded Jetty container -->
     <webapp name="manufacturing"
         title="Manufacturing"
-        position="05"
+        position="06"
         server="default-server"
         location="webapp/manufacturing"
         base-permission="OFBTOOLS,MANUFACTURING"
