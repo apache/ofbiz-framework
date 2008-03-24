@@ -6951,6 +6951,9 @@
         <value xml:lang="it">Risorse Umane</value>
         <value xml:lang="th">ฝ่ายบุคคล</value>
     </property>
+    <property key="HumanResourceApplication">
+        <value xml:lang="en">Human Resource Application</value>
+    </property>    
     <property key="Handheld Facility">
         <value xml:lang="en">Handheld Facility</value>
         <value xml:lang="it">Gestione Stabilimenti su Handheld</value>

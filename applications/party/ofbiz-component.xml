@@ -36,6 +36,7 @@ under the License.
 
     <webapp name="party"
         title="Party"
+        position="02"
         server="default-server"
         location="webapp/partymgr"
         base-permission="OFBTOOLS,PARTYMGR"

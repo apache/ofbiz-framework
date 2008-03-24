@@ -32,6 +32,7 @@ under the License.
     
     <webapp name="googlebase"
         title="Google Base"
+        menu-name="secondary"
         server="default-server"
         location="webapp/googlebase"
         base-permission="OFBTOOLS,GOOGLEBASE"

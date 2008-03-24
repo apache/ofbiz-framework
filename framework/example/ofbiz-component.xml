@@ -50,6 +50,8 @@ under the License.
     <!-- web applications; will be mounted when using the embedded Jetty container -->
     <webapp name="example"
         title="Example"
+        menu-name="secondary"
+        position="95"
         server="default-server"
         location="webapp/example"
         base-permission="OFBTOOLS,EXAMPLE"
