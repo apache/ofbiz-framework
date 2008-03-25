@@ -74,7 +74,6 @@ under the License.
 
     <webapp name="accounting"
         title="Accounting"
-        position="01"
         server="default-server"
         location="webapp/accounting"
         base-permission="OFBTOOLS,ACCOUNTING"
