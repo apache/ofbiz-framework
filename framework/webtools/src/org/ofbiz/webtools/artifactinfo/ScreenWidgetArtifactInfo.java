@@ -47,6 +47,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     protected Set<EntityArtifactInfo> entitiesUsedInThisScreen = FastSet.newInstance();
     protected Set<ServiceArtifactInfo> servicesUsedInThisScreen = FastSet.newInstance();
     protected Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = FastSet.newInstance();
+    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInScreen = FastSet.newInstance();
     
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -191,5 +192,9 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisScreen() {
         return this.aif.allScreenInfosReferringToScreen.get(this.getUniqueId());
+    }
+    
+    public Set<ControllerRequestArtifactInfo> getRequestsLinkedToInScreen() {
+        return this.requestsLinkedToInScreen;
     }
 }

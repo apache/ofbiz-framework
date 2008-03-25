@@ -162,6 +162,18 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         return serviceCalledByRequestEvent;
     }
     
+    public Set<FormWidgetArtifactInfo> getFormInfosReferringToRequest() {
+        return this.aif.allFormInfosReferringToRequest.get(this.getUniqueId());
+    }
+    
+    public Set<FormWidgetArtifactInfo> getFormInfosTargetingRequest() {
+        return this.aif.allFormInfosTargetingRequest.get(this.getUniqueId());
+    }
+    
+    public Set<ScreenWidgetArtifactInfo> getScreenInfosReferringToRequest() {
+        return this.aif.allScreenInfosReferringToRequest.get(this.getUniqueId());
+    }
+    
     public Set<ControllerRequestArtifactInfo> getRequestsThatAreResponsesToThisRequest() {
         return this.requestsThatAreResponsesToThisRequest;
     }

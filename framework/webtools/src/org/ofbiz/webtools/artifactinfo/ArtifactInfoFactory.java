@@ -113,6 +113,9 @@ public class ArtifactInfoFactory {
     
     public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = FastMap.newInstance();
     
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosTargetingRequest = FastMap.newInstance(); 
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToRequest = FastMap.newInstance(); 
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToRequest = FastMap.newInstance(); 
     public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToRequest = FastMap.newInstance(); 
     
     public static ArtifactInfoFactory getArtifactInfoFactory(String delegatorName) throws GeneralException {
