@@ -8654,7 +8654,7 @@
         <value xml:lang="th">ฟรังก์ เบลเยียม</value>
         <value xml:lang="zh">比利时法郎</value>
     </property>
-    <property key="Uom.description.BGL">
+    <property key="Uom.description.BGN">
         <value xml:lang="en">Bulgarian Lev</value>
         <value xml:lang="it">Lev Bulgaro</value>
         <value xml:lang="pt">Bulgarian Lev</value>
@@ -10695,7 +10695,7 @@
 </value>
         <value xml:lang="zh">帝汶埃斯库多</value>
     </property>
-    <property key="Uom.description.TRL">
+    <property key="Uom.description.TRY">
         <value xml:lang="en">Turkish Lira</value>
         <value xml:lang="it">Lira Turca</value>
         <value xml:lang="pt">Turkish Lira</value>
