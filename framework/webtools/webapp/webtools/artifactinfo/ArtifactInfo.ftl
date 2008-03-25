@@ -175,14 +175,23 @@ under the License.
             <@displayServiceArtifactInfo serviceArtifactInfo=serviceArtifactInfo/>
         </#list>
 
+        <h2>Forms Extending This Form</h2>
+        <#list artifactInfo.getFormsExtendingThisForm()?if_exists as formWidgetArtifactInfo>
+            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
+        </#list>
+
         <h2>Screens Including This Form</h2>
         <#list artifactInfo.getScreensIncludingThisForm()?if_exists as screenWidgetArtifactInfo>
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
 
-        <h2>Forms Extending This Form</h2>
-        <#list artifactInfo.getFormsExtendingThisForm()?if_exists as formWidgetArtifactInfo>
-            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
+        <h2>Controller Requests That Are Linked to in This Form</h2>
+        <#list artifactInfo.getRequestsLinkedToInForm()?if_exists as controllerRequestArtifactInfo>
+            <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
+        </#list>
+        <h2>Controller Requests That Are Targeted By This Form</h2>
+        <#list artifactInfo.getRequestsTargetedByForm()?if_exists as controllerRequestArtifactInfo>
+            <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
         </#list>
     
     <#elseif artifactInfo.getType() == "screen"/>
@@ -211,6 +220,11 @@ under the License.
             <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
         </#list>
     
+        <h2>Controller Requests That Are Linked to in This Screen</h2>
+        <#list artifactInfo.getRequestsLinkedToInScreen()?if_exists as controllerRequestArtifactInfo>
+            <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>
+        </#list>
+    
         <h2>Controller Views Referring to This Screen</h2>
         <#list artifactInfo.getViewsReferringToScreen()?if_exists as controllerViewArtifactInfo>
             <@displayControllerViewArtifactInfo controllerViewArtifactInfo=controllerViewArtifactInfo/>
@@ -222,6 +236,20 @@ under the License.
             <@displayServiceArtifactInfo serviceArtifactInfo=artifactInfo.getServiceCalledByRequestEvent()/>
         </#if>
     
+        <h2>Forms Referring to This Request</h2>
+        <#list artifactInfo.getFormInfosReferringToRequest()?if_exists as formWidgetArtifactInfo>
+            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
+        </#list>
+        <h2>Forms Targeting This Request</h2>
+        <#list artifactInfo.getFormInfosTargetingRequest()?if_exists as formWidgetArtifactInfo>
+            <@displayFormWidgetArtifactInfo formWidgetArtifactInfo=formWidgetArtifactInfo/>
+        </#list>
+    
+        <h2>Screens Referring to This Request</h2>
+        <#list artifactInfo.getScreenInfosReferringToRequest()?if_exists as screenWidgetArtifactInfo>
+            <@displayScreenWidgetArtifactInfo screenWidgetArtifactInfo=screenWidgetArtifactInfo/>
+        </#list>
+
         <h2>Requests That Are Responses to This Request</h2>
         <#list artifactInfo.getRequestsThatAreResponsesToThisRequest()?if_exists as controllerRequestArtifactInfo>
             <@displayControllerRequestArtifactInfo controllerRequestArtifactInfo=controllerRequestArtifactInfo/>

@@ -46,6 +46,8 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     protected Set<EntityArtifactInfo> entitiesUsedInThisForm = FastSet.newInstance();
     protected Set<ServiceArtifactInfo> servicesUsedInThisForm = FastSet.newInstance();
     protected FormWidgetArtifactInfo formThisFormExtends = null;
+    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = FastSet.newInstance();
+    protected Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = FastSet.newInstance();
     
     public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -179,5 +181,13 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisForm() {
         return this.aif.allScreenInfosReferringToForm.get(this.getUniqueId());
+    }
+    
+    public Set<ControllerRequestArtifactInfo> getRequestsLinkedToInForm() {
+        return this.requestsLinkedToInForm;
+    }
+    
+    public Set<ControllerRequestArtifactInfo> getRequestsTargetedByForm() {
+        return this.requestsTargetedByInForm;
     }
 }
