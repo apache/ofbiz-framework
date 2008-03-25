@@ -51,7 +51,6 @@ under the License.
     
     <webapp name="order"
         title="Order"
-        position="08"
         server="default-server"
         location="webapp/ordermgr"
         base-permission="OFBTOOLS,ORDERMGR"

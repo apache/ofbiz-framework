@@ -33,14 +33,12 @@ under the License.
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <webapp name="marketing"
         title="Marketing"
-        position="07"
         server="default-server"
         location="webapp/marketing"
         base-permission="OFBTOOLS,MARKETING"
         mount-point="/marketing"/>
     <webapp name="SalesForceAutomation"
         title="SFA"
-        position="10"
         server="default-server"
         location="webapp/sfa"
         base-permission="OFBTOOLS,MARKETING"
