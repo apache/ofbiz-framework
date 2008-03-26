@@ -763,7 +763,9 @@ under the License.
       <field name="localeString" type="very-short"></field>
       <field name="mimeTypeId" type="id-long"></field>      
       <field name="characterSetId" type="id-long"></field>
-      <field name="objectInfo" type="long-varchar"><description>For Short Text the text goes here. For Survey or SurveyResponse the Id goes here.</description></field>
+      <field name="objectInfo" type="long-varchar"><description>For Short Text the text goes here.</description></field>
+      <field name="surveyId" type="id"></field>
+      <field name="surveyResponseId" type="id"></field>
       <field name="relatedDetailId" type="id"><description>Depending on the dataResourceTypeId this can point to other entities, like: Survey, SurveyResponse, etc.</description></field>
       <field name="isPublic" type="indicator"><description>If this is set to Y then anyone can download it, otherwise the download is restricted.</description></field>
       <field name="createdDate" type="date-time"></field>
@@ -802,11 +804,11 @@ under the License.
       <relation type="one" fk-name="DATA_REC_LMB_ULGN" title="LastModifiedBy" rel-entity-name="UserLogin">
         <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
       </relation>
-        <relation type="one-nofk" rel-entity-name="Survey">
-            <key-map field-name="objectInfo" rel-field-name="surveyId"/>
+        <relation type="one" rel-entity-name="Survey">
+            <key-map field-name="surveyId"/>
         </relation>
-        <relation type="one-nofk" rel-entity-name="SurveyResponse">
-            <key-map field-name="objectInfo" rel-field-name="surveyResponseId"/>
+        <relation type="one" rel-entity-name="SurveyResponse">
+            <key-map field-name="surveyResponseId"/>
         </relation>
     </entity>
     <entity entity-name="DataResourceAttribute"

@@ -1617,7 +1617,7 @@ under the License.
       <relation type="one" fk-name="CUST_REQ_FRMPTY" title="From" rel-entity-name="Party">
         <key-map field-name="fromPartyId" rel-field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="CUST_REQ_AUOM" rel-entity-name="Uom">
+      <relation type="one" fk-name="CUST_REQ_AUOM" title="MaximumAmount" rel-entity-name="Uom">
         <key-map field-name="maximumAmountUomId" rel-field-name="uomId"/>
       </relation>
       <relation type="one" fk-name="CUST_REQ_PRDS" rel-entity-name="ProductStore">
@@ -1632,7 +1632,7 @@ under the License.
       <relation type="one" fk-name="CUST_REQ_FULCM" title="Fulfill" rel-entity-name="ContactMech">
           <key-map field-name="fulfillContactMechId" rel-field-name="contactMechId"/>
       </relation>
-      <relation type="one" fk-name="CUST_REQ_CUOM" rel-entity-name="Uom">
+      <relation type="one" fk-name="CUST_REQ_CUOM" title="Currency" rel-entity-name="Uom">
         <key-map field-name="currencyUomId" rel-field-name="uomId"/>
       </relation>
     </entity>
@@ -2900,7 +2900,7 @@ under the License.
             <key-map field-name="salesOpportunityId"/>
         </relation>
     </entity>
-    <entity entity-name="SalesOpportunityTrackingCode" 
+    <entity entity-name="SalesOpportunityTrckCode" 
             package-name="org.ofbiz.order.opportunity"
             title="Sales opportunity traking code">
         <field name="salesOpportunityId" type="id-ne"></field>    
@@ -2912,5 +2912,4 @@ under the License.
             <key-map field-name="salesOpportunityId"/>
         </relation>
     </entity>
-
 </entitymodel>
