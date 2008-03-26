@@ -1671,7 +1671,9 @@ under the License.
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
         <alias-all entity-alias="II"/>
-        <alias-all entity-alias="IID"/>
+        <alias-all entity-alias="IID">
+            <exclude field="unitCost"/>
+        </alias-all>
         <view-link entity-alias="II" rel-entity-alias="IID">
             <key-map field-name="inventoryItemId"/>
         </view-link>
