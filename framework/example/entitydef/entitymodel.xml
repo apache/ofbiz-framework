@@ -44,7 +44,7 @@ under the License.
             package-name="org.ofbiz.example.example"
             default-resource-name="ExampleEntityLabels"
             title="Example Entity">
-        <field name="exampleId" type="id-ne"><!-- primary sequenced ID --></field>
+        <field name="exampleId" type="id-ne"><description>primary sequenced ID</description></field>
         <field name="exampleTypeId" type="id-ne"></field>
         <field name="statusId" type="id-ne"></field>
         <field name="exampleName" type="name"></field>
@@ -65,7 +65,7 @@ under the License.
     </entity>
     <entity entity-name="ExampleItem" package-name="org.ofbiz.example.example" title="Example Item Entity" default-resource-name="ExampleEntityLabels">
         <field name="exampleId" type="id-ne"></field>
-        <field name="exampleItemSeqId" type="id-ne"><!-- secondary sequenced ID --></field>
+        <field name="exampleItemSeqId" type="id-ne"><description>secondary sequenced ID</description></field>
         <field name="description" type="description"></field>
         <field name="amount" type="floating-point"></field>
         <field name="amountUomId" type="id"></field>
@@ -130,7 +130,7 @@ under the License.
     <entity entity-name="ExampleFeature"
         package-name="org.ofbiz.example.feature"
         title="Example Feature Entity" default-resource-name="ExampleEntityLabels">
-        <field name="exampleFeatureId" type="id-ne"><!-- primary sequenced ID --></field>
+        <field name="exampleFeatureId" type="id-ne"><description>primary sequenced ID</description></field>
         <field name="featureSourceEnumId" type="id-ne"></field>
         <field name="description" type="description"></field>
         <prim-key field="exampleFeatureId"/>
