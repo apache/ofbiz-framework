@@ -42,7 +42,7 @@ under the License.
         <tr>
           <td>                   
             <table width="100%" cellpadding="2" cellspacing="2" border="0">
-              <tr class="viewOneTR1">
+              <tr class="header-row">
                 <td nowrap><div class="tableheadtext">WebSite</div></td>
                 <td nowrap><div class="tableheadtext">PayMethod Type</div></td>
                 <td nowrap><div class="tableheadtext">Auth Service</div></td>
@@ -54,10 +54,10 @@ under the License.
               </tr>             
               <#if paymentSetups?has_content>
                 <#list paymentSetups as paymentSetting>
-                  <#if rowStyle?exists && rowStyle == "viewManyTR1">
-                    <#assign rowStyle = "viewManyTR2">
+                  <#if rowStyle?exists && rowStyle == "alternate-row">
+                    <#assign rowStyle = "alternate-rowSelected">
                   <#else>
-                    <#assign rowStyle = "viewManyTR1">
+                    <#assign rowStyle = "alternate-row">
                   </#if>
                   <tr class="${rowStyle}">
                     <td><div class="tabletext">${paymentSetting.siteName?if_exists}</div></td>

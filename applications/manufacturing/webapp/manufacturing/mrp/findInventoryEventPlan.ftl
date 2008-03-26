@@ -110,7 +110,7 @@ document.lookupinventory.productId.focus();
     <td width='100%'>
       <#if inventoryList?exists>
       <#if 0 < inventoryList?size>
-       <#assign rowClass = "viewManyTR2">
+       <#assign rowClass = "alternate-row">
          <table class="basic-table" cellspacing="0">
           <tr>
            <td width="50%" class="boxhead">${uiLabelMap.CommonElementsFound}</td>
