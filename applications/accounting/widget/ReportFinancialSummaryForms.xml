@@ -95,9 +95,9 @@ under the License.
         <field name="debit" use-when="showCredit"><display/></field>
         <field name="credit" entry-name="absolutePostedBalance" use-when="showCredit"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="credit" use-when="showDebit"><display/></field>
-        <field name="glAccountId" use-when="showTotals" widget-style="tableheadtext" widget-area-style="viewManyTR1"><display description="${uiLabelMap.CommonTotal}"/></field>
-        <field name="debit" entry-name="parameters.debitTotal" use-when="showTotals" widget-area-style="viewManyTR1"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="credit" entry-name="creditTotal" use-when="showTotals" widget-area-style="viewManyTR1"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="glAccountId" use-when="showTotals"><display description="${uiLabelMap.CommonTotal}"/></field>
+        <field name="debit" entry-name="parameters.debitTotal" use-when="showTotals"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="credit" entry-name="creditTotal" use-when="showTotals"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
     <form name="IncomeStatementParameters" type="single" target="prepareIncomeStatement"
