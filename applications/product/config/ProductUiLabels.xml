@@ -4832,6 +4832,9 @@
         <value xml:lang="it">Lista Prodotti Attributi Caratteristiche</value>
         <value xml:lang="th">List Product Feature Appl Attrs</value>
     </property>
+    <property key="PageTitleListProductFeatureTypes">
+        <value xml:lang="en">List Product Feature Types</value>
+    </property>
     <property key="PageTitleListProductStoreFinAccountSettings">
         <value xml:lang="en">List Product Store Financial Account Settings</value>
         <value xml:lang="it">Lista Negozio Configurazione Conti Finanziari</value>
@@ -14740,6 +14743,9 @@
     </property>
     <property key="ProductSearchFeatureCategory">
         <value xml:lang="en">Search feature category</value>
+    </property>
+    <property key="ProductSearchFeatureType">
+        <value xml:lang="en">Search feature type</value>
     </property>
     <property key="ProductSRCH">
         <value xml:lang="en">SRCH</value>
