@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="AMA" geoCode="AMA" geoId="CO-AMA" geoName="Amazonas" geoTypeId="STATE"/>
+    <Geo abbreviation="ANT" geoCode="ANT" geoId="CO-ANT" geoName="Antioquia" geoTypeId="STATE"/>
+    <Geo abbreviation="ARA" geoCode="ARA" geoId="CO-ARA" geoName="Arauca" geoTypeId="STATE"/>
+    <Geo abbreviation="ATL" geoCode="ATL" geoId="CO-ATL" geoName="Atlántico" geoTypeId="STATE"/>
+    <Geo abbreviation="BOL" geoCode="BOL" geoId="CO-BOL" geoName="Bolívar" geoTypeId="STATE"/>
+    <Geo abbreviation="BOY" geoCode="BOY" geoId="CO-BOY" geoName="Boyacá" geoTypeId="STATE"/>
+    <Geo abbreviation="CAL" geoCode="CAL" geoId="CO-CAL" geoName="Caldas" geoTypeId="STATE"/>
+    <Geo abbreviation="CAQ" geoCode="CAQ" geoId="CO-CAQ" geoName="Caquetá" geoTypeId="STATE"/>
+    <Geo abbreviation="CAS" geoCode="CAS" geoId="CO-CAS" geoName="Casanare" geoTypeId="STATE"/>
+    <Geo abbreviation="CAU" geoCode="CAU" geoId="CO-CAU" geoName="Cauca" geoTypeId="STATE"/>
+    <Geo abbreviation="CES" geoCode="CES" geoId="CO-CES" geoName="Cesar" geoTypeId="STATE"/>
+    <Geo abbreviation="CHO" geoCode="CHO" geoId="CO-CHO" geoName="Chocó" geoTypeId="STATE"/>
+    <Geo abbreviation="COR" geoCode="COR" geoId="CO-COR" geoName="Córdoba" geoTypeId="STATE"/>
+    <Geo abbreviation="CUN" geoCode="CUN" geoId="CO-CUN" geoName="Cundinamarca" geoTypeId="STATE"/>
+    <Geo abbreviation="DC" geoCode="DC" geoId="CO-DC" geoName="Bogotá D.C." geoTypeId="STATE"/>
+    <Geo abbreviation="GUA" geoCode="GUA" geoId="CO-GUA" geoName="Guainía" geoTypeId="STATE"/>
+    <Geo abbreviation="GUV" geoCode="GUV" geoId="CO-GUV" geoName="Guaviare" geoTypeId="STATE"/>
+    <Geo abbreviation="HUI" geoCode="HUI" geoId="CO-HUI" geoName="Huila" geoTypeId="STATE"/>
+    <Geo abbreviation="LAG" geoCode="LAG" geoId="CO-LAG" geoName="La Guajira" geoTypeId="STATE"/>
+    <Geo abbreviation="MAG" geoCode="MAG" geoId="CO-MAG" geoName="Magdalena" geoTypeId="STATE"/>
+    <Geo abbreviation="MET" geoCode="MET" geoId="CO-MET" geoName="Meta" geoTypeId="STATE"/>
+    <Geo abbreviation="NAR" geoCode="NAR" geoId="CO-NAR" geoName="Nariño" geoTypeId="STATE"/>
+    <Geo abbreviation="NSA" geoCode="NSA" geoId="CO-NSA" geoName="Norte de Santander" geoTypeId="STATE"/>
+    <Geo abbreviation="PUT" geoCode="PUT" geoId="CO-PUT" geoName="Putumayo" geoTypeId="STATE"/>
+    <Geo abbreviation="QUI" geoCode="QUI" geoId="CO-QUI" geoName="Quindío" geoTypeId="STATE"/>
+    <Geo abbreviation="RIS" geoCode="RIS" geoId="CO-RIS" geoName="Risaralda" geoTypeId="STATE"/>
+    <Geo abbreviation="SAN" geoCode="SAN" geoId="CO-SAN" geoName="Santander" geoTypeId="STATE"/>
+    <Geo abbreviation="SAP" geoCode="SAP" geoId="CO-SAP" geoName="San Andrés y Providencia" geoTypeId="STATE"/>
+    <Geo abbreviation="SUC" geoCode="SUC" geoId="CO-SUC" geoName="Sucre" geoTypeId="STATE"/>
+    <Geo abbreviation="TOL" geoCode="TOL" geoId="CO-TOL" geoName="Tolima" geoTypeId="STATE"/>
+    <Geo abbreviation="VAC" geoCode="VAC" geoId="CO-VAC" geoName="Valle del Cauca" geoTypeId="STATE"/>
+    <Geo abbreviation="VAU" geoCode="VAU" geoId="CO-VAU" geoName="Vaupés" geoTypeId="STATE"/>
+    <Geo abbreviation="VID" geoCode="VID" geoId="CO-VID" geoName="Vichada" geoTypeId="STATE"/>
+    
+    <GeoAssoc geoIdTo="CO-AMA" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-ANT" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-ARA" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-ATL" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-BOL" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-BOY" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-CAL" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-CAQ" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-CAS" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-CAU" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-CES" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-CHO" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-COR" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-CUN" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-DC" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-GUA" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-GUV" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-HUI" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-LAG" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-MAG" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-MET" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-NAR" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-NSA" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-PUT" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-QUI" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-RIS" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-SAN" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-SAP" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-SUC" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-TOL" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-VAC" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-VAU" geoId="COL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CO-VID" geoId="COL" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
