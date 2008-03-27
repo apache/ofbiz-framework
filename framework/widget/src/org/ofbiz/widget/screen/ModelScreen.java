@@ -18,14 +18,22 @@
  *******************************************************************************/
 package org.ofbiz.widget.screen;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastSet;
+
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -34,10 +42,10 @@ import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.webapp.control.ConfigXMLReader;
+import org.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.ofbiz.widget.ModelWidget;
 import org.w3c.dom.Element;
-
-import javolution.util.FastSet;
 
 /**
  * Widget Library - Screen model class
@@ -216,10 +224,10 @@ public class ModelScreen extends ModelWidget implements Serializable {
     }
     protected static void findFormNamesIncludedInWidget(ModelScreenWidget currentWidget, Set<String> allFormNamesIncluded) {
         if (currentWidget instanceof ModelScreenWidget.Form) {
-            ModelScreenWidget.Form form = (ModelScreenWidget.Form)currentWidget;
+            ModelScreenWidget.Form form = (ModelScreenWidget.Form) currentWidget;
             allFormNamesIncluded.add(form.locationExdr.getOriginal() + "#" + form.nameExdr.getOriginal());
         } else if (currentWidget instanceof ModelScreenWidget.Section) {
-            ModelScreenWidget.Section section = (ModelScreenWidget.Section)currentWidget;
+            ModelScreenWidget.Section section = (ModelScreenWidget.Section) currentWidget;
             if (section.subWidgets != null) {
                 for (ModelScreenWidget widget: section.subWidgets) {
                     findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
@@ -231,14 +239,14 @@ public class ModelScreen extends ModelWidget implements Serializable {
                 }
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
-            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection)currentWidget;
+            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
             if (decoratorSection.subWidgets != null) {
                 for (ModelScreenWidget widget: decoratorSection.subWidgets) {
                     findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
                 }
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
-            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen)currentWidget;
+            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
             if (decoratorScreen.sectionMap != null) {
                 Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.sectionMap.values();
                 for (ModelScreenWidget section: sections) {
@@ -246,14 +254,14 @@ public class ModelScreen extends ModelWidget implements Serializable {
                 }
             }
         } else if (currentWidget instanceof ModelScreenWidget.Container) {
-            ModelScreenWidget.Container container = (ModelScreenWidget.Container)currentWidget;
+            ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
             if (container.subWidgets != null) {
                 for (ModelScreenWidget widget: container.subWidgets) {
                     findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
                 }
             }
         } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
-            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet)currentWidget;
+            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
             if (screenlet.subWidgets != null) {
                 for (ModelScreenWidget widget: screenlet.subWidgets) {
                     findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
@@ -261,6 +269,108 @@ public class ModelScreen extends ModelWidget implements Serializable {
             }
         }
     }
+    
+    public Set<String> getAllRequestsLocationAndUri() throws GeneralException {
+        Set<String> allRequestNamesIncluded = FastSet.newInstance();
+        findRequestNamesLinkedtoInWidget(this.section, allRequestNamesIncluded);
+        return allRequestNamesIncluded;
+    }
+    protected static void findRequestNamesLinkedtoInWidget(ModelScreenWidget currentWidget, Set<String> allRequestNamesIncluded) throws GeneralException {
+        if (currentWidget instanceof ModelScreenWidget.Link) {
+            ModelScreenWidget.Link link = (ModelScreenWidget.Link) currentWidget;
+            String target = link.getTarget(null);
+            // Debug.logInfo("In findRequestNamesLinkedtoInWidget found link [" + link.rawString() + "] with target [" + target + "]", module);
+            
+            int indexOfDollarSignCurlyBrace = target.indexOf("${");
+            int indexOfQuestionMark = target.indexOf("?");
+            if (indexOfDollarSignCurlyBrace >= 0 && (indexOfQuestionMark < 0 || indexOfQuestionMark > indexOfDollarSignCurlyBrace)) {
+                // we have an expanded string in the requestUri part of the target, not much we can do about that...
+                return;
+            }
+            
+            if ("intra-app".equals(link.getUrlMode())) {
+                // look through all controller.xml files and find those with the request-uri referred to by the target
+                int endOfRequestUri = target.length();
+                if (target.indexOf('?') > 0) {
+                    endOfRequestUri = target.indexOf('?');
+                }
+                String requestUri = target.substring(0, endOfRequestUri);
+                Debug.logInfo("In findRequestNamesLinkedtoInWidget have intra-app link with requestUri [" + requestUri + "]", module);
+                
+                Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, null);
+                allRequestNamesIncluded.addAll(controllerLocAndRequestSet);
+                // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
+            } else if ("inter-app".equals(link.getUrlMode())) {
+                int firstChar = 0;
+                if (target.charAt(0) == '/') firstChar = 1;
+                int pathSep = target.indexOf('/', 1);
+                String webappMountPoint = null;
+                if (pathSep > 0) {
+                    // if not then no good, supposed to be a inter-app, but there is no path sep! will do general search with null and treat like an intra-app
+                    webappMountPoint = target.substring(firstChar, pathSep) + "/WEB-INF";
+                }
+                
+                int endOfRequestUri = target.length();
+                if (target.indexOf('?') > 0) {
+                    endOfRequestUri = target.indexOf('?');
+                }
+                int slashBeforeRequestUri = target.lastIndexOf('/', endOfRequestUri);
+                String requestUri = null;
+                if (slashBeforeRequestUri < 0) {
+                    requestUri = target.substring(0, endOfRequestUri);
+                } else {
+                    requestUri = target.substring(slashBeforeRequestUri, endOfRequestUri);
+                }
+                Debug.logInfo("In findRequestNamesLinkedtoInWidget have inter-app link with requestUri [" + requestUri + "]", module);
+                
+                Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, webappMountPoint);
+                allRequestNamesIncluded.addAll(controllerLocAndRequestSet);
+                // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.Section) {
+            ModelScreenWidget.Section section = (ModelScreenWidget.Section) currentWidget;
+            if (section.subWidgets != null) {
+                for (ModelScreenWidget widget: section.subWidgets) {
+                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
+                }
+            }
+            if (section.failWidgets != null) {
+                for (ModelScreenWidget widget: section.failWidgets) {
+                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
+            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
+            if (decoratorSection.subWidgets != null) {
+                for (ModelScreenWidget widget: decoratorSection.subWidgets) {
+                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
+            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
+            if (decoratorScreen.sectionMap != null) {
+                Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.sectionMap.values();
+                for (ModelScreenWidget section: sections) {
+                    findRequestNamesLinkedtoInWidget(section, allRequestNamesIncluded);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.Container) {
+            ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
+            if (container.subWidgets != null) {
+                for (ModelScreenWidget widget: container.subWidgets) {
+                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
+                }
+            }
+        } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
+            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
+            if (screenlet.subWidgets != null) {
+                for (ModelScreenWidget widget: screenlet.subWidgets) {
+                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
+                }
+            }
+        }
+    }
+    
 
     /**
      * Renders this screen to a String, i.e. in a text format, as defined with the
