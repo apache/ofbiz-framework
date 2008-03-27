@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.webapp.control;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
@@ -27,9 +29,12 @@ import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -42,6 +47,8 @@ import org.w3c.dom.Element;
 public class ConfigXMLReader {
 
     public static final String module = ConfigXMLReader.class.getName();
+    public static UtilCache controllerCache = new UtilCache("webapp.ControllerConfig");
+    public static UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = new UtilCache("webapp.ControllerSearchResults");
 
     public static ControllerConfig getControllerConfig(URL url) {
         ControllerConfig controllerConfig = (ControllerConfig) controllerCache.get(url);
@@ -57,8 +64,6 @@ public class ConfigXMLReader {
         }
         return controllerConfig;
     }
-    
-    public static UtilCache controllerCache = new UtilCache("webapp.ControllerConfig");
     
     public static class ControllerConfig {
         public URL url;
@@ -81,6 +86,49 @@ public class ConfigXMLReader {
                 this.defaultRequest = loadDefaultRequest(rootElement, url);
             }
         }
+    }
+    
+    public static Set<String> findControllerFilesWithRequest(String requestUri, String controllerPartialPath) throws GeneralException {
+        Set<String> allControllerRequestSet = FastSet.newInstance();
+        
+        String cacheId = controllerPartialPath != null ? controllerPartialPath : "NOPARTIALPATH";
+        List<ControllerConfig> controllerConfigs = (List<ControllerConfig>) controllerSearchResultsCache.get(cacheId);
+        
+        if (controllerConfigs == null) {
+            try {
+                // find controller.xml file with webappMountPoint + "/WEB-INF" in the path
+                List<File> controllerFiles = FileUtil.findXmlFiles(null, controllerPartialPath, "site-conf", "site-conf.xsd");
+                
+                controllerConfigs = FastList.newInstance();
+                for (File controllerFile: controllerFiles) {
+                    URL controllerUrl = null;
+                    try {
+                        controllerUrl = controllerFile.toURL();
+                    } catch(MalformedURLException mue) {
+                        throw new GeneralException(mue);
+                    }
+                    ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
+                    controllerConfigs.add(cc);
+                }
+                
+                controllerSearchResultsCache.put(cacheId, controllerConfigs);
+            } catch (IOException e) {
+                throw new GeneralException("Error finding controller XML files to lookup request references: " + e.toString(), e);
+            }
+        }
+        
+        if (controllerConfigs != null) {
+            for (ControllerConfig cc: controllerConfigs) {
+                // make sure it has the named request in it
+                if (cc.requestMap.get(requestUri) != null) {
+                    String requestUniqueId = cc.url.toExternalForm() + "#" + requestUri;
+                    allControllerRequestSet.add(requestUniqueId);
+                    // Debug.logInfo("========== In findControllerFilesWithRequest found controller with request here [" + requestUniqueId + "]", module);
+                }
+            }
+        }
+        
+        return allControllerRequestSet;
     }
 
     /** Site Config Variables */

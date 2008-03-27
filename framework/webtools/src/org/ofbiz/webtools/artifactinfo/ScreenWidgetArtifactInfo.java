@@ -28,6 +28,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.screen.ModelScreen;
@@ -71,6 +72,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         this.populateUsedEntities();
         this.populateUsedServices();
         this.populateIncludedForms();
+        this.populateLinkedRequests();
     }
     protected void populateUsedServices() throws GeneralException {
         // populate servicesUsedInThisScreen and for each the reverse-associate cache in the aif
@@ -140,6 +142,25 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             this.formsIncludedInThisScreen.add(aif.getFormWidgetArtifactInfo(formName));
             // the reverse reference
             UtilMisc.addToSetInMap(this, aif.allScreenInfosReferringToForm, formName);
+        }
+    }
+    
+    protected void populateLinkedRequests() throws GeneralException{
+        Set<String> allRequestUniqueId = this.modelScreen.getAllRequestsLocationAndUri();
+        
+        for (String requestUniqueId: allRequestUniqueId) {
+            if (requestUniqueId.contains("${")) {
+                continue;
+            }
+            
+            if (requestUniqueId.indexOf("#") > -1) {
+                String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
+                String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
+                // the forward reference
+                this.requestsLinkedToInScreen.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
+                // the reverse reference
+                UtilMisc.addToSetInMap(this, aif.allScreenInfosReferringToRequest, requestUniqueId);
+            }
         }
     }
 

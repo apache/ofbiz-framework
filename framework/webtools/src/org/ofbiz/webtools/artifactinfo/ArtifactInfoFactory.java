@@ -162,9 +162,9 @@ public class ArtifactInfoFactory {
             List<File> formFiles = null;
             List<File> controllerFiles = null;
             try {
-                screenFiles = this.findScreenWidgetDefinitionFiles(rootComponentPath);
-                formFiles = this.findFormWidgetDefinitionFiles(rootComponentPath);
-                controllerFiles = this.findWebappControllerFiles(rootComponentPath);
+                screenFiles = FileUtil.findXmlFiles(rootComponentPath, null, "screens", "widget-screen.xsd");
+                formFiles = FileUtil.findXmlFiles(rootComponentPath, null, "forms", "widget-form.xsd");
+                controllerFiles = FileUtil.findXmlFiles(rootComponentPath, null, "site-conf", "site-conf.xsd");
             } catch(IOException ioe) {
                 throw new GeneralException(ioe.getMessage());
             }
@@ -421,116 +421,4 @@ public class ArtifactInfoFactory {
         
         return aiBaseSet;
     }
-    
-    public static List<File> findFormWidgetDefinitionFiles(String basePath) throws IOException {
-        if (basePath == null) {
-            basePath = System.getProperty("ofbiz.home");
-        }
-        List<File> fileList = FastList.newInstance();
-        FileUtil.searchFiles(fileList, new File(basePath), new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                File file = new File(dir, name);
-                if (file.getName().startsWith(".")) {
-                    return false;
-                }
-                if (file.isDirectory()) {
-                    return true;
-                }
-                if (name.endsWith(".xml")) {
-                    String xmlFile = null;
-                    try {
-                        xmlFile = FileUtil.readTextFile(file, true).toString();
-                    } catch (FileNotFoundException e) {
-                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
-                        return false;
-                    } catch (IOException e) {
-                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
-                        return false;
-                    }
-                    if (UtilValidate.isNotEmpty(xmlFile)) {
-                        return xmlFile.indexOf("<forms ") > 0 && xmlFile.indexOf("widget-form.xsd") > 0;
-                    }
-                } else {
-                    return false;
-                }
-                return false;
-            }
-        }, true);
-        return fileList;
-    }
-
-    public static List<File> findScreenWidgetDefinitionFiles(String basePath) throws IOException {
-        if (basePath == null) {
-            basePath = System.getProperty("ofbiz.home");
-        }
-        List<File> fileList = FastList.newInstance();
-        FileUtil.searchFiles(fileList, new File(basePath), new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                File file = new File(dir, name);
-                if (file.getName().startsWith(".")) {
-                    return false;
-                }
-                if (file.isDirectory()) {
-                    return true;
-                }
-                if (name.endsWith(".xml")) {
-                    String xmlFile = null;
-                    try {
-                        xmlFile = FileUtil.readTextFile(file, true).toString();
-                    } catch (FileNotFoundException e) {
-                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
-                        return false;
-                    } catch (IOException e) {
-                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
-                        return false;
-                    }
-                    if (UtilValidate.isNotEmpty(xmlFile)) {
-                        return xmlFile.indexOf("<screens ") > 0 && xmlFile.indexOf("widget-screen.xsd") > 0;
-                    }
-                } else {
-                    return false;
-                }
-                return false;
-            }
-        }, true);
-        return fileList;
-    }
-
-    public static List<File> findWebappControllerFiles(String basePath) throws IOException {
-        if (basePath == null) {
-            basePath = System.getProperty("ofbiz.home");
-        }
-        List<File> fileList = FastList.newInstance();
-        FileUtil.searchFiles(fileList, new File(basePath), new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                File file = new File(dir, name);
-                if (file.getName().startsWith(".")) {
-                    return false;
-                }
-                if (file.isDirectory()) {
-                    return true;
-                }
-                if (name.endsWith(".xml")) {
-                    String xmlFile = null;
-                    try {
-                        xmlFile = FileUtil.readTextFile(file, true).toString();
-                    } catch (FileNotFoundException e) {
-                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
-                        return false;
-                    } catch (IOException e) {
-                        Debug.logWarning("Error reading xml file [" + file + "] for service implementation: " + e.toString(), module);
-                        return false;
-                    }
-                    if (UtilValidate.isNotEmpty(xmlFile)) {
-                        return xmlFile.indexOf("<site-conf ") > 0 && xmlFile.indexOf("site-conf.xsd") > 0;
-                    }
-                } else {
-                    return false;
-                }
-                return false;
-            }
-        }, true);
-        return fileList;
-    }
-
 }
