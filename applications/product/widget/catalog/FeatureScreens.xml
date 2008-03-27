@@ -98,20 +98,25 @@
                 <set field="titleProperty" value="PageTitleEditFeatureTypes"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureType"/>
-    
-                <entity-condition entity-name="ProductFeatureType" list-name="featureTypes">
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <link target="EditFeatureType" text="${uiLabelMap.ProductNewFeatureType}" style="buttontext"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ProductSearchFeatureType}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <container><link target="EditFeatureType" text="${uiLabelMap.ProductNewFeatureType}" style="buttontext"/></container>
+                                <include-form name="FindFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            </container>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditFeatureTypes}"/>
+                                    <label text="${uiLabelMap.PageTitleListProductFeatureTypes}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">

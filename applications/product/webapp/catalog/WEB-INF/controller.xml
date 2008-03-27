@@ -1163,7 +1163,7 @@ under the License.
     <request-map uri="updateProductFeatureType">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateProductFeatureType"/>
-        <response name="success" type="view" value="EditFeatureTypes"/>
+        <response name="success" type="view" value="EditFeatureType"/>
         <response name="error" type="view" value="EditFeatureType"/>
     </request-map>
     <request-map uri="removeProductFeatureType">

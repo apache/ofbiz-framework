@@ -105,15 +105,30 @@
                 description="${uiLabelMap.CommonDelete}"/>
         </field>
     </form>
-
-    <form name="ListFeatureTypes" list-name="featureTypes" target="" title="" type="list" paginate-target="EditFeatureTypes"
+    <form name="FindFeatureType" type="single" target="EditFeatureTypes" 
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productFeatureTypeId"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="description"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="ListFeatureTypes" list-name="listIt" target="" title="" type="list" paginate-target="EditFeatureTypes"
         odd-row-style="alternate-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="ProductFeatureType" default-field-type="display"/>
-        <field name="productFeatureTypeId"><hidden/></field>
-        <field name="parentTypeId"><hidden/></field>
-        <field name="hasTable"><hidden/></field>
-        <field name="editFeatureType" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink target="EditFeatureType?productFeatureTypeId=${productFeatureTypeId}" description="${uiLabelMap.CommonEdit}"/>
+        <actions>
+            <set field="parameters.noConditionFind" value="Y"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="ProductFeatureType"/>
+                <field-map field-name="orderBy" value="productFeatureTypeId"/>
+            </service>
+        </actions>       
+        <field name="productFeatureTypeId" widget-style="buttontext">
+            <hyperlink target="EditFeatureType?productFeatureTypeId=${productFeatureTypeId}" description="${productFeatureTypeId}"/>            
+        </field>
+        <field name="description"><display/></field>
+        <field name="parentTypeId">
+            <display-entity entity-name="ProductFeatureType" description="${description}" key-field-name="productFeatureTypeId">
+                <sub-hyperlink target="EditFeatureType?productFeatureTypeId=${parentTypeId}" description="${parentTypeId}"/>
+            </display-entity>
         </field>
         <field name="removeFeatureType" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="removeProductFeatureType?productFeatureTypeId=${productFeatureTypeId}" description="${uiLabelMap.CommonDelete}"/>
