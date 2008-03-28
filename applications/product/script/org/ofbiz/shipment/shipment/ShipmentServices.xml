@@ -1930,6 +1930,29 @@ under the License.
         <remove-value value-name="quantityBreak"/>
         <check-errors/>
     </simple-method>
+    
+     <!--Service for test Shipment Service -->
+    <simple-method method-name="testCreateShipmentRouteSegment" short-description="Test to create Shipment Route Segment" login-required="false">
+        <log level="info" message="====================Create a Shipment Route Segment test case=========================================="/>
+        <set field="shipRouteSegMap.shipmentId" value="10000"/>
+        
+        <entity-one entity-name="UserLogin" value-name="shipRouteSegMap.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="createShipmentRouteSegment" in-map-name="shipRouteSegMap">
+            <result-to-field result-name="shipmentRouteSegmentId" field-name="shipmentRouteSegmentId" map-name="routeSegMap"/>
+        </call-service>
+        <entity-one entity-name="ShipmentRouteSegment" value-name="shipmentRouteSegment">
+            <field-map field-name="shipmentId" env-name="shipRouteSegMap.shipmentId"/>
+            <field-map field-name="shipmentRouteSegmentId" env-name="routeSegMap.shipmentRouteSegmentId"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field-name="shipmentRouteSegment"/></not>
+            <if-compare-field field-name="shipmentRouteSegment.shipmentId" operator="equals" to-field-name="shipRouteSegMap.shipmentId"/>
+            <if-compare-field field-name="shipmentRouteSegment.shipmentRouteSegmentId" operator="equals" to-field-name="routeSegMap.shipmentRouteSegmentId"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
 
     <!-- FooBar services -->
