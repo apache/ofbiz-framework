@@ -259,7 +259,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="acctgTransEntries" type="java.util.List" mode="IN" optional="false"/>
-        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/><!-- no transaction is created when an error occurred -->
+        <attribute name="acctgTransId" type="String" mode="OUT"/>
     </service>
     <service name="calculateAcctgTransTrialBalance" default-entity-name="AcctgTrans" engine="simple"
             location="org/ofbiz/accounting/ledger/AcctgTransServices.xml" invoke="calculateAcctgTransTrialBalance" auth="true">
