@@ -435,6 +435,14 @@
                 </entity-options>
             </drop-down>
         </field>
+        <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}">
+            <drop-down>
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>        
+            </drop-down>
+        </field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">

@@ -102,7 +102,7 @@ void retrieveWorkEffortData() {
 	        
 	        // get party assignment data to be able to set the task to complete
 		    workEffortPartyAssigns = EntityUtil.filterByDate(entryWorkEffort.getRelatedByAnd("WorkEffortPartyAssignment", UtilMisc.toMap("partyId", partyId)));
-	        if (workEffortPartyAssigns != null) {
+	        if (UtilValidate.isNotEmpty(workEffortPartyAssigns)) {
 	            workEffortPartyAssign = workEffortPartyAssigns.get(0);
 	            entry.put("fromDate", workEffortPartyAssign.getTimestamp("fromDate"));
 	            entry.put("roleTypeId", workEffortPartyAssign.getString("roleTypeId"));

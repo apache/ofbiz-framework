@@ -776,7 +776,7 @@
             <if-compare field-name="lowInfo.currentStatusId" value="PTS_CREATED" operator="equals">
                 <get-related value-name="lowInfo" relation-name="WorkEffortPartyAssignment" list-name="assigns"/>
                 <if-empty field-name="assigns">
-                    <set field="lowInfo.currentStatusId" value="PTS_CREATED_UA"/>
+                    <set field="lowInfo.currentStatusId" value="PTS_CREATED"/>
                     <else>
                         <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="entries"/>
                         <if-empty field-name="entries">

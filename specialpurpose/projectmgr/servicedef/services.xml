@@ -28,6 +28,7 @@ under the License.
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="timesheetId" type="String" mode="OUT" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
     </service>
