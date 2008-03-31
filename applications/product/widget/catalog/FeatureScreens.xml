@@ -61,13 +61,12 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditFeature"/>
                 <set field="headerItem" value="featurecats"/>
-    
                 <entity-one entity-name="ProductFeature" value-name="productFeature" auto-field-map="true"/>
-                <!--<script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeature.bsh"/>-->
-                <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditSupplierFeature.bsh"/>
+                <entity-and entity-name="SupplierProductFeature" list-name="supplierProductFeatures">
+                    <field-map field-name="productFeatureId" env-name="parameters.productFeatureId"/>
+                </entity-and>
             </actions>
             <widgets>
-                <!--<decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">-->
                 <decorator-screen name="CommonFeatureDecorator">
                     <decorator-section name="body">
                         <container style="screenlet">
@@ -84,9 +83,34 @@
                                 </section>
                             </container>
                         </container>
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/feature/EditFeature.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ProductSupplierSpecificFeatureInformation}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditSupplierProductFeatures" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ProductCreateInformationNewSupplier}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="CreateSupplierProductFeature" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -138,7 +162,6 @@
                 <set field="titleProperty" value="PageTitleEditFeatureType"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureType"/>
-    
                 <set field="productFeatureTypeId" from-field="parameters.productFeatureTypeId"/>
                 <entity-one entity-name="ProductFeatureType" value-name="productFeatureType"/>
             </actions>
@@ -155,6 +178,80 @@
                                 <section>
                                     <widgets>
                                         <include-form name="EditFeatureType" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditFeatureInterActions">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFeatureInterActions"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeatureInterAction"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.SearchFeatureInterAction}"/>
+                                </container>
+                            </container>                            
+                            <container style="screenlet-body">
+                                <container><link target="EditFeatureInterAction" text="${uiLabelMap.ProductNewFeatureInterAction}" style="buttontext"/></container>
+                                <include-form name="FindFeatureInterAction" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            </container>                            
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PageTitleAddFeatureInterActions}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListFeatureInterActions" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>    
+    <screen name="EditFeatureInterAction">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFeatureInterAction"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeatureInterAction"/>
+                
+                <set field="productFeatureId" from-field="parameters.productFeatureId"/>
+                <set field="productFeatureIdTo" from-field="parameters.productFeatureIdTo"/>                
+                <entity-one entity-name="ProductFeatureIactn" value-name="productFeatureIactn"/>       
+                
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PageTitleEditFeatureInterAction}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditFeatureInterAction" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>

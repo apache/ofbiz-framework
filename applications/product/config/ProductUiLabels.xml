@@ -4083,6 +4083,12 @@
         <value xml:lang="th">แก้ไขประเภทการทำงาน</value>
         <value xml:lang="zh">编辑特征类型</value>
     </property>
+    <property key="PageTitleAddFeatureInterAction">
+        <value xml:lang="en">Add Feature InterAction</value>
+    </property>
+    <property key="PageTitleEditFeatureInterActions">
+        <value xml:lang="en">Edit Feature InterActions</value>
+    </property>
     <property key="PageTitleEditInventoryItem">
         <value xml:lang="en">Edit Inventory Item</value>
         <value xml:lang="es">Editar Artículo de Inventario</value>
@@ -9186,6 +9192,9 @@
         <value xml:lang="th">ประเภทลักษณะ</value>
         <value xml:lang="zh">特征类型</value>
     </property>
+    <property key="ProductFeatureInteraction">
+        <value xml:lang="en">Feature Interaction</value>
+    </property>
     <property key="ProductFeatures">
         <value xml:lang="en">Features</value>
         <value xml:lang="es">Características</value>
@@ -11274,6 +11283,9 @@
         <value xml:lang="ru">Новый тип</value>
         <value xml:lang="th">ประเภทลักษณะใหม่</value>
         <value xml:lang="zh">新建特征类型</value>
+    </property>
+    <property key="ProductNewFeatureInterAction">
+        <value xml:lang="en">New Feature InterAction</value>
     </property>
     <property key="ProductNewGroup">
         <value xml:lang="en">New Group</value>
@@ -14743,6 +14755,9 @@
     </property>
     <property key="ProductSearchFeatureCategory">
         <value xml:lang="en">Search feature category</value>
+    </property>
+    <property key="SearchFeatureInterAction">
+        <value xml:lang="en">Search feature interAction</value>
     </property>
     <property key="ProductSearchFeatureType">
         <value xml:lang="en">Search feature type</value>

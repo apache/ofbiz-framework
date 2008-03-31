@@ -25,6 +25,7 @@ under the License.
         <li><a href="<@ofbizUrl>EditFeatureTypes</@ofbizUrl>" class="${selectedClassMap.FeatureType?default(unselectedClassName)}">${uiLabelMap.ProductFeatureType}</a></li>
         <li><a href="<@ofbizUrl>EditFeatureCategories</@ofbizUrl>" class="${selectedClassMap.FeatureCategory?default(unselectedClassName)}">${uiLabelMap.ProductFeatureCategory}</a></li>
         <li><a href="<@ofbizUrl>EditFeatureGroups</@ofbizUrl>" class="${selectedClassMap.FeatureGroup?default(unselectedClassName)}">${uiLabelMap.ProductFeatureGroup}</a></li>
+        <li><a href="<@ofbizUrl>EditFeatureInterActions</@ofbizUrl>" class="${selectedClassMap.FeatureInterAction?default(unselectedClassName)}">${uiLabelMap.ProductFeatureInteraction}</a></li>
     </ul>
 </div>
 <br/>

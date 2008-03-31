@@ -1154,6 +1154,26 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFeatureType"/>
     </request-map>
+    <request-map uri="EditFeatureInterActions">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFeatureInterActions"/>
+    </request-map>
+    <request-map uri="EditFeatureInterAction">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFeatureInterAction"/>
+    </request-map>
+    <request-map uri="createProductFeatureIactn">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductFeatureIactn"/>
+        <response name="success" type="view" value="EditFeatureInterAction"/>
+        <response name="error" type="view" value="EditFeatureInterAction"/>
+    </request-map>
+    <request-map uri="removeProductFeatureIactn">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeProductFeatureIactn"/>
+        <response name="success" type="request-redirect-noparam" value="EditFeatureInterActions"/>
+        <response name="error" type="view" value="EditFeatureInterAction"/>
+    </request-map>
     <request-map uri="createProductFeatureType">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createProductFeatureType"/>
@@ -2554,6 +2574,8 @@ under the License.
     <view-map name="EditFeatureGroupAppls" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeatureGroupAppls"/>
     <view-map name="EditFeatureTypes" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeatureTypes"/>
     <view-map name="EditFeatureType" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeatureType"/>
+    <view-map name="EditFeatureInterActions" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeatureInterActions"/>
+    <view-map name="EditFeatureInterAction" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeatureInterAction"/>
     <view-map name="QuickAddProductFeatures" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#QuickAddProductFeatures"/>
     <view-map name="CreateProductFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#CreateProductFeature"/>
     
