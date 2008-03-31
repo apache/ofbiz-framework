@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,6 +21,8 @@ package org.ofbiz.appservers;
 
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.io.*;
 
@@ -39,18 +41,19 @@ import org.ofbiz.base.component.ComponentConfig;
  * GenerateContainer - Generates Configuration Files For Application Servers
  * ** This container requires StartInfoLoader to be loaded at startup.
  * ** This container requires the ComponentContainer to be loaded first.
- * 
+ *
  */
 public class GenerateContainer implements Container {
 
     public static final String module = GenerateContainer.class.getName();
     public static final String source = "/framework/appserver/templates/";
     public static final String target = "/setup/";
+    private boolean isGeronimo = false;
+
 
     protected String configFile = null;
     protected String ofbizHome = null;
     protected String args[] = null;
-
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
@@ -59,6 +62,7 @@ public class GenerateContainer implements Container {
         this.ofbizHome = System.getProperty("ofbiz.home");
         this.configFile = configFile;
         this.args = args;
+        this.isGeronimo = args[0].toLowerCase().contains("geronimo") || args[0].toLowerCase().contains("wasce");
     }
 
     /**
@@ -82,10 +86,29 @@ public class GenerateContainer implements Container {
     private void generateFiles() throws ContainerException {
         File files[] = getTemplates();
         Map<String, Object> dataMap = buildDataMap();
+        if (isGeronimo) {
+            String serverType = args[0];
+            String geronimoHome = null;
+            if (args.length > 2) {
+                geronimoHome = args[2];
+            }
+            GenerateGeronimoDeployment geronimoDeployment = new GenerateGeronimoDeployment();
+            List classpathJars = geronimoDeployment.generate(serverType, geronimoHome);
+            if (classpathJars == null) {
+                throw new ContainerException("Error in Geronimo deployment, please check the log");
+            }
+            dataMap.put("classpathJars", classpathJars);
+        }
 
         //Debug.log("Using Data : " + dataMap, module);
+        String applicationPrefix = "";
+        if (args.length > 3 && args[3].length() > 0) {
+            applicationPrefix = args[3] + "-";
+        }
+        dataMap.put("applicationPrefix", applicationPrefix);
+        dataMap.put("pathSeparatorChar", File.pathSeparatorChar);
         for (File file: files) {
-            if (!file.isDirectory() && !file.isHidden()) {
+            if (isGeronimo && !(file.isDirectory() || file.isHidden() || file.getName().equalsIgnoreCase("geronimo-web.xml"))) { 
                 parseTemplate(file, dataMap);
             }
         }
@@ -116,6 +139,7 @@ public class GenerateContainer implements Container {
         dataMap.put("classpathDirs", c[1]);
         dataMap.put("env", System.getProperties());
         dataMap.put("webApps", ComponentConfig.getAllWebappResourceInfos());
+        dataMap.put("ofbizHome", System.getProperty("ofbiz.home"));
         return dataMap;
     }
 
@@ -134,20 +158,30 @@ public class GenerateContainer implements Container {
                 }
             }
         }
-
         List[] lists = { jar, dir };
         return lists;
     }
 
     private void parseTemplate(File templateFile, Map<String, Object> dataMap) throws ContainerException {
         Debug.log("Parsing template : " + templateFile.getAbsolutePath(), module);
+        Reader reader = null;
+        try {
+            reader = new InputStreamReader(new FileInputStream(templateFile));
+        } catch (FileNotFoundException e) {
+            throw new ContainerException(e);
+        }
 
         // create the target file/directory
         String targetDirectoryName = args.length > 1 ? args[1] : null;
         if (targetDirectoryName == null) {
             targetDirectoryName = target;
         }
-        String targetDirectory = ofbizHome + targetDirectoryName + args[0];
+        String targetDirectory = null;
+        if (!isGeronimo) {
+            targetDirectory = ofbizHome + targetDirectoryName + args[0];
+        } else {
+            targetDirectory = ofbizHome + targetDirectoryName;
+        }
         File targetDir = new File(targetDirectory);
         if (!targetDir.exists()) {
             boolean created = targetDir.mkdirs();
