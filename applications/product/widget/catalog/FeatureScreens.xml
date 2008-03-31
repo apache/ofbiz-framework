@@ -204,14 +204,14 @@
                                 </container>
                             </container>                            
                             <container style="screenlet-body">
-                                <container><link target="EditFeatureInterAction" text="${uiLabelMap.ProductNewFeatureInterAction}" style="buttontext"/></container>
+                                <container><link target="EditFeatureInterActions" text="${uiLabelMap.ProductNewFeatureInterAction}" style="buttontext"/></container>
                                 <include-form name="FindFeatureInterAction" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
                             </container>                            
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddFeatureInterActions}"/>
+                                    <label text="${uiLabelMap.PageTitleAddFeatureInterAction}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
