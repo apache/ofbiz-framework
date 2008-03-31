@@ -403,7 +403,7 @@ public class StringUtil {
      * @param regex
      * Removes all matches of regex from a str
      */
-    private static String removeRegex(String str, String regex) {
+    public static String removeRegex(String str, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
         return matcher.replaceAll("");
@@ -415,10 +415,10 @@ public class StringUtil {
      * @return
      */
     public static String addToNumberString(String numberString, long addAmount) {
-	if (numberString == null) return null;
-	
-	int origLength = numberString.length();
-	long number = Long.parseLong(numberString);
+    if (numberString == null) return null;
+    
+    int origLength = numberString.length();
+    long number = Long.parseLong(numberString);
         return padNumberString(Long.toString(number + addAmount), origLength);
     }
     
