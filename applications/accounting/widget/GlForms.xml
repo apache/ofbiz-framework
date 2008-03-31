@@ -54,7 +54,7 @@ under the License.
         </field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="fromDate"><date-time/></field>
