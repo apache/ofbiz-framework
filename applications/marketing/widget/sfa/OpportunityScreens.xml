@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="FindOpportunity">
+        <section>
+            <actions>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.SfaFindOpportunities}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container><link target="NewOpportunity" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                        <include-form name="FindOpportunity" location="component://marketing/webapp/sfa/opportunity/OpportunityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container> 
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.SfaFindResults}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <container>
+                                    <section>
+                                        <widgets>
+                                            <include-form name="listOpportunity" location="component://marketing/webapp/sfa/opportunity/OpportunityForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </container>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewOpportunity">
+        <section>
+            <actions>
+                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
+                <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.SfaNewOpportunity}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="NewOpportunity" location="component://marketing/webapp/sfa/opportunity/OpportunityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container> 
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="viewOpportunity">
+        <section>
+            <actions>
+                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
+                <set field="titleProperty" value="Opportunities"/>
+                <set field="tabButtonItem" value="opportunityView"/>   
+                <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.SfaOpportunityInfo}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ViewOpportunity" location="component://marketing/webapp/sfa/opportunity/OpportunityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container> 
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditOpportunity">
+        <section>
+            <actions>
+                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"></entity-one>
+                <set field="titleProperty" value="Opportunities"/>
+                <set field="tabButtonItem" value="editOpportunity"/>   
+                <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.SfaEditOpportunity}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditOpportunity" location="component://marketing/webapp/sfa/opportunity/OpportunityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container> 
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
