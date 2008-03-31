@@ -57,5 +57,5 @@ under the License.
 
     <EnumerationType description="Tracking Code Source" enumTypeId="TRACKINGCODE_SRC" hasTable="N" parentTypeId=""/>
     <Enumeration description="Cookie" enumCode="COOKIE" enumId="TKCDSRC_COOKIE" sequenceId="01" enumTypeId="TRACKINGCODE_SRC"/>
-    <Enumeration description="URL Parameter" enumCode="URL_PARAM" enumId="TKCDSRC_URL_PARAM" sequenceId="01" enumTypeId="TRACKINGCODE_SRC"/>
+    <Enumeration description="URL Parameter" enumCode="URL_PARAM" enumId="TKCDSRC_URL_PARAM" sequenceId="01" enumTypeId="TRACKINGCODE_SRC"/>   
 </entity-engine-xml>

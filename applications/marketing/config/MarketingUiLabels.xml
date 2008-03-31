@@ -1107,6 +1107,9 @@
     <property key="SfaOpportunities">
         <value xml:lang="en">Opportunities</value>
     </property>
+    <property key="SfaNewOpportunity">
+        <value xml:lang="en">Create New Opportunity</value>
+    </property>
     <property key="SfaLeads">
         <value xml:lang="en">Leads</value>
     </property>
@@ -1115,6 +1118,51 @@
     </property>
     <property key="SfaManagerWelcome">
         <value xml:lang="en">Welcome to the SFA Manager Application</value>
+    </property>
+    <property key="SfaFindOpportunities">
+        <value xml:lang="en">Find Opportunities</value>
+    </property>
+    <property key="SfaFindResults">
+        <value xml:lang="en">Find Results</value>
+    </property>
+    <property key="SfaOpportunityName">
+        <value xml:lang="en">Opportunity Name</value>
+    </property>
+    <property key="SfaInitialAccount">
+        <value xml:lang="en">Initial Account</value>
+    </property>
+    <property key="SfaEstimatedAmount">
+        <value xml:lang="en">Estimated Amount</value>
+    </property>   
+    <property key="SfaInitialStage">
+        <value xml:lang="en">Initial Stage</value>
+    </property> 
+    <property key="SfaCloseDate">
+        <value xml:lang="en">Close Date</value>
+    </property>  
+    <property key="SfaType">
+        <value xml:lang="en">Type</value>
+    </property>
+    <property key="SfaNextStep">
+        <value xml:lang="en">Next Step</value>
+    </property> 
+    <property key="SfaOpportunitySummary">
+        <value xml:lang="en">Opportunity Summary</value>
+    </property>
+    <property key="SfaEditOpportunity">
+        <value xml:lang="en">Edit Opportunity</value>
+    </property>
+    <property key="SfaOpportunityInfo">
+        <value xml:lang="en">Opportunity Information</value>
+    </property>
+    <property key="SfaOpportunityId">
+        <value xml:lang="en">Opportunity ID</value>
+    </property>
+    <property key="SfaProbability">
+        <value xml:lang="en">Probability(%)</value>
+    </property>
+    <property key="DataSourceLabel">
+        <value xml:lang="en">Source</value>
     </property>
     <property key="Tracking">
         <value xml:lang="en">Tracking</value>
