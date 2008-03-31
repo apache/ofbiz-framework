@@ -2387,6 +2387,7 @@ under the License.
       <field name="includeInPromotions" type="indicator"></field>
       <field name="isVirtual" type="indicator"></field>
       <field name="isVariant" type="indicator"></field>
+      <field name="newVirtualVariantMethod" type="indicator"><description>If this field is set to 'Y', the new feature variant selection method will be used, other values will use the old method</description></field>
       <field name="originGeoId" type="id"></field>
       <field name="requirementMethodEnumId" type="id"></field>
       <field name="billOfMaterialLevel" type="numeric"></field>

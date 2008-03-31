@@ -1174,6 +1174,18 @@ under the License.
         <response name="success" type="request-redirect-noparam" value="EditFeatureInterActions"/>
         <response name="error" type="view" value="EditFeatureInterAction"/>
     </request-map>
+    <request-map uri="AddProductFeatureIactn">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductFeatureIactn"/>
+        <response name="success" type="view" value="EditProductFeatures"/>
+        <response name="error" type="view" value="EditProductFeatures"/>
+    </request-map> 
+    <request-map uri="removeFeatureIactn">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeProductFeatureIactn"/>
+        <response name="success" type="view" value="EditProductFeatures"/>
+        <response name="error" type="view" value="EditProductFeatures"/>
+    </request-map>
     <request-map uri="createProductFeatureType">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createProductFeatureType"/>

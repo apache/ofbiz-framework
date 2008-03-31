@@ -41,6 +41,9 @@ under the License.
         <field position="2" name="isVariant" title="${uiLabelMap.ProductVariantProduct}">
             <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
+        <field position="3" name="newVirtualVariantMethod" title="${uiLabelMap.ProductNewVirtualVariantMethod}">
+            <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
+        </field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down no-current-selected-key="FINISHED_GOOD">
                 <entity-options entity-name="ProductType" description="${description}"> <!-- [${productTypeId}] -->
@@ -1219,7 +1222,50 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-
+    <form name="ListFeatureInteractions"  list-name="featureInteractions" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <field name="productFeatureId">
+            <display-entity entity-name="ProductFeature" description="${description}">
+                <sub-hyperlink target="EditFeature?productFeatureId=${productFeatureId}" description="[${productFeatureId}]"/>    
+            </display-entity>
+        </field>
+        <field name="productFeatureIdTo">
+            <display-entity entity-name="ProductFeature" description="${description}" key-field-name="productFeatureId">
+                <sub-hyperlink target="EditFeature?productFeatureId=${productFeatureIdTo}" description="[${productFeatureIdTo}]"/>    
+            </display-entity>
+        </field>
+        <field name="productFeatureIactnTypeId"><display-entity entity-name="ProductFeatureIactnType"/></field>
+        
+        <field name="removeFeatureInterAction" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="removeFeatureIactn?productFeatureId=${productFeatureId}&amp;productFeatureIdTo=${productFeatureIdTo}&amp;productId=${productId}" description="${uiLabelMap.CommonDelete}"/>
+        </field>
+    </form> 
+    <form name="AddFeatureInteraction" type="single" target="AddProductFeatureIactn" title="" default-map-name="productFeatureIactn"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productId"><hidden/></field>
+        <field name="productFeatureId" position="1">
+            <drop-down allow-empty="true">
+                <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeature">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productFeatureIdTo" position="2">
+            <drop-down allow-empty="true">
+                <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeature" key-field-name="productFeatureId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productFeatureIactnTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="ProductFeatureIactnType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>        
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>      
     <form name="AddProductFeatureApplAttr" type="single" target="createProductFeatureApplAttr" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductFeatureApplAttr" /> 
