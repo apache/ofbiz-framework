@@ -193,7 +193,19 @@ under the License.
         <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
     </service>
-    
+    <!-- ProductFeatureIactn Services -->
+    <service name="createProductFeatureIactn" default-entity-name="ProductFeatureIactn" engine="simple"
+        location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureIactn" auth="true">
+        <description>Create a ProductFeatureIactn</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="productFeatureIactnTypeId" mode="IN" optional="false"/>
+    </service>
+    <service name="removeProductFeatureIactn" default-entity-name="ProductFeatureIactn" engine="simple"
+        location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureIactn" auth="true">
+        <description>Remove a ProductFeatureIactn</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>  
     <!-- ProductFeatureType Services -->
     <service name="createProductFeatureType" default-entity-name="ProductFeatureType" engine="simple"
                 location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureType" auth="true">

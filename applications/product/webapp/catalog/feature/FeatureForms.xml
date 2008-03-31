@@ -63,7 +63,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="CreateSupplierProductFeature" type="single" target="createSupplierProductFeature" title="" default-map-name="productFeature"
+    <form name="CreateSupplierProductFeature" type="single" target="createSupplierProductFeature" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createSupplierProductFeature" default-field-type="edit"/>
         <field name="partyId" title="${uiLabelMap.ProductSuppliers}">
@@ -71,7 +71,7 @@
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${groupName} ${firstName} ${lastName} [${partyId}]">
                     <entity-constraint name="roleTypeId" value="SUPPLIER"/>
                     <entity-order-by field-name="groupName"/>
-                    <entity-order-by field-name="firstName"/>
+                    <entity-order-by field-name="lastName"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -150,6 +150,64 @@
         <field name="hasTable"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="FindFeatureInterAction" type="single" target="EditFeatureInterActions" 
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productFeatureId"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="productFeatureIdTo"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit/></field>
+        </form>    
+    <form name="ListFeatureInterActions" list-name="listIt" target="" title="" type="list" paginate-target="EditFeatureInterAction"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <actions>
+            <set field="parameters.noConditionFind" value="Y"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="ProductFeatureIactn"/>
+                <field-map field-name="orderBy" value="productFeatureId"/>
+                </service>
+            </actions>       
+        
+        <field name="productFeatureId">
+            <display-entity entity-name="ProductFeature" description="${description}">
+                <sub-hyperlink target="EditFeature?productFeatureId=${productFeatureId}" description="[${productFeatureId}]"/>    
+            </display-entity>
+        </field>
+        <field name="productFeatureIdTo">
+            <display-entity entity-name="ProductFeature" description="${description}" key-field-name="productFeatureId">
+                <sub-hyperlink target="EditFeature?productFeatureId=${productFeatureIdTo}" description="[${productFeatureIdTo}]"/>    
+            </display-entity>
+        </field>
+        <field name="productFeatureIactnTypeId"><display-entity entity-name="ProductFeatureIactnType"/></field>
+        
+        <field name="removeFeatureInterAction" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="removeProductFeatureIactn?productFeatureId=${productFeatureId}&amp;productFeatureIdTo=${productFeatureIdTo}" description="${uiLabelMap.CommonDelete}"/>
+        </field>
+        </form>    
+    <form name="EditFeatureInterAction" type="single" target="createProductFeatureIactn" title="" default-map-name="productFeatureIactn"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productFeatureId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeature">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productFeatureIdTo">
+            <drop-down allow-empty="true">
+                <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeature" key-field-name="productFeatureId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productFeatureIactnTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="ProductFeatureIactnType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>   
     <form name="ListFeatureGroupAppls" type="multi" use-row-submit="false" list-name="productFeatureGroupAndAppls" target="UpdateProductFeatureGroupAppl?productFeatureGroupId=${productFeatureGroupId}" title=""
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productFeatureGroupId"><hidden/></field>

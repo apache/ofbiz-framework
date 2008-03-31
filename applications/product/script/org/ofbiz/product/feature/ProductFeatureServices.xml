@@ -252,7 +252,25 @@ under the License.
         <find-by-primary-key entity-name="ProductFeatureGroupAppl" map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
-
+    
+    <!-- Methods for ProductFeatureIactn -->
+    <simple-method method-name="createProductFeatureIactn" short-description="Create a Product Feature Interaction">
+        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureIactn you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+        <make-value value-name="newEntity" entity-name="ProductFeatureIactn"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="removeProductFeatureIactn" short-description="Remove a Product Feature Interaction">
+        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureInteraction you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-errors/>
+        
+        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureIactn"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>    
     <!-- Methods for ProductFeatureType -->
     <simple-method method-name="createProductFeatureType" short-description="Create a Product Feature Type">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureType you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
