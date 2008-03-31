@@ -21,17 +21,53 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
     <description>SFA Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
-        
+
     <!-- Request Mappings -->
     <request-map uri="main">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
+    <!-- Opportunity Requests -->
+    <request-map uri="FindOpportunity">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindOpportunity"/>
+        <response name="error" type="view" value="FindOpportunity"/>
+    </request-map>
+    <request-map uri="NewOpportunity">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewOpportunity"></response>
+    </request-map>
+    <request-map uri="viewOpportunity">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewOpportunity"/>
+    </request-map>
+    <request-map uri="createOpportunity">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createOpportunity"/>
+        <response name="success" type="view" value="viewOpportunity"/>
+        <response name="error" type="view" value="NewOpportunity"/>
+    </request-map>
+    <request-map uri="EditOpportunity">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditOpportunity"/>
+        <response name="error" type="view" value="EditOpportunity"/>
+    </request-map>
+    <request-map uri="updateOpportunity">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateOpportunity"/>
+        <response name="success" type="request" value="viewOpportunity"/>
+        <response name="error" type="view" value="EditOpportunity"/>
+    </request-map>
     <!-- end of request mappings -->
-    
+
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#main"/>
+    <view-map name="FindOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#FindOpportunity"/>
+    <view-map name="NewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#NewOpportunity"/>
+    <view-map name="viewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#viewOpportunity"/>
+    <view-map name="EditOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#EditOpportunity"/>
     <!-- end of view mappings -->
 </site-conf>

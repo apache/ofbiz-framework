@@ -43,7 +43,7 @@ under the License.
     <screen name="main">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator" location="component://marketing/widget/sfa/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-header">
@@ -85,6 +85,33 @@ under the License.
                         </section>
                     </container> 
                 </container>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonOpportunityDecorator">
+        <section>
+            <actions>
+                <!-- Do action here -->
+                <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <widgets>                                        
+                                        <include-menu name="OpportunityTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                    </widgets>
+                                </section>   
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ProjectMgrViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>

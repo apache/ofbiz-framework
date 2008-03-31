@@ -28,7 +28,7 @@ under the License.
         <menu-item name="Events" title="${uiLabelMap.SfaEvents}"><link target=""/></menu-item>
         <menu-item name="Documents" title="${uiLabelMap.SfaDocuments}"><link target=""/></menu-item>
         <menu-item name="Forecasts" title="${uiLabelMap.SfaForecasts}"><link target=""/></menu-item>
-        <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target=""/></menu-item>
+        <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindOpportunity"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
@@ -36,6 +36,14 @@ under the License.
         <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="col-right" selected-style="selected">
             <condition><if-empty field-name="userLogin"/></condition>
             <link target="${checkLoginUrl}"/>
+        </menu-item>
+    </menu>
+    <menu name="OpportunityTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+        <menu-item name="opportunityView" title="${uiLabelMap.SfaOpportunitySummary}">
+            <link target="viewOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
+        </menu-item>
+        <menu-item name="editOpportunity" title="${uiLabelMap.SfaEditOpportunity}">
+            <link target="EditOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
         </menu-item>
     </menu>
 </menus>
