@@ -73,8 +73,13 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
     if (fval != null) {
         if (fval.length() > 0) {
             curFindString = curFindString + "&amp;" + field.getName() + "=" + fval;
-            findByEntity.setString(field.getName(), fval);
-          }
+            try {
+                findByEntity.setString(field.getName(), fval);
+            } catch (NumberFormatException nfe) {
+                Debug.logError(nfe, "Caught an exception : "+nfe.toString(), "FindGeneric.bsh");
+                request.setAttribute("_ERROR_MESSAGE_", "Entered value is non-numeric for numeric field: "+field.getName());
+            }
+        }
     }
 }
 curFindString = UtilFormatOut.encodeQuery(curFindString);
