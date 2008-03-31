@@ -1067,10 +1067,13 @@ under the License.
                 <set field="headerItem" value="product"/>
                 <set field="tabButtonItem" value="EditProductFeatures"/>
                 <set field="labelTitleProperty" value="ProductFeatures"/>
-    
+                
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductFeatures.bsh"/>
+                <entity-and entity-name="ProductFeatureIactn" list-name="featureInteractions">
+                    <field-map field-name="productId" env-name="parameters.productId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1083,6 +1086,26 @@ under the License.
                                     </platform-specific>
                                 </widgets>
                             </section>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ListFeatureInteractions}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">                                
+                                <include-form name="ListFeatureInteractions" location="component://product/webapp/catalog/product/ProductForms.xml"/>                             
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.AddFeatureInteraction}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="AddFeatureInteraction" location="component://product/webapp/catalog/product/ProductForms.xml"/>                                       
+                            </container>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">

@@ -4082,7 +4082,16 @@
         <value xml:lang="ru">Изменить категории особенностей</value>
         <value xml:lang="th">แก้ไขประเภทการทำงาน</value>
         <value xml:lang="zh">编辑特征类型</value>
+    </property> 
+    <property key="AddFeatureInteraction">
+        <value xml:lang="en">Add Feature Interaction</value>
     </property>
+    <property key="ListFeatureInteractions">
+        <value xml:lang="en">List Feature Interactions</value>
+    </property>    
+    <property key="PageTitleEditProductFeatureInteractions">
+        <value xml:lang="en">Edit Product Feature Interactions</value>
+    </property>     
     <property key="PageTitleAddFeatureInterAction">
         <value xml:lang="en">Add Feature InterAction</value>
     </property>
@@ -11466,6 +11475,9 @@
         <value xml:lang="ru">Новый подписной ресурс</value>
         <value xml:lang="th">แหล่งข้อมูลการสั่งซื้อใหม่</value>
         <value xml:lang="zh">新建订阅资源</value>
+    </property>
+    <property key="ProductNewVirtualVariantMethod">
+        <value xml:lang="en">New Method</value>
     </property>
     <property key="ProductNewVirtualProduct">
         <value xml:lang="en">New Virtual Product</value>
