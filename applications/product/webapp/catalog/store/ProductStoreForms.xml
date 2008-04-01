@@ -50,7 +50,8 @@
         <field name="storeName" title="${uiLabelMap.ProductStoreName}"><text size="30" maxlength="60"/></field>
         <field name="title" title="${uiLabelMap.ProductTitle}"><text size="30" maxlength="60"/></field>
         <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><text size="60" maxlength="250"/></field>
-
+        <field name="payToPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        
         <field name="inventoryFacilityId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
