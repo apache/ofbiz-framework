@@ -1527,7 +1527,42 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="productFeatureTypeId"/>
       </relation>
     </entity>
-
+  
+  <entity entity-name="FeaturePrice"
+    package-name="org.ofbiz.product.price"
+    title="Feature Price Entity">
+    <field name="productFeatureId" type="id-ne"></field>
+    <field name="productPriceTypeId" type="id-ne"></field>
+    <field name="currencyUomId" type="id"></field>
+    <field name="fromDate" type="date-time"></field>
+    <field name="thruDate" type="date-time"></field>
+    <field name="price" type="currency-precise"></field>
+    <field name="createdDate" type="date-time"></field>
+    <field name="createdByUserLogin" type="id-vlong"></field>
+    <field name="lastModifiedDate" type="date-time"></field>
+    <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+    <prim-key field="productFeatureId"/>
+    <prim-key field="productPriceTypeId"/>
+    <prim-key field="currencyUomId"/>
+    <prim-key field="fromDate"/>
+    <relation type="one" fk-name="PROD_F_PRICE_TYPE" rel-entity-name="ProductPriceType">
+      <key-map field-name="productPriceTypeId"/>
+    </relation>
+    <relation type="one" fk-name="PROD_F_PRICE_CUOM" title="Currency" rel-entity-name="Uom">
+      <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+    </relation>
+   <relation type="one" fk-name="PROD_F_PRICE_CBUL" title="CreatedBy" rel-entity-name="UserLogin">
+      <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+    </relation>
+    <relation type="one" fk-name="PROD_F_PRICE_LMBUL" title="LastModifiedBy" rel-entity-name="UserLogin">
+      <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
+    </relation>
+    <index name="PRD_FT_PRC_GENLKP">
+      <index-field name="productFeatureId"/>
+      <index-field name="currencyUomId"/>
+    </index>
+  </entity>
+  
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.inventory -->
   <!-- ========================================================= -->
