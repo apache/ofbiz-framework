@@ -299,4 +299,45 @@
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     
     </form>
+    <form name="ListFeaturePrice" type="list" paginate-target="ListFeaturePrice" target="updateFeaturePrice"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="FeaturePrice"/>
+        </actions>
+        <field name="productFeatureId"><hidden/></field>
+        <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}"><display-entity entity-name="ProductPriceType"/></field>
+        <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}"><display-entity entity-name="Uom" key-field-name="uomId" description="${description} [${uomId}]"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time default-value="${thruDate}"/></field>
+        <field name="price" title="${uiLabelMap.ProductPrice}" widget-style="required"><text size="25" default-value="${price}"/></field>
+        <field name="updateFeaturePrice" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="lastModifiedBy" title="${uiLabelMap.ProductLastModifiedBy}"><display description="[${lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${lastModifiedDate}"/></field>
+        <field name="deleteFeaturePrice" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteFeaturePrice?productFeatureId=${productFeatureId}&amp;productPriceTypeId=${productPriceTypeId}&amp;currencyUomId=${currencyUomId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="CreateFeaturePrice" type="single" target="createFeaturePrice">
+        <actions>
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+        </actions>
+        <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}">
+            <drop-down allow-empty="false" no-current-selected-key="DEFAULT_PRICE">
+                <entity-options entity-name="ProductPriceType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="price" title="${uiLabelMap.ProductPrice}" widget-style="required"><text size="25"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

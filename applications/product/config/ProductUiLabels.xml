@@ -4086,12 +4086,18 @@
     <property key="AddFeatureInteraction">
         <value xml:lang="en">Add Feature Interaction</value>
     </property>
+    <property key="PageTitleEditFeaturePrice">
+        <value xml:lang="en">Edit Feature Price</value>
+    </property>
+    <property key="PageTitleAddFeaturePrice">
+        <value xml:lang="en">Add Feature Price</value>
+    </property>
     <property key="ListFeatureInteractions">
         <value xml:lang="en">List Feature Interactions</value>
     </property>    
     <property key="PageTitleEditProductFeatureInteractions">
         <value xml:lang="en">Edit Product Feature Interactions</value>
-    </property>     
+    </property>
     <property key="PageTitleAddFeatureInterAction">
         <value xml:lang="en">Add Feature InterAction</value>
     </property>

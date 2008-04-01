@@ -350,4 +350,46 @@ under the License.
         <remove-value value-name="productFeatureApplAttr"/>
         <check-errors/>
     </simple-method>
+    
+    <!-- Feature Price Service -->
+    <simple-method method-name="createFeaturePrice" short-description="Create a Feature Price">
+        <make-value value-name="newEntity" entity-name="FeaturePrice"/>
+        <if-empty field-name="parameters.productFeatureId">
+            <sequenced-id-to-env sequence-name="FeaturePrice" env-name="parameters.productFeatureId"/>
+        </if-empty>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        
+        <if-empty field-name="fromDate" map-name="newEntity">
+            <set field="newEntity.fromDate" from-field="nowTimestamp" />
+        </if-empty>
+        <field-to-result field-name="fromDate" map-name="newEntity"/>
+        
+        <set field="newEntity.lastModifiedDate" from-field="nowTimestamp" />
+        <set field="newEntity.createdDate" from-field="nowTimestamp" />
+        <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
+        <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId" />
+        
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateFeaturePrice" short-description="Update a feature price">
+        <entity-one entity-name="FeaturePrice" value-name="lookedUpValue"/>
+        
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp" />
+        <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
+        
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteFeaturePrice" short-description="Delete a feature price">
+        <make-value entity-name="FeaturePrice" value-name="lookupPKMap"/>
+        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <find-by-primary-key entity-name="FeaturePrice" map-name="lookupPKMap" value-name="lookedUpValue"/>
+         
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>

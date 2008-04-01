@@ -465,5 +465,68 @@
             </widgets>
         </section>
     </screen>
+    <screen name="ListFeaturePrice">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFeaturePrice"/>
+                <set field="headerItem" value="featurecats"/>
+                <set field="tabButtonItem" value="FeaturePrice"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PageTitleEditFeaturePrice}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PageTitleAddFeaturePrice}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CreateFeaturePrice">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonFeatureDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ProductQuickApplyFeature}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="CreateFeaturePrice" location="component://product/webapp/catalog/feature/FeatureForms.xml"/>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
 

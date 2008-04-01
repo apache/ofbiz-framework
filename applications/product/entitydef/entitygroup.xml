@@ -123,6 +123,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="ProductFeatureIactn" />
     <entity-group group="org.ofbiz" entity="ProductFeatureIactnType" />
     <entity-group group="org.ofbiz" entity="ProductFeatureType" />
+    <entity-group group="org.ofbiz" entity="FeaturePrice"/>
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.product.inventory -->
