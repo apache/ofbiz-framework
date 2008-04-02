@@ -984,7 +984,7 @@ public class WebToolsServices {
             } 
             // set distinct on so we only get one row per job
             EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-            List orderBy = UtilMisc.toList("runTime");
+            List orderBy = UtilMisc.toList("-runTime");
             EntityCondition cond = null;
             if (conditions.size() > 0) {
                 cond = new EntityConditionList(conditions, EntityOperator.AND);
