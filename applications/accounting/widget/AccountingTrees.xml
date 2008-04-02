@@ -30,7 +30,8 @@ under the License.
             </sub-node>
         </node>
         <node name="node-body">
-            <link target="GlAccountNavigate?glAccountId=${glAccountId}&amp;trail=${currentNodeTrailPiped}" text="${glAccountId} ${accountName} ${postedBalance}"/>
+            <entity-one entity-name="GlAccount" value-name="glAccount"></entity-one>
+            <link target="GlAccountNavigate?glAccountId=${glAccountId}&amp;trail=${currentNodeTrailPiped}" text="${glAccountId} ${glAccount.accountName} ${postedBalance}"/>
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
                     <field-map field-name="parentGlAccountId" env-name="glAccountId"/>
