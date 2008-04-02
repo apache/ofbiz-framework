@@ -49,6 +49,67 @@ under the License.
         <store-value value-name="newEntity"/>
     </simple-method>
     
+    <simple-method method-name="getPartyAccountingPreferences"
+            short-description="Get the accounting preference settings for a party (organization)">
+        <make-value entity-name="PartyAcctgPreference" value-name="aggregatedPartyAcctgPref" />
+        <set field="currentOrganizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="containsEmptyFields" type="Boolean" value="true"/>
+        <while>
+            <condition>
+                <and>
+                    <not><if-empty field-name="currentOrganizationPartyId"></if-empty></not>
+                    <if-compare field-name="containsEmptyFields" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <then>
+                <clear-field field-name="parentPartyRelationship"/>
+                <clear-field field-name="entityKey"/>
+                <clear-field field-name="entityValue"/>
+                <entity-one entity-name="PartyAcctgPreference" value-name="currentPartyAcctgPref">
+                    <field-map field-name="partyId" env-name="currentOrganizationPartyId"/>
+                </entity-one>
+                <set field="containsEmptyFields" type="Boolean" value="false"/>
+                
+                <if-not-empty field-name="currentPartyAcctgPref">
+                    <iterate-map map-name="currentPartyAcctgPref" key-name="entityKey" value-name="entityValue">
+                        <if-empty field-name="aggregatedPartyAcctgPref.${entityKey}">
+                            <if-not-empty field-name="entityValue">
+                                <set field="aggregatedPartyAcctgPref.${entityKey}" from-field="entityValue"/>
+                            <else>
+                                <set field="containsEmptyFields" type="Boolean" value="true"/>
+                            </else>
+                            </if-not-empty>
+                        </if-empty>
+                    </iterate-map>
+                <else>
+                    <set field="containsEmptyFields" type="Boolean" value="true"/>
+                </else>
+                </if-not-empty>
+                
+                <entity-and entity-name="PartyRelationship" list-name="parentPartyRelationships">
+                    <field-map field-name="partyIdTo" env-name="currentOrganizationPartyId"/>
+                    <field-map field-name="partyRelationshipTypeId" value="GROUP_ROLLUP"/>
+                    <field-map field-name="roleTypeIdFrom" value="_NA_"/>
+                    <field-map field-name="roleTypeIdTo" value="_NA_"/>
+                </entity-and>
+                <filter-list-by-date list-name="parentPartyRelationships"/>
+                
+                <if-not-empty field-name="parentPartyRelationships">
+                    <first-from-list list-name="parentPartyRelationships" entry-name="parentPartyRelationship"/>
+                    <set field="currentOrganizationPartyId" from-field="parentPartyRelationship.partyIdFrom"/>
+                <else>
+                    <clear-field field-name="currentOrganizationPartyId"/>
+                </else>    
+                </if-not-empty>
+            </then>
+        </while>
+        
+        <if-not-empty field-name="aggregatedPartyAcctgPref">
+            <set field="aggregatedPartyAcctgPref.partyId" from-field="parameters.organizationPartyId"/>
+            <field-to-result field-name="aggregatedPartyAcctgPref" result-name="partyAccountingPreference"/>
+        </if-not-empty>
+    </simple-method>
+    
     <!-- update currency conversion rates in the UomConversionDated entity -->
     <simple-method method-name="updateFXConversion" short-description="Update Foreign Exchange conversion rate">
         <!-- set the FX rate changes as of now -->
