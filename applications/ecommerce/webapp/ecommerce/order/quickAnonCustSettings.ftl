@@ -16,39 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script language="JavaScript" type="text/javascript">
-function shipBillAddr() {
-    if (document.${parameters.formNameValue}.useShippingPostalAddressForBilling.checked) {
-       document.${parameters.formNameValue}.billToName.value = document.${parameters.formNameValue}.shipToName.value;
-       document.${parameters.formNameValue}.billToAttnName.value = document.${parameters.formNameValue}.shipToAttnName.value;
-       document.${parameters.formNameValue}.billToAddress1.value = document.${parameters.formNameValue}.shipToAddress1.value;
-       document.${parameters.formNameValue}.billToAddress2.value = document.${parameters.formNameValue}.shipToAddress2.value;
-       document.${parameters.formNameValue}.billToCity.value = document.${parameters.formNameValue}.shipToCity.value;
-       document.${parameters.formNameValue}.billToStateProvinceGeoId.value = document.${parameters.formNameValue}.shipToStateProvinceGeoId.value;
-       document.${parameters.formNameValue}.billToPostalCode.value = document.${parameters.formNameValue}.shipToPostalCode.value;
-       document.${parameters.formNameValue}.billToCountryGeoId.value = document.${parameters.formNameValue}.shipToCountryGeoId.value;
-       
-       document.${parameters.formNameValue}.billToName.disabled = true;
-       document.${parameters.formNameValue}.billToAttnName.disabled = true;
-       document.${parameters.formNameValue}.billToAddress1.disabled = true;
-       document.${parameters.formNameValue}.billToAddress2.disabled = true;
-       document.${parameters.formNameValue}.billToCity.disabled = true;
-       document.${parameters.formNameValue}.billToStateProvinceGeoId.disabled = true;                                   
-       document.${parameters.formNameValue}.billToPostalCode.disabled = true;
-       document.${parameters.formNameValue}.billToCountryGeoId.disabled = true;                                   
-    } else {
-       document.${parameters.formNameValue}.billToName.disabled = false;
-       document.${parameters.formNameValue}.billToAttnName.disabled = false;
-       document.${parameters.formNameValue}.billToAddress1.disabled = false;
-       document.${parameters.formNameValue}.billToAddress2.disabled = false;
-       document.${parameters.formNameValue}.billToCity.disabled = false;
-       document.${parameters.formNameValue}.billToStateProvinceGeoId.disabled = false;                                   
-       document.${parameters.formNameValue}.billToPostalCode.disabled = false;
-       document.${parameters.formNameValue}.billToCountryGeoId.disabled = false;                                   
-       document.${parameters.formNameValue}.billingContactMechId.value = "";  
-    }
-}
-</script>
+
 
 <#macro fieldErrors fieldName>
   <#if errorMessageList?has_content>
@@ -183,7 +151,7 @@ function shipBillAddr() {
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="shipToName"/>
-                  <input type="text" class="inputBox" name="shipToName" value="${parameters.shipToName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" class="inputBox" name="shipToName" id="shipToName" value="${parameters.shipToName?if_exists}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
@@ -191,7 +159,7 @@ function shipBillAddr() {
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="shipToAttnName"/>
-                  <input type="text" class="inputBox" name="shipToAttnName" value="${parameters.shipToAttnName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" class="inputBox" id="shipToAttnName" name="shipToAttnName" value="${parameters.shipToAttnName?if_exists}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
@@ -199,14 +167,14 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToAddress1"/>
-                    <input type="text" class="inputBox required" size="30" maxlength="30" name="shipToAddress1" value="${parameters.shipToAddress1?if_exists}">
+                    <input type="text" class="inputBox required" size="30" maxlength="30" id="shipToAddress1" name="shipToAddress1" value="${parameters.shipToAddress1?if_exists}">
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine2}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <input type="text" class="inputBox" size="30" maxlength="30" name="shipToAddress2" value="${parameters.shipToAddress2?if_exists}">
+                    <input type="text" class="inputBox" size="30" maxlength="30" id="shipToAddress2" name="shipToAddress2" value="${parameters.shipToAddress2?if_exists}">
                  </td>
               </tr>
               <tr>
@@ -214,7 +182,7 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToCity"/>
-                    <input type="text" class="inputBox required" size="30" maxlength="30" name="shipToCity" value="${parameters.shipToCity?if_exists}">
+                    <input type="text" class="inputBox required" size="30" maxlength="30" id="shipToCity" name="shipToCity" value="${parameters.shipToCity?if_exists}">
                  *</td>
               </tr>
               <tr>
@@ -222,7 +190,7 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToStateProvinceGeoId"/>
-                    <select name="shipToStateProvinceGeoId" class="selectBox required">
+                    <select name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" class="selectBox required">
                     <#if (parameters.shipToStateProvinceGeoId)?exists>
                        <option>${parameters.shipToStateProvinceGeoId}</option>
                        <option value="${parameters.shipToStateProvinceGeoId}">---</option>
@@ -238,7 +206,7 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToPostalCode"/>
-                    <input type="text" class="inputBox required" size="12" maxlength="10" name="shipToPostalCode" value="${parameters.shipToPostalCode?if_exists}">
+                    <input type="text" class="inputBox required" size="12" maxlength="10" id="shipToPostalCode" name="shipToPostalCode" value="${parameters.shipToPostalCode?if_exists}">
                  *</td>
               </tr>
               <tr>
@@ -246,7 +214,7 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToCountryGeoId"/>
-                    <select name="shipToCountryGeoId" class="selectBox">
+                    <select name="shipToCountryGeoId" id="shipToCountryGeoId" class="selectBox">
                     <#if (parameters.shipToCountryGeoId)?exists>
                        <option>${parameters.shipToCountryGeoId}</option>
                        <option value="${parameters.shipToCountryGeoId}">---</option>
@@ -263,7 +231,7 @@ function shipBillAddr() {
               <tr>
                 <td align="center" valign="top" colspan="3">
                   <div class="tabletext">
-                    <input type="checkbox" name="useShippingPostalAddressForBilling" value="Y" <#if useShippingPostalAddressForBilling?exists>checked</#if>  onClick="javascript:shipBillAddr()"/>
+                    <input type="checkbox" class="checkbox" id="useShippingPostalAddressForBilling" name="useShippingPostalAddressForBilling" value="Y"/>
                     ${uiLabelMap.FacilityBillingAddressSameShipping}
                   </div>
                 </td>
@@ -278,7 +246,7 @@ function shipBillAddr() {
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="billToName"/>
-                  <input type="text" class="inputBox" name="billToName" value="${parameters.billToName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" class="inputBox" id="billToName" name="billToName" value="${parameters.billToName?if_exists}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
@@ -286,7 +254,7 @@ function shipBillAddr() {
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="billToAttnName"/>
-                  <input type="text" class="inputBox" name="billToAttnName" value="${parameters.billToAttnName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" class="inputBox" id="billToAttnName" name="billToAttnName" value="${parameters.billToAttnName?if_exists}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
@@ -294,14 +262,14 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToAddress1"/>
-                    <input type="text" class="inputBox required" size="30" maxlength="30" name="billToAddress1" value="${parameters.billToAddress1?if_exists}">
+                    <input type="text" class="inputBox required" id="billToAddress1" size="30" maxlength="30" name="billToAddress1" value="${parameters.billToAddress1?if_exists}">
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine2}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <input type="text" class="inputBox" size="30" maxlength="30" name="billToAddress2" value="${parameters.billToAddress2?if_exists}">
+                    <input type="text" class="inputBox" id="billToAddress2" size="30" maxlength="30" name="billToAddress2" value="${parameters.billToAddress2?if_exists}">
                  </td>
               </tr>
               <tr>
@@ -309,7 +277,7 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToCity"/>
-                    <input type="text" class="inputBox required" size="30" maxlength="30" name="billToCity" value="${parameters.billToCity?if_exists}">
+                    <input type="text" class="inputBox required" id="billToCity" size="30" maxlength="30" name="billToCity" value="${parameters.billToCity?if_exists}">
                  *</td>
               </tr>
               <tr>
@@ -317,7 +285,7 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToStateProvinceGeoId"/>
-                    <select name="billToStateProvinceGeoId" class="selectBox required">
+                    <select name="billToStateProvinceGeoId" id="billToStateProvinceGeoId" class="selectBox required">
                     <#if (parameters.billToStateProvinceGeoId)?exists>
                        <option>${parameters.billToStateProvinceGeoId}</option>
                        <option value="${parameters.billToStateProvinceGeoId}">---</option>
@@ -333,7 +301,7 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToPostalCode"/>
-                    <input type="text" class="inputBox required" size="12" maxlength="10" name="billToPostalCode" value="${parameters.billToPostalCode?if_exists}">
+                    <input type="text" class="inputBox required" size="12" maxlength="10" id="billToPostalCode" name="billToPostalCode" value="${parameters.billToPostalCode?if_exists}">
                  *</td>
               </tr>
               <tr>
@@ -341,7 +309,7 @@ function shipBillAddr() {
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToCountryGeoId"/>
-                    <select name="billToCountryGeoId" class="selectBox">
+                    <select name="billToCountryGeoId" id="billToCountryGeoId" class="selectBox">
                     <#if (parameters.billToCountryGeoId)?exists>
                        <option>${parameters.billToCountryGeoId}</option>
                        <option value="${parameters.billToCountryGeoId}">---</option>
