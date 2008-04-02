@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#escape x as x?xml>
-<?xml version="1.0" encoding="UTF-8"?>
 <#if layoutSettings.styleSheets?has_content>
   <#--layoutSettings.styleSheets is a list of style sheets -->
   <#list layoutSettings.styleSheets as styleSheet>
