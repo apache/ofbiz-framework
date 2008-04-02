@@ -34,6 +34,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -290,38 +291,15 @@ public class ModelScreen extends ModelWidget implements Serializable {
             
             if ("intra-app".equals(link.getUrlMode())) {
                 // look through all controller.xml files and find those with the request-uri referred to by the target
-                int endOfRequestUri = target.length();
-                if (target.indexOf('?') > 0) {
-                    endOfRequestUri = target.indexOf('?');
-                }
-                String requestUri = target.substring(0, endOfRequestUri);
-                Debug.logInfo("In findRequestNamesLinkedtoInWidget have intra-app link with requestUri [" + requestUri + "]", module);
+                String requestUri = UtilHttp.getRequestUriFromTarget(target);
                 
                 Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, null);
                 allRequestNamesIncluded.addAll(controllerLocAndRequestSet);
                 // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
             } else if ("inter-app".equals(link.getUrlMode())) {
-                int firstChar = 0;
-                if (target.charAt(0) == '/') firstChar = 1;
-                int pathSep = target.indexOf('/', 1);
-                String webappMountPoint = null;
-                if (pathSep > 0) {
-                    // if not then no good, supposed to be a inter-app, but there is no path sep! will do general search with null and treat like an intra-app
-                    webappMountPoint = target.substring(firstChar, pathSep) + "/WEB-INF";
-                }
-                
-                int endOfRequestUri = target.length();
-                if (target.indexOf('?') > 0) {
-                    endOfRequestUri = target.indexOf('?');
-                }
-                int slashBeforeRequestUri = target.lastIndexOf('/', endOfRequestUri);
-                String requestUri = null;
-                if (slashBeforeRequestUri < 0) {
-                    requestUri = target.substring(0, endOfRequestUri);
-                } else {
-                    requestUri = target.substring(slashBeforeRequestUri, endOfRequestUri);
-                }
-                Debug.logInfo("In findRequestNamesLinkedtoInWidget have inter-app link with requestUri [" + requestUri + "]", module);
+                String webappMountPoint = UtilHttp.getWebappMountPointFromTarget(target);
+                if (webappMountPoint != null) webappMountPoint += "/WEB-INF";
+                String requestUri = UtilHttp.getRequestUriFromTarget(target);
                 
                 Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, webappMountPoint);
                 allRequestNamesIncluded.addAll(controllerLocAndRequestSet);

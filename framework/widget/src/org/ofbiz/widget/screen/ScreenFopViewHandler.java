@@ -73,14 +73,15 @@ public class ScreenFopViewHandler implements ViewHandler {
         }
 
         // set the input source (XSL-FO) and generate the output stream of contentType
-        Reader reader = new StringReader(writer.toString());
-        StreamSource src = new StreamSource(reader);
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Transforming the following xsl-fo template: " + writer.toString(), module);
+        String screenOutString = writer.toString();
+        if (!screenOutString.startsWith("<?xml")) {
+            screenOutString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + screenOutString;
         }
+        if (Debug.verboseOn()) Debug.logVerbose("XSL:FO Screen Output: " + screenOutString, module);
 
+        Reader reader = new StringReader(screenOutString);
+        StreamSource src = new StreamSource(reader);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-
         try {
             Fop fop = ApacheFopWorker.createFopInstance(out, contentType);
             ApacheFopWorker.transform(src, null, fop);
@@ -117,5 +118,4 @@ public class ScreenFopViewHandler implements ViewHandler {
             throw new ViewHandlerException("Multiple errors rendering FOP", x);
         }
     }
-
 }

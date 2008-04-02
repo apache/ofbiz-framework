@@ -91,11 +91,11 @@ public class HtmlWidget extends ModelScreenWidget {
                 Map parameters = (Map) context.get("parameters");
                 boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(parameters);
                 if (insertWidgetBoundaryComments) {
-                    writer.write(HtmlWidgetRenderer.buildBoundaryComment("Begin", "Template", location));
+                    writer.write(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
                 }
                 FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
                 if (insertWidgetBoundaryComments) {
-                    writer.write(HtmlWidgetRenderer.buildBoundaryComment("End", "Template", location));
+                    writer.write(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
                 }
             } catch (IllegalArgumentException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
@@ -209,4 +209,3 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 }
-

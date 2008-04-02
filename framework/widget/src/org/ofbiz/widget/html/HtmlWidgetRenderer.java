@@ -20,6 +20,8 @@ package org.ofbiz.widget.html;
 
 import java.io.IOException;
 import java.io.Writer;
+
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.widget.ModelWidget;
 
 /**
@@ -27,6 +29,7 @@ import org.ofbiz.widget.ModelWidget;
  * is a base class that is extended by other widget HTML rendering classes.
  */
 public class HtmlWidgetRenderer {
+    public static final String module = HtmlWidgetRenderer.class.getName();
 
     /**
      * Characters that are appended to the end of each rendered element. Currently set to
@@ -38,7 +41,7 @@ public class HtmlWidgetRenderer {
      * Helper method used to append whitespace characters to the end of each rendered element.
      * @param writer The writer to write to
      */
-    public static void appendWhitespace(Writer writer) throws IOException {
+    public void appendWhitespace(Writer writer) throws IOException {
         writer.write(whiteSpace);
     }
     
@@ -46,7 +49,7 @@ public class HtmlWidgetRenderer {
      * Helper method used to append whitespace characters to the end of each rendered element.
      * @param buffer The buffer to write to
      */
-    public static void appendWhitespace(StringBuffer buffer) {
+    public void appendWhitespace(StringBuffer buffer) {
         buffer.append(whiteSpace);
     }
 
@@ -56,7 +59,11 @@ public class HtmlWidgetRenderer {
      * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
      * @param widgetName The widget name
      */
-    public static String buildBoundaryComment(String boundaryType, String widgetType, String widgetName) {
+    public String buildBoundaryComment(String boundaryType, String widgetType, String widgetName) {
+        return formatBoundaryComment(boundaryType, widgetType, widgetName);
+    }
+    
+    public static String formatBoundaryComment(String boundaryType, String widgetType, String widgetName) {
         return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + whiteSpace;
     }
 
@@ -68,7 +75,7 @@ public class HtmlWidgetRenderer {
      */
     public void renderBeginningBoundaryComment(StringBuffer buffer, String widgetType, ModelWidget modelWidget) {
         if (modelWidget.boundaryCommentsEnabled()) {
-            buffer.append(buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
+            buffer.append(this.buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
 
@@ -80,7 +87,7 @@ public class HtmlWidgetRenderer {
      */
     public void renderBeginningBoundaryComment(Writer writer, String widgetType, ModelWidget modelWidget) throws IOException {
         if (modelWidget.boundaryCommentsEnabled()) {
-            writer.write(buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
+            writer.write(this.buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
 
@@ -92,7 +99,7 @@ public class HtmlWidgetRenderer {
      */
     public void renderEndingBoundaryComment(Writer writer, String widgetType, ModelWidget modelWidget) throws IOException {
         if (modelWidget.boundaryCommentsEnabled()) {
-            writer.write(buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
+            writer.write(this.buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
 
@@ -104,8 +111,7 @@ public class HtmlWidgetRenderer {
      */
     public void renderEndingBoundaryComment(StringBuffer buffer, String widgetType, ModelWidget modelWidget) {
         if (modelWidget.boundaryCommentsEnabled()) {
-            buffer.append(buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
+            buffer.append(this.buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
-    
 }
