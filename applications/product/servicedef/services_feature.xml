@@ -245,7 +245,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <!-- Feature Price Service -->
-    <service name="createFeaturePrice" engine="simple" default-entity-name="FeaturePrice"
+    <service name="createFeaturePrice" engine="simple" default-entity-name="ProductFeaturePrice"
         location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createFeaturePrice" auth="true">
         <description>Create a Feature Price</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -259,7 +259,7 @@ under the License.
         <override name="fromDate" mode="INOUT" optional="true"/>
         <override name="price" optional="false"/>
     </service>
-    <service name="updateFeaturePrice" engine="simple" default-entity-name="FeaturePrice"
+    <service name="updateFeaturePrice" engine="simple" default-entity-name="ProductFeaturePrice"
         location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateFeaturePrice" auth="true">
         <description>Update a Feature Price</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -271,7 +271,7 @@ under the License.
         </auto-attributes>
         <override name="price" optional="false"/>
     </service>
-    <service name="deleteFeaturePrice" engine="simple" default-entity-name="FeaturePrice"
+    <service name="deleteFeaturePrice" engine="simple" default-entity-name="ProductFeaturePrice"
         location="org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="deleteFeaturePrice" auth="true">
         <description>Delete a Feature Price</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>

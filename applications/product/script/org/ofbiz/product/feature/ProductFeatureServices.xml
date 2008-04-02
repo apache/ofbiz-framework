@@ -353,9 +353,9 @@ under the License.
     
     <!-- Feature Price Service -->
     <simple-method method-name="createFeaturePrice" short-description="Create a Feature Price">
-        <make-value value-name="newEntity" entity-name="FeaturePrice"/>
+        <make-value value-name="newEntity" entity-name="ProductFeaturePrice"/>
         <if-empty field-name="parameters.productFeatureId">
-            <sequenced-id-to-env sequence-name="FeaturePrice" env-name="parameters.productFeatureId"/>
+            <sequenced-id-to-env sequence-name="ProductFeaturePrice" env-name="parameters.productFeatureId"/>
         </if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -375,7 +375,7 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFeaturePrice" short-description="Update a feature price">
-        <entity-one entity-name="FeaturePrice" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductFeaturePrice" value-name="lookedUpValue"/>
         
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         
@@ -386,9 +386,9 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFeaturePrice" short-description="Delete a feature price">
-        <make-value entity-name="FeaturePrice" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductFeaturePrice" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="FeaturePrice" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductFeaturePrice" map-name="lookupPKMap" value-name="lookedUpValue"/>
          
         <remove-value value-name="lookedUpValue"/>
     </simple-method>

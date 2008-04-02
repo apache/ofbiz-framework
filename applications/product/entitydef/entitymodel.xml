@@ -1528,9 +1528,9 @@ under the License.
       </relation>
     </entity>
   
-  <entity entity-name="FeaturePrice"
+  <entity entity-name="ProductFeaturePrice"
     package-name="org.ofbiz.product.price"
-    title="Feature Price Entity">
+    title="Product Feature Price Entity">
     <field name="productFeatureId" type="id-ne"></field>
     <field name="productPriceTypeId" type="id-ne"></field>
     <field name="currencyUomId" type="id"></field>
