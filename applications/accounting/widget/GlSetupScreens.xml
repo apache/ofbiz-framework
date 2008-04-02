@@ -593,13 +593,6 @@ under the License.
                     <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
                     <order-by field-name="glAccountTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="GlAccountType" list-name="productGlAccountTypes" use-cache="true">
-                    <order-by field-name="description"/>
-                </entity-condition>
-                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
-                    <order-by field-name="accountCode"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -651,10 +644,6 @@ under the License.
                  <entity-condition entity-name="FinAccountTypeGlAccount" list-name="finAccountTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
                     <order-by field-name="finAccountTypeId"/>
-                </entity-condition>
-                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
-                    <order-by field-name="accountCode"/>
                 </entity-condition>
                 <entity-condition entity-name="FinAccountType" list-name="finAccountTypes" use-cache="true">
                     <order-by field-name="finAccountTypeId"/>
@@ -712,13 +701,6 @@ under the License.
                     <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
                     <order-by field-name="glAccountTypeId"/>
                 </entity-condition>
-                <entity-condition entity-name="GlAccountType" list-name="productGlAccountTypes" use-cache="true">
-                    <order-by field-name="description"/>
-                </entity-condition>
-                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
-                    <order-by field-name="accountCode"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -771,10 +753,6 @@ under the License.
                     <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
                     <order-by field-name="glAccountId"/>
                 </entity-condition>
-                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
-                    <order-by field-name="accountCode"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -824,10 +802,6 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
                 <entity-condition entity-name="CreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
-                </entity-condition>
-                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
-                    <order-by field-name="accountCode"/>
                 </entity-condition>
             </actions>
             <widgets>
@@ -881,10 +855,6 @@ under the License.
                     <order-by field-name="taxAuthGeoId"/>
                     <order-by field-name="taxAuthPartyId"/>
                 </entity-condition>
-                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts" use-cache="true">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
-                    <order-by field-name="accountCode"/>
-                </entity-condition>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/TaxAuthorityGlAccounts.bsh"/>
             </actions>
             <widgets>
@@ -936,10 +906,6 @@ under the License.
                 <entity-condition entity-name="PartyGlAccount" list-name="partyGlAccounts">
                     <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
                     <order-by field-name="partyId"/>
-                </entity-condition>
-                <entity-condition entity-name="GlAccountOrganizationAndClass" list-name="glAccounts">
-                    <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
-                    <order-by field-name="accountCode"/>
                 </entity-condition>
             </actions>
             <widgets>

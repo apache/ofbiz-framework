@@ -533,8 +533,11 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
-            <drop-down allow-empty="false">                
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>    
+            <drop-down allow-empty="false">
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -548,12 +551,17 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
             <drop-down allow-empty="false">
-                <list-options key-name="glAccountTypeId" list-name="productGlAccountTypes" description="${description}"/>
+                <entity-options description="${description}" entity-name="GlAccountType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
             <drop-down allow-empty="false">
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
@@ -568,8 +576,11 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="finAccountTypeId"><display-entity entity-name="FinAccountType"/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
-            <drop-down allow-empty="false">                
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>    
+            <drop-down allow-empty="false">
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -588,7 +599,10 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
@@ -600,8 +614,11 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
-            <drop-down allow-empty="false">                
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            <drop-down allow-empty="false">
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -615,12 +632,17 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
             <drop-down allow-empty="false">
-                <list-options key-name="glAccountTypeId" list-name="productGlAccountTypes" description="${description}"/>
+                <entity-options description="${description}" entity-name="GlAccountType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
             <drop-down allow-empty="false">
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}">
@@ -636,7 +658,10 @@ under the License.
         <field name="varianceReasonId"><display-entity entity-name="VarianceReason"/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">                
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -657,7 +682,10 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.FormFieldTitle_glAccountTypeId}">
             <drop-down allow-empty="false">
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
@@ -669,7 +697,10 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}"> 
             <drop-down allow-empty="false">
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -691,7 +722,10 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-               <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
@@ -710,8 +744,11 @@ under the License.
             </display-entity>
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
-            <drop-down allow-empty="false">                
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            <drop-down allow-empty="false">
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -733,7 +770,10 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.${uiLabelMap.AccountingGlAccountId}}">
             <drop-down allow-empty="false">
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
@@ -744,8 +784,11 @@ under the License.
         <auto-fields-service service-name="updatePartyGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>       
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
-            <drop-down allow-empty="false">                
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+            <drop-down allow-empty="false">
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>     
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -775,7 +818,10 @@ under the License.
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
-                <list-options key-name="accountCode" list-name="glAccounts" description="${accountCode} ${accountName}"/>
+                <entity-options description="${accountCode} ${accountName}" entity-name="GlAccountOrganizationAndClass">
+                    <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
+                    <entity-order-by field-name="accountCode"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
