@@ -1678,6 +1678,7 @@ under the License.
     </entity>
     <entity entity-name="GlAccount"
             package-name="org.ofbiz.accounting.ledger"
+            default-resource-name="ChartOfAccountsEntityLabels"
             title="General Ledger Account Entity">
       <field name="glAccountId" type="id-ne"></field>
       <field name="glAccountTypeId" type="id"></field>
