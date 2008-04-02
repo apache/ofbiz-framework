@@ -1089,6 +1089,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFeature"/>
     </request-map>
+    <request-map uri="CreateFeature">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateFeature"/>
+    </request-map>
     <request-map uri="createProductFeature">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createProductFeature"/>
@@ -1210,25 +1214,25 @@ under the License.
     </request-map>
     <request-map uri="ListFeaturePrice">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListFeaturePrice"/>
+        <response name="success" type="view" value="EditFeature"/>
     </request-map>
     <request-map uri="createFeaturePrice">
         <security https="true" auth="true"/>
         <event type="service" invoke="createFeaturePrice"/>
-        <response name="success" type="view" value="ListFeaturePrice"/>
-        <response name="error" type="view" value="ListFeaturePrice"/>
+        <response name="success" type="view" value="EditFeature"/>
+        <response name="error" type="view" value="EditFeature"/>
     </request-map>
     <request-map uri="updateFeaturePrice">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateFeaturePrice"/>
-        <response name="success" type="request-redirect-noparam" value="ListFeaturePrice"/>
-        <response name="error" type="view" value="ListFeaturePrice"/>
+        <response name="success" type="view" value="EditFeature"/>
+        <response name="error" type="view" value="EditFeature"/>
     </request-map>
     <request-map uri="deleteFeaturePrice">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteFeaturePrice"/>
-        <response name="success" type="view" value="ListFeaturePrice"/>
-        <response name="error" type="view" value="ListFeaturePrice"/>
+        <response name="success" type="view" value="EditFeature"/>
+        <response name="error" type="view" value="EditFeature"/>
     </request-map>
     <!-- ================ Product Feature Requests ================= -->
     <request-map uri="EditProductFeatures">
@@ -2613,6 +2617,7 @@ under the License.
     <view-map name="QuickAddProductFeatures" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#QuickAddProductFeatures"/>
     <view-map name="CreateProductFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#CreateProductFeature"/>
     <view-map name="ListFeaturePrice" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#ListFeaturePrice"/>
+    <view-map name="CreateFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#CreateFeature"/>
     
     <view-map name="FindProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#FindProdCatalog"/>
     <view-map name="EditProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalog"/>

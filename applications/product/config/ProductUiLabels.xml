@@ -3607,6 +3607,9 @@
         <value xml:lang="it">Aggiungi Gruppo Stabilimento Arrivo</value>
         <value xml:lang="th">Add Facility Group Rollup</value>
     </property>
+    <property key="PageTitleAddFeaturePrice">
+        <value xml:lang="en">Add Feature Price</value>
+    </property>
     <property key="PageTitleAddInventoryItemLabelAppls">
         <value xml:lang="en">Add Inventory Item Label Appls</value>
         <value xml:lang="it">Aggiungi Applicabilità Etichetta Riga Inventario</value>
@@ -4068,6 +4071,9 @@
         <value xml:lang="th">แก้ไขลักษณะหมวดหมู่</value>
         <value xml:lang="zh">编辑特征分类特征</value>
     </property>
+    <property key="PageTitleEditFeaturePrice">
+        <value xml:lang="en">Edit Feature Price</value>
+    </property>
     <property key="PageTitleEditFeatureType">
         <value xml:lang="en">Edit Feature Type</value>
         <value xml:lang="it">Aggiorna Tipo Caratteristica</value>
@@ -4085,12 +4091,6 @@
     </property> 
     <property key="AddFeatureInteraction">
         <value xml:lang="en">Add Feature Interaction</value>
-    </property>
-    <property key="PageTitleEditFeaturePrice">
-        <value xml:lang="en">Edit Feature Price</value>
-    </property>
-    <property key="PageTitleAddFeaturePrice">
-        <value xml:lang="en">Add Feature Price</value>
     </property>
     <property key="ListFeatureInteractions">
         <value xml:lang="en">List Feature Interactions</value>

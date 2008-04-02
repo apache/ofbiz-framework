@@ -271,7 +271,7 @@
         <field name="searchButton" widget-style="smallSubmit"><submit/></field>
     </form>
     
-    <form name="ListProductFeature" type="list" list-name="listIt" paginate-target="EditFeatureCategories"
+    <form name="ListProductFeature" type="list" list-name="listIt" paginate-target="EditFeatureCategories" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
@@ -299,10 +299,12 @@
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     
     </form>
-    <form name="ListFeaturePrice" type="list" paginate-target="ListFeaturePrice" target="updateFeaturePrice"
+    <form name="ListFeaturePrice" type="list" target="updateFeaturePrice"  list-name="productFeaturePrice"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
-            <entity-condition entity-name="FeaturePrice"/>
+            <entity-and entity-name="ProductFeaturePrice" list-name="productFeaturePrice">
+                <field-map field-name="productFeatureId" env-name="parameters.productFeatureId"/>
+            </entity-and>
         </actions>
         <field name="productFeatureId"><hidden/></field>
         <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}"><display-entity entity-name="ProductPriceType"/></field>
@@ -320,6 +322,7 @@
         <actions>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </actions>
+        <field name="productFeatureId"><hidden/></field>
         <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}">
             <drop-down allow-empty="false" no-current-selected-key="DEFAULT_PRICE">
                 <entity-options entity-name="ProductPriceType" description="${description}">
@@ -327,7 +330,10 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}">
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" position="1"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}" position="2"><date-time/></field>
+        <field name="price" title="${uiLabelMap.ProductPrice}" widget-style="required" position="1"><text size="25"/></field>
+        <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}" position="2">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -335,9 +341,6 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-        <field name="price" title="${uiLabelMap.ProductPrice}" widget-style="required"><text size="25"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
