@@ -18,177 +18,219 @@
  *******************************************************************************/
 package org.ofbiz.base.util.collections;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.ofbiz.base.util.UtilProperties;
 
-/** ResourceBundle MapStack class. Resource bundles are wrapped with a
- * <code>InternalRbmWrapper</code> object and kept in a MapStack -
- * which allows multiple bundles to be queried with a single method call. The class
- * instance is constructed with the most specific resource bundle first, then additional
- * less specific resource bundles are added to the bottom of the stack.
+
+/**
+ * Generic ResourceBundle Map Wrapper, given ResourceBundle allows it to be used as a Map
+ *
  */
-@SuppressWarnings("serial")
-public class ResourceBundleMapWrapper extends MapStack<String> {
+public class ResourceBundleMapWrapper implements Map<String, Object>, Serializable {
     
+    protected MapStack<String> rbmwStack;
     protected ResourceBundle initialResourceBundle;
 
-    protected ResourceBundleMapWrapper() {}
+    protected ResourceBundleMapWrapper() {
+        rbmwStack = MapStack.create();
+    }
 
-    /** When creating new from a InternalRbmWrapper the one passed to the constructor
-     * should be the most specific or local InternalRbmWrapper, with more common ones
-     * pushed onto the stack progressively.
+    /**
+     * When creating new from a InternalRbmWrapper the one passed to the constructor should be the most specific or local InternalRbmWrapper, with more common ones pushed onto the stack progressively.
      */
     public ResourceBundleMapWrapper(InternalRbmWrapper initialInternalRbmWrapper) {
         this.initialResourceBundle = initialInternalRbmWrapper.getResourceBundle();
-        push(initialInternalRbmWrapper);
+        this.rbmwStack = MapStack.create(initialInternalRbmWrapper);
     }
     
-    /** When creating new from a ResourceBundle the one passed to the constructor
-     * should be the most specific or local ResourceBundle, with more common ones
-     * pushed onto the stack progressively.
+    /**
+     * When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle, with more common ones pushed onto the stack progressively.
      */
     public ResourceBundleMapWrapper(ResourceBundle initialResourceBundle) {
         if (initialResourceBundle == null) {
             throw new IllegalArgumentException("Cannot create ResourceBundleMapWrapper with a null initial ResourceBundle.");
         }
         this.initialResourceBundle = initialResourceBundle;
-        push(new InternalRbmWrapper(initialResourceBundle));
+        this.rbmwStack = MapStack.create(new InternalRbmWrapper(initialResourceBundle));
     }
     
-    public void addToBottom(Map<String, Object> existingMap) {
-        if (!stackList.contains(existingMap)) {
-            super.addToBottom(existingMap);
-        }
-    }
-    
-    public void push(Map<String, Object> existingMap) {
-        if (!stackList.contains(existingMap)) {
-            super.push(existingMap);
-        }
-    }
-    
-    /** Puts ResourceBundle on the BOTTOM of the stack - meaning the bundle will
-     * be overriden by higher layers on the stack.
-     */
+    /** Puts ResourceBundle on the BOTTOM of the stack (bottom meaning will be overriden by higher layers on the stack, ie everything else already there) */
     public void addBottomResourceBundle(ResourceBundle topResourceBundle) {
-        addToBottom(new InternalRbmWrapper(topResourceBundle));
+        this.rbmwStack.addToBottom(new InternalRbmWrapper(topResourceBundle));
     }
 
-    /** Puts InternalRbmWrapper on the BOTTOM of the stack - meaning the InternalRbmWrapper
-     * will be overriden by higher layers on the stack.
-     */
+    /** Puts InternalRbmWrapper on the BOTTOM of the stack (bottom meaning will be overriden by higher layers on the stack, ie everything else already there) */
     public void addBottomResourceBundle(InternalRbmWrapper topInternalRbmWrapper) {
-        addToBottom(topInternalRbmWrapper);
+        this.rbmwStack.addToBottom(topInternalRbmWrapper);
     }
 
-    /** Puts the specified ResourceBundle on the BOTTOM of the stack - meaning the
-     * ResourceBundle will be overriden by higher layers on the stack. Th method
-     * will throw an exception if the specified ResourceBundle isn't found.
-     */
+    /** Don't pass the locale to make sure it has the same locale as the base */
     public void addBottomResourceBundle(String resource) {
         if (this.initialResourceBundle == null) {
             throw new IllegalArgumentException("Cannot add bottom resource bundle, this wrapper was not properly initialized (there is no base/initial ResourceBundle).");
         }
-        this.addBottomResourceBundle(UtilProperties.getResourceBundle(resource, this.initialResourceBundle.getLocale()));
+        this.addBottomResourceBundle(new InternalRbmWrapper(UtilProperties.getResourceBundle(resource, this.initialResourceBundle.getLocale())));
     }
 
-    /** Puts a ResourceBundle on the TOP of the stack - meaning the ResourceBundle will
-     * override lower layers on the stack. This is the reverse of how resource bundles
-     * are normally added. 
+    /** In general we don't want to use this, better to start with the more specific ResourceBundle and add layers of common ones...
+     * Puts ResourceBundle on the top of the stack (top meaning will override lower layers on the stack) 
      */
     public void pushResourceBundle(ResourceBundle topResourceBundle) {
-        push(new InternalRbmWrapper(topResourceBundle));
+        this.rbmwStack.push(new InternalRbmWrapper(topResourceBundle));
     }
 
-    /** Returns the ResourceBundle that was passed in the class constructor.
-     */
     public ResourceBundle getInitialResourceBundle() {
         return this.initialResourceBundle;
     }
 
-    /** Retrieves the specified object from the MapStack. If no matching object is found,
-     * the <code>arg0</code> object is returned.
-     */
+    public void clear() {
+        this.rbmwStack.clear();
+    }
+    public boolean containsKey(Object arg0) {
+        return this.rbmwStack.containsKey(arg0);
+    }
+    public boolean containsValue(Object arg0) {
+        return this.rbmwStack.containsValue(arg0);
+    }
+    public Set<Map.Entry<String, Object>> entrySet() {
+        return this.rbmwStack.entrySet();
+    }
     public Object get(Object arg0) {
-        Object value = super.get(arg0);
+        Object value = this.rbmwStack.get(arg0);
         if (value == null) {
             value = arg0;
         }
         return value;
     }
+    public boolean isEmpty() {
+        return this.rbmwStack.isEmpty();
+    }
+    public Set<String> keySet() {
+        return this.keySet();
+    }
+    public Object put(String key, Object value) {
+        return this.rbmwStack.put(key, value);
+    }
+    public void putAll(Map<? extends String, ? extends Object> arg0) {
+        this.rbmwStack.putAll(arg0);
+    }
+    public Object remove(Object arg0) {
+        return this.rbmwStack.remove(arg0);
+    }
+    public int size() {
+        return this.rbmwStack.size();
+    }
+    public Collection<Object> values() {
+        return this.rbmwStack.values();
+    }
     
-    /** Encapsulates a ResourceBundle in a HashMap. This is an incomplete implementation
-     * of the Map interface - its intended use is to retrieve ResourceBundle elements
-     * in a Map-like way. Map interface methods that remove elements will throw
-     * an exception.
-     */
-    @SuppressWarnings("serial")
-    public static class InternalRbmWrapper extends HashMap<String, Object> {
+    public static class InternalRbmWrapper implements Map<String, Object>, Serializable {
         protected ResourceBundle resourceBundle;
+        protected Map<String, Object> topLevelMap;
         
         public InternalRbmWrapper(ResourceBundle resourceBundle) {
             if (resourceBundle == null) {
                 throw new IllegalArgumentException("Cannot create InternalRbmWrapper with a null ResourceBundle.");
             }
             this.resourceBundle = resourceBundle;
-            // NOTE: this does NOT return all keys, ie keys from parent
-            // ResourceBundles, so we keep the resourceBundle object to look
-            // at when the main Map doesn't have a certain value
-            Enumeration<String> keyNum = resourceBundle.getKeys();
-            while (keyNum.hasMoreElements()) {
-                String key = keyNum.nextElement();
-                Object value = resourceBundle.getObject(key);
-                put(key, value);
+            topLevelMap = new HashMap<String, Object>();
+            // NOTE: this does NOT return all keys, ie keys from parent ResourceBundles, so we keep the resourceBundle object to look at when the main Map doesn't have a certain value 
+            if (resourceBundle != null) {
+                Enumeration<String> keyNum = resourceBundle.getKeys();
+                while (keyNum.hasMoreElements()) {
+                    String key = keyNum.nextElement();
+                    //resourceBundleMap.put(key, bundle.getObject(key));
+                    Object value = resourceBundle.getObject(key);
+                    topLevelMap.put(key, value);
+                }
             }
-            put("_RESOURCE_BUNDLE_", resourceBundle); // Is this being used anywhere?
+            topLevelMap.put("_RESOURCE_BUNDLE_", resourceBundle);
         }
         
-        public boolean equals(Object obj) {
-            return resourceBundle.equals(obj);
+        /* (non-Javadoc)
+         * @see java.util.Map#size()
+         */
+        public int size() {
+            // this is an approximate size, won't include elements from parent bundles
+            return topLevelMap.size() - 1;
         }
-
-        public int hashCode() {
-            return resourceBundle.hashCode();
+    
+        /* (non-Javadoc)
+         * @see java.util.Map#isEmpty()
+         */
+        public boolean isEmpty() {
+            return topLevelMap.isEmpty();
         }
-
-        /*
-         * (non-Javadoc)
-         * 
+    
+        /* (non-Javadoc)
          * @see java.util.Map#containsKey(java.lang.Object)
          */
         public boolean containsKey(Object arg0) {
-            if (super.containsKey(arg0)) {
+            if (topLevelMap.containsKey(arg0)) {
                 return true;
             } else {
                 try {
                     if (this.resourceBundle.getObject((String) arg0) != null) {
                         return true;
                     }
-                } catch (Exception e) {
-                    // Do nothing
+                } catch (NullPointerException e) {
+                    // happens when arg0 is null
+                } catch (MissingResourceException e) {
+                    // nope, not found... nothing, will automatically return false below
                 }
             }
             return false;
         }
     
         /* (non-Javadoc)
+         * @see java.util.Map#containsValue(java.lang.Object)
+         */
+        public boolean containsValue(Object arg0) {
+            throw new RuntimeException("Not implemented for ResourceBundleMapWrapper");
+        }
+    
+        /* (non-Javadoc)
          * @see java.util.Map#get(java.lang.Object)
          */
         public Object get(Object arg0) {
-            Object value = super.get(arg0);
-            if (value == null) {
-                try {
-                    value = this.resourceBundle.getObject((String) arg0);
-                } catch (MissingResourceException mre) {
-                    // Do nothing
+            Object value = this.topLevelMap.get(arg0);
+            if (resourceBundle != null) {
+                if (value == null) {
+                    try {
+                        value = this.resourceBundle.getObject((String) arg0);
+                    } catch(MissingResourceException mre) {
+                        // do nothing, this will be handled by recognition that the value is still null
+                    }
+                }
+                if (value == null) {
+                    try {
+                        value = this.resourceBundle.getString((String) arg0);
+                    } catch(MissingResourceException mre) {
+                        // do nothing, this will be handled by recognition that the value is still null
+                    }
                 }
             }
+            /* we used to do this here, but now we'll do it in the top-level class since doing it here would prevent searching down the stack
+            if (value == null) {
+                value = arg0;
+            }
+            */
             return value;
+        }
+    
+        /* (non-Javadoc)
+         * @see java.util.Map#put(java.lang.Object, java.lang.Object)
+         */
+        public Object put(String arg0, Object arg1) {
+            throw new RuntimeException("Not implemented/allowed for ResourceBundleMapWrapper");
         }
     
         /* (non-Javadoc)
@@ -199,14 +241,46 @@ public class ResourceBundleMapWrapper extends MapStack<String> {
         }
     
         /* (non-Javadoc)
+         * @see java.util.Map#putAll(java.util.Map)
+         */
+        public void putAll(Map arg0) {
+            throw new RuntimeException("Not implemented for ResourceBundleMapWrapper");
+        }
+    
+        /* (non-Javadoc)
          * @see java.util.Map#clear()
          */
         public void clear() {
             throw new RuntimeException("Not implemented for ResourceBundleMapWrapper");
         }
     
+        /* (non-Javadoc)
+         * @see java.util.Map#keySet()
+         */
+        public Set<String> keySet() {
+            return this.topLevelMap.keySet();
+        }
+    
+        /* (non-Javadoc)
+         * @see java.util.Map#values()
+         */
+        public Collection<Object> values() {
+            return this.topLevelMap.values();
+        }
+    
+        /* (non-Javadoc)
+         * @see java.util.Map#entrySet()
+         */
+        public Set<Map.Entry<String, Object>> entrySet() {
+            return this.topLevelMap.entrySet();
+        }
+        
         public ResourceBundle getResourceBundle() {
             return this.resourceBundle;
         }
+        
+        /*public String toString() {
+            return this.topLevelMap.toString();
+        }*/
     }
 }
