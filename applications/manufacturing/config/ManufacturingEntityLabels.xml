@@ -18,7 +18,7 @@
 	under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<property key="InventoryEventPlannedType.description.MANUF_ORDER_RECP">
+	<property key="MrpEventType.description.MANUF_ORDER_RECP">
 		<value xml:lang="en">Manufacturing Order receipt</value>
 		<value xml:lang="es">Recivo de Orden de Producción</value>
 		<value xml:lang="it">Ricevuto Ordine Produzione</value>
@@ -26,7 +26,7 @@
 		<value xml:lang="th">การสร้างใบเสร็จรับเงิน</value>
 		<value xml:lang="zh">制造订单收据</value>
 	</property>
-	<property key="InventoryEventPlannedType.description.MANUF_ORDER_REQ">
+	<property key="MrpEventType.description.MANUF_ORDER_REQ">
 		<value xml:lang="en">Manufacturing Order requirement</value>
 		<value xml:lang="es">Requerimiento de Orden de Producción</value>
 		<value xml:lang="it">Fabbisogno Ordine Produzione</value>
@@ -34,7 +34,7 @@
 		<value xml:lang="th">การสร้างรายการสั่งซื้อตามความต้องการ</value>
 		<value xml:lang="zh">制造订单需求</value>
 	</property>
-	<property key="InventoryEventPlannedType.description.MRP_REQUIREMENT">
+	<property key="MrpEventType.description.MRP_REQUIREMENT">
 		<value xml:lang="en">Mrp requirement</value>
 		<value xml:lang="es">Requerimiento de Mrp</value>
 		<value xml:lang="it">Fabbisogno Mrp</value>
@@ -42,7 +42,7 @@
 		<value xml:lang="th">ความต้องการตาม Mrp</value>
 		<value xml:lang="zh">材料需求计划的需求</value>
 	</property>
-	<property key="InventoryEventPlannedType.description.PROP_MANUF_O_RECP">
+	<property key="MrpEventType.description.PROP_MANUF_O_RECP">
 		<value xml:lang="en">Proposed Manufacturing Order receipt</value>
 		<value xml:lang="es">Orden de Producción Propuesta</value>
 		<value xml:lang="it">Ricevuta Proposta Ordine Produzione</value>
@@ -50,7 +50,7 @@
 		<value xml:lang="th">การสร้างใบเสร็จรับเงินตามวัตถุประสงค์</value>
 		<value xml:lang="zh">已提交的制造订单收据</value>
 	</property>
-	<property key="InventoryEventPlannedType.description.PROP_PUR_O_RECP">
+	<property key="MrpEventType.description.PROP_PUR_O_RECP">
 		<value xml:lang="en">Proposed Purchase Order receipt</value>
 		<value xml:lang="es">Recibo de Orden de Compra propuesta</value>
 		<value xml:lang="it">Ricevuta Proposta Ordine Acquisto</value>
@@ -58,7 +58,7 @@
 		<value xml:lang="th">ใบสั่งซื้อสินค้าตามวัตถุประสงค์</value>
 		<value xml:lang="zh">已提交的购物订单收据</value>
 	</property>
-	<property key="InventoryEventPlannedType.description.PUR_ORDER_RECP">
+	<property key="MrpEventType.description.PUR_ORDER_RECP">
 		<value xml:lang="en">Purchase Order receipt</value>
 		<value xml:lang="es">Recibo de Orden de Compra</value>
 		<value xml:lang="it">Ricevuto Ordine Acquisto</value>
@@ -66,7 +66,7 @@
 		<value xml:lang="th">ใบสั่งซื้อสินค้า</value>
 		<value xml:lang="zh">购物订单收据</value>
 	</property>
-	<property key="InventoryEventPlannedType.description.SALE_ORDER_SHIP">
+	<property key="MrpEventType.description.SALE_ORDER_SHIP">
 		<value xml:lang="en">Sales order shipment</value>
 		<value xml:lang="es">Envío de Orden de Venta</value>
 		<value xml:lang="it">Spedizioni Ordini Vendita</value>
