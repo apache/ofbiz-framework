@@ -1549,11 +1549,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddProductMaint" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="AddProductMaint" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>            
                     </decorator-section>
@@ -1579,11 +1575,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListProductMeters" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="ListProductMeters" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
                         <container style="screenlet">
@@ -1593,11 +1585,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddProductMeter" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="AddProductMeter" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
                     </decorator-section>
@@ -1623,11 +1611,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListProductGeos" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="ListProductGeos" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
                         <container style="screenlet">
@@ -1637,11 +1621,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddProductGeo" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="AddProductGeo" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
                     </decorator-section>
@@ -1668,11 +1648,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListProductSubscriptionResources" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="ListProductSubscriptionResources" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
                         <container style="screenlet">
@@ -1682,11 +1658,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddProductSubscriptionResource" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="AddProductSubscriptionResource" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>   
                     </decorator-section>
@@ -1713,11 +1685,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListProductWorkEfforts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="ListProductWorkEfforts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>   
                         <container style="screenlet">
@@ -1727,11 +1695,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddProductWorkEffort" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="AddProductWorkEffort" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>   
                     </decorator-section>
@@ -1784,18 +1748,12 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditProductParties}"/>
-                                </container>
+                                <label text="${uiLabelMap.PageTitleEditProductParties}" style="h3"/>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/catalog/product/EditProductParties.ftl"/></html>
-                                        </platform-specific>
-                                    </widgets>
-                                </section>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/catalog/product/EditProductParties.ftl"/></html>
+                                </platform-specific>
                             </container>
                         </container>
                     </decorator-section>
@@ -1821,30 +1779,18 @@ under the License.
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditVendorProduct}"/>
-                                </container>
+                                <label text="${uiLabelMap.PageTitleEditVendorProduct}" style="h3"/>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListVendorProducts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="ListVendorProducts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddVendorProduct}"/>
-                                </container>
+                                <label text="${uiLabelMap.PageTitleAddVendorProduct}" style="h3"/>
                             </container>
                             <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditVendorProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
-                                    </widgets>
-                                </section>
+                                <include-form name="EditVendorProduct" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
                     </decorator-section>
@@ -1852,5 +1798,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
 </screens>
