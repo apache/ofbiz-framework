@@ -914,11 +914,11 @@ public class WebToolsServices {
         }
         result.put("viewIndex", new Integer(viewIndex));
 
-        int viewSize = 20;
+        int viewSize = 50;
         try {
             viewSize = Integer.parseInt((String) context.get("VIEW_SIZE"));
         } catch (Exception e) {
-            viewSize = 20;
+            viewSize = 50;
         }
         result.put("viewSize", new Integer(viewSize));
         
@@ -984,7 +984,7 @@ public class WebToolsServices {
             } 
             // set distinct on so we only get one row per job
             EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-            List orderBy = UtilMisc.toList("serviceName");
+            List orderBy = UtilMisc.toList("runTime");
             EntityCondition cond = null;
             if (conditions.size() > 0) {
                 cond = new EntityConditionList(conditions, EntityOperator.AND);
