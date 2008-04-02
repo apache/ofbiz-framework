@@ -447,7 +447,7 @@ under the License.
             </drop-down>
         </field>
         <field name="roleTypeId">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" description="${description}">
                     <entity-order-by field-name="roleTypeId"/>
                 </entity-options>
@@ -459,22 +459,16 @@ under the License.
         <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
         <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
-        <field name="inventoryItemId">
-            <drop-down>
-                <entity-options entity-name="InventoryItem" description="${inventoryItemId}">
-                    <entity-order-by field-name="inventoryItemId"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="inventoryItemId"><text/></field>
         <field name="groupStatusId">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="fixedAssetId">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="FixedAsset" description="${fixedAssetId}">
                     <entity-order-by field-name="fixedAssetId"/>
                 </entity-options>
