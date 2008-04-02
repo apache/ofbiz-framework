@@ -33,17 +33,17 @@ context.put("nowTimestampString", nowTimestampString);
 boolean useValues = true;
 if (request.getAttribute("_ERROR_MESSAGE_") != null) useValues = false;
 
-productId = request.getParameter("productId");
-if (productId == null) productId = request.getParameter("PRODUCT_ID");
+productId = parameters.get("productId");
+if (productId == null) productId = parameters.get("PRODUCT_ID");
 if (productId != null) context.put("productId", productId);
 
-productIdTo = request.getParameter("PRODUCT_ID_TO");
+productIdTo = parameters.get("PRODUCT_ID_TO");
 if (productIdTo != null) context.put("productIdTo", productIdTo);
 
-productAssocTypeId = request.getParameter("PRODUCT_ASSOC_TYPE_ID");
+productAssocTypeId = parameters.get("PRODUCT_ASSOC_TYPE_ID");
 if (productAssocTypeId != null) context.put("productAssocTypeId", productAssocTypeId);
 
-fromDateStr = request.getParameter("FROM_DATE");
+fromDateStr = parameters.get("FROM_DATE");
 
 Timestamp fromDate = null;
 if (UtilValidate.isNotEmpty(fromDateStr)) fromDate = Timestamp.valueOf(fromDateStr);
@@ -56,7 +56,7 @@ if (product != null) context.put("product", product);
 productAssoc = delegator.findByPrimaryKey("ProductAssoc", UtilMisc.toMap("productId", productId, "productIdTo", productIdTo, "productAssocTypeId", productAssocTypeId, "fromDate", fromDate));
 if (productAssoc != null) context.put("productAssoc", productAssoc);
 
-if("true".equalsIgnoreCase((String)request.getParameter("useValues"))) useValues = true;
+if("true".equalsIgnoreCase(parameters.get("useValues"))) useValues = true;
 if(productAssoc == null) useValues = false;
 
 context.put("useValues", useValues);
