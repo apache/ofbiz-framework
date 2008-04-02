@@ -1898,8 +1898,17 @@ public class ModelFormField {
             
             String retVal = null;
             if (value != null) {
-                //Debug.logInfo("In DisplayEntityField.getDescription value=" + value + "; entityName=" + this.entityName, module);
-                retVal = this.description.expandString(value, locale);
+                // expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
+                MapStack localContext = null;
+                if (context instanceof MapStack) {
+                    localContext = ((MapStack) context).standAloneStack();
+                } else {
+                    localContext = MapStack.create(context);
+                }
+                localContext.push(value);
+
+                // expand with the new localContext, which is locale aware
+                retVal = this.description.expandString(localContext, locale);
             }
             // try to get the entry for the field if description doesn't expand to anything
             if (retVal == null || retVal.length() == 0) {
