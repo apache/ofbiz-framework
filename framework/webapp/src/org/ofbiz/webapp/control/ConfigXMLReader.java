@@ -35,6 +35,7 @@ import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -91,6 +92,10 @@ public class ConfigXMLReader {
     public static Set<String> findControllerFilesWithRequest(String requestUri, String controllerPartialPath) throws GeneralException {
         Set<String> allControllerRequestSet = FastSet.newInstance();
         
+        if (UtilValidate.isEmpty(requestUri)) {
+            return allControllerRequestSet;
+        }
+        
         String cacheId = controllerPartialPath != null ? controllerPartialPath : "NOPARTIALPATH";
         List<ControllerConfig> controllerConfigs = (List<ControllerConfig>) controllerSearchResultsCache.get(cacheId);
         
@@ -129,6 +134,38 @@ public class ConfigXMLReader {
         }
         
         return allControllerRequestSet;
+    }
+    
+    public static Set<String> findControllerRequestUniqueForTargetType(String target, String urlMode) throws GeneralException {
+        if (UtilValidate.isEmpty(urlMode)) {
+            urlMode = "intra-app";
+        }
+        
+        int indexOfDollarSignCurlyBrace = target.indexOf("${");
+        int indexOfQuestionMark = target.indexOf("?");
+        if (indexOfDollarSignCurlyBrace >= 0 && (indexOfQuestionMark < 0 || indexOfQuestionMark > indexOfDollarSignCurlyBrace)) {
+            // we have an expanded string in the requestUri part of the target, not much we can do about that...
+            return null;
+        }
+        
+        if ("intra-app".equals(urlMode)) {
+            // look through all controller.xml files and find those with the request-uri referred to by the target
+            String requestUri = UtilHttp.getRequestUriFromTarget(target);
+            
+            Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, null);
+            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
+            return controllerLocAndRequestSet;
+        } else if ("inter-app".equals(urlMode)) {
+            String webappMountPoint = UtilHttp.getWebappMountPointFromTarget(target);
+            if (webappMountPoint != null) webappMountPoint += "/WEB-INF";
+            String requestUri = UtilHttp.getRequestUriFromTarget(target);
+            
+            Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, webappMountPoint);
+            // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
+            return controllerLocAndRequestSet;
+        } else {
+            return FastSet.newInstance();
+        }
     }
 
     /** Site Config Variables */

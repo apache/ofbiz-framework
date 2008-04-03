@@ -675,6 +675,7 @@ public class UtilHttp {
     }
     
     public static String getRequestUriFromTarget(String target) {
+        if (target == null || target.length() == 0) return null;
         int endOfRequestUri = target.length();
         if (target.indexOf('?') > 0) {
             endOfRequestUri = target.indexOf('?');
@@ -691,6 +692,7 @@ public class UtilHttp {
 
     public static String getWebappMountPointFromTarget(String target) {
         int firstChar = 0;
+        if (target == null || target.length() == 0) return null;
         if (target.charAt(0) == '/') firstChar = 1;
         int pathSep = target.indexOf('/', 1);
         String webappMountPoint = null;

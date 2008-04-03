@@ -28,6 +28,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.form.ModelForm;
 import org.xml.sax.SAXException;
@@ -70,7 +71,10 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         this.populateUsedEntities();
         this.populateUsedServices();
         this.populateFormExtended();
+        this.populateLinkedRequests();
+        this.populateTargetedRequests();
     }
+    
     protected void populateFormExtended() throws GeneralException {
         // populate formThisFormExtends and the reverse-associate cache in the aif
         if (this.modelForm.getParentFormName() != null) {
@@ -134,6 +138,43 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             this.servicesUsedInThisForm.add(aif.getServiceArtifactInfo(serviceName));
             // the reverse reference
             UtilMisc.addToSetInMap(this, aif.allFormInfosReferringToServiceName, serviceName);
+        }
+    }
+
+    protected void populateLinkedRequests() throws GeneralException{
+        Set<String> allRequestUniqueId = this.modelForm.getLinkedRequestsLocationAndUri();
+        
+        for (String requestUniqueId: allRequestUniqueId) {
+            if (requestUniqueId.contains("${")) {
+                continue;
+            }
+            
+            if (requestUniqueId.indexOf("#") > -1) {
+                String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
+                String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
+                // the forward reference
+                this.requestsLinkedToInForm.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
+                // the reverse reference
+                UtilMisc.addToSetInMap(this, aif.allFormInfosReferringToRequest, requestUniqueId);
+            }
+        }
+    }
+    protected void populateTargetedRequests() throws GeneralException{
+        Set<String> allRequestUniqueId = this.modelForm.getTargetedRequestsLocationAndUri();
+        
+        for (String requestUniqueId: allRequestUniqueId) {
+            if (requestUniqueId.contains("${")) {
+                continue;
+            }
+            
+            if (requestUniqueId.indexOf("#") > -1) {
+                String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
+                String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
+                // the forward reference
+                this.requestsTargetedByInForm.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
+                // the reverse reference
+                UtilMisc.addToSetInMap(this, aif.allFormInfosTargetingRequest, requestUniqueId);
+            }
         }
     }
     
