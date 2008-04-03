@@ -18,11 +18,14 @@
  */
 package org.ofbiz.webtools.artifactinfo;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Set;
 
 import javolution.util.FastSet;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
@@ -73,6 +76,10 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
     
     public String getUniqueId() {
         return this.modelEntity.getEntityName();
+    }
+    
+    public URL getLocationURL() throws MalformedURLException {
+        return FlexibleLocation.resolveLocation(this.modelEntity.getLocation(), null);
     }
     
     public boolean equals(Object obj) {

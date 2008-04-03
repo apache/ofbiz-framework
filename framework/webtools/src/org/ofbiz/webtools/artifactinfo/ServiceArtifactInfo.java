@@ -21,6 +21,8 @@ package org.ofbiz.webtools.artifactinfo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,6 +31,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
@@ -245,6 +248,14 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     
     public String getUniqueId() {
         return this.modelService.name;
+    }
+    
+    public URL getLocationURL() throws MalformedURLException {
+        return FlexibleLocation.resolveLocation(this.modelService.definitionLocation, null);
+    }
+    
+    public URL getImplementationLocationURL() throws MalformedURLException {
+        return FlexibleLocation.resolveLocation(this.modelService.location, null);
     }
     
     public Set<EntityArtifactInfo> getEntitiesUsedByService() {

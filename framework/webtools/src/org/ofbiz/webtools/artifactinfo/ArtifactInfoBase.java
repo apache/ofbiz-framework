@@ -18,6 +18,9 @@
  */
 package org.ofbiz.webtools.artifactinfo;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 
 
 /**
@@ -49,6 +52,8 @@ public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
     abstract public String getDisplayType();
     abstract public String getType();
     abstract public String getUniqueId();
+    abstract public URL getLocationURL() throws MalformedURLException;
+    
     
     //public static List<ArtifactInfoBase> sortArtifactInfoSetByDisplayName(Set<ArtifactInfoBase> artifactInfoSet) {
         //SortedMap<String, ArtifactInfoBase> sortedMap = FastMap.newInstance();

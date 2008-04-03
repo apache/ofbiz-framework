@@ -68,10 +68,13 @@ under the License.
 <#else/>
     
     <h1>Artifact Info (${artifactInfo.getDisplayType()}): ${artifactInfo.getDisplayName()}</h1>
+    <#if artifactInfo.getLocationURL()?exists>
+        <div>Defined in: <a href="${artifactInfo.getLocationURL()}">${artifactInfo.getLocationURL()}</a></div>
+    </#if>
 
     <#if artifactInfo.getType() == "entity">
-        <h2>Entity Fields</h2>
         <div><a href="<@ofbizUrl>FindGeneric?entityName=${artifactInfo.modelEntity.getEntityName()}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>">All Entity Data</a></div>
+        <h2>Entity Fields</h2>
         <table>
         <#list artifactInfo.modelEntity.getFieldsCopy() as modelField>
             <tr><td>${modelField.getName()}<#if modelField.getIsPk()>*</#if></td><td>${modelField.getType()}</td><td>${modelField.getDescription()?if_exists}</td></tr>
@@ -106,6 +109,7 @@ under the License.
         <h2>Service Info</h2>
         <div>&nbsp;Description: ${artifactInfo.modelService.description}</div>
         <div>&nbsp;Run (${artifactInfo.modelService.engineName}): ${artifactInfo.modelService.location} :: ${artifactInfo.modelService.invoke}</div>
+        <div>&nbsp;Impl Location: <a href="${artifactInfo.getImplementationLocationURL()}">${artifactInfo.getImplementationLocationURL()}</a></div>
         <h2>Service Parameters</h2>
         <table>
             <tr><td>Name</td><td>Type</td><td>Optional</td><td>Mode</td></tr>

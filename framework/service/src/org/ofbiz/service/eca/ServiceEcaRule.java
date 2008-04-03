@@ -46,10 +46,12 @@ public class ServiceEcaRule implements java.io.Serializable {
     protected List<ServiceEcaCondition> conditions = FastList.newInstance();
     protected List<Object> actionsAndSets = FastList.newInstance();
     protected boolean enabled = true;
+    protected String definitionLocation = null;
 
     protected ServiceEcaRule() {}
 
-    public ServiceEcaRule(Element eca) {
+    public ServiceEcaRule(Element eca, String definitionLocation) {
+        this.definitionLocation = definitionLocation;
         this.serviceName = eca.getAttribute("service");
         this.eventName = eca.getAttribute("event");
         this.runOnFailure = "true".equals(eca.getAttribute("run-on-failure"));
@@ -91,6 +93,10 @@ public class ServiceEcaRule implements java.io.Serializable {
     
     public String getEventName() {
         return this.eventName;
+    }
+    
+    public String getDefinitionLocation() {
+        return this.definitionLocation;
     }
     
     public List<ServiceEcaAction> getEcaActionList() {

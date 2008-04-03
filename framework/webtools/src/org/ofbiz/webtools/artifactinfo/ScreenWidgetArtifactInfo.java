@@ -19,12 +19,15 @@
 package org.ofbiz.webtools.artifactinfo;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastSet;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
@@ -179,6 +182,10 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     
     public String getUniqueId() {
         return this.screenLocation + "#" + this.screenName;
+    }
+    
+    public URL getLocationURL() throws MalformedURLException {
+        return FlexibleLocation.resolveLocation(this.screenLocation, null);
     }
     
     public boolean equals(Object obj) {

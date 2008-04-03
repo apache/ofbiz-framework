@@ -96,6 +96,9 @@ public class ModelService extends AbstractMap implements Serializable {
 
     /** The name of this service */
     public String name;
+    
+    /** The location of the definition this service */
+    public String definitionLocation;
 
     /** The description of this service */
     public String description;
@@ -188,6 +191,7 @@ public class ModelService extends AbstractMap implements Serializable {
 
     public ModelService(ModelService model) {
         this.name = model.name;
+        this.definitionLocation = model.definitionLocation;
         this.description = model.description;
         this.engineName = model.engineName;
         this.nameSpace = model.nameSpace;
@@ -243,6 +247,7 @@ public class ModelService extends AbstractMap implements Serializable {
     public String toString() {
         StringBuilder buf = new StringBuilder();
         buf.append(name).append("::");
+        buf.append(definitionLocation).append("::");
         buf.append(description).append("::");
         buf.append(engineName).append("::");
         buf.append(nameSpace).append("::");
