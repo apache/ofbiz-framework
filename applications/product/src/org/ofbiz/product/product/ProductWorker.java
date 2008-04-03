@@ -479,6 +479,106 @@ public class ProductWorker {
         }
         return features;
     }
+    /**
+     * 
+     * @param product
+     * @return list of featureTypes sorted by sequence for this product.
+     */
+    public static List getProductFeatureTypesBySeq(GenericDelegator delegator, String productId) {
+        if (productId == null) {
+            return null;
+        }
+        List featureTypes = new ArrayList();
+        try {
+            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+            if (product != null) {
+                List productAppls = null;
+                Map fields = UtilMisc.toMap("productFeatureApplTypeId", "SELECTABLE_FEATURE");
+                List order = UtilMisc.toList("productFeatureTypeId","sequenceNum");
+                List features = product.getRelatedByAnd("ProductFeatureAppl", fields);
+                List featuresSorted = UtilMisc.sortMaps(features, order);
+                Iterator it = featuresSorted.iterator();
+                String oldType = null;
+                while(it.hasNext()) {
+                    GenericValue productFeatureAppl = (GenericValue) it.next();
+                    if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
+                        featureTypes.add(productFeatureAppl.getString("productFeatureTypeId")); 
+                        oldType = productFeatureAppl.getString("productFeatureTypeId");
+                    }
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return featureTypes;
+    }
+    
+    public static String getProductvirtualVariantMethod(GenericDelegator delegator, String productId) {
+    	GenericValue product = null;
+        try {
+        	product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+
+        if (product != null) {
+        	return product.getString("virtualVariantMethodEnum");
+        } else {
+        	return null;
+        }
+    }
+    	
+    /**
+     * 
+     * @param product
+     * @return list featureType and related features for this product ordered by type and sequence
+     */
+    public static List getProductFeaturesByTypesAndSeq(GenericValue product) {
+        if (product == null) {
+            return null;
+        }
+        List featureTypeFeatures = new ArrayList();
+        try {
+            if (product != null) {
+                GenericDelegator delegator = product.getDelegator();
+                List productAppls = null;
+                Map fields = UtilMisc.toMap("productId", product.getString("productId"), "productFeatureApplTypeId", "SELECTABLE_FEATURE");
+                List order = UtilMisc.toList("productFeatureTypeId","sequenceNum");
+                List features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
+                List featuresSorted = UtilMisc.sortMaps(features, order);
+                Iterator it = featuresSorted.iterator();
+                String oldType = null;
+                List featureList = new LinkedList();
+                while(it.hasNext()) {
+                    GenericValue productFeatureAppl = (GenericValue) it.next();
+                    if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
+                        if (oldType != null) {
+                            featureTypeFeatures.add(featureList);
+                            featureList =  new LinkedList();
+                            Debug.log("=====add feature: " + oldType);
+                            } 
+                        GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", 
+                        		productFeatureAppl.getString("productFeatureTypeId")));
+                        featureList.add(UtilMisc.toMap("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId"), 
+                                                        "description", productFeatureType.getString("description")));  
+                        oldType = productFeatureAppl.getString("productFeatureTypeId");
+                    }
+                    // featureId and description
+                    featureList.add(UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"), "description", productFeatureAppl.getString("description"))); 
+                }
+                if (oldType != null) {
+                    // last map
+                    featureTypeFeatures.add(featureList);
+                    Debug.log("=====add feature: " + oldType);
+                }       
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        Debug.log("=====total list: " + featureTypeFeatures.toString());
+
+        return featureTypeFeatures;
+    }
 
     public static Map getOptionalProductFeatures(GenericDelegator delegator, String productId) {
         Map featureMap = new LinkedHashMap();

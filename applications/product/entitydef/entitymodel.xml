@@ -2422,7 +2422,7 @@ under the License.
       <field name="includeInPromotions" type="indicator"></field>
       <field name="isVirtual" type="indicator"></field>
       <field name="isVariant" type="indicator"></field>
-      <field name="newVirtualVariantMethod" type="indicator"><description>If this field is set to 'Y', the new feature variant selection method will be used, other values will use the old method</description></field>
+      <field name="virtualVariantMethodEnum" type="id"><description>This field defines the method of selecting a variant from the selectable features on the virtual product. Either as a variant explosion which will work to about 200 variants or as feature explosion which almost has no limits</description></field>
       <field name="originGeoId" type="id"></field>
       <field name="requirementMethodEnumId" type="id"></field>
       <field name="billOfMaterialLevel" type="numeric"></field>
@@ -2471,6 +2471,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="PROD_RATE_ENUM" title="Rating" rel-entity-name="Enumeration">
         <key-map field-name="ratingTypeEnum" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="PROD_VVMETHOD_ENUM" title="Virtual-Variant Method" rel-entity-name="Enumeration">
+        <key-map field-name="virtualVariantMethodEnum" rel-field-name="enumId"/>
       </relation>
       <relation type="one" fk-name="PROD_RQMT_ENUM" title="RequirementMethod" rel-entity-name="Enumeration">
         <key-map field-name="requirementMethodEnumId" rel-field-name="enumId"/>

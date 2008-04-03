@@ -234,9 +234,21 @@ public class ShoppingCartEvents {
         
         //Check for virtual products
         if (ProductWorker.isVirtual(delegator, productId)) {
-            request.setAttribute("product_id", productId);
-            request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
-            return "product";
+        	
+        	if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, productId))) {
+        	// new variant selection: try to find variants using the selected features
+        	List featureTypes = ProductWorker.getProductFeatureTypesBySeq(delegator, productId);
+        	
+        	
+        	// to be continued.......
+        	
+        	
+        	
+        	} else {
+        		request.setAttribute("product_id", productId);
+        		request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
+        		return "product";
+        	}
         }
         
         // get the override price
