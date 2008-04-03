@@ -20,28 +20,24 @@ package org.ofbiz.widget.form;
 
 import java.io.IOException;
 import java.io.Writer;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
-import bsh.EvalError;
-import bsh.Interpreter;
-
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -58,9 +54,12 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.widget.ModelWidget;
-
 import org.w3c.dom.Element;
+
+import bsh.EvalError;
+import bsh.Interpreter;
 
 /**
  * Widget Library - Form model class
@@ -122,10 +121,10 @@ public class ModelForm extends ModelWidget {
     protected boolean overridenListSize = false;
     protected boolean clientAutocompleteFields = true;
 
-    protected List altTargets = new LinkedList();
-    protected List<AutoFieldsService> autoFieldsServices = new LinkedList();
-    protected List<AutoFieldsEntity> autoFieldsEntities = new LinkedList();
-    protected List sortOrderFields = new LinkedList();
+    protected List<AltTarget> altTargets = FastList.newInstance();
+    protected List<AutoFieldsService> autoFieldsServices = FastList.newInstance();
+    protected List<AutoFieldsEntity> autoFieldsEntities = FastList.newInstance();
+    protected List<String> sortOrderFields = FastList.newInstance();
 
     /** This List will contain one copy of each field for each field name in the order
      * they were encountered in the service, entity, or form definition; field definitions
@@ -136,23 +135,23 @@ public class ModelForm extends ModelWidget {
      * necessary to use the Map. The Map is used when loading the form definition to keep the
      * list clean and implement the override features for field definitions.
      */
-    protected List<ModelFormField> fieldList = new LinkedList();
+    protected List<ModelFormField> fieldList = FastList.newInstance();
 
     /** This Map is keyed with the field name and has a ModelFormField for the value; fields
      * with conditions will not be put in this Map so field definition overrides for fields
      * with conditions is not possible.
      */
-    protected Map fieldMap = new HashMap();
+    protected Map<String, ModelFormField> fieldMap = FastMap.newInstance();
 
     /** This is a list of FieldGroups in the order they were created.
      * Can also include Banner objects.
      */
-    protected List fieldGroupList = new ArrayList();
+    protected List<FieldGroupBase> fieldGroupList = FastList.newInstance();
     
     /** This Map is keyed with the field name and has a FieldGroup for the value.
      * Can also include Banner objects.
      */
-    protected Map fieldGroupMap = new HashMap();
+    protected Map<String, FieldGroupBase> fieldGroupMap = FastMap.newInstance();
     
     /** This field group will be the "catch-all" group for fields that are not
      *  included in an explicit field-group.
@@ -491,7 +490,7 @@ public class ModelForm extends ModelWidget {
                 String tagName = sortFieldElement.getTagName();
                 if (tagName.equals("sort-field")) {
                     String fieldName = sortFieldElement.getAttribute("name");
-                    this.sortOrderFields.add(fieldName );
+                    this.sortOrderFields.add(fieldName);
                     this.fieldGroupMap.put(fieldName, lastFieldGroup);
                 } else if (tagName.equals("banner")) {
                     Banner thisBanner = new Banner(sortFieldElement, this);
@@ -511,8 +510,8 @@ public class ModelForm extends ModelWidget {
 
         // reorder fields according to sort order
         if (sortOrderFields.size() > 0) {
-            List sortedFields = new ArrayList(this.fieldList.size());
-            Iterator sortOrderFieldIter = this.sortOrderFields.iterator();
+            List<ModelFormField> sortedFields = FastList.newInstance();
+            Iterator<String> sortOrderFieldIter = this.sortOrderFields.iterator();
             while (sortOrderFieldIter.hasNext()) {
                 String fieldName = (String) sortOrderFieldIter.next();
                 if (UtilValidate.isEmpty(fieldName)) {
@@ -2590,8 +2589,10 @@ public class ModelForm extends ModelWidget {
             this.defaultPosition = position;
         }
     }
+    
+    public static interface FieldGroupBase {}
 
-    public static class FieldGroup {
+    public static class FieldGroup implements FieldGroupBase {
         public String id;
         public String style;
         protected ModelForm modelForm;
@@ -2643,7 +2644,7 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    public static class Banner {
+    public static class Banner implements FieldGroupBase {
         protected ModelForm modelForm;
         public FlexibleStringExpander style;
         public FlexibleStringExpander text;
@@ -2748,5 +2749,95 @@ public class ModelForm extends ModelWidget {
             }
         }
         return allServiceNamesUsed;
+    }
+
+    public Set<String> getLinkedRequestsLocationAndUri() throws GeneralException {
+        Set<String> allRequestsUsed = FastSet.newInstance();
+
+        if (this.fieldList != null) {
+            for (ModelFormField modelFormField: this.fieldList) {
+                if (modelFormField.getFieldInfo() instanceof ModelFormField.HyperlinkField) {
+                    ModelFormField.HyperlinkField link = (ModelFormField.HyperlinkField) modelFormField.getFieldInfo();
+                    String target = link.getTarget(null);
+                    String urlMode = link.getTargetType();
+                    // Debug.logInfo("In findRequestNamesLinkedtoInWidget found link [" + link.rawString() + "] with target [" + target + "]", module);
+                    
+                    Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
+                    if (controllerLocAndRequestSet != null) {
+                        allRequestsUsed.addAll(controllerLocAndRequestSet);
+                    }
+                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
+                    ModelFormField.DisplayEntityField parentField = (ModelFormField.DisplayEntityField) modelFormField.getFieldInfo();
+                    if (parentField.subHyperlink != null) {
+                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
+                        if (controllerLocAndRequestSet != null) {
+                            allRequestsUsed.addAll(controllerLocAndRequestSet);
+                        }
+                    }
+                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.TextField) {
+                    ModelFormField.TextField parentField = (ModelFormField.TextField) modelFormField.getFieldInfo();
+                    if (parentField.subHyperlink != null) {
+                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
+                        if (controllerLocAndRequestSet != null) {
+                            allRequestsUsed.addAll(controllerLocAndRequestSet);
+                        }
+                    }
+                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.DropDownField) {
+                    ModelFormField.DropDownField parentField = (ModelFormField.DropDownField) modelFormField.getFieldInfo();
+                    if (parentField.subHyperlink != null) {
+                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
+                        if (controllerLocAndRequestSet != null) {
+                            allRequestsUsed.addAll(controllerLocAndRequestSet);
+                        }
+                    }
+                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.ImageField) {
+                    ModelFormField.ImageField parentField = (ModelFormField.ImageField) modelFormField.getFieldInfo();
+                    if (parentField.subHyperlink != null) {
+                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
+                        if (controllerLocAndRequestSet != null) {
+                            allRequestsUsed.addAll(controllerLocAndRequestSet);
+                        }
+                    }
+                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.DropDownField) {
+                    ModelFormField.DropDownField parentField = (ModelFormField.DropDownField) modelFormField.getFieldInfo();
+                    if (parentField.subHyperlink != null) {
+                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
+                        if (controllerLocAndRequestSet != null) {
+                            allRequestsUsed.addAll(controllerLocAndRequestSet);
+                        }
+                    }
+                }
+            }
+        }
+        return allRequestsUsed;
+    }
+
+    public Set<String> getTargetedRequestsLocationAndUri() throws GeneralException {
+        Set<String> allRequestsUsed = FastSet.newInstance();
+
+        if (this.altTargets != null) {
+            for (AltTarget altTarget: this.altTargets) {
+                String target = altTarget.target;
+                String urlMode = "intra-app";
+                
+                Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
+                if (controllerLocAndRequestSet != null) {
+                    allRequestsUsed.addAll(controllerLocAndRequestSet);
+                }
+            }
+        }
+        
+        if (!this.target.isEmpty()) {
+            String target = this.target.getOriginal();
+            String urlMode = UtilValidate.isNotEmpty(this.targetType) ? this.targetType : "intra-app";
+            if (target.indexOf("${") < 0) {
+                Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
+                if (controllerLocAndRequestSet != null) {
+                    allRequestsUsed.addAll(controllerLocAndRequestSet);
+                }
+            }
+        }
+        
+        return allRequestsUsed;
     }
 }

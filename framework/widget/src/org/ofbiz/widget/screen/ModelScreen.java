@@ -280,31 +280,12 @@ public class ModelScreen extends ModelWidget implements Serializable {
         if (currentWidget instanceof ModelScreenWidget.Link) {
             ModelScreenWidget.Link link = (ModelScreenWidget.Link) currentWidget;
             String target = link.getTarget(null);
+            String urlMode = link.getUrlMode();
             // Debug.logInfo("In findRequestNamesLinkedtoInWidget found link [" + link.rawString() + "] with target [" + target + "]", module);
             
-            int indexOfDollarSignCurlyBrace = target.indexOf("${");
-            int indexOfQuestionMark = target.indexOf("?");
-            if (indexOfDollarSignCurlyBrace >= 0 && (indexOfQuestionMark < 0 || indexOfQuestionMark > indexOfDollarSignCurlyBrace)) {
-                // we have an expanded string in the requestUri part of the target, not much we can do about that...
-                return;
-            }
-            
-            if ("intra-app".equals(link.getUrlMode())) {
-                // look through all controller.xml files and find those with the request-uri referred to by the target
-                String requestUri = UtilHttp.getRequestUriFromTarget(target);
-                
-                Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, null);
-                allRequestNamesIncluded.addAll(controllerLocAndRequestSet);
-                // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
-            } else if ("inter-app".equals(link.getUrlMode())) {
-                String webappMountPoint = UtilHttp.getWebappMountPointFromTarget(target);
-                if (webappMountPoint != null) webappMountPoint += "/WEB-INF";
-                String requestUri = UtilHttp.getRequestUriFromTarget(target);
-                
-                Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, webappMountPoint);
-                allRequestNamesIncluded.addAll(controllerLocAndRequestSet);
-                // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
-            }
+            Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
+            if (controllerLocAndRequestSet == null) return;
+            allRequestNamesIncluded.addAll(controllerLocAndRequestSet);
         } else if (currentWidget instanceof ModelScreenWidget.Section) {
             ModelScreenWidget.Section section = (ModelScreenWidget.Section) currentWidget;
             if (section.subWidgets != null) {
