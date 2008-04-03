@@ -19,6 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
+    <MrpEventType mrpEventTypeId="REQUIRED_MRP" description="Required planning because QOH is less than minimum quantity"/>
     <MrpEventType mrpEventTypeId="INITIAL_QOH" description="Initial QOH"/>
     <MrpEventType mrpEventTypeId="MRP_REQUIREMENT" description="Mrp requirement"/>
     <MrpEventType mrpEventTypeId="MANUF_ORDER_RECP" description="Manufacturing Order receipt"/>

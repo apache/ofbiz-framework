@@ -61,6 +61,7 @@ public class MrpServices {
     
     public static Map initMrpEvents(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = UtilDateTime.nowTimestamp();
         
         String facilityId = (String)context.get("facilityId");
@@ -389,6 +390,47 @@ public class MrpServices {
             }
         }
 
+        // ----------------------------------------
+        // Products without upcoming events but that are already under minimum quantity in warehouse
+        // ----------------------------------------
+        resultList = null;
+        iteratorResult = null;
+        parameters = UtilMisc.toMap("facilityId", facilityId);
+        try {
+            resultList = delegator.findByAnd("ProductFacility", parameters);
+        } catch(GenericEntityException e) {
+            Debug.logError(e, "Unable to retrieve ProductFacility records.", module);
+            return ServiceUtil.returnError("Unable to retrieve ProductFacility records.");
+        }
+        iteratorResult = resultList.iterator();
+        while(iteratorResult.hasNext()){
+            genericResult = (GenericValue) iteratorResult.next();
+            String productId = genericResult.getString("productId");
+            Double minimumStock = genericResult.getDouble("minimumStock");
+            if (minimumStock == null) {
+                minimumStock = new Double(0);
+            }
+            try {
+                long numOfEvents = delegator.findCountByAnd("MrpEvent", UtilMisc.toMap("mrpId", mrpId, "productId", productId));
+                if (numOfEvents > 0) {
+                    continue;
+                }
+            } catch(GenericEntityException e) {
+                Debug.logError(e, "Unable to count MrpEvent records.", module);
+                return ServiceUtil.returnError("Unable to count MrpEvent records.");
+            }
+            double qoh = findProductMrpQoh(productId, facilityId, dispatcher, delegator);
+            if (qoh >= minimumStock.longValue()) {
+                continue;
+            }
+            parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", now, "mrpEventTypeId", "REQUIRED_MRP");
+            try {
+                InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, new Double(0.0), null, null, false, delegator);
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError("Problem initializing the MrpEvent entity (REQUIRED_MRP)");
+            }
+        }
+        
         Map result = new HashMap();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         Debug.logInfo("return from initMrpEvent", module);
@@ -404,17 +446,19 @@ public class MrpServices {
      * @return the sum of all the totalAvailableToPromise of the inventoryItem related to the product, if the related facility is Mrp available (not yet implemented!!)
      */
     public static double findProductMrpQoh(GenericValue product, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
-        List orderBy = UtilMisc.toList("facilityId", "-receivedDate", "-inventoryItemId");
+        return findProductMrpQoh(product.getString("productId"), facilityId, dispatcher, delegator);
+    }
+    public static double findProductMrpQoh(String productId, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
         Map resultMap = null;
         try{
             if (facilityId == null) {
-                resultMap = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.toMap("productId", product.getString("productId")));
+                resultMap = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.toMap("productId", productId));
             } else {
-                resultMap = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", product.getString("productId"), "facilityId", facilityId));
+                resultMap = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", module);
-            logMrpError(product.getString("productId"), "Unable to count inventory", delegator);
+            logMrpError(productId, "Unable to count inventory", delegator);
             return 0;
         }
         return ((Double)resultMap.get("quantityOnHandTotal")).doubleValue();
@@ -566,7 +610,7 @@ public class MrpServices {
         ListIterator iteratorListInventoryEventForMRP = null;
         GenericValue inventoryEventForMRP = null;
         
-        // Initialisation of the MrpEvent table, This table will contain the products we want to buy or build.
+        // Initialization of the MrpEvent table, This table will contain the products we want to buy or build.
         parameters = UtilMisc.toMap("mrpId", mrpId, "reInitialize", Boolean.TRUE, "defaultYearsOffset", defaultYearsOffset, "userLogin", userLogin);
         parameters.put("facilityId", facilityId);
         parameters.put("manufacturingFacilityId", manufacturingFacilityId);
@@ -619,7 +663,7 @@ public class MrpServices {
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem running createOrUpdateMrpEvent");
                         }
-            // days to ship is only relevant for sales order to plan for preparatory days to ship.  Otherwise MRP will push event dates for manufacturing parts
+                        // days to ship is only relevant for sales order to plan for preparatory days to ship.  Otherwise MRP will push event dates for manufacturing parts
                         // as well and cause problems
                         daysToShip = 0;
                         if (productFacility != null) {
