@@ -383,7 +383,11 @@ under the License.
     <Enumeration description="Min Rating" enumCode="MIN" enumId="PRDR_MIN" sequenceId="01" enumTypeId="PROD_RATING_TYPE"/>
     <Enumeration description="Max Rating" enumCode="MAX" enumId="PRDR_MAX" sequenceId="02" enumTypeId="PROD_RATING_TYPE"/>
     <Enumeration description="Rating Override" enumCode="FLAT" enumId="PRDR_FLAT" sequenceId="03" enumTypeId="PROD_RATING_TYPE"/>
-
+    
+    <EnumerationType description="Virtual Variant Method" enumTypeId="PROD_VVMETHOD" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Feature tree Generation" enumCode="FEATURETREE" enumId="VV_FEATURETREE" sequenceId="01" enumTypeId="PROD_VVMETHOD"/>
+    <Enumeration description="Variant Tree generation" enumCode="VARIANTTREE" enumId="VV_VARIANTTREE" sequenceId="02" enumTypeId="PROD_VVMETHOD"/>
+    
     <ProductPriceType description="List Price" productPriceTypeId="LIST_PRICE"/>
     <ProductPriceType description="Default Price" productPriceTypeId="DEFAULT_PRICE"/>
     <ProductPriceType description="Average Cost" productPriceTypeId="AVERAGE_COST"/>

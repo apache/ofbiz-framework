@@ -229,6 +229,28 @@ ${virtualJavaScript?if_exists}
         document.addToShoppingList.submit();
         </#if>
     }
+
+    <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>	
+	    function checkRadioButton() {
+	    	//alert("work");
+		    var block = document.getElementById("addCart");
+			
+	        <#list featureLists as featureList>
+			    <#list featureList as feature>
+				    <#if feature_index == 0>
+				        var myList = document.getElementById("FT${feature.productFeatureTypeId}");
+				         if (myList.options[0].selected == true){
+				         	block.style.display = "none";
+				         	return;
+				         }
+	
+				    	<#break>
+				    </#if>		    
+			    </#list>
+	        </#list>
+	        block.style.display = "block";
+	    }
+    </#if>  
  //-->
  </script>
 
@@ -396,6 +418,27 @@ ${virtualJavaScript?if_exists}
         <#assign inStock = true>
         <#-- Variant Selection -->
         <#if product.isVirtual?if_exists?upper_case == "Y">
+          <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>
+            <#list featureLists as featureList>
+                <#list featureList as feature>
+                    <#if feature_index == 0>
+                        <div class="tabletext">${feature.description}: <select id="FT${feature.productFeatureTypeId}" name="FT${feature.productFeatureTypeId}" onChange="javascript:checkRadioButton();">
+                        <option value="select" selected="selected"> select option </option> 
+                    <#else>
+                        <option value="${feature.productFeatureId}">${feature.description}</option> 
+                    </#if>
+                </#list>
+                </select>
+                </div>
+            </#list>
+            <input type="hidden" name="add_product_id" value="${product.productId}"/>          
+            <div id="addCart" style="display:none;>
+              <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
+              <input type="text" class="inputBox" size="5" name="quantity" value="1"/>
+              <a href="javascript:document.addform.submit();" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>
+              &nbsp;
+            </div>            
+          </#if>
           <#if variantTree?exists && (variantTree.size() > 0)>
             <#list featureSet as currentType>
               <div class="tabletext">
