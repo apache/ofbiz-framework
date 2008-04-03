@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javolution.util.FastSet;
 
@@ -38,8 +39,8 @@ import org.ofbiz.entityext.eca.EntityEcaRule;
 public class EntityArtifactInfo extends ArtifactInfoBase {
     protected ModelEntity modelEntity;
     
-    protected Set<EntityArtifactInfo> entitiesRelatedOne = FastSet.newInstance();
-    protected Set<EntityArtifactInfo> entitiesRelatedMany = FastSet.newInstance();
+    protected Set<EntityArtifactInfo> entitiesRelatedOne = new TreeSet<EntityArtifactInfo>();
+    protected Set<EntityArtifactInfo> entitiesRelatedMany = new TreeSet<EntityArtifactInfo>();
     
     public EntityArtifactInfo(String entityName, ArtifactInfoFactory aif) throws GenericEntityException {
         super(aif);

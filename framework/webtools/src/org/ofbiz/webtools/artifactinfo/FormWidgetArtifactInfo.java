@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -47,11 +48,11 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     protected String formName;
     protected String formLocation;
     
-    protected Set<EntityArtifactInfo> entitiesUsedInThisForm = FastSet.newInstance();
-    protected Set<ServiceArtifactInfo> servicesUsedInThisForm = FastSet.newInstance();
+    protected Set<EntityArtifactInfo> entitiesUsedInThisForm = new TreeSet<EntityArtifactInfo>();
+    protected Set<ServiceArtifactInfo> servicesUsedInThisForm = new TreeSet<ServiceArtifactInfo>();
     protected FormWidgetArtifactInfo formThisFormExtends = null;
-    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = FastSet.newInstance();
-    protected Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = FastSet.newInstance();
+    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = new TreeSet<ControllerRequestArtifactInfo>();
+    protected Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = new TreeSet<ControllerRequestArtifactInfo>();
     
     public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -96,7 +97,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.formThisFormExtends = aif.getFormWidgetArtifactInfo(formName);
             // the reverse reference
-            UtilMisc.addToSetInMap(this, aif.allFormInfosExtendingForm, formName);
+            UtilMisc.addToSortedSetInMap(this, aif.allFormInfosExtendingForm, formName);
         }
     }
     protected void populateUsedEntities() throws GeneralException {
@@ -117,7 +118,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.entitiesUsedInThisForm.add(aif.getEntityArtifactInfo(entityName));
             // the reverse reference
-            UtilMisc.addToSetInMap(this, aif.allFormInfosReferringToEntityName, entityName);
+            UtilMisc.addToSortedSetInMap(this, aif.allFormInfosReferringToEntityName, entityName);
         }
     }
     protected void populateUsedServices() throws GeneralException {
@@ -140,7 +141,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             // the forward reference
             this.servicesUsedInThisForm.add(aif.getServiceArtifactInfo(serviceName));
             // the reverse reference
-            UtilMisc.addToSetInMap(this, aif.allFormInfosReferringToServiceName, serviceName);
+            UtilMisc.addToSortedSetInMap(this, aif.allFormInfosReferringToServiceName, serviceName);
         }
     }
 
@@ -158,7 +159,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 // the forward reference
                 this.requestsLinkedToInForm.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSetInMap(this, aif.allFormInfosReferringToRequest, requestUniqueId);
+                UtilMisc.addToSortedSetInMap(this, aif.allFormInfosReferringToRequest, requestUniqueId);
             }
         }
     }
@@ -176,7 +177,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 // the forward reference
                 this.requestsTargetedByInForm.add(aif.getControllerRequestArtifactInfo(UtilURL.fromUrlString(controllerXmlUrl), requestUri));
                 // the reverse reference
-                UtilMisc.addToSetInMap(this, aif.allFormInfosTargetingRequest, requestUniqueId);
+                UtilMisc.addToSortedSetInMap(this, aif.allFormInfosTargetingRequest, requestUniqueId);
             }
         }
     }

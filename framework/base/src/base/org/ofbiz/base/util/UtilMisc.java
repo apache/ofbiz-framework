@@ -19,7 +19,6 @@
 package org.ofbiz.base.util;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -29,6 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -493,6 +493,15 @@ public class UtilMisc {
         Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
         if (theSet == null) {
             theSet = FastSet.newInstance();
+            theMap.put(setKey, theSet);
+        }
+        theSet.add(element);
+    }
+    
+    public static <K, V> void addToSortedSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
+        Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
+        if (theSet == null) {
+            theSet = new TreeSet<V>();
             theMap.put(setKey, theSet);
         }
         theSet.add(element);
