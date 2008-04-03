@@ -163,5 +163,11 @@ under the License.
     <view-map name="FormWidgetExamples" type="screen" page="component://example/widget/example/FormWidgetExampleScreens.xml#FormWidgetExamples"/>
 
     <view-map name="LookupExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#LookupExampleFeature"/>
+
+    <!-- ajax view mappings -->
+    <view-map name="findExampleAjax" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#AjaxExample"/>
+    <view-map name="listExamples" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#listExamples"/>
+    <view-map name="createExampleForm" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#createScreenForm"/>
+    
     <!-- end of view mappings -->
 </site-conf>
