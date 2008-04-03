@@ -66,6 +66,7 @@ if (lookupFlag != null) {
     } 
     andExprs.add(new EntityExpr("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
     andExprs.add(new EntityExpr("mrpEventTypeId", EntityOperator.NOT_EQUAL, "ERROR"));
+    andExprs.add(new EntityExpr("mrpEventTypeId", EntityOperator.NOT_EQUAL, "REQUIRED_MRP"));
 
     mainCond = new EntityConditionList(andExprs, EntityOperator.AND); 
     
