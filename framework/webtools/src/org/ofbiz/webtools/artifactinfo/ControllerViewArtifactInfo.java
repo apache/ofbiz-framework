@@ -70,7 +70,7 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
                     this.screenCalledByThisView = this.aif.getScreenWidgetArtifactInfo(fullScreenName.substring(poundIndex+1), fullScreenName.substring(0, poundIndex));
                     if (this.screenCalledByThisView != null) {
                         // add the reverse association
-                        UtilMisc.addToSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
+                        UtilMisc.addToSortedSetInMap(this, aif.allViewInfosReferringToScreen, this.screenCalledByThisView.getUniqueId());
                     }
                 } catch (GeneralException e) {
                     Debug.logWarning(e.toString(), module);

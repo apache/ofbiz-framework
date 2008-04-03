@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -43,7 +44,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
     protected String displayPrefix = null;
     protected int displaySuffixNum = 0;
     
-    protected Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = FastSet.newInstance();
+    protected Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = new TreeSet<ServiceArtifactInfo>();
     
     public ServiceEcaArtifactInfo(ServiceEcaRule serviceEcaRule, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -59,7 +60,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
         // populate the services called Set
         for (ServiceEcaAction ecaAction: serviceEcaRule.getEcaActionList()) {
             servicesCalledByThisServiceEca.add(aif.getServiceArtifactInfo(ecaAction.getServiceName()));
-            UtilMisc.addToSetInMap(this, aif.allServiceEcaInfosReferringToServiceName, ecaAction.getServiceName());
+            UtilMisc.addToSortedSetInMap(this, aif.allServiceEcaInfosReferringToServiceName, ecaAction.getServiceName());
         }
     }
     
