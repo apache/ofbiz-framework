@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="AjaxExample">
+        <section>
+            <actions>
+                <set field="headerItem" value="Example"/>
+                <set field="titleProperty" value="PageTitleFindExample"/>
+
+                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/validation.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container><label style="h1">${uiLabelMap.${titleProperty}}</label></container>
+                                <container id="example-list">
+                                    <include-screen name="listExamples"/>
+                                </container>
+                                <container/>
+                                <container id="create-form">
+                                    <include-screen name="createScreenForm"/>
+                                </container>                                
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="listExamples">
+        <section>
+            <actions>
+                <entity-condition entity-name="Example" list-name="examples"/>
+            </actions>
+            <widgets>
+                <container id="list-example-table">
+                    <platform-specific><html><html-template location="component://example/webapp/example/ajax/listExamplesAjax.ftl"/></html></platform-specific>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="createScreenForm">
+        <section>
+            <actions>
+                <entity-condition entity-name="ExampleType" list-name="types"/>
+                <entity-condition entity-name="StatusItem" list-name="statusItems">
+                    <condition-expr field-name="statusTypeId" operator="equals" value="EXAMPLE_STATUS"/>
+                    <order-by field-name="sequenceId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <container id="create-example-form">
+                    <platform-specific><html><html-template location="component://example/webapp/example/ajax/createExampleAjax.ftl"/></html></platform-specific>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+</screens>
