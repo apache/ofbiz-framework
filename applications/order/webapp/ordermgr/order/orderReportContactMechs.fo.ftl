@@ -124,7 +124,7 @@ under the License.
              </fo:table-row>
            </#if>
        <#-- order terms information -->
-             <#if orderTerms?has_content>
+             <#if orderTerms?exists?has_content>
              <fo:table-row>
                <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderOrderTerms}: </fo:block></fo:table-cell>
                <fo:table-cell white-space-collapse="false"><#list orderTerms as orderTerm><fo:block>${orderTerm.getRelatedOne("TermType").get("description",locale)} ${orderTerm.termValue?default("")} ${orderTerm.termDays?default("")} ${orderTerm.textValue?default("")}
