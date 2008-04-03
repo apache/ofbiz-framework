@@ -379,43 +379,53 @@ public class ArtifactInfoFactory {
         return null;
     }
     
-    public Set<ArtifactInfoBase> getAllArtifactInfosByNamePartial(String artifactNamePartial) {
+    public Set<ArtifactInfoBase> getAllArtifactInfosByNamePartial(String artifactNamePartial, String type) {
         Set<ArtifactInfoBase> aiBaseSet = FastSet.newInstance();
         
         if (UtilValidate.isEmpty(artifactNamePartial)) {
             return aiBaseSet;
         }
         
-        for (Map.Entry<String, EntityArtifactInfo> curEntry: allEntityInfos.entrySet()) {
-            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
-                aiBaseSet.add(curEntry.getValue());
+        if (UtilValidate.isEmpty(type) || "entity".equals(type)) {
+            for (Map.Entry<String, EntityArtifactInfo> curEntry: allEntityInfos.entrySet()) {
+                if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
+                    aiBaseSet.add(curEntry.getValue());
+                }
             }
         }
-        for (Map.Entry<String, ServiceArtifactInfo> curEntry: allServiceInfos.entrySet()) {
-            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
-                aiBaseSet.add(curEntry.getValue());
+        if (UtilValidate.isEmpty(type) || "service".equals(type)) {
+            for (Map.Entry<String, ServiceArtifactInfo> curEntry: allServiceInfos.entrySet()) {
+                if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
+                    aiBaseSet.add(curEntry.getValue());
+                }
             }
         }
-        
-        for (Map.Entry<String, FormWidgetArtifactInfo> curEntry: allFormInfos.entrySet()) {
-            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
-                aiBaseSet.add(curEntry.getValue());
+        if (UtilValidate.isEmpty(type) || "form".equals(type)) {
+            for (Map.Entry<String, FormWidgetArtifactInfo> curEntry: allFormInfos.entrySet()) {
+                if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
+                    aiBaseSet.add(curEntry.getValue());
+                }
             }
         }
-        for (Map.Entry<String, ScreenWidgetArtifactInfo> curEntry: allScreenInfos.entrySet()) {
-            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
-                aiBaseSet.add(curEntry.getValue());
+        if (UtilValidate.isEmpty(type) || "screen".equals(type)) {
+            for (Map.Entry<String, ScreenWidgetArtifactInfo> curEntry: allScreenInfos.entrySet()) {
+                if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
+                    aiBaseSet.add(curEntry.getValue());
+                }
             }
         }
-        
-        for (Map.Entry<String, ControllerRequestArtifactInfo> curEntry: allControllerRequestInfos.entrySet()) {
-            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
-                aiBaseSet.add(curEntry.getValue());
+        if (UtilValidate.isEmpty(type) || "request".equals(type)) {
+            for (Map.Entry<String, ControllerRequestArtifactInfo> curEntry: allControllerRequestInfos.entrySet()) {
+                if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
+                    aiBaseSet.add(curEntry.getValue());
+                }
             }
         }
-        for (Map.Entry<String, ControllerViewArtifactInfo> curEntry: allControllerViewInfos.entrySet()) {
-            if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
-                aiBaseSet.add(curEntry.getValue());
+        if (UtilValidate.isEmpty(type) || "view".equals(type)) {
+            for (Map.Entry<String, ControllerViewArtifactInfo> curEntry: allControllerViewInfos.entrySet()) {
+                if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
+                    aiBaseSet.add(curEntry.getValue());
+                }
             }
         }
         

@@ -31,21 +31,21 @@ aif = ArtifactInfoFactory.getArtifactInfoFactory(delegator.getDelegatorName());
 context.put("aif", aif);
 
 artifactInfo = null;
-if (UtilValidate.isNotEmpty(type)) {
+if ("search".equals(parameters.get("findType"))) {
+    artifactInfoSet = aif.getAllArtifactInfosByNamePartial(name, type);
+    if (artifactInfoSet.size() == 1) {
+        artifactInfo = artifactInfoSet.iterator().next();
+        context.put("artifactInfo", artifactInfo);
+    } else {
+        context.put("artifactInfoSet", new TreeSet(artifactInfoSet));
+    }
+} else {
     if (UtilValidate.isNotEmpty(name)) {
         artifactInfo = aif.getArtifactInfoByNameAndType(name, location, type);
         context.put("artifactInfo", artifactInfo);
     } else if (UtilValidate.isNotEmpty(uniqueId)) {
         artifactInfo = aif.getArtifactInfoByUniqueIdAndType(uniqueId, type);
         context.put("artifactInfo", artifactInfo);
-    }
-} else {
-    artifactInfoSet = aif.getAllArtifactInfosByNamePartial(name);
-    if (artifactInfoSet.size() == 1) {
-        artifactInfo = artifactInfoSet.iterator().next();
-        context.put("artifactInfo", artifactInfo);
-    } else {
-        context.put("artifactInfoSet", new TreeSet(artifactInfoSet));
     }
 }
 
