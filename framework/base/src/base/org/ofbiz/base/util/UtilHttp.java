@@ -673,6 +673,33 @@ public class UtilHttp {
         }
         return buf.toString();
     }
+    
+    public static String getRequestUriFromTarget(String target) {
+        int endOfRequestUri = target.length();
+        if (target.indexOf('?') > 0) {
+            endOfRequestUri = target.indexOf('?');
+        }
+        int slashBeforeRequestUri = target.lastIndexOf('/', endOfRequestUri);
+        String requestUri = null;
+        if (slashBeforeRequestUri < 0) {
+            requestUri = target.substring(0, endOfRequestUri);
+        } else {
+            requestUri = target.substring(slashBeforeRequestUri, endOfRequestUri);
+        }
+        return requestUri;
+    }
+
+    public static String getWebappMountPointFromTarget(String target) {
+        int firstChar = 0;
+        if (target.charAt(0) == '/') firstChar = 1;
+        int pathSep = target.indexOf('/', 1);
+        String webappMountPoint = null;
+        if (pathSep > 0) {
+            // if not then no good, supposed to be a inter-app, but there is no path sep! will do general search with null and treat like an intra-app
+            webappMountPoint = target.substring(firstChar, pathSep);
+        }
+        return webappMountPoint;
+    }
 
     public static String encodeAmpersands(String htmlString) {
         StringBuilder htmlBuffer = new StringBuilder(htmlString);

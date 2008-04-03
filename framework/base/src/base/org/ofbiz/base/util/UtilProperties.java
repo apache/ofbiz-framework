@@ -383,9 +383,9 @@ public class UtilProperties implements java.io.Serializable {
 
         String value = null;
         try {
-            value = (String)bundle.getString(name);
+            value = (String) bundle.getString(name);
         } catch (Exception e) {
-            Debug.log(e.getMessage(), module);
+            //Debug.log(e.getMessage(), module);
         }
         return value == null ? "" : value.trim();
     }
