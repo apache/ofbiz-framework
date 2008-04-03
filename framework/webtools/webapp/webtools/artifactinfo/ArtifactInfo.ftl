@@ -34,6 +34,16 @@ under the License.
     <div>
       <form name="ArtifactInfoByName" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
         Search Names/Locations: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/>
+        <select name="type">
+          <option></option>
+          <option>entity</option>
+          <option>service</option>
+          <option>form</option>
+          <option>screen</option>
+          <option>request</option>
+          <option>view</option>
+        </select>
+        <input type="hidden" name="findType" value="search"/>
         <input type="submit" name="submitButton" value="Find"/>
       </form>
     </div>
