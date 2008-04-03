@@ -31,8 +31,6 @@ import org.ofbiz.product.inventory.InventoryWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.accounting.payment.*;
 
-import javolution.util.FastList;
-
 orderId = parameters.get("orderId");
 context.put("orderId", orderId);
 
