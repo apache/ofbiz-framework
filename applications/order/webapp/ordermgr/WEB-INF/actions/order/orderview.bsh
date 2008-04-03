@@ -31,6 +31,8 @@ import org.ofbiz.product.inventory.InventoryWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.accounting.payment.*;
 
+import javolution.util.FastList;
+
 orderId = parameters.get("orderId");
 context.put("orderId", orderId);
 
@@ -73,7 +75,7 @@ if (orderHeader != null) {
     context.put("orderHeaderAdjustments", orderHeaderAdjustments);
     context.put("orderSubTotal", orderSubTotal);
     context.put("currencyUomId", orderReadHelper.getCurrency());
-    context.put("orderTerms",orderTerms);
+    context.put("orderTerms", orderTerms);
 
     // get the order type
     orderType = orderHeader.getString("orderTypeId");
