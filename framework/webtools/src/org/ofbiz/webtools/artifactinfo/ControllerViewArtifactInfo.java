@@ -18,6 +18,7 @@
  */
 package org.ofbiz.webtools.artifactinfo;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Set;
@@ -104,6 +105,10 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
     
     public String getUniqueId() {
         return this.controllerXmlUrl.toExternalForm() + "#" + this.viewUri;
+    }
+    
+    public URL getLocationURL() throws MalformedURLException {
+        return this.controllerXmlUrl;
     }
     
     public boolean equals(Object obj) {

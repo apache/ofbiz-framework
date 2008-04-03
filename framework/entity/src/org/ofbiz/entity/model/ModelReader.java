@@ -164,13 +164,16 @@ public class ModelReader implements Serializable {
             modelEntity = createModelViewEntity(curEntityElement, null, def);
         }
 
+        String resourceLocation = entityResourceHandler.getLocation();
+        try {
+            resourceLocation = entityResourceHandler.getURL().toExternalForm();
+        } catch (GenericConfigException e) {
+            Debug.logError(e, "Could not get resource URL", module);
+        }
+        
         // utilTimer.timerString("  After createModelEntity -- " + i + " --");
         if (modelEntity != null) {
-            try {
-                modelEntity.setLocation(entityResourceHandler.getFullLocation());
-            } catch (GenericConfigException e) {
-                Debug.logWarning("Error getting ResourceHandler full location: " + e.getMessage(), module);
-            }
+            modelEntity.setLocation(resourceLocation);
             entityCache.put(entityName, modelEntity);
             // utilTimer.timerString("  After entityCache.put -- " + i + " --");
             if (isEntity) {

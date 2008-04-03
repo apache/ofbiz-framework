@@ -82,6 +82,13 @@ public class ServiceEcaUtil {
             return;
         }
 
+        String resourceLocation = handler.getLocation();
+        try {
+            resourceLocation = handler.getURL().toExternalForm();
+        } catch (GenericConfigException e) {
+            Debug.logError(e, "Could not get resource URL", module);
+        }
+        
         int numDefs = 0;
         for (Element e: UtilXml.childElementList(rootElement, "eca")) {
             String serviceName = e.getAttribute("service");
@@ -101,16 +108,10 @@ public class ServiceEcaUtil {
                     eventMap.put(eventName, rules);
                 }
             }
-            rules.add(new ServiceEcaRule(e));
+            rules.add(new ServiceEcaRule(e, resourceLocation));
             numDefs++;
         }
         if (Debug.importantOn()) {
-            String resourceLocation = handler.getLocation();
-            try {
-                resourceLocation = handler.getURL().toExternalForm();
-            } catch (GenericConfigException e) {
-                Debug.logError(e, "Could not get resource URL", module);
-            }
             Debug.logImportant("Loaded [" + numDefs + "] Service ECA definitions from " + resourceLocation, module);
         }
     }

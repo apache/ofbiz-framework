@@ -18,6 +18,8 @@
  */
 package org.ofbiz.webtools.artifactinfo;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +28,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.eca.ServiceEcaAction;
@@ -74,6 +77,10 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
     
     public String getUniqueId() {
         return this.serviceEcaRule.toString();
+    }
+    
+    public URL getLocationURL() throws MalformedURLException {
+        return FlexibleLocation.resolveLocation(this.serviceEcaRule.getDefinitionLocation(), null);
     }
     
     public ServiceEcaRule getServiceEcaRule() {

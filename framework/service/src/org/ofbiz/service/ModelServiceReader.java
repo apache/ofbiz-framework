@@ -141,6 +141,13 @@ public class ModelServiceReader implements Serializable {
 
                     docElement.normalize();
 
+                    String resourceLocation = handler.getLocation();
+                    try {
+                        resourceLocation = handler.getURL().toExternalForm();
+                    } catch (GenericConfigException e) {
+                        Debug.logError(e, "Could not get resource URL", module);
+                    }
+                    
                     int i = 0;
                     Node curChild = docElement.getFirstChild();
                     if (curChild != null) {
@@ -153,8 +160,8 @@ public class ModelServiceReader implements Serializable {
                         do {
                             if (curChild.getNodeType() == Node.ELEMENT_NODE && "service".equals(curChild.getNodeName())) {
                                 i++;
-                                Element curService = (Element) curChild;
-                                String serviceName = UtilXml.checkEmpty(curService.getAttribute("name"));
+                                Element curServiceElement = (Element) curChild;
+                                String serviceName = UtilXml.checkEmpty(curServiceElement.getAttribute("name"));
 
                                 // check to see if service with same name has already been read
                                 if (modelServices.containsKey(serviceName)) {
@@ -163,7 +170,7 @@ public class ModelServiceReader implements Serializable {
                                 }
 
                                 // utilTimer.timerString("  After serviceName -- " + i + " --");
-                                ModelService service = createModelService(curService);
+                                ModelService service = createModelService(curServiceElement, resourceLocation);
 
                                 // utilTimer.timerString("  After createModelService -- " + i + " --");
                                 if (service != null) {
@@ -198,15 +205,9 @@ public class ModelServiceReader implements Serializable {
                         Debug.logImportant("Loaded " + i + " Service definitions from " + readerURL, module);
                     } else {
                         utilTimer.timerString("Finished document in " + handler + " - Total Services: " + i + " FINISHED");
-						if (Debug.importantOn()) {
-							String resourceLocation = handler.getLocation();
-							try {
-								resourceLocation = handler.getURL().toExternalForm();
-							} catch (GenericConfigException e) {
-								Debug.logError(e, "Could not get resource URL", module);
-							}
-	                        Debug.logImportant("Loaded " + i + " Service definitions from " + resourceLocation, module);
-						}
+                        if (Debug.importantOn()) {
+                            Debug.logImportant("Loaded " + i + " Service definitions from " + resourceLocation, module);
+                        }
                     }
                 }
             }
@@ -252,10 +253,11 @@ public class ModelServiceReader implements Serializable {
         return ec.keySet();
     }
 
-    protected ModelService createModelService(Element serviceElement) {
+    protected ModelService createModelService(Element serviceElement, String resourceLocation) {
         ModelService service = new ModelService();
 
         service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name")).intern();
+        service.definitionLocation = resourceLocation;
         service.engineName = UtilXml.checkEmpty(serviceElement.getAttribute("engine")).intern();
         service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location")).intern();
         service.invoke = UtilXml.checkEmpty(serviceElement.getAttribute("invoke")).intern();  
@@ -502,7 +504,7 @@ public class ModelServiceReader implements Serializable {
                             param.type = fieldType.getJavaType();
                             // this is a special case where we use something different in the service layer than we do in the entity/data layer
                             if ("java.sql.Blob".equals(param.type)) {
-                            	param.type = "java.nio.ByteBuffer";
+                                param.type = "java.nio.ByteBuffer";
                             }
                             param.mode = UtilXml.checkEmpty(autoElement.getAttribute("mode")).intern();
                             param.optional = "true".equalsIgnoreCase(autoElement.getAttribute("optional")); // default to true
