@@ -128,9 +128,6 @@ under the License.
         
     <!-- GlJournal Trial Balance and Post routines -->
     <simple-method method-name="calculateGlJournalTrialBalance" short-description="Calculate Trial Balance for a GlJournal">
-        <check-permission permission="ACCOUNTING" action="_VIEW"><fail-message message="Security Error: to run calculateGlJournalTrialBalance you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <!-- iterate through all AcctgTrans in this journal and that are not yet posted, and get totals of all debits and of all credits -->
         <entity-condition entity-name="AcctgTrans" list-name="acctgTransList">
             <condition-list combine="and">
