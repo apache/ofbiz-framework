@@ -447,6 +447,10 @@ under the License.
     <simple-method method-name="reserveOrderItemInventory" short-description="Reserve Order Item Inventory">
         <entity-one entity-name="OrderItemShipGrpInvRes" value-name="checkOisgirEntity"/>
         
+        <entity-one entity-name="OrderItem" value-name="orderItem"/>
+        <set field="parameters.promisedDatetime" from-field="orderItem.shipBeforeDate"/>
+        <set field="parameters.currentPromisedDate" from-field="orderItem.shipBeforeDate"/>
+
         <if-empty field-name="checkOisgirEntity">
             <!-- create OrderItemShipGrpInvRes record -->
             <make-value entity-name="OrderItemShipGrpInvRes" value-name="newOisgirEntity"/>

@@ -29,6 +29,9 @@ under the License.
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
         <action service="checkCreateDropShipPurchaseOrders" mode="sync" run-as-user="system"/>
     </eca>
+    <eca service="storeOrder" event="return">
+        <action service="balanceOrderItemsWithNegativeReservations" mode="sync"/>
+    </eca>
     <eca service="changeOrderItemStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="ITEM_CANCELLED"/>
         <action service="cancelOrderInventoryReservation" mode="sync"/>
