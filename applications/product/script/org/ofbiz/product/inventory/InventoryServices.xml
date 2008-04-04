@@ -838,7 +838,7 @@ under the License.
                 <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
                 <condition-expr field-name="inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
                 <condition-list combine="or">
-                    <condition-expr field-name="currentPromisedDate" operator="greater" env-name="parameters.fromDate"/>
+                    <condition-expr field-name="currentPromisedDate" operator="greater" env-name="parameters.fromDate" ignore-if-null="true"/>
                     <condition-list combine="or">
                         <condition-expr field-name="quantityNotAvailable" operator="greater" value="0"/>
                         <condition-expr field-name="availableToPromiseTotal" operator="equals" env-name="nullField"/>
