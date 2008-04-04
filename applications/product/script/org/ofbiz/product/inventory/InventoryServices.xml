@@ -943,29 +943,36 @@ under the License.
     </simple-method>
 
     <simple-method method-name="balanceOrderItemsWithNegativeReservations" short-description="To balance order items with negative reservations">
-        <entity-condition entity-name="OrderItemShipGrpInvResAndItem" list-name="oisgirais">
-            <condition-list combine="and">
-                <condition-expr field-name="orderId" operator="equals" env-name="parameters.orderId"/>
-                <condition-expr field-name="quantityNotAvailable" operator="greater" value="0"/>
-                <condition-expr field-name="quantityNotAvailable" operator="not-equals" value=""/>
-                <condition-expr field-name="quantityNotAvailable" operator="not-equals" env-name="nullField"/>
-            </condition-list>
-        </entity-condition>
-        <iterate list-name="oisgirais" entry-name="oisgir">
-            <set field="orderItems.${oisgir.orderItemSeqId}" from-field="oisgir"/>
-        </iterate>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
-        <iterate-map key-name="orderItemSeqId" value-name="oisgir" map-name="orderItems">
-            <set field="reassignInventoryReservationsCtx.productId" from-field="oisgir.productId"/>
-            <set field="reassignInventoryReservationsCtx.facilityId" from-field="oisgir.facilityId"/>
-            <if-not-empty field-name="oisgir.shipBeforeDate">
-                <set field="reassignInventoryReservationsCtx.fromDate" from-field="oisgir.shipBeforeDate"/>
+        <entity-one entity-name="OrderHeader" value-name="orderHeader" auto-field-map="true"/>
+        <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-name="productStore"/>
+        <if-compare field-name="productStore.balanceResOnOrderCreation" operator="equals" value="Y">
+            <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list-name="oisgirais">
+                <condition-list combine="and">
+                    <condition-expr field-name="orderId" operator="equals" env-name="parameters.orderId"/>
+                    <condition-expr field-name="quantityNotAvailable" operator="greater" value="0"/>
+                    <condition-expr field-name="quantityNotAvailable" operator="not-equals" value=""/>
+                    <condition-expr field-name="quantityNotAvailable" operator="not-equals" env-name="nullField"/>
+                </condition-list>
+            </entity-condition>
+            <iterate list-name="oisgirais" entry-name="oisgir">
+                <set field="orderItems.${oisgir.orderItemSeqId}" from-field="oisgir"/>
+            </iterate>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <iterate-map key-name="orderItemSeqId" value-name="oisgir" map-name="orderItems">
+                <set field="reassignInventoryReservationsCtx.productId" from-field="oisgir.productId"/>
+                <set field="reassignInventoryReservationsCtx.facilityId" from-field="oisgir.facilityId"/>
+                <if-not-empty field-name="oisgir.shipBeforeDate">
+                    <set field="reassignInventoryReservationsCtx.fromDate" from-field="oisgir.shipBeforeDate"/>
+                <else>
+                    <set field="reassignInventoryReservationsCtx.fromDate" from-field="nowTimestamp"/>
+                </else>
+                </if-not-empty>
+                <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
+            </iterate-map>
             <else>
-                <set field="reassignInventoryReservationsCtx.fromDate" from-field="nowTimestamp"/>
+                <log level="info" message="Not reassigning the reservations because productStore.balanceResOnOrderCreation is set to N or null."/>
             </else>
-            </if-not-empty>
-            <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
-        </iterate-map>
+        </if-compare>
      </simple-method>
 
     <!-- Inventory Transfer Services -->
