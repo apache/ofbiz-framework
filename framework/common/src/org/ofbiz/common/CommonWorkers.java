@@ -69,7 +69,8 @@ public class CommonWorkers {
     public static List getStateList(GenericDelegator delegator) {
         List geoList = FastList.newInstance();       
         EntityCondition condition = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("geoTypeId", EntityOperator.EQUALS, "STATE"), new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE")), EntityOperator.OR);
+                new EntityExpr("geoTypeId", EntityOperator.EQUALS, "STATE"), new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE"),
+                new EntityExpr("geoTypeId", EntityOperator.EQUALS, "TERRITORY")), EntityOperator.OR);
         List sortList = UtilMisc.toList("geoName");
         try {
             geoList = delegator.findByConditionCache("Geo", condition, null, sortList);
