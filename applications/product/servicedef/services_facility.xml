@@ -248,7 +248,8 @@ under the License.
         <description>Balance inventory reservations for a given product/facility, considering all the reservations with promised date greater than fromDate.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
     </service>
     <service name="balanceOrderItemsWithNegativeReservations" engine="simple" 
                 location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="balanceOrderItemsWithNegativeReservations">
