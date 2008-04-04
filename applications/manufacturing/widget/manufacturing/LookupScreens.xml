@@ -24,7 +24,7 @@ under the License.
         <section>
             <condition>
                 <or>
-                    <if-has-permission permission="MANUFACTURING" action="VIEW"/>
+                    <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
                 </or>
             </condition>
             <actions>
@@ -64,7 +64,7 @@ under the License.
         <section>
             <condition>
                 <or>
-                    <if-has-permission permission="MANUFACTURING" action="VIEW"/>
+                    <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
                 </or>
             </condition>
             <actions>
