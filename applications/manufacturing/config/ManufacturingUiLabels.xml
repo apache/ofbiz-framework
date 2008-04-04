@@ -1323,6 +1323,10 @@
         <value xml:lang="th">ส่วนประกอบของปัญหา</value>
         <value xml:lang="zh">交付部件</value>
     </property>
+    <property key="ManufacturingIssueAvailableProductionRunTask">
+        <value xml:lang="en">Issue Components (ATP)</value>
+        <value xml:lang="it">Preleva i Componenti (ATP)</value>
+    </property>
     <property key="ManufacturingIssuedQuantity">
         <value xml:lang="en">Issued</value>
         <value xml:lang="es">Publicado</value>

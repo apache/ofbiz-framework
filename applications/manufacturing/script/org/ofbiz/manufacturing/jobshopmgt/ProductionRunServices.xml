@@ -25,6 +25,12 @@ under the License.
     <simple-method method-name="issueProductionRunTask" short-description="Issues the Inventory for a Production Run Task" login-required="false">
         <entity-one entity-name="WorkEffort" value-name="workEffort"/>
 
+        <if-empty field-name="parameters.failIfItemsAreNotAvailable">
+            <set field="parameters.failIfItemsAreNotAvailable" value="Y"/>
+        </if-empty>
+        <if-empty field-name="parameters.failIfItemsAreNotOnHand">
+            <set field="parameters.failIfItemsAreNotOnHand" value="Y"/>
+        </if-empty>
         <if-not-empty field-name="workEffort">
             <if-compare value="PRUN_CANCELLED" operator="not-equals" field-name="currentStatusId" map-name="workEffort">
                 <set from-field="parameters.workEffortId" field="lookupComponentsMap.workEffortId"/>
@@ -40,7 +46,8 @@ under the License.
                         <set-service-fields to-map-name="callSvcMap" service-name="issueProductionRunTaskComponent" map-name="component"/>
                         <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
                         <set field="callSvcMap.description" value="BOM Part"/>
-                        <set field="callSvcMap.failIfItemsAreNotAvailable" value="Y"/>
+                        <set field="callSvcMap.failIfItemsAreNotAvailable" from-field="parameters.failIfItemsAreNotAvailable"/>
+                        <set field="callSvcMap.failIfItemsAreNotOnHand" from-field="parameters.failIfItemsAreNotOnHand"/>
                         <call-service service-name="issueProductionRunTaskComponent" in-map-name="callSvcMap"/>
                     </if-not-empty>
                 </iterate>
@@ -63,7 +70,6 @@ under the License.
             <set from-field="workEffortGoodStandard.estimatedQuantity" field="estimatedQuantity"/>
         </else>
         </if-empty>
-
         
         <!-- kind of like the inventory reservation routine, find InventoryItems to issue from, but instead of doing the reservation just create an issuance and an inventory item detail for the change -->
         <if-not-empty field-name="productId">
@@ -99,29 +105,57 @@ under the License.
                 <set from-field="parameters.locationSeqId" field="lookupFieldMap.locationSeqId"/>
             </if-not-empty>
             <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="primaryInventoryItemList" order-by-list-name="orderByList"/>
+            <set from-field="primaryInventoryItemList" field="inventoryItemList"/>
             <!-- if secondaryLocationSeqId is also passed, then also the inventory items in the secondary location are considered, after the ones in the main location -->
             <if-not-empty field-name="parameters.locationSeqId">
                 <if-not-empty field-name="parameters.secondaryLocationSeqId">
                     <set from-field="parameters.secondaryLocationSeqId" field="lookupFieldMap.locationSeqId"/>
+                    <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="secondaryInventoryItemList" order-by-list-name="orderByList"/>
+                    <list-to-list list-name="secondaryInventoryItemList" to-list-name="inventoryItemList"/>
                 </if-not-empty>
             </if-not-empty>
-            <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="secondaryInventoryItemList" order-by-list-name="orderByList"/>
-            <set from-field="primaryInventoryItemList" field="inventoryItemList"/>
-            <list-to-list list-name="secondaryInventoryItemList" to-list-name="inventoryItemList"/>
-    
+
             <set from-field="estimatedQuantity" field="parameters.quantityNotIssued"/>
 
+            <set field="parameters.useReservedItems" value="N"/>
             <iterate entry-name="inventoryItem" list-name="inventoryItemList">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                 <call-simple-method method-name="issueProductionRunTaskComponentInline"/>
             </iterate>
+
+            <if>
+                <condition>
+                    <and>
+                        <if-compare field-name="parameters.failIfItemsAreNotAvailable" operator="not-equals" value="Y" type="String"/>
+                        <if-compare field-name="parameters.quantityNotIssued" operator="greater" value="0" type="Double"/>
+                    </and>
+                </condition>
+                <then>
+                    <set field="parameters.useReservedItems" value="Y"/>
+                    <iterate entry-name="inventoryItem" list-name="inventoryItemList">
+                        <if-compare field-name="parameters.quantityNotIssued" operator="greater" value="0" type="Double">
+                            <refresh-value value-name="inventoryItem"/>
+                            <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
+                            <call-simple-method method-name="issueProductionRunTaskComponentInline"/>
+                        </if-compare>
+                    </iterate>
+                </then>
+            </if>
             
             <!-- if quantityNotIssued is not 0, then pull it from the last non-serialized inventory item found, in the quantityNotIssued field -->
             <if-compare field-name="parameters.quantityNotIssued" operator="not-equals" value="0" type="Double">
-                <if-compare field-name="parameters.failIfItemsAreNotAvailable" operator="equals" value="Y" type="String">
-                    <add-error><fail-property property="ManufacturingMaterialsNotAvailable" resource="ManufacturingUiLabels"/></add-error>
-                    <add-error><fail-message message=" ${productId}: ${parameters.quantityNotIssued}"/></add-error>
-                </if-compare>
+                <if>
+                    <condition>
+                        <or>
+                            <if-compare field-name="parameters.failIfItemsAreNotAvailable" operator="equals" value="Y" type="String"/>
+                            <if-compare field-name="parameters.failIfItemsAreNotOnHand" operator="equals" value="Y" type="String"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <add-error><fail-property property="ManufacturingMaterialsNotAvailable" resource="ManufacturingUiLabels"/></add-error>
+                        <add-error><fail-message message=" ${productId}: ${parameters.quantityNotIssued}"/></add-error>
+                    </then>
+                </if>
                 <check-errors/>
                 <if-not-empty field-name="lastNonSerInventoryItem">
                     <!-- create ItemIssuance record -->
@@ -135,11 +169,9 @@ under the License.
                     <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
                     <set from-field="lastNonSerInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                     <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
-                    <!--
                     <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
-                    -->
                     <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
@@ -147,6 +179,8 @@ under the License.
                     <set field="createDetailMap.description" from-field="parameters.description"/>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                     <clear-field field-name="createDetailMap"/>
+                    <set field="balanceInventoryItemsInMap.inventoryItemId" from-field="lastNonSerInventoryItem.inventoryItemId"/>
+                    <call-service service-name="balanceInventoryItems" in-map-name="balanceInventoryItemsInMap"/>
                 <else>
                     <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued -->
                     <clear-field field-name="createInvItemInMap"/>
@@ -168,11 +202,9 @@ under the License.
                     <!-- also create a detail record with the quantities -->
                     <set field="createDetailMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
                     <set field="createDetailMap.workEffortId" from-field="parameters.workEffortId"/>
-                    <!--
                     <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
-                    -->
                     <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
                         <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
@@ -212,11 +244,18 @@ under the License.
                 </if-compare>
             </if-compare>
             <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                <if-not-empty field-name="inventoryItem.availableToPromiseTotal">
+                <if-compare field-name="parameters.useReservedItems" operator="equals" value="Y">
+                    <set field="inventoryItemQuantity" from-field="inventoryItem.quantityOnHandTotal"/>
+                <else>
+                    <set field="inventoryItemQuantity" from-field="inventoryItem.availableToPromiseTotal"/>
+                </else>
+                </if-compare>
+                
+                <if-not-empty field-name="inventoryItemQuantity">
                     <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
-                    <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double">
-                        <if-compare-field field-name="parameters.quantityNotIssued" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double">
-                            <set from-field="inventoryItem.availableToPromiseTotal" field="parameters.deductAmount"/>
+                    <if-compare field-name="inventoryItemQuantity" operator="greater" value="0" type="Double">
+                        <if-compare-field field-name="parameters.quantityNotIssued" operator="greater" to-field-name="inventoryItemQuantity" type="Double">
+                            <set from-field="inventoryItemQuantity" field="parameters.deductAmount"/>
                         <else>
                             <set from-field="parameters.quantityNotIssued" field="parameters.deductAmount"/>
                         </else>
@@ -249,6 +288,8 @@ under the License.
                                 <calcop operator="get" field-name="parameters.deductAmount"/>
                             </calcop>
                         </calculate>
+                        <set field="balanceInventoryItemsInMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+                        <call-service service-name="balanceInventoryItems" in-map-name="balanceInventoryItemsInMap"/>
 
                         <clear-field field-name="issuanceCreateMap"/>
                     </if-compare>
