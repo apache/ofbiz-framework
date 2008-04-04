@@ -1250,14 +1250,16 @@ under the License.
         <field name="productId"><hidden/></field>
         <field name="productFeatureId" position="1">
             <drop-down allow-empty="true">
-                <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeature">
+                <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeatureAndAppl">
+                    <entity-constraint name="productId" env-name="parameters.productId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="productFeatureIdTo" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeature" key-field-name="productFeatureId">
+                <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeatureAndAppl" key-field-name="productFeatureId">
+                    <entity-constraint name="productId" env-name="parameters.productId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
