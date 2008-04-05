@@ -91,6 +91,21 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     public void renderContainerEnd(Writer writer, Map context, ModelScreenWidget.Container container) throws IOException {
         writer.write("</div>");
         appendWhitespace(writer);
+        String autoUpdateTarget = container.getAutoUpdateTargetExdr(context);
+        String containerId = container.getId(context);
+        if (UtilValidate.isNotEmpty(autoUpdateTarget) && UtilValidate.isNotEmpty(containerId)) {
+            HttpServletResponse response = (HttpServletResponse) context.get("response");
+            HttpServletRequest request = (HttpServletRequest) context.get("request");
+            ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+            RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+            
+            writer.write("<script type=\"text/javascript\">new Ajax.PeriodicalUpdater('");
+            writer.write(containerId);
+            writer.write("', '");
+            writer.write(rh.makeLink(request, response, autoUpdateTarget));
+            writer.write("');</script>");
+            appendWhitespace(writer);
+        }
     }
 
     public void renderScreenletBegin(Writer writer, Map context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {

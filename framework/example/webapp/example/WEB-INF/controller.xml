@@ -146,6 +146,9 @@ under the License.
     <request-map uri="FormWidgetExamples"><security https="true" auth="true"/><response name="success" type="view" value="FormWidgetExamples"/></request-map>
 
     <request-map uri="LookupExampleFeature"><security https="true" auth="true"/><response name="success" type="view" value="LookupExampleFeature"/></request-map>
+
+    <request-map uri="ListExampleFormOnly"><security https="true" auth="true"/><response name="success" type="view" value="ListExampleFormOnly"/></request-map>
+    <request-map uri="CreateExampleFormOnly"><security https="true" auth="true"/><response name="success" type="view" value="CreateExampleFormOnly"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -166,8 +169,8 @@ under the License.
 
     <!-- ajax view mappings -->
     <view-map name="findExampleAjax" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#AjaxExample"/>
-    <view-map name="listExamples" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#listExamples"/>
-    <view-map name="createExampleForm" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#createScreenForm"/>
+    <view-map name="ListExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#ListExampleFormOnly"/>
+    <view-map name="CreateExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#CreateExampleFormOnly"/>
     
     <!-- end of view mappings -->
 </site-conf>

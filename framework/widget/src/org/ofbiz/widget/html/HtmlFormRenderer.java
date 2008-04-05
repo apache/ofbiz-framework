@@ -823,7 +823,6 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderSubmitField(StringBuffer buffer, Map context, SubmitField submitField) {
         ModelFormField modelFormField = submitField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
-        String singleClickAction = " onClick=\"javascript:submitFormDisableButton(this)\" ";
         String event = null;
         String action = null;        
 
@@ -867,15 +866,18 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 buffer.append("=\"");
                 buffer.append(action);
                 buffer.append('"');
-            } else {
-            	// disabling for now, using form onSubmit action instead: buffer.append(singleClickAction);
             }
             
             buffer.append("/>");
         } else {
             // default to "button"
 
-            buffer.append("<input type=\"submit\"");
+            String backgroundSubmitRefreshTarget = submitField.getBackgroundSubmitRefreshTarget(context);
+            if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
+                buffer.append("<input type=\"button\"");
+            } else {
+                buffer.append("<input type=\"submit\"");
+            }
 
             appendClassNames(buffer, context, modelFormField);
 
@@ -902,6 +904,19 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             } else {
             	//add single click JS onclick
                 // disabling for now, using form onSubmit action instead: buffer.append(singleClickAction);
+            }
+            
+            if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
+                // onclick="javascript:submitFormInBackground($('EditExampleBackgroundSubmit'), 'EditExampleBackgroundSubmit', '<@ofbizUrl>/authview/CreateExampleFormOnly</@ofbizUrl>');"
+                String formId = submitField.getModelFormField().getModelForm().getContainerId();
+                String formContainerId = submitField.getModelFormField().getModelForm().getContainerId();
+                buffer.append(" onclick=\"javascript:submitFormInBackground($('");
+                buffer.append(formId);
+                buffer.append("'), '");
+                buffer.append(formContainerId);
+                buffer.append("', '");
+                this.appendOfbizUrl(buffer, backgroundSubmitRefreshTarget);
+                buffer.append("');\"");
             }
             
             buffer.append("/>");

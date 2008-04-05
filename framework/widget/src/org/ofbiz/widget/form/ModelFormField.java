@@ -2726,6 +2726,7 @@ public class ModelFormField {
     public static class SubmitField extends FieldInfo {
         protected String buttonType;
         protected String imageLocation;
+        protected FlexibleStringExpander backgroundSubmitRefreshTargetExdr;
 
         protected SubmitField() {
             super();
@@ -2743,6 +2744,7 @@ public class ModelFormField {
             super(element, modelFormField);
             this.buttonType = element.getAttribute("button-type");
             this.imageLocation = element.getAttribute("image-location");
+            this.backgroundSubmitRefreshTargetExdr = new FlexibleStringExpander(element.getAttribute("background-submit-refresh-target"));
         }
 
         public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
@@ -2775,6 +2777,10 @@ public class ModelFormField {
          */
         public void setImageLocation(String string) {
             imageLocation = string;
+        }
+        
+        public String getBackgroundSubmitRefreshTarget(Map context) {
+            return this.backgroundSubmitRefreshTargetExdr.expandString(context);
         }
     }
 

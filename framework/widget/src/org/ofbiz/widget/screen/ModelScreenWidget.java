@@ -262,12 +262,14 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
     public static class Container extends ModelScreenWidget {
         protected FlexibleStringExpander idExdr;
         protected FlexibleStringExpander styleExdr;
+        protected FlexibleStringExpander autoUpdateTargetExdr;
         protected List<ModelScreenWidget> subWidgets;
         
         public Container(ModelScreen modelScreen, Element containerElement) {
             super(modelScreen, containerElement);
             this.idExdr = new FlexibleStringExpander(containerElement.getAttribute("id"));
             this.styleExdr = new FlexibleStringExpander(containerElement.getAttribute("style"));
+            this.autoUpdateTargetExdr = new FlexibleStringExpander(containerElement.getAttribute("auto-update-target"));
             
             // read sub-widgets
             List subElementList = UtilXml.childElementList(containerElement);
@@ -297,8 +299,12 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             return this.styleExdr.expandString(context);
         }
 
+        public String getAutoUpdateTargetExdr(Map context) {
+            return this.autoUpdateTargetExdr.expandString(context);
+        }
+
         public String rawString() {
-            return "<container id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\">";
+            return "<container id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\" auto-update-target=\"" + this.autoUpdateTargetExdr.getOriginal() + "\">";
         }
     }
 

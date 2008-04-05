@@ -1920,7 +1920,12 @@ public class ModelForm extends ModelWidget {
      * @return
      */
     public String getContainerId() {
-        return this.containerId;
+        // use the name if there is no id
+        if (UtilValidate.isNotEmpty(this.containerId)) {
+            return this.containerId;
+        } else {
+            return this.getName();
+        }
     }
 
     /**

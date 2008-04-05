@@ -208,6 +208,17 @@ function confirmActionFormLink(msg, formName) {
     } 
 }
 
+// NOTE: REQUIRES prototype.js
+// On the form element make sure you have something like: 
+//   id="theFormId"
+// On the submit button elements make sure you have something like:
+//   onclick="javascript:submitAjaxForm($('theFormId'), 'id-of-div-surrounding-or-on-form', '<@ofbizUrl>createExampleForm</@ofbizUrl>');" 
+function submitFormInBackground(form, areaName, submitUrl) {
+    submitFormDisableSubmits(form);
+    new Ajax.Request(form.action, { parameters: form.serialize(true) });
+    new Ajax.Updater(areaName, submitUrl);
+}
+
 function submitFormDisableSubmits(form) {
     for (var i=0;i<form.length;i++) {
         var formel = form.elements[i];
