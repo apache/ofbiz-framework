@@ -27,7 +27,6 @@ under the License.
                 <set field="headerItem" value="AjaxExample"/>
                 <set field="titleProperty" value="PageTitleFindExample"/>
 
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/validation.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
             </actions>
             <widgets>
@@ -39,13 +38,10 @@ under the License.
                             </condition>
                             <widgets>
                                 <container><label style="h1">${uiLabelMap.${titleProperty}}</label></container>
-                                <container id="example-list">
-                                    <include-screen name="listExamples"/>
+                                <container id="ListExamplesAutoUpdate" auto-update-target="ListExampleFormOnly">
+                                    <include-screen name="ListExampleFormOnly"/>
                                 </container>
-                                <container/>
-                                <container id="create-form">
-                                    <include-screen name="createScreenForm"/>
-                                </container>                                
+                                <include-screen name="CreateExampleFormOnly"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
@@ -57,32 +53,27 @@ under the License.
         </section>
     </screen>
 
-    <screen name="listExamples">
+    <screen name="ListExampleFormOnly">
         <section>
             <actions>
-                <entity-condition entity-name="Example" list-name="examples"/>
+                <!-- NOTE: these are needed because this may be run as a top level screen and would have no decorator -->
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <container id="list-example-table">
-                    <platform-specific><html><html-template location="component://example/webapp/example/ajax/listExamplesAjax.ftl"/></html></platform-specific>
-                </container>
+                <include-form name="ListExamples" location="component://example/widget/example/ExampleForms.xml"/>
             </widgets>
         </section>
     </screen>
-    
-    <screen name="createScreenForm">
+    <screen name="CreateExampleFormOnly">
         <section>
             <actions>
-                <entity-condition entity-name="ExampleType" list-name="types"/>
-                <entity-condition entity-name="StatusItem" list-name="statusItems">
-                    <condition-expr field-name="statusTypeId" operator="equals" value="EXAMPLE_STATUS"/>
-                    <order-by field-name="sequenceId"/>
-                </entity-condition>
+                <!-- these are only needed so that when bsh evaluates use-when attributes these will exist and not cause an error -->
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-name="example"/>
             </actions>
             <widgets>
-                <container id="create-example-form">
-                    <platform-specific><html><html-template location="component://example/webapp/example/ajax/createExampleAjax.ftl"/></html></platform-specific>
-                </container>
+                <include-form name="EditExampleBackgroundSubmit" location="component://example/widget/example/ExampleForms.xml"/>
             </widgets>
         </section>
     </screen>

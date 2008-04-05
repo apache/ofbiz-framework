@@ -43,7 +43,8 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.form">
         <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute name="type" use="required">
+        <xs:attribute name="type">
+            <xs:annotation><xs:documentation>The form type is always required unless you are extending another form.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="single">
@@ -793,6 +794,9 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="image-location"/>
+        <xs:attribute type="xs:string" name="background-submit-refresh-target">
+            <xs:annotation><xs:documentation>This will submit the form in the background and refresh just this form and not the rest of the page. Note that the button-type must be button.</xs:documentation></xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="text" substitutionGroup="AllFields">
         <xs:complexType>
