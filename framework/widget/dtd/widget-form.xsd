@@ -506,6 +506,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.display">
         <xs:attribute name="also-hidden" default="true">
+            <xs:annotation><xs:documentation>If set to true, an hidden form field is also rendered, with the name of the field and its content.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -553,6 +554,7 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="also-hidden" default="true">
+            <xs:annotation><xs:documentation>If set to true, an hidden form field is also rendered, with the name of the field and its content.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -651,6 +653,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.hyperlink">
         <xs:attribute name="also-hidden" default="true">
+            <xs:annotation><xs:documentation>If set to true, an hidden form field is also rendered, with the name of the field and its content.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
