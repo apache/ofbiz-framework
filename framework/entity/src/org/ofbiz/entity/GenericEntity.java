@@ -38,6 +38,7 @@ import javolution.lang.Reusable;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -53,12 +54,9 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
-
 import org.ofbiz.entity.util.ByteWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import org.ofbiz.base.crypto.HashCrypt;
 /**
  * Generic Entity Value Object - Handles persistence for any defined entity.
  * <p>Note that this class extends <code>Observable</code> to achieve change notification for
@@ -724,6 +722,10 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                 //Debug.logWarning("Tried to getResource value for field named " + name + " but no resource name was passed to the method or specified in the default-resource-name attribute of the entity definition", module);
                 return fieldValue;
             }
+        }
+        if (UtilProperties.propertiesNotFound.contains(UtilProperties.createResourceName(resource, locale, false))) {
+            // Properties do not exist for this resource+locale combination
+            return fieldValue;
         }
         ResourceBundle bundle = null;
         try {

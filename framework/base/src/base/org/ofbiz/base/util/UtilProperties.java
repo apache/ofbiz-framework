@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.io.BufferedInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Enumeration;
@@ -30,23 +35,17 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.IOException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.collections.FlexibleProperties;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.base.util.cache.UtilCache;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /** Generic Property Accessor with Cache - Utilities for working with properties files.
  * <p>UtilProperties divides properties files into two classes: non-locale-specific -
@@ -647,7 +646,7 @@ public class UtilProperties implements java.io.Serializable {
         return resourceName;
     }
 
-    protected static Set<String> propertiesNotFound = FastSet.newInstance();
+    public static Set<String> propertiesNotFound = FastSet.newInstance();
     /** Resolve a properties file URL.
      * <p>This method uses the following strategy:<br />
      * <ul>
