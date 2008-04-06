@@ -1229,6 +1229,7 @@ under the License.
     </form>
     <form name="ListFeatureInteractions"  list-name="featureInteractions" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table">
+        <field name="productId"><hidden/></field>
         <field name="productFeatureId">
             <display-entity entity-name="ProductFeature" description="${description}">
                 <sub-hyperlink target="EditFeature?productFeatureId=${productFeatureId}" description="[${productFeatureId}]"/>    
@@ -1247,11 +1248,12 @@ under the License.
     </form> 
     <form name="AddFeatureInteraction" type="single" target="AddProductFeatureIactn" title="" default-map-name="productFeatureIactn"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="productId"><hidden/></field>
+        <field name="productId"><hidden value="${parameters.productId}"/></field>
         <field name="productFeatureId" position="1">
             <drop-down allow-empty="true">
                 <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeatureAndAppl">
                     <entity-constraint name="productId" env-name="parameters.productId"/>
+                    <entity-order-by field-name="productFeatureTypeId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -1260,6 +1262,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeatureAndAppl" key-field-name="productFeatureId">
                     <entity-constraint name="productId" env-name="parameters.productId"/>
+                    <entity-order-by field-name="productFeatureTypeId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

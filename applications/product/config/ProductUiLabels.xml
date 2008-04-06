@@ -2476,6 +2476,9 @@
         <value xml:lang="th">รหัสลักษณะสินค้า</value>
         <value xml:lang="zh">产品特征标识</value>
     </property>
+    <property key="FormFieldTitle_productFeatureIactnTypeId">
+        <value xml:lang="en">Interaction Type</value>
+    </property>
     <property key="FormFieldTitle_productFeatureTypeId">
         <value xml:lang="en">Product Feature Type Id</value>
         <value xml:lang="fr">Réf. de type de caractéristique d'article</value>
@@ -3607,6 +3610,9 @@
         <value xml:lang="it">Aggiungi Gruppo Stabilimento Arrivo</value>
         <value xml:lang="th">Add Facility Group Rollup</value>
     </property>
+    <property key="PageTitleAddFeatureInterAction">
+        <value xml:lang="en">Add Feature InterAction</value>
+    </property>
     <property key="PageTitleAddFeaturePrice">
         <value xml:lang="en">Add Feature Price</value>
     </property>
@@ -4097,9 +4103,6 @@
     </property>    
     <property key="PageTitleEditProductFeatureInteractions">
         <value xml:lang="en">Edit Product Feature Interactions</value>
-    </property>
-    <property key="PageTitleAddFeatureInterAction">
-        <value xml:lang="en">Add Feature InterAction</value>
     </property>
     <property key="PageTitleEditFeatureInterActions">
         <value xml:lang="en">Edit Feature InterActions</value>
@@ -4852,6 +4855,9 @@
         <value xml:lang="en">List Product Feature Appl Attrs</value>
         <value xml:lang="it">Lista Prodotti Attributi Caratteristiche</value>
         <value xml:lang="th">List Product Feature Appl Attrs</value>
+    </property>
+    <property key="PageTitleListFeatureInteractions">
+        <value xml:lang="en">List Product Feature Interactions</value>
     </property>
     <property key="PageTitleListProductFeatureTypes">
         <value xml:lang="en">List Product Feature Types</value>
