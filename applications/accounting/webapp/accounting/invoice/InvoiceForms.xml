@@ -308,7 +308,13 @@ under the License.
        </field>
        <field name="productId"><lookup target-form-name="LookupProduct" size="20"/></field>
        <field name="description"><text size="30"/></field>
-       <!--field name="overrideGlAccountId"><text size="10"/></field-->
+       <field name="overrideGlAccountId">
+           <drop-down allow-empty="true">
+               <entity-options entity-name="GlAccount" description="${glAccountId} ${accountName}" key-field-name="glAccountId">
+                   <entity-order-by field-name="glAccountId"/>
+               </entity-options>
+           </drop-down>
+       </field>
        <field name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="7"/></field>
        <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>  <!-- this should not look like something you can modify, hence display -->
        <field name="uomId"><hidden/></field>
@@ -330,7 +336,13 @@ under the License.
             </drop-down>
         </field>
         <field position="1" name="description"><text size="80"/></field>
-        <field position="1" name="overrideGlAccountId"><text/></field>
+        <field position="1" name="overrideGlAccountId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccount" description="${glAccountId} ${accountName}" key-field-name="glAccountId">
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field position="2" name="inventoryItemId"><text/></field>
         <field position="1" name="productId">
             <lookup target-form-name="LookupProduct"/>

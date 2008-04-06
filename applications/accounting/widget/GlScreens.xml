@@ -217,7 +217,6 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="acctgTransId" from-field="parameters.acctgTransId"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/editGlJournalEntry.bsh"/>
-                <set field="isPosted" from-field="parameters.isPosted"/>
                 
                 <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
                 <entity-one entity-name="AcctgTransEntry" value-name="acctgTransEntry">
@@ -267,7 +266,7 @@ under the License.
                         </section>
                         <section>
                             <condition>
-                               <if-empty field-name="isPosted"/>
+                               <if-compare field-name="acctgTrans.isPosted" operator="not-equals" value="Y"/>
                             </condition>
                             <widgets>
                                 <container>
