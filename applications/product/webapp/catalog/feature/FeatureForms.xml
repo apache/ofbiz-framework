@@ -188,6 +188,7 @@
         <field name="productFeatureId">
             <drop-down allow-empty="true">
                 <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeature">
+                    <entity-order-by field-name="productFeatureTypeId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -195,6 +196,7 @@
         <field name="productFeatureIdTo">
             <drop-down allow-empty="true">
                 <entity-options description="${description} [${productFeatureId}]" entity-name="ProductFeature" key-field-name="productFeatureId">
+                    <entity-order-by field-name="productFeatureTypeId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
