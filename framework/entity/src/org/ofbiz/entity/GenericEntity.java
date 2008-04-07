@@ -723,7 +723,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                 return fieldValue;
             }
         }
-        if (UtilProperties.isPropertyNotFound(resource, locale, false)) {
+        if (UtilProperties.isPropertiesResourceNotFound(resource, locale, false)) {
             // Properties do not exist for this resource+locale combination
             return fieldValue;
         }
