@@ -493,11 +493,10 @@ public class ProductWorker {
             GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
             if (product != null) {
                 List productAppls = null;
-                Map fields = UtilMisc.toMap("productFeatureApplTypeId", "SELECTABLE_FEATURE");
+                Map fields = UtilMisc.toMap("productId", product.getString("productId"), "productFeatureApplTypeId", "SELECTABLE_FEATURE");
                 List order = UtilMisc.toList("productFeatureTypeId","sequenceNum");
-                List features = product.getRelatedByAnd("ProductFeatureAppl", fields);
-                List featuresSorted = UtilMisc.sortMaps(features, order);
-                Iterator it = featuresSorted.iterator();
+                List features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
+                Iterator it = features.iterator();
                 String oldType = null;
                 while(it.hasNext()) {
                     GenericValue productFeatureAppl = (GenericValue) it.next();

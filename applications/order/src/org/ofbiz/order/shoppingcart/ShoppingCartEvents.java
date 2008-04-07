@@ -156,7 +156,12 @@ public class ShoppingCartEvents {
         if (paramMap.containsKey("ADD_PRODUCT_ID")) {
             productId = (String) paramMap.remove("ADD_PRODUCT_ID");
         } else if (paramMap.containsKey("add_product_id")) {
-            productId = (String) paramMap.remove("add_product_id");
+        	Object object = paramMap.remove("add_product_id");
+        	try{
+        		productId = (String) object;
+        	}catch(ClassCastException e){
+        		productId = (String)((List)object).get(0);
+        	}
         }
         if (paramMap.containsKey("PRODUCT_ID")) {
             parentProductId = (String) paramMap.remove("PRODUCT_ID");
@@ -232,24 +237,120 @@ public class ShoppingCartEvents {
             }
         }
         
+  
         //Check for virtual products
         if (ProductWorker.isVirtual(delegator, productId)) {
-        	
-        	if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, productId))) {
-        	// new variant selection: try to find variants using the selected features
-        	List featureTypes = ProductWorker.getProductFeatureTypesBySeq(delegator, productId);
-        	
-        	
-        	// to be continued.......
-        	
-        	
-        	
-        	} else {
-        		request.setAttribute("product_id", productId);
-        		request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
-        		return "product";
-        	}
-        }
+
+			if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, productId))) {
+
+				// get the selected features.
+				List <String> selectedFeatures = new LinkedList<String>();
+		    	java.util.Enumeration paramNames = request.getParameterNames();
+		    	while(paramNames.hasMoreElements()) {
+		    		String paramName = (String)paramNames.nextElement();
+		    		if (paramName.startsWith("FT")) {
+		    			selectedFeatures.add(request.getParameterValues(paramName)[0]);
+		    		}
+//		 	        Debug.log("********paramName/"+paramName+"/");
+//		    		String[] paramValues = request.getParameterValues(paramName);
+//		    		StringBuffer paraValue= new StringBuffer();
+//		    		for(int i=0; i<paramValues.length; i++) {
+//		    			paraValue.append(paramValues[i]+",");    	          
+//		    	    }
+//		    		Debug.log(paraValue.toString());
+		    	}
+				try {
+
+					List<GenericValue> dependenciesVariants = delegator.findByAndCache("ProductFeatureIactn", UtilMisc.toMap("productId", productId,
+											"productFeatureIactnTypeId","FEATURE_IACTN_DEPEND"));
+					List<GenericValue> incompatibilityVariants = delegator.findByAndCache("ProductFeatureIactn", UtilMisc.toMap("productId", productId,
+											"productFeatureIactnTypeId","FEATURE_IACTN_INCOMP"));
+					// find incompatibilities or dependencies...
+					List <GenericValue> featureTypes = ProductWorker.getProductFeatureTypesBySeq(delegator, productId);
+					Iterator<GenericValue> featureIter = featureTypes.iterator();					
+					
+					while (featureIter.hasNext()) {
+						String paramValue = (String) paramMap.get("FT") + featureIter.next();
+						Iterator<GenericValue> incompatibilityVariantIter = incompatibilityVariants.iterator();	
+						while (incompatibilityVariantIter.hasNext()) {
+							GenericValue incompatibilityVariant = incompatibilityVariantIter.next();
+							String featur = incompatibilityVariant.getString("productFeatureId");
+							if(paramValue.equals(featur)){
+								String featurTo = incompatibilityVariant.getString("productFeatureIdTo");
+								Iterator<GenericValue> featureToIter = featureTypes.iterator();	
+								while (featureToIter.hasNext()) {								
+									String paramValueTo = (String) paramMap.get("FT" + featureToIter.next());
+									if(featurTo.equals(paramValueTo)){
+										GenericValue featureFrom = (GenericValue) delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", featur));
+										GenericValue featureTo = (GenericValue) delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", featurTo));
+
+										String message = UtilProperties.getMessage(resource, "cart.addToCart.incompatibilityVariantFeature", locale) + ":/" + featureFrom.getString("description") + "/ => /" + featureTo.getString("description") +"/";
+										Debug.log(">>>>>>>" + message);
+										request.setAttribute("_ERROR_MESSAGE_", message);
+										return "incompatibilityVariantFeature";
+									}
+								}
+
+							}
+						}
+
+					}
+
+					request.setAttribute("_EVENT_MESSAGE_","all feature Variant accept");
+					Iterator<String> fIter = selectedFeatures.iterator();
+					Long lowestCount = null;
+					String lowestFeatureId = null;
+					while (fIter.hasNext()) {						
+						String productFeatureId = fIter.next();
+						long r = delegator.findCountByAnd("ProductFeatureAppl", UtilMisc.toMap("productFeatureId", productFeatureId,"productFeatureApplTypeId","STANDARD_FEATURE"));
+						if (lowestCount == null || r < lowestCount) {
+							lowestCount = r;
+							lowestFeatureId = productFeatureId;
+						}
+					}
+					// find variant
+					List <GenericValue> productAppls = delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productFeatureId", lowestFeatureId,"productFeatureApplTypeId","STANDARD_FEATURE"));
+					Iterator <GenericValue> pIter = productAppls.iterator();
+					boolean productFound = false;
+	nextProd:		while(pIter.hasNext()) {
+						GenericValue productAppl = pIter.next();
+						fIter = selectedFeatures.iterator();
+						while (fIter.hasNext()) {
+							String featureId = fIter.next();
+							if (featureId.equals(lowestFeatureId)) continue;
+							Debug.log("===check for product: " + productAppl.getString("productId") + "===check for feature: " + featureId);
+							List <GenericValue> pAppls = delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productAppl.getString("productId"), "productFeatureId", featureId,"productFeatureApplTypeId","STANDARD_FEATURE"));
+							if (UtilValidate.isEmpty(pAppls)) {
+								continue nextProd;
+							}
+						}
+						productFound = true;
+						productId = productAppl.getString("productId");
+						break;
+					}
+					
+					if (!productFound) {
+						request.setAttribute("_EVENT_MESSAGE_", "product variant could not be found.");
+						return "product";
+					}
+					
+					
+
+				} catch (GenericEntityException e) {
+					Debug.logError(e, module);
+				}
+
+				// find the related variant.....
+
+				// if not found create it using the virt product and feature
+				// prices.
+
+			} else {
+				request.setAttribute("product_id", productId);
+				request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
+				return "product";
+			}
+		}
         
         // get the override price
         if (paramMap.containsKey("PRICE")) {
@@ -340,9 +441,7 @@ public class ShoppingCartEvents {
             if((paramMap.containsKey("accommodationMapId")) && (paramMap.containsKey("accommodationSpotId"))){
             	accommodationMapId = (String) paramMap.remove("accommodationMapId");
             	accommodationSpotId = (String) paramMap.remove("accommodationSpotId");
-
             }
-            
         }
 
         // get the quantity

@@ -10623,6 +10623,9 @@
         <value xml:lang="th">ข้อมูลสินค้าไม่ผ่าน ไม่สามารถเพิ่มสินค้าลงตระกร้า</value>
         <value xml:lang="zh">没有传递产品信息，没有向购物车添加任何明细。</value>
     </property>
+    <property key="cart.addToCart.incompatibilityVariantFeature">
+        <value xml:lang="en">You cannot use selection ${productFutureDescription} </value>
+    </property>
     <property key="cart.addToCart.productConfigurationIsNotValid">
         <value xml:lang="en">Configuration Is Not Valid</value>
         <value xml:lang="es">La configuración no es válida</value>
