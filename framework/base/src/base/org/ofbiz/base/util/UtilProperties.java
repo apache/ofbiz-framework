@@ -648,7 +648,7 @@ public class UtilProperties implements java.io.Serializable {
         return resourceName;
     }
     
-    public static boolean isPropertyNotFound(String resource, Locale locale, boolean removeExtension) {
+    public static boolean isPropertiesResourceNotFound(String resource, Locale locale, boolean removeExtension) {
         return propertiesNotFound.contains(UtilProperties.createResourceName(resource, locale, removeExtension));
     }
 
