@@ -2475,9 +2475,6 @@ under the License.
       <relation type="one" fk-name="PROD_RATE_ENUM" title="Rating" rel-entity-name="Enumeration">
         <key-map field-name="ratingTypeEnum" rel-field-name="enumId"/>
       </relation>
-      <relation type="one" fk-name="PROD_VVMETHOD_ENUM" title="Virtual-Variant Method" rel-entity-name="Enumeration">
-        <key-map field-name="virtualVariantMethodEnum" rel-field-name="enumId"/>
-      </relation>
       <relation type="one" fk-name="PROD_RQMT_ENUM" title="RequirementMethod" rel-entity-name="Enumeration">
         <key-map field-name="requirementMethodEnumId" rel-field-name="enumId"/>
       </relation>
