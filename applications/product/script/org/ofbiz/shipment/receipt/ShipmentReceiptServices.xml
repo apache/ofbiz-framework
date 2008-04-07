@@ -122,7 +122,9 @@ under the License.
                 </call-service>
                 
                 <else>
-                    <set field="parameters.inventoryItemId" from-field="parameters.currentInventoryItemId"/> 
+                    <if-not-empty field-name="parameters.currentInventoryItemId">
+                        <set field="parameters.inventoryItemId" from-field="parameters.currentInventoryItemId"/>
+                    </if-not-empty> 
                     <set-service-fields service-name="updateInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
                     <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
                     <set field="currentInventoryItemId" from-field="parameters.currentInventoryItemId"/>
