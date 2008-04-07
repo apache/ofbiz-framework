@@ -5550,7 +5550,7 @@
     </property>
     <property key="ProductCrossSell">
         <value xml:lang="en">You might be interested in these as well:</value>
-        <value xml:lang="en">Vous pourriez être aussi intéressé par ceci :</value>
+        <value xml:lang="fr">Vous pourriez être aussi intéressé par ceci :</value>
         <value xml:lang="it">Tu potresti essere interessato anche a questi:</value>
         <value xml:lang="ro">Tu poti sa fii interesat si de aceste:</value>
         <value xml:lang="ru">Вас также могут заинтересовать:</value>
