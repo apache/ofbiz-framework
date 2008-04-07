@@ -25,6 +25,7 @@ import org.ofbiz.service.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.*;
 import org.ofbiz.product.product.ProductWorker;
+import org.ofbiz.product.product.ProductContentWrapper;
 
 dispatcher = request.getAttribute("dispatcher");
 delegator = request.getAttribute("delegator");
@@ -78,8 +79,10 @@ if (productId != null) {
     
     if (product != null) {
         context.put("product", product);  
-        context.put("title", product.getString("productName"));
-        context.put("metaDescription", product.getString("productName"));
+        ProductContentWrapper contentWrapper = new ProductContentWrapper(product, request);
+        context.put("title", contentWrapper.get("PRODUCT_NAME"));        
+        context.put("metaDescription", contentWrapper.get("DESCRIPTION"));
+
         keywords = new ArrayList();
         keywords.add(product.getString("productName"));
         keywords.add(catalogName);
