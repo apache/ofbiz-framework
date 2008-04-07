@@ -5539,6 +5539,7 @@
     </property>
     <property key="PendingReviewUpdateAndApprove">
         <value xml:lang="en">Update &amp; Approve</value>
+        <value xml:lang="fr">Mettre à jour &amp; approuver</value>
         <value xml:lang="it">Aggiorna e Approva</value>
         <value xml:lang="th">อัพเดท &amp; การอนุญาต</value>
     </property>
@@ -5547,8 +5548,9 @@
         <value xml:lang="it">Markup Percentuale</value>
         <value xml:lang="th">เพิ่มราคาอัตราร้อยละ</value>
     </property>
-    <property key="ProducrCrossSell">
+    <property key="ProductCrossSell">
         <value xml:lang="en">You might be interested in these as well:</value>
+        <value xml:lang="en">Vous pourriez être aussi intéressé par ceci :</value>
         <value xml:lang="it">Tu potresti essere interessato anche a questi:</value>
         <value xml:lang="ro">Tu poti sa fii interesat si de aceste:</value>
         <value xml:lang="ru">Вас также могут заинтересовать:</value>

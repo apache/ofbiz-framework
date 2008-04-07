@@ -231,25 +231,25 @@ ${virtualJavaScript?if_exists}
     }
 
     <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>	
-	    function checkRadioButton() {
-	    	//alert("work");
-		    var block = document.getElementById("addCart");
-			
-	        <#list featureLists as featureList>
-			    <#list featureList as feature>
-				    <#if feature_index == 0>
-				        var myList = document.getElementById("FT${feature.productFeatureTypeId}");
-				         if (myList.options[0].selected == true){
-				         	block.style.display = "none";
-				         	return;
-				         }
-	
-				    	<#break>
-				    </#if>		    
-			    </#list>
-	        </#list>
-	        block.style.display = "block";
-	    }
+      function checkRadioButton() {
+        //alert("work");
+        var block = document.getElementById("addCart");
+      
+          <#list featureLists as featureList>
+          <#list featureList as feature>
+            <#if feature_index == 0>
+                var myList = document.getElementById("FT${feature.productFeatureTypeId}");
+                 if (myList.options[0].selected == true){
+                   block.style.display = "none";
+                   return;
+                 }
+  
+              <#break>
+            </#if>		    
+          </#list>
+          </#list>
+          block.style.display = "block";
+      }
     </#if>  
  //-->
  </script>
@@ -692,7 +692,7 @@ ${setRequestAttribute("productValue", productValue)}
     <#-- obsolete -->
     <@associated assocProducts=obsoleteProducts beforeName="" showName="Y" afterName=" ${uiLabelMap.ProductObsolete}" formNamePrefix="obs" targetRequestName=""/>
     <#-- cross sell -->
-    <@associated assocProducts=crossSellProducts beforeName="" showName="N" afterName="${uiLabelMap.ProducrCrossSell}" formNamePrefix="cssl" targetRequestName="crosssell"/>
+    <@associated assocProducts=crossSellProducts beforeName="" showName="N" afterName="${uiLabelMap.ProductCrossSell}" formNamePrefix="cssl" targetRequestName="crosssell"/>
     <#-- up sell -->
     <@associated assocProducts=upSellProducts beforeName="${uiLabelMap.ProductUpSell} " showName="Y" afterName=":" formNamePrefix="upsl" targetRequestName="upsell"/>
     <#-- obsolescence -->
