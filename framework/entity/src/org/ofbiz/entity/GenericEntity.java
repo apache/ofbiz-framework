@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.entity;
 
 import java.io.PrintWriter;
@@ -723,7 +723,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                 return fieldValue;
             }
         }
-        if (UtilProperties.propertiesNotFound.contains(UtilProperties.createResourceName(resource, locale, false))) {
+        if (UtilProperties.isPropertyNotFound(resource, locale, false)) {
             // Properties do not exist for this resource+locale combination
             return fieldValue;
         }

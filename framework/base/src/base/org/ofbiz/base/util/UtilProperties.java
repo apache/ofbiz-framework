@@ -73,6 +73,12 @@ public class UtilProperties implements java.io.Serializable {
      */
     protected static UtilCache<String, FlexibleProperties> urlCache = new UtilCache<String, FlexibleProperties>("properties.UtilPropertiesUrlCache");
 
+    public static final Locale LOCALE_ROOT = new Locale("", "", "");
+
+    protected static Locale fallbackLocale = null;
+    protected static Set<Locale> defaultCandidateLocales = null;
+    protected static Set<String> propertiesNotFound = FastSet.newInstance();
+    
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
      * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
      * @param name The name of the property in the properties file
@@ -536,9 +542,6 @@ public class UtilProperties implements java.io.Serializable {
 
     // ========= Classes and Methods for expanded Properties file support ========== //
 
-    public static final Locale LOCALE_ROOT = new Locale("", "", "");
-
-    protected static Locale fallbackLocale = null;
     /** Returns the configured fallback locale. UtilProperties uses this locale
      * to resolve locale-specific XML properties.<p>The fallback locale can be
      * configured using the <code>locale.properties.fallback</code> property in
@@ -581,7 +584,6 @@ public class UtilProperties implements java.io.Serializable {
         return localeList;
     }
 
-    protected static Set<Locale> defaultCandidateLocales = null;
     /** Returns the default candidate Locale list. The list is populated
      * with the JVM's default locale, the OFBiz fallback locale, and
      * the <code>LOCALE_ROOT</code> (empty) locale - in that order.
@@ -645,8 +647,11 @@ public class UtilProperties implements java.io.Serializable {
         }
         return resourceName;
     }
+    
+    public static boolean isPropertyNotFound(String resource, Locale locale, boolean removeExtension) {
+        return propertiesNotFound.contains(UtilProperties.createResourceName(resource, locale, removeExtension));
+    }
 
-    public static Set<String> propertiesNotFound = FastSet.newInstance();
     /** Resolve a properties file URL.
      * <p>This method uses the following strategy:<br />
      * <ul>
