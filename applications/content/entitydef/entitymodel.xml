@@ -804,10 +804,10 @@ under the License.
       <relation type="one" fk-name="DATA_REC_LMB_ULGN" title="LastModifiedBy" rel-entity-name="UserLogin">
         <key-map field-name="lastModifiedByUserLogin" rel-field-name="userLoginId"/>
       </relation>
-        <relation type="one" rel-entity-name="Survey">
+        <relation type="one" fk-name="DATA_REC_SURVEY" rel-entity-name="Survey">
             <key-map field-name="surveyId"/>
         </relation>
-        <relation type="one" rel-entity-name="SurveyResponse">
+        <relation type="one" fk-name="DATA_REC_SVRSP" rel-entity-name="SurveyResponse">
             <key-map field-name="surveyResponseId"/>
         </relation>
     </entity>
