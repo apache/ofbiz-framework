@@ -1036,19 +1036,33 @@ public class CheckOutHelper {
             }
         } else {
             // Get the paymentMethodTypeIds - this will need to change when ecom supports multiple payments
-            List cashCodBaExpr = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "CASH"),
+            List cashCodPcBaExpr = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "CASH"),
                                            new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_COD"),
+                                           new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "PERSONAL_CHECK"),
                                            new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
-            List cashCodBaPaymentPreferences = EntityUtil.filterByOr(allPaymentPreferences, cashCodBaExpr);
+            List cashCodPcBaPaymentPreferences = EntityUtil.filterByOr(allPaymentPreferences, cashCodPcBaExpr);
 
-            if (UtilValidate.isNotEmpty(cashCodBaPaymentPreferences) && 
+            if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences) && 
                     UtilValidate.isNotEmpty(allPaymentPreferences) &&
-                    cashCodBaPaymentPreferences.size() == allPaymentPreferences.size()) {
-                // approve this as long as there are only CASH, COD and Billing Account types
-                boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
-                if (!ok) {
-                    throw new GeneralException("Problem with order change; see above error");
+                    cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
+             
+                //if there are Check type, approve the order only if it is face to face
+                List checkPareferences = EntityUtil.filterByAnd(cashCodPcBaPaymentPreferences, UtilMisc.toMap("paymentMethodTypeId", "PERSONAL_CHECK"));
+                if (UtilValidate.isNotEmpty(checkPareferences)) {
+                    if (faceToFace) {
+                        boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
+                        if (!ok) {
+                            throw new GeneralException("Problem with order change; see above error");
+                        }
+                    }                    
+                // approve this as long as there are only CASH, COD and Billing Account types   
+                } else {
+                    boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
+                    if (!ok) {
+                        throw new GeneralException("Problem with order change; see above error");
+                    }
                 }
+
             } else {
                 // There is nothing to do, we just treat this as a success
             }
