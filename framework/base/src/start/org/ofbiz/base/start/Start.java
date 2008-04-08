@@ -171,7 +171,7 @@ public class Start implements Runnable {
             for (File file: files) {
                 String fileName = file.getName();
                 // FIXME: filter out other files?
-                if (file.isDirectory() && !"CVS".equals(fileName) && recurse) {
+                if (file.isDirectory() && !"CVS".equals(fileName) && !".svn".equals(fileName) && recurse) {
                     loadLibs(file.getCanonicalPath(), recurse);
                 } else if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
                     classPath.addComponent(file);
@@ -750,4 +750,5 @@ public class Start implements Runnable {
         }
     }
 }
+
 
