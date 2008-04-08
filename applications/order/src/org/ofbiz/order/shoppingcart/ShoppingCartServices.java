@@ -492,7 +492,7 @@ public class ShoppingCartServices {
         List quoteRoles = null;
         List quoteAttributes = null;
         try {
-            quoteItems = quote.getRelated("QuoteItem");
+            quoteItems = quote.getRelated("QuoteItem", UtilMisc.toList("quoteItemSeqId"));
             quoteAdjs = quote.getRelated("QuoteAdjustment");
             quoteRoles = quote.getRelated("QuoteRole");
             quoteAttributes = quote.getRelated("QuoteAttribute");
