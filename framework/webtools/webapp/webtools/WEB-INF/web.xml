@@ -149,4 +149,11 @@ under the License.
     </user-data-constraint>
   </security-constraint>
 -->
+
+  <context-param>
+    <param-name>GeronimoMultiOfbizInstances</param-name>
+    <param-value>true</param-value>
+    <description>This is only used in case of Geronimo or WASCE using OFBiz multi-instances. It allows to retrieve ofbiz.home value set in JVM env</description>
+  </context-param>
+
 </web-app>

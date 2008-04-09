@@ -52,18 +52,8 @@ public class GenerateGeronimoDeployment {
     public static final String source = "/framework/appserver/templates/";
 
     protected  String geronimoRepository = null;
-    protected String geronimoHome = null;
 
-    @SuppressWarnings("unchecked")
-    public List<String> generate(String geronimoVersion, String geronimoHome) {
-        // Check environment for Geronimo Home
-        if (geronimoHome == null) {
-            geronimoHome = System.getenv("GERONIMO_HOME");
-            if (geronimoHome == null) {
-                Debug.logFatal("'GERONIMO_HOME' was not found in your environment. Please set the location of Geronimo into GERONIMO_HOME.", module);
-                return null;
-            }
-        }
+    public List<String> generate(String geronimoVersion, String geronimoHome, String instanceNumber) {
         geronimoRepository = geronimoHome + "/repository";
         Debug.logInfo("The WASCE or Geronimo Repository is " + geronimoRepository, module);
         Classpath classPath = new Classpath(System.getProperty("java.class.path"));

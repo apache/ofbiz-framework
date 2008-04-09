@@ -17,9 +17,10 @@
     under the License.
 -->
 
-Websphere Application Server Community Edition 2 Setup - 2008-03-31 - Jacques Le Roux
+Websphere Application Server Community Edition (WASCE) 2 
+or Geronimo 2.0.3 Setup - 2008-04-08 - Jacques Le Roux
 
-To use WASCE 2 with OFBiz 4.0 follow the following steps (all steps assume Orion is already installed and working)
+To use OFBiz with WASCE 2 or Geronimo 2.0.3 follow the following steps (all steps assume WASCE 2 or Geronimo 2.0.3  is already installed and working)
 
 =======================================================================================================================================================
     If you use WASCE, copy the 2 lines below in the setJavaOpts section (Windows) or somewhere in the setEnv script you will find in GERONIMO_HOME/bin
@@ -33,13 +34,44 @@ To use WASCE 2 with OFBiz 4.0 follow the following steps (all steps assume Orion
     <#assign classpath = classpath + dir + pathSeparatorChar/>
 </#list>
 <#assign classpath = classpath?substring(0, classpath?length - 1)/>
+
+Windows
+-------
 set JAVA_OPTS=-Dofbiz.home="${ofbizHome}" -Xms256M -Xmx512M -XX:MaxPermSize=128M -Duser.language=en
 set CLASSPATH=${classpath}
 
-=======================================================================================================================================================
-    Change also this line of the geronimo script in the doneSetArgs section (Windows) or somewhere in the Geronimo script.
-=======================================================================================================================================================
+Linux
+-----
+Add this 2 lines after the
+    elif [ "$1" = "run" ]; then
+line
+  JAVA_OPTS="-Dofbiz.home="${ofbizHome}" -Xms256M -Xmx512M -XX:MaxPermSize=128M -Duser.language=en"
+  CLASSPATH="${classpath}"
+Don't forget to escape the inside quotes in ${ofbizHome}.
 
+=======================================================================================================================================================
+    Change also this line of the geronimo script in the doneSetArgs section (Windows) or somewhere in the geronimo script
+=======================================================================================================================================================
+Windows
+-------
 %_EXECJAVA% %JAVA_OPTS% %GERONIMO_OPTS% %JAVA_AGENT_OPTS% -Djava.ext.dirs="%GERONIMO_BASE%\lib\ext;%JRE_HOME%\lib\ext" -Djava.endorsed.dirs="%GERONIMO_BASE%\lib\endorsed;%JRE_HOME%\lib\endorsed" -Dorg.apache.geronimo.base.dir="%GERONIMO_BASE%" -Djava.io.tmpdir="%GERONIMO_TMPDIR%" -jar %_JARFILE% %_LONG_OPT% %CMD_LINE_ARGS%
     to
 %_EXECJAVA% %JAVA_OPTS% %GERONIMO_OPTS% %JAVA_AGENT_OPTS% -Djava.ext.dirs="%GERONIMO_BASE%\lib\ext;%JRE_HOME%\lib\ext" -Djava.endorsed.dirs="%GERONIMO_BASE%\lib\endorsed;%JRE_HOME%\lib\endorsed" -Dorg.apache.geronimo.base.dir="%GERONIMO_BASE%" -Djava.io.tmpdir="%GERONIMO_TMPDIR%" -cp .;%_JARFILE%;%CLASSPATH% %_LONG_OPT% %CMD_LINE_ARGS% %MAINCLASS%
+
+Linux
+-----
+In the <<elif [ "$1" = "run" ]>> block
+Replace the line
+    -jar "$GERONIMO_HOME"/bin/server.jar $LONG_OPT "$@"
+by
+    -classpath ".":"$GERONIMO_HOME"/bin/server.jar:"$CLASSPATH" org.apache.geronimo.cli.daemon.DaemonCLI $LONG_OPT "$@"
+
+=======================================================================================================================================================
+    Windows only
+    ------------
+    If you want to use OFBiz multi-instances in Geronimo or WASCE using you might put "exit" as last line in the deploy script.
+    Else, of course you may also type exit by hand....
+
+    Alternatively you may not put exit at the end of the deploy script,
+    choose to not have pause in script and type "exit" yourself in the command windows (actually I found later that it's an easier way)
+=======================================================================================================================================================
